@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WICDdsParameters.ahk
+#Include .\IWICBitmapFrameDecode.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,13 +38,13 @@ class IWICDdsDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<WICDdsParameters>} pParameters 
-     * @returns {HRESULT} 
+     * @returns {WICDdsParameters} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsdecoder-getparameters
      */
-    GetParameters(pParameters) {
+    GetParameters() {
+        pParameters := WICDdsParameters()
         result := ComCall(3, this, "ptr", pParameters, "HRESULT")
-        return result
+        return pParameters
     }
 
     /**
@@ -50,12 +52,11 @@ class IWICDdsDecoder extends IUnknown{
      * @param {Integer} arrayIndex 
      * @param {Integer} mipLevel 
      * @param {Integer} sliceIndex 
-     * @param {Pointer<IWICBitmapFrameDecode>} ppIBitmapFrame 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapFrameDecode} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsdecoder-getframe
      */
-    GetFrame(arrayIndex, mipLevel, sliceIndex, ppIBitmapFrame) {
-        result := ComCall(4, this, "uint", arrayIndex, "uint", mipLevel, "uint", sliceIndex, "ptr*", ppIBitmapFrame, "HRESULT")
-        return result
+    GetFrame(arrayIndex, mipLevel, sliceIndex) {
+        result := ComCall(4, this, "uint", arrayIndex, "uint", mipLevel, "uint", sliceIndex, "ptr*", &ppIBitmapFrame := 0, "HRESULT")
+        return IWICBitmapFrameDecode(ppIBitmapFrame)
     }
 }

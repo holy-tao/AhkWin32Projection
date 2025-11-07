@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFPresentationDescriptor.ahk
 #Include .\IMFMediaEventGenerator.ahk
 
 /**
@@ -42,26 +43,22 @@ class IMFMediaSource extends IMFMediaEventGenerator{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCharacteristics 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasource-getcharacteristics
      */
-    GetCharacteristics(pdwCharacteristics) {
-        pdwCharacteristicsMarshal := pdwCharacteristics is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwCharacteristicsMarshal, pdwCharacteristics, "HRESULT")
-        return result
+    GetCharacteristics() {
+        result := ComCall(7, this, "uint*", &pdwCharacteristics := 0, "HRESULT")
+        return pdwCharacteristics
     }
 
     /**
      * 
-     * @param {Pointer<IMFPresentationDescriptor>} ppPresentationDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IMFPresentationDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasource-createpresentationdescriptor
      */
-    CreatePresentationDescriptor(ppPresentationDescriptor) {
-        result := ComCall(8, this, "ptr*", ppPresentationDescriptor, "HRESULT")
-        return result
+    CreatePresentationDescriptor() {
+        result := ComCall(8, this, "ptr*", &ppPresentationDescriptor := 0, "HRESULT")
+        return IMFPresentationDescriptor(ppPresentationDescriptor)
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAudioSessionControl.ahk
+#Include .\ISimpleAudioVolume.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,25 +36,23 @@ class IAudioSessionManager extends IUnknown{
      * 
      * @param {Pointer<Guid>} AudioSessionGuid 
      * @param {Integer} StreamFlags 
-     * @param {Pointer<IAudioSessionControl>} SessionControl 
-     * @returns {HRESULT} 
+     * @returns {IAudioSessionControl} 
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager-getaudiosessioncontrol
      */
-    GetAudioSessionControl(AudioSessionGuid, StreamFlags, SessionControl) {
-        result := ComCall(3, this, "ptr", AudioSessionGuid, "uint", StreamFlags, "ptr*", SessionControl, "HRESULT")
-        return result
+    GetAudioSessionControl(AudioSessionGuid, StreamFlags) {
+        result := ComCall(3, this, "ptr", AudioSessionGuid, "uint", StreamFlags, "ptr*", &SessionControl := 0, "HRESULT")
+        return IAudioSessionControl(SessionControl)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} AudioSessionGuid 
      * @param {Integer} StreamFlags 
-     * @param {Pointer<ISimpleAudioVolume>} AudioVolume 
-     * @returns {HRESULT} 
+     * @returns {ISimpleAudioVolume} 
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager-getsimpleaudiovolume
      */
-    GetSimpleAudioVolume(AudioSessionGuid, StreamFlags, AudioVolume) {
-        result := ComCall(4, this, "ptr", AudioSessionGuid, "uint", StreamFlags, "ptr*", AudioVolume, "HRESULT")
-        return result
+    GetSimpleAudioVolume(AudioSessionGuid, StreamFlags) {
+        result := ComCall(4, this, "ptr", AudioSessionGuid, "uint", StreamFlags, "ptr*", &AudioVolume := 0, "HRESULT")
+        return ISimpleAudioVolume(AudioVolume)
     }
 }

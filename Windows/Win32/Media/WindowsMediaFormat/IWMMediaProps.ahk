@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WM_MEDIA_TYPE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,27 +33,27 @@ class IWMMediaProps extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmediaprops-gettype
      */
-    GetType(pguidType) {
+    GetType() {
+        pguidType := Guid()
         result := ComCall(3, this, "ptr", pguidType, "HRESULT")
-        return result
+        return pguidType
     }
 
     /**
      * 
-     * @param {Pointer<WM_MEDIA_TYPE>} pType 
      * @param {Pointer<Integer>} pcbType 
-     * @returns {HRESULT} 
+     * @returns {WM_MEDIA_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmediaprops-getmediatype
      */
-    GetMediaType(pType, pcbType) {
+    GetMediaType(pcbType) {
         pcbTypeMarshal := pcbType is VarRef ? "uint*" : "ptr"
 
+        pType := WM_MEDIA_TYPE()
         result := ComCall(4, this, "ptr", pType, pcbTypeMarshal, pcbType, "HRESULT")
-        return result
+        return pType
     }
 
     /**

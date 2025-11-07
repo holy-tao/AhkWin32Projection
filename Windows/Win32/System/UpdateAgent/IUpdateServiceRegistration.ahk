@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IUpdateService2.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,46 +39,41 @@ class IUpdateServiceRegistration extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateserviceregistration-get_registrationstate
      */
-    get_RegistrationState(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_RegistrationState() {
+        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ServiceID(retval) {
+    get_ServiceID() {
+        retval := BSTR()
         result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateserviceregistration-get_ispendingregistrationwithau
      */
-    get_IsPendingRegistrationWithAU(retval) {
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsPendingRegistrationWithAU() {
+        result := ComCall(9, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IUpdateService2>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateService2} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateserviceregistration-get_service
      */
-    get_Service(retval) {
-        result := ComCall(10, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Service() {
+        result := ComCall(10, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateService2(retval)
     }
 }

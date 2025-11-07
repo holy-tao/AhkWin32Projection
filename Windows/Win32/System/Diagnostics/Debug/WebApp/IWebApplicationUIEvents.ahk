@@ -38,7 +38,9 @@ class IWebApplicationUIEvents extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationuievents-securityproblem
      */
     SecurityProblem(securityProblem, result) {
-        result := ComCall(3, this, "uint", securityProblem, "ptr", result, "HRESULT")
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", securityProblem, resultMarshal, result, "HRESULT")
         return result
     }
 }

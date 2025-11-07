@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include .\ISpellingError.ahk
 #Include ..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class IEnumSpellingError extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISpellingError>} value 
-     * @returns {HRESULT} 
+     * @returns {ISpellingError} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ienumspellingerror-next
      */
-    Next(value) {
-        result := ComCall(3, this, "ptr*", value, "int")
-        return result
+    Next() {
+        result := ComCall(3, this, "ptr*", &value := 0, "int")
+        return ISpellingError(value)
     }
 }

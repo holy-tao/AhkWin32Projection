@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISharedPropertyGroup.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -52,33 +54,32 @@ class ISharedPropertyGroupManager extends IDispatch{
 
         dwIsoModeMarshal := dwIsoMode is VarRef ? "int*" : "ptr"
         dwRelModeMarshal := dwRelMode is VarRef ? "int*" : "ptr"
+        fExistsMarshal := fExists is VarRef ? "short*" : "ptr"
 
-        result := ComCall(7, this, "ptr", Name, dwIsoModeMarshal, dwIsoMode, dwRelModeMarshal, dwRelMode, "ptr", fExists, "ptr*", ppGroup, "HRESULT")
+        result := ComCall(7, this, "ptr", Name, dwIsoModeMarshal, dwIsoMode, dwRelModeMarshal, dwRelMode, fExistsMarshal, fExists, "ptr*", ppGroup, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {BSTR} Name 
-     * @param {Pointer<ISharedPropertyGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {ISharedPropertyGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroupmanager-get_group
      */
-    get_Group(Name, ppGroup) {
+    get_Group(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(8, this, "ptr", Name, "ptr*", ppGroup, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", Name, "ptr*", &ppGroup := 0, "HRESULT")
+        return ISharedPropertyGroup(ppGroup)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroupmanager-get__newenum
      */
-    get__NewEnum(retval) {
-        result := ComCall(9, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 }

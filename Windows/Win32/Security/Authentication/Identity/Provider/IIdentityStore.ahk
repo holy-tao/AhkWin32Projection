@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\System\Com\IEnumUnknown.ahk
 
 /**
  * Provides methods to enumerate and manage identities and identity providers.
@@ -32,28 +33,24 @@ class IIdentityStore extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwProviders 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/identitystore/nf-identitystore-iidentitystore-getcount
      */
-    GetCount(pdwProviders) {
-        pdwProvidersMarshal := pdwProviders is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwProvidersMarshal, pdwProviders, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pdwProviders := 0, "HRESULT")
+        return pdwProviders
     }
 
     /**
      * 
      * @param {Integer} dwProvider 
      * @param {Pointer<Guid>} pProvGuid 
-     * @param {Pointer<IUnknown>} ppIdentityProvider 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/identitystore/nf-identitystore-iidentitystore-getat
      */
-    GetAt(dwProvider, pProvGuid, ppIdentityProvider) {
-        result := ComCall(4, this, "uint", dwProvider, "ptr", pProvGuid, "ptr*", ppIdentityProvider, "HRESULT")
-        return result
+    GetAt(dwProvider, pProvGuid) {
+        result := ComCall(4, this, "uint", dwProvider, "ptr", pProvGuid, "ptr*", &ppIdentityProvider := 0, "HRESULT")
+        return IUnknown(ppIdentityProvider)
     }
 
     /**
@@ -76,18 +73,16 @@ class IIdentityStore extends IUnknown{
      * @param {Pointer<Guid>} ProviderGUID 
      * @param {Integer} cbSid 
      * @param {Pointer<Integer>} pSid 
-     * @param {Pointer<Integer>} pcbRequiredSid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/identitystore/nf-identitystore-iidentitystore-converttosid
      */
-    ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, pSid, pcbRequiredSid) {
+    ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, pSid) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
         pSidMarshal := pSid is VarRef ? "char*" : "ptr"
-        pcbRequiredSidMarshal := pcbRequiredSid is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, pSidMarshal, pSid, pcbRequiredSidMarshal, pcbRequiredSid, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, pSidMarshal, pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
+        return pcbRequiredSid
     }
 
     /**
@@ -95,13 +90,12 @@ class IIdentityStore extends IUnknown{
      * @param {Integer} eIdentityType 
      * @param {Pointer<PROPERTYKEY>} pFilterkey 
      * @param {Pointer<PROPVARIANT>} pFilterPropVarValue 
-     * @param {Pointer<IEnumUnknown>} ppIdentityEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/identitystore/nf-identitystore-iidentitystore-enumerateidentities
      */
-    EnumerateIdentities(eIdentityType, pFilterkey, pFilterPropVarValue, ppIdentityEnum) {
-        result := ComCall(7, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "ptr*", ppIdentityEnum, "HRESULT")
-        return result
+    EnumerateIdentities(eIdentityType, pFilterkey, pFilterPropVarValue) {
+        result := ComCall(7, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "ptr*", &ppIdentityEnum := 0, "HRESULT")
+        return IEnumUnknown(ppIdentityEnum)
     }
 
     /**

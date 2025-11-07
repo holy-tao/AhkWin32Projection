@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Imaging\IWICBitmap.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,12 +36,11 @@ class IXpsRasterizer extends IUnknown{
      * @param {Integer} width 
      * @param {Integer} height 
      * @param {IXpsRasterizerNotificationCallback} notificationCallback 
-     * @param {Pointer<IWICBitmap>} bitmap 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmap} 
      */
-    RasterizeRect(x, y, width, height, notificationCallback, bitmap) {
-        result := ComCall(3, this, "int", x, "int", y, "int", width, "int", height, "ptr", notificationCallback, "ptr*", bitmap, "HRESULT")
-        return result
+    RasterizeRect(x, y, width, height, notificationCallback) {
+        result := ComCall(3, this, "int", x, "int", y, "int", width, "int", height, "ptr", notificationCallback, "ptr*", &bitmap := 0, "HRESULT")
+        return IWICBitmap(bitmap)
     }
 
     /**

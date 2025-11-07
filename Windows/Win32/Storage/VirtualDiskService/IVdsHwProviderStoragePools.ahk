@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumVdsObject.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,13 +37,12 @@ class IVdsHwProviderStoragePools extends IUnknown{
      * @param {Integer} ulFlags 
      * @param {Integer} ullRemainingFreeSpace 
      * @param {Pointer<VDS_POOL_ATTRIBUTES>} pPoolAttributes 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdshwproviderstoragepools-querystoragepools
      */
-    QueryStoragePools(ulFlags, ullRemainingFreeSpace, pPoolAttributes, ppEnum) {
-        result := ComCall(3, this, "uint", ulFlags, "uint", ullRemainingFreeSpace, "ptr", pPoolAttributes, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryStoragePools(ulFlags, ullRemainingFreeSpace, pPoolAttributes) {
+        result := ComCall(3, this, "uint", ulFlags, "uint", ullRemainingFreeSpace, "ptr", pPoolAttributes, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
@@ -51,15 +52,14 @@ class IVdsHwProviderStoragePools extends IUnknown{
      * @param {Guid} StoragePoolId 
      * @param {PWSTR} pwszUnmaskingList 
      * @param {Pointer<VDS_HINTS2>} pHints2 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdshwproviderstoragepools-createluninstoragepool
      */
-    CreateLunInStoragePool(type, ullSizeInBytes, StoragePoolId, pwszUnmaskingList, pHints2, ppAsync) {
+    CreateLunInStoragePool(type, ullSizeInBytes, StoragePoolId, pwszUnmaskingList, pHints2) {
         pwszUnmaskingList := pwszUnmaskingList is String ? StrPtr(pwszUnmaskingList) : pwszUnmaskingList
 
-        result := ComCall(4, this, "int", type, "uint", ullSizeInBytes, "ptr", StoragePoolId, "ptr", pwszUnmaskingList, "ptr", pHints2, "ptr*", ppAsync, "HRESULT")
-        return result
+        result := ComCall(4, this, "int", type, "uint", ullSizeInBytes, "ptr", StoragePoolId, "ptr", pwszUnmaskingList, "ptr", pHints2, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
@@ -67,14 +67,11 @@ class IVdsHwProviderStoragePools extends IUnknown{
      * @param {Integer} type 
      * @param {Guid} StoragePoolId 
      * @param {Pointer<VDS_HINTS2>} pHints2 
-     * @param {Pointer<Integer>} pullMaxLunSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdshwproviderstoragepools-querymaxluncreatesizeinstoragepool
      */
-    QueryMaxLunCreateSizeInStoragePool(type, StoragePoolId, pHints2, pullMaxLunSize) {
-        pullMaxLunSizeMarshal := pullMaxLunSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "int", type, "ptr", StoragePoolId, "ptr", pHints2, pullMaxLunSizeMarshal, pullMaxLunSize, "HRESULT")
-        return result
+    QueryMaxLunCreateSizeInStoragePool(type, StoragePoolId, pHints2) {
+        result := ComCall(5, this, "int", type, "ptr", StoragePoolId, "ptr", pHints2, "uint*", &pullMaxLunSize := 0, "HRESULT")
+        return pullMaxLunSize
     }
 }

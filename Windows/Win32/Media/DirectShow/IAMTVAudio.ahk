@@ -32,41 +32,32 @@ class IAMTVAudio extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plModes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-gethardwaresupportedtvaudiomodes
      */
-    GetHardwareSupportedTVAudioModes(plModes) {
-        plModesMarshal := plModes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, plModesMarshal, plModes, "HRESULT")
-        return result
+    GetHardwareSupportedTVAudioModes() {
+        result := ComCall(3, this, "int*", &plModes := 0, "HRESULT")
+        return plModes
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plModes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-getavailabletvaudiomodes
      */
-    GetAvailableTVAudioModes(plModes) {
-        plModesMarshal := plModes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, plModesMarshal, plModes, "HRESULT")
-        return result
+    GetAvailableTVAudioModes() {
+        result := ComCall(4, this, "int*", &plModes := 0, "HRESULT")
+        return plModes
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-get_tvaudiomode
      */
-    get_TVAudioMode(plMode) {
-        plModeMarshal := plMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, plModeMarshal, plMode, "HRESULT")
-        return result
+    get_TVAudioMode() {
+        result := ComCall(5, this, "int*", &plMode := 0, "HRESULT")
+        return plMode
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumMsmString.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -63,11 +64,10 @@ class IEnumMsmString extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumMsmString>} pemsmStrings 
-     * @returns {HRESULT} 
+     * @returns {IEnumMsmString} 
      */
-    Clone(pemsmStrings) {
-        result := ComCall(6, this, "ptr*", pemsmStrings, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &pemsmStrings := 0, "HRESULT")
+        return IEnumMsmString(pemsmStrings)
     }
 }

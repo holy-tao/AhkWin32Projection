@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxBundleManifestOptionalBundleInfoEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class IAppxBundleManifestReader2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAppxBundleManifestOptionalBundleInfoEnumerator>} optionalBundles 
-     * @returns {HRESULT} 
+     * @returns {IAppxBundleManifestOptionalBundleInfoEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestreader2-getoptionalbundles
      */
-    GetOptionalBundles(optionalBundles) {
-        result := ComCall(3, this, "ptr*", optionalBundles, "HRESULT")
-        return result
+    GetOptionalBundles() {
+        result := ComCall(3, this, "ptr*", &optionalBundles := 0, "HRESULT")
+        return IAppxBundleManifestOptionalBundleInfoEnumerator(optionalBundles)
     }
 }

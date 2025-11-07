@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,62 +31,47 @@ class IPicture2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer>} pHandle 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_Handle(pHandle) {
-        pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, pHandleMarshal, pHandle, "HRESULT")
-        return result
+    get_Handle() {
+        result := ComCall(3, this, "ptr*", &pHandle := 0, "HRESULT")
+        return pHandle
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} phPal 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_hPal(phPal) {
-        phPalMarshal := phPal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, phPalMarshal, phPal, "HRESULT")
-        return result
+    get_hPal() {
+        result := ComCall(4, this, "ptr*", &phPal := 0, "HRESULT")
+        return phPal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Type(pType) {
-        pTypeMarshal := pType is VarRef ? "short*" : "ptr"
-
-        result := ComCall(5, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(5, this, "short*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Width(pWidth) {
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pWidthMarshal, pWidth, "HRESULT")
-        return result
+    get_Width() {
+        result := ComCall(6, this, "int*", &pWidth := 0, "HRESULT")
+        return pWidth
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pHeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Height(pHeight) {
-        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pHeightMarshal, pHeight, "HRESULT")
-        return result
+    get_Height() {
+        result := ComCall(7, this, "int*", &pHeight := 0, "HRESULT")
+        return pHeight
     }
 
     /**
@@ -121,12 +107,12 @@ class IPicture2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HDC>} phDC 
-     * @returns {HRESULT} 
+     * @returns {HDC} 
      */
-    get_CurDC(phDC) {
+    get_CurDC() {
+        phDC := HDC()
         result := ComCall(10, this, "ptr", phDC, "HRESULT")
-        return result
+        return phDC
     }
 
     /**
@@ -147,12 +133,11 @@ class IPicture2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pKeep 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_KeepOriginalFormat(pKeep) {
-        result := ComCall(12, this, "ptr", pKeep, "HRESULT")
-        return result
+    get_KeepOriginalFormat() {
+        result := ComCall(12, this, "int*", &pKeep := 0, "HRESULT")
+        return pKeep
     }
 
     /**
@@ -178,25 +163,19 @@ class IPicture2 extends IUnknown{
      * 
      * @param {IStream} pStream 
      * @param {BOOL} fSaveMemCopy 
-     * @param {Pointer<Integer>} pCbSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SaveAsFile(pStream, fSaveMemCopy, pCbSize) {
-        pCbSizeMarshal := pCbSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, "ptr", pStream, "int", fSaveMemCopy, pCbSizeMarshal, pCbSize, "HRESULT")
-        return result
+    SaveAsFile(pStream, fSaveMemCopy) {
+        result := ComCall(15, this, "ptr", pStream, "int", fSaveMemCopy, "int*", &pCbSize := 0, "HRESULT")
+        return pCbSize
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDwAttr 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Attributes(pDwAttr) {
-        pDwAttrMarshal := pDwAttr is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pDwAttrMarshal, pDwAttr, "HRESULT")
-        return result
+    get_Attributes() {
+        result := ComCall(16, this, "uint*", &pDwAttr := 0, "HRESULT")
+        return pDwAttr
     }
 }

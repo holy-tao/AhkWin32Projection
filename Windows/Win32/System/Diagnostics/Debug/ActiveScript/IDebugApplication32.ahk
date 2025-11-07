@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugApplicationThread.ahk
+#Include .\IDebugAsyncOperation.ahk
+#Include .\IDebugApplicationNode.ahk
 #Include .\IRemoteDebugApplication.ahk
 
 /**
@@ -73,14 +76,11 @@ class IDebugApplication32 extends IRemoteDebugApplication{
     /**
      * 
      * @param {Integer} br 
-     * @param {Pointer<Integer>} pbra 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    HandleBreakPoint(br, pbra) {
-        pbraMarshal := pbra is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, "int", br, pbraMarshal, pbra, "HRESULT")
-        return result
+    HandleBreakPoint(br) {
+        result := ComCall(18, this, "int", br, "int*", &pbra := 0, "HRESULT")
+        return pbra
     }
 
     /**
@@ -107,37 +107,32 @@ class IDebugApplication32 extends IRemoteDebugApplication{
 
     /**
      * Retrieves a pseudo handle for the calling thread.
-     * @param {Pointer<IDebugApplicationThread>} pat 
-     * @returns {HRESULT} The return value is a pseudo handle for the current thread.
+     * @returns {IDebugApplicationThread} 
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentthread
      */
-    GetCurrentThread(pat) {
-        result := ComCall(21, this, "ptr*", pat, "HRESULT")
-        return result
+    GetCurrentThread() {
+        result := ComCall(21, this, "ptr*", &pat := 0, "HRESULT")
+        return IDebugApplicationThread(pat)
     }
 
     /**
      * 
      * @param {IDebugSyncOperation} psdo 
-     * @param {Pointer<IDebugAsyncOperation>} ppado 
-     * @returns {HRESULT} 
+     * @returns {IDebugAsyncOperation} 
      */
-    CreateAsyncDebugOperation(psdo, ppado) {
-        result := ComCall(22, this, "ptr", psdo, "ptr*", ppado, "HRESULT")
-        return result
+    CreateAsyncDebugOperation(psdo) {
+        result := ComCall(22, this, "ptr", psdo, "ptr*", &ppado := 0, "HRESULT")
+        return IDebugAsyncOperation(ppado)
     }
 
     /**
      * 
      * @param {IDebugStackFrameSniffer} pdsfs 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    AddStackFrameSniffer(pdsfs, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(23, this, "ptr", pdsfs, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    AddStackFrameSniffer(pdsfs) {
+        result := ComCall(23, this, "ptr", pdsfs, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -174,12 +169,11 @@ class IDebugApplication32 extends IRemoteDebugApplication{
 
     /**
      * 
-     * @param {Pointer<IDebugApplicationNode>} ppdanNew 
-     * @returns {HRESULT} 
+     * @returns {IDebugApplicationNode} 
      */
-    CreateApplicationNode(ppdanNew) {
-        result := ComCall(27, this, "ptr*", ppdanNew, "HRESULT")
-        return result
+    CreateApplicationNode() {
+        result := ComCall(27, this, "ptr*", &ppdanNew := 0, "HRESULT")
+        return IDebugApplicationNode(ppdanNew)
     }
 
     /**
@@ -205,8 +199,9 @@ class IDebugApplication32 extends IRemoteDebugApplication{
     HandleRuntimeError(pErrorDebug, pScriptSite, pbra, perra, pfCallOnScriptError) {
         pbraMarshal := pbra is VarRef ? "int*" : "ptr"
         perraMarshal := perra is VarRef ? "int*" : "ptr"
+        pfCallOnScriptErrorMarshal := pfCallOnScriptError is VarRef ? "int*" : "ptr"
 
-        result := ComCall(29, this, "ptr", pErrorDebug, "ptr", pScriptSite, pbraMarshal, pbra, perraMarshal, perra, "ptr", pfCallOnScriptError, "HRESULT")
+        result := ComCall(29, this, "ptr", pErrorDebug, "ptr", pScriptSite, pbraMarshal, pbra, perraMarshal, perra, pfCallOnScriptErrorMarshal, pfCallOnScriptError, "HRESULT")
         return result
     }
 
@@ -231,14 +226,11 @@ class IDebugApplication32 extends IRemoteDebugApplication{
     /**
      * 
      * @param {IProvideExpressionContexts} pdsfs 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    AddGlobalExpressionContextProvider(pdsfs, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(32, this, "ptr", pdsfs, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    AddGlobalExpressionContextProvider(pdsfs) {
+        result := ComCall(32, this, "ptr", pdsfs, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsRasterizer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,11 +35,10 @@ class IXpsRasterizationFactory extends IUnknown{
      * @param {Float} DPI 
      * @param {Integer} nonTextRenderingMode 
      * @param {Integer} textRenderingMode 
-     * @param {Pointer<IXpsRasterizer>} ppIXPSRasterizer 
-     * @returns {HRESULT} 
+     * @returns {IXpsRasterizer} 
      */
-    CreateRasterizer(xpsPage, DPI, nonTextRenderingMode, textRenderingMode, ppIXPSRasterizer) {
-        result := ComCall(3, this, "ptr", xpsPage, "float", DPI, "int", nonTextRenderingMode, "int", textRenderingMode, "ptr*", ppIXPSRasterizer, "HRESULT")
-        return result
+    CreateRasterizer(xpsPage, DPI, nonTextRenderingMode, textRenderingMode) {
+        result := ComCall(3, this, "ptr", xpsPage, "float", DPI, "int", nonTextRenderingMode, "int", textRenderingMode, "ptr*", &ppIXPSRasterizer := 0, "HRESULT")
+        return IXpsRasterizer(ppIXPSRasterizer)
     }
 }

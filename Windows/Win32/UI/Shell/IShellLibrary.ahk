@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IShellItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -198,15 +199,12 @@ class IShellLibrary extends IUnknown{
      * 
      * @param {Integer} lff 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getfolders
      */
-    GetFolders(lff, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "int", lff, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetFolders(lff, riid) {
+        result := ComCall(7, this, "int", lff, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -214,30 +212,24 @@ class IShellLibrary extends IUnknown{
      * @param {IShellItem} psiFolderToResolve 
      * @param {Integer} dwTimeout 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-resolvefolder
      */
-    ResolveFolder(psiFolderToResolve, dwTimeout, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", psiFolderToResolve, "uint", dwTimeout, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    ResolveFolder(psiFolderToResolve, dwTimeout, riid) {
+        result := ComCall(8, this, "ptr", psiFolderToResolve, "uint", dwTimeout, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Integer} dsft 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getdefaultsavefolder
      */
-    GetDefaultSaveFolder(dsft, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "int", dsft, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetDefaultSaveFolder(dsft, riid) {
+        result := ComCall(9, this, "int", dsft, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -254,15 +246,12 @@ class IShellLibrary extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plofOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getoptions
      */
-    GetOptions(plofOptions) {
-        plofOptionsMarshal := plofOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plofOptionsMarshal, plofOptions, "HRESULT")
-        return result
+    GetOptions() {
+        result := ComCall(11, this, "int*", &plofOptions := 0, "HRESULT")
+        return plofOptions
     }
 
     /**
@@ -279,13 +268,13 @@ class IShellLibrary extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pftid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getfoldertype
      */
-    GetFolderType(pftid) {
+    GetFolderType() {
+        pftid := Guid()
         result := ComCall(13, this, "ptr", pftid, "HRESULT")
-        return result
+        return pftid
     }
 
     /**
@@ -301,13 +290,12 @@ class IShellLibrary extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszIcon 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-geticon
      */
-    GetIcon(ppszIcon) {
-        result := ComCall(15, this, "ptr", ppszIcon, "HRESULT")
-        return result
+    GetIcon() {
+        result := ComCall(15, this, "ptr*", &ppszIcon := 0, "HRESULT")
+        return ppszIcon
     }
 
     /**
@@ -338,15 +326,14 @@ class IShellLibrary extends IUnknown{
      * @param {IShellItem} psiFolderToSaveIn 
      * @param {PWSTR} pszLibraryName 
      * @param {Integer} lsf 
-     * @param {Pointer<IShellItem>} ppsiSavedTo 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-save
      */
-    Save(psiFolderToSaveIn, pszLibraryName, lsf, ppsiSavedTo) {
+    Save(psiFolderToSaveIn, pszLibraryName, lsf) {
         pszLibraryName := pszLibraryName is String ? StrPtr(pszLibraryName) : pszLibraryName
 
-        result := ComCall(18, this, "ptr", psiFolderToSaveIn, "ptr", pszLibraryName, "int", lsf, "ptr*", ppsiSavedTo, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", psiFolderToSaveIn, "ptr", pszLibraryName, "int", lsf, "ptr*", &ppsiSavedTo := 0, "HRESULT")
+        return IShellItem(ppsiSavedTo)
     }
 
     /**
@@ -354,14 +341,13 @@ class IShellLibrary extends IUnknown{
      * @param {Pointer<Guid>} kfidToSaveIn 
      * @param {PWSTR} pszLibraryName 
      * @param {Integer} lsf 
-     * @param {Pointer<IShellItem>} ppsiSavedTo 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-saveinknownfolder
      */
-    SaveInKnownFolder(kfidToSaveIn, pszLibraryName, lsf, ppsiSavedTo) {
+    SaveInKnownFolder(kfidToSaveIn, pszLibraryName, lsf) {
         pszLibraryName := pszLibraryName is String ? StrPtr(pszLibraryName) : pszLibraryName
 
-        result := ComCall(19, this, "ptr", kfidToSaveIn, "ptr", pszLibraryName, "int", lsf, "ptr*", ppsiSavedTo, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", kfidToSaveIn, "ptr", pszLibraryName, "int", lsf, "ptr*", &ppsiSavedTo := 0, "HRESULT")
+        return IShellItem(ppsiSavedTo)
     }
 }

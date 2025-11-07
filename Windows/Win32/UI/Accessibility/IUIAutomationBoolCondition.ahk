@@ -32,12 +32,11 @@ class IUIAutomationBoolCondition extends IUIAutomationCondition{
 
     /**
      * 
-     * @param {Pointer<BOOL>} boolVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationboolcondition-get_booleanvalue
      */
-    get_BooleanValue(boolVal) {
-        result := ComCall(3, this, "ptr", boolVal, "HRESULT")
-        return result
+    get_BooleanValue() {
+        result := ComCall(3, this, "int*", &boolVal := 0, "HRESULT")
+        return boolVal
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFunctionInstance.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,12 +38,11 @@ class IFunctionInstanceQuery extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IFunctionInstance>} ppIFunctionInstance 
-     * @returns {HRESULT} 
+     * @returns {IFunctionInstance} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancequery-execute
      */
-    Execute(ppIFunctionInstance) {
-        result := ComCall(3, this, "ptr*", ppIFunctionInstance, "HRESULT")
-        return result
+    Execute() {
+        result := ComCall(3, this, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        return IFunctionInstance(ppIFunctionInstance)
     }
 }

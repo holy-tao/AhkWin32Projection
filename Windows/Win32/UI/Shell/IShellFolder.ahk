@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumIDList.ahk
+#Include Common\STRRET.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,39 +48,34 @@ class IShellFolder extends IUnknown{
      * @param {HWND} hwnd 
      * @param {IBindCtx} pbc 
      * @param {PWSTR} pszDisplayName 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl 
      * @param {Pointer<Integer>} pdwAttributes 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname
      */
-    ParseDisplayName(hwnd, pbc, pszDisplayName, ppidl, pdwAttributes) {
+    ParseDisplayName(hwnd, pbc, pszDisplayName, pdwAttributes) {
         static pchEaten := 0 ;Reserved parameters must always be NULL
 
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
         pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", pbc, "ptr", pszDisplayName, "uint*", pchEaten, ppidlMarshal, ppidl, pdwAttributesMarshal, pdwAttributes, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hwnd, "ptr", pbc, "ptr", pszDisplayName, "uint*", pchEaten, "ptr*", &ppidl := 0, pdwAttributesMarshal, pdwAttributes, "HRESULT")
+        return ppidl
     }
 
     /**
      * The EnumObjects function enumerates the pens or brushes available for the specified device context (DC).
      * @param {HWND} hwnd 
      * @param {Integer} grfFlags 
-     * @param {Pointer<IEnumIDList>} ppenumIDList 
-     * @returns {HRESULT} If the function succeeds, the return value is the last value returned by the callback function. Its meaning is user-defined.
-     * 
-     * If the objects cannot be enumerated (for example, there are too many objects), the function returns zero without calling the callback function.
+     * @returns {IEnumIDList} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumobjects
      */
-    EnumObjects(hwnd, grfFlags, ppenumIDList) {
+    EnumObjects(hwnd, grfFlags) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(4, this, "ptr", hwnd, "uint", grfFlags, "ptr*", ppenumIDList, "int")
-        return result
+        result := ComCall(4, this, "ptr", hwnd, "uint", grfFlags, "ptr*", &ppenumIDList := 0, "int")
+        return IEnumIDList(ppenumIDList)
     }
 
     /**
@@ -86,15 +83,12 @@ class IShellFolder extends IUnknown{
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {IBindCtx} pbc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-bindtoobject
      */
-    BindToObject(pidl, pbc, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pidl, "ptr", pbc, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    BindToObject(pidl, pbc, riid) {
+        result := ComCall(5, this, "ptr", pidl, "ptr", pbc, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -102,15 +96,12 @@ class IShellFolder extends IUnknown{
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {IBindCtx} pbc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-bindtostorage
      */
-    BindToStorage(pidl, pbc, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pidl, "ptr", pbc, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    BindToStorage(pidl, pbc, riid) {
+        result := ComCall(6, this, "ptr", pidl, "ptr", pbc, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -130,17 +121,14 @@ class IShellFolder extends IUnknown{
      * 
      * @param {HWND} hwndOwner 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-createviewobject
      */
-    CreateViewObject(hwndOwner, riid, ppv) {
+    CreateViewObject(hwndOwner, riid) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", hwndOwner, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", hwndOwner, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -165,33 +153,31 @@ class IShellFolder extends IUnknown{
      * @param {Integer} cidl 
      * @param {Pointer<Pointer<ITEMIDLIST>>} apidl 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getuiobjectof
      */
-    GetUIObjectOf(hwndOwner, cidl, apidl, riid, ppv) {
+    GetUIObjectOf(hwndOwner, cidl, apidl, riid) {
         static rgfReserved := 0 ;Reserved parameters must always be NULL
 
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", hwndOwner, "uint", cidl, apidlMarshal, apidl, "ptr", riid, "uint*", rgfReserved, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", hwndOwner, "uint", cidl, apidlMarshal, apidl, "ptr", riid, "uint*", rgfReserved, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {Integer} uFlags 
-     * @param {Pointer<STRRET>} pName 
-     * @returns {HRESULT} 
+     * @returns {STRRET} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getdisplaynameof
      */
-    GetDisplayNameOf(pidl, uFlags, pName) {
+    GetDisplayNameOf(pidl, uFlags) {
+        pName := STRRET()
         result := ComCall(11, this, "ptr", pidl, "uint", uFlags, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
@@ -200,17 +186,14 @@ class IShellFolder extends IUnknown{
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {PWSTR} pszName 
      * @param {Integer} uFlags 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlOut 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-setnameof
      */
-    SetNameOf(hwnd, pidl, pszName, uFlags, ppidlOut) {
+    SetNameOf(hwnd, pidl, pszName, uFlags) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        ppidlOutMarshal := ppidlOut is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, "ptr", hwnd, "ptr", pidl, "ptr", pszName, "uint", uFlags, ppidlOutMarshal, ppidlOut, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", hwnd, "ptr", pidl, "ptr", pszName, "uint", uFlags, "ptr*", &ppidlOut := 0, "HRESULT")
+        return ppidlOut
     }
 }

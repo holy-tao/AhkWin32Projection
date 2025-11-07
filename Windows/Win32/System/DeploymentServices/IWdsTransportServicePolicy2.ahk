@@ -32,15 +32,12 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
 
     /**
      * 
-     * @param {Pointer<Integer>} pUdpPortPolicy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_udpportpolicy
      */
-    get_UdpPortPolicy(pUdpPortPolicy) {
-        pUdpPortPolicyMarshal := pUdpPortPolicy is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, pUdpPortPolicyMarshal, pUdpPortPolicy, "HRESULT")
-        return result
+    get_UdpPortPolicy() {
+        result := ComCall(23, this, "int*", &pUdpPortPolicy := 0, "HRESULT")
+        return pUdpPortPolicy
     }
 
     /**
@@ -56,15 +53,12 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulTftpMaximumBlockSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_tftpmaximumblocksize
      */
-    get_TftpMaximumBlockSize(pulTftpMaximumBlockSize) {
-        pulTftpMaximumBlockSizeMarshal := pulTftpMaximumBlockSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(25, this, pulTftpMaximumBlockSizeMarshal, pulTftpMaximumBlockSize, "HRESULT")
-        return result
+    get_TftpMaximumBlockSize() {
+        result := ComCall(25, this, "uint*", &pulTftpMaximumBlockSize := 0, "HRESULT")
+        return pulTftpMaximumBlockSize
     }
 
     /**
@@ -80,13 +74,12 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbEnableTftpVariableWindowExtension 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_enabletftpvariablewindowextension
      */
-    get_EnableTftpVariableWindowExtension(pbEnableTftpVariableWindowExtension) {
-        result := ComCall(27, this, "ptr", pbEnableTftpVariableWindowExtension, "HRESULT")
-        return result
+    get_EnableTftpVariableWindowExtension() {
+        result := ComCall(27, this, "short*", &pbEnableTftpVariableWindowExtension := 0, "HRESULT")
+        return pbEnableTftpVariableWindowExtension
     }
 
     /**

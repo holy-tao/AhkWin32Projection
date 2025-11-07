@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ERRORINFO.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\IErrorInfo.ahk
+#Include ..\Com\DISPPARAMS.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -45,89 +48,54 @@ class IErrorRecords extends IUnknown{
     /**
      * 
      * @param {Integer} ulRecordNum 
-     * @param {Pointer<ERRORINFO>} pErrorInfo 
-     * @returns {HRESULT} 
+     * @returns {ERRORINFO} 
      */
-    GetBasicErrorInfo(ulRecordNum, pErrorInfo) {
+    GetBasicErrorInfo(ulRecordNum) {
+        pErrorInfo := ERRORINFO()
         result := ComCall(4, this, "uint", ulRecordNum, "ptr", pErrorInfo, "HRESULT")
-        return result
+        return pErrorInfo
     }
 
     /**
      * 
      * @param {Integer} ulRecordNum 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetCustomErrorObject(ulRecordNum, riid, ppObject) {
-        result := ComCall(5, this, "uint", ulRecordNum, "ptr", riid, "ptr*", ppObject, "HRESULT")
-        return result
+    GetCustomErrorObject(ulRecordNum, riid) {
+        result := ComCall(5, this, "uint", ulRecordNum, "ptr", riid, "ptr*", &ppObject := 0, "HRESULT")
+        return IUnknown(ppObject)
     }
 
     /**
      * Obtains the error information pointer set by the previous call to SetErrorInfo in the current logical thread.
      * @param {Integer} ulRecordNum 
      * @param {Integer} lcid 
-     * @param {Pointer<IErrorInfo>} ppErrorInfo 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was no error object to return.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IErrorInfo} 
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-geterrorinfo
      */
-    GetErrorInfo(ulRecordNum, lcid, ppErrorInfo) {
-        result := ComCall(6, this, "uint", ulRecordNum, "uint", lcid, "ptr*", ppErrorInfo, "HRESULT")
-        return result
+    GetErrorInfo(ulRecordNum, lcid) {
+        result := ComCall(6, this, "uint", ulRecordNum, "uint", lcid, "ptr*", &ppErrorInfo := 0, "HRESULT")
+        return IErrorInfo(ppErrorInfo)
     }
 
     /**
      * 
      * @param {Integer} ulRecordNum 
-     * @param {Pointer<DISPPARAMS>} pdispparams 
-     * @returns {HRESULT} 
+     * @returns {DISPPARAMS} 
      */
-    GetErrorParameters(ulRecordNum, pdispparams) {
+    GetErrorParameters(ulRecordNum) {
+        pdispparams := DISPPARAMS()
         result := ComCall(7, this, "uint", ulRecordNum, "ptr", pdispparams, "HRESULT")
-        return result
+        return pdispparams
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcRecords 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRecordCount(pcRecords) {
-        pcRecordsMarshal := pcRecords is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pcRecordsMarshal, pcRecords, "HRESULT")
-        return result
+    GetRecordCount() {
+        result := ComCall(8, this, "uint*", &pcRecords := 0, "HRESULT")
+        return pcRecords
     }
 }

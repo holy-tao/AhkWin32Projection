@@ -45,14 +45,11 @@ class IBlockRangeList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iblockrangelist-get_blockranges
      */
-    get_BlockRanges(value) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, valueMarshal, value, "HRESULT")
-        return result
+    get_BlockRanges() {
+        result := ComCall(7, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 }

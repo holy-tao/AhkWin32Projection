@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,12 @@ class ITfFunction extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itffunction-getdisplayname
      */
-    GetDisplayName(pbstrName) {
+    GetDisplayName() {
+        pbstrName := BSTR()
         result := ComCall(3, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 }

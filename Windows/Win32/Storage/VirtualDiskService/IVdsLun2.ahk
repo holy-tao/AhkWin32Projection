@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_HINTS2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,13 @@ class IVdsLun2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_HINTS2>} pHints2 
-     * @returns {HRESULT} 
+     * @returns {VDS_HINTS2} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun2-queryhints2
      */
-    QueryHints2(pHints2) {
+    QueryHints2() {
+        pHints2 := VDS_HINTS2()
         result := ComCall(3, this, "ptr", pHints2, "HRESULT")
-        return result
+        return pHints2
     }
 
     /**

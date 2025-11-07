@@ -30,13 +30,10 @@ class IPartFont2 extends IPartFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRestriction 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFontRestriction(pRestriction) {
-        pRestrictionMarshal := pRestriction is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pRestrictionMarshal, pRestriction, "HRESULT")
-        return result
+    GetFontRestriction() {
+        result := ComCall(10, this, "int*", &pRestriction := 0, "HRESULT")
+        return pRestriction
     }
 }

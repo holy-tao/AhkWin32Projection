@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IOfflineFilesItem.ahk
+#Include .\IOfflineFilesSetting.ahk
+#Include .\IEnumOfflineFilesSettings.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -52,7 +55,9 @@ class IOfflineFilesCache extends IUnknown{
     Synchronize(hwndParent, rgpszPaths, cPaths, bAsync, dwSyncControl, pISyncConflictHandler, pIProgress, pSyncId) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(3, this, "ptr", hwndParent, "ptr", rgpszPaths, "uint", cPaths, "int", bAsync, "uint", dwSyncControl, "ptr", pISyncConflictHandler, "ptr", pIProgress, "ptr", pSyncId, "HRESULT")
+        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hwndParent, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "int", bAsync, "uint", dwSyncControl, "ptr", pISyncConflictHandler, "ptr", pIProgress, "ptr", pSyncId, "HRESULT")
         return result
     }
 
@@ -67,7 +72,9 @@ class IOfflineFilesCache extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-deleteitems
      */
     DeleteItems(rgpszPaths, cPaths, dwFlags, bAsync, pIProgress) {
-        result := ComCall(4, this, "ptr", rgpszPaths, "uint", cPaths, "uint", dwFlags, "int", bAsync, "ptr", pIProgress, "HRESULT")
+        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "uint", dwFlags, "int", bAsync, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -85,7 +92,9 @@ class IOfflineFilesCache extends IUnknown{
     DeleteItemsForUser(pszUser, rgpszPaths, cPaths, dwFlags, bAsync, pIProgress) {
         pszUser := pszUser is String ? StrPtr(pszUser) : pszUser
 
-        result := ComCall(5, this, "ptr", pszUser, "ptr", rgpszPaths, "uint", cPaths, "uint", dwFlags, "int", bAsync, "ptr", pIProgress, "HRESULT")
+        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszUser, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "uint", dwFlags, "int", bAsync, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -104,7 +113,9 @@ class IOfflineFilesCache extends IUnknown{
     Pin(hwndParent, rgpszPaths, cPaths, bDeep, bAsync, dwPinControlFlags, pIProgress) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(6, this, "ptr", hwndParent, "ptr", rgpszPaths, "uint", cPaths, "int", bDeep, "int", bAsync, "uint", dwPinControlFlags, "ptr", pIProgress, "HRESULT")
+        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", hwndParent, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "int", bDeep, "int", bAsync, "uint", dwPinControlFlags, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -123,7 +134,9 @@ class IOfflineFilesCache extends IUnknown{
     Unpin(hwndParent, rgpszPaths, cPaths, bDeep, bAsync, dwPinControlFlags, pIProgress) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(7, this, "ptr", hwndParent, "ptr", rgpszPaths, "uint", cPaths, "int", bDeep, "int", bAsync, "uint", dwPinControlFlags, "ptr", pIProgress, "HRESULT")
+        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", hwndParent, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "int", bDeep, "int", bAsync, "uint", dwPinControlFlags, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -135,7 +148,10 @@ class IOfflineFilesCache extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-getencryptionstatus
      */
     GetEncryptionStatus(pbEncrypted, pbPartial) {
-        result := ComCall(8, this, "ptr", pbEncrypted, "ptr", pbPartial, "HRESULT")
+        pbEncryptedMarshal := pbEncrypted is VarRef ? "int*" : "ptr"
+        pbPartialMarshal := pbPartial is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pbEncryptedMarshal, pbEncrypted, pbPartialMarshal, pbPartial, "HRESULT")
         return result
     }
 
@@ -160,15 +176,14 @@ class IOfflineFilesCache extends IUnknown{
      * 
      * @param {PWSTR} pszPath 
      * @param {Integer} dwQueryFlags 
-     * @param {Pointer<IOfflineFilesItem>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IOfflineFilesItem} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-finditem
      */
-    FindItem(pszPath, dwQueryFlags, ppItem) {
+    FindItem(pszPath, dwQueryFlags) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(10, this, "ptr", pszPath, "uint", dwQueryFlags, "ptr*", ppItem, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pszPath, "uint", dwQueryFlags, "ptr*", &ppItem := 0, "HRESULT")
+        return IOfflineFilesItem(ppItem)
     }
 
     /**
@@ -179,15 +194,14 @@ class IOfflineFilesCache extends IUnknown{
      * @param {IOfflineFilesItemFilter} pExcludeFileFilter 
      * @param {IOfflineFilesItemFilter} pExcludeDirFilter 
      * @param {Integer} dwQueryFlags 
-     * @param {Pointer<IOfflineFilesItem>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IOfflineFilesItem} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-finditemex
      */
-    FindItemEx(pszPath, pIncludeFileFilter, pIncludeDirFilter, pExcludeFileFilter, pExcludeDirFilter, dwQueryFlags, ppItem) {
+    FindItemEx(pszPath, pIncludeFileFilter, pIncludeDirFilter, pExcludeFileFilter, pExcludeDirFilter, dwQueryFlags) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(11, this, "ptr", pszPath, "ptr", pIncludeFileFilter, "ptr", pIncludeDirFilter, "ptr", pExcludeFileFilter, "ptr", pExcludeDirFilter, "uint", dwQueryFlags, "ptr*", ppItem, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", pszPath, "ptr", pIncludeFileFilter, "ptr", pIncludeDirFilter, "ptr", pExcludeFileFilter, "ptr", pExcludeDirFilter, "uint", dwQueryFlags, "ptr*", &ppItem := 0, "HRESULT")
+        return IOfflineFilesItem(ppItem)
     }
 
     /**
@@ -208,13 +222,12 @@ class IOfflineFilesCache extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszPath 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-getlocation
      */
-    GetLocation(ppszPath) {
-        result := ComCall(13, this, "ptr", ppszPath, "HRESULT")
-        return result
+    GetLocation() {
+        result := ComCall(13, this, "ptr*", &ppszPath := 0, "HRESULT")
+        return ppszPath
     }
 
     /**
@@ -265,26 +278,24 @@ class IOfflineFilesCache extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszSettingName 
-     * @param {Pointer<IOfflineFilesSetting>} ppSetting 
-     * @returns {HRESULT} 
+     * @returns {IOfflineFilesSetting} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-getsettingobject
      */
-    GetSettingObject(pszSettingName, ppSetting) {
+    GetSettingObject(pszSettingName) {
         pszSettingName := pszSettingName is String ? StrPtr(pszSettingName) : pszSettingName
 
-        result := ComCall(17, this, "ptr", pszSettingName, "ptr*", ppSetting, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", pszSettingName, "ptr*", &ppSetting := 0, "HRESULT")
+        return IOfflineFilesSetting(ppSetting)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumOfflineFilesSettings>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumOfflineFilesSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-enumsettingobjects
      */
-    EnumSettingObjects(ppEnum) {
-        result := ComCall(18, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumSettingObjects() {
+        result := ComCall(18, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumOfflineFilesSettings(ppEnum)
     }
 
     /**
@@ -298,9 +309,10 @@ class IOfflineFilesCache extends IUnknown{
     IsPathCacheable(pszPath, pbCacheable, pShareCachingMode) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
+        pbCacheableMarshal := pbCacheable is VarRef ? "int*" : "ptr"
         pShareCachingModeMarshal := pShareCachingMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, "ptr", pszPath, "ptr", pbCacheable, pShareCachingModeMarshal, pShareCachingMode, "HRESULT")
+        result := ComCall(19, this, "ptr", pszPath, pbCacheableMarshal, pbCacheable, pShareCachingModeMarshal, pShareCachingMode, "HRESULT")
         return result
     }
 }

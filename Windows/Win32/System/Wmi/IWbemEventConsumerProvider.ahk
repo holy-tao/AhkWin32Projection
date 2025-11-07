@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWbemUnboundObjectSink.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,12 +34,11 @@ class IWbemEventConsumerProvider extends IUnknown{
     /**
      * 
      * @param {IWbemClassObject} pLogicalConsumer 
-     * @param {Pointer<IWbemUnboundObjectSink>} ppConsumer 
-     * @returns {HRESULT} 
+     * @returns {IWbemUnboundObjectSink} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventconsumerprovider-findconsumer
      */
-    FindConsumer(pLogicalConsumer, ppConsumer) {
-        result := ComCall(3, this, "ptr", pLogicalConsumer, "ptr*", ppConsumer, "HRESULT")
-        return result
+    FindConsumer(pLogicalConsumer) {
+        result := ComCall(3, this, "ptr", pLogicalConsumer, "ptr*", &ppConsumer := 0, "HRESULT")
+        return IWbemUnboundObjectSink(ppConsumer)
     }
 }

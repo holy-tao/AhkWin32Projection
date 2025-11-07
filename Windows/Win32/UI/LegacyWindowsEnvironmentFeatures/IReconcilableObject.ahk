@@ -38,33 +38,27 @@ class IReconcilableObject extends IUnknown{
      * @param {HWND} hwndProgressFeedback 
      * @param {Integer} ulcInput 
      * @param {Pointer<IMoniker>} rgpmkOtherInput 
-     * @param {Pointer<Integer>} plOutIndex 
      * @param {IStorage} pstgNewResidues 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-ireconcilableobject-reconcile
      */
-    Reconcile(pInitiator, dwFlags, hwndOwner, hwndProgressFeedback, ulcInput, rgpmkOtherInput, plOutIndex, pstgNewResidues) {
+    Reconcile(pInitiator, dwFlags, hwndOwner, hwndProgressFeedback, ulcInput, rgpmkOtherInput, pstgNewResidues) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         hwndProgressFeedback := hwndProgressFeedback is Win32Handle ? NumGet(hwndProgressFeedback, "ptr") : hwndProgressFeedback
 
-        plOutIndexMarshal := plOutIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pInitiator, "uint", dwFlags, "ptr", hwndOwner, "ptr", hwndProgressFeedback, "uint", ulcInput, "ptr*", rgpmkOtherInput, plOutIndexMarshal, plOutIndex, "ptr", pstgNewResidues, "ptr", pvReserved, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pInitiator, "uint", dwFlags, "ptr", hwndOwner, "ptr", hwndProgressFeedback, "uint", ulcInput, "ptr*", rgpmkOtherInput, "int*", &plOutIndex := 0, "ptr", pstgNewResidues, "ptr", pvReserved, "HRESULT")
+        return plOutIndex
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulProgressMax 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-ireconcilableobject-getprogressfeedbackmaxestimate
      */
-    GetProgressFeedbackMaxEstimate(pulProgressMax) {
-        pulProgressMaxMarshal := pulProgressMax is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pulProgressMaxMarshal, pulProgressMax, "HRESULT")
-        return result
+    GetProgressFeedbackMaxEstimate() {
+        result := ComCall(4, this, "uint*", &pulProgressMax := 0, "HRESULT")
+        return pulProgressMax
     }
 }

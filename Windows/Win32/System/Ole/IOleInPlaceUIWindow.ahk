@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include .\IOleWindow.ahk
 
 /**
@@ -32,13 +33,13 @@ class IOleInPlaceUIWindow extends IOleWindow{
 
     /**
      * 
-     * @param {Pointer<RECT>} lprectBorder 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceuiwindow-getborder
      */
-    GetBorder(lprectBorder) {
+    GetBorder() {
+        lprectBorder := RECT()
         result := ComCall(5, this, "ptr", lprectBorder, "HRESULT")
-        return result
+        return lprectBorder
     }
 
     /**

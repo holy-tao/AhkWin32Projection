@@ -46,40 +46,37 @@ class ICertEncodeBitString extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pBitCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodebitstring-getbitcount
      */
-    GetBitCount(pBitCount) {
-        pBitCountMarshal := pBitCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pBitCountMarshal, pBitCount, "HRESULT")
-        return result
+    GetBitCount() {
+        result := ComCall(8, this, "int*", &pBitCount := 0, "HRESULT")
+        return pBitCount
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrBitString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodebitstring-getbitstring
      */
-    GetBitString(pstrBitString) {
+    GetBitString() {
+        pstrBitString := BSTR()
         result := ComCall(9, this, "ptr", pstrBitString, "HRESULT")
-        return result
+        return pstrBitString
     }
 
     /**
      * 
      * @param {Integer} BitCount 
      * @param {BSTR} strBitString 
-     * @param {Pointer<BSTR>} pstrBinary 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodebitstring-encode
      */
-    Encode(BitCount, strBitString, pstrBinary) {
+    Encode(BitCount, strBitString) {
         strBitString := strBitString is String ? BSTR.Alloc(strBitString).Value : strBitString
 
+        pstrBinary := BSTR()
         result := ComCall(10, this, "int", BitCount, "ptr", strBitString, "ptr", pstrBinary, "HRESULT")
-        return result
+        return pstrBinary
     }
 }

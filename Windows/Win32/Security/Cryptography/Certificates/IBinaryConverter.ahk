@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,42 +37,42 @@ class IBinaryConverter extends IDispatch{
      * @param {BSTR} strEncodedIn 
      * @param {Integer} EncodingIn 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pstrEncoded 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ibinaryconverter-stringtostring
      */
-    StringToString(strEncodedIn, EncodingIn, Encoding, pstrEncoded) {
+    StringToString(strEncodedIn, EncodingIn, Encoding) {
         strEncodedIn := strEncodedIn is String ? BSTR.Alloc(strEncodedIn).Value : strEncodedIn
 
+        pstrEncoded := BSTR()
         result := ComCall(7, this, "ptr", strEncodedIn, "int", EncodingIn, "int", Encoding, "ptr", pstrEncoded, "HRESULT")
-        return result
+        return pstrEncoded
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} pvarByteArray 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pstrEncoded 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ibinaryconverter-variantbytearraytostring
      */
-    VariantByteArrayToString(pvarByteArray, Encoding, pstrEncoded) {
+    VariantByteArrayToString(pvarByteArray, Encoding) {
+        pstrEncoded := BSTR()
         result := ComCall(8, this, "ptr", pvarByteArray, "int", Encoding, "ptr", pstrEncoded, "HRESULT")
-        return result
+        return pstrEncoded
     }
 
     /**
      * 
      * @param {BSTR} strEncoded 
      * @param {Integer} Encoding 
-     * @param {Pointer<VARIANT>} pvarByteArray 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ibinaryconverter-stringtovariantbytearray
      */
-    StringToVariantByteArray(strEncoded, Encoding, pvarByteArray) {
+    StringToVariantByteArray(strEncoded, Encoding) {
         strEncoded := strEncoded is String ? BSTR.Alloc(strEncoded).Value : strEncoded
 
+        pvarByteArray := VARIANT()
         result := ComCall(9, this, "ptr", strEncoded, "int", Encoding, "ptr", pvarByteArray, "HRESULT")
-        return result
+        return pvarByteArray
     }
 }

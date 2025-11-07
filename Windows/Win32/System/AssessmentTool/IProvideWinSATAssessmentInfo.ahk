@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,36 +38,33 @@ class IProvideWinSATAssessmentInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} score 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_score
      */
-    get_Score(score) {
-        scoreMarshal := score is VarRef ? "float*" : "ptr"
-
-        result := ComCall(7, this, scoreMarshal, score, "HRESULT")
-        return result
+    get_Score() {
+        result := ComCall(7, this, "float*", &score := 0, "HRESULT")
+        return score
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} title 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_title
      */
-    get_Title(title) {
+    get_Title() {
+        title := BSTR()
         result := ComCall(8, this, "ptr", title, "HRESULT")
-        return result
+        return title
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} description 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_description
      */
-    get_Description(description) {
+    get_Description() {
+        description := BSTR()
         result := ComCall(9, this, "ptr", description, "HRESULT")
-        return result
+        return description
     }
 }

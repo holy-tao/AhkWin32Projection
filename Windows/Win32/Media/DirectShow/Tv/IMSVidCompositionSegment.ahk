@@ -41,21 +41,19 @@ class IMSVidCompositionSegment extends IMSVidGraphSegment{
 
     /**
      * 
-     * @param {Pointer<IMSVidGraphSegment>} upstream 
-     * @returns {HRESULT} 
+     * @returns {IMSVidGraphSegment} 
      */
-    get_Up(upstream) {
-        result := ComCall(20, this, "ptr*", upstream, "HRESULT")
-        return result
+    get_Up() {
+        result := ComCall(20, this, "ptr*", &upstream := 0, "HRESULT")
+        return IMSVidGraphSegment(upstream)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidGraphSegment>} downstream 
-     * @returns {HRESULT} 
+     * @returns {IMSVidGraphSegment} 
      */
-    get_Down(downstream) {
-        result := ComCall(21, this, "ptr*", downstream, "HRESULT")
-        return result
+    get_Down() {
+        result := ComCall(21, this, "ptr*", &downstream := 0, "HRESULT")
+        return IMSVidGraphSegment(downstream)
     }
 }

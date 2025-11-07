@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\MULTI_QI.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -48,12 +49,11 @@ class IDataInitialize extends IUnknown{
      * 
      * @param {IUnknown} pDataSource 
      * @param {Integer} fIncludePassword 
-     * @param {Pointer<PWSTR>} ppwszInitString 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetInitializationString(pDataSource, fIncludePassword, ppwszInitString) {
-        result := ComCall(4, this, "ptr", pDataSource, "char", fIncludePassword, "ptr", ppwszInitString, "HRESULT")
-        return result
+    GetInitializationString(pDataSource, fIncludePassword) {
+        result := ComCall(4, this, "ptr", pDataSource, "char", fIncludePassword, "ptr*", &ppwszInitString := 0, "HRESULT")
+        return ppwszInitString
     }
 
     /**
@@ -63,14 +63,13 @@ class IDataInitialize extends IUnknown{
      * @param {Integer} dwClsCtx 
      * @param {PWSTR} pwszReserved 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppDataSource 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CreateDBInstance(clsidProvider, pUnkOuter, dwClsCtx, pwszReserved, riid, ppDataSource) {
+    CreateDBInstance(clsidProvider, pUnkOuter, dwClsCtx, pwszReserved, riid) {
         pwszReserved := pwszReserved is String ? StrPtr(pwszReserved) : pwszReserved
 
-        result := ComCall(5, this, "ptr", clsidProvider, "ptr", pUnkOuter, "uint", dwClsCtx, "ptr", pwszReserved, "ptr", riid, "ptr*", ppDataSource, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", clsidProvider, "ptr", pUnkOuter, "uint", dwClsCtx, "ptr", pwszReserved, "ptr", riid, "ptr*", &ppDataSource := 0, "HRESULT")
+        return IUnknown(ppDataSource)
     }
 
     /**
@@ -81,27 +80,26 @@ class IDataInitialize extends IUnknown{
      * @param {PWSTR} pwszReserved 
      * @param {Pointer<COSERVERINFO>} pServerInfo 
      * @param {Integer} cmq 
-     * @param {Pointer<MULTI_QI>} rgmqResults 
-     * @returns {HRESULT} 
+     * @returns {MULTI_QI} 
      */
-    CreateDBInstanceEx(clsidProvider, pUnkOuter, dwClsCtx, pwszReserved, pServerInfo, cmq, rgmqResults) {
+    CreateDBInstanceEx(clsidProvider, pUnkOuter, dwClsCtx, pwszReserved, pServerInfo, cmq) {
         pwszReserved := pwszReserved is String ? StrPtr(pwszReserved) : pwszReserved
 
+        rgmqResults := MULTI_QI()
         result := ComCall(6, this, "ptr", clsidProvider, "ptr", pUnkOuter, "uint", dwClsCtx, "ptr", pwszReserved, "ptr", pServerInfo, "uint", cmq, "ptr", rgmqResults, "HRESULT")
-        return result
+        return rgmqResults
     }
 
     /**
      * 
      * @param {PWSTR} pwszFileName 
-     * @param {Pointer<PWSTR>} ppwszInitializationString 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    LoadStringFromStorage(pwszFileName, ppwszInitializationString) {
+    LoadStringFromStorage(pwszFileName) {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
-        result := ComCall(7, this, "ptr", pwszFileName, "ptr", ppwszInitializationString, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pwszFileName, "ptr*", &ppwszInitializationString := 0, "HRESULT")
+        return ppwszInitializationString
     }
 
     /**

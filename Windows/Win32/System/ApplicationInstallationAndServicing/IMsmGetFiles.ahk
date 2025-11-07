@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMsmStrings.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,12 +33,11 @@ class IMsmGetFiles extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMsmStrings>} Files 
-     * @returns {HRESULT} 
+     * @returns {IMsmStrings} 
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmgetfiles-get_modulefiles
      */
-    get_ModuleFiles(Files) {
-        result := ComCall(7, this, "ptr*", Files, "HRESULT")
-        return result
+    get_ModuleFiles() {
+        result := ComCall(7, this, "ptr*", &Files := 0, "HRESULT")
+        return IMsmStrings(Files)
     }
 }

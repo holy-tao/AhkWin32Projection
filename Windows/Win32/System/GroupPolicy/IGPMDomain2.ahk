@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMStarterGPO.ahk
+#Include .\IGPMGPO.ahk
+#Include .\IGPMStarterGPOCollection.ahk
+#Include .\IGPMResult.ahk
 #Include .\IGPMDomain.ahk
 
 /**
@@ -33,51 +37,47 @@ class IGPMDomain2 extends IGPMDomain{
 
     /**
      * 
-     * @param {Pointer<IGPMStarterGPO>} ppnewTemplate 
-     * @returns {HRESULT} 
+     * @returns {IGPMStarterGPO} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-createstartergpo
      */
-    CreateStarterGPO(ppnewTemplate) {
-        result := ComCall(17, this, "ptr*", ppnewTemplate, "HRESULT")
-        return result
+    CreateStarterGPO() {
+        result := ComCall(17, this, "ptr*", &ppnewTemplate := 0, "HRESULT")
+        return IGPMStarterGPO(ppnewTemplate)
     }
 
     /**
      * 
      * @param {IGPMStarterGPO} pGPOTemplate 
-     * @param {Pointer<IGPMGPO>} ppnewGPO 
-     * @returns {HRESULT} 
+     * @returns {IGPMGPO} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-creategpofromstartergpo
      */
-    CreateGPOFromStarterGPO(pGPOTemplate, ppnewGPO) {
-        result := ComCall(18, this, "ptr", pGPOTemplate, "ptr*", ppnewGPO, "HRESULT")
-        return result
+    CreateGPOFromStarterGPO(pGPOTemplate) {
+        result := ComCall(18, this, "ptr", pGPOTemplate, "ptr*", &ppnewGPO := 0, "HRESULT")
+        return IGPMGPO(ppnewGPO)
     }
 
     /**
      * 
      * @param {BSTR} bstrGuid 
-     * @param {Pointer<IGPMStarterGPO>} ppTemplate 
-     * @returns {HRESULT} 
+     * @returns {IGPMStarterGPO} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-getstartergpo
      */
-    GetStarterGPO(bstrGuid, ppTemplate) {
+    GetStarterGPO(bstrGuid) {
         bstrGuid := bstrGuid is String ? BSTR.Alloc(bstrGuid).Value : bstrGuid
 
-        result := ComCall(19, this, "ptr", bstrGuid, "ptr*", ppTemplate, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", bstrGuid, "ptr*", &ppTemplate := 0, "HRESULT")
+        return IGPMStarterGPO(ppTemplate)
     }
 
     /**
      * 
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria 
-     * @param {Pointer<IGPMStarterGPOCollection>} ppIGPMTemplateCollection 
-     * @returns {HRESULT} 
+     * @returns {IGPMStarterGPOCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-searchstartergpos
      */
-    SearchStarterGPOs(pIGPMSearchCriteria, ppIGPMTemplateCollection) {
-        result := ComCall(20, this, "ptr", pIGPMSearchCriteria, "ptr*", ppIGPMTemplateCollection, "HRESULT")
-        return result
+    SearchStarterGPOs(pIGPMSearchCriteria) {
+        result := ComCall(20, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMTemplateCollection := 0, "HRESULT")
+        return IGPMStarterGPOCollection(ppIGPMTemplateCollection)
     }
 
     /**
@@ -86,15 +86,14 @@ class IGPMDomain2 extends IGPMDomain{
      * @param {VARIANT_BOOL} bOverwrite 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @param {Pointer<IGPMResult>} ppIGPMResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-loadstartergpo
      */
-    LoadStarterGPO(bstrLoadFile, bOverwrite, pvarGPMProgress, pvarGPMCancel, ppIGPMResult) {
+    LoadStarterGPO(bstrLoadFile, bOverwrite, pvarGPMProgress, pvarGPMCancel) {
         bstrLoadFile := bstrLoadFile is String ? BSTR.Alloc(bstrLoadFile).Value : bstrLoadFile
 
-        result := ComCall(21, this, "ptr", bstrLoadFile, "short", bOverwrite, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", ppIGPMResult, "HRESULT")
-        return result
+        result := ComCall(21, this, "ptr", bstrLoadFile, "short", bOverwrite, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        return IGPMResult(ppIGPMResult)
     }
 
     /**
@@ -102,12 +101,11 @@ class IGPMDomain2 extends IGPMDomain{
      * @param {IGPMStarterGPOBackup} pIGPMTmplBackup 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @param {Pointer<IGPMResult>} ppIGPMResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-restorestartergpo
      */
-    RestoreStarterGPO(pIGPMTmplBackup, pvarGPMProgress, pvarGPMCancel, ppIGPMResult) {
-        result := ComCall(22, this, "ptr", pIGPMTmplBackup, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", ppIGPMResult, "HRESULT")
-        return result
+    RestoreStarterGPO(pIGPMTmplBackup, pvarGPMProgress, pvarGPMCancel) {
+        result := ComCall(22, this, "ptr", pIGPMTmplBackup, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        return IGPMResult(ppIGPMResult)
     }
 }

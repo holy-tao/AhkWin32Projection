@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -30,84 +32,76 @@ class IPinInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_Pin(ppUnk) {
-        result := ComCall(7, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_Pin() {
+        result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_ConnectedTo(ppUnk) {
-        result := ComCall(8, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_ConnectedTo() {
+        result := ComCall(8, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IDispatch(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_ConnectionMediaType(ppUnk) {
-        result := ComCall(9, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_ConnectionMediaType() {
+        result := ComCall(9, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IDispatch(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_FilterInfo(ppUnk) {
-        result := ComCall(10, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_FilterInfo() {
+        result := ComCall(10, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IDispatch(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(ppUnk) {
+    get_Name() {
+        ppUnk := BSTR()
         result := ComCall(11, this, "ptr", ppUnk, "HRESULT")
-        return result
+        return ppUnk
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} ppDirection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Direction(ppDirection) {
-        ppDirectionMarshal := ppDirection is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, ppDirectionMarshal, ppDirection, "HRESULT")
-        return result
+    get_Direction() {
+        result := ComCall(12, this, "int*", &ppDirection := 0, "HRESULT")
+        return ppDirection
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} strPinID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PinID(strPinID) {
+    get_PinID() {
+        strPinID := BSTR()
         result := ComCall(13, this, "ptr", strPinID, "HRESULT")
-        return result
+        return strPinID
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_MediaTypes(ppUnk) {
-        result := ComCall(14, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_MediaTypes() {
+        result := ComCall(14, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IDispatch(ppUnk)
     }
 
     /**

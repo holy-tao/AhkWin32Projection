@@ -2,6 +2,13 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX500DistinguishedName.ahk
+#Include .\IX509CertificateRevocationListEntries.ahk
+#Include .\IX509Extensions.ahk
+#Include .\IObjectIds.ahk
+#Include .\ISignerCertificate.ahk
+#Include .\IObjectId.ahk
+#Include .\IX509SignatureInformation.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -101,12 +108,11 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IX500DistinguishedName>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX500DistinguishedName} 
      */
-    get_Issuer(ppValue) {
-        result := ComCall(13, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_Issuer() {
+        result := ComCall(13, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX500DistinguishedName(ppValue)
     }
 
     /**
@@ -121,14 +127,11 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_ThisUpdate(pValue) {
-        pValueMarshal := pValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(15, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_ThisUpdate() {
+        result := ComCall(15, this, "double*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -143,14 +146,11 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_NextUpdate(pValue) {
-        pValueMarshal := pValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(17, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_NextUpdate() {
+        result := ComCall(17, this, "double*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -165,42 +165,38 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IX509CertificateRevocationListEntries>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509CertificateRevocationListEntries} 
      */
-    get_X509CRLEntries(ppValue) {
-        result := ComCall(19, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_X509CRLEntries() {
+        result := ComCall(19, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509CertificateRevocationListEntries(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IX509Extensions>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509Extensions} 
      */
-    get_X509Extensions(ppValue) {
-        result := ComCall(20, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_X509Extensions() {
+        result := ComCall(20, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509Extensions(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IObjectIds>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectIds} 
      */
-    get_CriticalExtensions(ppValue) {
-        result := ComCall(21, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CriticalExtensions() {
+        result := ComCall(21, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectIds(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<ISignerCertificate>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ISignerCertificate} 
      */
-    get_SignerCertificate(ppValue) {
-        result := ComCall(22, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_SignerCertificate() {
+        result := ComCall(22, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ISignerCertificate(ppValue)
     }
 
     /**
@@ -216,12 +212,12 @@ class IX509CertificateRevocationList extends IDispatch{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_CRLNumber(Encoding, pValue) {
+    get_CRLNumber(Encoding) {
+        pValue := BSTR()
         result := ComCall(24, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -239,14 +235,11 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CAVersion(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_CAVersion() {
+        result := ComCall(26, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -261,32 +254,29 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_BaseCRL(pValue) {
-        result := ComCall(28, this, "ptr", pValue, "HRESULT")
-        return result
+    get_BaseCRL() {
+        result := ComCall(28, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_NullSigned(pValue) {
-        result := ComCall(29, this, "ptr", pValue, "HRESULT")
-        return result
+    get_NullSigned() {
+        result := ComCall(29, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      */
-    get_HashAlgorithm(ppValue) {
-        result := ComCall(30, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_HashAlgorithm() {
+        result := ComCall(30, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
@@ -301,12 +291,11 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_AlternateSignatureAlgorithm(pValue) {
-        result := ComCall(32, this, "ptr", pValue, "HRESULT")
-        return result
+    get_AlternateSignatureAlgorithm() {
+        result := ComCall(32, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -321,44 +310,43 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IX509SignatureInformation>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509SignatureInformation} 
      */
-    get_SignatureInformation(ppValue) {
-        result := ComCall(34, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_SignatureInformation() {
+        result := ComCall(34, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509SignatureInformation(ppValue)
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_RawData(Encoding, pValue) {
+    get_RawData(Encoding) {
+        pValue := BSTR()
         result := ComCall(35, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_RawDataToBeSigned(Encoding, pValue) {
+    get_RawDataToBeSigned(Encoding) {
+        pValue := BSTR()
         result := ComCall(36, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Signature(Encoding, pValue) {
+    get_Signature(Encoding) {
+        pValue := BSTR()
         result := ComCall(37, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

@@ -52,17 +52,14 @@ class IOpenSearchSource extends IUnknown{
      * @param {Integer} dwStartIndex 
      * @param {Integer} dwCount 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iopensearchsource-getresults
      */
-    GetResults(hwnd, pszQuery, dwStartIndex, dwCount, riid, ppv) {
+    GetResults(hwnd, pszQuery, dwStartIndex, dwCount, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", hwnd, "ptr", pszQuery, "uint", dwStartIndex, "uint", dwCount, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hwnd, "ptr", pszQuery, "uint", dwStartIndex, "uint", dwCount, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

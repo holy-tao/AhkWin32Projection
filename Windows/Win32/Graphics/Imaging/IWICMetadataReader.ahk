@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICMetadataHandlerInfo.ahk
+#Include .\IWICEnumMetadataItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,37 +39,33 @@ class IWICMetadataReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidMetadataFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareader-getmetadataformat
      */
-    GetMetadataFormat(pguidMetadataFormat) {
+    GetMetadataFormat() {
+        pguidMetadataFormat := Guid()
         result := ComCall(3, this, "ptr", pguidMetadataFormat, "HRESULT")
-        return result
+        return pguidMetadataFormat
     }
 
     /**
      * 
-     * @param {Pointer<IWICMetadataHandlerInfo>} ppIHandler 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataHandlerInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareader-getmetadatahandlerinfo
      */
-    GetMetadataHandlerInfo(ppIHandler) {
-        result := ComCall(4, this, "ptr*", ppIHandler, "HRESULT")
-        return result
+    GetMetadataHandlerInfo() {
+        result := ComCall(4, this, "ptr*", &ppIHandler := 0, "HRESULT")
+        return IWICMetadataHandlerInfo(ppIHandler)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareader-getcount
      */
-    GetCount(pcCount) {
-        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pcCountMarshal, pcCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(5, this, "uint*", &pcCount := 0, "HRESULT")
+        return pcCount
     }
 
     /**
@@ -99,12 +97,11 @@ class IWICMetadataReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWICEnumMetadataItem>} ppIEnumMetadata 
-     * @returns {HRESULT} 
+     * @returns {IWICEnumMetadataItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareader-getenumerator
      */
-    GetEnumerator(ppIEnumMetadata) {
-        result := ComCall(8, this, "ptr*", ppIEnumMetadata, "HRESULT")
-        return result
+    GetEnumerator() {
+        result := ComCall(8, this, "ptr*", &ppIEnumMetadata := 0, "HRESULT")
+        return IWICEnumMetadataItem(ppIEnumMetadata)
     }
 }

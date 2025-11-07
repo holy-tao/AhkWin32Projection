@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPrinterScriptablePropertyBag.ahk
 
 /**
@@ -32,13 +33,12 @@ class IPrinterScriptablePropertyBag2 extends IPrinterScriptablePropertyBag{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IUnknown>} ppXmlNode 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetReadStreamAsXML(bstrName, ppXmlNode) {
+    GetReadStreamAsXML(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(17, this, "ptr", bstrName, "ptr*", ppXmlNode, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", bstrName, "ptr*", &ppXmlNode := 0, "HRESULT")
+        return IUnknown(ppXmlNode)
     }
 }

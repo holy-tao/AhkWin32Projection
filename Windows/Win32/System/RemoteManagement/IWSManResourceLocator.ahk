@@ -51,13 +51,13 @@ class IWSManResourceLocator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} uri 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanresourcelocator-get_resourceuri
      */
-    get_ResourceURI(uri) {
+    get_ResourceURI() {
+        uri := BSTR()
         result := ComCall(8, this, "ptr", uri, "HRESULT")
-        return result
+        return uri
     }
 
     /**
@@ -86,13 +86,13 @@ class IWSManResourceLocator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} text 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanresourcelocator-get_fragmentpath
      */
-    get_FragmentPath(text) {
+    get_FragmentPath() {
+        text := BSTR()
         result := ComCall(11, this, "ptr", text, "HRESULT")
-        return result
+        return text
     }
 
     /**
@@ -110,13 +110,13 @@ class IWSManResourceLocator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} text 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanresourcelocator-get_fragmentdialect
      */
-    get_FragmentDialect(text) {
+    get_FragmentDialect() {
+        text := BSTR()
         result := ComCall(13, this, "ptr", text, "HRESULT")
-        return result
+        return text
     }
 
     /**
@@ -160,13 +160,12 @@ class IWSManResourceLocator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} mustUnderstand 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanresourcelocator-get_mustunderstandoptions
      */
-    get_MustUnderstandOptions(mustUnderstand) {
-        result := ComCall(17, this, "ptr", mustUnderstand, "HRESULT")
-        return result
+    get_MustUnderstandOptions() {
+        result := ComCall(17, this, "int*", &mustUnderstand := 0, "HRESULT")
+        return mustUnderstand
     }
 
     /**
@@ -181,12 +180,12 @@ class IWSManResourceLocator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanresourcelocator-get_error
      */
-    get_Error(value) {
+    get_Error() {
+        value := BSTR()
         result := ComCall(19, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 }

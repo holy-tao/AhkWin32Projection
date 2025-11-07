@@ -54,15 +54,12 @@ class INameSpaceTreeControl2 extends INameSpaceTreeControl{
     /**
      * 
      * @param {Integer} nstcsMask 
-     * @param {Pointer<Integer>} pnstcsStyle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrol2-getcontrolstyle
      */
-    GetControlStyle(nstcsMask, pnstcsStyle) {
-        pnstcsStyleMarshal := pnstcsStyle is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(23, this, "uint", nstcsMask, pnstcsStyleMarshal, pnstcsStyle, "HRESULT")
-        return result
+    GetControlStyle(nstcsMask) {
+        result := ComCall(23, this, "uint", nstcsMask, "uint*", &pnstcsStyle := 0, "HRESULT")
+        return pnstcsStyle
     }
 
     /**
@@ -80,14 +77,11 @@ class INameSpaceTreeControl2 extends INameSpaceTreeControl{
     /**
      * 
      * @param {Integer} nstcsMask 
-     * @param {Pointer<Integer>} pnstcsStyle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrol2-getcontrolstyle2
      */
-    GetControlStyle2(nstcsMask, pnstcsStyle) {
-        pnstcsStyleMarshal := pnstcsStyle is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, "int", nstcsMask, pnstcsStyleMarshal, pnstcsStyle, "HRESULT")
-        return result
+    GetControlStyle2(nstcsMask) {
+        result := ComCall(25, this, "int", nstcsMask, "int*", &pnstcsStyle := 0, "HRESULT")
+        return pnstcsStyle
     }
 }

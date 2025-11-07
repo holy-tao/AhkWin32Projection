@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include .\ITfLangBarItem.ahk
 
 /**
@@ -51,13 +52,13 @@ class ITfLangBarItemBitmap extends ITfLangBarItem{
     /**
      * 
      * @param {Pointer<SIZE>} pszDefault 
-     * @param {Pointer<SIZE>} psz 
-     * @returns {HRESULT} 
+     * @returns {SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembitmap-getpreferredsize
      */
-    GetPreferredSize(pszDefault, psz) {
+    GetPreferredSize(pszDefault) {
+        psz := SIZE()
         result := ComCall(8, this, "ptr", pszDefault, "ptr", psz, "HRESULT")
-        return result
+        return psz
     }
 
     /**

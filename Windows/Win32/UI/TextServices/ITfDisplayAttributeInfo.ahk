@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\TF_DISPLAYATTRIBUTE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,35 +41,35 @@ class ITfDisplayAttributeInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeinfo-getguid
      */
-    GetGUID(pguid) {
+    GetGUID() {
+        pguid := Guid()
         result := ComCall(3, this, "ptr", pguid, "HRESULT")
-        return result
+        return pguid
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDesc 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeinfo-getdescription
      */
-    GetDescription(pbstrDesc) {
+    GetDescription() {
+        pbstrDesc := BSTR()
         result := ComCall(4, this, "ptr", pbstrDesc, "HRESULT")
-        return result
+        return pbstrDesc
     }
 
     /**
      * 
-     * @param {Pointer<TF_DISPLAYATTRIBUTE>} pda 
-     * @returns {HRESULT} 
+     * @returns {TF_DISPLAYATTRIBUTE} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeinfo-getattributeinfo
      */
-    GetAttributeInfo(pda) {
+    GetAttributeInfo() {
+        pda := TF_DISPLAYATTRIBUTE()
         result := ComCall(5, this, "ptr", pda, "HRESULT")
-        return result
+        return pda
     }
 
     /**

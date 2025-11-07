@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirect3DSurface9.ahk
 #Include .\IDirect3DBaseTexture9.ahk
 
 /**
@@ -67,13 +68,12 @@ class IDirect3DCubeTexture9 extends IDirect3DBaseTexture9{
      * 
      * @param {Integer} FaceType 
      * @param {Integer} Level 
-     * @param {Pointer<IDirect3DSurface9>} ppCubeMapSurface 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcubetexture9-getcubemapsurface
      */
-    GetCubeMapSurface(FaceType, Level, ppCubeMapSurface) {
-        result := ComCall(18, this, "int", FaceType, "uint", Level, "ptr*", ppCubeMapSurface, "HRESULT")
-        return result
+    GetCubeMapSurface(FaceType, Level) {
+        result := ComCall(18, this, "int", FaceType, "uint", Level, "ptr*", &ppCubeMapSurface := 0, "HRESULT")
+        return IDirect3DSurface9(ppCubeMapSurface)
     }
 
     /**

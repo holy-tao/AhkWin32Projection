@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumItemProperties.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -63,23 +64,19 @@ class IEnumItemProperties extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumItemProperties>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumItemProperties} 
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumItemProperties(ppenum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCount(pnCount) {
-        pnCountMarshal := pnCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pnCountMarshal, pnCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(7, this, "uint*", &pnCount := 0, "HRESULT")
+        return pnCount
     }
 }

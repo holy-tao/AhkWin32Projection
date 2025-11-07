@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IActiveScriptProfilerHeapEnum.ahk
 #Include .\IActiveScriptProfilerControl2.ahk
 
 /**
@@ -30,11 +31,10 @@ class IActiveScriptProfilerControl3 extends IActiveScriptProfilerControl2{
 
     /**
      * 
-     * @param {Pointer<IActiveScriptProfilerHeapEnum>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IActiveScriptProfilerHeapEnum} 
      */
-    EnumHeap(ppEnum) {
-        result := ComCall(8, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumHeap() {
+        result := ComCall(8, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IActiveScriptProfilerHeapEnum(ppEnum)
     }
 }

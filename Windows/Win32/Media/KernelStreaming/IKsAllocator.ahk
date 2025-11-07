@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\KSSTREAMALLOCATOR_STATUS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,7 +36,7 @@ class IKsAllocator extends IUnknown{
      */
     KsGetAllocatorHandle() {
         result := ComCall(3, this, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -49,12 +50,12 @@ class IKsAllocator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<KSSTREAMALLOCATOR_STATUS>} AllocatorStatus 
-     * @returns {HRESULT} 
+     * @returns {KSSTREAMALLOCATOR_STATUS} 
      */
-    KsGetAllocatorStatus(AllocatorStatus) {
+    KsGetAllocatorStatus() {
+        AllocatorStatus := KSSTREAMALLOCATOR_STATUS()
         result := ComCall(5, this, "ptr", AllocatorStatus, "HRESULT")
-        return result
+        return AllocatorStatus
     }
 
     /**

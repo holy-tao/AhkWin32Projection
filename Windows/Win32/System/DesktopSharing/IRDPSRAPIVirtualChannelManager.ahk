@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IRDPSRAPIVirtualChannel.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -33,25 +35,23 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-get__newenum
      */
-    get__NewEnum(retval) {
-        result := ComCall(7, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
      * @param {VARIANT} item 
-     * @param {Pointer<IRDPSRAPIVirtualChannel>} pChannel 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIVirtualChannel} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-get_item
      */
-    get_Item(item, pChannel) {
-        result := ComCall(8, this, "ptr", item, "ptr*", pChannel, "HRESULT")
-        return result
+    get_Item(item) {
+        result := ComCall(8, this, "ptr", item, "ptr*", &pChannel := 0, "HRESULT")
+        return IRDPSRAPIVirtualChannel(pChannel)
     }
 
     /**
@@ -59,14 +59,13 @@ class IRDPSRAPIVirtualChannelManager extends IDispatch{
      * @param {BSTR} bstrChannelName 
      * @param {Integer} Priority 
      * @param {Integer} ChannelFlags 
-     * @param {Pointer<IRDPSRAPIVirtualChannel>} ppChannel 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIVirtualChannel} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannelmanager-createvirtualchannel
      */
-    CreateVirtualChannel(bstrChannelName, Priority, ChannelFlags, ppChannel) {
+    CreateVirtualChannel(bstrChannelName, Priority, ChannelFlags) {
         bstrChannelName := bstrChannelName is String ? BSTR.Alloc(bstrChannelName).Value : bstrChannelName
 
-        result := ComCall(9, this, "ptr", bstrChannelName, "int", Priority, "uint", ChannelFlags, "ptr*", ppChannel, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrChannelName, "int", Priority, "uint", ChannelFlags, "ptr*", &ppChannel := 0, "HRESULT")
+        return IRDPSRAPIVirtualChannel(ppChannel)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDCompositionTarget.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDCompositionDevice2.ahk
 
 /**
@@ -34,42 +36,39 @@ class IDCompositionDesktopDevice extends IDCompositionDevice2{
      * 
      * @param {HWND} hwnd 
      * @param {BOOL} topmost 
-     * @param {Pointer<IDCompositionTarget>} target 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionTarget} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createtargetforhwnd
      */
-    CreateTargetForHwnd(hwnd, topmost, target) {
+    CreateTargetForHwnd(hwnd, topmost) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(24, this, "ptr", hwnd, "int", topmost, "ptr*", target, "HRESULT")
-        return result
+        result := ComCall(24, this, "ptr", hwnd, "int", topmost, "ptr*", &target := 0, "HRESULT")
+        return IDCompositionTarget(target)
     }
 
     /**
      * 
      * @param {HANDLE} handle 
-     * @param {Pointer<IUnknown>} surface 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createsurfacefromhandle
      */
-    CreateSurfaceFromHandle(handle, surface) {
+    CreateSurfaceFromHandle(handle) {
         handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
 
-        result := ComCall(25, this, "ptr", handle, "ptr*", surface, "HRESULT")
-        return result
+        result := ComCall(25, this, "ptr", handle, "ptr*", &surface := 0, "HRESULT")
+        return IUnknown(surface)
     }
 
     /**
      * 
      * @param {HWND} hwnd 
-     * @param {Pointer<IUnknown>} surface 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondesktopdevice-createsurfacefromhwnd
      */
-    CreateSurfaceFromHwnd(hwnd, surface) {
+    CreateSurfaceFromHwnd(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(26, this, "ptr", hwnd, "ptr*", surface, "HRESULT")
-        return result
+        result := ComCall(26, this, "ptr", hwnd, "ptr*", &surface := 0, "HRESULT")
+        return IUnknown(surface)
     }
 }

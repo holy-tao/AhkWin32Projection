@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\IOCSPProperty.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -58,67 +61,62 @@ class IOCSPPropertyCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-get__newenum
      */
-    get__NewEnum(ppVal) {
-        result := ComCall(7, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppVal := 0, "HRESULT")
+        return IUnknown(ppVal)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-get_item
      */
-    get_Item(Index, pVal) {
+    get_Item(Index) {
+        pVal := VARIANT()
         result := ComCall(8, this, "int", Index, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-get_count
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} bstrPropName 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-get_itembyname
      */
-    get_ItemByName(bstrPropName, pVal) {
+    get_ItemByName(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
+        pVal := VARIANT()
         result := ComCall(10, this, "ptr", bstrPropName, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} bstrPropName 
      * @param {Pointer<VARIANT>} pVarPropValue 
-     * @param {Pointer<IOCSPProperty>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IOCSPProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-createproperty
      */
-    CreateProperty(bstrPropName, pVarPropValue, ppVal) {
+    CreateProperty(bstrPropName, pVarPropValue) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
-        result := ComCall(11, this, "ptr", bstrPropName, "ptr", pVarPropValue, "ptr*", ppVal, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrPropName, "ptr", pVarPropValue, "ptr*", &ppVal := 0, "HRESULT")
+        return IOCSPProperty(ppVal)
     }
 
     /**
@@ -147,12 +145,12 @@ class IOCSPPropertyCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVarProperties 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocsppropertycollection-getallproperties
      */
-    GetAllProperties(pVarProperties) {
+    GetAllProperties() {
+        pVarProperties := VARIANT()
         result := ComCall(14, this, "ptr", pVarProperties, "HRESULT")
-        return result
+        return pVarProperties
     }
 }

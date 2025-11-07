@@ -31,14 +31,11 @@ class IAddrExclusionControl extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppEnumerator 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetCurrentAddrExclusionList(riid, ppEnumerator) {
-        ppEnumeratorMarshal := ppEnumerator is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, ppEnumeratorMarshal, ppEnumerator, "HRESULT")
-        return result
+    GetCurrentAddrExclusionList(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppEnumerator := 0, "HRESULT")
+        return ppEnumerator
     }
 
     /**

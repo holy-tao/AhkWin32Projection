@@ -52,27 +52,21 @@ class IUIAutomationExpandCollapsePattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-get_currentexpandcollapsestate
      */
-    get_CurrentExpandCollapseState(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentExpandCollapseState() {
+        result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationexpandcollapsepattern-get_cachedexpandcollapsestate
      */
-    get_CachedExpandCollapseState(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedExpandCollapseState() {
+        result := ComCall(6, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLDOMNode.ahk
+#Include .\IHTMLDOMImplementation.ahk
+#Include .\IHTMLDOMAttribute.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,58 +45,54 @@ class IHTMLDocument5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmousewheel(p) {
+    get_onmousewheel() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_doctype(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_doctype() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMImplementation>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMImplementation} 
      */
-    get_implementation(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_implementation() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMImplementation(p)
     }
 
     /**
      * 
      * @param {BSTR} bstrattrName 
-     * @param {Pointer<IHTMLDOMAttribute>} ppattribute 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute} 
      */
-    createAttribute(bstrattrName, ppattribute) {
+    createAttribute(bstrattrName) {
         bstrattrName := bstrattrName is String ? BSTR.Alloc(bstrattrName).Value : bstrattrName
 
-        result := ComCall(11, this, "ptr", bstrattrName, "ptr*", ppattribute, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrattrName, "ptr*", &ppattribute := 0, "HRESULT")
+        return IHTMLDOMAttribute(ppattribute)
     }
 
     /**
      * 
      * @param {BSTR} bstrdata 
-     * @param {Pointer<IHTMLDOMNode>} ppRetNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    createComment(bstrdata, ppRetNode) {
+    createComment(bstrdata) {
         bstrdata := bstrdata is String ? BSTR.Alloc(bstrdata).Value : bstrdata
 
-        result := ComCall(12, this, "ptr", bstrdata, "ptr*", ppRetNode, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", bstrdata, "ptr*", &ppRetNode := 0, "HRESULT")
+        return IHTMLDOMNode(ppRetNode)
     }
 
     /**
@@ -107,12 +107,12 @@ class IHTMLDocument5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onfocusin(p) {
+    get_onfocusin() {
+        p := VARIANT()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -127,12 +127,12 @@ class IHTMLDocument5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onfocusout(p) {
+    get_onfocusout() {
+        p := VARIANT()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -147,12 +147,12 @@ class IHTMLDocument5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onactivate(p) {
+    get_onactivate() {
+        p := VARIANT()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -167,12 +167,12 @@ class IHTMLDocument5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondeactivate(p) {
+    get_ondeactivate() {
+        p := VARIANT()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -187,12 +187,12 @@ class IHTMLDocument5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onbeforeactivate(p) {
+    get_onbeforeactivate() {
+        p := VARIANT()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -207,21 +207,21 @@ class IHTMLDocument5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onbeforedeactivate(p) {
+    get_onbeforedeactivate() {
+        p := VARIANT()
         result := ComCall(24, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_compatMode(p) {
+    get_compatMode() {
+        p := BSTR()
         result := ComCall(25, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

@@ -745,94 +745,18 @@ class IndexServer {
      * Retrieves IFilter from path name for object.
      * @param {PWSTR} pwcsPath A pointer to the full path of an object for which an <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer is to be returned. The path can include a full filename or only the file name extension; for example, ".ext".
      * @param {IUnknown} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this storage object exists.
-     * @param {Pointer<Pointer<Void>>} ppIUnk A pointer to a variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation was completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ACCESSDENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function was denied access to the filter file.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function encountered an invalid handle, probably due to a low-memory situation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function received an invalid parameter.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function did not have sufficient memory or other resources to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unknown error has occurred.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} A pointer to a variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
      * @see https://docs.microsoft.com/windows/win32/api//ntquery/nf-ntquery-loadifilter
      * @since windows5.0
      */
-    static LoadIFilter(pwcsPath, pUnkOuter, ppIUnk) {
+    static LoadIFilter(pwcsPath, pUnkOuter) {
         pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
 
-        ppIUnkMarshal := ppIUnk is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("query.dll\LoadIFilter", "ptr", pwcsPath, "ptr", pUnkOuter, ppIUnkMarshal, ppIUnk, "int")
+        result := DllCall("query.dll\LoadIFilter", "ptr", pwcsPath, "ptr", pUnkOuter, "ptr*", &ppIUnk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppIUnk
     }
 
     /**
@@ -840,203 +764,48 @@ class IndexServer {
      * @param {PWSTR} pwcsPath 
      * @param {Integer} dwFlags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppIUnk 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static LoadIFilterEx(pwcsPath, dwFlags, riid, ppIUnk) {
+    static LoadIFilterEx(pwcsPath, dwFlags, riid) {
         pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
 
-        ppIUnkMarshal := ppIUnk is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("query.dll\LoadIFilterEx", "ptr", pwcsPath, "uint", dwFlags, "ptr", riid, ppIUnkMarshal, ppIUnk, "int")
+        result := DllCall("query.dll\LoadIFilterEx", "ptr", pwcsPath, "uint", dwFlags, "ptr", riid, "ptr*", &ppIUnk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppIUnk
     }
 
     /**
      * Retrieves the IFilter interface pointer for the specified storage object. This is especially useful when filtering the contents of a document and processing embedded OLE objects that are accessible through their IStorage interfaces.
      * @param {IStorage} pStg A pointer to the <b>IStorage</b> interface to be used to access the file.
      * @param {IUnknown} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this storage object exists.
-     * @param {Pointer<Pointer<Void>>} ppIUnk A pointer to an output variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation was completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ACCESSDENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function was denied access to the path of the storage object.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function encountered an invalid handle, probably due to a low-memory situation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function received an invalid parameter.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function did not have sufficient memory or other resources to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unknown error has occurred.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} A pointer to an output variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
      * @see https://docs.microsoft.com/windows/win32/api//ntquery/nf-ntquery-bindifilterfromstorage
      * @since windows5.0
      */
-    static BindIFilterFromStorage(pStg, pUnkOuter, ppIUnk) {
-        ppIUnkMarshal := ppIUnk is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("query.dll\BindIFilterFromStorage", "ptr", pStg, "ptr", pUnkOuter, ppIUnkMarshal, ppIUnk, "int")
+    static BindIFilterFromStorage(pStg, pUnkOuter) {
+        result := DllCall("query.dll\BindIFilterFromStorage", "ptr", pStg, "ptr", pUnkOuter, "ptr*", &ppIUnk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppIUnk
     }
 
     /**
      * Retrieves the IFilter interface pointer for the specified storage object. This is especially useful when filtering the contents of a document and processing embedded OLE objects accessible through their IStream interfaces.
      * @param {IStream} pStm A pointer to the <b>IStream</b> interface to be used to access the file.
      * @param {IUnknown} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this stream object exists.
-     * @param {Pointer<Pointer<Void>>} ppIUnk A pointer to an output variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation was completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ACCESSDENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function was denied access to the path of the storage object.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function encountered an invalid handle, probably due to a low-memory situation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function received an invalid parameter.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function did not have sufficient memory or other resources to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unknown error has occurred.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} A pointer to an output variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
      * @see https://docs.microsoft.com/windows/win32/api//ntquery/nf-ntquery-bindifilterfromstream
      * @since windows5.0
      */
-    static BindIFilterFromStream(pStm, pUnkOuter, ppIUnk) {
-        ppIUnkMarshal := ppIUnk is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("query.dll\BindIFilterFromStream", "ptr", pStm, "ptr", pUnkOuter, ppIUnkMarshal, ppIUnk, "int")
+    static BindIFilterFromStream(pStm, pUnkOuter) {
+        result := DllCall("query.dll\BindIFilterFromStream", "ptr", pStm, "ptr", pUnkOuter, "ptr*", &ppIUnk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppIUnk
     }
 
 ;@endregion Methods

@@ -30,29 +30,23 @@ class IEventTarget2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppEventTypeArray 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      */
-    GetRegisteredEventTypes(ppEventTypeArray) {
-        ppEventTypeArrayMarshal := ppEventTypeArray is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppEventTypeArrayMarshal, ppEventTypeArray, "HRESULT")
-        return result
+    GetRegisteredEventTypes() {
+        result := ComCall(3, this, "ptr*", &ppEventTypeArray := 0, "HRESULT")
+        return ppEventTypeArray
     }
 
     /**
      * 
      * @param {PWSTR} pszEventType 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppEventHandlerArray 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      */
-    GetListenersForType(pszEventType, ppEventHandlerArray) {
+    GetListenersForType(pszEventType) {
         pszEventType := pszEventType is String ? StrPtr(pszEventType) : pszEventType
 
-        ppEventHandlerArrayMarshal := ppEventHandlerArray is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pszEventType, ppEventHandlerArrayMarshal, ppEventHandlerArray, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszEventType, "ptr*", &ppEventHandlerArray := 0, "HRESULT")
+        return ppEventHandlerArray
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,71 +33,65 @@ class ITRequestEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plRegistrationInstance 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_registrationinstance
      */
-    get_RegistrationInstance(plRegistrationInstance) {
-        plRegistrationInstanceMarshal := plRegistrationInstance is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plRegistrationInstanceMarshal, plRegistrationInstance, "HRESULT")
-        return result
+    get_RegistrationInstance() {
+        result := ComCall(7, this, "int*", &plRegistrationInstance := 0, "HRESULT")
+        return plRegistrationInstance
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plRequestMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_requestmode
      */
-    get_RequestMode(plRequestMode) {
-        plRequestModeMarshal := plRequestMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plRequestModeMarshal, plRequestMode, "HRESULT")
-        return result
+    get_RequestMode() {
+        result := ComCall(8, this, "int*", &plRequestMode := 0, "HRESULT")
+        return plRequestMode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppDestAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_destaddress
      */
-    get_DestAddress(ppDestAddress) {
+    get_DestAddress() {
+        ppDestAddress := BSTR()
         result := ComCall(9, this, "ptr", ppDestAddress, "HRESULT")
-        return result
+        return ppDestAddress
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppAppName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_appname
      */
-    get_AppName(ppAppName) {
+    get_AppName() {
+        ppAppName := BSTR()
         result := ComCall(10, this, "ptr", ppAppName, "HRESULT")
-        return result
+        return ppAppName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppCalledParty 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_calledparty
      */
-    get_CalledParty(ppCalledParty) {
+    get_CalledParty() {
+        ppCalledParty := BSTR()
         result := ComCall(11, this, "ptr", ppCalledParty, "HRESULT")
-        return result
+        return ppCalledParty
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppComment 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_comment
      */
-    get_Comment(ppComment) {
+    get_Comment() {
+        ppComment := BSTR()
         result := ComCall(12, this, "ptr", ppComment, "HRESULT")
-        return result
+        return ppComment
     }
 }

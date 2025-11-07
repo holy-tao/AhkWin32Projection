@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Ole\IDropTarget.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IDataObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -139,58 +142,53 @@ class IDocHostUIHandler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pchKey 
      * @param {Integer} dw 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetOptionKeyPath(pchKey, dw) {
-        result := ComCall(13, this, "ptr", pchKey, "uint", dw, "HRESULT")
-        return result
+    GetOptionKeyPath(dw) {
+        result := ComCall(13, this, "ptr*", &pchKey := 0, "uint", dw, "HRESULT")
+        return pchKey
     }
 
     /**
      * 
      * @param {IDropTarget} pDropTarget 
-     * @param {Pointer<IDropTarget>} ppDropTarget 
-     * @returns {HRESULT} 
+     * @returns {IDropTarget} 
      */
-    GetDropTarget(pDropTarget, ppDropTarget) {
-        result := ComCall(14, this, "ptr", pDropTarget, "ptr*", ppDropTarget, "HRESULT")
-        return result
+    GetDropTarget(pDropTarget) {
+        result := ComCall(14, this, "ptr", pDropTarget, "ptr*", &ppDropTarget := 0, "HRESULT")
+        return IDropTarget(ppDropTarget)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppDispatch 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetExternal(ppDispatch) {
-        result := ComCall(15, this, "ptr*", ppDispatch, "HRESULT")
-        return result
+    GetExternal() {
+        result := ComCall(15, this, "ptr*", &ppDispatch := 0, "HRESULT")
+        return IDispatch(ppDispatch)
     }
 
     /**
      * 
      * @param {Integer} dwTranslate 
      * @param {PWSTR} pchURLIn 
-     * @param {Pointer<PWSTR>} ppchURLOut 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    TranslateUrl(dwTranslate, pchURLIn, ppchURLOut) {
+    TranslateUrl(dwTranslate, pchURLIn) {
         pchURLIn := pchURLIn is String ? StrPtr(pchURLIn) : pchURLIn
 
-        result := ComCall(16, this, "uint", dwTranslate, "ptr", pchURLIn, "ptr", ppchURLOut, "HRESULT")
-        return result
+        result := ComCall(16, this, "uint", dwTranslate, "ptr", pchURLIn, "ptr*", &ppchURLOut := 0, "HRESULT")
+        return ppchURLOut
     }
 
     /**
      * 
      * @param {IDataObject} pDO 
-     * @param {Pointer<IDataObject>} ppDORet 
-     * @returns {HRESULT} 
+     * @returns {IDataObject} 
      */
-    FilterDataObject(pDO, ppDORet) {
-        result := ComCall(17, this, "ptr", pDO, "ptr*", ppDORet, "HRESULT")
-        return result
+    FilterDataObject(pDO) {
+        result := ComCall(17, this, "ptr", pDO, "ptr*", &ppDORet := 0, "HRESULT")
+        return IDataObject(ppDORet)
     }
 }

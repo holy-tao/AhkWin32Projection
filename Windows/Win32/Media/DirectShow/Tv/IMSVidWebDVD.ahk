@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\IMSVidRect.ahk
 #Include .\IMSVidPlayback.ahk
 
 /**
@@ -170,12 +172,12 @@ class IMSVidWebDVD extends IMSVidPlayback{
      * 
      * @param {Integer} lStream 
      * @param {VARIANT_BOOL} fFormat 
-     * @param {Pointer<BSTR>} strAudioLang 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_AudioLanguage(lStream, fFormat, strAudioLang) {
+    get_AudioLanguage(lStream, fFormat) {
+        strAudioLang := BSTR()
         result := ComCall(44, this, "int", lStream, "short", fFormat, "ptr", strAudioLang, "HRESULT")
-        return result
+        return strAudioLang
     }
 
     /**
@@ -208,26 +210,20 @@ class IMSVidWebDVD extends IMSVidPlayback{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ButtonsAvailable(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(48, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ButtonsAvailable() {
+        result := ComCall(48, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentButton(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(49, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CurrentButton() {
+        result := ComCall(49, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -311,152 +307,125 @@ class IMSVidWebDVD extends IMSVidPlayback{
      * 
      * @param {Integer} xPos 
      * @param {Integer} yPos 
-     * @param {Pointer<Integer>} plButton 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ButtonAtPosition(xPos, yPos, plButton) {
-        plButtonMarshal := plButton is VarRef ? "int*" : "ptr"
-
-        result := ComCall(58, this, "int", xPos, "int", yPos, plButtonMarshal, plButton, "HRESULT")
-        return result
+    get_ButtonAtPosition(xPos, yPos) {
+        result := ComCall(58, this, "int", xPos, "int", yPos, "int*", &plButton := 0, "HRESULT")
+        return plButton
     }
 
     /**
      * 
      * @param {Integer} lTitle 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_NumberOfChapters(lTitle, pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(59, this, "int", lTitle, pValMarshal, pVal, "HRESULT")
-        return result
+    get_NumberOfChapters(lTitle) {
+        result := ComCall(59, this, "int", lTitle, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_TotalTitleTime(pVal) {
+    get_TotalTitleTime() {
+        pVal := BSTR()
         result := ComCall(60, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TitlesAvailable(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(61, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_TitlesAvailable() {
+        result := ComCall(61, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_VolumesAvailable(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(62, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_VolumesAvailable() {
+        result := ComCall(62, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentVolume(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(63, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CurrentVolume() {
+        result := ComCall(63, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentDiscSide(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(64, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CurrentDiscSide() {
+        result := ComCall(64, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentDomain(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(65, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CurrentDomain() {
+        result := ComCall(65, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentChapter(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(66, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CurrentChapter() {
+        result := ComCall(66, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentTitle(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(67, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CurrentTitle() {
+        result := ComCall(67, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_CurrentTime(pVal) {
+    get_CurrentTime() {
+        pVal := BSTR()
         result := ComCall(68, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {Integer} timeCode 
-     * @param {Pointer<BSTR>} pTimeStr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    DVDTimeCode2bstr(timeCode, pTimeStr) {
+    DVDTimeCode2bstr(timeCode) {
+        pTimeStr := BSTR()
         result := ComCall(69, this, "int", timeCode, "ptr", pTimeStr, "HRESULT")
-        return result
+        return pTimeStr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DVDDirectory(pVal) {
+    get_DVDDirectory() {
+        pVal := BSTR()
         result := ComCall(70, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -474,35 +443,30 @@ class IMSVidWebDVD extends IMSVidPlayback{
     /**
      * 
      * @param {Integer} lstream 
-     * @param {Pointer<VARIANT_BOOL>} fEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    IsSubpictureStreamEnabled(lstream, fEnabled) {
-        result := ComCall(72, this, "int", lstream, "ptr", fEnabled, "HRESULT")
-        return result
+    IsSubpictureStreamEnabled(lstream) {
+        result := ComCall(72, this, "int", lstream, "short*", &fEnabled := 0, "HRESULT")
+        return fEnabled
     }
 
     /**
      * 
      * @param {Integer} lstream 
-     * @param {Pointer<VARIANT_BOOL>} fEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    IsAudioStreamEnabled(lstream, fEnabled) {
-        result := ComCall(73, this, "int", lstream, "ptr", fEnabled, "HRESULT")
-        return result
+    IsAudioStreamEnabled(lstream) {
+        result := ComCall(73, this, "int", lstream, "short*", &fEnabled := 0, "HRESULT")
+        return fEnabled
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentSubpictureStream(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(74, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CurrentSubpictureStream() {
+        result := ComCall(74, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -518,24 +482,21 @@ class IMSVidWebDVD extends IMSVidPlayback{
     /**
      * 
      * @param {Integer} lStream 
-     * @param {Pointer<BSTR>} strLanguage 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SubpictureLanguage(lStream, strLanguage) {
+    get_SubpictureLanguage(lStream) {
+        strLanguage := BSTR()
         result := ComCall(76, this, "int", lStream, "ptr", strLanguage, "HRESULT")
-        return result
+        return strLanguage
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentAudioStream(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(77, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CurrentAudioStream() {
+        result := ComCall(77, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -550,38 +511,29 @@ class IMSVidWebDVD extends IMSVidPlayback{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AudioStreamsAvailable(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(79, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_AudioStreamsAvailable() {
+        result := ComCall(79, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AnglesAvailable(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(80, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_AnglesAvailable() {
+        result := ComCall(80, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentAngle(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(81, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CurrentAngle() {
+        result := ComCall(81, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -596,24 +548,20 @@ class IMSVidWebDVD extends IMSVidPlayback{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SubpictureStreamsAvailable(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(83, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SubpictureStreamsAvailable() {
+        result := ComCall(83, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_SubpictureOn(pVal) {
-        result := ComCall(84, this, "ptr", pVal, "HRESULT")
-        return result
+    get_SubpictureOn() {
+        result := ComCall(84, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -628,12 +576,12 @@ class IMSVidWebDVD extends IMSVidPlayback{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DVDUniqueID(pVal) {
+    get_DVDUniqueID() {
+        pVal := BSTR()
         result := ComCall(86, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -694,38 +642,29 @@ class IMSVidWebDVD extends IMSVidPlayback{
     /**
      * 
      * @param {Integer} lTitle 
-     * @param {Pointer<Integer>} plParentalLevels 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TitleParentalLevels(lTitle, plParentalLevels) {
-        plParentalLevelsMarshal := plParentalLevels is VarRef ? "int*" : "ptr"
-
-        result := ComCall(91, this, "int", lTitle, plParentalLevelsMarshal, plParentalLevels, "HRESULT")
-        return result
+    get_TitleParentalLevels(lTitle) {
+        result := ComCall(91, this, "int", lTitle, "int*", &plParentalLevels := 0, "HRESULT")
+        return plParentalLevels
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCountryCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PlayerParentalCountry(plCountryCode) {
-        plCountryCodeMarshal := plCountryCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(92, this, plCountryCodeMarshal, plCountryCode, "HRESULT")
-        return result
+    get_PlayerParentalCountry() {
+        result := ComCall(92, this, "int*", &plCountryCode := 0, "HRESULT")
+        return plCountryCode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plParentalLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PlayerParentalLevel(plParentalLevel) {
-        plParentalLevelMarshal := plParentalLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(93, this, plParentalLevelMarshal, plParentalLevel, "HRESULT")
-        return result
+    get_PlayerParentalLevel() {
+        result := ComCall(93, this, "int*", &plParentalLevel := 0, "HRESULT")
+        return plParentalLevel
     }
 
     /**
@@ -740,38 +679,31 @@ class IMSVidWebDVD extends IMSVidPlayback{
     /**
      * 
      * @param {Integer} lUOP 
-     * @param {Pointer<VARIANT_BOOL>} pfValid 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    UOPValid(lUOP, pfValid) {
-        result := ComCall(95, this, "int", lUOP, "ptr", pfValid, "HRESULT")
-        return result
+    UOPValid(lUOP) {
+        result := ComCall(95, this, "int", lUOP, "short*", &pfValid := 0, "HRESULT")
+        return pfValid
     }
 
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<Integer>} psSPRM 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SPRM(lIndex, psSPRM) {
-        psSPRMMarshal := psSPRM is VarRef ? "short*" : "ptr"
-
-        result := ComCall(96, this, "int", lIndex, psSPRMMarshal, psSPRM, "HRESULT")
-        return result
+    get_SPRM(lIndex) {
+        result := ComCall(96, this, "int", lIndex, "short*", &psSPRM := 0, "HRESULT")
+        return psSPRM
     }
 
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<Integer>} psSPRM 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_GPRM(lIndex, psSPRM) {
-        psSPRMMarshal := psSPRM is VarRef ? "short*" : "ptr"
-
-        result := ComCall(97, this, "int", lIndex, psSPRMMarshal, psSPRM, "HRESULT")
-        return result
+    get_GPRM(lIndex) {
+        result := ComCall(97, this, "int", lIndex, "short*", &psSPRM := 0, "HRESULT")
+        return psSPRM
     }
 
     /**
@@ -789,64 +721,52 @@ class IMSVidWebDVD extends IMSVidPlayback{
      * 
      * @param {Integer} lLangIndex 
      * @param {Integer} lStringIndex 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DVDTextStringType(lLangIndex, lStringIndex, pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(99, this, "int", lLangIndex, "int", lStringIndex, pTypeMarshal, pType, "HRESULT")
-        return result
+    get_DVDTextStringType(lLangIndex, lStringIndex) {
+        result := ComCall(99, this, "int", lLangIndex, "int", lStringIndex, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
      * @param {Integer} lLangIndex 
      * @param {Integer} lStringIndex 
-     * @param {Pointer<BSTR>} pstrText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DVDTextString(lLangIndex, lStringIndex, pstrText) {
+    get_DVDTextString(lLangIndex, lStringIndex) {
+        pstrText := BSTR()
         result := ComCall(100, this, "int", lLangIndex, "int", lStringIndex, "ptr", pstrText, "HRESULT")
-        return result
+        return pstrText
     }
 
     /**
      * 
      * @param {Integer} lLangIndex 
-     * @param {Pointer<Integer>} plNumOfStrings 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DVDTextNumberOfStrings(lLangIndex, plNumOfStrings) {
-        plNumOfStringsMarshal := plNumOfStrings is VarRef ? "int*" : "ptr"
-
-        result := ComCall(101, this, "int", lLangIndex, plNumOfStringsMarshal, plNumOfStrings, "HRESULT")
-        return result
+    get_DVDTextNumberOfStrings(lLangIndex) {
+        result := ComCall(101, this, "int", lLangIndex, "int*", &plNumOfStrings := 0, "HRESULT")
+        return plNumOfStrings
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plNumOfLangs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DVDTextNumberOfLanguages(plNumOfLangs) {
-        plNumOfLangsMarshal := plNumOfLangs is VarRef ? "int*" : "ptr"
-
-        result := ComCall(102, this, plNumOfLangsMarshal, plNumOfLangs, "HRESULT")
-        return result
+    get_DVDTextNumberOfLanguages() {
+        result := ComCall(102, this, "int*", &plNumOfLangs := 0, "HRESULT")
+        return plNumOfLangs
     }
 
     /**
      * 
      * @param {Integer} lLangIndex 
-     * @param {Pointer<Integer>} lcid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DVDTextLanguageLCID(lLangIndex, lcid) {
-        lcidMarshal := lcid is VarRef ? "int*" : "ptr"
-
-        result := ComCall(103, this, "int", lLangIndex, lcidMarshal, lcid, "HRESULT")
-        return result
+    get_DVDTextLanguageLCID(lLangIndex) {
+        result := ComCall(103, this, "int", lLangIndex, "int*", &lcid := 0, "HRESULT")
+        return lcid
     }
 
     /**
@@ -860,12 +780,11 @@ class IMSVidWebDVD extends IMSVidPlayback{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_DVDAdm(pVal) {
-        result := ComCall(105, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_DVDAdm() {
+        result := ComCall(105, this, "ptr*", &pVal := 0, "HRESULT")
+        return IDispatch(pVal)
     }
 
     /**
@@ -919,26 +838,20 @@ class IMSVidWebDVD extends IMSVidPlayback{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PreferredSubpictureStream(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(111, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PreferredSubpictureStream() {
+        result := ComCall(111, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lang 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DefaultMenuLanguage(lang) {
-        langMarshal := lang is VarRef ? "int*" : "ptr"
-
-        result := ComCall(112, this, langMarshal, lang, "HRESULT")
-        return result
+    get_DefaultMenuLanguage() {
+        result := ComCall(112, this, "int*", &lang := 0, "HRESULT")
+        return lang
     }
 
     /**
@@ -953,73 +866,58 @@ class IMSVidWebDVD extends IMSVidPlayback{
 
     /**
      * 
-     * @param {Pointer<Integer>} lang 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DefaultSubpictureLanguage(lang) {
-        langMarshal := lang is VarRef ? "int*" : "ptr"
-
-        result := ComCall(114, this, langMarshal, lang, "HRESULT")
-        return result
+    get_DefaultSubpictureLanguage() {
+        result := ComCall(114, this, "int*", &lang := 0, "HRESULT")
+        return lang
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lang 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DefaultAudioLanguage(lang) {
-        langMarshal := lang is VarRef ? "int*" : "ptr"
-
-        result := ComCall(115, this, langMarshal, lang, "HRESULT")
-        return result
+    get_DefaultAudioLanguage() {
+        result := ComCall(115, this, "int*", &lang := 0, "HRESULT")
+        return lang
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} ext 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DefaultSubpictureLanguageExt(ext) {
-        extMarshal := ext is VarRef ? "int*" : "ptr"
-
-        result := ComCall(116, this, extMarshal, ext, "HRESULT")
-        return result
+    get_DefaultSubpictureLanguageExt() {
+        result := ComCall(116, this, "int*", &ext := 0, "HRESULT")
+        return ext
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} ext 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DefaultAudioLanguageExt(ext) {
-        extMarshal := ext is VarRef ? "int*" : "ptr"
-
-        result := ComCall(117, this, extMarshal, ext, "HRESULT")
-        return result
+    get_DefaultAudioLanguageExt() {
+        result := ComCall(117, this, "int*", &ext := 0, "HRESULT")
+        return ext
     }
 
     /**
      * 
      * @param {Integer} lcid 
-     * @param {Pointer<BSTR>} lang 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LanguageFromLCID(lcid, lang) {
+    get_LanguageFromLCID(lcid) {
+        lang := BSTR()
         result := ComCall(118, this, "int", lcid, "ptr", lang, "HRESULT")
-        return result
+        return lang
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_KaraokeAudioPresentationMode(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(119, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_KaraokeAudioPresentationMode() {
+        result := ComCall(119, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -1036,27 +934,21 @@ class IMSVidWebDVD extends IMSVidPlayback{
      * 
      * @param {Integer} lStream 
      * @param {Integer} lChan 
-     * @param {Pointer<Integer>} lContent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_KaraokeChannelContent(lStream, lChan, lContent) {
-        lContentMarshal := lContent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(121, this, "int", lStream, "int", lChan, lContentMarshal, lContent, "HRESULT")
-        return result
+    get_KaraokeChannelContent(lStream, lChan) {
+        result := ComCall(121, this, "int", lStream, "int", lChan, "int*", &lContent := 0, "HRESULT")
+        return lContent
     }
 
     /**
      * 
      * @param {Integer} lStream 
-     * @param {Pointer<Integer>} lChannelAssignment 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_KaraokeChannelAssignment(lStream, lChannelAssignment) {
-        lChannelAssignmentMarshal := lChannelAssignment is VarRef ? "int*" : "ptr"
-
-        result := ComCall(122, this, "int", lStream, lChannelAssignmentMarshal, lChannelAssignment, "HRESULT")
-        return result
+    get_KaraokeChannelAssignment(lStream) {
+        result := ComCall(122, this, "int", lStream, "int*", &lChannelAssignment := 0, "HRESULT")
+        return lChannelAssignment
     }
 
     /**
@@ -1071,22 +963,20 @@ class IMSVidWebDVD extends IMSVidPlayback{
     /**
      * 
      * @param {Integer} lButton 
-     * @param {Pointer<IMSVidRect>} pRect 
-     * @returns {HRESULT} 
+     * @returns {IMSVidRect} 
      */
-    get_ButtonRect(lButton, pRect) {
-        result := ComCall(124, this, "int", lButton, "ptr*", pRect, "HRESULT")
-        return result
+    get_ButtonRect(lButton) {
+        result := ComCall(124, this, "int", lButton, "ptr*", &pRect := 0, "HRESULT")
+        return IMSVidRect(pRect)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidRect>} ppRect 
-     * @returns {HRESULT} 
+     * @returns {IMSVidRect} 
      */
-    get_DVDScreenInMouseCoordinates(ppRect) {
-        result := ComCall(125, this, "ptr*", ppRect, "HRESULT")
-        return result
+    get_DVDScreenInMouseCoordinates() {
+        result := ComCall(125, this, "ptr*", &ppRect := 0, "HRESULT")
+        return IMSVidRect(ppRect)
     }
 
     /**

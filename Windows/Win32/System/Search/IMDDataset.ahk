@@ -42,15 +42,13 @@ class IMDDataset extends IUnknown{
     /**
      * 
      * @param {Pointer<Pointer>} pcAxes 
-     * @param {Pointer<Pointer<MDAXISINFO>>} prgAxisInfo 
-     * @returns {HRESULT} 
+     * @returns {Pointer<MDAXISINFO>} 
      */
-    GetAxisInfo(pcAxes, prgAxisInfo) {
+    GetAxisInfo(pcAxes) {
         pcAxesMarshal := pcAxes is VarRef ? "ptr*" : "ptr"
-        prgAxisInfoMarshal := prgAxisInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcAxesMarshal, pcAxes, prgAxisInfoMarshal, prgAxisInfo, "HRESULT")
-        return result
+        result := ComCall(4, this, pcAxesMarshal, pcAxes, "ptr*", &prgAxisInfo := 0, "HRESULT")
+        return prgAxisInfo
     }
 
     /**
@@ -60,12 +58,11 @@ class IMDDataset extends IUnknown{
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
-     * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetAxisRowset(pUnkOuter, iAxis, riid, cPropertySets, rgPropertySets, ppRowset) {
-        result := ComCall(5, this, "ptr", pUnkOuter, "ptr", iAxis, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", ppRowset, "HRESULT")
-        return result
+    GetAxisRowset(pUnkOuter, iAxis, riid, cPropertySets, rgPropertySets) {
+        result := ComCall(5, this, "ptr", pUnkOuter, "ptr", iAxis, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        return IUnknown(ppRowset)
     }
 
     /**
@@ -73,26 +70,22 @@ class IMDDataset extends IUnknown{
      * @param {HACCESSOR} hAccessor 
      * @param {Pointer} ulStartCell 
      * @param {Pointer} ulEndCell 
-     * @param {Pointer<Void>} pData 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      */
-    GetCellData(hAccessor, ulStartCell, ulEndCell, pData) {
+    GetCellData(hAccessor, ulStartCell, ulEndCell) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
-
-        result := ComCall(6, this, "ptr", hAccessor, "ptr", ulStartCell, "ptr", ulEndCell, pDataMarshal, pData, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", hAccessor, "ptr", ulStartCell, "ptr", ulEndCell, "ptr", &pData := 0, "HRESULT")
+        return pData
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppSpecification 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetSpecification(riid, ppSpecification) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", ppSpecification, "HRESULT")
-        return result
+    GetSpecification(riid) {
+        result := ComCall(7, this, "ptr", riid, "ptr*", &ppSpecification := 0, "HRESULT")
+        return IUnknown(ppSpecification)
     }
 }

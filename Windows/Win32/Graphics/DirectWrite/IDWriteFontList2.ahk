@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontSet1.ahk
 #Include .\IDWriteFontList1.ahk
 
 /**
@@ -32,12 +33,11 @@ class IDWriteFontList2 extends IDWriteFontList1{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontSet1>} fontSet 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontlist2-getfontset
      */
-    GetFontSet(fontSet) {
-        result := ComCall(9, this, "ptr*", fontSet, "HRESULT")
-        return result
+    GetFontSet() {
+        result := ComCall(9, this, "ptr*", &fontSet := 0, "HRESULT")
+        return IDWriteFontSet1(fontSet)
     }
 }

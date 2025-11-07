@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVssAsync.ahk
 #Include .\IVssHardwareSnapshotProvider.ahk
 
 /**
@@ -32,15 +33,12 @@ class IVssHardwareSnapshotProviderEx extends IVssHardwareSnapshotProvider{
 
     /**
      * 
-     * @param {Pointer<Integer>} pllOriginalCapabilityMask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-getprovidercapabilities
      */
-    GetProviderCapabilities(pllOriginalCapabilityMask) {
-        pllOriginalCapabilityMaskMarshal := pllOriginalCapabilityMask is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pllOriginalCapabilityMaskMarshal, pllOriginalCapabilityMask, "HRESULT")
-        return result
+    GetProviderCapabilities() {
+        result := ComCall(9, this, "uint*", &pllOriginalCapabilityMask := 0, "HRESULT")
+        return pllOriginalCapabilityMask
     }
 
     /**
@@ -62,13 +60,12 @@ class IVssHardwareSnapshotProviderEx extends IVssHardwareSnapshotProvider{
      * @param {Pointer<VDS_LUN_INFORMATION>} pSourceLuns 
      * @param {Pointer<VDS_LUN_INFORMATION>} pTargetLuns 
      * @param {Integer} dwCount 
-     * @param {Pointer<IVssAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVssAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-resyncluns
      */
-    ResyncLuns(pSourceLuns, pTargetLuns, dwCount, ppAsync) {
-        result := ComCall(11, this, "ptr", pSourceLuns, "ptr", pTargetLuns, "uint", dwCount, "ptr*", ppAsync, "HRESULT")
-        return result
+    ResyncLuns(pSourceLuns, pTargetLuns, dwCount) {
+        result := ComCall(11, this, "ptr", pSourceLuns, "ptr", pTargetLuns, "uint", dwCount, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVssAsync(ppAsync)
     }
 
     /**

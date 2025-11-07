@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\XID.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -42,11 +43,11 @@ class IDtcToXaHelper extends IUnknown{
      * 
      * @param {ITransaction} pITransaction 
      * @param {Pointer<Guid>} pguidBqual 
-     * @param {Pointer<XID>} pXid 
-     * @returns {HRESULT} 
+     * @returns {XID} 
      */
-    TranslateTridToXid(pITransaction, pguidBqual, pXid) {
+    TranslateTridToXid(pITransaction, pguidBqual) {
+        pXid := XID()
         result := ComCall(4, this, "ptr", pITransaction, "ptr", pguidBqual, "ptr", pXid, "HRESULT")
-        return result
+        return pXid
     }
 }

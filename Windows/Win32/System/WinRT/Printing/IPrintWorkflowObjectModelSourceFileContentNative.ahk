@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Storage\Xps\IXpsOMObjectFactory1.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -40,11 +41,10 @@ class IPrintWorkflowObjectModelSourceFileContentNative extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMObjectFactory1>} value 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMObjectFactory1} 
      */
-    get_ObjectFactory(value) {
-        result := ComCall(4, this, "ptr*", value, "HRESULT")
-        return result
+    get_ObjectFactory() {
+        result := ComCall(4, this, "ptr*", &value := 0, "HRESULT")
+        return IXpsOMObjectFactory1(value)
     }
 }

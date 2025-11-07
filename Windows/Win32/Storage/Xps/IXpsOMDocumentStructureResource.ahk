@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMDocument.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include .\IXpsOMResource.ahk
 
 /**
@@ -41,24 +43,22 @@ class IXpsOMDocumentStructureResource extends IXpsOMResource{
 
     /**
      * 
-     * @param {Pointer<IXpsOMDocument>} owner 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDocument} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentstructureresource-getowner
      */
-    GetOwner(owner) {
-        result := ComCall(5, this, "ptr*", owner, "HRESULT")
-        return result
+    GetOwner() {
+        result := ComCall(5, this, "ptr*", &owner := 0, "HRESULT")
+        return IXpsOMDocument(owner)
     }
 
     /**
      * 
-     * @param {Pointer<IStream>} stream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentstructureresource-getstream
      */
-    GetStream(stream) {
-        result := ComCall(6, this, "ptr*", stream, "HRESULT")
-        return result
+    GetStream() {
+        result := ComCall(6, this, "ptr*", &stream := 0, "HRESULT")
+        return IStream(stream)
     }
 
     /**

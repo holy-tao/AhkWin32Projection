@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ICspStatus.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,37 +36,32 @@ class ICspStatuses extends IDispatch{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ICspStatus>} pVal 
-     * @returns {HRESULT} 
+     * @returns {ICspStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatuses-get_itembyindex
      */
-    get_ItemByIndex(Index, pVal) {
-        result := ComCall(7, this, "int", Index, "ptr*", pVal, "HRESULT")
-        return result
+    get_ItemByIndex(Index) {
+        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        return ICspStatus(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatuses-get_count
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatuses-get__newenum
      */
-    get__NewEnum(pVal) {
-        result := ComCall(9, this, "ptr*", pVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
+        return IUnknown(pVal)
     }
 
     /**
@@ -103,28 +100,26 @@ class ICspStatuses extends IDispatch{
      * 
      * @param {BSTR} strCspName 
      * @param {BSTR} strAlgorithmName 
-     * @param {Pointer<ICspStatus>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatuses-get_itembyname
      */
-    get_ItemByName(strCspName, strAlgorithmName, ppValue) {
+    get_ItemByName(strCspName, strAlgorithmName) {
         strCspName := strCspName is String ? BSTR.Alloc(strCspName).Value : strCspName
         strAlgorithmName := strAlgorithmName is String ? BSTR.Alloc(strAlgorithmName).Value : strAlgorithmName
 
-        result := ComCall(13, this, "ptr", strCspName, "ptr", strAlgorithmName, "ptr*", ppValue, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", strCspName, "ptr", strAlgorithmName, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspStatus(ppValue)
     }
 
     /**
      * 
      * @param {Integer} Ordinal 
-     * @param {Pointer<ICspStatus>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatuses-get_itembyordinal
      */
-    get_ItemByOrdinal(Ordinal, ppValue) {
-        result := ComCall(14, this, "int", Ordinal, "ptr*", ppValue, "HRESULT")
-        return result
+    get_ItemByOrdinal(Ordinal) {
+        result := ComCall(14, this, "int", Ordinal, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspStatus(ppValue)
     }
 
     /**
@@ -132,27 +127,25 @@ class ICspStatuses extends IDispatch{
      * @param {BSTR} strCspName 
      * @param {BSTR} strAlgorithmName 
      * @param {Integer} Operations 
-     * @param {Pointer<ICspStatus>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatuses-get_itembyoperations
      */
-    get_ItemByOperations(strCspName, strAlgorithmName, Operations, ppValue) {
+    get_ItemByOperations(strCspName, strAlgorithmName, Operations) {
         strCspName := strCspName is String ? BSTR.Alloc(strCspName).Value : strCspName
         strAlgorithmName := strAlgorithmName is String ? BSTR.Alloc(strAlgorithmName).Value : strAlgorithmName
 
-        result := ComCall(15, this, "ptr", strCspName, "ptr", strAlgorithmName, "int", Operations, "ptr*", ppValue, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", strCspName, "ptr", strAlgorithmName, "int", Operations, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspStatus(ppValue)
     }
 
     /**
      * 
      * @param {ICspStatus} pCspStatus 
-     * @param {Pointer<ICspStatus>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatuses-get_itembyprovider
      */
-    get_ItemByProvider(pCspStatus, ppValue) {
-        result := ComCall(16, this, "ptr", pCspStatus, "ptr*", ppValue, "HRESULT")
-        return result
+    get_ItemByProvider(pCspStatus) {
+        result := ComCall(16, this, "ptr", pCspStatus, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspStatus(ppValue)
     }
 }

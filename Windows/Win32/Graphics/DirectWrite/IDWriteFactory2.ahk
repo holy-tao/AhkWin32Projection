@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFallback.ahk
+#Include .\IDWriteFontFallbackBuilder.ahk
+#Include .\IDWriteColorGlyphRunEnumerator.ahk
+#Include .\IDWriteRenderingParams2.ahk
+#Include .\IDWriteGlyphRunAnalysis.ahk
 #Include .\IDWriteFactory1.ahk
 
 /**
@@ -32,24 +37,22 @@ class IDWriteFactory2 extends IDWriteFactory1{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFallback>} fontFallback 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFallback} 
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefactory2-getsystemfontfallback
      */
-    GetSystemFontFallback(fontFallback) {
-        result := ComCall(26, this, "ptr*", fontFallback, "HRESULT")
-        return result
+    GetSystemFontFallback() {
+        result := ComCall(26, this, "ptr*", &fontFallback := 0, "HRESULT")
+        return IDWriteFontFallback(fontFallback)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFallbackBuilder>} fontFallbackBuilder 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFallbackBuilder} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefactory2-createfontfallbackbuilder
      */
-    CreateFontFallbackBuilder(fontFallbackBuilder) {
-        result := ComCall(27, this, "ptr*", fontFallbackBuilder, "HRESULT")
-        return result
+    CreateFontFallbackBuilder() {
+        result := ComCall(27, this, "ptr*", &fontFallbackBuilder := 0, "HRESULT")
+        return IDWriteFontFallbackBuilder(fontFallbackBuilder)
     }
 
     /**
@@ -61,13 +64,12 @@ class IDWriteFactory2 extends IDWriteFactory1{
      * @param {Integer} measuringMode 
      * @param {Pointer<DWRITE_MATRIX>} worldToDeviceTransform 
      * @param {Integer} colorPaletteIndex 
-     * @param {Pointer<IDWriteColorGlyphRunEnumerator>} colorLayers 
-     * @returns {HRESULT} 
+     * @returns {IDWriteColorGlyphRunEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefactory2-translatecolorglyphrun
      */
-    TranslateColorGlyphRun(baselineOriginX, baselineOriginY, glyphRun, glyphRunDescription, measuringMode, worldToDeviceTransform, colorPaletteIndex, colorLayers) {
-        result := ComCall(28, this, "float", baselineOriginX, "float", baselineOriginY, "ptr", glyphRun, "ptr", glyphRunDescription, "int", measuringMode, "ptr", worldToDeviceTransform, "uint", colorPaletteIndex, "ptr*", colorLayers, "HRESULT")
-        return result
+    TranslateColorGlyphRun(baselineOriginX, baselineOriginY, glyphRun, glyphRunDescription, measuringMode, worldToDeviceTransform, colorPaletteIndex) {
+        result := ComCall(28, this, "float", baselineOriginX, "float", baselineOriginY, "ptr", glyphRun, "ptr", glyphRunDescription, "int", measuringMode, "ptr", worldToDeviceTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
+        return IDWriteColorGlyphRunEnumerator(colorLayers)
     }
 
     /**
@@ -79,13 +81,12 @@ class IDWriteFactory2 extends IDWriteFactory1{
      * @param {Integer} pixelGeometry 
      * @param {Integer} renderingMode 
      * @param {Integer} gridFitMode 
-     * @param {Pointer<IDWriteRenderingParams2>} renderingParams 
-     * @returns {HRESULT} 
+     * @returns {IDWriteRenderingParams2} 
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefactory2-createcustomrenderingparams
      */
-    CreateCustomRenderingParams(gamma, enhancedContrast, grayscaleEnhancedContrast, clearTypeLevel, pixelGeometry, renderingMode, gridFitMode, renderingParams) {
-        result := ComCall(29, this, "float", gamma, "float", enhancedContrast, "float", grayscaleEnhancedContrast, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "int", gridFitMode, "ptr*", renderingParams, "HRESULT")
-        return result
+    CreateCustomRenderingParams(gamma, enhancedContrast, grayscaleEnhancedContrast, clearTypeLevel, pixelGeometry, renderingMode, gridFitMode) {
+        result := ComCall(29, this, "float", gamma, "float", enhancedContrast, "float", grayscaleEnhancedContrast, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "int", gridFitMode, "ptr*", &renderingParams := 0, "HRESULT")
+        return IDWriteRenderingParams2(renderingParams)
     }
 
     /**
@@ -98,12 +99,11 @@ class IDWriteFactory2 extends IDWriteFactory1{
      * @param {Integer} antialiasMode 
      * @param {Float} baselineOriginX 
      * @param {Float} baselineOriginY 
-     * @param {Pointer<IDWriteGlyphRunAnalysis>} glyphRunAnalysis 
-     * @returns {HRESULT} 
+     * @returns {IDWriteGlyphRunAnalysis} 
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefactory2-createglyphrunanalysis
      */
-    CreateGlyphRunAnalysis(glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY, glyphRunAnalysis) {
-        result := ComCall(30, this, "ptr", glyphRun, "ptr", transform, "int", renderingMode, "int", measuringMode, "int", gridFitMode, "int", antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", glyphRunAnalysis, "HRESULT")
-        return result
+    CreateGlyphRunAnalysis(glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
+        result := ComCall(30, this, "ptr", glyphRun, "ptr", transform, "int", renderingMode, "int", measuringMode, "int", gridFitMode, "int", antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+        return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,11 +32,11 @@ class IDOMXmlSerializer extends IDispatch{
     /**
      * 
      * @param {IHTMLDOMNode} pNode 
-     * @param {Pointer<BSTR>} pString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    serializeToString(pNode, pString) {
+    serializeToString(pNode) {
+        pString := BSTR()
         result := ComCall(7, this, "ptr", pNode, "ptr", pString, "HRESULT")
-        return result
+        return pString
     }
 }

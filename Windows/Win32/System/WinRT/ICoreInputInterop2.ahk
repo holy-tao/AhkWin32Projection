@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\IInspectable.ahk
 
 /**
@@ -30,12 +31,12 @@ class ICoreInputInterop2 extends IInspectable{
 
     /**
      * 
-     * @param {Pointer<HWND>} window 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      */
-    get_WindowHandle(window) {
+    get_WindowHandle() {
+        window := HWND()
         result := ComCall(6, this, "ptr", window, "HRESULT")
-        return result
+        return window
     }
 
     /**

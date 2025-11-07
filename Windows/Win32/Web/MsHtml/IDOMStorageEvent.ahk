@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLStorage.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,52 +38,51 @@ class IDOMStorageEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_key(p) {
+    get_key() {
+        p := BSTR()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_oldValue(p) {
+    get_oldValue() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_newValue(p) {
+    get_newValue() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_url(p) {
+    get_url() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStorage>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStorage} 
      */
-    get_storageArea(p) {
-        result := ComCall(11, this, "ptr*", p, "HRESULT")
-        return result
+    get_storageArea() {
+        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStorage(p)
     }
 
     /**

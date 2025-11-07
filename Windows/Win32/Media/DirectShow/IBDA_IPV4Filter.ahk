@@ -65,16 +65,14 @@ class IBDA_IPV4Filter extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pulcbAddresses 
-     * @param {Pointer<Integer>} pAddressList 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipv4filter-getmulticastlist
      */
-    GetMulticastList(pulcbAddresses, pAddressList) {
+    GetMulticastList(pulcbAddresses) {
         pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
-        pAddressListMarshal := pAddressList is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, pulcbAddressesMarshal, pulcbAddresses, pAddressListMarshal, pAddressList, "HRESULT")
-        return result
+        result := ComCall(5, this, pulcbAddressesMarshal, pulcbAddresses, "char*", &pAddressList := 0, "HRESULT")
+        return pAddressList
     }
 
     /**
@@ -90,14 +88,11 @@ class IBDA_IPV4Filter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulModeMask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipv4filter-getmulticastmode
      */
-    GetMulticastMode(pulModeMask) {
-        pulModeMaskMarshal := pulModeMask is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pulModeMaskMarshal, pulModeMask, "HRESULT")
-        return result
+    GetMulticastMode() {
+        result := ComCall(7, this, "uint*", &pulModeMask := 0, "HRESULT")
+        return pulModeMask
     }
 }

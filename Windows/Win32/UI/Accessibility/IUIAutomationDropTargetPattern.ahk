@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,49 +33,43 @@ class IUIAutomationDropTargetPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_currentdroptargeteffect
      */
-    get_CurrentDropTargetEffect(retVal) {
+    get_CurrentDropTargetEffect() {
+        retVal := BSTR()
         result := ComCall(3, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_cacheddroptargeteffect
      */
-    get_CachedDropTargetEffect(retVal) {
+    get_CachedDropTargetEffect() {
+        retVal := BSTR()
         result := ComCall(4, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_currentdroptargeteffects
      */
-    get_CurrentDropTargetEffects(retVal) {
-        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentDropTargetEffects() {
+        result := ComCall(5, this, "ptr*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_cacheddroptargeteffects
      */
-    get_CachedDropTargetEffects(retVal) {
-        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedDropTargetEffects() {
+        result := ComCall(6, this, "ptr*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

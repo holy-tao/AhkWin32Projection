@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumUnknown.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IElementBehaviorSiteCategory extends IUnknown{
      * 
      * @param {Integer} lDirection 
      * @param {PWSTR} pchCategory 
-     * @param {Pointer<IEnumUnknown>} ppEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      */
-    GetRelatedBehaviors(lDirection, pchCategory, ppEnumerator) {
+    GetRelatedBehaviors(lDirection, pchCategory) {
         pchCategory := pchCategory is String ? StrPtr(pchCategory) : pchCategory
 
-        result := ComCall(3, this, "int", lDirection, "ptr", pchCategory, "ptr*", ppEnumerator, "HRESULT")
-        return result
+        result := ComCall(3, this, "int", lDirection, "ptr", pchCategory, "ptr*", &ppEnumerator := 0, "HRESULT")
+        return IEnumUnknown(ppEnumerator)
     }
 }

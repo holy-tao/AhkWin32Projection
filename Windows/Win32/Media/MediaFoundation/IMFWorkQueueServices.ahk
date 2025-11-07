@@ -101,15 +101,12 @@ class IMFWorkQueueServices extends IUnknown{
     /**
      * 
      * @param {Integer} dwTopologyWorkQueueId 
-     * @param {Pointer<Integer>} pdwTaskId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-gettopologyworkqueuemmcsstaskid
      */
-    GetTopologyWorkQueueMMCSSTaskId(dwTopologyWorkQueueId, pdwTaskId) {
-        pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "uint", dwTopologyWorkQueueId, pdwTaskIdMarshal, pdwTaskId, "HRESULT")
-        return result
+    GetTopologyWorkQueueMMCSSTaskId(dwTopologyWorkQueueId) {
+        result := ComCall(8, this, "uint", dwTopologyWorkQueueId, "uint*", &pdwTaskId := 0, "HRESULT")
+        return pdwTaskId
     }
 
     /**
@@ -132,15 +129,12 @@ class IMFWorkQueueServices extends IUnknown{
     /**
      * 
      * @param {IMFAsyncResult} pResult 
-     * @param {Pointer<Integer>} pdwTaskId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-endregisterplatformworkqueuewithmmcss
      */
-    EndRegisterPlatformWorkQueueWithMMCSS(pResult, pdwTaskId) {
-        pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "ptr", pResult, pdwTaskIdMarshal, pdwTaskId, "HRESULT")
-        return result
+    EndRegisterPlatformWorkQueueWithMMCSS(pResult) {
+        result := ComCall(10, this, "ptr", pResult, "uint*", &pdwTaskId := 0, "HRESULT")
+        return pdwTaskId
     }
 
     /**
@@ -187,14 +181,11 @@ class IMFWorkQueueServices extends IUnknown{
     /**
      * 
      * @param {Integer} dwPlatformWorkQueueId 
-     * @param {Pointer<Integer>} pdwTaskId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-getplatformworkqueuemmcsstaskid
      */
-    GetPlatformWorkQueueMMCSSTaskId(dwPlatformWorkQueueId, pdwTaskId) {
-        pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "uint", dwPlatformWorkQueueId, pdwTaskIdMarshal, pdwTaskId, "HRESULT")
-        return result
+    GetPlatformWorkQueueMMCSSTaskId(dwPlatformWorkQueueId) {
+        result := ComCall(14, this, "uint", dwPlatformWorkQueueId, "uint*", &pdwTaskId := 0, "HRESULT")
+        return pdwTaskId
     }
 }

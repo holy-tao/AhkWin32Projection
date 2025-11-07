@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D10_EFFECT_VARIABLE_DESC.ahk
 
 /**
  * The ID3D10EffectVariable interface is the base class for all effect variables.
@@ -51,13 +52,13 @@ class ID3D10EffectVariable extends Win32ComInterface{
 
     /**
      * 
-     * @param {Pointer<D3D10_EFFECT_VARIABLE_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_EFFECT_VARIABLE_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getdesc
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := D3D10_EFFECT_VARIABLE_DESC()
         result := ComCall(2, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**

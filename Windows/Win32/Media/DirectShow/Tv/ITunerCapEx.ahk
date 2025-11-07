@@ -37,12 +37,11 @@ class ITunerCapEx extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbHasCaption 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunercapex-get_has608_708caption
      */
-    get_Has608_708Caption(pbHasCaption) {
-        result := ComCall(3, this, "ptr", pbHasCaption, "HRESULT")
-        return result
+    get_Has608_708Caption() {
+        result := ComCall(3, this, "short*", &pbHasCaption := 0, "HRESULT")
+        return pbHasCaption
     }
 }

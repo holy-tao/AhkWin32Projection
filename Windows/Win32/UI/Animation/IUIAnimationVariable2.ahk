@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAnimationStoryboard2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,42 +33,33 @@ class IUIAnimationVariable2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} dimension 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getdimension
      */
-    GetDimension(dimension) {
-        dimensionMarshal := dimension is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, dimensionMarshal, dimension, "HRESULT")
-        return result
+    GetDimension() {
+        result := ComCall(3, this, "uint*", &dimension := 0, "HRESULT")
+        return dimension
     }
 
     /**
      * 
-     * @param {Pointer<Float>} value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getvalue
      */
-    GetValue(value) {
-        valueMarshal := value is VarRef ? "double*" : "ptr"
-
-        result := ComCall(4, this, valueMarshal, value, "HRESULT")
-        return result
+    GetValue() {
+        result := ComCall(4, this, "double*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Float>} value 
      * @param {Integer} cDimension 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getvectorvalue
      */
-    GetVectorValue(value, cDimension) {
-        valueMarshal := value is VarRef ? "double*" : "ptr"
-
-        result := ComCall(5, this, valueMarshal, value, "uint", cDimension, "HRESULT")
-        return result
+    GetVectorValue(cDimension) {
+        result := ComCall(5, this, "double*", &value := 0, "uint", cDimension, "HRESULT")
+        return value
     }
 
     /**
@@ -95,148 +87,117 @@ class IUIAnimationVariable2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} finalValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalvalue
      */
-    GetFinalValue(finalValue) {
-        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, finalValueMarshal, finalValue, "HRESULT")
-        return result
+    GetFinalValue() {
+        result := ComCall(8, this, "double*", &finalValue := 0, "HRESULT")
+        return finalValue
     }
 
     /**
      * 
-     * @param {Pointer<Float>} finalValue 
      * @param {Integer} cDimension 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalvectorvalue
      */
-    GetFinalVectorValue(finalValue, cDimension) {
-        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, finalValueMarshal, finalValue, "uint", cDimension, "HRESULT")
-        return result
+    GetFinalVectorValue(cDimension) {
+        result := ComCall(9, this, "double*", &finalValue := 0, "uint", cDimension, "HRESULT")
+        return finalValue
     }
 
     /**
      * 
-     * @param {Pointer<Float>} previousValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousvalue
      */
-    GetPreviousValue(previousValue) {
-        previousValueMarshal := previousValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(10, this, previousValueMarshal, previousValue, "HRESULT")
-        return result
+    GetPreviousValue() {
+        result := ComCall(10, this, "double*", &previousValue := 0, "HRESULT")
+        return previousValue
     }
 
     /**
      * 
-     * @param {Pointer<Float>} previousValue 
      * @param {Integer} cDimension 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousvectorvalue
      */
-    GetPreviousVectorValue(previousValue, cDimension) {
-        previousValueMarshal := previousValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(11, this, previousValueMarshal, previousValue, "uint", cDimension, "HRESULT")
-        return result
+    GetPreviousVectorValue(cDimension) {
+        result := ComCall(11, this, "double*", &previousValue := 0, "uint", cDimension, "HRESULT")
+        return previousValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getintegervalue
      */
-    GetIntegerValue(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, valueMarshal, value, "HRESULT")
-        return result
+    GetIntegerValue() {
+        result := ComCall(12, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
      * @param {Integer} cDimension 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getintegervectorvalue
      */
-    GetIntegerVectorValue(value, cDimension) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, valueMarshal, value, "uint", cDimension, "HRESULT")
-        return result
+    GetIntegerVectorValue(cDimension) {
+        result := ComCall(13, this, "int*", &value := 0, "uint", cDimension, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} finalValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalintegervalue
      */
-    GetFinalIntegerValue(finalValue) {
-        finalValueMarshal := finalValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, finalValueMarshal, finalValue, "HRESULT")
-        return result
+    GetFinalIntegerValue() {
+        result := ComCall(14, this, "int*", &finalValue := 0, "HRESULT")
+        return finalValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} finalValue 
      * @param {Integer} cDimension 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalintegervectorvalue
      */
-    GetFinalIntegerVectorValue(finalValue, cDimension) {
-        finalValueMarshal := finalValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, finalValueMarshal, finalValue, "uint", cDimension, "HRESULT")
-        return result
+    GetFinalIntegerVectorValue(cDimension) {
+        result := ComCall(15, this, "int*", &finalValue := 0, "uint", cDimension, "HRESULT")
+        return finalValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} previousValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousintegervalue
      */
-    GetPreviousIntegerValue(previousValue) {
-        previousValueMarshal := previousValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, previousValueMarshal, previousValue, "HRESULT")
-        return result
+    GetPreviousIntegerValue() {
+        result := ComCall(16, this, "int*", &previousValue := 0, "HRESULT")
+        return previousValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} previousValue 
      * @param {Integer} cDimension 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousintegervectorvalue
      */
-    GetPreviousIntegerVectorValue(previousValue, cDimension) {
-        previousValueMarshal := previousValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, previousValueMarshal, previousValue, "uint", cDimension, "HRESULT")
-        return result
+    GetPreviousIntegerVectorValue(cDimension) {
+        result := ComCall(17, this, "int*", &previousValue := 0, "uint", cDimension, "HRESULT")
+        return previousValue
     }
 
     /**
      * 
-     * @param {Pointer<IUIAnimationStoryboard2>} storyboard 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationStoryboard2} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getcurrentstoryboard
      */
-    GetCurrentStoryboard(storyboard) {
-        result := ComCall(18, this, "ptr*", storyboard, "HRESULT")
-        return result
+    GetCurrentStoryboard() {
+        result := ComCall(18, this, "ptr*", &storyboard := 0, "HRESULT")
+        return IUIAnimationStoryboard2(storyboard)
     }
 
     /**

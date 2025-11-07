@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLDOMNode.ahk
+#Include .\IXMLDOMSelection.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\IXMLDOMNodeList.ahk
 
 /**
@@ -31,12 +34,12 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
 
     /**
      * 
-     * @param {Pointer<BSTR>} expression 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_expr(expression) {
+    get_expr() {
+        expression := BSTR()
         result := ComCall(12, this, "ptr", expression, "HRESULT")
-        return result
+        return expression
     }
 
     /**
@@ -53,12 +56,11 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} ppNode 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    get_context(ppNode) {
-        result := ComCall(14, this, "ptr*", ppNode, "HRESULT")
-        return result
+    get_context() {
+        result := ComCall(14, this, "ptr*", &ppNode := 0, "HRESULT")
+        return IXMLDOMNode(ppNode)
     }
 
     /**
@@ -73,33 +75,30 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} ppNode 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    peekNode(ppNode) {
-        result := ComCall(16, this, "ptr*", ppNode, "HRESULT")
-        return result
+    peekNode() {
+        result := ComCall(16, this, "ptr*", &ppNode := 0, "HRESULT")
+        return IXMLDOMNode(ppNode)
     }
 
     /**
      * 
      * @param {IXMLDOMNode} pNode 
-     * @param {Pointer<IXMLDOMNode>} ppNode 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    matches(pNode, ppNode) {
-        result := ComCall(17, this, "ptr", pNode, "ptr*", ppNode, "HRESULT")
-        return result
+    matches(pNode) {
+        result := ComCall(17, this, "ptr", pNode, "ptr*", &ppNode := 0, "HRESULT")
+        return IXMLDOMNode(ppNode)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} ppNode 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    removeNext(ppNode) {
-        result := ComCall(18, this, "ptr*", ppNode, "HRESULT")
-        return result
+    removeNext() {
+        result := ComCall(18, this, "ptr*", &ppNode := 0, "HRESULT")
+        return IXMLDOMNode(ppNode)
     }
 
     /**
@@ -113,25 +112,24 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
 
     /**
      * 
-     * @param {Pointer<IXMLDOMSelection>} ppNode 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMSelection} 
      */
-    clone(ppNode) {
-        result := ComCall(20, this, "ptr*", ppNode, "HRESULT")
-        return result
+    clone() {
+        result := ComCall(20, this, "ptr*", &ppNode := 0, "HRESULT")
+        return IXMLDOMSelection(ppNode)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<VARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getProperty(name, value) {
+    getProperty(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
+        value := VARIANT()
         result := ComCall(21, this, "ptr", name, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**

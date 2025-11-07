@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_ADVANCEDDISK_PROP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,21 +31,20 @@ class IVdsAdvancedDisk3 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_ADVANCEDDISK_PROP>} pAdvDiskProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_ADVANCEDDISK_PROP} 
      */
-    GetProperties(pAdvDiskProp) {
+    GetProperties() {
+        pAdvDiskProp := VDS_ADVANCEDDISK_PROP()
         result := ComCall(3, this, "ptr", pAdvDiskProp, "HRESULT")
-        return result
+        return pAdvDiskProp
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetUniqueId(ppwszId) {
-        result := ComCall(4, this, "ptr", ppwszId, "HRESULT")
-        return result
+    GetUniqueId() {
+        result := ComCall(4, this, "ptr*", &ppwszId := 0, "HRESULT")
+        return ppwszId
     }
 }

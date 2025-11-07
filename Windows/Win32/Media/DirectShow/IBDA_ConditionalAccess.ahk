@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,8 +48,9 @@ class IBDA_ConditionalAccess extends IUnknown{
     get_SmartCardStatus(pCardStatus, pCardAssociation, pbstrCardError, pfOOBLocked) {
         pCardStatusMarshal := pCardStatus is VarRef ? "int*" : "ptr"
         pCardAssociationMarshal := pCardAssociation is VarRef ? "int*" : "ptr"
+        pfOOBLockedMarshal := pfOOBLocked is VarRef ? "short*" : "ptr"
 
-        result := ComCall(3, this, pCardStatusMarshal, pCardStatus, pCardAssociationMarshal, pCardAssociation, "ptr", pbstrCardError, "ptr", pfOOBLocked, "HRESULT")
+        result := ComCall(3, this, pCardStatusMarshal, pCardStatus, pCardAssociationMarshal, pCardAssociation, "ptr", pbstrCardError, pfOOBLockedMarshal, pfOOBLocked, "HRESULT")
         return result
     }
 
@@ -65,10 +67,11 @@ class IBDA_ConditionalAccess extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-get_smartcardinfo
      */
     get_SmartCardInfo(pbstrCardName, pbstrCardManufacturer, pfDaylightSavings, pbyRatingRegion, plTimeZoneOffsetMinutes, pbstrLanguage, pEALocationCode) {
+        pfDaylightSavingsMarshal := pfDaylightSavings is VarRef ? "short*" : "ptr"
         pbyRatingRegionMarshal := pbyRatingRegion is VarRef ? "char*" : "ptr"
         plTimeZoneOffsetMinutesMarshal := plTimeZoneOffsetMinutes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pbstrCardName, "ptr", pbstrCardManufacturer, "ptr", pfDaylightSavings, pbyRatingRegionMarshal, pbyRatingRegion, plTimeZoneOffsetMinutesMarshal, plTimeZoneOffsetMinutes, "ptr", pbstrLanguage, "ptr", pEALocationCode, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrCardName, "ptr", pbstrCardManufacturer, pfDaylightSavingsMarshal, pfDaylightSavings, pbyRatingRegionMarshal, pbyRatingRegion, plTimeZoneOffsetMinutesMarshal, plTimeZoneOffsetMinutes, "ptr", pbstrLanguage, "ptr", pEALocationCode, "HRESULT")
         return result
     }
 
@@ -90,15 +93,12 @@ class IBDA_ConditionalAccess extends IUnknown{
     /**
      * 
      * @param {Integer} usVirtualChannel 
-     * @param {Pointer<Integer>} pEntitlement 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-get_entitlement
      */
-    get_Entitlement(usVirtualChannel, pEntitlement) {
-        pEntitlementMarshal := pEntitlement is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, "ushort", usVirtualChannel, pEntitlementMarshal, pEntitlement, "HRESULT")
-        return result
+    get_Entitlement(usVirtualChannel) {
+        result := ComCall(6, this, "ushort", usVirtualChannel, "int*", &pEntitlement := 0, "HRESULT")
+        return pEntitlement
     }
 
     /**
@@ -148,13 +148,13 @@ class IBDA_ConditionalAccess extends IUnknown{
     /**
      * 
      * @param {Integer} byDialogNumber 
-     * @param {Pointer<BSTR>} pbstrURL 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-getmoduleui
      */
-    GetModuleUI(byDialogNumber, pbstrURL) {
+    GetModuleUI(byDialogNumber) {
+        pbstrURL := BSTR()
         result := ComCall(11, this, "char", byDialogNumber, "ptr", pbstrURL, "HRESULT")
-        return result
+        return pbstrURL
     }
 
     /**

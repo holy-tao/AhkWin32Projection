@@ -32,31 +32,25 @@ class IProviderQueryConstraintCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-getcount
      */
-    GetCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
      * @param {PWSTR} pszConstraintName 
-     * @param {Pointer<Pointer<Integer>>} ppszConstraintValue 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-get
      */
-    Get(pszConstraintName, ppszConstraintValue) {
+    Get(pszConstraintName) {
         pszConstraintName := pszConstraintName is String ? StrPtr(pszConstraintName) : pszConstraintName
 
-        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pszConstraintName, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszConstraintName, "ptr*", &ppszConstraintValue := 0, "HRESULT")
+        return ppszConstraintValue
     }
 
     /**

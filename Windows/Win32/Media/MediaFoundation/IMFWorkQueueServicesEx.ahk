@@ -41,15 +41,12 @@ class IMFWorkQueueServicesEx extends IMFWorkQueueServices{
     /**
      * 
      * @param {Integer} dwTopologyWorkQueueId 
-     * @param {Pointer<Integer>} plPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservicesex-gettopologyworkqueuemmcsspriority
      */
-    GetTopologyWorkQueueMMCSSPriority(dwTopologyWorkQueueId, plPriority) {
-        plPriorityMarshal := plPriority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, "uint", dwTopologyWorkQueueId, plPriorityMarshal, plPriority, "HRESULT")
-        return result
+    GetTopologyWorkQueueMMCSSPriority(dwTopologyWorkQueueId) {
+        result := ComCall(15, this, "uint", dwTopologyWorkQueueId, "int*", &plPriority := 0, "HRESULT")
+        return plPriority
     }
 
     /**
@@ -73,14 +70,11 @@ class IMFWorkQueueServicesEx extends IMFWorkQueueServices{
     /**
      * 
      * @param {Integer} dwPlatformWorkQueueId 
-     * @param {Pointer<Integer>} plPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservicesex-getplatformworkqueuemmcsspriority
      */
-    GetPlatformWorkQueueMMCSSPriority(dwPlatformWorkQueueId, plPriority) {
-        plPriorityMarshal := plPriority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, "uint", dwPlatformWorkQueueId, plPriorityMarshal, plPriority, "HRESULT")
-        return result
+    GetPlatformWorkQueueMMCSSPriority(dwPlatformWorkQueueId) {
+        result := ComCall(17, this, "uint", dwPlatformWorkQueueId, "int*", &plPriority := 0, "HRESULT")
+        return plPriority
     }
 }

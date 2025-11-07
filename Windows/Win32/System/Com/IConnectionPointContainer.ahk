@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumConnectionPoints.ahk
+#Include .\IConnectionPoint.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -50,24 +52,22 @@ class IConnectionPointContainer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumConnectionPoints>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumConnectionPoints} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpointcontainer-enumconnectionpoints
      */
-    EnumConnectionPoints(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumConnectionPoints() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumConnectionPoints(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IConnectionPoint>} ppCP 
-     * @returns {HRESULT} 
+     * @returns {IConnectionPoint} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpointcontainer-findconnectionpoint
      */
-    FindConnectionPoint(riid, ppCP) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", ppCP, "HRESULT")
-        return result
+    FindConnectionPoint(riid) {
+        result := ComCall(4, this, "ptr", riid, "ptr*", &ppCP := 0, "HRESULT")
+        return IConnectionPoint(ppCP)
     }
 }

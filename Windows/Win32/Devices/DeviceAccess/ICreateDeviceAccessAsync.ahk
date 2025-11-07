@@ -64,14 +64,11 @@ class ICreateDeviceAccessAsync extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} deviceAccess 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-icreatedeviceaccessasync-getresult
      */
-    GetResult(riid, deviceAccess) {
-        deviceAccessMarshal := deviceAccess is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", riid, deviceAccessMarshal, deviceAccess, "HRESULT")
-        return result
+    GetResult(riid) {
+        result := ComCall(6, this, "ptr", riid, "ptr*", &deviceAccess := 0, "HRESULT")
+        return deviceAccess
     }
 }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\INetFwRules.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -57,26 +58,24 @@ class INetFwServiceRestriction extends IDispatch{
      * 
      * @param {BSTR} serviceName 
      * @param {BSTR} appName 
-     * @param {Pointer<VARIANT_BOOL>} serviceRestricted 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservicerestriction-servicerestricted
      */
-    ServiceRestricted(serviceName, appName, serviceRestricted) {
+    ServiceRestricted(serviceName, appName) {
         serviceName := serviceName is String ? BSTR.Alloc(serviceName).Value : serviceName
         appName := appName is String ? BSTR.Alloc(appName).Value : appName
 
-        result := ComCall(8, this, "ptr", serviceName, "ptr", appName, "ptr", serviceRestricted, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", serviceName, "ptr", appName, "short*", &serviceRestricted := 0, "HRESULT")
+        return serviceRestricted
     }
 
     /**
      * 
-     * @param {Pointer<INetFwRules>} rules 
-     * @returns {HRESULT} 
+     * @returns {INetFwRules} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservicerestriction-get_rules
      */
-    get_Rules(rules) {
-        result := ComCall(9, this, "ptr*", rules, "HRESULT")
-        return result
+    get_Rules() {
+        result := ComCall(9, this, "ptr*", &rules := 0, "HRESULT")
+        return INetFwRules(rules)
     }
 }

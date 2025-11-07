@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\IVssExpressWriter.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Vss
@@ -428,58 +429,16 @@ class Vss {
 ;@region Methods
     /**
      * Creates an IVssExpressWriter interface object and returns a pointer to it.
-     * @param {Pointer<IVssExpressWriter>} ppWriter Doubly indirect pointer to the newly created <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivssexpresswriter">IVssExpressWriter</a> object.
-     * @returns {HRESULT} The return values listed here are in addition to the normal COM HRESULT values that may be returned at any time from the function.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Successfully returned a pointer to an 
-     *         <a href="/windows/desktop/api/vswriter/nl-vswriter-ivssexpresswriter">IVssExpressWriter</a> interface.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ACCESSDENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller does not have sufficient privileges.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IVssExpressWriter} Doubly indirect pointer to the newly created <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivssexpresswriter">IVssExpressWriter</a> object.
      * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-createvssexpresswriterinternal
      * @since windows6.1
      */
-    static CreateVssExpressWriterInternal(ppWriter) {
-        result := DllCall("VSSAPI.dll\CreateVssExpressWriterInternal", "ptr*", ppWriter, "int")
+    static CreateVssExpressWriterInternal() {
+        result := DllCall("VSSAPI.dll\CreateVssExpressWriterInternal", "ptr*", &ppWriter := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IVssExpressWriter(ppWriter)
     }
 
 ;@endregion Methods

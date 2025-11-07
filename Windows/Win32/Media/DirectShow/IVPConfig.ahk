@@ -42,7 +42,9 @@ class IVPConfig extends IVPBaseConfig{
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpconfig-isvpdecimationallowed
      */
     IsVPDecimationAllowed(pbIsDecimationAllowed) {
-        result := ComCall(16, this, "ptr", pbIsDecimationAllowed, "HRESULT")
+        pbIsDecimationAllowedMarshal := pbIsDecimationAllowed is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pbIsDecimationAllowedMarshal, pbIsDecimationAllowed, "HRESULT")
         return result
     }
 

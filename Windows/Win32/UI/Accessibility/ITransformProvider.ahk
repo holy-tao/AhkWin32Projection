@@ -77,34 +77,31 @@ class ITransformProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider-get_canmove
      */
-    get_CanMove(pRetVal) {
-        result := ComCall(6, this, "ptr", pRetVal, "HRESULT")
-        return result
+    get_CanMove() {
+        result := ComCall(6, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider-get_canresize
      */
-    get_CanResize(pRetVal) {
-        result := ComCall(7, this, "ptr", pRetVal, "HRESULT")
-        return result
+    get_CanResize() {
+        result := ComCall(7, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider-get_canrotate
      */
-    get_CanRotate(pRetVal) {
-        result := ComCall(8, this, "ptr", pRetVal, "HRESULT")
-        return result
+    get_CanRotate() {
+        result := ComCall(8, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

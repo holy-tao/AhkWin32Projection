@@ -32,12 +32,11 @@ class ISnapinHelp2 extends ISnapinHelp{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpCompiledHelpFiles 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinhelp2-getlinkedtopics
      */
-    GetLinkedTopics(lpCompiledHelpFiles) {
-        result := ComCall(4, this, "ptr", lpCompiledHelpFiles, "HRESULT")
-        return result
+    GetLinkedTopics() {
+        result := ComCall(4, this, "ptr*", &lpCompiledHelpFiles := 0, "HRESULT")
+        return lpCompiledHelpFiles
     }
 }

@@ -33,33 +33,27 @@ class IOfflineFilesSimpleProgress extends IOfflineFilesProgress{
     /**
      * 
      * @param {PWSTR} pszFile 
-     * @param {Pointer<Integer>} pResponse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessimpleprogress-itembegin
      */
-    ItemBegin(pszFile, pResponse) {
+    ItemBegin(pszFile) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pszFile, pResponseMarshal, pResponse, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszFile, "int*", &pResponse := 0, "HRESULT")
+        return pResponse
     }
 
     /**
      * 
      * @param {PWSTR} pszFile 
      * @param {HRESULT} hrResult 
-     * @param {Pointer<Integer>} pResponse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessimpleprogress-itemresult
      */
-    ItemResult(pszFile, hrResult, pResponse) {
+    ItemResult(pszFile, hrResult) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pszFile, "int", hrResult, pResponseMarshal, pResponse, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pszFile, "int", hrResult, "int*", &pResponse := 0, "HRESULT")
+        return pResponse
     }
 }

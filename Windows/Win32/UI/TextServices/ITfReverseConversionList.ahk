@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,26 +37,23 @@ class ITfReverseConversionList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreverseconversionlist-getlength
      */
-    GetLength(puIndex) {
-        puIndexMarshal := puIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, puIndexMarshal, puIndex, "HRESULT")
-        return result
+    GetLength() {
+        result := ComCall(3, this, "uint*", &puIndex := 0, "HRESULT")
+        return puIndex
     }
 
     /**
      * 
      * @param {Integer} uIndex 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreverseconversionlist-getstring
      */
-    GetString(uIndex, pbstr) {
+    GetString(uIndex) {
+        pbstr := BSTR()
         result := ComCall(4, this, "uint", uIndex, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 }

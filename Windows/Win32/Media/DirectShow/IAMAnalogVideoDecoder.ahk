@@ -37,15 +37,12 @@ class IAMAnalogVideoDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} lAnalogVideoStandard 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_availabletvformats
      */
-    get_AvailableTVFormats(lAnalogVideoStandard) {
-        lAnalogVideoStandardMarshal := lAnalogVideoStandard is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, lAnalogVideoStandardMarshal, lAnalogVideoStandard, "HRESULT")
-        return result
+    get_AvailableTVFormats() {
+        result := ComCall(3, this, "int*", &lAnalogVideoStandard := 0, "HRESULT")
+        return lAnalogVideoStandard
     }
 
     /**
@@ -61,28 +58,22 @@ class IAMAnalogVideoDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plAnalogVideoStandard 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_tvformat
      */
-    get_TVFormat(plAnalogVideoStandard) {
-        plAnalogVideoStandardMarshal := plAnalogVideoStandard is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, plAnalogVideoStandardMarshal, plAnalogVideoStandard, "HRESULT")
-        return result
+    get_TVFormat() {
+        result := ComCall(5, this, "int*", &plAnalogVideoStandard := 0, "HRESULT")
+        return plAnalogVideoStandard
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plLocked 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_horizontallocked
      */
-    get_HorizontalLocked(plLocked) {
-        plLockedMarshal := plLocked is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, plLockedMarshal, plLocked, "HRESULT")
-        return result
+    get_HorizontalLocked() {
+        result := ComCall(6, this, "int*", &plLocked := 0, "HRESULT")
+        return plLocked
     }
 
     /**
@@ -98,28 +89,22 @@ class IAMAnalogVideoDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plVCRHorizontalLocking 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_vcrhorizontallocking
      */
-    get_VCRHorizontalLocking(plVCRHorizontalLocking) {
-        plVCRHorizontalLockingMarshal := plVCRHorizontalLocking is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plVCRHorizontalLockingMarshal, plVCRHorizontalLocking, "HRESULT")
-        return result
+    get_VCRHorizontalLocking() {
+        result := ComCall(8, this, "int*", &plVCRHorizontalLocking := 0, "HRESULT")
+        return plVCRHorizontalLocking
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plNumberOfLines 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_numberoflines
      */
-    get_NumberOfLines(plNumberOfLines) {
-        plNumberOfLinesMarshal := plNumberOfLines is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plNumberOfLinesMarshal, plNumberOfLines, "HRESULT")
-        return result
+    get_NumberOfLines() {
+        result := ComCall(9, this, "int*", &plNumberOfLines := 0, "HRESULT")
+        return plNumberOfLines
     }
 
     /**
@@ -135,14 +120,11 @@ class IAMAnalogVideoDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plOutputEnable 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_outputenable
      */
-    get_OutputEnable(plOutputEnable) {
-        plOutputEnableMarshal := plOutputEnable is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plOutputEnableMarshal, plOutputEnable, "HRESULT")
-        return result
+    get_OutputEnable() {
+        result := ComCall(11, this, "int*", &plOutputEnable := 0, "HRESULT")
+        return plOutputEnable
     }
 }

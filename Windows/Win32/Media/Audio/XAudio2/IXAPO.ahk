@@ -38,45 +38,36 @@ class IXAPO extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<XAPO_REGISTRATION_PROPERTIES>>} ppRegistrationProperties 
-     * @returns {HRESULT} 
+     * @returns {Pointer<XAPO_REGISTRATION_PROPERTIES>} 
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-getregistrationproperties
      */
-    GetRegistrationProperties(ppRegistrationProperties) {
-        ppRegistrationPropertiesMarshal := ppRegistrationProperties is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppRegistrationPropertiesMarshal, ppRegistrationProperties, "HRESULT")
-        return result
+    GetRegistrationProperties() {
+        result := ComCall(3, this, "ptr*", &ppRegistrationProperties := 0, "HRESULT")
+        return ppRegistrationProperties
     }
 
     /**
      * 
      * @param {Pointer<WAVEFORMATEX>} pOutputFormat 
      * @param {Pointer<WAVEFORMATEX>} pRequestedInputFormat 
-     * @param {Pointer<Pointer<WAVEFORMATEX>>} ppSupportedInputFormat 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WAVEFORMATEX>} 
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-isinputformatsupported
      */
-    IsInputFormatSupported(pOutputFormat, pRequestedInputFormat, ppSupportedInputFormat) {
-        ppSupportedInputFormatMarshal := ppSupportedInputFormat is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pOutputFormat, "ptr", pRequestedInputFormat, ppSupportedInputFormatMarshal, ppSupportedInputFormat, "HRESULT")
-        return result
+    IsInputFormatSupported(pOutputFormat, pRequestedInputFormat) {
+        result := ComCall(4, this, "ptr", pOutputFormat, "ptr", pRequestedInputFormat, "ptr*", &ppSupportedInputFormat := 0, "HRESULT")
+        return ppSupportedInputFormat
     }
 
     /**
      * 
      * @param {Pointer<WAVEFORMATEX>} pInputFormat 
      * @param {Pointer<WAVEFORMATEX>} pRequestedOutputFormat 
-     * @param {Pointer<Pointer<WAVEFORMATEX>>} ppSupportedOutputFormat 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WAVEFORMATEX>} 
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-isoutputformatsupported
      */
-    IsOutputFormatSupported(pInputFormat, pRequestedOutputFormat, ppSupportedOutputFormat) {
-        ppSupportedOutputFormatMarshal := ppSupportedOutputFormat is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pInputFormat, "ptr", pRequestedOutputFormat, ppSupportedOutputFormatMarshal, ppSupportedOutputFormat, "HRESULT")
-        return result
+    IsOutputFormatSupported(pInputFormat, pRequestedOutputFormat) {
+        result := ComCall(5, this, "ptr", pInputFormat, "ptr", pRequestedOutputFormat, "ptr*", &ppSupportedOutputFormat := 0, "HRESULT")
+        return ppSupportedOutputFormat
     }
 
     /**

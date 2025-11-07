@@ -32,67 +32,52 @@ class IWSDiscoveredService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<WSD_ENDPOINT_REFERENCE>>} ppEndpointReference 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSD_ENDPOINT_REFERENCE>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getendpointreference
      */
-    GetEndpointReference(ppEndpointReference) {
-        ppEndpointReferenceMarshal := ppEndpointReference is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppEndpointReferenceMarshal, ppEndpointReference, "HRESULT")
-        return result
+    GetEndpointReference() {
+        result := ComCall(3, this, "ptr*", &ppEndpointReference := 0, "HRESULT")
+        return ppEndpointReference
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<WSD_NAME_LIST>>} ppTypesList 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSD_NAME_LIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-gettypes
      */
-    GetTypes(ppTypesList) {
-        ppTypesListMarshal := ppTypesList is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppTypesListMarshal, ppTypesList, "HRESULT")
-        return result
+    GetTypes() {
+        result := ComCall(4, this, "ptr*", &ppTypesList := 0, "HRESULT")
+        return ppTypesList
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<WSD_URI_LIST>>} ppScopesList 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSD_URI_LIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getscopes
      */
-    GetScopes(ppScopesList) {
-        ppScopesListMarshal := ppScopesList is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, ppScopesListMarshal, ppScopesList, "HRESULT")
-        return result
+    GetScopes() {
+        result := ComCall(5, this, "ptr*", &ppScopesList := 0, "HRESULT")
+        return ppScopesList
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<WSD_URI_LIST>>} ppXAddrsList 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSD_URI_LIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getxaddrs
      */
-    GetXAddrs(ppXAddrsList) {
-        ppXAddrsListMarshal := ppXAddrsList is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, ppXAddrsListMarshal, ppXAddrsList, "HRESULT")
-        return result
+    GetXAddrs() {
+        result := ComCall(6, this, "ptr*", &ppXAddrsList := 0, "HRESULT")
+        return ppXAddrsList
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pullMetadataVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getmetadataversion
      */
-    GetMetadataVersion(pullMetadataVersion) {
-        pullMetadataVersionMarshal := pullMetadataVersion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pullMetadataVersionMarshal, pullMetadataVersion, "HRESULT")
-        return result
+    GetMetadataVersion() {
+        result := ComCall(7, this, "uint*", &pullMetadataVersion := 0, "HRESULT")
+        return pullMetadataVersion
     }
 
     /**
@@ -112,58 +97,52 @@ class IWSDiscoveredService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszTag 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getproberesolvetag
      */
-    GetProbeResolveTag(ppszTag) {
-        result := ComCall(9, this, "ptr", ppszTag, "HRESULT")
-        return result
+    GetProbeResolveTag() {
+        result := ComCall(9, this, "ptr*", &ppszTag := 0, "HRESULT")
+        return ppszTag
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszRemoteTransportAddress 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getremotetransportaddress
      */
-    GetRemoteTransportAddress(ppszRemoteTransportAddress) {
-        result := ComCall(10, this, "ptr", ppszRemoteTransportAddress, "HRESULT")
-        return result
+    GetRemoteTransportAddress() {
+        result := ComCall(10, this, "ptr*", &ppszRemoteTransportAddress := 0, "HRESULT")
+        return ppszRemoteTransportAddress
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszLocalTransportAddress 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getlocaltransportaddress
      */
-    GetLocalTransportAddress(ppszLocalTransportAddress) {
-        result := ComCall(11, this, "ptr", ppszLocalTransportAddress, "HRESULT")
-        return result
+    GetLocalTransportAddress() {
+        result := ComCall(11, this, "ptr*", &ppszLocalTransportAddress := 0, "HRESULT")
+        return ppszLocalTransportAddress
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getlocalinterfaceguid
      */
-    GetLocalInterfaceGUID(pGuid) {
+    GetLocalInterfaceGUID() {
+        pGuid := Guid()
         result := ComCall(12, this, "ptr", pGuid, "HRESULT")
-        return result
+        return pGuid
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pullInstanceId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getinstanceid
      */
-    GetInstanceId(pullInstanceId) {
-        pullInstanceIdMarshal := pullInstanceId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pullInstanceIdMarshal, pullInstanceId, "HRESULT")
-        return result
+    GetInstanceId() {
+        result := ComCall(13, this, "uint*", &pullInstanceId := 0, "HRESULT")
+        return pullInstanceId
     }
 }

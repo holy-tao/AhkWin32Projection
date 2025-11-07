@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\IOleUILinkContainerA.ahk
 
 /**
@@ -34,12 +35,12 @@ class IOleUILinkInfoA extends IOleUILinkContainerA{
     /**
      * 
      * @param {Integer} dwLink 
-     * @param {Pointer<FILETIME>} lpLastUpdate 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkinfoa-getlastupdate
      */
-    GetLastUpdate(dwLink, lpLastUpdate) {
+    GetLastUpdate(dwLink) {
+        lpLastUpdate := FILETIME()
         result := ComCall(11, this, "uint", dwLink, "ptr", lpLastUpdate, "HRESULT")
-        return result
+        return lpLastUpdate
     }
 }

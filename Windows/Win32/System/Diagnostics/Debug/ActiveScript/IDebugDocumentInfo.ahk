@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -31,21 +32,21 @@ class IDebugDocumentInfo extends IUnknown{
     /**
      * 
      * @param {Integer} dnt 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(dnt, pbstrName) {
+    GetName(dnt) {
+        pbstrName := BSTR()
         result := ComCall(3, this, "int", dnt, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pclsidDocument 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetDocumentClassId(pclsidDocument) {
+    GetDocumentClassId() {
+        pclsidDocument := Guid()
         result := ComCall(4, this, "ptr", pclsidDocument, "HRESULT")
-        return result
+        return pclsidDocument
     }
 }

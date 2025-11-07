@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISClusProperties.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ISCluster.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,85 +33,74 @@ class ISClusNetInterface extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_CommonProperties(ppProperties) {
-        result := ComCall(7, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_CommonProperties() {
+        result := ComCall(7, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_PrivateProperties(ppProperties) {
-        result := ComCall(8, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_PrivateProperties() {
+        result := ComCall(8, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_CommonROProperties(ppProperties) {
-        result := ComCall(9, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_CommonROProperties() {
+        result := ComCall(9, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_PrivateROProperties(ppProperties) {
-        result := ComCall(10, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_PrivateROProperties() {
+        result := ComCall(10, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(11, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} phandle 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_Handle(phandle) {
-        phandleMarshal := phandle is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, phandleMarshal, phandle, "HRESULT")
-        return result
+    get_Handle() {
+        result := ComCall(12, this, "ptr*", &phandle := 0, "HRESULT")
+        return phandle
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} dwState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(dwState) {
-        dwStateMarshal := dwState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, dwStateMarshal, dwState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(13, this, "int*", &dwState := 0, "HRESULT")
+        return dwState
     }
 
     /**
      * 
-     * @param {Pointer<ISCluster>} ppCluster 
-     * @returns {HRESULT} 
+     * @returns {ISCluster} 
      */
-    get_Cluster(ppCluster) {
-        result := ComCall(14, this, "ptr*", ppCluster, "HRESULT")
-        return result
+    get_Cluster() {
+        result := ComCall(14, this, "ptr*", &ppCluster := 0, "HRESULT")
+        return ISCluster(ppCluster)
     }
 }

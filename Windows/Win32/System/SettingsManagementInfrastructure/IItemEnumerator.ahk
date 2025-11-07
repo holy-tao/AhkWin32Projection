@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -36,24 +37,23 @@ class IItemEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Item 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-iitemenumerator-current
      */
-    Current(Item) {
+    Current() {
+        Item := VARIANT()
         result := ComCall(3, this, "ptr", Item, "HRESULT")
-        return result
+        return Item
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} ItemValid 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-iitemenumerator-movenext
      */
-    MoveNext(ItemValid) {
-        result := ComCall(4, this, "ptr", ItemValid, "HRESULT")
-        return result
+    MoveNext() {
+        result := ComCall(4, this, "int*", &ItemValid := 0, "HRESULT")
+        return ItemValid
     }
 
     /**

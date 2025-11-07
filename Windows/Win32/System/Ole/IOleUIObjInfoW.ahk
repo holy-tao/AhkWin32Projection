@@ -44,8 +44,12 @@ class IOleUIObjInfoW extends IUnknown{
      */
     GetObjectInfo(dwObject, lpdwObjSize, lplpszLabel, lplpszType, lplpszShortType, lplpszLocation) {
         lpdwObjSizeMarshal := lpdwObjSize is VarRef ? "uint*" : "ptr"
+        lplpszLabelMarshal := lplpszLabel is VarRef ? "ptr*" : "ptr"
+        lplpszTypeMarshal := lplpszType is VarRef ? "ptr*" : "ptr"
+        lplpszShortTypeMarshal := lplpszShortType is VarRef ? "ptr*" : "ptr"
+        lplpszLocationMarshal := lplpszLocation is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwObject, lpdwObjSizeMarshal, lpdwObjSize, "ptr", lplpszLabel, "ptr", lplpszType, "ptr", lplpszShortType, "ptr", lplpszLocation, "HRESULT")
+        result := ComCall(3, this, "uint", dwObject, lpdwObjSizeMarshal, lpdwObjSize, lplpszLabelMarshal, lplpszLabel, lplpszTypeMarshal, lplpszType, lplpszShortTypeMarshal, lplpszShortType, lplpszLocationMarshal, lplpszLocation, "HRESULT")
         return result
     }
 

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,37 +43,32 @@ class IXMLElementCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msxml/nf-msxml-ixmlelementcollection-get_length
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__newEnum(ppUnk) {
-        result := ComCall(9, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get__newEnum() {
+        result := ComCall(9, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
      * @param {VARIANT} var1 
      * @param {VARIANT} var2 
-     * @param {Pointer<IDispatch>} ppDisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/msxml/nf-msxml-ixmlelementcollection-item
      */
-    item(var1, var2, ppDisp) {
-        result := ComCall(10, this, "ptr", var1, "ptr", var2, "ptr*", ppDisp, "HRESULT")
-        return result
+    item(var1, var2) {
+        result := ComCall(10, this, "ptr", var1, "ptr", var2, "ptr*", &ppDisp := 0, "HRESULT")
+        return IDispatch(ppDisp)
     }
 }

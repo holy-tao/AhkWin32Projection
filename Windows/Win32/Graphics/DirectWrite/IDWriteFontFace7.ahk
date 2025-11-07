@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWritePaintReader.ahk
 #Include .\IDWriteFontFace6.ahk
 
 /**
@@ -42,11 +43,10 @@ class IDWriteFontFace7 extends IDWriteFontFace6{
      * 
      * @param {Integer} glyphImageFormat 
      * @param {Integer} paintFeatureLevel 
-     * @param {Pointer<IDWritePaintReader>} paintReader 
-     * @returns {HRESULT} 
+     * @returns {IDWritePaintReader} 
      */
-    CreatePaintReader(glyphImageFormat, paintFeatureLevel, paintReader) {
-        result := ComCall(61, this, "int", glyphImageFormat, "int", paintFeatureLevel, "ptr*", paintReader, "HRESULT")
-        return result
+    CreatePaintReader(glyphImageFormat, paintFeatureLevel) {
+        result := ComCall(61, this, "int", glyphImageFormat, "int", paintFeatureLevel, "ptr*", &paintReader := 0, "HRESULT")
+        return IDWritePaintReader(paintReader)
     }
 }

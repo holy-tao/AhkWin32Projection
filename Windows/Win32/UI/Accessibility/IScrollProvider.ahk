@@ -62,75 +62,61 @@ class IScrollProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-get_horizontalscrollpercent
      */
-    get_HorizontalScrollPercent(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_HorizontalScrollPercent() {
+        result := ComCall(5, this, "double*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-get_verticalscrollpercent
      */
-    get_VerticalScrollPercent(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(6, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_VerticalScrollPercent() {
+        result := ComCall(6, this, "double*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-get_horizontalviewsize
      */
-    get_HorizontalViewSize(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(7, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_HorizontalViewSize() {
+        result := ComCall(7, this, "double*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-get_verticalviewsize
      */
-    get_VerticalViewSize(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_VerticalViewSize() {
+        result := ComCall(8, this, "double*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-get_horizontallyscrollable
      */
-    get_HorizontallyScrollable(pRetVal) {
-        result := ComCall(9, this, "ptr", pRetVal, "HRESULT")
-        return result
+    get_HorizontallyScrollable() {
+        result := ComCall(9, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-get_verticallyscrollable
      */
-    get_VerticallyScrollable(pRetVal) {
-        result := ComCall(10, this, "ptr", pRetVal, "HRESULT")
-        return result
+    get_VerticallyScrollable() {
+        result := ComCall(10, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAudioMediaType.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,28 +43,22 @@ class IAudioProcessingObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-getlatency
      */
-    GetLatency(pTime) {
-        pTimeMarshal := pTime is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(4, this, pTimeMarshal, pTime, "HRESULT")
-        return result
+    GetLatency() {
+        result := ComCall(4, this, "int64*", &pTime := 0, "HRESULT")
+        return pTime
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<APO_REG_PROPERTIES>>} ppRegProps 
-     * @returns {HRESULT} 
+     * @returns {Pointer<APO_REG_PROPERTIES>} 
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-getregistrationproperties
      */
-    GetRegistrationProperties(ppRegProps) {
-        ppRegPropsMarshal := ppRegProps is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, ppRegPropsMarshal, ppRegProps, "HRESULT")
-        return result
+    GetRegistrationProperties() {
+        result := ComCall(5, this, "ptr*", &ppRegProps := 0, "HRESULT")
+        return ppRegProps
     }
 
     /**
@@ -94,38 +89,33 @@ class IAudioProcessingObject extends IUnknown{
      * 
      * @param {IAudioMediaType} pOppositeFormat 
      * @param {IAudioMediaType} pRequestedInputFormat 
-     * @param {Pointer<IAudioMediaType>} ppSupportedInputFormat 
-     * @returns {HRESULT} 
+     * @returns {IAudioMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-isinputformatsupported
      */
-    IsInputFormatSupported(pOppositeFormat, pRequestedInputFormat, ppSupportedInputFormat) {
-        result := ComCall(7, this, "ptr", pOppositeFormat, "ptr", pRequestedInputFormat, "ptr*", ppSupportedInputFormat, "HRESULT")
-        return result
+    IsInputFormatSupported(pOppositeFormat, pRequestedInputFormat) {
+        result := ComCall(7, this, "ptr", pOppositeFormat, "ptr", pRequestedInputFormat, "ptr*", &ppSupportedInputFormat := 0, "HRESULT")
+        return IAudioMediaType(ppSupportedInputFormat)
     }
 
     /**
      * 
      * @param {IAudioMediaType} pOppositeFormat 
      * @param {IAudioMediaType} pRequestedOutputFormat 
-     * @param {Pointer<IAudioMediaType>} ppSupportedOutputFormat 
-     * @returns {HRESULT} 
+     * @returns {IAudioMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-isoutputformatsupported
      */
-    IsOutputFormatSupported(pOppositeFormat, pRequestedOutputFormat, ppSupportedOutputFormat) {
-        result := ComCall(8, this, "ptr", pOppositeFormat, "ptr", pRequestedOutputFormat, "ptr*", ppSupportedOutputFormat, "HRESULT")
-        return result
+    IsOutputFormatSupported(pOppositeFormat, pRequestedOutputFormat) {
+        result := ComCall(8, this, "ptr", pOppositeFormat, "ptr", pRequestedOutputFormat, "ptr*", &ppSupportedOutputFormat := 0, "HRESULT")
+        return IAudioMediaType(ppSupportedOutputFormat)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pu32ChannelCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-getinputchannelcount
      */
-    GetInputChannelCount(pu32ChannelCount) {
-        pu32ChannelCountMarshal := pu32ChannelCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pu32ChannelCountMarshal, pu32ChannelCount, "HRESULT")
-        return result
+    GetInputChannelCount() {
+        result := ComCall(9, this, "uint*", &pu32ChannelCount := 0, "HRESULT")
+        return pu32ChannelCount
     }
 }

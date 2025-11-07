@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,13 +34,13 @@ class ICertSrvSetupKeyInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-get_providername
      */
-    get_ProviderName(pVal) {
+    get_ProviderName() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -57,15 +58,12 @@ class ICertSrvSetupKeyInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-get_length
      */
-    get_Length(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Length() {
+        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -81,13 +79,12 @@ class ICertSrvSetupKeyInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-get_existing
      */
-    get_Existing(pVal) {
-        result := ComCall(11, this, "ptr", pVal, "HRESULT")
-        return result
+    get_Existing() {
+        result := ComCall(11, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -103,13 +100,13 @@ class ICertSrvSetupKeyInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-get_containername
      */
-    get_ContainerName(pVal) {
+    get_ContainerName() {
+        pVal := BSTR()
         result := ComCall(13, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -127,13 +124,13 @@ class ICertSrvSetupKeyInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-get_hashalgorithm
      */
-    get_HashAlgorithm(pVal) {
+    get_HashAlgorithm() {
+        pVal := BSTR()
         result := ComCall(15, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -151,13 +148,13 @@ class ICertSrvSetupKeyInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformation-get_existingcacertificate
      */
-    get_ExistingCACertificate(pVal) {
+    get_ExistingCACertificate() {
+        pVal := VARIANT()
         result := ComCall(17, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**

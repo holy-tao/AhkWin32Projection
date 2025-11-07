@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SpatialAudioMetadataItemsInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,64 +37,52 @@ class ISpatialAudioMetadataItems extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} frameCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getframecount
      */
-    GetFrameCount(frameCount) {
-        frameCountMarshal := frameCount is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(3, this, frameCountMarshal, frameCount, "HRESULT")
-        return result
+    GetFrameCount() {
+        result := ComCall(3, this, "ushort*", &frameCount := 0, "HRESULT")
+        return frameCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} itemCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getitemcount
      */
-    GetItemCount(itemCount) {
-        itemCountMarshal := itemCount is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(4, this, itemCountMarshal, itemCount, "HRESULT")
-        return result
+    GetItemCount() {
+        result := ComCall(4, this, "ushort*", &itemCount := 0, "HRESULT")
+        return itemCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} maxItemCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getmaxitemcount
      */
-    GetMaxItemCount(maxItemCount) {
-        maxItemCountMarshal := maxItemCount is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(5, this, maxItemCountMarshal, maxItemCount, "HRESULT")
-        return result
+    GetMaxItemCount() {
+        result := ComCall(5, this, "ushort*", &maxItemCount := 0, "HRESULT")
+        return maxItemCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} maxValueBufferLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getmaxvaluebufferlength
      */
-    GetMaxValueBufferLength(maxValueBufferLength) {
-        maxValueBufferLengthMarshal := maxValueBufferLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, maxValueBufferLengthMarshal, maxValueBufferLength, "HRESULT")
-        return result
+    GetMaxValueBufferLength() {
+        result := ComCall(6, this, "uint*", &maxValueBufferLength := 0, "HRESULT")
+        return maxValueBufferLength
     }
 
     /**
      * 
-     * @param {Pointer<SpatialAudioMetadataItemsInfo>} info 
-     * @returns {HRESULT} 
+     * @returns {SpatialAudioMetadataItemsInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getinfo
      */
-    GetInfo(info) {
+    GetInfo() {
+        info := SpatialAudioMetadataItemsInfo()
         result := ComCall(7, this, "ptr", info, "HRESULT")
-        return result
+        return info
     }
 }

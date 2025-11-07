@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMGeometry.ahk
+#Include .\IXpsOMBrush.ahk
+#Include .\IXpsOMDashCollection.ahk
+#Include .\IXpsOMPath.ahk
 #Include .\IXpsOMVisual.ahk
 
 /**
@@ -72,24 +76,22 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<IXpsOMGeometry>} geometry 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGeometry} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometry
      */
-    GetGeometry(geometry) {
-        result := ComCall(30, this, "ptr*", geometry, "HRESULT")
-        return result
+    GetGeometry() {
+        result := ComCall(30, this, "ptr*", &geometry := 0, "HRESULT")
+        return IXpsOMGeometry(geometry)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMGeometry>} geometry 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGeometry} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometrylocal
      */
-    GetGeometryLocal(geometry) {
-        result := ComCall(31, this, "ptr*", geometry, "HRESULT")
-        return result
+    GetGeometryLocal() {
+        result := ComCall(31, this, "ptr*", &geometry := 0, "HRESULT")
+        return IXpsOMGeometry(geometry)
     }
 
     /**
@@ -105,13 +107,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lookup 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometrylookup
      */
-    GetGeometryLookup(lookup) {
-        result := ComCall(33, this, "ptr", lookup, "HRESULT")
-        return result
+    GetGeometryLookup() {
+        result := ComCall(33, this, "ptr*", &lookup := 0, "HRESULT")
+        return lookup
     }
 
     /**
@@ -129,13 +130,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} shortDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getaccessibilityshortdescription
      */
-    GetAccessibilityShortDescription(shortDescription) {
-        result := ComCall(35, this, "ptr", shortDescription, "HRESULT")
-        return result
+    GetAccessibilityShortDescription() {
+        result := ComCall(35, this, "ptr*", &shortDescription := 0, "HRESULT")
+        return shortDescription
     }
 
     /**
@@ -153,13 +153,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} longDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getaccessibilitylongdescription
      */
-    GetAccessibilityLongDescription(longDescription) {
-        result := ComCall(37, this, "ptr", longDescription, "HRESULT")
-        return result
+    GetAccessibilityLongDescription() {
+        result := ComCall(37, this, "ptr*", &longDescription := 0, "HRESULT")
+        return longDescription
     }
 
     /**
@@ -177,13 +176,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<BOOL>} snapsToPixels 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getsnapstopixels
      */
-    GetSnapsToPixels(snapsToPixels) {
-        result := ComCall(39, this, "ptr", snapsToPixels, "HRESULT")
-        return result
+    GetSnapsToPixels() {
+        result := ComCall(39, this, "int*", &snapsToPixels := 0, "HRESULT")
+        return snapsToPixels
     }
 
     /**
@@ -199,24 +197,22 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<IXpsOMBrush>} brush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrush
      */
-    GetStrokeBrush(brush) {
-        result := ComCall(41, this, "ptr*", brush, "HRESULT")
-        return result
+    GetStrokeBrush() {
+        result := ComCall(41, this, "ptr*", &brush := 0, "HRESULT")
+        return IXpsOMBrush(brush)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMBrush>} brush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlocal
      */
-    GetStrokeBrushLocal(brush) {
-        result := ComCall(42, this, "ptr*", brush, "HRESULT")
-        return result
+    GetStrokeBrushLocal() {
+        result := ComCall(42, this, "ptr*", &brush := 0, "HRESULT")
+        return IXpsOMBrush(brush)
     }
 
     /**
@@ -232,13 +228,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lookup 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlookup
      */
-    GetStrokeBrushLookup(lookup) {
-        result := ComCall(44, this, "ptr", lookup, "HRESULT")
-        return result
+    GetStrokeBrushLookup() {
+        result := ComCall(44, this, "ptr*", &lookup := 0, "HRESULT")
+        return lookup
     }
 
     /**
@@ -256,26 +251,22 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<IXpsOMDashCollection>} strokeDashes 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDashCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokedashes
      */
-    GetStrokeDashes(strokeDashes) {
-        result := ComCall(46, this, "ptr*", strokeDashes, "HRESULT")
-        return result
+    GetStrokeDashes() {
+        result := ComCall(46, this, "ptr*", &strokeDashes := 0, "HRESULT")
+        return IXpsOMDashCollection(strokeDashes)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} strokeDashCap 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokedashcap
      */
-    GetStrokeDashCap(strokeDashCap) {
-        strokeDashCapMarshal := strokeDashCap is VarRef ? "int*" : "ptr"
-
-        result := ComCall(47, this, strokeDashCapMarshal, strokeDashCap, "HRESULT")
-        return result
+    GetStrokeDashCap() {
+        result := ComCall(47, this, "int*", &strokeDashCap := 0, "HRESULT")
+        return strokeDashCap
     }
 
     /**
@@ -291,15 +282,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<Float>} strokeDashOffset 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokedashoffset
      */
-    GetStrokeDashOffset(strokeDashOffset) {
-        strokeDashOffsetMarshal := strokeDashOffset is VarRef ? "float*" : "ptr"
-
-        result := ComCall(49, this, strokeDashOffsetMarshal, strokeDashOffset, "HRESULT")
-        return result
+    GetStrokeDashOffset() {
+        result := ComCall(49, this, "float*", &strokeDashOffset := 0, "HRESULT")
+        return strokeDashOffset
     }
 
     /**
@@ -315,15 +303,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<Integer>} strokeStartLineCap 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokestartlinecap
      */
-    GetStrokeStartLineCap(strokeStartLineCap) {
-        strokeStartLineCapMarshal := strokeStartLineCap is VarRef ? "int*" : "ptr"
-
-        result := ComCall(51, this, strokeStartLineCapMarshal, strokeStartLineCap, "HRESULT")
-        return result
+    GetStrokeStartLineCap() {
+        result := ComCall(51, this, "int*", &strokeStartLineCap := 0, "HRESULT")
+        return strokeStartLineCap
     }
 
     /**
@@ -339,15 +324,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<Integer>} strokeEndLineCap 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokeendlinecap
      */
-    GetStrokeEndLineCap(strokeEndLineCap) {
-        strokeEndLineCapMarshal := strokeEndLineCap is VarRef ? "int*" : "ptr"
-
-        result := ComCall(53, this, strokeEndLineCapMarshal, strokeEndLineCap, "HRESULT")
-        return result
+    GetStrokeEndLineCap() {
+        result := ComCall(53, this, "int*", &strokeEndLineCap := 0, "HRESULT")
+        return strokeEndLineCap
     }
 
     /**
@@ -363,15 +345,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<Integer>} strokeLineJoin 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokelinejoin
      */
-    GetStrokeLineJoin(strokeLineJoin) {
-        strokeLineJoinMarshal := strokeLineJoin is VarRef ? "int*" : "ptr"
-
-        result := ComCall(55, this, strokeLineJoinMarshal, strokeLineJoin, "HRESULT")
-        return result
+    GetStrokeLineJoin() {
+        result := ComCall(55, this, "int*", &strokeLineJoin := 0, "HRESULT")
+        return strokeLineJoin
     }
 
     /**
@@ -387,15 +366,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<Float>} strokeMiterLimit 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokemiterlimit
      */
-    GetStrokeMiterLimit(strokeMiterLimit) {
-        strokeMiterLimitMarshal := strokeMiterLimit is VarRef ? "float*" : "ptr"
-
-        result := ComCall(57, this, strokeMiterLimitMarshal, strokeMiterLimit, "HRESULT")
-        return result
+    GetStrokeMiterLimit() {
+        result := ComCall(57, this, "float*", &strokeMiterLimit := 0, "HRESULT")
+        return strokeMiterLimit
     }
 
     /**
@@ -411,15 +387,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<Float>} strokeThickness 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokethickness
      */
-    GetStrokeThickness(strokeThickness) {
-        strokeThicknessMarshal := strokeThickness is VarRef ? "float*" : "ptr"
-
-        result := ComCall(59, this, strokeThicknessMarshal, strokeThickness, "HRESULT")
-        return result
+    GetStrokeThickness() {
+        result := ComCall(59, this, "float*", &strokeThickness := 0, "HRESULT")
+        return strokeThickness
     }
 
     /**
@@ -435,24 +408,22 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<IXpsOMBrush>} brush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrush
      */
-    GetFillBrush(brush) {
-        result := ComCall(61, this, "ptr*", brush, "HRESULT")
-        return result
+    GetFillBrush() {
+        result := ComCall(61, this, "ptr*", &brush := 0, "HRESULT")
+        return IXpsOMBrush(brush)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMBrush>} brush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlocal
      */
-    GetFillBrushLocal(brush) {
-        result := ComCall(62, this, "ptr*", brush, "HRESULT")
-        return result
+    GetFillBrushLocal() {
+        result := ComCall(62, this, "ptr*", &brush := 0, "HRESULT")
+        return IXpsOMBrush(brush)
     }
 
     /**
@@ -468,13 +439,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lookup 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlookup
      */
-    GetFillBrushLookup(lookup) {
-        result := ComCall(64, this, "ptr", lookup, "HRESULT")
-        return result
+    GetFillBrushLookup() {
+        result := ComCall(64, this, "ptr*", &lookup := 0, "HRESULT")
+        return lookup
     }
 
     /**
@@ -492,12 +462,11 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<IXpsOMPath>} path 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPath} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-clone
      */
-    Clone(path) {
-        result := ComCall(66, this, "ptr*", path, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(66, this, "ptr*", &path := 0, "HRESULT")
+        return IXpsOMPath(path)
     }
 }

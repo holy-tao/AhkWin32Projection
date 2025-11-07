@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,126 +33,113 @@ class ISyncMgrEvent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidEventID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-geteventid
      */
-    GetEventID(pguidEventID) {
+    GetEventID() {
+        pguidEventID := Guid()
         result := ComCall(3, this, "ptr", pguidEventID, "HRESULT")
-        return result
+        return pguidEventID
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszHandlerID 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-gethandlerid
      */
-    GetHandlerID(ppszHandlerID) {
-        result := ComCall(4, this, "ptr", ppszHandlerID, "HRESULT")
-        return result
+    GetHandlerID() {
+        result := ComCall(4, this, "ptr*", &ppszHandlerID := 0, "HRESULT")
+        return ppszHandlerID
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszItemID 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getitemid
      */
-    GetItemID(ppszItemID) {
-        result := ComCall(5, this, "ptr", ppszItemID, "HRESULT")
-        return result
+    GetItemID() {
+        result := ComCall(5, this, "ptr*", &ppszItemID := 0, "HRESULT")
+        return ppszItemID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getlevel
      */
-    GetLevel(pnLevel) {
-        pnLevelMarshal := pnLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pnLevelMarshal, pnLevel, "HRESULT")
-        return result
+    GetLevel() {
+        result := ComCall(6, this, "int*", &pnLevel := 0, "HRESULT")
+        return pnLevel
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getflags
      */
-    GetFlags(pnFlags) {
-        pnFlagsMarshal := pnFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pnFlagsMarshal, pnFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(7, this, "int*", &pnFlags := 0, "HRESULT")
+        return pnFlags
     }
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pfCreationTime 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-gettime
      */
-    GetTime(pfCreationTime) {
+    GetTime() {
+        pfCreationTime := FILETIME()
         result := ComCall(8, this, "ptr", pfCreationTime, "HRESULT")
-        return result
+        return pfCreationTime
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getname
      */
-    GetName(ppszName) {
-        result := ComCall(9, this, "ptr", ppszName, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(9, this, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getdescription
      */
-    GetDescription(ppszDescription) {
-        result := ComCall(10, this, "ptr", ppszDescription, "HRESULT")
-        return result
+    GetDescription() {
+        result := ComCall(10, this, "ptr*", &ppszDescription := 0, "HRESULT")
+        return ppszDescription
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszLinkText 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getlinktext
      */
-    GetLinkText(ppszLinkText) {
-        result := ComCall(11, this, "ptr", ppszLinkText, "HRESULT")
-        return result
+    GetLinkText() {
+        result := ComCall(11, this, "ptr*", &ppszLinkText := 0, "HRESULT")
+        return ppszLinkText
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszLinkReference 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getlinkreference
      */
-    GetLinkReference(ppszLinkReference) {
-        result := ComCall(12, this, "ptr", ppszLinkReference, "HRESULT")
-        return result
+    GetLinkReference() {
+        result := ComCall(12, this, "ptr*", &ppszLinkReference := 0, "HRESULT")
+        return ppszLinkReference
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszContext 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getcontext
      */
-    GetContext(ppszContext) {
-        result := ComCall(13, this, "ptr", ppszContext, "HRESULT")
-        return result
+    GetContext() {
+        result := ComCall(13, this, "ptr*", &ppszContext := 0, "HRESULT")
+        return ppszContext
     }
 }

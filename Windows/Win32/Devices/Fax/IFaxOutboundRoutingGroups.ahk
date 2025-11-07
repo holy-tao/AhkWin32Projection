@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IFaxOutboundRoutingGroup.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,52 +45,46 @@ class IFaxOutboundRoutingGroups extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-get__newenum
      */
-    get__NewEnum(ppUnk) {
-        result := ComCall(7, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
      * @param {VARIANT} vIndex 
-     * @param {Pointer<IFaxOutboundRoutingGroup>} pFaxOutboundRoutingGroup 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutboundRoutingGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-get_item
      */
-    get_Item(vIndex, pFaxOutboundRoutingGroup) {
-        result := ComCall(8, this, "ptr", vIndex, "ptr*", pFaxOutboundRoutingGroup, "HRESULT")
-        return result
+    get_Item(vIndex) {
+        result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxOutboundRoutingGroup := 0, "HRESULT")
+        return IFaxOutboundRoutingGroup(pFaxOutboundRoutingGroup)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IFaxOutboundRoutingGroup>} pFaxOutboundRoutingGroup 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutboundRoutingGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-add
      */
-    Add(bstrName, pFaxOutboundRoutingGroup) {
+    Add(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(10, this, "ptr", bstrName, "ptr*", pFaxOutboundRoutingGroup, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrName, "ptr*", &pFaxOutboundRoutingGroup := 0, "HRESULT")
+        return IFaxOutboundRoutingGroup(pFaxOutboundRoutingGroup)
     }
 
     /**

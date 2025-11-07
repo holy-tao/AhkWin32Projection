@@ -76,16 +76,16 @@ class IX509EnrollmentHelper extends IDispatch{
      * @param {BSTR} strTemplateName 
      * @param {Integer} Encoding 
      * @param {Integer} enrollFlags 
-     * @param {Pointer<BSTR>} pstrCertificate 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmenthelper-enroll
      */
-    Enroll(strEnrollmentPolicyServerURI, strTemplateName, Encoding, enrollFlags, pstrCertificate) {
+    Enroll(strEnrollmentPolicyServerURI, strTemplateName, Encoding, enrollFlags) {
         strEnrollmentPolicyServerURI := strEnrollmentPolicyServerURI is String ? BSTR.Alloc(strEnrollmentPolicyServerURI).Value : strEnrollmentPolicyServerURI
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
+        pstrCertificate := BSTR()
         result := ComCall(9, this, "ptr", strEnrollmentPolicyServerURI, "ptr", strTemplateName, "int", Encoding, "int", enrollFlags, "ptr", pstrCertificate, "HRESULT")
-        return result
+        return pstrCertificate
     }
 
     /**

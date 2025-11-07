@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxBundleReader.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,14 +35,13 @@ class IAppxBundleFactory2 extends IUnknown{
      * 
      * @param {IStream} inputStream 
      * @param {PWSTR} expectedDigest 
-     * @param {Pointer<IAppxBundleReader>} bundleReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxBundleReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlefactory2-createbundlereader2
      */
-    CreateBundleReader2(inputStream, expectedDigest, bundleReader) {
+    CreateBundleReader2(inputStream, expectedDigest) {
         expectedDigest := expectedDigest is String ? StrPtr(expectedDigest) : expectedDigest
 
-        result := ComCall(3, this, "ptr", inputStream, "ptr", expectedDigest, "ptr*", bundleReader, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", inputStream, "ptr", expectedDigest, "ptr*", &bundleReader := 0, "HRESULT")
+        return IAppxBundleReader(bundleReader)
     }
 }

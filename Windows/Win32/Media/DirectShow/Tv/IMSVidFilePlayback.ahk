@@ -40,13 +40,13 @@ class IMSVidFilePlayback extends IMSVidPlayback{
 
     /**
      * 
-     * @param {Pointer<BSTR>} FileName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidfileplayback-get_filename
      */
-    get_FileName(FileName) {
+    get_FileName() {
+        FileName := BSTR()
         result := ComCall(32, this, "ptr", FileName, "HRESULT")
-        return result
+        return FileName
     }
 
     /**

@@ -32,13 +32,12 @@ class ICompositionGraphicsDeviceInterop extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} value 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiongraphicsdeviceinterop-getrenderingdevice
      */
-    GetRenderingDevice(value) {
-        result := ComCall(3, this, "ptr*", value, "HRESULT")
-        return result
+    GetRenderingDevice() {
+        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        return IUnknown(value)
     }
 
     /**

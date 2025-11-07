@@ -54,14 +54,11 @@ class IDMOQualityControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmoqualitycontrol-getstatus
      */
-    GetStatus(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(5, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICredentialProviderCredential.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -88,29 +89,23 @@ class ICredentialProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getfielddescriptorcount
      */
-    GetFieldDescriptorCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetFieldDescriptorCount() {
+        result := ComCall(7, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<Pointer<CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR>>} ppcpfd 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR>} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getfielddescriptorat
      */
-    GetFieldDescriptorAt(dwIndex, ppcpfd) {
-        ppcpfdMarshal := ppcpfd is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "uint", dwIndex, ppcpfdMarshal, ppcpfd, "HRESULT")
-        return result
+    GetFieldDescriptorAt(dwIndex) {
+        result := ComCall(8, this, "uint", dwIndex, "ptr*", &ppcpfd := 0, "HRESULT")
+        return ppcpfd
     }
 
     /**
@@ -124,20 +119,20 @@ class ICredentialProvider extends IUnknown{
     GetCredentialCount(pdwCount, pdwDefault, pbAutoLogonWithDefault) {
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
         pdwDefaultMarshal := pdwDefault is VarRef ? "uint*" : "ptr"
+        pbAutoLogonWithDefaultMarshal := pbAutoLogonWithDefault is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, pdwCountMarshal, pdwCount, pdwDefaultMarshal, pdwDefault, "ptr", pbAutoLogonWithDefault, "HRESULT")
+        result := ComCall(9, this, pdwCountMarshal, pdwCount, pdwDefaultMarshal, pdwDefault, pbAutoLogonWithDefaultMarshal, pbAutoLogonWithDefault, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<ICredentialProviderCredential>} ppcpc 
-     * @returns {HRESULT} 
+     * @returns {ICredentialProviderCredential} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getcredentialat
      */
-    GetCredentialAt(dwIndex, ppcpc) {
-        result := ComCall(10, this, "uint", dwIndex, "ptr*", ppcpc, "HRESULT")
-        return result
+    GetCredentialAt(dwIndex) {
+        result := ComCall(10, this, "uint", dwIndex, "ptr*", &ppcpc := 0, "HRESULT")
+        return ICredentialProviderCredential(ppcpc)
     }
 }

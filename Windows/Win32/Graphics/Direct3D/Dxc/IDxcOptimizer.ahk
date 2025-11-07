@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcOptimizerPass.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,25 +31,21 @@ class IDxcOptimizer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetAvailablePassCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetAvailablePassCount() {
+        result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IDxcOptimizerPass>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcOptimizerPass} 
      */
-    GetAvailablePass(index, ppResult) {
-        result := ComCall(4, this, "uint", index, "ptr*", ppResult, "HRESULT")
-        return result
+    GetAvailablePass(index) {
+        result := ComCall(4, this, "uint", index, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcOptimizerPass(ppResult)
     }
 
     /**
@@ -61,7 +58,9 @@ class IDxcOptimizer extends IUnknown{
      * @returns {HRESULT} 
      */
     RunOptimizer(pBlob, ppOptions, optionCount, pOutputModule, ppOutputText) {
-        result := ComCall(5, this, "ptr", pBlob, "ptr", ppOptions, "uint", optionCount, "ptr*", pOutputModule, "ptr*", ppOutputText, "HRESULT")
+        ppOptionsMarshal := ppOptions is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pBlob, ppOptionsMarshal, ppOptions, "uint", optionCount, "ptr*", pOutputModule, "ptr*", ppOutputText, "HRESULT")
         return result
     }
 }

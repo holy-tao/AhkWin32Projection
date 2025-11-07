@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDiskQuotaUser.ahk
+#Include .\IEnumDiskQuotaUsers.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,15 @@ class IEnumDiskQuotaUsers extends IUnknown{
     /**
      * 
      * @param {Integer} cUsers 
-     * @param {Pointer<IDiskQuotaUser>} rgUsers 
      * @param {Pointer<Integer>} pcUsersFetched 
-     * @returns {HRESULT} 
+     * @returns {IDiskQuotaUser} 
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-ienumdiskquotausers-next
      */
-    Next(cUsers, rgUsers, pcUsersFetched) {
+    Next(cUsers, pcUsersFetched) {
         pcUsersFetchedMarshal := pcUsersFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cUsers, "ptr*", rgUsers, pcUsersFetchedMarshal, pcUsersFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cUsers, "ptr*", &rgUsers := 0, pcUsersFetchedMarshal, pcUsersFetched, "HRESULT")
+        return IDiskQuotaUser(rgUsers)
     }
 
     /**
@@ -68,12 +69,11 @@ class IEnumDiskQuotaUsers extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumDiskQuotaUsers>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDiskQuotaUsers} 
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-ienumdiskquotausers-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDiskQuotaUsers(ppEnum)
     }
 }

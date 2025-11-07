@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumProgressItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -79,12 +80,11 @@ class IEnumProgressItems extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumProgressItems>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumProgressItems} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ienumprogressitems-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumProgressItems(ppEnum)
     }
 }

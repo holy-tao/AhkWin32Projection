@@ -34,16 +34,13 @@ class ISystemMediaTransportControlsInterop extends IInspectable{
      * 
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} mediaTransportControl 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/systemmediatransportcontrolsinterop/nf-systemmediatransportcontrolsinterop-isystemmediatransportcontrolsinterop-getforwindow
      */
-    GetForWindow(appWindow, riid, mediaTransportControl) {
+    GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        mediaTransportControlMarshal := mediaTransportControl is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, mediaTransportControlMarshal, mediaTransportControl, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", &mediaTransportControl := 0, "HRESULT")
+        return mediaTransportControl
     }
 }

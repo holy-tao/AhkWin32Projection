@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISchedule.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,38 +34,33 @@ class IScheduleCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedulecollection-get_count
      */
-    get_Count(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
      * @param {VARIANT} index 
-     * @param {Pointer<ISchedule>} ppSchedule 
-     * @returns {HRESULT} 
+     * @returns {ISchedule} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedulecollection-get_item
      */
-    get_Item(index, ppSchedule) {
-        result := ComCall(8, this, "ptr", index, "ptr*", ppSchedule, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(8, this, "ptr", index, "ptr*", &ppSchedule := 0, "HRESULT")
+        return ISchedule(ppSchedule)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ienum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedulecollection-get__newenum
      */
-    get__NewEnum(ienum) {
-        result := ComCall(9, this, "ptr*", ienum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &ienum := 0, "HRESULT")
+        return IUnknown(ienum)
     }
 
     /**
@@ -111,12 +108,11 @@ class IScheduleCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISchedule>} Schedule 
-     * @returns {HRESULT} 
+     * @returns {ISchedule} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedulecollection-createschedule
      */
-    CreateSchedule(Schedule) {
-        result := ComCall(14, this, "ptr*", Schedule, "HRESULT")
-        return result
+    CreateSchedule() {
+        result := ComCall(14, this, "ptr*", &Schedule := 0, "HRESULT")
+        return ISchedule(Schedule)
     }
 }

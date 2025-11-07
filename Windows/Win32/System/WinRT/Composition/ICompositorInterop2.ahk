@@ -31,22 +31,20 @@ class ICompositorInterop2 extends IUnknown{
     /**
      * 
      * @param {IUnknown} renderingDevice 
-     * @param {Pointer<BOOL>} supportsCompositionTextures 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CheckCompositionTextureSupport(renderingDevice, supportsCompositionTextures) {
-        result := ComCall(3, this, "ptr", renderingDevice, "ptr", supportsCompositionTextures, "HRESULT")
-        return result
+    CheckCompositionTextureSupport(renderingDevice) {
+        result := ComCall(3, this, "ptr", renderingDevice, "int*", &supportsCompositionTextures := 0, "HRESULT")
+        return supportsCompositionTextures
     }
 
     /**
      * 
      * @param {IUnknown} d3dTexture 
-     * @param {Pointer<CompositionTexture>} compositionTexture 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CompositionTexture>} 
      */
-    CreateCompositionTexture(d3dTexture, compositionTexture) {
-        result := ComCall(4, this, "ptr", d3dTexture, "ptr", compositionTexture, "HRESULT")
-        return result
+    CreateCompositionTexture(d3dTexture) {
+        result := ComCall(4, this, "ptr", d3dTexture, "ptr*", &compositionTexture := 0, "HRESULT")
+        return compositionTexture
     }
 }

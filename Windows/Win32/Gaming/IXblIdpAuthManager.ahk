@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include .\IXblIdpAuthTokenResult.ahk
 #Include ..\System\Com\IUnknown.ahk
 
 /**
@@ -59,7 +60,10 @@ class IXblIdpAuthManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthmanager-getgameraccount
      */
     GetGamerAccount(msaAccountId, xuid) {
-        result := ComCall(4, this, "ptr", msaAccountId, "ptr", xuid, "HRESULT")
+        msaAccountIdMarshal := msaAccountId is VarRef ? "ptr*" : "ptr"
+        xuidMarshal := xuid is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, msaAccountIdMarshal, msaAccountId, xuidMarshal, xuid, "HRESULT")
         return result
     }
 
@@ -80,24 +84,22 @@ class IXblIdpAuthManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} environment 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthmanager-getenvironment
      */
-    GetEnvironment(environment) {
-        result := ComCall(6, this, "ptr", environment, "HRESULT")
-        return result
+    GetEnvironment() {
+        result := ComCall(6, this, "ptr*", &environment := 0, "HRESULT")
+        return environment
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} sandbox 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthmanager-getsandbox
      */
-    GetSandbox(sandbox) {
-        result := ComCall(7, this, "ptr", sandbox, "HRESULT")
-        return result
+    GetSandbox() {
+        result := ComCall(7, this, "ptr*", &sandbox := 0, "HRESULT")
+        return sandbox
     }
 
     /**
@@ -112,11 +114,10 @@ class IXblIdpAuthManager extends IUnknown{
      * @param {Pointer<Integer>} body 
      * @param {Integer} bodySize 
      * @param {BOOL} forceRefresh 
-     * @param {Pointer<IXblIdpAuthTokenResult>} result 
-     * @returns {HRESULT} 
+     * @returns {IXblIdpAuthTokenResult} 
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthmanager-gettokenandsignaturewithtokenresult
      */
-    GetTokenAndSignatureWithTokenResult(msaAccountId, appSid, msaTarget, msaPolicy, httpMethod, uri, headers, body, bodySize, forceRefresh, result) {
+    GetTokenAndSignatureWithTokenResult(msaAccountId, appSid, msaTarget, msaPolicy, httpMethod, uri, headers, body, bodySize, forceRefresh) {
         msaAccountId := msaAccountId is String ? StrPtr(msaAccountId) : msaAccountId
         appSid := appSid is String ? StrPtr(appSid) : appSid
         msaTarget := msaTarget is String ? StrPtr(msaTarget) : msaTarget
@@ -127,7 +128,7 @@ class IXblIdpAuthManager extends IUnknown{
 
         bodyMarshal := body is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "ptr", msaAccountId, "ptr", appSid, "ptr", msaTarget, "ptr", msaPolicy, "ptr", httpMethod, "ptr", uri, "ptr", headers, bodyMarshal, body, "uint", bodySize, "int", forceRefresh, "ptr*", result, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", msaAccountId, "ptr", appSid, "ptr", msaTarget, "ptr", msaPolicy, "ptr", httpMethod, "ptr", uri, "ptr", headers, bodyMarshal, body, "uint", bodySize, "int", forceRefresh, "ptr*", &result := 0, "HRESULT")
+        return IXblIdpAuthTokenResult(result)
     }
 }

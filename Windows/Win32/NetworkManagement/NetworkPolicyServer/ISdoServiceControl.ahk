@@ -59,15 +59,12 @@ class ISdoServiceControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdoservicecontrol-getservicestatus
      */
-    GetServiceStatus(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, statusMarshal, status, "HRESULT")
-        return result
+    GetServiceStatus() {
+        result := ComCall(9, this, "int*", &status := 0, "HRESULT")
+        return status
     }
 
     /**

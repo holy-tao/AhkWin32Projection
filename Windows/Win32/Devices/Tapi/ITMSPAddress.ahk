@@ -69,15 +69,14 @@ class ITMSPAddress extends IUnknown{
      * @param {Integer} dwReserved 
      * @param {Integer} dwMediaType 
      * @param {IUnknown} pOuterUnknown 
-     * @param {Pointer<IUnknown>} ppStreamControl 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itmspaddress-createmspcall
      */
-    CreateMSPCall(hCall, dwReserved, dwMediaType, pOuterUnknown, ppStreamControl) {
+    CreateMSPCall(hCall, dwReserved, dwMediaType, pOuterUnknown) {
         hCallMarshal := hCall is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, hCallMarshal, hCall, "uint", dwReserved, "uint", dwMediaType, "ptr", pOuterUnknown, "ptr*", ppStreamControl, "HRESULT")
-        return result
+        result := ComCall(5, this, hCallMarshal, hCall, "uint", dwReserved, "uint", dwMediaType, "ptr", pOuterUnknown, "ptr*", &ppStreamControl := 0, "HRESULT")
+        return IUnknown(ppStreamControl)
     }
 
     /**

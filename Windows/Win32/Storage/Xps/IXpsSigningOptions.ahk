@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
+#Include ..\Packaging\Opc\IOpcSignatureCustomObjectSet.ahk
+#Include ..\Packaging\Opc\IOpcSignatureReferenceSet.ahk
+#Include ..\Packaging\Opc\IOpcCertificateSet.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,13 +43,12 @@ class IXpsSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} signatureId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsignatureid
      */
-    GetSignatureId(signatureId) {
-        result := ComCall(3, this, "ptr", signatureId, "HRESULT")
-        return result
+    GetSignatureId() {
+        result := ComCall(3, this, "ptr*", &signatureId := 0, "HRESULT")
+        return signatureId
     }
 
     /**
@@ -63,13 +66,12 @@ class IXpsSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} signatureMethod 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsignaturemethod
      */
-    GetSignatureMethod(signatureMethod) {
-        result := ComCall(5, this, "ptr", signatureMethod, "HRESULT")
-        return result
+    GetSignatureMethod() {
+        result := ComCall(5, this, "ptr*", &signatureMethod := 0, "HRESULT")
+        return signatureMethod
     }
 
     /**
@@ -87,13 +89,12 @@ class IXpsSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} digestMethod 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getdigestmethod
      */
-    GetDigestMethod(digestMethod) {
-        result := ComCall(7, this, "ptr", digestMethod, "HRESULT")
-        return result
+    GetDigestMethod() {
+        result := ComCall(7, this, "ptr*", &digestMethod := 0, "HRESULT")
+        return digestMethod
     }
 
     /**
@@ -111,13 +112,12 @@ class IXpsSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} signaturePartName 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsignaturepartname
      */
-    GetSignaturePartName(signaturePartName) {
-        result := ComCall(9, this, "ptr*", signaturePartName, "HRESULT")
-        return result
+    GetSignaturePartName() {
+        result := ComCall(9, this, "ptr*", &signaturePartName := 0, "HRESULT")
+        return IOpcPartUri(signaturePartName)
     }
 
     /**
@@ -133,15 +133,12 @@ class IXpsSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} policy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getpolicy
      */
-    GetPolicy(policy) {
-        policyMarshal := policy is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, policyMarshal, policy, "HRESULT")
-        return result
+    GetPolicy() {
+        result := ComCall(11, this, "int*", &policy := 0, "HRESULT")
+        return policy
     }
 
     /**
@@ -157,15 +154,12 @@ class IXpsSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} timeFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsigningtimeformat
      */
-    GetSigningTimeFormat(timeFormat) {
-        timeFormatMarshal := timeFormat is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, timeFormatMarshal, timeFormat, "HRESULT")
-        return result
+    GetSigningTimeFormat() {
+        result := ComCall(13, this, "int*", &timeFormat := 0, "HRESULT")
+        return timeFormat
     }
 
     /**
@@ -181,48 +175,42 @@ class IXpsSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureCustomObjectSet>} customObjectSet 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureCustomObjectSet} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getcustomobjects
      */
-    GetCustomObjects(customObjectSet) {
-        result := ComCall(15, this, "ptr*", customObjectSet, "HRESULT")
-        return result
+    GetCustomObjects() {
+        result := ComCall(15, this, "ptr*", &customObjectSet := 0, "HRESULT")
+        return IOpcSignatureCustomObjectSet(customObjectSet)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureReferenceSet>} customReferenceSet 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureReferenceSet} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getcustomreferences
      */
-    GetCustomReferences(customReferenceSet) {
-        result := ComCall(16, this, "ptr*", customReferenceSet, "HRESULT")
-        return result
+    GetCustomReferences() {
+        result := ComCall(16, this, "ptr*", &customReferenceSet := 0, "HRESULT")
+        return IOpcSignatureReferenceSet(customReferenceSet)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcCertificateSet>} certificateSet 
-     * @returns {HRESULT} 
+     * @returns {IOpcCertificateSet} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getcertificateset
      */
-    GetCertificateSet(certificateSet) {
-        result := ComCall(17, this, "ptr*", certificateSet, "HRESULT")
-        return result
+    GetCertificateSet() {
+        result := ComCall(17, this, "ptr*", &certificateSet := 0, "HRESULT")
+        return IOpcCertificateSet(certificateSet)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getflags
      */
-    GetFlags(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, flagsMarshal, flags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(18, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**

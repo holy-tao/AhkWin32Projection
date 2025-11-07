@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,108 +33,99 @@ class IUserInputString extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSubmitButtonText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getsubmitbuttontext
      */
-    GetSubmitButtonText(pbstrSubmitButtonText) {
+    GetSubmitButtonText() {
+        pbstrSubmitButtonText := BSTR()
         result := ComCall(3, this, "ptr", pbstrSubmitButtonText, "HRESULT")
-        return result
+        return pbstrSubmitButtonText
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPromptTitle 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getprompt
      */
-    GetPrompt(pbstrPromptTitle) {
+    GetPrompt() {
+        pbstrPromptTitle := BSTR()
         result := ComCall(4, this, "ptr", pbstrPromptTitle, "HRESULT")
-        return result
+        return pbstrPromptTitle
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrStringId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getstringid
      */
-    GetStringId(pbstrStringId) {
+    GetStringId() {
+        pbstrStringId := BSTR()
         result := ComCall(5, this, "ptr", pbstrStringId, "HRESULT")
-        return result
+        return pbstrStringId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnStringType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getstringtype
      */
-    GetStringType(pnStringType) {
-        pnStringTypeMarshal := pnStringType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pnStringTypeMarshal, pnStringType, "HRESULT")
-        return result
+    GetStringType() {
+        result := ComCall(6, this, "int*", &pnStringType := 0, "HRESULT")
+        return pnStringType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTooltipText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-gettooltiptext
      */
-    GetTooltipText(pbstrTooltipText) {
+    GetTooltipText() {
+        pbstrTooltipText := BSTR()
         result := ComCall(7, this, "ptr", pbstrTooltipText, "HRESULT")
-        return result
+        return pbstrTooltipText
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcchMaxLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getmaxlength
      */
-    GetMaxLength(pcchMaxLength) {
-        pcchMaxLengthMarshal := pcchMaxLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pcchMaxLengthMarshal, pcchMaxLength, "HRESULT")
-        return result
+    GetMaxLength() {
+        result := ComCall(8, this, "uint*", &pcchMaxLength := 0, "HRESULT")
+        return pcchMaxLength
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDefault 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getdefault
      */
-    GetDefault(pbstrDefault) {
+    GetDefault() {
+        pbstrDefault := BSTR()
         result := ComCall(9, this, "ptr", pbstrDefault, "HRESULT")
-        return result
+        return pbstrDefault
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnMruCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getmrucount
      */
-    GetMruCount(pnMruCount) {
-        pnMruCountMarshal := pnMruCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pnMruCountMarshal, pnMruCount, "HRESULT")
-        return result
+    GetMruCount() {
+        result := ComCall(10, this, "uint*", &pnMruCount := 0, "HRESULT")
+        return pnMruCount
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<BSTR>} pbstrMruEntry 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getmruentryat
      */
-    GetMruEntryAt(nIndex, pbstrMruEntry) {
+    GetMruEntryAt(nIndex) {
+        pbstrMruEntry := BSTR()
         result := ComCall(11, this, "uint", nIndex, "ptr", pbstrMruEntry, "HRESULT")
-        return result
+        return pbstrMruEntry
     }
 
     /**

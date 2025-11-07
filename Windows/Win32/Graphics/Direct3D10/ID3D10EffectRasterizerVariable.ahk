@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10RasterizerState.ahk
+#Include .\D3D10_RASTERIZER_DESC.ahk
 #Include .\ID3D10EffectVariable.ahk
 
 /**
@@ -41,24 +43,23 @@ class ID3D10EffectRasterizerVariable extends ID3D10EffectVariable{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ID3D10RasterizerState>} ppRasterizerState 
-     * @returns {HRESULT} 
+     * @returns {ID3D10RasterizerState} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectrasterizervariable-getrasterizerstate
      */
-    GetRasterizerState(Index, ppRasterizerState) {
-        result := ComCall(25, this, "uint", Index, "ptr*", ppRasterizerState, "HRESULT")
-        return result
+    GetRasterizerState(Index) {
+        result := ComCall(25, this, "uint", Index, "ptr*", &ppRasterizerState := 0, "HRESULT")
+        return ID3D10RasterizerState(ppRasterizerState)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<D3D10_RASTERIZER_DESC>} pRasterizerDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_RASTERIZER_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectrasterizervariable-getbackingstore
      */
-    GetBackingStore(Index, pRasterizerDesc) {
+    GetBackingStore(Index) {
+        pRasterizerDesc := D3D10_RASTERIZER_DESC()
         result := ComCall(26, this, "uint", Index, "ptr", pRasterizerDesc, "HRESULT")
-        return result
+        return pRasterizerDesc
     }
 }

@@ -37,7 +37,9 @@ class IWMPPlayer2 extends IWMPCore{
      * @returns {HRESULT} 
      */
     get_enabled(pbEnabled) {
-        result := ComCall(28, this, "ptr", pbEnabled, "HRESULT")
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(28, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class IWMPPlayer2 extends IWMPCore{
      * @returns {HRESULT} 
      */
     get_fullScreen(pbFullScreen) {
-        result := ComCall(30, this, "ptr", pbFullScreen, "HRESULT")
+        pbFullScreenMarshal := pbFullScreen is VarRef ? "short*" : "ptr"
+
+        result := ComCall(30, this, pbFullScreenMarshal, pbFullScreen, "HRESULT")
         return result
     }
 
@@ -77,7 +81,9 @@ class IWMPPlayer2 extends IWMPCore{
      * @returns {HRESULT} 
      */
     get_enableContextMenu(pbEnableContextMenu) {
-        result := ComCall(32, this, "ptr", pbEnableContextMenu, "HRESULT")
+        pbEnableContextMenuMarshal := pbEnableContextMenu is VarRef ? "short*" : "ptr"
+
+        result := ComCall(32, this, pbEnableContextMenuMarshal, pbEnableContextMenu, "HRESULT")
         return result
     }
 
@@ -120,7 +126,9 @@ class IWMPPlayer2 extends IWMPCore{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer2-get_stretchtofit
      */
     get_stretchToFit(pbEnabled) {
-        result := ComCall(36, this, "ptr", pbEnabled, "HRESULT")
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(36, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 
@@ -142,7 +150,9 @@ class IWMPPlayer2 extends IWMPCore{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer2-get_windowlessvideo
      */
     get_windowlessVideo(pbEnabled) {
-        result := ComCall(38, this, "ptr", pbEnabled, "HRESULT")
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(38, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 

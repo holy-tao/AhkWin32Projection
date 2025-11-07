@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMultiMediaStream.ahk
+#Include .\IStreamSample.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +34,12 @@ class IMediaStream extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMultiMediaStream>} ppMultiMediaStream 
-     * @returns {HRESULT} 
+     * @returns {IMultiMediaStream} 
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-getmultimediastream
      */
-    GetMultiMediaStream(ppMultiMediaStream) {
-        result := ComCall(3, this, "ptr*", ppMultiMediaStream, "HRESULT")
-        return result
+    GetMultiMediaStream() {
+        result := ComCall(3, this, "ptr*", &ppMultiMediaStream := 0, "HRESULT")
+        return IMultiMediaStream(ppMultiMediaStream)
     }
 
     /**
@@ -70,26 +71,24 @@ class IMediaStream extends IUnknown{
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IStreamSample>} ppSample 
-     * @returns {HRESULT} 
+     * @returns {IStreamSample} 
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-allocatesample
      */
-    AllocateSample(dwFlags, ppSample) {
-        result := ComCall(6, this, "uint", dwFlags, "ptr*", ppSample, "HRESULT")
-        return result
+    AllocateSample(dwFlags) {
+        result := ComCall(6, this, "uint", dwFlags, "ptr*", &ppSample := 0, "HRESULT")
+        return IStreamSample(ppSample)
     }
 
     /**
      * 
      * @param {IStreamSample} pExistingSample 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IStreamSample>} ppNewSample 
-     * @returns {HRESULT} 
+     * @returns {IStreamSample} 
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-createsharedsample
      */
-    CreateSharedSample(pExistingSample, dwFlags, ppNewSample) {
-        result := ComCall(7, this, "ptr", pExistingSample, "uint", dwFlags, "ptr*", ppNewSample, "HRESULT")
-        return result
+    CreateSharedSample(pExistingSample, dwFlags) {
+        result := ComCall(7, this, "ptr", pExistingSample, "uint", dwFlags, "ptr*", &ppNewSample := 0, "HRESULT")
+        return IStreamSample(ppNewSample)
     }
 
     /**

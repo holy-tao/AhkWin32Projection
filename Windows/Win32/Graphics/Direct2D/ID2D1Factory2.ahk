@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Device1.ahk
 #Include .\ID2D1Factory1.ahk
 
 /**
@@ -33,12 +34,11 @@ class ID2D1Factory2 extends ID2D1Factory1{
     /**
      * 
      * @param {IDXGIDevice} dxgiDevice 
-     * @param {Pointer<ID2D1Device1>} d2dDevice1 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Device1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-id2d1factory2-createdevice
      */
-    CreateDevice(dxgiDevice, d2dDevice1) {
-        result := ComCall(27, this, "ptr", dxgiDevice, "ptr*", d2dDevice1, "HRESULT")
-        return result
+    CreateDevice(dxgiDevice) {
+        result := ComCall(27, this, "ptr", dxgiDevice, "ptr*", &d2dDevice1 := 0, "HRESULT")
+        return ID2D1Device1(d2dDevice1)
     }
 }

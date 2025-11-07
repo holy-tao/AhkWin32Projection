@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRawElementProviderFragment.ahk
+#Include .\UiaRect.ahk
+#Include .\IRawElementProviderFragmentRoot.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,50 +41,43 @@ class IRawElementProviderFragment extends IUnknown{
     /**
      * 
      * @param {Integer} direction 
-     * @param {Pointer<IRawElementProviderFragment>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderFragment} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-navigate
      */
-    Navigate(direction, pRetVal) {
-        result := ComCall(3, this, "int", direction, "ptr*", pRetVal, "HRESULT")
-        return result
+    Navigate(direction) {
+        result := ComCall(3, this, "int", direction, "ptr*", &pRetVal := 0, "HRESULT")
+        return IRawElementProviderFragment(pRetVal)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-getruntimeid
      */
-    GetRuntimeId(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetRuntimeId() {
+        result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<UiaRect>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {UiaRect} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-get_boundingrectangle
      */
-    get_BoundingRectangle(pRetVal) {
+    get_BoundingRectangle() {
+        pRetVal := UiaRect()
         result := ComCall(5, this, "ptr", pRetVal, "HRESULT")
-        return result
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-getembeddedfragmentroots
      */
-    GetEmbeddedFragmentRoots(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetEmbeddedFragmentRoots() {
+        result := ComCall(6, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
@@ -100,12 +96,11 @@ class IRawElementProviderFragment extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IRawElementProviderFragmentRoot>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderFragmentRoot} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-get_fragmentroot
      */
-    get_FragmentRoot(pRetVal) {
-        result := ComCall(8, this, "ptr*", pRetVal, "HRESULT")
-        return result
+    get_FragmentRoot() {
+        result := ComCall(8, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return IRawElementProviderFragmentRoot(pRetVal)
     }
 }

@@ -32,12 +32,11 @@ class IOfflineFilesTransparentCacheInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbTransparentlyCached 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilestransparentcacheinfo-istransparentlycached
      */
-    IsTransparentlyCached(pbTransparentlyCached) {
-        result := ComCall(3, this, "ptr", pbTransparentlyCached, "HRESULT")
-        return result
+    IsTransparentlyCached() {
+        result := ComCall(3, this, "int*", &pbTransparentlyCached := 0, "HRESULT")
+        return pbTransparentlyCached
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,15 +44,12 @@ class IProviderProperties extends IUnknown{
      * 
      * @param {IFunctionInstance} pIFunctionInstance 
      * @param {Pointer} iProviderInstanceContext 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-getcount
      */
-    GetCount(pIFunctionInstance, iProviderInstanceContext, pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetCount(pIFunctionInstance, iProviderInstanceContext) {
+        result := ComCall(3, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
@@ -58,13 +57,13 @@ class IProviderProperties extends IUnknown{
      * @param {IFunctionInstance} pIFunctionInstance 
      * @param {Pointer} iProviderInstanceContext 
      * @param {Integer} dwIndex 
-     * @param {Pointer<PROPERTYKEY>} pKey 
-     * @returns {HRESULT} 
+     * @returns {PROPERTYKEY} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-getat
      */
-    GetAt(pIFunctionInstance, iProviderInstanceContext, dwIndex, pKey) {
+    GetAt(pIFunctionInstance, iProviderInstanceContext, dwIndex) {
+        pKey := PROPERTYKEY()
         result := ComCall(4, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "uint", dwIndex, "ptr", pKey, "HRESULT")
-        return result
+        return pKey
     }
 
     /**
@@ -72,13 +71,13 @@ class IProviderProperties extends IUnknown{
      * @param {IFunctionInstance} pIFunctionInstance 
      * @param {Pointer} iProviderInstanceContext 
      * @param {Pointer<PROPERTYKEY>} Key 
-     * @param {Pointer<PROPVARIANT>} ppropVar 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-getvalue
      */
-    GetValue(pIFunctionInstance, iProviderInstanceContext, Key, ppropVar) {
+    GetValue(pIFunctionInstance, iProviderInstanceContext, Key) {
+        ppropVar := PROPVARIANT()
         result := ComCall(5, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "ptr", Key, "ptr", ppropVar, "HRESULT")
-        return result
+        return ppropVar
     }
 
     /**

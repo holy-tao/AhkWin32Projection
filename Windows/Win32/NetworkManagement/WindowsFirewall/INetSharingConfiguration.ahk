@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\INetSharingPortMappingCollection.ahk
+#Include .\INetSharingPortMapping.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,26 +35,22 @@ class INetSharingConfiguration extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-get_sharingenabled
      */
-    get_SharingEnabled(pbEnabled) {
-        result := ComCall(7, this, "ptr", pbEnabled, "HRESULT")
-        return result
+    get_SharingEnabled() {
+        result := ComCall(7, this, "short*", &pbEnabled := 0, "HRESULT")
+        return pbEnabled
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-get_sharingconnectiontype
      */
-    get_SharingConnectionType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    get_SharingConnectionType() {
+        result := ComCall(8, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
@@ -78,13 +76,12 @@ class INetSharingConfiguration extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-get_internetfirewallenabled
      */
-    get_InternetFirewallEnabled(pbEnabled) {
-        result := ComCall(11, this, "ptr", pbEnabled, "HRESULT")
-        return result
+    get_InternetFirewallEnabled() {
+        result := ComCall(11, this, "short*", &pbEnabled := 0, "HRESULT")
+        return pbEnabled
     }
 
     /**
@@ -110,13 +107,12 @@ class INetSharingConfiguration extends IDispatch{
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<INetSharingPortMappingCollection>} ppColl 
-     * @returns {HRESULT} 
+     * @returns {INetSharingPortMappingCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-get_enumportmappings
      */
-    get_EnumPortMappings(Flags, ppColl) {
-        result := ComCall(14, this, "int", Flags, "ptr*", ppColl, "HRESULT")
-        return result
+    get_EnumPortMappings(Flags) {
+        result := ComCall(14, this, "int", Flags, "ptr*", &ppColl := 0, "HRESULT")
+        return INetSharingPortMappingCollection(ppColl)
     }
 
     /**
@@ -128,16 +124,15 @@ class INetSharingConfiguration extends IDispatch{
      * @param {Integer} dwOptions 
      * @param {BSTR} bstrTargetNameOrIPAddress 
      * @param {Integer} eTargetType 
-     * @param {Pointer<INetSharingPortMapping>} ppMapping 
-     * @returns {HRESULT} 
+     * @returns {INetSharingPortMapping} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-addportmapping
      */
-    AddPortMapping(bstrName, ucIPProtocol, usExternalPort, usInternalPort, dwOptions, bstrTargetNameOrIPAddress, eTargetType, ppMapping) {
+    AddPortMapping(bstrName, ucIPProtocol, usExternalPort, usInternalPort, dwOptions, bstrTargetNameOrIPAddress, eTargetType) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrTargetNameOrIPAddress := bstrTargetNameOrIPAddress is String ? BSTR.Alloc(bstrTargetNameOrIPAddress).Value : bstrTargetNameOrIPAddress
 
-        result := ComCall(15, this, "ptr", bstrName, "char", ucIPProtocol, "ushort", usExternalPort, "ushort", usInternalPort, "uint", dwOptions, "ptr", bstrTargetNameOrIPAddress, "int", eTargetType, "ptr*", ppMapping, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", bstrName, "char", ucIPProtocol, "ushort", usExternalPort, "ushort", usInternalPort, "uint", dwOptions, "ptr", bstrTargetNameOrIPAddress, "int", eTargetType, "ptr*", &ppMapping := 0, "HRESULT")
+        return INetSharingPortMapping(ppMapping)
     }
 
     /**

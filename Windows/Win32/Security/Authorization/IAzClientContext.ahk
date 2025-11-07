@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,145 +42,141 @@ class IAzClientContext extends IDispatch{
      * @param {VARIANT} varInterfaceNames 
      * @param {VARIANT} varInterfaceFlags 
      * @param {VARIANT} varInterfaces 
-     * @param {Pointer<VARIANT>} pvarResults 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     *       
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {VARIANT} 
      * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-accesscheck
      */
-    AccessCheck(bstrObjectName, varScopeNames, varOperations, varParameterNames, varParameterValues, varInterfaceNames, varInterfaceFlags, varInterfaces, pvarResults) {
+    AccessCheck(bstrObjectName, varScopeNames, varOperations, varParameterNames, varParameterValues, varInterfaceNames, varInterfaceFlags, varInterfaces) {
         bstrObjectName := bstrObjectName is String ? BSTR.Alloc(bstrObjectName).Value : bstrObjectName
 
+        pvarResults := VARIANT()
         result := ComCall(7, this, "ptr", bstrObjectName, "ptr", varScopeNames, "ptr", varOperations, "ptr", varParameterNames, "ptr", varParameterValues, "ptr", varInterfaceNames, "ptr", varInterfaceFlags, "ptr", varInterfaces, "ptr", pvarResults, "HRESULT")
-        return result
+        return pvarResults
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrBusinessRuleString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-getbusinessrulestring
      */
-    GetBusinessRuleString(pbstrBusinessRuleString) {
+    GetBusinessRuleString() {
+        pbstrBusinessRuleString := BSTR()
         result := ComCall(8, this, "ptr", pbstrBusinessRuleString, "HRESULT")
-        return result
+        return pbstrBusinessRuleString
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userdn
      */
-    get_UserDn(pbstrProp) {
+    get_UserDn() {
+        pbstrProp := BSTR()
         result := ComCall(9, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_usersamcompat
      */
-    get_UserSamCompat(pbstrProp) {
+    get_UserSamCompat() {
+        pbstrProp := BSTR()
         result := ComCall(10, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userdisplay
      */
-    get_UserDisplay(pbstrProp) {
+    get_UserDisplay() {
+        pbstrProp := BSTR()
         result := ComCall(11, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userguid
      */
-    get_UserGuid(pbstrProp) {
+    get_UserGuid() {
+        pbstrProp := BSTR()
         result := ComCall(12, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_usercanonical
      */
-    get_UserCanonical(pbstrProp) {
+    get_UserCanonical() {
+        pbstrProp := BSTR()
         result := ComCall(13, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userupn
      */
-    get_UserUpn(pbstrProp) {
+    get_UserUpn() {
+        pbstrProp := BSTR()
         result := ComCall(14, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userdnssamcompat
      */
-    get_UserDnsSamCompat(pbstrProp) {
+    get_UserDnsSamCompat() {
+        pbstrProp := BSTR()
         result := ComCall(15, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
      * 
      * @param {Integer} lPropId 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<VARIANT>} pvarProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-getproperty
      */
-    GetProperty(lPropId, varReserved, pvarProp) {
+    GetProperty(lPropId, varReserved) {
+        pvarProp := VARIANT()
         result := ComCall(16, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "HRESULT")
-        return result
+        return pvarProp
     }
 
     /**
      * 
      * @param {BSTR} bstrScopeName 
-     * @param {Pointer<VARIANT>} pvarRoleNames 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-getroles
      */
-    GetRoles(bstrScopeName, pvarRoleNames) {
+    GetRoles(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
+        pvarRoleNames := VARIANT()
         result := ComCall(17, this, "ptr", bstrScopeName, "ptr", pvarRoleNames, "HRESULT")
-        return result
+        return pvarRoleNames
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_roleforaccesscheck
      */
-    get_RoleForAccessCheck(pbstrProp) {
+    get_RoleForAccessCheck() {
+        pbstrProp := BSTR()
         result := ComCall(18, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\IMSMQQueue2.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -31,22 +33,22 @@ class IMSMQQueueInfo2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrGuidQueue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_QueueGuid(pbstrGuidQueue) {
+    get_QueueGuid() {
+        pbstrGuidQueue := BSTR()
         result := ComCall(7, this, "ptr", pbstrGuidQueue, "HRESULT")
-        return result
+        return pbstrGuidQueue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrGuidServiceType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ServiceTypeGuid(pbstrGuidServiceType) {
+    get_ServiceTypeGuid() {
+        pbstrGuidServiceType := BSTR()
         result := ComCall(8, this, "ptr", pbstrGuidServiceType, "HRESULT")
-        return result
+        return pbstrGuidServiceType
     }
 
     /**
@@ -63,12 +65,12 @@ class IMSMQQueueInfo2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrLabel 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Label(pbstrLabel) {
+    get_Label() {
+        pbstrLabel := BSTR()
         result := ComCall(10, this, "ptr", pbstrLabel, "HRESULT")
-        return result
+        return pbstrLabel
     }
 
     /**
@@ -85,12 +87,12 @@ class IMSMQQueueInfo2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPathName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PathName(pbstrPathName) {
+    get_PathName() {
+        pbstrPathName := BSTR()
         result := ComCall(12, this, "ptr", pbstrPathName, "HRESULT")
-        return result
+        return pbstrPathName
     }
 
     /**
@@ -107,12 +109,12 @@ class IMSMQQueueInfo2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFormatName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_FormatName(pbstrFormatName) {
+    get_FormatName() {
+        pbstrFormatName := BSTR()
         result := ComCall(14, this, "ptr", pbstrFormatName, "HRESULT")
-        return result
+        return pbstrFormatName
     }
 
     /**
@@ -129,26 +131,20 @@ class IMSMQQueueInfo2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pisTransactional 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_IsTransactional(pisTransactional) {
-        pisTransactionalMarshal := pisTransactional is VarRef ? "short*" : "ptr"
-
-        result := ComCall(16, this, pisTransactionalMarshal, pisTransactional, "HRESULT")
-        return result
+    get_IsTransactional() {
+        result := ComCall(16, this, "short*", &pisTransactional := 0, "HRESULT")
+        return pisTransactional
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plPrivLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PrivLevel(plPrivLevel) {
-        plPrivLevelMarshal := plPrivLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, plPrivLevelMarshal, plPrivLevel, "HRESULT")
-        return result
+    get_PrivLevel() {
+        result := ComCall(17, this, "int*", &plPrivLevel := 0, "HRESULT")
+        return plPrivLevel
     }
 
     /**
@@ -163,14 +159,11 @@ class IMSMQQueueInfo2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plJournal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Journal(plJournal) {
-        plJournalMarshal := plJournal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, plJournalMarshal, plJournal, "HRESULT")
-        return result
+    get_Journal() {
+        result := ComCall(19, this, "int*", &plJournal := 0, "HRESULT")
+        return plJournal
     }
 
     /**
@@ -185,14 +178,11 @@ class IMSMQQueueInfo2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plQuota 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Quota(plQuota) {
-        plQuotaMarshal := plQuota is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, plQuotaMarshal, plQuota, "HRESULT")
-        return result
+    get_Quota() {
+        result := ComCall(21, this, "int*", &plQuota := 0, "HRESULT")
+        return plQuota
     }
 
     /**
@@ -207,14 +197,11 @@ class IMSMQQueueInfo2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plBasePriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BasePriority(plBasePriority) {
-        plBasePriorityMarshal := plBasePriority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, plBasePriorityMarshal, plBasePriority, "HRESULT")
-        return result
+    get_BasePriority() {
+        result := ComCall(23, this, "int*", &plBasePriority := 0, "HRESULT")
+        return plBasePriority
     }
 
     /**
@@ -229,34 +216,31 @@ class IMSMQQueueInfo2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarCreateTime 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_CreateTime(pvarCreateTime) {
+    get_CreateTime() {
+        pvarCreateTime := VARIANT()
         result := ComCall(25, this, "ptr", pvarCreateTime, "HRESULT")
-        return result
+        return pvarCreateTime
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarModifyTime 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ModifyTime(pvarModifyTime) {
+    get_ModifyTime() {
+        pvarModifyTime := VARIANT()
         result := ComCall(26, this, "ptr", pvarModifyTime, "HRESULT")
-        return result
+        return pvarModifyTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plAuthenticate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Authenticate(plAuthenticate) {
-        plAuthenticateMarshal := plAuthenticate is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, plAuthenticateMarshal, plAuthenticate, "HRESULT")
-        return result
+    get_Authenticate() {
+        result := ComCall(27, this, "int*", &plAuthenticate := 0, "HRESULT")
+        return plAuthenticate
     }
 
     /**
@@ -271,14 +255,11 @@ class IMSMQQueueInfo2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plJournalQuota 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_JournalQuota(plJournalQuota) {
-        plJournalQuotaMarshal := plJournalQuota is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, plJournalQuotaMarshal, plJournalQuota, "HRESULT")
-        return result
+    get_JournalQuota() {
+        result := ComCall(29, this, "int*", &plJournalQuota := 0, "HRESULT")
+        return plJournalQuota
     }
 
     /**
@@ -293,14 +274,11 @@ class IMSMQQueueInfo2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pisWorldReadable 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_IsWorldReadable(pisWorldReadable) {
-        pisWorldReadableMarshal := pisWorldReadable is VarRef ? "short*" : "ptr"
-
-        result := ComCall(31, this, pisWorldReadableMarshal, pisWorldReadable, "HRESULT")
-        return result
+    get_IsWorldReadable() {
+        result := ComCall(31, this, "short*", &pisWorldReadable := 0, "HRESULT")
+        return pisWorldReadable
     }
 
     /**
@@ -327,12 +305,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * 
      * @param {Integer} Access 
      * @param {Integer} ShareMode 
-     * @param {Pointer<IMSMQQueue2>} ppq 
-     * @returns {HRESULT} 
+     * @returns {IMSMQQueue2} 
      */
-    Open(Access, ShareMode, ppq) {
-        result := ComCall(34, this, "int", Access, "int", ShareMode, "ptr*", ppq, "HRESULT")
-        return result
+    Open(Access, ShareMode) {
+        result := ComCall(34, this, "int", Access, "int", ShareMode, "ptr*", &ppq := 0, "HRESULT")
+        return IMSMQQueue2(ppq)
     }
 
     /**
@@ -355,32 +332,31 @@ class IMSMQQueueInfo2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPathNameDNS 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PathNameDNS(pbstrPathNameDNS) {
+    get_PathNameDNS() {
+        pbstrPathNameDNS := BSTR()
         result := ComCall(37, this, "ptr", pbstrPathNameDNS, "HRESULT")
-        return result
+        return pbstrPathNameDNS
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppcolProperties 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Properties(ppcolProperties) {
-        result := ComCall(38, this, "ptr*", ppcolProperties, "HRESULT")
-        return result
+    get_Properties() {
+        result := ComCall(38, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        return IDispatch(ppcolProperties)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSecurity 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Security(pvarSecurity) {
+    get_Security() {
+        pvarSecurity := VARIANT()
         result := ComCall(39, this, "ptr", pvarSecurity, "HRESULT")
-        return result
+        return pvarSecurity
     }
 
     /**

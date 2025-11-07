@@ -32,28 +32,22 @@ class IMFSampleProtection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-getinputprotectionversion
      */
-    GetInputProtectionVersion(pdwVersion) {
-        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwVersionMarshal, pdwVersion, "HRESULT")
-        return result
+    GetInputProtectionVersion() {
+        result := ComCall(3, this, "uint*", &pdwVersion := 0, "HRESULT")
+        return pdwVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-getoutputprotectionversion
      */
-    GetOutputProtectionVersion(pdwVersion) {
-        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwVersionMarshal, pdwVersion, "HRESULT")
-        return result
+    GetOutputProtectionVersion() {
+        result := ComCall(4, this, "uint*", &pdwVersion := 0, "HRESULT")
+        return pdwVersion
     }
 
     /**

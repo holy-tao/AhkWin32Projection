@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -31,23 +32,23 @@ class IPerPropertyBrowsing2 extends IUnknown{
     /**
      * 
      * @param {Integer} dispid 
-     * @param {Pointer<BSTR>} pBstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDisplayString(dispid, pBstr) {
+    GetDisplayString(dispid) {
+        pBstr := BSTR()
         result := ComCall(3, this, "int", dispid, "ptr", pBstr, "HRESULT")
-        return result
+        return pBstr
     }
 
     /**
      * 
      * @param {Integer} dispid 
-     * @param {Pointer<Guid>} pClsidPropPage 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    MapPropertyToPage(dispid, pClsidPropPage) {
+    MapPropertyToPage(dispid) {
+        pClsidPropPage := Guid()
         result := ComCall(4, this, "int", dispid, "ptr", pClsidPropPage, "HRESULT")
-        return result
+        return pClsidPropPage
     }
 
     /**

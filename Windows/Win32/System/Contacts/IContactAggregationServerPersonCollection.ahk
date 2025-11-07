@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IContactAggregationServerPerson.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,72 +31,64 @@ class IContactAggregationServerPersonCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IContactAggregationServerPerson>} ppServerPerson 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationServerPerson} 
      */
-    FindFirst(ppServerPerson) {
-        result := ComCall(3, this, "ptr*", ppServerPerson, "HRESULT")
-        return result
+    FindFirst() {
+        result := ComCall(3, this, "ptr*", &ppServerPerson := 0, "HRESULT")
+        return IContactAggregationServerPerson(ppServerPerson)
     }
 
     /**
      * 
      * @param {PWSTR} pServerId 
-     * @param {Pointer<IContactAggregationServerPerson>} ppServerPerson 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationServerPerson} 
      */
-    FindFirstByServerId(pServerId, ppServerPerson) {
+    FindFirstByServerId(pServerId) {
         pServerId := pServerId is String ? StrPtr(pServerId) : pServerId
 
-        result := ComCall(4, this, "ptr", pServerId, "ptr*", ppServerPerson, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pServerId, "ptr*", &ppServerPerson := 0, "HRESULT")
+        return IContactAggregationServerPerson(ppServerPerson)
     }
 
     /**
      * 
      * @param {PWSTR} pAggregateId 
-     * @param {Pointer<IContactAggregationServerPerson>} ppServerPerson 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationServerPerson} 
      */
-    FindFirstByAggregateId(pAggregateId, ppServerPerson) {
+    FindFirstByAggregateId(pAggregateId) {
         pAggregateId := pAggregateId is String ? StrPtr(pAggregateId) : pAggregateId
 
-        result := ComCall(5, this, "ptr", pAggregateId, "ptr*", ppServerPerson, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pAggregateId, "ptr*", &ppServerPerson := 0, "HRESULT")
+        return IContactAggregationServerPerson(ppServerPerson)
     }
 
     /**
      * 
      * @param {PWSTR} pAggregateId 
-     * @param {Pointer<IContactAggregationServerPerson>} ppServerPerson 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationServerPerson} 
      */
-    FindFirstByLinkedAggregateId(pAggregateId, ppServerPerson) {
+    FindFirstByLinkedAggregateId(pAggregateId) {
         pAggregateId := pAggregateId is String ? StrPtr(pAggregateId) : pAggregateId
 
-        result := ComCall(6, this, "ptr", pAggregateId, "ptr*", ppServerPerson, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pAggregateId, "ptr*", &ppServerPerson := 0, "HRESULT")
+        return IContactAggregationServerPerson(ppServerPerson)
     }
 
     /**
      * 
-     * @param {Pointer<IContactAggregationServerPerson>} ppServerPerson 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationServerPerson} 
      */
-    FindNext(ppServerPerson) {
-        result := ComCall(7, this, "ptr*", ppServerPerson, "HRESULT")
-        return result
+    FindNext() {
+        result := ComCall(7, this, "ptr*", &ppServerPerson := 0, "HRESULT")
+        return IContactAggregationServerPerson(ppServerPerson)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 }

@@ -71,16 +71,16 @@ class ICEnroll extends IDispatch{
      * 
      * @param {BSTR} DNName 
      * @param {BSTR} Usage 
-     * @param {Pointer<BSTR>} pPKCS10 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-createpkcs10
      */
-    createPKCS10(DNName, Usage, pPKCS10) {
+    createPKCS10(DNName, Usage) {
         DNName := DNName is String ? BSTR.Alloc(DNName).Value : DNName
         Usage := Usage is String ? BSTR.Alloc(Usage).Value : Usage
 
+        pPKCS10 := BSTR()
         result := ComCall(9, this, "ptr", DNName, "ptr", Usage, "ptr", pPKCS10, "HRESULT")
-        return result
+        return pPKCS10
     }
 
     /**
@@ -99,40 +99,40 @@ class ICEnroll extends IDispatch{
     /**
      * 
      * @param {BSTR} wszPKCS7 
-     * @param {Pointer<BSTR>} pbstrCert 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-getcertfrompkcs7
      */
-    getCertFromPKCS7(wszPKCS7, pbstrCert) {
+    getCertFromPKCS7(wszPKCS7) {
         wszPKCS7 := wszPKCS7 is String ? BSTR.Alloc(wszPKCS7).Value : wszPKCS7
 
+        pbstrCert := BSTR()
         result := ComCall(11, this, "ptr", wszPKCS7, "ptr", pbstrCert, "HRESULT")
-        return result
+        return pbstrCert
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
      * @param {Integer} dwFlags 
-     * @param {Pointer<BSTR>} pbstrProvName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-enumproviders
      */
-    enumProviders(dwIndex, dwFlags, pbstrProvName) {
+    enumProviders(dwIndex, dwFlags) {
+        pbstrProvName := BSTR()
         result := ComCall(12, this, "int", dwIndex, "int", dwFlags, "ptr", pbstrProvName, "HRESULT")
-        return result
+        return pbstrProvName
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-enumcontainers
      */
-    enumContainers(dwIndex, pbstr) {
+    enumContainers(dwIndex) {
+        pbstr := BSTR()
         result := ComCall(13, this, "int", dwIndex, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -150,13 +150,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_mystorename
      */
-    get_MyStoreName(pbstrName) {
+    get_MyStoreName() {
+        pbstrName := BSTR()
         result := ComCall(15, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -174,13 +174,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_mystoretype
      */
-    get_MyStoreType(pbstrType) {
+    get_MyStoreType() {
+        pbstrType := BSTR()
         result := ComCall(17, this, "ptr", pbstrType, "HRESULT")
-        return result
+        return pbstrType
     }
 
     /**
@@ -198,15 +198,12 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_mystoreflags
      */
-    get_MyStoreFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    get_MyStoreFlags() {
+        result := ComCall(19, this, "int*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -222,13 +219,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_castorename
      */
-    get_CAStoreName(pbstrName) {
+    get_CAStoreName() {
+        pbstrName := BSTR()
         result := ComCall(21, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -246,13 +243,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_castoretype
      */
-    get_CAStoreType(pbstrType) {
+    get_CAStoreType() {
+        pbstrType := BSTR()
         result := ComCall(23, this, "ptr", pbstrType, "HRESULT")
-        return result
+        return pbstrType
     }
 
     /**
@@ -270,15 +267,12 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_castoreflags
      */
-    get_CAStoreFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    get_CAStoreFlags() {
+        result := ComCall(25, this, "int*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -294,13 +288,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_rootstorename
      */
-    get_RootStoreName(pbstrName) {
+    get_RootStoreName() {
+        pbstrName := BSTR()
         result := ComCall(27, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -318,13 +312,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_rootstoretype
      */
-    get_RootStoreType(pbstrType) {
+    get_RootStoreType() {
+        pbstrType := BSTR()
         result := ComCall(29, this, "ptr", pbstrType, "HRESULT")
-        return result
+        return pbstrType
     }
 
     /**
@@ -342,15 +336,12 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_rootstoreflags
      */
-    get_RootStoreFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    get_RootStoreFlags() {
+        result := ComCall(31, this, "int*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -366,13 +357,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_requeststorename
      */
-    get_RequestStoreName(pbstrName) {
+    get_RequestStoreName() {
+        pbstrName := BSTR()
         result := ComCall(33, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -390,13 +381,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_requeststoretype
      */
-    get_RequestStoreType(pbstrType) {
+    get_RequestStoreType() {
+        pbstrType := BSTR()
         result := ComCall(35, this, "ptr", pbstrType, "HRESULT")
-        return result
+        return pbstrType
     }
 
     /**
@@ -414,15 +405,12 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_requeststoreflags
      */
-    get_RequestStoreFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(37, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    get_RequestStoreFlags() {
+        result := ComCall(37, this, "int*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -438,13 +426,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrContainer 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_containername
      */
-    get_ContainerName(pbstrContainer) {
+    get_ContainerName() {
+        pbstrContainer := BSTR()
         result := ComCall(39, this, "ptr", pbstrContainer, "HRESULT")
-        return result
+        return pbstrContainer
     }
 
     /**
@@ -462,13 +450,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProvider 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_providername
      */
-    get_ProviderName(pbstrProvider) {
+    get_ProviderName() {
+        pbstrProvider := BSTR()
         result := ComCall(41, this, "ptr", pbstrProvider, "HRESULT")
-        return result
+        return pbstrProvider
     }
 
     /**
@@ -486,15 +474,12 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_providertype
      */
-    get_ProviderType(pdwType) {
-        pdwTypeMarshal := pdwType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(43, this, pdwTypeMarshal, pdwType, "HRESULT")
-        return result
+    get_ProviderType() {
+        result := ComCall(43, this, "int*", &pdwType := 0, "HRESULT")
+        return pdwType
     }
 
     /**
@@ -510,15 +495,12 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdw 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_keyspec
      */
-    get_KeySpec(pdw) {
-        pdwMarshal := pdw is VarRef ? "int*" : "ptr"
-
-        result := ComCall(45, this, pdwMarshal, pdw, "HRESULT")
-        return result
+    get_KeySpec() {
+        result := ComCall(45, this, "int*", &pdw := 0, "HRESULT")
+        return pdw
     }
 
     /**
@@ -534,15 +516,12 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_providerflags
      */
-    get_ProviderFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(47, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    get_ProviderFlags() {
+        result := ComCall(47, this, "int*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -558,13 +537,12 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} fUseExistingKeys 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_useexistingkeyset
      */
-    get_UseExistingKeySet(fUseExistingKeys) {
-        result := ComCall(49, this, "ptr", fUseExistingKeys, "HRESULT")
-        return result
+    get_UseExistingKeySet() {
+        result := ComCall(49, this, "int*", &fUseExistingKeys := 0, "HRESULT")
+        return fUseExistingKeys
     }
 
     /**
@@ -580,15 +558,12 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_genkeyflags
      */
-    get_GenKeyFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(51, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    get_GenKeyFlags() {
+        result := ComCall(51, this, "int*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -604,13 +579,12 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} fDelete 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_deleterequestcert
      */
-    get_DeleteRequestCert(fDelete) {
-        result := ComCall(53, this, "ptr", fDelete, "HRESULT")
-        return result
+    get_DeleteRequestCert() {
+        result := ComCall(53, this, "int*", &fDelete := 0, "HRESULT")
+        return fDelete
     }
 
     /**
@@ -626,13 +600,12 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} fBool 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_writecerttocsp
      */
-    get_WriteCertToCSP(fBool) {
-        result := ComCall(55, this, "ptr", fBool, "HRESULT")
-        return result
+    get_WriteCertToCSP() {
+        result := ComCall(55, this, "int*", &fBool := 0, "HRESULT")
+        return fBool
     }
 
     /**
@@ -648,13 +621,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_spcfilename
      */
-    get_SPCFileName(pbstr) {
+    get_SPCFileName() {
+        pbstr := BSTR()
         result := ComCall(57, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -672,13 +645,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_pvkfilename
      */
-    get_PVKFileName(pbstr) {
+    get_PVKFileName() {
+        pbstr := BSTR()
         result := ComCall(59, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -696,13 +669,13 @@ class ICEnroll extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_hashalgorithm
      */
-    get_HashAlgorithm(pbstr) {
+    get_HashAlgorithm() {
+        pbstr := BSTR()
         result := ComCall(61, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**

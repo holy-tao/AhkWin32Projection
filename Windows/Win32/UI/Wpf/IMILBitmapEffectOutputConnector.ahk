@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMILBitmapEffectInputConnector.ahk
 #Include .\IMILBitmapEffectConnector.ahk
 
 /**
@@ -32,26 +33,22 @@ class IMILBitmapEffectOutputConnector extends IMILBitmapEffectConnector{
 
     /**
      * 
-     * @param {Pointer<Integer>} puiNumberConnections 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectoutputconnector-getnumberconnections
      */
-    GetNumberConnections(puiNumberConnections) {
-        puiNumberConnectionsMarshal := puiNumberConnections is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, puiNumberConnectionsMarshal, puiNumberConnections, "HRESULT")
-        return result
+    GetNumberConnections() {
+        result := ComCall(9, this, "uint*", &puiNumberConnections := 0, "HRESULT")
+        return puiNumberConnections
     }
 
     /**
      * 
      * @param {Integer} uiIndex 
-     * @param {Pointer<IMILBitmapEffectInputConnector>} ppConnection 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffectInputConnector} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectoutputconnector-getconnection
      */
-    GetConnection(uiIndex, ppConnection) {
-        result := ComCall(10, this, "uint", uiIndex, "ptr*", ppConnection, "HRESULT")
-        return result
+    GetConnection(uiIndex) {
+        result := ComCall(10, this, "uint", uiIndex, "ptr*", &ppConnection := 0, "HRESULT")
+        return IMILBitmapEffectInputConnector(ppConnection)
     }
 }

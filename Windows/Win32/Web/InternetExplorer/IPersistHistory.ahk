@@ -61,13 +61,10 @@ class IPersistHistory extends IPersist{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwPositioncookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPositionCookie(pdwPositioncookie) {
-        pdwPositioncookieMarshal := pdwPositioncookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwPositioncookieMarshal, pdwPositioncookie, "HRESULT")
-        return result
+    GetPositionCookie() {
+        result := ComCall(7, this, "uint*", &pdwPositioncookie := 0, "HRESULT")
+        return pdwPositioncookie
     }
 }

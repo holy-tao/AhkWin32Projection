@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugDocumentContext.ahk
+#Include .\IDebugApplication32.ahk
+#Include .\IDebugApplicationNode.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -33,32 +36,29 @@ class IActiveScriptSiteDebug32 extends IUnknown{
      * @param {Integer} dwSourceContext 
      * @param {Integer} uCharacterOffset 
      * @param {Integer} uNumChars 
-     * @param {Pointer<IDebugDocumentContext>} ppsc 
-     * @returns {HRESULT} 
+     * @returns {IDebugDocumentContext} 
      */
-    GetDocumentContextFromPosition(dwSourceContext, uCharacterOffset, uNumChars, ppsc) {
-        result := ComCall(3, this, "uint", dwSourceContext, "uint", uCharacterOffset, "uint", uNumChars, "ptr*", ppsc, "HRESULT")
-        return result
+    GetDocumentContextFromPosition(dwSourceContext, uCharacterOffset, uNumChars) {
+        result := ComCall(3, this, "uint", dwSourceContext, "uint", uCharacterOffset, "uint", uNumChars, "ptr*", &ppsc := 0, "HRESULT")
+        return IDebugDocumentContext(ppsc)
     }
 
     /**
      * 
-     * @param {Pointer<IDebugApplication32>} ppda 
-     * @returns {HRESULT} 
+     * @returns {IDebugApplication32} 
      */
-    GetApplication(ppda) {
-        result := ComCall(4, this, "ptr*", ppda, "HRESULT")
-        return result
+    GetApplication() {
+        result := ComCall(4, this, "ptr*", &ppda := 0, "HRESULT")
+        return IDebugApplication32(ppda)
     }
 
     /**
      * 
-     * @param {Pointer<IDebugApplicationNode>} ppdanRoot 
-     * @returns {HRESULT} 
+     * @returns {IDebugApplicationNode} 
      */
-    GetRootApplicationNode(ppdanRoot) {
-        result := ComCall(5, this, "ptr*", ppdanRoot, "HRESULT")
-        return result
+    GetRootApplicationNode() {
+        result := ComCall(5, this, "ptr*", &ppdanRoot := 0, "HRESULT")
+        return IDebugApplicationNode(ppdanRoot)
     }
 
     /**
@@ -69,7 +69,10 @@ class IActiveScriptSiteDebug32 extends IUnknown{
      * @returns {HRESULT} 
      */
     OnScriptErrorDebug(pErrorDebug, pfEnterDebugger, pfCallOnScriptErrorWhenContinuing) {
-        result := ComCall(6, this, "ptr", pErrorDebug, "ptr", pfEnterDebugger, "ptr", pfCallOnScriptErrorWhenContinuing, "HRESULT")
+        pfEnterDebuggerMarshal := pfEnterDebugger is VarRef ? "int*" : "ptr"
+        pfCallOnScriptErrorWhenContinuingMarshal := pfCallOnScriptErrorWhenContinuing is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pErrorDebug, pfEnterDebuggerMarshal, pfEnterDebugger, pfCallOnScriptErrorWhenContinuingMarshal, pfCallOnScriptErrorWhenContinuing, "HRESULT")
         return result
     }
 }

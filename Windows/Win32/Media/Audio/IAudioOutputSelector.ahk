@@ -32,15 +32,12 @@ class IAudioOutputSelector extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnIdSelected 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiooutputselector-getselection
      */
-    GetSelection(pnIdSelected) {
-        pnIdSelectedMarshal := pnIdSelected is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pnIdSelectedMarshal, pnIdSelected, "HRESULT")
-        return result
+    GetSelection() {
+        result := ComCall(3, this, "uint*", &pnIdSelected := 0, "HRESULT")
+        return pnIdSelected
     }
 
     /**

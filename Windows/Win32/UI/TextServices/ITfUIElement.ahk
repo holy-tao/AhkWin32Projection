@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,24 +37,24 @@ class ITfUIElement extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-getdescription
      */
-    GetDescription(pbstrDescription) {
+    GetDescription() {
+        pbstrDescription := BSTR()
         result := ComCall(3, this, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-getguid
      */
-    GetGUID(pguid) {
+    GetGUID() {
+        pguid := Guid()
         result := ComCall(4, this, "ptr", pguid, "HRESULT")
-        return result
+        return pguid
     }
 
     /**
@@ -69,12 +70,11 @@ class ITfUIElement extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbShow 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-isshown
      */
-    IsShown(pbShow) {
-        result := ComCall(6, this, "ptr", pbShow, "HRESULT")
-        return result
+    IsShown() {
+        result := ComCall(6, this, "int*", &pbShow := 0, "HRESULT")
+        return pbShow
     }
 }

@@ -93,26 +93,22 @@ class IMF2DBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsContiguous 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer-iscontiguousformat
      */
-    IsContiguousFormat(pfIsContiguous) {
-        result := ComCall(6, this, "ptr", pfIsContiguous, "HRESULT")
-        return result
+    IsContiguousFormat() {
+        result := ComCall(6, this, "int*", &pfIsContiguous := 0, "HRESULT")
+        return pfIsContiguous
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer-getcontiguouslength
      */
-    GetContiguousLength(pcbLength) {
-        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pcbLengthMarshal, pcbLength, "HRESULT")
-        return result
+    GetContiguousLength() {
+        result := ComCall(7, this, "uint*", &pcbLength := 0, "HRESULT")
+        return pcbLength
     }
 
     /**

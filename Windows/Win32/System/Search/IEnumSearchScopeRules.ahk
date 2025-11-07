@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISearchScopeRule.ahk
+#Include .\IEnumSearchScopeRules.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -38,16 +40,15 @@ class IEnumSearchScopeRules extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<ISearchScopeRule>} pprgelt 
      * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {ISearchScopeRule} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ienumsearchscoperules-next
      */
-    Next(celt, pprgelt, pceltFetched) {
+    Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", pprgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", celt, "ptr*", &pprgelt := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        return ISearchScopeRule(pprgelt)
     }
 
     /**
@@ -73,12 +74,11 @@ class IEnumSearchScopeRules extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSearchScopeRules>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSearchScopeRules} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ienumsearchscoperules-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumSearchScopeRules(ppenum)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,52 +33,42 @@ class IMFSensorProcessActivity extends IUnknown{
 
     /**
      * Retrieves the process identifier of the specified process.
-     * @param {Pointer<Integer>} pPID 
-     * @returns {HRESULT} If the function succeeds, the return value is the process identifier.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessid
      */
-    GetProcessId(pPID) {
-        pPIDMarshal := pPID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pPIDMarshal, pPID, "HRESULT")
-        return result
+    GetProcessId() {
+        result := ComCall(3, this, "uint*", &pPID := 0, "HRESULT")
+        return pPID
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfStreaming 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprocessactivity-getstreamingstate
      */
-    GetStreamingState(pfStreaming) {
-        result := ComCall(4, this, "ptr", pfStreaming, "HRESULT")
-        return result
+    GetStreamingState() {
+        result := ComCall(4, this, "int*", &pfStreaming := 0, "HRESULT")
+        return pfStreaming
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprocessactivity-getstreamingmode
      */
-    GetStreamingMode(pMode) {
-        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pModeMarshal, pMode, "HRESULT")
-        return result
+    GetStreamingMode() {
+        result := ComCall(5, this, "int*", &pMode := 0, "HRESULT")
+        return pMode
     }
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pft 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprocessactivity-getreporttime
      */
-    GetReportTime(pft) {
+    GetReportTime() {
+        pft := FILETIME()
         result := ComCall(6, this, "ptr", pft, "HRESULT")
-        return result
+        return pft
     }
 }

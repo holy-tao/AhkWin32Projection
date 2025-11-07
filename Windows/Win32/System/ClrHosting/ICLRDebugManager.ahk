@@ -75,24 +75,20 @@ class ICLRDebugManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<ACL>>} pacl 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ACL>} 
      */
-    GetDacl(pacl) {
-        paclMarshal := pacl is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, paclMarshal, pacl, "HRESULT")
-        return result
+    GetDacl() {
+        result := ComCall(7, this, "ptr*", &pacl := 0, "HRESULT")
+        return pacl
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbAttached 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsDebuggerAttached(pbAttached) {
-        result := ComCall(8, this, "ptr", pbAttached, "HRESULT")
-        return result
+    IsDebuggerAttached() {
+        result := ComCall(8, this, "int*", &pbAttached := 0, "HRESULT")
+        return pbAttached
     }
 
     /**

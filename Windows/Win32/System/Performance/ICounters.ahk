@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\DICounterItem.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,48 +39,42 @@ class ICounters extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pLong 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(pLong) {
-        pLongMarshal := pLong is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pLongMarshal, pLong, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &pLong := 0, "HRESULT")
+        return pLong
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppIunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(ppIunk) {
-        result := ComCall(8, this, "ptr*", ppIunk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &ppIunk := 0, "HRESULT")
+        return IUnknown(ppIunk)
     }
 
     /**
      * 
      * @param {VARIANT} index 
-     * @param {Pointer<DICounterItem>} ppI 
-     * @returns {HRESULT} 
+     * @returns {DICounterItem} 
      */
-    get_Item(index, ppI) {
-        result := ComCall(9, this, "ptr", index, "ptr*", ppI, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(9, this, "ptr", index, "ptr*", &ppI := 0, "HRESULT")
+        return DICounterItem(ppI)
     }
 
     /**
      * 
      * @param {BSTR} pathname 
-     * @param {Pointer<DICounterItem>} ppI 
-     * @returns {HRESULT} 
+     * @returns {DICounterItem} 
      */
-    Add(pathname, ppI) {
+    Add(pathname) {
         pathname := pathname is String ? BSTR.Alloc(pathname).Value : pathname
 
-        result := ComCall(10, this, "ptr", pathname, "ptr*", ppI, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pathname, "ptr*", &ppI := 0, "HRESULT")
+        return DICounterItem(ppI)
     }
 
     /**

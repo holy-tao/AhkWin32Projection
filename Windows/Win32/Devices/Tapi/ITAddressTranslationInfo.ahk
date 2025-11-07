@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,62 +33,53 @@ class ITAddressTranslationInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppDialableString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_dialablestring
      */
-    get_DialableString(ppDialableString) {
+    get_DialableString() {
+        ppDialableString := BSTR()
         result := ComCall(7, this, "ptr", ppDialableString, "HRESULT")
-        return result
+        return ppDialableString
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppDisplayableString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_displayablestring
      */
-    get_DisplayableString(ppDisplayableString) {
+    get_DisplayableString() {
+        ppDisplayableString := BSTR()
         result := ComCall(8, this, "ptr", ppDisplayableString, "HRESULT")
-        return result
+        return ppDisplayableString
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} CountryCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_currentcountrycode
      */
-    get_CurrentCountryCode(CountryCode) {
-        CountryCodeMarshal := CountryCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, CountryCodeMarshal, CountryCode, "HRESULT")
-        return result
+    get_CurrentCountryCode() {
+        result := ComCall(9, this, "int*", &CountryCode := 0, "HRESULT")
+        return CountryCode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} CountryCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_destinationcountrycode
      */
-    get_DestinationCountryCode(CountryCode) {
-        CountryCodeMarshal := CountryCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, CountryCodeMarshal, CountryCode, "HRESULT")
-        return result
+    get_DestinationCountryCode() {
+        result := ComCall(10, this, "int*", &CountryCode := 0, "HRESULT")
+        return CountryCode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plResults 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_translationresults
      */
-    get_TranslationResults(plResults) {
-        plResultsMarshal := plResults is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plResultsMarshal, plResults, "HRESULT")
-        return result
+    get_TranslationResults() {
+        result := ComCall(11, this, "int*", &plResults := 0, "HRESULT")
+        return plResults
     }
 }

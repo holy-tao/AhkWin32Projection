@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include PropertiesSystem\IPropertyStore.ahk
 #Include .\IFileDialog.ahk
 
 /**
@@ -80,13 +81,12 @@ class IFileSaveDialog extends IFileDialog{
 
     /**
      * 
-     * @param {Pointer<IPropertyStore>} ppStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesavedialog-getproperties
      */
-    GetProperties(ppStore) {
-        result := ComCall(30, this, "ptr*", ppStore, "HRESULT")
-        return result
+    GetProperties() {
+        result := ComCall(30, this, "ptr*", &ppStore := 0, "HRESULT")
+        return IPropertyStore(ppStore)
     }
 
     /**

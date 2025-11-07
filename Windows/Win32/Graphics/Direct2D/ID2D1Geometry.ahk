@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\D2D_RECT_F.ahk
 #Include .\ID2D1Resource.ahk
 
 /**
@@ -42,13 +43,13 @@ class ID2D1Geometry extends ID2D1Resource{
     /**
      * 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
-     * @param {Pointer<D2D_RECT_F>} bounds 
-     * @returns {HRESULT} 
+     * @returns {D2D_RECT_F} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-getbounds
      */
-    GetBounds(worldTransform, bounds) {
+    GetBounds(worldTransform) {
+        bounds := D2D_RECT_F()
         result := ComCall(4, this, "ptr", worldTransform, "ptr", bounds, "HRESULT")
-        return result
+        return bounds
     }
 
     /**
@@ -57,13 +58,13 @@ class ID2D1Geometry extends ID2D1Resource{
      * @param {ID2D1StrokeStyle} strokeStyle 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
      * @param {Float} flatteningTolerance 
-     * @param {Pointer<D2D_RECT_F>} bounds 
-     * @returns {HRESULT} 
+     * @returns {D2D_RECT_F} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-getwidenedbounds
      */
-    GetWidenedBounds(strokeWidth, strokeStyle, worldTransform, flatteningTolerance, bounds) {
+    GetWidenedBounds(strokeWidth, strokeStyle, worldTransform, flatteningTolerance) {
+        bounds := D2D_RECT_F()
         result := ComCall(5, this, "float", strokeWidth, "ptr", strokeStyle, "ptr", worldTransform, "float", flatteningTolerance, "ptr", bounds, "HRESULT")
-        return result
+        return bounds
     }
 
     /**
@@ -73,13 +74,12 @@ class ID2D1Geometry extends ID2D1Resource{
      * @param {ID2D1StrokeStyle} strokeStyle 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
      * @param {Float} flatteningTolerance 
-     * @param {Pointer<BOOL>} contains_R 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-strokecontainspoint
      */
-    StrokeContainsPoint(point, strokeWidth, strokeStyle, worldTransform, flatteningTolerance, contains_R) {
-        result := ComCall(6, this, "ptr", point, "float", strokeWidth, "ptr", strokeStyle, "ptr", worldTransform, "float", flatteningTolerance, "ptr", contains_R, "HRESULT")
-        return result
+    StrokeContainsPoint(point, strokeWidth, strokeStyle, worldTransform, flatteningTolerance) {
+        result := ComCall(6, this, "ptr", point, "float", strokeWidth, "ptr", strokeStyle, "ptr", worldTransform, "float", flatteningTolerance, "int*", &contains_R := 0, "HRESULT")
+        return contains_R
     }
 
     /**
@@ -87,13 +87,12 @@ class ID2D1Geometry extends ID2D1Resource{
      * @param {D2D_POINT_2F} point 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
      * @param {Float} flatteningTolerance 
-     * @param {Pointer<BOOL>} contains_R 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-fillcontainspoint
      */
-    FillContainsPoint(point, worldTransform, flatteningTolerance, contains_R) {
-        result := ComCall(7, this, "ptr", point, "ptr", worldTransform, "float", flatteningTolerance, "ptr", contains_R, "HRESULT")
-        return result
+    FillContainsPoint(point, worldTransform, flatteningTolerance) {
+        result := ComCall(7, this, "ptr", point, "ptr", worldTransform, "float", flatteningTolerance, "int*", &contains_R := 0, "HRESULT")
+        return contains_R
     }
 
     /**
@@ -101,15 +100,12 @@ class ID2D1Geometry extends ID2D1Resource{
      * @param {ID2D1Geometry} inputGeometry 
      * @param {Pointer<D2D_MATRIX_3X2_F>} inputGeometryTransform 
      * @param {Float} flatteningTolerance 
-     * @param {Pointer<Integer>} relation 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-comparewithgeometry
      */
-    CompareWithGeometry(inputGeometry, inputGeometryTransform, flatteningTolerance, relation) {
-        relationMarshal := relation is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "ptr", inputGeometry, "ptr", inputGeometryTransform, "float", flatteningTolerance, relationMarshal, relation, "HRESULT")
-        return result
+    CompareWithGeometry(inputGeometry, inputGeometryTransform, flatteningTolerance) {
+        result := ComCall(8, this, "ptr", inputGeometry, "ptr", inputGeometryTransform, "float", flatteningTolerance, "int*", &relation := 0, "HRESULT")
+        return relation
     }
 
     /**
@@ -171,30 +167,24 @@ class ID2D1Geometry extends ID2D1Resource{
      * 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
      * @param {Float} flatteningTolerance 
-     * @param {Pointer<Float>} area 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-computearea
      */
-    ComputeArea(worldTransform, flatteningTolerance, area) {
-        areaMarshal := area is VarRef ? "float*" : "ptr"
-
-        result := ComCall(13, this, "ptr", worldTransform, "float", flatteningTolerance, areaMarshal, area, "HRESULT")
-        return result
+    ComputeArea(worldTransform, flatteningTolerance) {
+        result := ComCall(13, this, "ptr", worldTransform, "float", flatteningTolerance, "float*", &area := 0, "HRESULT")
+        return area
     }
 
     /**
      * 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
      * @param {Float} flatteningTolerance 
-     * @param {Pointer<Float>} length 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-computelength
      */
-    ComputeLength(worldTransform, flatteningTolerance, length) {
-        lengthMarshal := length is VarRef ? "float*" : "ptr"
-
-        result := ComCall(14, this, "ptr", worldTransform, "float", flatteningTolerance, lengthMarshal, length, "HRESULT")
-        return result
+    ComputeLength(worldTransform, flatteningTolerance) {
+        result := ComCall(14, this, "ptr", worldTransform, "float", flatteningTolerance, "float*", &length := 0, "HRESULT")
+        return length
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -37,13 +38,13 @@ class ICoreWindowInterop extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-icorewindowinterop-get_windowhandle
      */
-    get_WindowHandle(hwnd) {
+    get_WindowHandle() {
+        hwnd := HWND()
         result := ComCall(3, this, "ptr", hwnd, "HRESULT")
-        return result
+        return hwnd
     }
 
     /**

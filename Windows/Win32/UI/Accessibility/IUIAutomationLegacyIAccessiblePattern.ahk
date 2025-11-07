@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IUIAutomationElementArray.ahk
+#Include .\IAccessible.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -71,244 +74,223 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentchildid
      */
-    get_CurrentChildId(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_CurrentChildId() {
+        result := ComCall(6, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentname
      */
-    get_CurrentName(pszName) {
+    get_CurrentName() {
+        pszName := BSTR()
         result := ComCall(7, this, "ptr", pszName, "HRESULT")
-        return result
+        return pszName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentvalue
      */
-    get_CurrentValue(pszValue) {
+    get_CurrentValue() {
+        pszValue := BSTR()
         result := ComCall(8, this, "ptr", pszValue, "HRESULT")
-        return result
+        return pszValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentdescription
      */
-    get_CurrentDescription(pszDescription) {
+    get_CurrentDescription() {
+        pszDescription := BSTR()
         result := ComCall(9, this, "ptr", pszDescription, "HRESULT")
-        return result
+        return pszDescription
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwRole 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentrole
      */
-    get_CurrentRole(pdwRole) {
-        pdwRoleMarshal := pdwRole is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pdwRoleMarshal, pdwRole, "HRESULT")
-        return result
+    get_CurrentRole() {
+        result := ComCall(10, this, "uint*", &pdwRole := 0, "HRESULT")
+        return pdwRole
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentstate
      */
-    get_CurrentState(pdwState) {
-        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwStateMarshal, pdwState, "HRESULT")
-        return result
+    get_CurrentState() {
+        result := ComCall(11, this, "uint*", &pdwState := 0, "HRESULT")
+        return pdwState
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszHelp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currenthelp
      */
-    get_CurrentHelp(pszHelp) {
+    get_CurrentHelp() {
+        pszHelp := BSTR()
         result := ComCall(12, this, "ptr", pszHelp, "HRESULT")
-        return result
+        return pszHelp
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszKeyboardShortcut 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentkeyboardshortcut
      */
-    get_CurrentKeyboardShortcut(pszKeyboardShortcut) {
+    get_CurrentKeyboardShortcut() {
+        pszKeyboardShortcut := BSTR()
         result := ComCall(13, this, "ptr", pszKeyboardShortcut, "HRESULT")
-        return result
+        return pszKeyboardShortcut
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} pvarSelectedChildren 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-getcurrentselection
      */
-    GetCurrentSelection(pvarSelectedChildren) {
-        result := ComCall(14, this, "ptr*", pvarSelectedChildren, "HRESULT")
-        return result
+    GetCurrentSelection() {
+        result := ComCall(14, this, "ptr*", &pvarSelectedChildren := 0, "HRESULT")
+        return IUIAutomationElementArray(pvarSelectedChildren)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszDefaultAction 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentdefaultaction
      */
-    get_CurrentDefaultAction(pszDefaultAction) {
+    get_CurrentDefaultAction() {
+        pszDefaultAction := BSTR()
         result := ComCall(15, this, "ptr", pszDefaultAction, "HRESULT")
-        return result
+        return pszDefaultAction
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedchildid
      */
-    get_CachedChildId(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_CachedChildId() {
+        result := ComCall(16, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedname
      */
-    get_CachedName(pszName) {
+    get_CachedName() {
+        pszName := BSTR()
         result := ComCall(17, this, "ptr", pszName, "HRESULT")
-        return result
+        return pszName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedvalue
      */
-    get_CachedValue(pszValue) {
+    get_CachedValue() {
+        pszValue := BSTR()
         result := ComCall(18, this, "ptr", pszValue, "HRESULT")
-        return result
+        return pszValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cacheddescription
      */
-    get_CachedDescription(pszDescription) {
+    get_CachedDescription() {
+        pszDescription := BSTR()
         result := ComCall(19, this, "ptr", pszDescription, "HRESULT")
-        return result
+        return pszDescription
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwRole 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedrole
      */
-    get_CachedRole(pdwRole) {
-        pdwRoleMarshal := pdwRole is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, pdwRoleMarshal, pdwRole, "HRESULT")
-        return result
+    get_CachedRole() {
+        result := ComCall(20, this, "uint*", &pdwRole := 0, "HRESULT")
+        return pdwRole
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedstate
      */
-    get_CachedState(pdwState) {
-        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, pdwStateMarshal, pdwState, "HRESULT")
-        return result
+    get_CachedState() {
+        result := ComCall(21, this, "uint*", &pdwState := 0, "HRESULT")
+        return pdwState
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszHelp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedhelp
      */
-    get_CachedHelp(pszHelp) {
+    get_CachedHelp() {
+        pszHelp := BSTR()
         result := ComCall(22, this, "ptr", pszHelp, "HRESULT")
-        return result
+        return pszHelp
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszKeyboardShortcut 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedkeyboardshortcut
      */
-    get_CachedKeyboardShortcut(pszKeyboardShortcut) {
+    get_CachedKeyboardShortcut() {
+        pszKeyboardShortcut := BSTR()
         result := ComCall(23, this, "ptr", pszKeyboardShortcut, "HRESULT")
-        return result
+        return pszKeyboardShortcut
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} pvarSelectedChildren 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-getcachedselection
      */
-    GetCachedSelection(pvarSelectedChildren) {
-        result := ComCall(24, this, "ptr*", pvarSelectedChildren, "HRESULT")
-        return result
+    GetCachedSelection() {
+        result := ComCall(24, this, "ptr*", &pvarSelectedChildren := 0, "HRESULT")
+        return IUIAutomationElementArray(pvarSelectedChildren)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszDefaultAction 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cacheddefaultaction
      */
-    get_CachedDefaultAction(pszDefaultAction) {
+    get_CachedDefaultAction() {
+        pszDefaultAction := BSTR()
         result := ComCall(25, this, "ptr", pszDefaultAction, "HRESULT")
-        return result
+        return pszDefaultAction
     }
 
     /**
      * 
-     * @param {Pointer<IAccessible>} ppAccessible 
-     * @returns {HRESULT} 
+     * @returns {IAccessible} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-getiaccessible
      */
-    GetIAccessible(ppAccessible) {
-        result := ComCall(26, this, "ptr*", ppAccessible, "HRESULT")
-        return result
+    GetIAccessible() {
+        result := ComCall(26, this, "ptr*", &ppAccessible := 0, "HRESULT")
+        return IAccessible(ppAccessible)
     }
 }

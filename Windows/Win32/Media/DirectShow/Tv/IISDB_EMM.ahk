@@ -54,43 +54,35 @@ class IISDB_EMM extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-getversionnumber
      */
-    GetVersionNumber(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetVersionNumber() {
+        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-gettableidextension
      */
-    GetTableIdExtension(pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetTableIdExtension() {
+        result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pwBufferLength 
-     * @param {Pointer<Integer>} pbBuffer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-getdatabytes
      */
-    GetDataBytes(pwBufferLength, pbBuffer) {
+    GetDataBytes(pwBufferLength) {
         pwBufferLengthMarshal := pwBufferLength is VarRef ? "ushort*" : "ptr"
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, pwBufferLengthMarshal, pwBufferLength, pbBufferMarshal, pbBuffer, "HRESULT")
-        return result
+        result := ComCall(6, this, pwBufferLengthMarshal, pwBufferLength, "char*", &pbBuffer := 0, "HRESULT")
+        return pbBuffer
     }
 
     /**
@@ -126,14 +118,11 @@ class IISDB_EMM extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVersionHash 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-getversionhash
      */
-    GetVersionHash(pdwVersionHash) {
-        pdwVersionHashMarshal := pdwVersionHash is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pdwVersionHashMarshal, pdwVersionHash, "HRESULT")
-        return result
+    GetVersionHash() {
+        result := ComCall(9, this, "uint*", &pdwVersionHash := 0, "HRESULT")
+        return pdwVersionHash
     }
 }

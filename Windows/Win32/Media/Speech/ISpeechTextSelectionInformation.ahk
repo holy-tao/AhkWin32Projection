@@ -40,14 +40,11 @@ class ISpeechTextSelectionInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} ActiveOffset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ActiveOffset(ActiveOffset) {
-        ActiveOffsetMarshal := ActiveOffset is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, ActiveOffsetMarshal, ActiveOffset, "HRESULT")
-        return result
+    get_ActiveOffset() {
+        result := ComCall(8, this, "int*", &ActiveOffset := 0, "HRESULT")
+        return ActiveOffset
     }
 
     /**
@@ -62,14 +59,11 @@ class ISpeechTextSelectionInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} ActiveLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ActiveLength(ActiveLength) {
-        ActiveLengthMarshal := ActiveLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, ActiveLengthMarshal, ActiveLength, "HRESULT")
-        return result
+    get_ActiveLength() {
+        result := ComCall(10, this, "int*", &ActiveLength := 0, "HRESULT")
+        return ActiveLength
     }
 
     /**
@@ -84,14 +78,11 @@ class ISpeechTextSelectionInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} SelectionOffset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SelectionOffset(SelectionOffset) {
-        SelectionOffsetMarshal := SelectionOffset is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, SelectionOffsetMarshal, SelectionOffset, "HRESULT")
-        return result
+    get_SelectionOffset() {
+        result := ComCall(12, this, "int*", &SelectionOffset := 0, "HRESULT")
+        return SelectionOffset
     }
 
     /**
@@ -106,13 +97,10 @@ class ISpeechTextSelectionInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} SelectionLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SelectionLength(SelectionLength) {
-        SelectionLengthMarshal := SelectionLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, SelectionLengthMarshal, SelectionLength, "HRESULT")
-        return result
+    get_SelectionLength() {
+        result := ComCall(14, this, "int*", &SelectionLength := 0, "HRESULT")
+        return SelectionLength
     }
 }

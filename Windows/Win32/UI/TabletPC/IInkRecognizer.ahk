@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IInkRecognizerContext.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,80 +46,76 @@ class IInkRecognizer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-get_name
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(7, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Vendor 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-get_vendor
      */
-    get_Vendor(Vendor) {
+    get_Vendor() {
+        Vendor := BSTR()
         result := ComCall(8, this, "ptr", Vendor, "HRESULT")
-        return result
+        return Vendor
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} CapabilitiesFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-get_capabilities
      */
-    get_Capabilities(CapabilitiesFlags) {
-        CapabilitiesFlagsMarshal := CapabilitiesFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, CapabilitiesFlagsMarshal, CapabilitiesFlags, "HRESULT")
-        return result
+    get_Capabilities() {
+        result := ComCall(9, this, "int*", &CapabilitiesFlags := 0, "HRESULT")
+        return CapabilitiesFlags
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Languages 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-get_languages
      */
-    get_Languages(Languages) {
+    get_Languages() {
+        Languages := VARIANT()
         result := ComCall(10, this, "ptr", Languages, "HRESULT")
-        return result
+        return Languages
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} SupportedProperties 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-get_supportedproperties
      */
-    get_SupportedProperties(SupportedProperties) {
+    get_SupportedProperties() {
+        SupportedProperties := VARIANT()
         result := ComCall(11, this, "ptr", SupportedProperties, "HRESULT")
-        return result
+        return SupportedProperties
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} PreferredPacketDescription 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-get_preferredpacketdescription
      */
-    get_PreferredPacketDescription(PreferredPacketDescription) {
+    get_PreferredPacketDescription() {
+        PreferredPacketDescription := VARIANT()
         result := ComCall(12, this, "ptr", PreferredPacketDescription, "HRESULT")
-        return result
+        return PreferredPacketDescription
     }
 
     /**
      * 
-     * @param {Pointer<IInkRecognizerContext>} Context 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognizerContext} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-createrecognizercontext
      */
-    CreateRecognizerContext(Context) {
-        result := ComCall(13, this, "ptr*", Context, "HRESULT")
-        return result
+    CreateRecognizerContext() {
+        result := ComCall(13, this, "ptr*", &Context := 0, "HRESULT")
+        return IInkRecognizerContext(Context)
     }
 }

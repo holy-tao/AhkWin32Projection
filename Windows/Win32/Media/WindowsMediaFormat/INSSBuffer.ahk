@@ -32,15 +32,12 @@ class INSSBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer-getlength
      */
-    GetLength(pdwLength) {
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwLengthMarshal, pdwLength, "HRESULT")
-        return result
+    GetLength() {
+        result := ComCall(3, this, "uint*", &pdwLength := 0, "HRESULT")
+        return pdwLength
     }
 
     /**
@@ -56,28 +53,22 @@ class INSSBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer-getmaxlength
      */
-    GetMaxLength(pdwLength) {
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwLengthMarshal, pdwLength, "HRESULT")
-        return result
+    GetMaxLength() {
+        result := ComCall(5, this, "uint*", &pdwLength := 0, "HRESULT")
+        return pdwLength
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppdwBuffer 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer-getbuffer
      */
-    GetBuffer(ppdwBuffer) {
-        ppdwBufferMarshal := ppdwBuffer is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, ppdwBufferMarshal, ppdwBuffer, "HRESULT")
-        return result
+    GetBuffer() {
+        result := ComCall(6, this, "ptr*", &ppdwBuffer := 0, "HRESULT")
+        return ppdwBuffer
     }
 
     /**

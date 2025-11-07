@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DSCBCAPS.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,12 @@ class IDirectSoundCaptureBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DSCBCAPS>} pDSCBCaps 
-     * @returns {HRESULT} 
+     * @returns {DSCBCAPS} 
      */
-    GetCaps(pDSCBCaps) {
+    GetCaps() {
+        pDSCBCaps := DSCBCAPS()
         result := ComCall(3, this, "ptr", pDSCBCaps, "HRESULT")
-        return result
+        return pDSCBCaps
     }
 
     /**
@@ -56,26 +57,20 @@ class IDirectSoundCaptureBuffer extends IUnknown{
      * 
      * @param {Pointer} pwfxFormat 
      * @param {Integer} dwSizeAllocated 
-     * @param {Pointer<Integer>} pdwSizeWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFormat(pwfxFormat, dwSizeAllocated, pdwSizeWritten) {
-        pdwSizeWrittenMarshal := pdwSizeWritten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pwfxFormat, "uint", dwSizeAllocated, pdwSizeWrittenMarshal, pdwSizeWritten, "HRESULT")
-        return result
+    GetFormat(pwfxFormat, dwSizeAllocated) {
+        result := ComCall(5, this, "ptr", pwfxFormat, "uint", dwSizeAllocated, "uint*", &pdwSizeWritten := 0, "HRESULT")
+        return pdwSizeWritten
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(6, this, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**

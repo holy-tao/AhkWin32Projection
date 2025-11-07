@@ -48,7 +48,9 @@ class IWMPRenderConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nf-wmprealestate-iwmprenderconfig-get_inproconly
      */
     get_inProcOnly(pfInProc) {
-        result := ComCall(4, this, "ptr", pfInProc, "HRESULT")
+        pfInProcMarshal := pfInProc is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pfInProcMarshal, pfInProc, "HRESULT")
         return result
     }
 }

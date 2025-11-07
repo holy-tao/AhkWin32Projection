@@ -47,14 +47,11 @@ class ISVGAngle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_unitType(p) {
-        pMarshal := p is VarRef ? "short*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_unitType() {
+        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -69,14 +66,11 @@ class ISVGAngle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_value(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_value() {
+        result := ComCall(10, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -91,14 +85,11 @@ class ISVGAngle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_valueInSpecifiedUnits(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(12, this, pMarshal, p, "HRESULT")
-        return result
+    get_valueInSpecifiedUnits() {
+        result := ComCall(12, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -115,12 +106,12 @@ class ISVGAngle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_valueAsString(p) {
+    get_valueAsString() {
+        p := BSTR()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**

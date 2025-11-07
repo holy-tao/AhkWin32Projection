@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICBitmapEncoderInfo.ahk
+#Include .\IWICBitmapFrameEncode.ahk
+#Include .\IWICMetadataQueryWriter.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -100,24 +103,23 @@ class IWICBitmapEncoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidContainerFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-getcontainerformat
      */
-    GetContainerFormat(pguidContainerFormat) {
+    GetContainerFormat() {
+        pguidContainerFormat := Guid()
         result := ComCall(4, this, "ptr", pguidContainerFormat, "HRESULT")
-        return result
+        return pguidContainerFormat
     }
 
     /**
      * 
-     * @param {Pointer<IWICBitmapEncoderInfo>} ppIEncoderInfo 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapEncoderInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-getencoderinfo
      */
-    GetEncoderInfo(ppIEncoderInfo) {
-        result := ComCall(5, this, "ptr*", ppIEncoderInfo, "HRESULT")
-        return result
+    GetEncoderInfo() {
+        result := ComCall(5, this, "ptr*", &ppIEncoderInfo := 0, "HRESULT")
+        return IWICBitmapEncoderInfo(ppIEncoderInfo)
     }
 
     /**
@@ -167,14 +169,13 @@ class IWICBitmapEncoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWICBitmapFrameEncode>} ppIFrameEncode 
      * @param {Pointer<IPropertyBag2>} ppIEncoderOptions 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapFrameEncode} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-createnewframe
      */
-    CreateNewFrame(ppIFrameEncode, ppIEncoderOptions) {
-        result := ComCall(10, this, "ptr*", ppIFrameEncode, "ptr*", ppIEncoderOptions, "HRESULT")
-        return result
+    CreateNewFrame(ppIEncoderOptions) {
+        result := ComCall(10, this, "ptr*", &ppIFrameEncode := 0, "ptr*", ppIEncoderOptions, "HRESULT")
+        return IWICBitmapFrameEncode(ppIFrameEncode)
     }
 
     /**
@@ -189,12 +190,11 @@ class IWICBitmapEncoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWICMetadataQueryWriter>} ppIMetadataQueryWriter 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataQueryWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-getmetadataquerywriter
      */
-    GetMetadataQueryWriter(ppIMetadataQueryWriter) {
-        result := ComCall(12, this, "ptr*", ppIMetadataQueryWriter, "HRESULT")
-        return result
+    GetMetadataQueryWriter() {
+        result := ComCall(12, this, "ptr*", &ppIMetadataQueryWriter := 0, "HRESULT")
+        return IWICMetadataQueryWriter(ppIMetadataQueryWriter)
     }
 }

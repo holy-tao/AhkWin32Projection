@@ -4087,9 +4087,11 @@ class OpenGL {
     static wglSetLayerPaletteEntries(param0, param1, param2, param3, param4) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
+        param4Marshal := param4 is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglSetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, "ptr", param4, "int")
+        result := DllCall("OPENGL32.dll\wglSetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, param4Marshal, param4, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4114,9 +4116,11 @@ class OpenGL {
     static wglGetLayerPaletteEntries(param0, param1, param2, param3, param4) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
+        param4Marshal := param4 is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglGetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, "ptr", param4, "int")
+        result := DllCall("OPENGL32.dll\wglGetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, param4Marshal, param4, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5596,7 +5600,7 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetstring
      */
     static glGetString(name) {
-        result := DllCall("OPENGL32.dll\glGetString", "uint", name, "char*")
+        result := DllCall("OPENGL32.dll\glGetString", "uint", name, "ptr")
         return result
     }
 
@@ -8294,7 +8298,7 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluerrorstring
      */
     static gluErrorString(errCode) {
-        result := DllCall("GLU32.dll\gluErrorString", "uint", errCode, "char*")
+        result := DllCall("GLU32.dll\gluErrorString", "uint", errCode, "ptr")
         return result
     }
 
@@ -8304,7 +8308,7 @@ class OpenGL {
      * @returns {PWSTR} 
      */
     static gluErrorUnicodeStringEXT(errCode) {
-        result := DllCall("GLU32.dll\gluErrorUnicodeStringEXT", "uint", errCode, "char*")
+        result := DllCall("GLU32.dll\gluErrorUnicodeStringEXT", "uint", errCode, "ptr")
         return result
     }
 
@@ -8315,7 +8319,7 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glugetstring
      */
     static gluGetString(name) {
-        result := DllCall("GLU32.dll\gluGetString", "uint", name, "char*")
+        result := DllCall("GLU32.dll\gluGetString", "uint", name, "ptr")
         return result
     }
 
@@ -8507,7 +8511,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gludeletequadric
      */
     static gluDeleteQuadric(state) {
-        DllCall("GLU32.dll\gluDeleteQuadric", "ptr", state)
+        stateMarshal := state is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluDeleteQuadric", stateMarshal, state)
     }
 
     /**
@@ -8518,7 +8524,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadricnormals
      */
     static gluQuadricNormals(quadObject, normals) {
-        DllCall("GLU32.dll\gluQuadricNormals", "ptr", quadObject, "uint", normals)
+        quadObjectMarshal := quadObject is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluQuadricNormals", quadObjectMarshal, quadObject, "uint", normals)
     }
 
     /**
@@ -8529,7 +8537,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadrictexture
      */
     static gluQuadricTexture(quadObject, textureCoords) {
-        DllCall("GLU32.dll\gluQuadricTexture", "ptr", quadObject, "char", textureCoords)
+        quadObjectMarshal := quadObject is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluQuadricTexture", quadObjectMarshal, quadObject, "char", textureCoords)
     }
 
     /**
@@ -8540,7 +8550,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadricorientation
      */
     static gluQuadricOrientation(quadObject, orientation) {
-        DllCall("GLU32.dll\gluQuadricOrientation", "ptr", quadObject, "uint", orientation)
+        quadObjectMarshal := quadObject is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluQuadricOrientation", quadObjectMarshal, quadObject, "uint", orientation)
     }
 
     /**
@@ -8551,7 +8563,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadricdrawstyle
      */
     static gluQuadricDrawStyle(quadObject, drawStyle) {
-        DllCall("GLU32.dll\gluQuadricDrawStyle", "ptr", quadObject, "uint", drawStyle)
+        quadObjectMarshal := quadObject is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluQuadricDrawStyle", quadObjectMarshal, quadObject, "uint", drawStyle)
     }
 
     /**
@@ -8566,7 +8580,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glucylinder
      */
     static gluCylinder(qobj, baseRadius, topRadius, height, slices, stacks) {
-        DllCall("GLU32.dll\gluCylinder", "ptr", qobj, "double", baseRadius, "double", topRadius, "double", height, "int", slices, "int", stacks)
+        qobjMarshal := qobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluCylinder", qobjMarshal, qobj, "double", baseRadius, "double", topRadius, "double", height, "int", slices, "int", stacks)
     }
 
     /**
@@ -8580,7 +8596,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gludisk
      */
     static gluDisk(qobj, innerRadius, outerRadius, slices, loops) {
-        DllCall("GLU32.dll\gluDisk", "ptr", qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops)
+        qobjMarshal := qobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluDisk", qobjMarshal, qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops)
     }
 
     /**
@@ -8596,7 +8614,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glupartialdisk
      */
     static gluPartialDisk(qobj, innerRadius, outerRadius, slices, loops, startAngle, sweepAngle) {
-        DllCall("GLU32.dll\gluPartialDisk", "ptr", qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops, "double", startAngle, "double", sweepAngle)
+        qobjMarshal := qobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluPartialDisk", qobjMarshal, qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops, "double", startAngle, "double", sweepAngle)
     }
 
     /**
@@ -8609,7 +8629,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glusphere
      */
     static gluSphere(qobj, radius, slices, stacks) {
-        DllCall("GLU32.dll\gluSphere", "ptr", qobj, "double", radius, "int", slices, "int", stacks)
+        qobjMarshal := qobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluSphere", qobjMarshal, qobj, "double", radius, "int", slices, "int", stacks)
     }
 
     /**
@@ -8621,7 +8643,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadric
      */
     static gluQuadricCallback(qobj, which, fn) {
-        DllCall("GLU32.dll\gluQuadricCallback", "ptr", qobj, "uint", which, "ptr", fn)
+        qobjMarshal := qobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluQuadricCallback", qobjMarshal, qobj, "uint", which, "ptr", fn)
     }
 
     /**
@@ -8641,7 +8665,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gludeletetess
      */
     static gluDeleteTess(tess) {
-        DllCall("GLU32.dll\gluDeleteTess", "ptr", tess)
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluDeleteTess", tessMarshal, tess)
     }
 
     /**
@@ -8652,9 +8678,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessbeginpolygon
      */
     static gluTessBeginPolygon(tess, polygon_data) {
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
         polygon_dataMarshal := polygon_data is VarRef ? "ptr" : "ptr"
 
-        DllCall("GLU32.dll\gluTessBeginPolygon", "ptr", tess, polygon_dataMarshal, polygon_data)
+        DllCall("GLU32.dll\gluTessBeginPolygon", tessMarshal, tess, polygon_dataMarshal, polygon_data)
     }
 
     /**
@@ -8664,7 +8691,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessbegincontour
      */
     static gluTessBeginContour(tess) {
-        DllCall("GLU32.dll\gluTessBeginContour", "ptr", tess)
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluTessBeginContour", tessMarshal, tess)
     }
 
     /**
@@ -8676,10 +8705,11 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessvertex
      */
     static gluTessVertex(tess, coords, data) {
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
         coordsMarshal := coords is VarRef ? "double*" : "ptr"
         dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-        DllCall("GLU32.dll\gluTessVertex", "ptr", tess, coordsMarshal, coords, dataMarshal, data)
+        DllCall("GLU32.dll\gluTessVertex", tessMarshal, tess, coordsMarshal, coords, dataMarshal, data)
     }
 
     /**
@@ -8689,7 +8719,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessendcontour
      */
     static gluTessEndContour(tess) {
-        DllCall("GLU32.dll\gluTessEndContour", "ptr", tess)
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluTessEndContour", tessMarshal, tess)
     }
 
     /**
@@ -8699,7 +8731,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessendpolygon
      */
     static gluTessEndPolygon(tess) {
-        DllCall("GLU32.dll\gluTessEndPolygon", "ptr", tess)
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluTessEndPolygon", tessMarshal, tess)
     }
 
     /**
@@ -8711,7 +8745,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessproperty
      */
     static gluTessProperty(tess, which, value) {
-        DllCall("GLU32.dll\gluTessProperty", "ptr", tess, "uint", which, "double", value)
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluTessProperty", tessMarshal, tess, "uint", which, "double", value)
     }
 
     /**
@@ -8724,7 +8760,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessnormal
      */
     static gluTessNormal(tess, x, y, z) {
-        DllCall("GLU32.dll\gluTessNormal", "ptr", tess, "double", x, "double", y, "double", z)
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluTessNormal", tessMarshal, tess, "double", x, "double", y, "double", z)
     }
 
     /**
@@ -8736,7 +8774,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutess
      */
     static gluTessCallback(tess, which, fn) {
-        DllCall("GLU32.dll\gluTessCallback", "ptr", tess, "uint", which, "ptr", fn)
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluTessCallback", tessMarshal, tess, "uint", which, "ptr", fn)
     }
 
     /**
@@ -8748,9 +8788,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glugettessproperty
      */
     static gluGetTessProperty(tess, which, value) {
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
         valueMarshal := value is VarRef ? "double*" : "ptr"
 
-        DllCall("GLU32.dll\gluGetTessProperty", "ptr", tess, "uint", which, valueMarshal, value)
+        DllCall("GLU32.dll\gluGetTessProperty", tessMarshal, tess, "uint", which, valueMarshal, value)
     }
 
     /**
@@ -8770,7 +8811,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gludeletenurbsrenderer
      */
     static gluDeleteNurbsRenderer(nobj) {
-        DllCall("GLU32.dll\gluDeleteNurbsRenderer", "ptr", nobj)
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluDeleteNurbsRenderer", nobjMarshal, nobj)
     }
 
     /**
@@ -8780,7 +8823,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubeginsurface
      */
     static gluBeginSurface(nobj) {
-        DllCall("GLU32.dll\gluBeginSurface", "ptr", nobj)
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluBeginSurface", nobjMarshal, nobj)
     }
 
     /**
@@ -8790,7 +8835,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubegincurve
      */
     static gluBeginCurve(nobj) {
-        DllCall("GLU32.dll\gluBeginCurve", "ptr", nobj)
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluBeginCurve", nobjMarshal, nobj)
     }
 
     /**
@@ -8800,7 +8847,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluendcurve
      */
     static gluEndCurve(nobj) {
-        DllCall("GLU32.dll\gluEndCurve", "ptr", nobj)
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluEndCurve", nobjMarshal, nobj)
     }
 
     /**
@@ -8810,7 +8859,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluendsurface
      */
     static gluEndSurface(nobj) {
-        DllCall("GLU32.dll\gluEndSurface", "ptr", nobj)
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluEndSurface", nobjMarshal, nobj)
     }
 
     /**
@@ -8820,7 +8871,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubegintrim
      */
     static gluBeginTrim(nobj) {
-        DllCall("GLU32.dll\gluBeginTrim", "ptr", nobj)
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluBeginTrim", nobjMarshal, nobj)
     }
 
     /**
@@ -8830,7 +8883,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluendtrim
      */
     static gluEndTrim(nobj) {
-        DllCall("GLU32.dll\gluEndTrim", "ptr", nobj)
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluEndTrim", nobjMarshal, nobj)
     }
 
     /**
@@ -8844,9 +8899,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glupwlcurve
      */
     static gluPwlCurve(nobj, count, array, stride, type) {
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
         arrayMarshal := array is VarRef ? "float*" : "ptr"
 
-        DllCall("GLU32.dll\gluPwlCurve", "ptr", nobj, "int", count, arrayMarshal, array, "int", stride, "uint", type)
+        DllCall("GLU32.dll\gluPwlCurve", nobjMarshal, nobj, "int", count, arrayMarshal, array, "int", stride, "uint", type)
     }
 
     /**
@@ -8862,10 +8918,11 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbscurve
      */
     static gluNurbsCurve(nobj, nknots, knot, stride, ctlarray, order, type) {
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
         knotMarshal := knot is VarRef ? "float*" : "ptr"
         ctlarrayMarshal := ctlarray is VarRef ? "float*" : "ptr"
 
-        DllCall("GLU32.dll\gluNurbsCurve", "ptr", nobj, "int", nknots, knotMarshal, knot, "int", stride, ctlarrayMarshal, ctlarray, "int", order, "uint", type)
+        DllCall("GLU32.dll\gluNurbsCurve", nobjMarshal, nobj, "int", nknots, knotMarshal, knot, "int", stride, ctlarrayMarshal, ctlarray, "int", order, "uint", type)
     }
 
     /**
@@ -8885,11 +8942,12 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbssurface
      */
     static gluNurbsSurface(nobj, sknot_count, sknot, tknot_count, tknot, s_stride, t_stride, ctlarray, sorder, torder, type) {
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
         sknotMarshal := sknot is VarRef ? "float*" : "ptr"
         tknotMarshal := tknot is VarRef ? "float*" : "ptr"
         ctlarrayMarshal := ctlarray is VarRef ? "float*" : "ptr"
 
-        DllCall("GLU32.dll\gluNurbsSurface", "ptr", nobj, "int", sknot_count, sknotMarshal, sknot, "int", tknot_count, tknotMarshal, tknot, "int", s_stride, "int", t_stride, ctlarrayMarshal, ctlarray, "int", sorder, "int", torder, "uint", type)
+        DllCall("GLU32.dll\gluNurbsSurface", nobjMarshal, nobj, "int", sknot_count, sknotMarshal, sknot, "int", tknot_count, tknotMarshal, tknot, "int", s_stride, "int", t_stride, ctlarrayMarshal, ctlarray, "int", sorder, "int", torder, "uint", type)
     }
 
     /**
@@ -8902,11 +8960,12 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluloadsamplingmatrices
      */
     static gluLoadSamplingMatrices(nobj, modelMatrix, projMatrix, viewport) {
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
         modelMatrixMarshal := modelMatrix is VarRef ? "float*" : "ptr"
         projMatrixMarshal := projMatrix is VarRef ? "float*" : "ptr"
         viewportMarshal := viewport is VarRef ? "int*" : "ptr"
 
-        DllCall("GLU32.dll\gluLoadSamplingMatrices", "ptr", nobj, modelMatrixMarshal, modelMatrix, projMatrixMarshal, projMatrix, viewportMarshal, viewport)
+        DllCall("GLU32.dll\gluLoadSamplingMatrices", nobjMarshal, nobj, modelMatrixMarshal, modelMatrix, projMatrixMarshal, projMatrix, viewportMarshal, viewport)
     }
 
     /**
@@ -8918,7 +8977,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbsproperty
      */
     static gluNurbsProperty(nobj, property, value) {
-        DllCall("GLU32.dll\gluNurbsProperty", "ptr", nobj, "uint", property, "float", value)
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluNurbsProperty", nobjMarshal, nobj, "uint", property, "float", value)
     }
 
     /**
@@ -8930,9 +8991,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glugetnurbsproperty
      */
     static gluGetNurbsProperty(nobj, property, value) {
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
         valueMarshal := value is VarRef ? "float*" : "ptr"
 
-        DllCall("GLU32.dll\gluGetNurbsProperty", "ptr", nobj, "uint", property, valueMarshal, value)
+        DllCall("GLU32.dll\gluGetNurbsProperty", nobjMarshal, nobj, "uint", property, valueMarshal, value)
     }
 
     /**
@@ -8944,7 +9006,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbs
      */
     static gluNurbsCallback(nobj, which, fn) {
-        DllCall("GLU32.dll\gluNurbsCallback", "ptr", nobj, "uint", which, "ptr", fn)
+        nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluNurbsCallback", nobjMarshal, nobj, "uint", which, "ptr", fn)
     }
 
     /**
@@ -8954,7 +9018,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubeginpolygon
      */
     static gluBeginPolygon(tess) {
-        DllCall("GLU32.dll\gluBeginPolygon", "ptr", tess)
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluBeginPolygon", tessMarshal, tess)
     }
 
     /**
@@ -8965,7 +9031,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunextcontour
      */
     static gluNextContour(tess, type) {
-        DllCall("GLU32.dll\gluNextContour", "ptr", tess, "uint", type)
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluNextContour", tessMarshal, tess, "uint", type)
     }
 
     /**
@@ -8975,7 +9043,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluendpolygon
      */
     static gluEndPolygon(tess) {
-        DllCall("GLU32.dll\gluEndPolygon", "ptr", tess)
+        tessMarshal := tess is VarRef ? "ptr*" : "ptr"
+
+        DllCall("GLU32.dll\gluEndPolygon", tessMarshal, tess)
     }
 
 ;@endregion Methods

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Search\IStemmer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -124,11 +125,10 @@ class IWordBreakerConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IStemmer>} ppStemmer 
-     * @returns {HRESULT} 
+     * @returns {IStemmer} 
      */
-    GetWordStemmer(ppStemmer) {
-        result := ComCall(11, this, "ptr*", ppStemmer, "HRESULT")
-        return result
+    GetWordStemmer() {
+        result := ComCall(11, this, "ptr*", &ppStemmer := 0, "HRESULT")
+        return IStemmer(ppStemmer)
     }
 }

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\IFsrmReportJob.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -50,50 +53,47 @@ class IFsrmReportManager extends IDispatch{
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCollection>} reportJobs 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-enumreportjobs
      */
-    EnumReportJobs(options, reportJobs) {
-        result := ComCall(7, this, "int", options, "ptr*", reportJobs, "HRESULT")
-        return result
+    EnumReportJobs(options) {
+        result := ComCall(7, this, "int", options, "ptr*", &reportJobs := 0, "HRESULT")
+        return IFsrmCollection(reportJobs)
     }
 
     /**
      * 
-     * @param {Pointer<IFsrmReportJob>} reportJob 
-     * @returns {HRESULT} 
+     * @returns {IFsrmReportJob} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-createreportjob
      */
-    CreateReportJob(reportJob) {
-        result := ComCall(8, this, "ptr*", reportJob, "HRESULT")
-        return result
+    CreateReportJob() {
+        result := ComCall(8, this, "ptr*", &reportJob := 0, "HRESULT")
+        return IFsrmReportJob(reportJob)
     }
 
     /**
      * 
      * @param {BSTR} taskName 
-     * @param {Pointer<IFsrmReportJob>} reportJob 
-     * @returns {HRESULT} 
+     * @returns {IFsrmReportJob} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getreportjob
      */
-    GetReportJob(taskName, reportJob) {
+    GetReportJob(taskName) {
         taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
 
-        result := ComCall(9, this, "ptr", taskName, "ptr*", reportJob, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", taskName, "ptr*", &reportJob := 0, "HRESULT")
+        return IFsrmReportJob(reportJob)
     }
 
     /**
      * 
      * @param {Integer} context 
-     * @param {Pointer<BSTR>} path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getoutputdirectory
      */
-    GetOutputDirectory(context, path) {
+    GetOutputDirectory(context) {
+        path := BSTR()
         result := ComCall(10, this, "int", context, "ptr", path, "HRESULT")
-        return result
+        return path
     }
 
     /**
@@ -114,26 +114,25 @@ class IFsrmReportManager extends IDispatch{
      * 
      * @param {Integer} reportType 
      * @param {Integer} filter 
-     * @param {Pointer<VARIANT_BOOL>} valid 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-isfiltervalidforreporttype
      */
-    IsFilterValidForReportType(reportType, filter, valid) {
-        result := ComCall(12, this, "int", reportType, "int", filter, "ptr", valid, "HRESULT")
-        return result
+    IsFilterValidForReportType(reportType, filter) {
+        result := ComCall(12, this, "int", reportType, "int", filter, "short*", &valid := 0, "HRESULT")
+        return valid
     }
 
     /**
      * 
      * @param {Integer} reportType 
      * @param {Integer} filter 
-     * @param {Pointer<VARIANT>} filterValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getdefaultfilter
      */
-    GetDefaultFilter(reportType, filter, filterValue) {
+    GetDefaultFilter(reportType, filter) {
+        filterValue := VARIANT()
         result := ComCall(13, this, "int", reportType, "int", filter, "ptr", filterValue, "HRESULT")
-        return result
+        return filterValue
     }
 
     /**
@@ -152,13 +151,13 @@ class IFsrmReportManager extends IDispatch{
     /**
      * 
      * @param {Integer} limit 
-     * @param {Pointer<VARIANT>} limitValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getreportsizelimit
      */
-    GetReportSizeLimit(limit, limitValue) {
+    GetReportSizeLimit(limit) {
+        limitValue := VARIANT()
         result := ComCall(15, this, "int", limit, "ptr", limitValue, "HRESULT")
-        return result
+        return limitValue
     }
 
     /**

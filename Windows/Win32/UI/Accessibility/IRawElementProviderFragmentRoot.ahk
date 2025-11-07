@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRawElementProviderFragment.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,25 +41,21 @@ class IRawElementProviderFragmentRoot extends IUnknown{
      * 
      * @param {Float} x 
      * @param {Float} y 
-     * @param {Pointer<IRawElementProviderFragment>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderFragment} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragmentroot-elementproviderfrompoint
      */
-    ElementProviderFromPoint(x, y, pRetVal) {
-        result := ComCall(3, this, "double", x, "double", y, "ptr*", pRetVal, "HRESULT")
-        return result
+    ElementProviderFromPoint(x, y) {
+        result := ComCall(3, this, "double", x, "double", y, "ptr*", &pRetVal := 0, "HRESULT")
+        return IRawElementProviderFragment(pRetVal)
     }
 
     /**
      * Retrieves the handle to the window that has the keyboard focus, if the window is attached to the calling thread's message queue.
-     * @param {Pointer<IRawElementProviderFragment>} pRetVal 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * The return value is the handle to the window with the keyboard focus. If the calling thread's message queue does not have an associated window with the keyboard focus, the return value is <b>NULL</b>.
+     * @returns {IRawElementProviderFragment} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getfocus
      */
-    GetFocus(pRetVal) {
-        result := ComCall(4, this, "ptr*", pRetVal, "HRESULT")
-        return result
+    GetFocus() {
+        result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return IRawElementProviderFragment(pRetVal)
     }
 }

@@ -69,26 +69,24 @@ class IWorkspaceScriptable extends IDispatch{
      * 
      * @param {BSTR} bstrWorkspaceId 
      * @param {VARIANT_BOOL} bCountUnauthenticatedCredentials 
-     * @param {Pointer<VARIANT_BOOL>} pbCredExist 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspacescriptable-isworkspacecredentialspecified
      */
-    IsWorkspaceCredentialSpecified(bstrWorkspaceId, bCountUnauthenticatedCredentials, pbCredExist) {
+    IsWorkspaceCredentialSpecified(bstrWorkspaceId, bCountUnauthenticatedCredentials) {
         bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
 
-        result := ComCall(9, this, "ptr", bstrWorkspaceId, "short", bCountUnauthenticatedCredentials, "ptr", pbCredExist, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrWorkspaceId, "short", bCountUnauthenticatedCredentials, "short*", &pbCredExist := 0, "HRESULT")
+        return pbCredExist
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbSSOEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspacescriptable-isworkspacessoenabled
      */
-    IsWorkspaceSSOEnabled(pbSSOEnabled) {
-        result := ComCall(10, this, "ptr", pbSSOEnabled, "HRESULT")
-        return result
+    IsWorkspaceSSOEnabled() {
+        result := ComCall(10, this, "short*", &pbSSOEnabled := 0, "HRESULT")
+        return pbSSOEnabled
     }
 
     /**

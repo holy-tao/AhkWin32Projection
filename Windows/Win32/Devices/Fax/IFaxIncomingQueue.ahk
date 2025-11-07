@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFaxIncomingJobs.ahk
+#Include .\IFaxIncomingJob.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -44,13 +46,12 @@ class IFaxIncomingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbBlocked 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingqueue-get_blocked
      */
-    get_Blocked(pbBlocked) {
-        result := ComCall(7, this, "ptr", pbBlocked, "HRESULT")
-        return result
+    get_Blocked() {
+        result := ComCall(7, this, "short*", &pbBlocked := 0, "HRESULT")
+        return pbBlocked
     }
 
     /**
@@ -86,26 +87,24 @@ class IFaxIncomingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFaxIncomingJobs>} pFaxIncomingJobs 
-     * @returns {HRESULT} 
+     * @returns {IFaxIncomingJobs} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingqueue-getjobs
      */
-    GetJobs(pFaxIncomingJobs) {
-        result := ComCall(11, this, "ptr*", pFaxIncomingJobs, "HRESULT")
-        return result
+    GetJobs() {
+        result := ComCall(11, this, "ptr*", &pFaxIncomingJobs := 0, "HRESULT")
+        return IFaxIncomingJobs(pFaxIncomingJobs)
     }
 
     /**
      * 
      * @param {BSTR} bstrJobId 
-     * @param {Pointer<IFaxIncomingJob>} pFaxIncomingJob 
-     * @returns {HRESULT} 
+     * @returns {IFaxIncomingJob} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingqueue-getjob
      */
-    GetJob(bstrJobId, pFaxIncomingJob) {
+    GetJob(bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(12, this, "ptr", bstrJobId, "ptr*", pFaxIncomingJob, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", bstrJobId, "ptr*", &pFaxIncomingJob := 0, "HRESULT")
+        return IFaxIncomingJob(pFaxIncomingJob)
     }
 }

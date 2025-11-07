@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509SCEPEnrollment.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -77,46 +78,39 @@ class IX509SCEPEnrollmentHelper extends IDispatch{
     /**
      * 
      * @param {Integer} ProcessFlags 
-     * @param {Pointer<Integer>} pDisposition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Enroll(ProcessFlags, pDisposition) {
-        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "int", ProcessFlags, pDispositionMarshal, pDisposition, "HRESULT")
-        return result
+    Enroll(ProcessFlags) {
+        result := ComCall(9, this, "int", ProcessFlags, "int*", &pDisposition := 0, "HRESULT")
+        return pDisposition
     }
 
     /**
      * 
      * @param {Integer} ProcessFlags 
-     * @param {Pointer<Integer>} pDisposition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    FetchPending(ProcessFlags, pDisposition) {
-        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, "int", ProcessFlags, pDispositionMarshal, pDisposition, "HRESULT")
-        return result
+    FetchPending(ProcessFlags) {
+        result := ComCall(10, this, "int", ProcessFlags, "int*", &pDisposition := 0, "HRESULT")
+        return pDisposition
     }
 
     /**
      * 
-     * @param {Pointer<IX509SCEPEnrollment>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509SCEPEnrollment} 
      */
-    get_X509SCEPEnrollment(ppValue) {
-        result := ComCall(11, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_X509SCEPEnrollment() {
+        result := ComCall(11, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509SCEPEnrollment(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ResultMessageText(pValue) {
+    get_ResultMessageText() {
+        pValue := BSTR()
         result := ComCall(12, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICspAlgorithm.ahk
+#Include .\ICspInformation.ahk
+#Include .\IX509EnrollmentStatus.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -54,15 +58,12 @@ class ICspStatus extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-get_ordinal
      */
-    get_Ordinal(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Ordinal() {
+        result := ComCall(8, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -78,45 +79,42 @@ class ICspStatus extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ICspAlgorithm>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspAlgorithm} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-get_cspalgorithm
      */
-    get_CspAlgorithm(ppValue) {
-        result := ComCall(10, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CspAlgorithm() {
+        result := ComCall(10, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspAlgorithm(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<ICspInformation>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspInformation} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-get_cspinformation
      */
-    get_CspInformation(ppValue) {
-        result := ComCall(11, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CspInformation() {
+        result := ComCall(11, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspInformation(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IX509EnrollmentStatus>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509EnrollmentStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-get_enrollmentstatus
      */
-    get_EnrollmentStatus(ppValue) {
-        result := ComCall(12, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_EnrollmentStatus() {
+        result := ComCall(12, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509EnrollmentStatus(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-get_displayname
      */
-    get_DisplayName(pValue) {
+    get_DisplayName() {
+        pValue := BSTR()
         result := ComCall(13, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

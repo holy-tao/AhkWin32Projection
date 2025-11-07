@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\pluginResource2.ahk
 #Include .\ItsPubPlugin.ahk
 
 /**
@@ -52,15 +53,15 @@ class ItsPubPlugin2 extends ItsPubPlugin{
      * 
      * @param {PWSTR} alias 
      * @param {Integer} flags 
-     * @param {Pointer<pluginResource2>} resource 
-     * @returns {HRESULT} 
+     * @returns {pluginResource2} 
      * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/nf-tspubplugin2com-itspubplugin2-getresource2
      */
-    GetResource2(alias, flags, resource) {
+    GetResource2(alias, flags) {
         alias := alias is String ? StrPtr(alias) : alias
 
+        resource := pluginResource2()
         result := ComCall(10, this, "ptr", alias, "int", flags, "ptr", resource, "HRESULT")
-        return result
+        return resource
     }
 
     /**
@@ -68,20 +69,17 @@ class ItsPubPlugin2 extends ItsPubPlugin{
      * @param {PWSTR} userId 
      * @param {PWSTR} poolId 
      * @param {Integer} ePdResolutionType 
-     * @param {Pointer<Integer>} pPdAssignmentType 
      * @param {PWSTR} endPointName 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/nf-tspubplugin2com-itspubplugin2-resolvepersonaldesktop
      */
-    ResolvePersonalDesktop(userId, poolId, ePdResolutionType, pPdAssignmentType, endPointName) {
+    ResolvePersonalDesktop(userId, poolId, ePdResolutionType, endPointName) {
         userId := userId is String ? StrPtr(userId) : userId
         poolId := poolId is String ? StrPtr(poolId) : poolId
         endPointName := endPointName is String ? StrPtr(endPointName) : endPointName
 
-        pPdAssignmentTypeMarshal := pPdAssignmentType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "ptr", userId, "ptr", poolId, "int", ePdResolutionType, pPdAssignmentTypeMarshal, pPdAssignmentType, "ptr", endPointName, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", userId, "ptr", poolId, "int", ePdResolutionType, "int*", &pPdAssignmentType := 0, "ptr", endPointName, "HRESULT")
+        return pPdAssignmentType
     }
 
     /**

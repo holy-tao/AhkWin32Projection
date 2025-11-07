@@ -60,12 +60,12 @@ class IX509AttributeOSVersion extends IX509Attribute{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeosversion-get_osversion
      */
-    get_OSVersion(pValue) {
+    get_OSVersion() {
+        pValue := BSTR()
         result := ComCall(12, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

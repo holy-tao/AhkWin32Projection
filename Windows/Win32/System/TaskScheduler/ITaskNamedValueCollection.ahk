@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITaskNamedValuePair.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -47,40 +49,37 @@ class ITaskNamedValueCollection extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ITaskNamedValuePair>} ppPair 
-     * @returns {HRESULT} 
+     * @returns {ITaskNamedValuePair} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasknamedvaluecollection-get_item
      */
-    get_Item(index, ppPair) {
-        result := ComCall(8, this, "int", index, "ptr*", ppPair, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(8, this, "int", index, "ptr*", &ppPair := 0, "HRESULT")
+        return ITaskNamedValuePair(ppPair)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasknamedvaluecollection-get__newenum
      */
-    get__NewEnum(ppEnum) {
-        result := ComCall(9, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IUnknown(ppEnum)
     }
 
     /**
      * 
      * @param {BSTR} name 
      * @param {BSTR} value 
-     * @param {Pointer<ITaskNamedValuePair>} ppPair 
-     * @returns {HRESULT} 
+     * @returns {ITaskNamedValuePair} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasknamedvaluecollection-create
      */
-    Create(name, value, ppPair) {
+    Create(name, value) {
         name := name is String ? BSTR.Alloc(name).Value : name
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(10, this, "ptr", name, "ptr", value, "ptr*", ppPair, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", name, "ptr", value, "ptr*", &ppPair := 0, "HRESULT")
+        return ITaskNamedValuePair(ppPair)
     }
 
     /**

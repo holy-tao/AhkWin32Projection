@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumString.ahk
 #Include .\ITfInputScope.ahk
 
 /**
@@ -32,12 +33,11 @@ class ITfInputScope2 extends ITfInputScope{
 
     /**
      * 
-     * @param {Pointer<IEnumString>} ppEnumString 
-     * @returns {HRESULT} 
+     * @returns {IEnumString} 
      * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope2-enumwordlist
      */
-    EnumWordList(ppEnumString) {
-        result := ComCall(8, this, "ptr*", ppEnumString, "HRESULT")
-        return result
+    EnumWordList() {
+        result := ComCall(8, this, "ptr*", &ppEnumString := 0, "HRESULT")
+        return IEnumString(ppEnumString)
     }
 }

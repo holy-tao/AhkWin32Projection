@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IObjectId.ahk
+#Include .\IPolicyQualifiers.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -53,23 +55,21 @@ class ICertificatePolicy extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificatepolicy-get_objectid
      */
-    get_ObjectId(ppValue) {
-        result := ComCall(8, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_ObjectId() {
+        result := ComCall(8, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IPolicyQualifiers>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IPolicyQualifiers} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificatepolicy-get_policyqualifiers
      */
-    get_PolicyQualifiers(ppValue) {
-        result := ComCall(9, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_PolicyQualifiers() {
+        result := ComCall(9, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IPolicyQualifiers(ppValue)
     }
 }

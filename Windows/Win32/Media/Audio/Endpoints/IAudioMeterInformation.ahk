@@ -32,54 +32,42 @@ class IAudioMeterInformation extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pfPeak 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudiometerinformation-getpeakvalue
      */
-    GetPeakValue(pfPeak) {
-        pfPeakMarshal := pfPeak is VarRef ? "float*" : "ptr"
-
-        result := ComCall(3, this, pfPeakMarshal, pfPeak, "HRESULT")
-        return result
+    GetPeakValue() {
+        result := ComCall(3, this, "float*", &pfPeak := 0, "HRESULT")
+        return pfPeak
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnChannelCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudiometerinformation-getmeteringchannelcount
      */
-    GetMeteringChannelCount(pnChannelCount) {
-        pnChannelCountMarshal := pnChannelCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pnChannelCountMarshal, pnChannelCount, "HRESULT")
-        return result
+    GetMeteringChannelCount() {
+        result := ComCall(4, this, "uint*", &pnChannelCount := 0, "HRESULT")
+        return pnChannelCount
     }
 
     /**
      * 
      * @param {Integer} u32ChannelCount 
-     * @param {Pointer<Float>} afPeakValues 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudiometerinformation-getchannelspeakvalues
      */
-    GetChannelsPeakValues(u32ChannelCount, afPeakValues) {
-        afPeakValuesMarshal := afPeakValues is VarRef ? "float*" : "ptr"
-
-        result := ComCall(5, this, "uint", u32ChannelCount, afPeakValuesMarshal, afPeakValues, "HRESULT")
-        return result
+    GetChannelsPeakValues(u32ChannelCount) {
+        result := ComCall(5, this, "uint", u32ChannelCount, "float*", &afPeakValues := 0, "HRESULT")
+        return afPeakValues
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwHardwareSupportMask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudiometerinformation-queryhardwaresupport
      */
-    QueryHardwareSupport(pdwHardwareSupportMask) {
-        pdwHardwareSupportMaskMarshal := pdwHardwareSupportMask is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwHardwareSupportMaskMarshal, pdwHardwareSupportMask, "HRESULT")
-        return result
+    QueryHardwareSupport() {
+        result := ComCall(6, this, "uint*", &pdwHardwareSupportMask := 0, "HRESULT")
+        return pdwHardwareSupportMask
     }
 }

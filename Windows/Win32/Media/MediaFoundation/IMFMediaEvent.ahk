@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -44,47 +45,43 @@ class IMFMediaEvent extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} pmet 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaevent-gettype
      */
-    GetType(pmet) {
-        pmetMarshal := pmet is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, pmetMarshal, pmet, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(33, this, "uint*", &pmet := 0, "HRESULT")
+        return pmet
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidExtendedType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaevent-getextendedtype
      */
-    GetExtendedType(pguidExtendedType) {
+    GetExtendedType() {
+        pguidExtendedType := Guid()
         result := ComCall(34, this, "ptr", pguidExtendedType, "HRESULT")
-        return result
+        return pguidExtendedType
     }
 
     /**
      * 
-     * @param {Pointer<HRESULT>} phrStatus 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaevent-getstatus
      */
-    GetStatus(phrStatus) {
-        result := ComCall(35, this, "ptr", phrStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(35, this, "int*", &phrStatus := 0, "HRESULT")
+        return phrStatus
     }
 
     /**
      * 
-     * @param {Pointer<PROPVARIANT>} pvValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaevent-getvalue
      */
-    GetValue(pvValue) {
+    GetValue() {
+        pvValue := PROPVARIANT()
         result := ComCall(36, this, "ptr", pvValue, "HRESULT")
-        return result
+        return pvValue
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IScrollableContextMenu.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,23 +31,21 @@ class IActiveXUIHandlerSite extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IScrollableContextMenu>} scrollableContextMenu 
-     * @returns {HRESULT} 
+     * @returns {IScrollableContextMenu} 
      */
-    CreateScrollableContextMenu(scrollableContextMenu) {
-        result := ComCall(3, this, "ptr*", scrollableContextMenu, "HRESULT")
-        return result
+    CreateScrollableContextMenu() {
+        result := ComCall(3, this, "ptr*", &scrollableContextMenu := 0, "HRESULT")
+        return IScrollableContextMenu(scrollableContextMenu)
     }
 
     /**
      * 
      * @param {IUnknown} filePicker 
      * @param {BOOL} allowMultipleSelections 
-     * @param {Pointer<IUnknown>} result 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    PickFileAndGetResult(filePicker, allowMultipleSelections, result) {
-        result := ComCall(4, this, "ptr", filePicker, "int", allowMultipleSelections, "ptr*", result, "HRESULT")
-        return result
+    PickFileAndGetResult(filePicker, allowMultipleSelections) {
+        result := ComCall(4, this, "ptr", filePicker, "int", allowMultipleSelections, "ptr*", &result := 0, "HRESULT")
+        return IUnknown(result)
     }
 }

@@ -53,25 +53,19 @@ class IWMDRMTranscryptor2 extends IWMDRMTranscryptor{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcnsTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSeekStartTime(pcnsTime) {
-        pcnsTimeMarshal := pcnsTime is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pcnsTimeMarshal, pcnsTime, "HRESULT")
-        return result
+    GetSeekStartTime() {
+        result := ComCall(9, this, "uint*", &pcnsTime := 0, "HRESULT")
+        return pcnsTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcnsDuration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDuration(pcnsDuration) {
-        pcnsDurationMarshal := pcnsDuration is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pcnsDurationMarshal, pcnsDuration, "HRESULT")
-        return result
+    GetDuration() {
+        result := ComCall(10, this, "uint*", &pcnsDuration := 0, "HRESULT")
+        return pcnsDuration
     }
 }

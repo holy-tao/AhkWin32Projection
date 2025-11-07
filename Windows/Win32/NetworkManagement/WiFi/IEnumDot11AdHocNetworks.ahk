@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumDot11AdHocNetworks.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class IEnumDot11AdHocNetworks extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumDot11AdHocNetworks>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDot11AdHocNetworks} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocnetworks-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDot11AdHocNetworks(ppEnum)
     }
 }

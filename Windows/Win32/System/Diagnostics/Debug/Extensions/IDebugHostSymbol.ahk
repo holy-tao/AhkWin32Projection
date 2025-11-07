@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostContext.ahk
+#Include .\IDebugHostSymbolEnumerator.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IDebugHostType.ahk
+#Include .\IDebugHostModule.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,81 +35,71 @@ class IDebugHostSymbol extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugHostContext>} context 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostContext} 
      */
-    GetContext(context) {
-        result := ComCall(3, this, "ptr*", context, "HRESULT")
-        return result
+    GetContext() {
+        result := ComCall(3, this, "ptr*", &context := 0, "HRESULT")
+        return IDebugHostContext(context)
     }
 
     /**
      * 
      * @param {Integer} kind 
      * @param {PWSTR} name 
-     * @param {Pointer<IDebugHostSymbolEnumerator>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostSymbolEnumerator} 
      */
-    EnumerateChildren(kind, name, ppEnum) {
+    EnumerateChildren(kind, name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "int", kind, "ptr", name, "ptr*", ppEnum, "HRESULT")
-        return result
+        result := ComCall(4, this, "int", kind, "ptr", name, "ptr*", &ppEnum := 0, "HRESULT")
+        return IDebugHostSymbolEnumerator(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} kind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSymbolKind(kind) {
-        kindMarshal := kind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, kindMarshal, kind, "HRESULT")
-        return result
+    GetSymbolKind() {
+        result := ComCall(5, this, "int*", &kind := 0, "HRESULT")
+        return kind
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} symbolName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(symbolName) {
+    GetName() {
+        symbolName := BSTR()
         result := ComCall(6, this, "ptr", symbolName, "HRESULT")
-        return result
+        return symbolName
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostType>} type 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    GetType(type) {
-        result := ComCall(7, this, "ptr*", type, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(7, this, "ptr*", &type := 0, "HRESULT")
+        return IDebugHostType(type)
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostModule>} containingModule 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostModule} 
      */
-    GetContainingModule(containingModule) {
-        result := ComCall(8, this, "ptr*", containingModule, "HRESULT")
-        return result
+    GetContainingModule() {
+        result := ComCall(8, this, "ptr*", &containingModule := 0, "HRESULT")
+        return IDebugHostModule(containingModule)
     }
 
     /**
      * 
      * @param {IDebugHostSymbol} pComparisonSymbol 
      * @param {Integer} comparisonFlags 
-     * @param {Pointer<Boolean>} pMatches 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    CompareAgainst(pComparisonSymbol, comparisonFlags, pMatches) {
-        pMatchesMarshal := pMatches is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pComparisonSymbol, "uint", comparisonFlags, pMatchesMarshal, pMatches, "HRESULT")
-        return result
+    CompareAgainst(pComparisonSymbol, comparisonFlags) {
+        result := ComCall(9, this, "ptr", pComparisonSymbol, "uint", comparisonFlags, "int*", &pMatches := 0, "HRESULT")
+        return pMatches
     }
 }

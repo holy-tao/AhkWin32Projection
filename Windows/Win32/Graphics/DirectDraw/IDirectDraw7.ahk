@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirectDrawClipper.ahk
+#Include .\IDirectDrawPalette.ahk
+#Include .\IDirectDrawSurface7.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -132,55 +135,49 @@ class IDirectDraw7 extends IUnknown{
     /**
      * 
      * @param {Integer} param0 
-     * @param {Pointer<IDirectDrawClipper>} param1 
      * @param {IUnknown} param2 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawClipper} 
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-createclipper
      */
-    CreateClipper(param0, param1, param2) {
-        result := ComCall(4, this, "uint", param0, "ptr*", param1, "ptr", param2, "HRESULT")
-        return result
+    CreateClipper(param0, param2) {
+        result := ComCall(4, this, "uint", param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
+        return IDirectDrawClipper(param1)
     }
 
     /**
      * The CreatePalette function creates a logical palette.
      * @param {Integer} param0 
      * @param {Pointer<PALETTEENTRY>} param1 
-     * @param {Pointer<IDirectDrawPalette>} param2 
      * @param {IUnknown} param3 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to a logical palette.
-     * 
-     * If the function fails, the return value is <b>NULL</b>.
+     * @returns {IDirectDrawPalette} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createpalette
      */
-    CreatePalette(param0, param1, param2, param3) {
-        result := ComCall(5, this, "uint", param0, "ptr", param1, "ptr*", param2, "ptr", param3, "HRESULT")
-        return result
+    CreatePalette(param0, param1, param3) {
+        result := ComCall(5, this, "uint", param0, "ptr", param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
+        return IDirectDrawPalette(param2)
     }
 
     /**
      * 
      * @param {Pointer<DDSURFACEDESC2>} param0 
-     * @param {Pointer<IDirectDrawSurface7>} param1 
      * @param {IUnknown} param2 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawSurface7} 
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-createsurface
      */
-    CreateSurface(param0, param1, param2) {
-        result := ComCall(6, this, "ptr", param0, "ptr*", param1, "ptr", param2, "HRESULT")
-        return result
+    CreateSurface(param0, param2) {
+        result := ComCall(6, this, "ptr", param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
+        return IDirectDrawSurface7(param1)
     }
 
     /**
      * 
      * @param {IDirectDrawSurface7} param0 
-     * @param {Pointer<IDirectDrawSurface7>} param1 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawSurface7} 
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-duplicatesurface
      */
-    DuplicateSurface(param0, param1) {
-        result := ComCall(7, this, "ptr", param0, "ptr*", param1, "HRESULT")
-        return result
+    DuplicateSurface(param0) {
+        result := ComCall(7, this, "ptr", param0, "ptr*", &param1 := 0, "HRESULT")
+        return IDirectDrawSurface7(param1)
     }
 
     /**
@@ -265,13 +262,12 @@ class IDirectDraw7 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirectDrawSurface7>} param0 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawSurface7} 
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getgdisurface
      */
-    GetGDISurface(param0) {
-        result := ComCall(14, this, "ptr*", param0, "HRESULT")
-        return result
+    GetGDISurface() {
+        result := ComCall(14, this, "ptr*", &param0 := 0, "HRESULT")
+        return IDirectDrawSurface7(param0)
     }
 
     /**
@@ -307,7 +303,9 @@ class IDirectDraw7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getverticalblankstatus
      */
     GetVerticalBlankStatus(param0) {
-        result := ComCall(17, this, "ptr", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
@@ -404,15 +402,14 @@ class IDirectDraw7 extends IUnknown{
     /**
      * 
      * @param {HDC} param0 
-     * @param {Pointer<IDirectDrawSurface7>} param1 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawSurface7} 
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getsurfacefromdc
      */
-    GetSurfaceFromDC(param0, param1) {
+    GetSurfaceFromDC(param0) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := ComCall(24, this, "ptr", param0, "ptr*", param1, "HRESULT")
-        return result
+        result := ComCall(24, this, "ptr", param0, "ptr*", &param1 := 0, "HRESULT")
+        return IDirectDrawSurface7(param1)
     }
 
     /**

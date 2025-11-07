@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzRoleDefinitions.ahk
+#Include .\IAzRoleDefinition.ahk
+#Include .\IAzRoleAssignments.ahk
+#Include .\IAzRoleAssignment.ahk
 #Include .\IAzScope.ahk
 
 /**
@@ -33,41 +37,38 @@ class IAzScope2 extends IAzScope{
 
     /**
      * 
-     * @param {Pointer<IAzRoleDefinitions>} ppRoleDefinitions 
-     * @returns {HRESULT} 
+     * @returns {IAzRoleDefinitions} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-get_roledefinitions
      */
-    get_RoleDefinitions(ppRoleDefinitions) {
-        result := ComCall(45, this, "ptr*", ppRoleDefinitions, "HRESULT")
-        return result
+    get_RoleDefinitions() {
+        result := ComCall(45, this, "ptr*", &ppRoleDefinitions := 0, "HRESULT")
+        return IAzRoleDefinitions(ppRoleDefinitions)
     }
 
     /**
      * 
      * @param {BSTR} bstrRoleDefinitionName 
-     * @param {Pointer<IAzRoleDefinition>} ppRoleDefinitions 
-     * @returns {HRESULT} 
+     * @returns {IAzRoleDefinition} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-createroledefinition
      */
-    CreateRoleDefinition(bstrRoleDefinitionName, ppRoleDefinitions) {
+    CreateRoleDefinition(bstrRoleDefinitionName) {
         bstrRoleDefinitionName := bstrRoleDefinitionName is String ? BSTR.Alloc(bstrRoleDefinitionName).Value : bstrRoleDefinitionName
 
-        result := ComCall(46, this, "ptr", bstrRoleDefinitionName, "ptr*", ppRoleDefinitions, "HRESULT")
-        return result
+        result := ComCall(46, this, "ptr", bstrRoleDefinitionName, "ptr*", &ppRoleDefinitions := 0, "HRESULT")
+        return IAzRoleDefinition(ppRoleDefinitions)
     }
 
     /**
      * 
      * @param {BSTR} bstrRoleDefinitionName 
-     * @param {Pointer<IAzRoleDefinition>} ppRoleDefinitions 
-     * @returns {HRESULT} 
+     * @returns {IAzRoleDefinition} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-openroledefinition
      */
-    OpenRoleDefinition(bstrRoleDefinitionName, ppRoleDefinitions) {
+    OpenRoleDefinition(bstrRoleDefinitionName) {
         bstrRoleDefinitionName := bstrRoleDefinitionName is String ? BSTR.Alloc(bstrRoleDefinitionName).Value : bstrRoleDefinitionName
 
-        result := ComCall(47, this, "ptr", bstrRoleDefinitionName, "ptr*", ppRoleDefinitions, "HRESULT")
-        return result
+        result := ComCall(47, this, "ptr", bstrRoleDefinitionName, "ptr*", &ppRoleDefinitions := 0, "HRESULT")
+        return IAzRoleDefinition(ppRoleDefinitions)
     }
 
     /**
@@ -85,41 +86,38 @@ class IAzScope2 extends IAzScope{
 
     /**
      * 
-     * @param {Pointer<IAzRoleAssignments>} ppRoleAssignments 
-     * @returns {HRESULT} 
+     * @returns {IAzRoleAssignments} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-get_roleassignments
      */
-    get_RoleAssignments(ppRoleAssignments) {
-        result := ComCall(49, this, "ptr*", ppRoleAssignments, "HRESULT")
-        return result
+    get_RoleAssignments() {
+        result := ComCall(49, this, "ptr*", &ppRoleAssignments := 0, "HRESULT")
+        return IAzRoleAssignments(ppRoleAssignments)
     }
 
     /**
      * 
      * @param {BSTR} bstrRoleAssignmentName 
-     * @param {Pointer<IAzRoleAssignment>} ppRoleAssignment 
-     * @returns {HRESULT} 
+     * @returns {IAzRoleAssignment} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-createroleassignment
      */
-    CreateRoleAssignment(bstrRoleAssignmentName, ppRoleAssignment) {
+    CreateRoleAssignment(bstrRoleAssignmentName) {
         bstrRoleAssignmentName := bstrRoleAssignmentName is String ? BSTR.Alloc(bstrRoleAssignmentName).Value : bstrRoleAssignmentName
 
-        result := ComCall(50, this, "ptr", bstrRoleAssignmentName, "ptr*", ppRoleAssignment, "HRESULT")
-        return result
+        result := ComCall(50, this, "ptr", bstrRoleAssignmentName, "ptr*", &ppRoleAssignment := 0, "HRESULT")
+        return IAzRoleAssignment(ppRoleAssignment)
     }
 
     /**
      * 
      * @param {BSTR} bstrRoleAssignmentName 
-     * @param {Pointer<IAzRoleAssignment>} ppRoleAssignment 
-     * @returns {HRESULT} 
+     * @returns {IAzRoleAssignment} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope2-openroleassignment
      */
-    OpenRoleAssignment(bstrRoleAssignmentName, ppRoleAssignment) {
+    OpenRoleAssignment(bstrRoleAssignmentName) {
         bstrRoleAssignmentName := bstrRoleAssignmentName is String ? BSTR.Alloc(bstrRoleAssignmentName).Value : bstrRoleAssignmentName
 
-        result := ComCall(51, this, "ptr", bstrRoleAssignmentName, "ptr*", ppRoleAssignment, "HRESULT")
-        return result
+        result := ComCall(51, this, "ptr", bstrRoleAssignmentName, "ptr*", &ppRoleAssignment := 0, "HRESULT")
+        return IAzRoleAssignment(ppRoleAssignment)
     }
 
     /**

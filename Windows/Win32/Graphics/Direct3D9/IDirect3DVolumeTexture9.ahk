@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirect3DVolume9.ahk
 #Include .\IDirect3DBaseTexture9.ahk
 
 /**
@@ -66,13 +67,12 @@ class IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9{
     /**
      * 
      * @param {Integer} Level 
-     * @param {Pointer<IDirect3DVolume9>} ppVolumeLevel 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DVolume9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-getvolumelevel
      */
-    GetVolumeLevel(Level, ppVolumeLevel) {
-        result := ComCall(18, this, "uint", Level, "ptr*", ppVolumeLevel, "HRESULT")
-        return result
+    GetVolumeLevel(Level) {
+        result := ComCall(18, this, "uint", Level, "ptr*", &ppVolumeLevel := 0, "HRESULT")
+        return IDirect3DVolume9(ppVolumeLevel)
     }
 
     /**

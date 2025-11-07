@@ -45,15 +45,12 @@ class IAMStreamSelect extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcStreams 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamselect-count
      */
-    Count(pcStreams) {
-        pcStreamsMarshal := pcStreams is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcStreamsMarshal, pcStreams, "HRESULT")
-        return result
+    Count() {
+        result := ComCall(3, this, "uint*", &pcStreams := 0, "HRESULT")
+        return pcStreams
     }
 
     /**
@@ -74,8 +71,9 @@ class IAMStreamSelect extends IUnknown{
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
         plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
         pdwGroupMarshal := pdwGroup is VarRef ? "uint*" : "ptr"
+        ppszNameMarshal := ppszName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "int", lIndex, ppmtMarshal, ppmt, pdwFlagsMarshal, pdwFlags, plcidMarshal, plcid, pdwGroupMarshal, pdwGroup, "ptr", ppszName, "ptr*", ppObject, "ptr*", ppUnk, "HRESULT")
+        result := ComCall(4, this, "int", lIndex, ppmtMarshal, ppmt, pdwFlagsMarshal, pdwFlags, plcidMarshal, plcid, pdwGroupMarshal, pdwGroup, ppszNameMarshal, ppszName, "ptr*", ppObject, "ptr*", ppUnk, "HRESULT")
         return result
     }
 

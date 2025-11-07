@@ -48,7 +48,9 @@ class IContextState extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextstate-getdeactivateonreturn
      */
     GetDeactivateOnReturn(pbDeactivate) {
-        result := ComCall(4, this, "ptr", pbDeactivate, "HRESULT")
+        pbDeactivateMarshal := pbDeactivate is VarRef ? "short*" : "ptr"
+
+        result := ComCall(4, this, pbDeactivateMarshal, pbDeactivate, "HRESULT")
         return result
     }
 

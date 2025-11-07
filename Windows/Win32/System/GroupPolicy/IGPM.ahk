@@ -2,6 +2,16 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMDomain.ahk
+#Include .\IGPMBackupDir.ahk
+#Include .\IGPMSitesContainer.ahk
+#Include .\IGPMRSOP.ahk
+#Include .\IGPMPermission.ahk
+#Include .\IGPMSearchCriteria.ahk
+#Include .\IGPMTrustee.ahk
+#Include .\IGPMCSECollection.ahk
+#Include .\IGPMConstants.ahk
+#Include .\IGPMMigrationTable.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -42,30 +52,28 @@ class IGPM extends IDispatch{
      * @param {BSTR} bstrDomain 
      * @param {BSTR} bstrDomainController 
      * @param {Integer} lDCFlags 
-     * @param {Pointer<IGPMDomain>} pIGPMDomain 
-     * @returns {HRESULT} 
+     * @returns {IGPMDomain} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm-getdomain
      */
-    GetDomain(bstrDomain, bstrDomainController, lDCFlags, pIGPMDomain) {
+    GetDomain(bstrDomain, bstrDomainController, lDCFlags) {
         bstrDomain := bstrDomain is String ? BSTR.Alloc(bstrDomain).Value : bstrDomain
         bstrDomainController := bstrDomainController is String ? BSTR.Alloc(bstrDomainController).Value : bstrDomainController
 
-        result := ComCall(7, this, "ptr", bstrDomain, "ptr", bstrDomainController, "int", lDCFlags, "ptr*", pIGPMDomain, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bstrDomain, "ptr", bstrDomainController, "int", lDCFlags, "ptr*", &pIGPMDomain := 0, "HRESULT")
+        return IGPMDomain(pIGPMDomain)
     }
 
     /**
      * 
      * @param {BSTR} bstrBackupDir 
-     * @param {Pointer<IGPMBackupDir>} pIGPMBackupDir 
-     * @returns {HRESULT} 
+     * @returns {IGPMBackupDir} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm-getbackupdir
      */
-    GetBackupDir(bstrBackupDir, pIGPMBackupDir) {
+    GetBackupDir(bstrBackupDir) {
         bstrBackupDir := bstrBackupDir is String ? BSTR.Alloc(bstrBackupDir).Value : bstrBackupDir
 
-        result := ComCall(8, this, "ptr", bstrBackupDir, "ptr*", pIGPMBackupDir, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", bstrBackupDir, "ptr*", &pIGPMBackupDir := 0, "HRESULT")
+        return IGPMBackupDir(pIGPMBackupDir)
     }
 
     /**
@@ -74,17 +82,16 @@ class IGPM extends IDispatch{
      * @param {BSTR} bstrDomain 
      * @param {BSTR} bstrDomainController 
      * @param {Integer} lDCFlags 
-     * @param {Pointer<IGPMSitesContainer>} ppIGPMSitesContainer 
-     * @returns {HRESULT} 
+     * @returns {IGPMSitesContainer} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm-getsitescontainer
      */
-    GetSitesContainer(bstrForest, bstrDomain, bstrDomainController, lDCFlags, ppIGPMSitesContainer) {
+    GetSitesContainer(bstrForest, bstrDomain, bstrDomainController, lDCFlags) {
         bstrForest := bstrForest is String ? BSTR.Alloc(bstrForest).Value : bstrForest
         bstrDomain := bstrDomain is String ? BSTR.Alloc(bstrDomain).Value : bstrDomain
         bstrDomainController := bstrDomainController is String ? BSTR.Alloc(bstrDomainController).Value : bstrDomainController
 
-        result := ComCall(9, this, "ptr", bstrForest, "ptr", bstrDomain, "ptr", bstrDomainController, "int", lDCFlags, "ptr*", ppIGPMSitesContainer, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrForest, "ptr", bstrDomain, "ptr", bstrDomainController, "int", lDCFlags, "ptr*", &ppIGPMSitesContainer := 0, "HRESULT")
+        return IGPMSitesContainer(ppIGPMSitesContainer)
     }
 
     /**
@@ -92,15 +99,14 @@ class IGPM extends IDispatch{
      * @param {Integer} gpmRSoPMode 
      * @param {BSTR} bstrNamespace 
      * @param {Integer} lFlags 
-     * @param {Pointer<IGPMRSOP>} ppIGPMRSOP 
-     * @returns {HRESULT} 
+     * @returns {IGPMRSOP} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm-getrsop
      */
-    GetRSOP(gpmRSoPMode, bstrNamespace, lFlags, ppIGPMRSOP) {
+    GetRSOP(gpmRSoPMode, bstrNamespace, lFlags) {
         bstrNamespace := bstrNamespace is String ? BSTR.Alloc(bstrNamespace).Value : bstrNamespace
 
-        result := ComCall(10, this, "int", gpmRSoPMode, "ptr", bstrNamespace, "int", lFlags, "ptr*", ppIGPMRSOP, "HRESULT")
-        return result
+        result := ComCall(10, this, "int", gpmRSoPMode, "ptr", bstrNamespace, "int", lFlags, "ptr*", &ppIGPMRSOP := 0, "HRESULT")
+        return IGPMRSOP(ppIGPMRSOP)
     }
 
     /**
@@ -108,87 +114,80 @@ class IGPM extends IDispatch{
      * @param {BSTR} bstrTrustee 
      * @param {Integer} perm 
      * @param {VARIANT_BOOL} bInheritable 
-     * @param {Pointer<IGPMPermission>} ppPerm 
-     * @returns {HRESULT} 
+     * @returns {IGPMPermission} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm-createpermission
      */
-    CreatePermission(bstrTrustee, perm, bInheritable, ppPerm) {
+    CreatePermission(bstrTrustee, perm, bInheritable) {
         bstrTrustee := bstrTrustee is String ? BSTR.Alloc(bstrTrustee).Value : bstrTrustee
 
-        result := ComCall(11, this, "ptr", bstrTrustee, "int", perm, "short", bInheritable, "ptr*", ppPerm, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrTrustee, "int", perm, "short", bInheritable, "ptr*", &ppPerm := 0, "HRESULT")
+        return IGPMPermission(ppPerm)
     }
 
     /**
      * 
-     * @param {Pointer<IGPMSearchCriteria>} ppIGPMSearchCriteria 
-     * @returns {HRESULT} 
+     * @returns {IGPMSearchCriteria} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm-createsearchcriteria
      */
-    CreateSearchCriteria(ppIGPMSearchCriteria) {
-        result := ComCall(12, this, "ptr*", ppIGPMSearchCriteria, "HRESULT")
-        return result
+    CreateSearchCriteria() {
+        result := ComCall(12, this, "ptr*", &ppIGPMSearchCriteria := 0, "HRESULT")
+        return IGPMSearchCriteria(ppIGPMSearchCriteria)
     }
 
     /**
      * 
      * @param {BSTR} bstrTrustee 
-     * @param {Pointer<IGPMTrustee>} ppIGPMTrustee 
-     * @returns {HRESULT} 
+     * @returns {IGPMTrustee} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm-createtrustee
      */
-    CreateTrustee(bstrTrustee, ppIGPMTrustee) {
+    CreateTrustee(bstrTrustee) {
         bstrTrustee := bstrTrustee is String ? BSTR.Alloc(bstrTrustee).Value : bstrTrustee
 
-        result := ComCall(13, this, "ptr", bstrTrustee, "ptr*", ppIGPMTrustee, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", bstrTrustee, "ptr*", &ppIGPMTrustee := 0, "HRESULT")
+        return IGPMTrustee(ppIGPMTrustee)
     }
 
     /**
      * 
-     * @param {Pointer<IGPMCSECollection>} ppIGPMCSECollection 
-     * @returns {HRESULT} 
+     * @returns {IGPMCSECollection} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm-getclientsideextensions
      */
-    GetClientSideExtensions(ppIGPMCSECollection) {
-        result := ComCall(14, this, "ptr*", ppIGPMCSECollection, "HRESULT")
-        return result
+    GetClientSideExtensions() {
+        result := ComCall(14, this, "ptr*", &ppIGPMCSECollection := 0, "HRESULT")
+        return IGPMCSECollection(ppIGPMCSECollection)
     }
 
     /**
      * 
-     * @param {Pointer<IGPMConstants>} ppIGPMConstants 
-     * @returns {HRESULT} 
+     * @returns {IGPMConstants} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm-getconstants
      */
-    GetConstants(ppIGPMConstants) {
-        result := ComCall(15, this, "ptr*", ppIGPMConstants, "HRESULT")
-        return result
+    GetConstants() {
+        result := ComCall(15, this, "ptr*", &ppIGPMConstants := 0, "HRESULT")
+        return IGPMConstants(ppIGPMConstants)
     }
 
     /**
      * 
      * @param {BSTR} bstrMigrationTablePath 
-     * @param {Pointer<IGPMMigrationTable>} ppMigrationTable 
-     * @returns {HRESULT} 
+     * @returns {IGPMMigrationTable} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm-getmigrationtable
      */
-    GetMigrationTable(bstrMigrationTablePath, ppMigrationTable) {
+    GetMigrationTable(bstrMigrationTablePath) {
         bstrMigrationTablePath := bstrMigrationTablePath is String ? BSTR.Alloc(bstrMigrationTablePath).Value : bstrMigrationTablePath
 
-        result := ComCall(16, this, "ptr", bstrMigrationTablePath, "ptr*", ppMigrationTable, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", bstrMigrationTablePath, "ptr*", &ppMigrationTable := 0, "HRESULT")
+        return IGPMMigrationTable(ppMigrationTable)
     }
 
     /**
      * 
-     * @param {Pointer<IGPMMigrationTable>} ppMigrationTable 
-     * @returns {HRESULT} 
+     * @returns {IGPMMigrationTable} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm-createmigrationtable
      */
-    CreateMigrationTable(ppMigrationTable) {
-        result := ComCall(17, this, "ptr*", ppMigrationTable, "HRESULT")
-        return result
+    CreateMigrationTable() {
+        result := ComCall(17, this, "ptr*", &ppMigrationTable := 0, "HRESULT")
+        return IGPMMigrationTable(ppMigrationTable)
     }
 
     /**

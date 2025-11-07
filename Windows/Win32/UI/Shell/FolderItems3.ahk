@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\FolderItemVerbs.ahk
 #Include .\FolderItems2.ahk
 
 /**
@@ -53,11 +54,10 @@ class FolderItems3 extends FolderItems2{
 
     /**
      * 
-     * @param {Pointer<FolderItemVerbs>} ppfic 
-     * @returns {HRESULT} 
+     * @returns {FolderItemVerbs} 
      */
-    get_Verbs(ppfic) {
-        result := ComCall(14, this, "ptr*", ppfic, "HRESULT")
-        return result
+    get_Verbs() {
+        result := ComCall(14, this, "ptr*", &ppfic := 0, "HRESULT")
+        return FolderItemVerbs(ppfic)
     }
 }

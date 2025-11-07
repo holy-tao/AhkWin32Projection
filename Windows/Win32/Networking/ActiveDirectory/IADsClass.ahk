@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IADsCollection.ahk
 #Include .\IADs.ahk
 
 /**
@@ -39,22 +41,22 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PrimaryInterface(retval) {
+    get_PrimaryInterface() {
+        retval := BSTR()
         result := ComCall(20, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_CLSID(retval) {
+    get_CLSID() {
+        retval := BSTR()
         result := ComCall(21, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -71,12 +73,12 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_OID(retval) {
+    get_OID() {
+        retval := BSTR()
         result := ComCall(23, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -93,12 +95,11 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Abstract(retval) {
-        result := ComCall(25, this, "ptr", retval, "HRESULT")
-        return result
+    get_Abstract() {
+        result := ComCall(25, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -113,12 +114,11 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Auxiliary(retval) {
-        result := ComCall(27, this, "ptr", retval, "HRESULT")
-        return result
+    get_Auxiliary() {
+        result := ComCall(27, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -133,12 +133,12 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_MandatoryProperties(retval) {
+    get_MandatoryProperties() {
+        retval := VARIANT()
         result := ComCall(29, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -153,12 +153,12 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_OptionalProperties(retval) {
+    get_OptionalProperties() {
+        retval := VARIANT()
         result := ComCall(31, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -173,12 +173,12 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_NamingProperties(retval) {
+    get_NamingProperties() {
+        retval := VARIANT()
         result := ComCall(33, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -193,12 +193,12 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_DerivedFrom(retval) {
+    get_DerivedFrom() {
+        retval := VARIANT()
         result := ComCall(35, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -213,12 +213,12 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_AuxDerivedFrom(retval) {
+    get_AuxDerivedFrom() {
+        retval := VARIANT()
         result := ComCall(37, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -233,12 +233,12 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_PossibleSuperiors(retval) {
+    get_PossibleSuperiors() {
+        retval := VARIANT()
         result := ComCall(39, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -253,12 +253,12 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Containment(retval) {
+    get_Containment() {
+        retval := VARIANT()
         result := ComCall(41, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -273,12 +273,11 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Container(retval) {
-        result := ComCall(43, this, "ptr", retval, "HRESULT")
-        return result
+    get_Container() {
+        result := ComCall(43, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -293,12 +292,12 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_HelpFileName(retval) {
+    get_HelpFileName() {
+        retval := BSTR()
         result := ComCall(45, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -315,14 +314,11 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_HelpFileContext(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(47, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_HelpFileContext() {
+        result := ComCall(47, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -337,12 +333,11 @@ class IADsClass extends IADs{
 
     /**
      * 
-     * @param {Pointer<IADsCollection>} ppQualifiers 
-     * @returns {HRESULT} 
+     * @returns {IADsCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsclass-qualifiers
      */
-    Qualifiers(ppQualifiers) {
-        result := ComCall(49, this, "ptr*", ppQualifiers, "HRESULT")
-        return result
+    Qualifiers() {
+        result := ComCall(49, this, "ptr*", &ppQualifiers := 0, "HRESULT")
+        return IADsCollection(ppQualifiers)
     }
 }

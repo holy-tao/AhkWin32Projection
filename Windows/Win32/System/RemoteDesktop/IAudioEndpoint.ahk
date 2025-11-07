@@ -38,41 +38,32 @@ class IAudioEndpoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<WAVEFORMATEX>>} ppFormat 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WAVEFORMATEX>} 
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpoint-getframeformat
      */
-    GetFrameFormat(ppFormat) {
-        ppFormatMarshal := ppFormat is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppFormatMarshal, ppFormat, "HRESULT")
-        return result
+    GetFrameFormat() {
+        result := ComCall(3, this, "ptr*", &ppFormat := 0, "HRESULT")
+        return ppFormat
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pFramesPerPacket 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpoint-getframesperpacket
      */
-    GetFramesPerPacket(pFramesPerPacket) {
-        pFramesPerPacketMarshal := pFramesPerPacket is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pFramesPerPacketMarshal, pFramesPerPacket, "HRESULT")
-        return result
+    GetFramesPerPacket() {
+        result := ComCall(4, this, "uint*", &pFramesPerPacket := 0, "HRESULT")
+        return pFramesPerPacket
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pLatency 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpoint-getlatency
      */
-    GetLatency(pLatency) {
-        pLatencyMarshal := pLatency is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(5, this, pLatencyMarshal, pLatency, "HRESULT")
-        return result
+    GetLatency() {
+        result := ComCall(5, this, "int64*", &pLatency := 0, "HRESULT")
+        return pLatency
     }
 
     /**

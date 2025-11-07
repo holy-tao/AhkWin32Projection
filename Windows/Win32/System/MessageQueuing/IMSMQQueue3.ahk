@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMSMQQueueInfo3.ahk
+#Include .\IMSMQMessage.ahk
+#Include .\IMSMQMessage3.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -30,60 +34,47 @@ class IMSMQQueue3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plAccess 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Access(plAccess) {
-        plAccessMarshal := plAccess is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plAccessMarshal, plAccess, "HRESULT")
-        return result
+    get_Access() {
+        result := ComCall(7, this, "int*", &plAccess := 0, "HRESULT")
+        return plAccess
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plShareMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ShareMode(plShareMode) {
-        plShareModeMarshal := plShareMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plShareModeMarshal, plShareMode, "HRESULT")
-        return result
+    get_ShareMode() {
+        result := ComCall(8, this, "int*", &plShareMode := 0, "HRESULT")
+        return plShareMode
     }
 
     /**
      * 
-     * @param {Pointer<IMSMQQueueInfo3>} ppqinfo 
-     * @returns {HRESULT} 
+     * @returns {IMSMQQueueInfo3} 
      */
-    get_QueueInfo(ppqinfo) {
-        result := ComCall(9, this, "ptr*", ppqinfo, "HRESULT")
-        return result
+    get_QueueInfo() {
+        result := ComCall(9, this, "ptr*", &ppqinfo := 0, "HRESULT")
+        return IMSMQQueueInfo3(ppqinfo)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plHandle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Handle(plHandle) {
-        plHandleMarshal := plHandle is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plHandleMarshal, plHandle, "HRESULT")
-        return result
+    get_Handle() {
+        result := ComCall(10, this, "int*", &plHandle := 0, "HRESULT")
+        return plHandle
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pisOpen 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_IsOpen(pisOpen) {
-        pisOpenMarshal := pisOpen is VarRef ? "short*" : "ptr"
-
-        result := ComCall(11, this, pisOpenMarshal, pisOpen, "HRESULT")
-        return result
+    get_IsOpen() {
+        result := ComCall(11, this, "short*", &pisOpen := 0, "HRESULT")
+        return pisOpen
     }
 
     /**
@@ -101,12 +92,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
-     * @param {Pointer<IMSMQMessage>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage} 
      */
-    Receive_v1(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout, ppmsg) {
-        result := ComCall(13, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", ppmsg, "HRESULT")
-        return result
+    Receive_v1(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout) {
+        result := ComCall(13, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage(ppmsg)
     }
 
     /**
@@ -114,12 +104,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
-     * @param {Pointer<IMSMQMessage>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage} 
      */
-    Peek_v1(WantDestinationQueue, WantBody, ReceiveTimeout, ppmsg) {
-        result := ComCall(14, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", ppmsg, "HRESULT")
-        return result
+    Peek_v1(WantDestinationQueue, WantBody, ReceiveTimeout) {
+        result := ComCall(14, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage(ppmsg)
     }
 
     /**
@@ -149,12 +138,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
-     * @param {Pointer<IMSMQMessage>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage} 
      */
-    ReceiveCurrent_v1(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout, ppmsg) {
-        result := ComCall(17, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", ppmsg, "HRESULT")
-        return result
+    ReceiveCurrent_v1(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout) {
+        result := ComCall(17, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage(ppmsg)
     }
 
     /**
@@ -162,12 +150,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
-     * @param {Pointer<IMSMQMessage>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage} 
      */
-    PeekNext_v1(WantDestinationQueue, WantBody, ReceiveTimeout, ppmsg) {
-        result := ComCall(18, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", ppmsg, "HRESULT")
-        return result
+    PeekNext_v1(WantDestinationQueue, WantBody, ReceiveTimeout) {
+        result := ComCall(18, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage(ppmsg)
     }
 
     /**
@@ -175,12 +162,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
-     * @param {Pointer<IMSMQMessage>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage} 
      */
-    PeekCurrent_v1(WantDestinationQueue, WantBody, ReceiveTimeout, ppmsg) {
-        result := ComCall(19, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", ppmsg, "HRESULT")
-        return result
+    PeekCurrent_v1(WantDestinationQueue, WantBody, ReceiveTimeout) {
+        result := ComCall(19, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage(ppmsg)
     }
 
     /**
@@ -190,12 +176,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    Receive(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType, ppmsg) {
-        result := ComCall(20, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    Receive(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
+        result := ComCall(20, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -204,12 +189,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    Peek(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType, ppmsg) {
-        result := ComCall(21, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    Peek(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
+        result := ComCall(21, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -219,12 +203,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    ReceiveCurrent(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType, ppmsg) {
-        result := ComCall(22, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    ReceiveCurrent(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
+        result := ComCall(22, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -233,12 +216,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    PeekNext(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType, ppmsg) {
-        result := ComCall(23, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    PeekNext(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
+        result := ComCall(23, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -247,32 +229,30 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    PeekCurrent(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType, ppmsg) {
-        result := ComCall(24, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    PeekCurrent(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
+        result := ComCall(24, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppcolProperties 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Properties(ppcolProperties) {
-        result := ComCall(25, this, "ptr*", ppcolProperties, "HRESULT")
-        return result
+    get_Properties() {
+        result := ComCall(25, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        return IDispatch(ppcolProperties)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarHandle 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Handle2(pvarHandle) {
+    get_Handle2() {
+        pvarHandle := VARIANT()
         result := ComCall(26, this, "ptr", pvarHandle, "HRESULT")
-        return result
+        return pvarHandle
     }
 
     /**
@@ -282,12 +262,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    ReceiveByLookupId(LookupId, Transaction, WantDestinationQueue, WantBody, WantConnectorType, ppmsg) {
-        result := ComCall(27, this, "ptr", LookupId, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    ReceiveByLookupId(LookupId, Transaction, WantDestinationQueue, WantBody, WantConnectorType) {
+        result := ComCall(27, this, "ptr", LookupId, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -297,12 +276,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    ReceiveNextByLookupId(LookupId, Transaction, WantDestinationQueue, WantBody, WantConnectorType, ppmsg) {
-        result := ComCall(28, this, "ptr", LookupId, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    ReceiveNextByLookupId(LookupId, Transaction, WantDestinationQueue, WantBody, WantConnectorType) {
+        result := ComCall(28, this, "ptr", LookupId, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -312,12 +290,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    ReceivePreviousByLookupId(LookupId, Transaction, WantDestinationQueue, WantBody, WantConnectorType, ppmsg) {
-        result := ComCall(29, this, "ptr", LookupId, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    ReceivePreviousByLookupId(LookupId, Transaction, WantDestinationQueue, WantBody, WantConnectorType) {
+        result := ComCall(29, this, "ptr", LookupId, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -326,12 +303,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    ReceiveFirstByLookupId(Transaction, WantDestinationQueue, WantBody, WantConnectorType, ppmsg) {
-        result := ComCall(30, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    ReceiveFirstByLookupId(Transaction, WantDestinationQueue, WantBody, WantConnectorType) {
+        result := ComCall(30, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -340,12 +316,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    ReceiveLastByLookupId(Transaction, WantDestinationQueue, WantBody, WantConnectorType, ppmsg) {
-        result := ComCall(31, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    ReceiveLastByLookupId(Transaction, WantDestinationQueue, WantBody, WantConnectorType) {
+        result := ComCall(31, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -354,12 +329,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    PeekByLookupId(LookupId, WantDestinationQueue, WantBody, WantConnectorType, ppmsg) {
-        result := ComCall(32, this, "ptr", LookupId, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    PeekByLookupId(LookupId, WantDestinationQueue, WantBody, WantConnectorType) {
+        result := ComCall(32, this, "ptr", LookupId, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -368,12 +342,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    PeekNextByLookupId(LookupId, WantDestinationQueue, WantBody, WantConnectorType, ppmsg) {
-        result := ComCall(33, this, "ptr", LookupId, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    PeekNextByLookupId(LookupId, WantDestinationQueue, WantBody, WantConnectorType) {
+        result := ComCall(33, this, "ptr", LookupId, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -382,12 +355,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    PeekPreviousByLookupId(LookupId, WantDestinationQueue, WantBody, WantConnectorType, ppmsg) {
-        result := ComCall(34, this, "ptr", LookupId, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    PeekPreviousByLookupId(LookupId, WantDestinationQueue, WantBody, WantConnectorType) {
+        result := ComCall(34, this, "ptr", LookupId, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -395,12 +367,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    PeekFirstByLookupId(WantDestinationQueue, WantBody, WantConnectorType, ppmsg) {
-        result := ComCall(35, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    PeekFirstByLookupId(WantDestinationQueue, WantBody, WantConnectorType) {
+        result := ComCall(35, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -408,12 +379,11 @@ class IMSMQQueue3 extends IDispatch{
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} WantConnectorType 
-     * @param {Pointer<IMSMQMessage3>} ppmsg 
-     * @returns {HRESULT} 
+     * @returns {IMSMQMessage3} 
      */
-    PeekLastByLookupId(WantDestinationQueue, WantBody, WantConnectorType, ppmsg) {
-        result := ComCall(36, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", ppmsg, "HRESULT")
-        return result
+    PeekLastByLookupId(WantDestinationQueue, WantBody, WantConnectorType) {
+        result := ComCall(36, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        return IMSMQMessage3(ppmsg)
     }
 
     /**
@@ -427,11 +397,10 @@ class IMSMQQueue3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pisOpen 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsOpen2(pisOpen) {
-        result := ComCall(38, this, "ptr", pisOpen, "HRESULT")
-        return result
+    get_IsOpen2() {
+        result := ComCall(38, this, "short*", &pisOpen := 0, "HRESULT")
+        return pisOpen
     }
 }

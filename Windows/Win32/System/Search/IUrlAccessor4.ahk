@@ -32,24 +32,22 @@ class IUrlAccessor4 extends IUrlAccessor3{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIndexContent 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor4-shouldindexitemcontent
      */
-    ShouldIndexItemContent(pfIndexContent) {
-        result := ComCall(20, this, "ptr", pfIndexContent, "HRESULT")
-        return result
+    ShouldIndexItemContent() {
+        result := ComCall(20, this, "int*", &pfIndexContent := 0, "HRESULT")
+        return pfIndexContent
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<BOOL>} pfIndexProperty 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor4-shouldindexproperty
      */
-    ShouldIndexProperty(key, pfIndexProperty) {
-        result := ComCall(21, this, "ptr", key, "ptr", pfIndexProperty, "HRESULT")
-        return result
+    ShouldIndexProperty(key) {
+        result := ComCall(21, this, "ptr", key, "int*", &pfIndexProperty := 0, "HRESULT")
+        return pfIndexProperty
     }
 }

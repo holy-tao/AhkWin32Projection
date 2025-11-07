@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\XPS_GLYPH_INDEX.ahk
+#Include .\XPS_GLYPH_MAPPING.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,13 +44,12 @@ class IXpsOMGlyphsEditor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} unicodeString 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getunicodestring
      */
-    GetUnicodeString(unicodeString) {
-        result := ComCall(4, this, "ptr", unicodeString, "HRESULT")
-        return result
+    GetUnicodeString() {
+        result := ComCall(4, this, "ptr*", &unicodeString := 0, "HRESULT")
+        return unicodeString
     }
 
     /**
@@ -66,29 +67,26 @@ class IXpsOMGlyphsEditor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} indexCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getglyphindexcount
      */
-    GetGlyphIndexCount(indexCount) {
-        indexCountMarshal := indexCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, indexCountMarshal, indexCount, "HRESULT")
-        return result
+    GetGlyphIndexCount() {
+        result := ComCall(6, this, "uint*", &indexCount := 0, "HRESULT")
+        return indexCount
     }
 
     /**
      * 
      * @param {Pointer<Integer>} indexCount 
-     * @param {Pointer<XPS_GLYPH_INDEX>} glyphIndices 
-     * @returns {HRESULT} 
+     * @returns {XPS_GLYPH_INDEX} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getglyphindices
      */
-    GetGlyphIndices(indexCount, glyphIndices) {
+    GetGlyphIndices(indexCount) {
         indexCountMarshal := indexCount is VarRef ? "uint*" : "ptr"
 
+        glyphIndices := XPS_GLYPH_INDEX()
         result := ComCall(7, this, indexCountMarshal, indexCount, "ptr", glyphIndices, "HRESULT")
-        return result
+        return glyphIndices
     }
 
     /**
@@ -105,29 +103,26 @@ class IXpsOMGlyphsEditor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} glyphMappingCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getglyphmappingcount
      */
-    GetGlyphMappingCount(glyphMappingCount) {
-        glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, glyphMappingCountMarshal, glyphMappingCount, "HRESULT")
-        return result
+    GetGlyphMappingCount() {
+        result := ComCall(9, this, "uint*", &glyphMappingCount := 0, "HRESULT")
+        return glyphMappingCount
     }
 
     /**
      * 
      * @param {Pointer<Integer>} glyphMappingCount 
-     * @param {Pointer<XPS_GLYPH_MAPPING>} glyphMappings 
-     * @returns {HRESULT} 
+     * @returns {XPS_GLYPH_MAPPING} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getglyphmappings
      */
-    GetGlyphMappings(glyphMappingCount, glyphMappings) {
+    GetGlyphMappings(glyphMappingCount) {
         glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : "ptr"
 
+        glyphMappings := XPS_GLYPH_MAPPING()
         result := ComCall(10, this, glyphMappingCountMarshal, glyphMappingCount, "ptr", glyphMappings, "HRESULT")
-        return result
+        return glyphMappings
     }
 
     /**
@@ -144,30 +139,25 @@ class IXpsOMGlyphsEditor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} prohibitedCaretStopCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getprohibitedcaretstopcount
      */
-    GetProhibitedCaretStopCount(prohibitedCaretStopCount) {
-        prohibitedCaretStopCountMarshal := prohibitedCaretStopCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, prohibitedCaretStopCountMarshal, prohibitedCaretStopCount, "HRESULT")
-        return result
+    GetProhibitedCaretStopCount() {
+        result := ComCall(12, this, "uint*", &prohibitedCaretStopCount := 0, "HRESULT")
+        return prohibitedCaretStopCount
     }
 
     /**
      * 
      * @param {Pointer<Integer>} count 
-     * @param {Pointer<Integer>} prohibitedCaretStops 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getprohibitedcaretstops
      */
-    GetProhibitedCaretStops(count, prohibitedCaretStops) {
+    GetProhibitedCaretStops(count) {
         countMarshal := count is VarRef ? "uint*" : "ptr"
-        prohibitedCaretStopsMarshal := prohibitedCaretStops is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, countMarshal, count, prohibitedCaretStopsMarshal, prohibitedCaretStops, "HRESULT")
-        return result
+        result := ComCall(13, this, countMarshal, count, "uint*", &prohibitedCaretStops := 0, "HRESULT")
+        return prohibitedCaretStops
     }
 
     /**
@@ -186,15 +176,12 @@ class IXpsOMGlyphsEditor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} bidiLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getbidilevel
      */
-    GetBidiLevel(bidiLevel) {
-        bidiLevelMarshal := bidiLevel is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, bidiLevelMarshal, bidiLevel, "HRESULT")
-        return result
+    GetBidiLevel() {
+        result := ComCall(15, this, "uint*", &bidiLevel := 0, "HRESULT")
+        return bidiLevel
     }
 
     /**
@@ -210,13 +197,12 @@ class IXpsOMGlyphsEditor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isSideways 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getissideways
      */
-    GetIsSideways(isSideways) {
-        result := ComCall(17, this, "ptr", isSideways, "HRESULT")
-        return result
+    GetIsSideways() {
+        result := ComCall(17, this, "int*", &isSideways := 0, "HRESULT")
+        return isSideways
     }
 
     /**
@@ -232,13 +218,12 @@ class IXpsOMGlyphsEditor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} deviceFontName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getdevicefontname
      */
-    GetDeviceFontName(deviceFontName) {
-        result := ComCall(19, this, "ptr", deviceFontName, "HRESULT")
-        return result
+    GetDeviceFontName() {
+        result := ComCall(19, this, "ptr*", &deviceFontName := 0, "HRESULT")
+        return deviceFontName
     }
 
     /**

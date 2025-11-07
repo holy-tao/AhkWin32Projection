@@ -34,7 +34,9 @@ class ICorProfilerCallback11 extends ICorProfilerCallback10{
      * @returns {HRESULT} 
      */
     LoadAsNotificationOnly(pbNotificationOnly) {
-        result := ComCall(97, this, "ptr", pbNotificationOnly, "HRESULT")
+        pbNotificationOnlyMarshal := pbNotificationOnly is VarRef ? "int*" : "ptr"
+
+        result := ComCall(97, this, pbNotificationOnlyMarshal, pbNotificationOnly, "HRESULT")
         return result
     }
 }

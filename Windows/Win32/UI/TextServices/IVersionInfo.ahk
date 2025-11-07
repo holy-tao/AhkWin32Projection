@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,27 +34,24 @@ class IVersionInfo extends IUnknown{
     /**
      * 
      * @param {Integer} ulSub 
-     * @param {Pointer<Integer>} ulCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getsubcomponentcount
      */
-    GetSubcomponentCount(ulSub, ulCount) {
-        ulCountMarshal := ulCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", ulSub, ulCountMarshal, ulCount, "HRESULT")
-        return result
+    GetSubcomponentCount(ulSub) {
+        result := ComCall(3, this, "uint", ulSub, "uint*", &ulCount := 0, "HRESULT")
+        return ulCount
     }
 
     /**
      * 
      * @param {Integer} ulSub 
-     * @param {Pointer<Guid>} implid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getimplementationid
      */
-    GetImplementationID(ulSub, implid) {
+    GetImplementationID(ulSub) {
+        implid := Guid()
         result := ComCall(4, this, "uint", ulSub, "ptr", implid, "HRESULT")
-        return result
+        return implid
     }
 
     /**
@@ -75,24 +73,24 @@ class IVersionInfo extends IUnknown{
     /**
      * 
      * @param {Integer} ulSub 
-     * @param {Pointer<BSTR>} pImplStr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getcomponentdescription
      */
-    GetComponentDescription(ulSub, pImplStr) {
+    GetComponentDescription(ulSub) {
+        pImplStr := BSTR()
         result := ComCall(6, this, "uint", ulSub, "ptr", pImplStr, "HRESULT")
-        return result
+        return pImplStr
     }
 
     /**
      * 
      * @param {Integer} ulSub 
-     * @param {Pointer<BSTR>} pImplStr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getinstancedescription
      */
-    GetInstanceDescription(ulSub, pImplStr) {
+    GetInstanceDescription(ulSub) {
+        pImplStr := BSTR()
         result := ComCall(7, this, "uint", ulSub, "ptr", pImplStr, "HRESULT")
-        return result
+        return pImplStr
     }
 }

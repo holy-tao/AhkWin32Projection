@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DS3DBUFFER.ahk
+#Include ..\..\..\Graphics\Direct3D\D3DVECTOR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +32,12 @@ class IDirectSound3DBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DS3DBUFFER>} pDs3dBuffer 
-     * @returns {HRESULT} 
+     * @returns {DS3DBUFFER} 
      */
-    GetAllParameters(pDs3dBuffer) {
+    GetAllParameters() {
+        pDs3dBuffer := DS3DBUFFER()
         result := ComCall(3, this, "ptr", pDs3dBuffer, "HRESULT")
-        return result
+        return pDs3dBuffer
     }
 
     /**
@@ -54,80 +56,68 @@ class IDirectSound3DBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<D3DVECTOR>} pvOrientation 
-     * @returns {HRESULT} 
+     * @returns {D3DVECTOR} 
      */
-    GetConeOrientation(pvOrientation) {
+    GetConeOrientation() {
+        pvOrientation := D3DVECTOR()
         result := ComCall(5, this, "ptr", pvOrientation, "HRESULT")
-        return result
+        return pvOrientation
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plConeOutsideVolume 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetConeOutsideVolume(plConeOutsideVolume) {
-        plConeOutsideVolumeMarshal := plConeOutsideVolume is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, plConeOutsideVolumeMarshal, plConeOutsideVolume, "HRESULT")
-        return result
+    GetConeOutsideVolume() {
+        result := ComCall(6, this, "int*", &plConeOutsideVolume := 0, "HRESULT")
+        return plConeOutsideVolume
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pflMaxDistance 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    GetMaxDistance(pflMaxDistance) {
-        pflMaxDistanceMarshal := pflMaxDistance is VarRef ? "float*" : "ptr"
-
-        result := ComCall(7, this, pflMaxDistanceMarshal, pflMaxDistance, "HRESULT")
-        return result
+    GetMaxDistance() {
+        result := ComCall(7, this, "float*", &pflMaxDistance := 0, "HRESULT")
+        return pflMaxDistance
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pflMinDistance 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    GetMinDistance(pflMinDistance) {
-        pflMinDistanceMarshal := pflMinDistance is VarRef ? "float*" : "ptr"
-
-        result := ComCall(8, this, pflMinDistanceMarshal, pflMinDistance, "HRESULT")
-        return result
+    GetMinDistance() {
+        result := ComCall(8, this, "float*", &pflMinDistance := 0, "HRESULT")
+        return pflMinDistance
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMode(pdwMode) {
-        pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pdwModeMarshal, pdwMode, "HRESULT")
-        return result
+    GetMode() {
+        result := ComCall(9, this, "uint*", &pdwMode := 0, "HRESULT")
+        return pdwMode
     }
 
     /**
      * 
-     * @param {Pointer<D3DVECTOR>} pvPosition 
-     * @returns {HRESULT} 
+     * @returns {D3DVECTOR} 
      */
-    GetPosition(pvPosition) {
+    GetPosition() {
+        pvPosition := D3DVECTOR()
         result := ComCall(10, this, "ptr", pvPosition, "HRESULT")
-        return result
+        return pvPosition
     }
 
     /**
      * 
-     * @param {Pointer<D3DVECTOR>} pvVelocity 
-     * @returns {HRESULT} 
+     * @returns {D3DVECTOR} 
      */
-    GetVelocity(pvVelocity) {
+    GetVelocity() {
+        pvVelocity := D3DVECTOR()
         result := ComCall(11, this, "ptr", pvVelocity, "HRESULT")
-        return result
+        return pvVelocity
     }
 
     /**

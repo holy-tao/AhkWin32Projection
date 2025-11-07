@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -3288,34 +3289,34 @@ class KernelStreaming {
      * 
      * @param {HANDLE} ConnectionHandle 
      * @param {Pointer<KSALLOCATOR_FRAMING>} AllocatorFraming 
-     * @param {Pointer<HANDLE>} AllocatorHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static KsCreateAllocator2(ConnectionHandle, AllocatorFraming, AllocatorHandle) {
+    static KsCreateAllocator2(ConnectionHandle, AllocatorFraming) {
         ConnectionHandle := ConnectionHandle is Win32Handle ? NumGet(ConnectionHandle, "ptr") : ConnectionHandle
 
+        AllocatorHandle := HANDLE()
         result := DllCall("ksuser.dll\KsCreateAllocator2", "ptr", ConnectionHandle, "ptr", AllocatorFraming, "ptr", AllocatorHandle, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return AllocatorHandle
     }
 
     /**
      * 
      * @param {HANDLE} ConnectionHandle 
      * @param {Pointer<KSCLOCK_CREATE>} ClockCreate 
-     * @param {Pointer<HANDLE>} ClockHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static KsCreateClock2(ConnectionHandle, ClockCreate, ClockHandle) {
+    static KsCreateClock2(ConnectionHandle, ClockCreate) {
         ConnectionHandle := ConnectionHandle is Win32Handle ? NumGet(ConnectionHandle, "ptr") : ConnectionHandle
 
+        ClockHandle := HANDLE()
         result := DllCall("ksuser.dll\KsCreateClock2", "ptr", ConnectionHandle, "ptr", ClockCreate, "ptr", ClockHandle, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ClockHandle
     }
 
     /**
@@ -3323,17 +3324,17 @@ class KernelStreaming {
      * @param {HANDLE} FilterHandle 
      * @param {Pointer<KSPIN_CONNECT>} Connect 
      * @param {Integer} DesiredAccess 
-     * @param {Pointer<HANDLE>} ConnectionHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static KsCreatePin2(FilterHandle, Connect, DesiredAccess, ConnectionHandle) {
+    static KsCreatePin2(FilterHandle, Connect, DesiredAccess) {
         FilterHandle := FilterHandle is Win32Handle ? NumGet(FilterHandle, "ptr") : FilterHandle
 
+        ConnectionHandle := HANDLE()
         result := DllCall("ksuser.dll\KsCreatePin2", "ptr", FilterHandle, "ptr", Connect, "uint", DesiredAccess, "ptr", ConnectionHandle, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ConnectionHandle
     }
 
     /**
@@ -3341,17 +3342,17 @@ class KernelStreaming {
      * @param {HANDLE} ParentHandle 
      * @param {Pointer<KSNODE_CREATE>} NodeCreate 
      * @param {Integer} DesiredAccess 
-     * @param {Pointer<HANDLE>} NodeHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static KsCreateTopologyNode2(ParentHandle, NodeCreate, DesiredAccess, NodeHandle) {
+    static KsCreateTopologyNode2(ParentHandle, NodeCreate, DesiredAccess) {
         ParentHandle := ParentHandle is Win32Handle ? NumGet(ParentHandle, "ptr") : ParentHandle
 
+        NodeHandle := HANDLE()
         result := DllCall("ksuser.dll\KsCreateTopologyNode2", "ptr", ParentHandle, "ptr", NodeCreate, "uint", DesiredAccess, "ptr", NodeHandle, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return NodeHandle
     }
 
     /**
@@ -3372,15 +3373,15 @@ class KernelStreaming {
      * 
      * @param {Pointer<Guid>} Category 
      * @param {Integer} Access 
-     * @param {Pointer<HANDLE>} DeviceHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static KsOpenDefaultDevice(Category, Access, DeviceHandle) {
+    static KsOpenDefaultDevice(Category, Access) {
+        DeviceHandle := HANDLE()
         result := DllCall("ksproxy.ax\KsOpenDefaultDevice", "ptr", Category, "uint", Access, "ptr", DeviceHandle, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return DeviceHandle
     }
 
     /**
@@ -3411,38 +3412,32 @@ class KernelStreaming {
      * @param {HANDLE} FilterHandle 
      * @param {Integer} PinFactoryId 
      * @param {Integer} PropertyId 
-     * @param {Pointer<Pointer<Void>>} Items 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static KsGetMultiplePinFactoryItems(FilterHandle, PinFactoryId, PropertyId, Items) {
+    static KsGetMultiplePinFactoryItems(FilterHandle, PinFactoryId, PropertyId) {
         FilterHandle := FilterHandle is Win32Handle ? NumGet(FilterHandle, "ptr") : FilterHandle
 
-        ItemsMarshal := Items is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("ksproxy.ax\KsGetMultiplePinFactoryItems", "ptr", FilterHandle, "uint", PinFactoryId, "uint", PropertyId, ItemsMarshal, Items, "int")
+        result := DllCall("ksproxy.ax\KsGetMultiplePinFactoryItems", "ptr", FilterHandle, "uint", PinFactoryId, "uint", PropertyId, "ptr*", &Items := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return Items
     }
 
     /**
      * 
      * @param {HANDLE} FilterHandle 
      * @param {Integer} PinFactoryId 
-     * @param {Pointer<Integer>} MediaTypeCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static KsGetMediaTypeCount(FilterHandle, PinFactoryId, MediaTypeCount) {
+    static KsGetMediaTypeCount(FilterHandle, PinFactoryId) {
         FilterHandle := FilterHandle is Win32Handle ? NumGet(FilterHandle, "ptr") : FilterHandle
 
-        MediaTypeCountMarshal := MediaTypeCount is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ksproxy.ax\KsGetMediaTypeCount", "ptr", FilterHandle, "uint", PinFactoryId, MediaTypeCountMarshal, MediaTypeCount, "int")
+        result := DllCall("ksproxy.ax\KsGetMediaTypeCount", "ptr", FilterHandle, "uint", PinFactoryId, "uint*", &MediaTypeCount := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return MediaTypeCount
     }
 
     /**

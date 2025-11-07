@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPortableDeviceKeyCollection.ahk
+#Include .\IPortableDeviceValues.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,60 +35,56 @@ class IPortableDeviceProperties extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszObjectID 
-     * @param {Pointer<IPortableDeviceKeyCollection>} ppKeys 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceKeyCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceproperties-getsupportedproperties
      */
-    GetSupportedProperties(pszObjectID, ppKeys) {
+    GetSupportedProperties(pszObjectID) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
-        result := ComCall(3, this, "ptr", pszObjectID, "ptr*", ppKeys, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszObjectID, "ptr*", &ppKeys := 0, "HRESULT")
+        return IPortableDeviceKeyCollection(ppKeys)
     }
 
     /**
      * 
      * @param {PWSTR} pszObjectID 
      * @param {Pointer<PROPERTYKEY>} Key 
-     * @param {Pointer<IPortableDeviceValues>} ppAttributes 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceproperties-getpropertyattributes
      */
-    GetPropertyAttributes(pszObjectID, Key, ppAttributes) {
+    GetPropertyAttributes(pszObjectID, Key) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
-        result := ComCall(4, this, "ptr", pszObjectID, "ptr", Key, "ptr*", ppAttributes, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszObjectID, "ptr", Key, "ptr*", &ppAttributes := 0, "HRESULT")
+        return IPortableDeviceValues(ppAttributes)
     }
 
     /**
      * 
      * @param {PWSTR} pszObjectID 
      * @param {IPortableDeviceKeyCollection} pKeys 
-     * @param {Pointer<IPortableDeviceValues>} ppValues 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceproperties-getvalues
      */
-    GetValues(pszObjectID, pKeys, ppValues) {
+    GetValues(pszObjectID, pKeys) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
-        result := ComCall(5, this, "ptr", pszObjectID, "ptr", pKeys, "ptr*", ppValues, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszObjectID, "ptr", pKeys, "ptr*", &ppValues := 0, "HRESULT")
+        return IPortableDeviceValues(ppValues)
     }
 
     /**
      * 
      * @param {PWSTR} pszObjectID 
      * @param {IPortableDeviceValues} pValues 
-     * @param {Pointer<IPortableDeviceValues>} ppResults 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceproperties-setvalues
      */
-    SetValues(pszObjectID, pValues, ppResults) {
+    SetValues(pszObjectID, pValues) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
-        result := ComCall(6, this, "ptr", pszObjectID, "ptr", pValues, "ptr*", ppResults, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszObjectID, "ptr", pValues, "ptr*", &ppResults := 0, "HRESULT")
+        return IPortableDeviceValues(ppResults)
     }
 
     /**

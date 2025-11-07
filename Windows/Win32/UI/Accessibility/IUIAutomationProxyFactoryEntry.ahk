@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationProxyFactory.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,68 +34,64 @@ class IUIAutomationProxyFactoryEntry extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUIAutomationProxyFactory>} factory 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationProxyFactory} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_proxyfactory
      */
-    get_ProxyFactory(factory) {
-        result := ComCall(3, this, "ptr*", factory, "HRESULT")
-        return result
+    get_ProxyFactory() {
+        result := ComCall(3, this, "ptr*", &factory := 0, "HRESULT")
+        return IUIAutomationProxyFactory(factory)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} className 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_classname
      */
-    get_ClassName(className) {
+    get_ClassName() {
+        className := BSTR()
         result := ComCall(4, this, "ptr", className, "HRESULT")
-        return result
+        return className
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} imageName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_imagename
      */
-    get_ImageName(imageName) {
+    get_ImageName() {
+        imageName := BSTR()
         result := ComCall(5, this, "ptr", imageName, "HRESULT")
-        return result
+        return imageName
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} allowSubstringMatch 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_allowsubstringmatch
      */
-    get_AllowSubstringMatch(allowSubstringMatch) {
-        result := ComCall(6, this, "ptr", allowSubstringMatch, "HRESULT")
-        return result
+    get_AllowSubstringMatch() {
+        result := ComCall(6, this, "int*", &allowSubstringMatch := 0, "HRESULT")
+        return allowSubstringMatch
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} canCheckBaseClass 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_cancheckbaseclass
      */
-    get_CanCheckBaseClass(canCheckBaseClass) {
-        result := ComCall(7, this, "ptr", canCheckBaseClass, "HRESULT")
-        return result
+    get_CanCheckBaseClass() {
+        result := ComCall(7, this, "int*", &canCheckBaseClass := 0, "HRESULT")
+        return canCheckBaseClass
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} adviseEvents 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_needsadviseevents
      */
-    get_NeedsAdviseEvents(adviseEvents) {
-        result := ComCall(8, this, "ptr", adviseEvents, "HRESULT")
-        return result
+    get_NeedsAdviseEvents() {
+        result := ComCall(8, this, "int*", &adviseEvents := 0, "HRESULT")
+        return adviseEvents
     }
 
     /**
@@ -172,14 +170,11 @@ class IUIAutomationProxyFactoryEntry extends IUnknown{
      * 
      * @param {Integer} eventId 
      * @param {Integer} propertyId 
-     * @param {Pointer<Pointer<SAFEARRAY>>} winEvents 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-getwineventsforautomationevent
      */
-    GetWinEventsForAutomationEvent(eventId, propertyId, winEvents) {
-        winEventsMarshal := winEvents is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(15, this, "int", eventId, "int", propertyId, winEventsMarshal, winEvents, "HRESULT")
-        return result
+    GetWinEventsForAutomationEvent(eventId, propertyId) {
+        result := ComCall(15, this, "int", eventId, "int", propertyId, "ptr*", &winEvents := 0, "HRESULT")
+        return winEvents
     }
 }

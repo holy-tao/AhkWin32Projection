@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPortableDeviceValues.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,15 +41,14 @@ class IWpdSerializer extends IUnknown{
      * 
      * @param {Pointer<Integer>} pBuffer 
      * @param {Integer} dwInputBufferLength 
-     * @param {Pointer<IPortableDeviceValues>} ppParams 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-getiportabledevicevaluesfrombuffer
      */
-    GetIPortableDeviceValuesFromBuffer(pBuffer, dwInputBufferLength, ppParams) {
+    GetIPortableDeviceValuesFromBuffer(pBuffer, dwInputBufferLength) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pBufferMarshal, pBuffer, "uint", dwInputBufferLength, "ptr*", ppParams, "HRESULT")
-        return result
+        result := ComCall(3, this, pBufferMarshal, pBuffer, "uint", dwInputBufferLength, "ptr*", &ppParams := 0, "HRESULT")
+        return IPortableDeviceValues(ppParams)
     }
 
     /**
@@ -87,14 +87,11 @@ class IWpdSerializer extends IUnknown{
     /**
      * 
      * @param {IPortableDeviceValues} pSource 
-     * @param {Pointer<Integer>} pdwSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-getserializedsize
      */
-    GetSerializedSize(pSource, pdwSize) {
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pSource, pdwSizeMarshal, pdwSize, "HRESULT")
-        return result
+    GetSerializedSize(pSource) {
+        result := ComCall(6, this, "ptr", pSource, "uint*", &pdwSize := 0, "HRESULT")
+        return pdwSize
     }
 }

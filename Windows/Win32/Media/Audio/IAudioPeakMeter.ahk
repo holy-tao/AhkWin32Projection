@@ -32,28 +32,22 @@ class IAudioPeakMeter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcChannels 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiopeakmeter-getchannelcount
      */
-    GetChannelCount(pcChannels) {
-        pcChannelsMarshal := pcChannels is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcChannelsMarshal, pcChannels, "HRESULT")
-        return result
+    GetChannelCount() {
+        result := ComCall(3, this, "uint*", &pcChannels := 0, "HRESULT")
+        return pcChannels
     }
 
     /**
      * 
      * @param {Integer} nChannel 
-     * @param {Pointer<Float>} pfLevel 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiopeakmeter-getlevel
      */
-    GetLevel(nChannel, pfLevel) {
-        pfLevelMarshal := pfLevel is VarRef ? "float*" : "ptr"
-
-        result := ComCall(4, this, "uint", nChannel, pfLevelMarshal, pfLevel, "HRESULT")
-        return result
+    GetLevel(nChannel) {
+        result := ComCall(4, this, "uint", nChannel, "float*", &pfLevel := 0, "HRESULT")
+        return pfLevel
     }
 }

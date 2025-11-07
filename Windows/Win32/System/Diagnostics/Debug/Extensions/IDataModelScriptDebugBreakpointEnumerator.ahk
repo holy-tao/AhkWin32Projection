@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDataModelScriptDebugBreakpoint.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -39,11 +40,10 @@ class IDataModelScriptDebugBreakpointEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDataModelScriptDebugBreakpoint>} breakpoint 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptDebugBreakpoint} 
      */
-    GetNext(breakpoint) {
-        result := ComCall(4, this, "ptr*", breakpoint, "HRESULT")
-        return result
+    GetNext() {
+        result := ComCall(4, this, "ptr*", &breakpoint := 0, "HRESULT")
+        return IDataModelScriptDebugBreakpoint(breakpoint)
     }
 }

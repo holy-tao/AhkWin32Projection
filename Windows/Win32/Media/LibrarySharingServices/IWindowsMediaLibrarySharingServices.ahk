@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWindowsMediaLibrarySharingDevices.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -57,13 +58,12 @@ class IWindowsMediaLibrarySharingServices extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} sharingEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_userhomemediasharingstate
      */
-    get_userHomeMediaSharingState(sharingEnabled) {
-        result := ComCall(8, this, "ptr", sharingEnabled, "HRESULT")
-        return result
+    get_userHomeMediaSharingState() {
+        result := ComCall(8, this, "short*", &sharingEnabled := 0, "HRESULT")
+        return sharingEnabled
     }
 
     /**
@@ -79,13 +79,13 @@ class IWindowsMediaLibrarySharingServices extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} libraryName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_userhomemediasharinglibraryname
      */
-    get_userHomeMediaSharingLibraryName(libraryName) {
+    get_userHomeMediaSharingLibraryName() {
+        libraryName := BSTR()
         result := ComCall(10, this, "ptr", libraryName, "HRESULT")
-        return result
+        return libraryName
     }
 
     /**
@@ -103,13 +103,12 @@ class IWindowsMediaLibrarySharingServices extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} sharingAllowed 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_computerhomemediasharingallowedstate
      */
-    get_computerHomeMediaSharingAllowedState(sharingAllowed) {
-        result := ComCall(12, this, "ptr", sharingAllowed, "HRESULT")
-        return result
+    get_computerHomeMediaSharingAllowedState() {
+        result := ComCall(12, this, "short*", &sharingAllowed := 0, "HRESULT")
+        return sharingAllowed
     }
 
     /**
@@ -125,13 +124,12 @@ class IWindowsMediaLibrarySharingServices extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} sharingEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_userinternetmediasharingstate
      */
-    get_userInternetMediaSharingState(sharingEnabled) {
-        result := ComCall(14, this, "ptr", sharingEnabled, "HRESULT")
-        return result
+    get_userInternetMediaSharingState() {
+        result := ComCall(14, this, "short*", &sharingEnabled := 0, "HRESULT")
+        return sharingEnabled
     }
 
     /**
@@ -147,13 +145,12 @@ class IWindowsMediaLibrarySharingServices extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} sharingAllowed 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_computerinternetmediasharingallowedstate
      */
-    get_computerInternetMediaSharingAllowedState(sharingAllowed) {
-        result := ComCall(16, this, "ptr", sharingAllowed, "HRESULT")
-        return result
+    get_computerInternetMediaSharingAllowedState() {
+        result := ComCall(16, this, "short*", &sharingAllowed := 0, "HRESULT")
+        return sharingAllowed
     }
 
     /**
@@ -169,13 +166,13 @@ class IWindowsMediaLibrarySharingServices extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} securityGroup 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_internetmediasharingsecuritygroup
      */
-    get_internetMediaSharingSecurityGroup(securityGroup) {
+    get_internetMediaSharingSecurityGroup() {
+        securityGroup := BSTR()
         result := ComCall(18, this, "ptr", securityGroup, "HRESULT")
-        return result
+        return securityGroup
     }
 
     /**
@@ -193,13 +190,12 @@ class IWindowsMediaLibrarySharingServices extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} sharingEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_allowsharingtoalldevices
      */
-    get_allowSharingToAllDevices(sharingEnabled) {
-        result := ComCall(20, this, "ptr", sharingEnabled, "HRESULT")
-        return result
+    get_allowSharingToAllDevices() {
+        result := ComCall(20, this, "short*", &sharingEnabled := 0, "HRESULT")
+        return sharingEnabled
     }
 
     /**
@@ -245,23 +241,21 @@ class IWindowsMediaLibrarySharingServices extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWindowsMediaLibrarySharingDevices>} devices 
-     * @returns {HRESULT} 
+     * @returns {IWindowsMediaLibrarySharingDevices} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-getalldevices
      */
-    getAllDevices(devices) {
-        result := ComCall(24, this, "ptr*", devices, "HRESULT")
-        return result
+    getAllDevices() {
+        result := ComCall(24, this, "ptr*", &devices := 0, "HRESULT")
+        return IWindowsMediaLibrarySharingDevices(devices)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} customSettingsApplied 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_customsettingsapplied
      */
-    get_customSettingsApplied(customSettingsApplied) {
-        result := ComCall(25, this, "ptr", customSettingsApplied, "HRESULT")
-        return result
+    get_customSettingsApplied() {
+        result := ComCall(25, this, "short*", &customSettingsApplied := 0, "HRESULT")
+        return customSettingsApplied
     }
 }

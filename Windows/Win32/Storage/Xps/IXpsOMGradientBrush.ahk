@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMGradientStopCollection.ahk
+#Include .\IXpsOMMatrixTransform.ahk
 #Include .\IXpsOMBrush.ahk
 
 /**
@@ -50,35 +52,32 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
 
     /**
      * 
-     * @param {Pointer<IXpsOMGradientStopCollection>} gradientStops 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGradientStopCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getgradientstops
      */
-    GetGradientStops(gradientStops) {
-        result := ComCall(7, this, "ptr*", gradientStops, "HRESULT")
-        return result
+    GetGradientStops() {
+        result := ComCall(7, this, "ptr*", &gradientStops := 0, "HRESULT")
+        return IXpsOMGradientStopCollection(gradientStops)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMMatrixTransform>} transform 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMMatrixTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransform
      */
-    GetTransform(transform) {
-        result := ComCall(8, this, "ptr*", transform, "HRESULT")
-        return result
+    GetTransform() {
+        result := ComCall(8, this, "ptr*", &transform := 0, "HRESULT")
+        return IXpsOMMatrixTransform(transform)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMMatrixTransform>} transform 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMMatrixTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlocal
      */
-    GetTransformLocal(transform) {
-        result := ComCall(9, this, "ptr*", transform, "HRESULT")
-        return result
+    GetTransformLocal() {
+        result := ComCall(9, this, "ptr*", &transform := 0, "HRESULT")
+        return IXpsOMMatrixTransform(transform)
     }
 
     /**
@@ -94,13 +93,12 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} key 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlookup
      */
-    GetTransformLookup(key) {
-        result := ComCall(11, this, "ptr", key, "HRESULT")
-        return result
+    GetTransformLookup() {
+        result := ComCall(11, this, "ptr*", &key := 0, "HRESULT")
+        return key
     }
 
     /**
@@ -118,15 +116,12 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
 
     /**
      * 
-     * @param {Pointer<Integer>} spreadMethod 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getspreadmethod
      */
-    GetSpreadMethod(spreadMethod) {
-        spreadMethodMarshal := spreadMethod is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, spreadMethodMarshal, spreadMethod, "HRESULT")
-        return result
+    GetSpreadMethod() {
+        result := ComCall(13, this, "int*", &spreadMethod := 0, "HRESULT")
+        return spreadMethod
     }
 
     /**
@@ -142,15 +137,12 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
 
     /**
      * 
-     * @param {Pointer<Integer>} colorInterpolationMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getcolorinterpolationmode
      */
-    GetColorInterpolationMode(colorInterpolationMode) {
-        colorInterpolationModeMarshal := colorInterpolationMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, colorInterpolationModeMarshal, colorInterpolationMode, "HRESULT")
-        return result
+    GetColorInterpolationMode() {
+        result := ComCall(15, this, "int*", &colorInterpolationMode := 0, "HRESULT")
+        return colorInterpolationMode
     }
 
     /**

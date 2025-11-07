@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWSDAsyncResult.ahk
 #Include .\IWSDServiceProxy.ahk
 
 /**
@@ -59,13 +60,12 @@ class IWSDServiceProxyEventing extends IWSDServiceProxy{
      * @param {Pointer<WSDXML_ELEMENT>} pAny 
      * @param {IUnknown} pAsyncState 
      * @param {IWSDAsyncCallback} pAsyncCallback 
-     * @param {Pointer<IWSDAsyncResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IWSDAsyncResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-beginsubscribetomultipleoperations
      */
-    BeginSubscribeToMultipleOperations(pOperations, dwOperationCount, pUnknown, pExpires, pAny, pAsyncState, pAsyncCallback, ppResult) {
-        result := ComCall(12, this, "ptr", pOperations, "uint", dwOperationCount, "ptr", pUnknown, "ptr", pExpires, "ptr", pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", ppResult, "HRESULT")
-        return result
+    BeginSubscribeToMultipleOperations(pOperations, dwOperationCount, pUnknown, pExpires, pAny, pAsyncState, pAsyncCallback) {
+        result := ComCall(12, this, "ptr", pOperations, "uint", dwOperationCount, "ptr", pUnknown, "ptr", pExpires, "ptr", pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
+        return IWSDAsyncResult(ppResult)
     }
 
     /**
@@ -106,13 +106,12 @@ class IWSDServiceProxyEventing extends IWSDServiceProxy{
      * @param {Pointer<WSDXML_ELEMENT>} pAny 
      * @param {IUnknown} pAsyncState 
      * @param {IWSDAsyncCallback} pAsyncCallback 
-     * @param {Pointer<IWSDAsyncResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IWSDAsyncResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-beginunsubscribetomultipleoperations
      */
-    BeginUnsubscribeToMultipleOperations(pOperations, dwOperationCount, pAny, pAsyncState, pAsyncCallback, ppResult) {
-        result := ComCall(15, this, "ptr", pOperations, "uint", dwOperationCount, "ptr", pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", ppResult, "HRESULT")
-        return result
+    BeginUnsubscribeToMultipleOperations(pOperations, dwOperationCount, pAny, pAsyncState, pAsyncCallback) {
+        result := ComCall(15, this, "ptr", pOperations, "uint", dwOperationCount, "ptr", pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
+        return IWSDAsyncResult(ppResult)
     }
 
     /**
@@ -155,13 +154,12 @@ class IWSDServiceProxyEventing extends IWSDServiceProxy{
      * @param {Pointer<WSDXML_ELEMENT>} pAny 
      * @param {IUnknown} pAsyncState 
      * @param {IWSDAsyncCallback} pAsyncCallback 
-     * @param {Pointer<IWSDAsyncResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IWSDAsyncResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-beginrenewmultipleoperations
      */
-    BeginRenewMultipleOperations(pOperations, dwOperationCount, pExpires, pAny, pAsyncState, pAsyncCallback, ppResult) {
-        result := ComCall(18, this, "ptr", pOperations, "uint", dwOperationCount, "ptr", pExpires, "ptr", pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", ppResult, "HRESULT")
-        return result
+    BeginRenewMultipleOperations(pOperations, dwOperationCount, pExpires, pAny, pAsyncState, pAsyncCallback) {
+        result := ComCall(18, this, "ptr", pOperations, "uint", dwOperationCount, "ptr", pExpires, "ptr", pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
+        return IWSDAsyncResult(ppResult)
     }
 
     /**
@@ -207,13 +205,12 @@ class IWSDServiceProxyEventing extends IWSDServiceProxy{
      * @param {Pointer<WSDXML_ELEMENT>} pAny 
      * @param {IUnknown} pAsyncState 
      * @param {IWSDAsyncCallback} pAsyncCallback 
-     * @param {Pointer<IWSDAsyncResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IWSDAsyncResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-begingetstatusformultipleoperations
      */
-    BeginGetStatusForMultipleOperations(pOperations, dwOperationCount, pAny, pAsyncState, pAsyncCallback, ppResult) {
-        result := ComCall(21, this, "ptr", pOperations, "uint", dwOperationCount, "ptr", pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", ppResult, "HRESULT")
-        return result
+    BeginGetStatusForMultipleOperations(pOperations, dwOperationCount, pAny, pAsyncState, pAsyncCallback) {
+        result := ComCall(21, this, "ptr", pOperations, "uint", dwOperationCount, "ptr", pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
+        return IWSDAsyncResult(ppResult)
     }
 
     /**

@@ -30,73 +30,55 @@ class IWscProduct2 extends IWscProduct{
 
     /**
      * 
-     * @param {Pointer<Integer>} peStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AntivirusScanSubstatus(peStatus) {
-        peStatusMarshal := peStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, peStatusMarshal, peStatus, "HRESULT")
-        return result
+    get_AntivirusScanSubstatus() {
+        result := ComCall(14, this, "int*", &peStatus := 0, "HRESULT")
+        return peStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} peStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AntivirusSettingsSubstatus(peStatus) {
-        peStatusMarshal := peStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, peStatusMarshal, peStatus, "HRESULT")
-        return result
+    get_AntivirusSettingsSubstatus() {
+        result := ComCall(15, this, "int*", &peStatus := 0, "HRESULT")
+        return peStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} peStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AntivirusProtectionUpdateSubstatus(peStatus) {
-        peStatusMarshal := peStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, peStatusMarshal, peStatus, "HRESULT")
-        return result
+    get_AntivirusProtectionUpdateSubstatus() {
+        result := ComCall(16, this, "int*", &peStatus := 0, "HRESULT")
+        return peStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} peStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FirewallDomainProfileSubstatus(peStatus) {
-        peStatusMarshal := peStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, peStatusMarshal, peStatus, "HRESULT")
-        return result
+    get_FirewallDomainProfileSubstatus() {
+        result := ComCall(17, this, "int*", &peStatus := 0, "HRESULT")
+        return peStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} peStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FirewallPrivateProfileSubstatus(peStatus) {
-        peStatusMarshal := peStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, peStatusMarshal, peStatus, "HRESULT")
-        return result
+    get_FirewallPrivateProfileSubstatus() {
+        result := ComCall(18, this, "int*", &peStatus := 0, "HRESULT")
+        return peStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} peStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FirewallPublicProfileSubstatus(peStatus) {
-        peStatusMarshal := peStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, peStatusMarshal, peStatus, "HRESULT")
-        return result
+    get_FirewallPublicProfileSubstatus() {
+        result := ComCall(19, this, "int*", &peStatus := 0, "HRESULT")
+        return peStatus
     }
 }

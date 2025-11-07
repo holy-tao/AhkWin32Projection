@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -37,42 +38,41 @@ class IHTMLNamespace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(p) {
+    get_name() {
+        p := BSTR()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_urn(p) {
+    get_urn() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_tagNames(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_tagNames() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_readyState(p) {
+    get_readyState() {
+        p := VARIANT()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -87,12 +87,12 @@ class IHTMLNamespace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onreadystatechange(p) {
+    get_onreadystatechange() {
+        p := VARIANT()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -111,14 +111,13 @@ class IHTMLNamespace extends IDispatch{
      * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
-     * @param {Pointer<VARIANT_BOOL>} pfResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    attachEvent(event, pDisp, pfResult) {
+    attachEvent(event, pDisp) {
         event := event is String ? BSTR.Alloc(event).Value : event
 
-        result := ComCall(14, this, "ptr", event, "ptr", pDisp, "ptr", pfResult, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", event, "ptr", pDisp, "short*", &pfResult := 0, "HRESULT")
+        return pfResult
     }
 
     /**

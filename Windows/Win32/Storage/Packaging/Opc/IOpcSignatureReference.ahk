@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUri.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -107,59 +108,52 @@ class IOpcSignatureReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} referenceId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-getid
      */
-    GetId(referenceId) {
-        result := ComCall(3, this, "ptr", referenceId, "HRESULT")
-        return result
+    GetId() {
+        result := ComCall(3, this, "ptr*", &referenceId := 0, "HRESULT")
+        return referenceId
     }
 
     /**
      * 
-     * @param {Pointer<IUri>} referenceUri 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-geturi
      */
-    GetUri(referenceUri) {
-        result := ComCall(4, this, "ptr*", referenceUri, "HRESULT")
-        return result
+    GetUri() {
+        result := ComCall(4, this, "ptr*", &referenceUri := 0, "HRESULT")
+        return IUri(referenceUri)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} type 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-gettype
      */
-    GetType(type) {
-        result := ComCall(5, this, "ptr", type, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(5, this, "ptr*", &type := 0, "HRESULT")
+        return type
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} transformMethod 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-gettransformmethod
      */
-    GetTransformMethod(transformMethod) {
-        transformMethodMarshal := transformMethod is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, transformMethodMarshal, transformMethod, "HRESULT")
-        return result
+    GetTransformMethod() {
+        result := ComCall(6, this, "int*", &transformMethod := 0, "HRESULT")
+        return transformMethod
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} digestMethod 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-getdigestmethod
      */
-    GetDigestMethod(digestMethod) {
-        result := ComCall(7, this, "ptr", digestMethod, "HRESULT")
-        return result
+    GetDigestMethod() {
+        result := ComCall(7, this, "ptr*", &digestMethod := 0, "HRESULT")
+        return digestMethod
     }
 
     /**

@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ITextRange2.ahk
 
 /**
  * The ITextStory interface methods are used to access shared data from multiple stories, which is stored in the parent ITextServices instance.
@@ -33,15 +34,12 @@ class ITextStory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getactive
      */
-    GetActive(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetActive() {
+        result := ComCall(3, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -57,39 +55,32 @@ class ITextStory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppDisplay 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getdisplay
      */
-    GetDisplay(ppDisplay) {
-        result := ComCall(5, this, "ptr*", ppDisplay, "HRESULT")
-        return result
+    GetDisplay() {
+        result := ComCall(5, this, "ptr*", &ppDisplay := 0, "HRESULT")
+        return IUnknown(ppDisplay)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getindex
      */
-    GetIndex(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetIndex() {
+        result := ComCall(6, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-gettype
      */
-    GetType(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(7, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -106,40 +97,36 @@ class ITextStory extends IUnknown{
     /**
      * 
      * @param {Integer} Type 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getproperty
      */
-    GetProperty(Type, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "int", Type, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetProperty(Type) {
+        result := ComCall(9, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} cpActive 
      * @param {Integer} cpAnchor 
-     * @param {Pointer<ITextRange2>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITextRange2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getrange
      */
-    GetRange(cpActive, cpAnchor, ppRange) {
-        result := ComCall(10, this, "int", cpActive, "int", cpAnchor, "ptr*", ppRange, "HRESULT")
-        return result
+    GetRange(cpActive, cpAnchor) {
+        result := ComCall(10, this, "int", cpActive, "int", cpAnchor, "ptr*", &ppRange := 0, "HRESULT")
+        return ITextRange2(ppRange)
     }
 
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-gettext
      */
-    GetText(Flags, pbstr) {
+    GetText(Flags) {
+        pbstr := BSTR()
         result := ComCall(11, this, "int", Flags, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**

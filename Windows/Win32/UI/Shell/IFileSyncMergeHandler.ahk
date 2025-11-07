@@ -34,18 +34,15 @@ class IFileSyncMergeHandler extends IUnknown{
      * 
      * @param {PWSTR} localFilePath 
      * @param {PWSTR} serverFilePath 
-     * @param {Pointer<Integer>} updateStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesyncmergehandler-merge
      */
-    Merge(localFilePath, serverFilePath, updateStatus) {
+    Merge(localFilePath, serverFilePath) {
         localFilePath := localFilePath is String ? StrPtr(localFilePath) : localFilePath
         serverFilePath := serverFilePath is String ? StrPtr(serverFilePath) : serverFilePath
 
-        updateStatusMarshal := updateStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", localFilePath, "ptr", serverFilePath, updateStatusMarshal, updateStatus, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", localFilePath, "ptr", serverFilePath, "int*", &updateStatus := 0, "HRESULT")
+        return updateStatus
     }
 
     /**

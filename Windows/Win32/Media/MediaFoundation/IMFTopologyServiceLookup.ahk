@@ -36,16 +36,14 @@ class IMFTopologyServiceLookup extends IUnknown{
      * @param {Integer} dwIndex 
      * @param {Pointer<Guid>} guidService 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObjects 
      * @param {Pointer<Integer>} pnObjects 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imftopologyservicelookup-lookupservice
      */
-    LookupService(Type, dwIndex, guidService, riid, ppvObjects, pnObjects) {
-        ppvObjectsMarshal := ppvObjects is VarRef ? "ptr*" : "ptr"
+    LookupService(Type, dwIndex, guidService, riid, pnObjects) {
         pnObjectsMarshal := pnObjects is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "int", Type, "uint", dwIndex, "ptr", guidService, "ptr", riid, ppvObjectsMarshal, ppvObjects, pnObjectsMarshal, pnObjects, "HRESULT")
-        return result
+        result := ComCall(3, this, "int", Type, "uint", dwIndex, "ptr", guidService, "ptr", riid, "ptr*", &ppvObjects := 0, pnObjectsMarshal, pnObjects, "HRESULT")
+        return ppvObjects
     }
 }

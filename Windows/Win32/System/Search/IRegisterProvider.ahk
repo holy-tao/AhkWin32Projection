@@ -32,14 +32,14 @@ class IRegisterProvider extends IUnknown{
      * 
      * @param {PWSTR} pwszURL 
      * @param {Pointer} dwReserved 
-     * @param {Pointer<Guid>} pclsidProvider 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetURLMapping(pwszURL, dwReserved, pclsidProvider) {
+    GetURLMapping(pwszURL, dwReserved) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
+        pclsidProvider := Guid()
         result := ComCall(3, this, "ptr", pwszURL, "ptr", dwReserved, "ptr", pclsidProvider, "HRESULT")
-        return result
+        return pclsidProvider
     }
 
     /**

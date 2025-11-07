@@ -35,30 +35,24 @@ class IDXCoreAdapterFactory extends IUnknown{
      * @param {Integer} numAttributes 
      * @param {Pointer<Guid>} filterAttributes 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvAdapterList 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterfactory-createadapterlist
      */
-    CreateAdapterList(numAttributes, filterAttributes, riid, ppvAdapterList) {
-        ppvAdapterListMarshal := ppvAdapterList is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "uint", numAttributes, "ptr", filterAttributes, "ptr", riid, ppvAdapterListMarshal, ppvAdapterList, "HRESULT")
-        return result
+    CreateAdapterList(numAttributes, filterAttributes, riid) {
+        result := ComCall(3, this, "uint", numAttributes, "ptr", filterAttributes, "ptr", riid, "ptr*", &ppvAdapterList := 0, "HRESULT")
+        return ppvAdapterList
     }
 
     /**
      * 
      * @param {Pointer<LUID>} adapterLUID 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvAdapter 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterfactory-getadapterbyluid
      */
-    GetAdapterByLuid(adapterLUID, riid, ppvAdapter) {
-        ppvAdapterMarshal := ppvAdapter is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", adapterLUID, "ptr", riid, ppvAdapterMarshal, ppvAdapter, "HRESULT")
-        return result
+    GetAdapterByLuid(adapterLUID, riid) {
+        result := ComCall(4, this, "ptr", adapterLUID, "ptr", riid, "ptr*", &ppvAdapter := 0, "HRESULT")
+        return ppvAdapter
     }
 
     /**
@@ -78,16 +72,14 @@ class IDXCoreAdapterFactory extends IUnknown{
      * @param {Integer} notificationType 
      * @param {Pointer<PFN_DXCORE_NOTIFICATION_CALLBACK>} callbackFunction 
      * @param {Pointer<Void>} callbackContext 
-     * @param {Pointer<Integer>} eventCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterfactory-registereventnotification
      */
-    RegisterEventNotification(dxCoreObject, notificationType, callbackFunction, callbackContext, eventCookie) {
+    RegisterEventNotification(dxCoreObject, notificationType, callbackFunction, callbackContext) {
         callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
-        eventCookieMarshal := eventCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", dxCoreObject, "uint", notificationType, "ptr", callbackFunction, callbackContextMarshal, callbackContext, eventCookieMarshal, eventCookie, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", dxCoreObject, "uint", notificationType, "ptr", callbackFunction, callbackContextMarshal, callbackContext, "uint*", &eventCookie := 0, "HRESULT")
+        return eventCookie
     }
 
     /**

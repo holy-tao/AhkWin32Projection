@@ -30,45 +30,13 @@ class IAppxManifestHostRuntimeDependency2 extends IUnknown{
 
     /**
      * Gets the package family name for the specified process.
-     * @param {Pointer<PWSTR>} packageFamilyName Type: <b>PWSTR</b>
+     * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * The package family name.
-     * @returns {HRESULT} Type: <b>LONG</b>
-     * 
-     * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>APPMODEL_ERROR_NO_PACKAGE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The process has no package identity.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer is not large enough to hold the data. The required size is specified  by <i>packageFamilyNameLength</i>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagefamilyname
      */
-    GetPackageFamilyName(packageFamilyName) {
-        result := ComCall(3, this, "ptr", packageFamilyName, "HRESULT")
-        return result
+    GetPackageFamilyName() {
+        result := ComCall(3, this, "ptr*", &packageFamilyName := 0, "HRESULT")
+        return packageFamilyName
     }
 }

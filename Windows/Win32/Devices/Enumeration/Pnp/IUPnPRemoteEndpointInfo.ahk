@@ -40,44 +40,41 @@ class IUPnPRemoteEndpointInfo extends IUnknown{
     /**
      * 
      * @param {BSTR} bstrValueName 
-     * @param {Pointer<Integer>} pdwValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpremoteendpointinfo-getdwordvalue
      */
-    GetDwordValue(bstrValueName, pdwValue) {
+    GetDwordValue(bstrValueName) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName
 
-        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", bstrValueName, pdwValueMarshal, pdwValue, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", bstrValueName, "uint*", &pdwValue := 0, "HRESULT")
+        return pdwValue
     }
 
     /**
      * 
      * @param {BSTR} bstrValueName 
-     * @param {Pointer<BSTR>} pbstrValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpremoteendpointinfo-getstringvalue
      */
-    GetStringValue(bstrValueName, pbstrValue) {
+    GetStringValue(bstrValueName) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName
 
+        pbstrValue := BSTR()
         result := ComCall(4, this, "ptr", bstrValueName, "ptr", pbstrValue, "HRESULT")
-        return result
+        return pbstrValue
     }
 
     /**
      * 
      * @param {BSTR} bstrValueName 
-     * @param {Pointer<Guid>} pguidValue 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpremoteendpointinfo-getguidvalue
      */
-    GetGuidValue(bstrValueName, pguidValue) {
+    GetGuidValue(bstrValueName) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName
 
+        pguidValue := Guid()
         result := ComCall(5, this, "ptr", bstrValueName, "ptr", pguidValue, "HRESULT")
-        return result
+        return pguidValue
     }
 }

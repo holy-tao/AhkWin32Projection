@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidStreamBufferSink2.ahk
 
 /**
@@ -38,59 +39,52 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMin 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-setminseek
      */
-    SetMinSeek(pdwMin) {
-        pdwMinMarshal := pdwMin is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, pdwMinMarshal, pdwMin, "HRESULT")
-        return result
+    SetMinSeek() {
+        result := ComCall(23, this, "int*", &pdwMin := 0, "HRESULT")
+        return pdwMin
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_audiocounter
      */
-    get_AudioCounter(ppUnk) {
-        result := ComCall(24, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_AudioCounter() {
+        result := ComCall(24, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_videocounter
      */
-    get_VideoCounter(ppUnk) {
-        result := ComCall(25, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_VideoCounter() {
+        result := ComCall(25, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_cccounter
      */
-    get_CCCounter(ppUnk) {
-        result := ComCall(26, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_CCCounter() {
+        result := ComCall(26, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_wstcounter
      */
-    get_WSTCounter(ppUnk) {
-        result := ComCall(27, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_WSTCounter() {
+        result := ComCall(27, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
@@ -108,13 +102,13 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszCLSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_audioanalysisfilter
      */
-    get_AudioAnalysisFilter(pszCLSID) {
+    get_AudioAnalysisFilter() {
+        pszCLSID := BSTR()
         result := ComCall(29, this, "ptr", pszCLSID, "HRESULT")
-        return result
+        return pszCLSID
     }
 
     /**
@@ -130,13 +124,13 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
 
     /**
      * 
-     * @param {Pointer<Guid>} pGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get__audioanalysisfilter
      */
-    get__AudioAnalysisFilter(pGuid) {
+    get__AudioAnalysisFilter() {
+        pGuid := Guid()
         result := ComCall(31, this, "ptr", pGuid, "HRESULT")
-        return result
+        return pGuid
     }
 
     /**
@@ -154,13 +148,13 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszCLSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_videoanalysisfilter
      */
-    get_VideoAnalysisFilter(pszCLSID) {
+    get_VideoAnalysisFilter() {
+        pszCLSID := BSTR()
         result := ComCall(33, this, "ptr", pszCLSID, "HRESULT")
-        return result
+        return pszCLSID
     }
 
     /**
@@ -176,13 +170,13 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
 
     /**
      * 
-     * @param {Pointer<Guid>} pGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get__videoanalysisfilter
      */
-    get__VideoAnalysisFilter(pGuid) {
+    get__VideoAnalysisFilter() {
+        pGuid := Guid()
         result := ComCall(35, this, "ptr", pGuid, "HRESULT")
-        return result
+        return pGuid
     }
 
     /**
@@ -200,13 +194,13 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszCLSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_dataanalysisfilter
      */
-    get_DataAnalysisFilter(pszCLSID) {
+    get_DataAnalysisFilter() {
+        pszCLSID := BSTR()
         result := ComCall(37, this, "ptr", pszCLSID, "HRESULT")
-        return result
+        return pszCLSID
     }
 
     /**
@@ -222,23 +216,22 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
 
     /**
      * 
-     * @param {Pointer<Guid>} pGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get__dataanalysisfilter
      */
-    get__DataAnalysisFilter(pGuid) {
+    get__DataAnalysisFilter() {
+        pGuid := Guid()
         result := ComCall(39, this, "ptr", pGuid, "HRESULT")
-        return result
+        return pGuid
     }
 
     /**
      * 
-     * @param {Pointer<HRESULT>} hres 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_licenseerrorcode
      */
-    get_LicenseErrorCode(hres) {
-        result := ComCall(40, this, "ptr", hres, "HRESULT")
-        return result
+    get_LicenseErrorCode() {
+        result := ComCall(40, this, "int*", &hres := 0, "HRESULT")
+        return hres
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,12 +43,12 @@ class IFhScopeIterator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Item 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhscopeiterator-getitem
      */
-    GetItem(Item) {
+    GetItem() {
+        Item := BSTR()
         result := ComCall(4, this, "ptr", Item, "HRESULT")
-        return result
+        return Item
     }
 }

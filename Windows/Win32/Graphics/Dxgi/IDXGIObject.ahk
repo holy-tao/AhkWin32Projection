@@ -96,26 +96,11 @@ class IDXGIObject extends IUnknown{
     /**
      * Retrieves a handle to the specified window's parent or owner.
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppParent 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * If the window is a child window, the return value is a handle to the parent window. If the window is a top-level window with the <b>WS_POPUP</b> style, the return value is a handle to the owner window. 
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     * This function typically fails for one of the following reasons:
-     * 
-     * 
-     * <ul>
-     * <li>The window is a top-level window that is unowned or does not have the <b>WS_POPUP</b> style. </li>
-     * <li>The owner window has <b>WS_POPUP</b> style.</li>
-     * </ul>
+     * @returns {Pointer<Void>} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
      */
-    GetParent(riid, ppParent) {
-        ppParentMarshal := ppParent is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", riid, ppParentMarshal, ppParent, "HRESULT")
-        return result
+    GetParent(riid) {
+        result := ComCall(6, this, "ptr", riid, "ptr*", &ppParent := 0, "HRESULT")
+        return ppParent
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxManifestPackageId.ahk
+#Include .\IAppxManifestQualifiedResourcesEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,104 +34,61 @@ class IAppxBundleManifestPackageInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} packageType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getpackagetype
      */
-    GetPackageType(packageType) {
-        packageTypeMarshal := packageType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, packageTypeMarshal, packageType, "HRESULT")
-        return result
+    GetPackageType() {
+        result := ComCall(3, this, "int*", &packageType := 0, "HRESULT")
+        return packageType
     }
 
     /**
      * Gets the package identifier (ID) for the specified process.
-     * @param {Pointer<IAppxManifestPackageId>} packageId 
-     * @returns {HRESULT} Type: <b>LONG</b>
-     * 
-     * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>APPMODEL_ERROR_NO_PACKAGE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The process has no package identity.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer is not large enough to hold the data. The required size is specified  by <i>bufferLength</i>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IAppxManifestPackageId} 
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageid
      */
-    GetPackageId(packageId) {
-        result := ComCall(4, this, "ptr*", packageId, "HRESULT")
-        return result
+    GetPackageId() {
+        result := ComCall(4, this, "ptr*", &packageId := 0, "HRESULT")
+        return IAppxManifestPackageId(packageId)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} fileName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getfilename
      */
-    GetFileName(fileName) {
-        result := ComCall(5, this, "ptr", fileName, "HRESULT")
-        return result
+    GetFileName() {
+        result := ComCall(5, this, "ptr*", &fileName := 0, "HRESULT")
+        return fileName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} offset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getoffset
      */
-    GetOffset(offset) {
-        offsetMarshal := offset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, offsetMarshal, offset, "HRESULT")
-        return result
+    GetOffset() {
+        result := ComCall(6, this, "uint*", &offset := 0, "HRESULT")
+        return offset
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} size 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getsize
      */
-    GetSize(size) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, sizeMarshal, size, "HRESULT")
-        return result
+    GetSize() {
+        result := ComCall(7, this, "uint*", &size := 0, "HRESULT")
+        return size
     }
 
     /**
      * 
-     * @param {Pointer<IAppxManifestQualifiedResourcesEnumerator>} resources 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestQualifiedResourcesEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getresources
      */
-    GetResources(resources) {
-        result := ComCall(8, this, "ptr*", resources, "HRESULT")
-        return result
+    GetResources() {
+        result := ComCall(8, this, "ptr*", &resources := 0, "HRESULT")
+        return IAppxManifestQualifiedResourcesEnumerator(resources)
     }
 }

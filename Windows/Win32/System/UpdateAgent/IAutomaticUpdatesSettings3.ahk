@@ -32,13 +32,12 @@ class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings3-get_nonadministratorselevated
      */
-    get_NonAdministratorsElevated(retval) {
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
-        return result
+    get_NonAdministratorsElevated() {
+        result := ComCall(20, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -54,13 +53,12 @@ class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings3-get_featuredupdatesenabled
      */
-    get_FeaturedUpdatesEnabled(retval) {
-        result := ComCall(22, this, "ptr", retval, "HRESULT")
-        return result
+    get_FeaturedUpdatesEnabled() {
+        result := ComCall(22, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

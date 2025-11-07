@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWebProxy.ahk
+#Include .\IUpdateSearcher.ahk
+#Include .\IUpdateDownloader.ahk
+#Include .\IUpdateInstaller.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -43,13 +47,13 @@ class IUpdateSession extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-get_clientapplicationid
      */
-    get_ClientApplicationID(retval) {
+    get_ClientApplicationID() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -67,24 +71,22 @@ class IUpdateSession extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-get_readonly
      */
-    get_ReadOnly(retval) {
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
-        return result
+    get_ReadOnly() {
+        result := ComCall(9, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IWebProxy>} retval 
-     * @returns {HRESULT} 
+     * @returns {IWebProxy} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-get_webproxy
      */
-    get_WebProxy(retval) {
-        result := ComCall(10, this, "ptr*", retval, "HRESULT")
-        return result
+    get_WebProxy() {
+        result := ComCall(10, this, "ptr*", &retval := 0, "HRESULT")
+        return IWebProxy(retval)
     }
 
     /**
@@ -100,34 +102,31 @@ class IUpdateSession extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUpdateSearcher>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateSearcher} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-createupdatesearcher
      */
-    CreateUpdateSearcher(retval) {
-        result := ComCall(12, this, "ptr*", retval, "HRESULT")
-        return result
+    CreateUpdateSearcher() {
+        result := ComCall(12, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateSearcher(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IUpdateDownloader>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateDownloader} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-createupdatedownloader
      */
-    CreateUpdateDownloader(retval) {
-        result := ComCall(13, this, "ptr*", retval, "HRESULT")
-        return result
+    CreateUpdateDownloader() {
+        result := ComCall(13, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateDownloader(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IUpdateInstaller>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateInstaller} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-createupdateinstaller
      */
-    CreateUpdateInstaller(retval) {
-        result := ComCall(14, this, "ptr*", retval, "HRESULT")
-        return result
+    CreateUpdateInstaller() {
+        result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateInstaller(retval)
     }
 }

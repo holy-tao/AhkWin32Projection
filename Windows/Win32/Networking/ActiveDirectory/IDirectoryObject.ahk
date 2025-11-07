@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,15 +33,12 @@ class IDirectoryObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<ADS_OBJECT_INFO>>} ppObjInfo 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ADS_OBJECT_INFO>} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-getobjectinformation
      */
-    GetObjectInformation(ppObjInfo) {
-        ppObjInfoMarshal := ppObjInfo is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppObjInfoMarshal, ppObjInfo, "HRESULT")
-        return result
+    GetObjectInformation() {
+        result := ComCall(3, this, "ptr*", &ppObjInfo := 0, "HRESULT")
+        return ppObjInfo
     }
 
     /**
@@ -53,10 +51,11 @@ class IDirectoryObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-getobjectattributes
      */
     GetObjectAttributes(pAttributeNames, dwNumberAttributes, ppAttributeEntries, pdwNumAttributesReturned) {
+        pAttributeNamesMarshal := pAttributeNames is VarRef ? "ptr*" : "ptr"
         ppAttributeEntriesMarshal := ppAttributeEntries is VarRef ? "ptr*" : "ptr"
         pdwNumAttributesReturnedMarshal := pdwNumAttributesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pAttributeNames, "uint", dwNumberAttributes, ppAttributeEntriesMarshal, ppAttributeEntries, pdwNumAttributesReturnedMarshal, pdwNumAttributesReturned, "HRESULT")
+        result := ComCall(4, this, pAttributeNamesMarshal, pAttributeNames, "uint", dwNumberAttributes, ppAttributeEntriesMarshal, ppAttributeEntries, pdwNumAttributesReturnedMarshal, pdwNumAttributesReturned, "HRESULT")
         return result
     }
 
@@ -64,15 +63,12 @@ class IDirectoryObject extends IUnknown{
      * 
      * @param {Pointer<ADS_ATTR_INFO>} pAttributeEntries 
      * @param {Integer} dwNumAttributes 
-     * @param {Pointer<Integer>} pdwNumAttributesModified 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-setobjectattributes
      */
-    SetObjectAttributes(pAttributeEntries, dwNumAttributes, pdwNumAttributesModified) {
-        pdwNumAttributesModifiedMarshal := pdwNumAttributesModified is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pAttributeEntries, "uint", dwNumAttributes, pdwNumAttributesModifiedMarshal, pdwNumAttributesModified, "HRESULT")
-        return result
+    SetObjectAttributes(pAttributeEntries, dwNumAttributes) {
+        result := ComCall(5, this, "ptr", pAttributeEntries, "uint", dwNumAttributes, "uint*", &pdwNumAttributesModified := 0, "HRESULT")
+        return pdwNumAttributesModified
     }
 
     /**
@@ -80,15 +76,14 @@ class IDirectoryObject extends IUnknown{
      * @param {PWSTR} pszRDNName 
      * @param {Pointer<ADS_ATTR_INFO>} pAttributeEntries 
      * @param {Integer} dwNumAttributes 
-     * @param {Pointer<IDispatch>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-createdsobject
      */
-    CreateDSObject(pszRDNName, pAttributeEntries, dwNumAttributes, ppObject) {
+    CreateDSObject(pszRDNName, pAttributeEntries, dwNumAttributes) {
         pszRDNName := pszRDNName is String ? StrPtr(pszRDNName) : pszRDNName
 
-        result := ComCall(6, this, "ptr", pszRDNName, "ptr", pAttributeEntries, "uint", dwNumAttributes, "ptr*", ppObject, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszRDNName, "ptr", pAttributeEntries, "uint", dwNumAttributes, "ptr*", &ppObject := 0, "HRESULT")
+        return IDispatch(ppObject)
     }
 
     /**

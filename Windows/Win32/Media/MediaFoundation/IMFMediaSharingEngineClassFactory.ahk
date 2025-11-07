@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaSharingEngine.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,12 +35,11 @@ class IMFMediaSharingEngineClassFactory extends IUnknown{
      * 
      * @param {Integer} dwFlags 
      * @param {IMFAttributes} pAttr 
-     * @param {Pointer<IMFMediaSharingEngine>} ppEngine 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaSharingEngine} 
      * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-imfmediasharingengineclassfactory-createinstance
      */
-    CreateInstance(dwFlags, pAttr, ppEngine) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pAttr, "ptr*", ppEngine, "HRESULT")
-        return result
+    CreateInstance(dwFlags, pAttr) {
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pAttr, "ptr*", &ppEngine := 0, "HRESULT")
+        return IMFMediaSharingEngine(ppEngine)
     }
 }

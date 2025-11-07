@@ -30,12 +30,11 @@ class IZoneIdentifier2 extends IZoneIdentifier{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} packageFamilyName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetLastWriterPackageFamilyName(packageFamilyName) {
-        result := ComCall(6, this, "ptr", packageFamilyName, "HRESULT")
-        return result
+    GetLastWriterPackageFamilyName() {
+        result := ComCall(6, this, "ptr*", &packageFamilyName := 0, "HRESULT")
+        return packageFamilyName
     }
 
     /**
@@ -61,14 +60,11 @@ class IZoneIdentifier2 extends IZoneIdentifier{
 
     /**
      * 
-     * @param {Pointer<Integer>} zone 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetAppZoneId(zone) {
-        zoneMarshal := zone is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, zoneMarshal, zone, "HRESULT")
-        return result
+    GetAppZoneId() {
+        result := ComCall(9, this, "uint*", &zone := 0, "HRESULT")
+        return zone
     }
 
     /**

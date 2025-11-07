@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMBandwidthSharing.ahk
+#Include .\IWMStreamPrioritization.ahk
 #Include .\IWMProfile2.ahk
 
 /**
@@ -32,15 +34,12 @@ class IWMProfile3 extends IWMProfile2{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnStorageFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-getstorageformat
      */
-    GetStorageFormat(pnStorageFormat) {
-        pnStorageFormatMarshal := pnStorageFormat is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, pnStorageFormatMarshal, pnStorageFormat, "HRESULT")
-        return result
+    GetStorageFormat() {
+        result := ComCall(22, this, "int*", &pnStorageFormat := 0, "HRESULT")
+        return pnStorageFormat
     }
 
     /**
@@ -56,27 +55,23 @@ class IWMProfile3 extends IWMProfile2{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcBS 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-getbandwidthsharingcount
      */
-    GetBandwidthSharingCount(pcBS) {
-        pcBSMarshal := pcBS is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(24, this, pcBSMarshal, pcBS, "HRESULT")
-        return result
+    GetBandwidthSharingCount() {
+        result := ComCall(24, this, "uint*", &pcBS := 0, "HRESULT")
+        return pcBS
     }
 
     /**
      * 
      * @param {Integer} dwBSIndex 
-     * @param {Pointer<IWMBandwidthSharing>} ppBS 
-     * @returns {HRESULT} 
+     * @returns {IWMBandwidthSharing} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-getbandwidthsharing
      */
-    GetBandwidthSharing(dwBSIndex, ppBS) {
-        result := ComCall(25, this, "uint", dwBSIndex, "ptr*", ppBS, "HRESULT")
-        return result
+    GetBandwidthSharing(dwBSIndex) {
+        result := ComCall(25, this, "uint", dwBSIndex, "ptr*", &ppBS := 0, "HRESULT")
+        return IWMBandwidthSharing(ppBS)
     }
 
     /**
@@ -103,24 +98,22 @@ class IWMProfile3 extends IWMProfile2{
 
     /**
      * 
-     * @param {Pointer<IWMBandwidthSharing>} ppBS 
-     * @returns {HRESULT} 
+     * @returns {IWMBandwidthSharing} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-createnewbandwidthsharing
      */
-    CreateNewBandwidthSharing(ppBS) {
-        result := ComCall(28, this, "ptr*", ppBS, "HRESULT")
-        return result
+    CreateNewBandwidthSharing() {
+        result := ComCall(28, this, "ptr*", &ppBS := 0, "HRESULT")
+        return IWMBandwidthSharing(ppBS)
     }
 
     /**
      * 
-     * @param {Pointer<IWMStreamPrioritization>} ppSP 
-     * @returns {HRESULT} 
+     * @returns {IWMStreamPrioritization} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-getstreamprioritization
      */
-    GetStreamPrioritization(ppSP) {
-        result := ComCall(29, this, "ptr*", ppSP, "HRESULT")
-        return result
+    GetStreamPrioritization() {
+        result := ComCall(29, this, "ptr*", &ppSP := 0, "HRESULT")
+        return IWMStreamPrioritization(ppSP)
     }
 
     /**
@@ -146,26 +139,22 @@ class IWMProfile3 extends IWMProfile2{
 
     /**
      * 
-     * @param {Pointer<IWMStreamPrioritization>} ppSP 
-     * @returns {HRESULT} 
+     * @returns {IWMStreamPrioritization} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-createnewstreamprioritization
      */
-    CreateNewStreamPrioritization(ppSP) {
-        result := ComCall(32, this, "ptr*", ppSP, "HRESULT")
-        return result
+    CreateNewStreamPrioritization() {
+        result := ComCall(32, this, "ptr*", &ppSP := 0, "HRESULT")
+        return IWMStreamPrioritization(ppSP)
     }
 
     /**
      * 
      * @param {Integer} msDuration 
-     * @param {Pointer<Integer>} pcPackets 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-getexpectedpacketcount
      */
-    GetExpectedPacketCount(msDuration, pcPackets) {
-        pcPacketsMarshal := pcPackets is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, "uint", msDuration, pcPacketsMarshal, pcPackets, "HRESULT")
-        return result
+    GetExpectedPacketCount(msDuration) {
+        result := ComCall(33, this, "uint", msDuration, "uint*", &pcPackets := 0, "HRESULT")
+        return pcPackets
     }
 }

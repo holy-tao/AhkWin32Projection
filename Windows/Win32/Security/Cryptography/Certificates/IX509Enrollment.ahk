@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509CertificateRequest.ahk
+#Include .\IX509NameValuePairs.ahk
+#Include .\IX509EnrollmentStatus.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -80,13 +83,13 @@ class IX509Enrollment extends IDispatch{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-createrequest
      */
-    CreateRequest(Encoding, pValue) {
+    CreateRequest(Encoding) {
+        pValue := BSTR()
         result := ComCall(10, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -121,37 +124,35 @@ class IX509Enrollment extends IDispatch{
      * @param {BSTR} strPassword 
      * @param {Integer} ExportOptions 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-createpfx
      */
-    CreatePFX(strPassword, ExportOptions, Encoding, pValue) {
+    CreatePFX(strPassword, ExportOptions, Encoding) {
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
+        pValue := BSTR()
         result := ComCall(13, this, "ptr", strPassword, "int", ExportOptions, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<IX509CertificateRequest>} pValue 
-     * @returns {HRESULT} 
+     * @returns {IX509CertificateRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_request
      */
-    get_Request(pValue) {
-        result := ComCall(14, this, "ptr*", pValue, "HRESULT")
-        return result
+    get_Request() {
+        result := ComCall(14, this, "ptr*", &pValue := 0, "HRESULT")
+        return IX509CertificateRequest(pValue)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_silent
      */
-    get_Silent(pValue) {
-        result := ComCall(15, this, "ptr", pValue, "HRESULT")
-        return result
+    get_Silent() {
+        result := ComCall(15, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -167,15 +168,12 @@ class IX509Enrollment extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_parentwindow
      */
-    get_ParentWindow(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_ParentWindow() {
+        result := ComCall(17, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -191,72 +189,67 @@ class IX509Enrollment extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IX509NameValuePairs>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509NameValuePairs} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_namevaluepairs
      */
-    get_NameValuePairs(ppValue) {
-        result := ComCall(19, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_NameValuePairs() {
+        result := ComCall(19, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509NameValuePairs(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_enrollmentcontext
      */
-    get_EnrollmentContext(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_EnrollmentContext() {
+        result := ComCall(20, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<IX509EnrollmentStatus>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509EnrollmentStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_status
      */
-    get_Status(ppValue) {
-        result := ComCall(21, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(21, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509EnrollmentStatus(ppValue)
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_certificate
      */
-    get_Certificate(Encoding, pValue) {
+    get_Certificate(Encoding) {
+        pValue := BSTR()
         result := ComCall(22, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_response
      */
-    get_Response(Encoding, pValue) {
+    get_Response(Encoding) {
+        pValue := BSTR()
         result := ComCall(23, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_certificatefriendlyname
      */
-    get_CertificateFriendlyName(pValue) {
+    get_CertificateFriendlyName() {
+        pValue := BSTR()
         result := ComCall(24, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -274,13 +267,13 @@ class IX509Enrollment extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_certificatedescription
      */
-    get_CertificateDescription(pValue) {
+    get_CertificateDescription() {
+        pValue := BSTR()
         result := ComCall(26, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -298,25 +291,22 @@ class IX509Enrollment extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_requestid
      */
-    get_RequestId(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_RequestId() {
+        result := ComCall(28, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_caconfigstring
      */
-    get_CAConfigString(pValue) {
+    get_CAConfigString() {
+        pValue := BSTR()
         result := ComCall(29, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

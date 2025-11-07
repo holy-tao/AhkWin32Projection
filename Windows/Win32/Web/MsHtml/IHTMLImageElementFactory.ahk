@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLImgElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,11 +39,10 @@ class IHTMLImageElementFactory extends IDispatch{
      * 
      * @param {VARIANT} width 
      * @param {VARIANT} height 
-     * @param {Pointer<IHTMLImgElement>} __MIDL__IHTMLImageElementFactory0000 
-     * @returns {HRESULT} 
+     * @returns {IHTMLImgElement} 
      */
-    create(width, height, __MIDL__IHTMLImageElementFactory0000) {
-        result := ComCall(7, this, "ptr", width, "ptr", height, "ptr*", __MIDL__IHTMLImageElementFactory0000, "HRESULT")
-        return result
+    create(width, height) {
+        result := ComCall(7, this, "ptr", width, "ptr", height, "ptr*", &__MIDL__IHTMLImageElementFactory0000 := 0, "HRESULT")
+        return IHTMLImgElement(__MIDL__IHTMLImageElementFactory0000)
     }
 }

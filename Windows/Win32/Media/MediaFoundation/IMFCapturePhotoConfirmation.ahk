@@ -53,14 +53,12 @@ class IMFCapturePhotoConfirmation extends IUnknown{
 
     /**
      * The GetPixelFormat function obtains the index of the currently selected pixel format of the specified device context.
-     * @param {Pointer<Guid>} subtype 
-     * @returns {HRESULT} If the function succeeds, the return value is the currently selected pixel format index of the specified device context. This is a positive, one-based index value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Guid} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpixelformat
      */
-    GetPixelFormat(subtype) {
+    GetPixelFormat() {
+        subtype := Guid()
         result := ComCall(5, this, "ptr", subtype, "HRESULT")
-        return result
+        return subtype
     }
 }

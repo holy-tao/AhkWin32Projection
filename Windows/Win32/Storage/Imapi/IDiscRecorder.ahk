@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyStorage.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -56,29 +58,24 @@ class IDiscRecorder extends IUnknown{
      * 
      * @param {Pointer<Integer>} pbyUniqueID 
      * @param {Integer} ulBufferSize 
-     * @param {Pointer<Integer>} pulReturnSizeRequired 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecorderguid
      */
-    GetRecorderGUID(pbyUniqueID, ulBufferSize, pulReturnSizeRequired) {
+    GetRecorderGUID(pbyUniqueID, ulBufferSize) {
         pbyUniqueIDMarshal := pbyUniqueID is VarRef ? "char*" : "ptr"
-        pulReturnSizeRequiredMarshal := pulReturnSizeRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pbyUniqueIDMarshal, pbyUniqueID, "uint", ulBufferSize, pulReturnSizeRequiredMarshal, pulReturnSizeRequired, "HRESULT")
-        return result
+        result := ComCall(4, this, pbyUniqueIDMarshal, pbyUniqueID, "uint", ulBufferSize, "uint*", &pulReturnSizeRequired := 0, "HRESULT")
+        return pulReturnSizeRequired
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} fTypeCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecordertype
      */
-    GetRecorderType(fTypeCode) {
-        fTypeCodeMarshal := fTypeCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, fTypeCodeMarshal, fTypeCode, "HRESULT")
-        return result
+    GetRecorderType() {
+        result := ComCall(5, this, "int*", &fTypeCode := 0, "HRESULT")
+        return fTypeCode
     }
 
     /**
@@ -96,35 +93,34 @@ class IDiscRecorder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrBasePnPID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getbasepnpid
      */
-    GetBasePnPID(pbstrBasePnPID) {
+    GetBasePnPID() {
+        pbstrBasePnPID := BSTR()
         result := ComCall(7, this, "ptr", pbstrBasePnPID, "HRESULT")
-        return result
+        return pbstrBasePnPID
     }
 
     /**
      * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
-     * @param {Pointer<BSTR>} pbstrPath 
-     * @returns {HRESULT} If the <i>nSize</i> parameter is nonzero, the return value is the number of points enumerated. If <i>nSize</i> is 0, the return value is the total number of points in the path (and <b>GetPath</b> writes nothing to the buffers). If <i>nSize</i> is nonzero and is less than the number of points in the path, the return value is 1.
+     * @returns {BSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
      */
-    GetPath(pbstrPath) {
+    GetPath() {
+        pbstrPath := BSTR()
         result := ComCall(8, this, "ptr", pbstrPath, "HRESULT")
-        return result
+        return pbstrPath
     }
 
     /**
      * 
-     * @param {Pointer<IPropertyStorage>} ppPropStg 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecorderproperties
      */
-    GetRecorderProperties(ppPropStg) {
-        result := ComCall(9, this, "ptr*", ppPropStg, "HRESULT")
-        return result
+    GetRecorderProperties() {
+        result := ComCall(9, this, "ptr*", &ppPropStg := 0, "HRESULT")
+        return IPropertyStorage(ppPropStg)
     }
 
     /**
@@ -140,15 +136,12 @@ class IDiscRecorder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulDevStateFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecorderstate
      */
-    GetRecorderState(pulDevStateFlags) {
-        pulDevStateFlagsMarshal := pulDevStateFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pulDevStateFlagsMarshal, pulDevStateFlags, "HRESULT")
-        return result
+    GetRecorderState() {
+        result := ComCall(11, this, "uint*", &pulDevStateFlags := 0, "HRESULT")
+        return pulDevStateFlags
     }
 
     /**

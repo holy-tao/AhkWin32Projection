@@ -32,14 +32,11 @@ class IMFCameraOcclusionStateReport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} occlusionState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameraocclusionstatereport-getocclusionstate
      */
-    GetOcclusionState(occlusionState) {
-        occlusionStateMarshal := occlusionState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, occlusionStateMarshal, occlusionState, "HRESULT")
-        return result
+    GetOcclusionState() {
+        result := ComCall(3, this, "uint*", &occlusionState := 0, "HRESULT")
+        return occlusionState
     }
 }

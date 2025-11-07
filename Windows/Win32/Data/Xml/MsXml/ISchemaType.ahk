@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISchemaItemCollection.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\ISchemaStringCollection.ahk
 #Include .\ISchemaItem.ahk
 
 /**
@@ -31,182 +34,166 @@ class ISchemaType extends ISchemaItem{
 
     /**
      * 
-     * @param {Pointer<ISchemaItemCollection>} baseTypes 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItemCollection} 
      */
-    get_baseTypes(baseTypes) {
-        result := ComCall(14, this, "ptr*", baseTypes, "HRESULT")
-        return result
+    get_baseTypes() {
+        result := ComCall(14, this, "ptr*", &baseTypes := 0, "HRESULT")
+        return ISchemaItemCollection(baseTypes)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} final 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_final(final) {
-        finalMarshal := final is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, finalMarshal, final, "HRESULT")
-        return result
+    get_final() {
+        result := ComCall(15, this, "int*", &final := 0, "HRESULT")
+        return final
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} variety 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_variety(variety) {
-        varietyMarshal := variety is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, varietyMarshal, variety, "HRESULT")
-        return result
+    get_variety() {
+        result := ComCall(16, this, "int*", &variety := 0, "HRESULT")
+        return variety
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} derivedBy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_derivedBy(derivedBy) {
-        derivedByMarshal := derivedBy is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, derivedByMarshal, derivedBy, "HRESULT")
-        return result
+    get_derivedBy() {
+        result := ComCall(17, this, "int*", &derivedBy := 0, "HRESULT")
+        return derivedBy
     }
 
     /**
      * 
      * @param {BSTR} data 
-     * @param {Pointer<VARIANT_BOOL>} valid 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    isValid(data, valid) {
+    isValid(data) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(18, this, "ptr", data, "ptr", valid, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", data, "short*", &valid := 0, "HRESULT")
+        return valid
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} minExclusive 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_minExclusive(minExclusive) {
+    get_minExclusive() {
+        minExclusive := BSTR()
         result := ComCall(19, this, "ptr", minExclusive, "HRESULT")
-        return result
+        return minExclusive
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} minInclusive 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_minInclusive(minInclusive) {
+    get_minInclusive() {
+        minInclusive := BSTR()
         result := ComCall(20, this, "ptr", minInclusive, "HRESULT")
-        return result
+        return minInclusive
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} maxExclusive 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_maxExclusive(maxExclusive) {
+    get_maxExclusive() {
+        maxExclusive := BSTR()
         result := ComCall(21, this, "ptr", maxExclusive, "HRESULT")
-        return result
+        return maxExclusive
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} maxInclusive 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_maxInclusive(maxInclusive) {
+    get_maxInclusive() {
+        maxInclusive := BSTR()
         result := ComCall(22, this, "ptr", maxInclusive, "HRESULT")
-        return result
+        return maxInclusive
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} totalDigits 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_totalDigits(totalDigits) {
+    get_totalDigits() {
+        totalDigits := VARIANT()
         result := ComCall(23, this, "ptr", totalDigits, "HRESULT")
-        return result
+        return totalDigits
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} fractionDigits 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_fractionDigits(fractionDigits) {
+    get_fractionDigits() {
+        fractionDigits := VARIANT()
         result := ComCall(24, this, "ptr", fractionDigits, "HRESULT")
-        return result
+        return fractionDigits
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} length 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_length(length) {
+    get_length() {
+        length := VARIANT()
         result := ComCall(25, this, "ptr", length, "HRESULT")
-        return result
+        return length
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} minLength 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_minLength(minLength) {
+    get_minLength() {
+        minLength := VARIANT()
         result := ComCall(26, this, "ptr", minLength, "HRESULT")
-        return result
+        return minLength
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} maxLength 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_maxLength(maxLength) {
+    get_maxLength() {
+        maxLength := VARIANT()
         result := ComCall(27, this, "ptr", maxLength, "HRESULT")
-        return result
+        return maxLength
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaStringCollection>} enumeration 
-     * @returns {HRESULT} 
+     * @returns {ISchemaStringCollection} 
      */
-    get_enumeration(enumeration) {
-        result := ComCall(28, this, "ptr*", enumeration, "HRESULT")
-        return result
+    get_enumeration() {
+        result := ComCall(28, this, "ptr*", &enumeration := 0, "HRESULT")
+        return ISchemaStringCollection(enumeration)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} whitespace 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_whitespace(whitespace) {
-        whitespaceMarshal := whitespace is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, whitespaceMarshal, whitespace, "HRESULT")
-        return result
+    get_whitespace() {
+        result := ComCall(29, this, "int*", &whitespace := 0, "HRESULT")
+        return whitespace
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaStringCollection>} patterns 
-     * @returns {HRESULT} 
+     * @returns {ISchemaStringCollection} 
      */
-    get_patterns(patterns) {
-        result := ComCall(30, this, "ptr*", patterns, "HRESULT")
-        return result
+    get_patterns() {
+        result := ComCall(30, this, "ptr*", &patterns := 0, "HRESULT")
+        return ISchemaStringCollection(patterns)
     }
 }

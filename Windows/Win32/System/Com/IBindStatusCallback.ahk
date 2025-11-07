@@ -41,14 +41,11 @@ class IBindStatusCallback extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPriority(pnPriority) {
-        pnPriorityMarshal := pnPriority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pnPriorityMarshal, pnPriority, "HRESULT")
-        return result
+    GetPriority() {
+        result := ComCall(4, this, "int*", &pnPriority := 0, "HRESULT")
+        return pnPriority
     }
 
     /**
@@ -91,15 +88,12 @@ class IBindStatusCallback extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} grfBINDF 
      * @param {Pointer<BINDINFO>} pbindinfo 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetBindInfo(grfBINDF, pbindinfo) {
-        grfBINDFMarshal := grfBINDF is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, grfBINDFMarshal, grfBINDF, "ptr", pbindinfo, "HRESULT")
-        return result
+    GetBindInfo(pbindinfo) {
+        result := ComCall(8, this, "uint*", &grfBINDF := 0, "ptr", pbindinfo, "HRESULT")
+        return grfBINDF
     }
 
     /**

@@ -41,15 +41,15 @@ class IVMRDeinterlaceControl extends IUnknown{
      * 
      * @param {Pointer<VMRVideoDesc>} lpVideoDescription 
      * @param {Pointer<Integer>} lpdwNumDeinterlaceModes 
-     * @param {Pointer<Guid>} lpDeinterlaceModes 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getnumberofdeinterlacemodes
      */
-    GetNumberOfDeinterlaceModes(lpVideoDescription, lpdwNumDeinterlaceModes, lpDeinterlaceModes) {
+    GetNumberOfDeinterlaceModes(lpVideoDescription, lpdwNumDeinterlaceModes) {
         lpdwNumDeinterlaceModesMarshal := lpdwNumDeinterlaceModes is VarRef ? "uint*" : "ptr"
 
+        lpDeinterlaceModes := Guid()
         result := ComCall(3, this, "ptr", lpVideoDescription, lpdwNumDeinterlaceModesMarshal, lpdwNumDeinterlaceModes, "ptr", lpDeinterlaceModes, "HRESULT")
-        return result
+        return lpDeinterlaceModes
     }
 
     /**
@@ -68,13 +68,13 @@ class IVMRDeinterlaceControl extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<Guid>} lpDeinterlaceMode 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getdeinterlacemode
      */
-    GetDeinterlaceMode(dwStreamID, lpDeinterlaceMode) {
+    GetDeinterlaceMode(dwStreamID) {
+        lpDeinterlaceMode := Guid()
         result := ComCall(5, this, "uint", dwStreamID, "ptr", lpDeinterlaceMode, "HRESULT")
-        return result
+        return lpDeinterlaceMode
     }
 
     /**
@@ -91,15 +91,12 @@ class IVMRDeinterlaceControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} lpdwDeinterlacePrefs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getdeinterlaceprefs
      */
-    GetDeinterlacePrefs(lpdwDeinterlacePrefs) {
-        lpdwDeinterlacePrefsMarshal := lpdwDeinterlacePrefs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, lpdwDeinterlacePrefsMarshal, lpdwDeinterlacePrefs, "HRESULT")
-        return result
+    GetDeinterlacePrefs() {
+        result := ComCall(7, this, "uint*", &lpdwDeinterlacePrefs := 0, "HRESULT")
+        return lpdwDeinterlacePrefs
     }
 
     /**
@@ -116,12 +113,12 @@ class IVMRDeinterlaceControl extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<Guid>} lpDeinterlaceMode 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrdeinterlacecontrol-getactualdeinterlacemode
      */
-    GetActualDeinterlaceMode(dwStreamID, lpDeinterlaceMode) {
+    GetActualDeinterlaceMode(dwStreamID) {
+        lpDeinterlaceMode := Guid()
         result := ComCall(9, this, "uint", dwStreamID, "ptr", lpDeinterlaceMode, "HRESULT")
-        return result
+        return lpDeinterlaceMode
     }
 }

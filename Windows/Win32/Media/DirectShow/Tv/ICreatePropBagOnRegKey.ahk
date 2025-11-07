@@ -48,17 +48,14 @@ class ICreatePropBagOnRegKey extends IUnknown{
      * @param {Integer} ulOptions 
      * @param {Integer} samDesired 
      * @param {Pointer<Guid>} iid 
-     * @param {Pointer<Pointer<Void>>} ppBag 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/regbag/nf-regbag-icreatepropbagonregkey-create
      */
-    Create(hkey, subkey, ulOptions, samDesired, iid, ppBag) {
+    Create(hkey, subkey, ulOptions, samDesired, iid) {
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         subkey := subkey is String ? StrPtr(subkey) : subkey
 
-        ppBagMarshal := ppBag is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", hkey, "ptr", subkey, "uint", ulOptions, "uint", samDesired, "ptr", iid, ppBagMarshal, ppBag, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hkey, "ptr", subkey, "uint", ulOptions, "uint", samDesired, "ptr", iid, "ptr*", &ppBag := 0, "HRESULT")
+        return ppBag
     }
 }

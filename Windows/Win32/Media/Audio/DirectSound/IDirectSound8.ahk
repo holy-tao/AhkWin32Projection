@@ -30,13 +30,10 @@ class IDirectSound8 extends IDirectSound{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCertified 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    VerifyCertification(pdwCertified) {
-        pdwCertifiedMarshal := pdwCertified is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwCertifiedMarshal, pdwCertified, "HRESULT")
-        return result
+    VerifyCertification() {
+        result := ComCall(11, this, "uint*", &pdwCertified := 0, "HRESULT")
+        return pdwCertified
     }
 }

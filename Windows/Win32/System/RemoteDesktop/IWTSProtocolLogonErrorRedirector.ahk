@@ -43,17 +43,14 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszMessage 
-     * @param {Pointer<Integer>} pResponse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-redirectstatus
      */
-    RedirectStatus(pszMessage, pResponse) {
+    RedirectStatus(pszMessage) {
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
 
-        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pszMessage, pResponseMarshal, pResponse, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszMessage, "int*", &pResponse := 0, "HRESULT")
+        return pResponse
     }
 
     /**
@@ -61,18 +58,15 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
      * @param {PWSTR} pszCaption 
      * @param {PWSTR} pszMessage 
      * @param {Integer} uType 
-     * @param {Pointer<Integer>} pResponse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-redirectmessage
      */
-    RedirectMessage(pszCaption, pszMessage, uType, pResponse) {
+    RedirectMessage(pszCaption, pszMessage, uType) {
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
 
-        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pszCaption, "ptr", pszMessage, "uint", uType, pResponseMarshal, pResponse, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszCaption, "ptr", pszMessage, "uint", uType, "int*", &pResponse := 0, "HRESULT")
+        return pResponse
     }
 
     /**
@@ -82,17 +76,14 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
      * @param {PWSTR} pszCaption 
      * @param {PWSTR} pszMessage 
      * @param {Integer} uType 
-     * @param {Pointer<Integer>} pResponse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-redirectlogonerror
      */
-    RedirectLogonError(ntsStatus, ntsSubstatus, pszCaption, pszMessage, uType, pResponse) {
+    RedirectLogonError(ntsStatus, ntsSubstatus, pszCaption, pszMessage, uType) {
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
 
-        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, "int", ntsStatus, "int", ntsSubstatus, "ptr", pszCaption, "ptr", pszMessage, "uint", uType, pResponseMarshal, pResponse, "HRESULT")
-        return result
+        result := ComCall(6, this, "int", ntsStatus, "int", ntsSubstatus, "ptr", pszCaption, "ptr", pszMessage, "uint", uType, "int*", &pResponse := 0, "HRESULT")
+        return pResponse
     }
 }

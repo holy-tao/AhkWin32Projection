@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_FONT_AXIS_VALUE.ahk
+#Include .\IDWriteFontResource.ahk
 #Include .\IDWriteFontFace4.ahk
 
 /**
@@ -42,14 +44,14 @@ class IDWriteFontFace5 extends IDWriteFontFace4{
 
     /**
      * 
-     * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
      * @param {Integer} fontAxisValueCount 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_FONT_AXIS_VALUE} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface5-getfontaxisvalues
      */
-    GetFontAxisValues(fontAxisValues, fontAxisValueCount) {
+    GetFontAxisValues(fontAxisValueCount) {
+        fontAxisValues := DWRITE_FONT_AXIS_VALUE()
         result := ComCall(54, this, "ptr", fontAxisValues, "uint", fontAxisValueCount, "HRESULT")
-        return result
+        return fontAxisValues
     }
 
     /**
@@ -64,13 +66,12 @@ class IDWriteFontFace5 extends IDWriteFontFace4{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontResource>} fontResource 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontResource} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface5-getfontresource
      */
-    GetFontResource(fontResource) {
-        result := ComCall(56, this, "ptr*", fontResource, "HRESULT")
-        return result
+    GetFontResource() {
+        result := ComCall(56, this, "ptr*", &fontResource := 0, "HRESULT")
+        return IDWriteFontResource(fontResource)
     }
 
     /**

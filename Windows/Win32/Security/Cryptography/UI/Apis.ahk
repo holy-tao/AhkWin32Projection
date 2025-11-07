@@ -673,9 +673,11 @@ class UI {
      * @since windows5.1.2600
      */
     static CryptUIDlgViewCertificateW(pCertViewInfo, pfPropertiesChanged) {
+        pfPropertiesChangedMarshal := pfPropertiesChanged is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateW", "ptr", pCertViewInfo, "ptr", pfPropertiesChanged, "int")
+        result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateW", "ptr", pCertViewInfo, pfPropertiesChangedMarshal, pfPropertiesChanged, "int")
         if(A_LastError)
             throw OSError()
 
@@ -694,9 +696,11 @@ class UI {
      * @since windows5.1.2600
      */
     static CryptUIDlgViewCertificateA(pCertViewInfo, pfPropertiesChanged) {
+        pfPropertiesChangedMarshal := pfPropertiesChanged is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateA", "ptr", pCertViewInfo, "ptr", pfPropertiesChanged, "int")
+        result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateA", "ptr", pCertViewInfo, pfPropertiesChangedMarshal, pfPropertiesChanged, "int")
         if(A_LastError)
             throw OSError()
 

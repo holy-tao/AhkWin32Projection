@@ -1,6 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMDocument.ahk
+#Include .\IXpsOMPage.ahk
+#Include .\XPS_SIZE.ahk
+#Include .\IXpsOMStoryFragmentsResource.ahk
+#Include .\IXpsOMPrintTicketResource.ahk
+#Include .\IXpsOMImageResource.ahk
+#Include .\IXpsOMNameCollection.ahk
+#Include .\IXpsOMPartResources.ahk
+#Include .\IXpsOMPageReference.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -80,24 +89,22 @@ class IXpsOMPageReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMDocument>} document 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDocument} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-getowner
      */
-    GetOwner(document) {
-        result := ComCall(3, this, "ptr*", document, "HRESULT")
-        return result
+    GetOwner() {
+        result := ComCall(3, this, "ptr*", &document := 0, "HRESULT")
+        return IXpsOMDocument(document)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMPage>} page 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPage} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-getpage
      */
-    GetPage(page) {
-        result := ComCall(4, this, "ptr*", page, "HRESULT")
-        return result
+    GetPage() {
+        result := ComCall(4, this, "ptr*", &page := 0, "HRESULT")
+        return IXpsOMPage(page)
     }
 
     /**
@@ -123,24 +130,23 @@ class IXpsOMPageReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isPageLoaded 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-ispageloaded
      */
-    IsPageLoaded(isPageLoaded) {
-        result := ComCall(7, this, "ptr", isPageLoaded, "HRESULT")
-        return result
+    IsPageLoaded() {
+        result := ComCall(7, this, "int*", &isPageLoaded := 0, "HRESULT")
+        return isPageLoaded
     }
 
     /**
      * 
-     * @param {Pointer<XPS_SIZE>} pageDimensions 
-     * @returns {HRESULT} 
+     * @returns {XPS_SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-getadvisorypagedimensions
      */
-    GetAdvisoryPageDimensions(pageDimensions) {
+    GetAdvisoryPageDimensions() {
+        pageDimensions := XPS_SIZE()
         result := ComCall(8, this, "ptr", pageDimensions, "HRESULT")
-        return result
+        return pageDimensions
     }
 
     /**
@@ -156,13 +162,12 @@ class IXpsOMPageReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMStoryFragmentsResource>} storyFragmentsResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMStoryFragmentsResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-getstoryfragmentsresource
      */
-    GetStoryFragmentsResource(storyFragmentsResource) {
-        result := ComCall(10, this, "ptr*", storyFragmentsResource, "HRESULT")
-        return result
+    GetStoryFragmentsResource() {
+        result := ComCall(10, this, "ptr*", &storyFragmentsResource := 0, "HRESULT")
+        return IXpsOMStoryFragmentsResource(storyFragmentsResource)
     }
 
     /**
@@ -178,13 +183,12 @@ class IXpsOMPageReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMPrintTicketResource>} printTicketResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPrintTicketResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-getprintticketresource
      */
-    GetPrintTicketResource(printTicketResource) {
-        result := ComCall(12, this, "ptr*", printTicketResource, "HRESULT")
-        return result
+    GetPrintTicketResource() {
+        result := ComCall(12, this, "ptr*", &printTicketResource := 0, "HRESULT")
+        return IXpsOMPrintTicketResource(printTicketResource)
     }
 
     /**
@@ -200,13 +204,12 @@ class IXpsOMPageReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMImageResource>} imageResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMImageResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-getthumbnailresource
      */
-    GetThumbnailResource(imageResource) {
-        result := ComCall(14, this, "ptr*", imageResource, "HRESULT")
-        return result
+    GetThumbnailResource() {
+        result := ComCall(14, this, "ptr*", &imageResource := 0, "HRESULT")
+        return IXpsOMImageResource(imageResource)
     }
 
     /**
@@ -222,45 +225,41 @@ class IXpsOMPageReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMNameCollection>} linkTargets 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMNameCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-collectlinktargets
      */
-    CollectLinkTargets(linkTargets) {
-        result := ComCall(16, this, "ptr*", linkTargets, "HRESULT")
-        return result
+    CollectLinkTargets() {
+        result := ComCall(16, this, "ptr*", &linkTargets := 0, "HRESULT")
+        return IXpsOMNameCollection(linkTargets)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMPartResources>} partResources 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPartResources} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-collectpartresources
      */
-    CollectPartResources(partResources) {
-        result := ComCall(17, this, "ptr*", partResources, "HRESULT")
-        return result
+    CollectPartResources() {
+        result := ComCall(17, this, "ptr*", &partResources := 0, "HRESULT")
+        return IXpsOMPartResources(partResources)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} restrictedFonts 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-hasrestrictedfonts
      */
-    HasRestrictedFonts(restrictedFonts) {
-        result := ComCall(18, this, "ptr", restrictedFonts, "HRESULT")
-        return result
+    HasRestrictedFonts() {
+        result := ComCall(18, this, "int*", &restrictedFonts := 0, "HRESULT")
+        return restrictedFonts
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMPageReference>} pageReference 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPageReference} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-clone
      */
-    Clone(pageReference) {
-        result := ComCall(19, this, "ptr*", pageReference, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(19, this, "ptr*", &pageReference := 0, "HRESULT")
+        return IXpsOMPageReference(pageReference)
     }
 }

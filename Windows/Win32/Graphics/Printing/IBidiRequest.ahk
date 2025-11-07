@@ -62,12 +62,11 @@ class IBidiRequest extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HRESULT>} phr 
      * @returns {HRESULT} 
      */
-    GetResult(phr) {
-        result := ComCall(5, this, "ptr", phr, "HRESULT")
-        return result
+    GetResult() {
+        result := ComCall(5, this, "int*", &phr := 0, "HRESULT")
+        return phr
     }
 
     /**
@@ -80,23 +79,21 @@ class IBidiRequest extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOutputData(dwIndex, ppszSchema, pdwType, ppData, uSize) {
+        ppszSchemaMarshal := ppszSchema is VarRef ? "ptr*" : "ptr"
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         uSizeMarshal := uSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwIndex, "ptr", ppszSchema, pdwTypeMarshal, pdwType, ppDataMarshal, ppData, uSizeMarshal, uSize, "HRESULT")
+        result := ComCall(6, this, "uint", dwIndex, ppszSchemaMarshal, ppszSchema, pdwTypeMarshal, pdwType, ppDataMarshal, ppData, uSizeMarshal, uSize, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwTotal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetEnumCount(pdwTotal) {
-        pdwTotalMarshal := pdwTotal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwTotalMarshal, pdwTotal, "HRESULT")
-        return result
+    GetEnumCount() {
+        result := ComCall(7, this, "uint*", &pdwTotal := 0, "HRESULT")
+        return pdwTotal
     }
 }

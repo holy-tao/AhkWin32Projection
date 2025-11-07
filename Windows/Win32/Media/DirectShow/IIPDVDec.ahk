@@ -32,15 +32,12 @@ class IIPDVDec extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} displayPix 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iipdvdec-get_ipdisplay
      */
-    get_IPDisplay(displayPix) {
-        displayPixMarshal := displayPix is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, displayPixMarshal, displayPix, "HRESULT")
-        return result
+    get_IPDisplay() {
+        result := ComCall(3, this, "int*", &displayPix := 0, "HRESULT")
+        return displayPix
     }
 
     /**

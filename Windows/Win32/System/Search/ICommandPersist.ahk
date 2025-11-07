@@ -40,14 +40,11 @@ class ICommandPersist extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<DBID>>} ppCommandID 
-     * @returns {HRESULT} 
+     * @returns {Pointer<DBID>} 
      */
-    GetCurrentCommand(ppCommandID) {
-        ppCommandIDMarshal := ppCommandID is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppCommandIDMarshal, ppCommandID, "HRESULT")
-        return result
+    GetCurrentCommand() {
+        result := ComCall(4, this, "ptr*", &ppCommandID := 0, "HRESULT")
+        return ppCommandID
     }
 
     /**

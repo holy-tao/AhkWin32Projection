@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include .\IFsiItem.ahk
 
 /**
@@ -45,52 +46,42 @@ class IFsiFileItem extends IFsiItem{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize
      */
-    get_DataSize(pVal) {
-        pValMarshal := pVal is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(19, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DataSize() {
+        result := ComCall(19, this, "int64*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bitlow
      */
-    get_DataSize32BitLow(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DataSize32BitLow() {
+        result := ComCall(20, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bithigh
      */
-    get_DataSize32BitHigh(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DataSize32BitHigh() {
+        result := ComCall(21, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<IStream>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_data
      */
-    get_Data(pVal) {
-        result := ComCall(22, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_Data() {
+        result := ComCall(22, this, "ptr*", &pVal := 0, "HRESULT")
+        return IStream(pVal)
     }
 
     /**

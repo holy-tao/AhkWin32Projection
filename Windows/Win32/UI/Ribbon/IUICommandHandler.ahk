@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -63,12 +64,12 @@ class IUICommandHandler extends IUnknown{
      * @param {Integer} commandId 
      * @param {Pointer<PROPERTYKEY>} key 
      * @param {Pointer<PROPVARIANT>} currentValue 
-     * @param {Pointer<PROPVARIANT>} newValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicommandhandler-updateproperty
      */
-    UpdateProperty(commandId, key, currentValue, newValue) {
+    UpdateProperty(commandId, key, currentValue) {
+        newValue := PROPVARIANT()
         result := ComCall(4, this, "uint", commandId, "ptr", key, "ptr", currentValue, "ptr", newValue, "HRESULT")
-        return result
+        return newValue
     }
 }

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IInkStrokes.ahk
+#Include .\IInkRecognitionAlternates.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -52,144 +55,133 @@ class IInkRecognitionAlternate extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} RecoString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_string
      */
-    get_String(RecoString) {
+    get_String() {
+        RecoString := BSTR()
         result := ComCall(7, this, "ptr", RecoString, "HRESULT")
-        return result
+        return RecoString
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Confidence 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_confidence
      */
-    get_Confidence(Confidence) {
-        ConfidenceMarshal := Confidence is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, ConfidenceMarshal, Confidence, "HRESULT")
-        return result
+    get_Confidence() {
+        result := ComCall(8, this, "int*", &Confidence := 0, "HRESULT")
+        return Confidence
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Baseline 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_baseline
      */
-    get_Baseline(Baseline) {
+    get_Baseline() {
+        Baseline := VARIANT()
         result := ComCall(9, this, "ptr", Baseline, "HRESULT")
-        return result
+        return Baseline
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Midline 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_midline
      */
-    get_Midline(Midline) {
+    get_Midline() {
+        Midline := VARIANT()
         result := ComCall(10, this, "ptr", Midline, "HRESULT")
-        return result
+        return Midline
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Ascender 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_ascender
      */
-    get_Ascender(Ascender) {
+    get_Ascender() {
+        Ascender := VARIANT()
         result := ComCall(11, this, "ptr", Ascender, "HRESULT")
-        return result
+        return Ascender
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Descender 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_descender
      */
-    get_Descender(Descender) {
+    get_Descender() {
+        Descender := VARIANT()
         result := ComCall(12, this, "ptr", Descender, "HRESULT")
-        return result
+        return Descender
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} LineNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_linenumber
      */
-    get_LineNumber(LineNumber) {
-        LineNumberMarshal := LineNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, LineNumberMarshal, LineNumber, "HRESULT")
-        return result
+    get_LineNumber() {
+        result := ComCall(13, this, "int*", &LineNumber := 0, "HRESULT")
+        return LineNumber
     }
 
     /**
      * 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_strokes
      */
-    get_Strokes(Strokes) {
-        result := ComCall(14, this, "ptr*", Strokes, "HRESULT")
-        return result
+    get_Strokes() {
+        result := ComCall(14, this, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**
      * 
-     * @param {Pointer<IInkRecognitionAlternates>} LineAlternates 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognitionAlternates} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_linealternates
      */
-    get_LineAlternates(LineAlternates) {
-        result := ComCall(15, this, "ptr*", LineAlternates, "HRESULT")
-        return result
+    get_LineAlternates() {
+        result := ComCall(15, this, "ptr*", &LineAlternates := 0, "HRESULT")
+        return IInkRecognitionAlternates(LineAlternates)
     }
 
     /**
      * 
-     * @param {Pointer<IInkRecognitionAlternates>} ConfidenceAlternates 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognitionAlternates} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_confidencealternates
      */
-    get_ConfidenceAlternates(ConfidenceAlternates) {
-        result := ComCall(16, this, "ptr*", ConfidenceAlternates, "HRESULT")
-        return result
+    get_ConfidenceAlternates() {
+        result := ComCall(16, this, "ptr*", &ConfidenceAlternates := 0, "HRESULT")
+        return IInkRecognitionAlternates(ConfidenceAlternates)
     }
 
     /**
      * 
      * @param {IInkStrokes} Strokes 
-     * @param {Pointer<IInkStrokes>} GetStrokesFromStrokeRanges 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-getstrokesfromstrokeranges
      */
-    GetStrokesFromStrokeRanges(Strokes, GetStrokesFromStrokeRanges) {
-        result := ComCall(17, this, "ptr", Strokes, "ptr*", GetStrokesFromStrokeRanges, "HRESULT")
-        return result
+    GetStrokesFromStrokeRanges(Strokes) {
+        result := ComCall(17, this, "ptr", Strokes, "ptr*", &GetStrokesFromStrokeRanges := 0, "HRESULT")
+        return IInkStrokes(GetStrokesFromStrokeRanges)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} selectionStart 
      * @param {Pointer<Integer>} selectionLength 
-     * @param {Pointer<IInkStrokes>} GetStrokesFromTextRange 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-getstrokesfromtextrange
      */
-    GetStrokesFromTextRange(selectionStart, selectionLength, GetStrokesFromTextRange) {
+    GetStrokesFromTextRange(selectionStart, selectionLength) {
         selectionStartMarshal := selectionStart is VarRef ? "int*" : "ptr"
         selectionLengthMarshal := selectionLength is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, selectionStartMarshal, selectionStart, selectionLengthMarshal, selectionLength, "ptr*", GetStrokesFromTextRange, "HRESULT")
-        return result
+        result := ComCall(18, this, selectionStartMarshal, selectionStart, selectionLengthMarshal, selectionLength, "ptr*", &GetStrokesFromTextRange := 0, "HRESULT")
+        return IInkStrokes(GetStrokesFromTextRange)
     }
 
     /**
@@ -211,28 +203,27 @@ class IInkRecognitionAlternate extends IDispatch{
     /**
      * 
      * @param {BSTR} PropertyType 
-     * @param {Pointer<IInkRecognitionAlternates>} AlternatesWithConstantPropertyValues 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognitionAlternates} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-alternateswithconstantpropertyvalues
      */
-    AlternatesWithConstantPropertyValues(PropertyType, AlternatesWithConstantPropertyValues) {
+    AlternatesWithConstantPropertyValues(PropertyType) {
         PropertyType := PropertyType is String ? BSTR.Alloc(PropertyType).Value : PropertyType
 
-        result := ComCall(20, this, "ptr", PropertyType, "ptr*", AlternatesWithConstantPropertyValues, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", PropertyType, "ptr*", &AlternatesWithConstantPropertyValues := 0, "HRESULT")
+        return IInkRecognitionAlternates(AlternatesWithConstantPropertyValues)
     }
 
     /**
      * 
      * @param {BSTR} PropertyType 
-     * @param {Pointer<VARIANT>} PropertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-getpropertyvalue
      */
-    GetPropertyValue(PropertyType, PropertyValue) {
+    GetPropertyValue(PropertyType) {
         PropertyType := PropertyType is String ? BSTR.Alloc(PropertyType).Value : PropertyType
 
+        PropertyValue := VARIANT()
         result := ComCall(21, this, "ptr", PropertyType, "ptr", PropertyValue, "HRESULT")
-        return result
+        return PropertyValue
     }
 }

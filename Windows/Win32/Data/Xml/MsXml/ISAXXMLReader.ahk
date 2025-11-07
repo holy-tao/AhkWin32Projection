@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\ISAXEntityResolver.ahk
+#Include .\ISAXContentHandler.ahk
+#Include .\ISAXDTDHandler.ahk
+#Include .\ISAXErrorHandler.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,14 +36,13 @@ class ISAXXMLReader extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwchName 
-     * @param {Pointer<VARIANT_BOOL>} pvfValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    getFeature(pwchName, pvfValue) {
+    getFeature(pwchName) {
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
 
-        result := ComCall(3, this, "ptr", pwchName, "ptr", pvfValue, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwchName, "short*", &pvfValue := 0, "HRESULT")
+        return pvfValue
     }
 
     /**
@@ -57,14 +61,14 @@ class ISAXXMLReader extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwchName 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getProperty(pwchName, pvarValue) {
+    getProperty(pwchName) {
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
 
+        pvarValue := VARIANT()
         result := ComCall(5, this, "ptr", pwchName, "ptr", pvarValue, "HRESULT")
-        return result
+        return pvarValue
     }
 
     /**
@@ -82,12 +86,11 @@ class ISAXXMLReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISAXEntityResolver>} ppResolver 
-     * @returns {HRESULT} 
+     * @returns {ISAXEntityResolver} 
      */
-    getEntityResolver(ppResolver) {
-        result := ComCall(7, this, "ptr*", ppResolver, "HRESULT")
-        return result
+    getEntityResolver() {
+        result := ComCall(7, this, "ptr*", &ppResolver := 0, "HRESULT")
+        return ISAXEntityResolver(ppResolver)
     }
 
     /**
@@ -102,12 +105,11 @@ class ISAXXMLReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISAXContentHandler>} ppHandler 
-     * @returns {HRESULT} 
+     * @returns {ISAXContentHandler} 
      */
-    getContentHandler(ppHandler) {
-        result := ComCall(9, this, "ptr*", ppHandler, "HRESULT")
-        return result
+    getContentHandler() {
+        result := ComCall(9, this, "ptr*", &ppHandler := 0, "HRESULT")
+        return ISAXContentHandler(ppHandler)
     }
 
     /**
@@ -122,12 +124,11 @@ class ISAXXMLReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISAXDTDHandler>} ppHandler 
-     * @returns {HRESULT} 
+     * @returns {ISAXDTDHandler} 
      */
-    getDTDHandler(ppHandler) {
-        result := ComCall(11, this, "ptr*", ppHandler, "HRESULT")
-        return result
+    getDTDHandler() {
+        result := ComCall(11, this, "ptr*", &ppHandler := 0, "HRESULT")
+        return ISAXDTDHandler(ppHandler)
     }
 
     /**
@@ -142,12 +143,11 @@ class ISAXXMLReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISAXErrorHandler>} ppHandler 
-     * @returns {HRESULT} 
+     * @returns {ISAXErrorHandler} 
      */
-    getErrorHandler(ppHandler) {
-        result := ComCall(13, this, "ptr*", ppHandler, "HRESULT")
-        return result
+    getErrorHandler() {
+        result := ComCall(13, this, "ptr*", &ppHandler := 0, "HRESULT")
+        return ISAXErrorHandler(ppHandler)
     }
 
     /**
@@ -162,14 +162,11 @@ class ISAXXMLReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppwchBaseUrl 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    getBaseURL(ppwchBaseUrl) {
-        ppwchBaseUrlMarshal := ppwchBaseUrl is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(15, this, ppwchBaseUrlMarshal, ppwchBaseUrl, "HRESULT")
-        return result
+    getBaseURL() {
+        result := ComCall(15, this, "ptr*", &ppwchBaseUrl := 0, "HRESULT")
+        return ppwchBaseUrl
     }
 
     /**
@@ -186,14 +183,11 @@ class ISAXXMLReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppwchSecureBaseUrl 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    getSecureBaseURL(ppwchSecureBaseUrl) {
-        ppwchSecureBaseUrlMarshal := ppwchSecureBaseUrl is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(17, this, ppwchSecureBaseUrlMarshal, ppwchSecureBaseUrl, "HRESULT")
-        return result
+    getSecureBaseURL() {
+        result := ComCall(17, this, "ptr*", &ppwchSecureBaseUrl := 0, "HRESULT")
+        return ppwchSecureBaseUrl
     }
 
     /**

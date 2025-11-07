@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,12 +37,11 @@ class IVdsCreatePartitionEx extends IUnknown{
      * @param {Integer} ullSize 
      * @param {Integer} ulAlign 
      * @param {Pointer<CREATE_PARTITION_PARAMETERS>} para 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdscreatepartitionex-createpartitionex
      */
-    CreatePartitionEx(ullOffset, ullSize, ulAlign, para, ppAsync) {
-        result := ComCall(3, this, "uint", ullOffset, "uint", ullSize, "uint", ulAlign, "ptr", para, "ptr*", ppAsync, "HRESULT")
-        return result
+    CreatePartitionEx(ullOffset, ullSize, ulAlign, para) {
+        result := ComCall(3, this, "uint", ullOffset, "uint", ullSize, "uint", ulAlign, "ptr", para, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 }

@@ -37,14 +37,11 @@ class IMbnServiceActivation extends IUnknown{
     /**
      * 
      * @param {Pointer<SAFEARRAY>} vendorSpecificData 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnserviceactivation-activate
      */
-    Activate(vendorSpecificData, requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", vendorSpecificData, requestIDMarshal, requestID, "HRESULT")
-        return result
+    Activate(vendorSpecificData) {
+        result := ComCall(3, this, "ptr", vendorSpecificData, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 }

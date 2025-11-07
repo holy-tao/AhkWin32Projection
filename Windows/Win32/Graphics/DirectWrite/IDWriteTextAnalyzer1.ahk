@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_MATRIX.ahk
+#Include .\DWRITE_SCRIPT_PROPERTIES.ahk
+#Include .\DWRITE_JUSTIFICATION_OPPORTUNITY.ahk
 #Include .\IDWriteTextAnalyzer.ahk
 
 /**
@@ -72,8 +75,9 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
         baselineCoordinateMarshal := baselineCoordinate is VarRef ? "int*" : "ptr"
+        existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "ptr", fontFace, "int", baseline, "int", isVertical, "int", isSimulationAllowed, "ptr", scriptAnalysis, "ptr", localeName, baselineCoordinateMarshal, baselineCoordinate, "ptr", exists, "HRESULT")
+        result := ComCall(11, this, "ptr", fontFace, "int", baseline, "int", isVertical, "int", isSimulationAllowed, "ptr", scriptAnalysis, "ptr", localeName, baselineCoordinateMarshal, baselineCoordinate, existsMarshal, exists, "HRESULT")
         return result
     }
 
@@ -95,25 +99,25 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * 
      * @param {Integer} glyphOrientationAngle 
      * @param {BOOL} isSideways 
-     * @param {Pointer<DWRITE_MATRIX>} transform 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_MATRIX} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getglyphorientationtransform
      */
-    GetGlyphOrientationTransform(glyphOrientationAngle, isSideways, transform) {
+    GetGlyphOrientationTransform(glyphOrientationAngle, isSideways) {
+        transform := DWRITE_MATRIX()
         result := ComCall(13, this, "int", glyphOrientationAngle, "int", isSideways, "ptr", transform, "HRESULT")
-        return result
+        return transform
     }
 
     /**
      * 
      * @param {DWRITE_SCRIPT_ANALYSIS} scriptAnalysis 
-     * @param {Pointer<DWRITE_SCRIPT_PROPERTIES>} scriptProperties 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_SCRIPT_PROPERTIES} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getscriptproperties
      */
-    GetScriptProperties(scriptAnalysis, scriptProperties) {
+    GetScriptProperties(scriptAnalysis) {
+        scriptProperties := DWRITE_SCRIPT_PROPERTIES()
         result := ComCall(14, this, "ptr", scriptAnalysis, "ptr", scriptProperties, "HRESULT")
-        return result
+        return scriptProperties
     }
 
     /**
@@ -130,10 +134,11 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
     GetTextComplexity(textString, textLength, fontFace, isTextSimple, textLengthRead, glyphIndices) {
         textString := textString is String ? StrPtr(textString) : textString
 
+        isTextSimpleMarshal := isTextSimple is VarRef ? "int*" : "ptr"
         textLengthReadMarshal := textLengthRead is VarRef ? "uint*" : "ptr"
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(15, this, "ptr", textString, "uint", textLength, "ptr", fontFace, "ptr", isTextSimple, textLengthReadMarshal, textLengthRead, glyphIndicesMarshal, glyphIndices, "HRESULT")
+        result := ComCall(15, this, "ptr", textString, "uint", textLength, "ptr", fontFace, isTextSimpleMarshal, isTextSimple, textLengthReadMarshal, textLengthRead, glyphIndicesMarshal, glyphIndices, "HRESULT")
         return result
     }
 
@@ -147,17 +152,17 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * @param {PWSTR} textString 
      * @param {Pointer<Integer>} clusterMap 
      * @param {Pointer<DWRITE_SHAPING_GLYPH_PROPERTIES>} glyphProperties 
-     * @param {Pointer<DWRITE_JUSTIFICATION_OPPORTUNITY>} justificationOpportunities 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_JUSTIFICATION_OPPORTUNITY} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getjustificationopportunities
      */
-    GetJustificationOpportunities(fontFace, fontEmSize, scriptAnalysis, textLength, glyphCount, textString, clusterMap, glyphProperties, justificationOpportunities) {
+    GetJustificationOpportunities(fontFace, fontEmSize, scriptAnalysis, textLength, glyphCount, textString, clusterMap, glyphProperties) {
         textString := textString is String ? StrPtr(textString) : textString
 
         clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
 
+        justificationOpportunities := DWRITE_JUSTIFICATION_OPPORTUNITY()
         result := ComCall(16, this, "ptr", fontFace, "float", fontEmSize, "ptr", scriptAnalysis, "uint", textLength, "uint", glyphCount, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", glyphProperties, "ptr", justificationOpportunities, "HRESULT")
-        return result
+        return justificationOpportunities
     }
 
     /**

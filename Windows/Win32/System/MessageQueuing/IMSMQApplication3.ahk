@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include .\IMSMQApplication2.ahk
 
 /**
@@ -31,52 +32,51 @@ class IMSMQApplication3 extends IMSMQApplication2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvActiveQueues 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ActiveQueues(pvActiveQueues) {
+    get_ActiveQueues() {
+        pvActiveQueues := VARIANT()
         result := ComCall(15, this, "ptr", pvActiveQueues, "HRESULT")
-        return result
+        return pvActiveQueues
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvPrivateQueues 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_PrivateQueues(pvPrivateQueues) {
+    get_PrivateQueues() {
+        pvPrivateQueues := VARIANT()
         result := ComCall(16, this, "ptr", pvPrivateQueues, "HRESULT")
-        return result
+        return pvPrivateQueues
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDirectoryServiceServer 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DirectoryServiceServer(pbstrDirectoryServiceServer) {
+    get_DirectoryServiceServer() {
+        pbstrDirectoryServiceServer := BSTR()
         result := ComCall(17, this, "ptr", pbstrDirectoryServiceServer, "HRESULT")
-        return result
+        return pbstrDirectoryServiceServer
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfIsConnected 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsConnected(pfIsConnected) {
-        result := ComCall(18, this, "ptr", pfIsConnected, "HRESULT")
-        return result
+    get_IsConnected() {
+        result := ComCall(18, this, "short*", &pfIsConnected := 0, "HRESULT")
+        return pfIsConnected
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvBytesInAllQueues 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_BytesInAllQueues(pvBytesInAllQueues) {
+    get_BytesInAllQueues() {
+        pvBytesInAllQueues := VARIANT()
         result := ComCall(19, this, "ptr", pvBytesInAllQueues, "HRESULT")
-        return result
+        return pvBytesInAllQueues
     }
 
     /**
@@ -93,12 +93,12 @@ class IMSMQApplication3 extends IMSMQApplication2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrMachine 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Machine(pbstrMachine) {
+    get_Machine() {
+        pbstrMachine := BSTR()
         result := ComCall(21, this, "ptr", pbstrMachine, "HRESULT")
-        return result
+        return pbstrMachine
     }
 
     /**

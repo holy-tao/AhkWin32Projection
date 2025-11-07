@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,47 +31,38 @@ class ISpeechPhraseReplacement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} DisplayAttributes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DisplayAttributes(DisplayAttributes) {
-        DisplayAttributesMarshal := DisplayAttributes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, DisplayAttributesMarshal, DisplayAttributes, "HRESULT")
-        return result
+    get_DisplayAttributes() {
+        result := ComCall(7, this, "int*", &DisplayAttributes := 0, "HRESULT")
+        return DisplayAttributes
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Text 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Text(Text) {
+    get_Text() {
+        Text := BSTR()
         result := ComCall(8, this, "ptr", Text, "HRESULT")
-        return result
+        return Text
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} FirstElement 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FirstElement(FirstElement) {
-        FirstElementMarshal := FirstElement is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, FirstElementMarshal, FirstElement, "HRESULT")
-        return result
+    get_FirstElement() {
+        result := ComCall(9, this, "int*", &FirstElement := 0, "HRESULT")
+        return FirstElement
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} NumberOfElements 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_NumberOfElements(NumberOfElements) {
-        NumberOfElementsMarshal := NumberOfElements is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, NumberOfElementsMarshal, NumberOfElements, "HRESULT")
-        return result
+    get_NumberOfElements() {
+        result := ComCall(10, this, "int*", &NumberOfElements := 0, "HRESULT")
+        return NumberOfElements
     }
 }

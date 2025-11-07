@@ -39,18 +39,15 @@ class IStorageProviderCopyHook extends IUnknown{
      * @param {Integer} srcAttribs 
      * @param {PWSTR} destFile 
      * @param {Integer} destAttribs 
-     * @param {Pointer<Integer>} result 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/shell/nf-shobjidl-istorageprovidercopyhook-copycallback
      */
-    CopyCallback(hwnd, operation, flags, srcFile, srcAttribs, destFile, destAttribs, result) {
+    CopyCallback(hwnd, operation, flags, srcFile, srcAttribs, destFile, destAttribs) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         srcFile := srcFile is String ? StrPtr(srcFile) : srcFile
         destFile := destFile is String ? StrPtr(destFile) : destFile
 
-        resultMarshal := result is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", hwnd, "uint", operation, "uint", flags, "ptr", srcFile, "uint", srcAttribs, "ptr", destFile, "uint", destAttribs, resultMarshal, result, "HRESULT")
+        result := ComCall(3, this, "ptr", hwnd, "uint", operation, "uint", flags, "ptr", srcFile, "uint", srcAttribs, "ptr", destFile, "uint", destAttribs, "uint*", &result := 0, "HRESULT")
         return result
     }
 }

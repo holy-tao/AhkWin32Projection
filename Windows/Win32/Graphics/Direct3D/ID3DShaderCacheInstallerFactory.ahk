@@ -32,27 +32,21 @@ class ID3DShaderCacheInstallerFactory extends IUnknown{
      * 
      * @param {ID3DShaderCacheInstallerClient} pClient 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvInstaller 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateInstaller(pClient, riid, ppvInstaller) {
-        ppvInstallerMarshal := ppvInstaller is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pClient, "ptr", riid, ppvInstallerMarshal, ppvInstaller, "HRESULT")
-        return result
+    CreateInstaller(pClient, riid) {
+        result := ComCall(3, this, "ptr", pClient, "ptr", riid, "ptr*", &ppvInstaller := 0, "HRESULT")
+        return ppvInstaller
     }
 
     /**
      * 
      * @param {IUnknown} pUnknown 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvExplorer 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateExplorer(pUnknown, riid, ppvExplorer) {
-        ppvExplorerMarshal := ppvExplorer is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pUnknown, "ptr", riid, ppvExplorerMarshal, ppvExplorer, "HRESULT")
-        return result
+    CreateExplorer(pUnknown, riid) {
+        result := ComCall(4, this, "ptr", pUnknown, "ptr", riid, "ptr*", &ppvExplorer := 0, "HRESULT")
+        return ppvExplorer
     }
 }

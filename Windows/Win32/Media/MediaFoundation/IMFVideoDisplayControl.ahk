@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -91,15 +92,12 @@ class IMFVideoDisplayControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwAspectRatioMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getaspectratiomode
      */
-    GetAspectRatioMode(pdwAspectRatioMode) {
-        pdwAspectRatioModeMarshal := pdwAspectRatioMode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwAspectRatioModeMarshal, pdwAspectRatioMode, "HRESULT")
-        return result
+    GetAspectRatioMode() {
+        result := ComCall(8, this, "uint*", &pdwAspectRatioMode := 0, "HRESULT")
+        return pdwAspectRatioMode
     }
 
     /**
@@ -117,13 +115,13 @@ class IMFVideoDisplayControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HWND>} phwndVideo 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getvideowindow
      */
-    GetVideoWindow(phwndVideo) {
+    GetVideoWindow() {
+        phwndVideo := HWND()
         result := ComCall(10, this, "ptr", phwndVideo, "HRESULT")
-        return result
+        return phwndVideo
     }
 
     /**
@@ -167,13 +165,12 @@ class IMFVideoDisplayControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<COLORREF>} pClr 
-     * @returns {HRESULT} 
+     * @returns {COLORREF} 
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getbordercolor
      */
-    GetBorderColor(pClr) {
-        result := ComCall(14, this, "ptr", pClr, "HRESULT")
-        return result
+    GetBorderColor() {
+        result := ComCall(14, this, "uint*", &pClr := 0, "HRESULT")
+        return pClr
     }
 
     /**
@@ -189,15 +186,12 @@ class IMFVideoDisplayControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwRenderFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getrenderingprefs
      */
-    GetRenderingPrefs(pdwRenderFlags) {
-        pdwRenderFlagsMarshal := pdwRenderFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pdwRenderFlagsMarshal, pdwRenderFlags, "HRESULT")
-        return result
+    GetRenderingPrefs() {
+        result := ComCall(16, this, "uint*", &pdwRenderFlags := 0, "HRESULT")
+        return pdwRenderFlags
     }
 
     /**
@@ -213,12 +207,11 @@ class IMFVideoDisplayControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfFullscreen 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getfullscreen
      */
-    GetFullscreen(pfFullscreen) {
-        result := ComCall(18, this, "ptr", pfFullscreen, "HRESULT")
-        return result
+    GetFullscreen() {
+        result := ComCall(18, this, "int*", &pfFullscreen := 0, "HRESULT")
+        return pfFullscreen
     }
 }

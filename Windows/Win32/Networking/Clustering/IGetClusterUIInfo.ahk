@@ -102,7 +102,7 @@ class IGetClusterUIInfo extends IUnknown{
      */
     GetFont() {
         result := ComCall(5, this, "ptr")
-        return result
+        return HFONT({Value: result}, True)
     }
 
     /**
@@ -112,6 +112,6 @@ class IGetClusterUIInfo extends IUnknown{
      */
     GetIcon() {
         result := ComCall(6, this, "ptr")
-        return result
+        return HICON({Value: result}, True)
     }
 }

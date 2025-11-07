@@ -72,12 +72,11 @@ class IMenuBand extends IUnknown{
     /**
      * 
      * @param {Pointer<MSG>} pmsg 
-     * @param {Pointer<LRESULT>} plRet 
-     * @returns {HRESULT} 
+     * @returns {LRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-imenuband-translatemenumessage
      */
-    TranslateMenuMessage(pmsg, plRet) {
-        result := ComCall(4, this, "ptr", pmsg, "ptr", plRet, "HRESULT")
-        return result
+    TranslateMenuMessage(pmsg) {
+        result := ComCall(4, this, "ptr", pmsg, "ptr*", &plRet := 0, "HRESULT")
+        return plRet
     }
 }

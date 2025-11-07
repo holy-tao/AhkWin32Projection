@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_TRACE_STATS.ahk
+#Include .\D3D11_TRACE_VALUE.ahk
+#Include .\D3D11_TRACE_STEP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,15 +48,12 @@ class ID3D11ShaderTrace extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pTestCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-traceready
      */
-    TraceReady(pTestCount) {
-        pTestCountMarshal := pTestCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pTestCountMarshal, pTestCount, "HRESULT")
-        return result
+    TraceReady() {
+        result := ComCall(3, this, "uint*", &pTestCount := 0, "HRESULT")
+        return pTestCount
     }
 
     /**
@@ -67,13 +67,13 @@ class ID3D11ShaderTrace extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<D3D11_TRACE_STATS>} pTraceStats 
-     * @returns {HRESULT} 
+     * @returns {D3D11_TRACE_STATS} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-gettracestats
      */
-    GetTraceStats(pTraceStats) {
+    GetTraceStats() {
+        pTraceStats := D3D11_TRACE_STATS()
         result := ComCall(5, this, "ptr", pTraceStats, "HRESULT")
-        return result
+        return pTraceStats
     }
 
     /**
@@ -90,25 +90,25 @@ class ID3D11ShaderTrace extends IUnknown{
     /**
      * 
      * @param {Pointer<D3D11_TRACE_REGISTER>} pRegister 
-     * @param {Pointer<D3D11_TRACE_VALUE>} pValue 
-     * @returns {HRESULT} 
+     * @returns {D3D11_TRACE_VALUE} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getinitialregistercontents
      */
-    GetInitialRegisterContents(pRegister, pValue) {
+    GetInitialRegisterContents(pRegister) {
+        pValue := D3D11_TRACE_VALUE()
         result := ComCall(7, this, "ptr", pRegister, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} stepIndex 
-     * @param {Pointer<D3D11_TRACE_STEP>} pTraceStep 
-     * @returns {HRESULT} 
+     * @returns {D3D11_TRACE_STEP} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getstep
      */
-    GetStep(stepIndex, pTraceStep) {
+    GetStep(stepIndex) {
+        pTraceStep := D3D11_TRACE_STEP()
         result := ComCall(8, this, "uint", stepIndex, "ptr", pTraceStep, "HRESULT")
-        return result
+        return pTraceStep
     }
 
     /**

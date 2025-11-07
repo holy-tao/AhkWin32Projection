@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INetFwOpenPort.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,15 +44,12 @@ class INetFwOpenPorts extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenports-get_count
      */
-    get_Count(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, countMarshal, count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
@@ -80,23 +79,21 @@ class INetFwOpenPorts extends IDispatch{
      * 
      * @param {Integer} portNumber 
      * @param {Integer} ipProtocol 
-     * @param {Pointer<INetFwOpenPort>} openPort 
-     * @returns {HRESULT} 
+     * @returns {INetFwOpenPort} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenports-item
      */
-    Item(portNumber, ipProtocol, openPort) {
-        result := ComCall(10, this, "int", portNumber, "int", ipProtocol, "ptr*", openPort, "HRESULT")
-        return result
+    Item(portNumber, ipProtocol) {
+        result := ComCall(10, this, "int", portNumber, "int", ipProtocol, "ptr*", &openPort := 0, "HRESULT")
+        return INetFwOpenPort(openPort)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} newEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenports-get__newenum
      */
-    get__NewEnum(newEnum) {
-        result := ComCall(11, this, "ptr*", newEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(11, this, "ptr*", &newEnum := 0, "HRESULT")
+        return IUnknown(newEnum)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,11 @@ class IKernelTransaction extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} pHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    GetHandle(pHandle) {
+    GetHandle() {
+        pHandle := HANDLE()
         result := ComCall(3, this, "ptr", pHandle, "HRESULT")
-        return result
+        return pHandle
     }
 }

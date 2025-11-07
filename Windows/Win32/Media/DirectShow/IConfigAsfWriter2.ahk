@@ -33,15 +33,12 @@ class IConfigAsfWriter2 extends IConfigAsfWriter{
     /**
      * 
      * @param {IPin} pPin 
-     * @param {Pointer<Integer>} pwStreamNum 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter2-streamnumfrompin
      */
-    StreamNumFromPin(pPin, pwStreamNum) {
-        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(11, this, "ptr", pPin, pwStreamNumMarshal, pwStreamNum, "HRESULT")
-        return result
+    StreamNumFromPin(pPin) {
+        result := ComCall(11, this, "ptr", pPin, "ushort*", &pwStreamNum := 0, "HRESULT")
+        return pwStreamNum
     }
 
     /**

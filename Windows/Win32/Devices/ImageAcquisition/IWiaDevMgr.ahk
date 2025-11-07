@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IEnumWIA_DEV_INFO.ahk
+#Include .\IWiaItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -69,27 +71,25 @@ class IWiaDevMgr extends IUnknown{
     /**
      * 
      * @param {Integer} lFlag 
-     * @param {Pointer<IEnumWIA_DEV_INFO>} ppIEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWIA_DEV_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadevmgr-enumdeviceinfo
      */
-    EnumDeviceInfo(lFlag, ppIEnum) {
-        result := ComCall(3, this, "int", lFlag, "ptr*", ppIEnum, "HRESULT")
-        return result
+    EnumDeviceInfo(lFlag) {
+        result := ComCall(3, this, "int", lFlag, "ptr*", &ppIEnum := 0, "HRESULT")
+        return IEnumWIA_DEV_INFO(ppIEnum)
     }
 
     /**
      * 
      * @param {BSTR} bstrDeviceID 
-     * @param {Pointer<IWiaItem>} ppWiaItemRoot 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadevmgr-createdevice
      */
-    CreateDevice(bstrDeviceID, ppWiaItemRoot) {
+    CreateDevice(bstrDeviceID) {
         bstrDeviceID := bstrDeviceID is String ? BSTR.Alloc(bstrDeviceID).Value : bstrDeviceID
 
-        result := ComCall(4, this, "ptr", bstrDeviceID, "ptr*", ppWiaItemRoot, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", bstrDeviceID, "ptr*", &ppWiaItemRoot := 0, "HRESULT")
+        return IWiaItem(ppWiaItemRoot)
     }
 
     /**
@@ -98,15 +98,14 @@ class IWiaDevMgr extends IUnknown{
      * @param {Integer} lDeviceType 
      * @param {Integer} lFlags 
      * @param {Pointer<BSTR>} pbstrDeviceID 
-     * @param {Pointer<IWiaItem>} ppItemRoot 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadevmgr-selectdevicedlg
      */
-    SelectDeviceDlg(hwndParent, lDeviceType, lFlags, pbstrDeviceID, ppItemRoot) {
+    SelectDeviceDlg(hwndParent, lDeviceType, lFlags, pbstrDeviceID) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(5, this, "ptr", hwndParent, "int", lDeviceType, "int", lFlags, "ptr", pbstrDeviceID, "ptr*", ppItemRoot, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", hwndParent, "int", lDeviceType, "int", lFlags, "ptr", pbstrDeviceID, "ptr*", &ppItemRoot := 0, "HRESULT")
+        return IWiaItem(ppItemRoot)
     }
 
     /**
@@ -174,15 +173,14 @@ class IWiaDevMgr extends IUnknown{
      * @param {BSTR} bstrDeviceID 
      * @param {Pointer<Guid>} pEventGUID 
      * @param {IWiaEventCallback} pIWiaEventCallback 
-     * @param {Pointer<IUnknown>} pEventObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadevmgr-registereventcallbackinterface
      */
-    RegisterEventCallbackInterface(lFlags, bstrDeviceID, pEventGUID, pIWiaEventCallback, pEventObject) {
+    RegisterEventCallbackInterface(lFlags, bstrDeviceID, pEventGUID, pIWiaEventCallback) {
         bstrDeviceID := bstrDeviceID is String ? BSTR.Alloc(bstrDeviceID).Value : bstrDeviceID
 
-        result := ComCall(9, this, "int", lFlags, "ptr", bstrDeviceID, "ptr", pEventGUID, "ptr", pIWiaEventCallback, "ptr*", pEventObject, "HRESULT")
-        return result
+        result := ComCall(9, this, "int", lFlags, "ptr", bstrDeviceID, "ptr", pEventGUID, "ptr", pIWiaEventCallback, "ptr*", &pEventObject := 0, "HRESULT")
+        return IUnknown(pEventObject)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D_SHADER_CACHE_APPLICATION_DESC.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,24 +31,21 @@ class ID3DShaderCacheApplication extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} pExePath 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    GetExePath(pExePath) {
-        pExePathMarshal := pExePath is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, pExePathMarshal, pExePath, "HRESULT")
-        return result
+    GetExePath() {
+        result := ComCall(3, this, "ptr*", &pExePath := 0, "HRESULT")
+        return pExePath
     }
 
     /**
      * 
-     * @param {Pointer<D3D_SHADER_CACHE_APPLICATION_DESC>} pApplicationDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D_SHADER_CACHE_APPLICATION_DESC} 
      */
-    GetDesc(pApplicationDesc) {
+    GetDesc() {
+        pApplicationDesc := D3D_SHADER_CACHE_APPLICATION_DESC()
         result := ComCall(4, this, "ptr", pApplicationDesc, "HRESULT")
-        return result
+        return pApplicationDesc
     }
 
     /**
@@ -57,17 +55,14 @@ class ID3DShaderCacheApplication extends IUnknown{
      * @param {Integer} NumPSDB 
      * @param {Pointer<D3D_SHADER_CACHE_PSDB_PROPERTIES>} pPSDBs 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvComponent 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    RegisterComponent(pName, pStateObjectDBPath, NumPSDB, pPSDBs, riid, ppvComponent) {
+    RegisterComponent(pName, pStateObjectDBPath, NumPSDB, pPSDBs, riid) {
         pName := pName is String ? StrPtr(pName) : pName
         pStateObjectDBPath := pStateObjectDBPath is String ? StrPtr(pStateObjectDBPath) : pStateObjectDBPath
 
-        ppvComponentMarshal := ppvComponent is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pName, "ptr", pStateObjectDBPath, "uint", NumPSDB, "ptr", pPSDBs, "ptr", riid, ppvComponentMarshal, ppvComponent, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pName, "ptr", pStateObjectDBPath, "uint", NumPSDB, "ptr", pPSDBs, "ptr", riid, "ptr*", &ppvComponent := 0, "HRESULT")
+        return ppvComponent
     }
 
     /**
@@ -93,14 +88,11 @@ class ID3DShaderCacheApplication extends IUnknown{
      * 
      * @param {Integer} index 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvComponent 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetComponent(index, riid, ppvComponent) {
-        ppvComponentMarshal := ppvComponent is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "uint", index, "ptr", riid, ppvComponentMarshal, ppvComponent, "HRESULT")
-        return result
+    GetComponent(index, riid) {
+        result := ComCall(8, this, "uint", index, "ptr", riid, "ptr*", &ppvComponent := 0, "HRESULT")
+        return ppvComponent
     }
 
     /**
@@ -127,13 +119,10 @@ class ID3DShaderCacheApplication extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} pInstallerName 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    GetInstallerName(pInstallerName) {
-        pInstallerNameMarshal := pInstallerName is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, pInstallerNameMarshal, pInstallerName, "HRESULT")
-        return result
+    GetInstallerName() {
+        result := ComCall(11, this, "ptr*", &pInstallerName := 0, "HRESULT")
+        return pInstallerName
     }
 }

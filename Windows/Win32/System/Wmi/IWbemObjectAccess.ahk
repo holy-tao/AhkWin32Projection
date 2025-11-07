@@ -100,15 +100,12 @@ class IWbemObjectAccess extends IWbemClassObject{
     /**
      * 
      * @param {Integer} lHandle 
-     * @param {Pointer<Integer>} pdw 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-readdword
      */
-    ReadDWORD(lHandle, pdw) {
-        pdwMarshal := pdw is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(30, this, "int", lHandle, pdwMarshal, pdw, "HRESULT")
-        return result
+    ReadDWORD(lHandle) {
+        result := ComCall(30, this, "int", lHandle, "uint*", &pdw := 0, "HRESULT")
+        return pdw
     }
 
     /**
@@ -126,15 +123,12 @@ class IWbemObjectAccess extends IWbemClassObject{
     /**
      * 
      * @param {Integer} lHandle 
-     * @param {Pointer<Integer>} pqw 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-readqword
      */
-    ReadQWORD(lHandle, pqw) {
-        pqwMarshal := pqw is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(32, this, "int", lHandle, pqwMarshal, pqw, "HRESULT")
-        return result
+    ReadQWORD(lHandle) {
+        result := ComCall(32, this, "int", lHandle, "uint*", &pqw := 0, "HRESULT")
+        return pqw
     }
 
     /**

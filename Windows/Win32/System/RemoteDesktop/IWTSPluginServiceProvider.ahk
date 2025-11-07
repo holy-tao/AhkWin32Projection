@@ -33,12 +33,11 @@ class IWTSPluginServiceProvider extends IUnknown{
     /**
      * 
      * @param {Guid} ServiceId 
-     * @param {Pointer<IUnknown>} ppunkObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtspluginserviceprovider-getservice
      */
-    GetService(ServiceId, ppunkObject) {
-        result := ComCall(3, this, "ptr", ServiceId, "ptr*", ppunkObject, "HRESULT")
-        return result
+    GetService(ServiceId) {
+        result := ComCall(3, this, "ptr", ServiceId, "ptr*", &ppunkObject := 0, "HRESULT")
+        return IUnknown(ppunkObject)
     }
 }

@@ -3,6 +3,18 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IHTMLFramesCollection2.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLImageElementFactory.ahk
+#Include .\IHTMLLocation.ahk
+#Include .\IOmHistory.ahk
+#Include .\IOmNavigator.ahk
+#Include .\IHTMLWindow2.ahk
+#Include .\IHTMLDocument2.ahk
+#Include .\IHTMLEventObj.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IHTMLScreen.ahk
+#Include .\IHTMLOptionElementFactory.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -37,12 +49,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<IHTMLFramesCollection2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLFramesCollection2} 
      */
-    get_frames(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_frames() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLFramesCollection2(p)
     }
 
     /**
@@ -59,12 +70,12 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_defaultStatus(p) {
+    get_defaultStatus() {
+        p := BSTR()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -81,12 +92,12 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_status(p) {
+    get_status() {
+        p := BSTR()
         result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -94,16 +105,13 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @param {BSTR} expression 
      * @param {Integer} msec 
      * @param {Pointer<VARIANT>} language 
-     * @param {Pointer<Integer>} timerID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    setTimeout(expression, msec, language, timerID) {
+    setTimeout(expression, msec, language) {
         expression := expression is String ? BSTR.Alloc(expression).Value : expression
 
-        timerIDMarshal := timerID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, "ptr", expression, "int", msec, "ptr", language, timerIDMarshal, timerID, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", expression, "int", msec, "ptr", language, "int*", &timerID := 0, "HRESULT")
+        return timerID
     }
 
     /**
@@ -131,59 +139,55 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
     /**
      * 
      * @param {BSTR} message 
-     * @param {Pointer<VARIANT_BOOL>} confirmed 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    confirm(message, confirmed) {
+    confirm(message) {
         message := message is String ? BSTR.Alloc(message).Value : message
 
-        result := ComCall(17, this, "ptr", message, "ptr", confirmed, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", message, "short*", &confirmed := 0, "HRESULT")
+        return confirmed
     }
 
     /**
      * 
      * @param {BSTR} message 
      * @param {BSTR} defstr 
-     * @param {Pointer<VARIANT>} textdata 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    prompt(message, defstr, textdata) {
+    prompt(message, defstr) {
         message := message is String ? BSTR.Alloc(message).Value : message
         defstr := defstr is String ? BSTR.Alloc(defstr).Value : defstr
 
+        textdata := VARIANT()
         result := ComCall(18, this, "ptr", message, "ptr", defstr, "ptr", textdata, "HRESULT")
-        return result
+        return textdata
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLImageElementFactory>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLImageElementFactory} 
      */
-    get_Image(p) {
-        result := ComCall(19, this, "ptr*", p, "HRESULT")
-        return result
+    get_Image() {
+        result := ComCall(19, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLImageElementFactory(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLLocation>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLLocation} 
      */
-    get_location(p) {
-        result := ComCall(20, this, "ptr*", p, "HRESULT")
-        return result
+    get_location() {
+        result := ComCall(20, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLLocation(p)
     }
 
     /**
      * 
-     * @param {Pointer<IOmHistory>} p 
-     * @returns {HRESULT} 
+     * @returns {IOmHistory} 
      */
-    get_history(p) {
-        result := ComCall(21, this, "ptr*", p, "HRESULT")
-        return result
+    get_history() {
+        result := ComCall(21, this, "ptr*", &p := 0, "HRESULT")
+        return IOmHistory(p)
     }
 
     /**
@@ -207,22 +211,21 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_opener(p) {
+    get_opener() {
+        p := VARIANT()
         result := ComCall(24, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IOmNavigator>} p 
-     * @returns {HRESULT} 
+     * @returns {IOmNavigator} 
      */
-    get_navigator(p) {
-        result := ComCall(25, this, "ptr*", p, "HRESULT")
-        return result
+    get_navigator() {
+        result := ComCall(25, this, "ptr*", &p := 0, "HRESULT")
+        return IOmNavigator(p)
     }
 
     /**
@@ -239,22 +242,21 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(p) {
+    get_name() {
+        p := BSTR()
         result := ComCall(27, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLWindow2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLWindow2} 
      */
-    get_parent(p) {
-        result := ComCall(28, this, "ptr*", p, "HRESULT")
-        return result
+    get_parent() {
+        result := ComCall(28, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLWindow2(p)
     }
 
     /**
@@ -263,46 +265,42 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @param {BSTR} name 
      * @param {BSTR} features 
      * @param {VARIANT_BOOL} replace 
-     * @param {Pointer<IHTMLWindow2>} pomWindowResult 
-     * @returns {HRESULT} 
+     * @returns {IHTMLWindow2} 
      */
-    open(url, name, features, replace, pomWindowResult) {
+    open(url, name, features, replace) {
         url := url is String ? BSTR.Alloc(url).Value : url
         name := name is String ? BSTR.Alloc(name).Value : name
         features := features is String ? BSTR.Alloc(features).Value : features
 
-        result := ComCall(29, this, "ptr", url, "ptr", name, "ptr", features, "short", replace, "ptr*", pomWindowResult, "HRESULT")
-        return result
+        result := ComCall(29, this, "ptr", url, "ptr", name, "ptr", features, "short", replace, "ptr*", &pomWindowResult := 0, "HRESULT")
+        return IHTMLWindow2(pomWindowResult)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLWindow2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLWindow2} 
      */
-    get_self(p) {
-        result := ComCall(30, this, "ptr*", p, "HRESULT")
-        return result
+    get_self() {
+        result := ComCall(30, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLWindow2(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLWindow2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLWindow2} 
      */
-    get_top(p) {
-        result := ComCall(31, this, "ptr*", p, "HRESULT")
-        return result
+    get_top() {
+        result := ComCall(31, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLWindow2(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLWindow2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLWindow2} 
      */
-    get_window(p) {
-        result := ComCall(32, this, "ptr*", p, "HRESULT")
-        return result
+    get_window() {
+        result := ComCall(32, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLWindow2(p)
     }
 
     /**
@@ -329,12 +327,12 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onfocus(p) {
+    get_onfocus() {
+        p := VARIANT()
         result := ComCall(35, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -349,12 +347,12 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onblur(p) {
+    get_onblur() {
+        p := VARIANT()
         result := ComCall(37, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -369,12 +367,12 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onload(p) {
+    get_onload() {
+        p := VARIANT()
         result := ComCall(39, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -389,12 +387,12 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onbeforeunload(p) {
+    get_onbeforeunload() {
+        p := VARIANT()
         result := ComCall(41, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -409,12 +407,12 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onunload(p) {
+    get_onunload() {
+        p := VARIANT()
         result := ComCall(43, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -429,12 +427,12 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onhelp(p) {
+    get_onhelp() {
+        p := VARIANT()
         result := ComCall(45, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -449,12 +447,12 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onerror(p) {
+    get_onerror() {
+        p := VARIANT()
         result := ComCall(47, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -469,12 +467,12 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onresize(p) {
+    get_onresize() {
+        p := VARIANT()
         result := ComCall(49, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -489,42 +487,39 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onscroll(p) {
+    get_onscroll() {
+        p := VARIANT()
         result := ComCall(51, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDocument2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument2} 
      */
-    get_document(p) {
-        result := ComCall(52, this, "ptr*", p, "HRESULT")
-        return result
+    get_document() {
+        result := ComCall(52, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDocument2(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLEventObj>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLEventObj} 
      */
-    get_event(p) {
-        result := ComCall(53, this, "ptr*", p, "HRESULT")
-        return result
+    get_event() {
+        result := ComCall(53, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLEventObj(p)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} p 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__newEnum(p) {
-        result := ComCall(54, this, "ptr*", p, "HRESULT")
-        return result
+    get__newEnum() {
+        result := ComCall(54, this, "ptr*", &p := 0, "HRESULT")
+        return IUnknown(p)
     }
 
     /**
@@ -532,14 +527,14 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @param {BSTR} dialog 
      * @param {Pointer<VARIANT>} varArgIn 
      * @param {Pointer<VARIANT>} varOptions 
-     * @param {Pointer<VARIANT>} varArgOut 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    showModalDialog(dialog, varArgIn, varOptions, varArgOut) {
+    showModalDialog(dialog, varArgIn, varOptions) {
         dialog := dialog is String ? BSTR.Alloc(dialog).Value : dialog
 
+        varArgOut := VARIANT()
         result := ComCall(55, this, "ptr", dialog, "ptr", varArgIn, "ptr", varOptions, "ptr", varArgOut, "HRESULT")
-        return result
+        return varArgOut
     }
 
     /**
@@ -559,22 +554,20 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<IHTMLScreen>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLScreen} 
      */
-    get_screen(p) {
-        result := ComCall(57, this, "ptr*", p, "HRESULT")
-        return result
+    get_screen() {
+        result := ComCall(57, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLScreen(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLOptionElementFactory>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLOptionElementFactory} 
      */
-    get_Option(p) {
-        result := ComCall(58, this, "ptr*", p, "HRESULT")
-        return result
+    get_Option() {
+        result := ComCall(58, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLOptionElementFactory(p)
     }
 
     /**
@@ -588,12 +581,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_closed(p) {
-        result := ComCall(60, this, "ptr", p, "HRESULT")
-        return result
+    get_closed() {
+        result := ComCall(60, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -618,12 +610,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<IOmNavigator>} p 
-     * @returns {HRESULT} 
+     * @returns {IOmNavigator} 
      */
-    get_clientInformation(p) {
-        result := ComCall(63, this, "ptr*", p, "HRESULT")
-        return result
+    get_clientInformation() {
+        result := ComCall(63, this, "ptr*", &p := 0, "HRESULT")
+        return IOmNavigator(p)
     }
 
     /**
@@ -631,16 +622,13 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @param {BSTR} expression 
      * @param {Integer} msec 
      * @param {Pointer<VARIANT>} language 
-     * @param {Pointer<Integer>} timerID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    setInterval(expression, msec, language, timerID) {
+    setInterval(expression, msec, language) {
         expression := expression is String ? BSTR.Alloc(expression).Value : expression
 
-        timerIDMarshal := timerID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(64, this, "ptr", expression, "int", msec, "ptr", language, timerIDMarshal, timerID, "HRESULT")
-        return result
+        result := ComCall(64, this, "ptr", expression, "int", msec, "ptr", language, "int*", &timerID := 0, "HRESULT")
+        return timerID
     }
 
     /**
@@ -665,37 +653,37 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_offscreenBuffering(p) {
+    get_offscreenBuffering() {
+        p := VARIANT()
         result := ComCall(67, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {BSTR} code 
      * @param {BSTR} language 
-     * @param {Pointer<VARIANT>} pvarRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    execScript(code, language, pvarRet) {
+    execScript(code, language) {
         code := code is String ? BSTR.Alloc(code).Value : code
         language := language is String ? BSTR.Alloc(language).Value : language
 
+        pvarRet := VARIANT()
         result := ComCall(68, this, "ptr", code, "ptr", language, "ptr", pvarRet, "HRESULT")
-        return result
+        return pvarRet
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} String 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toString(String) {
+    toString() {
+        String := BSTR()
         result := ComCall(69, this, "ptr", String, "HRESULT")
-        return result
+        return String
     }
 
     /**
@@ -766,11 +754,10 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_external(p) {
-        result := ComCall(76, this, "ptr*", p, "HRESULT")
-        return result
+    get_external() {
+        result := ComCall(76, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 }

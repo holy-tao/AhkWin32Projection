@@ -49,7 +49,10 @@ class IDxcCompiler2 extends IDxcCompiler{
         pEntryPoint := pEntryPoint is String ? StrPtr(pEntryPoint) : pEntryPoint
         pTargetProfile := pTargetProfile is String ? StrPtr(pTargetProfile) : pTargetProfile
 
-        result := ComCall(6, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, "ptr", pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", ppResult, "ptr", ppDebugBlobName, "ptr*", ppDebugBlob, "HRESULT")
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+        ppDebugBlobNameMarshal := ppDebugBlobName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", ppResult, ppDebugBlobNameMarshal, ppDebugBlobName, "ptr*", ppDebugBlob, "HRESULT")
         return result
     }
 }

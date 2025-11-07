@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxBlockMapFile.ahk
+#Include .\IAppxBlockMapFilesEnumerator.ahk
+#Include ..\..\..\System\Com\IUri.ahk
+#Include ..\..\..\System\Com\IStream.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,47 +48,43 @@ class IAppxBlockMapReader extends IUnknown{
     /**
      * 
      * @param {PWSTR} filename 
-     * @param {Pointer<IAppxBlockMapFile>} file 
-     * @returns {HRESULT} 
+     * @returns {IAppxBlockMapFile} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapreader-getfile
      */
-    GetFile(filename, file) {
+    GetFile(filename) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(3, this, "ptr", filename, "ptr*", file, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", filename, "ptr*", &file := 0, "HRESULT")
+        return IAppxBlockMapFile(file)
     }
 
     /**
      * 
-     * @param {Pointer<IAppxBlockMapFilesEnumerator>} enumerator 
-     * @returns {HRESULT} 
+     * @returns {IAppxBlockMapFilesEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapreader-getfiles
      */
-    GetFiles(enumerator) {
-        result := ComCall(4, this, "ptr*", enumerator, "HRESULT")
-        return result
+    GetFiles() {
+        result := ComCall(4, this, "ptr*", &enumerator := 0, "HRESULT")
+        return IAppxBlockMapFilesEnumerator(enumerator)
     }
 
     /**
      * 
-     * @param {Pointer<IUri>} hashMethod 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapreader-gethashmethod
      */
-    GetHashMethod(hashMethod) {
-        result := ComCall(5, this, "ptr*", hashMethod, "HRESULT")
-        return result
+    GetHashMethod() {
+        result := ComCall(5, this, "ptr*", &hashMethod := 0, "HRESULT")
+        return IUri(hashMethod)
     }
 
     /**
      * 
-     * @param {Pointer<IStream>} blockMapStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapreader-getstream
      */
-    GetStream(blockMapStream) {
-        result := ComCall(6, this, "ptr*", blockMapStream, "HRESULT")
-        return result
+    GetStream() {
+        result := ComCall(6, this, "ptr*", &blockMapStream := 0, "HRESULT")
+        return IStream(blockMapStream)
     }
 }

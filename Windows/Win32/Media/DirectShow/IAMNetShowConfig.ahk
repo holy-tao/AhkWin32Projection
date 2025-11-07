@@ -68,7 +68,9 @@ class IAMNetShowConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_usefixedudpport
      */
     get_UseFixedUDPPort(pUseFixedUDPPort) {
-        result := ComCall(9, this, "ptr", pUseFixedUDPPort, "HRESULT")
+        pUseFixedUDPPortMarshal := pUseFixedUDPPort is VarRef ? "short*" : "ptr"
+
+        result := ComCall(9, this, pUseFixedUDPPortMarshal, pUseFixedUDPPort, "HRESULT")
         return result
     }
 
@@ -114,7 +116,9 @@ class IAMNetShowConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_usehttpproxy
      */
     get_UseHTTPProxy(pUseHTTPProxy) {
-        result := ComCall(13, this, "ptr", pUseHTTPProxy, "HRESULT")
+        pUseHTTPProxyMarshal := pUseHTTPProxy is VarRef ? "short*" : "ptr"
+
+        result := ComCall(13, this, pUseHTTPProxyMarshal, pUseHTTPProxy, "HRESULT")
         return result
     }
 
@@ -136,7 +140,9 @@ class IAMNetShowConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enableautoproxy
      */
     get_EnableAutoProxy(pEnableAutoProxy) {
-        result := ComCall(15, this, "ptr", pEnableAutoProxy, "HRESULT")
+        pEnableAutoProxyMarshal := pEnableAutoProxy is VarRef ? "short*" : "ptr"
+
+        result := ComCall(15, this, pEnableAutoProxyMarshal, pEnableAutoProxy, "HRESULT")
         return result
     }
 
@@ -206,7 +212,9 @@ class IAMNetShowConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enablemulticast
      */
     get_EnableMulticast(pEnableMulticast) {
-        result := ComCall(21, this, "ptr", pEnableMulticast, "HRESULT")
+        pEnableMulticastMarshal := pEnableMulticast is VarRef ? "short*" : "ptr"
+
+        result := ComCall(21, this, pEnableMulticastMarshal, pEnableMulticast, "HRESULT")
         return result
     }
 
@@ -228,7 +236,9 @@ class IAMNetShowConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enableudp
      */
     get_EnableUDP(pEnableUDP) {
-        result := ComCall(23, this, "ptr", pEnableUDP, "HRESULT")
+        pEnableUDPMarshal := pEnableUDP is VarRef ? "short*" : "ptr"
+
+        result := ComCall(23, this, pEnableUDPMarshal, pEnableUDP, "HRESULT")
         return result
     }
 
@@ -250,7 +260,9 @@ class IAMNetShowConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enabletcp
      */
     get_EnableTCP(pEnableTCP) {
-        result := ComCall(25, this, "ptr", pEnableTCP, "HRESULT")
+        pEnableTCPMarshal := pEnableTCP is VarRef ? "short*" : "ptr"
+
+        result := ComCall(25, this, pEnableTCPMarshal, pEnableTCP, "HRESULT")
         return result
     }
 
@@ -272,7 +284,9 @@ class IAMNetShowConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enablehttp
      */
     get_EnableHTTP(pEnableHTTP) {
-        result := ComCall(27, this, "ptr", pEnableHTTP, "HRESULT")
+        pEnableHTTPMarshal := pEnableHTTP is VarRef ? "short*" : "ptr"
+
+        result := ComCall(27, this, pEnableHTTPMarshal, pEnableHTTP, "HRESULT")
         return result
     }
 

@@ -62,18 +62,16 @@ class IViewObject extends IUnknown{
      * @param {Pointer<Void>} pvAspect 
      * @param {Pointer<DVTARGETDEVICE>} ptd 
      * @param {HDC} hicTargetDev 
-     * @param {Pointer<Pointer<LOGPALETTE>>} ppColorSet 
-     * @returns {HRESULT} 
+     * @returns {Pointer<LOGPALETTE>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-getcolorset
      */
-    GetColorSet(dwDrawAspect, lindex, pvAspect, ptd, hicTargetDev, ppColorSet) {
+    GetColorSet(dwDrawAspect, lindex, pvAspect, ptd, hicTargetDev) {
         hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
 
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
-        ppColorSetMarshal := ppColorSet is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hicTargetDev, ppColorSetMarshal, ppColorSet, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hicTargetDev, "ptr*", &ppColorSet := 0, "HRESULT")
+        return ppColorSet
     }
 
     /**
@@ -81,16 +79,14 @@ class IViewObject extends IUnknown{
      * @param {Integer} dwDrawAspect 
      * @param {Integer} lindex 
      * @param {Pointer<Void>} pvAspect 
-     * @param {Pointer<Integer>} pdwFreeze 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-freeze
      */
-    Freeze(dwDrawAspect, lindex, pvAspect, pdwFreeze) {
+    Freeze(dwDrawAspect, lindex, pvAspect) {
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
-        pdwFreezeMarshal := pdwFreeze is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, pdwFreezeMarshal, pdwFreeze, "HRESULT")
-        return result
+        result := ComCall(5, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "uint*", &pdwFreeze := 0, "HRESULT")
+        return pdwFreeze
     }
 
     /**

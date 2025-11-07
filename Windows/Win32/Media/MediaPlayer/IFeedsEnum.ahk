@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Ole\IEnumVARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -30,34 +31,29 @@ class IFeedsEnum extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, countMarshal, count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    Item(index, disp) {
-        result := ComCall(8, this, "int", index, "ptr*", disp, "HRESULT")
-        return result
+    Item(index) {
+        result := ComCall(8, this, "int", index, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVARIANT>} enumVar 
-     * @returns {HRESULT} 
+     * @returns {IEnumVARIANT} 
      */
-    get__NewEnum(enumVar) {
-        result := ComCall(9, this, "ptr*", enumVar, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &enumVar := 0, "HRESULT")
+        return IEnumVARIANT(enumVar)
     }
 }

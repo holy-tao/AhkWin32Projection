@@ -32,170 +32,147 @@ class IWICBitmapCodecInfo extends IWICComponentInfo{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidContainerFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getcontainerformat
      */
-    GetContainerFormat(pguidContainerFormat) {
+    GetContainerFormat() {
+        pguidContainerFormat := Guid()
         result := ComCall(11, this, "ptr", pguidContainerFormat, "HRESULT")
-        return result
+        return pguidContainerFormat
     }
 
     /**
      * 
      * @param {Integer} cFormats 
      * @param {Pointer<Guid>} pguidPixelFormats 
-     * @param {Pointer<Integer>} pcActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getpixelformats
      */
-    GetPixelFormats(cFormats, pguidPixelFormats, pcActual) {
-        pcActualMarshal := pcActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "uint", cFormats, "ptr", pguidPixelFormats, pcActualMarshal, pcActual, "HRESULT")
-        return result
+    GetPixelFormats(cFormats, pguidPixelFormats) {
+        result := ComCall(12, this, "uint", cFormats, "ptr", pguidPixelFormats, "uint*", &pcActual := 0, "HRESULT")
+        return pcActual
     }
 
     /**
      * 
      * @param {Integer} cchColorManagementVersion 
      * @param {PWSTR} wzColorManagementVersion 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getcolormanagementversion
      */
-    GetColorManagementVersion(cchColorManagementVersion, wzColorManagementVersion, pcchActual) {
+    GetColorManagementVersion(cchColorManagementVersion, wzColorManagementVersion) {
         wzColorManagementVersion := wzColorManagementVersion is String ? StrPtr(wzColorManagementVersion) : wzColorManagementVersion
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, "uint", cchColorManagementVersion, "ptr", wzColorManagementVersion, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+        result := ComCall(13, this, "uint", cchColorManagementVersion, "ptr", wzColorManagementVersion, "uint*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 
     /**
      * 
      * @param {Integer} cchDeviceManufacturer 
      * @param {PWSTR} wzDeviceManufacturer 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getdevicemanufacturer
      */
-    GetDeviceManufacturer(cchDeviceManufacturer, wzDeviceManufacturer, pcchActual) {
+    GetDeviceManufacturer(cchDeviceManufacturer, wzDeviceManufacturer) {
         wzDeviceManufacturer := wzDeviceManufacturer is String ? StrPtr(wzDeviceManufacturer) : wzDeviceManufacturer
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "uint", cchDeviceManufacturer, "ptr", wzDeviceManufacturer, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+        result := ComCall(14, this, "uint", cchDeviceManufacturer, "ptr", wzDeviceManufacturer, "uint*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 
     /**
      * 
      * @param {Integer} cchDeviceModels 
      * @param {PWSTR} wzDeviceModels 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getdevicemodels
      */
-    GetDeviceModels(cchDeviceModels, wzDeviceModels, pcchActual) {
+    GetDeviceModels(cchDeviceModels, wzDeviceModels) {
         wzDeviceModels := wzDeviceModels is String ? StrPtr(wzDeviceModels) : wzDeviceModels
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, "uint", cchDeviceModels, "ptr", wzDeviceModels, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+        result := ComCall(15, this, "uint", cchDeviceModels, "ptr", wzDeviceModels, "uint*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 
     /**
      * 
      * @param {Integer} cchMimeTypes 
      * @param {PWSTR} wzMimeTypes 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getmimetypes
      */
-    GetMimeTypes(cchMimeTypes, wzMimeTypes, pcchActual) {
+    GetMimeTypes(cchMimeTypes, wzMimeTypes) {
         wzMimeTypes := wzMimeTypes is String ? StrPtr(wzMimeTypes) : wzMimeTypes
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, "uint", cchMimeTypes, "ptr", wzMimeTypes, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+        result := ComCall(16, this, "uint", cchMimeTypes, "ptr", wzMimeTypes, "uint*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 
     /**
      * 
      * @param {Integer} cchFileExtensions 
      * @param {PWSTR} wzFileExtensions 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getfileextensions
      */
-    GetFileExtensions(cchFileExtensions, wzFileExtensions, pcchActual) {
+    GetFileExtensions(cchFileExtensions, wzFileExtensions) {
         wzFileExtensions := wzFileExtensions is String ? StrPtr(wzFileExtensions) : wzFileExtensions
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, "uint", cchFileExtensions, "ptr", wzFileExtensions, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+        result := ComCall(17, this, "uint", cchFileExtensions, "ptr", wzFileExtensions, "uint*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfSupportAnimation 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportanimation
      */
-    DoesSupportAnimation(pfSupportAnimation) {
-        result := ComCall(18, this, "ptr", pfSupportAnimation, "HRESULT")
-        return result
+    DoesSupportAnimation() {
+        result := ComCall(18, this, "int*", &pfSupportAnimation := 0, "HRESULT")
+        return pfSupportAnimation
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfSupportChromakey 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportchromakey
      */
-    DoesSupportChromakey(pfSupportChromakey) {
-        result := ComCall(19, this, "ptr", pfSupportChromakey, "HRESULT")
-        return result
+    DoesSupportChromakey() {
+        result := ComCall(19, this, "int*", &pfSupportChromakey := 0, "HRESULT")
+        return pfSupportChromakey
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfSupportLossless 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportlossless
      */
-    DoesSupportLossless(pfSupportLossless) {
-        result := ComCall(20, this, "ptr", pfSupportLossless, "HRESULT")
-        return result
+    DoesSupportLossless() {
+        result := ComCall(20, this, "int*", &pfSupportLossless := 0, "HRESULT")
+        return pfSupportLossless
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfSupportMultiframe 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-doessupportmultiframe
      */
-    DoesSupportMultiframe(pfSupportMultiframe) {
-        result := ComCall(21, this, "ptr", pfSupportMultiframe, "HRESULT")
-        return result
+    DoesSupportMultiframe() {
+        result := ComCall(21, this, "int*", &pfSupportMultiframe := 0, "HRESULT")
+        return pfSupportMultiframe
     }
 
     /**
      * 
      * @param {PWSTR} wzMimeType 
-     * @param {Pointer<BOOL>} pfMatches 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-matchesmimetype
      */
-    MatchesMimeType(wzMimeType, pfMatches) {
+    MatchesMimeType(wzMimeType) {
         wzMimeType := wzMimeType is String ? StrPtr(wzMimeType) : wzMimeType
 
-        result := ComCall(22, this, "ptr", wzMimeType, "ptr", pfMatches, "HRESULT")
-        return result
+        result := ComCall(22, this, "ptr", wzMimeType, "int*", &pfMatches := 0, "HRESULT")
+        return pfMatches
     }
 }

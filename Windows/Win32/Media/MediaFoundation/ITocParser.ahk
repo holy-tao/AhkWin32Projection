@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IToc.ahk
+#Include .\ITocCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -61,26 +63,24 @@ class ITocParser extends IUnknown{
      * 
      * @param {Integer} enumTocPosType 
      * @param {Integer} dwTocIndex 
-     * @param {Pointer<IToc>} ppToc 
-     * @returns {HRESULT} 
+     * @returns {IToc} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-gettocbyindex
      */
-    GetTocByIndex(enumTocPosType, dwTocIndex, ppToc) {
-        result := ComCall(5, this, "int", enumTocPosType, "uint", dwTocIndex, "ptr*", ppToc, "HRESULT")
-        return result
+    GetTocByIndex(enumTocPosType, dwTocIndex) {
+        result := ComCall(5, this, "int", enumTocPosType, "uint", dwTocIndex, "ptr*", &ppToc := 0, "HRESULT")
+        return IToc(ppToc)
     }
 
     /**
      * 
      * @param {Integer} enumTocPosType 
      * @param {Guid} guidTocType 
-     * @param {Pointer<ITocCollection>} ppTocs 
-     * @returns {HRESULT} 
+     * @returns {ITocCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-gettocbytype
      */
-    GetTocByType(enumTocPosType, guidTocType, ppTocs) {
-        result := ComCall(6, this, "int", enumTocPosType, "ptr", guidTocType, "ptr*", ppTocs, "HRESULT")
-        return result
+    GetTocByType(enumTocPosType, guidTocType) {
+        result := ComCall(6, this, "int", enumTocPosType, "ptr", guidTocType, "ptr*", &ppTocs := 0, "HRESULT")
+        return ITocCollection(ppTocs)
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzRoleAssignments.ahk
 #Include .\IAzApplicationGroup.ahk
 
 /**
@@ -33,13 +34,13 @@ class IAzApplicationGroup2 extends IAzApplicationGroup{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-get_bizrule
      */
-    get_BizRule(pbstrProp) {
+    get_BizRule() {
+        pbstrProp := BSTR()
         result := ComCall(39, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
@@ -57,13 +58,13 @@ class IAzApplicationGroup2 extends IAzApplicationGroup{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-get_bizrulelanguage
      */
-    get_BizRuleLanguage(pbstrProp) {
+    get_BizRuleLanguage() {
+        pbstrProp := BSTR()
         result := ComCall(41, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
@@ -81,13 +82,13 @@ class IAzApplicationGroup2 extends IAzApplicationGroup{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-get_bizruleimportedpath
      */
-    get_BizRuleImportedPath(pbstrProp) {
+    get_BizRuleImportedPath() {
+        pbstrProp := BSTR()
         result := ComCall(43, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
@@ -107,14 +108,13 @@ class IAzApplicationGroup2 extends IAzApplicationGroup{
      * 
      * @param {BSTR} bstrScopeName 
      * @param {VARIANT_BOOL} bRecursive 
-     * @param {Pointer<IAzRoleAssignments>} ppRoleAssignments 
-     * @returns {HRESULT} 
+     * @returns {IAzRoleAssignments} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-roleassignments
      */
-    RoleAssignments(bstrScopeName, bRecursive, ppRoleAssignments) {
+    RoleAssignments(bstrScopeName, bRecursive) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(45, this, "ptr", bstrScopeName, "short", bRecursive, "ptr*", ppRoleAssignments, "HRESULT")
-        return result
+        result := ComCall(45, this, "ptr", bstrScopeName, "short", bRecursive, "ptr*", &ppRoleAssignments := 0, "HRESULT")
+        return IAzRoleAssignments(ppRoleAssignments)
     }
 }

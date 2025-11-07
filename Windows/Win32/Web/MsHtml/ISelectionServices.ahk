@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMarkupContainer.ahk
+#Include .\ISegment.ahk
+#Include .\IElementSegment.ahk
+#Include .\ISelectionServicesListener.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,35 +45,32 @@ class ISelectionServices extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMarkupContainer>} ppIContainer 
-     * @returns {HRESULT} 
+     * @returns {IMarkupContainer} 
      */
-    GetMarkupContainer(ppIContainer) {
-        result := ComCall(4, this, "ptr*", ppIContainer, "HRESULT")
-        return result
+    GetMarkupContainer() {
+        result := ComCall(4, this, "ptr*", &ppIContainer := 0, "HRESULT")
+        return IMarkupContainer(ppIContainer)
     }
 
     /**
      * 
      * @param {IMarkupPointer} pIStart 
      * @param {IMarkupPointer} pIEnd 
-     * @param {Pointer<ISegment>} ppISegmentAdded 
-     * @returns {HRESULT} 
+     * @returns {ISegment} 
      */
-    AddSegment(pIStart, pIEnd, ppISegmentAdded) {
-        result := ComCall(5, this, "ptr", pIStart, "ptr", pIEnd, "ptr*", ppISegmentAdded, "HRESULT")
-        return result
+    AddSegment(pIStart, pIEnd) {
+        result := ComCall(5, this, "ptr", pIStart, "ptr", pIEnd, "ptr*", &ppISegmentAdded := 0, "HRESULT")
+        return ISegment(ppISegmentAdded)
     }
 
     /**
      * 
      * @param {IHTMLElement} pIElement 
-     * @param {Pointer<IElementSegment>} ppISegmentAdded 
-     * @returns {HRESULT} 
+     * @returns {IElementSegment} 
      */
-    AddElementSegment(pIElement, ppISegmentAdded) {
-        result := ComCall(6, this, "ptr", pIElement, "ptr*", ppISegmentAdded, "HRESULT")
-        return result
+    AddElementSegment(pIElement) {
+        result := ComCall(6, this, "ptr", pIElement, "ptr*", &ppISegmentAdded := 0, "HRESULT")
+        return IElementSegment(ppISegmentAdded)
     }
 
     /**
@@ -84,11 +85,10 @@ class ISelectionServices extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISelectionServicesListener>} ppISelectionServicesListener 
-     * @returns {HRESULT} 
+     * @returns {ISelectionServicesListener} 
      */
-    GetSelectionServicesListener(ppISelectionServicesListener) {
-        result := ComCall(8, this, "ptr*", ppISelectionServicesListener, "HRESULT")
-        return result
+    GetSelectionServicesListener() {
+        result := ComCall(8, this, "ptr*", &ppISelectionServicesListener := 0, "HRESULT")
+        return ISelectionServicesListener(ppISelectionServicesListener)
     }
 }

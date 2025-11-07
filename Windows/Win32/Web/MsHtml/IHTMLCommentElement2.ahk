@@ -43,36 +43,33 @@ class IHTMLCommentElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_data(p) {
+    get_data() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {Integer} offset 
      * @param {Integer} Count 
-     * @param {Pointer<BSTR>} pbstrsubString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    substringData(offset, Count, pbstrsubString) {
+    substringData(offset, Count) {
+        pbstrsubString := BSTR()
         result := ComCall(10, this, "int", offset, "int", Count, "ptr", pbstrsubString, "HRESULT")
-        return result
+        return pbstrsubString
     }
 
     /**

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\IDirectSound.ahk
+#Include .\IDirectSoundCapture.ahk
+#Include .\IDirectSound8.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
@@ -1639,16 +1642,15 @@ class DirectSound {
     /**
      * 
      * @param {Pointer<Guid>} pcGuidDevice 
-     * @param {Pointer<IDirectSound>} ppDS 
      * @param {IUnknown} pUnkOuter 
-     * @returns {HRESULT} 
+     * @returns {IDirectSound} 
      */
-    static DirectSoundCreate(pcGuidDevice, ppDS, pUnkOuter) {
-        result := DllCall("DSOUND.dll\DirectSoundCreate", "ptr", pcGuidDevice, "ptr*", ppDS, "ptr", pUnkOuter, "int")
+    static DirectSoundCreate(pcGuidDevice, pUnkOuter) {
+        result := DllCall("DSOUND.dll\DirectSoundCreate", "ptr", pcGuidDevice, "ptr*", &ppDS := 0, "ptr", pUnkOuter, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDirectSound(ppDS)
     }
 
     /**
@@ -1686,16 +1688,15 @@ class DirectSound {
     /**
      * 
      * @param {Pointer<Guid>} pcGuidDevice 
-     * @param {Pointer<IDirectSoundCapture>} ppDSC 
      * @param {IUnknown} pUnkOuter 
-     * @returns {HRESULT} 
+     * @returns {IDirectSoundCapture} 
      */
-    static DirectSoundCaptureCreate(pcGuidDevice, ppDSC, pUnkOuter) {
-        result := DllCall("DSOUND.dll\DirectSoundCaptureCreate", "ptr", pcGuidDevice, "ptr*", ppDSC, "ptr", pUnkOuter, "int")
+    static DirectSoundCaptureCreate(pcGuidDevice, pUnkOuter) {
+        result := DllCall("DSOUND.dll\DirectSoundCaptureCreate", "ptr", pcGuidDevice, "ptr*", &ppDSC := 0, "ptr", pUnkOuter, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDirectSoundCapture(ppDSC)
     }
 
     /**
@@ -1733,31 +1734,29 @@ class DirectSound {
     /**
      * 
      * @param {Pointer<Guid>} pcGuidDevice 
-     * @param {Pointer<IDirectSound8>} ppDS8 
      * @param {IUnknown} pUnkOuter 
-     * @returns {HRESULT} 
+     * @returns {IDirectSound8} 
      */
-    static DirectSoundCreate8(pcGuidDevice, ppDS8, pUnkOuter) {
-        result := DllCall("DSOUND.dll\DirectSoundCreate8", "ptr", pcGuidDevice, "ptr*", ppDS8, "ptr", pUnkOuter, "int")
+    static DirectSoundCreate8(pcGuidDevice, pUnkOuter) {
+        result := DllCall("DSOUND.dll\DirectSoundCreate8", "ptr", pcGuidDevice, "ptr*", &ppDS8 := 0, "ptr", pUnkOuter, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDirectSound8(ppDS8)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pcGuidDevice 
-     * @param {Pointer<IDirectSoundCapture>} ppDSC8 
      * @param {IUnknown} pUnkOuter 
-     * @returns {HRESULT} 
+     * @returns {IDirectSoundCapture} 
      */
-    static DirectSoundCaptureCreate8(pcGuidDevice, ppDSC8, pUnkOuter) {
-        result := DllCall("DSOUND.dll\DirectSoundCaptureCreate8", "ptr", pcGuidDevice, "ptr*", ppDSC8, "ptr", pUnkOuter, "int")
+    static DirectSoundCaptureCreate8(pcGuidDevice, pUnkOuter) {
+        result := DllCall("DSOUND.dll\DirectSoundCaptureCreate8", "ptr", pcGuidDevice, "ptr*", &ppDSC8 := 0, "ptr", pUnkOuter, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDirectSoundCapture(ppDSC8)
     }
 
     /**

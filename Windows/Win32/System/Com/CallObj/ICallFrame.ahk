@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\CALLFRAMEINFO.ahk
+#Include .\CALLFRAMEPARAMINFO.ahk
+#Include ..\..\Variant\VARIANT.ahk
+#Include .\ICallFrame.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -32,13 +36,13 @@ class ICallFrame extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<CALLFRAMEINFO>} pInfo 
-     * @returns {HRESULT} 
+     * @returns {CALLFRAMEINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getinfo
      */
-    GetInfo(pInfo) {
+    GetInfo() {
+        pInfo := CALLFRAMEINFO()
         result := ComCall(3, this, "ptr", pInfo, "HRESULT")
-        return result
+        return pInfo
     }
 
     /**
@@ -63,7 +67,10 @@ class ICallFrame extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getnames
      */
     GetNames(pwszInterface, pwszMethod) {
-        result := ComCall(5, this, "ptr", pwszInterface, "ptr", pwszMethod, "HRESULT")
+        pwszInterfaceMarshal := pwszInterface is VarRef ? "ptr*" : "ptr"
+        pwszMethodMarshal := pwszMethod is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, pwszInterfaceMarshal, pwszInterface, pwszMethodMarshal, pwszMethod, "HRESULT")
         return result
     }
 
@@ -112,13 +119,13 @@ class ICallFrame extends IUnknown{
     /**
      * 
      * @param {Integer} iparam 
-     * @param {Pointer<CALLFRAMEPARAMINFO>} pInfo 
-     * @returns {HRESULT} 
+     * @returns {CALLFRAMEPARAMINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getparaminfo
      */
-    GetParamInfo(iparam, pInfo) {
+    GetParamInfo(iparam) {
+        pInfo := CALLFRAMEPARAMINFO()
         result := ComCall(10, this, "uint", iparam, "ptr", pInfo, "HRESULT")
-        return result
+        return pInfo
     }
 
     /**
@@ -136,26 +143,25 @@ class ICallFrame extends IUnknown{
     /**
      * 
      * @param {Integer} iparam 
-     * @param {Pointer<VARIANT>} pvar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getparam
      */
-    GetParam(iparam, pvar) {
+    GetParam(iparam) {
+        pvar := VARIANT()
         result := ComCall(12, this, "uint", iparam, "ptr", pvar, "HRESULT")
-        return result
+        return pvar
     }
 
     /**
      * 
      * @param {Integer} copyControl 
      * @param {ICallFrameWalker} pWalker 
-     * @param {Pointer<ICallFrame>} ppFrame 
-     * @returns {HRESULT} 
+     * @returns {ICallFrame} 
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-copy
      */
-    Copy(copyControl, pWalker, ppFrame) {
-        result := ComCall(13, this, "int", copyControl, "ptr", pWalker, "ptr*", ppFrame, "HRESULT")
-        return result
+    Copy(copyControl, pWalker) {
+        result := ComCall(13, this, "int", copyControl, "ptr", pWalker, "ptr*", &ppFrame := 0, "HRESULT")
+        return ICallFrame(ppFrame)
     }
 
     /**
@@ -204,15 +210,12 @@ class ICallFrame extends IUnknown{
      * 
      * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pmshlContext 
      * @param {Integer} mshlflags 
-     * @param {Pointer<Integer>} pcbBufferNeeded 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getmarshalsizemax
      */
-    GetMarshalSizeMax(pmshlContext, mshlflags, pcbBufferNeeded) {
-        pcbBufferNeededMarshal := pcbBufferNeeded is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, "ptr", pmshlContext, "int", mshlflags, pcbBufferNeededMarshal, pcbBufferNeeded, "HRESULT")
-        return result
+    GetMarshalSizeMax(pmshlContext, mshlflags) {
+        result := ComCall(17, this, "ptr", pmshlContext, "int", mshlflags, "uint*", &pcbBufferNeeded := 0, "HRESULT")
+        return pcbBufferNeeded
     }
 
     /**
@@ -243,16 +246,14 @@ class ICallFrame extends IUnknown{
      * @param {Integer} cbBuffer 
      * @param {Integer} dataRep 
      * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pcontext 
-     * @param {Pointer<Integer>} pcbUnmarshalled 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-unmarshal
      */
-    Unmarshal(pBuffer, cbBuffer, dataRep, pcontext, pcbUnmarshalled) {
+    Unmarshal(pBuffer, cbBuffer, dataRep, pcontext) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
-        pcbUnmarshalledMarshal := pcbUnmarshalled is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", dataRep, "ptr", pcontext, pcbUnmarshalledMarshal, pcbUnmarshalled, "HRESULT")
-        return result
+        result := ComCall(19, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", dataRep, "ptr", pcontext, "uint*", &pcbUnmarshalled := 0, "HRESULT")
+        return pcbUnmarshalled
     }
 
     /**

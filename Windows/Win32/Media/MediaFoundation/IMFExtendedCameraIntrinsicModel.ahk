@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MFExtendedCameraIntrinsic_IntrinsicModel.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,12 @@ class IMFExtendedCameraIntrinsicModel extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MFExtendedCameraIntrinsic_IntrinsicModel>} pIntrinsicModel 
-     * @returns {HRESULT} 
+     * @returns {MFExtendedCameraIntrinsic_IntrinsicModel} 
      */
-    GetModel(pIntrinsicModel) {
+    GetModel() {
+        pIntrinsicModel := MFExtendedCameraIntrinsic_IntrinsicModel()
         result := ComCall(3, this, "ptr", pIntrinsicModel, "HRESULT")
-        return result
+        return pIntrinsicModel
     }
 
     /**
@@ -50,13 +51,10 @@ class IMFExtendedCameraIntrinsicModel extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDistortionModelType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDistortionModelType(pDistortionModelType) {
-        pDistortionModelTypeMarshal := pDistortionModelType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pDistortionModelTypeMarshal, pDistortionModelType, "HRESULT")
-        return result
+    GetDistortionModelType() {
+        result := ComCall(5, this, "int*", &pDistortionModelType := 0, "HRESULT")
+        return pDistortionModelType
     }
 }

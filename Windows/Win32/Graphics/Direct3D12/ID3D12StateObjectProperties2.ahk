@@ -32,31 +32,25 @@ class ID3D12StateObjectProperties2 extends ID3D12StateObjectProperties1{
      * 
      * @param {PWSTR} pProgramName 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvRootSignature 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetGlobalRootSignatureForProgram(pProgramName, riid, ppvRootSignature) {
+    GetGlobalRootSignatureForProgram(pProgramName, riid) {
         pProgramName := pProgramName is String ? StrPtr(pProgramName) : pProgramName
 
-        ppvRootSignatureMarshal := ppvRootSignature is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pProgramName, "ptr", riid, ppvRootSignatureMarshal, ppvRootSignature, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", pProgramName, "ptr", riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
+        return ppvRootSignature
     }
 
     /**
      * 
      * @param {PWSTR} pExportName 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvRootSignature 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetGlobalRootSignatureForShader(pExportName, riid, ppvRootSignature) {
+    GetGlobalRootSignatureForShader(pExportName, riid) {
         pExportName := pExportName is String ? StrPtr(pExportName) : pExportName
 
-        ppvRootSignatureMarshal := ppvRootSignature is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pExportName, "ptr", riid, ppvRootSignatureMarshal, ppvRootSignature, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pExportName, "ptr", riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
+        return ppvRootSignature
     }
 }

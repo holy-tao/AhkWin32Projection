@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFHttpDownloadRequest.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -51,17 +52,16 @@ class IMFHttpDownloadSession extends IUnknown{
      * @param {BOOL} fSecure 
      * @param {PWSTR} szVerb 
      * @param {PWSTR} szReferrer 
-     * @param {Pointer<IMFHttpDownloadRequest>} ppRequest 
-     * @returns {HRESULT} 
+     * @returns {IMFHttpDownloadRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadsession-createrequest
      */
-    CreateRequest(szObjectName, fBypassProxyCache, fSecure, szVerb, szReferrer, ppRequest) {
+    CreateRequest(szObjectName, fBypassProxyCache, fSecure, szVerb, szReferrer) {
         szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
         szVerb := szVerb is String ? StrPtr(szVerb) : szVerb
         szReferrer := szReferrer is String ? StrPtr(szReferrer) : szReferrer
 
-        result := ComCall(4, this, "ptr", szObjectName, "int", fBypassProxyCache, "int", fSecure, "ptr", szVerb, "ptr", szReferrer, "ptr*", ppRequest, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", szObjectName, "int", fBypassProxyCache, "int", fSecure, "ptr", szVerb, "ptr", szReferrer, "ptr*", &ppRequest := 0, "HRESULT")
+        return IMFHttpDownloadRequest(ppRequest)
     }
 
     /**

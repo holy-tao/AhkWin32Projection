@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\STATSTG.ahk
+#Include .\IStream.ahk
 #Include .\ISequentialStream.ahk
 
 /**
@@ -34,15 +36,12 @@ class IStream extends ISequentialStream{
      * 
      * @param {Integer} dlibMove 
      * @param {Integer} dwOrigin 
-     * @param {Pointer<Integer>} plibNewPosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istream-seek
      */
-    Seek(dlibMove, dwOrigin, plibNewPosition) {
-        plibNewPositionMarshal := plibNewPosition is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "int64", dlibMove, "uint", dwOrigin, plibNewPositionMarshal, plibNewPosition, "HRESULT")
-        return result
+    Seek(dlibMove, dwOrigin) {
+        result := ComCall(5, this, "int64", dlibMove, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
+        return plibNewPosition
     }
 
     /**
@@ -122,24 +121,23 @@ class IStream extends ISequentialStream{
 
     /**
      * 
-     * @param {Pointer<STATSTG>} pstatstg 
      * @param {Integer} grfStatFlag 
-     * @returns {HRESULT} 
+     * @returns {STATSTG} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istream-stat
      */
-    Stat(pstatstg, grfStatFlag) {
+    Stat(grfStatFlag) {
+        pstatstg := STATSTG()
         result := ComCall(12, this, "ptr", pstatstg, "uint", grfStatFlag, "HRESULT")
-        return result
+        return pstatstg
     }
 
     /**
      * 
-     * @param {Pointer<IStream>} ppstm 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istream-clone
      */
-    Clone(ppstm) {
-        result := ComCall(13, this, "ptr*", ppstm, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(13, this, "ptr*", &ppstm := 0, "HRESULT")
+        return IStream(ppstm)
     }
 }

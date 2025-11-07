@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAnimationTransition.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,12 +45,11 @@ class IUIAnimationTransitionFactory extends IUnknown{
     /**
      * 
      * @param {IUIAnimationInterpolator} interpolator 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionfactory-createtransition
      */
-    CreateTransition(interpolator, transition) {
-        result := ComCall(3, this, "ptr", interpolator, "ptr*", transition, "HRESULT")
-        return result
+    CreateTransition(interpolator) {
+        result := ComCall(3, this, "ptr", interpolator, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 }

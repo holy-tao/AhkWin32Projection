@@ -31,22 +31,22 @@ class IXMLDOMProcessingInstruction extends IXMLDOMNode{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_target(name) {
+    get_target() {
+        name := BSTR()
         result := ComCall(43, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_data(value) {
+    get_data() {
+        value := BSTR()
         result := ComCall(44, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**

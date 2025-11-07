@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMDSPEnumDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,25 +33,21 @@ class IMDServiceProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdserviceprovider-getdevicecount
      */
-    GetDeviceCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetDeviceCount() {
+        result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
-     * @param {Pointer<IMDSPEnumDevice>} ppEnumDevice 
-     * @returns {HRESULT} 
+     * @returns {IMDSPEnumDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdserviceprovider-enumdevices
      */
-    EnumDevices(ppEnumDevice) {
-        result := ComCall(4, this, "ptr*", ppEnumDevice, "HRESULT")
-        return result
+    EnumDevices() {
+        result := ComCall(4, this, "ptr*", &ppEnumDevice := 0, "HRESULT")
+        return IMDSPEnumDevice(ppEnumDevice)
     }
 }

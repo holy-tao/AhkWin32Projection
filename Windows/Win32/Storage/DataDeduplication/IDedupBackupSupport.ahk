@@ -56,12 +56,11 @@ class IDedupBackupSupport extends IUnknown{
      * @param {Pointer<BSTR>} FileFullPaths 
      * @param {IDedupReadFileCallback} Store 
      * @param {Integer} Flags 
-     * @param {Pointer<HRESULT>} FileResults 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/ddpbackup/nf-ddpbackup-idedupbackupsupport-restorefiles
      */
-    RestoreFiles(NumberOfFiles, FileFullPaths, Store, Flags, FileResults) {
-        result := ComCall(3, this, "uint", NumberOfFiles, "ptr", FileFullPaths, "ptr", Store, "uint", Flags, "ptr", FileResults, "HRESULT")
-        return result
+    RestoreFiles(NumberOfFiles, FileFullPaths, Store, Flags) {
+        result := ComCall(3, this, "uint", NumberOfFiles, "ptr", FileFullPaths, "ptr", Store, "uint", Flags, "int*", &FileResults := 0, "HRESULT")
+        return FileResults
     }
 }

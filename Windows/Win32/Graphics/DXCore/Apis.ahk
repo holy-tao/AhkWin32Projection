@@ -66,27 +66,17 @@ class DXCore {
      * @param {Pointer<Guid>} riid Type: **REFIID**
      * 
      * A reference to the globally unique identifier (GUID) of the interface that you wish to be returned in *ppvFactory*. This is expected to be the interface identifier (IID) of [IDXCoreAdapterFactory](/windows/win32/api/dxcore_interface/nn-dxcore_interface-idxcoreadapterfactory).
-     * @param {Pointer<Pointer<Void>>} ppvFactory Type: **void\*\***
+     * @returns {Pointer<Void>} Type: **void\*\***
      * 
      * The address of a pointer to an interface with the IID specified in the *riid* parameter. Upon successful return, *\*ppvFactory* (the dereferenced address) contains a pointer to the DXCore factory created.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
-     * 
-     * If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](/windows/win32/com/structure-of-com-error-codes) [error code](/windows/win32/com/com-error-codes-10).
-     * 
-     * |Return value|Description|
-     * |-|-|
-     * |E_NOINTERFACE|An invalid value was provided for *riid*.|
-     * |E_POINTER|`nullptr` was provided for *ppvFactory*.|
      * @see https://docs.microsoft.com/windows/win32/api//dxcore/nf-dxcore-dxcorecreateadapterfactory
      */
-    static DXCoreCreateAdapterFactory(riid, ppvFactory) {
-        ppvFactoryMarshal := ppvFactory is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("DXCORE.dll\DXCoreCreateAdapterFactory", "ptr", riid, ppvFactoryMarshal, ppvFactory, "int")
+    static DXCoreCreateAdapterFactory(riid) {
+        result := DllCall("DXCORE.dll\DXCoreCreateAdapterFactory", "ptr", riid, "ptr*", &ppvFactory := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvFactory
     }
 
 ;@endregion Methods

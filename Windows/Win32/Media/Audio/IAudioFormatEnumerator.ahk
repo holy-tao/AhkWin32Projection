@@ -32,28 +32,22 @@ class IAudioFormatEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-iaudioformatenumerator-getcount
      */
-    GetCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, countMarshal, count, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Pointer<WAVEFORMATEX>>} format 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WAVEFORMATEX>} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-iaudioformatenumerator-getformat
      */
-    GetFormat(index, format) {
-        formatMarshal := format is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", index, formatMarshal, format, "HRESULT")
-        return result
+    GetFormat(index) {
+        result := ComCall(4, this, "uint", index, "ptr*", &format := 0, "HRESULT")
+        return format
     }
 }

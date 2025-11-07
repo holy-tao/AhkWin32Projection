@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWindowsMediaLibrarySharingDeviceProperty.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,39 +40,34 @@ class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IWindowsMediaLibrarySharingDeviceProperty>} property 
-     * @returns {HRESULT} 
+     * @returns {IWindowsMediaLibrarySharingDeviceProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-get_item
      */
-    get_Item(index, property) {
-        result := ComCall(7, this, "int", index, "ptr*", property, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(7, this, "int", index, "ptr*", &property := 0, "HRESULT")
+        return IWindowsMediaLibrarySharingDeviceProperty(property)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-get_count
      */
-    get_Count(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, countMarshal, count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IWindowsMediaLibrarySharingDeviceProperty>} property 
-     * @returns {HRESULT} 
+     * @returns {IWindowsMediaLibrarySharingDeviceProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-getproperty
      */
-    GetProperty(name, property) {
+    GetProperty(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(9, this, "ptr", name, "ptr*", property, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", name, "ptr*", &property := 0, "HRESULT")
+        return IWindowsMediaLibrarySharingDeviceProperty(property)
     }
 }

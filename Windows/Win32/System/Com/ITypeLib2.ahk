@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\CUSTDATA.ahk
 #Include .\ITypeLib.ahk
 
 /**
@@ -33,13 +35,13 @@ class ITypeLib2 extends ITypeLib{
     /**
      * 
      * @param {Pointer<Guid>} guid 
-     * @param {Pointer<VARIANT>} pVarVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib2-getcustdata
      */
-    GetCustData(guid, pVarVal) {
+    GetCustData(guid) {
+        pVarVal := VARIANT()
         result := ComCall(13, this, "ptr", guid, "ptr", pVarVal, "HRESULT")
-        return result
+        return pVarVal
     }
 
     /**
@@ -76,12 +78,12 @@ class ITypeLib2 extends ITypeLib{
 
     /**
      * 
-     * @param {Pointer<CUSTDATA>} pCustData 
-     * @returns {HRESULT} 
+     * @returns {CUSTDATA} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib2-getallcustdata
      */
-    GetAllCustData(pCustData) {
+    GetAllCustData() {
+        pCustData := CUSTDATA()
         result := ComCall(16, this, "ptr", pCustData, "HRESULT")
-        return result
+        return pCustData
     }
 }

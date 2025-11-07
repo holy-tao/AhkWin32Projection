@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IFaxIncomingJob.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,37 +45,32 @@ class IFaxIncomingJobs extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjobs-get__newenum
      */
-    get__NewEnum(ppUnk) {
-        result := ComCall(7, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
      * @param {VARIANT} vIndex 
-     * @param {Pointer<IFaxIncomingJob>} pFaxIncomingJob 
-     * @returns {HRESULT} 
+     * @returns {IFaxIncomingJob} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjobs-get_item
      */
-    get_Item(vIndex, pFaxIncomingJob) {
-        result := ComCall(8, this, "ptr", vIndex, "ptr*", pFaxIncomingJob, "HRESULT")
-        return result
+    get_Item(vIndex) {
+        result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxIncomingJob := 0, "HRESULT")
+        return IFaxIncomingJob(pFaxIncomingJob)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjobs-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 }

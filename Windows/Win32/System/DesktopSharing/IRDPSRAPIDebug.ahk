@@ -43,11 +43,11 @@ class IRDPSRAPIDebug extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pCLXCmdLine 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_CLXCmdLine(pCLXCmdLine) {
+    get_CLXCmdLine() {
+        pCLXCmdLine := BSTR()
         result := ComCall(4, this, "ptr", pCLXCmdLine, "HRESULT")
-        return result
+        return pCLXCmdLine
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IUIAutomationCondition.ahk
 
 /**
@@ -32,38 +33,32 @@ class IUIAutomationPropertyCondition extends IUIAutomationCondition{
 
     /**
      * 
-     * @param {Pointer<Integer>} propertyId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyid
      */
-    get_PropertyId(propertyId) {
-        propertyIdMarshal := propertyId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, propertyIdMarshal, propertyId, "HRESULT")
-        return result
+    get_PropertyId() {
+        result := ComCall(3, this, "int*", &propertyId := 0, "HRESULT")
+        return propertyId
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} propertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyvalue
      */
-    get_PropertyValue(propertyValue) {
+    get_PropertyValue() {
+        propertyValue := VARIANT()
         result := ComCall(4, this, "ptr", propertyValue, "HRESULT")
-        return result
+        return propertyValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyconditionflags
      */
-    get_PropertyConditionFlags(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, flagsMarshal, flags, "HRESULT")
-        return result
+    get_PropertyConditionFlags() {
+        result := ComCall(5, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLElement.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -151,12 +153,11 @@ class IHTMLControlRange extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IHTMLElement>} pdisp 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    item(index, pdisp) {
-        result := ComCall(10, this, "int", index, "ptr*", pdisp, "HRESULT")
-        return result
+    item(index) {
+        result := ComCall(10, this, "int", index, "ptr*", &pdisp := 0, "HRESULT")
+        return IHTMLElement(pdisp)
     }
 
     /**
@@ -172,79 +173,75 @@ class IHTMLControlRange extends IDispatch{
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryCommandSupported(cmdID, pfRet) {
+    queryCommandSupported(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(12, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryCommandEnabled(cmdID, pfRet) {
+    queryCommandEnabled(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(13, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryCommandState(cmdID, pfRet) {
+    queryCommandState(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(14, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryCommandIndeterm(cmdID, pfRet) {
+    queryCommandIndeterm(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(15, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<BSTR>} pcmdText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    queryCommandText(cmdID, pcmdText) {
+    queryCommandText(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
+        pcmdText := BSTR()
         result := ComCall(16, this, "ptr", cmdID, "ptr", pcmdText, "HRESULT")
-        return result
+        return pcmdText
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT>} pcmdValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    queryCommandValue(cmdID, pcmdValue) {
+    queryCommandValue(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
+        pcmdValue := VARIANT()
         result := ComCall(17, this, "ptr", cmdID, "ptr", pcmdValue, "HRESULT")
-        return result
+        return pcmdValue
     }
 
     /**
@@ -252,48 +249,42 @@ class IHTMLControlRange extends IDispatch{
      * @param {BSTR} cmdID 
      * @param {VARIANT_BOOL} showUI 
      * @param {VARIANT} value 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    execCommand(cmdID, showUI, value, pfRet) {
+    execCommand(cmdID, showUI, value) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(18, this, "ptr", cmdID, "short", showUI, "ptr", value, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", cmdID, "short", showUI, "ptr", value, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    execCommandShowHelp(cmdID, pfRet) {
+    execCommandShowHelp(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(19, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} parent 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    commonParentElement(parent) {
-        result := ComCall(20, this, "ptr*", parent, "HRESULT")
-        return result
+    commonParentElement() {
+        result := ComCall(20, this, "ptr*", &parent := 0, "HRESULT")
+        return IHTMLElement(parent)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(21, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 }

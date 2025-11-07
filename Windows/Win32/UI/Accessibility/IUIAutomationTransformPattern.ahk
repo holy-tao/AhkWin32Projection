@@ -67,67 +67,61 @@ class IUIAutomationTransformPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern-get_currentcanmove
      */
-    get_CurrentCanMove(retVal) {
-        result := ComCall(6, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentCanMove() {
+        result := ComCall(6, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern-get_currentcanresize
      */
-    get_CurrentCanResize(retVal) {
-        result := ComCall(7, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentCanResize() {
+        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern-get_currentcanrotate
      */
-    get_CurrentCanRotate(retVal) {
-        result := ComCall(8, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentCanRotate() {
+        result := ComCall(8, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern-get_cachedcanmove
      */
-    get_CachedCanMove(retVal) {
-        result := ComCall(9, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedCanMove() {
+        result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern-get_cachedcanresize
      */
-    get_CachedCanResize(retVal) {
-        result := ComCall(10, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedCanResize() {
+        result := ComCall(10, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern-get_cachedcanrotate
      */
-    get_CachedCanRotate(retVal) {
-        result := ComCall(11, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedCanRotate() {
+        result := ComCall(11, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

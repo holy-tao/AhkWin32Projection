@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMcastScope.ahk
+#Include .\IEnumMcastScope.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,15 @@ class IEnumMcastScope extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<IMcastScope>} ppScopes 
      * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {IMcastScope} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-ienummcastscope-next
      */
-    Next(celt, ppScopes, pceltFetched) {
+    Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", ppScopes, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", celt, "ptr*", &ppScopes := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        return IMcastScope(ppScopes)
     }
 
     /**
@@ -68,12 +69,11 @@ class IEnumMcastScope extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumMcastScope>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumMcastScope} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-ienummcastscope-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumMcastScope(ppEnum)
     }
 }

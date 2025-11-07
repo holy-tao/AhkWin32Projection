@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaEvent.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,12 @@ class IMFMediaEventQueue extends IUnknown{
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IMFMediaEvent>} ppEvent 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaEvent} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaeventqueue-getevent
      */
-    GetEvent(dwFlags, ppEvent) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr*", ppEvent, "HRESULT")
-        return result
+    GetEvent(dwFlags) {
+        result := ComCall(3, this, "uint", dwFlags, "ptr*", &ppEvent := 0, "HRESULT")
+        return IMFMediaEvent(ppEvent)
     }
 
     /**
@@ -67,13 +67,12 @@ class IMFMediaEventQueue extends IUnknown{
     /**
      * 
      * @param {IMFAsyncResult} pResult 
-     * @param {Pointer<IMFMediaEvent>} ppEvent 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaEvent} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaeventqueue-endgetevent
      */
-    EndGetEvent(pResult, ppEvent) {
-        result := ComCall(5, this, "ptr", pResult, "ptr*", ppEvent, "HRESULT")
-        return result
+    EndGetEvent(pResult) {
+        result := ComCall(5, this, "ptr", pResult, "ptr*", &ppEvent := 0, "HRESULT")
+        return IMFMediaEvent(ppEvent)
     }
 
     /**

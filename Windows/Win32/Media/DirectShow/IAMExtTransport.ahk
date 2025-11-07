@@ -72,15 +72,12 @@ class IAMExtTransport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-get_mediastate
      */
-    get_MediaState(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pStateMarshal, pState, "HRESULT")
-        return result
+    get_MediaState() {
+        result := ComCall(5, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
@@ -96,29 +93,23 @@ class IAMExtTransport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-get_localcontrol
      */
-    get_LocalControl(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pStateMarshal, pState, "HRESULT")
-        return result
+    get_LocalControl() {
+        result := ComCall(7, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
      * 
      * @param {Integer} StatusItem 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-getstatus
      */
-    GetStatus(StatusItem, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "int", StatusItem, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetStatus(StatusItem) {
+        result := ComCall(8, this, "int", StatusItem, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -131,8 +122,9 @@ class IAMExtTransport extends IUnknown{
      */
     GetTransportBasicParameters(Param, pValue, ppszData) {
         pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        ppszDataMarshal := ppszData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "int", Param, pValueMarshal, pValue, "ptr", ppszData, "HRESULT")
+        result := ComCall(9, this, "int", Param, pValueMarshal, pValue, ppszDataMarshal, ppszData, "HRESULT")
         return result
     }
 
@@ -154,15 +146,12 @@ class IAMExtTransport extends IUnknown{
     /**
      * 
      * @param {Integer} Param 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-gettransportvideoparameters
      */
-    GetTransportVideoParameters(Param, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "int", Param, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetTransportVideoParameters(Param) {
+        result := ComCall(11, this, "int", Param, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -180,15 +169,12 @@ class IAMExtTransport extends IUnknown{
     /**
      * 
      * @param {Integer} Param 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-gettransportaudioparameters
      */
-    GetTransportAudioParameters(Param, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, "int", Param, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetTransportAudioParameters(Param) {
+        result := ComCall(13, this, "int", Param, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -216,15 +202,12 @@ class IAMExtTransport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-get_mode
      */
-    get_Mode(pMode) {
-        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pModeMarshal, pMode, "HRESULT")
-        return result
+    get_Mode() {
+        result := ComCall(16, this, "int*", &pMode := 0, "HRESULT")
+        return pMode
     }
 
     /**
@@ -240,15 +223,12 @@ class IAMExtTransport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pdblRate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-get_rate
      */
-    get_Rate(pdblRate) {
-        pdblRateMarshal := pdblRate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(18, this, pdblRateMarshal, pdblRate, "HRESULT")
-        return result
+    get_Rate() {
+        result := ComCall(18, this, "double*", &pdblRate := 0, "HRESULT")
+        return pdblRate
     }
 
     /**
@@ -310,15 +290,12 @@ class IAMExtTransport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pEnabled 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-get_anticlogcontrol
      */
-    get_AntiClogControl(pEnabled) {
-        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, pEnabledMarshal, pEnabled, "HRESULT")
-        return result
+    get_AntiClogControl() {
+        result := ComCall(23, this, "int*", &pEnabled := 0, "HRESULT")
+        return pEnabled
     }
 
     /**
@@ -335,15 +312,12 @@ class IAMExtTransport extends IUnknown{
     /**
      * 
      * @param {Integer} EditID 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-geteditpropertyset
      */
-    GetEditPropertySet(EditID, pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, "int", EditID, pStateMarshal, pState, "HRESULT")
-        return result
+    GetEditPropertySet(EditID) {
+        result := ComCall(25, this, "int", EditID, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
@@ -364,15 +338,12 @@ class IAMExtTransport extends IUnknown{
      * 
      * @param {Integer} EditID 
      * @param {Integer} Param 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-geteditproperty
      */
-    GetEditProperty(EditID, Param, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, "int", EditID, "int", Param, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetEditProperty(EditID, Param) {
+        result := ComCall(27, this, "int", EditID, "int", Param, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -390,15 +361,12 @@ class IAMExtTransport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-get_editstart
      */
-    get_EditStart(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_EditStart() {
+        result := ComCall(29, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**

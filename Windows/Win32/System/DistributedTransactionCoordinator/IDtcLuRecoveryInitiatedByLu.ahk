@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDtcLuRecoveryInitiatedByLuWork.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IDtcLuRecoveryInitiatedByLu extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDtcLuRecoveryInitiatedByLuWork>} ppWork 
-     * @returns {HRESULT} 
+     * @returns {IDtcLuRecoveryInitiatedByLuWork} 
      */
-    GetObjectToHandleWorkFromLu(ppWork) {
-        result := ComCall(3, this, "ptr*", ppWork, "HRESULT")
-        return result
+    GetObjectToHandleWorkFromLu() {
+        result := ComCall(3, this, "ptr*", &ppWork := 0, "HRESULT")
+        return IDtcLuRecoveryInitiatedByLuWork(ppWork)
     }
 }

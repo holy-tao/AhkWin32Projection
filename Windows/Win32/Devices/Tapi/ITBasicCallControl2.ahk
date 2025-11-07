@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITTerminal.ahk
 #Include .\ITBasicCallControl.ahk
 
 /**
@@ -36,15 +37,14 @@ class ITBasicCallControl2 extends ITBasicCallControl{
      * @param {BSTR} bstrTerminalClassGUID 
      * @param {Integer} lMediaType 
      * @param {Integer} Direction 
-     * @param {Pointer<ITTerminal>} ppTerminal 
-     * @returns {HRESULT} 
+     * @returns {ITTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol2-requestterminal
      */
-    RequestTerminal(bstrTerminalClassGUID, lMediaType, Direction, ppTerminal) {
+    RequestTerminal(bstrTerminalClassGUID, lMediaType, Direction) {
         bstrTerminalClassGUID := bstrTerminalClassGUID is String ? BSTR.Alloc(bstrTerminalClassGUID).Value : bstrTerminalClassGUID
 
-        result := ComCall(25, this, "ptr", bstrTerminalClassGUID, "int", lMediaType, "int", Direction, "ptr*", ppTerminal, "HRESULT")
-        return result
+        result := ComCall(25, this, "ptr", bstrTerminalClassGUID, "int", lMediaType, "int", Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+        return ITTerminal(ppTerminal)
     }
 
     /**

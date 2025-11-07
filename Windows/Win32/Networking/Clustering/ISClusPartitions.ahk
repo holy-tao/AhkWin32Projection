@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISClusPartition.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,34 +32,29 @@ class ISClusPartitions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(8, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
      * @param {VARIANT} varIndex 
-     * @param {Pointer<ISClusPartition>} ppPartition 
-     * @returns {HRESULT} 
+     * @returns {ISClusPartition} 
      */
-    get_Item(varIndex, ppPartition) {
-        result := ComCall(9, this, "ptr", varIndex, "ptr*", ppPartition, "HRESULT")
-        return result
+    get_Item(varIndex) {
+        result := ComCall(9, this, "ptr", varIndex, "ptr*", &ppPartition := 0, "HRESULT")
+        return ISClusPartition(ppPartition)
     }
 }

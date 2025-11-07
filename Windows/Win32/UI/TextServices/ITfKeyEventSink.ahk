@@ -46,13 +46,12 @@ class ITfKeyEventSink extends IUnknown{
      * @param {ITfContext} pic 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeyeventsink-ontestkeydown
      */
-    OnTestKeyDown(pic, wParam, lParam, pfEaten) {
-        result := ComCall(4, this, "ptr", pic, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    OnTestKeyDown(pic, wParam, lParam) {
+        result := ComCall(4, this, "ptr", pic, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 
     /**
@@ -60,13 +59,12 @@ class ITfKeyEventSink extends IUnknown{
      * @param {ITfContext} pic 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeyeventsink-ontestkeyup
      */
-    OnTestKeyUp(pic, wParam, lParam, pfEaten) {
-        result := ComCall(5, this, "ptr", pic, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    OnTestKeyUp(pic, wParam, lParam) {
+        result := ComCall(5, this, "ptr", pic, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 
     /**
@@ -74,13 +72,12 @@ class ITfKeyEventSink extends IUnknown{
      * @param {ITfContext} pic 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeyeventsink-onkeydown
      */
-    OnKeyDown(pic, wParam, lParam, pfEaten) {
-        result := ComCall(6, this, "ptr", pic, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    OnKeyDown(pic, wParam, lParam) {
+        result := ComCall(6, this, "ptr", pic, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 
     /**
@@ -88,25 +85,23 @@ class ITfKeyEventSink extends IUnknown{
      * @param {ITfContext} pic 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeyeventsink-onkeyup
      */
-    OnKeyUp(pic, wParam, lParam, pfEaten) {
-        result := ComCall(7, this, "ptr", pic, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    OnKeyUp(pic, wParam, lParam) {
+        result := ComCall(7, this, "ptr", pic, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 
     /**
      * 
      * @param {ITfContext} pic 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeyeventsink-onpreservedkey
      */
-    OnPreservedKey(pic, rguid, pfEaten) {
-        result := ComCall(8, this, "ptr", pic, "ptr", rguid, "ptr", pfEaten, "HRESULT")
-        return result
+    OnPreservedKey(pic, rguid) {
+        result := ComCall(8, this, "ptr", pic, "ptr", rguid, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 }

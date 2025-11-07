@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VSS_SNAPSHOT_PROP.ahk
+#Include .\IVssEnumObject.ahk
+#Include .\IVssAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,13 +47,13 @@ class IVssSoftwareSnapshotProvider extends IUnknown{
     /**
      * 
      * @param {Guid} SnapshotId 
-     * @param {Pointer<VSS_SNAPSHOT_PROP>} pProp 
-     * @returns {HRESULT} 
+     * @returns {VSS_SNAPSHOT_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-getsnapshotproperties
      */
-    GetSnapshotProperties(SnapshotId, pProp) {
+    GetSnapshotProperties(SnapshotId) {
+        pProp := VSS_SNAPSHOT_PROP()
         result := ComCall(4, this, "ptr", SnapshotId, "ptr", pProp, "HRESULT")
-        return result
+        return pProp
     }
 
     /**
@@ -58,13 +61,12 @@ class IVssSoftwareSnapshotProvider extends IUnknown{
      * @param {Guid} QueriedObjectId 
      * @param {Integer} eQueriedObjectType 
      * @param {Integer} eReturnedObjectsType 
-     * @param {Pointer<IVssEnumObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IVssEnumObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-query
      */
-    Query(QueriedObjectId, eQueriedObjectType, eReturnedObjectsType, ppEnum) {
-        result := ComCall(5, this, "ptr", QueriedObjectId, "int", eQueriedObjectType, "int", eReturnedObjectsType, "ptr*", ppEnum, "HRESULT")
-        return result
+    Query(QueriedObjectId, eQueriedObjectType, eReturnedObjectsType) {
+        result := ComCall(5, this, "ptr", QueriedObjectId, "int", eQueriedObjectType, "int", eReturnedObjectsType, "ptr*", &ppEnum := 0, "HRESULT")
+        return IVssEnumObject(ppEnum)
     }
 
     /**
@@ -103,15 +105,14 @@ class IVssSoftwareSnapshotProvider extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pwszVolumeName 
-     * @param {Pointer<BOOL>} pbSupportedByThisProvider 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-isvolumesupported
      */
-    IsVolumeSupported(pwszVolumeName, pbSupportedByThisProvider) {
+    IsVolumeSupported(pwszVolumeName) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr", pbSupportedByThisProvider, "HRESULT")
-        return result
+        result := ComCall(8, this, pwszVolumeNameMarshal, pwszVolumeName, "int*", &pbSupportedByThisProvider := 0, "HRESULT")
+        return pbSupportedByThisProvider
     }
 
     /**
@@ -234,9 +235,10 @@ class IVssSoftwareSnapshotProvider extends IUnknown{
      */
     IsVolumeSnapshotted(pwszVolumeName, pbSnapshotsPresent, plSnapshotCompatibility) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pbSnapshotsPresentMarshal := pbSnapshotsPresent is VarRef ? "int*" : "ptr"
         plSnapshotCompatibilityMarshal := plSnapshotCompatibility is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr", pbSnapshotsPresent, plSnapshotCompatibilityMarshal, plSnapshotCompatibility, "HRESULT")
+        result := ComCall(9, this, pwszVolumeNameMarshal, pwszVolumeName, pbSnapshotsPresentMarshal, pbSnapshotsPresent, plSnapshotCompatibilityMarshal, plSnapshotCompatibility, "HRESULT")
         return result
     }
 
@@ -267,14 +269,13 @@ class IVssSoftwareSnapshotProvider extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pwszVolume 
-     * @param {Pointer<IVssAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVssAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-queryrevertstatus
      */
-    QueryRevertStatus(pwszVolume, ppAsync) {
+    QueryRevertStatus(pwszVolume) {
         pwszVolumeMarshal := pwszVolume is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(12, this, pwszVolumeMarshal, pwszVolume, "ptr*", ppAsync, "HRESULT")
-        return result
+        result := ComCall(12, this, pwszVolumeMarshal, pwszVolume, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVssAsync(ppAsync)
     }
 }

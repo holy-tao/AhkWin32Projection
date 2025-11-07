@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\DRM_VAL16.ahk
+#Include .\INSSBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,50 +35,43 @@ class IWMRegisteredDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DRM_VAL16>} pSerialNumber 
-     * @returns {HRESULT} 
+     * @returns {DRM_VAL16} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-getdeviceserialnumber
      */
-    GetDeviceSerialNumber(pSerialNumber) {
+    GetDeviceSerialNumber() {
+        pSerialNumber := DRM_VAL16()
         result := ComCall(3, this, "ptr", pSerialNumber, "HRESULT")
-        return result
+        return pSerialNumber
     }
 
     /**
      * 
-     * @param {Pointer<INSSBuffer>} ppCertificate 
-     * @returns {HRESULT} 
+     * @returns {INSSBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-getdevicecertificate
      */
-    GetDeviceCertificate(ppCertificate) {
-        result := ComCall(4, this, "ptr*", ppCertificate, "HRESULT")
-        return result
+    GetDeviceCertificate() {
+        result := ComCall(4, this, "ptr*", &ppCertificate := 0, "HRESULT")
+        return INSSBuffer(ppCertificate)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-getdevicetype
      */
-    GetDeviceType(pdwType) {
-        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwTypeMarshal, pdwType, "HRESULT")
-        return result
+    GetDeviceType() {
+        result := ComCall(5, this, "uint*", &pdwType := 0, "HRESULT")
+        return pdwType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcAttributes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-getattributecount
      */
-    GetAttributeCount(pcAttributes) {
-        pcAttributesMarshal := pcAttributes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pcAttributesMarshal, pcAttributes, "HRESULT")
-        return result
+    GetAttributeCount() {
+        result := ComCall(6, this, "uint*", &pcAttributes := 0, "HRESULT")
+        return pcAttributes
     }
 
     /**
@@ -95,15 +90,15 @@ class IWMRegisteredDevice extends IUnknown{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<BSTR>} pbstrValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-getattributebyname
      */
-    GetAttributeByName(bstrName, pbstrValue) {
+    GetAttributeByName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
+        pbstrValue := BSTR()
         result := ComCall(8, this, "ptr", bstrName, "ptr", pbstrValue, "HRESULT")
-        return result
+        return pbstrValue
     }
 
     /**
@@ -134,46 +129,42 @@ class IWMRegisteredDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfValid 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-isvalid
      */
-    IsValid(pfValid) {
-        result := ComCall(11, this, "ptr", pfValid, "HRESULT")
-        return result
+    IsValid() {
+        result := ComCall(11, this, "int*", &pfValid := 0, "HRESULT")
+        return pfValid
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfApproved 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-isapproved
      */
-    IsApproved(pfApproved) {
-        result := ComCall(12, this, "ptr", pfApproved, "HRESULT")
-        return result
+    IsApproved() {
+        result := ComCall(12, this, "int*", &pfApproved := 0, "HRESULT")
+        return pfApproved
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCompliant 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-iswmdrmcompliant
      */
-    IsWmdrmCompliant(pfCompliant) {
-        result := ComCall(13, this, "ptr", pfCompliant, "HRESULT")
-        return result
+    IsWmdrmCompliant() {
+        result := ComCall(13, this, "int*", &pfCompliant := 0, "HRESULT")
+        return pfCompliant
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfOpened 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-isopened
      */
-    IsOpened(pfOpened) {
-        result := ComCall(14, this, "ptr", pfOpened, "HRESULT")
-        return result
+    IsOpened() {
+        result := ComCall(14, this, "int*", &pfOpened := 0, "HRESULT")
+        return pfOpened
     }
 
     /**

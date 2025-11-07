@@ -41,15 +41,12 @@ class IUIAnimationInterpolator2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} dimension 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getdimension
      */
-    GetDimension(dimension) {
-        dimensionMarshal := dimension is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, dimensionMarshal, dimension, "HRESULT")
-        return result
+    GetDimension() {
+        result := ComCall(3, this, "uint*", &dimension := 0, "HRESULT")
+        return dimension
     }
 
     /**
@@ -81,59 +78,47 @@ class IUIAnimationInterpolator2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} duration 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getduration
      */
-    GetDuration(duration) {
-        durationMarshal := duration is VarRef ? "double*" : "ptr"
-
-        result := ComCall(6, this, durationMarshal, duration, "HRESULT")
-        return result
+    GetDuration() {
+        result := ComCall(6, this, "double*", &duration := 0, "HRESULT")
+        return duration
     }
 
     /**
      * 
-     * @param {Pointer<Float>} value 
      * @param {Integer} cDimension 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getfinalvalue
      */
-    GetFinalValue(value, cDimension) {
-        valueMarshal := value is VarRef ? "double*" : "ptr"
-
-        result := ComCall(7, this, valueMarshal, value, "uint", cDimension, "HRESULT")
-        return result
+    GetFinalValue(cDimension) {
+        result := ComCall(7, this, "double*", &value := 0, "uint", cDimension, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {Float} offset 
-     * @param {Pointer<Float>} value 
      * @param {Integer} cDimension 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-interpolatevalue
      */
-    InterpolateValue(offset, value, cDimension) {
-        valueMarshal := value is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, "double", offset, valueMarshal, value, "uint", cDimension, "HRESULT")
-        return result
+    InterpolateValue(offset, cDimension) {
+        result := ComCall(8, this, "double", offset, "double*", &value := 0, "uint", cDimension, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {Float} offset 
-     * @param {Pointer<Float>} velocity 
      * @param {Integer} cDimension 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-interpolatevelocity
      */
-    InterpolateVelocity(offset, velocity, cDimension) {
-        velocityMarshal := velocity is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, "double", offset, velocityMarshal, velocity, "uint", cDimension, "HRESULT")
-        return result
+    InterpolateVelocity(offset, cDimension) {
+        result := ComCall(9, this, "double", offset, "double*", &velocity := 0, "uint", cDimension, "HRESULT")
+        return velocity
     }
 
     /**

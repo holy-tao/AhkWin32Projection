@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INSSBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,24 +34,22 @@ class IWMSBufferAllocator extends IUnknown{
     /**
      * 
      * @param {Integer} dwMaxBufferSize 
-     * @param {Pointer<INSSBuffer>} ppBuffer 
-     * @returns {HRESULT} 
+     * @returns {INSSBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-iwmsbufferallocator-allocatebuffer
      */
-    AllocateBuffer(dwMaxBufferSize, ppBuffer) {
-        result := ComCall(3, this, "uint", dwMaxBufferSize, "ptr*", ppBuffer, "HRESULT")
-        return result
+    AllocateBuffer(dwMaxBufferSize) {
+        result := ComCall(3, this, "uint", dwMaxBufferSize, "ptr*", &ppBuffer := 0, "HRESULT")
+        return INSSBuffer(ppBuffer)
     }
 
     /**
      * 
      * @param {Integer} dwMaxBufferSize 
-     * @param {Pointer<INSSBuffer>} ppBuffer 
-     * @returns {HRESULT} 
+     * @returns {INSSBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-iwmsbufferallocator-allocatepagesizebuffer
      */
-    AllocatePageSizeBuffer(dwMaxBufferSize, ppBuffer) {
-        result := ComCall(4, this, "uint", dwMaxBufferSize, "ptr*", ppBuffer, "HRESULT")
-        return result
+    AllocatePageSizeBuffer(dwMaxBufferSize) {
+        result := ComCall(4, this, "uint", dwMaxBufferSize, "ptr*", &ppBuffer := 0, "HRESULT")
+        return INSSBuffer(ppBuffer)
     }
 }

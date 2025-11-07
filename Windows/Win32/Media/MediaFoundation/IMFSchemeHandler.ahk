@@ -40,17 +40,16 @@ class IMFSchemeHandler extends IUnknown{
      * @param {PWSTR} pwszURL 
      * @param {Integer} dwFlags 
      * @param {IPropertyStore} pProps 
-     * @param {Pointer<IUnknown>} ppIUnknownCancelCookie 
      * @param {IMFAsyncCallback} pCallback 
      * @param {IUnknown} punkState 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfschemehandler-begincreateobject
      */
-    BeginCreateObject(pwszURL, dwFlags, pProps, ppIUnknownCancelCookie, pCallback, punkState) {
+    BeginCreateObject(pwszURL, dwFlags, pProps, pCallback, punkState) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(3, this, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, "ptr*", ppIUnknownCancelCookie, "ptr", pCallback, "ptr", punkState, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        return IUnknown(ppIUnknownCancelCookie)
     }
 
     /**

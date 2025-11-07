@@ -54,6 +54,15 @@ jobs:
           ./Tests/AhkValidationMarkdownReport.ps1 -LogPath Tests/validation.log -OutPath Tests/validation-results.md
           Write-Output "Done!"
 
+      - name: Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Validation Results
+          path: |
+            Tests/validation.log
+            Tests/validation-results.md
+
   unit-tests:
     name: Unit Tests
     runs-on: windows-latest

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,73 +33,55 @@ class IBitsPeerCacheRecord extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getid
      */
-    GetId(pVal) {
+    GetId() {
+        pVal := Guid()
         result := ComCall(3, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getoriginurl
      */
-    GetOriginUrl(pVal) {
-        result := ComCall(4, this, "ptr", pVal, "HRESULT")
-        return result
+    GetOriginUrl() {
+        result := ComCall(4, this, "ptr*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * Retrieves the size of the specified file, in bytes.
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} If the function succeeds, the return value is the low-order doubleword of the file size, and, if 
-     *        <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the function puts the 
-     *        high-order doubleword of the file size into the variable pointed to by that parameter.
-     * 
-     * If the function fails and <i>lpFileSizeHigh</i> is <b>NULL</b>, the 
-     *        return value is <b>INVALID_FILE_SIZE</b>. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. When 
-     *        <i>lpFileSizeHigh</i> is <b>NULL</b>, the results returned for large 
-     *        files are ambiguous, and you will not be able to determine the actual size of the file. It is recommended that 
-     *        you use <a href="/windows/desktop/api/fileapi/nf-fileapi-getfilesizeex">GetFileSizeEx</a> instead.
-     * 
-     * If the function fails and <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the 
-     *        return value is <b>INVALID_FILE_SIZE</b> and 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return a value other than 
-     *        <b>NO_ERROR</b>.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
      */
-    GetFileSize(pVal) {
-        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pValMarshal, pVal, "HRESULT")
-        return result
+    GetFileSize() {
+        result := ComCall(5, this, "uint*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pVal 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getfilemodificationtime
      */
-    GetFileModificationTime(pVal) {
+    GetFileModificationTime() {
+        pVal := FILETIME()
         result := ComCall(6, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pVal 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getlastaccesstime
      */
-    GetLastAccessTime(pVal) {
+    GetLastAccessTime() {
+        pVal := FILETIME()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**

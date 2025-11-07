@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,19 +46,21 @@ class ICredentialProviderFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialproviderfilter-filter
      */
     Filter(cpus, dwFlags, rgclsidProviders, rgbAllow, cProviders) {
-        result := ComCall(3, this, "int", cpus, "uint", dwFlags, "ptr", rgclsidProviders, "ptr", rgbAllow, "uint", cProviders, "HRESULT")
+        rgbAllowMarshal := rgbAllow is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", cpus, "uint", dwFlags, "ptr", rgclsidProviders, rgbAllowMarshal, rgbAllow, "uint", cProviders, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Pointer<CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION>} pcpcsIn 
-     * @param {Pointer<CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION>} pcpcsOut 
-     * @returns {HRESULT} 
+     * @returns {CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialproviderfilter-updateremotecredential
      */
-    UpdateRemoteCredential(pcpcsIn, pcpcsOut) {
+    UpdateRemoteCredential(pcpcsIn) {
+        pcpcsOut := CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION()
         result := ComCall(4, this, "ptr", pcpcsIn, "ptr", pcpcsOut, "HRESULT")
-        return result
+        return pcpcsOut
     }
 }

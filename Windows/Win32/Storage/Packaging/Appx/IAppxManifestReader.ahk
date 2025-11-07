@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxManifestPackageId.ahk
+#Include .\IAppxManifestProperties.ahk
+#Include .\IAppxManifestPackageDependenciesEnumerator.ahk
+#Include .\IAppxManifestResourcesEnumerator.ahk
+#Include .\IAppxManifestDeviceCapabilitiesEnumerator.ahk
+#Include .\IAppxManifestApplicationsEnumerator.ahk
+#Include ..\..\..\System\Com\IStream.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,138 +51,94 @@ class IAppxManifestReader extends IUnknown{
 
     /**
      * Gets the package identifier (ID) for the specified process.
-     * @param {Pointer<IAppxManifestPackageId>} packageId 
-     * @returns {HRESULT} Type: <b>LONG</b>
-     * 
-     * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>APPMODEL_ERROR_NO_PACKAGE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The process has no package identity.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer is not large enough to hold the data. The required size is specified  by <i>bufferLength</i>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IAppxManifestPackageId} 
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageid
      */
-    GetPackageId(packageId) {
-        result := ComCall(3, this, "ptr*", packageId, "HRESULT")
-        return result
+    GetPackageId() {
+        result := ComCall(3, this, "ptr*", &packageId := 0, "HRESULT")
+        return IAppxManifestPackageId(packageId)
     }
 
     /**
      * 
-     * @param {Pointer<IAppxManifestProperties>} packageProperties 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getproperties
      */
-    GetProperties(packageProperties) {
-        result := ComCall(4, this, "ptr*", packageProperties, "HRESULT")
-        return result
+    GetProperties() {
+        result := ComCall(4, this, "ptr*", &packageProperties := 0, "HRESULT")
+        return IAppxManifestProperties(packageProperties)
     }
 
     /**
      * 
-     * @param {Pointer<IAppxManifestPackageDependenciesEnumerator>} dependencies 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestPackageDependenciesEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getpackagedependencies
      */
-    GetPackageDependencies(dependencies) {
-        result := ComCall(5, this, "ptr*", dependencies, "HRESULT")
-        return result
+    GetPackageDependencies() {
+        result := ComCall(5, this, "ptr*", &dependencies := 0, "HRESULT")
+        return IAppxManifestPackageDependenciesEnumerator(dependencies)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} capabilities 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getcapabilities
      */
-    GetCapabilities(capabilities) {
-        capabilitiesMarshal := capabilities is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, capabilitiesMarshal, capabilities, "HRESULT")
-        return result
+    GetCapabilities() {
+        result := ComCall(6, this, "int*", &capabilities := 0, "HRESULT")
+        return capabilities
     }
 
     /**
      * 
-     * @param {Pointer<IAppxManifestResourcesEnumerator>} resources 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestResourcesEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getresources
      */
-    GetResources(resources) {
-        result := ComCall(7, this, "ptr*", resources, "HRESULT")
-        return result
+    GetResources() {
+        result := ComCall(7, this, "ptr*", &resources := 0, "HRESULT")
+        return IAppxManifestResourcesEnumerator(resources)
     }
 
     /**
      * 
-     * @param {Pointer<IAppxManifestDeviceCapabilitiesEnumerator>} deviceCapabilities 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestDeviceCapabilitiesEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getdevicecapabilities
      */
-    GetDeviceCapabilities(deviceCapabilities) {
-        result := ComCall(8, this, "ptr*", deviceCapabilities, "HRESULT")
-        return result
+    GetDeviceCapabilities() {
+        result := ComCall(8, this, "ptr*", &deviceCapabilities := 0, "HRESULT")
+        return IAppxManifestDeviceCapabilitiesEnumerator(deviceCapabilities)
     }
 
     /**
      * 
      * @param {PWSTR} name 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getprerequisite
      */
-    GetPrerequisite(name, value) {
+    GetPrerequisite(name) {
         name := name is String ? StrPtr(name) : name
 
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "ptr", name, valueMarshal, value, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", name, "uint*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<IAppxManifestApplicationsEnumerator>} applications 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestApplicationsEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getapplications
      */
-    GetApplications(applications) {
-        result := ComCall(10, this, "ptr*", applications, "HRESULT")
-        return result
+    GetApplications() {
+        result := ComCall(10, this, "ptr*", &applications := 0, "HRESULT")
+        return IAppxManifestApplicationsEnumerator(applications)
     }
 
     /**
      * 
-     * @param {Pointer<IStream>} manifestStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getstream
      */
-    GetStream(manifestStream) {
-        result := ComCall(11, this, "ptr*", manifestStream, "HRESULT")
-        return result
+    GetStream() {
+        result := ComCall(11, this, "ptr*", &manifestStream := 0, "HRESULT")
+        return IStream(manifestStream)
     }
 }

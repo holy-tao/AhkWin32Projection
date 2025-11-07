@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTerminalClass.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +34,16 @@ class IEnumTerminalClass extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<Guid>} pElements 
      * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumterminalclass-next
      */
-    Next(celt, pElements, pceltFetched) {
+    Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
+        pElements := Guid()
         result := ComCall(3, this, "uint", celt, "ptr", pElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+        return pElements
     }
 
     /**
@@ -68,12 +69,11 @@ class IEnumTerminalClass extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumTerminalClass>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTerminalClass} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumterminalclass-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTerminalClass(ppEnum)
     }
 }

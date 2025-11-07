@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\ICEnroll3.ahk
 
 /**
@@ -46,13 +47,13 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCert 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_privatekeyarchivecertificate
      */
-    get_PrivateKeyArchiveCertificate(pbstrCert) {
+    get_PrivateKeyArchiveCertificate() {
+        pbstrCert := BSTR()
         result := ComCall(84, this, "ptr", pbstrCert, "HRESULT")
-        return result
+        return pbstrCert
     }
 
     /**
@@ -70,43 +71,43 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrThumbPrint 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_thumbprint
      */
-    get_ThumbPrint(pbstrThumbPrint) {
+    get_ThumbPrint() {
+        pbstrThumbPrint := BSTR()
         result := ComCall(86, this, "ptr", pbstrThumbPrint, "HRESULT")
-        return result
+        return pbstrThumbPrint
     }
 
     /**
      * 
      * @param {Integer} Flags 
      * @param {BSTR} strBinary 
-     * @param {Pointer<BSTR>} pstrEncoded 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-binarytostring
      */
-    binaryToString(Flags, strBinary, pstrEncoded) {
+    binaryToString(Flags, strBinary) {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
 
+        pstrEncoded := BSTR()
         result := ComCall(87, this, "int", Flags, "ptr", strBinary, "ptr", pstrEncoded, "HRESULT")
-        return result
+        return pstrEncoded
     }
 
     /**
      * 
      * @param {Integer} Flags 
      * @param {BSTR} strEncoded 
-     * @param {Pointer<BSTR>} pstrBinary 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-stringtobinary
      */
-    stringToBinary(Flags, strEncoded, pstrBinary) {
+    stringToBinary(Flags, strEncoded) {
         strEncoded := strEncoded is String ? BSTR.Alloc(strEncoded).Value : strEncoded
 
+        pstrBinary := BSTR()
         result := ComCall(88, this, "int", Flags, "ptr", strEncoded, "ptr", pstrBinary, "HRESULT")
-        return result
+        return pstrBinary
     }
 
     /**
@@ -182,16 +183,16 @@ class ICEnroll4 extends ICEnroll3{
      * @param {Integer} Flags 
      * @param {BSTR} strDNName 
      * @param {BSTR} Usage 
-     * @param {Pointer<BSTR>} pstrRequest 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-createrequest
      */
-    createRequest(Flags, strDNName, Usage, pstrRequest) {
+    createRequest(Flags, strDNName, Usage) {
         strDNName := strDNName is String ? BSTR.Alloc(strDNName).Value : strDNName
         Usage := Usage is String ? BSTR.Alloc(Usage).Value : Usage
 
+        pstrRequest := BSTR()
         result := ComCall(94, this, "int", Flags, "ptr", strDNName, "ptr", Usage, "ptr", pstrRequest, "HRESULT")
-        return result
+        return pstrRequest
     }
 
     /**
@@ -241,43 +242,43 @@ class ICEnroll4 extends ICEnroll3{
     /**
      * 
      * @param {BSTR} strResponse 
-     * @param {Pointer<BSTR>} pstrCert 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getcertfromresponse
      */
-    getCertFromResponse(strResponse, pstrCert) {
+    getCertFromResponse(strResponse) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
 
+        pstrCert := BSTR()
         result := ComCall(98, this, "ptr", strResponse, "ptr", pstrCert, "HRESULT")
-        return result
+        return pstrCert
     }
 
     /**
      * 
      * @param {BSTR} strResponseFileName 
-     * @param {Pointer<BSTR>} pstrCert 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getcertfromfileresponse
      */
-    getCertFromFileResponse(strResponseFileName, pstrCert) {
+    getCertFromFileResponse(strResponseFileName) {
         strResponseFileName := strResponseFileName is String ? BSTR.Alloc(strResponseFileName).Value : strResponseFileName
 
+        pstrCert := BSTR()
         result := ComCall(99, this, "ptr", strResponseFileName, "ptr", pstrCert, "HRESULT")
-        return result
+        return pstrCert
     }
 
     /**
      * 
      * @param {BSTR} strPassword 
-     * @param {Pointer<BSTR>} pstrPFX 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-createpfx
      */
-    createPFX(strPassword, pstrPFX) {
+    createPFX(strPassword) {
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
+        pstrPFX := BSTR()
         result := ComCall(100, this, "ptr", strPassword, "ptr", pstrPFX, "HRESULT")
-        return result
+        return pstrPFX
     }
 
     /**
@@ -317,13 +318,13 @@ class ICEnroll4 extends ICEnroll3{
      * 
      * @param {Integer} lIndex 
      * @param {Integer} lDesiredProperty 
-     * @param {Pointer<VARIANT>} pvarProperty 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-enumpendingrequest
      */
-    enumPendingRequest(lIndex, lDesiredProperty, pvarProperty) {
+    enumPendingRequest(lIndex, lDesiredProperty) {
+        pvarProperty := VARIANT()
         result := ComCall(103, this, "int", lIndex, "int", lDesiredProperty, "ptr", pvarProperty, "HRESULT")
-        return result
+        return pvarProperty
     }
 
     /**
@@ -343,31 +344,25 @@ class ICEnroll4 extends ICEnroll3{
      * 
      * @param {Integer} lSizeSpec 
      * @param {Integer} lKeySpec 
-     * @param {Pointer<Integer>} pdwKeySize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getkeylenex
      */
-    GetKeyLenEx(lSizeSpec, lKeySpec, pdwKeySize) {
-        pdwKeySizeMarshal := pdwKeySize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(105, this, "int", lSizeSpec, "int", lKeySpec, pdwKeySizeMarshal, pdwKeySize, "HRESULT")
-        return result
+    GetKeyLenEx(lSizeSpec, lKeySpec) {
+        result := ComCall(105, this, "int", lSizeSpec, "int", lKeySpec, "int*", &pdwKeySize := 0, "HRESULT")
+        return pdwKeySize
     }
 
     /**
      * 
      * @param {BSTR} PKCS7 
-     * @param {Pointer<Integer>} plCertInstalled 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-installpkcs7ex
      */
-    InstallPKCS7Ex(PKCS7, plCertInstalled) {
+    InstallPKCS7Ex(PKCS7) {
         PKCS7 := PKCS7 is String ? BSTR.Alloc(PKCS7).Value : PKCS7
 
-        plCertInstalledMarshal := plCertInstalled is VarRef ? "int*" : "ptr"
-
-        result := ComCall(106, this, "ptr", PKCS7, plCertInstalledMarshal, plCertInstalled, "HRESULT")
-        return result
+        result := ComCall(106, this, "ptr", PKCS7, "int*", &plCertInstalled := 0, "HRESULT")
+        return plCertInstalled
     }
 
     /**
@@ -390,17 +385,14 @@ class ICEnroll4 extends ICEnroll3{
     /**
      * 
      * @param {BSTR} strProvName 
-     * @param {Pointer<Integer>} plProvType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getprovidertype
      */
-    getProviderType(strProvName, plProvType) {
+    getProviderType(strProvName) {
         strProvName := strProvName is String ? BSTR.Alloc(strProvName).Value : strProvName
 
-        plProvTypeMarshal := plProvType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(108, this, "ptr", strProvName, plProvTypeMarshal, plProvType, "HRESULT")
-        return result
+        result := ComCall(108, this, "ptr", strProvName, "int*", &plProvType := 0, "HRESULT")
+        return plProvType
     }
 
     /**
@@ -429,15 +421,12 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * 
-     * @param {Pointer<Integer>} plClientId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_clientid
      */
-    get_ClientId(plClientId) {
-        plClientIdMarshal := plClientId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(111, this, plClientIdMarshal, plClientId, "HRESULT")
-        return result
+    get_ClientId() {
+        result := ComCall(111, this, "int*", &plClientId := 0, "HRESULT")
+        return plClientId
     }
 
     /**
@@ -478,12 +467,11 @@ class ICEnroll4 extends ICEnroll3{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfInclude 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_includesubjectkeyid
      */
-    get_IncludeSubjectKeyID(pfInclude) {
-        result := ComCall(115, this, "ptr", pfInclude, "HRESULT")
-        return result
+    get_IncludeSubjectKeyID() {
+        result := ComCall(115, this, "int*", &pfInclude := 0, "HRESULT")
+        return pfInclude
     }
 }

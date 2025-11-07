@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWdsTransportMulticastSessionPolicy.ahk
 #Include .\IWdsTransportConfigurationManager.ahk
 
 /**
@@ -32,12 +33,11 @@ class IWdsTransportConfigurationManager2 extends IWdsTransportConfigurationManag
 
     /**
      * 
-     * @param {Pointer<IWdsTransportMulticastSessionPolicy>} ppWdsTransportMulticastSessionPolicy 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportMulticastSessionPolicy} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager2-get_multicastsessionpolicy
      */
-    get_MulticastSessionPolicy(ppWdsTransportMulticastSessionPolicy) {
-        result := ComCall(16, this, "ptr*", ppWdsTransportMulticastSessionPolicy, "HRESULT")
-        return result
+    get_MulticastSessionPolicy() {
+        result := ComCall(16, this, "ptr*", &ppWdsTransportMulticastSessionPolicy := 0, "HRESULT")
+        return IWdsTransportMulticastSessionPolicy(ppWdsTransportMulticastSessionPolicy)
     }
 }

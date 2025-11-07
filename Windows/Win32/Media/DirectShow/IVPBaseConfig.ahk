@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\DirectDraw\DDVIDEOPORTCONNECT.ahk
+#Include ..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,15 +36,15 @@ class IVPBaseConfig extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pdwNumConnectInfo 
-     * @param {Pointer<DDVIDEOPORTCONNECT>} pddVPConnectInfo 
-     * @returns {HRESULT} 
+     * @returns {DDVIDEOPORTCONNECT} 
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-getconnectinfo
      */
-    GetConnectInfo(pdwNumConnectInfo, pddVPConnectInfo) {
+    GetConnectInfo(pdwNumConnectInfo) {
         pdwNumConnectInfoMarshal := pdwNumConnectInfo is VarRef ? "uint*" : "ptr"
 
+        pddVPConnectInfo := DDVIDEOPORTCONNECT()
         result := ComCall(3, this, pdwNumConnectInfoMarshal, pdwNumConnectInfo, "ptr", pddVPConnectInfo, "HRESULT")
-        return result
+        return pddVPConnectInfo
     }
 
     /**
@@ -95,15 +98,15 @@ class IVPBaseConfig extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pdwNumFormats 
-     * @param {Pointer<DDPIXELFORMAT>} pddPixelFormats 
-     * @returns {HRESULT} 
+     * @returns {DDPIXELFORMAT} 
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-getvideoformats
      */
-    GetVideoFormats(pdwNumFormats, pddPixelFormats) {
+    GetVideoFormats(pdwNumFormats) {
         pdwNumFormatsMarshal := pdwNumFormats is VarRef ? "uint*" : "ptr"
 
+        pddPixelFormats := DDPIXELFORMAT()
         result := ComCall(8, this, pdwNumFormatsMarshal, pdwNumFormats, "ptr", pddPixelFormats, "HRESULT")
-        return result
+        return pddPixelFormats
     }
 
     /**
@@ -129,13 +132,12 @@ class IVPBaseConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirectDrawSurface>} ppddOverlaySurface 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawSurface} 
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-getoverlaysurface
      */
-    GetOverlaySurface(ppddOverlaySurface) {
-        result := ComCall(11, this, "ptr*", ppddOverlaySurface, "HRESULT")
-        return result
+    GetOverlaySurface() {
+        result := ComCall(11, this, "ptr*", &ppddOverlaySurface := 0, "HRESULT")
+        return IDirectDrawSurface(ppddOverlaySurface)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICallFrameEvents.ahk
 #Include .\ICallIndirect.ahk
 
 /**
@@ -43,12 +44,11 @@ class ICallInterceptor extends ICallIndirect{
 
     /**
      * 
-     * @param {Pointer<ICallFrameEvents>} ppsink 
-     * @returns {HRESULT} 
+     * @returns {ICallFrameEvents} 
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallinterceptor-getregisteredsink
      */
-    GetRegisteredSink(ppsink) {
-        result := ComCall(8, this, "ptr*", ppsink, "HRESULT")
-        return result
+    GetRegisteredSink() {
+        result := ComCall(8, this, "ptr*", &ppsink := 0, "HRESULT")
+        return ICallFrameEvents(ppsink)
     }
 }

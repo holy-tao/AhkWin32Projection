@@ -30,12 +30,11 @@ class ISpPhoneticAlphabetSelection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsUPS 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsAlphabetUPS(pfIsUPS) {
-        result := ComCall(3, this, "ptr", pfIsUPS, "HRESULT")
-        return result
+    IsAlphabetUPS() {
+        result := ComCall(3, this, "int*", &pfIsUPS := 0, "HRESULT")
+        return pfIsUPS
     }
 
     /**

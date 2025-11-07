@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLElement2.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,52 +32,51 @@ class IXMLDocument2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IXMLElement2>} p 
-     * @returns {HRESULT} 
+     * @returns {IXMLElement2} 
      */
-    get_root(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_root() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IXMLElement2(p)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_fileSize(p) {
+    get_fileSize() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_fileModifiedDate(p) {
+    get_fileModifiedDate() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_fileUpdatedDate(p) {
+    get_fileUpdatedDate() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_URL(p) {
+    get_URL() {
+        p := BSTR()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -93,34 +93,31 @@ class IXMLDocument2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_mimeType(p) {
+    get_mimeType() {
+        p := BSTR()
         result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pl 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_readyState(pl) {
-        plMarshal := pl is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, plMarshal, pl, "HRESULT")
-        return result
+    get_readyState() {
+        result := ComCall(14, this, "int*", &pl := 0, "HRESULT")
+        return pl
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_charset(p) {
+    get_charset() {
+        p := BSTR()
         result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -137,54 +134,52 @@ class IXMLDocument2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_version(p) {
+    get_version() {
+        p := BSTR()
         result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_doctype(p) {
+    get_doctype() {
+        p := BSTR()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_dtdURL(p) {
+    get_dtdURL() {
+        p := BSTR()
         result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {VARIANT} vType 
      * @param {VARIANT} var1 
-     * @param {Pointer<IXMLElement2>} ppElem 
-     * @returns {HRESULT} 
+     * @returns {IXMLElement2} 
      */
-    createElement(vType, var1, ppElem) {
-        result := ComCall(20, this, "ptr", vType, "ptr", var1, "ptr*", ppElem, "HRESULT")
-        return result
+    createElement(vType, var1) {
+        result := ComCall(20, this, "ptr", vType, "ptr", var1, "ptr*", &ppElem := 0, "HRESULT")
+        return IXMLElement2(ppElem)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pf 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_async(pf) {
-        result := ComCall(21, this, "ptr", pf, "HRESULT")
-        return result
+    get_async() {
+        result := ComCall(21, this, "short*", &pf := 0, "HRESULT")
+        return pf
     }
 
     /**

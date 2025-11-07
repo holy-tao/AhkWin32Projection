@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcRelationshipSet.ahk
+#Include ..\..\..\System\Com\IStream.ahk
+#Include .\IOpcPartUri.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -93,58 +96,51 @@ class IOpcPart extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcRelationshipSet>} relationshipSet 
-     * @returns {HRESULT} 
+     * @returns {IOpcRelationshipSet} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getrelationshipset
      */
-    GetRelationshipSet(relationshipSet) {
-        result := ComCall(3, this, "ptr*", relationshipSet, "HRESULT")
-        return result
+    GetRelationshipSet() {
+        result := ComCall(3, this, "ptr*", &relationshipSet := 0, "HRESULT")
+        return IOpcRelationshipSet(relationshipSet)
     }
 
     /**
      * 
-     * @param {Pointer<IStream>} stream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getcontentstream
      */
-    GetContentStream(stream) {
-        result := ComCall(4, this, "ptr*", stream, "HRESULT")
-        return result
+    GetContentStream() {
+        result := ComCall(4, this, "ptr*", &stream := 0, "HRESULT")
+        return IStream(stream)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} name 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getname
      */
-    GetName(name) {
-        result := ComCall(5, this, "ptr*", name, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(5, this, "ptr*", &name := 0, "HRESULT")
+        return IOpcPartUri(name)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} contentType 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getcontenttype
      */
-    GetContentType(contentType) {
-        result := ComCall(6, this, "ptr", contentType, "HRESULT")
-        return result
+    GetContentType() {
+        result := ComCall(6, this, "ptr*", &contentType := 0, "HRESULT")
+        return contentType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} compressionOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getcompressionoptions
      */
-    GetCompressionOptions(compressionOptions) {
-        compressionOptionsMarshal := compressionOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, compressionOptionsMarshal, compressionOptions, "HRESULT")
-        return result
+    GetCompressionOptions() {
+        result := ComCall(7, this, "int*", &compressionOptions := 0, "HRESULT")
+        return compressionOptions
     }
 }

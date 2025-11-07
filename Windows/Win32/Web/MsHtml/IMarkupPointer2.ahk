@@ -30,24 +30,20 @@ class IMarkupPointer2 extends IMarkupPointer{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfAtBreak 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsAtWordBreak(pfAtBreak) {
-        result := ComCall(24, this, "ptr", pfAtBreak, "HRESULT")
-        return result
+    IsAtWordBreak() {
+        result := ComCall(24, this, "int*", &pfAtBreak := 0, "HRESULT")
+        return pfAtBreak
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMP 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMarkupPosition(plMP) {
-        plMPMarshal := plMP is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, plMPMarshal, plMP, "HRESULT")
-        return result
+    GetMarkupPosition() {
+        result := ComCall(25, this, "int*", &plMP := 0, "HRESULT")
+        return plMP
     }
 
     /**
@@ -75,12 +71,11 @@ class IMarkupPointer2 extends IMarkupPointer{
     /**
      * 
      * @param {IMarkupPointer} pRight 
-     * @param {Pointer<BOOL>} pfResult 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsInsideURL(pRight, pfResult) {
-        result := ComCall(28, this, "ptr", pRight, "ptr", pfResult, "HRESULT")
-        return result
+    IsInsideURL(pRight) {
+        result := ComCall(28, this, "ptr", pRight, "int*", &pfResult := 0, "HRESULT")
+        return pfResult
     }
 
     /**

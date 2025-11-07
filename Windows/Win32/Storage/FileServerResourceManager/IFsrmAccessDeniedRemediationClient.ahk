@@ -45,18 +45,15 @@ class IFsrmAccessDeniedRemediationClient extends IDispatch{
      * @param {Integer} flags 
      * @param {BSTR} windowTitle 
      * @param {BSTR} windowMessage 
-     * @param {Pointer<Integer>} result 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaccessdeniedremediationclient-show
      */
-    Show(parentWnd, accessPath, errorType, flags, windowTitle, windowMessage, result) {
+    Show(parentWnd, accessPath, errorType, flags, windowTitle, windowMessage) {
         accessPath := accessPath is String ? BSTR.Alloc(accessPath).Value : accessPath
         windowTitle := windowTitle is String ? BSTR.Alloc(windowTitle).Value : windowTitle
         windowMessage := windowMessage is String ? BSTR.Alloc(windowMessage).Value : windowMessage
 
-        resultMarshal := result is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "ptr", parentWnd, "ptr", accessPath, "int", errorType, "int", flags, "ptr", windowTitle, "ptr", windowMessage, resultMarshal, result, "HRESULT")
+        result := ComCall(7, this, "ptr", parentWnd, "ptr", accessPath, "int", errorType, "int", flags, "ptr", windowTitle, "ptr", windowMessage, "int*", &result := 0, "HRESULT")
         return result
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDot11AdHocNetwork.ahk
+#Include .\IEnumDot11AdHocNetworks.ahk
+#Include .\IEnumDot11AdHocInterfaces.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,16 +47,15 @@ class IDot11AdHocManager extends IUnknown{
      * @param {IDot11AdHocInterface} pInterface 
      * @param {IDot11AdHocSecuritySettings} pSecurity 
      * @param {Pointer<Guid>} pContextGuid 
-     * @param {Pointer<IDot11AdHocNetwork>} pIAdHoc 
-     * @returns {HRESULT} 
+     * @returns {IDot11AdHocNetwork} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanager-createnetwork
      */
-    CreateNetwork(Name, Password, GeographicalId, pInterface, pSecurity, pContextGuid, pIAdHoc) {
+    CreateNetwork(Name, Password, GeographicalId, pInterface, pSecurity, pContextGuid) {
         Name := Name is String ? StrPtr(Name) : Name
         Password := Password is String ? StrPtr(Password) : Password
 
-        result := ComCall(3, this, "ptr", Name, "ptr", Password, "int", GeographicalId, "ptr", pInterface, "ptr", pSecurity, "ptr", pContextGuid, "ptr*", pIAdHoc, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", Name, "ptr", Password, "int", GeographicalId, "ptr", pInterface, "ptr", pSecurity, "ptr", pContextGuid, "ptr*", &pIAdHoc := 0, "HRESULT")
+        return IDot11AdHocNetwork(pIAdHoc)
     }
 
     /**
@@ -72,35 +74,32 @@ class IDot11AdHocManager extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} pContextGuid 
-     * @param {Pointer<IEnumDot11AdHocNetworks>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDot11AdHocNetworks} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanager-getienumdot11adhocnetworks
      */
-    GetIEnumDot11AdHocNetworks(pContextGuid, ppEnum) {
-        result := ComCall(5, this, "ptr", pContextGuid, "ptr*", ppEnum, "HRESULT")
-        return result
+    GetIEnumDot11AdHocNetworks(pContextGuid) {
+        result := ComCall(5, this, "ptr", pContextGuid, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDot11AdHocNetworks(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumDot11AdHocInterfaces>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDot11AdHocInterfaces} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanager-getienumdot11adhocinterfaces
      */
-    GetIEnumDot11AdHocInterfaces(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    GetIEnumDot11AdHocInterfaces() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDot11AdHocInterfaces(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} NetworkSignature 
-     * @param {Pointer<IDot11AdHocNetwork>} pNetwork 
-     * @returns {HRESULT} 
+     * @returns {IDot11AdHocNetwork} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanager-getnetwork
      */
-    GetNetwork(NetworkSignature, pNetwork) {
-        result := ComCall(7, this, "ptr", NetworkSignature, "ptr*", pNetwork, "HRESULT")
-        return result
+    GetNetwork(NetworkSignature) {
+        result := ComCall(7, this, "ptr", NetworkSignature, "ptr*", &pNetwork := 0, "HRESULT")
+        return IDot11AdHocNetwork(pNetwork)
     }
 }

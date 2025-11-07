@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFaxOutgoingJobs.ahk
+#Include .\IFaxOutgoingJob.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,26 +41,24 @@ class IFaxAccountOutgoingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFaxOutgoingJobs>} pFaxOutgoingJobs 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutgoingJobs} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountoutgoingqueue-getjobs
      */
-    GetJobs(pFaxOutgoingJobs) {
-        result := ComCall(7, this, "ptr*", pFaxOutgoingJobs, "HRESULT")
-        return result
+    GetJobs() {
+        result := ComCall(7, this, "ptr*", &pFaxOutgoingJobs := 0, "HRESULT")
+        return IFaxOutgoingJobs(pFaxOutgoingJobs)
     }
 
     /**
      * 
      * @param {BSTR} bstrJobId 
-     * @param {Pointer<IFaxOutgoingJob>} pFaxOutgoingJob 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutgoingJob} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountoutgoingqueue-getjob
      */
-    GetJob(bstrJobId, pFaxOutgoingJob) {
+    GetJob(bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(8, this, "ptr", bstrJobId, "ptr*", pFaxOutgoingJob, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", bstrJobId, "ptr*", &pFaxOutgoingJob := 0, "HRESULT")
+        return IFaxOutgoingJob(pFaxOutgoingJob)
     }
 }

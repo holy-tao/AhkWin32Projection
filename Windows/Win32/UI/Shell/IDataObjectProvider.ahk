@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDataObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,13 +39,12 @@ class IDataObjectProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDataObject>} dataObject 
-     * @returns {HRESULT} 
+     * @returns {IDataObject} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idataobjectprovider-getdataobject
      */
-    GetDataObject(dataObject) {
-        result := ComCall(3, this, "ptr*", dataObject, "HRESULT")
-        return result
+    GetDataObject() {
+        result := ComCall(3, this, "ptr*", &dataObject := 0, "HRESULT")
+        return IDataObject(dataObject)
     }
 
     /**

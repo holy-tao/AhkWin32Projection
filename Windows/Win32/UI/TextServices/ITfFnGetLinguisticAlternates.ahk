@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfCandidateList.ahk
 #Include .\ITfFunction.ahk
 
 /**
@@ -33,12 +34,11 @@ class ITfFnGetLinguisticAlternates extends ITfFunction{
     /**
      * 
      * @param {ITfRange} pRange 
-     * @param {Pointer<ITfCandidateList>} ppCandidateList 
-     * @returns {HRESULT} 
+     * @returns {ITfCandidateList} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffngetlinguisticalternates-getalternates
      */
-    GetAlternates(pRange, ppCandidateList) {
-        result := ComCall(4, this, "ptr", pRange, "ptr*", ppCandidateList, "HRESULT")
-        return result
+    GetAlternates(pRange) {
+        result := ComCall(4, this, "ptr", pRange, "ptr*", &ppCandidateList := 0, "HRESULT")
+        return ITfCandidateList(ppCandidateList)
     }
 }

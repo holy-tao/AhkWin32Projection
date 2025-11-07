@@ -47,15 +47,12 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} MinMinorChannelVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_minminorchannel
      */
-    get_MinMinorChannel(MinMinorChannelVal) {
-        MinMinorChannelValMarshal := MinMinorChannelVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, MinMinorChannelValMarshal, MinMinorChannelVal, "HRESULT")
-        return result
+    get_MinMinorChannel() {
+        result := ComCall(34, this, "int*", &MinMinorChannelVal := 0, "HRESULT")
+        return MinMinorChannelVal
     }
 
     /**
@@ -71,15 +68,12 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} MaxMinorChannelVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_maxminorchannel
      */
-    get_MaxMinorChannel(MaxMinorChannelVal) {
-        MaxMinorChannelValMarshal := MaxMinorChannelVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(36, this, MaxMinorChannelValMarshal, MaxMinorChannelVal, "HRESULT")
-        return result
+    get_MaxMinorChannel() {
+        result := ComCall(36, this, "int*", &MaxMinorChannelVal := 0, "HRESULT")
+        return MaxMinorChannelVal
     }
 
     /**
@@ -95,15 +89,12 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} MinPhysicalChannelVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_minphysicalchannel
      */
-    get_MinPhysicalChannel(MinPhysicalChannelVal) {
-        MinPhysicalChannelValMarshal := MinPhysicalChannelVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(38, this, MinPhysicalChannelValMarshal, MinPhysicalChannelVal, "HRESULT")
-        return result
+    get_MinPhysicalChannel() {
+        result := ComCall(38, this, "int*", &MinPhysicalChannelVal := 0, "HRESULT")
+        return MinPhysicalChannelVal
     }
 
     /**
@@ -119,15 +110,12 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} MaxPhysicalChannelVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_maxphysicalchannel
      */
-    get_MaxPhysicalChannel(MaxPhysicalChannelVal) {
-        MaxPhysicalChannelValMarshal := MaxPhysicalChannelVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(40, this, MaxPhysicalChannelValMarshal, MaxPhysicalChannelVal, "HRESULT")
-        return result
+    get_MaxPhysicalChannel() {
+        result := ComCall(40, this, "int*", &MaxPhysicalChannelVal := 0, "HRESULT")
+        return MaxPhysicalChannelVal
     }
 
     /**

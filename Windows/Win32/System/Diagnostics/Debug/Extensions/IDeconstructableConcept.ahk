@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IModelObject.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -31,36 +33,32 @@ class IDeconstructableConcept extends IUnknown{
     /**
      * 
      * @param {IModelObject} contextObject 
-     * @param {Pointer<BSTR>} constructableModelName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetConstructableModelName(contextObject, constructableModelName) {
+    GetConstructableModelName(contextObject) {
+        constructableModelName := BSTR()
         result := ComCall(3, this, "ptr", contextObject, "ptr", constructableModelName, "HRESULT")
-        return result
+        return constructableModelName
     }
 
     /**
      * 
      * @param {IModelObject} contextObject 
-     * @param {Pointer<Integer>} argCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetConstructorArgumentCount(contextObject, argCount) {
-        argCountMarshal := argCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", contextObject, argCountMarshal, argCount, "HRESULT")
-        return result
+    GetConstructorArgumentCount(contextObject) {
+        result := ComCall(4, this, "ptr", contextObject, "uint*", &argCount := 0, "HRESULT")
+        return argCount
     }
 
     /**
      * 
      * @param {IModelObject} contextObject 
      * @param {Integer} argCount 
-     * @param {Pointer<IModelObject>} constructorArguments 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    GetConstructorArguments(contextObject, argCount, constructorArguments) {
-        result := ComCall(5, this, "ptr", contextObject, "uint", argCount, "ptr*", constructorArguments, "HRESULT")
-        return result
+    GetConstructorArguments(contextObject, argCount) {
+        result := ComCall(5, this, "ptr", contextObject, "uint", argCount, "ptr*", &constructorArguments := 0, "HRESULT")
+        return IModelObject(constructorArguments)
     }
 }

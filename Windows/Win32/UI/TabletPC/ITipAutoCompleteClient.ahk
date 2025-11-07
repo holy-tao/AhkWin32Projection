@@ -78,20 +78,21 @@ class ITipAutoCompleteClient extends IUnknown{
      * @returns {HRESULT} 
      */
     PreferredRects(prcACList, prcField, prcModifiedACList, pfShownAboveTip) {
-        result := ComCall(6, this, "ptr", prcACList, "ptr", prcField, "ptr", prcModifiedACList, "ptr", pfShownAboveTip, "HRESULT")
+        pfShownAboveTipMarshal := pfShownAboveTip is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", prcACList, "ptr", prcField, "ptr", prcModifiedACList, pfShownAboveTipMarshal, pfShownAboveTip, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {HWND} hWndList 
-     * @param {Pointer<BOOL>} pfAllowShowing 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    RequestShowUI(hWndList, pfAllowShowing) {
+    RequestShowUI(hWndList) {
         hWndList := hWndList is Win32Handle ? NumGet(hWndList, "ptr") : hWndList
 
-        result := ComCall(7, this, "ptr", hWndList, "ptr", pfAllowShowing, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", hWndList, "int*", &pfAllowShowing := 0, "HRESULT")
+        return pfAllowShowing
     }
 }

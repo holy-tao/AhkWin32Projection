@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmQuotaTemplate.ahk
+#Include .\IFsrmCommittableCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,65 +49,61 @@ class IFsrmQuotaTemplateManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFsrmQuotaTemplate>} quotaTemplate 
-     * @returns {HRESULT} 
+     * @returns {IFsrmQuotaTemplate} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-createtemplate
      */
-    CreateTemplate(quotaTemplate) {
-        result := ComCall(7, this, "ptr*", quotaTemplate, "HRESULT")
-        return result
+    CreateTemplate() {
+        result := ComCall(7, this, "ptr*", &quotaTemplate := 0, "HRESULT")
+        return IFsrmQuotaTemplate(quotaTemplate)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IFsrmQuotaTemplate>} quotaTemplate 
-     * @returns {HRESULT} 
+     * @returns {IFsrmQuotaTemplate} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-gettemplate
      */
-    GetTemplate(name, quotaTemplate) {
+    GetTemplate(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, "ptr", name, "ptr*", quotaTemplate, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", name, "ptr*", &quotaTemplate := 0, "HRESULT")
+        return IFsrmQuotaTemplate(quotaTemplate)
     }
 
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCommittableCollection>} quotaTemplates 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-enumtemplates
      */
-    EnumTemplates(options, quotaTemplates) {
-        result := ComCall(9, this, "int", options, "ptr*", quotaTemplates, "HRESULT")
-        return result
+    EnumTemplates(options) {
+        result := ComCall(9, this, "int", options, "ptr*", &quotaTemplates := 0, "HRESULT")
+        return IFsrmCommittableCollection(quotaTemplates)
     }
 
     /**
      * Export templates.
      * @param {Pointer<VARIANT>} quotaTemplateNamesArray 
-     * @param {Pointer<BSTR>} serializedQuotaTemplates 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-export
      */
-    ExportTemplates(quotaTemplateNamesArray, serializedQuotaTemplates) {
+    ExportTemplates(quotaTemplateNamesArray) {
+        serializedQuotaTemplates := BSTR()
         result := ComCall(10, this, "ptr", quotaTemplateNamesArray, "ptr", serializedQuotaTemplates, "HRESULT")
-        return result
+        return serializedQuotaTemplates
     }
 
     /**
      * 
      * @param {BSTR} serializedQuotaTemplates 
      * @param {Pointer<VARIANT>} quotaTemplateNamesArray 
-     * @param {Pointer<IFsrmCommittableCollection>} quotaTemplates 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-importtemplates
      */
-    ImportTemplates(serializedQuotaTemplates, quotaTemplateNamesArray, quotaTemplates) {
+    ImportTemplates(serializedQuotaTemplates, quotaTemplateNamesArray) {
         serializedQuotaTemplates := serializedQuotaTemplates is String ? BSTR.Alloc(serializedQuotaTemplates).Value : serializedQuotaTemplates
 
-        result := ComCall(11, this, "ptr", serializedQuotaTemplates, "ptr", quotaTemplateNamesArray, "ptr*", quotaTemplates, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", serializedQuotaTemplates, "ptr", quotaTemplateNamesArray, "ptr*", &quotaTemplates := 0, "HRESULT")
+        return IFsrmCommittableCollection(quotaTemplates)
     }
 }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLRuleStyle.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,21 +44,20 @@ class IHTMLStyleSheetPage2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_selectorText(p) {
+    get_selectorText() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLRuleStyle>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLRuleStyle} 
      */
-    get_style(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_style() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLRuleStyle(p)
     }
 }

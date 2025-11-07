@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -53,23 +54,22 @@ class IValueProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ivalueprovider-get_value
      */
-    get_Value(pRetVal) {
+    get_Value() {
+        pRetVal := BSTR()
         result := ComCall(4, this, "ptr", pRetVal, "HRESULT")
-        return result
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ivalueprovider-get_isreadonly
      */
-    get_IsReadOnly(pRetVal) {
-        result := ComCall(5, this, "ptr", pRetVal, "HRESULT")
-        return result
+    get_IsReadOnly() {
+        result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

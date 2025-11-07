@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLDocumentCompatibleInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,24 +37,20 @@ class IHTMLDocumentCompatibleInfoCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IHTMLDocumentCompatibleInfo>} compatibleInfo 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocumentCompatibleInfo} 
      */
-    item(index, compatibleInfo) {
-        result := ComCall(8, this, "int", index, "ptr*", compatibleInfo, "HRESULT")
-        return result
+    item(index) {
+        result := ComCall(8, this, "int", index, "ptr*", &compatibleInfo := 0, "HRESULT")
+        return IHTMLDocumentCompatibleInfo(compatibleInfo)
     }
 }

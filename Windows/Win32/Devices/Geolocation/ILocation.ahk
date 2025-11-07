@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ILocationReport.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -67,41 +68,34 @@ class ILocation extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} reportType 
-     * @param {Pointer<ILocationReport>} ppLocationReport 
-     * @returns {HRESULT} 
+     * @returns {ILocationReport} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getreport
      */
-    GetReport(reportType, ppLocationReport) {
-        result := ComCall(5, this, "ptr", reportType, "ptr*", ppLocationReport, "HRESULT")
-        return result
+    GetReport(reportType) {
+        result := ComCall(5, this, "ptr", reportType, "ptr*", &ppLocationReport := 0, "HRESULT")
+        return ILocationReport(ppLocationReport)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} reportType 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getreportstatus
      */
-    GetReportStatus(reportType, pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, "ptr", reportType, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    GetReportStatus(reportType) {
+        result := ComCall(6, this, "ptr", reportType, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
      * 
      * @param {Pointer<Guid>} reportType 
-     * @param {Pointer<Integer>} pMilliseconds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getreportinterval
      */
-    GetReportInterval(reportType, pMilliseconds) {
-        pMillisecondsMarshal := pMilliseconds is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", reportType, pMillisecondsMarshal, pMilliseconds, "HRESULT")
-        return result
+    GetReportInterval(reportType) {
+        result := ComCall(7, this, "ptr", reportType, "uint*", &pMilliseconds := 0, "HRESULT")
+        return pMilliseconds
     }
 
     /**
@@ -119,15 +113,12 @@ class ILocation extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} reportType 
-     * @param {Pointer<Integer>} pDesiredAccuracy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getdesiredaccuracy
      */
-    GetDesiredAccuracy(reportType, pDesiredAccuracy) {
-        pDesiredAccuracyMarshal := pDesiredAccuracy is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "ptr", reportType, pDesiredAccuracyMarshal, pDesiredAccuracy, "HRESULT")
-        return result
+    GetDesiredAccuracy(reportType) {
+        result := ComCall(9, this, "ptr", reportType, "int*", &pDesiredAccuracy := 0, "HRESULT")
+        return pDesiredAccuracy
     }
 
     /**

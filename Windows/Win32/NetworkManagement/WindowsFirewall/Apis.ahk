@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\Ole\IEnumVARIANT.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
@@ -92,7 +93,9 @@ class WindowsFirewall {
         packageFolder := packageFolder is String ? StrPtr(packageFolder) : packageFolder
         displayName := displayName is String ? StrPtr(displayName) : displayName
 
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationSetupAppContainerBinaries", "ptr", applicationContainerSid, "ptr", packageFullName, "ptr", packageFolder, "ptr", displayName, "int", bBinariesFullyComputed, "ptr", binaries, "uint", binariesCount, "int")
+        binariesMarshal := binaries is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationSetupAppContainerBinaries", "ptr", applicationContainerSid, "ptr", packageFullName, "ptr", packageFolder, "ptr", displayName, "int", bBinariesFullyComputed, binariesMarshal, binaries, "uint", binariesCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -197,21 +200,18 @@ class WindowsFirewall {
 
     /**
      * Enumerates all of the rules related to app containers.
-     * @param {Pointer<IEnumVARIANT>} newEnum Type: <b>IEnumVARIANT**</b>
+     * @returns {IEnumVARIANT} Type: <b>IEnumVARIANT**</b>
      * 
      * Enumerator interface of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule3">INetFwRule3</a> object that represents the rules enforcing app containers.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-networkisolationenumerateappcontainerrules
      * @since windows8.0
      */
-    static NetworkIsolationEnumerateAppContainerRules(newEnum) {
-        result := DllCall("Firewallapi.dll\NetworkIsolationEnumerateAppContainerRules", "ptr*", newEnum, "int")
+    static NetworkIsolationEnumerateAppContainerRules() {
+        result := DllCall("Firewallapi.dll\NetworkIsolationEnumerateAppContainerRules", "ptr*", &newEnum := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IEnumVARIANT(newEnum)
     }
 
     /**

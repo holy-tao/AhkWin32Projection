@@ -39,10 +39,9 @@ class ICLRMetaHostPolicy extends IUnknown{
      * @param {Pointer<Integer>} pcchImageVersion 
      * @param {Pointer<Integer>} pdwConfigFlags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppRuntime 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetRequestedRuntime(dwPolicyFlags, pwzBinary, pCfgStream, pwzVersion, pcchVersion, pwzImageVersion, pcchImageVersion, pdwConfigFlags, riid, ppRuntime) {
+    GetRequestedRuntime(dwPolicyFlags, pwzBinary, pCfgStream, pwzVersion, pcchVersion, pwzImageVersion, pcchImageVersion, pdwConfigFlags, riid) {
         pwzBinary := pwzBinary is String ? StrPtr(pwzBinary) : pwzBinary
         pwzVersion := pwzVersion is String ? StrPtr(pwzVersion) : pwzVersion
         pwzImageVersion := pwzImageVersion is String ? StrPtr(pwzImageVersion) : pwzImageVersion
@@ -50,9 +49,8 @@ class ICLRMetaHostPolicy extends IUnknown{
         pcchVersionMarshal := pcchVersion is VarRef ? "uint*" : "ptr"
         pcchImageVersionMarshal := pcchImageVersion is VarRef ? "uint*" : "ptr"
         pdwConfigFlagsMarshal := pdwConfigFlags is VarRef ? "uint*" : "ptr"
-        ppRuntimeMarshal := ppRuntime is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "int", dwPolicyFlags, "ptr", pwzBinary, "ptr", pCfgStream, "ptr", pwzVersion, pcchVersionMarshal, pcchVersion, "ptr", pwzImageVersion, pcchImageVersionMarshal, pcchImageVersion, pdwConfigFlagsMarshal, pdwConfigFlags, "ptr", riid, ppRuntimeMarshal, ppRuntime, "HRESULT")
-        return result
+        result := ComCall(3, this, "int", dwPolicyFlags, "ptr", pwzBinary, "ptr", pCfgStream, "ptr", pwzVersion, pcchVersionMarshal, pcchVersion, "ptr", pwzImageVersion, pcchImageVersionMarshal, pcchImageVersion, pdwConfigFlagsMarshal, pdwConfigFlags, "ptr", riid, "ptr*", &ppRuntime := 0, "HRESULT")
+        return ppRuntime
     }
 }

@@ -33,13 +33,12 @@ class ITfLanguageProfileNotifySink extends IUnknown{
     /**
      * 
      * @param {Integer} langid 
-     * @param {Pointer<BOOL>} pfAccept 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itflanguageprofilenotifysink-onlanguagechange
      */
-    OnLanguageChange(langid, pfAccept) {
-        result := ComCall(3, this, "ushort", langid, "ptr", pfAccept, "HRESULT")
-        return result
+    OnLanguageChange(langid) {
+        result := ComCall(3, this, "ushort", langid, "int*", &pfAccept := 0, "HRESULT")
+        return pfAccept
     }
 
     /**

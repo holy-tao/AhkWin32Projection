@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\View.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,24 +39,20 @@ class Views extends IDispatch{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<View>} View 
-     * @returns {HRESULT} 
+     * @returns {View} 
      */
-    Item(Index, View) {
-        result := ComCall(7, this, "int", Index, "ptr*", View, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(7, this, "int", Index, "ptr*", &View := 0, "HRESULT")
+        return View(View)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
@@ -70,11 +68,10 @@ class Views extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(10, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(10, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 }

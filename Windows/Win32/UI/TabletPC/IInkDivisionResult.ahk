@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IInkStrokes.ahk
+#Include .\IInkDivisionUnits.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,24 +43,22 @@ class IInkDivisionResult extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivisionresult-get_strokes
      */
-    get_Strokes(Strokes) {
-        result := ComCall(7, this, "ptr*", Strokes, "HRESULT")
-        return result
+    get_Strokes() {
+        result := ComCall(7, this, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**
      * 
      * @param {Integer} divisionType 
-     * @param {Pointer<IInkDivisionUnits>} InkDivisionUnits 
-     * @returns {HRESULT} 
+     * @returns {IInkDivisionUnits} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivisionresult-resultbytype
      */
-    ResultByType(divisionType, InkDivisionUnits) {
-        result := ComCall(8, this, "int", divisionType, "ptr*", InkDivisionUnits, "HRESULT")
-        return result
+    ResultByType(divisionType) {
+        result := ComCall(8, this, "int", divisionType, "ptr*", &InkDivisionUnits := 0, "HRESULT")
+        return IInkDivisionUnits(InkDivisionUnits)
     }
 }

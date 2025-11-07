@@ -63,7 +63,9 @@ class IPrintDialogCallback extends IUnknown{
     HandleMessage(hDlg, uMsg, wParam, lParam, pResult) {
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
-        result := ComCall(5, this, "ptr", hDlg, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", hDlg, "uint", uMsg, "ptr", wParam, "ptr", lParam, pResultMarshal, pResult, "HRESULT")
         return result
     }
 }

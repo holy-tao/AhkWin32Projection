@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxManifestCapabilitiesEnumerator.ahk
+#Include .\IAppxManifestTargetDeviceFamiliesEnumerator.ahk
 #Include .\IAppxManifestReader2.ahk
 
 /**
@@ -31,21 +33,19 @@ class IAppxManifestReader3 extends IAppxManifestReader2{
     /**
      * 
      * @param {Integer} capabilityClass 
-     * @param {Pointer<IAppxManifestCapabilitiesEnumerator>} capabilities 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestCapabilitiesEnumerator} 
      */
-    GetCapabilitiesByCapabilityClass(capabilityClass, capabilities) {
-        result := ComCall(13, this, "int", capabilityClass, "ptr*", capabilities, "HRESULT")
-        return result
+    GetCapabilitiesByCapabilityClass(capabilityClass) {
+        result := ComCall(13, this, "int", capabilityClass, "ptr*", &capabilities := 0, "HRESULT")
+        return IAppxManifestCapabilitiesEnumerator(capabilities)
     }
 
     /**
      * 
-     * @param {Pointer<IAppxManifestTargetDeviceFamiliesEnumerator>} targetDeviceFamilies 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestTargetDeviceFamiliesEnumerator} 
      */
-    GetTargetDeviceFamilies(targetDeviceFamilies) {
-        result := ComCall(14, this, "ptr*", targetDeviceFamilies, "HRESULT")
-        return result
+    GetTargetDeviceFamilies() {
+        result := ComCall(14, this, "ptr*", &targetDeviceFamilies := 0, "HRESULT")
+        return IAppxManifestTargetDeviceFamiliesEnumerator(targetDeviceFamilies)
     }
 }

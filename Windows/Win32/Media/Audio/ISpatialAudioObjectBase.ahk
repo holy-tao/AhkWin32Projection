@@ -58,25 +58,21 @@ class ISpatialAudioObjectBase extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isActive 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectbase-isactive
      */
-    IsActive(isActive) {
-        result := ComCall(5, this, "ptr", isActive, "HRESULT")
-        return result
+    IsActive() {
+        result := ComCall(5, this, "int*", &isActive := 0, "HRESULT")
+        return isActive
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} audioObjectType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectbase-getaudioobjecttype
      */
-    GetAudioObjectType(audioObjectType) {
-        audioObjectTypeMarshal := audioObjectType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, audioObjectTypeMarshal, audioObjectType, "HRESULT")
-        return result
+    GetAudioObjectType() {
+        result := ComCall(6, this, "int*", &audioObjectType := 0, "HRESULT")
+        return audioObjectType
     }
 }

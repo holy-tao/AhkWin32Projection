@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFExtendedCameraIntrinsicModel.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,14 +42,11 @@ class IMFExtendedCameraIntrinsics extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwBufferSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetBufferSize(pdwBufferSize) {
-        pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
-        return result
+    GetBufferSize() {
+        result := ComCall(4, this, "uint*", &pdwBufferSize := 0, "HRESULT")
+        return pdwBufferSize
     }
 
     /**
@@ -66,25 +64,21 @@ class IMFExtendedCameraIntrinsics extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetIntrinsicModelCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetIntrinsicModelCount() {
+        result := ComCall(6, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IMFExtendedCameraIntrinsicModel>} ppIntrinsicModel 
-     * @returns {HRESULT} 
+     * @returns {IMFExtendedCameraIntrinsicModel} 
      */
-    GetIntrinsicModelByIndex(dwIndex, ppIntrinsicModel) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr*", ppIntrinsicModel, "HRESULT")
-        return result
+    GetIntrinsicModelByIndex(dwIndex) {
+        result := ComCall(7, this, "uint", dwIndex, "ptr*", &ppIntrinsicModel := 0, "HRESULT")
+        return IMFExtendedCameraIntrinsicModel(ppIntrinsicModel)
     }
 
     /**

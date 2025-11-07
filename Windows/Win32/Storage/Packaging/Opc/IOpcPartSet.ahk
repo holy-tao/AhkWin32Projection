@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcPart.ahk
+#Include .\IOpcPartEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -51,13 +53,12 @@ class IOpcPartSet extends IUnknown{
     /**
      * 
      * @param {IOpcPartUri} name 
-     * @param {Pointer<IOpcPart>} part 
-     * @returns {HRESULT} 
+     * @returns {IOpcPart} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpartset-getpart
      */
-    GetPart(name, part) {
-        result := ComCall(3, this, "ptr", name, "ptr*", part, "HRESULT")
-        return result
+    GetPart(name) {
+        result := ComCall(3, this, "ptr", name, "ptr*", &part := 0, "HRESULT")
+        return IOpcPart(part)
     }
 
     /**
@@ -65,15 +66,14 @@ class IOpcPartSet extends IUnknown{
      * @param {IOpcPartUri} name 
      * @param {PWSTR} contentType 
      * @param {Integer} compressionOptions 
-     * @param {Pointer<IOpcPart>} part 
-     * @returns {HRESULT} 
+     * @returns {IOpcPart} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpartset-createpart
      */
-    CreatePart(name, contentType, compressionOptions, part) {
+    CreatePart(name, contentType, compressionOptions) {
         contentType := contentType is String ? StrPtr(contentType) : contentType
 
-        result := ComCall(4, this, "ptr", name, "ptr", contentType, "int", compressionOptions, "ptr*", part, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", name, "ptr", contentType, "int", compressionOptions, "ptr*", &part := 0, "HRESULT")
+        return IOpcPart(part)
     }
 
     /**
@@ -90,23 +90,21 @@ class IOpcPartSet extends IUnknown{
     /**
      * 
      * @param {IOpcPartUri} name 
-     * @param {Pointer<BOOL>} partExists 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpartset-partexists
      */
-    PartExists(name, partExists) {
-        result := ComCall(6, this, "ptr", name, "ptr", partExists, "HRESULT")
-        return result
+    PartExists(name) {
+        result := ComCall(6, this, "ptr", name, "int*", &partExists := 0, "HRESULT")
+        return partExists
     }
 
     /**
      * 
-     * @param {Pointer<IOpcPartEnumerator>} partEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpartset-getenumerator
      */
-    GetEnumerator(partEnumerator) {
-        result := ComCall(7, this, "ptr*", partEnumerator, "HRESULT")
-        return result
+    GetEnumerator() {
+        result := ComCall(7, this, "ptr*", &partEnumerator := 0, "HRESULT")
+        return IOpcPartEnumerator(partEnumerator)
     }
 }

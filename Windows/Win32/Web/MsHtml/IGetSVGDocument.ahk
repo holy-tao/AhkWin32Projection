@@ -30,11 +30,10 @@ class IGetSVGDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppSVGDocument 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    getSVGDocument(ppSVGDocument) {
-        result := ComCall(7, this, "ptr*", ppSVGDocument, "HRESULT")
-        return result
+    getSVGDocument() {
+        result := ComCall(7, this, "ptr*", &ppSVGDocument := 0, "HRESULT")
+        return IDispatch(ppSVGDocument)
     }
 }

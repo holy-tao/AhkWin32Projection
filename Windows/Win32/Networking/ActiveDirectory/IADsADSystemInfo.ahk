@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,117 +34,116 @@ class IADsADSystemInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_UserName(retval) {
+    get_UserName() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ComputerName(retval) {
+    get_ComputerName() {
+        retval := BSTR()
         result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SiteName(retval) {
+    get_SiteName() {
+        retval := BSTR()
         result := ComCall(9, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DomainShortName(retval) {
+    get_DomainShortName() {
+        retval := BSTR()
         result := ComCall(10, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DomainDNSName(retval) {
+    get_DomainDNSName() {
+        retval := BSTR()
         result := ComCall(11, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ForestDNSName(retval) {
+    get_ForestDNSName() {
+        retval := BSTR()
         result := ComCall(12, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PDCRoleOwner(retval) {
+    get_PDCRoleOwner() {
+        retval := BSTR()
         result := ComCall(13, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SchemaRoleOwner(retval) {
+    get_SchemaRoleOwner() {
+        retval := BSTR()
         result := ComCall(14, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsNativeMode(retval) {
-        result := ComCall(15, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsNativeMode() {
+        result := ComCall(15, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszDCName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsadsysteminfo-getanydcname
      */
-    GetAnyDCName(pszDCName) {
+    GetAnyDCName() {
+        pszDCName := BSTR()
         result := ComCall(16, this, "ptr", pszDCName, "HRESULT")
-        return result
+        return pszDCName
     }
 
     /**
      * 
      * @param {BSTR} szServer 
-     * @param {Pointer<BSTR>} pszSiteName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsadsysteminfo-getdcsitename
      */
-    GetDCSiteName(szServer, pszSiteName) {
+    GetDCSiteName(szServer) {
         szServer := szServer is String ? BSTR.Alloc(szServer).Value : szServer
 
+        pszSiteName := BSTR()
         result := ComCall(17, this, "ptr", szServer, "ptr", pszSiteName, "HRESULT")
-        return result
+        return pszSiteName
     }
 
     /**
@@ -158,12 +158,12 @@ class IADsADSystemInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvTrees 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsadsysteminfo-gettrees
      */
-    GetTrees(pvTrees) {
+    GetTrees() {
+        pvTrees := VARIANT()
         result := ComCall(19, this, "ptr", pvTrees, "HRESULT")
-        return result
+        return pvTrees
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\TIMECODE_SAMPLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,15 +34,12 @@ class IAMTimecodeGenerator extends IUnknown{
     /**
      * 
      * @param {Integer} Param 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodegenerator-gettcgmode
      */
-    GetTCGMode(Param, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "int", Param, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetTCGMode(Param) {
+        result := ComCall(3, this, "int", Param, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -69,15 +67,12 @@ class IAMTimecodeGenerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pLine 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodegenerator-get_vitcline
      */
-    get_VITCLine(pLine) {
-        pLineMarshal := pLine is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pLineMarshal, pLine, "HRESULT")
-        return result
+    get_VITCLine() {
+        result := ComCall(6, this, "int*", &pLine := 0, "HRESULT")
+        return pLine
     }
 
     /**
@@ -93,12 +88,12 @@ class IAMTimecodeGenerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<TIMECODE_SAMPLE>} pTimecodeSample 
-     * @returns {HRESULT} 
+     * @returns {TIMECODE_SAMPLE} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodegenerator-gettimecode
      */
-    GetTimecode(pTimecodeSample) {
+    GetTimecode() {
+        pTimecodeSample := TIMECODE_SAMPLE()
         result := ComCall(8, this, "ptr", pTimecodeSample, "HRESULT")
-        return result
+        return pTimecodeSample
     }
 }

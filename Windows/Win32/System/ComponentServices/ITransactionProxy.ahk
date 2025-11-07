@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\DistributedTransactionCoordinator\ITransaction.ahk
+#Include ..\DistributedTransactionCoordinator\ITransactionVoterBallotAsync2.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -53,25 +55,23 @@ class ITransactionProxy extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITransaction>} pTransaction 
-     * @returns {HRESULT} 
+     * @returns {ITransaction} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-promote
      */
-    Promote(pTransaction) {
-        result := ComCall(5, this, "ptr*", pTransaction, "HRESULT")
-        return result
+    Promote() {
+        result := ComCall(5, this, "ptr*", &pTransaction := 0, "HRESULT")
+        return ITransaction(pTransaction)
     }
 
     /**
      * 
      * @param {ITransactionVoterNotifyAsync2} pTxAsync 
-     * @param {Pointer<ITransactionVoterBallotAsync2>} ppBallot 
-     * @returns {HRESULT} 
+     * @returns {ITransactionVoterBallotAsync2} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-createvoter
      */
-    CreateVoter(pTxAsync, ppBallot) {
-        result := ComCall(6, this, "ptr", pTxAsync, "ptr*", ppBallot, "HRESULT")
-        return result
+    CreateVoter(pTxAsync) {
+        result := ComCall(6, this, "ptr", pTxAsync, "ptr*", &ppBallot := 0, "HRESULT")
+        return ITransactionVoterBallotAsync2(ppBallot)
     }
 
     /**
@@ -105,7 +105,9 @@ class ITransactionProxy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-isreusable
      */
     IsReusable(pfIsReusable) {
-        result := ComCall(9, this, "ptr", pfIsReusable, "HRESULT")
+        pfIsReusableMarshal := pfIsReusable is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pfIsReusableMarshal, pfIsReusable, "HRESULT")
         return result
     }
 }

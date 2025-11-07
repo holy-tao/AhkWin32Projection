@@ -53,13 +53,12 @@ class ITask extends IScheduledWorkItem{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszApplicationName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getapplicationname
      */
-    GetApplicationName(ppwszApplicationName) {
-        result := ComCall(33, this, "ptr", ppwszApplicationName, "HRESULT")
-        return result
+    GetApplicationName() {
+        result := ComCall(33, this, "ptr*", &ppwszApplicationName := 0, "HRESULT")
+        return ppwszApplicationName
     }
 
     /**
@@ -77,13 +76,12 @@ class ITask extends IScheduledWorkItem{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszParameters 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getparameters
      */
-    GetParameters(ppwszParameters) {
-        result := ComCall(35, this, "ptr", ppwszParameters, "HRESULT")
-        return result
+    GetParameters() {
+        result := ComCall(35, this, "ptr*", &ppwszParameters := 0, "HRESULT")
+        return ppwszParameters
     }
 
     /**
@@ -101,13 +99,12 @@ class ITask extends IScheduledWorkItem{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszWorkingDirectory 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getworkingdirectory
      */
-    GetWorkingDirectory(ppwszWorkingDirectory) {
-        result := ComCall(37, this, "ptr", ppwszWorkingDirectory, "HRESULT")
-        return result
+    GetWorkingDirectory() {
+        result := ComCall(37, this, "ptr*", &ppwszWorkingDirectory := 0, "HRESULT")
+        return ppwszWorkingDirectory
     }
 
     /**
@@ -123,15 +120,12 @@ class ITask extends IScheduledWorkItem{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getpriority
      */
-    GetPriority(pdwPriority) {
-        pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(39, this, pdwPriorityMarshal, pdwPriority, "HRESULT")
-        return result
+    GetPriority() {
+        result := ComCall(39, this, "uint*", &pdwPriority := 0, "HRESULT")
+        return pdwPriority
     }
 
     /**
@@ -147,15 +141,12 @@ class ITask extends IScheduledWorkItem{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-gettaskflags
      */
-    GetTaskFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(41, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetTaskFlags() {
+        result := ComCall(41, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -171,14 +162,11 @@ class ITask extends IScheduledWorkItem{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMaxRunTimeMS 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getmaxruntime
      */
-    GetMaxRunTime(pdwMaxRunTimeMS) {
-        pdwMaxRunTimeMSMarshal := pdwMaxRunTimeMS is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(43, this, pdwMaxRunTimeMSMarshal, pdwMaxRunTimeMS, "HRESULT")
-        return result
+    GetMaxRunTime() {
+        result := ComCall(43, this, "uint*", &pdwMaxRunTimeMS := 0, "HRESULT")
+        return pdwMaxRunTimeMS
     }
 }

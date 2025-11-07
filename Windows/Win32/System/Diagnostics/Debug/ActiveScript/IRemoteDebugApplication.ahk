@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IApplicationDebugger.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include .\IEnumRemoteDebugApplicationThreads.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IDebugApplicationNode.ahk
+#Include .\IEnumDebugExpressionContexts.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -70,12 +75,11 @@ class IRemoteDebugApplication extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IApplicationDebugger>} pad 
-     * @returns {HRESULT} 
+     * @returns {IApplicationDebugger} 
      */
-    GetDebugger(pad) {
-        result := ComCall(7, this, "ptr*", pad, "HRESULT")
-        return result
+    GetDebugger() {
+        result := ComCall(7, this, "ptr*", &pad := 0, "HRESULT")
+        return IApplicationDebugger(pad)
     }
 
     /**
@@ -84,12 +88,11 @@ class IRemoteDebugApplication extends IUnknown{
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CreateInstanceAtApplication(rclsid, pUnkOuter, dwClsContext, riid, ppvObject) {
-        result := ComCall(8, this, "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", ppvObject, "HRESULT")
-        return result
+    CreateInstanceAtApplication(rclsid, pUnkOuter, dwClsContext, riid) {
+        result := ComCall(8, this, "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return IUnknown(ppvObject)
     }
 
     /**
@@ -103,41 +106,38 @@ class IRemoteDebugApplication extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumRemoteDebugApplicationThreads>} pperdat 
-     * @returns {HRESULT} 
+     * @returns {IEnumRemoteDebugApplicationThreads} 
      */
-    EnumThreads(pperdat) {
-        result := ComCall(10, this, "ptr*", pperdat, "HRESULT")
-        return result
+    EnumThreads() {
+        result := ComCall(10, this, "ptr*", &pperdat := 0, "HRESULT")
+        return IEnumRemoteDebugApplicationThreads(pperdat)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(pbstrName) {
+    GetName() {
+        pbstrName := BSTR()
         result := ComCall(11, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<IDebugApplicationNode>} ppdanRoot 
-     * @returns {HRESULT} 
+     * @returns {IDebugApplicationNode} 
      */
-    GetRootNode(ppdanRoot) {
-        result := ComCall(12, this, "ptr*", ppdanRoot, "HRESULT")
-        return result
+    GetRootNode() {
+        result := ComCall(12, this, "ptr*", &ppdanRoot := 0, "HRESULT")
+        return IDebugApplicationNode(ppdanRoot)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumDebugExpressionContexts>} ppedec 
-     * @returns {HRESULT} 
+     * @returns {IEnumDebugExpressionContexts} 
      */
-    EnumGlobalExpressionContexts(ppedec) {
-        result := ComCall(13, this, "ptr*", ppedec, "HRESULT")
-        return result
+    EnumGlobalExpressionContexts() {
+        result := ComCall(13, this, "ptr*", &ppedec := 0, "HRESULT")
+        return IEnumDebugExpressionContexts(ppedec)
     }
 }

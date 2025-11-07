@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugExpression.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -34,15 +35,14 @@ class IDebugExpressionContext extends IUnknown{
      * @param {Integer} nRadix 
      * @param {PWSTR} pstrDelimiter 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IDebugExpression>} ppe 
-     * @returns {HRESULT} 
+     * @returns {IDebugExpression} 
      */
-    ParseLanguageText(pstrCode, nRadix, pstrDelimiter, dwFlags, ppe) {
+    ParseLanguageText(pstrCode, nRadix, pstrDelimiter, dwFlags) {
         pstrCode := pstrCode is String ? StrPtr(pstrCode) : pstrCode
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        result := ComCall(3, this, "ptr", pstrCode, "uint", nRadix, "ptr", pstrDelimiter, "uint", dwFlags, "ptr*", ppe, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pstrCode, "uint", nRadix, "ptr", pstrDelimiter, "uint", dwFlags, "ptr*", &ppe := 0, "HRESULT")
+        return IDebugExpression(ppe)
     }
 
     /**

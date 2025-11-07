@@ -62,12 +62,12 @@ class IX509ExtensionAuthorityKeyIdentifier extends IX509Extension{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionauthoritykeyidentifier-get_authoritykeyidentifier
      */
-    get_AuthorityKeyIdentifier(Encoding, pValue) {
+    get_AuthorityKeyIdentifier(Encoding) {
+        pValue := BSTR()
         result := ComCall(14, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

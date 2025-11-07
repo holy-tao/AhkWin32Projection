@@ -30,14 +30,11 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ClaimType(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(76, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_ClaimType() {
+        result := ComCall(76, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -52,12 +49,11 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_AttestPrivateKeyPreferred(pValue) {
-        result := ComCall(78, this, "ptr", pValue, "HRESULT")
-        return result
+    get_AttestPrivateKeyPreferred() {
+        result := ComCall(78, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**

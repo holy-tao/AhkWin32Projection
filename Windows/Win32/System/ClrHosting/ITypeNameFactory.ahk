@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITypeName.ahk
+#Include .\ITypeNameBuilder.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -38,25 +40,23 @@ class ITypeNameFactory extends IUnknown{
      * 
      * @param {PWSTR} szName 
      * @param {Pointer<Integer>} pError 
-     * @param {Pointer<ITypeName>} ppTypeName 
-     * @returns {HRESULT} 
+     * @returns {ITypeName} 
      */
-    ParseTypeName(szName, pError, ppTypeName) {
+    ParseTypeName(szName, pError) {
         szName := szName is String ? StrPtr(szName) : szName
 
         pErrorMarshal := pError is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", szName, pErrorMarshal, pError, "ptr*", ppTypeName, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", szName, pErrorMarshal, pError, "ptr*", &ppTypeName := 0, "HRESULT")
+        return ITypeName(ppTypeName)
     }
 
     /**
      * 
-     * @param {Pointer<ITypeNameBuilder>} ppTypeBuilder 
-     * @returns {HRESULT} 
+     * @returns {ITypeNameBuilder} 
      */
-    GetTypeNameBuilder(ppTypeBuilder) {
-        result := ComCall(4, this, "ptr*", ppTypeBuilder, "HRESULT")
-        return result
+    GetTypeNameBuilder() {
+        result := ComCall(4, this, "ptr*", &ppTypeBuilder := 0, "HRESULT")
+        return ITypeNameBuilder(ppTypeBuilder)
     }
 }

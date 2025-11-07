@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,54 +39,48 @@ class IMbnConnection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ConnectionID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-get_connectionid
      */
-    get_ConnectionID(ConnectionID) {
+    get_ConnectionID() {
+        ConnectionID := BSTR()
         result := ComCall(3, this, "ptr", ConnectionID, "HRESULT")
-        return result
+        return ConnectionID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} InterfaceID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-get_interfaceid
      */
-    get_InterfaceID(InterfaceID) {
+    get_InterfaceID() {
+        InterfaceID := BSTR()
         result := ComCall(4, this, "ptr", InterfaceID, "HRESULT")
-        return result
+        return InterfaceID
     }
 
     /**
      * 
      * @param {Integer} connectionMode 
      * @param {PWSTR} strProfile 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-connect
      */
-    Connect(connectionMode, strProfile, requestID) {
+    Connect(connectionMode, strProfile) {
         strProfile := strProfile is String ? StrPtr(strProfile) : strProfile
 
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "int", connectionMode, "ptr", strProfile, requestIDMarshal, requestID, "HRESULT")
-        return result
+        result := ComCall(5, this, "int", connectionMode, "ptr", strProfile, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-disconnect
      */
-    Disconnect(requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, requestIDMarshal, requestID, "HRESULT")
-        return result
+    Disconnect() {
+        result := ComCall(6, this, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
@@ -104,27 +99,21 @@ class IMbnConnection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} voiceCallState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-getvoicecallstate
      */
-    GetVoiceCallState(voiceCallState) {
-        voiceCallStateMarshal := voiceCallState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, voiceCallStateMarshal, voiceCallState, "HRESULT")
-        return result
+    GetVoiceCallState() {
+        result := ComCall(8, this, "int*", &voiceCallState := 0, "HRESULT")
+        return voiceCallState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} networkError 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-getactivationnetworkerror
      */
-    GetActivationNetworkError(networkError) {
-        networkErrorMarshal := networkError is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, networkErrorMarshal, networkError, "HRESULT")
-        return result
+    GetActivationNetworkError() {
+        result := ComCall(9, this, "uint*", &networkError := 0, "HRESULT")
+        return networkError
     }
 }

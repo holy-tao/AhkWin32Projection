@@ -49,9 +49,12 @@ class IBDA_FDC extends IUnknown{
      */
     GetStatus(CurrentBitrate, CarrierLock, CurrentFrequency, CurrentSpectrumInversion, CurrentPIDList, CurrentTIDList, Overflow) {
         CurrentBitrateMarshal := CurrentBitrate is VarRef ? "uint*" : "ptr"
+        CarrierLockMarshal := CarrierLock is VarRef ? "int*" : "ptr"
         CurrentFrequencyMarshal := CurrentFrequency is VarRef ? "uint*" : "ptr"
+        CurrentSpectrumInversionMarshal := CurrentSpectrumInversion is VarRef ? "int*" : "ptr"
+        OverflowMarshal := Overflow is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, CurrentBitrateMarshal, CurrentBitrate, "ptr", CarrierLock, CurrentFrequencyMarshal, CurrentFrequency, "ptr", CurrentSpectrumInversion, "ptr", CurrentPIDList, "ptr", CurrentTIDList, "ptr", Overflow, "HRESULT")
+        result := ComCall(3, this, CurrentBitrateMarshal, CurrentBitrate, CarrierLockMarshal, CarrierLock, CurrentFrequencyMarshal, CurrentFrequency, CurrentSpectrumInversionMarshal, CurrentSpectrumInversion, "ptr", CurrentPIDList, "ptr", CurrentTIDList, OverflowMarshal, Overflow, "HRESULT")
         return result
     }
 
@@ -71,17 +74,14 @@ class IBDA_FDC extends IUnknown{
     /**
      * 
      * @param {BSTR} PidsToAdd 
-     * @param {Pointer<Integer>} RemainingFilterEntries 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-addpid
      */
-    AddPid(PidsToAdd, RemainingFilterEntries) {
+    AddPid(PidsToAdd) {
         PidsToAdd := PidsToAdd is String ? BSTR.Alloc(PidsToAdd).Value : PidsToAdd
 
-        RemainingFilterEntriesMarshal := RemainingFilterEntries is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", PidsToAdd, RemainingFilterEntriesMarshal, RemainingFilterEntries, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", PidsToAdd, "uint*", &RemainingFilterEntries := 0, "HRESULT")
+        return RemainingFilterEntries
     }
 
     /**
@@ -100,15 +100,15 @@ class IBDA_FDC extends IUnknown{
     /**
      * 
      * @param {BSTR} TidsToAdd 
-     * @param {Pointer<BSTR>} CurrentTidList 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-addtid
      */
-    AddTid(TidsToAdd, CurrentTidList) {
+    AddTid(TidsToAdd) {
         TidsToAdd := TidsToAdd is String ? BSTR.Alloc(TidsToAdd).Value : TidsToAdd
 
+        CurrentTidList := BSTR()
         result := ComCall(7, this, "ptr", TidsToAdd, "ptr", CurrentTidList, "HRESULT")
-        return result
+        return CurrentTidList
     }
 
     /**

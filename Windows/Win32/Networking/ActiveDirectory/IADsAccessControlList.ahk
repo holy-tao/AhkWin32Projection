@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IADsAccessControlList interface is a dual interface that manages individual access-control entries (ACEs).
@@ -59,14 +60,11 @@ class IADsAccessControlList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AclRevision(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_AclRevision() {
+        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -81,14 +79,11 @@ class IADsAccessControlList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AceCount(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_AceCount() {
+        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -168,23 +163,21 @@ class IADsAccessControlList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppAccessControlList 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsaccesscontrollist-copyaccesslist
      */
-    CopyAccessList(ppAccessControlList) {
-        result := ComCall(13, this, "ptr*", ppAccessControlList, "HRESULT")
-        return result
+    CopyAccessList() {
+        result := ComCall(13, this, "ptr*", &ppAccessControlList := 0, "HRESULT")
+        return IDispatch(ppAccessControlList)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsaccesscontrollist-get__newenum
      */
-    get__NewEnum(retval) {
-        result := ComCall(14, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 }

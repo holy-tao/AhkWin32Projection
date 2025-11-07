@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,11 +32,11 @@ class IHTMLStyleSheetsCollection2 extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<VARIANT>} pvarResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    item(index, pvarResult) {
+    item(index) {
+        pvarResult := VARIANT()
         result := ComCall(7, this, "int", index, "ptr", pvarResult, "HRESULT")
-        return result
+        return pvarResult
     }
 }

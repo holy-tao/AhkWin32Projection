@@ -32,12 +32,11 @@ class ILanguageExceptionErrorInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} languageException 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo-getlanguageexception
      */
-    GetLanguageException(languageException) {
-        result := ComCall(3, this, "ptr*", languageException, "HRESULT")
-        return result
+    GetLanguageException() {
+        result := ComCall(3, this, "ptr*", &languageException := 0, "HRESULT")
+        return IUnknown(languageException)
     }
 }

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IUpdateCollection.ahk
+#Include .\IDownloadJob.ahk
+#Include .\IDownloadResult.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -44,13 +47,13 @@ class IUpdateDownloader extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_clientapplicationid
      */
-    get_ClientApplicationID(retval) {
+    get_ClientApplicationID() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -68,13 +71,12 @@ class IUpdateDownloader extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_isforced
      */
-    get_IsForced(retval) {
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsForced() {
+        result := ComCall(9, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -90,15 +92,12 @@ class IUpdateDownloader extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_priority
      */
-    get_Priority(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Priority() {
+        result := ComCall(11, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -114,13 +113,12 @@ class IUpdateDownloader extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUpdateCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_updates
      */
-    get_Updates(retval) {
-        result := ComCall(13, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Updates() {
+        result := ComCall(13, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateCollection(retval)
     }
 
     /**
@@ -139,35 +137,32 @@ class IUpdateDownloader extends IDispatch{
      * @param {IUnknown} onProgressChanged 
      * @param {IUnknown} onCompleted 
      * @param {VARIANT} state 
-     * @param {Pointer<IDownloadJob>} retval 
-     * @returns {HRESULT} 
+     * @returns {IDownloadJob} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-begindownload
      */
-    BeginDownload(onProgressChanged, onCompleted, state, retval) {
-        result := ComCall(15, this, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", retval, "HRESULT")
-        return result
+    BeginDownload(onProgressChanged, onCompleted, state) {
+        result := ComCall(15, this, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", &retval := 0, "HRESULT")
+        return IDownloadJob(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IDownloadResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {IDownloadResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-download
      */
-    Download(retval) {
-        result := ComCall(16, this, "ptr*", retval, "HRESULT")
-        return result
+    Download() {
+        result := ComCall(16, this, "ptr*", &retval := 0, "HRESULT")
+        return IDownloadResult(retval)
     }
 
     /**
      * 
      * @param {IDownloadJob} value 
-     * @param {Pointer<IDownloadResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {IDownloadResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-enddownload
      */
-    EndDownload(value, retval) {
-        result := ComCall(17, this, "ptr", value, "ptr*", retval, "HRESULT")
-        return result
+    EndDownload(value) {
+        result := ComCall(17, this, "ptr", value, "ptr*", &retval := 0, "HRESULT")
+        return IDownloadResult(retval)
     }
 }

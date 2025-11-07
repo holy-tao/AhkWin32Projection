@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,15 +33,12 @@ class IFolderView extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pViewMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-getcurrentviewmode
      */
-    GetCurrentViewMode(pViewMode) {
-        pViewModeMarshal := pViewMode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pViewModeMarshal, pViewMode, "HRESULT")
-        return result
+    GetCurrentViewMode() {
+        result := ComCall(3, this, "uint*", &pViewMode := 0, "HRESULT")
+        return pViewMode
     }
 
     /**
@@ -57,96 +55,78 @@ class IFolderView extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-getfolder
      */
-    GetFolder(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetFolder(riid) {
+        result := ComCall(5, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Integer} iItemIndex 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-item
      */
-    Item(iItemIndex, ppidl) {
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "int", iItemIndex, ppidlMarshal, ppidl, "HRESULT")
-        return result
+    Item(iItemIndex) {
+        result := ComCall(6, this, "int", iItemIndex, "ptr*", &ppidl := 0, "HRESULT")
+        return ppidl
     }
 
     /**
      * 
      * @param {Integer} uFlags 
-     * @param {Pointer<Integer>} pcItems 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-itemcount
      */
-    ItemCount(uFlags, pcItems) {
-        pcItemsMarshal := pcItems is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "uint", uFlags, pcItemsMarshal, pcItems, "HRESULT")
-        return result
+    ItemCount(uFlags) {
+        result := ComCall(7, this, "uint", uFlags, "int*", &pcItems := 0, "HRESULT")
+        return pcItems
     }
 
     /**
      * 
      * @param {Integer} uFlags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-items
      */
-    Items(uFlags, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "uint", uFlags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    Items(uFlags, riid) {
+        result := ComCall(8, this, "uint", uFlags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} piItem 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-getselectionmarkeditem
      */
-    GetSelectionMarkedItem(piItem) {
-        piItemMarshal := piItem is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, piItemMarshal, piItem, "HRESULT")
-        return result
+    GetSelectionMarkedItem() {
+        result := ComCall(9, this, "int*", &piItem := 0, "HRESULT")
+        return piItem
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} piItem 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-getfocuseditem
      */
-    GetFocusedItem(piItem) {
-        piItemMarshal := piItem is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, piItemMarshal, piItem, "HRESULT")
-        return result
+    GetFocusedItem() {
+        result := ComCall(10, this, "int*", &piItem := 0, "HRESULT")
+        return piItem
     }
 
     /**
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<POINT>} ppt 
-     * @returns {HRESULT} 
+     * @returns {POINT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-getitemposition
      */
-    GetItemPosition(pidl, ppt) {
+    GetItemPosition(pidl) {
+        ppt := POINT()
         result := ComCall(11, this, "ptr", pidl, "ptr", ppt, "HRESULT")
-        return result
+        return ppt
     }
 
     /**
@@ -162,13 +142,13 @@ class IFolderView extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<POINT>} ppt 
-     * @returns {HRESULT} 
+     * @returns {POINT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-getdefaultspacing
      */
-    GetDefaultSpacing(ppt) {
+    GetDefaultSpacing() {
+        ppt := POINT()
         result := ComCall(13, this, "ptr", ppt, "HRESULT")
-        return result
+        return ppt
     }
 
     /**

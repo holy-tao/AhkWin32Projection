@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INetCfgComponent.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,31 +31,28 @@ class INetCfgBindingInterface extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszwInterfaceName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetName(ppszwInterfaceName) {
-        result := ComCall(3, this, "ptr", ppszwInterfaceName, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &ppszwInterfaceName := 0, "HRESULT")
+        return ppszwInterfaceName
     }
 
     /**
      * 
-     * @param {Pointer<INetCfgComponent>} ppnccItem 
-     * @returns {HRESULT} 
+     * @returns {INetCfgComponent} 
      */
-    GetUpperComponent(ppnccItem) {
-        result := ComCall(4, this, "ptr*", ppnccItem, "HRESULT")
-        return result
+    GetUpperComponent() {
+        result := ComCall(4, this, "ptr*", &ppnccItem := 0, "HRESULT")
+        return INetCfgComponent(ppnccItem)
     }
 
     /**
      * 
-     * @param {Pointer<INetCfgComponent>} ppnccItem 
-     * @returns {HRESULT} 
+     * @returns {INetCfgComponent} 
      */
-    GetLowerComponent(ppnccItem) {
-        result := ComCall(5, this, "ptr*", ppnccItem, "HRESULT")
-        return result
+    GetLowerComponent() {
+        result := ComCall(5, this, "ptr*", &ppnccItem := 0, "HRESULT")
+        return INetCfgComponent(ppnccItem)
     }
 }

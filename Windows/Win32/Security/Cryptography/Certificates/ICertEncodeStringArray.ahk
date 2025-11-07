@@ -46,40 +46,34 @@ class ICertEncodeStringArray extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pStringType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-getstringtype
      */
-    GetStringType(pStringType) {
-        pStringTypeMarshal := pStringType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pStringTypeMarshal, pStringType, "HRESULT")
-        return result
+    GetStringType() {
+        result := ComCall(8, this, "int*", &pStringType := 0, "HRESULT")
+        return pStringType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-getcount
      */
-    GetCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(9, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<BSTR>} pstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-getvalue
      */
-    GetValue(Index, pstr) {
+    GetValue(Index) {
+        pstr := BSTR()
         result := ComCall(10, this, "int", Index, "ptr", pstr, "HRESULT")
-        return result
+        return pstr
     }
 
     /**
@@ -110,12 +104,12 @@ class ICertEncodeStringArray extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrBinary 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-encode
      */
-    Encode(pstrBinary) {
+    Encode() {
+        pstrBinary := BSTR()
         result := ComCall(13, this, "ptr", pstrBinary, "HRESULT")
-        return result
+        return pstrBinary
     }
 }

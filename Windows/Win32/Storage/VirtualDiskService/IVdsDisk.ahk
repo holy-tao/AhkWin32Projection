@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_DISK_PROP.ahk
+#Include .\IVdsPack.ahk
+#Include .\VDS_LUN_INFORMATION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,35 +35,34 @@ class IVdsDisk extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_DISK_PROP>} pDiskProperties 
-     * @returns {HRESULT} 
+     * @returns {VDS_DISK_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdisk-getproperties
      */
-    GetProperties(pDiskProperties) {
+    GetProperties() {
+        pDiskProperties := VDS_DISK_PROP()
         result := ComCall(3, this, "ptr", pDiskProperties, "HRESULT")
-        return result
+        return pDiskProperties
     }
 
     /**
      * 
-     * @param {Pointer<IVdsPack>} ppPack 
-     * @returns {HRESULT} 
+     * @returns {IVdsPack} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdisk-getpack
      */
-    GetPack(ppPack) {
-        result := ComCall(4, this, "ptr*", ppPack, "HRESULT")
-        return result
+    GetPack() {
+        result := ComCall(4, this, "ptr*", &ppPack := 0, "HRESULT")
+        return IVdsPack(ppPack)
     }
 
     /**
      * 
-     * @param {Pointer<VDS_LUN_INFORMATION>} pLunInfo 
-     * @returns {HRESULT} 
+     * @returns {VDS_LUN_INFORMATION} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdisk-getidentificationdata
      */
-    GetIdentificationData(pLunInfo) {
+    GetIdentificationData() {
+        pLunInfo := VDS_LUN_INFORMATION()
         result := ComCall(5, this, "ptr", pLunInfo, "HRESULT")
-        return result
+        return pLunInfo
     }
 
     /**

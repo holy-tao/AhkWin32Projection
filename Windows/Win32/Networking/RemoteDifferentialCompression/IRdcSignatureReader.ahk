@@ -38,26 +38,22 @@ class IRdcSignatureReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} rdc_ErrorCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcsignaturereader-readheader
      */
-    ReadHeader(rdc_ErrorCode) {
-        rdc_ErrorCodeMarshal := rdc_ErrorCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, rdc_ErrorCodeMarshal, rdc_ErrorCode, "HRESULT")
-        return result
+    ReadHeader() {
+        result := ComCall(3, this, "int*", &rdc_ErrorCode := 0, "HRESULT")
+        return rdc_ErrorCode
     }
 
     /**
      * 
      * @param {Pointer<RdcSignaturePointer>} rdcSignaturePointer 
-     * @param {Pointer<BOOL>} endOfOutput 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcsignaturereader-readsignatures
      */
-    ReadSignatures(rdcSignaturePointer, endOfOutput) {
-        result := ComCall(4, this, "ptr", rdcSignaturePointer, "ptr", endOfOutput, "HRESULT")
-        return result
+    ReadSignatures(rdcSignaturePointer) {
+        result := ComCall(4, this, "ptr", rdcSignaturePointer, "int*", &endOfOutput := 0, "HRESULT")
+        return endOfOutput
     }
 }

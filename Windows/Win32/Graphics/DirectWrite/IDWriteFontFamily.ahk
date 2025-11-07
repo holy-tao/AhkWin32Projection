@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteLocalizedStrings.ahk
+#Include .\IDWriteFont.ahk
 #Include .\IDWriteFontList.ahk
 
 /**
@@ -69,13 +71,12 @@ class IDWriteFontFamily extends IDWriteFontList{
 
     /**
      * 
-     * @param {Pointer<IDWriteLocalizedStrings>} names 
-     * @returns {HRESULT} 
+     * @returns {IDWriteLocalizedStrings} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfamily-getfamilynames
      */
-    GetFamilyNames(names) {
-        result := ComCall(6, this, "ptr*", names, "HRESULT")
-        return result
+    GetFamilyNames() {
+        result := ComCall(6, this, "ptr*", &names := 0, "HRESULT")
+        return IDWriteLocalizedStrings(names)
     }
 
     /**
@@ -83,13 +84,12 @@ class IDWriteFontFamily extends IDWriteFontList{
      * @param {Integer} weight 
      * @param {Integer} stretch 
      * @param {Integer} style 
-     * @param {Pointer<IDWriteFont>} matchingFont 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFont} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfamily-getfirstmatchingfont
      */
-    GetFirstMatchingFont(weight, stretch, style, matchingFont) {
-        result := ComCall(7, this, "int", weight, "int", stretch, "int", style, "ptr*", matchingFont, "HRESULT")
-        return result
+    GetFirstMatchingFont(weight, stretch, style) {
+        result := ComCall(7, this, "int", weight, "int", stretch, "int", style, "ptr*", &matchingFont := 0, "HRESULT")
+        return IDWriteFont(matchingFont)
     }
 
     /**
@@ -97,12 +97,11 @@ class IDWriteFontFamily extends IDWriteFontList{
      * @param {Integer} weight 
      * @param {Integer} stretch 
      * @param {Integer} style 
-     * @param {Pointer<IDWriteFontList>} matchingFonts 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontList} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfamily-getmatchingfonts
      */
-    GetMatchingFonts(weight, stretch, style, matchingFonts) {
-        result := ComCall(8, this, "int", weight, "int", stretch, "int", style, "ptr*", matchingFonts, "HRESULT")
-        return result
+    GetMatchingFonts(weight, stretch, style) {
+        result := ComCall(8, this, "int", weight, "int", stretch, "int", style, "ptr*", &matchingFonts := 0, "HRESULT")
+        return IDWriteFontList(matchingFonts)
     }
 }

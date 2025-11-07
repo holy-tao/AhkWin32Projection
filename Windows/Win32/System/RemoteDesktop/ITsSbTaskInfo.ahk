@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,104 +34,98 @@ class ITsSbTaskInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_targetid
      */
-    get_TargetId(pName) {
+    get_TargetId() {
+        pName := BSTR()
         result := ComCall(3, this, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pStartTime 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_starttime
      */
-    get_StartTime(pStartTime) {
+    get_StartTime() {
+        pStartTime := FILETIME()
         result := ComCall(4, this, "ptr", pStartTime, "HRESULT")
-        return result
+        return pStartTime
     }
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pEndTime 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_endtime
      */
-    get_EndTime(pEndTime) {
+    get_EndTime() {
+        pEndTime := FILETIME()
         result := ComCall(5, this, "ptr", pEndTime, "HRESULT")
-        return result
+        return pEndTime
     }
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pDeadline 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_deadline
      */
-    get_Deadline(pDeadline) {
+    get_Deadline() {
+        pDeadline := FILETIME()
         result := ComCall(6, this, "ptr", pDeadline, "HRESULT")
-        return result
+        return pDeadline
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pIdentifier 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_identifier
      */
-    get_Identifier(pIdentifier) {
+    get_Identifier() {
+        pIdentifier := BSTR()
         result := ComCall(7, this, "ptr", pIdentifier, "HRESULT")
-        return result
+        return pIdentifier
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pLabel 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_label
      */
-    get_Label(pLabel) {
+    get_Label() {
+        pLabel := BSTR()
         result := ComCall(8, this, "ptr", pLabel, "HRESULT")
-        return result
+        return pLabel
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pContext 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_context
      */
-    get_Context(pContext) {
-        pContextMarshal := pContext is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, pContextMarshal, pContext, "HRESULT")
-        return result
+    get_Context() {
+        result := ComCall(9, this, "ptr*", &pContext := 0, "HRESULT")
+        return pContext
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pPlugin 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_plugin
      */
-    get_Plugin(pPlugin) {
+    get_Plugin() {
+        pPlugin := BSTR()
         result := ComCall(10, this, "ptr", pPlugin, "HRESULT")
-        return result
+        return pPlugin
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_status
      */
-    get_Status(pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(11, this, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 }

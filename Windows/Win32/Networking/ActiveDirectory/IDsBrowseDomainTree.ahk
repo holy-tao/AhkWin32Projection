@@ -58,16 +58,15 @@ class IDsBrowseDomainTree extends IUnknown{
     /**
      * 
      * @param {HWND} hwndParent 
-     * @param {Pointer<PWSTR>} ppszTargetPath 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsbrowsedomaintree-browseto
      */
-    BrowseTo(hwndParent, ppszTargetPath, dwFlags) {
+    BrowseTo(hwndParent, dwFlags) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(3, this, "ptr", hwndParent, "ptr", ppszTargetPath, "uint", dwFlags, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hwndParent, "ptr*", &ppszTargetPath := 0, "uint", dwFlags, "HRESULT")
+        return ppszTargetPath
     }
 
     /**

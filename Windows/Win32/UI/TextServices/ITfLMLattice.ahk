@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTfLatticeElements.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,25 +34,23 @@ class ITfLMLattice extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} rguidType 
-     * @param {Pointer<BOOL>} pfSupported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itflmlattice-querytype
      */
-    QueryType(rguidType, pfSupported) {
-        result := ComCall(3, this, "ptr", rguidType, "ptr", pfSupported, "HRESULT")
-        return result
+    QueryType(rguidType) {
+        result := ComCall(3, this, "ptr", rguidType, "int*", &pfSupported := 0, "HRESULT")
+        return pfSupported
     }
 
     /**
      * 
      * @param {Integer} dwFrameStart 
      * @param {Pointer<Guid>} rguidType 
-     * @param {Pointer<IEnumTfLatticeElements>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfLatticeElements} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itflmlattice-enumlatticeelements
      */
-    EnumLatticeElements(dwFrameStart, rguidType, ppEnum) {
-        result := ComCall(4, this, "uint", dwFrameStart, "ptr", rguidType, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumLatticeElements(dwFrameStart, rguidType) {
+        result := ComCall(4, this, "uint", dwFrameStart, "ptr", rguidType, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfLatticeElements(ppEnum)
     }
 }

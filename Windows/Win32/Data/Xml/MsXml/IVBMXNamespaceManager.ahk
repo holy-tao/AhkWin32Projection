@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IMXNamespacePrefixes.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,12 +43,11 @@ class IVBMXNamespaceManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} fOverride 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_allowOverride(fOverride) {
-        result := ComCall(8, this, "ptr", fOverride, "HRESULT")
-        return result
+    get_allowOverride() {
+        result := ComCall(8, this, "short*", &fOverride := 0, "HRESULT")
+        return fOverride
     }
 
     /**
@@ -103,51 +104,49 @@ class IVBMXNamespaceManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMXNamespacePrefixes>} prefixes 
-     * @returns {HRESULT} 
+     * @returns {IMXNamespacePrefixes} 
      */
-    getDeclaredPrefixes(prefixes) {
-        result := ComCall(14, this, "ptr*", prefixes, "HRESULT")
-        return result
+    getDeclaredPrefixes() {
+        result := ComCall(14, this, "ptr*", &prefixes := 0, "HRESULT")
+        return IMXNamespacePrefixes(prefixes)
     }
 
     /**
      * 
      * @param {BSTR} namespaceURI 
-     * @param {Pointer<IMXNamespacePrefixes>} prefixes 
-     * @returns {HRESULT} 
+     * @returns {IMXNamespacePrefixes} 
      */
-    getPrefixes(namespaceURI, prefixes) {
+    getPrefixes(namespaceURI) {
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(15, this, "ptr", namespaceURI, "ptr*", prefixes, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", namespaceURI, "ptr*", &prefixes := 0, "HRESULT")
+        return IMXNamespacePrefixes(prefixes)
     }
 
     /**
      * 
      * @param {BSTR} prefix 
-     * @param {Pointer<VARIANT>} uri 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getURI(prefix, uri) {
+    getURI(prefix) {
         prefix := prefix is String ? BSTR.Alloc(prefix).Value : prefix
 
+        uri := VARIANT()
         result := ComCall(16, this, "ptr", prefix, "ptr", uri, "HRESULT")
-        return result
+        return uri
     }
 
     /**
      * 
      * @param {BSTR} strPrefix 
      * @param {IXMLDOMNode} contextNode 
-     * @param {Pointer<VARIANT>} uri 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getURIFromNode(strPrefix, contextNode, uri) {
+    getURIFromNode(strPrefix, contextNode) {
         strPrefix := strPrefix is String ? BSTR.Alloc(strPrefix).Value : strPrefix
 
+        uri := VARIANT()
         result := ComCall(17, this, "ptr", strPrefix, "ptr", contextNode, "ptr", uri, "HRESULT")
-        return result
+        return uri
     }
 }

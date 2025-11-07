@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -55,12 +56,12 @@ class IQuickActivate extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SIZE>} pSizel 
-     * @returns {HRESULT} 
+     * @returns {SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iquickactivate-getcontentextent
      */
-    GetContentExtent(pSizel) {
+    GetContentExtent() {
+        pSizel := SIZE()
         result := ComCall(5, this, "ptr", pSizel, "HRESULT")
-        return result
+        return pSizel
     }
 }

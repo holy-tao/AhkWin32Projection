@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxEncryptedPackageWriter.ahk
+#Include .\IAppxPackageReader.ahk
+#Include .\IAppxEncryptedBundleWriter.ahk
+#Include .\IAppxBundleReader.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -71,26 +75,24 @@ class IAppxEncryptionFactory extends IUnknown{
      * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS>} settings 
      * @param {Pointer<APPX_KEY_INFO>} keyInfo 
      * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles 
-     * @param {Pointer<IAppxEncryptedPackageWriter>} packageWriter 
-     * @returns {HRESULT} 
+     * @returns {IAppxEncryptedPackageWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory-createencryptedpackagewriter
      */
-    CreateEncryptedPackageWriter(outputStream, manifestStream, settings, keyInfo, exemptedFiles, packageWriter) {
-        result := ComCall(5, this, "ptr", outputStream, "ptr", manifestStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", packageWriter, "HRESULT")
-        return result
+    CreateEncryptedPackageWriter(outputStream, manifestStream, settings, keyInfo, exemptedFiles) {
+        result := ComCall(5, this, "ptr", outputStream, "ptr", manifestStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", &packageWriter := 0, "HRESULT")
+        return IAppxEncryptedPackageWriter(packageWriter)
     }
 
     /**
      * 
      * @param {IStream} inputStream 
      * @param {Pointer<APPX_KEY_INFO>} keyInfo 
-     * @param {Pointer<IAppxPackageReader>} packageReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxPackageReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory-createencryptedpackagereader
      */
-    CreateEncryptedPackageReader(inputStream, keyInfo, packageReader) {
-        result := ComCall(6, this, "ptr", inputStream, "ptr", keyInfo, "ptr*", packageReader, "HRESULT")
-        return result
+    CreateEncryptedPackageReader(inputStream, keyInfo) {
+        result := ComCall(6, this, "ptr", inputStream, "ptr", keyInfo, "ptr*", &packageReader := 0, "HRESULT")
+        return IAppxPackageReader(packageReader)
     }
 
     /**
@@ -128,25 +130,23 @@ class IAppxEncryptionFactory extends IUnknown{
      * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS>} settings 
      * @param {Pointer<APPX_KEY_INFO>} keyInfo 
      * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles 
-     * @param {Pointer<IAppxEncryptedBundleWriter>} bundleWriter 
-     * @returns {HRESULT} 
+     * @returns {IAppxEncryptedBundleWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory-createencryptedbundlewriter
      */
-    CreateEncryptedBundleWriter(outputStream, bundleVersion, settings, keyInfo, exemptedFiles, bundleWriter) {
-        result := ComCall(9, this, "ptr", outputStream, "uint", bundleVersion, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", bundleWriter, "HRESULT")
-        return result
+    CreateEncryptedBundleWriter(outputStream, bundleVersion, settings, keyInfo, exemptedFiles) {
+        result := ComCall(9, this, "ptr", outputStream, "uint", bundleVersion, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", &bundleWriter := 0, "HRESULT")
+        return IAppxEncryptedBundleWriter(bundleWriter)
     }
 
     /**
      * 
      * @param {IStream} inputStream 
      * @param {Pointer<APPX_KEY_INFO>} keyInfo 
-     * @param {Pointer<IAppxBundleReader>} bundleReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxBundleReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory-createencryptedbundlereader
      */
-    CreateEncryptedBundleReader(inputStream, keyInfo, bundleReader) {
-        result := ComCall(10, this, "ptr", inputStream, "ptr", keyInfo, "ptr*", bundleReader, "HRESULT")
-        return result
+    CreateEncryptedBundleReader(inputStream, keyInfo) {
+        result := ComCall(10, this, "ptr", inputStream, "ptr", keyInfo, "ptr*", &bundleReader := 0, "HRESULT")
+        return IAppxBundleReader(bundleReader)
     }
 }

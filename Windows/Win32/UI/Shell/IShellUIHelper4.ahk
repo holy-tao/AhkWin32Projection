@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IShellUIHelper3.ahk
 
 /**
@@ -31,12 +32,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfSiteMode 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    msIsSiteMode(pfSiteMode) {
-        result := ComCall(49, this, "ptr", pfSiteMode, "HRESULT")
-        return result
+    msIsSiteMode() {
+        result := ComCall(49, this, "short*", &pfSiteMode := 0, "HRESULT")
+        return pfSiteMode
     }
 
     /**
@@ -52,15 +52,15 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * 
      * @param {BSTR} bstrIconURL 
      * @param {BSTR} bstrTooltip 
-     * @param {Pointer<VARIANT>} pvarButtonID 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    msSiteModeAddThumbBarButton(bstrIconURL, bstrTooltip, pvarButtonID) {
+    msSiteModeAddThumbBarButton(bstrIconURL, bstrTooltip) {
         bstrIconURL := bstrIconURL is String ? BSTR.Alloc(bstrIconURL).Value : bstrIconURL
         bstrTooltip := bstrTooltip is String ? BSTR.Alloc(bstrTooltip).Value : bstrTooltip
 
+        pvarButtonID := VARIANT()
         result := ComCall(51, this, "ptr", bstrIconURL, "ptr", bstrTooltip, "ptr", pvarButtonID, "HRESULT")
-        return result
+        return pvarButtonID
     }
 
     /**
@@ -158,15 +158,15 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @param {VARIANT} uiButtonID 
      * @param {BSTR} bstrIconUrl 
      * @param {BSTR} bstrTooltip 
-     * @param {Pointer<VARIANT>} pvarStyleID 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    msSiteModeAddButtonStyle(uiButtonID, bstrIconUrl, bstrTooltip, pvarStyleID) {
+    msSiteModeAddButtonStyle(uiButtonID, bstrIconUrl, bstrTooltip) {
         bstrIconUrl := bstrIconUrl is String ? BSTR.Alloc(bstrIconUrl).Value : bstrIconUrl
         bstrTooltip := bstrTooltip is String ? BSTR.Alloc(bstrTooltip).Value : bstrTooltip
 
+        pvarStyleID := VARIANT()
         result := ComCall(60, this, "ptr", uiButtonID, "ptr", bstrIconUrl, "ptr", bstrTooltip, "ptr", pvarStyleID, "HRESULT")
-        return result
+        return pvarStyleID
     }
 
     /**
@@ -192,12 +192,12 @@ class IShellUIHelper4 extends IShellUIHelper3{
     /**
      * 
      * @param {VARIANT_BOOL} fPreserveState 
-     * @param {Pointer<VARIANT>} puiFirstRun 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    msIsSiteModeFirstRun(fPreserveState, puiFirstRun) {
+    msIsSiteModeFirstRun(fPreserveState) {
+        puiFirstRun := VARIANT()
         result := ComCall(63, this, "short", fPreserveState, "ptr", puiFirstRun, "HRESULT")
-        return result
+        return puiFirstRun
     }
 
     /**
@@ -216,21 +216,19 @@ class IShellUIHelper4 extends IShellUIHelper3{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    msTrackingProtectionEnabled(pfEnabled) {
-        result := ComCall(65, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    msTrackingProtectionEnabled() {
+        result := ComCall(65, this, "short*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    msActiveXFilteringEnabled(pfEnabled) {
-        result := ComCall(66, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    msActiveXFilteringEnabled() {
+        result := ComCall(66, this, "short*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 }

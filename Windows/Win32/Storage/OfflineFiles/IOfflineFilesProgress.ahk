@@ -32,24 +32,22 @@ class IOfflineFilesProgress extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbAbort 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesprogress-begin
      */
-    Begin(pbAbort) {
-        result := ComCall(3, this, "ptr", pbAbort, "HRESULT")
-        return result
+    Begin() {
+        result := ComCall(3, this, "int*", &pbAbort := 0, "HRESULT")
+        return pbAbort
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbAbort 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesprogress-queryabort
      */
-    QueryAbort(pbAbort) {
-        result := ComCall(4, this, "ptr", pbAbort, "HRESULT")
-        return result
+    QueryAbort() {
+        result := ComCall(4, this, "int*", &pbAbort := 0, "HRESULT")
+        return pbAbort
     }
 
     /**

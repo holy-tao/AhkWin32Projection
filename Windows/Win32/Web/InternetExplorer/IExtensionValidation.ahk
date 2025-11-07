@@ -38,25 +38,21 @@ class IExtensionValidation extends IUnknown{
      * @param {IHTMLDocument2} htmlDocumentSubframe 
      * @param {IHTMLElement} htmlElement 
      * @param {Integer} contexts 
-     * @param {Pointer<Integer>} results 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Validate(extensionGuid, extensionModulePath, extensionFileVersionMS, extensionFileVersionLS, htmlDocumentTop, htmlDocumentSubframe, htmlElement, contexts, results) {
+    Validate(extensionGuid, extensionModulePath, extensionFileVersionMS, extensionFileVersionLS, htmlDocumentTop, htmlDocumentSubframe, htmlElement, contexts) {
         extensionModulePath := extensionModulePath is String ? StrPtr(extensionModulePath) : extensionModulePath
 
-        resultsMarshal := results is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", extensionGuid, "ptr", extensionModulePath, "uint", extensionFileVersionMS, "uint", extensionFileVersionLS, "ptr", htmlDocumentTop, "ptr", htmlDocumentSubframe, "ptr", htmlElement, "int", contexts, resultsMarshal, results, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", extensionGuid, "ptr", extensionModulePath, "uint", extensionFileVersionMS, "uint", extensionFileVersionLS, "ptr", htmlDocumentTop, "ptr", htmlDocumentSubframe, "ptr", htmlElement, "int", contexts, "int*", &results := 0, "HRESULT")
+        return results
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} displayName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    DisplayName(displayName) {
-        result := ComCall(4, this, "ptr", displayName, "HRESULT")
-        return result
+    DisplayName() {
+        result := ComCall(4, this, "ptr*", &displayName := 0, "HRESULT")
+        return displayName
     }
 }

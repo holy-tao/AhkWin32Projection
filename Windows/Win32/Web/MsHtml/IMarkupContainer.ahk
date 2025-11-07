@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLDocument2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IMarkupContainer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHTMLDocument2>} ppDoc 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument2} 
      */
-    OwningDoc(ppDoc) {
-        result := ComCall(3, this, "ptr*", ppDoc, "HRESULT")
-        return result
+    OwningDoc() {
+        result := ComCall(3, this, "ptr*", &ppDoc := 0, "HRESULT")
+        return IHTMLDocument2(ppDoc)
     }
 }

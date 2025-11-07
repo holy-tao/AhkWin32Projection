@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509CertificateRequest.ahk
+#Include .\ICspInformations.ahk
+#Include .\IObjectId.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -75,50 +78,42 @@ class IX509CertificateRequest extends IDispatch{
     /**
      * 
      * @param {Integer} Level 
-     * @param {Pointer<IX509CertificateRequest>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509CertificateRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-getinnerrequest
      */
-    GetInnerRequest(Level, ppValue) {
-        result := ComCall(10, this, "int", Level, "ptr*", ppValue, "HRESULT")
-        return result
+    GetInnerRequest(Level) {
+        result := ComCall(10, this, "int", Level, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509CertificateRequest(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_type
      */
-    get_Type(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(11, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_enrollmentcontext
      */
-    get_EnrollmentContext(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_EnrollmentContext() {
+        result := ComCall(12, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_silent
      */
-    get_Silent(pValue) {
-        result := ComCall(13, this, "ptr", pValue, "HRESULT")
-        return result
+    get_Silent() {
+        result := ComCall(13, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -134,15 +129,12 @@ class IX509CertificateRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_parentwindow
      */
-    get_ParentWindow(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_ParentWindow() {
+        result := ComCall(15, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -158,13 +150,13 @@ class IX509CertificateRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_uicontextmessage
      */
-    get_UIContextMessage(pValue) {
+    get_UIContextMessage() {
+        pValue := BSTR()
         result := ComCall(17, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -182,13 +174,12 @@ class IX509CertificateRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_suppressdefaults
      */
-    get_SuppressDefaults(pValue) {
-        result := ComCall(19, this, "ptr", pValue, "HRESULT")
-        return result
+    get_SuppressDefaults() {
+        result := ComCall(19, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -205,13 +196,13 @@ class IX509CertificateRequest extends IDispatch{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_renewalcertificate
      */
-    get_RenewalCertificate(Encoding, pValue) {
+    get_RenewalCertificate(Encoding) {
+        pValue := BSTR()
         result := ComCall(21, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -230,15 +221,12 @@ class IX509CertificateRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_clientid
      */
-    get_ClientId(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_ClientId() {
+        result := ComCall(23, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -254,13 +242,12 @@ class IX509CertificateRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ICspInformations>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspInformations} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations
      */
-    get_CspInformations(ppValue) {
-        result := ComCall(25, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CspInformations() {
+        result := ComCall(25, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspInformations(ppValue)
     }
 
     /**
@@ -276,13 +263,12 @@ class IX509CertificateRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_hashalgorithm
      */
-    get_HashAlgorithm(ppValue) {
-        result := ComCall(27, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_HashAlgorithm() {
+        result := ComCall(27, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
@@ -298,13 +284,12 @@ class IX509CertificateRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_alternatesignaturealgorithm
      */
-    get_AlternateSignatureAlgorithm(pValue) {
-        result := ComCall(29, this, "ptr", pValue, "HRESULT")
-        return result
+    get_AlternateSignatureAlgorithm() {
+        result := ComCall(29, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -321,12 +306,12 @@ class IX509CertificateRequest extends IDispatch{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_rawdata
      */
-    get_RawData(Encoding, pValue) {
+    get_RawData(Encoding) {
+        pValue := BSTR()
         result := ComCall(31, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

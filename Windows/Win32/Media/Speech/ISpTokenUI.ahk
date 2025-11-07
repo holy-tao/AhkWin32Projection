@@ -34,16 +34,15 @@ class ISpTokenUI extends IUnknown{
      * @param {Pointer<Void>} pvExtraData 
      * @param {Integer} cbExtraData 
      * @param {IUnknown} punkObject 
-     * @param {Pointer<BOOL>} pfSupported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsUISupported(pszTypeOfUI, pvExtraData, cbExtraData, punkObject, pfSupported) {
+    IsUISupported(pszTypeOfUI, pvExtraData, cbExtraData, punkObject) {
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, "ptr", pfSupported, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, "int*", &pfSupported := 0, "HRESULT")
+        return pfSupported
     }
 
     /**

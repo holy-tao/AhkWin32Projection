@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\PRINTER_HANDLE.ahk
+#Include .\IPrinterPropertyBag.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,22 +39,22 @@ class IPrinterQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<PRINTER_HANDLE>} phPrinter 
-     * @returns {HRESULT} 
+     * @returns {PRINTER_HANDLE} 
      */
-    get_Handle(phPrinter) {
+    get_Handle() {
+        phPrinter := PRINTER_HANDLE()
         result := ComCall(7, this, "ptr", phPrinter, "HRESULT")
-        return result
+        return phPrinter
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(8, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -69,11 +71,10 @@ class IPrinterQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IPrinterPropertyBag>} ppPropertyBag 
-     * @returns {HRESULT} 
+     * @returns {IPrinterPropertyBag} 
      */
-    GetProperties(ppPropertyBag) {
-        result := ComCall(10, this, "ptr*", ppPropertyBag, "HRESULT")
-        return result
+    GetProperties() {
+        result := ComCall(10, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        return IPrinterPropertyBag(ppPropertyBag)
     }
 }

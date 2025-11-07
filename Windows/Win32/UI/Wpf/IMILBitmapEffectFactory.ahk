@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMILBitmapEffect.ahk
+#Include .\IMILBitmapEffectRenderContext.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,96 +35,31 @@ class IMILBitmapEffectFactory extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} pguidEffect 
-     * @param {Pointer<IMILBitmapEffect>} ppEffect 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectfactory-createeffect
      */
-    CreateEffect(pguidEffect, ppEffect) {
-        result := ComCall(3, this, "ptr", pguidEffect, "ptr*", ppEffect, "HRESULT")
-        return result
+    CreateEffect(pguidEffect) {
+        result := ComCall(3, this, "ptr", pguidEffect, "ptr*", &ppEffect := 0, "HRESULT")
+        return IMILBitmapEffect(ppEffect)
     }
 
     /**
      * Creates a recognizer context.
-     * @param {Pointer<IMILBitmapEffectRenderContext>} ppContext 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The parameter is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid argument was received.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IMILBitmapEffectRenderContext} 
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-createcontext
      */
-    CreateContext(ppContext) {
-        result := ComCall(4, this, "ptr*", ppContext, "HRESULT")
-        return result
+    CreateContext() {
+        result := ComCall(4, this, "ptr*", &ppContext := 0, "HRESULT")
+        return IMILBitmapEffectRenderContext(ppContext)
     }
 
     /**
      * 
-     * @param {Pointer<IMILBitmapEffect>} ppEffect 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectfactory-createeffectouter
      */
-    CreateEffectOuter(ppEffect) {
-        result := ComCall(5, this, "ptr*", ppEffect, "HRESULT")
-        return result
+    CreateEffectOuter() {
+        result := ComCall(5, this, "ptr*", &ppEffect := 0, "HRESULT")
+        return IMILBitmapEffect(ppEffect)
     }
 }

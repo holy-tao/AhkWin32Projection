@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,14 +31,11 @@ class ISpeechWaveFormatEx extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} FormatTag 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FormatTag(FormatTag) {
-        FormatTagMarshal := FormatTag is VarRef ? "short*" : "ptr"
-
-        result := ComCall(7, this, FormatTagMarshal, FormatTag, "HRESULT")
-        return result
+    get_FormatTag() {
+        result := ComCall(7, this, "short*", &FormatTag := 0, "HRESULT")
+        return FormatTag
     }
 
     /**
@@ -52,14 +50,11 @@ class ISpeechWaveFormatEx extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Channels 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Channels(Channels) {
-        ChannelsMarshal := Channels is VarRef ? "short*" : "ptr"
-
-        result := ComCall(9, this, ChannelsMarshal, Channels, "HRESULT")
-        return result
+    get_Channels() {
+        result := ComCall(9, this, "short*", &Channels := 0, "HRESULT")
+        return Channels
     }
 
     /**
@@ -74,14 +69,11 @@ class ISpeechWaveFormatEx extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} SamplesPerSec 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SamplesPerSec(SamplesPerSec) {
-        SamplesPerSecMarshal := SamplesPerSec is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, SamplesPerSecMarshal, SamplesPerSec, "HRESULT")
-        return result
+    get_SamplesPerSec() {
+        result := ComCall(11, this, "int*", &SamplesPerSec := 0, "HRESULT")
+        return SamplesPerSec
     }
 
     /**
@@ -96,14 +88,11 @@ class ISpeechWaveFormatEx extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} AvgBytesPerSec 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AvgBytesPerSec(AvgBytesPerSec) {
-        AvgBytesPerSecMarshal := AvgBytesPerSec is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, AvgBytesPerSecMarshal, AvgBytesPerSec, "HRESULT")
-        return result
+    get_AvgBytesPerSec() {
+        result := ComCall(13, this, "int*", &AvgBytesPerSec := 0, "HRESULT")
+        return AvgBytesPerSec
     }
 
     /**
@@ -118,14 +107,11 @@ class ISpeechWaveFormatEx extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} BlockAlign 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BlockAlign(BlockAlign) {
-        BlockAlignMarshal := BlockAlign is VarRef ? "short*" : "ptr"
-
-        result := ComCall(15, this, BlockAlignMarshal, BlockAlign, "HRESULT")
-        return result
+    get_BlockAlign() {
+        result := ComCall(15, this, "short*", &BlockAlign := 0, "HRESULT")
+        return BlockAlign
     }
 
     /**
@@ -140,14 +126,11 @@ class ISpeechWaveFormatEx extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} BitsPerSample 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BitsPerSample(BitsPerSample) {
-        BitsPerSampleMarshal := BitsPerSample is VarRef ? "short*" : "ptr"
-
-        result := ComCall(17, this, BitsPerSampleMarshal, BitsPerSample, "HRESULT")
-        return result
+    get_BitsPerSample() {
+        result := ComCall(17, this, "short*", &BitsPerSample := 0, "HRESULT")
+        return BitsPerSample
     }
 
     /**
@@ -162,12 +145,12 @@ class ISpeechWaveFormatEx extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} ExtraData 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ExtraData(ExtraData) {
+    get_ExtraData() {
+        ExtraData := VARIANT()
         result := ComCall(19, this, "ptr", ExtraData, "HRESULT")
-        return result
+        return ExtraData
     }
 
     /**

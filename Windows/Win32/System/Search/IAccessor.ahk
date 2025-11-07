@@ -31,16 +31,13 @@ class IAccessor extends IUnknown{
     /**
      * 
      * @param {HACCESSOR} hAccessor 
-     * @param {Pointer<Integer>} pcRefCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    AddRefAccessor(hAccessor, pcRefCount) {
+    AddRefAccessor(hAccessor) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        pcRefCountMarshal := pcRefCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", hAccessor, pcRefCountMarshal, pcRefCount, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hAccessor, "uint*", &pcRefCount := 0, "HRESULT")
+        return pcRefCount
     }
 
     /**
@@ -82,15 +79,12 @@ class IAccessor extends IUnknown{
     /**
      * 
      * @param {HACCESSOR} hAccessor 
-     * @param {Pointer<Integer>} pcRefCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ReleaseAccessor(hAccessor, pcRefCount) {
+    ReleaseAccessor(hAccessor) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        pcRefCountMarshal := pcRefCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", hAccessor, pcRefCountMarshal, pcRefCount, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", hAccessor, "uint*", &pcRefCount := 0, "HRESULT")
+        return pcRefCount
     }
 }

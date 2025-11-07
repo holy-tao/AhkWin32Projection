@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICBitmapEncoder.ahk
 #Include .\IWICBitmapCodecInfo.ahk
 
 /**
@@ -32,12 +33,11 @@ class IWICBitmapEncoderInfo extends IWICBitmapCodecInfo{
 
     /**
      * 
-     * @param {Pointer<IWICBitmapEncoder>} ppIBitmapEncoder 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapEncoder} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoderinfo-createinstance
      */
-    CreateInstance(ppIBitmapEncoder) {
-        result := ComCall(23, this, "ptr*", ppIBitmapEncoder, "HRESULT")
-        return result
+    CreateInstance() {
+        result := ComCall(23, this, "ptr*", &ppIBitmapEncoder := 0, "HRESULT")
+        return IWICBitmapEncoder(ppIBitmapEncoder)
     }
 }

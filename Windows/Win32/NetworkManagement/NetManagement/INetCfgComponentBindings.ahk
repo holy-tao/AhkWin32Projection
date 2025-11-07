@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumNetCfgBindingPath.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -84,12 +85,11 @@ class INetCfgComponentBindings extends IUnknown{
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IEnumNetCfgBindingPath>} ppIEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumNetCfgBindingPath} 
      */
-    EnumBindingPaths(dwFlags, ppIEnum) {
-        result := ComCall(8, this, "uint", dwFlags, "ptr*", ppIEnum, "HRESULT")
-        return result
+    EnumBindingPaths(dwFlags) {
+        result := ComCall(8, this, "uint", dwFlags, "ptr*", &ppIEnum := 0, "HRESULT")
+        return IEnumNetCfgBindingPath(ppIEnum)
     }
 
     /**

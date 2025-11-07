@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITCallHub.ahk
+#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,36 +34,31 @@ class ITCallHubEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pEvent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhubevent-get_event
      */
-    get_Event(pEvent) {
-        pEventMarshal := pEvent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pEventMarshal, pEvent, "HRESULT")
-        return result
+    get_Event() {
+        result := ComCall(7, this, "int*", &pEvent := 0, "HRESULT")
+        return pEvent
     }
 
     /**
      * 
-     * @param {Pointer<ITCallHub>} ppCallHub 
-     * @returns {HRESULT} 
+     * @returns {ITCallHub} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhubevent-get_callhub
      */
-    get_CallHub(ppCallHub) {
-        result := ComCall(8, this, "ptr*", ppCallHub, "HRESULT")
-        return result
+    get_CallHub() {
+        result := ComCall(8, this, "ptr*", &ppCallHub := 0, "HRESULT")
+        return ITCallHub(ppCallHub)
     }
 
     /**
      * 
-     * @param {Pointer<ITCallInfo>} ppCall 
-     * @returns {HRESULT} 
+     * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhubevent-get_call
      */
-    get_Call(ppCall) {
-        result := ComCall(9, this, "ptr*", ppCall, "HRESULT")
-        return result
+    get_Call() {
+        result := ComCall(9, this, "ptr*", &ppCall := 0, "HRESULT")
+        return ITCallInfo(ppCall)
     }
 }

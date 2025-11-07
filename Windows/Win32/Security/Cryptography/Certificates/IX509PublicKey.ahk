@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IObjectId.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -74,62 +75,58 @@ class IX509PublicKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-get_algorithm
      */
-    get_Algorithm(ppValue) {
-        result := ComCall(9, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_Algorithm() {
+        result := ComCall(9, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-get_length
      */
-    get_Length(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Length() {
+        result := ComCall(10, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-get_encodedkey
      */
-    get_EncodedKey(Encoding, pValue) {
+    get_EncodedKey(Encoding) {
+        pValue := BSTR()
         result := ComCall(11, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-get_encodedparameters
      */
-    get_EncodedParameters(Encoding, pValue) {
+    get_EncodedParameters(Encoding) {
+        pValue := BSTR()
         result := ComCall(12, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} Algorithm 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-computekeyidentifier
      */
-    ComputeKeyIdentifier(Algorithm, Encoding, pValue) {
+    ComputeKeyIdentifier(Algorithm, Encoding) {
+        pValue := BSTR()
         result := ComCall(13, this, "int", Algorithm, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

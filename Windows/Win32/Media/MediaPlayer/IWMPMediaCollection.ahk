@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWMPMedia.ahk
+#Include .\IWMPPlaylist.ahk
+#Include .\IWMPStringCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,98 +37,91 @@ class IWMPMediaCollection extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrURL 
-     * @param {Pointer<IWMPMedia>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IWMPMedia} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-add
      */
-    add(bstrURL, ppItem) {
+    add(bstrURL) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(7, this, "ptr", bstrURL, "ptr*", ppItem, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bstrURL, "ptr*", &ppItem := 0, "HRESULT")
+        return IWMPMedia(ppItem)
     }
 
     /**
      * 
-     * @param {Pointer<IWMPPlaylist>} ppMediaItems 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getall
      */
-    getAll(ppMediaItems) {
-        result := ComCall(8, this, "ptr*", ppMediaItems, "HRESULT")
-        return result
+    getAll() {
+        result := ComCall(8, this, "ptr*", &ppMediaItems := 0, "HRESULT")
+        return IWMPPlaylist(ppMediaItems)
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IWMPPlaylist>} ppMediaItems 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getbyname
      */
-    getByName(bstrName, ppMediaItems) {
+    getByName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(9, this, "ptr", bstrName, "ptr*", ppMediaItems, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrName, "ptr*", &ppMediaItems := 0, "HRESULT")
+        return IWMPPlaylist(ppMediaItems)
     }
 
     /**
      * 
      * @param {BSTR} bstrGenre 
-     * @param {Pointer<IWMPPlaylist>} ppMediaItems 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getbygenre
      */
-    getByGenre(bstrGenre, ppMediaItems) {
+    getByGenre(bstrGenre) {
         bstrGenre := bstrGenre is String ? BSTR.Alloc(bstrGenre).Value : bstrGenre
 
-        result := ComCall(10, this, "ptr", bstrGenre, "ptr*", ppMediaItems, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrGenre, "ptr*", &ppMediaItems := 0, "HRESULT")
+        return IWMPPlaylist(ppMediaItems)
     }
 
     /**
      * 
      * @param {BSTR} bstrAuthor 
-     * @param {Pointer<IWMPPlaylist>} ppMediaItems 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getbyauthor
      */
-    getByAuthor(bstrAuthor, ppMediaItems) {
+    getByAuthor(bstrAuthor) {
         bstrAuthor := bstrAuthor is String ? BSTR.Alloc(bstrAuthor).Value : bstrAuthor
 
-        result := ComCall(11, this, "ptr", bstrAuthor, "ptr*", ppMediaItems, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrAuthor, "ptr*", &ppMediaItems := 0, "HRESULT")
+        return IWMPPlaylist(ppMediaItems)
     }
 
     /**
      * 
      * @param {BSTR} bstrAlbum 
-     * @param {Pointer<IWMPPlaylist>} ppMediaItems 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getbyalbum
      */
-    getByAlbum(bstrAlbum, ppMediaItems) {
+    getByAlbum(bstrAlbum) {
         bstrAlbum := bstrAlbum is String ? BSTR.Alloc(bstrAlbum).Value : bstrAlbum
 
-        result := ComCall(12, this, "ptr", bstrAlbum, "ptr*", ppMediaItems, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", bstrAlbum, "ptr*", &ppMediaItems := 0, "HRESULT")
+        return IWMPPlaylist(ppMediaItems)
     }
 
     /**
      * 
      * @param {BSTR} bstrAttribute 
      * @param {BSTR} bstrValue 
-     * @param {Pointer<IWMPPlaylist>} ppMediaItems 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getbyattribute
      */
-    getByAttribute(bstrAttribute, bstrValue, ppMediaItems) {
+    getByAttribute(bstrAttribute, bstrValue) {
         bstrAttribute := bstrAttribute is String ? BSTR.Alloc(bstrAttribute).Value : bstrAttribute
         bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
 
-        result := ComCall(13, this, "ptr", bstrAttribute, "ptr", bstrValue, "ptr*", ppMediaItems, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", bstrAttribute, "ptr", bstrValue, "ptr*", &ppMediaItems := 0, "HRESULT")
+        return IWMPPlaylist(ppMediaItems)
     }
 
     /**
@@ -144,16 +140,15 @@ class IWMPMediaCollection extends IDispatch{
      * 
      * @param {BSTR} bstrAttribute 
      * @param {BSTR} bstrMediaType 
-     * @param {Pointer<IWMPStringCollection>} ppStringCollection 
-     * @returns {HRESULT} 
+     * @returns {IWMPStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection-getattributestringcollection
      */
-    getAttributeStringCollection(bstrAttribute, bstrMediaType, ppStringCollection) {
+    getAttributeStringCollection(bstrAttribute, bstrMediaType) {
         bstrAttribute := bstrAttribute is String ? BSTR.Alloc(bstrAttribute).Value : bstrAttribute
         bstrMediaType := bstrMediaType is String ? BSTR.Alloc(bstrMediaType).Value : bstrMediaType
 
-        result := ComCall(15, this, "ptr", bstrAttribute, "ptr", bstrMediaType, "ptr*", ppStringCollection, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", bstrAttribute, "ptr", bstrMediaType, "ptr*", &ppStringCollection := 0, "HRESULT")
+        return IWMPStringCollection(ppStringCollection)
     }
 
     /**
@@ -192,7 +187,9 @@ class IWMPMediaCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpmediacollection
      */
     isDeleted(pItem, pvarfIsDeleted) {
-        result := ComCall(18, this, "ptr", pItem, "ptr", pvarfIsDeleted, "HRESULT")
+        pvarfIsDeletedMarshal := pvarfIsDeleted is VarRef ? "short*" : "ptr"
+
+        result := ComCall(18, this, "ptr", pItem, pvarfIsDeletedMarshal, pvarfIsDeleted, "HRESULT")
         return result
     }
 }

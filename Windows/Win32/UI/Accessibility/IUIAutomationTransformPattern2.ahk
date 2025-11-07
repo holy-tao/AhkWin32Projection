@@ -54,101 +54,81 @@ class IUIAutomationTransformPattern2 extends IUIAutomationTransformPattern{
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentcanzoom
      */
-    get_CurrentCanZoom(retVal) {
-        result := ComCall(14, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentCanZoom() {
+        result := ComCall(14, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedcanzoom
      */
-    get_CachedCanZoom(retVal) {
-        result := ComCall(15, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedCanZoom() {
+        result := ComCall(15, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentzoomlevel
      */
-    get_CurrentZoomLevel(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(16, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentZoomLevel() {
+        result := ComCall(16, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedzoomlevel
      */
-    get_CachedZoomLevel(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(17, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedZoomLevel() {
+        result := ComCall(17, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentzoomminimum
      */
-    get_CurrentZoomMinimum(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(18, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentZoomMinimum() {
+        result := ComCall(18, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedzoomminimum
      */
-    get_CachedZoomMinimum(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(19, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedZoomMinimum() {
+        result := ComCall(19, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentzoommaximum
      */
-    get_CurrentZoomMaximum(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(20, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentZoomMaximum() {
+        result := ComCall(20, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedzoommaximum
      */
-    get_CachedZoomMaximum(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(21, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedZoomMaximum() {
+        result := ComCall(21, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

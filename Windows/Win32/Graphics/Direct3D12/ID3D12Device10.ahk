@@ -41,16 +41,14 @@ class ID3D12Device10 extends ID3D12Device9{
      * @param {Integer} NumCastableFormats 
      * @param {Pointer<Integer>} pCastableFormats 
      * @param {Pointer<Guid>} riidResource 
-     * @param {Pointer<Pointer<Void>>} ppvResource 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device10-createcommittedresource3
      */
-    CreateCommittedResource3(pHeapProperties, HeapFlags, pDesc, InitialLayout, pOptimizedClearValue, pProtectedSession, NumCastableFormats, pCastableFormats, riidResource, ppvResource) {
+    CreateCommittedResource3(pHeapProperties, HeapFlags, pDesc, InitialLayout, pOptimizedClearValue, pProtectedSession, NumCastableFormats, pCastableFormats, riidResource) {
         pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : "ptr"
-        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(76, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riidResource, ppvResourceMarshal, ppvResource, "HRESULT")
-        return result
+        result := ComCall(76, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riidResource, "ptr*", &ppvResource := 0, "HRESULT")
+        return ppvResource
     }
 
     /**
@@ -63,16 +61,14 @@ class ID3D12Device10 extends ID3D12Device9{
      * @param {Integer} NumCastableFormats 
      * @param {Pointer<Integer>} pCastableFormats 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvResource 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device10-createplacedresource2
      */
-    CreatePlacedResource2(pHeap, HeapOffset, pDesc, InitialLayout, pOptimizedClearValue, NumCastableFormats, pCastableFormats, riid, ppvResource) {
+    CreatePlacedResource2(pHeap, HeapOffset, pDesc, InitialLayout, pOptimizedClearValue, NumCastableFormats, pCastableFormats, riid) {
         pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : "ptr"
-        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(77, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riid, ppvResourceMarshal, ppvResource, "HRESULT")
-        return result
+        result := ComCall(77, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riid, "ptr*", &ppvResource := 0, "HRESULT")
+        return ppvResource
     }
 
     /**
@@ -84,15 +80,13 @@ class ID3D12Device10 extends ID3D12Device9{
      * @param {Integer} NumCastableFormats 
      * @param {Pointer<Integer>} pCastableFormats 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvResource 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device10-createreservedresource2
      */
-    CreateReservedResource2(pDesc, InitialLayout, pOptimizedClearValue, pProtectedSession, NumCastableFormats, pCastableFormats, riid, ppvResource) {
+    CreateReservedResource2(pDesc, InitialLayout, pOptimizedClearValue, pProtectedSession, NumCastableFormats, pCastableFormats, riid) {
         pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : "ptr"
-        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(78, this, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riid, ppvResourceMarshal, ppvResource, "HRESULT")
-        return result
+        result := ComCall(78, this, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riid, "ptr*", &ppvResource := 0, "HRESULT")
+        return ppvResource
     }
 }

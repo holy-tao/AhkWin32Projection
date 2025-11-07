@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\TF_PERSISTENT_PROPERTY_HEADER_ACP.ahk
+#Include .\ITfRangeACP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,14 +36,14 @@ class ITextStoreACPServices extends IUnknown{
      * 
      * @param {ITfProperty} pProp 
      * @param {ITfRange} pRange 
-     * @param {Pointer<TF_PERSISTENT_PROPERTY_HEADER_ACP>} pHdr 
      * @param {IStream} pStream 
-     * @returns {HRESULT} 
+     * @returns {TF_PERSISTENT_PROPERTY_HEADER_ACP} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itextstoreacpservices-serialize
      */
-    Serialize(pProp, pRange, pHdr, pStream) {
+    Serialize(pProp, pRange, pStream) {
+        pHdr := TF_PERSISTENT_PROPERTY_HEADER_ACP()
         result := ComCall(3, this, "ptr", pProp, "ptr", pRange, "ptr", pHdr, "ptr", pStream, "HRESULT")
-        return result
+        return pHdr
     }
 
     /**
@@ -73,12 +75,11 @@ class ITextStoreACPServices extends IUnknown{
      * 
      * @param {Integer} acpStart 
      * @param {Integer} acpEnd 
-     * @param {Pointer<ITfRangeACP>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITfRangeACP} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itextstoreacpservices-createrange
      */
-    CreateRange(acpStart, acpEnd, ppRange) {
-        result := ComCall(6, this, "int", acpStart, "int", acpEnd, "ptr*", ppRange, "HRESULT")
-        return result
+    CreateRange(acpStart, acpEnd) {
+        result := ComCall(6, this, "int", acpStart, "int", acpEnd, "ptr*", &ppRange := 0, "HRESULT")
+        return ITfRangeACP(ppRange)
     }
 }

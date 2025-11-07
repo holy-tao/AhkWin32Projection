@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,15 +35,15 @@ class INamedPropertyStore extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszName 
-     * @param {Pointer<PROPVARIANT>} ppropvar 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-inamedpropertystore-getnamedvalue
      */
-    GetNamedValue(pszName, ppropvar) {
+    GetNamedValue(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
+        ppropvar := PROPVARIANT()
         result := ComCall(3, this, "ptr", pszName, "ptr", ppropvar, "HRESULT")
-        return result
+        return ppropvar
     }
 
     /**
@@ -60,26 +62,23 @@ class INamedPropertyStore extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-inamedpropertystore-getnamecount
      */
-    GetNameCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetNameCount() {
+        result := ComCall(5, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
      * @param {Integer} iProp 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-inamedpropertystore-getnameat
      */
-    GetNameAt(iProp, pbstrName) {
+    GetNameAt(iProp) {
+        pbstrName := BSTR()
         result := ComCall(6, this, "uint", iProp, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 }

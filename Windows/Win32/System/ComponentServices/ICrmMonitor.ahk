@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICrmMonitorClerks.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,24 +34,23 @@ class ICrmMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ICrmMonitorClerks>} pClerks 
-     * @returns {HRESULT} 
+     * @returns {ICrmMonitorClerks} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitor-getclerks
      */
-    GetClerks(pClerks) {
-        result := ComCall(3, this, "ptr*", pClerks, "HRESULT")
-        return result
+    GetClerks() {
+        result := ComCall(3, this, "ptr*", &pClerks := 0, "HRESULT")
+        return ICrmMonitorClerks(pClerks)
     }
 
     /**
      * 
      * @param {VARIANT} Index 
-     * @param {Pointer<VARIANT>} pItem 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitor-holdclerk
      */
-    HoldClerk(Index, pItem) {
+    HoldClerk(Index) {
+        pItem := VARIANT()
         result := ComCall(4, this, "ptr", Index, "ptr", pItem, "HRESULT")
-        return result
+        return pItem
     }
 }

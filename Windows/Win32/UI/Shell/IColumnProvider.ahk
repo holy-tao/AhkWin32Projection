@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SHCOLUMNINFO.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -83,25 +85,25 @@ class IColumnProvider extends IUnknown{
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<SHCOLUMNINFO>} psci 
-     * @returns {HRESULT} 
+     * @returns {SHCOLUMNINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-icolumnprovider-getcolumninfo
      */
-    GetColumnInfo(dwIndex, psci) {
+    GetColumnInfo(dwIndex) {
+        psci := SHCOLUMNINFO()
         result := ComCall(4, this, "uint", dwIndex, "ptr", psci, "HRESULT")
-        return result
+        return psci
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} pscid 
      * @param {Pointer<SHCOLUMNDATA>} pscd 
-     * @param {Pointer<VARIANT>} pvarData 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-icolumnprovider-getitemdata
      */
-    GetItemData(pscid, pscd, pvarData) {
+    GetItemData(pscid, pscd) {
+        pvarData := VARIANT()
         result := ComCall(5, this, "ptr", pscid, "ptr", pscd, "ptr", pvarData, "HRESULT")
-        return result
+        return pvarData
     }
 }

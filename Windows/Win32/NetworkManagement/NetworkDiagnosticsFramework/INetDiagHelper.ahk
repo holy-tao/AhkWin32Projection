@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\LIFE_TIME.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,15 +56,12 @@ class INetDiagHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<DiagnosticsInfo>>} ppInfo 
-     * @returns {HRESULT} 
+     * @returns {Pointer<DiagnosticsInfo>} 
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getdiagnosticsinfo
      */
-    GetDiagnosticsInfo(ppInfo) {
-        ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppInfoMarshal, ppInfo, "HRESULT")
-        return result
+    GetDiagnosticsInfo() {
+        result := ComCall(4, this, "ptr*", &ppInfo := 0, "HRESULT")
+        return ppInfo
     }
 
     /**
@@ -92,10 +91,11 @@ class INetDiagHelper extends IUnknown{
     LowHealth(pwszInstanceDescription, ppwszDescription, pDeferredTime, pStatus) {
         pwszInstanceDescription := pwszInstanceDescription is String ? StrPtr(pwszInstanceDescription) : pwszInstanceDescription
 
+        ppwszDescriptionMarshal := ppwszDescription is VarRef ? "ptr*" : "ptr"
         pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszInstanceDescription, "ptr", ppwszDescription, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszInstanceDescription, ppwszDescriptionMarshal, ppwszDescription, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -111,10 +111,11 @@ class INetDiagHelper extends IUnknown{
     HighUtilization(pwszInstanceDescription, ppwszDescription, pDeferredTime, pStatus) {
         pwszInstanceDescription := pwszInstanceDescription is String ? StrPtr(pwszInstanceDescription) : pwszInstanceDescription
 
+        ppwszDescriptionMarshal := ppwszDescription is VarRef ? "ptr*" : "ptr"
         pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pwszInstanceDescription, "ptr", ppwszDescription, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszInstanceDescription, ppwszDescriptionMarshal, ppwszDescription, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -228,13 +229,13 @@ class INetDiagHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<LIFE_TIME>} pLifeTime 
-     * @returns {HRESULT} 
+     * @returns {LIFE_TIME} 
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getlifetime
      */
-    GetLifeTime(pLifeTime) {
+    GetLifeTime() {
+        pLifeTime := LIFE_TIME()
         result := ComCall(15, this, "ptr", pLifeTime, "HRESULT")
-        return result
+        return pLifeTime
     }
 
     /**
@@ -250,13 +251,13 @@ class INetDiagHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pCacheTime 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getcachetime
      */
-    GetCacheTime(pCacheTime) {
+    GetCacheTime() {
+        pCacheTime := FILETIME()
         result := ComCall(17, this, "ptr", pCacheTime, "HRESULT")
-        return result
+        return pCacheTime
     }
 
     /**

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IStaticPortMappingCollection.ahk
+#Include .\IDynamicPortMappingCollection.ahk
+#Include .\INATEventManager.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,34 +41,31 @@ class IUPnPNAT extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IStaticPortMappingCollection>} ppSPMs 
-     * @returns {HRESULT} 
+     * @returns {IStaticPortMappingCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-iupnpnat-get_staticportmappingcollection
      */
-    get_StaticPortMappingCollection(ppSPMs) {
-        result := ComCall(7, this, "ptr*", ppSPMs, "HRESULT")
-        return result
+    get_StaticPortMappingCollection() {
+        result := ComCall(7, this, "ptr*", &ppSPMs := 0, "HRESULT")
+        return IStaticPortMappingCollection(ppSPMs)
     }
 
     /**
      * 
-     * @param {Pointer<IDynamicPortMappingCollection>} ppDPMs 
-     * @returns {HRESULT} 
+     * @returns {IDynamicPortMappingCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-iupnpnat
      */
-    get_DynamicPortMappingCollection(ppDPMs) {
-        result := ComCall(8, this, "ptr*", ppDPMs, "HRESULT")
-        return result
+    get_DynamicPortMappingCollection() {
+        result := ComCall(8, this, "ptr*", &ppDPMs := 0, "HRESULT")
+        return IDynamicPortMappingCollection(ppDPMs)
     }
 
     /**
      * 
-     * @param {Pointer<INATEventManager>} ppNEM 
-     * @returns {HRESULT} 
+     * @returns {INATEventManager} 
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-iupnpnat-get_nateventmanager
      */
-    get_NATEventManager(ppNEM) {
-        result := ComCall(9, this, "ptr*", ppNEM, "HRESULT")
-        return result
+    get_NATEventManager() {
+        result := ComCall(9, this, "ptr*", &ppNEM := 0, "HRESULT")
+        return INATEventManager(ppNEM)
     }
 }

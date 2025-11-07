@@ -32,15 +32,12 @@ class IPerChannelDbLevel extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcChannels 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-getchannelcount
      */
-    GetChannelCount(pcChannels) {
-        pcChannelsMarshal := pcChannels is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcChannelsMarshal, pcChannels, "HRESULT")
-        return result
+    GetChannelCount() {
+        result := ComCall(3, this, "uint*", &pcChannels := 0, "HRESULT")
+        return pcChannels
     }
 
     /**
@@ -64,15 +61,12 @@ class IPerChannelDbLevel extends IUnknown{
     /**
      * 
      * @param {Integer} nChannel 
-     * @param {Pointer<Float>} pfLevelDB 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-getlevel
      */
-    GetLevel(nChannel, pfLevelDB) {
-        pfLevelDBMarshal := pfLevelDB is VarRef ? "float*" : "ptr"
-
-        result := ComCall(5, this, "uint", nChannel, pfLevelDBMarshal, pfLevelDB, "HRESULT")
-        return result
+    GetLevel(nChannel) {
+        result := ComCall(5, this, "uint", nChannel, "float*", &pfLevelDB := 0, "HRESULT")
+        return pfLevelDB
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Bitmap.ahk
 #Include .\ID2D1RenderTarget.ahk
 
 /**
@@ -46,12 +47,11 @@ class ID2D1BitmapRenderTarget extends ID2D1RenderTarget{
 
     /**
      * 
-     * @param {Pointer<ID2D1Bitmap>} bitmap 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Bitmap} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmaprendertarget-getbitmap
      */
-    GetBitmap(bitmap) {
-        result := ComCall(57, this, "ptr*", bitmap, "HRESULT")
-        return result
+    GetBitmap() {
+        result := ComCall(57, this, "ptr*", &bitmap := 0, "HRESULT")
+        return ID2D1Bitmap(bitmap)
     }
 }

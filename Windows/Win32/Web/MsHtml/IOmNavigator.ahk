@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLMimeTypesCollection.ahk
+#Include .\IHTMLPluginsCollection.ahk
+#Include .\IHTMLOpsProfile.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,203 +34,192 @@ class IOmNavigator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_appCodeName(p) {
+    get_appCodeName() {
+        p := BSTR()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_appName(p) {
+    get_appName() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_appVersion(p) {
+    get_appVersion() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_userAgent(p) {
+    get_userAgent() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    javaEnabled(enabled) {
-        result := ComCall(11, this, "ptr", enabled, "HRESULT")
-        return result
+    javaEnabled() {
+        result := ComCall(11, this, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    taintEnabled(enabled) {
-        result := ComCall(12, this, "ptr", enabled, "HRESULT")
-        return result
+    taintEnabled() {
+        result := ComCall(12, this, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLMimeTypesCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLMimeTypesCollection} 
      */
-    get_mimeTypes(p) {
-        result := ComCall(13, this, "ptr*", p, "HRESULT")
-        return result
+    get_mimeTypes() {
+        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLMimeTypesCollection(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLPluginsCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLPluginsCollection} 
      */
-    get_plugins(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_plugins() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLPluginsCollection(p)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_cookieEnabled(p) {
-        result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+    get_cookieEnabled() {
+        result := ComCall(15, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLOpsProfile>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLOpsProfile} 
      */
-    get_opsProfile(p) {
-        result := ComCall(16, this, "ptr*", p, "HRESULT")
-        return result
+    get_opsProfile() {
+        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLOpsProfile(p)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} string 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toString(string) {
+    toString() {
+        string := BSTR()
         result := ComCall(17, this, "ptr", string, "HRESULT")
-        return result
+        return string
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_cpuClass(p) {
+    get_cpuClass() {
+        p := BSTR()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_systemLanguage(p) {
+    get_systemLanguage() {
+        p := BSTR()
         result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_browserLanguage(p) {
+    get_browserLanguage() {
+        p := BSTR()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_userLanguage(p) {
+    get_userLanguage() {
+        p := BSTR()
         result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_platform(p) {
+    get_platform() {
+        p := BSTR()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_appMinorVersion(p) {
+    get_appMinorVersion() {
+        p := BSTR()
         result := ComCall(23, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_connectionSpeed(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, pMarshal, p, "HRESULT")
-        return result
+    get_connectionSpeed() {
+        result := ComCall(24, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_onLine(p) {
-        result := ComCall(25, this, "ptr", p, "HRESULT")
-        return result
+    get_onLine() {
+        result := ComCall(25, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLOpsProfile>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLOpsProfile} 
      */
-    get_userProfile(p) {
-        result := ComCall(26, this, "ptr*", p, "HRESULT")
-        return result
+    get_userProfile() {
+        result := ComCall(26, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLOpsProfile(p)
     }
 }

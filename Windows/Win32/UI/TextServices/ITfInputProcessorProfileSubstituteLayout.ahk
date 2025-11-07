@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Input\KeyboardAndMouse\HKL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,12 +36,12 @@ class ITfInputProcessorProfileSubstituteLayout extends IUnknown{
      * @param {Pointer<Guid>} rclsid 
      * @param {Integer} langid 
      * @param {Pointer<Guid>} guidProfile 
-     * @param {Pointer<HKL>} phKL 
-     * @returns {HRESULT} 
+     * @returns {HKL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilesubstitutelayout-getsubstitutekeyboardlayout
      */
-    GetSubstituteKeyboardLayout(rclsid, langid, guidProfile, phKL) {
+    GetSubstituteKeyboardLayout(rclsid, langid, guidProfile) {
+        phKL := HKL()
         result := ComCall(3, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", phKL, "HRESULT")
-        return result
+        return phKL
     }
 }

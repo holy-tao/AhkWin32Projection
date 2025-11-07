@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include .\IRawCDImageTrackInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,28 +44,24 @@ class IRawCDImageCreator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IStream>} resultStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-createresultimage
      */
-    CreateResultImage(resultStream) {
-        result := ComCall(7, this, "ptr*", resultStream, "HRESULT")
-        return result
+    CreateResultImage() {
+        result := ComCall(7, this, "ptr*", &resultStream := 0, "HRESULT")
+        return IStream(resultStream)
     }
 
     /**
      * 
      * @param {Integer} dataType 
      * @param {IStream} data 
-     * @param {Pointer<Integer>} trackIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-addtrack
      */
-    AddTrack(dataType, data, trackIndex) {
-        trackIndexMarshal := trackIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "int", dataType, "ptr", data, trackIndexMarshal, trackIndex, "HRESULT")
-        return result
+    AddTrack(dataType, data) {
+        result := ComCall(8, this, "int", dataType, "ptr", data, "int*", &trackIndex := 0, "HRESULT")
+        return trackIndex
     }
 
     /**
@@ -101,28 +99,22 @@ class IRawCDImageCreator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_resultingimagetype
      */
-    get_ResultingImageType(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, valueMarshal, value, "HRESULT")
-        return result
+    get_ResultingImageType() {
+        result := ComCall(12, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_startofleadout
      */
-    get_StartOfLeadout(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, valueMarshal, value, "HRESULT")
-        return result
+    get_StartOfLeadout() {
+        result := ComCall(13, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -138,15 +130,12 @@ class IRawCDImageCreator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_startofleadoutlimit
      */
-    get_StartOfLeadoutLimit(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, valueMarshal, value, "HRESULT")
-        return result
+    get_StartOfLeadoutLimit() {
+        result := ComCall(15, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -162,13 +151,12 @@ class IRawCDImageCreator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_disablegaplessaudio
      */
-    get_DisableGaplessAudio(value) {
-        result := ComCall(17, this, "ptr", value, "HRESULT")
-        return result
+    get_DisableGaplessAudio() {
+        result := ComCall(17, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -186,13 +174,13 @@ class IRawCDImageCreator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_mediacatalognumber
      */
-    get_MediaCatalogNumber(value) {
+    get_MediaCatalogNumber() {
+        value := BSTR()
         result := ComCall(19, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
@@ -208,65 +196,52 @@ class IRawCDImageCreator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_startingtracknumber
      */
-    get_StartingTrackNumber(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, valueMarshal, value, "HRESULT")
-        return result
+    get_StartingTrackNumber() {
+        result := ComCall(21, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {Integer} trackIndex 
-     * @param {Pointer<IRawCDImageTrackInfo>} value 
-     * @returns {HRESULT} 
+     * @returns {IRawCDImageTrackInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_trackinfo
      */
-    get_TrackInfo(trackIndex, value) {
-        result := ComCall(22, this, "int", trackIndex, "ptr*", value, "HRESULT")
-        return result
+    get_TrackInfo(trackIndex) {
+        result := ComCall(22, this, "int", trackIndex, "ptr*", &value := 0, "HRESULT")
+        return IRawCDImageTrackInfo(value)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_numberofexistingtracks
      */
-    get_NumberOfExistingTracks(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, valueMarshal, value, "HRESULT")
-        return result
+    get_NumberOfExistingTracks() {
+        result := ComCall(23, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_lastusedusersectorinimage
      */
-    get_LastUsedUserSectorInImage(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, valueMarshal, value, "HRESULT")
-        return result
+    get_LastUsedUserSectorInImage() {
+        result := ComCall(24, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_expectedtableofcontents
      */
-    get_ExpectedTableOfContents(value) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(25, this, valueMarshal, value, "HRESULT")
-        return result
+    get_ExpectedTableOfContents() {
+        result := ComCall(25, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 }

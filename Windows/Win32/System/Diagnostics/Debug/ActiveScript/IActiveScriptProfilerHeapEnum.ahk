@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\PROFILER_HEAP_OBJECT_OPTIONAL_INFO.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -47,12 +48,12 @@ class IActiveScriptProfilerHeapEnum extends IUnknown{
      * 
      * @param {Pointer<PROFILER_HEAP_OBJECT>} heapObject 
      * @param {Integer} celt 
-     * @param {Pointer<PROFILER_HEAP_OBJECT_OPTIONAL_INFO>} optionalInfo 
-     * @returns {HRESULT} 
+     * @returns {PROFILER_HEAP_OBJECT_OPTIONAL_INFO} 
      */
-    GetOptionalInfo(heapObject, celt, optionalInfo) {
+    GetOptionalInfo(heapObject, celt) {
+        optionalInfo := PROFILER_HEAP_OBJECT_OPTIONAL_INFO()
         result := ComCall(4, this, "ptr", heapObject, "uint", celt, "ptr", optionalInfo, "HRESULT")
-        return result
+        return optionalInfo
     }
 
     /**

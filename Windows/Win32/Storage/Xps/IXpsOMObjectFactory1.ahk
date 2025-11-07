@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMPackageWriter.ahk
+#Include .\IXpsOMPackage1.ahk
+#Include .\IXpsOMPage1.ahk
+#Include .\IXpsOMRemoteDictionaryResource.ahk
 #Include .\IXpsOMObjectFactory.ahk
 
 /**
@@ -41,31 +45,25 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
     /**
      * 
      * @param {PWSTR} filename 
-     * @param {Pointer<Integer>} documentType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-getdocumenttypefromfile
      */
-    GetDocumentTypeFromFile(filename, documentType) {
+    GetDocumentTypeFromFile(filename) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        documentTypeMarshal := documentType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(40, this, "ptr", filename, documentTypeMarshal, documentType, "HRESULT")
-        return result
+        result := ComCall(40, this, "ptr", filename, "int*", &documentType := 0, "HRESULT")
+        return documentType
     }
 
     /**
      * 
      * @param {IStream} xpsDocumentStream 
-     * @param {Pointer<Integer>} documentType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-getdocumenttypefromstream
      */
-    GetDocumentTypeFromStream(xpsDocumentStream, documentType) {
-        documentTypeMarshal := documentType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(41, this, "ptr", xpsDocumentStream, documentTypeMarshal, documentType, "HRESULT")
-        return result
+    GetDocumentTypeFromStream(xpsDocumentStream) {
+        result := ComCall(41, this, "ptr", xpsDocumentStream, "int*", &documentType := 0, "HRESULT")
+        return documentType
     }
 
     /**
@@ -103,15 +101,14 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * @param {IXpsOMPrintTicketResource} documentSequencePrintTicket 
      * @param {IOpcPartUri} discardControlPartName 
      * @param {Integer} documentType 
-     * @param {Pointer<IXpsOMPackageWriter>} packageWriter 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackageWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagewriteronfile1
      */
-    CreatePackageWriterOnFile1(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName, documentType, packageWriter) {
+    CreatePackageWriterOnFile1(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName, documentType) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(44, this, "ptr", fileName, "ptr", securityAttributes, "uint", flagsAndAttributes, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "int", documentType, "ptr*", packageWriter, "HRESULT")
-        return result
+        result := ComCall(44, this, "ptr", fileName, "ptr", securityAttributes, "uint", flagsAndAttributes, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "int", documentType, "ptr*", &packageWriter := 0, "HRESULT")
+        return IXpsOMPackageWriter(packageWriter)
     }
 
     /**
@@ -125,51 +122,47 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * @param {IXpsOMPrintTicketResource} documentSequencePrintTicket 
      * @param {IOpcPartUri} discardControlPartName 
      * @param {Integer} documentType 
-     * @param {Pointer<IXpsOMPackageWriter>} packageWriter 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackageWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagewriteronstream1
      */
-    CreatePackageWriterOnStream1(outputStream, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName, documentType, packageWriter) {
-        result := ComCall(45, this, "ptr", outputStream, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "int", documentType, "ptr*", packageWriter, "HRESULT")
-        return result
+    CreatePackageWriterOnStream1(outputStream, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName, documentType) {
+        result := ComCall(45, this, "ptr", outputStream, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "int", documentType, "ptr*", &packageWriter := 0, "HRESULT")
+        return IXpsOMPackageWriter(packageWriter)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMPackage1>} package 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackage1} 
      */
-    CreatePackage1(package) {
-        result := ComCall(46, this, "ptr*", package, "HRESULT")
-        return result
+    CreatePackage1() {
+        result := ComCall(46, this, "ptr*", &package := 0, "HRESULT")
+        return IXpsOMPackage1(package)
     }
 
     /**
      * 
      * @param {IStream} stream 
      * @param {BOOL} reuseObjects 
-     * @param {Pointer<IXpsOMPackage1>} package 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackage1} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagefromstream1
      */
-    CreatePackageFromStream1(stream, reuseObjects, package) {
-        result := ComCall(47, this, "ptr", stream, "int", reuseObjects, "ptr*", package, "HRESULT")
-        return result
+    CreatePackageFromStream1(stream, reuseObjects) {
+        result := ComCall(47, this, "ptr", stream, "int", reuseObjects, "ptr*", &package := 0, "HRESULT")
+        return IXpsOMPackage1(package)
     }
 
     /**
      * 
      * @param {PWSTR} filename 
      * @param {BOOL} reuseObjects 
-     * @param {Pointer<IXpsOMPackage1>} package 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackage1} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagefromfile1
      */
-    CreatePackageFromFile1(filename, reuseObjects, package) {
+    CreatePackageFromFile1(filename, reuseObjects) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(48, this, "ptr", filename, "int", reuseObjects, "ptr*", package, "HRESULT")
-        return result
+        result := ComCall(48, this, "ptr", filename, "int", reuseObjects, "ptr*", &package := 0, "HRESULT")
+        return IXpsOMPackage1(package)
     }
 
     /**
@@ -177,14 +170,13 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * @param {Pointer<XPS_SIZE>} pageDimensions 
      * @param {PWSTR} language 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<IXpsOMPage1>} page 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPage1} 
      */
-    CreatePage1(pageDimensions, language, partUri, page) {
+    CreatePage1(pageDimensions, language, partUri) {
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(49, this, "ptr", pageDimensions, "ptr", language, "ptr", partUri, "ptr*", page, "HRESULT")
-        return result
+        result := ComCall(49, this, "ptr", pageDimensions, "ptr", language, "ptr", partUri, "ptr*", &page := 0, "HRESULT")
+        return IXpsOMPage1(page)
     }
 
     /**
@@ -193,13 +185,12 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * @param {IOpcPartUri} partUri 
      * @param {IXpsOMPartResources} resources 
      * @param {BOOL} reuseObjects 
-     * @param {Pointer<IXpsOMPage1>} page 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPage1} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpagefromstream1
      */
-    CreatePageFromStream1(pageMarkupStream, partUri, resources, reuseObjects, page) {
-        result := ComCall(50, this, "ptr", pageMarkupStream, "ptr", partUri, "ptr", resources, "int", reuseObjects, "ptr*", page, "HRESULT")
-        return result
+    CreatePageFromStream1(pageMarkupStream, partUri, resources, reuseObjects) {
+        result := ComCall(50, this, "ptr", pageMarkupStream, "ptr", partUri, "ptr", resources, "int", reuseObjects, "ptr*", &page := 0, "HRESULT")
+        return IXpsOMPage1(page)
     }
 
     /**
@@ -207,12 +198,11 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * @param {IStream} dictionaryMarkupStream 
      * @param {IOpcPartUri} partUri 
      * @param {IXpsOMPartResources} resources 
-     * @param {Pointer<IXpsOMRemoteDictionaryResource>} dictionaryResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMRemoteDictionaryResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createremotedictionaryresourcefromstream1
      */
-    CreateRemoteDictionaryResourceFromStream1(dictionaryMarkupStream, partUri, resources, dictionaryResource) {
-        result := ComCall(51, this, "ptr", dictionaryMarkupStream, "ptr", partUri, "ptr", resources, "ptr*", dictionaryResource, "HRESULT")
-        return result
+    CreateRemoteDictionaryResourceFromStream1(dictionaryMarkupStream, partUri, resources) {
+        result := ComCall(51, this, "ptr", dictionaryMarkupStream, "ptr", partUri, "ptr", resources, "ptr*", &dictionaryResource := 0, "HRESULT")
+        return IXpsOMRemoteDictionaryResource(dictionaryResource)
     }
 }

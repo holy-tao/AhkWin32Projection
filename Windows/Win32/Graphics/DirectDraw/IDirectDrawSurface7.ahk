@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirectDrawSurface7.ahk
+#Include .\IDirectDrawClipper.ahk
+#Include .\IDirectDrawPalette.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -312,13 +315,12 @@ class IDirectDrawSurface7 extends IUnknown{
     /**
      * 
      * @param {Pointer<DDSCAPS2>} param0 
-     * @param {Pointer<IDirectDrawSurface7>} param1 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawSurface7} 
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getattachedsurface
      */
-    GetAttachedSurface(param0, param1) {
-        result := ComCall(12, this, "ptr", param0, "ptr*", param1, "HRESULT")
-        return result
+    GetAttachedSurface(param0) {
+        result := ComCall(12, this, "ptr", param0, "ptr*", &param1 := 0, "HRESULT")
+        return IDirectDrawSurface7(param1)
     }
 
     /**
@@ -345,13 +347,12 @@ class IDirectDrawSurface7 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirectDrawClipper>} param0 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawClipper} 
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getclipper
      */
-    GetClipper(param0) {
-        result := ComCall(15, this, "ptr*", param0, "HRESULT")
-        return result
+    GetClipper() {
+        result := ComCall(15, this, "ptr*", &param0 := 0, "HRESULT")
+        return IDirectDrawClipper(param0)
     }
 
     /**
@@ -407,13 +408,12 @@ class IDirectDrawSurface7 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirectDrawPalette>} param0 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawPalette} 
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getpalette
      */
-    GetPalette(param0) {
-        result := ComCall(20, this, "ptr*", param0, "HRESULT")
-        return result
+    GetPalette() {
+        result := ComCall(20, this, "ptr*", &param0 := 0, "HRESULT")
+        return IDirectDrawPalette(param0)
     }
 
     /**

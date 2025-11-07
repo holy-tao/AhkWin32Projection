@@ -33,24 +33,24 @@ class IFsrmObject extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Guid>} id 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmobject-get_id
      */
-    get_Id(id) {
+    get_Id() {
+        id := Guid()
         result := ComCall(7, this, "ptr", id, "HRESULT")
-        return result
+        return id
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} description 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmobject-get_description
      */
-    get_Description(description) {
+    get_Description() {
+        description := BSTR()
         result := ComCall(8, this, "ptr", description, "HRESULT")
-        return result
+        return description
     }
 
     /**

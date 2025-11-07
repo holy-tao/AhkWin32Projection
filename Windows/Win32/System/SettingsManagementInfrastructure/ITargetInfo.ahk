@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IItemEnumerator.ahk
+#Include ..\..\Foundation\HMODULE.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,15 +35,12 @@ class ITargetInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} TargetMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettargetmode
      */
-    GetTargetMode(TargetMode) {
-        TargetModeMarshal := TargetMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, TargetModeMarshal, TargetMode, "HRESULT")
-        return result
+    GetTargetMode() {
+        result := ComCall(3, this, "int*", &TargetMode := 0, "HRESULT")
+        return TargetMode
     }
 
     /**
@@ -56,13 +56,13 @@ class ITargetInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} TemporaryStoreLocation 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettemporarystorelocation
      */
-    GetTemporaryStoreLocation(TemporaryStoreLocation) {
+    GetTemporaryStoreLocation() {
+        TemporaryStoreLocation := BSTR()
         result := ComCall(5, this, "ptr", TemporaryStoreLocation, "HRESULT")
-        return result
+        return TemporaryStoreLocation
     }
 
     /**
@@ -80,13 +80,13 @@ class ITargetInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} TargetID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettargetid
      */
-    GetTargetID(TargetID) {
+    GetTargetID() {
+        TargetID := BSTR()
         result := ComCall(7, this, "ptr", TargetID, "HRESULT")
-        return result
+        return TargetID
     }
 
     /**
@@ -102,13 +102,13 @@ class ITargetInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ProcessorArchitecture 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettargetprocessorarchitecture
      */
-    GetTargetProcessorArchitecture(ProcessorArchitecture) {
+    GetTargetProcessorArchitecture() {
+        ProcessorArchitecture := BSTR()
         result := ComCall(9, this, "ptr", ProcessorArchitecture, "HRESULT")
-        return result
+        return ProcessorArchitecture
     }
 
     /**
@@ -128,15 +128,15 @@ class ITargetInfo extends IUnknown{
      * 
      * @param {BOOL} Offline 
      * @param {PWSTR} Property 
-     * @param {Pointer<BSTR>} Value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getproperty
      */
-    GetProperty(Offline, Property, Value) {
+    GetProperty(Offline, Property) {
         Property := Property is String ? StrPtr(Property) : Property
 
+        Value := BSTR()
         result := ComCall(11, this, "int", Offline, "ptr", Property, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**
@@ -157,43 +157,42 @@ class ITargetInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IItemEnumerator>} Enumerator 
-     * @returns {HRESULT} 
+     * @returns {IItemEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getenumerator
      */
-    GetEnumerator(Enumerator) {
-        result := ComCall(13, this, "ptr*", Enumerator, "HRESULT")
-        return result
+    GetEnumerator() {
+        result := ComCall(13, this, "ptr*", &Enumerator := 0, "HRESULT")
+        return IItemEnumerator(Enumerator)
     }
 
     /**
      * 
      * @param {BOOL} Offline 
      * @param {PWSTR} Location 
-     * @param {Pointer<BSTR>} ExpandedLocation 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-expandtarget
      */
-    ExpandTarget(Offline, Location, ExpandedLocation) {
+    ExpandTarget(Offline, Location) {
         Location := Location is String ? StrPtr(Location) : Location
 
+        ExpandedLocation := BSTR()
         result := ComCall(14, this, "int", Offline, "ptr", Location, "ptr", ExpandedLocation, "HRESULT")
-        return result
+        return ExpandedLocation
     }
 
     /**
      * 
      * @param {BOOL} Offline 
      * @param {PWSTR} Location 
-     * @param {Pointer<BSTR>} ExpandedLocation 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-expandtargetpath
      */
-    ExpandTargetPath(Offline, Location, ExpandedLocation) {
+    ExpandTargetPath(Offline, Location) {
         Location := Location is String ? StrPtr(Location) : Location
 
+        ExpandedLocation := BSTR()
         result := ComCall(15, this, "int", Offline, "ptr", Location, "ptr", ExpandedLocation, "HRESULT")
-        return result
+        return ExpandedLocation
     }
 
     /**
@@ -214,71 +213,15 @@ class ITargetInfo extends IUnknown{
     /**
      * Loads and executes an application or creates a new instance of an existing application.
      * @param {PWSTR} Module 
-     * @param {Pointer<HMODULE>} ModuleHandle 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than 31.
-     * 
-     * If the function fails, the return value is an error value, which may be one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>0</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The system is out of memory or resources.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_BAD_FORMAT</b></dt>
-     * <dt>11L</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The .exe file is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_FILE_NOT_FOUND</b></dt>
-     * <dt>2L</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified file was not found.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_PATH_NOT_FOUND</b></dt>
-     * <dt>3L</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified path was not found.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {HMODULE} 
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-loadmodule
      */
-    LoadModule(Module, ModuleHandle) {
+    LoadModule(Module) {
         Module := Module is String ? StrPtr(Module) : Module
 
+        ModuleHandle := HMODULE()
         result := ComCall(17, this, "ptr", Module, "ptr", ModuleHandle, "HRESULT")
-        return result
+        return ModuleHandle
     }
 
     /**
@@ -301,16 +244,16 @@ class ITargetInfo extends IUnknown{
      * 
      * @param {PWSTR} ClientArchitecture 
      * @param {PWSTR} Value 
-     * @param {Pointer<BSTR>} TranslatedValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-translatewow64
      */
-    TranslateWow64(ClientArchitecture, Value, TranslatedValue) {
+    TranslateWow64(ClientArchitecture, Value) {
         ClientArchitecture := ClientArchitecture is String ? StrPtr(ClientArchitecture) : ClientArchitecture
         Value := Value is String ? StrPtr(Value) : Value
 
+        TranslatedValue := BSTR()
         result := ComCall(19, this, "ptr", ClientArchitecture, "ptr", Value, "ptr", TranslatedValue, "HRESULT")
-        return result
+        return TranslatedValue
     }
 
     /**
@@ -328,13 +271,13 @@ class ITargetInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pHiveLocation 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getschemahivelocation
      */
-    GetSchemaHiveLocation(pHiveLocation) {
+    GetSchemaHiveLocation() {
+        pHiveLocation := BSTR()
         result := ComCall(21, this, "ptr", pHiveLocation, "HRESULT")
-        return result
+        return pHiveLocation
     }
 
     /**
@@ -352,12 +295,12 @@ class ITargetInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pMountName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getschemahivemountname
      */
-    GetSchemaHiveMountName(pMountName) {
+    GetSchemaHiveMountName() {
+        pMountName := BSTR()
         result := ComCall(23, this, "ptr", pMountName, "HRESULT")
-        return result
+        return pMountName
     }
 }

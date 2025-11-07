@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostSymbol.ahk
 #Include .\IDebugHostFunctionLocalDetails.ahk
 
 /**
@@ -39,11 +40,10 @@ class IDebugHostFunctionLocalDetails2 extends IDebugHostFunctionLocalDetails{
 
     /**
      * 
-     * @param {Pointer<IDebugHostSymbol>} inlineFunction 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostSymbol} 
      */
-    GetInlinedFunction(inlineFunction) {
-        result := ComCall(9, this, "ptr*", inlineFunction, "HRESULT")
-        return result
+    GetInlinedFunction() {
+        result := ComCall(9, this, "ptr*", &inlineFunction := 0, "HRESULT")
+        return IDebugHostSymbol(inlineFunction)
     }
 }

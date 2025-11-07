@@ -31,14 +31,11 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
     /**
      * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
-     * @param {Pointer<Integer>} pGroupVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    FindGroup(pGroupKey, pGroupVersion) {
-        pGroupVersionMarshal := pGroupVersion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pGroupKey, pGroupVersionMarshal, pGroupVersion, "HRESULT")
-        return result
+    FindGroup(pGroupKey) {
+        result := ComCall(4, this, "ptr", pGroupKey, "uint*", &pGroupVersion := 0, "HRESULT")
+        return pGroupVersion
     }
 
     /**

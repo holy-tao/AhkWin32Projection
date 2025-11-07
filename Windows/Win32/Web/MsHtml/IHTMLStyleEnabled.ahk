@@ -32,14 +32,13 @@ class IHTMLStyleEnabled extends IDispatch{
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    msGetPropertyEnabled(name, p) {
+    msGetPropertyEnabled(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(7, this, "ptr", name, "ptr", p, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", name, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**

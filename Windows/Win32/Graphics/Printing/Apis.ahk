@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\PRINTER_HANDLE.ahk
 #Include .\FINDPRINTERCHANGENOTIFICATION_HANDLE.ahk
+#Include .\IPrintAsyncNotifyChannel.ahk
 #Include ..\Gdi\HDC.ahk
 
 /**
@@ -9934,19 +9935,18 @@ class Printing {
      * @param {Guid} CoreDriverGUID 
      * @param {FILETIME} ftDriverDate 
      * @param {Integer} dwlDriverVersion 
-     * @param {Pointer<BOOL>} pbDriverInstalled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/printdocs/coreprinterdriverinstalled
      */
-    static CorePrinterDriverInstalledA(pszServer, pszEnvironment, CoreDriverGUID, ftDriverDate, dwlDriverVersion, pbDriverInstalled) {
+    static CorePrinterDriverInstalledA(pszServer, pszEnvironment, CoreDriverGUID, ftDriverDate, dwlDriverVersion) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
-        result := DllCall("winspool.drv\CorePrinterDriverInstalledA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "ptr", pbDriverInstalled, "int")
+        result := DllCall("winspool.drv\CorePrinterDriverInstalledA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "int*", &pbDriverInstalled := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbDriverInstalled
     }
 
     /**
@@ -9956,19 +9956,18 @@ class Printing {
      * @param {Guid} CoreDriverGUID 
      * @param {FILETIME} ftDriverDate 
      * @param {Integer} dwlDriverVersion 
-     * @param {Pointer<BOOL>} pbDriverInstalled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/printdocs/coreprinterdriverinstalled
      */
-    static CorePrinterDriverInstalledW(pszServer, pszEnvironment, CoreDriverGUID, ftDriverDate, dwlDriverVersion, pbDriverInstalled) {
+    static CorePrinterDriverInstalledW(pszServer, pszEnvironment, CoreDriverGUID, ftDriverDate, dwlDriverVersion) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
-        result := DllCall("winspool.drv\CorePrinterDriverInstalledW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "ptr", pbDriverInstalled, "int")
+        result := DllCall("winspool.drv\CorePrinterDriverInstalledW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "int*", &pbDriverInstalled := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbDriverInstalled
     }
 
     /**
@@ -9979,24 +9978,21 @@ class Printing {
      * @param {PSTR} pszPackageID 
      * @param {PSTR} pszDriverPackageCab 
      * @param {Integer} cchDriverPackageCab 
-     * @param {Pointer<Integer>} pcchRequiredSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriverpackagepath
      */
-    static GetPrinterDriverPackagePathA(pszServer, pszEnvironment, pszLanguage, pszPackageID, pszDriverPackageCab, cchDriverPackageCab, pcchRequiredSize) {
+    static GetPrinterDriverPackagePathA(pszServer, pszEnvironment, pszLanguage, pszPackageID, pszDriverPackageCab, cchDriverPackageCab) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
         pszLanguage := pszLanguage is String ? StrPtr(pszLanguage) : pszLanguage
         pszPackageID := pszPackageID is String ? StrPtr(pszPackageID) : pszPackageID
         pszDriverPackageCab := pszDriverPackageCab is String ? StrPtr(pszDriverPackageCab) : pszDriverPackageCab
 
-        pcchRequiredSizeMarshal := pcchRequiredSize is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("winspool.drv\GetPrinterDriverPackagePathA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszLanguage, "ptr", pszPackageID, "ptr", pszDriverPackageCab, "uint", cchDriverPackageCab, pcchRequiredSizeMarshal, pcchRequiredSize, "int")
+        result := DllCall("winspool.drv\GetPrinterDriverPackagePathA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszLanguage, "ptr", pszPackageID, "ptr", pszDriverPackageCab, "uint", cchDriverPackageCab, "uint*", &pcchRequiredSize := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pcchRequiredSize
     }
 
     /**
@@ -10007,24 +10003,21 @@ class Printing {
      * @param {PWSTR} pszPackageID 
      * @param {PWSTR} pszDriverPackageCab 
      * @param {Integer} cchDriverPackageCab 
-     * @param {Pointer<Integer>} pcchRequiredSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriverpackagepath
      */
-    static GetPrinterDriverPackagePathW(pszServer, pszEnvironment, pszLanguage, pszPackageID, pszDriverPackageCab, cchDriverPackageCab, pcchRequiredSize) {
+    static GetPrinterDriverPackagePathW(pszServer, pszEnvironment, pszLanguage, pszPackageID, pszDriverPackageCab, cchDriverPackageCab) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
         pszLanguage := pszLanguage is String ? StrPtr(pszLanguage) : pszLanguage
         pszPackageID := pszPackageID is String ? StrPtr(pszPackageID) : pszPackageID
         pszDriverPackageCab := pszDriverPackageCab is String ? StrPtr(pszDriverPackageCab) : pszDriverPackageCab
 
-        pcchRequiredSizeMarshal := pcchRequiredSize is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("winspool.drv\GetPrinterDriverPackagePathW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszLanguage, "ptr", pszPackageID, "ptr", pszDriverPackageCab, "uint", cchDriverPackageCab, pcchRequiredSizeMarshal, pcchRequiredSize, "int")
+        result := DllCall("winspool.drv\GetPrinterDriverPackagePathW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszLanguage, "ptr", pszPackageID, "ptr", pszDriverPackageCab, "uint", cchDriverPackageCab, "uint*", &pcchRequiredSize := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pcchRequiredSize
     }
 
     /**
@@ -10238,7 +10231,9 @@ class Printing {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
 
-        result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", hWnd, "ptr", pszPrinter, "ptr", phFile, "ptr", ppszOutputFile, "int")
+        ppszOutputFileMarshal := ppszOutputFile is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", hWnd, "ptr", pszPrinter, "ptr", phFile, ppszOutputFileMarshal, ppszOutputFile, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10267,95 +10262,19 @@ class Printing {
      * </ul>
      * @param {Integer} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
      * @param {IPrintAsyncNotifyCallback} pCallback A pointer to an object that the Print Spooler-hosted component will use to call back the application. This should never be <b>NULL</b>.
-     * @param {Pointer<HANDLE>} phNotify A pointer to a structure that represents the registration.
-     * @returns {HRESULT} <table>
-     * <tr>
-     * <th>HRESULT</th>
-     * <th>Severity</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>S_OK</td>
-     * <td>SUCCESS</td>
-     * <td>The function completed successfully.</td>
-     * </tr>
-     * <tr>
-     * <td>ALREADY_REGISTERED</td>
-     * <td>ERROR</td>
-     * <td>The registration object has already been registered.</td>
-     * </tr>
-     * <tr>
-     * <td>LOCAL_ONLY_REGISTRATION</td>
-     * <td>SUCCESS</td>
-     * <td>Registration for local notification was successful. Registration for remote notifications was not.</td>
-     * </tr>
-     * <tr>
-     * <td>MAX_REGISTRATION_COUNT_EXCEEDED</td>
-     * <td>ERROR</td>
-     * <td>The maximum number of registrations has been reached. No more registrations are permitted.</td>
-     * </tr>
-     * <tr>
-     * <td>REMOTE_ONLY_REGISTRATION</td>
-     * <td>SUCCESS</td>
-     * <td>Registration for remote notifications was successful. Registration for local notifications was not.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * The return values are COM error codes. Because this function might complete the operation successfully yet return an HRESULT other than S_OK you should use the SUCCEEDED or FAILED macro to determine the success of the call. To get the specific HRESULT that was returned by the function, use the HRESULT_CODE macro.
-     * 
-     * The following code example shows how these macros can be used to evaluate the return value.
-     * 
-     * 
-     * ```cpp
-     * if (SUCCEEDED(hr)) {
-     *   // Call succeeded, check HRESULT value returned
-     *   switch (HRESULT_CODE(hr)){
-     *     case S_OK:
-     *       // Some action 
-     *       break;
-     *       case LOCAL_ONLY_REGISTRATION:
-     *       // Some action 
-     *       break;
-     *     case REMOTE_ONLY_REGISTRATION:
-     *       // Some action 
-     *       break;
-     *     default:
-     *       // Default action 
-     *       break;
-     *   }
-     * } else {
-     *   // Call failed, check HRESULT value returned
-     *   switch (HRESULT_CODE(hr)){
-     *     case ALREADY_REGISTERED:
-     *       // Some action 
-     *       break;
-     *     case MAX_REGISTRATION_COUNT_EXCEEDED:
-     *       // Some action 
-     *       break;
-     *     default:
-     *       // Default action 
-     *       break;
-     *   }
-     * }
-     * 
-     * ```
-     * 
-     * 
-     * For more information about COM error codes, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
-     * 
-     * See <a href="/windows/desktop/api/prnasnot/ne-prnasnot-printasyncnotifyerror">PrintAsyncNotifyError</a> for other possible return values.
+     * @returns {HANDLE} A pointer to a structure that represents the registration.
      * @see https://docs.microsoft.com/windows/win32/api//prnasnot/nf-prnasnot-registerforprintasyncnotifications
      * @since windows6.0.6000
      */
-    static RegisterForPrintAsyncNotifications(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback, phNotify) {
+    static RegisterForPrintAsyncNotifications(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
+        phNotify := HANDLE()
         result := DllCall("winspool.drv\RegisterForPrintAsyncNotifications", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", phNotify, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phNotify
     }
 
     /**
@@ -10456,79 +10375,18 @@ class Printing {
      * </ul>
      * @param {Integer} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
      * @param {IPrintAsyncNotifyCallback} pCallback A pointer to an object that the listening application will use to call back the Print Spooler-hosted component. This should be <b>NULL</b> if <i>directionality</i> is <b>kUniDirectional</b>.
-     * @param {Pointer<IPrintAsyncNotifyChannel>} ppIAsynchNotification A pointer to the new channel.
-     * @returns {HRESULT} <table>
-     * <tr>
-     * <th>HRESULT</th>
-     * <th>Severity</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>S_OK</td>
-     * <td>SUCCESS</td>
-     * <td>The function completed successfully.</td>
-     * </tr>
-     * <tr>
-     * <td>CHANNEL_ALREADY_OPENED</td>
-     * <td>ERROR</td>
-     * <td>The channel has already been opened.</td>
-     * </tr>
-     * <tr>
-     * <td>MAX_CHANNEL_COUNT_EXCEEDED</td>
-     * <td>ERROR</td>
-     * <td>The maximum number of listening applications have already registered for the specified type of notification with the specified queue or print server. The default maximum is 10,000.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * The return values are COM error codes. Because this function might complete the operation successfully yet return an <b>HRESULT</b> other than S_OK you should use the SUCCEEDED or FAILED macro to determine the success of the call. To get the specific <b>HRESULT</b> that was returned by the function, use the HRESULT_CODE macro.
-     * 
-     * The following code example shows how these macros can be used to evaluate the return value.
-     * 
-     * 
-     * ```cpp
-     * if (SUCCEEDED(hr)){
-     *   //Call was successful 
-     * }
-     * 
-     * if (FAILED(hr)) {
-     *   // Call failed 
-     * }
-     * 
-     * if (FAILED(hr)) {
-     *   // Call failed 
-     *   switch (HRESULT_CODE(hr)){
-     *     case CHANNEL_ALREADY_OPENED:
-     *       // Some action 
-     *       break;
-     *     case MAX_CHANNEL_COUNT_EXCEEDED:
-     *       // Some action 
-     *       break;
-     *     default:
-     *       //Default action 
-     *       break;
-     *   }
-     * } else {
-     *   //call succeeded 
-     * }
-     * 
-     * ```
-     * 
-     * 
-     * For more information about COM error codes, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
-     * 
-     * See <a href="/windows/desktop/api/prnasnot/ne-prnasnot-printasyncnotifyerror">PrintAsyncNotifyError</a> for other possible return values.
+     * @returns {IPrintAsyncNotifyChannel} A pointer to the new channel.
      * @see https://docs.microsoft.com/windows/win32/api//prnasnot/nf-prnasnot-createprintasyncnotifychannel
      * @since windows6.0.6000
      */
-    static CreatePrintAsyncNotifyChannel(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback, ppIAsynchNotification) {
+    static CreatePrintAsyncNotifyChannel(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("winspool.drv\CreatePrintAsyncNotifyChannel", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr*", ppIAsynchNotification, "int")
+        result := DllCall("winspool.drv\CreatePrintAsyncNotifyChannel", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr*", &ppIAsynchNotification := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IPrintAsyncNotifyChannel(ppIAsynchNotification)
     }
 
     /**
@@ -10553,36 +10411,32 @@ class Printing {
      * @param {Integer} eNotifyFilter 
      * @param {Integer} eConversationStyle 
      * @param {IPrintAsyncNotifyCallback} pCallback 
-     * @param {Pointer<IPrintAsyncNotifyChannel>} ppIAsynchNotification 
-     * @returns {HRESULT} 
+     * @returns {IPrintAsyncNotifyChannel} 
      */
-    static RouterCreatePrintAsyncNotificationChannel(pName, pNotificationType, eNotifyFilter, eConversationStyle, pCallback, ppIAsynchNotification) {
+    static RouterCreatePrintAsyncNotificationChannel(pName, pNotificationType, eNotifyFilter, eConversationStyle, pCallback) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := DllCall("SPOOLSS.dll\RouterCreatePrintAsyncNotificationChannel", "ptr", pName, "ptr", pNotificationType, "int", eNotifyFilter, "int", eConversationStyle, "ptr", pCallback, "ptr*", ppIAsynchNotification, "int")
+        result := DllCall("SPOOLSS.dll\RouterCreatePrintAsyncNotificationChannel", "ptr", pName, "ptr", pNotificationType, "int", eNotifyFilter, "int", eConversationStyle, "ptr", pCallback, "ptr*", &ppIAsynchNotification := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IPrintAsyncNotifyChannel(ppIAsynchNotification)
     }
 
     /**
      * 
      * @param {PWSTR} pPrinter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static RouterGetPrintClassObject(pPrinter, riid, ppv) {
+    static RouterGetPrintClassObject(pPrinter, riid) {
         pPrinter := pPrinter is String ? StrPtr(pPrinter) : pPrinter
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SPOOLSS.dll\RouterGetPrintClassObject", "ptr", pPrinter, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SPOOLSS.dll\RouterGetPrintClassObject", "ptr", pPrinter, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -11182,24 +11036,26 @@ class Printing {
     static SplIsSessionZero(hPrinter, JobId, pIsSessionZero) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := DllCall("SPOOLSS.dll\SplIsSessionZero", "ptr", hPrinter, "uint", JobId, "ptr", pIsSessionZero, "uint")
+        pIsSessionZeroMarshal := pIsSessionZero is VarRef ? "int*" : "ptr"
+
+        result := DllCall("SPOOLSS.dll\SplIsSessionZero", "ptr", hPrinter, "uint", JobId, pIsSessionZeroMarshal, pIsSessionZero, "uint")
         return result
     }
 
     /**
      * 
      * @param {PRINTER_HANDLE} hPrinter 
-     * @param {Pointer<HANDLE>} phDeviceObject 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static AddPrintDeviceObject(hPrinter, phDeviceObject) {
+    static AddPrintDeviceObject(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
+        phDeviceObject := HANDLE()
         result := DllCall("SPOOLSS.dll\AddPrintDeviceObject", "ptr", hPrinter, "ptr", phDeviceObject, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phDeviceObject
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncKnowledge.ahk
 #Include .\ISyncProvider.ahk
 
 /**
@@ -51,16 +52,15 @@ class IKnowledgeSyncProvider extends ISyncProvider{
 
     /**
      * 
-     * @param {Pointer<ISyncKnowledge>} ppSyncKnowledge 
      * @param {Pointer<Integer>} pdwRequestedBatchSize 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iknowledgesyncprovider-getsyncbatchparameters
      */
-    GetSyncBatchParameters(ppSyncKnowledge, pdwRequestedBatchSize) {
+    GetSyncBatchParameters(pdwRequestedBatchSize) {
         pdwRequestedBatchSizeMarshal := pdwRequestedBatchSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr*", ppSyncKnowledge, pdwRequestedBatchSizeMarshal, pdwRequestedBatchSize, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr*", &ppSyncKnowledge := 0, pdwRequestedBatchSizeMarshal, pdwRequestedBatchSize, "HRESULT")
+        return ISyncKnowledge(ppSyncKnowledge)
     }
 
     /**

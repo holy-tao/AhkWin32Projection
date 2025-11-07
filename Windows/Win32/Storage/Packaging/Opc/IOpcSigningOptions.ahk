@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcSignaturePartReferenceSet.ahk
+#Include .\IOpcSignatureRelationshipReferenceSet.ahk
+#Include .\IOpcSignatureCustomObjectSet.ahk
+#Include .\IOpcSignatureReferenceSet.ahk
+#Include .\IOpcCertificateSet.ahk
+#Include .\IOpcPartUri.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -50,13 +56,12 @@ class IOpcSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} signatureId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getsignatureid
      */
-    GetSignatureId(signatureId) {
-        result := ComCall(3, this, "ptr", signatureId, "HRESULT")
-        return result
+    GetSignatureId() {
+        result := ComCall(3, this, "ptr*", &signatureId := 0, "HRESULT")
+        return signatureId
     }
 
     /**
@@ -74,13 +79,12 @@ class IOpcSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} signatureMethod 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getsignaturemethod
      */
-    GetSignatureMethod(signatureMethod) {
-        result := ComCall(5, this, "ptr", signatureMethod, "HRESULT")
-        return result
+    GetSignatureMethod() {
+        result := ComCall(5, this, "ptr*", &signatureMethod := 0, "HRESULT")
+        return signatureMethod
     }
 
     /**
@@ -98,13 +102,12 @@ class IOpcSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} digestMethod 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getdefaultdigestmethod
      */
-    GetDefaultDigestMethod(digestMethod) {
-        result := ComCall(7, this, "ptr", digestMethod, "HRESULT")
-        return result
+    GetDefaultDigestMethod() {
+        result := ComCall(7, this, "ptr*", &digestMethod := 0, "HRESULT")
+        return digestMethod
     }
 
     /**
@@ -122,15 +125,12 @@ class IOpcSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} embeddingOption 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getcertificateembeddingoption
      */
-    GetCertificateEmbeddingOption(embeddingOption) {
-        embeddingOptionMarshal := embeddingOption is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, embeddingOptionMarshal, embeddingOption, "HRESULT")
-        return result
+    GetCertificateEmbeddingOption() {
+        result := ComCall(9, this, "int*", &embeddingOption := 0, "HRESULT")
+        return embeddingOption
     }
 
     /**
@@ -146,15 +146,12 @@ class IOpcSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} timeFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-gettimeformat
      */
-    GetTimeFormat(timeFormat) {
-        timeFormatMarshal := timeFormat is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, timeFormatMarshal, timeFormat, "HRESULT")
-        return result
+    GetTimeFormat() {
+        result := ComCall(11, this, "int*", &timeFormat := 0, "HRESULT")
+        return timeFormat
     }
 
     /**
@@ -170,68 +167,62 @@ class IOpcSigningOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcSignaturePartReferenceSet>} partReferenceSet 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignaturePartReferenceSet} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getsignaturepartreferenceset
      */
-    GetSignaturePartReferenceSet(partReferenceSet) {
-        result := ComCall(13, this, "ptr*", partReferenceSet, "HRESULT")
-        return result
+    GetSignaturePartReferenceSet() {
+        result := ComCall(13, this, "ptr*", &partReferenceSet := 0, "HRESULT")
+        return IOpcSignaturePartReferenceSet(partReferenceSet)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureRelationshipReferenceSet>} relationshipReferenceSet 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureRelationshipReferenceSet} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getsignaturerelationshipreferenceset
      */
-    GetSignatureRelationshipReferenceSet(relationshipReferenceSet) {
-        result := ComCall(14, this, "ptr*", relationshipReferenceSet, "HRESULT")
-        return result
+    GetSignatureRelationshipReferenceSet() {
+        result := ComCall(14, this, "ptr*", &relationshipReferenceSet := 0, "HRESULT")
+        return IOpcSignatureRelationshipReferenceSet(relationshipReferenceSet)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureCustomObjectSet>} customObjectSet 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureCustomObjectSet} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getcustomobjectset
      */
-    GetCustomObjectSet(customObjectSet) {
-        result := ComCall(15, this, "ptr*", customObjectSet, "HRESULT")
-        return result
+    GetCustomObjectSet() {
+        result := ComCall(15, this, "ptr*", &customObjectSet := 0, "HRESULT")
+        return IOpcSignatureCustomObjectSet(customObjectSet)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureReferenceSet>} customReferenceSet 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureReferenceSet} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getcustomreferenceset
      */
-    GetCustomReferenceSet(customReferenceSet) {
-        result := ComCall(16, this, "ptr*", customReferenceSet, "HRESULT")
-        return result
+    GetCustomReferenceSet() {
+        result := ComCall(16, this, "ptr*", &customReferenceSet := 0, "HRESULT")
+        return IOpcSignatureReferenceSet(customReferenceSet)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcCertificateSet>} certificateSet 
-     * @returns {HRESULT} 
+     * @returns {IOpcCertificateSet} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getcertificateset
      */
-    GetCertificateSet(certificateSet) {
-        result := ComCall(17, this, "ptr*", certificateSet, "HRESULT")
-        return result
+    GetCertificateSet() {
+        result := ComCall(17, this, "ptr*", &certificateSet := 0, "HRESULT")
+        return IOpcCertificateSet(certificateSet)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} signaturePartName 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getsignaturepartname
      */
-    GetSignaturePartName(signaturePartName) {
-        result := ComCall(18, this, "ptr*", signaturePartName, "HRESULT")
-        return result
+    GetSignaturePartName() {
+        result := ComCall(18, this, "ptr*", &signaturePartName := 0, "HRESULT")
+        return IOpcPartUri(signaturePartName)
     }
 
     /**

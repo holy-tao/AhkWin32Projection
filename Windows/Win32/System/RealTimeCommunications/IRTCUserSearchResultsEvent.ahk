@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCEnumUserSearchResults.ahk
+#Include .\IRTCCollection.ahk
+#Include .\IRTCProfile2.ahk
+#Include .\IRTCUserSearchQuery.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,75 +34,64 @@ class IRTCUserSearchResultsEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRTCEnumUserSearchResults>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IRTCEnumUserSearchResults} 
      */
-    EnumerateResults(ppEnum) {
-        result := ComCall(7, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumerateResults() {
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IRTCEnumUserSearchResults(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IRTCCollection} 
      */
-    get_Results(ppCollection) {
-        result := ComCall(8, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    get_Results() {
+        result := ComCall(8, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IRTCCollection(ppCollection)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCProfile2>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IRTCProfile2} 
      */
-    get_Profile(ppProfile) {
-        result := ComCall(9, this, "ptr*", ppProfile, "HRESULT")
-        return result
+    get_Profile() {
+        result := ComCall(9, this, "ptr*", &ppProfile := 0, "HRESULT")
+        return IRTCProfile2(ppProfile)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCUserSearchQuery>} ppQuery 
-     * @returns {HRESULT} 
+     * @returns {IRTCUserSearchQuery} 
      */
-    get_Query(ppQuery) {
-        result := ComCall(10, this, "ptr*", ppQuery, "HRESULT")
-        return result
+    get_Query() {
+        result := ComCall(10, this, "ptr*", &ppQuery := 0, "HRESULT")
+        return IRTCUserSearchQuery(ppQuery)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} plCookie 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_Cookie(plCookie) {
-        plCookieMarshal := plCookie is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, plCookieMarshal, plCookie, "HRESULT")
-        return result
+    get_Cookie() {
+        result := ComCall(11, this, "ptr*", &plCookie := 0, "HRESULT")
+        return plCookie
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plStatusCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StatusCode(plStatusCode) {
-        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
-        return result
+    get_StatusCode() {
+        result := ComCall(12, this, "int*", &plStatusCode := 0, "HRESULT")
+        return plStatusCode
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfMoreAvailable 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_MoreAvailable(pfMoreAvailable) {
-        result := ComCall(13, this, "ptr", pfMoreAvailable, "HRESULT")
-        return result
+    get_MoreAvailable() {
+        result := ComCall(13, this, "short*", &pfMoreAvailable := 0, "HRESULT")
+        return pfMoreAvailable
     }
 }

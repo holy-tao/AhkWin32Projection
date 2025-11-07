@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\CUSTDATA.ahk
 #Include .\ITypeInfo.ahk
 
 /**
@@ -32,82 +34,70 @@ class ITypeInfo2 extends ITypeInfo{
 
     /**
      * 
-     * @param {Pointer<Integer>} pTypeKind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-gettypekind
      */
-    GetTypeKind(pTypeKind) {
-        pTypeKindMarshal := pTypeKind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, pTypeKindMarshal, pTypeKind, "HRESULT")
-        return result
+    GetTypeKind() {
+        result := ComCall(22, this, "int*", &pTypeKind := 0, "HRESULT")
+        return pTypeKind
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pTypeFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-gettypeflags
      */
-    GetTypeFlags(pTypeFlags) {
-        pTypeFlagsMarshal := pTypeFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(23, this, pTypeFlagsMarshal, pTypeFlags, "HRESULT")
-        return result
+    GetTypeFlags() {
+        result := ComCall(23, this, "uint*", &pTypeFlags := 0, "HRESULT")
+        return pTypeFlags
     }
 
     /**
      * 
      * @param {Integer} memid 
      * @param {Integer} invKind 
-     * @param {Pointer<Integer>} pFuncIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getfuncindexofmemid
      */
-    GetFuncIndexOfMemId(memid, invKind, pFuncIndex) {
-        pFuncIndexMarshal := pFuncIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(24, this, "int", memid, "int", invKind, pFuncIndexMarshal, pFuncIndex, "HRESULT")
-        return result
+    GetFuncIndexOfMemId(memid, invKind) {
+        result := ComCall(24, this, "int", memid, "int", invKind, "uint*", &pFuncIndex := 0, "HRESULT")
+        return pFuncIndex
     }
 
     /**
      * 
      * @param {Integer} memid 
-     * @param {Pointer<Integer>} pVarIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getvarindexofmemid
      */
-    GetVarIndexOfMemId(memid, pVarIndex) {
-        pVarIndexMarshal := pVarIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(25, this, "int", memid, pVarIndexMarshal, pVarIndex, "HRESULT")
-        return result
+    GetVarIndexOfMemId(memid) {
+        result := ComCall(25, this, "int", memid, "uint*", &pVarIndex := 0, "HRESULT")
+        return pVarIndex
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guid 
-     * @param {Pointer<VARIANT>} pVarVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getcustdata
      */
-    GetCustData(guid, pVarVal) {
+    GetCustData(guid) {
+        pVarVal := VARIANT()
         result := ComCall(26, this, "ptr", guid, "ptr", pVarVal, "HRESULT")
-        return result
+        return pVarVal
     }
 
     /**
      * 
      * @param {Integer} index 
      * @param {Pointer<Guid>} guid 
-     * @param {Pointer<VARIANT>} pVarVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getfunccustdata
      */
-    GetFuncCustData(index, guid, pVarVal) {
+    GetFuncCustData(index, guid) {
+        pVarVal := VARIANT()
         result := ComCall(27, this, "uint", index, "ptr", guid, "ptr", pVarVal, "HRESULT")
-        return result
+        return pVarVal
     }
 
     /**
@@ -115,39 +105,39 @@ class ITypeInfo2 extends ITypeInfo{
      * @param {Integer} indexFunc 
      * @param {Integer} indexParam 
      * @param {Pointer<Guid>} guid 
-     * @param {Pointer<VARIANT>} pVarVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getparamcustdata
      */
-    GetParamCustData(indexFunc, indexParam, guid, pVarVal) {
+    GetParamCustData(indexFunc, indexParam, guid) {
+        pVarVal := VARIANT()
         result := ComCall(28, this, "uint", indexFunc, "uint", indexParam, "ptr", guid, "ptr", pVarVal, "HRESULT")
-        return result
+        return pVarVal
     }
 
     /**
      * 
      * @param {Integer} index 
      * @param {Pointer<Guid>} guid 
-     * @param {Pointer<VARIANT>} pVarVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getvarcustdata
      */
-    GetVarCustData(index, guid, pVarVal) {
+    GetVarCustData(index, guid) {
+        pVarVal := VARIANT()
         result := ComCall(29, this, "uint", index, "ptr", guid, "ptr", pVarVal, "HRESULT")
-        return result
+        return pVarVal
     }
 
     /**
      * 
      * @param {Integer} index 
      * @param {Pointer<Guid>} guid 
-     * @param {Pointer<VARIANT>} pVarVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getimpltypecustdata
      */
-    GetImplTypeCustData(index, guid, pVarVal) {
+    GetImplTypeCustData(index, guid) {
+        pVarVal := VARIANT()
         result := ComCall(30, this, "uint", index, "ptr", guid, "ptr", pVarVal, "HRESULT")
-        return result
+        return pVarVal
     }
 
     /**
@@ -169,61 +159,61 @@ class ITypeInfo2 extends ITypeInfo{
 
     /**
      * 
-     * @param {Pointer<CUSTDATA>} pCustData 
-     * @returns {HRESULT} 
+     * @returns {CUSTDATA} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getallcustdata
      */
-    GetAllCustData(pCustData) {
+    GetAllCustData() {
+        pCustData := CUSTDATA()
         result := ComCall(32, this, "ptr", pCustData, "HRESULT")
-        return result
+        return pCustData
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<CUSTDATA>} pCustData 
-     * @returns {HRESULT} 
+     * @returns {CUSTDATA} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getallfunccustdata
      */
-    GetAllFuncCustData(index, pCustData) {
+    GetAllFuncCustData(index) {
+        pCustData := CUSTDATA()
         result := ComCall(33, this, "uint", index, "ptr", pCustData, "HRESULT")
-        return result
+        return pCustData
     }
 
     /**
      * 
      * @param {Integer} indexFunc 
      * @param {Integer} indexParam 
-     * @param {Pointer<CUSTDATA>} pCustData 
-     * @returns {HRESULT} 
+     * @returns {CUSTDATA} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getallparamcustdata
      */
-    GetAllParamCustData(indexFunc, indexParam, pCustData) {
+    GetAllParamCustData(indexFunc, indexParam) {
+        pCustData := CUSTDATA()
         result := ComCall(34, this, "uint", indexFunc, "uint", indexParam, "ptr", pCustData, "HRESULT")
-        return result
+        return pCustData
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<CUSTDATA>} pCustData 
-     * @returns {HRESULT} 
+     * @returns {CUSTDATA} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getallvarcustdata
      */
-    GetAllVarCustData(index, pCustData) {
+    GetAllVarCustData(index) {
+        pCustData := CUSTDATA()
         result := ComCall(35, this, "uint", index, "ptr", pCustData, "HRESULT")
-        return result
+        return pCustData
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<CUSTDATA>} pCustData 
-     * @returns {HRESULT} 
+     * @returns {CUSTDATA} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getallimpltypecustdata
      */
-    GetAllImplTypeCustData(index, pCustData) {
+    GetAllImplTypeCustData(index) {
+        pCustData := CUSTDATA()
         result := ComCall(36, this, "uint", index, "ptr", pCustData, "HRESULT")
-        return result
+        return pCustData
     }
 }

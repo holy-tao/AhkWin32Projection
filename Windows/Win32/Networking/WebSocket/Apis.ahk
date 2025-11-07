@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\WEB_SOCKET_HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WebSocket
@@ -24,23 +25,19 @@ class WebSocket {
      * @param {Integer} ulPropertyCount Type: <b>ULONG</b>
      * 
      * Number of properties in <i>pProperties</i>.
-     * @param {Pointer<WEB_SOCKET_HANDLE>} phWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
+     * @returns {WEB_SOCKET_HANDLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
      * 
      * On successful output, pointer to a  newly allocated client-side WebSocket session handle.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If the function succeeds, it returns <b>S_OK</b>.
-     * 
-     * If the function fails, it returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketcreateclienthandle
      * @since windows8.0
      */
-    static WebSocketCreateClientHandle(pProperties, ulPropertyCount, phWebSocket) {
+    static WebSocketCreateClientHandle(pProperties, ulPropertyCount) {
+        phWebSocket := WEB_SOCKET_HANDLE()
         result := DllCall("websocket.dll\WebSocketCreateClientHandle", "ptr", pProperties, "uint", ulPropertyCount, "ptr", phWebSocket, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phWebSocket
     }
 
     /**
@@ -83,10 +80,12 @@ class WebSocket {
     static WebSocketBeginClientHandshake(hWebSocket, pszSubprotocols, ulSubprotocolCount, pszExtensions, ulExtensionCount, pInitialHeaders, ulInitialHeaderCount, pAdditionalHeaders, pulAdditionalHeaderCount) {
         hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
 
+        pszSubprotocolsMarshal := pszSubprotocols is VarRef ? "ptr*" : "ptr"
+        pszExtensionsMarshal := pszExtensions is VarRef ? "ptr*" : "ptr"
         pAdditionalHeadersMarshal := pAdditionalHeaders is VarRef ? "ptr*" : "ptr"
         pulAdditionalHeaderCountMarshal := pulAdditionalHeaderCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketBeginClientHandshake", "ptr", hWebSocket, "ptr", pszSubprotocols, "uint", ulSubprotocolCount, "ptr", pszExtensions, "uint", ulExtensionCount, "ptr", pInitialHeaders, "uint", ulInitialHeaderCount, pAdditionalHeadersMarshal, pAdditionalHeaders, pulAdditionalHeaderCountMarshal, pulAdditionalHeaderCount, "int")
+        result := DllCall("websocket.dll\WebSocketBeginClientHandshake", "ptr", hWebSocket, pszSubprotocolsMarshal, pszSubprotocols, "uint", ulSubprotocolCount, pszExtensionsMarshal, pszExtensions, "uint", ulExtensionCount, "ptr", pInitialHeaders, "uint", ulInitialHeaderCount, pAdditionalHeadersMarshal, pAdditionalHeaders, pulAdditionalHeaderCountMarshal, pulAdditionalHeaderCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -183,23 +182,19 @@ class WebSocket {
      * @param {Integer} ulPropertyCount Type: <b>ULONG</b>
      * 
      * Number of properties in <i>pProperties</i>.
-     * @param {Pointer<WEB_SOCKET_HANDLE>} phWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
+     * @returns {WEB_SOCKET_HANDLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
      * 
      * On successful output, pointer to a newly allocated server-side WebSocket session handle.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If the function succeeds, it returns <b>S_OK</b>.
-     * 
-     * If the function fails, it returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketcreateserverhandle
      * @since windows8.0
      */
-    static WebSocketCreateServerHandle(pProperties, ulPropertyCount, phWebSocket) {
+    static WebSocketCreateServerHandle(pProperties, ulPropertyCount) {
+        phWebSocket := WEB_SOCKET_HANDLE()
         result := DllCall("websocket.dll\WebSocketCreateServerHandle", "ptr", pProperties, "uint", ulPropertyCount, "ptr", phWebSocket, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phWebSocket
     }
 
     /**
@@ -258,10 +253,11 @@ class WebSocket {
         hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
         pszSubprotocolSelected := pszSubprotocolSelected is String ? StrPtr(pszSubprotocolSelected) : pszSubprotocolSelected
 
+        pszExtensionSelectedMarshal := pszExtensionSelected is VarRef ? "ptr*" : "ptr"
         pResponseHeadersMarshal := pResponseHeaders is VarRef ? "ptr*" : "ptr"
         pulResponseHeaderCountMarshal := pulResponseHeaderCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketBeginServerHandshake", "ptr", hWebSocket, "ptr", pszSubprotocolSelected, "ptr", pszExtensionSelected, "uint", ulExtensionSelectedCount, "ptr", pRequestHeaders, "uint", ulRequestHeaderCount, pResponseHeadersMarshal, pResponseHeaders, pulResponseHeaderCountMarshal, pulResponseHeaderCount, "int")
+        result := DllCall("websocket.dll\WebSocketBeginServerHandshake", "ptr", hWebSocket, "ptr", pszSubprotocolSelected, pszExtensionSelectedMarshal, pszExtensionSelected, "uint", ulExtensionSelectedCount, "ptr", pRequestHeaders, "uint", ulRequestHeaderCount, pResponseHeadersMarshal, pResponseHeaders, pulResponseHeaderCountMarshal, pulResponseHeaderCount, "int")
         if(result != 0)
             throw OSError(result)
 

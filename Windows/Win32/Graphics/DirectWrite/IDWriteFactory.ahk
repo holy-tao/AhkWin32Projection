@@ -1,6 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontCollection.ahk
+#Include .\IDWriteFontFile.ahk
+#Include .\IDWriteFontFace.ahk
+#Include .\IDWriteRenderingParams.ahk
+#Include .\IDWriteTextFormat.ahk
+#Include .\IDWriteTypography.ahk
+#Include .\IDWriteGdiInterop.ahk
+#Include .\IDWriteTextLayout.ahk
+#Include .\IDWriteInlineObject.ahk
+#Include .\IDWriteTextAnalyzer.ahk
+#Include .\IDWriteNumberSubstitution.ahk
+#Include .\IDWriteGlyphRunAnalysis.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -55,14 +67,13 @@ class IDWriteFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontCollection>} fontCollection 
      * @param {BOOL} checkForUpdates 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-getsystemfontcollection
      */
-    GetSystemFontCollection(fontCollection, checkForUpdates) {
-        result := ComCall(3, this, "ptr*", fontCollection, "int", checkForUpdates, "HRESULT")
-        return result
+    GetSystemFontCollection(checkForUpdates) {
+        result := ComCall(3, this, "ptr*", &fontCollection := 0, "int", checkForUpdates, "HRESULT")
+        return IDWriteFontCollection(fontCollection)
     }
 
     /**
@@ -70,13 +81,12 @@ class IDWriteFactory extends IUnknown{
      * @param {IDWriteFontCollectionLoader} collectionLoader 
      * @param {Pointer} collectionKey 
      * @param {Integer} collectionKeySize 
-     * @param {Pointer<IDWriteFontCollection>} fontCollection 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomfontcollection
      */
-    CreateCustomFontCollection(collectionLoader, collectionKey, collectionKeySize, fontCollection) {
-        result := ComCall(4, this, "ptr", collectionLoader, "ptr", collectionKey, "uint", collectionKeySize, "ptr*", fontCollection, "HRESULT")
-        return result
+    CreateCustomFontCollection(collectionLoader, collectionKey, collectionKeySize) {
+        result := ComCall(4, this, "ptr", collectionLoader, "ptr", collectionKey, "uint", collectionKeySize, "ptr*", &fontCollection := 0, "HRESULT")
+        return IDWriteFontCollection(fontCollection)
     }
 
     /**
@@ -105,15 +115,14 @@ class IDWriteFactory extends IUnknown{
      * 
      * @param {PWSTR} filePath 
      * @param {Pointer<FILETIME>} lastWriteTime 
-     * @param {Pointer<IDWriteFontFile>} fontFile 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFile} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createfontfilereference
      */
-    CreateFontFileReference(filePath, lastWriteTime, fontFile) {
+    CreateFontFileReference(filePath, lastWriteTime) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := ComCall(7, this, "ptr", filePath, "ptr", lastWriteTime, "ptr*", fontFile, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", filePath, "ptr", lastWriteTime, "ptr*", &fontFile := 0, "HRESULT")
+        return IDWriteFontFile(fontFile)
     }
 
     /**
@@ -121,13 +130,12 @@ class IDWriteFactory extends IUnknown{
      * @param {Pointer} fontFileReferenceKey 
      * @param {Integer} fontFileReferenceKeySize 
      * @param {IDWriteFontFileLoader} fontFileLoader 
-     * @param {Pointer<IDWriteFontFile>} fontFile 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFile} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomfontfilereference
      */
-    CreateCustomFontFileReference(fontFileReferenceKey, fontFileReferenceKeySize, fontFileLoader, fontFile) {
-        result := ComCall(8, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr", fontFileLoader, "ptr*", fontFile, "HRESULT")
-        return result
+    CreateCustomFontFileReference(fontFileReferenceKey, fontFileReferenceKeySize, fontFileLoader) {
+        result := ComCall(8, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr", fontFileLoader, "ptr*", &fontFile := 0, "HRESULT")
+        return IDWriteFontFile(fontFile)
     }
 
     /**
@@ -137,38 +145,35 @@ class IDWriteFactory extends IUnknown{
      * @param {Pointer<IDWriteFontFile>} fontFiles 
      * @param {Integer} faceIndex 
      * @param {Integer} fontFaceSimulationFlags 
-     * @param {Pointer<IDWriteFontFace>} fontFace 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFace} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createfontface
      */
-    CreateFontFace(fontFaceType, numberOfFiles, fontFiles, faceIndex, fontFaceSimulationFlags, fontFace) {
-        result := ComCall(9, this, "int", fontFaceType, "uint", numberOfFiles, "ptr*", fontFiles, "uint", faceIndex, "int", fontFaceSimulationFlags, "ptr*", fontFace, "HRESULT")
-        return result
+    CreateFontFace(fontFaceType, numberOfFiles, fontFiles, faceIndex, fontFaceSimulationFlags) {
+        result := ComCall(9, this, "int", fontFaceType, "uint", numberOfFiles, "ptr*", fontFiles, "uint", faceIndex, "int", fontFaceSimulationFlags, "ptr*", &fontFace := 0, "HRESULT")
+        return IDWriteFontFace(fontFace)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteRenderingParams>} renderingParams 
-     * @returns {HRESULT} 
+     * @returns {IDWriteRenderingParams} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createrenderingparams
      */
-    CreateRenderingParams(renderingParams) {
-        result := ComCall(10, this, "ptr*", renderingParams, "HRESULT")
-        return result
+    CreateRenderingParams() {
+        result := ComCall(10, this, "ptr*", &renderingParams := 0, "HRESULT")
+        return IDWriteRenderingParams(renderingParams)
     }
 
     /**
      * 
      * @param {HMONITOR} monitor 
-     * @param {Pointer<IDWriteRenderingParams>} renderingParams 
-     * @returns {HRESULT} 
+     * @returns {IDWriteRenderingParams} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createmonitorrenderingparams
      */
-    CreateMonitorRenderingParams(monitor, renderingParams) {
+    CreateMonitorRenderingParams(monitor) {
         monitor := monitor is Win32Handle ? NumGet(monitor, "ptr") : monitor
 
-        result := ComCall(11, this, "ptr", monitor, "ptr*", renderingParams, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", monitor, "ptr*", &renderingParams := 0, "HRESULT")
+        return IDWriteRenderingParams(renderingParams)
     }
 
     /**
@@ -178,13 +183,12 @@ class IDWriteFactory extends IUnknown{
      * @param {Float} clearTypeLevel 
      * @param {Integer} pixelGeometry 
      * @param {Integer} renderingMode 
-     * @param {Pointer<IDWriteRenderingParams>} renderingParams 
-     * @returns {HRESULT} 
+     * @returns {IDWriteRenderingParams} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomrenderingparams
      */
-    CreateCustomRenderingParams(gamma, enhancedContrast, clearTypeLevel, pixelGeometry, renderingMode, renderingParams) {
-        result := ComCall(12, this, "float", gamma, "float", enhancedContrast, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "ptr*", renderingParams, "HRESULT")
-        return result
+    CreateCustomRenderingParams(gamma, enhancedContrast, clearTypeLevel, pixelGeometry, renderingMode) {
+        result := ComCall(12, this, "float", gamma, "float", enhancedContrast, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "ptr*", &renderingParams := 0, "HRESULT")
+        return IDWriteRenderingParams(renderingParams)
     }
 
     /**
@@ -218,38 +222,35 @@ class IDWriteFactory extends IUnknown{
      * @param {Integer} fontStretch 
      * @param {Float} fontSize 
      * @param {PWSTR} localeName 
-     * @param {Pointer<IDWriteTextFormat>} textFormat 
-     * @returns {HRESULT} 
+     * @returns {IDWriteTextFormat} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtextformat
      */
-    CreateTextFormat(fontFamilyName, fontCollection, fontWeight, fontStyle, fontStretch, fontSize, localeName, textFormat) {
+    CreateTextFormat(fontFamilyName, fontCollection, fontWeight, fontStyle, fontStretch, fontSize, localeName) {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(15, this, "ptr", fontFamilyName, "ptr", fontCollection, "int", fontWeight, "int", fontStyle, "int", fontStretch, "float", fontSize, "ptr", localeName, "ptr*", textFormat, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", fontFamilyName, "ptr", fontCollection, "int", fontWeight, "int", fontStyle, "int", fontStretch, "float", fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
+        return IDWriteTextFormat(textFormat)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteTypography>} typography 
-     * @returns {HRESULT} 
+     * @returns {IDWriteTypography} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtypography
      */
-    CreateTypography(typography) {
-        result := ComCall(16, this, "ptr*", typography, "HRESULT")
-        return result
+    CreateTypography() {
+        result := ComCall(16, this, "ptr*", &typography := 0, "HRESULT")
+        return IDWriteTypography(typography)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteGdiInterop>} gdiInterop 
-     * @returns {HRESULT} 
+     * @returns {IDWriteGdiInterop} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-getgdiinterop
      */
-    GetGdiInterop(gdiInterop) {
-        result := ComCall(17, this, "ptr*", gdiInterop, "HRESULT")
-        return result
+    GetGdiInterop() {
+        result := ComCall(17, this, "ptr*", &gdiInterop := 0, "HRESULT")
+        return IDWriteGdiInterop(gdiInterop)
     }
 
     /**
@@ -259,15 +260,14 @@ class IDWriteFactory extends IUnknown{
      * @param {IDWriteTextFormat} textFormat 
      * @param {Float} maxWidth 
      * @param {Float} maxHeight 
-     * @param {Pointer<IDWriteTextLayout>} textLayout 
-     * @returns {HRESULT} 
+     * @returns {IDWriteTextLayout} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtextlayout
      */
-    CreateTextLayout(string, stringLength, textFormat, maxWidth, maxHeight, textLayout) {
+    CreateTextLayout(string, stringLength, textFormat, maxWidth, maxHeight) {
         string := string is String ? StrPtr(string) : string
 
-        result := ComCall(18, this, "ptr", string, "uint", stringLength, "ptr", textFormat, "float", maxWidth, "float", maxHeight, "ptr*", textLayout, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", string, "uint", stringLength, "ptr", textFormat, "float", maxWidth, "float", maxHeight, "ptr*", &textLayout := 0, "HRESULT")
+        return IDWriteTextLayout(textLayout)
     }
 
     /**
@@ -280,38 +280,35 @@ class IDWriteFactory extends IUnknown{
      * @param {Float} pixelsPerDip 
      * @param {Pointer<DWRITE_MATRIX>} transform 
      * @param {BOOL} useGdiNatural 
-     * @param {Pointer<IDWriteTextLayout>} textLayout 
-     * @returns {HRESULT} 
+     * @returns {IDWriteTextLayout} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-creategdicompatibletextlayout
      */
-    CreateGdiCompatibleTextLayout(string, stringLength, textFormat, layoutWidth, layoutHeight, pixelsPerDip, transform, useGdiNatural, textLayout) {
+    CreateGdiCompatibleTextLayout(string, stringLength, textFormat, layoutWidth, layoutHeight, pixelsPerDip, transform, useGdiNatural) {
         string := string is String ? StrPtr(string) : string
 
-        result := ComCall(19, this, "ptr", string, "uint", stringLength, "ptr", textFormat, "float", layoutWidth, "float", layoutHeight, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "ptr*", textLayout, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", string, "uint", stringLength, "ptr", textFormat, "float", layoutWidth, "float", layoutHeight, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "ptr*", &textLayout := 0, "HRESULT")
+        return IDWriteTextLayout(textLayout)
     }
 
     /**
      * 
      * @param {IDWriteTextFormat} textFormat 
-     * @param {Pointer<IDWriteInlineObject>} trimmingSign 
-     * @returns {HRESULT} 
+     * @returns {IDWriteInlineObject} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createellipsistrimmingsign
      */
-    CreateEllipsisTrimmingSign(textFormat, trimmingSign) {
-        result := ComCall(20, this, "ptr", textFormat, "ptr*", trimmingSign, "HRESULT")
-        return result
+    CreateEllipsisTrimmingSign(textFormat) {
+        result := ComCall(20, this, "ptr", textFormat, "ptr*", &trimmingSign := 0, "HRESULT")
+        return IDWriteInlineObject(trimmingSign)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteTextAnalyzer>} textAnalyzer 
-     * @returns {HRESULT} 
+     * @returns {IDWriteTextAnalyzer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtextanalyzer
      */
-    CreateTextAnalyzer(textAnalyzer) {
-        result := ComCall(21, this, "ptr*", textAnalyzer, "HRESULT")
-        return result
+    CreateTextAnalyzer() {
+        result := ComCall(21, this, "ptr*", &textAnalyzer := 0, "HRESULT")
+        return IDWriteTextAnalyzer(textAnalyzer)
     }
 
     /**
@@ -319,15 +316,14 @@ class IDWriteFactory extends IUnknown{
      * @param {Integer} substitutionMethod 
      * @param {PWSTR} localeName 
      * @param {BOOL} ignoreUserOverride 
-     * @param {Pointer<IDWriteNumberSubstitution>} numberSubstitution 
-     * @returns {HRESULT} 
+     * @returns {IDWriteNumberSubstitution} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createnumbersubstitution
      */
-    CreateNumberSubstitution(substitutionMethod, localeName, ignoreUserOverride, numberSubstitution) {
+    CreateNumberSubstitution(substitutionMethod, localeName, ignoreUserOverride) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(22, this, "int", substitutionMethod, "ptr", localeName, "int", ignoreUserOverride, "ptr*", numberSubstitution, "HRESULT")
-        return result
+        result := ComCall(22, this, "int", substitutionMethod, "ptr", localeName, "int", ignoreUserOverride, "ptr*", &numberSubstitution := 0, "HRESULT")
+        return IDWriteNumberSubstitution(numberSubstitution)
     }
 
     /**
@@ -339,12 +335,11 @@ class IDWriteFactory extends IUnknown{
      * @param {Integer} measuringMode 
      * @param {Float} baselineOriginX 
      * @param {Float} baselineOriginY 
-     * @param {Pointer<IDWriteGlyphRunAnalysis>} glyphRunAnalysis 
-     * @returns {HRESULT} 
+     * @returns {IDWriteGlyphRunAnalysis} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createglyphrunanalysis
      */
-    CreateGlyphRunAnalysis(glyphRun, pixelsPerDip, transform, renderingMode, measuringMode, baselineOriginX, baselineOriginY, glyphRunAnalysis) {
-        result := ComCall(23, this, "ptr", glyphRun, "float", pixelsPerDip, "ptr", transform, "int", renderingMode, "int", measuringMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", glyphRunAnalysis, "HRESULT")
-        return result
+    CreateGlyphRunAnalysis(glyphRun, pixelsPerDip, transform, renderingMode, measuringMode, baselineOriginX, baselineOriginY) {
+        result := ComCall(23, this, "ptr", glyphRun, "float", pixelsPerDip, "ptr", transform, "int", renderingMode, "int", measuringMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+        return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 }

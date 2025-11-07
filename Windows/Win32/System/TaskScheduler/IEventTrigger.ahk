@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITaskNamedValueCollection.ahk
 #Include .\ITrigger.ahk
 
 /**
@@ -89,13 +90,12 @@ class IEventTrigger extends ITrigger{
 
     /**
      * 
-     * @param {Pointer<ITaskNamedValueCollection>} ppNamedXPaths 
-     * @returns {HRESULT} 
+     * @returns {ITaskNamedValueCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-ieventtrigger-get_valuequeries
      */
-    get_ValueQueries(ppNamedXPaths) {
-        result := ComCall(24, this, "ptr*", ppNamedXPaths, "HRESULT")
-        return result
+    get_ValueQueries() {
+        result := ComCall(24, this, "ptr*", &ppNamedXPaths := 0, "HRESULT")
+        return ITaskNamedValueCollection(ppNamedXPaths)
     }
 
     /**

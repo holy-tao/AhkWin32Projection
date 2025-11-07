@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,12 @@ class IPMLiveTileJobInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pProductID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_ProductID(pProductID) {
+    get_ProductID() {
+        pProductID := Guid()
         result := ComCall(3, this, "ptr", pProductID, "HRESULT")
-        return result
+        return pProductID
     }
 
     /**
@@ -50,12 +51,12 @@ class IPMLiveTileJobInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pNextSchedule 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      */
-    get_NextSchedule(pNextSchedule) {
+    get_NextSchedule() {
+        pNextSchedule := FILETIME()
         result := ComCall(5, this, "ptr", pNextSchedule, "HRESULT")
-        return result
+        return pNextSchedule
     }
 
     /**
@@ -70,12 +71,12 @@ class IPMLiveTileJobInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pStartSchedule 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      */
-    get_StartSchedule(pStartSchedule) {
+    get_StartSchedule() {
+        pStartSchedule := FILETIME()
         result := ComCall(7, this, "ptr", pStartSchedule, "HRESULT")
-        return result
+        return pStartSchedule
     }
 
     /**
@@ -90,14 +91,11 @@ class IPMLiveTileJobInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pIntervalDuration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_IntervalDuration(pIntervalDuration) {
-        pIntervalDurationMarshal := pIntervalDuration is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pIntervalDurationMarshal, pIntervalDuration, "HRESULT")
-        return result
+    get_IntervalDuration() {
+        result := ComCall(9, this, "uint*", &pIntervalDuration := 0, "HRESULT")
+        return pIntervalDuration
     }
 
     /**
@@ -112,12 +110,11 @@ class IPMLiveTileJobInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} IsRunForever 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_RunForever(IsRunForever) {
-        result := ComCall(11, this, "ptr", IsRunForever, "HRESULT")
-        return result
+    get_RunForever() {
+        result := ComCall(11, this, "int*", &IsRunForever := 0, "HRESULT")
+        return IsRunForever
     }
 
     /**
@@ -132,14 +129,11 @@ class IPMLiveTileJobInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMaxRunCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaxRunCount(pMaxRunCount) {
-        pMaxRunCountMarshal := pMaxRunCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pMaxRunCountMarshal, pMaxRunCount, "HRESULT")
-        return result
+    get_MaxRunCount() {
+        result := ComCall(13, this, "uint*", &pMaxRunCount := 0, "HRESULT")
+        return pMaxRunCount
     }
 
     /**
@@ -154,14 +148,11 @@ class IPMLiveTileJobInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRunCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RunCount(pRunCount) {
-        pRunCountMarshal := pRunCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pRunCountMarshal, pRunCount, "HRESULT")
-        return result
+    get_RunCount() {
+        result := ComCall(15, this, "uint*", &pRunCount := 0, "HRESULT")
+        return pRunCount
     }
 
     /**
@@ -176,14 +167,11 @@ class IPMLiveTileJobInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRecurrenceType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RecurrenceType(pRecurrenceType) {
-        pRecurrenceTypeMarshal := pRecurrenceType is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, pRecurrenceTypeMarshal, pRecurrenceType, "HRESULT")
-        return result
+    get_RecurrenceType() {
+        result := ComCall(17, this, "uint*", &pRecurrenceType := 0, "HRESULT")
+        return pRecurrenceType
     }
 
     /**
@@ -252,14 +240,11 @@ class IPMLiveTileJobInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pAttemptCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AttemptCount(pAttemptCount) {
-        pAttemptCountMarshal := pAttemptCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(23, this, pAttemptCountMarshal, pAttemptCount, "HRESULT")
-        return result
+    get_AttemptCount() {
+        result := ComCall(23, this, "uint*", &pAttemptCount := 0, "HRESULT")
+        return pAttemptCount
     }
 
     /**
@@ -274,14 +259,11 @@ class IPMLiveTileJobInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDownloadState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DownloadState(pDownloadState) {
-        pDownloadStateMarshal := pDownloadState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(25, this, pDownloadStateMarshal, pDownloadState, "HRESULT")
-        return result
+    get_DownloadState() {
+        result := ComCall(25, this, "uint*", &pDownloadState := 0, "HRESULT")
+        return pDownloadState
     }
 
     /**

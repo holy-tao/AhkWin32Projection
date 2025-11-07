@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_FRAME_STATISTICS_MEDIA.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,13 +41,13 @@ class IDXGISwapChainMedia extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DXGI_FRAME_STATISTICS_MEDIA>} pStats 
-     * @returns {HRESULT} 
+     * @returns {DXGI_FRAME_STATISTICS_MEDIA} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchainmedia-getframestatisticsmedia
      */
-    GetFrameStatisticsMedia(pStats) {
+    GetFrameStatisticsMedia() {
+        pStats := DXGI_FRAME_STATISTICS_MEDIA()
         result := ComCall(3, this, "ptr", pStats, "HRESULT")
-        return result
+        return pStats
     }
 
     /**

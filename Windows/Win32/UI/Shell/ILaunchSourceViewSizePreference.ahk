@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,25 +39,22 @@ class ILaunchSourceViewSizePreference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewtoposition
      */
-    GetSourceViewToPosition(hwnd) {
+    GetSourceViewToPosition() {
+        hwnd := HWND()
         result := ComCall(3, this, "ptr", hwnd, "HRESULT")
-        return result
+        return hwnd
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} sourceSizeAfterLaunch 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewsizepreference
      */
-    GetSourceViewSizePreference(sourceSizeAfterLaunch) {
-        sourceSizeAfterLaunchMarshal := sourceSizeAfterLaunch is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, sourceSizeAfterLaunchMarshal, sourceSizeAfterLaunch, "HRESULT")
-        return result
+    GetSourceViewSizePreference() {
+        result := ComCall(4, this, "int*", &sourceSizeAfterLaunch := 0, "HRESULT")
+        return sourceSizeAfterLaunch
     }
 }

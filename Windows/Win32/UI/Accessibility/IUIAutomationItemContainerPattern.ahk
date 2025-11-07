@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,12 +41,11 @@ class IUIAutomationItemContainerPattern extends IUnknown{
      * @param {IUIAutomationElement} pStartAfter 
      * @param {Integer} propertyId 
      * @param {VARIANT} value 
-     * @param {Pointer<IUIAutomationElement>} pFound 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationitemcontainerpattern-finditembyproperty
      */
-    FindItemByProperty(pStartAfter, propertyId, value, pFound) {
-        result := ComCall(3, this, "ptr", pStartAfter, "int", propertyId, "ptr", value, "ptr*", pFound, "HRESULT")
-        return result
+    FindItemByProperty(pStartAfter, propertyId, value) {
+        result := ComCall(3, this, "ptr", pStartAfter, "int", propertyId, "ptr", value, "ptr*", &pFound := 0, "HRESULT")
+        return IUIAutomationElement(pFound)
     }
 }

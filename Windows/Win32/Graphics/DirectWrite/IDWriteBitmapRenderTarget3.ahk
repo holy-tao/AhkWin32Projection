@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include .\IDWriteBitmapRenderTarget2.ahk
 
 /**
@@ -46,12 +47,12 @@ class IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarget2{
      * @param {Integer} glyphImageFormat 
      * @param {COLORREF} textColor 
      * @param {Integer} colorPaletteIndex 
-     * @param {Pointer<RECT>} blackBoxRect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      */
-    DrawPaintGlyphRun(baselineOriginX, baselineOriginY, measuringMode, glyphRun, glyphImageFormat, textColor, colorPaletteIndex, blackBoxRect) {
+    DrawPaintGlyphRun(baselineOriginX, baselineOriginY, measuringMode, glyphRun, glyphImageFormat, textColor, colorPaletteIndex) {
+        blackBoxRect := RECT()
         result := ComCall(15, this, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", glyphRun, "int", glyphImageFormat, "uint", textColor, "uint", colorPaletteIndex, "ptr", blackBoxRect, "HRESULT")
-        return result
+        return blackBoxRect
     }
 
     /**
@@ -63,11 +64,11 @@ class IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarget2{
      * @param {IDWriteRenderingParams} renderingParams 
      * @param {COLORREF} textColor 
      * @param {Integer} colorPaletteIndex 
-     * @param {Pointer<RECT>} blackBoxRect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      */
-    DrawGlyphRunWithColorSupport(baselineOriginX, baselineOriginY, measuringMode, glyphRun, renderingParams, textColor, colorPaletteIndex, blackBoxRect) {
+    DrawGlyphRunWithColorSupport(baselineOriginX, baselineOriginY, measuringMode, glyphRun, renderingParams, textColor, colorPaletteIndex) {
+        blackBoxRect := RECT()
         result := ComCall(16, this, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", glyphRun, "ptr", renderingParams, "uint", textColor, "uint", colorPaletteIndex, "ptr", blackBoxRect, "HRESULT")
-        return result
+        return blackBoxRect
     }
 }

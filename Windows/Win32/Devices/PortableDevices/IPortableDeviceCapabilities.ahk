@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPortableDeviceKeyCollection.ahk
+#Include .\IPortableDeviceValues.ahk
+#Include .\IPortableDevicePropVariantCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,97 +35,89 @@ class IPortableDeviceCapabilities extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPortableDeviceKeyCollection>} ppCommands 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceKeyCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecapabilities-getsupportedcommands
      */
-    GetSupportedCommands(ppCommands) {
-        result := ComCall(3, this, "ptr*", ppCommands, "HRESULT")
-        return result
+    GetSupportedCommands() {
+        result := ComCall(3, this, "ptr*", &ppCommands := 0, "HRESULT")
+        return IPortableDeviceKeyCollection(ppCommands)
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} Command 
-     * @param {Pointer<IPortableDeviceValues>} ppOptions 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecapabilities-getcommandoptions
      */
-    GetCommandOptions(Command, ppOptions) {
-        result := ComCall(4, this, "ptr", Command, "ptr*", ppOptions, "HRESULT")
-        return result
+    GetCommandOptions(Command) {
+        result := ComCall(4, this, "ptr", Command, "ptr*", &ppOptions := 0, "HRESULT")
+        return IPortableDeviceValues(ppOptions)
     }
 
     /**
      * 
-     * @param {Pointer<IPortableDevicePropVariantCollection>} ppCategories 
-     * @returns {HRESULT} 
+     * @returns {IPortableDevicePropVariantCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecapabilities-getfunctionalcategories
      */
-    GetFunctionalCategories(ppCategories) {
-        result := ComCall(5, this, "ptr*", ppCategories, "HRESULT")
-        return result
+    GetFunctionalCategories() {
+        result := ComCall(5, this, "ptr*", &ppCategories := 0, "HRESULT")
+        return IPortableDevicePropVariantCollection(ppCategories)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} Category 
-     * @param {Pointer<IPortableDevicePropVariantCollection>} ppObjectIDs 
-     * @returns {HRESULT} 
+     * @returns {IPortableDevicePropVariantCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecapabilities-getfunctionalobjects
      */
-    GetFunctionalObjects(Category, ppObjectIDs) {
-        result := ComCall(6, this, "ptr", Category, "ptr*", ppObjectIDs, "HRESULT")
-        return result
+    GetFunctionalObjects(Category) {
+        result := ComCall(6, this, "ptr", Category, "ptr*", &ppObjectIDs := 0, "HRESULT")
+        return IPortableDevicePropVariantCollection(ppObjectIDs)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} Category 
-     * @param {Pointer<IPortableDevicePropVariantCollection>} ppContentTypes 
-     * @returns {HRESULT} 
+     * @returns {IPortableDevicePropVariantCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecapabilities-getsupportedcontenttypes
      */
-    GetSupportedContentTypes(Category, ppContentTypes) {
-        result := ComCall(7, this, "ptr", Category, "ptr*", ppContentTypes, "HRESULT")
-        return result
+    GetSupportedContentTypes(Category) {
+        result := ComCall(7, this, "ptr", Category, "ptr*", &ppContentTypes := 0, "HRESULT")
+        return IPortableDevicePropVariantCollection(ppContentTypes)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} ContentType 
-     * @param {Pointer<IPortableDevicePropVariantCollection>} ppFormats 
-     * @returns {HRESULT} 
+     * @returns {IPortableDevicePropVariantCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecapabilities-getsupportedformats
      */
-    GetSupportedFormats(ContentType, ppFormats) {
-        result := ComCall(8, this, "ptr", ContentType, "ptr*", ppFormats, "HRESULT")
-        return result
+    GetSupportedFormats(ContentType) {
+        result := ComCall(8, this, "ptr", ContentType, "ptr*", &ppFormats := 0, "HRESULT")
+        return IPortableDevicePropVariantCollection(ppFormats)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} Format 
-     * @param {Pointer<IPortableDeviceKeyCollection>} ppKeys 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceKeyCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecapabilities-getsupportedformatproperties
      */
-    GetSupportedFormatProperties(Format, ppKeys) {
-        result := ComCall(9, this, "ptr", Format, "ptr*", ppKeys, "HRESULT")
-        return result
+    GetSupportedFormatProperties(Format) {
+        result := ComCall(9, this, "ptr", Format, "ptr*", &ppKeys := 0, "HRESULT")
+        return IPortableDeviceKeyCollection(ppKeys)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} Format 
      * @param {Pointer<PROPERTYKEY>} Key 
-     * @param {Pointer<IPortableDeviceValues>} ppAttributes 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecapabilities-getfixedpropertyattributes
      */
-    GetFixedPropertyAttributes(Format, Key, ppAttributes) {
-        result := ComCall(10, this, "ptr", Format, "ptr", Key, "ptr*", ppAttributes, "HRESULT")
-        return result
+    GetFixedPropertyAttributes(Format, Key) {
+        result := ComCall(10, this, "ptr", Format, "ptr", Key, "ptr*", &ppAttributes := 0, "HRESULT")
+        return IPortableDeviceValues(ppAttributes)
     }
 
     /**
@@ -137,24 +132,22 @@ class IPortableDeviceCapabilities extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPortableDevicePropVariantCollection>} ppEvents 
-     * @returns {HRESULT} 
+     * @returns {IPortableDevicePropVariantCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecapabilities-getsupportedevents
      */
-    GetSupportedEvents(ppEvents) {
-        result := ComCall(12, this, "ptr*", ppEvents, "HRESULT")
-        return result
+    GetSupportedEvents() {
+        result := ComCall(12, this, "ptr*", &ppEvents := 0, "HRESULT")
+        return IPortableDevicePropVariantCollection(ppEvents)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} Event 
-     * @param {Pointer<IPortableDeviceValues>} ppOptions 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecapabilities-geteventoptions
      */
-    GetEventOptions(Event, ppOptions) {
-        result := ComCall(13, this, "ptr", Event, "ptr*", ppOptions, "HRESULT")
-        return result
+    GetEventOptions(Event) {
+        result := ComCall(13, this, "ptr", Event, "ptr*", &ppOptions := 0, "HRESULT")
+        return IPortableDeviceValues(ppOptions)
     }
 }

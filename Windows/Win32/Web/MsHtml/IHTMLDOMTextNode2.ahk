@@ -33,12 +33,12 @@ class IHTMLDOMTextNode2 extends IDispatch{
      * 
      * @param {Integer} offset 
      * @param {Integer} Count 
-     * @param {Pointer<BSTR>} pbstrsubString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    substringData(offset, Count, pbstrsubString) {
+    substringData(offset, Count) {
+        pbstrsubString := BSTR()
         result := ComCall(7, this, "int", offset, "int", Count, "ptr", pbstrsubString, "HRESULT")
-        return result
+        return pbstrsubString
     }
 
     /**

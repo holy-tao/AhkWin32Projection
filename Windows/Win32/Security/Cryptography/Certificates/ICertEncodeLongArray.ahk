@@ -46,29 +46,23 @@ class ICertEncodeLongArray extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodelongarray-getcount
      */
-    GetCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(8, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodelongarray-getvalue
      */
-    GetValue(Index, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "int", Index, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetValue(Index) {
+        result := ComCall(9, this, "int", Index, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -96,12 +90,12 @@ class ICertEncodeLongArray extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrBinary 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodelongarray-encode
      */
-    Encode(pstrBinary) {
+    Encode() {
+        pstrBinary := BSTR()
         result := ComCall(12, this, "ptr", pstrBinary, "HRESULT")
-        return result
+        return pstrBinary
     }
 }

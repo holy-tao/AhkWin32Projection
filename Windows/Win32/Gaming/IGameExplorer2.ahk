@@ -58,13 +58,12 @@ class IGameExplorer2 extends IUnknown{
     /**
      * 
      * @param {PWSTR} binaryGDFPath 
-     * @param {Pointer<BOOL>} pHasAccess 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CheckAccess(binaryGDFPath, pHasAccess) {
+    CheckAccess(binaryGDFPath) {
         binaryGDFPath := binaryGDFPath is String ? StrPtr(binaryGDFPath) : binaryGDFPath
 
-        result := ComCall(5, this, "ptr", binaryGDFPath, "ptr", pHasAccess, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", binaryGDFPath, "int*", &pHasAccess := 0, "HRESULT")
+        return pHasAccess
     }
 }

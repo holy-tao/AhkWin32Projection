@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -32,58 +33,55 @@ class IErrorInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pGUID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-getguid
      */
-    GetGUID(pGUID) {
+    GetGUID() {
+        pGUID := Guid()
         result := ComCall(3, this, "ptr", pGUID, "HRESULT")
-        return result
+        return pGUID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pBstrSource 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-getsource
      */
-    GetSource(pBstrSource) {
+    GetSource() {
+        pBstrSource := BSTR()
         result := ComCall(4, this, "ptr", pBstrSource, "HRESULT")
-        return result
+        return pBstrSource
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pBstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-getdescription
      */
-    GetDescription(pBstrDescription) {
+    GetDescription() {
+        pBstrDescription := BSTR()
         result := ComCall(5, this, "ptr", pBstrDescription, "HRESULT")
-        return result
+        return pBstrDescription
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pBstrHelpFile 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-gethelpfile
      */
-    GetHelpFile(pBstrHelpFile) {
+    GetHelpFile() {
+        pBstrHelpFile := BSTR()
         result := ComCall(6, this, "ptr", pBstrHelpFile, "HRESULT")
-        return result
+        return pBstrHelpFile
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwHelpContext 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-gethelpcontext
      */
-    GetHelpContext(pdwHelpContext) {
-        pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwHelpContextMarshal, pdwHelpContext, "HRESULT")
-        return result
+    GetHelpContext() {
+        result := ComCall(7, this, "uint*", &pdwHelpContext := 0, "HRESULT")
+        return pdwHelpContext
     }
 }

@@ -4580,10 +4580,11 @@ class WinHttp {
         pwszReferrer := pwszReferrer is String ? StrPtr(pwszReferrer) : pwszReferrer
 
         hConnectMarshal := hConnect is VarRef ? "ptr" : "ptr"
+        ppwszAcceptTypesMarshal := ppwszAcceptTypes is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINHTTP.dll\WinHttpOpenRequest", hConnectMarshal, hConnect, "ptr", pwszVerb, "ptr", pwszObjectName, "ptr", pwszVersion, "ptr", pwszReferrer, "ptr", ppwszAcceptTypes, "uint", dwFlags, "ptr")
+        result := DllCall("WINHTTP.dll\WinHttpOpenRequest", hConnectMarshal, hConnect, "ptr", pwszVerb, "ptr", pwszObjectName, "ptr", pwszVersion, "ptr", pwszReferrer, ppwszAcceptTypesMarshal, ppwszAcceptTypes, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5896,9 +5897,11 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpDetectAutoProxyConfigUrl(dwAutoDetectFlags, ppwstrAutoConfigUrl) {
+        ppwstrAutoConfigUrlMarshal := ppwstrAutoConfigUrl is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINHTTP.dll\WinHttpDetectAutoProxyConfigUrl", "uint", dwAutoDetectFlags, "ptr", ppwstrAutoConfigUrl, "int")
+        result := DllCall("WINHTTP.dll\WinHttpDetectAutoProxyConfigUrl", "uint", dwAutoDetectFlags, ppwstrAutoConfigUrlMarshal, ppwstrAutoConfigUrl, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6571,8 +6574,9 @@ class WinHttp {
 
         hSessionMarshal := hSession is VarRef ? "ptr" : "ptr"
         pdwSettingsVersionMarshal := pdwSettingsVersion is VarRef ? "uint*" : "ptr"
+        pfDefaultSettingsAreReturnedMarshal := pfDefaultSettingsAreReturned is VarRef ? "int*" : "ptr"
 
-        result := DllCall("WINHTTP.dll\WinHttpReadProxySettings", hSessionMarshal, hSession, "ptr", pcwszConnectionName, "int", fFallBackToDefaultSettings, "int", fSetAutoDiscoverForDefaultSettings, pdwSettingsVersionMarshal, pdwSettingsVersion, "ptr", pfDefaultSettingsAreReturned, "ptr", pWinHttpProxySettings, "uint")
+        result := DllCall("WINHTTP.dll\WinHttpReadProxySettings", hSessionMarshal, hSession, "ptr", pcwszConnectionName, "int", fFallBackToDefaultSettings, "int", fSetAutoDiscoverForDefaultSettings, pdwSettingsVersionMarshal, pdwSettingsVersion, pfDefaultSettingsAreReturnedMarshal, pfDefaultSettingsAreReturned, "ptr", pWinHttpProxySettings, "uint")
         return result
     }
 

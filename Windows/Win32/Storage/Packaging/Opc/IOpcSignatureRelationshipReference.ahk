@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcUri.ahk
+#Include .\IOpcRelationshipSelectorEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,24 +48,22 @@ class IOpcSignatureRelationshipReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcUri>} sourceUri 
-     * @returns {HRESULT} 
+     * @returns {IOpcUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getsourceuri
      */
-    GetSourceUri(sourceUri) {
-        result := ComCall(3, this, "ptr*", sourceUri, "HRESULT")
-        return result
+    GetSourceUri() {
+        result := ComCall(3, this, "ptr*", &sourceUri := 0, "HRESULT")
+        return IOpcUri(sourceUri)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} digestMethod 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getdigestmethod
      */
-    GetDigestMethod(digestMethod) {
-        result := ComCall(4, this, "ptr", digestMethod, "HRESULT")
-        return result
+    GetDigestMethod() {
+        result := ComCall(4, this, "ptr*", &digestMethod := 0, "HRESULT")
+        return digestMethod
     }
 
     /**
@@ -83,38 +83,31 @@ class IOpcSignatureRelationshipReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} transformMethod 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-gettransformmethod
      */
-    GetTransformMethod(transformMethod) {
-        transformMethodMarshal := transformMethod is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, transformMethodMarshal, transformMethod, "HRESULT")
-        return result
+    GetTransformMethod() {
+        result := ComCall(6, this, "int*", &transformMethod := 0, "HRESULT")
+        return transformMethod
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} relationshipSigningOption 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getrelationshipsigningoption
      */
-    GetRelationshipSigningOption(relationshipSigningOption) {
-        relationshipSigningOptionMarshal := relationshipSigningOption is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, relationshipSigningOptionMarshal, relationshipSigningOption, "HRESULT")
-        return result
+    GetRelationshipSigningOption() {
+        result := ComCall(7, this, "int*", &relationshipSigningOption := 0, "HRESULT")
+        return relationshipSigningOption
     }
 
     /**
      * 
-     * @param {Pointer<IOpcRelationshipSelectorEnumerator>} selectorEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcRelationshipSelectorEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getrelationshipselectorenumerator
      */
-    GetRelationshipSelectorEnumerator(selectorEnumerator) {
-        result := ComCall(8, this, "ptr*", selectorEnumerator, "HRESULT")
-        return result
+    GetRelationshipSelectorEnumerator() {
+        result := ComCall(8, this, "ptr*", &selectorEnumerator := 0, "HRESULT")
+        return IOpcRelationshipSelectorEnumerator(selectorEnumerator)
     }
 }

@@ -40,13 +40,13 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSubject 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_subject
      */
-    get_Subject(pbstrSubject) {
+    get_Subject() {
+        pbstrSubject := BSTR()
         result := ComCall(20, this, "ptr", pbstrSubject, "HRESULT")
-        return result
+        return pbstrSubject
     }
 
     /**
@@ -64,13 +64,13 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSenderName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_sendername
      */
-    get_SenderName(pbstrSenderName) {
+    get_SenderName() {
+        pbstrSenderName := BSTR()
         result := ComCall(22, this, "ptr", pbstrSenderName, "HRESULT")
-        return result
+        return pbstrSenderName
     }
 
     /**
@@ -88,13 +88,13 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSenderFaxNumber 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_senderfaxnumber
      */
-    get_SenderFaxNumber(pbstrSenderFaxNumber) {
+    get_SenderFaxNumber() {
+        pbstrSenderFaxNumber := BSTR()
         result := ComCall(24, this, "ptr", pbstrSenderFaxNumber, "HRESULT")
-        return result
+        return pbstrSenderFaxNumber
     }
 
     /**
@@ -112,13 +112,12 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbHasCoverPage 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_hascoverpage
      */
-    get_HasCoverPage(pbHasCoverPage) {
-        result := ComCall(26, this, "ptr", pbHasCoverPage, "HRESULT")
-        return result
+    get_HasCoverPage() {
+        result := ComCall(26, this, "short*", &pbHasCoverPage := 0, "HRESULT")
+        return pbHasCoverPage
     }
 
     /**
@@ -134,13 +133,13 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrRecipients 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_recipients
      */
-    get_Recipients(pbstrRecipients) {
+    get_Recipients() {
+        pbstrRecipients := BSTR()
         result := ComCall(28, this, "ptr", pbstrRecipients, "HRESULT")
-        return result
+        return pbstrRecipients
     }
 
     /**
@@ -158,24 +157,22 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbWasReAssigned 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_wasreassigned
      */
-    get_WasReAssigned(pbWasReAssigned) {
-        result := ComCall(30, this, "ptr", pbWasReAssigned, "HRESULT")
-        return result
+    get_WasReAssigned() {
+        result := ComCall(30, this, "short*", &pbWasReAssigned := 0, "HRESULT")
+        return pbWasReAssigned
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbRead 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_read
      */
-    get_Read(pbRead) {
-        result := ComCall(31, this, "ptr", pbRead, "HRESULT")
-        return result
+    get_Read() {
+        result := ComCall(31, this, "short*", &pbRead := 0, "HRESULT")
+        return pbRead
     }
 
     /**

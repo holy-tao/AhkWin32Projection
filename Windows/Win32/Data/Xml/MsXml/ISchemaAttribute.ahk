@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISchemaType.ahk
+#Include .\ISchemaComplexType.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ISchemaItem.ahk
 
 /**
@@ -30,63 +33,57 @@ class ISchemaAttribute extends ISchemaItem{
 
     /**
      * 
-     * @param {Pointer<ISchemaType>} type 
-     * @returns {HRESULT} 
+     * @returns {ISchemaType} 
      */
-    get_type(type) {
-        result := ComCall(14, this, "ptr*", type, "HRESULT")
-        return result
+    get_type() {
+        result := ComCall(14, this, "ptr*", &type := 0, "HRESULT")
+        return ISchemaType(type)
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaComplexType>} scope 
-     * @returns {HRESULT} 
+     * @returns {ISchemaComplexType} 
      */
-    get_scope(scope) {
-        result := ComCall(15, this, "ptr*", scope, "HRESULT")
-        return result
+    get_scope() {
+        result := ComCall(15, this, "ptr*", &scope := 0, "HRESULT")
+        return ISchemaComplexType(scope)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} defaultValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_defaultValue(defaultValue) {
+    get_defaultValue() {
+        defaultValue := BSTR()
         result := ComCall(16, this, "ptr", defaultValue, "HRESULT")
-        return result
+        return defaultValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} fixedValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_fixedValue(fixedValue) {
+    get_fixedValue() {
+        fixedValue := BSTR()
         result := ComCall(17, this, "ptr", fixedValue, "HRESULT")
-        return result
+        return fixedValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} use 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_use(use) {
-        useMarshal := use is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, useMarshal, use, "HRESULT")
-        return result
+    get_use() {
+        result := ComCall(18, this, "int*", &use := 0, "HRESULT")
+        return use
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} reference 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_isReference(reference) {
-        result := ComCall(19, this, "ptr", reference, "HRESULT")
-        return result
+    get_isReference() {
+        result := ComCall(19, this, "short*", &reference := 0, "HRESULT")
+        return reference
     }
 }

@@ -64,26 +64,20 @@ class IHostThreadpoolManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMaxWorkerThreads 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMaxThreads(pdwMaxWorkerThreads) {
-        pdwMaxWorkerThreadsMarshal := pdwMaxWorkerThreads is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwMaxWorkerThreadsMarshal, pdwMaxWorkerThreads, "HRESULT")
-        return result
+    GetMaxThreads() {
+        result := ComCall(5, this, "uint*", &pdwMaxWorkerThreads := 0, "HRESULT")
+        return pdwMaxWorkerThreads
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwAvailableWorkerThreads 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetAvailableThreads(pdwAvailableWorkerThreads) {
-        pdwAvailableWorkerThreadsMarshal := pdwAvailableWorkerThreads is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwAvailableWorkerThreadsMarshal, pdwAvailableWorkerThreads, "HRESULT")
-        return result
+    GetAvailableThreads() {
+        result := ComCall(6, this, "uint*", &pdwAvailableWorkerThreads := 0, "HRESULT")
+        return pdwAvailableWorkerThreads
     }
 
     /**
@@ -98,13 +92,10 @@ class IHostThreadpoolManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMinIOCompletionThreads 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMinThreads(pdwMinIOCompletionThreads) {
-        pdwMinIOCompletionThreadsMarshal := pdwMinIOCompletionThreads is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwMinIOCompletionThreadsMarshal, pdwMinIOCompletionThreads, "HRESULT")
-        return result
+    GetMinThreads() {
+        result := ComCall(8, this, "uint*", &pdwMinIOCompletionThreads := 0, "HRESULT")
+        return pdwMinIOCompletionThreads
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostContextExtension.ahk
+#Include .\IDebugHostContext.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -42,24 +44,20 @@ class IDebugHostContextExtensibility extends IUnknown{
      * 
      * @param {Integer} blobId 
      * @param {Integer} bufferSize 
-     * @param {Pointer<Void>} buffer 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      */
-    ReadExtensionData(blobId, bufferSize, buffer) {
-        bufferMarshal := buffer is VarRef ? "ptr" : "ptr"
-
-        result := ComCall(4, this, "uint", blobId, "uint", bufferSize, bufferMarshal, buffer, "HRESULT")
-        return result
+    ReadExtensionData(blobId, bufferSize) {
+        result := ComCall(4, this, "uint", blobId, "uint", bufferSize, "ptr", &buffer := 0, "HRESULT")
+        return buffer
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostContextExtension>} extensionHandle 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostContextExtension} 
      */
-    CloneContextForModification(extensionHandle) {
-        result := ComCall(5, this, "ptr*", extensionHandle, "HRESULT")
-        return result
+    CloneContextForModification() {
+        result := ComCall(5, this, "ptr*", &extensionHandle := 0, "HRESULT")
+        return IDebugHostContextExtension(extensionHandle)
     }
 
     /**
@@ -67,13 +65,12 @@ class IDebugHostContextExtensibility extends IUnknown{
      * @param {Integer} blobId 
      * @param {Integer} dataSize 
      * @param {Pointer<Void>} data 
-     * @param {Pointer<IDebugHostContext>} clonedContext 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostContext} 
      */
-    CloneContextWithModification(blobId, dataSize, data, clonedContext) {
+    CloneContextWithModification(blobId, dataSize, data) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "uint", blobId, "uint", dataSize, dataMarshal, data, "ptr*", clonedContext, "HRESULT")
-        return result
+        result := ComCall(6, this, "uint", blobId, "uint", dataSize, dataMarshal, data, "ptr*", &clonedContext := 0, "HRESULT")
+        return IDebugHostContext(clonedContext)
     }
 }

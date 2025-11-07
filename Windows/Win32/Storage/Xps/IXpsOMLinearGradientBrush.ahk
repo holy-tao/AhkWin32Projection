@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\XPS_POINT.ahk
+#Include .\IXpsOMLinearGradientBrush.ahk
 #Include .\IXpsOMGradientBrush.ahk
 
 /**
@@ -88,13 +90,13 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * 
-     * @param {Pointer<XPS_POINT>} startPoint 
-     * @returns {HRESULT} 
+     * @returns {XPS_POINT} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-getstartpoint
      */
-    GetStartPoint(startPoint) {
+    GetStartPoint() {
+        startPoint := XPS_POINT()
         result := ComCall(17, this, "ptr", startPoint, "HRESULT")
-        return result
+        return startPoint
     }
 
     /**
@@ -110,13 +112,13 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * 
-     * @param {Pointer<XPS_POINT>} endPoint 
-     * @returns {HRESULT} 
+     * @returns {XPS_POINT} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-getendpoint
      */
-    GetEndPoint(endPoint) {
+    GetEndPoint() {
+        endPoint := XPS_POINT()
         result := ComCall(19, this, "ptr", endPoint, "HRESULT")
-        return result
+        return endPoint
     }
 
     /**
@@ -132,12 +134,11 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * 
-     * @param {Pointer<IXpsOMLinearGradientBrush>} linearGradientBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMLinearGradientBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-clone
      */
-    Clone(linearGradientBrush) {
-        result := ComCall(21, this, "ptr*", linearGradientBrush, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(21, this, "ptr*", &linearGradientBrush := 0, "HRESULT")
+        return IXpsOMLinearGradientBrush(linearGradientBrush)
     }
 }

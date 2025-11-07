@@ -32,12 +32,11 @@ class IUpdate4 extends IUpdate3{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate4-get_peruser
      */
-    get_PerUser(retval) {
-        result := ComCall(57, this, "ptr", retval, "HRESULT")
-        return result
+    get_PerUser() {
+        result := ComCall(57, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 }

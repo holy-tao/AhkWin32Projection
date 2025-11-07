@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,46 +32,42 @@ class ISClusPropertyValueData extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(8, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
      * @param {VARIANT} varIndex 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Item(varIndex, pvarValue) {
+    get_Item(varIndex) {
+        pvarValue := VARIANT()
         result := ComCall(9, this, "ptr", varIndex, "ptr", pvarValue, "HRESULT")
-        return result
+        return pvarValue
     }
 
     /**
      * 
      * @param {VARIANT} varValue 
-     * @param {Pointer<VARIANT>} pvarData 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    CreateItem(varValue, pvarData) {
+    CreateItem(varValue) {
+        pvarData := VARIANT()
         result := ComCall(10, this, "ptr", varValue, "ptr", pvarData, "HRESULT")
-        return result
+        return pvarData
     }
 
     /**

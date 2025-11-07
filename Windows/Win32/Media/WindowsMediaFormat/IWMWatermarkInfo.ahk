@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WMT_WATERMARK_ENTRY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,27 +34,24 @@ class IWMWatermarkInfo extends IUnknown{
     /**
      * 
      * @param {Integer} wmetType 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwatermarkinfo-getwatermarkentrycount
      */
-    GetWatermarkEntryCount(wmetType, pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "int", wmetType, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetWatermarkEntryCount(wmetType) {
+        result := ComCall(3, this, "int", wmetType, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
      * @param {Integer} wmetType 
      * @param {Integer} dwEntryNum 
-     * @param {Pointer<WMT_WATERMARK_ENTRY>} pEntry 
-     * @returns {HRESULT} 
+     * @returns {WMT_WATERMARK_ENTRY} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwatermarkinfo-getwatermarkentry
      */
-    GetWatermarkEntry(wmetType, dwEntryNum, pEntry) {
+    GetWatermarkEntry(wmetType, dwEntryNum) {
+        pEntry := WMT_WATERMARK_ENTRY()
         result := ComCall(4, this, "int", wmetType, "uint", dwEntryNum, "ptr", pEntry, "HRESULT")
-        return result
+        return pEntry
     }
 }

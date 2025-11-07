@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumWIA_DEV_CAPS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -102,25 +103,21 @@ class IEnumWIA_DEV_CAPS extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumWIA_DEV_CAPS>} ppIEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWIA_DEV_CAPS} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_caps-clone
      */
-    Clone(ppIEnum) {
-        result := ComCall(6, this, "ptr*", ppIEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppIEnum := 0, "HRESULT")
+        return IEnumWIA_DEV_CAPS(ppIEnum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_caps-getcount
      */
-    GetCount(pcelt) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pceltMarshal, pcelt, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(7, this, "uint*", &pcelt := 0, "HRESULT")
+        return pcelt
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11ShaderTrace.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,12 +42,11 @@ class ID3D11ShaderTraceFactory extends IUnknown{
      * 
      * @param {IUnknown} pShader 
      * @param {Pointer<D3D11_SHADER_TRACE_DESC>} pTraceDesc 
-     * @param {Pointer<ID3D11ShaderTrace>} ppShaderTrace 
-     * @returns {HRESULT} 
+     * @returns {ID3D11ShaderTrace} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertracefactory-createshadertrace
      */
-    CreateShaderTrace(pShader, pTraceDesc, ppShaderTrace) {
-        result := ComCall(3, this, "ptr", pShader, "ptr", pTraceDesc, "ptr*", ppShaderTrace, "HRESULT")
-        return result
+    CreateShaderTrace(pShader, pTraceDesc) {
+        result := ComCall(3, this, "ptr", pShader, "ptr", pTraceDesc, "ptr*", &ppShaderTrace := 0, "HRESULT")
+        return ID3D11ShaderTrace(ppShaderTrace)
     }
 }

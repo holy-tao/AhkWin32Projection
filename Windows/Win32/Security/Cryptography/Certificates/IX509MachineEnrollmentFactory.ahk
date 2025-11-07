@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509EnrollmentHelper.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,14 +35,13 @@ class IX509MachineEnrollmentFactory extends IDispatch{
     /**
      * 
      * @param {BSTR} strProgID 
-     * @param {Pointer<IX509EnrollmentHelper>} ppIHelper 
-     * @returns {HRESULT} 
+     * @returns {IX509EnrollmentHelper} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509machineenrollmentfactory-createobject
      */
-    CreateObject(strProgID, ppIHelper) {
+    CreateObject(strProgID) {
         strProgID := strProgID is String ? BSTR.Alloc(strProgID).Value : strProgID
 
-        result := ComCall(7, this, "ptr", strProgID, "ptr*", ppIHelper, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", strProgID, "ptr*", &ppIHelper := 0, "HRESULT")
+        return IX509EnrollmentHelper(ppIHelper)
     }
 }

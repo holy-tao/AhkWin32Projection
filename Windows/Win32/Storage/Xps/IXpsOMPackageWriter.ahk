@@ -91,12 +91,11 @@ class IXpsOMPackageWriter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isClosed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackagewriter-isclosed
      */
-    IsClosed(isClosed) {
-        result := ComCall(7, this, "ptr", isClosed, "HRESULT")
-        return result
+    IsClosed() {
+        result := ComCall(7, this, "int*", &isClosed := 0, "HRESULT")
+        return isClosed
     }
 }

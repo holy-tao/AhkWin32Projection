@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcSignatureCustomObject.ahk
+#Include .\IOpcSignatureCustomObjectEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,45 +44,41 @@ class IOpcSignatureCustomObjectEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasNext 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobjectenumerator-movenext
      */
-    MoveNext(hasNext) {
-        result := ComCall(3, this, "ptr", hasNext, "HRESULT")
-        return result
+    MoveNext() {
+        result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
+        return hasNext
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasPrevious 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobjectenumerator-moveprevious
      */
-    MovePrevious(hasPrevious) {
-        result := ComCall(4, this, "ptr", hasPrevious, "HRESULT")
-        return result
+    MovePrevious() {
+        result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
+        return hasPrevious
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureCustomObject>} customObject 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureCustomObject} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobjectenumerator-getcurrent
      */
-    GetCurrent(customObject) {
-        result := ComCall(5, this, "ptr*", customObject, "HRESULT")
-        return result
+    GetCurrent() {
+        result := ComCall(5, this, "ptr*", &customObject := 0, "HRESULT")
+        return IOpcSignatureCustomObject(customObject)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureCustomObjectEnumerator>} copy 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureCustomObjectEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobjectenumerator-clone
      */
-    Clone(copy) {
-        result := ComCall(6, this, "ptr*", copy, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")
+        return IOpcSignatureCustomObjectEnumerator(copy)
     }
 }

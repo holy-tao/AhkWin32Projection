@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLFormElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,11 +31,10 @@ class IHTMLLegendElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLFormElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLFormElement} 
      */
-    get_form(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_form() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLFormElement(p)
     }
 }

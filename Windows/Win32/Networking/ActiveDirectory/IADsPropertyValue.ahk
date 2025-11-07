@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,14 +44,11 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ADsType(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ADsType() {
+        result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -65,12 +63,12 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DNString(retval) {
+    get_DNString() {
+        retval := BSTR()
         result := ComCall(10, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -87,12 +85,12 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_CaseExactString(retval) {
+    get_CaseExactString() {
+        retval := BSTR()
         result := ComCall(12, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -109,12 +107,12 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_CaseIgnoreString(retval) {
+    get_CaseIgnoreString() {
+        retval := BSTR()
         result := ComCall(14, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -131,12 +129,12 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PrintableString(retval) {
+    get_PrintableString() {
+        retval := BSTR()
         result := ComCall(16, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -153,12 +151,12 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_NumericString(retval) {
+    get_NumericString() {
+        retval := BSTR()
         result := ComCall(18, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -175,14 +173,11 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Boolean(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Boolean() {
+        result := ComCall(20, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -197,14 +192,11 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Integer(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Integer() {
+        result := ComCall(22, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -219,12 +211,12 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_OctetString(retval) {
+    get_OctetString() {
+        retval := VARIANT()
         result := ComCall(24, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -239,12 +231,11 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} retval 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_SecurityDescriptor(retval) {
-        result := ComCall(26, this, "ptr*", retval, "HRESULT")
-        return result
+    get_SecurityDescriptor() {
+        result := ComCall(26, this, "ptr*", &retval := 0, "HRESULT")
+        return IDispatch(retval)
     }
 
     /**
@@ -259,12 +250,11 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} retval 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_LargeInteger(retval) {
-        result := ComCall(28, this, "ptr*", retval, "HRESULT")
-        return result
+    get_LargeInteger() {
+        result := ComCall(28, this, "ptr*", &retval := 0, "HRESULT")
+        return IDispatch(retval)
     }
 
     /**
@@ -279,14 +269,11 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_UTCTime(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(30, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_UTCTime() {
+        result := ComCall(30, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

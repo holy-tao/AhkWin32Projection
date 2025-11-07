@@ -31,26 +31,20 @@ class IChapteredRowset extends IUnknown{
     /**
      * 
      * @param {Pointer} hChapter 
-     * @param {Pointer<Integer>} pcRefCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    AddRefChapter(hChapter, pcRefCount) {
-        pcRefCountMarshal := pcRefCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", hChapter, pcRefCountMarshal, pcRefCount, "HRESULT")
-        return result
+    AddRefChapter(hChapter) {
+        result := ComCall(3, this, "ptr", hChapter, "uint*", &pcRefCount := 0, "HRESULT")
+        return pcRefCount
     }
 
     /**
      * 
      * @param {Pointer} hChapter 
-     * @param {Pointer<Integer>} pcRefCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ReleaseChapter(hChapter, pcRefCount) {
-        pcRefCountMarshal := pcRefCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", hChapter, pcRefCountMarshal, pcRefCount, "HRESULT")
-        return result
+    ReleaseChapter(hChapter) {
+        result := ComCall(4, this, "ptr", hChapter, "uint*", &pcRefCount := 0, "HRESULT")
+        return pcRefCount
     }
 }

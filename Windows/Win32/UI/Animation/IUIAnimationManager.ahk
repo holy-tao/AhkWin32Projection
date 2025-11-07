@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAnimationVariable.ahk
+#Include .\IUIAnimationStoryboard.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -52,13 +54,12 @@ class IUIAnimationManager extends IUnknown{
     /**
      * 
      * @param {Float} initialValue 
-     * @param {Pointer<IUIAnimationVariable>} variable 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationVariable} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-createanimationvariable
      */
-    CreateAnimationVariable(initialValue, variable) {
-        result := ComCall(3, this, "double", initialValue, "ptr*", variable, "HRESULT")
-        return result
+    CreateAnimationVariable(initialValue) {
+        result := ComCall(3, this, "double", initialValue, "ptr*", &variable := 0, "HRESULT")
+        return IUIAnimationVariable(variable)
     }
 
     /**
@@ -76,13 +77,12 @@ class IUIAnimationManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUIAnimationStoryboard>} storyboard 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationStoryboard} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-createstoryboard
      */
-    CreateStoryboard(storyboard) {
-        result := ComCall(5, this, "ptr*", storyboard, "HRESULT")
-        return result
+    CreateStoryboard() {
+        result := ComCall(5, this, "ptr*", &storyboard := 0, "HRESULT")
+        return IUIAnimationStoryboard(storyboard)
     }
 
     /**
@@ -109,54 +109,46 @@ class IUIAnimationManager extends IUnknown{
     /**
      * 
      * @param {Float} timeNow 
-     * @param {Pointer<Integer>} updateResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-update
      */
-    Update(timeNow, updateResult) {
-        updateResultMarshal := updateResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "double", timeNow, updateResultMarshal, updateResult, "HRESULT")
-        return result
+    Update(timeNow) {
+        result := ComCall(8, this, "double", timeNow, "int*", &updateResult := 0, "HRESULT")
+        return updateResult
     }
 
     /**
      * 
      * @param {IUnknown} object 
      * @param {Integer} id 
-     * @param {Pointer<IUIAnimationVariable>} variable 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationVariable} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getvariablefromtag
      */
-    GetVariableFromTag(object, id, variable) {
-        result := ComCall(9, this, "ptr", object, "uint", id, "ptr*", variable, "HRESULT")
-        return result
+    GetVariableFromTag(object, id) {
+        result := ComCall(9, this, "ptr", object, "uint", id, "ptr*", &variable := 0, "HRESULT")
+        return IUIAnimationVariable(variable)
     }
 
     /**
      * 
      * @param {IUnknown} object 
      * @param {Integer} id 
-     * @param {Pointer<IUIAnimationStoryboard>} storyboard 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationStoryboard} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getstoryboardfromtag
      */
-    GetStoryboardFromTag(object, id, storyboard) {
-        result := ComCall(10, this, "ptr", object, "uint", id, "ptr*", storyboard, "HRESULT")
-        return result
+    GetStoryboardFromTag(object, id) {
+        result := ComCall(10, this, "ptr", object, "uint", id, "ptr*", &storyboard := 0, "HRESULT")
+        return IUIAnimationStoryboard(storyboard)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getstatus
      */
-    GetStatus(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, statusMarshal, status, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(11, this, "int*", &status := 0, "HRESULT")
+        return status
     }
 
     /**

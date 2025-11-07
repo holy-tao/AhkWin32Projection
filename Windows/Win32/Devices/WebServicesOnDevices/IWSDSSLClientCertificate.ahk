@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,25 +39,22 @@ class IWSDSSLClientCertificate extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<CERT_CONTEXT>>} ppCertContext 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CERT_CONTEXT>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsslclientcertificate-getclientcertificate
      */
-    GetClientCertificate(ppCertContext) {
-        ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppCertContextMarshal, ppCertContext, "HRESULT")
-        return result
+    GetClientCertificate() {
+        result := ComCall(3, this, "ptr*", &ppCertContext := 0, "HRESULT")
+        return ppCertContext
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} phToken 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsslclientcertificate-getmappedaccesstoken
      */
-    GetMappedAccessToken(phToken) {
+    GetMappedAccessToken() {
+        phToken := HANDLE()
         result := ComCall(4, this, "ptr", phToken, "HRESULT")
-        return result
+        return phToken
     }
 }

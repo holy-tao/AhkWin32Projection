@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\System\Com\IEnumString.ahk
 #Include ..\System\Com\IUnknown.ahk
 
 /**
@@ -32,45 +33,41 @@ class IOptionDescription extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ioptiondescription-get_id
      */
-    get_Id(value) {
-        result := ComCall(3, this, "ptr", value, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ioptiondescription-get_heading
      */
-    get_Heading(value) {
-        result := ComCall(4, this, "ptr", value, "HRESULT")
-        return result
+    get_Heading() {
+        result := ComCall(4, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ioptiondescription-get_description
      */
-    get_Description(value) {
-        result := ComCall(5, this, "ptr", value, "HRESULT")
-        return result
+    get_Description() {
+        result := ComCall(5, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<IEnumString>} value 
-     * @returns {HRESULT} 
+     * @returns {IEnumString} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ioptiondescription-get_labels
      */
-    get_Labels(value) {
-        result := ComCall(6, this, "ptr*", value, "HRESULT")
-        return result
+    get_Labels() {
+        result := ComCall(6, this, "ptr*", &value := 0, "HRESULT")
+        return IEnumString(value)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAnchor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,57 +44,47 @@ class IAnchor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pgravity 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-getgravity
      */
-    GetGravity(pgravity) {
-        pgravityMarshal := pgravity is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pgravityMarshal, pgravity, "HRESULT")
-        return result
+    GetGravity() {
+        result := ComCall(4, this, "int*", &pgravity := 0, "HRESULT")
+        return pgravity
     }
 
     /**
      * 
      * @param {IAnchor} paWith 
-     * @param {Pointer<BOOL>} pfEqual 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-isequal
      */
-    IsEqual(paWith, pfEqual) {
-        result := ComCall(5, this, "ptr", paWith, "ptr", pfEqual, "HRESULT")
-        return result
+    IsEqual(paWith) {
+        result := ComCall(5, this, "ptr", paWith, "int*", &pfEqual := 0, "HRESULT")
+        return pfEqual
     }
 
     /**
      * 
      * @param {IAnchor} paWith 
-     * @param {Pointer<Integer>} plResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-compare
      */
-    Compare(paWith, plResult) {
-        plResultMarshal := plResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, "ptr", paWith, plResultMarshal, plResult, "HRESULT")
-        return result
+    Compare(paWith) {
+        result := ComCall(6, this, "ptr", paWith, "int*", &plResult := 0, "HRESULT")
+        return plResult
     }
 
     /**
      * 
      * @param {Integer} dwFlags 
      * @param {Integer} cchReq 
-     * @param {Pointer<Integer>} pcch 
      * @param {IAnchor} paHaltAnchor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-shift
      */
-    Shift(dwFlags, cchReq, pcch, paHaltAnchor) {
-        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "uint", dwFlags, "int", cchReq, pcchMarshal, pcch, "ptr", paHaltAnchor, "HRESULT")
-        return result
+    Shift(dwFlags, cchReq, paHaltAnchor) {
+        result := ComCall(7, this, "uint", dwFlags, "int", cchReq, "int*", &pcch := 0, "ptr", paHaltAnchor, "HRESULT")
+        return pcch
     }
 
     /**
@@ -111,13 +102,12 @@ class IAnchor extends IUnknown{
      * 
      * @param {Integer} dwFlags 
      * @param {Integer} dir 
-     * @param {Pointer<BOOL>} pfNoRegion 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-shiftregion
      */
-    ShiftRegion(dwFlags, dir, pfNoRegion) {
-        result := ComCall(9, this, "uint", dwFlags, "int", dir, "ptr", pfNoRegion, "HRESULT")
-        return result
+    ShiftRegion(dwFlags, dir) {
+        result := ComCall(9, this, "uint", dwFlags, "int", dir, "int*", &pfNoRegion := 0, "HRESULT")
+        return pfNoRegion
     }
 
     /**
@@ -133,15 +123,12 @@ class IAnchor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwHistory 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-getchangehistory
      */
-    GetChangeHistory(pdwHistory) {
-        pdwHistoryMarshal := pdwHistory is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwHistoryMarshal, pdwHistory, "HRESULT")
-        return result
+    GetChangeHistory() {
+        result := ComCall(11, this, "uint*", &pdwHistory := 0, "HRESULT")
+        return pdwHistory
     }
 
     /**
@@ -156,12 +143,11 @@ class IAnchor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAnchor>} ppaClone 
-     * @returns {HRESULT} 
+     * @returns {IAnchor} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-clone
      */
-    Clone(ppaClone) {
-        result := ComCall(13, this, "ptr*", ppaClone, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(13, this, "ptr*", &ppaClone := 0, "HRESULT")
+        return IAnchor(ppaClone)
     }
 }

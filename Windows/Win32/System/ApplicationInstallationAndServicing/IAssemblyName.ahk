@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAssemblyName.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -157,12 +158,11 @@ class IAssemblyName extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAssemblyName>} pName 
-     * @returns {HRESULT} 
+     * @returns {IAssemblyName} 
      * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-clone
      */
-    Clone(pName) {
-        result := ComCall(11, this, "ptr*", pName, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(11, this, "ptr*", &pName := 0, "HRESULT")
+        return IAssemblyName(pName)
     }
 }

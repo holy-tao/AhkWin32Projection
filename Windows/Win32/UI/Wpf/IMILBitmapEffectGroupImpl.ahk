@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMILBitmapEffects.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,25 +44,21 @@ class IMILBitmapEffectGroupImpl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puiNumberChildren 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectgroupimpl-getnumberchildren
      */
-    GetNumberChildren(puiNumberChildren) {
-        puiNumberChildrenMarshal := puiNumberChildren is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, puiNumberChildrenMarshal, puiNumberChildren, "HRESULT")
-        return result
+    GetNumberChildren() {
+        result := ComCall(4, this, "uint*", &puiNumberChildren := 0, "HRESULT")
+        return puiNumberChildren
     }
 
     /**
      * 
-     * @param {Pointer<IMILBitmapEffects>} pChildren 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffects} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectgroupimpl-getchildren
      */
-    GetChildren(pChildren) {
-        result := ComCall(5, this, "ptr*", pChildren, "HRESULT")
-        return result
+    GetChildren() {
+        result := ComCall(5, this, "ptr*", &pChildren := 0, "HRESULT")
+        return IMILBitmapEffects(pChildren)
     }
 }

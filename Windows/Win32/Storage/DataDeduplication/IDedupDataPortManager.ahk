@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IDedupDataPort.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -53,29 +54,25 @@ class IDedupDataPortManager extends IUnknown{
      * 
      * @param {Integer} Options 
      * @param {BSTR} Path 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetVolumeStatus(Options, Path, pStatus) {
+    GetVolumeStatus(Options, Path) {
         Path := Path is String ? BSTR.Alloc(Path).Value : Path
 
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "uint", Options, "ptr", Path, pStatusMarshal, pStatus, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", Options, "ptr", Path, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
      * 
      * @param {Integer} Options 
      * @param {BSTR} Path 
-     * @param {Pointer<IDedupDataPort>} ppDataPort 
-     * @returns {HRESULT} 
+     * @returns {IDedupDataPort} 
      */
-    GetVolumeDataPort(Options, Path, ppDataPort) {
+    GetVolumeDataPort(Options, Path) {
         Path := Path is String ? BSTR.Alloc(Path).Value : Path
 
-        result := ComCall(5, this, "uint", Options, "ptr", Path, "ptr*", ppDataPort, "HRESULT")
-        return result
+        result := ComCall(5, this, "uint", Options, "ptr", Path, "ptr*", &ppDataPort := 0, "HRESULT")
+        return IDedupDataPort(ppDataPort)
     }
 }

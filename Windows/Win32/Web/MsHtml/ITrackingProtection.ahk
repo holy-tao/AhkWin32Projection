@@ -32,23 +32,21 @@ class ITrackingProtection extends IUnknown{
     /**
      * 
      * @param {BSTR} bstrUrl 
-     * @param {Pointer<BOOL>} pfAllowed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    EvaluateUrl(bstrUrl, pfAllowed) {
+    EvaluateUrl(bstrUrl) {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        result := ComCall(3, this, "ptr", bstrUrl, "ptr", pfAllowed, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", bstrUrl, "int*", &pfAllowed := 0, "HRESULT")
+        return pfAllowed
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetEnabled(pfEnabled) {
-        result := ComCall(4, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    GetEnabled() {
+        result := ComCall(4, this, "int*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 }

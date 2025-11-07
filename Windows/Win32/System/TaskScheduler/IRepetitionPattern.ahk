@@ -105,7 +105,9 @@ class IRepetitionPattern extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend
      */
     get_StopAtDurationEnd(pStop) {
-        result := ComCall(11, this, "ptr", pStop, "HRESULT")
+        pStopMarshal := pStop is VarRef ? "short*" : "ptr"
+
+        result := ComCall(11, this, pStopMarshal, pStop, "HRESULT")
         return result
     }
 

@@ -37,47 +37,41 @@ class ISearchScopeRule extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszPatternOrURL 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchscoperule-get_patternorurl
      */
-    get_PatternOrURL(ppszPatternOrURL) {
-        result := ComCall(3, this, "ptr", ppszPatternOrURL, "HRESULT")
-        return result
+    get_PatternOrURL() {
+        result := ComCall(3, this, "ptr*", &ppszPatternOrURL := 0, "HRESULT")
+        return ppszPatternOrURL
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsIncluded 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchscoperule-get_isincluded
      */
-    get_IsIncluded(pfIsIncluded) {
-        result := ComCall(4, this, "ptr", pfIsIncluded, "HRESULT")
-        return result
+    get_IsIncluded() {
+        result := ComCall(4, this, "int*", &pfIsIncluded := 0, "HRESULT")
+        return pfIsIncluded
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsDefault 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchscoperule-get_isdefault
      */
-    get_IsDefault(pfIsDefault) {
-        result := ComCall(5, this, "ptr", pfIsDefault, "HRESULT")
-        return result
+    get_IsDefault() {
+        result := ComCall(5, this, "int*", &pfIsDefault := 0, "HRESULT")
+        return pfIsDefault
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pFollowFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchscoperule-get_followflags
      */
-    get_FollowFlags(pFollowFlags) {
-        pFollowFlagsMarshal := pFollowFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pFollowFlagsMarshal, pFollowFlags, "HRESULT")
-        return result
+    get_FollowFlags() {
+        result := ComCall(6, this, "uint*", &pFollowFlags := 0, "HRESULT")
+        return pFollowFlags
     }
 }

@@ -30,14 +30,11 @@ class ITransactionImportWhereabouts extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbWhereabouts 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetWhereaboutsSize(pcbWhereabouts) {
-        pcbWhereaboutsMarshal := pcbWhereabouts is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcbWhereaboutsMarshal, pcbWhereabouts, "HRESULT")
-        return result
+    GetWhereaboutsSize() {
+        result := ComCall(3, this, "uint*", &pcbWhereabouts := 0, "HRESULT")
+        return pcbWhereabouts
     }
 
     /**

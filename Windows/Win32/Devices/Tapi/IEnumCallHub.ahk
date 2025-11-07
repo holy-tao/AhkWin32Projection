@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITCallHub.ahk
+#Include .\IEnumCallHub.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,15 @@ class IEnumCallHub extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<ITCallHub>} ppElements 
      * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {ITCallHub} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumcallhub-next
      */
-    Next(celt, ppElements, pceltFetched) {
+    Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", ppElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", celt, "ptr*", &ppElements := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        return ITCallHub(ppElements)
     }
 
     /**
@@ -68,12 +69,11 @@ class IEnumCallHub extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumCallHub>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCallHub} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumcallhub-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumCallHub(ppEnum)
     }
 }

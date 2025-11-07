@@ -32,17 +32,15 @@ class IWMStreamList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwStreamNumArray 
      * @param {Pointer<Integer>} pcStreams 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamlist-getstreams
      */
-    GetStreams(pwStreamNumArray, pcStreams) {
-        pwStreamNumArrayMarshal := pwStreamNumArray is VarRef ? "ushort*" : "ptr"
+    GetStreams(pcStreams) {
         pcStreamsMarshal := pcStreams is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(3, this, pwStreamNumArrayMarshal, pwStreamNumArray, pcStreamsMarshal, pcStreams, "HRESULT")
-        return result
+        result := ComCall(3, this, "ushort*", &pwStreamNumArray := 0, pcStreamsMarshal, pcStreams, "HRESULT")
+        return pwStreamNumArray
     }
 
     /**

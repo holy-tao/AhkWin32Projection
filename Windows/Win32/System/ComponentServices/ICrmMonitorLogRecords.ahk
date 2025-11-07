@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,39 +33,32 @@ class ICrmMonitorLogRecords extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_count
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(3, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_transactionstate
      */
-    get_TransactionState(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_TransactionState() {
+        result := ComCall(4, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_structuredrecords
      */
-    get_StructuredRecords(pVal) {
-        result := ComCall(5, this, "ptr", pVal, "HRESULT")
-        return result
+    get_StructuredRecords() {
+        result := ComCall(5, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -82,12 +76,12 @@ class ICrmMonitorLogRecords extends IUnknown{
     /**
      * 
      * @param {VARIANT} IndexNumber 
-     * @param {Pointer<VARIANT>} pLogRecord 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorlogrecords-getlogrecordvariants
      */
-    GetLogRecordVariants(IndexNumber, pLogRecord) {
+    GetLogRecordVariants(IndexNumber) {
+        pLogRecord := VARIANT()
         result := ComCall(7, this, "ptr", IndexNumber, "ptr", pLogRecord, "HRESULT")
-        return result
+        return pLogRecord
     }
 }

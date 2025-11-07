@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include .\ITEMSPACING.ahk
+#Include .\IShellFolderViewCB.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -53,13 +56,12 @@ class IShellFolderView extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<LPARAM>} plParamSort 
-     * @returns {HRESULT} 
+     * @returns {LPARAM} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getarrangeparam
      */
-    GetArrangeParam(plParamSort) {
-        result := ComCall(4, this, "ptr", plParamSort, "HRESULT")
-        return result
+    GetArrangeParam() {
+        result := ComCall(4, this, "ptr*", &plParamSort := 0, "HRESULT")
+        return plParamSort
     }
 
     /**
@@ -95,60 +97,44 @@ class IShellFolderView extends IUnknown{
     /**
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<Integer>} puItem 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-addobject
      */
-    AddObject(pidl, puItem) {
-        puItemMarshal := puItem is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pidl, puItemMarshal, puItem, "HRESULT")
-        return result
+    AddObject(pidl) {
+        result := ComCall(8, this, "ptr", pidl, "uint*", &puItem := 0, "HRESULT")
+        return puItem
     }
 
     /**
      * The GetObject function retrieves information for the specified graphics object.
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl 
      * @param {Integer} uItem 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(ppidl, uItem) {
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, ppidlMarshal, ppidl, "uint", uItem, "HRESULT")
-        return result
+    GetObject(uItem) {
+        result := ComCall(9, this, "ptr*", &ppidl := 0, "uint", uItem, "HRESULT")
+        return ppidl
     }
 
     /**
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<Integer>} puItem 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-removeobject
      */
-    RemoveObject(pidl, puItem) {
-        puItemMarshal := puItem is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "ptr", pidl, puItemMarshal, puItem, "HRESULT")
-        return result
+    RemoveObject(pidl) {
+        result := ComCall(10, this, "ptr", pidl, "uint*", &puItem := 0, "HRESULT")
+        return puItem
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getobjectcount
      */
-    GetObjectCount(puCount) {
-        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, puCountMarshal, puCount, "HRESULT")
-        return result
+    GetObjectCount() {
+        result := ComCall(11, this, "uint*", &puCount := 0, "HRESULT")
+        return puCount
     }
 
     /**
@@ -167,29 +153,23 @@ class IShellFolderView extends IUnknown{
      * 
      * @param {Pointer<ITEMIDLIST>} pidlOld 
      * @param {Pointer<ITEMIDLIST>} pidlNew 
-     * @param {Pointer<Integer>} puItem 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-updateobject
      */
-    UpdateObject(pidlOld, pidlNew, puItem) {
-        puItemMarshal := puItem is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, "ptr", pidlOld, "ptr", pidlNew, puItemMarshal, puItem, "HRESULT")
-        return result
+    UpdateObject(pidlOld, pidlNew) {
+        result := ComCall(13, this, "ptr", pidlOld, "ptr", pidlNew, "uint*", &puItem := 0, "HRESULT")
+        return puItem
     }
 
     /**
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<Integer>} puItem 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-refreshobject
      */
-    RefreshObject(pidl, puItem) {
-        puItemMarshal := puItem is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "ptr", pidl, puItemMarshal, puItem, "HRESULT")
-        return result
+    RefreshObject(pidl) {
+        result := ComCall(14, this, "ptr", pidl, "uint*", &puItem := 0, "HRESULT")
+        return puItem
     }
 
     /**
@@ -205,15 +185,12 @@ class IShellFolderView extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puSelected 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getselectedcount
      */
-    GetSelectedCount(puSelected) {
-        puSelectedMarshal := puSelected is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, puSelectedMarshal, puSelected, "HRESULT")
-        return result
+    GetSelectedCount() {
+        result := ComCall(16, this, "uint*", &puSelected := 0, "HRESULT")
+        return puSelected
     }
 
     /**
@@ -244,24 +221,24 @@ class IShellFolderView extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<POINT>} ppt 
-     * @returns {HRESULT} 
+     * @returns {POINT} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getdragpoint
      */
-    GetDragPoint(ppt) {
+    GetDragPoint() {
+        ppt := POINT()
         result := ComCall(19, this, "ptr", ppt, "HRESULT")
-        return result
+        return ppt
     }
 
     /**
      * 
-     * @param {Pointer<POINT>} ppt 
-     * @returns {HRESULT} 
+     * @returns {POINT} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getdroppoint
      */
-    GetDropPoint(ppt) {
+    GetDropPoint() {
+        ppt := POINT()
         result := ComCall(20, this, "ptr", ppt, "HRESULT")
-        return result
+        return ppt
     }
 
     /**
@@ -322,25 +299,24 @@ class IShellFolderView extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITEMSPACING>} pSpacing 
-     * @returns {HRESULT} 
+     * @returns {ITEMSPACING} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getitemspacing
      */
-    GetItemSpacing(pSpacing) {
+    GetItemSpacing() {
+        pSpacing := ITEMSPACING()
         result := ComCall(26, this, "ptr", pSpacing, "HRESULT")
-        return result
+        return pSpacing
     }
 
     /**
      * 
      * @param {IShellFolderViewCB} pNewCB 
-     * @param {Pointer<IShellFolderViewCB>} ppOldCB 
-     * @returns {HRESULT} 
+     * @returns {IShellFolderViewCB} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setcallback
      */
-    SetCallback(pNewCB, ppOldCB) {
-        result := ComCall(27, this, "ptr", pNewCB, "ptr*", ppOldCB, "HRESULT")
-        return result
+    SetCallback(pNewCB) {
+        result := ComCall(27, this, "ptr", pNewCB, "ptr*", &ppOldCB := 0, "HRESULT")
+        return IShellFolderViewCB(ppOldCB)
     }
 
     /**

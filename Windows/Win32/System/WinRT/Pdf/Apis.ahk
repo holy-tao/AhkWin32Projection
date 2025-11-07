@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\IPdfRendererNative.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Pdf
@@ -14,16 +15,15 @@ class Pdf {
     /**
      * 
      * @param {IDXGIDevice} pDevice 
-     * @param {Pointer<IPdfRendererNative>} ppRenderer 
-     * @returns {HRESULT} 
+     * @returns {IPdfRendererNative} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-pdfcreaterenderer
      */
-    static PdfCreateRenderer(pDevice, ppRenderer) {
-        result := DllCall("Windows.Data.Pdf.dll\PdfCreateRenderer", "ptr", pDevice, "ptr*", ppRenderer, "int")
+    static PdfCreateRenderer(pDevice) {
+        result := DllCall("Windows.Data.Pdf.dll\PdfCreateRenderer", "ptr", pDevice, "ptr*", &ppRenderer := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IPdfRendererNative(ppRenderer)
     }
 
 ;@endregion Methods

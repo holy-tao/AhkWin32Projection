@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IObjectId.ahk
+#Include .\IX509NameValuePairs.ahk
 #Include .\IX509CertificateRequestPkcs10V2.ahk
 
 /**
@@ -33,13 +35,12 @@ class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-get_attestprivatekey
      */
-    get_AttestPrivateKey(pValue) {
-        result := ComCall(65, this, "ptr", pValue, "HRESULT")
-        return result
+    get_AttestPrivateKey() {
+        result := ComCall(65, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -56,13 +57,13 @@ class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-get_attestationencryptioncertificate
      */
-    get_AttestationEncryptionCertificate(Encoding, pValue) {
+    get_AttestationEncryptionCertificate(Encoding) {
+        pValue := BSTR()
         result := ComCall(67, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -81,13 +82,12 @@ class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-get_encryptionalgorithm
      */
-    get_EncryptionAlgorithm(ppValue) {
-        result := ComCall(69, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_EncryptionAlgorithm() {
+        result := ComCall(69, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
@@ -103,15 +103,12 @@ class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-get_encryptionstrength
      */
-    get_EncryptionStrength(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(71, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_EncryptionStrength() {
+        result := ComCall(71, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -127,13 +124,13 @@ class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-get_challengepassword
      */
-    get_ChallengePassword(pValue) {
+    get_ChallengePassword() {
+        pValue := BSTR()
         result := ComCall(73, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -151,12 +148,11 @@ class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2{
 
     /**
      * 
-     * @param {Pointer<IX509NameValuePairs>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509NameValuePairs} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-get_namevaluepairs
      */
-    get_NameValuePairs(ppValue) {
-        result := ComCall(75, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_NameValuePairs() {
+        result := ComCall(75, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509NameValuePairs(ppValue)
     }
 }

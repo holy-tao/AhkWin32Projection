@@ -54,29 +54,23 @@ class IKsPropertySet extends IUnknown{
      * @param {Integer} cbInstanceData 
      * @param {Pointer} pPropData 
      * @param {Integer} cbPropData 
-     * @param {Pointer<Integer>} pcbReturned 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset-get
      */
-    Get(guidPropSet, dwPropID, pInstanceData, cbInstanceData, pPropData, cbPropData, pcbReturned) {
-        pcbReturnedMarshal := pcbReturned is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", guidPropSet, "uint", dwPropID, "ptr", pInstanceData, "uint", cbInstanceData, "ptr", pPropData, "uint", cbPropData, pcbReturnedMarshal, pcbReturned, "HRESULT")
-        return result
+    Get(guidPropSet, dwPropID, pInstanceData, cbInstanceData, pPropData, cbPropData) {
+        result := ComCall(4, this, "ptr", guidPropSet, "uint", dwPropID, "ptr", pInstanceData, "uint", cbInstanceData, "ptr", pPropData, "uint", cbPropData, "uint*", &pcbReturned := 0, "HRESULT")
+        return pcbReturned
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidPropSet 
      * @param {Integer} dwPropID 
-     * @param {Pointer<Integer>} pTypeSupport 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset-querysupported
      */
-    QuerySupported(guidPropSet, dwPropID, pTypeSupport) {
-        pTypeSupportMarshal := pTypeSupport is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", guidPropSet, "uint", dwPropID, pTypeSupportMarshal, pTypeSupport, "HRESULT")
-        return result
+    QuerySupported(guidPropSet, dwPropID) {
+        result := ComCall(5, this, "ptr", guidPropSet, "uint", dwPropID, "uint*", &pTypeSupport := 0, "HRESULT")
+        return pTypeSupport
     }
 }

@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumCERTVIEWCOLUMN.ahk
+#Include .\IEnumCERTVIEWATTRIBUTE.ahk
+#Include .\IEnumCERTVIEWEXTENSION.ahk
+#Include .\IEnumCERTVIEWROW.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -45,37 +49,34 @@ class IEnumCERTVIEWROW extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumCERTVIEWCOLUMN>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCERTVIEWCOLUMN} 
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewrow-enumcertviewcolumn
      */
-    EnumCertViewColumn(ppenum) {
-        result := ComCall(8, this, "ptr*", ppenum, "HRESULT")
-        return result
+    EnumCertViewColumn() {
+        result := ComCall(8, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumCERTVIEWCOLUMN(ppenum)
     }
 
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<IEnumCERTVIEWATTRIBUTE>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCERTVIEWATTRIBUTE} 
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewrow-enumcertviewattribute
      */
-    EnumCertViewAttribute(Flags, ppenum) {
-        result := ComCall(9, this, "int", Flags, "ptr*", ppenum, "HRESULT")
-        return result
+    EnumCertViewAttribute(Flags) {
+        result := ComCall(9, this, "int", Flags, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumCERTVIEWATTRIBUTE(ppenum)
     }
 
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<IEnumCERTVIEWEXTENSION>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCERTVIEWEXTENSION} 
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewrow-enumcertviewextension
      */
-    EnumCertViewExtension(Flags, ppenum) {
-        result := ComCall(10, this, "int", Flags, "ptr*", ppenum, "HRESULT")
-        return result
+    EnumCertViewExtension(Flags) {
+        result := ComCall(10, this, "int", Flags, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumCERTVIEWEXTENSION(ppenum)
     }
 
     /**
@@ -101,13 +102,12 @@ class IEnumCERTVIEWROW extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumCERTVIEWROW>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCERTVIEWROW} 
      * @see https://learn.microsoft.com/windows/win32/api/certview/nn-certview-ienumcertviewrow
      */
-    Clone(ppenum) {
-        result := ComCall(13, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(13, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumCERTVIEWROW(ppenum)
     }
 
     /**

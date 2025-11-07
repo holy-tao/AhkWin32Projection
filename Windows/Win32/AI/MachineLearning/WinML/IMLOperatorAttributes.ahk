@@ -32,16 +32,13 @@ class IMLOperatorAttributes extends IUnknown{
      * 
      * @param {PSTR} name 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} elementCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetAttributeElementCount(name, type, elementCount) {
+    GetAttributeElementCount(name, type) {
         name := name is String ? StrPtr(name) : name
 
-        elementCountMarshal := elementCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", name, "uint", type, elementCountMarshal, elementCount, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", name, "uint", type, "uint*", &elementCount := 0, "HRESULT")
+        return elementCount
     }
 
     /**
@@ -50,32 +47,26 @@ class IMLOperatorAttributes extends IUnknown{
      * @param {Integer} type 
      * @param {Integer} elementCount 
      * @param {Pointer} elementByteSize 
-     * @param {Pointer<Void>} value 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      */
-    GetAttribute(name, type, elementCount, elementByteSize, value) {
+    GetAttribute(name, type, elementCount, elementByteSize) {
         name := name is String ? StrPtr(name) : name
 
-        valueMarshal := value is VarRef ? "ptr" : "ptr"
-
-        result := ComCall(4, this, "ptr", name, "uint", type, "uint", elementCount, "ptr", elementByteSize, valueMarshal, value, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", name, "uint", type, "uint", elementCount, "ptr", elementByteSize, "ptr", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {PSTR} name 
      * @param {Integer} elementIndex 
-     * @param {Pointer<Integer>} attributeElementByteSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetStringAttributeElementLength(name, elementIndex, attributeElementByteSize) {
+    GetStringAttributeElementLength(name, elementIndex) {
         name := name is String ? StrPtr(name) : name
 
-        attributeElementByteSizeMarshal := attributeElementByteSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", name, "uint", elementIndex, attributeElementByteSizeMarshal, attributeElementByteSize, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", name, "uint", elementIndex, "uint*", &attributeElementByteSize := 0, "HRESULT")
+        return attributeElementByteSize
     }
 
     /**

@@ -32,13 +32,12 @@ class IUpdateInstaller3 extends IUpdateInstaller2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller3-get_attemptcloseappsifnecessary
      */
-    get_AttemptCloseAppsIfNecessary(retval) {
-        result := ComCall(30, this, "ptr", retval, "HRESULT")
-        return result
+    get_AttemptCloseAppsIfNecessary() {
+        result := ComCall(30, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

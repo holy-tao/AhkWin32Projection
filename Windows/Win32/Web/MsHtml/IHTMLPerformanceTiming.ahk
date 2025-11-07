@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,273 +38,210 @@ class IHTMLPerformanceTiming extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_navigationStart(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_navigationStart() {
+        result := ComCall(7, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_unloadEventStart(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_unloadEventStart() {
+        result := ComCall(8, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_unloadEventEnd(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pMarshal, p, "HRESULT")
-        return result
+    get_unloadEventEnd() {
+        result := ComCall(9, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_redirectStart(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_redirectStart() {
+        result := ComCall(10, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_redirectEnd(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pMarshal, p, "HRESULT")
-        return result
+    get_redirectEnd() {
+        result := ComCall(11, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_fetchStart(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pMarshal, p, "HRESULT")
-        return result
+    get_fetchStart() {
+        result := ComCall(12, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_domainLookupStart(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pMarshal, p, "HRESULT")
-        return result
+    get_domainLookupStart() {
+        result := ComCall(13, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_domainLookupEnd(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pMarshal, p, "HRESULT")
-        return result
+    get_domainLookupEnd() {
+        result := ComCall(14, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_connectStart(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pMarshal, p, "HRESULT")
-        return result
+    get_connectStart() {
+        result := ComCall(15, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_connectEnd(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pMarshal, p, "HRESULT")
-        return result
+    get_connectEnd() {
+        result := ComCall(16, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_requestStart(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, pMarshal, p, "HRESULT")
-        return result
+    get_requestStart() {
+        result := ComCall(17, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_responseStart(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, pMarshal, p, "HRESULT")
-        return result
+    get_responseStart() {
+        result := ComCall(18, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_responseEnd(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, pMarshal, p, "HRESULT")
-        return result
+    get_responseEnd() {
+        result := ComCall(19, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_domLoading(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, pMarshal, p, "HRESULT")
-        return result
+    get_domLoading() {
+        result := ComCall(20, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_domInteractive(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, pMarshal, p, "HRESULT")
-        return result
+    get_domInteractive() {
+        result := ComCall(21, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_domContentLoadedEventStart(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, pMarshal, p, "HRESULT")
-        return result
+    get_domContentLoadedEventStart() {
+        result := ComCall(22, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_domContentLoadedEventEnd(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(23, this, pMarshal, p, "HRESULT")
-        return result
+    get_domContentLoadedEventEnd() {
+        result := ComCall(23, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_domComplete(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(24, this, pMarshal, p, "HRESULT")
-        return result
+    get_domComplete() {
+        result := ComCall(24, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_loadEventStart(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(25, this, pMarshal, p, "HRESULT")
-        return result
+    get_loadEventStart() {
+        result := ComCall(25, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_loadEventEnd(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(26, this, pMarshal, p, "HRESULT")
-        return result
+    get_loadEventEnd() {
+        result := ComCall(26, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_msFirstPaint(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(27, this, pMarshal, p, "HRESULT")
-        return result
+    get_msFirstPaint() {
+        result := ComCall(27, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} string 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toString(string) {
+    toString() {
+        string := BSTR()
         result := ComCall(28, this, "ptr", string, "HRESULT")
-        return result
+        return string
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    toJSON(pVar) {
+    toJSON() {
+        pVar := VARIANT()
         result := ComCall(29, this, "ptr", pVar, "HRESULT")
-        return result
+        return pVar
     }
 }

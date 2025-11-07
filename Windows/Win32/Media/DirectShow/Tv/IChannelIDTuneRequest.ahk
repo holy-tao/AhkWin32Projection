@@ -44,13 +44,13 @@ class IChannelIDTuneRequest extends ITuneRequest{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ChannelID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ichannelidtunerequest-get_channelid
      */
-    get_ChannelID(ChannelID) {
+    get_ChannelID() {
+        ChannelID := BSTR()
         result := ComCall(12, this, "ptr", ChannelID, "HRESULT")
-        return result
+        return ChannelID
     }
 
     /**

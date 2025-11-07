@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IImageList.ahk
+#Include .\IConsoleVerb.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Enables communication with the console.
@@ -54,35 +57,32 @@ class IConsole extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pUnknown 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole-queryresultview
      */
-    QueryResultView(pUnknown) {
-        result := ComCall(5, this, "ptr*", pUnknown, "HRESULT")
-        return result
+    QueryResultView() {
+        result := ComCall(5, this, "ptr*", &pUnknown := 0, "HRESULT")
+        return IUnknown(pUnknown)
     }
 
     /**
      * 
-     * @param {Pointer<IImageList>} ppImageList 
-     * @returns {HRESULT} 
+     * @returns {IImageList} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole-queryscopeimagelist
      */
-    QueryScopeImageList(ppImageList) {
-        result := ComCall(6, this, "ptr*", ppImageList, "HRESULT")
-        return result
+    QueryScopeImageList() {
+        result := ComCall(6, this, "ptr*", &ppImageList := 0, "HRESULT")
+        return IImageList(ppImageList)
     }
 
     /**
      * 
-     * @param {Pointer<IImageList>} ppImageList 
-     * @returns {HRESULT} 
+     * @returns {IImageList} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole-queryresultimagelist
      */
-    QueryResultImageList(ppImageList) {
-        result := ComCall(7, this, "ptr*", ppImageList, "HRESULT")
-        return result
+    QueryResultImageList() {
+        result := ComCall(7, this, "ptr*", &ppImageList := 0, "HRESULT")
+        return IImageList(ppImageList)
     }
 
     /**
@@ -103,150 +103,25 @@ class IConsole extends IUnknown{
      * @param {PWSTR} lpszText 
      * @param {PWSTR} lpszTitle 
      * @param {Integer} fuStyle 
-     * @param {Pointer<Integer>} piRetval 
-     * @returns {HRESULT} Type: <b>int</b>
-     * 
-     * If a message box has a <b>Cancel</b> button, the function returns the <b>IDCANCEL</b> value if either the ESC key is pressed or the <b>Cancel</b> button is selected. If the message box has no <b>Cancel</b> button, pressing ESC will no effect - unless an MB_OK button is present. If an MB_OK button is displayed and the user presses ESC, the return value will be <b>IDOK</b>.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     * If the function succeeds, the return value is one of the following menu-item values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IDABORT</b></dt>
-     * <dt>3</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <b>Abort</b> button was selected.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IDCANCEL</b></dt>
-     * <dt>2</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <b>Cancel</b> button was selected.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IDCONTINUE</b></dt>
-     * <dt>11</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <b>Continue</b> button was selected.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IDIGNORE</b></dt>
-     * <dt>5</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <b>Ignore</b> button was selected.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IDNO</b></dt>
-     * <dt>7</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <b>No</b> button was selected.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IDOK</b></dt>
-     * <dt>1</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <b>OK</b> button was selected.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IDRETRY</b></dt>
-     * <dt>4</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <b>Retry</b> button was selected.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IDTRYAGAIN</b></dt>
-     * <dt>10</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <b>Try Again</b> button was selected.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>IDYES</b></dt>
-     * <dt>6</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <b>Yes</b> button was selected.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-messagebox
      */
-    MessageBox(lpszText, lpszTitle, fuStyle, piRetval) {
+    MessageBox(lpszText, lpszTitle, fuStyle) {
         lpszText := lpszText is String ? StrPtr(lpszText) : lpszText
         lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
-        piRetvalMarshal := piRetval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "ptr", lpszText, "ptr", lpszTitle, "uint", fuStyle, piRetvalMarshal, piRetval, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", lpszText, "ptr", lpszTitle, "uint", fuStyle, "int*", &piRetval := 0, "HRESULT")
+        return piRetval
     }
 
     /**
      * 
-     * @param {Pointer<IConsoleVerb>} ppConsoleVerb 
-     * @returns {HRESULT} 
+     * @returns {IConsoleVerb} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole-queryconsoleverb
      */
-    QueryConsoleVerb(ppConsoleVerb) {
-        result := ComCall(10, this, "ptr*", ppConsoleVerb, "HRESULT")
-        return result
+    QueryConsoleVerb() {
+        result := ComCall(10, this, "ptr*", &ppConsoleVerb := 0, "HRESULT")
+        return IConsoleVerb(ppConsoleVerb)
     }
 
     /**
@@ -262,13 +137,13 @@ class IConsole extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HWND>} phwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole-getmainwindow
      */
-    GetMainWindow(phwnd) {
+    GetMainWindow() {
+        phwnd := HWND()
         result := ComCall(12, this, "ptr", phwnd, "HRESULT")
-        return result
+        return phwnd
     }
 
     /**

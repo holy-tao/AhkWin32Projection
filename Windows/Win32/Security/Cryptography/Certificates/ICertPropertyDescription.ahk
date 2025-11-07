@@ -56,12 +56,12 @@ class ICertPropertyDescription extends ICertProperty{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertydescription-get_description
      */
-    get_Description(pValue) {
+    get_Description() {
+        pValue := BSTR()
         result := ComCall(15, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

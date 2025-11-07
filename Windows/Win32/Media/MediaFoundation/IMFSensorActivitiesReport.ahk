@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFSensorActivityReport.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,40 +37,35 @@ class IMFSensorActivitiesReport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivitiesreport-getcount
      */
-    GetCount(pcCount) {
-        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcCountMarshal, pcCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pcCount := 0, "HRESULT")
+        return pcCount
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<IMFSensorActivityReport>} sensorActivityReport 
-     * @returns {HRESULT} 
+     * @returns {IMFSensorActivityReport} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivitiesreport-getactivityreport
      */
-    GetActivityReport(Index, sensorActivityReport) {
-        result := ComCall(4, this, "uint", Index, "ptr*", sensorActivityReport, "HRESULT")
-        return result
+    GetActivityReport(Index) {
+        result := ComCall(4, this, "uint", Index, "ptr*", &sensorActivityReport := 0, "HRESULT")
+        return IMFSensorActivityReport(sensorActivityReport)
     }
 
     /**
      * 
      * @param {PWSTR} SymbolicName 
-     * @param {Pointer<IMFSensorActivityReport>} sensorActivityReport 
-     * @returns {HRESULT} 
+     * @returns {IMFSensorActivityReport} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivitiesreport-getactivityreportbydevicename
      */
-    GetActivityReportByDeviceName(SymbolicName, sensorActivityReport) {
+    GetActivityReportByDeviceName(SymbolicName) {
         SymbolicName := SymbolicName is String ? StrPtr(SymbolicName) : SymbolicName
 
-        result := ComCall(5, this, "ptr", SymbolicName, "ptr*", sensorActivityReport, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", SymbolicName, "ptr*", &sensorActivityReport := 0, "HRESULT")
+        return IMFSensorActivityReport(sensorActivityReport)
     }
 }

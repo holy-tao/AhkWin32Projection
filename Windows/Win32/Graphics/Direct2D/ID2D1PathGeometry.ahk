@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1GeometrySink.ahk
 #Include .\ID2D1Geometry.ahk
 
 /**
@@ -43,13 +44,12 @@ class ID2D1PathGeometry extends ID2D1Geometry{
 
     /**
      * 
-     * @param {Pointer<ID2D1GeometrySink>} geometrySink 
-     * @returns {HRESULT} 
+     * @returns {ID2D1GeometrySink} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1pathgeometry-open
      */
-    Open(geometrySink) {
-        result := ComCall(17, this, "ptr*", geometrySink, "HRESULT")
-        return result
+    Open() {
+        result := ComCall(17, this, "ptr*", &geometrySink := 0, "HRESULT")
+        return ID2D1GeometrySink(geometrySink)
     }
 
     /**
@@ -65,27 +65,21 @@ class ID2D1PathGeometry extends ID2D1Geometry{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1pathgeometry-getsegmentcount
      */
-    GetSegmentCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, countMarshal, count, "HRESULT")
-        return result
+    GetSegmentCount() {
+        result := ComCall(19, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1pathgeometry-getfigurecount
      */
-    GetFigureCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, countMarshal, count, "HRESULT")
-        return result
+    GetFigureCount() {
+        result := ComCall(20, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 }

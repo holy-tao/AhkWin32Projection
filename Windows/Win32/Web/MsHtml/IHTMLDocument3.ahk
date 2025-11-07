@@ -2,7 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLDOMNode.ahk
+#Include .\IHTMLElement.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLDocument2.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLElementCollection.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -51,48 +56,45 @@ class IHTMLDocument3 extends IDispatch{
     /**
      * 
      * @param {BSTR} text 
-     * @param {Pointer<IHTMLDOMNode>} newTextNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    createTextNode(text, newTextNode) {
+    createTextNode(text) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(9, this, "ptr", text, "ptr*", newTextNode, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", text, "ptr*", &newTextNode := 0, "HRESULT")
+        return IHTMLDOMNode(newTextNode)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_documentElement(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_documentElement() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_uniqueID(p) {
+    get_uniqueID() {
+        p := BSTR()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
-     * @param {Pointer<VARIANT_BOOL>} pfResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    attachEvent(event, pDisp, pfResult) {
+    attachEvent(event, pDisp) {
         event := event is String ? BSTR.Alloc(event).Value : event
 
-        result := ComCall(12, this, "ptr", event, "ptr", pDisp, "ptr", pfResult, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", event, "ptr", pDisp, "short*", &pfResult := 0, "HRESULT")
+        return pfResult
     }
 
     /**
@@ -120,12 +122,12 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onrowsdelete(p) {
+    get_onrowsdelete() {
+        p := VARIANT()
         result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -140,12 +142,12 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onrowsinserted(p) {
+    get_onrowsinserted() {
+        p := VARIANT()
         result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -160,12 +162,12 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oncellchange(p) {
+    get_oncellchange() {
+        p := VARIANT()
         result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -180,12 +182,12 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondatasetchanged(p) {
+    get_ondatasetchanged() {
+        p := VARIANT()
         result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -200,12 +202,12 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondataavailable(p) {
+    get_ondataavailable() {
+        p := VARIANT()
         result := ComCall(23, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -220,12 +222,12 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondatasetcomplete(p) {
+    get_ondatasetcomplete() {
+        p := VARIANT()
         result := ComCall(25, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -240,12 +242,12 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onpropertychange(p) {
+    get_onpropertychange() {
+        p := VARIANT()
         result := ComCall(27, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -262,12 +264,12 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_dir(p) {
+    get_dir() {
+        p := BSTR()
         result := ComCall(29, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -282,12 +284,12 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oncontextmenu(p) {
+    get_oncontextmenu() {
+        p := VARIANT()
         result := ComCall(31, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -302,32 +304,30 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onstop(p) {
+    get_onstop() {
+        p := VARIANT()
         result := ComCall(33, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDocument2>} pNewDoc 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument2} 
      */
-    createDocumentFragment(pNewDoc) {
-        result := ComCall(34, this, "ptr*", pNewDoc, "HRESULT")
-        return result
+    createDocumentFragment() {
+        result := ComCall(34, this, "ptr*", &pNewDoc := 0, "HRESULT")
+        return IHTMLDocument2(pNewDoc)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDocument2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument2} 
      */
-    get_parentDocument(p) {
-        result := ComCall(35, this, "ptr*", p, "HRESULT")
-        return result
+    get_parentDocument() {
+        result := ComCall(35, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDocument2(p)
     }
 
     /**
@@ -342,12 +342,11 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_enableDownload(p) {
-        result := ComCall(37, this, "ptr", p, "HRESULT")
-        return result
+    get_enableDownload() {
+        result := ComCall(37, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -364,22 +363,21 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_baseUrl(p) {
+    get_baseUrl() {
+        p := BSTR()
         result := ComCall(39, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_childNodes(p) {
-        result := ComCall(40, this, "ptr*", p, "HRESULT")
-        return result
+    get_childNodes() {
+        result := ComCall(40, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
@@ -394,12 +392,11 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_inheritStyleSheets(p) {
-        result := ComCall(42, this, "ptr", p, "HRESULT")
-        return result
+    get_inheritStyleSheets() {
+        result := ComCall(42, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -414,50 +411,47 @@ class IHTMLDocument3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onbeforeeditfocus(p) {
+    get_onbeforeeditfocus() {
+        p := VARIANT()
         result := ComCall(44, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {BSTR} v 
-     * @param {Pointer<IHTMLElementCollection>} pelColl 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    getElementsByName(v, pelColl) {
+    getElementsByName(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(45, this, "ptr", v, "ptr*", pelColl, "HRESULT")
-        return result
+        result := ComCall(45, this, "ptr", v, "ptr*", &pelColl := 0, "HRESULT")
+        return IHTMLElementCollection(pelColl)
     }
 
     /**
      * 
      * @param {BSTR} v 
-     * @param {Pointer<IHTMLElement>} pel 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    getElementById(v, pel) {
+    getElementById(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(46, this, "ptr", v, "ptr*", pel, "HRESULT")
-        return result
+        result := ComCall(46, this, "ptr", v, "ptr*", &pel := 0, "HRESULT")
+        return IHTMLElement(pel)
     }
 
     /**
      * 
      * @param {BSTR} v 
-     * @param {Pointer<IHTMLElementCollection>} pelColl 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    getElementsByTagName(v, pelColl) {
+    getElementsByTagName(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(47, this, "ptr", v, "ptr*", pelColl, "HRESULT")
-        return result
+        result := ComCall(47, this, "ptr", v, "ptr*", &pelColl := 0, "HRESULT")
+        return IHTMLElementCollection(pelColl)
     }
 }

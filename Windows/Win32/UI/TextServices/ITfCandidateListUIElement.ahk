@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfDocumentMgr.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITfUIElement.ahk
 
 /**
@@ -32,64 +34,54 @@ class ITfCandidateListUIElement extends ITfUIElement{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getupdatedflags
      */
-    GetUpdatedFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetUpdatedFlags() {
+        result := ComCall(7, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
      * 
-     * @param {Pointer<ITfDocumentMgr>} ppdim 
-     * @returns {HRESULT} 
+     * @returns {ITfDocumentMgr} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getdocumentmgr
      */
-    GetDocumentMgr(ppdim) {
-        result := ComCall(8, this, "ptr*", ppdim, "HRESULT")
-        return result
+    GetDocumentMgr() {
+        result := ComCall(8, this, "ptr*", &ppdim := 0, "HRESULT")
+        return ITfDocumentMgr(ppdim)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getcount
      */
-    GetCount(puCount) {
-        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, puCountMarshal, puCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(9, this, "uint*", &puCount := 0, "HRESULT")
+        return puCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getselection
      */
-    GetSelection(puIndex) {
-        puIndexMarshal := puIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, puIndexMarshal, puIndex, "HRESULT")
-        return result
+    GetSelection() {
+        result := ComCall(10, this, "uint*", &puIndex := 0, "HRESULT")
+        return puIndex
     }
 
     /**
      * 
      * @param {Integer} uIndex 
-     * @param {Pointer<BSTR>} pstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getstring
      */
-    GetString(uIndex, pstr) {
+    GetString(uIndex) {
+        pstr := BSTR()
         result := ComCall(11, this, "uint", uIndex, "ptr", pstr, "HRESULT")
-        return result
+        return pstr
     }
 
     /**
@@ -124,14 +116,11 @@ class ITfCandidateListUIElement extends ITfUIElement{
 
     /**
      * 
-     * @param {Pointer<Integer>} puPage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getcurrentpage
      */
-    GetCurrentPage(puPage) {
-        puPageMarshal := puPage is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, puPageMarshal, puPage, "HRESULT")
-        return result
+    GetCurrentPage() {
+        result := ComCall(14, this, "uint*", &puPage := 0, "HRESULT")
+        return puPage
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMsmErrors.ahk
+#Include .\IMsmDependencies.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -123,24 +125,22 @@ class IMsmMerge extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMsmErrors>} Errors 
-     * @returns {HRESULT} 
+     * @returns {IMsmErrors} 
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-get_errors
      */
-    get_Errors(Errors) {
-        result := ComCall(14, this, "ptr*", Errors, "HRESULT")
-        return result
+    get_Errors() {
+        result := ComCall(14, this, "ptr*", &Errors := 0, "HRESULT")
+        return IMsmErrors(Errors)
     }
 
     /**
      * 
-     * @param {Pointer<IMsmDependencies>} Dependencies 
-     * @returns {HRESULT} 
+     * @returns {IMsmDependencies} 
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-get_dependencies
      */
-    get_Dependencies(Dependencies) {
-        result := ComCall(15, this, "ptr*", Dependencies, "HRESULT")
-        return result
+    get_Dependencies() {
+        result := ComCall(15, this, "ptr*", &Dependencies := 0, "HRESULT")
+        return IMsmDependencies(Dependencies)
     }
 
     /**

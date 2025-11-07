@@ -43,25 +43,21 @@ class IQueryInfo extends IUnknown{
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} ppwszTip 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iqueryinfo-getinfotip
      */
-    GetInfoTip(dwFlags, ppwszTip) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr", ppwszTip, "HRESULT")
-        return result
+    GetInfoTip(dwFlags) {
+        result := ComCall(3, this, "uint", dwFlags, "ptr*", &ppwszTip := 0, "HRESULT")
+        return ppwszTip
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iqueryinfo-getinfoflags
      */
-    GetInfoFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetInfoFlags() {
+        result := ComCall(4, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 }

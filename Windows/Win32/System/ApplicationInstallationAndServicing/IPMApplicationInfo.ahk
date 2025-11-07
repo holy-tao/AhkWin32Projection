@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,32 +32,32 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pProductID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_ProductID(pProductID) {
+    get_ProductID() {
+        pProductID := Guid()
         result := ComCall(3, this, "ptr", pProductID, "HRESULT")
-        return result
+        return pProductID
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pInstanceID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_InstanceID(pInstanceID) {
+    get_InstanceID() {
+        pInstanceID := Guid()
         result := ComCall(4, this, "ptr", pInstanceID, "HRESULT")
-        return result
+        return pInstanceID
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pOfferID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_OfferID(pOfferID) {
+    get_OfferID() {
+        pOfferID := Guid()
         result := ComCall(5, this, "ptr", pOfferID, "HRESULT")
-        return result
+        return pOfferID
     }
 
     /**
@@ -91,96 +92,84 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsNotified 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_NotificationState(pIsNotified) {
-        result := ComCall(9, this, "ptr", pIsNotified, "HRESULT")
-        return result
+    get_NotificationState() {
+        result := ComCall(9, this, "int*", &pIsNotified := 0, "HRESULT")
+        return pIsNotified
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pAppInstallType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AppInstallType(pAppInstallType) {
-        pAppInstallTypeMarshal := pAppInstallType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pAppInstallTypeMarshal, pAppInstallType, "HRESULT")
-        return result
+    get_AppInstallType() {
+        result := ComCall(10, this, "int*", &pAppInstallType := 0, "HRESULT")
+        return pAppInstallType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pStateMarshal, pState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(11, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsRevoked 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsRevoked(pIsRevoked) {
-        result := ComCall(12, this, "ptr", pIsRevoked, "HRESULT")
-        return result
+    get_IsRevoked() {
+        result := ComCall(12, this, "int*", &pIsRevoked := 0, "HRESULT")
+        return pIsRevoked
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsUpdateAvailable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_UpdateAvailable(pIsUpdateAvailable) {
-        result := ComCall(13, this, "ptr", pIsUpdateAvailable, "HRESULT")
-        return result
+    get_UpdateAvailable() {
+        result := ComCall(13, this, "int*", &pIsUpdateAvailable := 0, "HRESULT")
+        return pIsUpdateAvailable
     }
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pInstallDate 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      */
-    get_InstallDate(pInstallDate) {
+    get_InstallDate() {
+        pInstallDate := FILETIME()
         result := ComCall(14, this, "ptr", pInstallDate, "HRESULT")
-        return result
+        return pInstallDate
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsUninstallable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsUninstallable(pIsUninstallable) {
-        result := ComCall(15, this, "ptr", pIsUninstallable, "HRESULT")
-        return result
+    get_IsUninstallable() {
+        result := ComCall(15, this, "int*", &pIsUninstallable := 0, "HRESULT")
+        return pIsUninstallable
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsThemable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsThemable(pIsThemable) {
-        result := ComCall(16, this, "ptr", pIsThemable, "HRESULT")
-        return result
+    get_IsThemable() {
+        result := ComCall(16, this, "int*", &pIsThemable := 0, "HRESULT")
+        return pIsThemable
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsTrial 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsTrial(pIsTrial) {
-        result := ComCall(17, this, "ptr", pIsTrial, "HRESULT")
-        return result
+    get_IsTrial() {
+        result := ComCall(17, this, "int*", &pIsTrial := 0, "HRESULT")
+        return pIsTrial
     }
 
     /**
@@ -205,14 +194,11 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pGenre 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Genre(pGenre) {
-        pGenreMarshal := pGenre is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pGenreMarshal, pGenre, "HRESULT")
-        return result
+    get_Genre() {
+        result := ComCall(20, this, "int*", &pGenre := 0, "HRESULT")
+        return pGenre
     }
 
     /**
@@ -268,46 +254,39 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMajorVer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AppPlatMajorVersion(pMajorVer) {
-        pMajorVerMarshal := pMajorVer is VarRef ? "char*" : "ptr"
-
-        result := ComCall(26, this, pMajorVerMarshal, pMajorVer, "HRESULT")
-        return result
+    get_AppPlatMajorVersion() {
+        result := ComCall(26, this, "char*", &pMajorVer := 0, "HRESULT")
+        return pMajorVer
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pMinorVer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AppPlatMinorVersion(pMinorVer) {
-        pMinorVerMarshal := pMinorVer is VarRef ? "char*" : "ptr"
-
-        result := ComCall(27, this, pMinorVerMarshal, pMinorVer, "HRESULT")
-        return result
+    get_AppPlatMinorVersion() {
+        result := ComCall(27, this, "char*", &pMinorVer := 0, "HRESULT")
+        return pMinorVer
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pPublisherID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_PublisherID(pPublisherID) {
+    get_PublisherID() {
+        pPublisherID := Guid()
         result := ComCall(28, this, "ptr", pPublisherID, "HRESULT")
-        return result
+        return pPublisherID
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsMultiCore 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsMultiCore(pIsMultiCore) {
-        result := ComCall(29, this, "ptr", pIsMultiCore, "HRESULT")
-        return result
+    get_IsMultiCore() {
+        result := ComCall(29, this, "int*", &pIsMultiCore := 0, "HRESULT")
+        return pIsMultiCore
     }
 
     /**
@@ -322,26 +301,20 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMajorVer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AppPlatMajorVersionLightUp(pMajorVer) {
-        pMajorVerMarshal := pMajorVer is VarRef ? "char*" : "ptr"
-
-        result := ComCall(31, this, pMajorVerMarshal, pMajorVer, "HRESULT")
-        return result
+    get_AppPlatMajorVersionLightUp() {
+        result := ComCall(31, this, "char*", &pMajorVer := 0, "HRESULT")
+        return pMajorVer
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pMinorVer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AppPlatMinorVersionLightUp(pMinorVer) {
-        pMinorVerMarshal := pMinorVer is VarRef ? "char*" : "ptr"
-
-        result := ComCall(32, this, pMinorVerMarshal, pMinorVer, "HRESULT")
-        return result
+    get_AppPlatMinorVersionLightUp() {
+        result := ComCall(32, this, "char*", &pMinorVer := 0, "HRESULT")
+        return pMinorVer
     }
 
     /**
@@ -388,52 +361,47 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsPinable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsPinableOnKidZone(pIsPinable) {
-        result := ComCall(37, this, "ptr", pIsPinable, "HRESULT")
-        return result
+    get_IsPinableOnKidZone() {
+        result := ComCall(37, this, "int*", &pIsPinable := 0, "HRESULT")
+        return pIsPinable
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsPreinstalled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsOriginallyPreInstalled(pIsPreinstalled) {
-        result := ComCall(38, this, "ptr", pIsPreinstalled, "HRESULT")
-        return result
+    get_IsOriginallyPreInstalled() {
+        result := ComCall(38, this, "int*", &pIsPreinstalled := 0, "HRESULT")
+        return pIsPreinstalled
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsInstallOnSD 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsInstallOnSD(pIsInstallOnSD) {
-        result := ComCall(39, this, "ptr", pIsInstallOnSD, "HRESULT")
-        return result
+    get_IsInstallOnSD() {
+        result := ComCall(39, this, "int*", &pIsInstallOnSD := 0, "HRESULT")
+        return pIsInstallOnSD
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsOptoutOnSD 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsOptoutOnSD(pIsOptoutOnSD) {
-        result := ComCall(40, this, "ptr", pIsOptoutOnSD, "HRESULT")
-        return result
+    get_IsOptoutOnSD() {
+        result := ComCall(40, this, "int*", &pIsOptoutOnSD := 0, "HRESULT")
+        return pIsOptoutOnSD
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsOptoutBackupRestore 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsOptoutBackupRestore(pIsOptoutBackupRestore) {
-        result := ComCall(41, this, "ptr", pIsOptoutBackupRestore, "HRESULT")
-        return result
+    get_IsOptoutBackupRestore() {
+        result := ComCall(41, this, "int*", &pIsOptoutBackupRestore := 0, "HRESULT")
+        return pIsOptoutBackupRestore
     }
 
     /**
@@ -458,52 +426,48 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} IsDisabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_EnterpriseDisabled(IsDisabled) {
-        result := ComCall(44, this, "ptr", IsDisabled, "HRESULT")
-        return result
+    get_EnterpriseDisabled() {
+        result := ComCall(44, this, "int*", &IsDisabled := 0, "HRESULT")
+        return IsDisabled
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} IsUninstallable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_EnterpriseUninstallable(IsUninstallable) {
-        result := ComCall(45, this, "ptr", IsUninstallable, "HRESULT")
-        return result
+    get_EnterpriseUninstallable() {
+        result := ComCall(45, this, "int*", &IsUninstallable := 0, "HRESULT")
+        return IsUninstallable
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsVisible 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsVisibleOnAppList(pIsVisible) {
-        result := ComCall(46, this, "ptr", pIsVisible, "HRESULT")
-        return result
+    get_IsVisibleOnAppList() {
+        result := ComCall(46, this, "int*", &pIsVisible := 0, "HRESULT")
+        return pIsVisible
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsInboxApp 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsInboxApp(pIsInboxApp) {
-        result := ComCall(47, this, "ptr", pIsInboxApp, "HRESULT")
-        return result
+    get_IsInboxApp() {
+        result := ComCall(47, this, "int*", &pIsInboxApp := 0, "HRESULT")
+        return pIsInboxApp
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pStorageID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_StorageID(pStorageID) {
+    get_StorageID() {
+        pStorageID := Guid()
         result := ComCall(48, this, "ptr", pStorageID, "HRESULT")
-        return result
+        return pStorageID
     }
 
     /**
@@ -518,64 +482,57 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsMovable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsMovable(pIsMovable) {
-        result := ComCall(50, this, "ptr", pIsMovable, "HRESULT")
-        return result
+    get_IsMovable() {
+        result := ComCall(50, this, "int*", &pIsMovable := 0, "HRESULT")
+        return pIsMovable
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} HubType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DeploymentAppEnumerationHubFilter(HubType) {
-        HubTypeMarshal := HubType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(51, this, HubTypeMarshal, HubType, "HRESULT")
-        return result
+    get_DeploymentAppEnumerationHubFilter() {
+        result := ComCall(51, this, "int*", &HubType := 0, "HRESULT")
+        return HubType
     }
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pModifiedDate 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      */
-    get_ModifiedDate(pModifiedDate) {
+    get_ModifiedDate() {
+        pModifiedDate := FILETIME()
         result := ComCall(52, this, "ptr", pModifiedDate, "HRESULT")
-        return result
+        return pModifiedDate
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsRestored 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsOriginallyRestored(pIsRestored) {
-        result := ComCall(53, this, "ptr", pIsRestored, "HRESULT")
-        return result
+    get_IsOriginallyRestored() {
+        result := ComCall(53, this, "int*", &pIsRestored := 0, "HRESULT")
+        return pIsRestored
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfDeferMdilBind 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_ShouldDeferMdilBind(pfDeferMdilBind) {
-        result := ComCall(54, this, "ptr", pfDeferMdilBind, "HRESULT")
-        return result
+    get_ShouldDeferMdilBind() {
+        result := ComCall(54, this, "int*", &pfDeferMdilBind := 0, "HRESULT")
+        return pfDeferMdilBind
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsFullyPreInstall 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsFullyPreInstall(pfIsFullyPreInstall) {
-        result := ComCall(55, this, "ptr", pfIsFullyPreInstall, "HRESULT")
-        return result
+    get_IsFullyPreInstall() {
+        result := ComCall(55, this, "int*", &pfIsFullyPreInstall := 0, "HRESULT")
+        return pfIsFullyPreInstall
     }
 
     /**

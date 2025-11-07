@@ -37,13 +37,12 @@ class IMSVidPlayback extends IMSVidInputDevice{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_enableresetonstop
      */
-    get_EnableResetOnStop(pVal) {
-        result := ComCall(18, this, "ptr", pVal, "HRESULT")
-        return result
+    get_EnableResetOnStop() {
+        result := ComCall(18, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -90,13 +89,12 @@ class IMSVidPlayback extends IMSVidInputDevice{
     /**
      * 
      * @param {VARIANT_BOOL} fBackwards 
-     * @param {Pointer<VARIANT_BOOL>} pfCan 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_canstep
      */
-    get_CanStep(fBackwards, pfCan) {
-        result := ComCall(23, this, "short", fBackwards, "ptr", pfCan, "HRESULT")
-        return result
+    get_CanStep(fBackwards) {
+        result := ComCall(23, this, "short", fBackwards, "short*", &pfCan := 0, "HRESULT")
+        return pfCan
     }
 
     /**
@@ -123,15 +121,12 @@ class IMSVidPlayback extends IMSVidInputDevice{
 
     /**
      * 
-     * @param {Pointer<Float>} plRate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_rate
      */
-    get_Rate(plRate) {
-        plRateMarshal := plRate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(26, this, plRateMarshal, plRate, "HRESULT")
-        return result
+    get_Rate() {
+        result := ComCall(26, this, "double*", &plRate := 0, "HRESULT")
+        return plRate
     }
 
     /**
@@ -147,15 +142,12 @@ class IMSVidPlayback extends IMSVidInputDevice{
 
     /**
      * 
-     * @param {Pointer<Integer>} lPosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_currentposition
      */
-    get_CurrentPosition(lPosition) {
-        lPositionMarshal := lPosition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, lPositionMarshal, lPosition, "HRESULT")
-        return result
+    get_CurrentPosition() {
+        result := ComCall(28, this, "int*", &lPosition := 0, "HRESULT")
+        return lPosition
     }
 
     /**
@@ -171,27 +163,21 @@ class IMSVidPlayback extends IMSVidInputDevice{
 
     /**
      * 
-     * @param {Pointer<Integer>} lPositionMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_positionmode
      */
-    get_PositionMode(lPositionMode) {
-        lPositionModeMarshal := lPositionMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, lPositionModeMarshal, lPositionMode, "HRESULT")
-        return result
+    get_PositionMode() {
+        result := ComCall(30, this, "int*", &lPositionMode := 0, "HRESULT")
+        return lPositionMode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_length
      */
-    get_Length(lLength) {
-        lLengthMarshal := lLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, lLengthMarshal, lLength, "HRESULT")
-        return result
+    get_Length() {
+        result := ComCall(31, this, "int*", &lLength := 0, "HRESULT")
+        return lLength
     }
 }

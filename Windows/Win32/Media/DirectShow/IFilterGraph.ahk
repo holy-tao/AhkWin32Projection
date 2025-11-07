@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumFilters.ahk
+#Include .\IBaseFilter.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -57,27 +59,25 @@ class IFilterGraph extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumFilters>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumFilters} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltergraph-enumfilters
      */
-    EnumFilters(ppEnum) {
-        result := ComCall(5, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumFilters() {
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumFilters(ppEnum)
     }
 
     /**
      * 
      * @param {PWSTR} pName 
-     * @param {Pointer<IBaseFilter>} ppFilter 
-     * @returns {HRESULT} 
+     * @returns {IBaseFilter} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltergraph-findfilterbyname
      */
-    FindFilterByName(pName, ppFilter) {
+    FindFilterByName(pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(6, this, "ptr", pName, "ptr*", ppFilter, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pName, "ptr*", &ppFilter := 0, "HRESULT")
+        return IBaseFilter(ppFilter)
     }
 
     /**

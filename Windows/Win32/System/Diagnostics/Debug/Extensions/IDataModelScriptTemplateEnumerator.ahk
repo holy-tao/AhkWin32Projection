@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDataModelScriptTemplate.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -39,11 +40,10 @@ class IDataModelScriptTemplateEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDataModelScriptTemplate>} templateContent 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptTemplate} 
      */
-    GetNext(templateContent) {
-        result := ComCall(4, this, "ptr*", templateContent, "HRESULT")
-        return result
+    GetNext() {
+        result := ComCall(4, this, "ptr*", &templateContent := 0, "HRESULT")
+        return IDataModelScriptTemplate(templateContent)
     }
 }

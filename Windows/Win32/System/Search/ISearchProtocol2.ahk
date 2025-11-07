@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUrlAccessor.ahk
 #Include .\ISearchProtocol.ahk
 
 /**
@@ -37,14 +38,13 @@ class ISearchProtocol2 extends ISearchProtocol{
      * @param {Pointer<INCREMENTAL_ACCESS_INFO>} pIncrementalAccessInfo 
      * @param {Pointer<ITEM_INFO>} pItemInfo 
      * @param {Pointer<BLOB>} pUserData 
-     * @param {Pointer<IUrlAccessor>} ppAccessor 
-     * @returns {HRESULT} 
+     * @returns {IUrlAccessor} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchprotocol2-createaccessorex
      */
-    CreateAccessorEx(pcwszURL, pAuthenticationInfo, pIncrementalAccessInfo, pItemInfo, pUserData, ppAccessor) {
+    CreateAccessorEx(pcwszURL, pAuthenticationInfo, pIncrementalAccessInfo, pItemInfo, pUserData) {
         pcwszURL := pcwszURL is String ? StrPtr(pcwszURL) : pcwszURL
 
-        result := ComCall(7, this, "ptr", pcwszURL, "ptr", pAuthenticationInfo, "ptr", pIncrementalAccessInfo, "ptr", pItemInfo, "ptr", pUserData, "ptr*", ppAccessor, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pcwszURL, "ptr", pAuthenticationInfo, "ptr", pIncrementalAccessInfo, "ptr", pItemInfo, "ptr", pUserData, "ptr*", &ppAccessor := 0, "HRESULT")
+        return IUrlAccessor(ppAccessor)
     }
 }

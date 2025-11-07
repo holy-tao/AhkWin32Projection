@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -51,15 +53,13 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
-     * @param {Pointer<HWND>} phwndProgressDialog 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * If the function succeeds, the return value is a window handle. If no window exists with the specified relationship to the specified window, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {HWND} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindow
      */
-    GetWindow(phwndProgressDialog) {
+    GetWindow() {
+        phwndProgressDialog := HWND()
         result := ComCall(4, this, "ptr", phwndProgressDialog, "HRESULT")
-        return result
+        return phwndProgressDialog
     }
 
     /**
@@ -139,13 +139,12 @@ class IPhotoProgressDialog extends IUnknown{
     /**
      * 
      * @param {Integer} nCheckboxId 
-     * @param {Pointer<BOOL>} pfChecked 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-ischeckboxchecked
      */
-    IsCheckboxChecked(nCheckboxId, pfChecked) {
-        result := ComCall(11, this, "int", nCheckboxId, "ptr", pfChecked, "HRESULT")
-        return result
+    IsCheckboxChecked(nCheckboxId) {
+        result := ComCall(11, this, "int", nCheckboxId, "int*", &pfChecked := 0, "HRESULT")
+        return pfChecked
     }
 
     /**
@@ -235,26 +234,25 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCancelled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-iscancelled
      */
-    IsCancelled(pfCancelled) {
-        result := ComCall(19, this, "ptr", pfCancelled, "HRESULT")
-        return result
+    IsCancelled() {
+        result := ComCall(19, this, "int*", &pfCancelled := 0, "HRESULT")
+        return pfCancelled
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riidType 
      * @param {IUnknown} pUnknown 
-     * @param {Pointer<PROPVARIANT>} pPropVarResult 
      * @param {Pointer<PROPVARIANT>} pPropVarDefault 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-getuserinput
      */
-    GetUserInput(riidType, pUnknown, pPropVarResult, pPropVarDefault) {
+    GetUserInput(riidType, pUnknown, pPropVarDefault) {
+        pPropVarResult := PROPVARIANT()
         result := ComCall(20, this, "ptr", riidType, "ptr", pUnknown, "ptr", pPropVarResult, "ptr", pPropVarDefault, "HRESULT")
-        return result
+        return pPropVarResult
     }
 }

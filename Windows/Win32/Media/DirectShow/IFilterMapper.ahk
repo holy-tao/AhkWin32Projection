@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumRegFilters.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -49,15 +50,15 @@ class IFilterMapper extends IUnknown{
      * 
      * @param {Guid} clsid 
      * @param {PWSTR} Name 
-     * @param {Pointer<Guid>} MRId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-registerfilterinstance
      */
-    RegisterFilterInstance(clsid, Name, MRId) {
+    RegisterFilterInstance(clsid, Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
+        MRId := Guid()
         result := ComCall(4, this, "ptr", clsid, "ptr", Name, "ptr", MRId, "HRESULT")
-        return result
+        return MRId
     }
 
     /**
@@ -135,7 +136,6 @@ class IFilterMapper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumRegFilters>} ppEnum 
      * @param {Integer} dwMerit 
      * @param {BOOL} bInputNeeded 
      * @param {Guid} clsInMaj 
@@ -144,11 +144,11 @@ class IFilterMapper extends IUnknown{
      * @param {BOOL} bOututNeeded 
      * @param {Guid} clsOutMaj 
      * @param {Guid} clsOutSub 
-     * @returns {HRESULT} 
+     * @returns {IEnumRegFilters} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-enummatchingfilters
      */
-    EnumMatchingFilters(ppEnum, dwMerit, bInputNeeded, clsInMaj, clsInSub, bRender, bOututNeeded, clsOutMaj, clsOutSub) {
-        result := ComCall(10, this, "ptr*", ppEnum, "uint", dwMerit, "int", bInputNeeded, "ptr", clsInMaj, "ptr", clsInSub, "int", bRender, "int", bOututNeeded, "ptr", clsOutMaj, "ptr", clsOutSub, "HRESULT")
-        return result
+    EnumMatchingFilters(dwMerit, bInputNeeded, clsInMaj, clsInSub, bRender, bOututNeeded, clsOutMaj, clsOutSub) {
+        result := ComCall(10, this, "ptr*", &ppEnum := 0, "uint", dwMerit, "int", bInputNeeded, "ptr", clsInMaj, "ptr", clsInSub, "int", bRender, "int", bOututNeeded, "ptr", clsOutMaj, "ptr", clsOutSub, "HRESULT")
+        return IEnumRegFilters(ppEnum)
     }
 }

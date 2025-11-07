@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPin.ahk
+#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
+#Include .\PIN_INFO.ahk
+#Include .\IEnumMediaTypes.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -66,59 +70,54 @@ class IPin extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPin>} pPin 
-     * @returns {HRESULT} 
+     * @returns {IPin} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-connectedto
      */
-    ConnectedTo(pPin) {
-        result := ComCall(6, this, "ptr*", pPin, "HRESULT")
-        return result
+    ConnectedTo() {
+        result := ComCall(6, this, "ptr*", &pPin := 0, "HRESULT")
+        return IPin(pPin)
     }
 
     /**
      * 
-     * @param {Pointer<AM_MEDIA_TYPE>} pmt 
-     * @returns {HRESULT} 
+     * @returns {AM_MEDIA_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-connectionmediatype
      */
-    ConnectionMediaType(pmt) {
+    ConnectionMediaType() {
+        pmt := AM_MEDIA_TYPE()
         result := ComCall(7, this, "ptr", pmt, "HRESULT")
-        return result
+        return pmt
     }
 
     /**
      * 
-     * @param {Pointer<PIN_INFO>} pInfo 
-     * @returns {HRESULT} 
+     * @returns {PIN_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-querypininfo
      */
-    QueryPinInfo(pInfo) {
+    QueryPinInfo() {
+        pInfo := PIN_INFO()
         result := ComCall(8, this, "ptr", pInfo, "HRESULT")
-        return result
+        return pInfo
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pPinDir 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-querydirection
      */
-    QueryDirection(pPinDir) {
-        pPinDirMarshal := pPinDir is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pPinDirMarshal, pPinDir, "HRESULT")
-        return result
+    QueryDirection() {
+        result := ComCall(9, this, "int*", &pPinDir := 0, "HRESULT")
+        return pPinDir
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} Id 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-queryid
      */
-    QueryId(Id) {
-        result := ComCall(10, this, "ptr", Id, "HRESULT")
-        return result
+    QueryId() {
+        result := ComCall(10, this, "ptr*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
@@ -134,27 +133,25 @@ class IPin extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumMediaTypes>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumMediaTypes} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-enummediatypes
      */
-    EnumMediaTypes(ppEnum) {
-        result := ComCall(12, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumMediaTypes() {
+        result := ComCall(12, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumMediaTypes(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IPin>} apPin 
      * @param {Pointer<Integer>} nPin 
-     * @returns {HRESULT} 
+     * @returns {IPin} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-queryinternalconnections
      */
-    QueryInternalConnections(apPin, nPin) {
+    QueryInternalConnections(nPin) {
         nPinMarshal := nPin is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr*", apPin, nPinMarshal, nPin, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr*", &apPin := 0, nPinMarshal, nPin, "HRESULT")
+        return IPin(apPin)
     }
 
     /**

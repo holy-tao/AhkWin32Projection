@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWbemPathKeyList.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -64,15 +65,12 @@ class IWbemPath extends IUnknown{
     /**
      * 
      * @param {Integer} uRequestedInfo 
-     * @param {Pointer<Integer>} puResponse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getinfo
      */
-    GetInfo(uRequestedInfo, puResponse) {
-        puResponseMarshal := puResponse is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", uRequestedInfo, puResponseMarshal, puResponse, "HRESULT")
-        return result
+    GetInfo(uRequestedInfo) {
+        result := ComCall(5, this, "uint", uRequestedInfo, "uint*", &puResponse := 0, "HRESULT")
+        return puResponse
     }
 
     /**
@@ -106,15 +104,12 @@ class IWbemPath extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getnamespacecount
      */
-    GetNamespaceCount(puCount) {
-        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, puCountMarshal, puCount, "HRESULT")
-        return result
+    GetNamespaceCount() {
+        result := ComCall(8, this, "uint*", &puCount := 0, "HRESULT")
+        return puCount
     }
 
     /**
@@ -171,15 +166,12 @@ class IWbemPath extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getscopecount
      */
-    GetScopeCount(puCount) {
-        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, puCountMarshal, puCount, "HRESULT")
-        return result
+    GetScopeCount() {
+        result := ComCall(13, this, "uint*", &puCount := 0, "HRESULT")
+        return puCount
     }
 
     /**
@@ -215,17 +207,16 @@ class IWbemPath extends IUnknown{
      * @param {Integer} uIndex 
      * @param {Pointer<Integer>} puClassNameBufSize 
      * @param {PWSTR} pszClass 
-     * @param {Pointer<IWbemPathKeyList>} pKeyList 
-     * @returns {HRESULT} 
+     * @returns {IWbemPathKeyList} 
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getscope
      */
-    GetScope(uIndex, puClassNameBufSize, pszClass, pKeyList) {
+    GetScope(uIndex, puClassNameBufSize, pszClass) {
         pszClass := pszClass is String ? StrPtr(pszClass) : pszClass
 
         puClassNameBufSizeMarshal := puClassNameBufSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", uIndex, puClassNameBufSizeMarshal, puClassNameBufSize, "ptr", pszClass, "ptr*", pKeyList, "HRESULT")
-        return result
+        result := ComCall(16, this, "uint", uIndex, puClassNameBufSizeMarshal, puClassNameBufSize, "ptr", pszClass, "ptr*", &pKeyList := 0, "HRESULT")
+        return IWbemPathKeyList(pKeyList)
     }
 
     /**
@@ -301,13 +292,12 @@ class IWbemPath extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWbemPathKeyList>} pOut 
-     * @returns {HRESULT} 
+     * @returns {IWbemPathKeyList} 
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getkeylist
      */
-    GetKeyList(pOut) {
-        result := ComCall(22, this, "ptr*", pOut, "HRESULT")
-        return result
+    GetKeyList() {
+        result := ComCall(22, this, "ptr*", &pOut := 0, "HRESULT")
+        return IWbemPathKeyList(pOut)
     }
 
     /**

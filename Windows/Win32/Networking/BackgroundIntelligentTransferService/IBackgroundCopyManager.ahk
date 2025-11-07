@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IBackgroundCopyJob.ahk
+#Include .\IEnumBackgroundCopyJobs.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -60,37 +62,34 @@ class IBackgroundCopyManager extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} jobID 
-     * @param {Pointer<IBackgroundCopyJob>} ppJob 
-     * @returns {HRESULT} 
+     * @returns {IBackgroundCopyJob} 
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopymanager-getjob
      */
-    GetJob(jobID, ppJob) {
-        result := ComCall(4, this, "ptr", jobID, "ptr*", ppJob, "HRESULT")
-        return result
+    GetJob(jobID) {
+        result := ComCall(4, this, "ptr", jobID, "ptr*", &ppJob := 0, "HRESULT")
+        return IBackgroundCopyJob(ppJob)
     }
 
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IEnumBackgroundCopyJobs>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumBackgroundCopyJobs} 
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopymanager-enumjobs
      */
-    EnumJobs(dwFlags, ppEnum) {
-        result := ComCall(5, this, "uint", dwFlags, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumJobs(dwFlags) {
+        result := ComCall(5, this, "uint", dwFlags, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumBackgroundCopyJobs(ppEnum)
     }
 
     /**
      * 
      * @param {HRESULT} hResult 
      * @param {Integer} LanguageId 
-     * @param {Pointer<PWSTR>} pErrorDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopymanager-geterrordescription
      */
-    GetErrorDescription(hResult, LanguageId, pErrorDescription) {
-        result := ComCall(6, this, "int", hResult, "uint", LanguageId, "ptr", pErrorDescription, "HRESULT")
-        return result
+    GetErrorDescription(hResult, LanguageId) {
+        result := ComCall(6, this, "int", hResult, "uint", LanguageId, "ptr*", &pErrorDescription := 0, "HRESULT")
+        return pErrorDescription
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IUpdateServiceManager2.ahk
+#Include .\IUpdateHistoryEntryCollection.ahk
 #Include .\IUpdateSession2.ahk
 
 /**
@@ -33,13 +35,12 @@ class IUpdateSession3 extends IUpdateSession2{
 
     /**
      * 
-     * @param {Pointer<IUpdateServiceManager2>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateServiceManager2} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession3-createupdateservicemanager
      */
-    CreateUpdateServiceManager(retval) {
-        result := ComCall(17, this, "ptr*", retval, "HRESULT")
-        return result
+    CreateUpdateServiceManager() {
+        result := ComCall(17, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateServiceManager2(retval)
     }
 
     /**
@@ -47,14 +48,13 @@ class IUpdateSession3 extends IUpdateSession2{
      * @param {BSTR} criteria 
      * @param {Integer} startIndex 
      * @param {Integer} count 
-     * @param {Pointer<IUpdateHistoryEntryCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateHistoryEntryCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession3-queryhistory
      */
-    QueryHistory(criteria, startIndex, count, retval) {
+    QueryHistory(criteria, startIndex, count) {
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria
 
-        result := ComCall(18, this, "ptr", criteria, "int", startIndex, "int", count, "ptr*", retval, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", criteria, "int", startIndex, "int", count, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateHistoryEntryCollection(retval)
     }
 }

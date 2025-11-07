@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,38 +33,31 @@ class ITCallInfoChangeEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITCallInfo>} ppCall 
-     * @returns {HRESULT} 
+     * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfochangeevent-get_call
      */
-    get_Call(ppCall) {
-        result := ComCall(7, this, "ptr*", ppCall, "HRESULT")
-        return result
+    get_Call() {
+        result := ComCall(7, this, "ptr*", &ppCall := 0, "HRESULT")
+        return ITCallInfo(ppCall)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCIC 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfochangeevent-get_cause
      */
-    get_Cause(pCIC) {
-        pCICMarshal := pCIC is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pCICMarshal, pCIC, "HRESULT")
-        return result
+    get_Cause() {
+        result := ComCall(8, this, "int*", &pCIC := 0, "HRESULT")
+        return pCIC
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCallbackInstance 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfochangeevent-get_callbackinstance
      */
-    get_CallbackInstance(plCallbackInstance) {
-        plCallbackInstanceMarshal := plCallbackInstance is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCallbackInstanceMarshal, plCallbackInstance, "HRESULT")
-        return result
+    get_CallbackInstance() {
+        result := ComCall(9, this, "int*", &plCallbackInstance := 0, "HRESULT")
+        return plCallbackInstance
     }
 }

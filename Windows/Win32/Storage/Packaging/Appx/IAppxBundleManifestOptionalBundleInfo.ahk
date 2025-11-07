@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxManifestPackageId.ahk
+#Include .\IAppxBundleManifestPackageInfoEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,65 +34,31 @@ class IAppxBundleManifestOptionalBundleInfo extends IUnknown{
 
     /**
      * Gets the package identifier (ID) for the specified process.
-     * @param {Pointer<IAppxManifestPackageId>} packageId 
-     * @returns {HRESULT} Type: <b>LONG</b>
-     * 
-     * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>APPMODEL_ERROR_NO_PACKAGE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The process has no package identity.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer is not large enough to hold the data. The required size is specified  by <i>bufferLength</i>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IAppxManifestPackageId} 
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageid
      */
-    GetPackageId(packageId) {
-        result := ComCall(3, this, "ptr*", packageId, "HRESULT")
-        return result
+    GetPackageId() {
+        result := ComCall(3, this, "ptr*", &packageId := 0, "HRESULT")
+        return IAppxManifestPackageId(packageId)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} fileName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfo-getfilename
      */
-    GetFileName(fileName) {
-        result := ComCall(4, this, "ptr", fileName, "HRESULT")
-        return result
+    GetFileName() {
+        result := ComCall(4, this, "ptr*", &fileName := 0, "HRESULT")
+        return fileName
     }
 
     /**
      * 
-     * @param {Pointer<IAppxBundleManifestPackageInfoEnumerator>} packageInfoItems 
-     * @returns {HRESULT} 
+     * @returns {IAppxBundleManifestPackageInfoEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfo-getpackageinfoitems
      */
-    GetPackageInfoItems(packageInfoItems) {
-        result := ComCall(5, this, "ptr*", packageInfoItems, "HRESULT")
-        return result
+    GetPackageInfoItems() {
+        result := ComCall(5, this, "ptr*", &packageInfoItems := 0, "HRESULT")
+        return IAppxBundleManifestPackageInfoEnumerator(packageInfoItems)
     }
 }

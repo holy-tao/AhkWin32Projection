@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMProfile.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,39 +34,36 @@ class IWMProfileManager extends IUnknown{
     /**
      * 
      * @param {Integer} dwVersion 
-     * @param {Pointer<IWMProfile>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IWMProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanager-createemptyprofile
      */
-    CreateEmptyProfile(dwVersion, ppProfile) {
-        result := ComCall(3, this, "int", dwVersion, "ptr*", ppProfile, "HRESULT")
-        return result
+    CreateEmptyProfile(dwVersion) {
+        result := ComCall(3, this, "int", dwVersion, "ptr*", &ppProfile := 0, "HRESULT")
+        return IWMProfile(ppProfile)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidProfile 
-     * @param {Pointer<IWMProfile>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IWMProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanager-loadprofilebyid
      */
-    LoadProfileByID(guidProfile, ppProfile) {
-        result := ComCall(4, this, "ptr", guidProfile, "ptr*", ppProfile, "HRESULT")
-        return result
+    LoadProfileByID(guidProfile) {
+        result := ComCall(4, this, "ptr", guidProfile, "ptr*", &ppProfile := 0, "HRESULT")
+        return IWMProfile(ppProfile)
     }
 
     /**
      * 
      * @param {PWSTR} pwszProfile 
-     * @param {Pointer<IWMProfile>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IWMProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanager-loadprofilebydata
      */
-    LoadProfileByData(pwszProfile, ppProfile) {
+    LoadProfileByData(pwszProfile) {
         pwszProfile := pwszProfile is String ? StrPtr(pwszProfile) : pwszProfile
 
-        result := ComCall(5, this, "ptr", pwszProfile, "ptr*", ppProfile, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pwszProfile, "ptr*", &ppProfile := 0, "HRESULT")
+        return IWMProfile(ppProfile)
     }
 
     /**
@@ -87,26 +85,22 @@ class IWMProfileManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcProfiles 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanager-getsystemprofilecount
      */
-    GetSystemProfileCount(pcProfiles) {
-        pcProfilesMarshal := pcProfiles is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pcProfilesMarshal, pcProfiles, "HRESULT")
-        return result
+    GetSystemProfileCount() {
+        result := ComCall(7, this, "uint*", &pcProfiles := 0, "HRESULT")
+        return pcProfiles
     }
 
     /**
      * 
      * @param {Integer} dwProfileIndex 
-     * @param {Pointer<IWMProfile>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IWMProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanager-loadsystemprofile
      */
-    LoadSystemProfile(dwProfileIndex, ppProfile) {
-        result := ComCall(8, this, "uint", dwProfileIndex, "ptr*", ppProfile, "HRESULT")
-        return result
+    LoadSystemProfile(dwProfileIndex) {
+        result := ComCall(8, this, "uint", dwProfileIndex, "ptr*", &ppProfile := 0, "HRESULT")
+        return IWMProfile(ppProfile)
     }
 }

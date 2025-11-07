@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMSMQQueueInfos.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -45,11 +46,10 @@ class IMSMQQuery extends IDispatch{
      * @param {Pointer<VARIANT>} RelLabel 
      * @param {Pointer<VARIANT>} RelCreateTime 
      * @param {Pointer<VARIANT>} RelModifyTime 
-     * @param {Pointer<IMSMQQueueInfos>} ppqinfos 
-     * @returns {HRESULT} 
+     * @returns {IMSMQQueueInfos} 
      */
-    LookupQueue(QueueGuid, ServiceTypeGuid, Label, CreateTime, ModifyTime, RelServiceType, RelLabel, RelCreateTime, RelModifyTime, ppqinfos) {
-        result := ComCall(7, this, "ptr", QueueGuid, "ptr", ServiceTypeGuid, "ptr", Label, "ptr", CreateTime, "ptr", ModifyTime, "ptr", RelServiceType, "ptr", RelLabel, "ptr", RelCreateTime, "ptr", RelModifyTime, "ptr*", ppqinfos, "HRESULT")
-        return result
+    LookupQueue(QueueGuid, ServiceTypeGuid, Label, CreateTime, ModifyTime, RelServiceType, RelLabel, RelCreateTime, RelModifyTime) {
+        result := ComCall(7, this, "ptr", QueueGuid, "ptr", ServiceTypeGuid, "ptr", Label, "ptr", CreateTime, "ptr", ModifyTime, "ptr", RelServiceType, "ptr", RelLabel, "ptr", RelCreateTime, "ptr", RelModifyTime, "ptr*", &ppqinfos := 0, "HRESULT")
+        return IMSMQQueueInfos(ppqinfos)
     }
 }

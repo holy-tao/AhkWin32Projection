@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1DeviceContext2.ahk
+#Include ..\Dxgi\IDXGIDevice.ahk
 #Include .\ID2D1Device1.ahk
 
 /**
@@ -33,13 +35,12 @@ class ID2D1Device2 extends ID2D1Device1{
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<ID2D1DeviceContext2>} deviceContext2 
-     * @returns {HRESULT} 
+     * @returns {ID2D1DeviceContext2} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1device2-createdevicecontext
      */
-    CreateDeviceContext(options, deviceContext2) {
-        result := ComCall(12, this, "int", options, "ptr*", deviceContext2, "HRESULT")
-        return result
+    CreateDeviceContext(options) {
+        result := ComCall(12, this, "int", options, "ptr*", &deviceContext2 := 0, "HRESULT")
+        return ID2D1DeviceContext2(deviceContext2)
     }
 
     /**
@@ -54,12 +55,11 @@ class ID2D1Device2 extends ID2D1Device1{
 
     /**
      * 
-     * @param {Pointer<IDXGIDevice>} dxgiDevice 
-     * @returns {HRESULT} 
+     * @returns {IDXGIDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1device2-getdxgidevice
      */
-    GetDxgiDevice(dxgiDevice) {
-        result := ComCall(14, this, "ptr*", dxgiDevice, "HRESULT")
-        return result
+    GetDxgiDevice() {
+        result := ComCall(14, this, "ptr*", &dxgiDevice := 0, "HRESULT")
+        return IDXGIDevice(dxgiDevice)
     }
 }

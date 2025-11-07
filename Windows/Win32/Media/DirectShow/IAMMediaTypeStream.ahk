@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
+#Include .\IAMMediaTypeSample.ahk
+#Include .\ALLOCATOR_PROPERTIES.ahk
 #Include .\IMediaStream.ahk
 
 /**
@@ -32,14 +35,14 @@ class IAMMediaTypeStream extends IMediaStream{
 
     /**
      * 
-     * @param {Pointer<AM_MEDIA_TYPE>} pMediaType 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {AM_MEDIA_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypestream-getformat
      */
-    GetFormat(pMediaType, dwFlags) {
+    GetFormat(dwFlags) {
+        pMediaType := AM_MEDIA_TYPE()
         result := ComCall(9, this, "ptr", pMediaType, "uint", dwFlags, "HRESULT")
-        return result
+        return pMediaType
     }
 
     /**
@@ -60,26 +63,25 @@ class IAMMediaTypeStream extends IMediaStream{
      * @param {Pointer<Integer>} pbBuffer 
      * @param {Integer} dwFlags 
      * @param {IUnknown} pUnkOuter 
-     * @param {Pointer<IAMMediaTypeSample>} ppAMMediaTypeSample 
-     * @returns {HRESULT} 
+     * @returns {IAMMediaTypeSample} 
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypestream-createsample
      */
-    CreateSample(lSampleSize, pbBuffer, dwFlags, pUnkOuter, ppAMMediaTypeSample) {
+    CreateSample(lSampleSize, pbBuffer, dwFlags, pUnkOuter) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(11, this, "int", lSampleSize, pbBufferMarshal, pbBuffer, "uint", dwFlags, "ptr", pUnkOuter, "ptr*", ppAMMediaTypeSample, "HRESULT")
-        return result
+        result := ComCall(11, this, "int", lSampleSize, pbBufferMarshal, pbBuffer, "uint", dwFlags, "ptr", pUnkOuter, "ptr*", &ppAMMediaTypeSample := 0, "HRESULT")
+        return IAMMediaTypeSample(ppAMMediaTypeSample)
     }
 
     /**
      * 
-     * @param {Pointer<ALLOCATOR_PROPERTIES>} pProps 
-     * @returns {HRESULT} 
+     * @returns {ALLOCATOR_PROPERTIES} 
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypestream-getstreamallocatorrequirements
      */
-    GetStreamAllocatorRequirements(pProps) {
+    GetStreamAllocatorRequirements() {
+        pProps := ALLOCATOR_PROPERTIES()
         result := ComCall(12, this, "ptr", pProps, "HRESULT")
-        return result
+        return pProps
     }
 
     /**

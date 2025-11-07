@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDirectSoundCaptureBuffer.ahk
+#Include .\DSCCAPS.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,23 +33,22 @@ class IDirectSoundCapture extends IUnknown{
     /**
      * 
      * @param {Pointer<DSCBUFFERDESC>} pcDSCBufferDesc 
-     * @param {Pointer<IDirectSoundCaptureBuffer>} ppDSCBuffer 
      * @param {IUnknown} pUnkOuter 
-     * @returns {HRESULT} 
+     * @returns {IDirectSoundCaptureBuffer} 
      */
-    CreateCaptureBuffer(pcDSCBufferDesc, ppDSCBuffer, pUnkOuter) {
-        result := ComCall(3, this, "ptr", pcDSCBufferDesc, "ptr*", ppDSCBuffer, "ptr", pUnkOuter, "HRESULT")
-        return result
+    CreateCaptureBuffer(pcDSCBufferDesc, pUnkOuter) {
+        result := ComCall(3, this, "ptr", pcDSCBufferDesc, "ptr*", &ppDSCBuffer := 0, "ptr", pUnkOuter, "HRESULT")
+        return IDirectSoundCaptureBuffer(ppDSCBuffer)
     }
 
     /**
      * 
-     * @param {Pointer<DSCCAPS>} pDSCCaps 
-     * @returns {HRESULT} 
+     * @returns {DSCCAPS} 
      */
-    GetCaps(pDSCCaps) {
+    GetCaps() {
+        pDSCCaps := DSCCAPS()
         result := ComCall(4, this, "ptr", pDSCCaps, "HRESULT")
-        return result
+        return pDSCCaps
     }
 
     /**

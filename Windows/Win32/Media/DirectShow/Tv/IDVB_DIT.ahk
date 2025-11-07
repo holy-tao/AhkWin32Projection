@@ -53,12 +53,11 @@ class IDVB_DIT extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_dit-gettransitionflag
      */
-    GetTransitionFlag(pfVal) {
-        result := ComCall(4, this, "ptr", pfVal, "HRESULT")
-        return result
+    GetTransitionFlag() {
+        result := ComCall(4, this, "int*", &pfVal := 0, "HRESULT")
+        return pfVal
     }
 }

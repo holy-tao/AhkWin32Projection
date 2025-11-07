@@ -56,12 +56,12 @@ class ICertPropertyFriendlyName extends ICertProperty{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyfriendlyname-get_friendlyname
      */
-    get_FriendlyName(pValue) {
+    get_FriendlyName() {
+        pValue := BSTR()
         result := ComCall(15, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

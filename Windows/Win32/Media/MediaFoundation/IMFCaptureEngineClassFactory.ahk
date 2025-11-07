@@ -41,14 +41,11 @@ class IMFCaptureEngineClassFactory extends IUnknown{
      * 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengineclassfactory-createinstance
      */
-    CreateInstance(clsid, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", clsid, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    CreateInstance(clsid, riid) {
+        result := ComCall(3, this, "ptr", clsid, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 }

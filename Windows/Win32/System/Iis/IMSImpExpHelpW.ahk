@@ -34,17 +34,14 @@ class IMSImpExpHelpW extends IUnknown{
      * @param {PWSTR} pszKeyType 
      * @param {Integer} dwMDBufferSize 
      * @param {PWSTR} pszBuffer 
-     * @param {Pointer<Integer>} pdwMDRequiredBufferSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    EnumeratePathsInFile(pszFileName, pszKeyType, dwMDBufferSize, pszBuffer, pdwMDRequiredBufferSize) {
+    EnumeratePathsInFile(pszFileName, pszKeyType, dwMDBufferSize, pszBuffer) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
         pszKeyType := pszKeyType is String ? StrPtr(pszKeyType) : pszKeyType
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        pdwMDRequiredBufferSizeMarshal := pdwMDRequiredBufferSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pszFileName, "ptr", pszKeyType, "uint", dwMDBufferSize, "ptr", pszBuffer, pdwMDRequiredBufferSizeMarshal, pdwMDRequiredBufferSize, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszFileName, "ptr", pszKeyType, "uint", dwMDBufferSize, "ptr", pszBuffer, "uint*", &pdwMDRequiredBufferSize := 0, "HRESULT")
+        return pdwMDRequiredBufferSize
     }
 }

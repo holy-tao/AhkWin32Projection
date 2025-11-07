@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteColorGlyphRunEnumerator1.ahk
+#Include ..\Direct2D\Common\D2D_POINT_2F.ahk
 #Include .\IDWriteFactory3.ahk
 
 /**
@@ -39,26 +41,25 @@ class IDWriteFactory4 extends IDWriteFactory3{
      * @param {Integer} measuringMode 
      * @param {Pointer<DWRITE_MATRIX>} worldAndDpiTransform 
      * @param {Integer} colorPaletteIndex 
-     * @param {Pointer<IDWriteColorGlyphRunEnumerator1>} colorLayers 
-     * @returns {HRESULT} 
+     * @returns {IDWriteColorGlyphRunEnumerator1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory4-translatecolorglyphrun
      */
-    TranslateColorGlyphRun(baselineOrigin, glyphRun, glyphRunDescription, desiredGlyphImageFormats, measuringMode, worldAndDpiTransform, colorPaletteIndex, colorLayers) {
-        result := ComCall(40, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", glyphRunDescription, "int", desiredGlyphImageFormats, "int", measuringMode, "ptr", worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", colorLayers, "HRESULT")
-        return result
+    TranslateColorGlyphRun(baselineOrigin, glyphRun, glyphRunDescription, desiredGlyphImageFormats, measuringMode, worldAndDpiTransform, colorPaletteIndex) {
+        result := ComCall(40, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", glyphRunDescription, "int", desiredGlyphImageFormats, "int", measuringMode, "ptr", worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
+        return IDWriteColorGlyphRunEnumerator1(colorLayers)
     }
 
     /**
      * 
      * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun 
      * @param {D2D_POINT_2F} baselineOrigin 
-     * @param {Pointer<D2D_POINT_2F>} glyphOrigins 
-     * @returns {HRESULT} 
+     * @returns {D2D_POINT_2F} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory4-computeglyphorigins(dwrite_glyph_runconst_dwrite_measuring_mode_d2d1_point_2f_dwrite_matrixconst_d2d1_point_2f)
      */
-    ComputeGlyphOrigins(glyphRun, baselineOrigin, glyphOrigins) {
+    ComputeGlyphOrigins(glyphRun, baselineOrigin) {
+        glyphOrigins := D2D_POINT_2F()
         result := ComCall(41, this, "ptr", glyphRun, "ptr", baselineOrigin, "ptr", glyphOrigins, "HRESULT")
-        return result
+        return glyphOrigins
     }
 
     /**
@@ -67,12 +68,12 @@ class IDWriteFactory4 extends IDWriteFactory3{
      * @param {Integer} measuringMode 
      * @param {D2D_POINT_2F} baselineOrigin 
      * @param {Pointer<DWRITE_MATRIX>} worldAndDpiTransform 
-     * @param {Pointer<D2D_POINT_2F>} glyphOrigins 
-     * @returns {HRESULT} 
+     * @returns {D2D_POINT_2F} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory4-computeglyphorigins(dwrite_glyph_runconst_dwrite_measuring_mode_d2d1_point_2f_dwrite_matrixconst_d2d1_point_2f)
      */
-    ComputeGlyphOrigins1(glyphRun, measuringMode, baselineOrigin, worldAndDpiTransform, glyphOrigins) {
+    ComputeGlyphOrigins1(glyphRun, measuringMode, baselineOrigin, worldAndDpiTransform) {
+        glyphOrigins := D2D_POINT_2F()
         result := ComCall(42, this, "ptr", glyphRun, "int", measuringMode, "ptr", baselineOrigin, "ptr", worldAndDpiTransform, "ptr", glyphOrigins, "HRESULT")
-        return result
+        return glyphOrigins
     }
 }

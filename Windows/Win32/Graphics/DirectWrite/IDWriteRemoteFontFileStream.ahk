@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteAsyncResult.ahk
 #Include .\IDWriteFontFileStream.ahk
 
 /**
@@ -37,31 +38,27 @@ class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
 
     /**
      * 
-     * @param {Pointer<Integer>} localFileSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getlocalfilesize
      */
-    GetLocalFileSize(localFileSize) {
-        localFileSizeMarshal := localFileSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, localFileSizeMarshal, localFileSize, "HRESULT")
-        return result
+    GetLocalFileSize() {
+        result := ComCall(7, this, "uint*", &localFileSize := 0, "HRESULT")
+        return localFileSize
     }
 
     /**
      * 
      * @param {Integer} fileOffset 
      * @param {Integer} fragmentSize 
-     * @param {Pointer<BOOL>} isLocal 
      * @param {Pointer<Integer>} partialSize 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getfilefragmentlocality
      */
-    GetFileFragmentLocality(fileOffset, fragmentSize, isLocal, partialSize) {
+    GetFileFragmentLocality(fileOffset, fragmentSize, partialSize) {
         partialSizeMarshal := partialSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", fileOffset, "uint", fragmentSize, "ptr", isLocal, partialSizeMarshal, partialSize, "HRESULT")
-        return result
+        result := ComCall(8, this, "uint", fileOffset, "uint", fragmentSize, "int*", &isLocal := 0, partialSizeMarshal, partialSize, "HRESULT")
+        return isLocal
     }
 
     /**
@@ -79,12 +76,11 @@ class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
      * @param {Pointer<Guid>} downloadOperationID 
      * @param {Pointer<DWRITE_FILE_FRAGMENT>} fileFragments 
      * @param {Integer} fragmentCount 
-     * @param {Pointer<IDWriteAsyncResult>} asyncResult 
-     * @returns {HRESULT} 
+     * @returns {IDWriteAsyncResult} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-begindownload
      */
-    BeginDownload(downloadOperationID, fileFragments, fragmentCount, asyncResult) {
-        result := ComCall(10, this, "ptr", downloadOperationID, "ptr", fileFragments, "uint", fragmentCount, "ptr*", asyncResult, "HRESULT")
-        return result
+    BeginDownload(downloadOperationID, fileFragments, fragmentCount) {
+        result := ComCall(10, this, "ptr", downloadOperationID, "ptr", fileFragments, "uint", fragmentCount, "ptr*", &asyncResult := 0, "HRESULT")
+        return IDWriteAsyncResult(asyncResult)
     }
 }

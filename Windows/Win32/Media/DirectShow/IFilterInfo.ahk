@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -32,76 +33,70 @@ class IFilterInfo extends IDispatch{
     /**
      * 
      * @param {BSTR} strPinID 
-     * @param {Pointer<IDispatch>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    FindPin(strPinID, ppUnk) {
+    FindPin(strPinID) {
         strPinID := strPinID is String ? BSTR.Alloc(strPinID).Value : strPinID
 
-        result := ComCall(7, this, "ptr", strPinID, "ptr*", ppUnk, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", strPinID, "ptr*", &ppUnk := 0, "HRESULT")
+        return IDispatch(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} strName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(strName) {
+    get_Name() {
+        strName := BSTR()
         result := ComCall(8, this, "ptr", strName, "HRESULT")
-        return result
+        return strName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} strVendorInfo 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_VendorInfo(strVendorInfo) {
+    get_VendorInfo() {
+        strVendorInfo := BSTR()
         result := ComCall(9, this, "ptr", strVendorInfo, "HRESULT")
-        return result
+        return strVendorInfo
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_Filter(ppUnk) {
-        result := ComCall(10, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_Filter() {
+        result := ComCall(10, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Pins(ppUnk) {
-        result := ComCall(11, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_Pins() {
+        result := ComCall(11, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IDispatch(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbIsSource 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_IsFileSource(pbIsSource) {
-        pbIsSourceMarshal := pbIsSource is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pbIsSourceMarshal, pbIsSource, "HRESULT")
-        return result
+    get_IsFileSource() {
+        result := ComCall(12, this, "int*", &pbIsSource := 0, "HRESULT")
+        return pbIsSource
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrFilename 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Filename(pstrFilename) {
+    get_Filename() {
+        pstrFilename := BSTR()
         result := ComCall(13, this, "ptr", pstrFilename, "HRESULT")
-        return result
+        return pstrFilename
     }
 
     /**

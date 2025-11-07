@@ -33,13 +33,10 @@ class IMMDeviceActivator extends IUnknown{
      * @param {Pointer<Guid>} iid 
      * @param {IMMDevice} pDevice 
      * @param {Pointer<PROPVARIANT>} pActivationParams 
-     * @param {Pointer<Pointer<Void>>} ppInterface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    Activate(iid, pDevice, pActivationParams, ppInterface) {
-        ppInterfaceMarshal := ppInterface is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", iid, "ptr", pDevice, "ptr", pActivationParams, ppInterfaceMarshal, ppInterface, "HRESULT")
-        return result
+    Activate(iid, pDevice, pActivationParams) {
+        result := ComCall(3, this, "ptr", iid, "ptr", pDevice, "ptr", pActivationParams, "ptr*", &ppInterface := 0, "HRESULT")
+        return ppInterface
     }
 }

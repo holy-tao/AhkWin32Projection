@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechWaveFormatEx.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,14 +32,11 @@ class ISpeechAudioFormat extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} AudioFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Type(AudioFormat) {
-        AudioFormatMarshal := AudioFormat is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, AudioFormatMarshal, AudioFormat, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(7, this, "int*", &AudioFormat := 0, "HRESULT")
+        return AudioFormat
     }
 
     /**
@@ -53,12 +51,12 @@ class ISpeechAudioFormat extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Guid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Guid(Guid) {
+    get_Guid() {
+        Guid := BSTR()
         result := ComCall(9, this, "ptr", Guid, "HRESULT")
-        return result
+        return Guid
     }
 
     /**
@@ -75,12 +73,11 @@ class ISpeechAudioFormat extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechWaveFormatEx>} SpeechWaveFormatEx 
-     * @returns {HRESULT} 
+     * @returns {ISpeechWaveFormatEx} 
      */
-    GetWaveFormatEx(SpeechWaveFormatEx) {
-        result := ComCall(11, this, "ptr*", SpeechWaveFormatEx, "HRESULT")
-        return result
+    GetWaveFormatEx() {
+        result := ComCall(11, this, "ptr*", &SpeechWaveFormatEx := 0, "HRESULT")
+        return ISpeechWaveFormatEx(SpeechWaveFormatEx)
     }
 
     /**

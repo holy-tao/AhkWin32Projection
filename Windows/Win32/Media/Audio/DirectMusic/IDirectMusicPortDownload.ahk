@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDirectMusicDownload.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,23 +32,21 @@ class IDirectMusicPortDownload extends IUnknown{
     /**
      * 
      * @param {Integer} dwDLId 
-     * @param {Pointer<IDirectMusicDownload>} ppIDMDownload 
-     * @returns {HRESULT} 
+     * @returns {IDirectMusicDownload} 
      */
-    GetBuffer(dwDLId, ppIDMDownload) {
-        result := ComCall(3, this, "uint", dwDLId, "ptr*", ppIDMDownload, "HRESULT")
-        return result
+    GetBuffer(dwDLId) {
+        result := ComCall(3, this, "uint", dwDLId, "ptr*", &ppIDMDownload := 0, "HRESULT")
+        return IDirectMusicDownload(ppIDMDownload)
     }
 
     /**
      * 
      * @param {Integer} dwSize 
-     * @param {Pointer<IDirectMusicDownload>} ppIDMDownload 
-     * @returns {HRESULT} 
+     * @returns {IDirectMusicDownload} 
      */
-    AllocateBuffer(dwSize, ppIDMDownload) {
-        result := ComCall(4, this, "uint", dwSize, "ptr*", ppIDMDownload, "HRESULT")
-        return result
+    AllocateBuffer(dwSize) {
+        result := ComCall(4, this, "uint", dwSize, "ptr*", &ppIDMDownload := 0, "HRESULT")
+        return IDirectMusicDownload(ppIDMDownload)
     }
 
     /**

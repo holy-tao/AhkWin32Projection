@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMbnSmsConfiguration.ahk
+#Include .\MBN_SMS_STATUS_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,44 +38,37 @@ class IMbnSms extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMbnSmsConfiguration>} smsConfiguration 
-     * @returns {HRESULT} 
+     * @returns {IMbnSmsConfiguration} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-getsmsconfiguration
      */
-    GetSmsConfiguration(smsConfiguration) {
-        result := ComCall(3, this, "ptr*", smsConfiguration, "HRESULT")
-        return result
+    GetSmsConfiguration() {
+        result := ComCall(3, this, "ptr*", &smsConfiguration := 0, "HRESULT")
+        return IMbnSmsConfiguration(smsConfiguration)
     }
 
     /**
      * 
      * @param {IMbnSmsConfiguration} smsConfiguration 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-setsmsconfiguration
      */
-    SetSmsConfiguration(smsConfiguration, requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", smsConfiguration, requestIDMarshal, requestID, "HRESULT")
-        return result
+    SetSmsConfiguration(smsConfiguration) {
+        result := ComCall(4, this, "ptr", smsConfiguration, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
      * @param {PWSTR} pduData 
      * @param {Integer} size 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smssendpdu
      */
-    SmsSendPdu(pduData, size, requestID) {
+    SmsSendPdu(pduData, size) {
         pduData := pduData is String ? StrPtr(pduData) : pduData
 
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pduData, "char", size, requestIDMarshal, requestID, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pduData, "char", size, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
@@ -83,70 +78,58 @@ class IMbnSms extends IUnknown{
      * @param {Integer} language 
      * @param {Integer} sizeInCharacters 
      * @param {Pointer<SAFEARRAY>} message 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smssendcdma
      */
-    SmsSendCdma(address, encoding, language, sizeInCharacters, message, requestID) {
+    SmsSendCdma(address, encoding, language, sizeInCharacters, message) {
         address := address is String ? StrPtr(address) : address
 
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", address, "int", encoding, "int", language, "uint", sizeInCharacters, "ptr", message, requestIDMarshal, requestID, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", address, "int", encoding, "int", language, "uint", sizeInCharacters, "ptr", message, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
      * @param {Pointer<SAFEARRAY>} message 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smssendcdmapdu
      */
-    SmsSendCdmaPdu(message, requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", message, requestIDMarshal, requestID, "HRESULT")
-        return result
+    SmsSendCdmaPdu(message) {
+        result := ComCall(7, this, "ptr", message, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
      * @param {Pointer<MBN_SMS_FILTER>} smsFilter 
      * @param {Integer} smsFormat 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smsread
      */
-    SmsRead(smsFilter, smsFormat, requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "ptr", smsFilter, "int", smsFormat, requestIDMarshal, requestID, "HRESULT")
-        return result
+    SmsRead(smsFilter, smsFormat) {
+        result := ComCall(8, this, "ptr", smsFilter, "int", smsFormat, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
      * @param {Pointer<MBN_SMS_FILTER>} smsFilter 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smsdelete
      */
-    SmsDelete(smsFilter, requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "ptr", smsFilter, requestIDMarshal, requestID, "HRESULT")
-        return result
+    SmsDelete(smsFilter) {
+        result := ComCall(9, this, "ptr", smsFilter, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
-     * @param {Pointer<MBN_SMS_STATUS_INFO>} smsStatusInfo 
-     * @returns {HRESULT} 
+     * @returns {MBN_SMS_STATUS_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-getsmsstatus
      */
-    GetSmsStatus(smsStatusInfo) {
+    GetSmsStatus() {
+        smsStatusInfo := MBN_SMS_STATUS_INFO()
         result := ComCall(10, this, "ptr", smsStatusInfo, "HRESULT")
-        return result
+        return smsStatusInfo
     }
 }

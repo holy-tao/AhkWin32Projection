@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\ITypeInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,26 +41,22 @@ class IPrivateDispatch extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pctinfo 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ADSIGetTypeInfoCount(pctinfo) {
-        pctinfoMarshal := pctinfo is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pctinfoMarshal, pctinfo, "HRESULT")
-        return result
+    ADSIGetTypeInfoCount() {
+        result := ComCall(4, this, "uint*", &pctinfo := 0, "HRESULT")
+        return pctinfo
     }
 
     /**
      * 
      * @param {Integer} itinfo 
      * @param {Integer} lcid 
-     * @param {Pointer<ITypeInfo>} pptinfo 
-     * @returns {HRESULT} 
+     * @returns {ITypeInfo} 
      */
-    ADSIGetTypeInfo(itinfo, lcid, pptinfo) {
-        result := ComCall(5, this, "uint", itinfo, "uint", lcid, "ptr*", pptinfo, "HRESULT")
-        return result
+    ADSIGetTypeInfo(itinfo, lcid) {
+        result := ComCall(5, this, "uint", itinfo, "uint", lcid, "ptr*", &pptinfo := 0, "HRESULT")
+        return ITypeInfo(pptinfo)
     }
 
     /**
@@ -68,15 +65,13 @@ class IPrivateDispatch extends IUnknown{
      * @param {Pointer<Pointer<Integer>>} rgszNames 
      * @param {Integer} cNames 
      * @param {Integer} lcid 
-     * @param {Pointer<Integer>} rgdispid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ADSIGetIDsOfNames(riid, rgszNames, cNames, lcid, rgdispid) {
+    ADSIGetIDsOfNames(riid, rgszNames, cNames, lcid) {
         rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
-        rgdispidMarshal := rgdispid is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, rgdispidMarshal, rgdispid, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgdispid := 0, "HRESULT")
+        return rgdispid
     }
 
     /**

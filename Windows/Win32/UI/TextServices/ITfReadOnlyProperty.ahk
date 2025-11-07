@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTfRanges.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ITfContext.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,49 +40,47 @@ class ITfReadOnlyProperty extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadonlyproperty-gettype
      */
-    GetType(pguid) {
+    GetType() {
+        pguid := Guid()
         result := ComCall(3, this, "ptr", pguid, "HRESULT")
-        return result
+        return pguid
     }
 
     /**
      * 
      * @param {Integer} ec 
-     * @param {Pointer<IEnumTfRanges>} ppEnum 
      * @param {ITfRange} pTargetRange 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfRanges} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadonlyproperty-enumranges
      */
-    EnumRanges(ec, ppEnum, pTargetRange) {
-        result := ComCall(4, this, "uint", ec, "ptr*", ppEnum, "ptr", pTargetRange, "HRESULT")
-        return result
+    EnumRanges(ec, pTargetRange) {
+        result := ComCall(4, this, "uint", ec, "ptr*", &ppEnum := 0, "ptr", pTargetRange, "HRESULT")
+        return IEnumTfRanges(ppEnum)
     }
 
     /**
      * 
      * @param {Integer} ec 
      * @param {ITfRange} pRange 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadonlyproperty-getvalue
      */
-    GetValue(ec, pRange, pvarValue) {
+    GetValue(ec, pRange) {
+        pvarValue := VARIANT()
         result := ComCall(5, this, "uint", ec, "ptr", pRange, "ptr", pvarValue, "HRESULT")
-        return result
+        return pvarValue
     }
 
     /**
      * 
-     * @param {Pointer<ITfContext>} ppContext 
-     * @returns {HRESULT} 
+     * @returns {ITfContext} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadonlyproperty-getcontext
      */
-    GetContext(ppContext) {
-        result := ComCall(6, this, "ptr*", ppContext, "HRESULT")
-        return result
+    GetContext() {
+        result := ComCall(6, this, "ptr*", &ppContext := 0, "HRESULT")
+        return ITfContext(ppContext)
     }
 }

@@ -50,28 +50,24 @@ class IHomeGroup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} member 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihomegroup-ismember
      */
-    IsMember(member) {
-        result := ComCall(3, this, "ptr", member, "HRESULT")
-        return result
+    IsMember() {
+        result := ComCall(3, this, "int*", &member := 0, "HRESULT")
+        return member
     }
 
     /**
      * 
      * @param {HWND} owner 
-     * @param {Pointer<Integer>} sharingchoices 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihomegroup-showsharingwizard
      */
-    ShowSharingWizard(owner, sharingchoices) {
+    ShowSharingWizard(owner) {
         owner := owner is Win32Handle ? NumGet(owner, "ptr") : owner
 
-        sharingchoicesMarshal := sharingchoices is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", owner, sharingchoicesMarshal, sharingchoices, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", owner, "int*", &sharingchoices := 0, "HRESULT")
+        return sharingchoices
     }
 }

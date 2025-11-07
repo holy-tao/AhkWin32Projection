@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IBinding.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IBindProtocol extends IUnknown{
      * 
      * @param {PWSTR} szUrl 
      * @param {IBindCtx} pbc 
-     * @param {Pointer<IBinding>} ppb 
-     * @returns {HRESULT} 
+     * @returns {IBinding} 
      */
-    CreateBinding(szUrl, pbc, ppb) {
+    CreateBinding(szUrl, pbc) {
         szUrl := szUrl is String ? StrPtr(szUrl) : szUrl
 
-        result := ComCall(3, this, "ptr", szUrl, "ptr", pbc, "ptr*", ppb, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", szUrl, "ptr", pbc, "ptr*", &ppb := 0, "HRESULT")
+        return IBinding(ppb)
     }
 }

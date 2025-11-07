@@ -34,15 +34,13 @@ class IKsControl extends IUnknown{
      * @param {Integer} PropertyLength 
      * @param {Pointer<Void>} PropertyData 
      * @param {Integer} DataLength 
-     * @param {Pointer<Integer>} BytesReturned 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    KsProperty(Property, PropertyLength, PropertyData, DataLength, BytesReturned) {
+    KsProperty(Property, PropertyLength, PropertyData, DataLength) {
         PropertyDataMarshal := PropertyData is VarRef ? "ptr" : "ptr"
-        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", Property, "uint", PropertyLength, PropertyDataMarshal, PropertyData, "uint", DataLength, BytesReturnedMarshal, BytesReturned, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", Property, "uint", PropertyLength, PropertyDataMarshal, PropertyData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
+        return BytesReturned
     }
 
     /**
@@ -51,15 +49,13 @@ class IKsControl extends IUnknown{
      * @param {Integer} MethodLength 
      * @param {Pointer<Void>} MethodData 
      * @param {Integer} DataLength 
-     * @param {Pointer<Integer>} BytesReturned 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    KsMethod(Method, MethodLength, MethodData, DataLength, BytesReturned) {
+    KsMethod(Method, MethodLength, MethodData, DataLength) {
         MethodDataMarshal := MethodData is VarRef ? "ptr" : "ptr"
-        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", Method, "uint", MethodLength, MethodDataMarshal, MethodData, "uint", DataLength, BytesReturnedMarshal, BytesReturned, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", Method, "uint", MethodLength, MethodDataMarshal, MethodData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
+        return BytesReturned
     }
 
     /**
@@ -68,14 +64,12 @@ class IKsControl extends IUnknown{
      * @param {Integer} EventLength 
      * @param {Pointer<Void>} EventData 
      * @param {Integer} DataLength 
-     * @param {Pointer<Integer>} BytesReturned 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    KsEvent(Event, EventLength, EventData, DataLength, BytesReturned) {
+    KsEvent(Event, EventLength, EventData, DataLength) {
         EventDataMarshal := EventData is VarRef ? "ptr" : "ptr"
-        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", Event, "uint", EventLength, EventDataMarshal, EventData, "uint", DataLength, BytesReturnedMarshal, BytesReturned, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", Event, "uint", EventLength, EventDataMarshal, EventData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
+        return BytesReturned
     }
 }

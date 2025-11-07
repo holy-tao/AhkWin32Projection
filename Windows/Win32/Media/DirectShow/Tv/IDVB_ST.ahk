@@ -53,27 +53,21 @@ class IDVB_ST extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_st-getdatalength
      */
-    GetDataLength(pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(4, this, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetDataLength() {
+        result := ComCall(4, this, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_st-getdata
      */
-    GetData(ppData) {
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, ppDataMarshal, ppData, "HRESULT")
-        return result
+    GetData() {
+        result := ComCall(5, this, "ptr*", &ppData := 0, "HRESULT")
+        return ppData
     }
 }

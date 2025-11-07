@@ -32,15 +32,12 @@ class IWMStreamConfig2 extends IWMStreamConfig{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnTransportType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-gettransporttype
      */
-    GetTransportType(pnTransportType) {
-        pnTransportTypeMarshal := pnTransportType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pnTransportTypeMarshal, pnTransportType, "HRESULT")
-        return result
+    GetTransportType() {
+        result := ComCall(14, this, "int*", &pnTransportType := 0, "HRESULT")
+        return pnTransportType
     }
 
     /**
@@ -72,15 +69,12 @@ class IWMStreamConfig2 extends IWMStreamConfig{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcDataUnitExtensions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-getdataunitextensioncount
      */
-    GetDataUnitExtensionCount(pcDataUnitExtensions) {
-        pcDataUnitExtensionsMarshal := pcDataUnitExtensions is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(17, this, pcDataUnitExtensionsMarshal, pcDataUnitExtensions, "HRESULT")
-        return result
+    GetDataUnitExtensionCount() {
+        result := ComCall(17, this, "ushort*", &pcDataUnitExtensions := 0, "HRESULT")
+        return pcDataUnitExtensions
     }
 
     /**

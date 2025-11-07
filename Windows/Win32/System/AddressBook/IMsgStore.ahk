@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMAPITable.ahk
 #Include .\IMAPIProp.ahk
 
 /**
@@ -31,15 +32,12 @@ class IMsgStore extends IMAPIProp{
      * @param {Pointer} lpEntryID 
      * @param {Integer} ulEventMask 
      * @param {IMAPIAdviseSink} lpAdviseSink 
-     * @param {Pointer<Integer>} lpulConnection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-advise
      */
-    Advise(cbEntryID, lpEntryID, ulEventMask, lpAdviseSink, lpulConnection) {
-        lpulConnectionMarshal := lpulConnection is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulEventMask, "ptr", lpAdviseSink, lpulConnectionMarshal, lpulConnection, "HRESULT")
-        return result
+    Advise(cbEntryID, lpEntryID, ulEventMask, lpAdviseSink) {
+        result := ComCall(14, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulEventMask, "ptr", lpAdviseSink, "uint*", &lpulConnection := 0, "HRESULT")
+        return lpulConnection
     }
 
     /**
@@ -60,15 +58,12 @@ class IMsgStore extends IMAPIProp{
      * @param {Integer} cbEntryID2 
      * @param {Pointer} lpEntryID2 
      * @param {Integer} ulFlags 
-     * @param {Pointer<Integer>} lpulResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-compareentryids
      */
-    CompareEntryIDs(cbEntryID1, lpEntryID1, cbEntryID2, lpEntryID2, ulFlags, lpulResult) {
-        lpulResultMarshal := lpulResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, "uint", cbEntryID1, "ptr", lpEntryID1, "uint", cbEntryID2, "ptr", lpEntryID2, "uint", ulFlags, lpulResultMarshal, lpulResult, "HRESULT")
-        return result
+    CompareEntryIDs(cbEntryID1, lpEntryID1, cbEntryID2, lpEntryID2, ulFlags) {
+        result := ComCall(16, this, "uint", cbEntryID1, "ptr", lpEntryID1, "uint", cbEntryID2, "ptr", lpEntryID2, "uint", ulFlags, "uint*", &lpulResult := 0, "HRESULT")
+        return lpulResult
     }
 
     /**
@@ -128,13 +123,12 @@ class IMsgStore extends IMAPIProp{
     /**
      * 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IMAPITable>} lppTable 
-     * @returns {HRESULT} 
+     * @returns {IMAPITable} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-getreceivefoldertable
      */
-    GetReceiveFolderTable(ulFlags, lppTable) {
-        result := ComCall(20, this, "uint", ulFlags, "ptr*", lppTable, "HRESULT")
-        return result
+    GetReceiveFolderTable(ulFlags) {
+        result := ComCall(20, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        return IMAPITable(lppTable)
     }
 
     /**
@@ -166,13 +160,12 @@ class IMsgStore extends IMAPIProp{
     /**
      * 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IMAPITable>} lppTable 
-     * @returns {HRESULT} 
+     * @returns {IMAPITable} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-getoutgoingqueue
      */
-    GetOutgoingQueue(ulFlags, lppTable) {
-        result := ComCall(23, this, "uint", ulFlags, "ptr*", lppTable, "HRESULT")
-        return result
+    GetOutgoingQueue(ulFlags) {
+        result := ComCall(23, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        return IMAPITable(lppTable)
     }
 
     /**

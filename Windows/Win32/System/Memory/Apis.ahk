@@ -1642,9 +1642,11 @@ class Memory {
     static QueryMemoryResourceNotification(ResourceNotificationHandle, ResourceState) {
         ResourceNotificationHandle := ResourceNotificationHandle is Win32Handle ? NumGet(ResourceNotificationHandle, "ptr") : ResourceNotificationHandle
 
+        ResourceStateMarshal := ResourceState is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryMemoryResourceNotification", "ptr", ResourceNotificationHandle, "ptr", ResourceState, "int")
+        result := DllCall("KERNEL32.dll\QueryMemoryResourceNotification", "ptr", ResourceNotificationHandle, ResourceStateMarshal, ResourceState, "int")
         if(A_LastError)
             throw OSError()
 

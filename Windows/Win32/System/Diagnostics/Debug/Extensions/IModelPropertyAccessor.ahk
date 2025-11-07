@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IModelObject.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -32,14 +33,13 @@ class IModelPropertyAccessor extends IUnknown{
      * 
      * @param {PWSTR} key 
      * @param {IModelObject} contextObject 
-     * @param {Pointer<IModelObject>} value 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    GetValue(key, contextObject, value) {
+    GetValue(key, contextObject) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(3, this, "ptr", key, "ptr", contextObject, "ptr*", value, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", key, "ptr", contextObject, "ptr*", &value := 0, "HRESULT")
+        return IModelObject(value)
     }
 
     /**

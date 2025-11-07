@@ -90,14 +90,11 @@ class IWMDMMetaData extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} iCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-getitemcount
      */
-    GetItemCount(iCount) {
-        iCountMarshal := iCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, iCountMarshal, iCount, "HRESULT")
-        return result
+    GetItemCount() {
+        result := ComCall(6, this, "uint*", &iCount := 0, "HRESULT")
+        return iCount
     }
 }

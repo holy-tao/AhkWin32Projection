@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -43,12 +44,12 @@ class ITsSbGenericNotifySink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pftTimeout 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbgenericnotifysink-getwaittimeout
      */
-    GetWaitTimeout(pftTimeout) {
+    GetWaitTimeout() {
+        pftTimeout := FILETIME()
         result := ComCall(4, this, "ptr", pftTimeout, "HRESULT")
-        return result
+        return pftTimeout
     }
 }

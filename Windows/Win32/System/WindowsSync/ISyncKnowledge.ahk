@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IReplicaKeyMap.ahk
+#Include .\ISyncKnowledge.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -127,24 +129,22 @@ class ISyncKnowledge extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IReplicaKeyMap>} ppReplicaKeyMap 
-     * @returns {HRESULT} 
+     * @returns {IReplicaKeyMap} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getreplicakeymap
      */
-    GetReplicaKeyMap(ppReplicaKeyMap) {
-        result := ComCall(9, this, "ptr*", ppReplicaKeyMap, "HRESULT")
-        return result
+    GetReplicaKeyMap() {
+        result := ComCall(9, this, "ptr*", &ppReplicaKeyMap := 0, "HRESULT")
+        return IReplicaKeyMap(ppReplicaKeyMap)
     }
 
     /**
      * 
-     * @param {Pointer<ISyncKnowledge>} ppClonedKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-clone
      */
-    Clone(ppClonedKnowledge) {
-        result := ComCall(10, this, "ptr*", ppClonedKnowledge, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(10, this, "ptr*", &ppClonedKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppClonedKnowledge)
     }
 
     /**
@@ -170,13 +170,12 @@ class ISyncKnowledge extends IUnknown{
     /**
      * 
      * @param {ISyncKnowledge} pRemoteKnowledge 
-     * @param {Pointer<ISyncKnowledge>} ppMappedKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-mapremotetolocal
      */
-    MapRemoteToLocal(pRemoteKnowledge, ppMappedKnowledge) {
-        result := ComCall(12, this, "ptr", pRemoteKnowledge, "ptr*", ppMappedKnowledge, "HRESULT")
-        return result
+    MapRemoteToLocal(pRemoteKnowledge) {
+        result := ComCall(12, this, "ptr", pRemoteKnowledge, "ptr*", &ppMappedKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppMappedKnowledge)
     }
 
     /**
@@ -193,43 +192,40 @@ class ISyncKnowledge extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pbItemId 
-     * @param {Pointer<ISyncKnowledge>} ppKnowledgeOut 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-projectontoitem
      */
-    ProjectOntoItem(pbItemId, ppKnowledgeOut) {
+    ProjectOntoItem(pbItemId) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(14, this, pbItemIdMarshal, pbItemId, "ptr*", ppKnowledgeOut, "HRESULT")
-        return result
+        result := ComCall(14, this, pbItemIdMarshal, pbItemId, "ptr*", &ppKnowledgeOut := 0, "HRESULT")
+        return ISyncKnowledge(ppKnowledgeOut)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pbItemId 
      * @param {Pointer<Integer>} pbChangeUnitId 
-     * @param {Pointer<ISyncKnowledge>} ppKnowledgeOut 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-projectontochangeunit
      */
-    ProjectOntoChangeUnit(pbItemId, pbChangeUnitId, ppKnowledgeOut) {
+    ProjectOntoChangeUnit(pbItemId, pbChangeUnitId) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(15, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "ptr*", ppKnowledgeOut, "HRESULT")
-        return result
+        result := ComCall(15, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "ptr*", &ppKnowledgeOut := 0, "HRESULT")
+        return ISyncKnowledge(ppKnowledgeOut)
     }
 
     /**
      * 
      * @param {Pointer<SYNC_RANGE>} psrngSyncRange 
-     * @param {Pointer<ISyncKnowledge>} ppKnowledgeOut 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-projectontorange
      */
-    ProjectOntoRange(psrngSyncRange, ppKnowledgeOut) {
-        result := ComCall(16, this, "ptr", psrngSyncRange, "ptr*", ppKnowledgeOut, "HRESULT")
-        return result
+    ProjectOntoRange(psrngSyncRange) {
+        result := ComCall(16, this, "ptr", psrngSyncRange, "ptr*", &ppKnowledgeOut := 0, "HRESULT")
+        return ISyncKnowledge(ppKnowledgeOut)
     }
 
     /**

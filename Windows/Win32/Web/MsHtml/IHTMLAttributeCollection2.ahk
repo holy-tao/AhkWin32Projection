@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLDOMAttribute.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,37 +33,34 @@ class IHTMLAttributeCollection2 extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IHTMLDOMAttribute>} newretNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute} 
      */
-    getNamedItem(bstrName, newretNode) {
+    getNamedItem(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(7, this, "ptr", bstrName, "ptr*", newretNode, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bstrName, "ptr*", &newretNode := 0, "HRESULT")
+        return IHTMLDOMAttribute(newretNode)
     }
 
     /**
      * 
      * @param {IHTMLDOMAttribute} ppNode 
-     * @param {Pointer<IHTMLDOMAttribute>} newretNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute} 
      */
-    setNamedItem(ppNode, newretNode) {
-        result := ComCall(8, this, "ptr", ppNode, "ptr*", newretNode, "HRESULT")
-        return result
+    setNamedItem(ppNode) {
+        result := ComCall(8, this, "ptr", ppNode, "ptr*", &newretNode := 0, "HRESULT")
+        return IHTMLDOMAttribute(newretNode)
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IHTMLDOMAttribute>} newretNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute} 
      */
-    removeNamedItem(bstrName, newretNode) {
+    removeNamedItem(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(9, this, "ptr", bstrName, "ptr*", newretNode, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrName, "ptr*", &newretNode := 0, "HRESULT")
+        return IHTMLDOMAttribute(newretNode)
     }
 }

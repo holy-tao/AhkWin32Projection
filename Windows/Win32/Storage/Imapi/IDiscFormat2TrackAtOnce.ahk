@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IDiscRecorder2.ahk
 #Include .\IDiscFormat2.ahk
 
 /**
@@ -104,13 +105,12 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
 
     /**
      * 
-     * @param {Pointer<IDiscRecorder2>} value 
-     * @returns {HRESULT} 
+     * @returns {IDiscRecorder2} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_recorder
      */
-    get_Recorder(value) {
-        result := ComCall(18, this, "ptr*", value, "HRESULT")
-        return result
+    get_Recorder() {
+        result := ComCall(18, this, "ptr*", &value := 0, "HRESULT")
+        return IDiscRecorder2(value)
     }
 
     /**
@@ -126,65 +126,52 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_bufferunderrunfreedisabled
      */
-    get_BufferUnderrunFreeDisabled(value) {
-        result := ComCall(20, this, "ptr", value, "HRESULT")
-        return result
+    get_BufferUnderrunFreeDisabled() {
+        result := ComCall(20, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_numberofexistingtracks
      */
-    get_NumberOfExistingTracks(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, valueMarshal, value, "HRESULT")
-        return result
+    get_NumberOfExistingTracks() {
+        result := ComCall(21, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_totalsectorsonmedia
      */
-    get_TotalSectorsOnMedia(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, valueMarshal, value, "HRESULT")
-        return result
+    get_TotalSectorsOnMedia() {
+        result := ComCall(22, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_freesectorsonmedia
      */
-    get_FreeSectorsOnMedia(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, valueMarshal, value, "HRESULT")
-        return result
+    get_FreeSectorsOnMedia() {
+        result := ComCall(23, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_usedsectorsonmedia
      */
-    get_UsedSectorsOnMedia(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, valueMarshal, value, "HRESULT")
-        return result
+    get_UsedSectorsOnMedia() {
+        result := ComCall(24, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -200,39 +187,32 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_donotfinalizemedia
      */
-    get_DoNotFinalizeMedia(value) {
-        result := ComCall(26, this, "ptr", value, "HRESULT")
-        return result
+    get_DoNotFinalizeMedia() {
+        result := ComCall(26, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_expectedtableofcontents
      */
-    get_ExpectedTableOfContents(value) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(27, this, valueMarshal, value, "HRESULT")
-        return result
+    get_ExpectedTableOfContents() {
+        result := ComCall(27, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_currentphysicalmediatype
      */
-    get_CurrentPhysicalMediaType(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, valueMarshal, value, "HRESULT")
-        return result
+    get_CurrentPhysicalMediaType() {
+        result := ComCall(28, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -250,86 +230,72 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_clientname
      */
-    get_ClientName(value) {
+    get_ClientName() {
+        value := BSTR()
         result := ComCall(30, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_requestedwritespeed
      */
-    get_RequestedWriteSpeed(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, valueMarshal, value, "HRESULT")
-        return result
+    get_RequestedWriteSpeed() {
+        result := ComCall(31, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_requestedrotationtypeispurecav
      */
-    get_RequestedRotationTypeIsPureCAV(value) {
-        result := ComCall(32, this, "ptr", value, "HRESULT")
-        return result
+    get_RequestedRotationTypeIsPureCAV() {
+        result := ComCall(32, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_currentwritespeed
      */
-    get_CurrentWriteSpeed(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, valueMarshal, value, "HRESULT")
-        return result
+    get_CurrentWriteSpeed() {
+        result := ComCall(33, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_currentrotationtypeispurecav
      */
-    get_CurrentRotationTypeIsPureCAV(value) {
-        result := ComCall(34, this, "ptr", value, "HRESULT")
-        return result
+    get_CurrentRotationTypeIsPureCAV() {
+        result := ComCall(34, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} supportedSpeeds 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_supportedwritespeeds
      */
-    get_SupportedWriteSpeeds(supportedSpeeds) {
-        supportedSpeedsMarshal := supportedSpeeds is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(35, this, supportedSpeedsMarshal, supportedSpeeds, "HRESULT")
-        return result
+    get_SupportedWriteSpeeds() {
+        result := ComCall(35, this, "ptr*", &supportedSpeeds := 0, "HRESULT")
+        return supportedSpeeds
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} supportedSpeedDescriptors 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_supportedwritespeeddescriptors
      */
-    get_SupportedWriteSpeedDescriptors(supportedSpeedDescriptors) {
-        supportedSpeedDescriptorsMarshal := supportedSpeedDescriptors is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(36, this, supportedSpeedDescriptorsMarshal, supportedSpeedDescriptors, "HRESULT")
-        return result
+    get_SupportedWriteSpeedDescriptors() {
+        result := ComCall(36, this, "ptr*", &supportedSpeedDescriptors := 0, "HRESULT")
+        return supportedSpeedDescriptors
     }
 }

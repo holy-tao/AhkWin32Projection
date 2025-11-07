@@ -72,15 +72,12 @@ class IFileSystemBindData2 extends IFileSystemBindData{
 
     /**
      * 
-     * @param {Pointer<Integer>} pliFileID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-getfileid
      */
-    GetFileID(pliFileID) {
-        pliFileIDMarshal := pliFileID is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(6, this, pliFileIDMarshal, pliFileID, "HRESULT")
-        return result
+    GetFileID() {
+        result := ComCall(6, this, "int64*", &pliFileID := 0, "HRESULT")
+        return pliFileID
     }
 
     /**
@@ -96,12 +93,12 @@ class IFileSystemBindData2 extends IFileSystemBindData{
 
     /**
      * 
-     * @param {Pointer<Guid>} pclsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-getjunctionclsid
      */
-    GetJunctionCLSID(pclsid) {
+    GetJunctionCLSID() {
+        pclsid := Guid()
         result := ComCall(8, this, "ptr", pclsid, "HRESULT")
-        return result
+        return pclsid
     }
 }

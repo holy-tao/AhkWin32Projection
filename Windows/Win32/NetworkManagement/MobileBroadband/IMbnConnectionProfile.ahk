@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,13 +37,13 @@ class IMbnConnectionProfile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} profileData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofile-getprofilexmldata
      */
-    GetProfileXmlData(profileData) {
+    GetProfileXmlData() {
+        profileData := BSTR()
         result := ComCall(3, this, "ptr", profileData, "HRESULT")
-        return result
+        return profileData
     }
 
     /**

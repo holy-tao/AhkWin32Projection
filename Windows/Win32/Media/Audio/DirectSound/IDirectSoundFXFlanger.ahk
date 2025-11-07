@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DSFXFlanger.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,11 +41,11 @@ class IDirectSoundFXFlanger extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DSFXFlanger>} pDsFxFlanger 
-     * @returns {HRESULT} 
+     * @returns {DSFXFlanger} 
      */
-    GetAllParameters(pDsFxFlanger) {
+    GetAllParameters() {
+        pDsFxFlanger := DSFXFlanger()
         result := ComCall(4, this, "ptr", pDsFxFlanger, "HRESULT")
-        return result
+        return pDsFxFlanger
     }
 }

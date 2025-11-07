@@ -36,19 +36,16 @@ class IProtectionPolicyManagerInterop2 extends IInspectable{
      * @param {HSTRING} sourceIdentity 
      * @param {HSTRING} appPackageFamilyName 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop2-requestaccessforappwithwindowasync
      */
-    RequestAccessForAppWithWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, riid, asyncOperation) {
+    RequestAccessForAppWithWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
         appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 
     /**
@@ -58,19 +55,16 @@ class IProtectionPolicyManagerInterop2 extends IInspectable{
      * @param {HSTRING} targetIdentity 
      * @param {IUnknown} auditInfoUnk 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop2-requestaccesswithauditinginfoforwindowasync
      */
-    RequestAccessWithAuditingInfoForWindowAsync(appWindow, sourceIdentity, targetIdentity, auditInfoUnk, riid, asyncOperation) {
+    RequestAccessWithAuditingInfoForWindowAsync(appWindow, sourceIdentity, targetIdentity, auditInfoUnk, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
         targetIdentity := targetIdentity is Win32Handle ? NumGet(targetIdentity, "ptr") : targetIdentity
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", auditInfoUnk, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", auditInfoUnk, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 
     /**
@@ -81,20 +75,17 @@ class IProtectionPolicyManagerInterop2 extends IInspectable{
      * @param {IUnknown} auditInfoUnk 
      * @param {HSTRING} messageFromApp 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop2-requestaccesswithmessageforwindowasync
      */
-    RequestAccessWithMessageForWindowAsync(appWindow, sourceIdentity, targetIdentity, auditInfoUnk, messageFromApp, riid, asyncOperation) {
+    RequestAccessWithMessageForWindowAsync(appWindow, sourceIdentity, targetIdentity, auditInfoUnk, messageFromApp, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
         targetIdentity := targetIdentity is Win32Handle ? NumGet(targetIdentity, "ptr") : targetIdentity
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", auditInfoUnk, "ptr", messageFromApp, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", auditInfoUnk, "ptr", messageFromApp, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 
     /**
@@ -104,19 +95,16 @@ class IProtectionPolicyManagerInterop2 extends IInspectable{
      * @param {HSTRING} appPackageFamilyName 
      * @param {IUnknown} auditInfoUnk 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop2-requestaccessforappwithauditinginfoforwindowasync
      */
-    RequestAccessForAppWithAuditingInfoForWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, auditInfoUnk, riid, asyncOperation) {
+    RequestAccessForAppWithAuditingInfoForWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, auditInfoUnk, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
         appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 
     /**
@@ -127,19 +115,16 @@ class IProtectionPolicyManagerInterop2 extends IInspectable{
      * @param {IUnknown} auditInfoUnk 
      * @param {HSTRING} messageFromApp 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop2-requestaccessforappwithmessageforwindowasync
      */
-    RequestAccessForAppWithMessageForWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, auditInfoUnk, messageFromApp, riid, asyncOperation) {
+    RequestAccessForAppWithMessageForWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, auditInfoUnk, messageFromApp, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
         appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 }

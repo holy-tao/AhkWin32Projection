@@ -39,13 +39,13 @@ class ID3D12DeviceConfiguration extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pGuids 
      * @param {Integer} NumGuids 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetEnabledExperimentalFeatures(pGuids, NumGuids) {
+    GetEnabledExperimentalFeatures(NumGuids) {
+        pGuids := Guid()
         result := ComCall(4, this, "ptr", pGuids, "uint", NumGuids, "HRESULT")
-        return result
+        return pGuids
     }
 
     /**
@@ -65,13 +65,10 @@ class ID3D12DeviceConfiguration extends IUnknown{
      * @param {Pointer} pBlob 
      * @param {Pointer} Size 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvDeserializer 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateVersionedRootSignatureDeserializer(pBlob, Size, riid, ppvDeserializer) {
-        ppvDeserializerMarshal := ppvDeserializer is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pBlob, "ptr", Size, "ptr", riid, ppvDeserializerMarshal, ppvDeserializer, "HRESULT")
-        return result
+    CreateVersionedRootSignatureDeserializer(pBlob, Size, riid) {
+        result := ComCall(6, this, "ptr", pBlob, "ptr", Size, "ptr", riid, "ptr*", &ppvDeserializer := 0, "HRESULT")
+        return ppvDeserializer
     }
 }

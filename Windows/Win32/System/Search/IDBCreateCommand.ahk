@@ -32,11 +32,10 @@ class IDBCreateCommand extends IUnknown{
      * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppCommand 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CreateCommand(pUnkOuter, riid, ppCommand) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", ppCommand, "HRESULT")
-        return result
+    CreateCommand(pUnkOuter, riid) {
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppCommand := 0, "HRESULT")
+        return IUnknown(ppCommand)
     }
 }

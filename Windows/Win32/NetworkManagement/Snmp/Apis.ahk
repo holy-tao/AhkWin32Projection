@@ -783,7 +783,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpUtilOidToA(Oid) {
-        result := DllCall("snmpapi.dll\SnmpUtilOidToA", "ptr", Oid, "char*")
+        result := DllCall("snmpapi.dll\SnmpUtilOidToA", "ptr", Oid, "ptr")
         return result
     }
 
@@ -807,7 +807,7 @@ class Snmp {
     static SnmpUtilIdsToA(Ids, IdLength) {
         IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("snmpapi.dll\SnmpUtilIdsToA", IdsMarshal, Ids, "uint", IdLength, "char*")
+        result := DllCall("snmpapi.dll\SnmpUtilIdsToA", IdsMarshal, Ids, "uint", IdLength, "ptr")
         return result
     }
 
@@ -1111,7 +1111,9 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrOidToStr(oid, string) {
-        result := DllCall("mgmtapi.dll\SnmpMgrOidToStr", "ptr", oid, "ptr", string, "int")
+        stringMarshal := string is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("mgmtapi.dll\SnmpMgrOidToStr", "ptr", oid, stringMarshal, string, "int")
         return result
     }
 

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWdsTransportCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,12 +39,11 @@ class IWdsTransportTftpManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWdsTransportCollection>} ppWdsTransportTftpClients 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpmanager-retrievetftpclients
      */
-    RetrieveTftpClients(ppWdsTransportTftpClients) {
-        result := ComCall(7, this, "ptr*", ppWdsTransportTftpClients, "HRESULT")
-        return result
+    RetrieveTftpClients() {
+        result := ComCall(7, this, "ptr*", &ppWdsTransportTftpClients := 0, "HRESULT")
+        return IWdsTransportCollection(ppWdsTransportTftpClients)
     }
 }

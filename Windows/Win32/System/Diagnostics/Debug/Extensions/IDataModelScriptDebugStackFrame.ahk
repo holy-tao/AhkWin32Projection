@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IModelObject.ahk
+#Include .\IDataModelScriptDebugVariableSetEnumerator.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +33,12 @@ class IDataModelScriptDebugStackFrame extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(name) {
+    GetName() {
+        name := BSTR()
         result := ComCall(3, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -52,14 +55,11 @@ class IDataModelScriptDebugStackFrame extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Boolean>} isTransitionPoint 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    IsTransitionPoint(isTransitionPoint) {
-        isTransitionPointMarshal := isTransitionPoint is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, isTransitionPointMarshal, isTransitionPoint, "HRESULT")
-        return result
+    IsTransitionPoint() {
+        result := ComCall(5, this, "int*", &isTransitionPoint := 0, "HRESULT")
+        return isTransitionPoint
     }
 
     /**
@@ -78,33 +78,30 @@ class IDataModelScriptDebugStackFrame extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwszExpression 
-     * @param {Pointer<IModelObject>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    Evaluate(pwszExpression, ppResult) {
+    Evaluate(pwszExpression) {
         pwszExpression := pwszExpression is String ? StrPtr(pwszExpression) : pwszExpression
 
-        result := ComCall(7, this, "ptr", pwszExpression, "ptr*", ppResult, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pwszExpression, "ptr*", &ppResult := 0, "HRESULT")
+        return IModelObject(ppResult)
     }
 
     /**
      * 
-     * @param {Pointer<IDataModelScriptDebugVariableSetEnumerator>} variablesEnum 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptDebugVariableSetEnumerator} 
      */
-    EnumerateLocals(variablesEnum) {
-        result := ComCall(8, this, "ptr*", variablesEnum, "HRESULT")
-        return result
+    EnumerateLocals() {
+        result := ComCall(8, this, "ptr*", &variablesEnum := 0, "HRESULT")
+        return IDataModelScriptDebugVariableSetEnumerator(variablesEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IDataModelScriptDebugVariableSetEnumerator>} variablesEnum 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptDebugVariableSetEnumerator} 
      */
-    EnumerateArguments(variablesEnum) {
-        result := ComCall(9, this, "ptr*", variablesEnum, "HRESULT")
-        return result
+    EnumerateArguments() {
+        result := ComCall(9, this, "ptr*", &variablesEnum := 0, "HRESULT")
+        return IDataModelScriptDebugVariableSetEnumerator(variablesEnum)
     }
 }

@@ -58,11 +58,10 @@ class IPMExtensionShareTargetInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pSupportsAllTypes 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_SupportsAllFileTypes(pSupportsAllTypes) {
-        result := ComCall(5, this, "ptr", pSupportsAllTypes, "HRESULT")
-        return result
+    get_SupportsAllFileTypes() {
+        result := ComCall(5, this, "int*", &pSupportsAllTypes := 0, "HRESULT")
+        return pSupportsAllTypes
     }
 }

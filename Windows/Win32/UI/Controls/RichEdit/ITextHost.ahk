@@ -41,7 +41,7 @@ class ITextHost extends IUnknown{
      */
     TxGetDC() {
         result := ComCall(3, this, "ptr")
-        return result
+        return HDC({Value: result}, True)
     }
 
     /**
@@ -385,15 +385,12 @@ class ITextHost extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pch 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetpasswordchar
      */
-    TxGetPasswordChar(pch) {
-        pchMarshal := pch is VarRef ? "char*" : "ptr"
-
-        result := ComCall(32, this, pchMarshal, pch, "HRESULT")
-        return result
+    TxGetPasswordChar() {
+        result := ComCall(32, this, "char*", &pch := 0, "HRESULT")
+        return pch
     }
 
     /**
@@ -477,7 +474,7 @@ class ITextHost extends IUnknown{
      */
     TxImmGetContext() {
         result := ComCall(39, this, "ptr")
-        return result
+        return HIMC({Value: result}, True)
     }
 
     /**

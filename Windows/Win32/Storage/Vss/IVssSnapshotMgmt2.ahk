@@ -40,14 +40,11 @@ class IVssSnapshotMgmt2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pllMinDiffAreaSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivsssnapshotmgmt2-getmindiffareasize
      */
-    GetMinDiffAreaSize(pllMinDiffAreaSize) {
-        pllMinDiffAreaSizeMarshal := pllMinDiffAreaSize is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(3, this, pllMinDiffAreaSizeMarshal, pllMinDiffAreaSize, "HRESULT")
-        return result
+    GetMinDiffAreaSize() {
+        result := ComCall(3, this, "int64*", &pllMinDiffAreaSize := 0, "HRESULT")
+        return pllMinDiffAreaSize
     }
 }

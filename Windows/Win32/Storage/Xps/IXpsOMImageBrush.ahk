@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMImageResource.ahk
+#Include .\IXpsOMColorProfileResource.ahk
+#Include .\IXpsOMImageBrush.ahk
 #Include .\IXpsOMTileBrush.ahk
 
 /**
@@ -83,13 +86,12 @@ class IXpsOMImageBrush extends IXpsOMTileBrush{
 
     /**
      * 
-     * @param {Pointer<IXpsOMImageResource>} imageResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMImageResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-getimageresource
      */
-    GetImageResource(imageResource) {
-        result := ComCall(18, this, "ptr*", imageResource, "HRESULT")
-        return result
+    GetImageResource() {
+        result := ComCall(18, this, "ptr*", &imageResource := 0, "HRESULT")
+        return IXpsOMImageResource(imageResource)
     }
 
     /**
@@ -105,13 +107,12 @@ class IXpsOMImageBrush extends IXpsOMTileBrush{
 
     /**
      * 
-     * @param {Pointer<IXpsOMColorProfileResource>} colorProfileResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMColorProfileResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-getcolorprofileresource
      */
-    GetColorProfileResource(colorProfileResource) {
-        result := ComCall(20, this, "ptr*", colorProfileResource, "HRESULT")
-        return result
+    GetColorProfileResource() {
+        result := ComCall(20, this, "ptr*", &colorProfileResource := 0, "HRESULT")
+        return IXpsOMColorProfileResource(colorProfileResource)
     }
 
     /**
@@ -127,12 +128,11 @@ class IXpsOMImageBrush extends IXpsOMTileBrush{
 
     /**
      * 
-     * @param {Pointer<IXpsOMImageBrush>} imageBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMImageBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimagebrush-clone
      */
-    Clone(imageBrush) {
-        result := ComCall(22, this, "ptr*", imageBrush, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(22, this, "ptr*", &imageBrush := 0, "HRESULT")
+        return IXpsOMImageBrush(imageBrush)
     }
 }

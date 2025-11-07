@@ -30,12 +30,12 @@ class IPMBackgroundWorkerInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pProductID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_ProductID(pProductID) {
+    get_ProductID() {
+        pProductID := Guid()
         result := ComCall(3, this, "ptr", pProductID, "HRESULT")
-        return result
+        return pProductID
     }
 
     /**
@@ -60,35 +60,28 @@ class IPMBackgroundWorkerInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMaxStartupLatency 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaxStartupLatency(pMaxStartupLatency) {
-        pMaxStartupLatencyMarshal := pMaxStartupLatency is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pMaxStartupLatencyMarshal, pMaxStartupLatency, "HRESULT")
-        return result
+    get_MaxStartupLatency() {
+        result := ComCall(6, this, "uint*", &pMaxStartupLatency := 0, "HRESULT")
+        return pMaxStartupLatency
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pExpectedRuntime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ExpectedRuntime(pExpectedRuntime) {
-        pExpectedRuntimeMarshal := pExpectedRuntime is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pExpectedRuntimeMarshal, pExpectedRuntime, "HRESULT")
-        return result
+    get_ExpectedRuntime() {
+        result := ComCall(7, this, "uint*", &pExpectedRuntime := 0, "HRESULT")
+        return pExpectedRuntime
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsBootWorker 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsBootWorker(pIsBootWorker) {
-        result := ComCall(8, this, "ptr", pIsBootWorker, "HRESULT")
-        return result
+    get_IsBootWorker() {
+        result := ComCall(8, this, "int*", &pIsBootWorker := 0, "HRESULT")
+        return pIsBootWorker
     }
 }

@@ -38,13 +38,12 @@ class IConsoleVerb extends IUnknown{
      * 
      * @param {Integer} eCmdID 
      * @param {Integer} nState 
-     * @param {Pointer<BOOL>} pState 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsoleverb-getverbstate
      */
-    GetVerbState(eCmdID, nState, pState) {
-        result := ComCall(3, this, "int", eCmdID, "int", nState, "ptr", pState, "HRESULT")
-        return result
+    GetVerbState(eCmdID, nState) {
+        result := ComCall(3, this, "int", eCmdID, "int", nState, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
@@ -73,14 +72,11 @@ class IConsoleVerb extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} peCmdID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsoleverb-getdefaultverb
      */
-    GetDefaultVerb(peCmdID) {
-        peCmdIDMarshal := peCmdID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, peCmdIDMarshal, peCmdID, "HRESULT")
-        return result
+    GetDefaultVerb() {
+        result := ComCall(6, this, "int*", &peCmdID := 0, "HRESULT")
+        return peCmdID
     }
 }

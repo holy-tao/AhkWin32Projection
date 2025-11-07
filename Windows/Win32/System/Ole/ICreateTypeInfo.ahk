@@ -183,7 +183,9 @@ class ICreateTypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-setfuncandparamnames
      */
     SetFuncAndParamNames(index, rgszNames, cNames) {
-        result := ComCall(15, this, "uint", index, "ptr", rgszNames, "uint", cNames, "HRESULT")
+        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, "uint", index, rgszNamesMarshal, rgszNames, "uint", cNames, "HRESULT")
         return result
     }
 

@@ -48,13 +48,12 @@ class IMFAsyncResult extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunkState 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfasyncresult-getstate
      */
-    GetState(ppunkState) {
-        result := ComCall(3, this, "ptr*", ppunkState, "HRESULT")
-        return result
+    GetState() {
+        result := ComCall(3, this, "ptr*", &ppunkState := 0, "HRESULT")
+        return IUnknown(ppunkState)
     }
 
     /**
@@ -80,17 +79,12 @@ class IMFAsyncResult extends IUnknown{
 
     /**
      * The GetObject function retrieves information for the specified graphics object.
-     * @param {Pointer<IUnknown>} ppObject 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {IUnknown} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(ppObject) {
-        result := ComCall(6, this, "ptr*", ppObject, "HRESULT")
-        return result
+    GetObject() {
+        result := ComCall(6, this, "ptr*", &ppObject := 0, "HRESULT")
+        return IUnknown(ppObject)
     }
 
     /**

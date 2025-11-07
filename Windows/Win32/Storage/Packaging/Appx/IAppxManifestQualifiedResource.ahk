@@ -30,35 +30,28 @@ class IAppxManifestQualifiedResource extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} language 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetLanguage(language) {
-        result := ComCall(3, this, "ptr", language, "HRESULT")
-        return result
+    GetLanguage() {
+        result := ComCall(3, this, "ptr*", &language := 0, "HRESULT")
+        return language
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} scale 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetScale(scale) {
-        scaleMarshal := scale is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, scaleMarshal, scale, "HRESULT")
-        return result
+    GetScale() {
+        result := ComCall(4, this, "uint*", &scale := 0, "HRESULT")
+        return scale
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} dxFeatureLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDXFeatureLevel(dxFeatureLevel) {
-        dxFeatureLevelMarshal := dxFeatureLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, dxFeatureLevelMarshal, dxFeatureLevel, "HRESULT")
-        return result
+    GetDXFeatureLevel() {
+        result := ComCall(5, this, "int*", &dxFeatureLevel := 0, "HRESULT")
+        return dxFeatureLevel
     }
 }

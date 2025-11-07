@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\HIORING.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -1494,9 +1495,11 @@ class FileSystem {
         lpExtension := lpExtension is String ? StrPtr(lpExtension) : lpExtension
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
+        lpFilePartMarshal := lpFilePart is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SearchPathW", "ptr", lpPath, "ptr", lpFileName, "ptr", lpExtension, "uint", nBufferLength, "ptr", lpBuffer, "ptr", lpFilePart, "uint")
+        result := DllCall("KERNEL32.dll\SearchPathW", "ptr", lpPath, "ptr", lpFileName, "ptr", lpExtension, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -1540,9 +1543,11 @@ class FileSystem {
         lpExtension := lpExtension is String ? StrPtr(lpExtension) : lpExtension
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
+        lpFilePartMarshal := lpFilePart is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SearchPathA", "ptr", lpPath, "ptr", lpFileName, "ptr", lpExtension, "uint", nBufferLength, "ptr", lpBuffer, "ptr", lpFilePart, "uint")
+        result := DllCall("KERNEL32.dll\SearchPathA", "ptr", lpPath, "ptr", lpFileName, "ptr", lpExtension, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -4454,9 +4459,11 @@ class FileSystem {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
+        lpFilePartMarshal := lpFilePart is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFullPathNameW", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, "ptr", lpFilePart, "uint")
+        result := DllCall("KERNEL32.dll\GetFullPathNameW", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -4503,9 +4510,11 @@ class FileSystem {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
+        lpFilePartMarshal := lpFilePart is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFullPathNameA", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, "ptr", lpFilePart, "uint")
+        result := DllCall("KERNEL32.dll\GetFullPathNameA", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -4660,7 +4669,9 @@ class FileSystem {
     static AreShortNamesEnabled(Handle, Enabled) {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
-        result := DllCall("KERNEL32.dll\AreShortNamesEnabled", "ptr", Handle, "ptr", Enabled, "int")
+        EnabledMarshal := Enabled is VarRef ? "int*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\AreShortNamesEnabled", "ptr", Handle, EnabledMarshal, Enabled, "int")
         return result
     }
 
@@ -10311,11 +10322,12 @@ class FileSystem {
         hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
 
         pcbContainerMarshal := pcbContainer is VarRef ? "uint*" : "ptr"
+        rgwszContainerPathMarshal := rgwszContainerPath is VarRef ? "ptr*" : "ptr"
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\AddLogContainerSet", "ptr", hLog, "ushort", cContainer, pcbContainerMarshal, pcbContainer, "ptr", rgwszContainerPath, pReservedMarshal, pReserved, "int")
+        result := DllCall("clfsw32.dll\AddLogContainerSet", "ptr", hLog, "ushort", cContainer, pcbContainerMarshal, pcbContainer, rgwszContainerPathMarshal, rgwszContainerPath, pReservedMarshal, pReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10387,11 +10399,12 @@ class FileSystem {
     static RemoveLogContainerSet(hLog, cContainer, rgwszContainerPath, fForce, pReserved) {
         hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
 
+        rgwszContainerPathMarshal := rgwszContainerPath is VarRef ? "ptr*" : "ptr"
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RemoveLogContainerSet", "ptr", hLog, "ushort", cContainer, "ptr", rgwszContainerPath, "int", fForce, pReservedMarshal, pReserved, "int")
+        result := DllCall("clfsw32.dll\RemoveLogContainerSet", "ptr", hLog, "ushort", cContainer, rgwszContainerPathMarshal, rgwszContainerPath, "int", fForce, pReservedMarshal, pReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12869,20 +12882,17 @@ class FileSystem {
      * Used to query the version of the driver used to support a particular provider.
      * @param {HANDLE} FileOrVolumeHandle A handle to a file or volume opened with <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> or a similar API.
      * @param {Integer} Provider Indicates which provider the version query is intended for. Multiple versions of Wof may exist on the same volume at the same time for different providers.
-     * @param {Pointer<Integer>} WofVersion Pointer to a ULONG which will contain the version upon successful completion of this function.
-     * @returns {HRESULT} This function returns an HRESULT indicating success or the reason for failure. If no driver is attached on the specified volume for the specified provider, the function will fail with HRESULT_FROM_WIN32(ERROR_INVALID_FUNCTION).
+     * @returns {Integer} Pointer to a ULONG which will contain the version upon successful completion of this function.
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofgetdriverversion
      */
-    static WofGetDriverVersion(FileOrVolumeHandle, Provider, WofVersion) {
+    static WofGetDriverVersion(FileOrVolumeHandle, Provider) {
         FileOrVolumeHandle := FileOrVolumeHandle is Win32Handle ? NumGet(FileOrVolumeHandle, "ptr") : FileOrVolumeHandle
 
-        WofVersionMarshal := WofVersion is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("WOFUTIL.dll\WofGetDriverVersion", "ptr", FileOrVolumeHandle, "uint", Provider, WofVersionMarshal, WofVersion, "int")
+        result := DllCall("WOFUTIL.dll\WofGetDriverVersion", "ptr", FileOrVolumeHandle, "uint", Provider, "uint*", &WofVersion := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return WofVersion
     }
 
     /**
@@ -12998,11 +13008,12 @@ class FileSystem {
     static WofIsExternalFile(FilePath, IsExternalFile, Provider, ExternalFileInfo, BufferLength) {
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
 
+        IsExternalFileMarshal := IsExternalFile is VarRef ? "int*" : "ptr"
         ProviderMarshal := Provider is VarRef ? "uint*" : "ptr"
         ExternalFileInfoMarshal := ExternalFileInfo is VarRef ? "ptr" : "ptr"
         BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WOFUTIL.dll\WofIsExternalFile", "ptr", FilePath, "ptr", IsExternalFile, ProviderMarshal, Provider, ExternalFileInfoMarshal, ExternalFileInfo, BufferLengthMarshal, BufferLength, "int")
+        result := DllCall("WOFUTIL.dll\WofIsExternalFile", "ptr", FilePath, IsExternalFileMarshal, IsExternalFile, ProviderMarshal, Provider, ExternalFileInfoMarshal, ExternalFileInfo, BufferLengthMarshal, BufferLength, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13044,21 +13055,18 @@ class FileSystem {
      * @param {PWSTR} WimPath The path to the WIM file which should be used to provide data to files.
      * @param {Integer} WimType The type of WIM. Can be <b>WIM_BOOT_OS_WIM</b> or <b>WIM_BOOT_NOT_OS_WIM</b>.
      * @param {Integer} WimIndex Index of the image in the WIM which is applied.
-     * @param {Pointer<Integer>} DataSourceId On successful return, contains the data source used to identify the entry.  This data source can be used to create new files with <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/nf-wofapi-wofsetfiledatalocation">WofSetFileDataLocation</a>.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} On successful return, contains the data source used to identify the entry.  This data source can be used to create new files with <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/nf-wofapi-wofsetfiledatalocation">WofSetFileDataLocation</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofwimaddentry
      */
-    static WofWimAddEntry(VolumeName, WimPath, WimType, WimIndex, DataSourceId) {
+    static WofWimAddEntry(VolumeName, WimPath, WimType, WimIndex) {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
         WimPath := WimPath is String ? StrPtr(WimPath) : WimPath
 
-        DataSourceIdMarshal := DataSourceId is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("WOFUTIL.dll\WofWimAddEntry", "ptr", VolumeName, "ptr", WimPath, "uint", WimType, "uint", WimIndex, DataSourceIdMarshal, DataSourceId, "int")
+        result := DllCall("WOFUTIL.dll\WofWimAddEntry", "ptr", VolumeName, "ptr", WimPath, "uint", WimType, "uint", WimIndex, "int64*", &DataSourceId := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return DataSourceId
     }
 
     /**
@@ -15939,16 +15947,16 @@ class FileSystem {
      * @param {IORING_CREATE_FLAGS} flags 
      * @param {Integer} submissionQueueSize 
      * @param {Integer} completionQueueSize 
-     * @param {Pointer<HIORING>} h 
-     * @returns {HRESULT} 
+     * @returns {HIORING} 
      * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-createioring
      */
-    static CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize, h) {
+    static CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize) {
+        h := HIORING()
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\CreateIoRing", "int", ioringVersion, "ptr", flags, "uint", submissionQueueSize, "uint", completionQueueSize, "ptr", h, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return h
     }
 
     /**
@@ -15973,20 +15981,17 @@ class FileSystem {
      * @param {HIORING} ioRing 
      * @param {Integer} waitOperations 
      * @param {Integer} milliseconds 
-     * @param {Pointer<Integer>} submittedEntries 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-submitioring
      */
-    static SubmitIoRing(ioRing, waitOperations, milliseconds, submittedEntries) {
+    static SubmitIoRing(ioRing, waitOperations, milliseconds) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        submittedEntriesMarshal := submittedEntries is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\SubmitIoRing", "ptr", ioRing, "uint", waitOperations, "uint", milliseconds, submittedEntriesMarshal, submittedEntries, "int")
+        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\SubmitIoRing", "ptr", ioRing, "uint", waitOperations, "uint", milliseconds, "uint*", &submittedEntries := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return submittedEntries
     }
 
     /**
@@ -16215,7 +16220,9 @@ class FileSystem {
         virtualPath := virtualPath is String ? StrPtr(virtualPath) : virtualPath
         backingPath := backingPath is String ? StrPtr(backingPath) : backingPath
 
-        result := DllCall("BINDFLTAPI.dll\CreateBindLink", "ptr", virtualPath, "ptr", backingPath, "int", createBindLinkFlags, "uint", exceptionCount, "ptr", exceptionPaths, "int")
+        exceptionPathsMarshal := exceptionPaths is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("BINDFLTAPI.dll\CreateBindLink", "ptr", virtualPath, "ptr", backingPath, "int", createBindLinkFlags, "uint", exceptionCount, exceptionPathsMarshal, exceptionPaths, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20211,9 +20218,11 @@ class FileSystem {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
         hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
+        lpFilePartMarshal := lpFilePart is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFullPathNameTransactedA", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, "ptr", lpFilePart, "ptr", hTransaction, "uint")
+        result := DllCall("KERNEL32.dll\GetFullPathNameTransactedA", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, "ptr", hTransaction, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -20256,9 +20265,11 @@ class FileSystem {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
         hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
+        lpFilePartMarshal := lpFilePart is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFullPathNameTransactedW", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, "ptr", lpFilePart, "ptr", hTransaction, "uint")
+        result := DllCall("KERNEL32.dll\GetFullPathNameTransactedW", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, "ptr", hTransaction, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -21698,9 +21709,12 @@ class FileSystem {
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpOemName := lpOemName is String ? StrPtr(lpOemName) : lpOemName
 
+        pbNameContainsSpacesMarshal := pbNameContainsSpaces is VarRef ? "int*" : "ptr"
+        pbNameLegalMarshal := pbNameLegal is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3A", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, "ptr", pbNameContainsSpaces, "ptr", pbNameLegal, "int")
+        result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3A", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, pbNameContainsSpacesMarshal, pbNameContainsSpaces, pbNameLegalMarshal, pbNameLegal, "int")
         if(A_LastError)
             throw OSError()
 
@@ -21729,9 +21743,12 @@ class FileSystem {
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpOemName := lpOemName is String ? StrPtr(lpOemName) : lpOemName
 
+        pbNameContainsSpacesMarshal := pbNameContainsSpaces is VarRef ? "int*" : "ptr"
+        pbNameLegalMarshal := pbNameLegal is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3W", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, "ptr", pbNameContainsSpaces, "ptr", pbNameLegal, "int")
+        result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3W", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, pbNameContainsSpacesMarshal, pbNameContainsSpaces, pbNameLegalMarshal, pbNameLegal, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22126,10 +22143,11 @@ class FileSystem {
         lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
         lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
+        pbCancelMarshal := pbCancel is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CopyFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, "ptr", pbCancel, "uint", dwCopyFlags, "int")
+        result := DllCall("KERNEL32.dll\CopyFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, "uint", dwCopyFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22280,10 +22298,11 @@ class FileSystem {
         lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
         lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
+        pbCancelMarshal := pbCancel is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CopyFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, "ptr", pbCancel, "uint", dwCopyFlags, "int")
+        result := DllCall("KERNEL32.dll\CopyFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, "uint", dwCopyFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22409,10 +22428,11 @@ class FileSystem {
         hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
+        pbCancelMarshal := pbCancel is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CopyFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, "ptr", pbCancel, "uint", dwCopyFlags, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\CopyFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, "uint", dwCopyFlags, "ptr", hTransaction, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22538,10 +22558,11 @@ class FileSystem {
         hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
+        pbCancelMarshal := pbCancel is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CopyFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, "ptr", pbCancel, "uint", dwCopyFlags, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\CopyFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, "uint", dwCopyFlags, "ptr", hTransaction, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23796,12 +23817,13 @@ class FileSystem {
 
         lpPeriodMillisecondsMarshal := lpPeriodMilliseconds is VarRef ? "uint*" : "ptr"
         lpBytesPerPeriodMarshal := lpBytesPerPeriod is VarRef ? "uint*" : "ptr"
+        pDiscardableMarshal := pDiscardable is VarRef ? "int*" : "ptr"
         lpTransferSizeMarshal := lpTransferSize is VarRef ? "uint*" : "ptr"
         lpNumOutstandingRequestsMarshal := lpNumOutstandingRequests is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFileBandwidthReservation", "ptr", hFile, lpPeriodMillisecondsMarshal, lpPeriodMilliseconds, lpBytesPerPeriodMarshal, lpBytesPerPeriod, "ptr", pDiscardable, lpTransferSizeMarshal, lpTransferSize, lpNumOutstandingRequestsMarshal, lpNumOutstandingRequests, "int")
+        result := DllCall("KERNEL32.dll\GetFileBandwidthReservation", "ptr", hFile, lpPeriodMillisecondsMarshal, lpPeriodMilliseconds, lpBytesPerPeriodMarshal, lpBytesPerPeriod, pDiscardableMarshal, pDiscardable, lpTransferSizeMarshal, lpTransferSize, lpNumOutstandingRequestsMarshal, lpNumOutstandingRequests, "int")
         if(A_LastError)
             throw OSError()
 

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,53 +31,46 @@ class IElementTraversal extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_firstElementChild(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_firstElementChild() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_lastElementChild(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_lastElementChild() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_previousElementSibling(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_previousElementSibling() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_nextElementSibling(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_nextElementSibling() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_childElementCount(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pMarshal, p, "HRESULT")
-        return result
+    get_childElementCount() {
+        result := ComCall(11, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 }

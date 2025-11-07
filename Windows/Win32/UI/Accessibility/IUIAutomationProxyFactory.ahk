@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRawElementProviderSimple.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,25 +37,24 @@ class IUIAutomationProxyFactory extends IUnknown{
      * @param {HWND} hwnd 
      * @param {Integer} idObject 
      * @param {Integer} idChild 
-     * @param {Pointer<IRawElementProviderSimple>} provider 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactory-createprovider
      */
-    CreateProvider(hwnd, idObject, idChild, provider) {
+    CreateProvider(hwnd, idObject, idChild) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(3, this, "ptr", hwnd, "int", idObject, "int", idChild, "ptr*", provider, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hwnd, "int", idObject, "int", idChild, "ptr*", &provider := 0, "HRESULT")
+        return IRawElementProviderSimple(provider)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} factoryId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactory-get_proxyfactoryid
      */
-    get_ProxyFactoryId(factoryId) {
+    get_ProxyFactoryId() {
+        factoryId := BSTR()
         result := ComCall(4, this, "ptr", factoryId, "HRESULT")
-        return result
+        return factoryId
     }
 }

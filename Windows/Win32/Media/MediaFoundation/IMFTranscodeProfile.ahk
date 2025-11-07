@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,12 @@ class IMFTranscodeProfile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFAttributes>} ppAttrs 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftranscodeprofile-getaudioattributes
      */
-    GetAudioAttributes(ppAttrs) {
-        result := ComCall(4, this, "ptr*", ppAttrs, "HRESULT")
-        return result
+    GetAudioAttributes() {
+        result := ComCall(4, this, "ptr*", &ppAttrs := 0, "HRESULT")
+        return IMFAttributes(ppAttrs)
     }
 
     /**
@@ -65,13 +65,12 @@ class IMFTranscodeProfile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFAttributes>} ppAttrs 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftranscodeprofile-getvideoattributes
      */
-    GetVideoAttributes(ppAttrs) {
-        result := ComCall(6, this, "ptr*", ppAttrs, "HRESULT")
-        return result
+    GetVideoAttributes() {
+        result := ComCall(6, this, "ptr*", &ppAttrs := 0, "HRESULT")
+        return IMFAttributes(ppAttrs)
     }
 
     /**
@@ -87,12 +86,11 @@ class IMFTranscodeProfile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFAttributes>} ppAttrs 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftranscodeprofile-getcontainerattributes
      */
-    GetContainerAttributes(ppAttrs) {
-        result := ComCall(8, this, "ptr*", ppAttrs, "HRESULT")
-        return result
+    GetContainerAttributes() {
+        result := ComCall(8, this, "ptr*", &ppAttrs := 0, "HRESULT")
+        return IMFAttributes(ppAttrs)
     }
 }

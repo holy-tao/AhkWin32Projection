@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITaskTrigger.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -66,39 +68,34 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettriggercount
      */
-    GetTriggerCount(pwCount) {
-        pwCountMarshal := pwCount is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(5, this, pwCountMarshal, pwCount, "HRESULT")
-        return result
+    GetTriggerCount() {
+        result := ComCall(5, this, "ushort*", &pwCount := 0, "HRESULT")
+        return pwCount
     }
 
     /**
      * 
      * @param {Integer} iTrigger 
-     * @param {Pointer<ITaskTrigger>} ppTrigger 
-     * @returns {HRESULT} 
+     * @returns {ITaskTrigger} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettrigger
      */
-    GetTrigger(iTrigger, ppTrigger) {
-        result := ComCall(6, this, "ushort", iTrigger, "ptr*", ppTrigger, "HRESULT")
-        return result
+    GetTrigger(iTrigger) {
+        result := ComCall(6, this, "ushort", iTrigger, "ptr*", &ppTrigger := 0, "HRESULT")
+        return ITaskTrigger(ppTrigger)
     }
 
     /**
      * 
      * @param {Integer} iTrigger 
-     * @param {Pointer<PWSTR>} ppwszTrigger 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettriggerstring
      */
-    GetTriggerString(iTrigger, ppwszTrigger) {
-        result := ComCall(7, this, "ushort", iTrigger, "ptr", ppwszTrigger, "HRESULT")
-        return result
+    GetTriggerString(iTrigger) {
+        result := ComCall(7, this, "ushort", iTrigger, "ptr*", &ppwszTrigger := 0, "HRESULT")
+        return ppwszTrigger
     }
 
     /**
@@ -106,16 +103,14 @@ class IScheduledWorkItem extends IUnknown{
      * @param {Pointer<SYSTEMTIME>} pstBegin 
      * @param {Pointer<SYSTEMTIME>} pstEnd 
      * @param {Pointer<Integer>} pCount 
-     * @param {Pointer<Pointer<SYSTEMTIME>>} rgstTaskTimes 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SYSTEMTIME>} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getruntimes
      */
-    GetRunTimes(pstBegin, pstEnd, pCount, rgstTaskTimes) {
+    GetRunTimes(pstBegin, pstEnd, pCount) {
         pCountMarshal := pCount is VarRef ? "ushort*" : "ptr"
-        rgstTaskTimesMarshal := rgstTaskTimes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pstBegin, "ptr", pstEnd, pCountMarshal, pCount, rgstTaskTimesMarshal, rgstTaskTimes, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", pstBegin, "ptr", pstEnd, pCountMarshal, pCount, "ptr*", &rgstTaskTimes := 0, "HRESULT")
+        return rgstTaskTimes
     }
 
     /**
@@ -192,37 +187,33 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} pstLastRun 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getmostrecentruntime
      */
-    GetMostRecentRunTime(pstLastRun) {
+    GetMostRecentRunTime() {
+        pstLastRun := SYSTEMTIME()
         result := ComCall(15, this, "ptr", pstLastRun, "HRESULT")
-        return result
+        return pstLastRun
     }
 
     /**
      * 
-     * @param {Pointer<HRESULT>} phrStatus 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getstatus
      */
-    GetStatus(phrStatus) {
-        result := ComCall(16, this, "ptr", phrStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(16, this, "int*", &phrStatus := 0, "HRESULT")
+        return phrStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwExitCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getexitcode
      */
-    GetExitCode(pdwExitCode) {
-        pdwExitCodeMarshal := pdwExitCode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, pdwExitCodeMarshal, pdwExitCode, "HRESULT")
-        return result
+    GetExitCode() {
+        result := ComCall(17, this, "uint*", &pdwExitCode := 0, "HRESULT")
+        return pdwExitCode
     }
 
     /**
@@ -240,13 +231,12 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszComment 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getcomment
      */
-    GetComment(ppwszComment) {
-        result := ComCall(19, this, "ptr", ppwszComment, "HRESULT")
-        return result
+    GetComment() {
+        result := ComCall(19, this, "ptr*", &ppwszComment := 0, "HRESULT")
+        return ppwszComment
     }
 
     /**
@@ -264,13 +254,12 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszCreator 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getcreator
      */
-    GetCreator(ppwszCreator) {
-        result := ComCall(21, this, "ptr", ppwszCreator, "HRESULT")
-        return result
+    GetCreator() {
+        result := ComCall(21, this, "ptr*", &ppwszCreator := 0, "HRESULT")
+        return ppwszCreator
     }
 
     /**
@@ -315,15 +304,12 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwRetryCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-geterrorretrycount
      */
-    GetErrorRetryCount(pwRetryCount) {
-        pwRetryCountMarshal := pwRetryCount is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(25, this, pwRetryCountMarshal, pwRetryCount, "HRESULT")
-        return result
+    GetErrorRetryCount() {
+        result := ComCall(25, this, "ushort*", &pwRetryCount := 0, "HRESULT")
+        return pwRetryCount
     }
 
     /**
@@ -339,15 +325,12 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwRetryInterval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-geterrorretryinterval
      */
-    GetErrorRetryInterval(pwRetryInterval) {
-        pwRetryIntervalMarshal := pwRetryInterval is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(27, this, pwRetryIntervalMarshal, pwRetryInterval, "HRESULT")
-        return result
+    GetErrorRetryInterval() {
+        result := ComCall(27, this, "ushort*", &pwRetryInterval := 0, "HRESULT")
+        return pwRetryInterval
     }
 
     /**
@@ -517,15 +500,12 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getflags
      */
-    GetFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(29, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(29, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -545,12 +525,11 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszAccountName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getaccountinformation
      */
-    GetAccountInformation(ppwszAccountName) {
-        result := ComCall(31, this, "ptr", ppwszAccountName, "HRESULT")
-        return result
+    GetAccountInformation() {
+        result := ComCall(31, this, "ptr*", &ppwszAccountName := 0, "HRESULT")
+        return ppwszAccountName
     }
 }

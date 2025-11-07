@@ -67,13 +67,12 @@ class ICEnroll2 extends ICEnroll{
 
     /**
      * 
-     * @param {Pointer<BOOL>} fBool 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll2-get_writecerttouserds
      */
-    get_WriteCertToUserDS(fBool) {
-        result := ComCall(65, this, "ptr", fBool, "HRESULT")
-        return result
+    get_WriteCertToUserDS() {
+        result := ComCall(65, this, "int*", &fBool := 0, "HRESULT")
+        return fBool
     }
 
     /**
@@ -89,13 +88,12 @@ class ICEnroll2 extends ICEnroll{
 
     /**
      * 
-     * @param {Pointer<BOOL>} fBool 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll2-get_enablet61dnencoding
      */
-    get_EnableT61DNEncoding(fBool) {
-        result := ComCall(67, this, "ptr", fBool, "HRESULT")
-        return result
+    get_EnableT61DNEncoding() {
+        result := ComCall(67, this, "int*", &fBool := 0, "HRESULT")
+        return fBool
     }
 
     /**

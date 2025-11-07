@@ -35,21 +35,19 @@ class IMultiLanguage3 extends IMultiLanguage2{
      * @param {Integer} cchWideChar 
      * @param {Pointer<Integer>} puiPreferredCodePages 
      * @param {Integer} nPreferredCodePages 
-     * @param {Pointer<Integer>} puiDetectedCodePages 
      * @param {Pointer<Integer>} pnDetectedCodePages 
      * @param {PWSTR} lpSpecialChar 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    DetectOutboundCodePage(dwFlags, lpWideCharStr, cchWideChar, puiPreferredCodePages, nPreferredCodePages, puiDetectedCodePages, pnDetectedCodePages, lpSpecialChar) {
+    DetectOutboundCodePage(dwFlags, lpWideCharStr, cchWideChar, puiPreferredCodePages, nPreferredCodePages, pnDetectedCodePages, lpSpecialChar) {
         lpWideCharStr := lpWideCharStr is String ? StrPtr(lpWideCharStr) : lpWideCharStr
         lpSpecialChar := lpSpecialChar is String ? StrPtr(lpSpecialChar) : lpSpecialChar
 
         puiPreferredCodePagesMarshal := puiPreferredCodePages is VarRef ? "uint*" : "ptr"
-        puiDetectedCodePagesMarshal := puiDetectedCodePages is VarRef ? "uint*" : "ptr"
         pnDetectedCodePagesMarshal := pnDetectedCodePages is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, "uint", dwFlags, "ptr", lpWideCharStr, "uint", cchWideChar, puiPreferredCodePagesMarshal, puiPreferredCodePages, "uint", nPreferredCodePages, puiDetectedCodePagesMarshal, puiDetectedCodePages, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
-        return result
+        result := ComCall(30, this, "uint", dwFlags, "ptr", lpWideCharStr, "uint", cchWideChar, puiPreferredCodePagesMarshal, puiPreferredCodePages, "uint", nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
+        return puiDetectedCodePages
     }
 
     /**
@@ -58,19 +56,17 @@ class IMultiLanguage3 extends IMultiLanguage2{
      * @param {IStream} pStrIn 
      * @param {Pointer<Integer>} puiPreferredCodePages 
      * @param {Integer} nPreferredCodePages 
-     * @param {Pointer<Integer>} puiDetectedCodePages 
      * @param {Pointer<Integer>} pnDetectedCodePages 
      * @param {PWSTR} lpSpecialChar 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    DetectOutboundCodePageInIStream(dwFlags, pStrIn, puiPreferredCodePages, nPreferredCodePages, puiDetectedCodePages, pnDetectedCodePages, lpSpecialChar) {
+    DetectOutboundCodePageInIStream(dwFlags, pStrIn, puiPreferredCodePages, nPreferredCodePages, pnDetectedCodePages, lpSpecialChar) {
         lpSpecialChar := lpSpecialChar is String ? StrPtr(lpSpecialChar) : lpSpecialChar
 
         puiPreferredCodePagesMarshal := puiPreferredCodePages is VarRef ? "uint*" : "ptr"
-        puiDetectedCodePagesMarshal := puiDetectedCodePages is VarRef ? "uint*" : "ptr"
         pnDetectedCodePagesMarshal := pnDetectedCodePages is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, "uint", dwFlags, "ptr", pStrIn, puiPreferredCodePagesMarshal, puiPreferredCodePages, "uint", nPreferredCodePages, puiDetectedCodePagesMarshal, puiDetectedCodePages, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
-        return result
+        result := ComCall(31, this, "uint", dwFlags, "ptr", pStrIn, puiPreferredCodePagesMarshal, puiPreferredCodePages, "uint", nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
+        return puiDetectedCodePages
     }
 }

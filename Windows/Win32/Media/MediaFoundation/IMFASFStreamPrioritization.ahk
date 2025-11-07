@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFASFStreamPrioritization.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,15 +33,12 @@ class IMFASFStreamPrioritization extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStreamCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-getstreamcount
      */
-    GetStreamCount(pdwStreamCount) {
-        pdwStreamCountMarshal := pdwStreamCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwStreamCountMarshal, pdwStreamCount, "HRESULT")
-        return result
+    GetStreamCount() {
+        result := ComCall(3, this, "uint*", &pdwStreamCount := 0, "HRESULT")
+        return pdwStreamCount
     }
 
     /**
@@ -84,12 +82,11 @@ class IMFASFStreamPrioritization extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFASFStreamPrioritization>} ppIStreamPrioritization 
-     * @returns {HRESULT} 
+     * @returns {IMFASFStreamPrioritization} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-clone
      */
-    Clone(ppIStreamPrioritization) {
-        result := ComCall(7, this, "ptr*", ppIStreamPrioritization, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(7, this, "ptr*", &ppIStreamPrioritization := 0, "HRESULT")
+        return IMFASFStreamPrioritization(ppIStreamPrioritization)
     }
 }

@@ -50,13 +50,12 @@ class ISearchRoot extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszTaskArg 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_schedule
      */
-    get_Schedule(ppszTaskArg) {
-        result := ComCall(4, this, "ptr", ppszTaskArg, "HRESULT")
-        return result
+    get_Schedule() {
+        result := ComCall(4, this, "ptr*", &ppszTaskArg := 0, "HRESULT")
+        return ppszTaskArg
     }
 
     /**
@@ -74,13 +73,12 @@ class ISearchRoot extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszURL 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_rooturl
      */
-    get_RootURL(ppszURL) {
-        result := ComCall(6, this, "ptr", ppszURL, "HRESULT")
-        return result
+    get_RootURL() {
+        result := ComCall(6, this, "ptr*", &ppszURL := 0, "HRESULT")
+        return ppszURL
     }
 
     /**
@@ -96,13 +94,12 @@ class ISearchRoot extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsHierarchical 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_ishierarchical
      */
-    get_IsHierarchical(pfIsHierarchical) {
-        result := ComCall(8, this, "ptr", pfIsHierarchical, "HRESULT")
-        return result
+    get_IsHierarchical() {
+        result := ComCall(8, this, "int*", &pfIsHierarchical := 0, "HRESULT")
+        return pfIsHierarchical
     }
 
     /**
@@ -118,13 +115,12 @@ class ISearchRoot extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfProvidesNotifications 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_providesnotifications
      */
-    get_ProvidesNotifications(pfProvidesNotifications) {
-        result := ComCall(10, this, "ptr", pfProvidesNotifications, "HRESULT")
-        return result
+    get_ProvidesNotifications() {
+        result := ComCall(10, this, "int*", &pfProvidesNotifications := 0, "HRESULT")
+        return pfProvidesNotifications
     }
 
     /**
@@ -140,13 +136,12 @@ class ISearchRoot extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfUseNotificationsOnly 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_usenotificationsonly
      */
-    get_UseNotificationsOnly(pfUseNotificationsOnly) {
-        result := ComCall(12, this, "ptr", pfUseNotificationsOnly, "HRESULT")
-        return result
+    get_UseNotificationsOnly() {
+        result := ComCall(12, this, "int*", &pfUseNotificationsOnly := 0, "HRESULT")
+        return pfUseNotificationsOnly
     }
 
     /**
@@ -162,15 +157,12 @@ class ISearchRoot extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwDepth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_enumerationdepth
      */
-    get_EnumerationDepth(pdwDepth) {
-        pdwDepthMarshal := pdwDepth is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pdwDepthMarshal, pdwDepth, "HRESULT")
-        return result
+    get_EnumerationDepth() {
+        result := ComCall(14, this, "uint*", &pdwDepth := 0, "HRESULT")
+        return pdwDepth
     }
 
     /**
@@ -186,15 +178,12 @@ class ISearchRoot extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwDepth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_hostdepth
      */
-    get_HostDepth(pdwDepth) {
-        pdwDepthMarshal := pdwDepth is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pdwDepthMarshal, pdwDepth, "HRESULT")
-        return result
+    get_HostDepth() {
+        result := ComCall(16, this, "uint*", &pdwDepth := 0, "HRESULT")
+        return pdwDepth
     }
 
     /**
@@ -210,13 +199,12 @@ class ISearchRoot extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfFollowDirectories 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_followdirectories
      */
-    get_FollowDirectories(pfFollowDirectories) {
-        result := ComCall(18, this, "ptr", pfFollowDirectories, "HRESULT")
-        return result
+    get_FollowDirectories() {
+        result := ComCall(18, this, "int*", &pfFollowDirectories := 0, "HRESULT")
+        return pfFollowDirectories
     }
 
     /**
@@ -232,15 +220,12 @@ class ISearchRoot extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pAuthType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_authenticationtype
      */
-    get_AuthenticationType(pAuthType) {
-        pAuthTypeMarshal := pAuthType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pAuthTypeMarshal, pAuthType, "HRESULT")
-        return result
+    get_AuthenticationType() {
+        result := ComCall(20, this, "int*", &pAuthType := 0, "HRESULT")
+        return pAuthType
     }
 
     /**
@@ -258,13 +243,12 @@ class ISearchRoot extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszUser 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_user
      */
-    get_User(ppszUser) {
-        result := ComCall(22, this, "ptr", ppszUser, "HRESULT")
-        return result
+    get_User() {
+        result := ComCall(22, this, "ptr*", &ppszUser := 0, "HRESULT")
+        return ppszUser
     }
 
     /**
@@ -282,12 +266,11 @@ class ISearchRoot extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszPassword 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_password
      */
-    get_Password(ppszPassword) {
-        result := ComCall(24, this, "ptr", ppszPassword, "HRESULT")
-        return result
+    get_Password() {
+        result := ComCall(24, this, "ptr*", &ppszPassword := 0, "HRESULT")
+        return ppszPassword
     }
 }

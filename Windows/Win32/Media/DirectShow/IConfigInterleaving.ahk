@@ -43,15 +43,12 @@ class IConfigInterleaving extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-get_mode
      */
-    get_Mode(pMode) {
-        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pModeMarshal, pMode, "HRESULT")
-        return result
+    get_Mode() {
+        result := ComCall(4, this, "int*", &pMode := 0, "HRESULT")
+        return pMode
     }
 
     /**

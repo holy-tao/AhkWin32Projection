@@ -48,32 +48,26 @@ class IWbemObjectSinkEx extends IWbemObjectSink{
     /**
      * 
      * @param {IWbemClassObject} pObjError 
-     * @param {Pointer<Integer>} puReturned 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsinkex-writeerror
      */
-    WriteError(pObjError, puReturned) {
-        puReturnedMarshal := puReturned is VarRef ? "char*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pObjError, puReturnedMarshal, puReturned, "HRESULT")
-        return result
+    WriteError(pObjError) {
+        result := ComCall(6, this, "ptr", pObjError, "char*", &puReturned := 0, "HRESULT")
+        return puReturned
     }
 
     /**
      * 
      * @param {BSTR} strMessage 
      * @param {Integer} uPromptType 
-     * @param {Pointer<Integer>} puReturned 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsinkex-promptuser
      */
-    PromptUser(strMessage, uPromptType, puReturned) {
+    PromptUser(strMessage, uPromptType) {
         strMessage := strMessage is String ? BSTR.Alloc(strMessage).Value : strMessage
 
-        puReturnedMarshal := puReturned is VarRef ? "char*" : "ptr"
-
-        result := ComCall(7, this, "ptr", strMessage, "char", uPromptType, puReturnedMarshal, puReturned, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", strMessage, "char", uPromptType, "char*", &puReturned := 0, "HRESULT")
+        return puReturned
     }
 
     /**

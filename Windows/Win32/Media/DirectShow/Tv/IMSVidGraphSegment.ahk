@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\IEnumFilters.ahk
+#Include .\IMSVidGraphSegmentContainer.ahk
 #Include ..\..\..\System\Com\IPersist.ahk
 
 /**
@@ -30,12 +33,11 @@ class IMSVidGraphSegment extends IPersist{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pInit 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_Init(pInit) {
-        result := ComCall(4, this, "ptr*", pInit, "HRESULT")
-        return result
+    get_Init() {
+        result := ComCall(4, this, "ptr*", &pInit := 0, "HRESULT")
+        return IUnknown(pInit)
     }
 
     /**
@@ -50,22 +52,20 @@ class IMSVidGraphSegment extends IPersist{
 
     /**
      * 
-     * @param {Pointer<IEnumFilters>} pNewEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumFilters} 
      */
-    EnumFilters(pNewEnum) {
-        result := ComCall(6, this, "ptr*", pNewEnum, "HRESULT")
-        return result
+    EnumFilters() {
+        result := ComCall(6, this, "ptr*", &pNewEnum := 0, "HRESULT")
+        return IEnumFilters(pNewEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidGraphSegmentContainer>} ppCtl 
-     * @returns {HRESULT} 
+     * @returns {IMSVidGraphSegmentContainer} 
      */
-    get_Container(ppCtl) {
-        result := ComCall(7, this, "ptr*", ppCtl, "HRESULT")
-        return result
+    get_Container() {
+        result := ComCall(7, this, "ptr*", &ppCtl := 0, "HRESULT")
+        return IMSVidGraphSegmentContainer(ppCtl)
     }
 
     /**
@@ -80,24 +80,21 @@ class IMSVidGraphSegment extends IPersist{
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Type(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(9, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_Category(pGuid) {
+    get_Category() {
+        pGuid := Guid()
         result := ComCall(10, this, "ptr", pGuid, "HRESULT")
-        return result
+        return pGuid
     }
 
     /**

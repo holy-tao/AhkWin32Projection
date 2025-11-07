@@ -32,15 +32,12 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pu32ChannelCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-getvolumechannelcount
      */
-    GetVolumeChannelCount(pu32ChannelCount) {
-        pu32ChannelCountMarshal := pu32ChannelCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pu32ChannelCountMarshal, pu32ChannelCount, "HRESULT")
-        return result
+    GetVolumeChannelCount() {
+        result := ComCall(3, this, "uint*", &pu32ChannelCount := 0, "HRESULT")
+        return pu32ChannelCount
     }
 
     /**
@@ -63,14 +60,11 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown{
     /**
      * 
      * @param {Integer} u32ChannelCount 
-     * @param {Pointer<Float>} pf32Volumes 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-getchannelvolumes
      */
-    GetChannelVolumes(u32ChannelCount, pf32Volumes) {
-        pf32VolumesMarshal := pf32Volumes is VarRef ? "float*" : "ptr"
-
-        result := ComCall(5, this, "uint", u32ChannelCount, pf32VolumesMarshal, pf32Volumes, "HRESULT")
-        return result
+    GetChannelVolumes(u32ChannelCount) {
+        result := ComCall(5, this, "uint", u32ChannelCount, "float*", &pf32Volumes := 0, "HRESULT")
+        return pf32Volumes
     }
 }

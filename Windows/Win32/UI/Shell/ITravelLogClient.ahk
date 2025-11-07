@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\WINDOWDATA.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -31,23 +32,22 @@ class ITravelLogClient extends IUnknown{
     /**
      * 
      * @param {Integer} dwID 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    FindWindowByIndex(dwID, ppunk) {
-        result := ComCall(3, this, "uint", dwID, "ptr*", ppunk, "HRESULT")
-        return result
+    FindWindowByIndex(dwID) {
+        result := ComCall(3, this, "uint", dwID, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
      * 
      * @param {IStream} pStream 
-     * @param {Pointer<WINDOWDATA>} pWinData 
-     * @returns {HRESULT} 
+     * @returns {WINDOWDATA} 
      */
-    GetWindowData(pStream, pWinData) {
+    GetWindowData(pStream) {
+        pWinData := WINDOWDATA()
         result := ComCall(4, this, "ptr", pStream, "ptr", pWinData, "HRESULT")
-        return result
+        return pWinData
     }
 
     /**

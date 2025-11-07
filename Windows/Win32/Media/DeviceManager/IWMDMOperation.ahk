@@ -80,16 +80,13 @@ class IWMDMOperation extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwAttributes 
      * @param {Pointer<WAVEFORMATEX>} pFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-getobjectattributes
      */
-    GetObjectAttributes(pdwAttributes, pFormat) {
-        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwAttributesMarshal, pdwAttributes, "ptr", pFormat, "HRESULT")
-        return result
+    GetObjectAttributes(pFormat) {
+        result := ComCall(7, this, "uint*", &pdwAttributes := 0, "ptr", pFormat, "HRESULT")
+        return pdwAttributes
     }
 
     /**
@@ -156,7 +153,9 @@ class IWMDMOperation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-end
      */
     End(phCompletionCode, pNewObject) {
-        result := ComCall(12, this, "ptr", phCompletionCode, "ptr", pNewObject, "HRESULT")
+        phCompletionCodeMarshal := phCompletionCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, phCompletionCodeMarshal, phCompletionCode, "ptr", pNewObject, "HRESULT")
         return result
     }
 }

@@ -44,9 +44,10 @@ class IPortableDeviceManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices
      */
     GetDevices(pPnPDeviceIDs, pcPnPDeviceIDs) {
+        pPnPDeviceIDsMarshal := pPnPDeviceIDs is VarRef ? "ptr*" : "ptr"
         pcPnPDeviceIDsMarshal := pcPnPDeviceIDs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pPnPDeviceIDs, pcPnPDeviceIDsMarshal, pcPnPDeviceIDs, "HRESULT")
+        result := ComCall(3, this, pPnPDeviceIDsMarshal, pPnPDeviceIDs, pcPnPDeviceIDsMarshal, pcPnPDeviceIDs, "HRESULT")
         return result
     }
 
@@ -144,9 +145,10 @@ class IPortableDeviceManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getprivatedevices
      */
     GetPrivateDevices(pPnPDeviceIDs, pcPnPDeviceIDs) {
+        pPnPDeviceIDsMarshal := pPnPDeviceIDs is VarRef ? "ptr*" : "ptr"
         pcPnPDeviceIDsMarshal := pcPnPDeviceIDs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pPnPDeviceIDs, pcPnPDeviceIDsMarshal, pcPnPDeviceIDs, "HRESULT")
+        result := ComCall(9, this, pPnPDeviceIDsMarshal, pPnPDeviceIDs, pcPnPDeviceIDsMarshal, pcPnPDeviceIDs, "HRESULT")
         return result
     }
 }

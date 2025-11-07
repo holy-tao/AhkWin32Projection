@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\StructuredStorage\IPropertyBag.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class IWTSListener extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPropertyBag>} ppPropertyBag 
-     * @returns {HRESULT} 
+     * @returns {IPropertyBag} 
      * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtslistener-getconfiguration
      */
-    GetConfiguration(ppPropertyBag) {
-        result := ComCall(3, this, "ptr*", ppPropertyBag, "HRESULT")
-        return result
+    GetConfiguration() {
+        result := ComCall(3, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        return IPropertyBag(ppPropertyBag)
     }
 }

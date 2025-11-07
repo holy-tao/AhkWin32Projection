@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncKnowledge.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -37,24 +38,22 @@ class ISyncChangeWithPrerequisite extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISyncKnowledge>} ppPrerequisiteKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangewithprerequisite-getprerequisiteknowledge
      */
-    GetPrerequisiteKnowledge(ppPrerequisiteKnowledge) {
-        result := ComCall(3, this, "ptr*", ppPrerequisiteKnowledge, "HRESULT")
-        return result
+    GetPrerequisiteKnowledge() {
+        result := ComCall(3, this, "ptr*", &ppPrerequisiteKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppPrerequisiteKnowledge)
     }
 
     /**
      * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedKnowledgeWithPrerequisite 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangewithprerequisite-getlearnedknowledgewithprerequisite
      */
-    GetLearnedKnowledgeWithPrerequisite(pDestinationKnowledge, ppLearnedKnowledgeWithPrerequisite) {
-        result := ComCall(4, this, "ptr", pDestinationKnowledge, "ptr*", ppLearnedKnowledgeWithPrerequisite, "HRESULT")
-        return result
+    GetLearnedKnowledgeWithPrerequisite(pDestinationKnowledge) {
+        result := ComCall(4, this, "ptr", pDestinationKnowledge, "ptr*", &ppLearnedKnowledgeWithPrerequisite := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedKnowledgeWithPrerequisite)
     }
 }

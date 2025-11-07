@@ -30,49 +30,37 @@ class IRTCIntensityEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Level(plLevel) {
-        plLevelMarshal := plLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plLevelMarshal, plLevel, "HRESULT")
-        return result
+    get_Level() {
+        result := ComCall(7, this, "int*", &plLevel := 0, "HRESULT")
+        return plLevel
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMin 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Min(plMin) {
-        plMinMarshal := plMin is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plMinMarshal, plMin, "HRESULT")
-        return result
+    get_Min() {
+        result := ComCall(8, this, "int*", &plMin := 0, "HRESULT")
+        return plMin
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMax 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Max(plMax) {
-        plMaxMarshal := plMax is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plMaxMarshal, plMax, "HRESULT")
-        return result
+    get_Max() {
+        result := ComCall(9, this, "int*", &plMax := 0, "HRESULT")
+        return plMax
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penDirection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Direction(penDirection) {
-        penDirectionMarshal := penDirection is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, penDirectionMarshal, penDirection, "HRESULT")
-        return result
+    get_Direction() {
+        result := ComCall(10, this, "int*", &penDirection := 0, "HRESULT")
+        return penDirection
     }
 }

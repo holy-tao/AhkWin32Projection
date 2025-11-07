@@ -46,24 +46,24 @@ class IRTCUserSearchQuery extends IUnknown{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<BSTR>} pbstrValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SearchTerm(bstrName, pbstrValue) {
+    get_SearchTerm(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
+        pbstrValue := BSTR()
         result := ComCall(4, this, "ptr", bstrName, "ptr", pbstrValue, "HRESULT")
-        return result
+        return pbstrValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrNames 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SearchTerms(pbstrNames) {
+    get_SearchTerms() {
+        pbstrNames := BSTR()
         result := ComCall(5, this, "ptr", pbstrNames, "HRESULT")
-        return result
+        return pbstrNames
     }
 
     /**
@@ -80,14 +80,11 @@ class IRTCUserSearchQuery extends IUnknown{
     /**
      * 
      * @param {Integer} enPreference 
-     * @param {Pointer<Integer>} plValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPreference(enPreference, plValue) {
-        plValueMarshal := plValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "int", enPreference, plValueMarshal, plValue, "HRESULT")
-        return result
+    get_SearchPreference(enPreference) {
+        result := ComCall(7, this, "int", enPreference, "int*", &plValue := 0, "HRESULT")
+        return plValue
     }
 
     /**
@@ -104,11 +101,11 @@ class IRTCUserSearchQuery extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDomain 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SearchDomain(pbstrDomain) {
+    get_SearchDomain() {
+        pbstrDomain := BSTR()
         result := ComCall(9, this, "ptr", pbstrDomain, "HRESULT")
-        return result
+        return pbstrDomain
     }
 }

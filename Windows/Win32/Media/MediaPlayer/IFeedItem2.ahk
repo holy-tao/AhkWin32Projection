@@ -30,13 +30,10 @@ class IFeedItem2 extends IFeedItem{
 
     /**
      * 
-     * @param {Pointer<Integer>} effectiveId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EffectiveId(effectiveId) {
-        effectiveIdMarshal := effectiveId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, effectiveIdMarshal, effectiveId, "HRESULT")
-        return result
+    get_EffectiveId() {
+        result := ComCall(24, this, "int*", &effectiveId := 0, "HRESULT")
+        return effectiveId
     }
 }

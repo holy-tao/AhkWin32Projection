@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_MAPPED_RECT.ahk
 #Include .\IDXGIObject.ahk
 
 /**
@@ -104,30 +105,24 @@ class IDXGIOutputDuplication extends IDXGIObject{
      * 
      * @param {Integer} DirtyRectsBufferSize 
      * @param {Pointer} pDirtyRectsBuffer 
-     * @param {Pointer<Integer>} pDirtyRectsBufferSizeRequired 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframedirtyrects
      */
-    GetFrameDirtyRects(DirtyRectsBufferSize, pDirtyRectsBuffer, pDirtyRectsBufferSizeRequired) {
-        pDirtyRectsBufferSizeRequiredMarshal := pDirtyRectsBufferSizeRequired is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "uint", DirtyRectsBufferSize, "ptr", pDirtyRectsBuffer, pDirtyRectsBufferSizeRequiredMarshal, pDirtyRectsBufferSizeRequired, "HRESULT")
-        return result
+    GetFrameDirtyRects(DirtyRectsBufferSize, pDirtyRectsBuffer) {
+        result := ComCall(9, this, "uint", DirtyRectsBufferSize, "ptr", pDirtyRectsBuffer, "uint*", &pDirtyRectsBufferSizeRequired := 0, "HRESULT")
+        return pDirtyRectsBufferSizeRequired
     }
 
     /**
      * 
      * @param {Integer} MoveRectsBufferSize 
      * @param {Pointer} pMoveRectBuffer 
-     * @param {Pointer<Integer>} pMoveRectsBufferSizeRequired 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframemoverects
      */
-    GetFrameMoveRects(MoveRectsBufferSize, pMoveRectBuffer, pMoveRectsBufferSizeRequired) {
-        pMoveRectsBufferSizeRequiredMarshal := pMoveRectsBufferSizeRequired is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "uint", MoveRectsBufferSize, "ptr", pMoveRectBuffer, pMoveRectsBufferSizeRequiredMarshal, pMoveRectsBufferSizeRequired, "HRESULT")
-        return result
+    GetFrameMoveRects(MoveRectsBufferSize, pMoveRectBuffer) {
+        result := ComCall(10, this, "uint", MoveRectsBufferSize, "ptr", pMoveRectBuffer, "uint*", &pMoveRectsBufferSizeRequired := 0, "HRESULT")
+        return pMoveRectsBufferSizeRequired
     }
 
     /**
@@ -148,13 +143,13 @@ class IDXGIOutputDuplication extends IDXGIObject{
 
     /**
      * 
-     * @param {Pointer<DXGI_MAPPED_RECT>} pLockedRect 
-     * @returns {HRESULT} 
+     * @returns {DXGI_MAPPED_RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-mapdesktopsurface
      */
-    MapDesktopSurface(pLockedRect) {
+    MapDesktopSurface() {
+        pLockedRect := DXGI_MAPPED_RECT()
         result := ComCall(12, this, "ptr", pLockedRect, "HRESULT")
-        return result
+        return pLockedRect
     }
 
     /**

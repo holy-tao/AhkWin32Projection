@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\INetFwRule.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,15 +35,12 @@ class INetFwRules extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrules-get_count
      */
-    get_Count(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, countMarshal, count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
@@ -71,25 +70,23 @@ class INetFwRules extends IDispatch{
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<INetFwRule>} rule 
-     * @returns {HRESULT} 
+     * @returns {INetFwRule} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrules-item
      */
-    Item(name, rule) {
+    Item(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(10, this, "ptr", name, "ptr*", rule, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", name, "ptr*", &rule := 0, "HRESULT")
+        return INetFwRule(rule)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} newEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrules-get__newenum
      */
-    get__NewEnum(newEnum) {
-        result := ComCall(11, this, "ptr*", newEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(11, this, "ptr*", &newEnum := 0, "HRESULT")
+        return IUnknown(newEnum)
     }
 }

@@ -94,7 +94,9 @@ class IAMNetShowExProps extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-getcodecinstalled
      */
     GetCodecInstalled(CodecNum, pCodecInstalled) {
-        result := ComCall(11, this, "int", CodecNum, "ptr", pCodecInstalled, "HRESULT")
+        pCodecInstalledMarshal := pCodecInstalled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(11, this, "int", CodecNum, pCodecInstalledMarshal, pCodecInstalled, "HRESULT")
         return result
     }
 

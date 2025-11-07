@@ -63,7 +63,9 @@ class IDebugExpression extends IUnknown{
      * @returns {HRESULT} 
      */
     GetResultAsString(phrResult, pbstrResult) {
-        result := ComCall(6, this, "ptr", phrResult, "ptr", pbstrResult, "HRESULT")
+        phrResultMarshal := phrResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, phrResultMarshal, phrResult, "ptr", pbstrResult, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IDebugExpression extends IUnknown{
      * @returns {HRESULT} 
      */
     GetResultAsDebugProperty(phrResult, ppdp) {
-        result := ComCall(7, this, "ptr", phrResult, "ptr*", ppdp, "HRESULT")
+        phrResultMarshal := phrResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, phrResultMarshal, phrResult, "ptr*", ppdp, "HRESULT")
         return result
     }
 }

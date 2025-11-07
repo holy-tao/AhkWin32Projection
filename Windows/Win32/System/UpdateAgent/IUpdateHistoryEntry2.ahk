@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICategoryCollection.ahk
 #Include .\IUpdateHistoryEntry.ahk
 
 /**
@@ -37,12 +38,11 @@ class IUpdateHistoryEntry2 extends IUpdateHistoryEntry{
 
     /**
      * 
-     * @param {Pointer<ICategoryCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {ICategoryCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry2-get_categories
      */
-    get_Categories(retval) {
-        result := ComCall(21, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Categories() {
+        result := ComCall(21, this, "ptr*", &retval := 0, "HRESULT")
+        return ICategoryCollection(retval)
     }
 }

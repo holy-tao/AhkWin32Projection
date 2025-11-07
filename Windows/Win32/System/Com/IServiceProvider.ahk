@@ -34,14 +34,11 @@ class IServiceProvider extends IUnknown{
      * 
      * @param {Pointer<Guid>} guidService 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/servprov/nf-servprov-iserviceprovider-queryservice(refguid_refiid_void)
      */
-    QueryService(guidService, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", guidService, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    QueryService(guidService, riid) {
+        result := ComCall(3, this, "ptr", guidService, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 }

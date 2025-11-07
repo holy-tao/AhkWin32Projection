@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\LOGFONTW.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -59,13 +60,12 @@ class IVisualProperties extends IUnknown{
     /**
      * 
      * @param {Integer} vpcf 
-     * @param {Pointer<COLORREF>} pcr 
-     * @returns {HRESULT} 
+     * @returns {COLORREF} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-getcolor
      */
-    GetColor(vpcf, pcr) {
-        result := ComCall(5, this, "int", vpcf, "ptr", pcr, "HRESULT")
-        return result
+    GetColor(vpcf) {
+        result := ComCall(5, this, "int", vpcf, "uint*", &pcr := 0, "HRESULT")
+        return pcr
     }
 
     /**
@@ -81,15 +81,12 @@ class IVisualProperties extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} cyItemInPixels 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-getitemheight
      */
-    GetItemHeight(cyItemInPixels) {
-        cyItemInPixelsMarshal := cyItemInPixels is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, cyItemInPixelsMarshal, cyItemInPixels, "HRESULT")
-        return result
+    GetItemHeight() {
+        result := ComCall(7, this, "int*", &cyItemInPixels := 0, "HRESULT")
+        return cyItemInPixels
     }
 
     /**
@@ -106,13 +103,13 @@ class IVisualProperties extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<LOGFONTW>} plf 
-     * @returns {HRESULT} 
+     * @returns {LOGFONTW} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-getfont
      */
-    GetFont(plf) {
+    GetFont() {
+        plf := LOGFONTW()
         result := ComCall(9, this, "ptr", plf, "HRESULT")
-        return result
+        return plf
     }
 
     /**

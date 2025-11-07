@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509EnrollmentPolicyServer.ahk
+#Include .\IX509CertificateTemplate.ahk
 #Include .\IX509Enrollment.ahk
 
 /**
@@ -69,34 +71,32 @@ class IX509Enrollment2 extends IX509Enrollment{
 
     /**
      * 
-     * @param {Pointer<IX509EnrollmentPolicyServer>} ppPolicyServer 
-     * @returns {HRESULT} 
+     * @returns {IX509EnrollmentPolicyServer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-get_policyserver
      */
-    get_PolicyServer(ppPolicyServer) {
-        result := ComCall(32, this, "ptr*", ppPolicyServer, "HRESULT")
-        return result
+    get_PolicyServer() {
+        result := ComCall(32, this, "ptr*", &ppPolicyServer := 0, "HRESULT")
+        return IX509EnrollmentPolicyServer(ppPolicyServer)
     }
 
     /**
      * 
-     * @param {Pointer<IX509CertificateTemplate>} ppTemplate 
-     * @returns {HRESULT} 
+     * @returns {IX509CertificateTemplate} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-get_template
      */
-    get_Template(ppTemplate) {
-        result := ComCall(33, this, "ptr*", ppTemplate, "HRESULT")
-        return result
+    get_Template() {
+        result := ComCall(33, this, "ptr*", &ppTemplate := 0, "HRESULT")
+        return IX509CertificateTemplate(ppTemplate)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-get_requestidstring
      */
-    get_RequestIdString(pValue) {
+    get_RequestIdString() {
+        pValue := BSTR()
         result := ComCall(34, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

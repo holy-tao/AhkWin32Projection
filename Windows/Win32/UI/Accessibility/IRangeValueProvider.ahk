@@ -48,77 +48,61 @@ class IRangeValueProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_value
      */
-    get_Value(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_Value() {
+        result := ComCall(4, this, "double*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_isreadonly
      */
-    get_IsReadOnly(pRetVal) {
-        result := ComCall(5, this, "ptr", pRetVal, "HRESULT")
-        return result
+    get_IsReadOnly() {
+        result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_maximum
      */
-    get_Maximum(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(6, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_Maximum() {
+        result := ComCall(6, this, "double*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_minimum
      */
-    get_Minimum(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(7, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_Minimum() {
+        result := ComCall(7, this, "double*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_largechange
      */
-    get_LargeChange(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_LargeChange() {
+        result := ComCall(8, this, "double*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_smallchange
      */
-    get_SmallChange(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_SmallChange() {
+        result := ComCall(9, this, "double*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

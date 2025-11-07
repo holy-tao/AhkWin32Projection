@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IContactAggregationAggregateCollection.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -72,22 +73,21 @@ class IContactAggregationGroup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IContactAggregationAggregateCollection>} ppAggregateContactCollection 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationAggregateCollection} 
      */
-    get_Members(ppAggregateContactCollection) {
-        result := ComCall(7, this, "ptr*", ppAggregateContactCollection, "HRESULT")
-        return result
+    get_Members() {
+        result := ComCall(7, this, "ptr*", &ppAggregateContactCollection := 0, "HRESULT")
+        return IContactAggregationAggregateCollection(ppAggregateContactCollection)
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pGlobalObjectId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_GlobalObjectId(pGlobalObjectId) {
+    get_GlobalObjectId() {
+        pGlobalObjectId := Guid()
         result := ComCall(8, this, "ptr", pGlobalObjectId, "HRESULT")
-        return result
+        return pGlobalObjectId
     }
 
     /**
@@ -102,22 +102,20 @@ class IContactAggregationGroup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppItemId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_Id(ppItemId) {
-        result := ComCall(10, this, "ptr", ppItemId, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(10, this, "ptr*", &ppItemId := 0, "HRESULT")
+        return ppItemId
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_Name(ppName) {
-        result := ComCall(11, this, "ptr", ppName, "HRESULT")
-        return result
+    get_Name() {
+        result := ComCall(11, this, "ptr*", &ppName := 0, "HRESULT")
+        return ppName
     }
 
     /**

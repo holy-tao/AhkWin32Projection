@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,41 +37,36 @@ class IPropertyStoreCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
      * @param {PWSTR} pszInstanceIdentity 
      * @param {Pointer<Integer>} pdwIndex 
-     * @param {Pointer<IPropertyStore>} ppIPropertyStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      */
-    Get(pszInstanceIdentity, pdwIndex, ppIPropertyStore) {
+    Get(pszInstanceIdentity, pdwIndex) {
         pszInstanceIdentity := pszInstanceIdentity is String ? StrPtr(pszInstanceIdentity) : pszInstanceIdentity
 
         pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszInstanceIdentity, pdwIndexMarshal, pdwIndex, "ptr*", ppIPropertyStore, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszInstanceIdentity, pdwIndexMarshal, pdwIndex, "ptr*", &ppIPropertyStore := 0, "HRESULT")
+        return IPropertyStore(ppIPropertyStore)
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IPropertyStore>} ppIPropertyStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      */
-    Item(dwIndex, ppIPropertyStore) {
-        result := ComCall(5, this, "uint", dwIndex, "ptr*", ppIPropertyStore, "HRESULT")
-        return result
+    Item(dwIndex) {
+        result := ComCall(5, this, "uint", dwIndex, "ptr*", &ppIPropertyStore := 0, "HRESULT")
+        return IPropertyStore(ppIPropertyStore)
     }
 
     /**
@@ -86,12 +82,11 @@ class IPropertyStoreCollection extends IUnknown{
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IPropertyStore>} pIPropertyStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      */
-    Remove(dwIndex, pIPropertyStore) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr*", pIPropertyStore, "HRESULT")
-        return result
+    Remove(dwIndex) {
+        result := ComCall(7, this, "uint", dwIndex, "ptr*", &pIPropertyStore := 0, "HRESULT")
+        return IPropertyStore(pIPropertyStore)
     }
 
     /**

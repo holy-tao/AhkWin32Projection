@@ -1285,20 +1285,18 @@ class Power {
      * - EFFECTIVE_POWER_MODE_V2 is available starting with Windows 10, version 1903 and tracks the performance power slider, battery saver, game mode and windows mixed reality power states.
      * @param {Pointer<EFFECTIVE_POWER_MODE_CALLBACK>} Callback A pointer to the callback to call when the effective power mode changes. This will also be called once upon registration to supply the current mode. If multiple callbacks are registered using this API, those callbacks can be called concurrently.
      * @param {Pointer<Void>} Context Caller-specified opaque context.
-     * @param {Pointer<Pointer<Void>>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
-     * @returns {HRESULT} Returns S_OK (zero) if the call was successful, and a nonzero value if the call failed.
+     * @returns {Pointer<Void>} A handle to the registration. Use this handle to unregister for notifications.
      * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powerregisterforeffectivepowermodenotifications
      * @since windows10.0.17763
      */
-    static PowerRegisterForEffectivePowerModeNotifications(Version, Callback, Context, RegistrationHandle) {
+    static PowerRegisterForEffectivePowerModeNotifications(Version, Callback, Context) {
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
-        RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", "uint", Version, "ptr", Callback, ContextMarshal, Context, RegistrationHandleMarshal, RegistrationHandle, "int")
+        result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", "uint", Version, "ptr", Callback, ContextMarshal, Context, "ptr*", &RegistrationHandle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return RegistrationHandle
     }
 
     /**
@@ -3945,7 +3943,9 @@ class Power {
     static GetDevicePowerState(hDevice, pfOn) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := DllCall("KERNEL32.dll\GetDevicePowerState", "ptr", hDevice, "ptr", pfOn, "int")
+        pfOnMarshal := pfOn is VarRef ? "int*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetDevicePowerState", "ptr", hDevice, pfOnMarshal, pfOn, "int")
         return result
     }
 

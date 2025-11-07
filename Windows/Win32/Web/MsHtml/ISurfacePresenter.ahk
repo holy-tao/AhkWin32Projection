@@ -43,23 +43,19 @@ class ISurfacePresenter extends IUnknown{
      * 
      * @param {Integer} backBufferIndex 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppBuffer 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetBuffer(backBufferIndex, riid, ppBuffer) {
-        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", backBufferIndex, "ptr", riid, ppBufferMarshal, ppBuffer, "HRESULT")
-        return result
+    GetBuffer(backBufferIndex, riid) {
+        result := ComCall(4, this, "uint", backBufferIndex, "ptr", riid, "ptr*", &ppBuffer := 0, "HRESULT")
+        return ppBuffer
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsCurrent 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsCurrent(pIsCurrent) {
-        result := ComCall(5, this, "ptr", pIsCurrent, "HRESULT")
-        return result
+    IsCurrent() {
+        result := ComCall(5, this, "int*", &pIsCurrent := 0, "HRESULT")
+        return pIsCurrent
     }
 }

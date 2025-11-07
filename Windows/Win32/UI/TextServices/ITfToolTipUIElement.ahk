@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITfUIElement.ahk
 
 /**
@@ -32,12 +33,12 @@ class ITfToolTipUIElement extends ITfUIElement{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftooltipuielement-getstring
      */
-    GetString(pstr) {
+    GetString() {
+        pstr := BSTR()
         result := ComCall(7, this, "ptr", pstr, "HRESULT")
-        return result
+        return pstr
     }
 }

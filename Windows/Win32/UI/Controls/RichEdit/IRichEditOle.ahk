@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Ole\IOleClientSite.ahk
+#Include ..\..\..\System\Com\IDataObject.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +34,12 @@ class IRichEditOle extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOleClientSite>} lplpolesite 
-     * @returns {HRESULT} 
+     * @returns {IOleClientSite} 
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-getclientsite
      */
-    GetClientSite(lplpolesite) {
-        result := ComCall(3, this, "ptr*", lplpolesite, "HRESULT")
-        return result
+    GetClientSite() {
+        result := ComCall(3, this, "ptr*", &lplpolesite := 0, "HRESULT")
+        return IOleClientSite(lplpolesite)
     }
 
     /**
@@ -203,17 +204,12 @@ class IRichEditOle extends IUnknown{
      * Retrieves data from the clipboard in a specified format. The clipboard must have been opened previously.
      * @param {Pointer<CHARRANGE>} lpchrg 
      * @param {Integer} reco 
-     * @param {Pointer<IDataObject>} lplpdataobj 
-     * @returns {HRESULT} Type: <b>HANDLE</b>
-     * 
-     * If the function succeeds, the return value is the handle to a clipboard object in the specified format.
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {IDataObject} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getclipboarddata
      */
-    GetClipboardData(lpchrg, reco, lplpdataobj) {
-        result := ComCall(17, this, "ptr", lpchrg, "uint", reco, "ptr*", lplpdataobj, "HRESULT")
-        return result
+    GetClipboardData(lpchrg, reco) {
+        result := ComCall(17, this, "ptr", lpchrg, "uint", reco, "ptr*", &lplpdataobj := 0, "HRESULT")
+        return IDataObject(lplpdataobj)
     }
 
     /**

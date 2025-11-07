@@ -36,39 +36,33 @@ class IComThreadingInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pAptType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icomthreadinginfo-getcurrentapartmenttype
      */
-    GetCurrentApartmentType(pAptType) {
-        pAptTypeMarshal := pAptType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pAptTypeMarshal, pAptType, "HRESULT")
-        return result
+    GetCurrentApartmentType() {
+        result := ComCall(3, this, "int*", &pAptType := 0, "HRESULT")
+        return pAptType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pThreadType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icomthreadinginfo-getcurrentthreadtype
      */
-    GetCurrentThreadType(pThreadType) {
-        pThreadTypeMarshal := pThreadType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pThreadTypeMarshal, pThreadType, "HRESULT")
-        return result
+    GetCurrentThreadType() {
+        result := ComCall(4, this, "int*", &pThreadType := 0, "HRESULT")
+        return pThreadType
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidLogicalThreadId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icomthreadinginfo-getcurrentlogicalthreadid
      */
-    GetCurrentLogicalThreadId(pguidLogicalThreadId) {
+    GetCurrentLogicalThreadId() {
+        pguidLogicalThreadId := Guid()
         result := ComCall(5, this, "ptr", pguidLogicalThreadId, "HRESULT")
-        return result
+        return pguidLogicalThreadId
     }
 
     /**

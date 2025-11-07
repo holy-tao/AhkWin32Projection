@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Audio\DirectSound\IDirectSound.ahk
+#Include ..\Audio\DirectSound\IDirectSoundBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,35 +34,32 @@ class IAMDirectSound extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirectSound>} lplpds 
-     * @returns {HRESULT} 
+     * @returns {IDirectSound} 
      * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-getdirectsoundinterface
      */
-    GetDirectSoundInterface(lplpds) {
-        result := ComCall(3, this, "ptr*", lplpds, "HRESULT")
-        return result
+    GetDirectSoundInterface() {
+        result := ComCall(3, this, "ptr*", &lplpds := 0, "HRESULT")
+        return IDirectSound(lplpds)
     }
 
     /**
      * 
-     * @param {Pointer<IDirectSoundBuffer>} lplpdsb 
-     * @returns {HRESULT} 
+     * @returns {IDirectSoundBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-getprimarybufferinterface
      */
-    GetPrimaryBufferInterface(lplpdsb) {
-        result := ComCall(4, this, "ptr*", lplpdsb, "HRESULT")
-        return result
+    GetPrimaryBufferInterface() {
+        result := ComCall(4, this, "ptr*", &lplpdsb := 0, "HRESULT")
+        return IDirectSoundBuffer(lplpdsb)
     }
 
     /**
      * 
-     * @param {Pointer<IDirectSoundBuffer>} lplpdsb 
-     * @returns {HRESULT} 
+     * @returns {IDirectSoundBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-getsecondarybufferinterface
      */
-    GetSecondaryBufferInterface(lplpdsb) {
-        result := ComCall(5, this, "ptr*", lplpdsb, "HRESULT")
-        return result
+    GetSecondaryBufferInterface() {
+        result := ComCall(5, this, "ptr*", &lplpdsb := 0, "HRESULT")
+        return IDirectSoundBuffer(lplpdsb)
     }
 
     /**
@@ -118,7 +117,9 @@ class IAMDirectSound extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-getfocuswindow
      */
     GetFocusWindow(param0, param1) {
-        result := ComCall(10, this, "ptr", param0, "ptr", param1, "HRESULT")
+        param1Marshal := param1 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", param0, param1Marshal, param1, "HRESULT")
         return result
     }
 }

@@ -46,14 +46,11 @@ class ISVGPathSegCurvetoCubicSmoothAbs extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_x(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_x() {
+        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -68,14 +65,11 @@ class ISVGPathSegCurvetoCubicSmoothAbs extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_y(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_y() {
+        result := ComCall(10, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -90,14 +84,11 @@ class ISVGPathSegCurvetoCubicSmoothAbs extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_x2(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(12, this, pMarshal, p, "HRESULT")
-        return result
+    get_x2() {
+        result := ComCall(12, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -112,13 +103,10 @@ class ISVGPathSegCurvetoCubicSmoothAbs extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_y2(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(14, this, pMarshal, p, "HRESULT")
-        return result
+    get_y2() {
+        result := ComCall(14, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 }

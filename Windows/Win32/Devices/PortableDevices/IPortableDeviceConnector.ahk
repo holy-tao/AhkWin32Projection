@@ -99,12 +99,11 @@ class IPortableDeviceConnector extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszPnPID 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceconnectapi/nf-portabledeviceconnectapi-iportabledeviceconnector-getpnpid
      */
-    GetPnPID(ppwszPnPID) {
-        result := ComCall(8, this, "ptr", ppwszPnPID, "HRESULT")
-        return result
+    GetPnPID() {
+        result := ComCall(8, this, "ptr*", &ppwszPnPID := 0, "HRESULT")
+        return ppwszPnPID
     }
 }

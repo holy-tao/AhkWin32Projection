@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IWSMan.ahk
 
 /**
@@ -34,260 +35,205 @@ class IWSManEx extends IWSMan{
     /**
      * 
      * @param {BSTR} strResourceLocator 
-     * @param {Pointer<IDispatch>} newResourceLocator 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-createresourcelocator
      */
-    CreateResourceLocator(strResourceLocator, newResourceLocator) {
+    CreateResourceLocator(strResourceLocator) {
         strResourceLocator := strResourceLocator is String ? BSTR.Alloc(strResourceLocator).Value : strResourceLocator
 
-        result := ComCall(11, this, "ptr", strResourceLocator, "ptr*", newResourceLocator, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", strResourceLocator, "ptr*", &newResourceLocator := 0, "HRESULT")
+        return IDispatch(newResourceLocator)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagutf8
      */
-    SessionFlagUTF8(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagUTF8() {
+        result := ComCall(12, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagcredusernamepassword
      */
-    SessionFlagCredUsernamePassword(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagCredUsernamePassword() {
+        result := ComCall(13, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagskipcacheck
      */
-    SessionFlagSkipCACheck(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagSkipCACheck() {
+        result := ComCall(14, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagskipcncheck
      */
-    SessionFlagSkipCNCheck(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagSkipCNCheck() {
+        result := ComCall(15, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagusedigest
      */
-    SessionFlagUseDigest(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagUseDigest() {
+        result := ComCall(16, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagusenegotiate
      */
-    SessionFlagUseNegotiate(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagUseNegotiate() {
+        result := ComCall(17, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagusebasic
      */
-    SessionFlagUseBasic(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagUseBasic() {
+        result := ComCall(18, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagusekerberos
      */
-    SessionFlagUseKerberos(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagUseKerberos() {
+        result := ComCall(19, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagnoencryption
      */
-    SessionFlagNoEncryption(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagNoEncryption() {
+        result := ComCall(20, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagenablespnserverport
      */
-    SessionFlagEnableSPNServerPort(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagEnableSPNServerPort() {
+        result := ComCall(21, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagusenoauthentication
      */
-    SessionFlagUseNoAuthentication(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagUseNoAuthentication() {
+        result := ComCall(22, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflagnonxmltext
      */
-    EnumerationFlagNonXmlText(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, flagsMarshal, flags, "HRESULT")
-        return result
+    EnumerationFlagNonXmlText() {
+        result := ComCall(23, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflagreturnepr
      */
-    EnumerationFlagReturnEPR(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, flagsMarshal, flags, "HRESULT")
-        return result
+    EnumerationFlagReturnEPR() {
+        result := ComCall(24, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflagreturnobjectandepr
      */
-    EnumerationFlagReturnObjectAndEPR(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, flagsMarshal, flags, "HRESULT")
-        return result
+    EnumerationFlagReturnObjectAndEPR() {
+        result := ComCall(25, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
      * @param {Integer} errorNumber 
-     * @param {Pointer<BSTR>} errorMessage 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-geterrormessage
      */
-    GetErrorMessage(errorNumber, errorMessage) {
+    GetErrorMessage(errorNumber) {
+        errorMessage := BSTR()
         result := ComCall(26, this, "uint", errorNumber, "ptr", errorMessage, "HRESULT")
-        return result
+        return errorMessage
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflaghierarchydeep
      */
-    EnumerationFlagHierarchyDeep(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, flagsMarshal, flags, "HRESULT")
-        return result
+    EnumerationFlagHierarchyDeep() {
+        result := ComCall(27, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflaghierarchyshallow
      */
-    EnumerationFlagHierarchyShallow(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, flagsMarshal, flags, "HRESULT")
-        return result
+    EnumerationFlagHierarchyShallow() {
+        result := ComCall(28, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflaghierarchydeepbasepropsonly
      */
-    EnumerationFlagHierarchyDeepBasePropsOnly(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, flagsMarshal, flags, "HRESULT")
-        return result
+    EnumerationFlagHierarchyDeepBasePropsOnly() {
+        result := ComCall(29, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflagreturnobject
      */
-    EnumerationFlagReturnObject(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, flagsMarshal, flags, "HRESULT")
-        return result
+    EnumerationFlagReturnObject() {
+        result := ComCall(30, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 }

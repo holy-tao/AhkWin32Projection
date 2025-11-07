@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICondition.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -87,18 +88,19 @@ class IConditionGenerator extends IUnknown{
      * @param {IRichChunk} pValueTerm 
      * @param {BOOL} automaticWildcard 
      * @param {Pointer<BOOL>} pNoStringQuery 
-     * @param {Pointer<ICondition>} ppQueryExpression 
-     * @returns {HRESULT} 
+     * @returns {ICondition} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditiongenerator-generateforleaf
      */
-    GenerateForLeaf(pConditionFactory, pszPropertyName, cop, pszValueType, pszValue, pszValue2, pPropertyNameTerm, pOperationTerm, pValueTerm, automaticWildcard, pNoStringQuery, ppQueryExpression) {
+    GenerateForLeaf(pConditionFactory, pszPropertyName, cop, pszValueType, pszValue, pszValue2, pPropertyNameTerm, pOperationTerm, pValueTerm, automaticWildcard, pNoStringQuery) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
         pszValueType := pszValueType is String ? StrPtr(pszValueType) : pszValueType
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
         pszValue2 := pszValue2 is String ? StrPtr(pszValue2) : pszValue2
 
-        result := ComCall(5, this, "ptr", pConditionFactory, "ptr", pszPropertyName, "int", cop, "ptr", pszValueType, "ptr", pszValue, "ptr", pszValue2, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, "int", automaticWildcard, "ptr", pNoStringQuery, "ptr*", ppQueryExpression, "HRESULT")
-        return result
+        pNoStringQueryMarshal := pNoStringQuery is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pConditionFactory, "ptr", pszPropertyName, "int", cop, "ptr", pszValueType, "ptr", pszValue, "ptr", pszValue2, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, "int", automaticWildcard, pNoStringQueryMarshal, pNoStringQuery, "ptr*", &ppQueryExpression := 0, "HRESULT")
+        return ICondition(ppQueryExpression)
     }
 
     /**
@@ -106,14 +108,13 @@ class IConditionGenerator extends IUnknown{
      * @param {PWSTR} pszValueType 
      * @param {Pointer<PROPVARIANT>} ppropvar 
      * @param {BOOL} fUseEnglish 
-     * @param {Pointer<PWSTR>} ppszPhrase 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditiongenerator-defaultphrase
      */
-    DefaultPhrase(pszValueType, ppropvar, fUseEnglish, ppszPhrase) {
+    DefaultPhrase(pszValueType, ppropvar, fUseEnglish) {
         pszValueType := pszValueType is String ? StrPtr(pszValueType) : pszValueType
 
-        result := ComCall(6, this, "ptr", pszValueType, "ptr", ppropvar, "int", fUseEnglish, "ptr", ppszPhrase, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszValueType, "ptr", ppropvar, "int", fUseEnglish, "ptr*", &ppszPhrase := 0, "HRESULT")
+        return ppszPhrase
     }
 }

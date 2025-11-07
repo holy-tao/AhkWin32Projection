@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumDirectoryObject.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,50 +35,43 @@ class ITDirectory extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDirectoryType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-get_directorytype
      */
-    get_DirectoryType(pDirectoryType) {
-        pDirectoryTypeMarshal := pDirectoryType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pDirectoryTypeMarshal, pDirectoryType, "HRESULT")
-        return result
+    get_DirectoryType() {
+        result := ComCall(7, this, "int*", &pDirectoryType := 0, "HRESULT")
+        return pDirectoryType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-get_displayname
      */
-    get_DisplayName(pName) {
+    get_DisplayName() {
+        pName := BSTR()
         result := ComCall(8, this, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfDynamic 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-get_isdynamic
      */
-    get_IsDynamic(pfDynamic) {
-        result := ComCall(9, this, "ptr", pfDynamic, "HRESULT")
-        return result
+    get_IsDynamic() {
+        result := ComCall(9, this, "short*", &pfDynamic := 0, "HRESULT")
+        return pfDynamic
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pTTL 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-get_defaultobjectttl
      */
-    get_DefaultObjectTTL(pTTL) {
-        pTTLMarshal := pTTL is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pTTLMarshal, pTTL, "HRESULT")
-        return result
+    get_DefaultObjectTTL() {
+        result := ComCall(10, this, "int*", &pTTL := 0, "HRESULT")
+        return pTTL
     }
 
     /**
@@ -178,29 +173,28 @@ class ITDirectory extends IDispatch{
      * 
      * @param {Integer} DirectoryObjectType 
      * @param {BSTR} pName 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-get_directoryobjects
      */
-    get_DirectoryObjects(DirectoryObjectType, pName, pVariant) {
+    get_DirectoryObjects(DirectoryObjectType, pName) {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName
 
+        pVariant := VARIANT()
         result := ComCall(19, this, "int", DirectoryObjectType, "ptr", pName, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
      * @param {Integer} DirectoryObjectType 
      * @param {BSTR} pName 
-     * @param {Pointer<IEnumDirectoryObject>} ppEnumObject 
-     * @returns {HRESULT} 
+     * @returns {IEnumDirectoryObject} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-enumeratedirectoryobjects
      */
-    EnumerateDirectoryObjects(DirectoryObjectType, pName, ppEnumObject) {
+    EnumerateDirectoryObjects(DirectoryObjectType, pName) {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName
 
-        result := ComCall(20, this, "int", DirectoryObjectType, "ptr", pName, "ptr*", ppEnumObject, "HRESULT")
-        return result
+        result := ComCall(20, this, "int", DirectoryObjectType, "ptr", pName, "ptr*", &ppEnumObject := 0, "HRESULT")
+        return IEnumDirectoryObject(ppEnumObject)
     }
 }

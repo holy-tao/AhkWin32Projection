@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IInkStrokes.ahk
+#Include .\IInkRecognitionAlternate.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,47 +42,41 @@ class IInkRecognitionAlternates extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternates-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} _NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(_NewEnum) {
-        result := ComCall(8, this, "ptr*", _NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "HRESULT")
+        return IUnknown(_NewEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternates-get_strokes
      */
-    get_Strokes(Strokes) {
-        result := ComCall(9, this, "ptr*", Strokes, "HRESULT")
-        return result
+    get_Strokes() {
+        result := ComCall(9, this, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<IInkRecognitionAlternate>} InkRecoAlternate 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognitionAlternate} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternates-item
      */
-    Item(Index, InkRecoAlternate) {
-        result := ComCall(10, this, "int", Index, "ptr*", InkRecoAlternate, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(10, this, "int", Index, "ptr*", &InkRecoAlternate := 0, "HRESULT")
+        return IInkRecognitionAlternate(InkRecoAlternate)
     }
 }

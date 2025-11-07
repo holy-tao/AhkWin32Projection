@@ -30,14 +30,11 @@ class ISpeechMMSysAudio extends ISpeechAudio{
 
     /**
      * 
-     * @param {Pointer<Integer>} DeviceId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DeviceId(DeviceId) {
-        DeviceIdMarshal := DeviceId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, DeviceIdMarshal, DeviceId, "HRESULT")
-        return result
+    get_DeviceId() {
+        result := ComCall(21, this, "int*", &DeviceId := 0, "HRESULT")
+        return DeviceId
     }
 
     /**
@@ -52,14 +49,11 @@ class ISpeechMMSysAudio extends ISpeechAudio{
 
     /**
      * 
-     * @param {Pointer<Integer>} LineId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LineId(LineId) {
-        LineIdMarshal := LineId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, LineIdMarshal, LineId, "HRESULT")
-        return result
+    get_LineId() {
+        result := ComCall(23, this, "int*", &LineId := 0, "HRESULT")
+        return LineId
     }
 
     /**
@@ -74,13 +68,10 @@ class ISpeechMMSysAudio extends ISpeechAudio{
 
     /**
      * 
-     * @param {Pointer<Integer>} Handle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MMHandle(Handle) {
-        HandleMarshal := Handle is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, HandleMarshal, Handle, "HRESULT")
-        return result
+    get_MMHandle() {
+        result := ComCall(25, this, "int*", &Handle := 0, "HRESULT")
+        return Handle
     }
 }

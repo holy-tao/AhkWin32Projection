@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumBstr.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,26 +35,23 @@ class IMcastLeaseInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppRequestID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_requestid
      */
-    get_RequestID(ppRequestID) {
+    get_RequestID() {
+        ppRequestID := BSTR()
         result := ComCall(7, this, "ptr", ppRequestID, "HRESULT")
-        return result
+        return ppRequestID
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_leasestarttime
      */
-    get_LeaseStartTime(pTime) {
-        pTimeMarshal := pTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, pTimeMarshal, pTime, "HRESULT")
-        return result
+    get_LeaseStartTime() {
+        result := ComCall(8, this, "double*", &pTime := 0, "HRESULT")
+        return pTime
     }
 
     /**
@@ -67,15 +67,12 @@ class IMcastLeaseInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_leasestoptime
      */
-    get_LeaseStopTime(pTime) {
-        pTimeMarshal := pTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(10, this, pTimeMarshal, pTime, "HRESULT")
-        return result
+    get_LeaseStopTime() {
+        result := ComCall(10, this, "double*", &pTime := 0, "HRESULT")
+        return pTime
     }
 
     /**
@@ -91,60 +88,53 @@ class IMcastLeaseInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_addresscount
      */
-    get_AddressCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    get_AddressCount() {
+        result := ComCall(12, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_serveraddress
      */
-    get_ServerAddress(ppAddress) {
+    get_ServerAddress() {
+        ppAddress := BSTR()
         result := ComCall(13, this, "ptr", ppAddress, "HRESULT")
-        return result
+        return ppAddress
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pTTL 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_ttl
      */
-    get_TTL(pTTL) {
-        pTTLMarshal := pTTL is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pTTLMarshal, pTTL, "HRESULT")
-        return result
+    get_TTL() {
+        result := ComCall(14, this, "int*", &pTTL := 0, "HRESULT")
+        return pTTL
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_addresses
      */
-    get_Addresses(pVariant) {
+    get_Addresses() {
+        pVariant := VARIANT()
         result := ComCall(15, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumBstr>} ppEnumAddresses 
-     * @returns {HRESULT} 
+     * @returns {IEnumBstr} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-enumerateaddresses
      */
-    EnumerateAddresses(ppEnumAddresses) {
-        result := ComCall(16, this, "ptr*", ppEnumAddresses, "HRESULT")
-        return result
+    EnumerateAddresses() {
+        result := ComCall(16, this, "ptr*", &ppEnumAddresses := 0, "HRESULT")
+        return IEnumBstr(ppEnumAddresses)
     }
 }

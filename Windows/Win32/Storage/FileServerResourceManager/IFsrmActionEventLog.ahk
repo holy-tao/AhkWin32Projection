@@ -43,15 +43,12 @@ class IFsrmActionEventLog extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<Integer>} eventType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_eventtype
      */
-    get_EventType(eventType) {
-        eventTypeMarshal := eventType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, eventTypeMarshal, eventType, "HRESULT")
-        return result
+    get_EventType() {
+        result := ComCall(12, this, "int*", &eventType := 0, "HRESULT")
+        return eventType
     }
 
     /**
@@ -67,13 +64,13 @@ class IFsrmActionEventLog extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<BSTR>} messageText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_messagetext
      */
-    get_MessageText(messageText) {
+    get_MessageText() {
+        messageText := BSTR()
         result := ComCall(14, this, "ptr", messageText, "HRESULT")
-        return result
+        return messageText
     }
 
     /**

@@ -30,24 +30,20 @@ class IPrintDocumentPackageTarget2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isIppPrinter 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetIsTargetIppPrinter(isIppPrinter) {
-        result := ComCall(3, this, "ptr", isIppPrinter, "HRESULT")
-        return result
+    GetIsTargetIppPrinter() {
+        result := ComCall(3, this, "int*", &isIppPrinter := 0, "HRESULT")
+        return isIppPrinter
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvTarget 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetTargetIppPrintDevice(riid, ppvTarget) {
-        ppvTargetMarshal := ppvTarget is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", riid, ppvTargetMarshal, ppvTarget, "HRESULT")
-        return result
+    GetTargetIppPrintDevice(riid) {
+        result := ComCall(4, this, "ptr", riid, "ptr*", &ppvTarget := 0, "HRESULT")
+        return ppvTarget
     }
 }

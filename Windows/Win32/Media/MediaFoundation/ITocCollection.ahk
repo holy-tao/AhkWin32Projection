@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IToc.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,13 +47,12 @@ class ITocCollection extends IUnknown{
     /**
      * 
      * @param {Integer} dwEntryIndex 
-     * @param {Pointer<IToc>} ppToc 
-     * @returns {HRESULT} 
+     * @returns {IToc} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoccollection-getentrybyindex
      */
-    GetEntryByIndex(dwEntryIndex, ppToc) {
-        result := ComCall(4, this, "uint", dwEntryIndex, "ptr*", ppToc, "HRESULT")
-        return result
+    GetEntryByIndex(dwEntryIndex) {
+        result := ComCall(4, this, "uint", dwEntryIndex, "ptr*", &ppToc := 0, "HRESULT")
+        return IToc(ppToc)
     }
 
     /**

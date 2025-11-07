@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITuningSpace.ahk
+#Include .\IEnumTuningSpaces.ahk
+#Include .\ITuneRequest.ahk
+#Include .\IComponentTypes.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,13 +41,12 @@ class ITuner extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITuningSpace>} TuningSpace 
-     * @returns {HRESULT} 
+     * @returns {ITuningSpace} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_tuningspace
      */
-    get_TuningSpace(TuningSpace) {
-        result := ComCall(3, this, "ptr*", TuningSpace, "HRESULT")
-        return result
+    get_TuningSpace() {
+        result := ComCall(3, this, "ptr*", &TuningSpace := 0, "HRESULT")
+        return ITuningSpace(TuningSpace)
     }
 
     /**
@@ -59,24 +62,22 @@ class ITuner extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumTuningSpaces>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTuningSpaces} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-enumtuningspaces
      */
-    EnumTuningSpaces(ppEnum) {
-        result := ComCall(5, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumTuningSpaces() {
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTuningSpaces(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<ITuneRequest>} TuneRequest 
-     * @returns {HRESULT} 
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_tunerequest
      */
-    get_TuneRequest(TuneRequest) {
-        result := ComCall(6, this, "ptr*", TuneRequest, "HRESULT")
-        return result
+    get_TuneRequest() {
+        result := ComCall(6, this, "ptr*", &TuneRequest := 0, "HRESULT")
+        return ITuneRequest(TuneRequest)
     }
 
     /**
@@ -103,13 +104,12 @@ class ITuner extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IComponentTypes>} ComponentTypes 
-     * @returns {HRESULT} 
+     * @returns {IComponentTypes} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_preferredcomponenttypes
      */
-    get_PreferredComponentTypes(ComponentTypes) {
-        result := ComCall(9, this, "ptr*", ComponentTypes, "HRESULT")
-        return result
+    get_PreferredComponentTypes() {
+        result := ComCall(9, this, "ptr*", &ComponentTypes := 0, "HRESULT")
+        return IComponentTypes(ComponentTypes)
     }
 
     /**
@@ -125,15 +125,12 @@ class ITuner extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Strength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_signalstrength
      */
-    get_SignalStrength(Strength) {
-        StrengthMarshal := Strength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, StrengthMarshal, Strength, "HRESULT")
-        return result
+    get_SignalStrength() {
+        result := ComCall(11, this, "int*", &Strength := 0, "HRESULT")
+        return Strength
     }
 
     /**

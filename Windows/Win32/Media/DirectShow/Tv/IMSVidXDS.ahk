@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidFeature.ahk
 
 /**
@@ -43,12 +44,11 @@ class IMSVidXDS extends IMSVidFeature{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} punkCC 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidxds-get_channelchangeinterface
      */
-    get_ChannelChangeInterface(punkCC) {
-        result := ComCall(16, this, "ptr*", punkCC, "HRESULT")
-        return result
+    get_ChannelChangeInterface() {
+        result := ComCall(16, this, "ptr*", &punkCC := 0, "HRESULT")
+        return IUnknown(punkCC)
     }
 }

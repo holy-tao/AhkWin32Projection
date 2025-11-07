@@ -54,13 +54,10 @@ class IGenericDescriptor2 extends IGenericDescriptor{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLength(pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(8, this, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetLength() {
+        result := ComCall(8, this, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 }

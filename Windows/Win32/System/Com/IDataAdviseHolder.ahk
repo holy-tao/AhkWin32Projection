@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSTATDATA.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -36,15 +37,12 @@ class IDataAdviseHolder extends IUnknown{
      * @param {Pointer<FORMATETC>} pFetc 
      * @param {Integer} advf 
      * @param {IAdviseSink} pAdvise 
-     * @param {Pointer<Integer>} pdwConnection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataadviseholder-advise
      */
-    Advise(pDataObject, pFetc, advf, pAdvise, pdwConnection) {
-        pdwConnectionMarshal := pdwConnection is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pDataObject, "ptr", pFetc, "uint", advf, "ptr", pAdvise, pdwConnectionMarshal, pdwConnection, "HRESULT")
-        return result
+    Advise(pDataObject, pFetc, advf, pAdvise) {
+        result := ComCall(3, this, "ptr", pDataObject, "ptr", pFetc, "uint", advf, "ptr", pAdvise, "uint*", &pdwConnection := 0, "HRESULT")
+        return pdwConnection
     }
 
     /**
@@ -60,13 +58,12 @@ class IDataAdviseHolder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSTATDATA>} ppenumAdvise 
-     * @returns {HRESULT} 
+     * @returns {IEnumSTATDATA} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataadviseholder-enumadvise
      */
-    EnumAdvise(ppenumAdvise) {
-        result := ComCall(5, this, "ptr*", ppenumAdvise, "HRESULT")
-        return result
+    EnumAdvise() {
+        result := ComCall(5, this, "ptr*", &ppenumAdvise := 0, "HRESULT")
+        return IEnumSTATDATA(ppenumAdvise)
     }
 
     /**

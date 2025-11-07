@@ -45,30 +45,24 @@ class IMFRateSupport extends IUnknown{
      * 
      * @param {Integer} eDirection 
      * @param {BOOL} fThin 
-     * @param {Pointer<Float>} pflRate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-getslowestrate
      */
-    GetSlowestRate(eDirection, fThin, pflRate) {
-        pflRateMarshal := pflRate is VarRef ? "float*" : "ptr"
-
-        result := ComCall(3, this, "int", eDirection, "int", fThin, pflRateMarshal, pflRate, "HRESULT")
-        return result
+    GetSlowestRate(eDirection, fThin) {
+        result := ComCall(3, this, "int", eDirection, "int", fThin, "float*", &pflRate := 0, "HRESULT")
+        return pflRate
     }
 
     /**
      * 
      * @param {Integer} eDirection 
      * @param {BOOL} fThin 
-     * @param {Pointer<Float>} pflRate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-getfastestrate
      */
-    GetFastestRate(eDirection, fThin, pflRate) {
-        pflRateMarshal := pflRate is VarRef ? "float*" : "ptr"
-
-        result := ComCall(4, this, "int", eDirection, "int", fThin, pflRateMarshal, pflRate, "HRESULT")
-        return result
+    GetFastestRate(eDirection, fThin) {
+        result := ComCall(4, this, "int", eDirection, "int", fThin, "float*", &pflRate := 0, "HRESULT")
+        return pflRate
     }
 
     /**

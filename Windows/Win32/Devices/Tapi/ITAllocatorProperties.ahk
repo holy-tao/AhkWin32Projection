@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Media\DirectShow\ALLOCATOR_PROPERTIES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,13 @@ class ITAllocatorProperties extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ALLOCATOR_PROPERTIES>} pAllocProperties 
-     * @returns {HRESULT} 
+     * @returns {ALLOCATOR_PROPERTIES} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itallocatorproperties-getallocatorproperties
      */
-    GetAllocatorProperties(pAllocProperties) {
+    GetAllocatorProperties() {
+        pAllocProperties := ALLOCATOR_PROPERTIES()
         result := ComCall(4, this, "ptr", pAllocProperties, "HRESULT")
-        return result
+        return pAllocProperties
     }
 
     /**
@@ -65,13 +66,12 @@ class ITAllocatorProperties extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbAllocBuffers 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itallocatorproperties-getallocatebuffers
      */
-    GetAllocateBuffers(pbAllocBuffers) {
-        result := ComCall(6, this, "ptr", pbAllocBuffers, "HRESULT")
-        return result
+    GetAllocateBuffers() {
+        result := ComCall(6, this, "int*", &pbAllocBuffers := 0, "HRESULT")
+        return pbAllocBuffers
     }
 
     /**
@@ -87,14 +87,11 @@ class ITAllocatorProperties extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pBufferSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itallocatorproperties-getbuffersize
      */
-    GetBufferSize(pBufferSize) {
-        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pBufferSizeMarshal, pBufferSize, "HRESULT")
-        return result
+    GetBufferSize() {
+        result := ComCall(8, this, "uint*", &pBufferSize := 0, "HRESULT")
+        return pBufferSize
     }
 }

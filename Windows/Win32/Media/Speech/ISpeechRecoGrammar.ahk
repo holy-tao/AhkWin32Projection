@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ISpeechRecoContext.ahk
+#Include .\ISpeechGrammarRules.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,22 +34,21 @@ class ISpeechRecoGrammar extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Id 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Id(Id) {
+    get_Id() {
+        Id := VARIANT()
         result := ComCall(7, this, "ptr", Id, "HRESULT")
-        return result
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechRecoContext>} RecoContext 
-     * @returns {HRESULT} 
+     * @returns {ISpeechRecoContext} 
      */
-    get_RecoContext(RecoContext) {
-        result := ComCall(8, this, "ptr*", RecoContext, "HRESULT")
-        return result
+    get_RecoContext() {
+        result := ComCall(8, this, "ptr*", &RecoContext := 0, "HRESULT")
+        return ISpeechRecoContext(RecoContext)
     }
 
     /**
@@ -61,24 +63,20 @@ class ISpeechRecoGrammar extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} State 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(State) {
-        StateMarshal := State is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, StateMarshal, State, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(10, this, "int*", &State := 0, "HRESULT")
+        return State
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechGrammarRules>} Rules 
-     * @returns {HRESULT} 
+     * @returns {ISpeechGrammarRules} 
      */
-    get_Rules(Rules) {
-        result := ComCall(11, this, "ptr*", Rules, "HRESULT")
-        return result
+    get_Rules() {
+        result := ComCall(11, this, "ptr*", &Rules := 0, "HRESULT")
+        return ISpeechGrammarRules(Rules)
     }
 
     /**
@@ -243,15 +241,12 @@ class ISpeechRecoGrammar extends IDispatch{
     /**
      * 
      * @param {BSTR} Word 
-     * @param {Pointer<Integer>} WordPronounceable 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    IsPronounceable(Word, WordPronounceable) {
+    IsPronounceable(Word) {
         Word := Word is String ? BSTR.Alloc(Word).Value : Word
 
-        WordPronounceableMarshal := WordPronounceable is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, "ptr", Word, WordPronounceableMarshal, WordPronounceable, "HRESULT")
-        return result
+        result := ComCall(25, this, "ptr", Word, "int*", &WordPronounceable := 0, "HRESULT")
+        return WordPronounceable
     }
 }

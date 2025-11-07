@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IMSMQEvent.ahk
 
 /**
@@ -30,11 +31,10 @@ class IMSMQEvent2 extends IMSMQEvent{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppcolProperties 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Properties(ppcolProperties) {
-        result := ComCall(7, this, "ptr*", ppcolProperties, "HRESULT")
-        return result
+    get_Properties() {
+        result := ComCall(7, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        return IDispatch(ppcolProperties)
     }
 }

@@ -32,13 +32,13 @@ class IRunnableObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} lpClsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunnableobject-getrunningclass
      */
-    GetRunningClass(lpClsid) {
+    GetRunningClass() {
+        lpClsid := Guid()
         result := ComCall(3, this, "ptr", lpClsid, "HRESULT")
-        return result
+        return lpClsid
     }
 
     /**

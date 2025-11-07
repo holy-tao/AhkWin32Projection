@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITypeInfo.ahk
+#Include .\ITypeComp.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -67,63 +69,54 @@ class ITypeLib extends IUnknown{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ITypeInfo>} ppTInfo 
-     * @returns {HRESULT} 
+     * @returns {ITypeInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfo
      */
-    GetTypeInfo(index, ppTInfo) {
-        result := ComCall(4, this, "uint", index, "ptr*", ppTInfo, "HRESULT")
-        return result
+    GetTypeInfo(index) {
+        result := ComCall(4, this, "uint", index, "ptr*", &ppTInfo := 0, "HRESULT")
+        return ITypeInfo(ppTInfo)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Integer>} pTKind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfotype
      */
-    GetTypeInfoType(index, pTKind) {
-        pTKindMarshal := pTKind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, "uint", index, pTKindMarshal, pTKind, "HRESULT")
-        return result
+    GetTypeInfoType(index) {
+        result := ComCall(5, this, "uint", index, "int*", &pTKind := 0, "HRESULT")
+        return pTKind
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guid 
-     * @param {Pointer<ITypeInfo>} ppTinfo 
-     * @returns {HRESULT} 
+     * @returns {ITypeInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfoofguid
      */
-    GetTypeInfoOfGuid(guid, ppTinfo) {
-        result := ComCall(6, this, "ptr", guid, "ptr*", ppTinfo, "HRESULT")
-        return result
+    GetTypeInfoOfGuid(guid) {
+        result := ComCall(6, this, "ptr", guid, "ptr*", &ppTinfo := 0, "HRESULT")
+        return ITypeInfo(ppTinfo)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<TLIBATTR>>} ppTLibAttr 
-     * @returns {HRESULT} 
+     * @returns {Pointer<TLIBATTR>} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-getlibattr
      */
-    GetLibAttr(ppTLibAttr) {
-        ppTLibAttrMarshal := ppTLibAttr is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, ppTLibAttrMarshal, ppTLibAttr, "HRESULT")
-        return result
+    GetLibAttr() {
+        result := ComCall(7, this, "ptr*", &ppTLibAttr := 0, "HRESULT")
+        return ppTLibAttr
     }
 
     /**
      * 
-     * @param {Pointer<ITypeComp>} ppTComp 
-     * @returns {HRESULT} 
+     * @returns {ITypeComp} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypecomp
      */
-    GetTypeComp(ppTComp) {
-        result := ComCall(8, this, "ptr*", ppTComp, "HRESULT")
-        return result
+    GetTypeComp() {
+        result := ComCall(8, this, "ptr*", &ppTComp := 0, "HRESULT")
+        return ITypeComp(ppTComp)
     }
 
     /**
@@ -147,15 +140,14 @@ class ITypeLib extends IUnknown{
      * 
      * @param {PWSTR} szNameBuf 
      * @param {Integer} lHashVal 
-     * @param {Pointer<BOOL>} pfName 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-isname
      */
-    IsName(szNameBuf, lHashVal, pfName) {
+    IsName(szNameBuf, lHashVal) {
         szNameBuf := szNameBuf is String ? StrPtr(szNameBuf) : szNameBuf
 
-        result := ComCall(10, this, "ptr", szNameBuf, "uint", lHashVal, "ptr", pfName, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", szNameBuf, "uint", lHashVal, "int*", &pfName := 0, "HRESULT")
+        return pfName
     }
 
     /**

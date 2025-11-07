@@ -40,12 +40,11 @@ class ITfQueryEmbedded extends IUnknown{
      * 
      * @param {Pointer<Guid>} pguidService 
      * @param {Pointer<FORMATETC>} pFormatEtc 
-     * @param {Pointer<BOOL>} pfInsertable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfqueryembedded-queryinsertembedded
      */
-    QueryInsertEmbedded(pguidService, pFormatEtc, pfInsertable) {
-        result := ComCall(3, this, "ptr", pguidService, "ptr", pFormatEtc, "ptr", pfInsertable, "HRESULT")
-        return result
+    QueryInsertEmbedded(pguidService, pFormatEtc) {
+        result := ComCall(3, this, "ptr", pguidService, "ptr", pFormatEtc, "int*", &pfInsertable := 0, "HRESULT")
+        return pfInsertable
     }
 }

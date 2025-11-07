@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -81,15 +82,14 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
      * 
      * @param {Pointer<VMR9AllocationInfo>} lpAllocInfo 
      * @param {Pointer<Integer>} lpNumBuffers 
-     * @param {Pointer<IDirect3DSurface9>} lplpSurface 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-allocatesurfacehelper
      */
-    AllocateSurfaceHelper(lpAllocInfo, lpNumBuffers, lplpSurface) {
+    AllocateSurfaceHelper(lpAllocInfo, lpNumBuffers) {
         lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "ptr*", lplpSurface, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "ptr*", &lplpSurface := 0, "HRESULT")
+        return IDirect3DSurface9(lplpSurface)
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -40,15 +41,15 @@ class IUPnPService extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrVariableName 
-     * @param {Pointer<VARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservice-querystatevariable
      */
-    QueryStateVariable(bstrVariableName, pValue) {
+    QueryStateVariable(bstrVariableName) {
         bstrVariableName := bstrVariableName is String ? BSTR.Alloc(bstrVariableName).Value : bstrVariableName
 
+        pValue := VARIANT()
         result := ComCall(7, this, "ptr", bstrVariableName, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -56,26 +57,26 @@ class IUPnPService extends IDispatch{
      * @param {BSTR} bstrActionName 
      * @param {VARIANT} vInActionArgs 
      * @param {Pointer<VARIANT>} pvOutActionArgs 
-     * @param {Pointer<VARIANT>} pvRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservice-invokeaction
      */
-    InvokeAction(bstrActionName, vInActionArgs, pvOutActionArgs, pvRetVal) {
+    InvokeAction(bstrActionName, vInActionArgs, pvOutActionArgs) {
         bstrActionName := bstrActionName is String ? BSTR.Alloc(bstrActionName).Value : bstrActionName
 
+        pvRetVal := VARIANT()
         result := ComCall(8, this, "ptr", bstrActionName, "ptr", vInActionArgs, "ptr", pvOutActionArgs, "ptr", pvRetVal, "HRESULT")
-        return result
+        return pvRetVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservice-get_servicetypeidentifier
      */
-    get_ServiceTypeIdentifier(pVal) {
+    get_ServiceTypeIdentifier() {
+        pVal := BSTR()
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -91,25 +92,22 @@ class IUPnPService extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservice-get_id
      */
-    get_Id(pbstrId) {
+    get_Id() {
+        pbstrId := BSTR()
         result := ComCall(11, this, "ptr", pbstrId, "HRESULT")
-        return result
+        return pbstrId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservice-get_lasttransportstatus
      */
-    get_LastTransportStatus(plValue) {
-        plValueMarshal := plValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plValueMarshal, plValue, "HRESULT")
-        return result
+    get_LastTransportStatus() {
+        result := ComCall(12, this, "int*", &plValue := 0, "HRESULT")
+        return plValue
     }
 }

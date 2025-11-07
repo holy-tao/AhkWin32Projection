@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAnimationStoryboard.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,91 +40,72 @@ class IUIAnimationVariable extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getvalue
      */
-    GetValue(value) {
-        valueMarshal := value is VarRef ? "double*" : "ptr"
-
-        result := ComCall(3, this, valueMarshal, value, "HRESULT")
-        return result
+    GetValue() {
+        result := ComCall(3, this, "double*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Float>} finalValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getfinalvalue
      */
-    GetFinalValue(finalValue) {
-        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(4, this, finalValueMarshal, finalValue, "HRESULT")
-        return result
+    GetFinalValue() {
+        result := ComCall(4, this, "double*", &finalValue := 0, "HRESULT")
+        return finalValue
     }
 
     /**
      * 
-     * @param {Pointer<Float>} previousValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getpreviousvalue
      */
-    GetPreviousValue(previousValue) {
-        previousValueMarshal := previousValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(5, this, previousValueMarshal, previousValue, "HRESULT")
-        return result
+    GetPreviousValue() {
+        result := ComCall(5, this, "double*", &previousValue := 0, "HRESULT")
+        return previousValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getintegervalue
      */
-    GetIntegerValue(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, valueMarshal, value, "HRESULT")
-        return result
+    GetIntegerValue() {
+        result := ComCall(6, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} finalValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getfinalintegervalue
      */
-    GetFinalIntegerValue(finalValue) {
-        finalValueMarshal := finalValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, finalValueMarshal, finalValue, "HRESULT")
-        return result
+    GetFinalIntegerValue() {
+        result := ComCall(7, this, "int*", &finalValue := 0, "HRESULT")
+        return finalValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} previousValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getpreviousintegervalue
      */
-    GetPreviousIntegerValue(previousValue) {
-        previousValueMarshal := previousValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, previousValueMarshal, previousValue, "HRESULT")
-        return result
+    GetPreviousIntegerValue() {
+        result := ComCall(8, this, "int*", &previousValue := 0, "HRESULT")
+        return previousValue
     }
 
     /**
      * 
-     * @param {Pointer<IUIAnimationStoryboard>} storyboard 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationStoryboard} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getcurrentstoryboard
      */
-    GetCurrentStoryboard(storyboard) {
-        result := ComCall(9, this, "ptr*", storyboard, "HRESULT")
-        return result
+    GetCurrentStoryboard() {
+        result := ComCall(9, this, "ptr*", &storyboard := 0, "HRESULT")
+        return IUIAnimationStoryboard(storyboard)
     }
 
     /**

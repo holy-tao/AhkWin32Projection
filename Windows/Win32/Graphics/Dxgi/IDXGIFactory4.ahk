@@ -34,28 +34,22 @@ class IDXGIFactory4 extends IDXGIFactory3{
      * 
      * @param {LUID} AdapterLuid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvAdapter 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgifactory4-enumadapterbyluid
      */
-    EnumAdapterByLuid(AdapterLuid, riid, ppvAdapter) {
-        ppvAdapterMarshal := ppvAdapter is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(26, this, "ptr", AdapterLuid, "ptr", riid, ppvAdapterMarshal, ppvAdapter, "HRESULT")
-        return result
+    EnumAdapterByLuid(AdapterLuid, riid) {
+        result := ComCall(26, this, "ptr", AdapterLuid, "ptr", riid, "ptr*", &ppvAdapter := 0, "HRESULT")
+        return ppvAdapter
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvAdapter 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgifactory4-enumwarpadapter
      */
-    EnumWarpAdapter(riid, ppvAdapter) {
-        ppvAdapterMarshal := ppvAdapter is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(27, this, "ptr", riid, ppvAdapterMarshal, ppvAdapter, "HRESULT")
-        return result
+    EnumWarpAdapter(riid) {
+        result := ComCall(27, this, "ptr", riid, "ptr*", &ppvAdapter := 0, "HRESULT")
+        return ppvAdapter
     }
 }

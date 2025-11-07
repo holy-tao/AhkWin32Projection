@@ -32,42 +32,33 @@ class IAMTVTuner extends IAMTuner{
 
     /**
      * 
-     * @param {Pointer<Integer>} lAnalogVideoStandard 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_availabletvformats
      */
-    get_AvailableTVFormats(lAnalogVideoStandard) {
-        lAnalogVideoStandardMarshal := lAnalogVideoStandard is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, lAnalogVideoStandardMarshal, lAnalogVideoStandard, "HRESULT")
-        return result
+    get_AvailableTVFormats() {
+        result := ComCall(18, this, "int*", &lAnalogVideoStandard := 0, "HRESULT")
+        return lAnalogVideoStandard
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plAnalogVideoStandard 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_tvformat
      */
-    get_TVFormat(plAnalogVideoStandard) {
-        plAnalogVideoStandardMarshal := plAnalogVideoStandard is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, plAnalogVideoStandardMarshal, plAnalogVideoStandard, "HRESULT")
-        return result
+    get_TVFormat() {
+        result := ComCall(19, this, "int*", &plAnalogVideoStandard := 0, "HRESULT")
+        return plAnalogVideoStandard
     }
 
     /**
      * 
      * @param {Integer} lChannel 
-     * @param {Pointer<Integer>} plFoundSignal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-autotune
      */
-    AutoTune(lChannel, plFoundSignal) {
-        plFoundSignalMarshal := plFoundSignal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, "int", lChannel, plFoundSignalMarshal, plFoundSignal, "HRESULT")
-        return result
+    AutoTune(lChannel) {
+        result := ComCall(20, this, "int", lChannel, "int*", &plFoundSignal := 0, "HRESULT")
+        return plFoundSignal
     }
 
     /**
@@ -82,15 +73,12 @@ class IAMTVTuner extends IAMTuner{
 
     /**
      * 
-     * @param {Pointer<Integer>} plNumInputConnections 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_numinputconnections
      */
-    get_NumInputConnections(plNumInputConnections) {
-        plNumInputConnectionsMarshal := plNumInputConnections is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, plNumInputConnectionsMarshal, plNumInputConnections, "HRESULT")
-        return result
+    get_NumInputConnections() {
+        result := ComCall(22, this, "int*", &plNumInputConnections := 0, "HRESULT")
+        return plNumInputConnections
     }
 
     /**
@@ -108,15 +96,12 @@ class IAMTVTuner extends IAMTuner{
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<Integer>} pInputType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_inputtype
      */
-    get_InputType(lIndex, pInputType) {
-        pInputTypeMarshal := pInputType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, "int", lIndex, pInputTypeMarshal, pInputType, "HRESULT")
-        return result
+    get_InputType(lIndex) {
+        result := ComCall(24, this, "int", lIndex, "int*", &pInputType := 0, "HRESULT")
+        return pInputType
     }
 
     /**
@@ -132,40 +117,31 @@ class IAMTVTuner extends IAMTuner{
 
     /**
      * 
-     * @param {Pointer<Integer>} plIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_connectinput
      */
-    get_ConnectInput(plIndex) {
-        plIndexMarshal := plIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, plIndexMarshal, plIndex, "HRESULT")
-        return result
+    get_ConnectInput() {
+        result := ComCall(26, this, "int*", &plIndex := 0, "HRESULT")
+        return plIndex
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lFreq 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_videofrequency
      */
-    get_VideoFrequency(lFreq) {
-        lFreqMarshal := lFreq is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, lFreqMarshal, lFreq, "HRESULT")
-        return result
+    get_VideoFrequency() {
+        result := ComCall(27, this, "int*", &lFreq := 0, "HRESULT")
+        return lFreq
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lFreq 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_audiofrequency
      */
-    get_AudioFrequency(lFreq) {
-        lFreqMarshal := lFreq is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, lFreqMarshal, lFreq, "HRESULT")
-        return result
+    get_AudioFrequency() {
+        result := ComCall(28, this, "int*", &lFreq := 0, "HRESULT")
+        return lFreq
     }
 }

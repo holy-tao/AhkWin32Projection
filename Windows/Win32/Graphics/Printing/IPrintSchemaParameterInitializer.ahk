@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IPrintSchemaElement.ahk
 
 /**
@@ -30,12 +31,12 @@ class IPrintSchemaParameterInitializer extends IPrintSchemaElement{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Value(pVar) {
+    get_Value() {
+        pVar := VARIANT()
         result := ComCall(10, this, "ptr", pVar, "HRESULT")
-        return result
+        return pVar
     }
 
     /**

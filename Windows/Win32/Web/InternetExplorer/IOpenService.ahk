@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class IOpenService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsDefault 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsDefault(pfIsDefault) {
-        result := ComCall(3, this, "ptr", pfIsDefault, "HRESULT")
-        return result
+    IsDefault() {
+        result := ComCall(3, this, "int*", &pfIsDefault := 0, "HRESULT")
+        return pfIsDefault
     }
 
     /**
@@ -53,11 +53,11 @@ class IOpenService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetID(pbstrID) {
+    GetID() {
+        pbstrID := BSTR()
         result := ComCall(5, this, "ptr", pbstrID, "HRESULT")
-        return result
+        return pbstrID
     }
 }

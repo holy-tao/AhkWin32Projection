@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHolder.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -40,15 +41,14 @@ class IDispenserManager extends IUnknown{
      * 
      * @param {IDispenserDriver} __MIDL__IDispenserManager0000 
      * @param {PWSTR} szDispenserName 
-     * @param {Pointer<IHolder>} __MIDL__IDispenserManager0001 
-     * @returns {HRESULT} 
+     * @returns {IHolder} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispensermanager-registerdispenser
      */
-    RegisterDispenser(__MIDL__IDispenserManager0000, szDispenserName, __MIDL__IDispenserManager0001) {
+    RegisterDispenser(__MIDL__IDispenserManager0000, szDispenserName) {
         szDispenserName := szDispenserName is String ? StrPtr(szDispenserName) : szDispenserName
 
-        result := ComCall(3, this, "ptr", __MIDL__IDispenserManager0000, "ptr", szDispenserName, "ptr*", __MIDL__IDispenserManager0001, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", __MIDL__IDispenserManager0000, "ptr", szDispenserName, "ptr*", &__MIDL__IDispenserManager0001 := 0, "HRESULT")
+        return IHolder(__MIDL__IDispenserManager0001)
     }
 
     /**

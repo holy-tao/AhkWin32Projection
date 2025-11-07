@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncMgrEnumItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -69,41 +70,34 @@ class ISyncMgrSynchronize extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SYNCMGRHANDLERINFO>>} ppSyncMgrHandlerInfo 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SYNCMGRHANDLERINFO>} 
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-gethandlerinfo
      */
-    GetHandlerInfo(ppSyncMgrHandlerInfo) {
-        ppSyncMgrHandlerInfoMarshal := ppSyncMgrHandlerInfo is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppSyncMgrHandlerInfoMarshal, ppSyncMgrHandlerInfo, "HRESULT")
-        return result
+    GetHandlerInfo() {
+        result := ComCall(4, this, "ptr*", &ppSyncMgrHandlerInfo := 0, "HRESULT")
+        return ppSyncMgrHandlerInfo
     }
 
     /**
      * 
-     * @param {Pointer<ISyncMgrEnumItems>} ppSyncMgrEnumItems 
-     * @returns {HRESULT} 
+     * @returns {ISyncMgrEnumItems} 
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-enumsyncmgritems
      */
-    EnumSyncMgrItems(ppSyncMgrEnumItems) {
-        result := ComCall(5, this, "ptr*", ppSyncMgrEnumItems, "HRESULT")
-        return result
+    EnumSyncMgrItems() {
+        result := ComCall(5, this, "ptr*", &ppSyncMgrEnumItems := 0, "HRESULT")
+        return ISyncMgrEnumItems(ppSyncMgrEnumItems)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} ItemID 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-getitemobject
      */
-    GetItemObject(ItemID, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", ItemID, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetItemObject(ItemID, riid) {
+        result := ComCall(6, this, "ptr", ItemID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**

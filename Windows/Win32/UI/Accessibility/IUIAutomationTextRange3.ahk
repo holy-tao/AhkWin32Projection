@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationElementArray.ahk
 #Include .\IUIAutomationTextRange2.ahk
 
 /**
@@ -33,40 +35,36 @@ class IUIAutomationTextRange3 extends IUIAutomationTextRange2{
     /**
      * 
      * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @param {Pointer<IUIAutomationElement>} enclosingElement 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange3-getenclosingelementbuildcache
      */
-    GetEnclosingElementBuildCache(cacheRequest, enclosingElement) {
-        result := ComCall(22, this, "ptr", cacheRequest, "ptr*", enclosingElement, "HRESULT")
-        return result
+    GetEnclosingElementBuildCache(cacheRequest) {
+        result := ComCall(22, this, "ptr", cacheRequest, "ptr*", &enclosingElement := 0, "HRESULT")
+        return IUIAutomationElement(enclosingElement)
     }
 
     /**
      * 
      * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @param {Pointer<IUIAutomationElementArray>} children 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange3-getchildrenbuildcache
      */
-    GetChildrenBuildCache(cacheRequest, children) {
-        result := ComCall(23, this, "ptr", cacheRequest, "ptr*", children, "HRESULT")
-        return result
+    GetChildrenBuildCache(cacheRequest) {
+        result := ComCall(23, this, "ptr", cacheRequest, "ptr*", &children := 0, "HRESULT")
+        return IUIAutomationElementArray(children)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} attributeIds 
      * @param {Integer} attributeIdCount 
-     * @param {Pointer<Pointer<SAFEARRAY>>} attributeValues 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange3-getattributevalues
      */
-    GetAttributeValues(attributeIds, attributeIdCount, attributeValues) {
+    GetAttributeValues(attributeIds, attributeIdCount) {
         attributeIdsMarshal := attributeIds is VarRef ? "int*" : "ptr"
-        attributeValuesMarshal := attributeValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(24, this, attributeIdsMarshal, attributeIds, "int", attributeIdCount, attributeValuesMarshal, attributeValues, "HRESULT")
-        return result
+        result := ComCall(24, this, attributeIdsMarshal, attributeIds, "int", attributeIdCount, "ptr*", &attributeValues := 0, "HRESULT")
+        return attributeValues
     }
 }

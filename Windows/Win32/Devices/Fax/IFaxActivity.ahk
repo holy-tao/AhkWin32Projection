@@ -44,54 +44,42 @@ class IFaxActivity extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plIncomingMessages 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_incomingmessages
      */
-    get_IncomingMessages(plIncomingMessages) {
-        plIncomingMessagesMarshal := plIncomingMessages is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plIncomingMessagesMarshal, plIncomingMessages, "HRESULT")
-        return result
+    get_IncomingMessages() {
+        result := ComCall(7, this, "int*", &plIncomingMessages := 0, "HRESULT")
+        return plIncomingMessages
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plRoutingMessages 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_routingmessages
      */
-    get_RoutingMessages(plRoutingMessages) {
-        plRoutingMessagesMarshal := plRoutingMessages is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plRoutingMessagesMarshal, plRoutingMessages, "HRESULT")
-        return result
+    get_RoutingMessages() {
+        result := ComCall(8, this, "int*", &plRoutingMessages := 0, "HRESULT")
+        return plRoutingMessages
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plOutgoingMessages 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_outgoingmessages
      */
-    get_OutgoingMessages(plOutgoingMessages) {
-        plOutgoingMessagesMarshal := plOutgoingMessages is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plOutgoingMessagesMarshal, plOutgoingMessages, "HRESULT")
-        return result
+    get_OutgoingMessages() {
+        result := ComCall(9, this, "int*", &plOutgoingMessages := 0, "HRESULT")
+        return plOutgoingMessages
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plQueuedMessages 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_queuedmessages
      */
-    get_QueuedMessages(plQueuedMessages) {
-        plQueuedMessagesMarshal := plQueuedMessages is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plQueuedMessagesMarshal, plQueuedMessages, "HRESULT")
-        return result
+    get_QueuedMessages() {
+        result := ComCall(10, this, "int*", &plQueuedMessages := 0, "HRESULT")
+        return plQueuedMessages
     }
 
     /**

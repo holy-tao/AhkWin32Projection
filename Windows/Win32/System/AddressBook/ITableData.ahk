@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMAPITable.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,15 +31,14 @@ class ITableData extends IUnknown{
      * @param {Pointer<SSortOrderSet>} lpSSortOrderSet 
      * @param {Pointer<Pointer<CALLERRELEASE>>} lpfCallerRelease 
      * @param {Integer} ulCallerData 
-     * @param {Pointer<IMAPITable>} lppMAPITable 
-     * @returns {HRESULT} 
+     * @returns {IMAPITable} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrgetview
      */
-    HrGetView(lpSSortOrderSet, lpfCallerRelease, ulCallerData, lppMAPITable) {
+    HrGetView(lpSSortOrderSet, lpfCallerRelease, ulCallerData) {
         lpfCallerReleaseMarshal := lpfCallerRelease is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", lpSSortOrderSet, lpfCallerReleaseMarshal, lpfCallerRelease, "uint", ulCallerData, "ptr*", lppMAPITable, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", lpSSortOrderSet, lpfCallerReleaseMarshal, lpfCallerRelease, "uint", ulCallerData, "ptr*", &lppMAPITable := 0, "HRESULT")
+        return IMAPITable(lppMAPITable)
     }
 
     /**

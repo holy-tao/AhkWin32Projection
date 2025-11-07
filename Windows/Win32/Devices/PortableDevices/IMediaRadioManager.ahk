@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRadioInstanceCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class IMediaRadioManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IRadioInstanceCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IRadioInstanceCollection} 
      */
-    GetRadioInstances(ppCollection) {
-        result := ComCall(3, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    GetRadioInstances() {
+        result := ComCall(3, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IRadioInstanceCollection(ppCollection)
     }
 
     /**

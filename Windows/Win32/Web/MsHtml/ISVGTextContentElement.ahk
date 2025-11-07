@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedLength.ahk
+#Include .\ISVGAnimatedEnumeration.ahk
+#Include .\ISVGPoint.ahk
+#Include .\ISVGRect.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,12 +50,11 @@ class ISVGTextContentElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_textLength(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_textLength() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -66,109 +69,90 @@ class ISVGTextContentElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedEnumeration>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedEnumeration} 
      */
-    get_lengthAdjust(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_lengthAdjust() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedEnumeration(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getNumberOfChars(pResult) {
-        pResultMarshal := pResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pResultMarshal, pResult, "HRESULT")
-        return result
+    getNumberOfChars() {
+        result := ComCall(11, this, "int*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pResult 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    getComputedTextLength(pResult) {
-        pResultMarshal := pResult is VarRef ? "float*" : "ptr"
-
-        result := ComCall(12, this, pResultMarshal, pResult, "HRESULT")
-        return result
+    getComputedTextLength() {
+        result := ComCall(12, this, "float*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**
      * 
      * @param {Integer} charnum 
      * @param {Integer} nchars 
-     * @param {Pointer<Float>} pResult 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    getSubStringLength(charnum, nchars, pResult) {
-        pResultMarshal := pResult is VarRef ? "float*" : "ptr"
-
-        result := ComCall(13, this, "int", charnum, "int", nchars, pResultMarshal, pResult, "HRESULT")
-        return result
+    getSubStringLength(charnum, nchars) {
+        result := ComCall(13, this, "int", charnum, "int", nchars, "float*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**
      * 
      * @param {Integer} charnum 
-     * @param {Pointer<ISVGPoint>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    getStartPositionOfChar(charnum, ppResult) {
-        result := ComCall(14, this, "int", charnum, "ptr*", ppResult, "HRESULT")
-        return result
+    getStartPositionOfChar(charnum) {
+        result := ComCall(14, this, "int", charnum, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPoint(ppResult)
     }
 
     /**
      * 
      * @param {Integer} charnum 
-     * @param {Pointer<ISVGPoint>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    getEndPositionOfChar(charnum, ppResult) {
-        result := ComCall(15, this, "int", charnum, "ptr*", ppResult, "HRESULT")
-        return result
+    getEndPositionOfChar(charnum) {
+        result := ComCall(15, this, "int", charnum, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPoint(ppResult)
     }
 
     /**
      * 
      * @param {Integer} charnum 
-     * @param {Pointer<ISVGRect>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGRect} 
      */
-    getExtentOfChar(charnum, ppResult) {
-        result := ComCall(16, this, "int", charnum, "ptr*", ppResult, "HRESULT")
-        return result
+    getExtentOfChar(charnum) {
+        result := ComCall(16, this, "int", charnum, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGRect(ppResult)
     }
 
     /**
      * 
      * @param {Integer} charnum 
-     * @param {Pointer<Float>} pResult 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    getRotationOfChar(charnum, pResult) {
-        pResultMarshal := pResult is VarRef ? "float*" : "ptr"
-
-        result := ComCall(17, this, "int", charnum, pResultMarshal, pResult, "HRESULT")
-        return result
+    getRotationOfChar(charnum) {
+        result := ComCall(17, this, "int", charnum, "float*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**
      * 
      * @param {ISVGPoint} point 
-     * @param {Pointer<Integer>} pResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getCharNumAtPosition(point, pResult) {
-        pResultMarshal := pResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, "ptr", point, pResultMarshal, pResult, "HRESULT")
-        return result
+    getCharNumAtPosition(point) {
+        result := ComCall(18, this, "ptr", point, "int*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**

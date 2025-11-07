@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITravelEntry.ahk
+#Include .\ITravelLog.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -82,26 +84,24 @@ class ITravelLog extends IUnknown{
      * 
      * @param {IUnknown} punk 
      * @param {Integer} iOffset 
-     * @param {Pointer<ITravelEntry>} ppte 
-     * @returns {HRESULT} 
+     * @returns {ITravelEntry} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-gettravelentry
      */
-    GetTravelEntry(punk, iOffset, ppte) {
-        result := ComCall(7, this, "ptr", punk, "int", iOffset, "ptr*", ppte, "HRESULT")
-        return result
+    GetTravelEntry(punk, iOffset) {
+        result := ComCall(7, this, "ptr", punk, "int", iOffset, "ptr*", &ppte := 0, "HRESULT")
+        return ITravelEntry(ppte)
     }
 
     /**
      * 
      * @param {IUnknown} punk 
      * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<ITravelEntry>} ppte 
-     * @returns {HRESULT} 
+     * @returns {ITravelEntry} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-findtravelentry
      */
-    FindTravelEntry(punk, pidl, ppte) {
-        result := ComCall(8, this, "ptr", punk, "ptr", pidl, "ptr*", ppte, "HRESULT")
-        return result
+    FindTravelEntry(punk, pidl) {
+        result := ComCall(8, this, "ptr", punk, "ptr", pidl, "ptr*", &ppte := 0, "HRESULT")
+        return ITravelEntry(ppte)
     }
 
     /**
@@ -141,13 +141,12 @@ class ITravelLog extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITravelLog>} pptl 
-     * @returns {HRESULT} 
+     * @returns {ITravelLog} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-clone
      */
-    Clone(pptl) {
-        result := ComCall(11, this, "ptr*", pptl, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(11, this, "ptr*", &pptl := 0, "HRESULT")
+        return ITravelLog(pptl)
     }
 
     /**

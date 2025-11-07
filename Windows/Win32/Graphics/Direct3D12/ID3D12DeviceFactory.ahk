@@ -144,14 +144,11 @@ class ID3D12DeviceFactory extends IUnknown{
      * 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} iid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetConfigurationInterface(clsid, iid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", clsid, "ptr", iid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetConfigurationInterface(clsid, iid) {
+        result := ComCall(7, this, "ptr", clsid, "ptr", iid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -175,13 +172,10 @@ class ID3D12DeviceFactory extends IUnknown{
      * @param {IUnknown} adapter 
      * @param {Integer} FeatureLevel 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvDevice 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateDevice(adapter, FeatureLevel, riid, ppvDevice) {
-        ppvDeviceMarshal := ppvDevice is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", adapter, "int", FeatureLevel, "ptr", riid, ppvDeviceMarshal, ppvDevice, "HRESULT")
-        return result
+    CreateDevice(adapter, FeatureLevel, riid) {
+        result := ComCall(9, this, "ptr", adapter, "int", FeatureLevel, "ptr", riid, "ptr*", &ppvDevice := 0, "HRESULT")
+        return ppvDevice
     }
 }

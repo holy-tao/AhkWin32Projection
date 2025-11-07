@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMNodeList.ahk
+#Include .\IProvideWinSATResultsInfo.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -35,26 +37,24 @@ class IQueryRecentWinSATAssessment extends IDispatch{
      * 
      * @param {BSTR} xPath 
      * @param {BSTR} namespaces 
-     * @param {Pointer<IXMLDOMNodeList>} ppDomNodeList 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNodeList} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iqueryrecentwinsatassessment-get_xml
      */
-    get_XML(xPath, namespaces, ppDomNodeList) {
+    get_XML(xPath, namespaces) {
         xPath := xPath is String ? BSTR.Alloc(xPath).Value : xPath
         namespaces := namespaces is String ? BSTR.Alloc(namespaces).Value : namespaces
 
-        result := ComCall(7, this, "ptr", xPath, "ptr", namespaces, "ptr*", ppDomNodeList, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", xPath, "ptr", namespaces, "ptr*", &ppDomNodeList := 0, "HRESULT")
+        return IXMLDOMNodeList(ppDomNodeList)
     }
 
     /**
      * 
-     * @param {Pointer<IProvideWinSATResultsInfo>} ppWinSATAssessmentInfo 
-     * @returns {HRESULT} 
+     * @returns {IProvideWinSATResultsInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iqueryrecentwinsatassessment-get_info
      */
-    get_Info(ppWinSATAssessmentInfo) {
-        result := ComCall(8, this, "ptr*", ppWinSATAssessmentInfo, "HRESULT")
-        return result
+    get_Info() {
+        result := ComCall(8, this, "ptr*", &ppWinSATAssessmentInfo := 0, "HRESULT")
+        return IProvideWinSATResultsInfo(ppWinSATAssessmentInfo)
     }
 }

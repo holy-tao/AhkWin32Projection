@@ -46,8 +46,9 @@ class IMFMediaEngineOPMInfo extends IUnknown{
      */
     GetOPMInfo(pStatus, pConstricted) {
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+        pConstrictedMarshal := pConstricted is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pStatusMarshal, pStatus, "ptr", pConstricted, "HRESULT")
+        result := ComCall(3, this, pStatusMarshal, pStatus, pConstrictedMarshal, pConstricted, "HRESULT")
         return result
     }
 }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ITraceEvent.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -40,36 +41,32 @@ class ITraceRelogger extends IUnknown{
      * 
      * @param {BSTR} LogfileName 
      * @param {Pointer<Void>} UserContext 
-     * @param {Pointer<Integer>} TraceStreamId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-addlogfiletracestream
      */
-    AddLogfileTraceStream(LogfileName, UserContext, TraceStreamId) {
+    AddLogfileTraceStream(LogfileName, UserContext) {
         LogfileName := LogfileName is String ? BSTR.Alloc(LogfileName).Value : LogfileName
 
         UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
-        TraceStreamIdMarshal := TraceStreamId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", LogfileName, UserContextMarshal, UserContext, TraceStreamIdMarshal, TraceStreamId, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", LogfileName, UserContextMarshal, UserContext, "uint*", &TraceStreamId := 0, "HRESULT")
+        return TraceStreamId
     }
 
     /**
      * 
      * @param {BSTR} LoggerName 
      * @param {Pointer<Void>} UserContext 
-     * @param {Pointer<Integer>} TraceStreamId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-addrealtimetracestream
      */
-    AddRealtimeTraceStream(LoggerName, UserContext, TraceStreamId) {
+    AddRealtimeTraceStream(LoggerName, UserContext) {
         LoggerName := LoggerName is String ? BSTR.Alloc(LoggerName).Value : LoggerName
 
         UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
-        TraceStreamIdMarshal := TraceStreamId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", LoggerName, UserContextMarshal, UserContext, TraceStreamIdMarshal, TraceStreamId, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", LoggerName, UserContextMarshal, UserContext, "uint*", &TraceStreamId := 0, "HRESULT")
+        return TraceStreamId
     }
 
     /**
@@ -98,13 +95,12 @@ class ITraceRelogger extends IUnknown{
      * 
      * @param {Integer} TraceStreamId 
      * @param {Integer} Flags 
-     * @param {Pointer<ITraceEvent>} Event 
-     * @returns {HRESULT} 
+     * @returns {ITraceEvent} 
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-createeventinstance
      */
-    CreateEventInstance(TraceStreamId, Flags, Event) {
-        result := ComCall(7, this, "uint", TraceStreamId, "uint", Flags, "ptr*", Event, "HRESULT")
-        return result
+    CreateEventInstance(TraceStreamId, Flags) {
+        result := ComCall(7, this, "uint", TraceStreamId, "uint", Flags, "ptr*", &Event := 0, "HRESULT")
+        return ITraceEvent(Event)
     }
 
     /**

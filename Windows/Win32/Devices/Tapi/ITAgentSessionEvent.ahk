@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITAgentSession.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,25 +33,21 @@ class ITAgentSessionEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITAgentSession>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {ITAgentSession} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsessionevent-get_session
      */
-    get_Session(ppSession) {
-        result := ComCall(7, this, "ptr*", ppSession, "HRESULT")
-        return result
+    get_Session() {
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        return ITAgentSession(ppSession)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pEvent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsessionevent-get_event
      */
-    get_Event(pEvent) {
-        pEventMarshal := pEvent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pEventMarshal, pEvent, "HRESULT")
-        return result
+    get_Event() {
+        result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")
+        return pEvent
     }
 }

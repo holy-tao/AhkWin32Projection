@@ -32,29 +32,23 @@ class IWMAuthorizer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcCerts 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmauthorizer-getcertcount
      */
-    GetCertCount(pcCerts) {
-        pcCertsMarshal := pcCerts is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcCertsMarshal, pcCerts, "HRESULT")
-        return result
+    GetCertCount() {
+        result := ComCall(3, this, "uint*", &pcCerts := 0, "HRESULT")
+        return pcCerts
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<Pointer<Integer>>} ppbCertData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmauthorizer-getcert
      */
-    GetCert(dwIndex, ppbCertData) {
-        ppbCertDataMarshal := ppbCertData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", dwIndex, ppbCertDataMarshal, ppbCertData, "HRESULT")
-        return result
+    GetCert(dwIndex) {
+        result := ComCall(4, this, "uint", dwIndex, "ptr*", &ppbCertData := 0, "HRESULT")
+        return ppbCertData
     }
 
     /**
@@ -62,16 +56,14 @@ class IWMAuthorizer extends IUnknown{
      * @param {Integer} dwCertIndex 
      * @param {Pointer<Integer>} pbSharedData 
      * @param {Pointer<Integer>} pbCert 
-     * @param {Pointer<Pointer<Integer>>} ppbSharedData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmauthorizer-getshareddata
      */
-    GetSharedData(dwCertIndex, pbSharedData, pbCert, ppbSharedData) {
+    GetSharedData(dwCertIndex, pbSharedData, pbCert) {
         pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : "ptr"
         pbCertMarshal := pbCert is VarRef ? "char*" : "ptr"
-        ppbSharedDataMarshal := ppbSharedData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, pbCertMarshal, pbCert, ppbSharedDataMarshal, ppbSharedData, "HRESULT")
-        return result
+        result := ComCall(5, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, pbCertMarshal, pbCert, "ptr*", &ppbSharedData := 0, "HRESULT")
+        return ppbSharedData
     }
 }

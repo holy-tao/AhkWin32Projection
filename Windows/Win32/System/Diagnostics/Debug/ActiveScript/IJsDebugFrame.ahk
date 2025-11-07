@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IJsDebugProperty.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -44,12 +46,12 @@ class IJsDebugFrame extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(pName) {
+    GetName() {
+        pName := BSTR()
         result := ComCall(4, this, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
@@ -85,24 +87,20 @@ class IJsDebugFrame extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IJsDebugProperty>} ppDebugProperty 
-     * @returns {HRESULT} 
+     * @returns {IJsDebugProperty} 
      */
-    GetDebugProperty(ppDebugProperty) {
-        result := ComCall(7, this, "ptr*", ppDebugProperty, "HRESULT")
-        return result
+    GetDebugProperty() {
+        result := ComCall(7, this, "ptr*", &ppDebugProperty := 0, "HRESULT")
+        return IJsDebugProperty(ppDebugProperty)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pReturnAddress 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetReturnAddress(pReturnAddress) {
-        pReturnAddressMarshal := pReturnAddress is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pReturnAddressMarshal, pReturnAddress, "HRESULT")
-        return result
+    GetReturnAddress() {
+        result := ComCall(8, this, "uint*", &pReturnAddress := 0, "HRESULT")
+        return pReturnAddress
     }
 
     /**

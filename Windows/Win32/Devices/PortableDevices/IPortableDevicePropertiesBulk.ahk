@@ -35,13 +35,13 @@ class IPortableDevicePropertiesBulk extends IUnknown{
      * @param {IPortableDevicePropVariantCollection} pObjectIDs 
      * @param {IPortableDeviceKeyCollection} pKeys 
      * @param {IPortableDevicePropertiesBulkCallback} pCallback 
-     * @param {Pointer<Guid>} pContext 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicepropertiesbulk-queuegetvaluesbyobjectlist
      */
-    QueueGetValuesByObjectList(pObjectIDs, pKeys, pCallback, pContext) {
+    QueueGetValuesByObjectList(pObjectIDs, pKeys, pCallback) {
+        pContext := Guid()
         result := ComCall(3, this, "ptr", pObjectIDs, "ptr", pKeys, "ptr", pCallback, "ptr", pContext, "HRESULT")
-        return result
+        return pContext
     }
 
     /**
@@ -51,28 +51,28 @@ class IPortableDevicePropertiesBulk extends IUnknown{
      * @param {Integer} dwDepth 
      * @param {IPortableDeviceKeyCollection} pKeys 
      * @param {IPortableDevicePropertiesBulkCallback} pCallback 
-     * @param {Pointer<Guid>} pContext 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicepropertiesbulk-queuegetvaluesbyobjectformat
      */
-    QueueGetValuesByObjectFormat(pguidObjectFormat, pszParentObjectID, dwDepth, pKeys, pCallback, pContext) {
+    QueueGetValuesByObjectFormat(pguidObjectFormat, pszParentObjectID, dwDepth, pKeys, pCallback) {
         pszParentObjectID := pszParentObjectID is String ? StrPtr(pszParentObjectID) : pszParentObjectID
 
+        pContext := Guid()
         result := ComCall(4, this, "ptr", pguidObjectFormat, "ptr", pszParentObjectID, "uint", dwDepth, "ptr", pKeys, "ptr", pCallback, "ptr", pContext, "HRESULT")
-        return result
+        return pContext
     }
 
     /**
      * 
      * @param {IPortableDeviceValuesCollection} pObjectValues 
      * @param {IPortableDevicePropertiesBulkCallback} pCallback 
-     * @param {Pointer<Guid>} pContext 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicepropertiesbulk-queuesetvaluesbyobjectlist
      */
-    QueueSetValuesByObjectList(pObjectValues, pCallback, pContext) {
+    QueueSetValuesByObjectList(pObjectValues, pCallback) {
+        pContext := Guid()
         result := ComCall(5, this, "ptr", pObjectValues, "ptr", pCallback, "ptr", pContext, "HRESULT")
-        return result
+        return pContext
     }
 
     /**

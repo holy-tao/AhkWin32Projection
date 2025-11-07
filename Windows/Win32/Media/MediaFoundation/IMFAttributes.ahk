@@ -55,109 +55,92 @@ class IMFAttributes extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} guidKey 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getitemtype
      */
-    GetItemType(guidKey, pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", guidKey, pTypeMarshal, pType, "HRESULT")
-        return result
+    GetItemType(guidKey) {
+        result := ComCall(4, this, "ptr", guidKey, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<PROPVARIANT>} Value 
-     * @param {Pointer<BOOL>} pbResult 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-compareitem
      */
-    CompareItem(guidKey, Value, pbResult) {
-        result := ComCall(5, this, "ptr", guidKey, "ptr", Value, "ptr", pbResult, "HRESULT")
-        return result
+    CompareItem(guidKey, Value) {
+        result := ComCall(5, this, "ptr", guidKey, "ptr", Value, "int*", &pbResult := 0, "HRESULT")
+        return pbResult
     }
 
     /**
      * 
      * @param {IMFAttributes} pTheirs 
      * @param {Integer} MatchType 
-     * @param {Pointer<BOOL>} pbResult 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-compare
      */
-    Compare(pTheirs, MatchType, pbResult) {
-        result := ComCall(6, this, "ptr", pTheirs, "int", MatchType, "ptr", pbResult, "HRESULT")
-        return result
+    Compare(pTheirs, MatchType) {
+        result := ComCall(6, this, "ptr", pTheirs, "int", MatchType, "int*", &pbResult := 0, "HRESULT")
+        return pbResult
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidKey 
-     * @param {Pointer<Integer>} punValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getuint32
      */
-    GetUINT32(guidKey, punValue) {
-        punValueMarshal := punValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", guidKey, punValueMarshal, punValue, "HRESULT")
-        return result
+    GetUINT32(guidKey) {
+        result := ComCall(7, this, "ptr", guidKey, "uint*", &punValue := 0, "HRESULT")
+        return punValue
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidKey 
-     * @param {Pointer<Integer>} punValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getuint64
      */
-    GetUINT64(guidKey, punValue) {
-        punValueMarshal := punValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "ptr", guidKey, punValueMarshal, punValue, "HRESULT")
-        return result
+    GetUINT64(guidKey) {
+        result := ComCall(8, this, "ptr", guidKey, "uint*", &punValue := 0, "HRESULT")
+        return punValue
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidKey 
-     * @param {Pointer<Float>} pfValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getdouble
      */
-    GetDouble(guidKey, pfValue) {
-        pfValueMarshal := pfValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, "ptr", guidKey, pfValueMarshal, pfValue, "HRESULT")
-        return result
+    GetDouble(guidKey) {
+        result := ComCall(9, this, "ptr", guidKey, "double*", &pfValue := 0, "HRESULT")
+        return pfValue
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidKey 
-     * @param {Pointer<Guid>} pguidValue 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getguid
      */
-    GetGUID(guidKey, pguidValue) {
+    GetGUID(guidKey) {
+        pguidValue := Guid()
         result := ComCall(10, this, "ptr", guidKey, "ptr", pguidValue, "HRESULT")
-        return result
+        return pguidValue
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidKey 
-     * @param {Pointer<Integer>} pcchLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getstringlength
      */
-    GetStringLength(guidKey, pcchLength) {
-        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, "ptr", guidKey, pcchLengthMarshal, pcchLength, "HRESULT")
-        return result
+    GetStringLength(guidKey) {
+        result := ComCall(11, this, "ptr", guidKey, "uint*", &pcchLength := 0, "HRESULT")
+        return pcchLength
     }
 
     /**
@@ -187,41 +170,37 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getallocatedstring
      */
     GetAllocatedString(guidKey, ppwszValue, pcchLength) {
+        ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : "ptr"
         pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", guidKey, "ptr", ppwszValue, pcchLengthMarshal, pcchLength, "HRESULT")
+        result := ComCall(13, this, "ptr", guidKey, ppwszValueMarshal, ppwszValue, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidKey 
-     * @param {Pointer<Integer>} pcbBlobSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getblobsize
      */
-    GetBlobSize(guidKey, pcbBlobSize) {
-        pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "ptr", guidKey, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
-        return result
+    GetBlobSize(guidKey) {
+        result := ComCall(14, this, "ptr", guidKey, "uint*", &pcbBlobSize := 0, "HRESULT")
+        return pcbBlobSize
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidKey 
-     * @param {Pointer<Integer>} pBuf 
      * @param {Integer} cbBufSize 
      * @param {Pointer<Integer>} pcbBlobSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getblob
      */
-    GetBlob(guidKey, pBuf, cbBufSize, pcbBlobSize) {
-        pBufMarshal := pBuf is VarRef ? "char*" : "ptr"
+    GetBlob(guidKey, cbBufSize, pcbBlobSize) {
         pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", guidKey, pBufMarshal, pBuf, "uint", cbBufSize, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", guidKey, "char*", &pBuf := 0, "uint", cbBufSize, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
+        return pBuf
     }
 
     /**
@@ -244,15 +223,12 @@ class IMFAttributes extends IUnknown{
      * 
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getunknown
      */
-    GetUnknown(guidKey, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(17, this, "ptr", guidKey, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetUnknown(guidKey, riid) {
+        result := ComCall(17, this, "ptr", guidKey, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -399,28 +375,25 @@ class IMFAttributes extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcItems 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getcount
      */
-    GetCount(pcItems) {
-        pcItemsMarshal := pcItems is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(30, this, pcItemsMarshal, pcItems, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(30, this, "uint*", &pcItems := 0, "HRESULT")
+        return pcItems
     }
 
     /**
      * 
      * @param {Integer} unIndex 
-     * @param {Pointer<Guid>} pguidKey 
      * @param {Pointer<PROPVARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getitembyindex
      */
-    GetItemByIndex(unIndex, pguidKey, pValue) {
+    GetItemByIndex(unIndex, pValue) {
+        pguidKey := Guid()
         result := ComCall(31, this, "uint", unIndex, "ptr", pguidKey, "ptr", pValue, "HRESULT")
-        return result
+        return pguidKey
     }
 
     /**

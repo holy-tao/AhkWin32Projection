@@ -62,15 +62,12 @@ class ICertProperty extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperty-get_propertyid
      */
-    get_PropertyId(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_PropertyId() {
+        result := ComCall(9, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -87,13 +84,13 @@ class ICertProperty extends IDispatch{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertproperty-get_rawdata
      */
-    get_RawData(Encoding, pValue) {
+    get_RawData(Encoding) {
+        pValue := BSTR()
         result := ComCall(11, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**

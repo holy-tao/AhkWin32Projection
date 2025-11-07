@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDot11AdHocNetwork.ahk
+#Include .\IEnumDot11AdHocSecuritySettings.ahk
+#Include .\IEnumDot11AdHocNetworks.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,13 +46,12 @@ class IDot11AdHocInterface extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getfriendlyname
      */
-    GetFriendlyName(ppszName) {
-        result := ComCall(4, this, "ptr", ppszName, "HRESULT")
-        return result
+    GetFriendlyName() {
+        result := ComCall(4, this, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
@@ -93,36 +95,33 @@ class IDot11AdHocInterface extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDot11AdHocNetwork>} ppNetwork 
-     * @returns {HRESULT} 
+     * @returns {IDot11AdHocNetwork} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getactivenetwork
      */
-    GetActiveNetwork(ppNetwork) {
-        result := ComCall(8, this, "ptr*", ppNetwork, "HRESULT")
-        return result
+    GetActiveNetwork() {
+        result := ComCall(8, this, "ptr*", &ppNetwork := 0, "HRESULT")
+        return IDot11AdHocNetwork(ppNetwork)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumDot11AdHocSecuritySettings>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDot11AdHocSecuritySettings} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getienumsecuritysettings
      */
-    GetIEnumSecuritySettings(ppEnum) {
-        result := ComCall(9, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    GetIEnumSecuritySettings() {
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDot11AdHocSecuritySettings(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pFilterGuid 
-     * @param {Pointer<IEnumDot11AdHocNetworks>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDot11AdHocNetworks} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getienumdot11adhocnetworks
      */
-    GetIEnumDot11AdHocNetworks(pFilterGuid, ppEnum) {
-        result := ComCall(10, this, "ptr", pFilterGuid, "ptr*", ppEnum, "HRESULT")
-        return result
+    GetIEnumDot11AdHocNetworks(pFilterGuid) {
+        result := ComCall(10, this, "ptr", pFilterGuid, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDot11AdHocNetworks(ppEnum)
     }
 
     /**

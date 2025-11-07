@@ -178,7 +178,9 @@ class IMixerPinConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getstreamtransparent
      */
     GetStreamTransparent(pbStreamTransparent) {
-        result := ComCall(14, this, "ptr", pbStreamTransparent, "HRESULT")
+        pbStreamTransparentMarshal := pbStreamTransparent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pbStreamTransparentMarshal, pbStreamTransparent, "HRESULT")
         return result
     }
 }

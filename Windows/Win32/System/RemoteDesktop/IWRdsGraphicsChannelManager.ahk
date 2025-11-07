@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWRdsGraphicsChannel.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -34,14 +35,13 @@ class IWRdsGraphicsChannelManager extends IUnknown{
      * 
      * @param {Pointer<Integer>} pszChannelName 
      * @param {Integer} channelType 
-     * @param {Pointer<IWRdsGraphicsChannel>} ppVirtualChannel 
-     * @returns {HRESULT} 
+     * @returns {IWRdsGraphicsChannel} 
      * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelmanager-createchannel
      */
-    CreateChannel(pszChannelName, channelType, ppVirtualChannel) {
+    CreateChannel(pszChannelName, channelType) {
         pszChannelNameMarshal := pszChannelName is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pszChannelNameMarshal, pszChannelName, "int", channelType, "ptr*", ppVirtualChannel, "HRESULT")
-        return result
+        result := ComCall(3, this, pszChannelNameMarshal, pszChannelName, "int", channelType, "ptr*", &ppVirtualChannel := 0, "HRESULT")
+        return IWRdsGraphicsChannel(ppVirtualChannel)
     }
 }

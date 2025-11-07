@@ -93,25 +93,21 @@ class IOpcRelationshipSelector extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} selector 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselector-getselectortype
      */
-    GetSelectorType(selector) {
-        selectorMarshal := selector is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, selectorMarshal, selector, "HRESULT")
-        return result
+    GetSelectorType() {
+        result := ComCall(3, this, "int*", &selector := 0, "HRESULT")
+        return selector
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} selectionCriterion 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselector-getselectioncriterion
      */
-    GetSelectionCriterion(selectionCriterion) {
-        result := ComCall(4, this, "ptr", selectionCriterion, "HRESULT")
-        return result
+    GetSelectionCriterion() {
+        result := ComCall(4, this, "ptr*", &selectionCriterion := 0, "HRESULT")
+        return selectionCriterion
     }
 }

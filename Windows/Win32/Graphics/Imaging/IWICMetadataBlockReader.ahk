@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICMetadataReader.ahk
+#Include ..\..\System\Com\IEnumUnknown.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,48 +43,43 @@ class IWICMetadataBlockReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidContainerFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getcontainerformat
      */
-    GetContainerFormat(pguidContainerFormat) {
+    GetContainerFormat() {
+        pguidContainerFormat := Guid()
         result := ComCall(3, this, "ptr", pguidContainerFormat, "HRESULT")
-        return result
+        return pguidContainerFormat
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getcount
      */
-    GetCount(pcCount) {
-        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pcCountMarshal, pcCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(4, this, "uint*", &pcCount := 0, "HRESULT")
+        return pcCount
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<IWICMetadataReader>} ppIMetadataReader 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataReader} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getreaderbyindex
      */
-    GetReaderByIndex(nIndex, ppIMetadataReader) {
-        result := ComCall(5, this, "uint", nIndex, "ptr*", ppIMetadataReader, "HRESULT")
-        return result
+    GetReaderByIndex(nIndex) {
+        result := ComCall(5, this, "uint", nIndex, "ptr*", &ppIMetadataReader := 0, "HRESULT")
+        return IWICMetadataReader(ppIMetadataReader)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumUnknown>} ppIEnumMetadata 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getenumerator
      */
-    GetEnumerator(ppIEnumMetadata) {
-        result := ComCall(6, this, "ptr*", ppIEnumMetadata, "HRESULT")
-        return result
+    GetEnumerator() {
+        result := ComCall(6, this, "ptr*", &ppIEnumMetadata := 0, "HRESULT")
+        return IEnumUnknown(ppIEnumMetadata)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaBuffer.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -48,15 +49,12 @@ class IMFSample extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwSampleFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getsampleflags
      */
-    GetSampleFlags(pdwSampleFlags) {
-        pdwSampleFlagsMarshal := pdwSampleFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, pdwSampleFlagsMarshal, pdwSampleFlags, "HRESULT")
-        return result
+    GetSampleFlags() {
+        result := ComCall(33, this, "uint*", &pdwSampleFlags := 0, "HRESULT")
+        return pdwSampleFlags
     }
 
     /**
@@ -72,15 +70,12 @@ class IMFSample extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} phnsSampleTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getsampletime
      */
-    GetSampleTime(phnsSampleTime) {
-        phnsSampleTimeMarshal := phnsSampleTime is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(35, this, phnsSampleTimeMarshal, phnsSampleTime, "HRESULT")
-        return result
+    GetSampleTime() {
+        result := ComCall(35, this, "int64*", &phnsSampleTime := 0, "HRESULT")
+        return phnsSampleTime
     }
 
     /**
@@ -96,15 +91,12 @@ class IMFSample extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} phnsSampleDuration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getsampleduration
      */
-    GetSampleDuration(phnsSampleDuration) {
-        phnsSampleDurationMarshal := phnsSampleDuration is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(37, this, phnsSampleDurationMarshal, phnsSampleDuration, "HRESULT")
-        return result
+    GetSampleDuration() {
+        result := ComCall(37, this, "int64*", &phnsSampleDuration := 0, "HRESULT")
+        return phnsSampleDuration
     }
 
     /**
@@ -120,38 +112,33 @@ class IMFSample extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwBufferCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getbuffercount
      */
-    GetBufferCount(pdwBufferCount) {
-        pdwBufferCountMarshal := pdwBufferCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(39, this, pdwBufferCountMarshal, pdwBufferCount, "HRESULT")
-        return result
+    GetBufferCount() {
+        result := ComCall(39, this, "uint*", &pdwBufferCount := 0, "HRESULT")
+        return pdwBufferCount
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IMFMediaBuffer>} ppBuffer 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getbufferbyindex
      */
-    GetBufferByIndex(dwIndex, ppBuffer) {
-        result := ComCall(40, this, "uint", dwIndex, "ptr*", ppBuffer, "HRESULT")
-        return result
+    GetBufferByIndex(dwIndex) {
+        result := ComCall(40, this, "uint", dwIndex, "ptr*", &ppBuffer := 0, "HRESULT")
+        return IMFMediaBuffer(ppBuffer)
     }
 
     /**
      * 
-     * @param {Pointer<IMFMediaBuffer>} ppBuffer 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-converttocontiguousbuffer
      */
-    ConvertToContiguousBuffer(ppBuffer) {
-        result := ComCall(41, this, "ptr*", ppBuffer, "HRESULT")
-        return result
+    ConvertToContiguousBuffer() {
+        result := ComCall(41, this, "ptr*", &ppBuffer := 0, "HRESULT")
+        return IMFMediaBuffer(ppBuffer)
     }
 
     /**
@@ -188,15 +175,12 @@ class IMFSample extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbTotalLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-gettotallength
      */
-    GetTotalLength(pcbTotalLength) {
-        pcbTotalLengthMarshal := pcbTotalLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(45, this, pcbTotalLengthMarshal, pcbTotalLength, "HRESULT")
-        return result
+    GetTotalLength() {
+        result := ComCall(45, this, "uint*", &pcbTotalLength := 0, "HRESULT")
+        return pcbTotalLength
     }
 
     /**

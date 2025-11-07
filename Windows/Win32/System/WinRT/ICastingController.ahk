@@ -71,14 +71,11 @@ class ICastingController extends IUnknown{
     /**
      * 
      * @param {ICastingEventHandler} eventHandler 
-     * @param {Pointer<Integer>} cookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Advise(eventHandler, cookie) {
-        cookieMarshal := cookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", eventHandler, cookieMarshal, cookie, "HRESULT")
-        return result
+    Advise(eventHandler) {
+        result := ComCall(6, this, "ptr", eventHandler, "uint*", &cookie := 0, "HRESULT")
+        return cookie
     }
 
     /**

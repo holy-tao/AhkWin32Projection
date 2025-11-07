@@ -32,86 +32,65 @@ class IWSManEx3 extends IWSManEx2{
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SessionFlagUTF16(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagUTF16() {
+        result := ComCall(32, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex3-sessionflagusecredssp
      */
-    SessionFlagUseCredSsp(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagUseCredSsp() {
+        result := ComCall(33, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    EnumerationFlagAssociationInstance(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, flagsMarshal, flags, "HRESULT")
-        return result
+    EnumerationFlagAssociationInstance() {
+        result := ComCall(34, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    EnumerationFlagAssociatedInstance(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(35, this, flagsMarshal, flags, "HRESULT")
-        return result
+    EnumerationFlagAssociatedInstance() {
+        result := ComCall(35, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SessionFlagSkipRevocationCheck(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(36, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagSkipRevocationCheck() {
+        result := ComCall(36, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SessionFlagAllowNegotiateImplicitCredentials(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(37, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagAllowNegotiateImplicitCredentials() {
+        result := ComCall(37, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SessionFlagUseSsl(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(38, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagUseSsl() {
+        result := ComCall(38, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 }

@@ -125,7 +125,9 @@ class Dwm {
     static DwmDefWindowProc(hWnd, msg, wParam, lParam, plResult) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("dwmapi.dll\DwmDefWindowProc", "ptr", hWnd, "uint", msg, "ptr", wParam, "ptr", lParam, "ptr", plResult, "int")
+        plResultMarshal := plResult is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dwmapi.dll\DwmDefWindowProc", "ptr", hWnd, "uint", msg, "ptr", wParam, "ptr", lParam, plResultMarshal, plResult, "int")
         return result
     }
 
@@ -211,8 +213,9 @@ class Dwm {
      */
     static DwmGetColorizationColor(pcrColorization, pfOpaqueBlend) {
         pcrColorizationMarshal := pcrColorization is VarRef ? "uint*" : "ptr"
+        pfOpaqueBlendMarshal := pfOpaqueBlend is VarRef ? "int*" : "ptr"
 
-        result := DllCall("dwmapi.dll\DwmGetColorizationColor", pcrColorizationMarshal, pcrColorization, "ptr", pfOpaqueBlend, "int")
+        result := DllCall("dwmapi.dll\DwmGetColorizationColor", pcrColorizationMarshal, pcrColorization, pfOpaqueBlendMarshal, pfOpaqueBlend, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -265,23 +268,22 @@ class Dwm {
 
     /**
      * Obtains a value that indicates whether Desktop Window Manager (DWM) composition is enabled. Applications on machines running Windows 7 or earlier can listen for composition state changes by handling the WM_DWMCOMPOSITIONCHANGED notification.
-     * @param {Pointer<BOOL>} pfEnabled A pointer to a value that, when this function returns successfully, receives <b>TRUE</b> if DWM composition is enabled; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} A pointer to a value that, when this function returns successfully, receives <b>TRUE</b> if DWM composition is enabled; otherwise, <b>FALSE</b>.
      * 
      *                         
      * 
      * <div class="alert"><b>Note</b>  As of Windows 8, DWM composition is always enabled. If an app declares Windows 8 compatibility in their manifest, this function will receive a value of <b>TRUE</b> through <i>pfEnabled</i>. If no such manifest entry is found, Windows 8 compatibility is not assumed and this function receives a value of <b>FALSE</b> through <i>pfEnabled</i>. This is done so that older programs that interpret a value of <b>TRUE</b> to imply that high contrast mode is off can continue to make the correct decisions about rendering their images. (Note that this is a bad practice—you should use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> function with the <b>SPI_GETHIGHCONTRAST</b> flag to determine the state of high contrast mode.)</div>
      * <div> </div>
      * For more information, see <a href="https://docs.microsoft.com/windows/win32/controls/supporting-high-contrast-themes">Supporting High Contrast Themes</a>.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmiscompositionenabled
      * @since windows6.0.6000
      */
-    static DwmIsCompositionEnabled(pfEnabled) {
-        result := DllCall("dwmapi.dll\DwmIsCompositionEnabled", "ptr", pfEnabled, "int")
+    static DwmIsCompositionEnabled() {
+        result := DllCall("dwmapi.dll\DwmIsCompositionEnabled", "int*", &pfEnabled := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfEnabled
     }
 
     /**
@@ -323,22 +325,19 @@ class Dwm {
      * Creates a Desktop Window Manager (DWM) thumbnail relationship between the destination and source windows.
      * @param {HWND} hwndDestination The handle to the window that will use the DWM thumbnail. Setting the destination window handle to anything other than a top-level window type will result in a return value of E_INVALIDARG.
      * @param {HWND} hwndSource The handle to the window to use as the thumbnail source. Setting the source window handle to anything other than a top-level window type will result in a return value of E_INVALIDARG.
-     * @param {Pointer<Pointer>} phThumbnailId A pointer to a handle that, when this function returns successfully, represents the registration of the DWM thumbnail.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Pointer} A pointer to a handle that, when this function returns successfully, represents the registration of the DWM thumbnail.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmregisterthumbnail
      * @since windows6.0.6000
      */
-    static DwmRegisterThumbnail(hwndDestination, hwndSource, phThumbnailId) {
+    static DwmRegisterThumbnail(hwndDestination, hwndSource) {
         hwndDestination := hwndDestination is Win32Handle ? NumGet(hwndDestination, "ptr") : hwndDestination
         hwndSource := hwndSource is Win32Handle ? NumGet(hwndSource, "ptr") : hwndSource
 
-        phThumbnailIdMarshal := phThumbnailId is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dwmapi.dll\DwmRegisterThumbnail", "ptr", hwndDestination, "ptr", hwndSource, phThumbnailIdMarshal, phThumbnailId, "int")
+        result := DllCall("dwmapi.dll\DwmRegisterThumbnail", "ptr", hwndDestination, "ptr", hwndSource, "ptr*", &phThumbnailId := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phThumbnailId
     }
 
     /**
@@ -580,9 +579,11 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmGetTransportAttributes(pfIsRemoting, pfIsConnected, pDwGeneration) {
+        pfIsRemotingMarshal := pfIsRemoting is VarRef ? "int*" : "ptr"
+        pfIsConnectedMarshal := pfIsConnected is VarRef ? "int*" : "ptr"
         pDwGenerationMarshal := pDwGeneration is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dwmapi.dll\DwmGetTransportAttributes", "ptr", pfIsRemoting, "ptr", pfIsConnected, pDwGenerationMarshal, pDwGeneration, "int")
+        result := DllCall("dwmapi.dll\DwmGetTransportAttributes", pfIsRemotingMarshal, pfIsRemoting, pfIsConnectedMarshal, pfIsConnected, pDwGenerationMarshal, pDwGeneration, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -663,21 +664,18 @@ class Dwm {
     /**
      * Note  This function is publically available, but nonfunctional, for Windows 10, version 1803.Checks the requirements needed to get tabs in the application title bar for the specified window.
      * @param {HWND} appWindow The handle of the window to check.
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmgetunmettabrequirements
      * @since windows10.0.17134
      */
-    static DwmGetUnmetTabRequirements(appWindow, value) {
+    static DwmGetUnmetTabRequirements(appWindow) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := DllCall("dwmapi.dll\DwmGetUnmetTabRequirements", "ptr", appWindow, valueMarshal, value, "int")
+        result := DllCall("dwmapi.dll\DwmGetUnmetTabRequirements", "ptr", appWindow, "int*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
 ;@endregion Methods

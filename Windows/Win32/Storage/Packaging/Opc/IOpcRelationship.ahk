@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcUri.ahk
+#Include ..\..\..\System\Com\IUri.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -116,58 +118,51 @@ class IOpcRelationship extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} relationshipIdentifier 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-getid
      */
-    GetId(relationshipIdentifier) {
-        result := ComCall(3, this, "ptr", relationshipIdentifier, "HRESULT")
-        return result
+    GetId() {
+        result := ComCall(3, this, "ptr*", &relationshipIdentifier := 0, "HRESULT")
+        return relationshipIdentifier
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} relationshipType 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-getrelationshiptype
      */
-    GetRelationshipType(relationshipType) {
-        result := ComCall(4, this, "ptr", relationshipType, "HRESULT")
-        return result
+    GetRelationshipType() {
+        result := ComCall(4, this, "ptr*", &relationshipType := 0, "HRESULT")
+        return relationshipType
     }
 
     /**
      * 
-     * @param {Pointer<IOpcUri>} sourceUri 
-     * @returns {HRESULT} 
+     * @returns {IOpcUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-getsourceuri
      */
-    GetSourceUri(sourceUri) {
-        result := ComCall(5, this, "ptr*", sourceUri, "HRESULT")
-        return result
+    GetSourceUri() {
+        result := ComCall(5, this, "ptr*", &sourceUri := 0, "HRESULT")
+        return IOpcUri(sourceUri)
     }
 
     /**
      * 
-     * @param {Pointer<IUri>} targetUri 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-gettargeturi
      */
-    GetTargetUri(targetUri) {
-        result := ComCall(6, this, "ptr*", targetUri, "HRESULT")
-        return result
+    GetTargetUri() {
+        result := ComCall(6, this, "ptr*", &targetUri := 0, "HRESULT")
+        return IUri(targetUri)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} targetMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-gettargetmode
      */
-    GetTargetMode(targetMode) {
-        targetModeMarshal := targetMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, targetModeMarshal, targetMode, "HRESULT")
-        return result
+    GetTargetMode() {
+        result := ComCall(7, this, "int*", &targetMode := 0, "HRESULT")
+        return targetMode
     }
 }

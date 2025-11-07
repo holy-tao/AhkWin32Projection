@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationEventHandlerGroup.ahk
 #Include .\IUIAutomation5.ahk
 
 /**
@@ -32,13 +33,12 @@ class IUIAutomation6 extends IUIAutomation5{
 
     /**
      * 
-     * @param {Pointer<IUIAutomationEventHandlerGroup>} handlerGroup 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationEventHandlerGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-createeventhandlergroup
      */
-    CreateEventHandlerGroup(handlerGroup) {
-        result := ComCall(70, this, "ptr*", handlerGroup, "HRESULT")
-        return result
+    CreateEventHandlerGroup() {
+        result := ComCall(70, this, "ptr*", &handlerGroup := 0, "HRESULT")
+        return IUIAutomationEventHandlerGroup(handlerGroup)
     }
 
     /**
@@ -67,15 +67,12 @@ class IUIAutomation6 extends IUIAutomation5{
 
     /**
      * 
-     * @param {Pointer<Integer>} connectionRecoveryBehaviorOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-get_connectionrecoverybehavior
      */
-    get_ConnectionRecoveryBehavior(connectionRecoveryBehaviorOptions) {
-        connectionRecoveryBehaviorOptionsMarshal := connectionRecoveryBehaviorOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(73, this, connectionRecoveryBehaviorOptionsMarshal, connectionRecoveryBehaviorOptions, "HRESULT")
-        return result
+    get_ConnectionRecoveryBehavior() {
+        result := ComCall(73, this, "int*", &connectionRecoveryBehaviorOptions := 0, "HRESULT")
+        return connectionRecoveryBehaviorOptions
     }
 
     /**
@@ -91,15 +88,12 @@ class IUIAutomation6 extends IUIAutomation5{
 
     /**
      * 
-     * @param {Pointer<Integer>} coalesceEventsOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-get_coalesceevents
      */
-    get_CoalesceEvents(coalesceEventsOptions) {
-        coalesceEventsOptionsMarshal := coalesceEventsOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(75, this, coalesceEventsOptionsMarshal, coalesceEventsOptions, "HRESULT")
-        return result
+    get_CoalesceEvents() {
+        result := ComCall(75, this, "int*", &coalesceEventsOptions := 0, "HRESULT")
+        return coalesceEventsOptions
     }
 
     /**

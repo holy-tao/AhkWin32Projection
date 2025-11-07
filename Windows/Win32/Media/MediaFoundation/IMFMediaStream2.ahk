@@ -40,13 +40,10 @@ class IMFMediaStream2 extends IMFMediaStream{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetStreamState(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, valueMarshal, value, "HRESULT")
-        return result
+    GetStreamState() {
+        result := ComCall(11, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 }

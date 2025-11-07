@@ -120,14 +120,12 @@ class ID3D12StateObjectDatabase extends IUnknown{
      * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
-     * @param {Pointer<Integer>} pVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    FindObjectVersion(pKey, KeySize, pVersion) {
+    FindObjectVersion(pKey, KeySize) {
         pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
-        pVersionMarshal := pVersion is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pKeyMarshal, pKey, "uint", KeySize, pVersionMarshal, pVersion, "HRESULT")
-        return result
+        result := ComCall(9, this, pKeyMarshal, pKey, "uint", KeySize, "uint*", &pVersion := 0, "HRESULT")
+        return pVersion
     }
 }

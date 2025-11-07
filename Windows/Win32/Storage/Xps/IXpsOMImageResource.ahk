@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include .\IXpsOMResource.ahk
 
 /**
@@ -87,13 +88,12 @@ class IXpsOMImageResource extends IXpsOMResource{
 
     /**
      * 
-     * @param {Pointer<IStream>} readerStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getstream
      */
-    GetStream(readerStream) {
-        result := ComCall(5, this, "ptr*", readerStream, "HRESULT")
-        return result
+    GetStream() {
+        result := ComCall(5, this, "ptr*", &readerStream := 0, "HRESULT")
+        return IStream(readerStream)
     }
 
     /**
@@ -111,14 +111,11 @@ class IXpsOMImageResource extends IXpsOMResource{
 
     /**
      * 
-     * @param {Pointer<Integer>} imageType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getimagetype
      */
-    GetImageType(imageType) {
-        imageTypeMarshal := imageType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, imageTypeMarshal, imageType, "HRESULT")
-        return result
+    GetImageType() {
+        result := ComCall(7, this, "int*", &imageType := 0, "HRESULT")
+        return imageType
     }
 }

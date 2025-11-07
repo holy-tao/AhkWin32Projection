@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTfLangBarItems.ahk
+#Include .\ITfLangBarItem.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,25 +35,23 @@ class ITfLangBarItemMgr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumTfLangBarItems>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfLangBarItems} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-enumitems
      */
-    EnumItems(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumItems() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfLangBarItems(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<ITfLangBarItem>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {ITfLangBarItem} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-getitem
      */
-    GetItem(rguid, ppItem) {
-        result := ComCall(4, this, "ptr", rguid, "ptr*", ppItem, "HRESULT")
-        return result
+    GetItem(rguid) {
+        result := ComCall(4, this, "ptr", rguid, "ptr*", &ppItem := 0, "HRESULT")
+        return ITfLangBarItem(ppItem)
     }
 
     /**
@@ -78,16 +79,13 @@ class ITfLangBarItemMgr extends IUnknown{
     /**
      * 
      * @param {ITfLangBarItemSink} punk 
-     * @param {Pointer<Integer>} pdwCookie 
      * @param {Pointer<Guid>} rguidItem 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemsink
      */
-    AdviseItemSink(punk, pdwCookie, rguidItem) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", punk, pdwCookieMarshal, pdwCookie, "ptr", rguidItem, "HRESULT")
-        return result
+    AdviseItemSink(punk, rguidItem) {
+        result := ComCall(7, this, "ptr", punk, "uint*", &pdwCookie := 0, "ptr", rguidItem, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -105,41 +103,35 @@ class ITfLangBarItemMgr extends IUnknown{
      * 
      * @param {Integer} dwThreadId 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<RECT>} prc 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-getitemfloatingrect
      */
-    GetItemFloatingRect(dwThreadId, rguid, prc) {
+    GetItemFloatingRect(dwThreadId, rguid) {
+        prc := RECT()
         result := ComCall(9, this, "uint", dwThreadId, "ptr", rguid, "ptr", prc, "HRESULT")
-        return result
+        return prc
     }
 
     /**
      * 
      * @param {Integer} ulCount 
      * @param {Pointer<Guid>} prgguid 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-getitemsstatus
      */
-    GetItemsStatus(ulCount, prgguid, pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "uint", ulCount, "ptr", prgguid, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetItemsStatus(ulCount, prgguid) {
+        result := ComCall(10, this, "uint", ulCount, "ptr", prgguid, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-getitemnum
      */
-    GetItemNum(pulCount) {
-        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pulCountMarshal, pulCount, "HRESULT")
-        return result
+    GetItemNum() {
+        result := ComCall(11, this, "uint*", &pulCount := 0, "HRESULT")
+        return pulCount
     }
 
     /**
@@ -165,15 +157,12 @@ class ITfLangBarItemMgr extends IUnknown{
      * @param {Integer} ulCount 
      * @param {Pointer<ITfLangBarItemSink>} ppunk 
      * @param {Pointer<Guid>} pguidItem 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemssink
      */
-    AdviseItemsSink(ulCount, ppunk, pguidItem, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, "uint", ulCount, "ptr*", ppunk, "ptr", pguidItem, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    AdviseItemsSink(ulCount, ppunk, pguidItem) {
+        result := ComCall(13, this, "uint", ulCount, "ptr*", ppunk, "ptr", pguidItem, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

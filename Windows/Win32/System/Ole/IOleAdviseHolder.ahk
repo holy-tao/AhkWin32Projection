@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IEnumSTATDATA.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,15 +34,12 @@ class IOleAdviseHolder extends IUnknown{
     /**
      * 
      * @param {IAdviseSink} pAdvise 
-     * @param {Pointer<Integer>} pdwConnection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleadviseholder-advise
      */
-    Advise(pAdvise, pdwConnection) {
-        pdwConnectionMarshal := pdwConnection is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pAdvise, pdwConnectionMarshal, pdwConnection, "HRESULT")
-        return result
+    Advise(pAdvise) {
+        result := ComCall(3, this, "ptr", pAdvise, "uint*", &pdwConnection := 0, "HRESULT")
+        return pdwConnection
     }
 
     /**
@@ -57,13 +55,12 @@ class IOleAdviseHolder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSTATDATA>} ppenumAdvise 
-     * @returns {HRESULT} 
+     * @returns {IEnumSTATDATA} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleadviseholder-enumadvise
      */
-    EnumAdvise(ppenumAdvise) {
-        result := ComCall(5, this, "ptr*", ppenumAdvise, "HRESULT")
-        return result
+    EnumAdvise() {
+        result := ComCall(5, this, "ptr*", &ppenumAdvise := 0, "HRESULT")
+        return IEnumSTATDATA(ppenumAdvise)
     }
 
     /**

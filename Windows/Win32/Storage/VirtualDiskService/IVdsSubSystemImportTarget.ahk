@@ -32,13 +32,12 @@ class IVdsSubSystemImportTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszIscsiName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdssubsystemimporttarget-getimporttarget
      */
-    GetImportTarget(ppwszIscsiName) {
-        result := ComCall(3, this, "ptr", ppwszIscsiName, "HRESULT")
-        return result
+    GetImportTarget() {
+        result := ComCall(3, this, "ptr*", &ppwszIscsiName := 0, "HRESULT")
+        return ppwszIscsiName
     }
 
     /**

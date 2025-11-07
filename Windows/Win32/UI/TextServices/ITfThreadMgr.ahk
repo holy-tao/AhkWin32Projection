@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfDocumentMgr.ahk
+#Include .\IEnumTfDocumentMgrs.ahk
+#Include .\ITfFunctionProvider.ahk
+#Include .\IEnumTfFunctionProviders.ahk
+#Include .\ITfCompartmentMgr.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,15 +45,12 @@ class ITfThreadMgr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} ptid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-activate
      */
-    Activate(ptid) {
-        ptidMarshal := ptid is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, ptidMarshal, ptid, "HRESULT")
-        return result
+    Activate() {
+        result := ComCall(3, this, "uint*", &ptid := 0, "HRESULT")
+        return ptid
     }
 
     /**
@@ -63,37 +65,32 @@ class ITfThreadMgr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITfDocumentMgr>} ppdim 
-     * @returns {HRESULT} 
+     * @returns {ITfDocumentMgr} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-createdocumentmgr
      */
-    CreateDocumentMgr(ppdim) {
-        result := ComCall(5, this, "ptr*", ppdim, "HRESULT")
-        return result
+    CreateDocumentMgr() {
+        result := ComCall(5, this, "ptr*", &ppdim := 0, "HRESULT")
+        return ITfDocumentMgr(ppdim)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumTfDocumentMgrs>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfDocumentMgrs} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-enumdocumentmgrs
      */
-    EnumDocumentMgrs(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumDocumentMgrs() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfDocumentMgrs(ppEnum)
     }
 
     /**
      * Retrieves the handle to the window that has the keyboard focus, if the window is attached to the calling thread's message queue.
-     * @param {Pointer<ITfDocumentMgr>} ppdimFocus 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * The return value is the handle to the window with the keyboard focus. If the calling thread's message queue does not have an associated window with the keyboard focus, the return value is <b>NULL</b>.
+     * @returns {ITfDocumentMgr} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getfocus
      */
-    GetFocus(ppdimFocus) {
-        result := ComCall(7, this, "ptr*", ppdimFocus, "HRESULT")
-        return result
+    GetFocus() {
+        result := ComCall(7, this, "ptr*", &ppdimFocus := 0, "HRESULT")
+        return ITfDocumentMgr(ppdimFocus)
     }
 
     /**
@@ -115,59 +112,54 @@ class ITfThreadMgr extends IUnknown{
      * 
      * @param {HWND} hwnd 
      * @param {ITfDocumentMgr} pdimNew 
-     * @param {Pointer<ITfDocumentMgr>} ppdimPrev 
-     * @returns {HRESULT} 
+     * @returns {ITfDocumentMgr} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-associatefocus
      */
-    AssociateFocus(hwnd, pdimNew, ppdimPrev) {
+    AssociateFocus(hwnd, pdimNew) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(9, this, "ptr", hwnd, "ptr", pdimNew, "ptr*", ppdimPrev, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", hwnd, "ptr", pdimNew, "ptr*", &ppdimPrev := 0, "HRESULT")
+        return ITfDocumentMgr(ppdimPrev)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfThreadFocus 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-isthreadfocus
      */
-    IsThreadFocus(pfThreadFocus) {
-        result := ComCall(10, this, "ptr", pfThreadFocus, "HRESULT")
-        return result
+    IsThreadFocus() {
+        result := ComCall(10, this, "int*", &pfThreadFocus := 0, "HRESULT")
+        return pfThreadFocus
     }
 
     /**
      * 
      * @param {Pointer<Guid>} clsid 
-     * @param {Pointer<ITfFunctionProvider>} ppFuncProv 
-     * @returns {HRESULT} 
+     * @returns {ITfFunctionProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-getfunctionprovider
      */
-    GetFunctionProvider(clsid, ppFuncProv) {
-        result := ComCall(11, this, "ptr", clsid, "ptr*", ppFuncProv, "HRESULT")
-        return result
+    GetFunctionProvider(clsid) {
+        result := ComCall(11, this, "ptr", clsid, "ptr*", &ppFuncProv := 0, "HRESULT")
+        return ITfFunctionProvider(ppFuncProv)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumTfFunctionProviders>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfFunctionProviders} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-enumfunctionproviders
      */
-    EnumFunctionProviders(ppEnum) {
-        result := ComCall(12, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumFunctionProviders() {
+        result := ComCall(12, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfFunctionProviders(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<ITfCompartmentMgr>} ppCompMgr 
-     * @returns {HRESULT} 
+     * @returns {ITfCompartmentMgr} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-getglobalcompartment
      */
-    GetGlobalCompartment(ppCompMgr) {
-        result := ComCall(13, this, "ptr*", ppCompMgr, "HRESULT")
-        return result
+    GetGlobalCompartment() {
+        result := ComCall(13, this, "ptr*", &ppCompMgr := 0, "HRESULT")
+        return ITfCompartmentMgr(ppCompMgr)
     }
 }

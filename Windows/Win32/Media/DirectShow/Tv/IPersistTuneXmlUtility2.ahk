@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IPersistTuneXmlUtility.ahk
 
 /**
@@ -38,12 +39,12 @@ class IPersistTuneXmlUtility2 extends IPersistTuneXmlUtility{
     /**
      * 
      * @param {ITuneRequest} piTuneRequest 
-     * @param {Pointer<BSTR>} pString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ipersisttunexmlutility2-serialize
      */
-    Serialize(piTuneRequest, pString) {
+    Serialize(piTuneRequest) {
+        pString := BSTR()
         result := ComCall(4, this, "ptr", piTuneRequest, "ptr", pString, "HRESULT")
-        return result
+        return pString
     }
 }

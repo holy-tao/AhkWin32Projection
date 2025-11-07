@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidFeature.ahk
 
 /**
@@ -43,23 +44,21 @@ class IMSVidEncoder extends IMSVidFeature{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEncInt 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidencoder-get_videoencoderinterface
      */
-    get_VideoEncoderInterface(ppEncInt) {
-        result := ComCall(16, this, "ptr*", ppEncInt, "HRESULT")
-        return result
+    get_VideoEncoderInterface() {
+        result := ComCall(16, this, "ptr*", &ppEncInt := 0, "HRESULT")
+        return IUnknown(ppEncInt)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEncInt 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidencoder-get_audioencoderinterface
      */
-    get_AudioEncoderInterface(ppEncInt) {
-        result := ComCall(17, this, "ptr*", ppEncInt, "HRESULT")
-        return result
+    get_AudioEncoderInterface() {
+        result := ComCall(17, this, "ptr*", &ppEncInt := 0, "HRESULT")
+        return IUnknown(ppEncInt)
     }
 }

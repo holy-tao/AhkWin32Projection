@@ -35,17 +35,14 @@ class ITypeChangeEvents extends IUnknown{
      * @param {Integer} changeKind 
      * @param {ITypeInfo} pTInfoBefore 
      * @param {PWSTR} pStrName 
-     * @param {Pointer<Integer>} pfCancel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypechangeevents-requesttypechange
      */
-    RequestTypeChange(changeKind, pTInfoBefore, pStrName, pfCancel) {
+    RequestTypeChange(changeKind, pTInfoBefore, pStrName) {
         pStrName := pStrName is String ? StrPtr(pStrName) : pStrName
 
-        pfCancelMarshal := pfCancel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "int", changeKind, "ptr", pTInfoBefore, "ptr", pStrName, pfCancelMarshal, pfCancel, "HRESULT")
-        return result
+        result := ComCall(3, this, "int", changeKind, "ptr", pTInfoBefore, "ptr", pStrName, "int*", &pfCancel := 0, "HRESULT")
+        return pfCancel
     }
 
     /**

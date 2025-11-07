@@ -2,6 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509CertificateTemplates.ahk
+#Include .\ICertificationAuthorities.ahk
+#Include .\IObjectIds.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -72,36 +76,33 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IX509CertificateTemplates>} pTemplates 
-     * @returns {HRESULT} 
+     * @returns {IX509CertificateTemplates} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-gettemplates
      */
-    GetTemplates(pTemplates) {
-        result := ComCall(9, this, "ptr*", pTemplates, "HRESULT")
-        return result
+    GetTemplates() {
+        result := ComCall(9, this, "ptr*", &pTemplates := 0, "HRESULT")
+        return IX509CertificateTemplates(pTemplates)
     }
 
     /**
      * 
      * @param {IX509CertificateTemplate} pTemplate 
-     * @param {Pointer<ICertificationAuthorities>} ppCAs 
-     * @returns {HRESULT} 
+     * @returns {ICertificationAuthorities} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcasfortemplate
      */
-    GetCAsForTemplate(pTemplate, ppCAs) {
-        result := ComCall(10, this, "ptr", pTemplate, "ptr*", ppCAs, "HRESULT")
-        return result
+    GetCAsForTemplate(pTemplate) {
+        result := ComCall(10, this, "ptr", pTemplate, "ptr*", &ppCAs := 0, "HRESULT")
+        return ICertificationAuthorities(ppCAs)
     }
 
     /**
      * 
-     * @param {Pointer<ICertificationAuthorities>} ppCAs 
-     * @returns {HRESULT} 
+     * @returns {ICertificationAuthorities} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcas
      */
-    GetCAs(ppCAs) {
-        result := ComCall(11, this, "ptr*", ppCAs, "HRESULT")
-        return result
+    GetCAs() {
+        result := ComCall(11, this, "ptr*", &ppCAs := 0, "HRESULT")
+        return ICertificationAuthorities(ppCAs)
     }
 
     /**
@@ -116,140 +117,127 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IObjectIds>} ppObjectIds 
-     * @returns {HRESULT} 
+     * @returns {IObjectIds} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcustomoids
      */
-    GetCustomOids(ppObjectIds) {
-        result := ComCall(13, this, "ptr*", ppObjectIds, "HRESULT")
-        return result
+    GetCustomOids() {
+        result := ComCall(13, this, "ptr*", &ppObjectIds := 0, "HRESULT")
+        return IObjectIds(ppObjectIds)
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pDate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getnextupdatetime
      */
-    GetNextUpdateTime(pDate) {
-        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(14, this, pDateMarshal, pDate, "HRESULT")
-        return result
+    GetNextUpdateTime() {
+        result := ComCall(14, this, "double*", &pDate := 0, "HRESULT")
+        return pDate
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pDate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getlastupdatetime
      */
-    GetLastUpdateTime(pDate) {
-        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(15, this, pDateMarshal, pDate, "HRESULT")
-        return result
+    GetLastUpdateTime() {
+        result := ComCall(15, this, "double*", &pDate := 0, "HRESULT")
+        return pDate
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getpolicyserverurl
      */
-    GetPolicyServerUrl(pValue) {
+    GetPolicyServerUrl() {
+        pValue := BSTR()
         result := ComCall(16, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getpolicyserverid
      */
-    GetPolicyServerId(pValue) {
+    GetPolicyServerId() {
+        pValue := BSTR()
         result := ComCall(17, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getfriendlyname
      */
-    GetFriendlyName(pValue) {
+    GetFriendlyName() {
+        pValue := BSTR()
         result := ComCall(18, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getisdefaultcep
      */
-    GetIsDefaultCEP(pValue) {
-        result := ComCall(19, this, "ptr", pValue, "HRESULT")
-        return result
+    GetIsDefaultCEP() {
+        result := ComCall(19, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getuseclientid
      */
-    GetUseClientId(pValue) {
-        result := ComCall(20, this, "ptr", pValue, "HRESULT")
-        return result
+    GetUseClientId() {
+        result := ComCall(20, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getallowuntrustedca
      */
-    GetAllowUnTrustedCA(pValue) {
-        result := ComCall(21, this, "ptr", pValue, "HRESULT")
-        return result
+    GetAllowUnTrustedCA() {
+        result := ComCall(21, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcachepath
      */
-    GetCachePath(pValue) {
+    GetCachePath() {
+        pValue := BSTR()
         result := ComCall(22, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcachedir
      */
-    GetCacheDir(pValue) {
+    GetCacheDir() {
+        pValue := BSTR()
         result := ComCall(23, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getauthflags
      */
-    GetAuthFlags(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetAuthFlags() {
+        result := ComCall(24, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -271,13 +259,12 @@ class IX509EnrollmentPolicyServer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-querychanges
      */
-    QueryChanges(pValue) {
-        result := ComCall(26, this, "ptr", pValue, "HRESULT")
-        return result
+    QueryChanges() {
+        result := ComCall(26, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -294,26 +281,23 @@ class IX509EnrollmentPolicyServer extends IDispatch{
     /**
      * 
      * @param {Integer} exportFlags 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-export
      */
-    Export(exportFlags, pVal) {
+    Export(exportFlags) {
+        pVal := VARIANT()
         result := ComCall(28, this, "int", exportFlags, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-get_cost
      */
-    get_Cost(pValue) {
-        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(29, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Cost() {
+        result := ComCall(29, this, "uint*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITraceDataProvider.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -43,38 +45,33 @@ class ITraceDataProviderCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovidercollection-get_count
      */
-    get_Count(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
      * @param {VARIANT} index 
-     * @param {Pointer<ITraceDataProvider>} ppProvider 
-     * @returns {HRESULT} 
+     * @returns {ITraceDataProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovidercollection-get_item
      */
-    get_Item(index, ppProvider) {
-        result := ComCall(8, this, "ptr", index, "ptr*", ppProvider, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(8, this, "ptr", index, "ptr*", &ppProvider := 0, "HRESULT")
+        return ITraceDataProvider(ppProvider)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovidercollection-get__newenum
      */
-    get__NewEnum(retVal) {
-        result := ComCall(9, this, "ptr*", retVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUnknown(retVal)
     }
 
     /**
@@ -122,13 +119,12 @@ class ITraceDataProviderCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITraceDataProvider>} Provider 
-     * @returns {HRESULT} 
+     * @returns {ITraceDataProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovidercollection-createtracedataprovider
      */
-    CreateTraceDataProvider(Provider) {
-        result := ComCall(14, this, "ptr*", Provider, "HRESULT")
-        return result
+    CreateTraceDataProvider() {
+        result := ComCall(14, this, "ptr*", &Provider := 0, "HRESULT")
+        return ITraceDataProvider(Provider)
     }
 
     /**

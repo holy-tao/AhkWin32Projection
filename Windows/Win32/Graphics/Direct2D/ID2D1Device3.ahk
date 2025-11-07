@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1DeviceContext3.ahk
 #Include .\ID2D1Device2.ahk
 
 /**
@@ -33,12 +34,11 @@ class ID2D1Device3 extends ID2D1Device2{
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<ID2D1DeviceContext3>} deviceContext3 
-     * @returns {HRESULT} 
+     * @returns {ID2D1DeviceContext3} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1device3-createdevicecontext
      */
-    CreateDeviceContext(options, deviceContext3) {
-        result := ComCall(15, this, "int", options, "ptr*", deviceContext3, "HRESULT")
-        return result
+    CreateDeviceContext(options) {
+        result := ComCall(15, this, "int", options, "ptr*", &deviceContext3 := 0, "HRESULT")
+        return ID2D1DeviceContext3(deviceContext3)
     }
 }

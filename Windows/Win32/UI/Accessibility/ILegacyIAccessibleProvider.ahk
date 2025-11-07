@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAccessible.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -70,130 +72,117 @@ class ILegacyIAccessibleProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAccessible>} ppAccessible 
-     * @returns {HRESULT} 
+     * @returns {IAccessible} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-getiaccessible
      */
-    GetIAccessible(ppAccessible) {
-        result := ComCall(6, this, "ptr*", ppAccessible, "HRESULT")
-        return result
+    GetIAccessible() {
+        result := ComCall(6, this, "ptr*", &ppAccessible := 0, "HRESULT")
+        return IAccessible(ppAccessible)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_childid
      */
-    get_ChildId(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_ChildId() {
+        result := ComCall(7, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_name
      */
-    get_Name(pszName) {
+    get_Name() {
+        pszName := BSTR()
         result := ComCall(8, this, "ptr", pszName, "HRESULT")
-        return result
+        return pszName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_value
      */
-    get_Value(pszValue) {
+    get_Value() {
+        pszValue := BSTR()
         result := ComCall(9, this, "ptr", pszValue, "HRESULT")
-        return result
+        return pszValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_description
      */
-    get_Description(pszDescription) {
+    get_Description() {
+        pszDescription := BSTR()
         result := ComCall(10, this, "ptr", pszDescription, "HRESULT")
-        return result
+        return pszDescription
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwRole 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_role
      */
-    get_Role(pdwRole) {
-        pdwRoleMarshal := pdwRole is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwRoleMarshal, pdwRole, "HRESULT")
-        return result
+    get_Role() {
+        result := ComCall(11, this, "uint*", &pdwRole := 0, "HRESULT")
+        return pdwRole
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_state
      */
-    get_State(pdwState) {
-        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pdwStateMarshal, pdwState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(12, this, "uint*", &pdwState := 0, "HRESULT")
+        return pdwState
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszHelp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_help
      */
-    get_Help(pszHelp) {
+    get_Help() {
+        pszHelp := BSTR()
         result := ComCall(13, this, "ptr", pszHelp, "HRESULT")
-        return result
+        return pszHelp
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszKeyboardShortcut 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_keyboardshortcut
      */
-    get_KeyboardShortcut(pszKeyboardShortcut) {
+    get_KeyboardShortcut() {
+        pszKeyboardShortcut := BSTR()
         result := ComCall(14, this, "ptr", pszKeyboardShortcut, "HRESULT")
-        return result
+        return pszKeyboardShortcut
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pvarSelectedChildren 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-getselection
      */
-    GetSelection(pvarSelectedChildren) {
-        pvarSelectedChildrenMarshal := pvarSelectedChildren is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(15, this, pvarSelectedChildrenMarshal, pvarSelectedChildren, "HRESULT")
-        return result
+    GetSelection() {
+        result := ComCall(15, this, "ptr*", &pvarSelectedChildren := 0, "HRESULT")
+        return pvarSelectedChildren
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszDefaultAction 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_defaultaction
      */
-    get_DefaultAction(pszDefaultAction) {
+    get_DefaultAction() {
+        pszDefaultAction := BSTR()
         result := ComCall(16, this, "ptr", pszDefaultAction, "HRESULT")
-        return result
+        return pszDefaultAction
     }
 }

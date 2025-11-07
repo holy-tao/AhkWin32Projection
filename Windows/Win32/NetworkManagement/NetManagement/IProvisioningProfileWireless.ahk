@@ -34,48 +34,14 @@ class IProvisioningProfileWireless extends IUnknown{
      * @param {BSTR} bstrXMLWirelessConfigProfile 
      * @param {BSTR} bstrXMLConnectionConfigProfile 
      * @param {Pointer<Guid>} pAdapterInstanceGuid 
-     * @param {Pointer<Integer>} pulStatus 
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if successful, or an error value otherwise, including the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ACCESSDENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller does not have a sufficient permission level to create the profile.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_ALREADY_EXISTS)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A profile already exists for the specified user.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-createprofile
      */
-    CreateProfile(bstrXMLWirelessConfigProfile, bstrXMLConnectionConfigProfile, pAdapterInstanceGuid, pulStatus) {
+    CreateProfile(bstrXMLWirelessConfigProfile, bstrXMLConnectionConfigProfile, pAdapterInstanceGuid) {
         bstrXMLWirelessConfigProfile := bstrXMLWirelessConfigProfile is String ? BSTR.Alloc(bstrXMLWirelessConfigProfile).Value : bstrXMLWirelessConfigProfile
         bstrXMLConnectionConfigProfile := bstrXMLConnectionConfigProfile is String ? BSTR.Alloc(bstrXMLConnectionConfigProfile).Value : bstrXMLConnectionConfigProfile
 
-        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", bstrXMLWirelessConfigProfile, "ptr", bstrXMLConnectionConfigProfile, "ptr", pAdapterInstanceGuid, pulStatusMarshal, pulStatus, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", bstrXMLWirelessConfigProfile, "ptr", bstrXMLConnectionConfigProfile, "ptr", pAdapterInstanceGuid, "uint*", &pulStatus := 0, "HRESULT")
+        return pulStatus
     }
 }

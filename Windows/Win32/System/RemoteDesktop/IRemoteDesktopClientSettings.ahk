@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -46,27 +47,27 @@ class IRemoteDesktopClientSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} rdpFileContents 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-retrievesettings
      */
-    RetrieveSettings(rdpFileContents) {
+    RetrieveSettings() {
+        rdpFileContents := BSTR()
         result := ComCall(8, this, "ptr", rdpFileContents, "HRESULT")
-        return result
+        return rdpFileContents
     }
 
     /**
      * 
      * @param {BSTR} propertyName 
-     * @param {Pointer<VARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-getrdpproperty
      */
-    GetRdpProperty(propertyName, value) {
+    GetRdpProperty(propertyName) {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
+        value := VARIANT()
         result := ComCall(9, this, "ptr", propertyName, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**

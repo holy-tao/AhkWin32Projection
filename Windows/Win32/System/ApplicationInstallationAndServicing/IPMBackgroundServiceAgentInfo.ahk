@@ -30,12 +30,12 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pProductID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_ProductID(pProductID) {
+    get_ProductID() {
+        pProductID := Guid()
         result := ComCall(3, this, "ptr", pProductID, "HRESULT")
-        return result
+        return pProductID
     }
 
     /**
@@ -50,14 +50,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pBSAID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BSAID(pBSAID) {
-        pBSAIDMarshal := pBSAID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pBSAIDMarshal, pBSAID, "HRESULT")
-        return result
+    get_BSAID() {
+        result := ComCall(5, this, "uint*", &pBSAID := 0, "HRESULT")
+        return pBSAID
     }
 
     /**
@@ -102,32 +99,29 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsPeriodic 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsPeriodic(pIsPeriodic) {
-        result := ComCall(10, this, "ptr", pIsPeriodic, "HRESULT")
-        return result
+    get_IsPeriodic() {
+        result := ComCall(10, this, "int*", &pIsPeriodic := 0, "HRESULT")
+        return pIsPeriodic
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsScheduled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsScheduled(pIsScheduled) {
-        result := ComCall(11, this, "ptr", pIsScheduled, "HRESULT")
-        return result
+    get_IsScheduled() {
+        result := ComCall(11, this, "int*", &pIsScheduled := 0, "HRESULT")
+        return pIsScheduled
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsScheduleAllowed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsScheduleAllowed(pIsScheduleAllowed) {
-        result := ComCall(12, this, "ptr", pIsScheduleAllowed, "HRESULT")
-        return result
+    get_IsScheduleAllowed() {
+        result := ComCall(12, this, "int*", &pIsScheduleAllowed := 0, "HRESULT")
+        return pIsScheduleAllowed
     }
 
     /**
@@ -142,12 +136,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pLaunchOnBoot 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsLaunchOnBoot(pLaunchOnBoot) {
-        result := ComCall(14, this, "ptr", pLaunchOnBoot, "HRESULT")
-        return result
+    get_IsLaunchOnBoot() {
+        result := ComCall(14, this, "int*", &pLaunchOnBoot := 0, "HRESULT")
+        return pLaunchOnBoot
     }
 
     /**

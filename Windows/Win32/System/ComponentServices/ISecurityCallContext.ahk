@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,79 +41,72 @@ class ISecurityCallContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<VARIANT>} pItem 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-get_item
      */
-    get_Item(name, pItem) {
+    get_Item(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
+        pItem := VARIANT()
         result := ComCall(8, this, "ptr", name, "ptr", pItem, "HRESULT")
-        return result
+        return pItem
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-get__newenum
      */
-    get__NewEnum(ppEnum) {
-        result := ComCall(9, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IUnknown(ppEnum)
     }
 
     /**
      * 
      * @param {BSTR} bstrRole 
-     * @param {Pointer<VARIANT_BOOL>} pfInRole 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-iscallerinrole
      */
-    IsCallerInRole(bstrRole, pfInRole) {
+    IsCallerInRole(bstrRole) {
         bstrRole := bstrRole is String ? BSTR.Alloc(bstrRole).Value : bstrRole
 
-        result := ComCall(10, this, "ptr", bstrRole, "ptr", pfInRole, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrRole, "short*", &pfInRole := 0, "HRESULT")
+        return pfInRole
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfIsEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-issecurityenabled
      */
-    IsSecurityEnabled(pfIsEnabled) {
-        result := ComCall(11, this, "ptr", pfIsEnabled, "HRESULT")
-        return result
+    IsSecurityEnabled() {
+        result := ComCall(11, this, "short*", &pfIsEnabled := 0, "HRESULT")
+        return pfIsEnabled
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} pUser 
      * @param {BSTR} bstrRole 
-     * @param {Pointer<VARIANT_BOOL>} pfInRole 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-isuserinrole
      */
-    IsUserInRole(pUser, bstrRole, pfInRole) {
+    IsUserInRole(pUser, bstrRole) {
         bstrRole := bstrRole is String ? BSTR.Alloc(bstrRole).Value : bstrRole
 
-        result := ComCall(12, this, "ptr", pUser, "ptr", bstrRole, "ptr", pfInRole, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", pUser, "ptr", bstrRole, "short*", &pfInRole := 0, "HRESULT")
+        return pfInRole
     }
 }

@@ -37,16 +37,15 @@ class IADsOpenDSObject extends IDispatch{
      * @param {BSTR} lpszUserName 
      * @param {BSTR} lpszPassword 
      * @param {Integer} lnReserved 
-     * @param {Pointer<IDispatch>} ppOleDsObj 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsopendsobject-opendsobject
      */
-    OpenDSObject(lpszDNName, lpszUserName, lpszPassword, lnReserved, ppOleDsObj) {
+    OpenDSObject(lpszDNName, lpszUserName, lpszPassword, lnReserved) {
         lpszDNName := lpszDNName is String ? BSTR.Alloc(lpszDNName).Value : lpszDNName
         lpszUserName := lpszUserName is String ? BSTR.Alloc(lpszUserName).Value : lpszUserName
         lpszPassword := lpszPassword is String ? BSTR.Alloc(lpszPassword).Value : lpszPassword
 
-        result := ComCall(7, this, "ptr", lpszDNName, "ptr", lpszUserName, "ptr", lpszPassword, "int", lnReserved, "ptr*", ppOleDsObj, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", lpszDNName, "ptr", lpszUserName, "ptr", lpszPassword, "int", lnReserved, "ptr*", &ppOleDsObj := 0, "HRESULT")
+        return IDispatch(ppOleDsObj)
     }
 }

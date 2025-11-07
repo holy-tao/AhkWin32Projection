@@ -30,11 +30,10 @@ class IXpsDocumentProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppIXpsPart 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetXpsPart(ppIXpsPart) {
-        result := ComCall(3, this, "ptr*", ppIXpsPart, "HRESULT")
-        return result
+    GetXpsPart() {
+        result := ComCall(3, this, "ptr*", &ppIXpsPart := 0, "HRESULT")
+        return IUnknown(ppIXpsPart)
     }
 }

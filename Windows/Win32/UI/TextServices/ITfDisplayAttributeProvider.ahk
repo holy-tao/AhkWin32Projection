@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTfDisplayAttributeInfo.ahk
+#Include .\ITfDisplayAttributeInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,24 +34,22 @@ class ITfDisplayAttributeProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumTfDisplayAttributeInfo>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfDisplayAttributeInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeprovider-enumdisplayattributeinfo
      */
-    EnumDisplayAttributeInfo(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumDisplayAttributeInfo() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfDisplayAttributeInfo(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guid 
-     * @param {Pointer<ITfDisplayAttributeInfo>} ppInfo 
-     * @returns {HRESULT} 
+     * @returns {ITfDisplayAttributeInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributeprovider-getdisplayattributeinfo
      */
-    GetDisplayAttributeInfo(guid, ppInfo) {
-        result := ComCall(4, this, "ptr", guid, "ptr*", ppInfo, "HRESULT")
-        return result
+    GetDisplayAttributeInfo(guid) {
+        result := ComCall(4, this, "ptr", guid, "ptr*", &ppInfo := 0, "HRESULT")
+        return ITfDisplayAttributeInfo(ppInfo)
     }
 }

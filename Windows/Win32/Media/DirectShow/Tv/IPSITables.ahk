@@ -36,12 +36,11 @@ class IPSITables extends IUnknown{
      * @param {Integer} dwTID_PID 
      * @param {Integer} dwHashedVer 
      * @param {Integer} dwPara4 
-     * @param {Pointer<IUnknown>} ppIUnknown 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipsitables-gettable
      */
-    GetTable(dwTSID, dwTID_PID, dwHashedVer, dwPara4, ppIUnknown) {
-        result := ComCall(3, this, "uint", dwTSID, "uint", dwTID_PID, "uint", dwHashedVer, "uint", dwPara4, "ptr*", ppIUnknown, "HRESULT")
-        return result
+    GetTable(dwTSID, dwTID_PID, dwHashedVer, dwPara4) {
+        result := ComCall(3, this, "uint", dwTSID, "uint", dwTID_PID, "uint", dwHashedVer, "uint", dwPara4, "ptr*", &ppIUnknown := 0, "HRESULT")
+        return IUnknown(ppIUnknown)
     }
 }

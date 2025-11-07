@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WRDS_SETTINGS.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -38,13 +39,13 @@ class IWRdsProtocolSettings extends IUnknown{
      * 
      * @param {Integer} WRdsSettingType 
      * @param {Integer} WRdsSettingLevel 
-     * @param {Pointer<WRDS_SETTINGS>} pWRdsSettings 
-     * @returns {HRESULT} 
+     * @returns {WRDS_SETTINGS} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolsettings-getsettings
      */
-    GetSettings(WRdsSettingType, WRdsSettingLevel, pWRdsSettings) {
+    GetSettings(WRdsSettingType, WRdsSettingLevel) {
+        pWRdsSettings := WRDS_SETTINGS()
         result := ComCall(3, this, "int", WRdsSettingType, "int", WRdsSettingLevel, "ptr", pWRdsSettings, "HRESULT")
-        return result
+        return pWRdsSettings
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,51 +44,42 @@ class IProgressItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} desc 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitem-get_description
      */
-    get_Description(desc) {
+    get_Description() {
+        desc := BSTR()
         result := ComCall(7, this, "ptr", desc, "HRESULT")
-        return result
+        return desc
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} block 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitem-get_firstblock
      */
-    get_FirstBlock(block) {
-        blockMarshal := block is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, blockMarshal, block, "HRESULT")
-        return result
+    get_FirstBlock() {
+        result := ComCall(8, this, "uint*", &block := 0, "HRESULT")
+        return block
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} block 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitem-get_lastblock
      */
-    get_LastBlock(block) {
-        blockMarshal := block is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, blockMarshal, block, "HRESULT")
-        return result
+    get_LastBlock() {
+        result := ComCall(9, this, "uint*", &block := 0, "HRESULT")
+        return block
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} blocks 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitem-get_blockcount
      */
-    get_BlockCount(blocks) {
-        blocksMarshal := blocks is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, blocksMarshal, blocks, "HRESULT")
-        return result
+    get_BlockCount() {
+        result := ComCall(10, this, "uint*", &blocks := 0, "HRESULT")
+        return blocks
     }
 }

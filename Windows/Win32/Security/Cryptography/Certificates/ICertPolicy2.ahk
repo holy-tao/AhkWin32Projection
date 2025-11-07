@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICertManageModule.ahk
 #Include .\ICertPolicy.ahk
 
 /**
@@ -76,12 +77,11 @@ class ICertPolicy2 extends ICertPolicy{
 
     /**
      * 
-     * @param {Pointer<ICertManageModule>} ppManageModule 
-     * @returns {HRESULT} 
+     * @returns {ICertManageModule} 
      * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-icertpolicy2-getmanagemodule
      */
-    GetManageModule(ppManageModule) {
-        result := ComCall(11, this, "ptr*", ppManageModule, "HRESULT")
-        return result
+    GetManageModule() {
+        result := ComCall(11, this, "ptr*", &ppManageModule := 0, "HRESULT")
+        return ICertManageModule(ppManageModule)
     }
 }

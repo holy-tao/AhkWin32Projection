@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IShellImageData.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,52 +45,49 @@ class IShellImageDataFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IShellImageData>} ppshimg 
-     * @returns {HRESULT} 
+     * @returns {IShellImageData} 
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedatafactory-createishellimagedata
      */
-    CreateIShellImageData(ppshimg) {
-        result := ComCall(3, this, "ptr*", ppshimg, "HRESULT")
-        return result
+    CreateIShellImageData() {
+        result := ComCall(3, this, "ptr*", &ppshimg := 0, "HRESULT")
+        return IShellImageData(ppshimg)
     }
 
     /**
      * 
      * @param {PWSTR} pszPath 
-     * @param {Pointer<IShellImageData>} ppshimg 
-     * @returns {HRESULT} 
+     * @returns {IShellImageData} 
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedatafactory-createimagefromfile
      */
-    CreateImageFromFile(pszPath, ppshimg) {
+    CreateImageFromFile(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(4, this, "ptr", pszPath, "ptr*", ppshimg, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszPath, "ptr*", &ppshimg := 0, "HRESULT")
+        return IShellImageData(ppshimg)
     }
 
     /**
      * 
      * @param {IStream} pStream 
-     * @param {Pointer<IShellImageData>} ppshimg 
-     * @returns {HRESULT} 
+     * @returns {IShellImageData} 
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedatafactory-createimagefromstream
      */
-    CreateImageFromStream(pStream, ppshimg) {
-        result := ComCall(5, this, "ptr", pStream, "ptr*", ppshimg, "HRESULT")
-        return result
+    CreateImageFromStream(pStream) {
+        result := ComCall(5, this, "ptr", pStream, "ptr*", &ppshimg := 0, "HRESULT")
+        return IShellImageData(ppshimg)
     }
 
     /**
      * 
      * @param {PWSTR} pszPath 
-     * @param {Pointer<Guid>} pDataFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedatafactory-getdataformatfrompath
      */
-    GetDataFormatFromPath(pszPath, pDataFormat) {
+    GetDataFormatFromPath(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
+        pDataFormat := Guid()
         result := ComCall(6, this, "ptr", pszPath, "ptr", pDataFormat, "HRESULT")
-        return result
+        return pDataFormat
     }
 }

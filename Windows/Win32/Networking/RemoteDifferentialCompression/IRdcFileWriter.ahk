@@ -34,15 +34,12 @@ class IRdcFileWriter extends IRdcFileReader{
      * 
      * @param {Integer} offsetFileStart 
      * @param {Integer} bytesToWrite 
-     * @param {Pointer<Integer>} buffer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcfilewriter-write
      */
-    Write(offsetFileStart, bytesToWrite, buffer) {
-        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
-
-        result := ComCall(6, this, "uint", offsetFileStart, "uint", bytesToWrite, bufferMarshal, buffer, "HRESULT")
-        return result
+    Write(offsetFileStart, bytesToWrite) {
+        result := ComCall(6, this, "uint", offsetFileStart, "uint", bytesToWrite, "char*", &buffer := 0, "HRESULT")
+        return buffer
     }
 
     /**

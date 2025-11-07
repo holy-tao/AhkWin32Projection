@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFaxEventLogging.ahk
+#Include .\IFaxActivityLogging.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,23 +45,21 @@ class IFaxLoggingOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFaxEventLogging>} pFaxEventLogging 
-     * @returns {HRESULT} 
+     * @returns {IFaxEventLogging} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxloggingoptions-get_eventlogging
      */
-    get_EventLogging(pFaxEventLogging) {
-        result := ComCall(7, this, "ptr*", pFaxEventLogging, "HRESULT")
-        return result
+    get_EventLogging() {
+        result := ComCall(7, this, "ptr*", &pFaxEventLogging := 0, "HRESULT")
+        return IFaxEventLogging(pFaxEventLogging)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxActivityLogging>} pFaxActivityLogging 
-     * @returns {HRESULT} 
+     * @returns {IFaxActivityLogging} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxloggingoptions-get_activitylogging
      */
-    get_ActivityLogging(pFaxActivityLogging) {
-        result := ComCall(8, this, "ptr*", pFaxActivityLogging, "HRESULT")
-        return result
+    get_ActivityLogging() {
+        result := ComCall(8, this, "ptr*", &pFaxActivityLogging := 0, "HRESULT")
+        return IFaxActivityLogging(pFaxActivityLogging)
     }
 }

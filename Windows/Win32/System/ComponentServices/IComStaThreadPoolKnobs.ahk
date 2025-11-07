@@ -40,14 +40,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} minThreads 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMinThreadCount(minThreads) {
-        minThreadsMarshal := minThreads is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, minThreadsMarshal, minThreads, "HRESULT")
-        return result
+    GetMinThreadCount() {
+        result := ComCall(4, this, "uint*", &minThreads := 0, "HRESULT")
+        return minThreads
     }
 
     /**
@@ -62,14 +59,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} maxThreads 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMaxThreadCount(maxThreads) {
-        maxThreadsMarshal := maxThreads is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, maxThreadsMarshal, maxThreads, "HRESULT")
-        return result
+    GetMaxThreadCount() {
+        result := ComCall(6, this, "uint*", &maxThreads := 0, "HRESULT")
+        return maxThreads
     }
 
     /**
@@ -84,14 +78,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} activitiesPerThread 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetActivityPerThread(activitiesPerThread) {
-        activitiesPerThreadMarshal := activitiesPerThread is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, activitiesPerThreadMarshal, activitiesPerThread, "HRESULT")
-        return result
+    GetActivityPerThread() {
+        result := ComCall(8, this, "uint*", &activitiesPerThread := 0, "HRESULT")
+        return activitiesPerThread
     }
 
     /**
@@ -106,38 +97,29 @@ class IComStaThreadPoolKnobs extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} activityRatio 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    GetActivityRatio(activityRatio) {
-        activityRatioMarshal := activityRatio is VarRef ? "double*" : "ptr"
-
-        result := ComCall(10, this, activityRatioMarshal, activityRatio, "HRESULT")
-        return result
+    GetActivityRatio() {
+        result := ComCall(10, this, "double*", &activityRatio := 0, "HRESULT")
+        return activityRatio
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwThreads 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetThreadCount(pdwThreads) {
-        pdwThreadsMarshal := pdwThreads is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwThreadsMarshal, pdwThreads, "HRESULT")
-        return result
+    GetThreadCount() {
+        result := ComCall(11, this, "uint*", &pdwThreads := 0, "HRESULT")
+        return pdwThreads
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwQDepth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetQueueDepth(pdwQDepth) {
-        pdwQDepthMarshal := pdwQDepth is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pdwQDepthMarshal, pdwQDepth, "HRESULT")
-        return result
+    GetQueueDepth() {
+        result := ComCall(12, this, "uint*", &pdwQDepth := 0, "HRESULT")
+        return pdwQDepth
     }
 
     /**

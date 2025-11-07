@@ -64,17 +64,15 @@ class IAMDevMemoryAllocator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppBuffer 
      * @param {Pointer<Integer>} pdwcbBuffer 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-alloc
      */
-    Alloc(ppBuffer, pdwcbBuffer) {
-        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
+    Alloc(pdwcbBuffer) {
         pdwcbBufferMarshal := pdwcbBuffer is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, ppBufferMarshal, ppBuffer, pdwcbBufferMarshal, pdwcbBuffer, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr*", &ppBuffer := 0, pdwcbBufferMarshal, pdwcbBuffer, "HRESULT")
+        return ppBuffer
     }
 
     /**
@@ -92,13 +90,12 @@ class IAMDevMemoryAllocator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnkInnner 
      * @param {IUnknown} pUnkOuter 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-getdevmemoryobject
      */
-    GetDevMemoryObject(ppUnkInnner, pUnkOuter) {
-        result := ComCall(7, this, "ptr*", ppUnkInnner, "ptr", pUnkOuter, "HRESULT")
-        return result
+    GetDevMemoryObject(pUnkOuter) {
+        result := ComCall(7, this, "ptr*", &ppUnkInnner := 0, "ptr", pUnkOuter, "HRESULT")
+        return IUnknown(ppUnkInnner)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\STATSTG.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -35,15 +36,12 @@ class ILockBytes extends IUnknown{
      * @param {Integer} ulOffset 
      * @param {Pointer} pv 
      * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbRead 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ilockbytes-readat
      */
-    ReadAt(ulOffset, pv, cb, pcbRead) {
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", ulOffset, "ptr", pv, "uint", cb, pcbReadMarshal, pcbRead, "HRESULT")
-        return result
+    ReadAt(ulOffset, pv, cb) {
+        result := ComCall(3, this, "uint", ulOffset, "ptr", pv, "uint", cb, "uint*", &pcbRead := 0, "HRESULT")
+        return pcbRead
     }
 
     /**
@@ -51,15 +49,12 @@ class ILockBytes extends IUnknown{
      * @param {Integer} ulOffset 
      * @param {Pointer} pv 
      * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ilockbytes-writeat
      */
-    WriteAt(ulOffset, pv, cb, pcbWritten) {
-        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", ulOffset, "ptr", pv, "uint", cb, pcbWrittenMarshal, pcbWritten, "HRESULT")
-        return result
+    WriteAt(ulOffset, pv, cb) {
+        result := ComCall(4, this, "uint", ulOffset, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
+        return pcbWritten
     }
 
     /**
@@ -111,13 +106,13 @@ class ILockBytes extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<STATSTG>} pstatstg 
      * @param {Integer} grfStatFlag 
-     * @returns {HRESULT} 
+     * @returns {STATSTG} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ilockbytes-stat
      */
-    Stat(pstatstg, grfStatFlag) {
+    Stat(grfStatFlag) {
+        pstatstg := STATSTG()
         result := ComCall(9, this, "ptr", pstatstg, "uint", grfStatFlag, "HRESULT")
-        return result
+        return pstatstg
     }
 }

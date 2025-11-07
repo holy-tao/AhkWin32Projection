@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,23 +33,23 @@ class IUPnPServiceDocumentAccess extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDocUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservicedocumentaccess-getdocumenturl
      */
-    GetDocumentURL(pbstrDocUrl) {
+    GetDocumentURL() {
+        pbstrDocUrl := BSTR()
         result := ComCall(3, this, "ptr", pbstrDocUrl, "HRESULT")
-        return result
+        return pbstrDocUrl
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDoc 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservicedocumentaccess-getdocument
      */
-    GetDocument(pbstrDoc) {
+    GetDocument() {
+        pbstrDoc := BSTR()
         result := ComCall(4, this, "ptr", pbstrDoc, "HRESULT")
-        return result
+        return pbstrDoc
     }
 }

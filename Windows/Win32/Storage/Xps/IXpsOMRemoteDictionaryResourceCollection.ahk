@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMRemoteDictionaryResource.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,27 +38,23 @@ class IXpsOMRemoteDictionaryResourceCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresourcecollection-getcount
      */
-    GetCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, countMarshal, count, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IXpsOMRemoteDictionaryResource>} object 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMRemoteDictionaryResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresourcecollection-getat
      */
-    GetAt(index, object) {
-        result := ComCall(4, this, "uint", index, "ptr*", object, "HRESULT")
-        return result
+    GetAt(index) {
+        result := ComCall(4, this, "uint", index, "ptr*", &object := 0, "HRESULT")
+        return IXpsOMRemoteDictionaryResource(object)
     }
 
     /**
@@ -109,12 +106,11 @@ class IXpsOMRemoteDictionaryResourceCollection extends IUnknown{
     /**
      * 
      * @param {IOpcPartUri} partName 
-     * @param {Pointer<IXpsOMRemoteDictionaryResource>} remoteDictionaryResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMRemoteDictionaryResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresourcecollection-getbypartname
      */
-    GetByPartName(partName, remoteDictionaryResource) {
-        result := ComCall(9, this, "ptr", partName, "ptr*", remoteDictionaryResource, "HRESULT")
-        return result
+    GetByPartName(partName) {
+        result := ComCall(9, this, "ptr", partName, "ptr*", &remoteDictionaryResource := 0, "HRESULT")
+        return IXpsOMRemoteDictionaryResource(remoteDictionaryResource)
     }
 }

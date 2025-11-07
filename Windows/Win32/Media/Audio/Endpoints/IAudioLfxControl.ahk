@@ -43,12 +43,11 @@ class IAudioLfxControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudiolfxcontrol-getlocaleffectsstate
      */
-    GetLocalEffectsState(pbEnabled) {
-        result := ComCall(4, this, "ptr", pbEnabled, "HRESULT")
-        return result
+    GetLocalEffectsState() {
+        result := ComCall(4, this, "int*", &pbEnabled := 0, "HRESULT")
+        return pbEnabled
     }
 }

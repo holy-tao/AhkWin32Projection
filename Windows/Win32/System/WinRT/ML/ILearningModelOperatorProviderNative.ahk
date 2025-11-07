@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\AI\MachineLearning\WinML\IMLOperatorRegistry.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class ILearningModelOperatorProviderNative extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMLOperatorRegistry>} ppOperatorRegistry 
-     * @returns {HRESULT} 
+     * @returns {IMLOperatorRegistry} 
      */
-    GetRegistry(ppOperatorRegistry) {
-        result := ComCall(3, this, "ptr*", ppOperatorRegistry, "HRESULT")
-        return result
+    GetRegistry() {
+        result := ComCall(3, this, "ptr*", &ppOperatorRegistry := 0, "HRESULT")
+        return IMLOperatorRegistry(ppOperatorRegistry)
     }
 }

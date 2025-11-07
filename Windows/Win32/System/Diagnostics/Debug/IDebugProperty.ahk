@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DebugPropertyInfo.ahk
+#Include ..\..\Variant\VARIANT.ahk
+#Include .\IEnumDebugPropertyInfo.ahk
+#Include .\IDebugProperty.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -32,24 +36,24 @@ class IDebugProperty extends IUnknown{
      * 
      * @param {Integer} dwFieldSpec 
      * @param {Integer} nRadix 
-     * @param {Pointer<DebugPropertyInfo>} pPropertyInfo 
-     * @returns {HRESULT} 
+     * @returns {DebugPropertyInfo} 
      */
-    GetPropertyInfo(dwFieldSpec, nRadix, pPropertyInfo) {
+    GetPropertyInfo(dwFieldSpec, nRadix) {
+        pPropertyInfo := DebugPropertyInfo()
         result := ComCall(3, this, "uint", dwFieldSpec, "uint", nRadix, "ptr", pPropertyInfo, "HRESULT")
-        return result
+        return pPropertyInfo
     }
 
     /**
      * 
      * @param {Integer} cInfos 
      * @param {Pointer<Guid>} rgguidExtendedInfo 
-     * @param {Pointer<VARIANT>} rgvar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetExtendedInfo(cInfos, rgguidExtendedInfo, rgvar) {
+    GetExtendedInfo(cInfos, rgguidExtendedInfo) {
+        rgvar := VARIANT()
         result := ComCall(4, this, "uint", cInfos, "ptr", rgguidExtendedInfo, "ptr", rgvar, "HRESULT")
-        return result
+        return rgvar
     }
 
     /**
@@ -70,34 +74,20 @@ class IDebugProperty extends IUnknown{
      * @param {Integer} dwFieldSpec 
      * @param {Integer} nRadix 
      * @param {Pointer<Guid>} refiid 
-     * @param {Pointer<IEnumDebugPropertyInfo>} ppepi 
-     * @returns {HRESULT} 
+     * @returns {IEnumDebugPropertyInfo} 
      */
-    EnumMembers(dwFieldSpec, nRadix, refiid, ppepi) {
-        result := ComCall(6, this, "uint", dwFieldSpec, "uint", nRadix, "ptr", refiid, "ptr*", ppepi, "HRESULT")
-        return result
+    EnumMembers(dwFieldSpec, nRadix, refiid) {
+        result := ComCall(6, this, "uint", dwFieldSpec, "uint", nRadix, "ptr", refiid, "ptr*", &ppepi := 0, "HRESULT")
+        return IEnumDebugPropertyInfo(ppepi)
     }
 
     /**
      * Retrieves a handle to the specified window's parent or owner.
-     * @param {Pointer<IDebugProperty>} ppDebugProp 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * If the window is a child window, the return value is a handle to the parent window. If the window is a top-level window with the <b>WS_POPUP</b> style, the return value is a handle to the owner window. 
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     * This function typically fails for one of the following reasons:
-     * 
-     * 
-     * <ul>
-     * <li>The window is a top-level window that is unowned or does not have the <b>WS_POPUP</b> style. </li>
-     * <li>The owner window has <b>WS_POPUP</b> style.</li>
-     * </ul>
+     * @returns {IDebugProperty} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
      */
-    GetParent(ppDebugProp) {
-        result := ComCall(7, this, "ptr*", ppDebugProp, "HRESULT")
-        return result
+    GetParent() {
+        result := ComCall(7, this, "ptr*", &ppDebugProp := 0, "HRESULT")
+        return IDebugProperty(ppDebugProp)
     }
 }

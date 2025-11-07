@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMGeometry.ahk
+#Include .\XPS_POINT.ahk
+#Include .\IXpsOMGeometryFigure.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -76,13 +79,12 @@ class IXpsOMGeometryFigure extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMGeometry>} owner 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGeometry} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getowner
      */
-    GetOwner(owner) {
-        result := ComCall(3, this, "ptr*", owner, "HRESULT")
-        return result
+    GetOwner() {
+        result := ComCall(3, this, "ptr*", &owner := 0, "HRESULT")
+        return IXpsOMGeometry(owner)
     }
 
     /**
@@ -124,8 +126,9 @@ class IXpsOMGeometryFigure extends IUnknown{
      */
     GetSegmentStrokes(segmentCount, segmentStrokes) {
         segmentCountMarshal := segmentCount is VarRef ? "uint*" : "ptr"
+        segmentStrokesMarshal := segmentStrokes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, segmentCountMarshal, segmentCount, "ptr", segmentStrokes, "HRESULT")
+        result := ComCall(6, this, segmentCountMarshal, segmentCount, segmentStrokesMarshal, segmentStrokes, "HRESULT")
         return result
     }
 
@@ -142,20 +145,21 @@ class IXpsOMGeometryFigure extends IUnknown{
     SetSegments(segmentCount, segmentDataCount, segmentTypes, segmentData, segmentStrokes) {
         segmentTypesMarshal := segmentTypes is VarRef ? "int*" : "ptr"
         segmentDataMarshal := segmentData is VarRef ? "float*" : "ptr"
+        segmentStrokesMarshal := segmentStrokes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "uint", segmentCount, "uint", segmentDataCount, segmentTypesMarshal, segmentTypes, segmentDataMarshal, segmentData, "ptr", segmentStrokes, "HRESULT")
+        result := ComCall(7, this, "uint", segmentCount, "uint", segmentDataCount, segmentTypesMarshal, segmentTypes, segmentDataMarshal, segmentData, segmentStrokesMarshal, segmentStrokes, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<XPS_POINT>} startPoint 
-     * @returns {HRESULT} 
+     * @returns {XPS_POINT} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getstartpoint
      */
-    GetStartPoint(startPoint) {
+    GetStartPoint() {
+        startPoint := XPS_POINT()
         result := ComCall(8, this, "ptr", startPoint, "HRESULT")
-        return result
+        return startPoint
     }
 
     /**
@@ -171,13 +175,12 @@ class IXpsOMGeometryFigure extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isClosed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getisclosed
      */
-    GetIsClosed(isClosed) {
-        result := ComCall(10, this, "ptr", isClosed, "HRESULT")
-        return result
+    GetIsClosed() {
+        result := ComCall(10, this, "int*", &isClosed := 0, "HRESULT")
+        return isClosed
     }
 
     /**
@@ -193,13 +196,12 @@ class IXpsOMGeometryFigure extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isFilled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getisfilled
      */
-    GetIsFilled(isFilled) {
-        result := ComCall(12, this, "ptr", isFilled, "HRESULT")
-        return result
+    GetIsFilled() {
+        result := ComCall(12, this, "int*", &isFilled := 0, "HRESULT")
+        return isFilled
     }
 
     /**
@@ -215,51 +217,41 @@ class IXpsOMGeometryFigure extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} segmentCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmentcount
      */
-    GetSegmentCount(segmentCount) {
-        segmentCountMarshal := segmentCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, segmentCountMarshal, segmentCount, "HRESULT")
-        return result
+    GetSegmentCount() {
+        result := ComCall(14, this, "uint*", &segmentCount := 0, "HRESULT")
+        return segmentCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} segmentDataCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmentdatacount
      */
-    GetSegmentDataCount(segmentDataCount) {
-        segmentDataCountMarshal := segmentDataCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, segmentDataCountMarshal, segmentDataCount, "HRESULT")
-        return result
+    GetSegmentDataCount() {
+        result := ComCall(15, this, "uint*", &segmentDataCount := 0, "HRESULT")
+        return segmentDataCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} segmentStrokePattern 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmentstrokepattern
      */
-    GetSegmentStrokePattern(segmentStrokePattern) {
-        segmentStrokePatternMarshal := segmentStrokePattern is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, segmentStrokePatternMarshal, segmentStrokePattern, "HRESULT")
-        return result
+    GetSegmentStrokePattern() {
+        result := ComCall(16, this, "int*", &segmentStrokePattern := 0, "HRESULT")
+        return segmentStrokePattern
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMGeometryFigure>} geometryFigure 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGeometryFigure} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-clone
      */
-    Clone(geometryFigure) {
-        result := ComCall(17, this, "ptr*", geometryFigure, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(17, this, "ptr*", &geometryFigure := 0, "HRESULT")
+        return IXpsOMGeometryFigure(geometryFigure)
     }
 }

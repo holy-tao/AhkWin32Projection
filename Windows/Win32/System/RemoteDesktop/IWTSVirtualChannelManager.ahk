@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWTSListener.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -35,14 +36,13 @@ class IWTSVirtualChannelManager extends IUnknown{
      * @param {PSTR} pszChannelName 
      * @param {Integer} uFlags 
      * @param {IWTSListenerCallback} pListenerCallback 
-     * @param {Pointer<IWTSListener>} ppListener 
-     * @returns {HRESULT} 
+     * @returns {IWTSListener} 
      * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelmanager-createlistener
      */
-    CreateListener(pszChannelName, uFlags, pListenerCallback, ppListener) {
+    CreateListener(pszChannelName, uFlags, pListenerCallback) {
         pszChannelName := pszChannelName is String ? StrPtr(pszChannelName) : pszChannelName
 
-        result := ComCall(3, this, "ptr", pszChannelName, "uint", uFlags, "ptr", pListenerCallback, "ptr*", ppListener, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszChannelName, "uint", uFlags, "ptr", pListenerCallback, "ptr*", &ppListener := 0, "HRESULT")
+        return IWTSListener(ppListener)
     }
 }

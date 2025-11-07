@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\ExtendedArrayDimension.ahk
 #Include .\IDebugHostType3.ahk
 
 /**
@@ -30,36 +31,30 @@ class IDebugHostType4 extends IDebugHostType3{
 
     /**
      * 
-     * @param {Pointer<Integer>} headerSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetExtendedArrayHeaderSize(headerSize) {
-        headerSizeMarshal := headerSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(35, this, headerSizeMarshal, headerSize, "HRESULT")
-        return result
+    GetExtendedArrayHeaderSize() {
+        result := ComCall(35, this, "uint*", &headerSize := 0, "HRESULT")
+        return headerSize
     }
 
     /**
      * 
      * @param {Integer} dimensions 
-     * @param {Pointer<ExtendedArrayDimension>} pDimensions 
-     * @returns {HRESULT} 
+     * @returns {ExtendedArrayDimension} 
      */
-    GetExtendedArrayDimensions(dimensions, pDimensions) {
+    GetExtendedArrayDimensions(dimensions) {
+        pDimensions := ExtendedArrayDimension()
         result := ComCall(36, this, "uint", dimensions, "ptr", pDimensions, "HRESULT")
-        return result
+        return pDimensions
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} udtKind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetUDTKind(udtKind) {
-        udtKindMarshal := udtKind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(37, this, udtKindMarshal, udtKind, "HRESULT")
-        return result
+    GetUDTKind() {
+        result := ComCall(37, this, "int*", &udtKind := 0, "HRESULT")
+        return udtKind
     }
 }

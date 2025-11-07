@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWbemEventSink.ahk
 #Include .\IWbemObjectSink.ahk
 
 /**
@@ -66,13 +67,14 @@ class IWbemEventSink extends IWbemObjectSink{
      * @param {Integer} lNumQueries 
      * @param {Pointer<PWSTR>} awszQueries 
      * @param {IUnknown} pCallback 
-     * @param {Pointer<IWbemEventSink>} ppSink 
-     * @returns {HRESULT} 
+     * @returns {IWbemEventSink} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-getrestrictedsink
      */
-    GetRestrictedSink(lNumQueries, awszQueries, pCallback, ppSink) {
-        result := ComCall(7, this, "int", lNumQueries, "ptr", awszQueries, "ptr", pCallback, "ptr*", ppSink, "HRESULT")
-        return result
+    GetRestrictedSink(lNumQueries, awszQueries, pCallback) {
+        awszQueriesMarshal := awszQueries is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "int", lNumQueries, awszQueriesMarshal, awszQueries, "ptr", pCallback, "ptr*", &ppSink := 0, "HRESULT")
+        return IWbemEventSink(ppSink)
     }
 
     /**

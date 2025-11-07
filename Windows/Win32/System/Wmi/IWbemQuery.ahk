@@ -65,16 +65,14 @@ class IWbemQuery extends IUnknown{
      * 
      * @param {Integer} uFlags 
      * @param {Pointer<Integer>} uArraySize 
-     * @param {Pointer<Integer>} puFeatures 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nn-wmiutils-iwbemquery
      */
-    TestLanguageFeatures(uFlags, uArraySize, puFeatures) {
+    TestLanguageFeatures(uFlags, uArraySize) {
         uArraySizeMarshal := uArraySize is VarRef ? "uint*" : "ptr"
-        puFeaturesMarshal := puFeatures is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", uFlags, uArraySizeMarshal, uArraySize, puFeaturesMarshal, puFeatures, "HRESULT")
-        return result
+        result := ComCall(5, this, "uint", uFlags, uArraySizeMarshal, uArraySize, "uint*", &puFeatures := 0, "HRESULT")
+        return puFeatures
     }
 
     /**
@@ -97,15 +95,12 @@ class IWbemQuery extends IUnknown{
      * 
      * @param {Integer} uAnalysisType 
      * @param {Integer} uFlags 
-     * @param {Pointer<Pointer<Void>>} pAnalysis 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbemquery-getanalysis
      */
-    GetAnalysis(uAnalysisType, uFlags, pAnalysis) {
-        pAnalysisMarshal := pAnalysis is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "uint", uAnalysisType, "uint", uFlags, pAnalysisMarshal, pAnalysis, "HRESULT")
-        return result
+    GetAnalysis(uAnalysisType, uFlags) {
+        result := ComCall(7, this, "uint", uAnalysisType, "uint", uFlags, "ptr*", &pAnalysis := 0, "HRESULT")
+        return pAnalysis
     }
 
     /**
@@ -126,14 +121,11 @@ class IWbemQuery extends IUnknown{
      * @param {Integer} uAnalysisType 
      * @param {Integer} uInfoId 
      * @param {Integer} uBufSize 
-     * @param {Pointer<Void>} pDestBuf 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nn-wmiutils-iwbemquery
      */
-    GetQueryInfo(uAnalysisType, uInfoId, uBufSize, pDestBuf) {
-        pDestBufMarshal := pDestBuf is VarRef ? "ptr" : "ptr"
-
-        result := ComCall(9, this, "uint", uAnalysisType, "uint", uInfoId, "uint", uBufSize, pDestBufMarshal, pDestBuf, "HRESULT")
-        return result
+    GetQueryInfo(uAnalysisType, uInfoId, uBufSize) {
+        result := ComCall(9, this, "uint", uAnalysisType, "uint", uInfoId, "uint", uBufSize, "ptr", &pDestBuf := 0, "HRESULT")
+        return pDestBuf
     }
 }

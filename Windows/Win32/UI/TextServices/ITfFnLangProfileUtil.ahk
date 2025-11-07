@@ -43,12 +43,11 @@ class ITfFnLangProfileUtil extends ITfFunction{
     /**
      * 
      * @param {Integer} langid 
-     * @param {Pointer<BOOL>} pfAvailable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlangprofileutil-isprofileavailableforlang
      */
-    IsProfileAvailableForLang(langid, pfAvailable) {
-        result := ComCall(5, this, "ushort", langid, "ptr", pfAvailable, "HRESULT")
-        return result
+    IsProfileAvailableForLang(langid) {
+        result := ComCall(5, this, "ushort", langid, "int*", &pfAvailable := 0, "HRESULT")
+        return pfAvailable
     }
 }

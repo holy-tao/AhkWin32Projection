@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IXMLDOMNode.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,34 +33,29 @@ class IXMLDOMNodeList extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IXMLDOMNode>} listItem 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    get_item(index, listItem) {
-        result := ComCall(7, this, "int", index, "ptr*", listItem, "HRESULT")
-        return result
+    get_item(index) {
+        result := ComCall(7, this, "int", index, "ptr*", &listItem := 0, "HRESULT")
+        return IXMLDOMNode(listItem)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} listLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(listLength) {
-        listLengthMarshal := listLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, listLengthMarshal, listLength, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(8, this, "int*", &listLength := 0, "HRESULT")
+        return listLength
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} nextItem 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    nextNode(nextItem) {
-        result := ComCall(9, this, "ptr*", nextItem, "HRESULT")
-        return result
+    nextNode() {
+        result := ComCall(9, this, "ptr*", &nextItem := 0, "HRESULT")
+        return IXMLDOMNode(nextItem)
     }
 
     /**
@@ -72,11 +69,10 @@ class IXMLDOMNodeList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__newEnum(ppUnk) {
-        result := ComCall(11, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get__newEnum() {
+        result := ComCall(11, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 }

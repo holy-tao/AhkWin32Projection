@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLMediaError.ahk
+#Include .\IHTMLTimeRanges.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,12 +39,11 @@ class IHTMLMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLMediaError>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLMediaError} 
      */
-    get_error(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_error() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLMediaError(p)
     }
 
     /**
@@ -59,34 +60,31 @@ class IHTMLMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_src(p) {
+    get_src() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_currentSrc(p) {
+    get_currentSrc() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_networkState(p) {
-        pMarshal := p is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(11, this, pMarshal, p, "HRESULT")
-        return result
+    get_networkState() {
+        result := ComCall(11, this, "ushort*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -103,22 +101,21 @@ class IHTMLMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_preload(p) {
+    get_preload() {
+        p := BSTR()
         result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLTimeRanges>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTimeRanges} 
      */
-    get_buffered(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_buffered() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLTimeRanges(p)
     }
 
     /**
@@ -133,24 +130,23 @@ class IHTMLMediaElement extends IDispatch{
     /**
      * 
      * @param {BSTR} type 
-     * @param {Pointer<BSTR>} canPlay 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    canPlayType(type, canPlay) {
+    canPlayType(type) {
         type := type is String ? BSTR.Alloc(type).Value : type
 
+        canPlay := BSTR()
         result := ComCall(16, this, "ptr", type, "ptr", canPlay, "HRESULT")
-        return result
+        return canPlay
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_seeking(p) {
-        result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+    get_seeking() {
+        result := ComCall(17, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -165,48 +161,38 @@ class IHTMLMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_currentTime(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(19, this, pMarshal, p, "HRESULT")
-        return result
+    get_currentTime() {
+        result := ComCall(19, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_initialTime(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(20, this, pMarshal, p, "HRESULT")
-        return result
+    get_initialTime() {
+        result := ComCall(20, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_duration(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(21, this, pMarshal, p, "HRESULT")
-        return result
+    get_duration() {
+        result := ComCall(21, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_paused(p) {
-        result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+    get_paused() {
+        result := ComCall(22, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -221,14 +207,11 @@ class IHTMLMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_defaultPlaybackRate(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(24, this, pMarshal, p, "HRESULT")
-        return result
+    get_defaultPlaybackRate() {
+        result := ComCall(24, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -243,44 +226,38 @@ class IHTMLMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_playbackRate(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(26, this, pMarshal, p, "HRESULT")
-        return result
+    get_playbackRate() {
+        result := ComCall(26, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLTimeRanges>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTimeRanges} 
      */
-    get_played(p) {
-        result := ComCall(27, this, "ptr*", p, "HRESULT")
-        return result
+    get_played() {
+        result := ComCall(27, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLTimeRanges(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLTimeRanges>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTimeRanges} 
      */
-    get_seekable(p) {
-        result := ComCall(28, this, "ptr*", p, "HRESULT")
-        return result
+    get_seekable() {
+        result := ComCall(28, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLTimeRanges(p)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ended(p) {
-        result := ComCall(29, this, "ptr", p, "HRESULT")
-        return result
+    get_ended() {
+        result := ComCall(29, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -295,12 +272,11 @@ class IHTMLMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_autoplay(p) {
-        result := ComCall(31, this, "ptr", p, "HRESULT")
-        return result
+    get_autoplay() {
+        result := ComCall(31, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -315,12 +291,11 @@ class IHTMLMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_loop(p) {
-        result := ComCall(33, this, "ptr", p, "HRESULT")
-        return result
+    get_loop() {
+        result := ComCall(33, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -353,12 +328,11 @@ class IHTMLMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_controls(p) {
-        result := ComCall(37, this, "ptr", p, "HRESULT")
-        return result
+    get_controls() {
+        result := ComCall(37, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -373,14 +347,11 @@ class IHTMLMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_volume(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(39, this, pMarshal, p, "HRESULT")
-        return result
+    get_volume() {
+        result := ComCall(39, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -395,12 +366,11 @@ class IHTMLMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_muted(p) {
-        result := ComCall(41, this, "ptr", p, "HRESULT")
-        return result
+    get_muted() {
+        result := ComCall(41, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -415,11 +385,10 @@ class IHTMLMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_autobuffer(p) {
-        result := ComCall(43, this, "ptr", p, "HRESULT")
-        return result
+    get_autobuffer() {
+        result := ComCall(43, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

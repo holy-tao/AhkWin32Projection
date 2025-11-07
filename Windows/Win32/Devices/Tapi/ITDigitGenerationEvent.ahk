@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,51 +33,41 @@ class ITDigitGenerationEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITCallInfo>} ppCallInfo 
-     * @returns {HRESULT} 
+     * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitgenerationevent-get_call
      */
-    get_Call(ppCallInfo) {
-        result := ComCall(7, this, "ptr*", ppCallInfo, "HRESULT")
-        return result
+    get_Call() {
+        result := ComCall(7, this, "ptr*", &ppCallInfo := 0, "HRESULT")
+        return ITCallInfo(ppCallInfo)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plGenerationTermination 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitgenerationevent-get_generationtermination
      */
-    get_GenerationTermination(plGenerationTermination) {
-        plGenerationTerminationMarshal := plGenerationTermination is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plGenerationTerminationMarshal, plGenerationTermination, "HRESULT")
-        return result
+    get_GenerationTermination() {
+        result := ComCall(8, this, "int*", &plGenerationTermination := 0, "HRESULT")
+        return plGenerationTermination
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plTickCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitgenerationevent-get_tickcount
      */
-    get_TickCount(plTickCount) {
-        plTickCountMarshal := plTickCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plTickCountMarshal, plTickCount, "HRESULT")
-        return result
+    get_TickCount() {
+        result := ComCall(9, this, "int*", &plTickCount := 0, "HRESULT")
+        return plTickCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCallbackInstance 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitgenerationevent-get_callbackinstance
      */
-    get_CallbackInstance(plCallbackInstance) {
-        plCallbackInstanceMarshal := plCallbackInstance is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plCallbackInstanceMarshal, plCallbackInstance, "HRESULT")
-        return result
+    get_CallbackInstance() {
+        result := ComCall(10, this, "int*", &plCallbackInstance := 0, "HRESULT")
+        return plCallbackInstance
     }
 }

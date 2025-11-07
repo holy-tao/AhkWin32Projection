@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostFunctionLocalDetails.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -39,11 +40,10 @@ class IDebugHostFunctionLocalDetailsEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugHostFunctionLocalDetails>} localDetails 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostFunctionLocalDetails} 
      */
-    GetNext(localDetails) {
-        result := ComCall(4, this, "ptr*", localDetails, "HRESULT")
-        return result
+    GetNext() {
+        result := ComCall(4, this, "ptr*", &localDetails := 0, "HRESULT")
+        return IDebugHostFunctionLocalDetails(localDetails)
     }
 }

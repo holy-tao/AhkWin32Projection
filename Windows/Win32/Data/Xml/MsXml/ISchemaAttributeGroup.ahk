@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISchemaAny.ahk
+#Include .\ISchemaItemCollection.ahk
 #Include .\ISchemaItem.ahk
 
 /**
@@ -30,21 +32,19 @@ class ISchemaAttributeGroup extends ISchemaItem{
 
     /**
      * 
-     * @param {Pointer<ISchemaAny>} anyAttribute 
-     * @returns {HRESULT} 
+     * @returns {ISchemaAny} 
      */
-    get_anyAttribute(anyAttribute) {
-        result := ComCall(14, this, "ptr*", anyAttribute, "HRESULT")
-        return result
+    get_anyAttribute() {
+        result := ComCall(14, this, "ptr*", &anyAttribute := 0, "HRESULT")
+        return ISchemaAny(anyAttribute)
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaItemCollection>} attributes 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItemCollection} 
      */
-    get_attributes(attributes) {
-        result := ComCall(15, this, "ptr*", attributes, "HRESULT")
-        return result
+    get_attributes() {
+        result := ComCall(15, this, "ptr*", &attributes := 0, "HRESULT")
+        return ISchemaItemCollection(attributes)
     }
 }

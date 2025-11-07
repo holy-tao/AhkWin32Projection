@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFont.ahk
+#Include ..\Gdi\LOGFONTW.ahk
+#Include .\IDWriteFontFace.ahk
+#Include .\IDWriteBitmapRenderTarget.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,13 +37,12 @@ class IDWriteGdiInterop extends IUnknown{
     /**
      * 
      * @param {Pointer<LOGFONTW>} logFont 
-     * @param {Pointer<IDWriteFont>} font 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFont} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createfontfromlogfont
      */
-    CreateFontFromLOGFONT(logFont, font) {
-        result := ComCall(3, this, "ptr", logFont, "ptr*", font, "HRESULT")
-        return result
+    CreateFontFromLOGFONT(logFont) {
+        result := ComCall(3, this, "ptr", logFont, "ptr*", &font := 0, "HRESULT")
+        return IDWriteFont(font)
     }
 
     /**
@@ -51,34 +54,35 @@ class IDWriteGdiInterop extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-convertfonttologfont
      */
     ConvertFontToLOGFONT(font, logFont, isSystemFont) {
-        result := ComCall(4, this, "ptr", font, "ptr", logFont, "ptr", isSystemFont, "HRESULT")
+        isSystemFontMarshal := isSystemFont is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", font, "ptr", logFont, isSystemFontMarshal, isSystemFont, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {IDWriteFontFace} font 
-     * @param {Pointer<LOGFONTW>} logFont 
-     * @returns {HRESULT} 
+     * @returns {LOGFONTW} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-convertfontfacetologfont
      */
-    ConvertFontFaceToLOGFONT(font, logFont) {
+    ConvertFontFaceToLOGFONT(font) {
+        logFont := LOGFONTW()
         result := ComCall(5, this, "ptr", font, "ptr", logFont, "HRESULT")
-        return result
+        return logFont
     }
 
     /**
      * 
      * @param {HDC} hdc 
-     * @param {Pointer<IDWriteFontFace>} fontFace 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFace} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createfontfacefromhdc
      */
-    CreateFontFaceFromHdc(hdc, fontFace) {
+    CreateFontFaceFromHdc(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := ComCall(6, this, "ptr", hdc, "ptr*", fontFace, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", hdc, "ptr*", &fontFace := 0, "HRESULT")
+        return IDWriteFontFace(fontFace)
     }
 
     /**
@@ -86,14 +90,13 @@ class IDWriteGdiInterop extends IUnknown{
      * @param {HDC} hdc 
      * @param {Integer} width 
      * @param {Integer} height 
-     * @param {Pointer<IDWriteBitmapRenderTarget>} renderTarget 
-     * @returns {HRESULT} 
+     * @returns {IDWriteBitmapRenderTarget} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createbitmaprendertarget
      */
-    CreateBitmapRenderTarget(hdc, width, height, renderTarget) {
+    CreateBitmapRenderTarget(hdc, width, height) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := ComCall(7, this, "ptr", hdc, "uint", width, "uint", height, "ptr*", renderTarget, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", hdc, "uint", width, "uint", height, "ptr*", &renderTarget := 0, "HRESULT")
+        return IDWriteBitmapRenderTarget(renderTarget)
     }
 }

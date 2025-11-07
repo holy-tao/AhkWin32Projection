@@ -43,13 +43,12 @@ class IRemoteDesktopClientTouchPointer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-get_enabled
      */
-    get_Enabled(enabled) {
-        result := ComCall(8, this, "ptr", enabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(8, this, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**
@@ -65,13 +64,12 @@ class IRemoteDesktopClientTouchPointer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} eventsEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-get_eventsenabled
      */
-    get_EventsEnabled(eventsEnabled) {
-        result := ComCall(10, this, "ptr", eventsEnabled, "HRESULT")
-        return result
+    get_EventsEnabled() {
+        result := ComCall(10, this, "short*", &eventsEnabled := 0, "HRESULT")
+        return eventsEnabled
     }
 
     /**
@@ -86,14 +84,11 @@ class IRemoteDesktopClientTouchPointer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pointerSpeed 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-get_pointerspeed
      */
-    get_PointerSpeed(pointerSpeed) {
-        pointerSpeedMarshal := pointerSpeed is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pointerSpeedMarshal, pointerSpeed, "HRESULT")
-        return result
+    get_PointerSpeed() {
+        result := ComCall(12, this, "uint*", &pointerSpeed := 0, "HRESULT")
+        return pointerSpeed
     }
 }

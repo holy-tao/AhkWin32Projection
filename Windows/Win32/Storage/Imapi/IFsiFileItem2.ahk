@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsiNamedStreams.ahk
 #Include .\IFsiFileItem.ahk
 
 /**
@@ -43,24 +44,22 @@ class IFsiFileItem2 extends IFsiFileItem{
 
     /**
      * 
-     * @param {Pointer<IFsiNamedStreams>} streams 
-     * @returns {HRESULT} 
+     * @returns {IFsiNamedStreams} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem2-get_fsinamedstreams
      */
-    get_FsiNamedStreams(streams) {
-        result := ComCall(24, this, "ptr*", streams, "HRESULT")
-        return result
+    get_FsiNamedStreams() {
+        result := ComCall(24, this, "ptr*", &streams := 0, "HRESULT")
+        return IFsiNamedStreams(streams)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem2-get_isnamedstream
      */
-    get_IsNamedStream(pVal) {
-        result := ComCall(25, this, "ptr", pVal, "HRESULT")
-        return result
+    get_IsNamedStream() {
+        result := ComCall(25, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -92,13 +91,12 @@ class IFsiFileItem2 extends IFsiFileItem{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem2-get_isrealtime
      */
-    get_IsRealTime(pVal) {
-        result := ComCall(28, this, "ptr", pVal, "HRESULT")
-        return result
+    get_IsRealTime() {
+        result := ComCall(28, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**

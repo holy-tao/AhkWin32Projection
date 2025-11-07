@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAVIStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,27 +45,25 @@ class IAVIFile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAVIStream>} ppStream 
      * @param {Integer} fccType 
      * @param {Integer} lParam 
-     * @returns {HRESULT} 
+     * @returns {IAVIStream} 
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-getstream
      */
-    GetStream(ppStream, fccType, lParam) {
-        result := ComCall(4, this, "ptr*", ppStream, "uint", fccType, "int", lParam, "HRESULT")
-        return result
+    GetStream(fccType, lParam) {
+        result := ComCall(4, this, "ptr*", &ppStream := 0, "uint", fccType, "int", lParam, "HRESULT")
+        return IAVIStream(ppStream)
     }
 
     /**
      * 
-     * @param {Pointer<IAVIStream>} ppStream 
      * @param {Pointer<AVISTREAMINFOW>} psi 
-     * @returns {HRESULT} 
+     * @returns {IAVIStream} 
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-createstream
      */
-    CreateStream(ppStream, psi) {
-        result := ComCall(5, this, "ptr*", ppStream, "ptr", psi, "HRESULT")
-        return result
+    CreateStream(psi) {
+        result := ComCall(5, this, "ptr*", &ppStream := 0, "ptr", psi, "HRESULT")
+        return IAVIStream(ppStream)
     }
 
     /**

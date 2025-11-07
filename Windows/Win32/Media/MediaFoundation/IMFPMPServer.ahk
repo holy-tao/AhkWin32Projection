@@ -70,14 +70,11 @@ class IMFPMPServer extends IUnknown{
      * 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmpserver-createobjectbyclsid
      */
-    CreateObjectByCLSID(clsid, riid, ppObject) {
-        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", clsid, "ptr", riid, ppObjectMarshal, ppObject, "HRESULT")
-        return result
+    CreateObjectByCLSID(clsid, riid) {
+        result := ComCall(5, this, "ptr", clsid, "ptr", riid, "ptr*", &ppObject := 0, "HRESULT")
+        return ppObject
     }
 }

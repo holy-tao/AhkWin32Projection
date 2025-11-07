@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLFormElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,12 +39,12 @@ class IHTMLInputFileElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_type(p) {
+    get_type() {
+        p := BSTR()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -59,12 +61,12 @@ class IHTMLInputFileElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(p) {
+    get_name() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -79,12 +81,12 @@ class IHTMLInputFileElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_status(p) {
+    get_status() {
+        p := VARIANT()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -99,22 +101,20 @@ class IHTMLInputFileElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_disabled(p) {
-        result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+    get_disabled() {
+        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLFormElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLFormElement} 
      */
-    get_form(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_form() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLFormElement(p)
     }
 
     /**
@@ -129,14 +129,11 @@ class IHTMLInputFileElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_size(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pMarshal, p, "HRESULT")
-        return result
+    get_size() {
+        result := ComCall(16, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -151,14 +148,11 @@ class IHTMLInputFileElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_maxLength(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, pMarshal, p, "HRESULT")
-        return result
+    get_maxLength() {
+        result := ComCall(18, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -272,12 +266,12 @@ class IHTMLInputFileElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onchange(p) {
+    get_onchange() {
+        p := VARIANT()
         result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -292,12 +286,12 @@ class IHTMLInputFileElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onselect(p) {
+    get_onselect() {
+        p := VARIANT()
         result := ComCall(23, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -314,11 +308,11 @@ class IHTMLInputFileElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_value(p) {
+    get_value() {
+        p := BSTR()
         result := ComCall(25, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

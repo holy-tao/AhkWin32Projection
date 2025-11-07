@@ -30,13 +30,10 @@ class IDxcVersionInfo3 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} pVersionString 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    GetCustomVersionString(pVersionString) {
-        pVersionStringMarshal := pVersionString is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, pVersionStringMarshal, pVersionString, "HRESULT")
-        return result
+    GetCustomVersionString() {
+        result := ComCall(3, this, "ptr*", &pVersionString := 0, "HRESULT")
+        return pVersionString
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAudioSessionEnumerator.ahk
 #Include .\IAudioSessionManager.ahk
 
 /**
@@ -49,13 +50,12 @@ class IAudioSessionManager2 extends IAudioSessionManager{
 
     /**
      * 
-     * @param {Pointer<IAudioSessionEnumerator>} SessionEnum 
-     * @returns {HRESULT} 
+     * @returns {IAudioSessionEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-getsessionenumerator
      */
-    GetSessionEnumerator(SessionEnum) {
-        result := ComCall(5, this, "ptr*", SessionEnum, "HRESULT")
-        return result
+    GetSessionEnumerator() {
+        result := ComCall(5, this, "ptr*", &SessionEnum := 0, "HRESULT")
+        return IAudioSessionEnumerator(SessionEnum)
     }
 
     /**

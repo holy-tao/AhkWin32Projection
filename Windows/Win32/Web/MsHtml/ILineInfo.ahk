@@ -30,61 +30,46 @@ class ILineInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_x(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pMarshal, p, "HRESULT")
-        return result
+    get_x() {
+        result := ComCall(3, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_baseLine(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pMarshal, p, "HRESULT")
-        return result
+    get_baseLine() {
+        result := ComCall(4, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_textDescent(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pMarshal, p, "HRESULT")
-        return result
+    get_textDescent() {
+        result := ComCall(5, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_textHeight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pMarshal, p, "HRESULT")
-        return result
+    get_textHeight() {
+        result := ComCall(6, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_lineDirection(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_lineDirection() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 }

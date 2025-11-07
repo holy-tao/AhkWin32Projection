@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHighlightSegment.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,12 +34,11 @@ class IHighlightRenderingServices extends IUnknown{
      * @param {IDisplayPointer} pDispPointerStart 
      * @param {IDisplayPointer} pDispPointerEnd 
      * @param {IHTMLRenderStyle} pIRenderStyle 
-     * @param {Pointer<IHighlightSegment>} ppISegment 
-     * @returns {HRESULT} 
+     * @returns {IHighlightSegment} 
      */
-    AddSegment(pDispPointerStart, pDispPointerEnd, pIRenderStyle, ppISegment) {
-        result := ComCall(3, this, "ptr", pDispPointerStart, "ptr", pDispPointerEnd, "ptr", pIRenderStyle, "ptr*", ppISegment, "HRESULT")
-        return result
+    AddSegment(pDispPointerStart, pDispPointerEnd, pIRenderStyle) {
+        result := ComCall(3, this, "ptr", pDispPointerStart, "ptr", pDispPointerEnd, "ptr", pIRenderStyle, "ptr*", &ppISegment := 0, "HRESULT")
+        return IHighlightSegment(ppISegment)
     }
 
     /**

@@ -236,16 +236,15 @@ class IMetaDataImport extends IUnknown{
      * 
      * @param {Integer} tr 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppIScope 
      * @param {Pointer<Integer>} ptd 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-resolvetyperef
      */
-    ResolveTypeRef(tr, riid, ppIScope, ptd) {
+    ResolveTypeRef(tr, riid, ptd) {
         ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", tr, "ptr", riid, "ptr*", ppIScope, ptdMarshal, ptd, "HRESULT")
-        return result
+        result := ComCall(15, this, "uint", tr, "ptr", riid, "ptr*", &ppIScope := 0, ptdMarshal, ptd, "HRESULT")
+        return IUnknown(ppIScope)
     }
 
     /**

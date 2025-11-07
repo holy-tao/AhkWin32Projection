@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D10_SHADER_BUFFER_DESC.ahk
 
 /**
  * This shader-reflection interface provides access to a constant buffer.
@@ -36,13 +37,13 @@ class ID3D10ShaderReflectionConstantBuffer extends Win32ComInterface{
 
     /**
      * 
-     * @param {Pointer<D3D10_SHADER_BUFFER_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SHADER_BUFFER_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflectionconstantbuffer-getdesc
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := D3D10_SHADER_BUFFER_DESC()
         result := ComCall(0, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**

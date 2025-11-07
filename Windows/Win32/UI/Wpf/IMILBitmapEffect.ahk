@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
+#Include .\IMILBitmapEffectGroup.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,24 +41,22 @@ class IMILBitmapEffect extends IUnknown{
      * 
      * @param {Integer} uiIndex 
      * @param {IMILBitmapEffectRenderContext} pContext 
-     * @param {Pointer<IWICBitmapSource>} ppBitmapSource 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapSource} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffect-getoutput
      */
-    GetOutput(uiIndex, pContext, ppBitmapSource) {
-        result := ComCall(3, this, "uint", uiIndex, "ptr", pContext, "ptr*", ppBitmapSource, "HRESULT")
-        return result
+    GetOutput(uiIndex, pContext) {
+        result := ComCall(3, this, "uint", uiIndex, "ptr", pContext, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        return IWICBitmapSource(ppBitmapSource)
     }
 
     /**
      * 
-     * @param {Pointer<IMILBitmapEffectGroup>} ppParentEffect 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffectGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffect-getparenteffect
      */
-    GetParentEffect(ppParentEffect) {
-        result := ComCall(4, this, "ptr*", ppParentEffect, "HRESULT")
-        return result
+    GetParentEffect() {
+        result := ComCall(4, this, "ptr*", &ppParentEffect := 0, "HRESULT")
+        return IMILBitmapEffectGroup(ppParentEffect)
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D2D1_INK_BEZIER_SEGMENT.ahk
+#Include Common\D2D_RECT_F.ahk
 #Include .\ID2D1Resource.ahk
 
 /**
@@ -110,14 +112,14 @@ class ID2D1Ink extends ID2D1Resource{
     /**
      * 
      * @param {Integer} startSegment 
-     * @param {Pointer<D2D1_INK_BEZIER_SEGMENT>} segments 
      * @param {Integer} segmentsCount 
-     * @returns {HRESULT} 
+     * @returns {D2D1_INK_BEZIER_SEGMENT} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-getsegments
      */
-    GetSegments(startSegment, segments, segmentsCount) {
+    GetSegments(startSegment, segmentsCount) {
+        segments := D2D1_INK_BEZIER_SEGMENT()
         result := ComCall(11, this, "uint", startSegment, "ptr", segments, "uint", segmentsCount, "HRESULT")
-        return result
+        return segments
     }
 
     /**
@@ -138,12 +140,12 @@ class ID2D1Ink extends ID2D1Resource{
      * 
      * @param {ID2D1InkStyle} inkStyle 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
-     * @param {Pointer<D2D_RECT_F>} bounds 
-     * @returns {HRESULT} 
+     * @returns {D2D_RECT_F} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-getbounds
      */
-    GetBounds(inkStyle, worldTransform, bounds) {
+    GetBounds(inkStyle, worldTransform) {
+        bounds := D2D_RECT_F()
         result := ComCall(13, this, "ptr", inkStyle, "ptr", worldTransform, "ptr", bounds, "HRESULT")
-        return result
+        return bounds
     }
 }

@@ -30,47 +30,37 @@ class IMFTimedTextRuby extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} rubyText 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetRubyText(rubyText) {
-        result := ComCall(3, this, "ptr", rubyText, "HRESULT")
-        return result
+    GetRubyText() {
+        result := ComCall(3, this, "ptr*", &rubyText := 0, "HRESULT")
+        return rubyText
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRubyPosition(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, valueMarshal, value, "HRESULT")
-        return result
+    GetRubyPosition() {
+        result := ComCall(4, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRubyAlign(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, valueMarshal, value, "HRESULT")
-        return result
+    GetRubyAlign() {
+        result := ComCall(5, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRubyReserve(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, valueMarshal, value, "HRESULT")
-        return result
+    GetRubyReserve() {
+        result := ComCall(6, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 }

@@ -30,14 +30,11 @@ class IRowsetCurrentIndex extends IRowsetIndex{
 
     /**
      * 
-     * @param {Pointer<Pointer<DBID>>} ppIndexID 
-     * @returns {HRESULT} 
+     * @returns {Pointer<DBID>} 
      */
-    GetIndex(ppIndexID) {
-        ppIndexIDMarshal := ppIndexID is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, ppIndexIDMarshal, ppIndexID, "HRESULT")
-        return result
+    GetIndex() {
+        result := ComCall(6, this, "ptr*", &ppIndexID := 0, "HRESULT")
+        return ppIndexID
     }
 
     /**

@@ -37,13 +37,12 @@ class IRealTimeStylus2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus2-get_flicksenabled
      */
-    get_FlicksEnabled(pfEnable) {
-        result := ComCall(3, this, "ptr", pfEnable, "HRESULT")
-        return result
+    get_FlicksEnabled() {
+        result := ComCall(3, this, "int*", &pfEnable := 0, "HRESULT")
+        return pfEnable
     }
 
     /**

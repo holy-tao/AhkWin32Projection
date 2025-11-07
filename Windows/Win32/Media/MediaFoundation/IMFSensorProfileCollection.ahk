@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFSensorProfile.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,13 +43,12 @@ class IMFSensorProfileCollection extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<IMFSensorProfile>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IMFSensorProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofilecollection-getprofile
      */
-    GetProfile(Index, ppProfile) {
-        result := ComCall(4, this, "uint", Index, "ptr*", ppProfile, "HRESULT")
-        return result
+    GetProfile(Index) {
+        result := ComCall(4, this, "uint", Index, "ptr*", &ppProfile := 0, "HRESULT")
+        return IMFSensorProfile(ppProfile)
     }
 
     /**
@@ -65,13 +65,12 @@ class IMFSensorProfileCollection extends IUnknown{
     /**
      * 
      * @param {Pointer<SENSORPROFILEID>} ProfileId 
-     * @param {Pointer<IMFSensorProfile>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IMFSensorProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofilecollection-findprofile
      */
-    FindProfile(ProfileId, ppProfile) {
-        result := ComCall(6, this, "ptr", ProfileId, "ptr*", ppProfile, "HRESULT")
-        return result
+    FindProfile(ProfileId) {
+        result := ComCall(6, this, "ptr", ProfileId, "ptr*", &ppProfile := 0, "HRESULT")
+        return IMFSensorProfile(ppProfile)
     }
 
     /**

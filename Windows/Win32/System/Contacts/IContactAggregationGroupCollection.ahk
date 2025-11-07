@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IContactAggregationGroup.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,44 +31,38 @@ class IContactAggregationGroupCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IContactAggregationGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationGroup} 
      */
-    FindFirst(ppGroup) {
-        result := ComCall(3, this, "ptr*", ppGroup, "HRESULT")
-        return result
+    FindFirst() {
+        result := ComCall(3, this, "ptr*", &ppGroup := 0, "HRESULT")
+        return IContactAggregationGroup(ppGroup)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pGlobalObjectId 
-     * @param {Pointer<IContactAggregationGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationGroup} 
      */
-    FindFirstByGlobalObjectId(pGlobalObjectId, ppGroup) {
-        result := ComCall(4, this, "ptr", pGlobalObjectId, "ptr*", ppGroup, "HRESULT")
-        return result
+    FindFirstByGlobalObjectId(pGlobalObjectId) {
+        result := ComCall(4, this, "ptr", pGlobalObjectId, "ptr*", &ppGroup := 0, "HRESULT")
+        return IContactAggregationGroup(ppGroup)
     }
 
     /**
      * 
-     * @param {Pointer<IContactAggregationGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationGroup} 
      */
-    FindNext(ppGroup) {
-        result := ComCall(5, this, "ptr*", ppGroup, "HRESULT")
-        return result
+    FindNext() {
+        result := ComCall(5, this, "ptr*", &ppGroup := 0, "HRESULT")
+        return IContactAggregationGroup(ppGroup)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(6, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 }

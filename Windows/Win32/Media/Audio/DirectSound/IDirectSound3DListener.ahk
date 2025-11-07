@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DS3DLISTENER.ahk
+#Include ..\..\..\Graphics\Direct3D\D3DVECTOR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,36 +32,30 @@ class IDirectSound3DListener extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DS3DLISTENER>} pListener 
-     * @returns {HRESULT} 
+     * @returns {DS3DLISTENER} 
      */
-    GetAllParameters(pListener) {
+    GetAllParameters() {
+        pListener := DS3DLISTENER()
         result := ComCall(3, this, "ptr", pListener, "HRESULT")
-        return result
+        return pListener
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pflDistanceFactor 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    GetDistanceFactor(pflDistanceFactor) {
-        pflDistanceFactorMarshal := pflDistanceFactor is VarRef ? "float*" : "ptr"
-
-        result := ComCall(4, this, pflDistanceFactorMarshal, pflDistanceFactor, "HRESULT")
-        return result
+    GetDistanceFactor() {
+        result := ComCall(4, this, "float*", &pflDistanceFactor := 0, "HRESULT")
+        return pflDistanceFactor
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pflDopplerFactor 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    GetDopplerFactor(pflDopplerFactor) {
-        pflDopplerFactorMarshal := pflDopplerFactor is VarRef ? "float*" : "ptr"
-
-        result := ComCall(5, this, pflDopplerFactorMarshal, pflDopplerFactor, "HRESULT")
-        return result
+    GetDopplerFactor() {
+        result := ComCall(5, this, "float*", &pflDopplerFactor := 0, "HRESULT")
+        return pflDopplerFactor
     }
 
     /**
@@ -75,34 +71,31 @@ class IDirectSound3DListener extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<D3DVECTOR>} pvPosition 
-     * @returns {HRESULT} 
+     * @returns {D3DVECTOR} 
      */
-    GetPosition(pvPosition) {
+    GetPosition() {
+        pvPosition := D3DVECTOR()
         result := ComCall(7, this, "ptr", pvPosition, "HRESULT")
-        return result
+        return pvPosition
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pflRolloffFactor 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    GetRolloffFactor(pflRolloffFactor) {
-        pflRolloffFactorMarshal := pflRolloffFactor is VarRef ? "float*" : "ptr"
-
-        result := ComCall(8, this, pflRolloffFactorMarshal, pflRolloffFactor, "HRESULT")
-        return result
+    GetRolloffFactor() {
+        result := ComCall(8, this, "float*", &pflRolloffFactor := 0, "HRESULT")
+        return pflRolloffFactor
     }
 
     /**
      * 
-     * @param {Pointer<D3DVECTOR>} pvVelocity 
-     * @returns {HRESULT} 
+     * @returns {D3DVECTOR} 
      */
-    GetVelocity(pvVelocity) {
+    GetVelocity() {
+        pvVelocity := D3DVECTOR()
         result := ComCall(9, this, "ptr", pvVelocity, "HRESULT")
-        return result
+        return pvVelocity
     }
 
     /**

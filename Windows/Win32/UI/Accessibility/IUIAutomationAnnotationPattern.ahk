@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IUIAutomationElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,115 +34,107 @@ class IUIAutomationAnnotationPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentannotationtypeid
      */
-    get_CurrentAnnotationTypeId(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentAnnotationTypeId() {
+        result := ComCall(3, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentannotationtypename
      */
-    get_CurrentAnnotationTypeName(retVal) {
+    get_CurrentAnnotationTypeName() {
+        retVal := BSTR()
         result := ComCall(4, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentauthor
      */
-    get_CurrentAuthor(retVal) {
+    get_CurrentAuthor() {
+        retVal := BSTR()
         result := ComCall(5, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentdatetime
      */
-    get_CurrentDateTime(retVal) {
+    get_CurrentDateTime() {
+        retVal := BSTR()
         result := ComCall(6, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElement>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currenttarget
      */
-    get_CurrentTarget(retVal) {
-        result := ComCall(7, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CurrentTarget() {
+        result := ComCall(7, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElement(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedannotationtypeid
      */
-    get_CachedAnnotationTypeId(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedAnnotationTypeId() {
+        result := ComCall(8, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedannotationtypename
      */
-    get_CachedAnnotationTypeName(retVal) {
+    get_CachedAnnotationTypeName() {
+        retVal := BSTR()
         result := ComCall(9, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedauthor
      */
-    get_CachedAuthor(retVal) {
+    get_CachedAuthor() {
+        retVal := BSTR()
         result := ComCall(10, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cacheddatetime
      */
-    get_CachedDateTime(retVal) {
+    get_CachedDateTime() {
+        retVal := BSTR()
         result := ComCall(11, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElement>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedtarget
      */
-    get_CachedTarget(retVal) {
-        result := ComCall(12, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CachedTarget() {
+        result := ComCall(12, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElement(retVal)
     }
 }

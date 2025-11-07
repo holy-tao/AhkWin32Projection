@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,15 +33,12 @@ class IInkRectangle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Units 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-get_top
      */
-    get_Top(Units) {
-        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, UnitsMarshal, Units, "HRESULT")
-        return result
+    get_Top() {
+        result := ComCall(7, this, "int*", &Units := 0, "HRESULT")
+        return Units
     }
 
     /**
@@ -56,15 +54,12 @@ class IInkRectangle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Units 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-get_left
      */
-    get_Left(Units) {
-        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, UnitsMarshal, Units, "HRESULT")
-        return result
+    get_Left() {
+        result := ComCall(9, this, "int*", &Units := 0, "HRESULT")
+        return Units
     }
 
     /**
@@ -80,15 +75,12 @@ class IInkRectangle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Units 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-get_bottom
      */
-    get_Bottom(Units) {
-        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, UnitsMarshal, Units, "HRESULT")
-        return result
+    get_Bottom() {
+        result := ComCall(11, this, "int*", &Units := 0, "HRESULT")
+        return Units
     }
 
     /**
@@ -104,15 +96,12 @@ class IInkRectangle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Units 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-get_right
      */
-    get_Right(Units) {
-        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, UnitsMarshal, Units, "HRESULT")
-        return result
+    get_Right() {
+        result := ComCall(13, this, "int*", &Units := 0, "HRESULT")
+        return Units
     }
 
     /**
@@ -128,13 +117,13 @@ class IInkRectangle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<RECT>} Rect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-get_data
      */
-    get_Data(Rect) {
+    get_Data() {
+        Rect := RECT()
         result := ComCall(15, this, "ptr", Rect, "HRESULT")
-        return result
+        return Rect
     }
 
     /**

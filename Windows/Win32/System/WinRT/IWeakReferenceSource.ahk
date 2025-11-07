@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWeakReference.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class IWeakReferenceSource extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWeakReference>} weakReference 
-     * @returns {HRESULT} 
+     * @returns {IWeakReference} 
      * @see https://learn.microsoft.com/windows/win32/api/weakreference/nf-weakreference-iweakreferencesource-getweakreference
      */
-    GetWeakReference(weakReference) {
-        result := ComCall(3, this, "ptr*", weakReference, "HRESULT")
-        return result
+    GetWeakReference() {
+        result := ComCall(3, this, "ptr*", &weakReference := 0, "HRESULT")
+        return IWeakReference(weakReference)
     }
 }

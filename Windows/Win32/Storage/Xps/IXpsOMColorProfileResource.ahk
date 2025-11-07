@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include .\IXpsOMResource.ahk
 
 /**
@@ -84,13 +85,12 @@ class IXpsOMColorProfileResource extends IXpsOMResource{
 
     /**
      * 
-     * @param {Pointer<IStream>} stream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcolorprofileresource-getstream
      */
-    GetStream(stream) {
-        result := ComCall(5, this, "ptr*", stream, "HRESULT")
-        return result
+    GetStream() {
+        result := ComCall(5, this, "ptr*", &stream := 0, "HRESULT")
+        return IStream(stream)
     }
 
     /**

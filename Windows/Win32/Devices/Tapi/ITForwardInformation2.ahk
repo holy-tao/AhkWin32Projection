@@ -70,28 +70,22 @@ class ITForwardInformation2 extends ITForwardInformation{
     /**
      * 
      * @param {Integer} ForwardType 
-     * @param {Pointer<Integer>} pDestAddressType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-get_forwardtypedestinationaddresstype
      */
-    get_ForwardTypeDestinationAddressType(ForwardType, pDestAddressType) {
-        pDestAddressTypeMarshal := pDestAddressType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, "int", ForwardType, pDestAddressTypeMarshal, pDestAddressType, "HRESULT")
-        return result
+    get_ForwardTypeDestinationAddressType(ForwardType) {
+        result := ComCall(16, this, "int", ForwardType, "int*", &pDestAddressType := 0, "HRESULT")
+        return pDestAddressType
     }
 
     /**
      * 
      * @param {Integer} Forwardtype 
-     * @param {Pointer<Integer>} pCallerAddressType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-get_forwardtypecalleraddresstype
      */
-    get_ForwardTypeCallerAddressType(Forwardtype, pCallerAddressType) {
-        pCallerAddressTypeMarshal := pCallerAddressType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, "int", Forwardtype, pCallerAddressTypeMarshal, pCallerAddressType, "HRESULT")
-        return result
+    get_ForwardTypeCallerAddressType(Forwardtype) {
+        result := ComCall(17, this, "int", Forwardtype, "int*", &pCallerAddressType := 0, "HRESULT")
+        return pCallerAddressType
     }
 }

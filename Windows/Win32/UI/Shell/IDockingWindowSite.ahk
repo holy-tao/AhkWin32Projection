@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Ole\IOleWindow.ahk
 
 /**
@@ -62,13 +63,13 @@ class IDockingWindowSite extends IOleWindow{
     /**
      * 
      * @param {IUnknown} punkObj 
-     * @param {Pointer<RECT>} prcBorder 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-idockingwindowsite-getborderdw
      */
-    GetBorderDW(punkObj, prcBorder) {
+    GetBorderDW(punkObj) {
+        prcBorder := RECT()
         result := ComCall(5, this, "ptr", punkObj, "ptr", prcBorder, "HRESULT")
-        return result
+        return prcBorder
     }
 
     /**

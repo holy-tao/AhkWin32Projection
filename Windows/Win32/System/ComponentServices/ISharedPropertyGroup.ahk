@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISharedProperty.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -46,20 +47,21 @@ class ISharedPropertyGroup extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroup-createpropertybyposition
      */
     CreatePropertyByPosition(Index, fExists, ppProp) {
-        result := ComCall(7, this, "int", Index, "ptr", fExists, "ptr*", ppProp, "HRESULT")
+        fExistsMarshal := fExists is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, "int", Index, fExistsMarshal, fExists, "ptr*", ppProp, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ISharedProperty>} ppProperty 
-     * @returns {HRESULT} 
+     * @returns {ISharedProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroup-get_propertybyposition
      */
-    get_PropertyByPosition(Index, ppProperty) {
-        result := ComCall(8, this, "int", Index, "ptr*", ppProperty, "HRESULT")
-        return result
+    get_PropertyByPosition(Index) {
+        result := ComCall(8, this, "int", Index, "ptr*", &ppProperty := 0, "HRESULT")
+        return ISharedProperty(ppProperty)
     }
 
     /**
@@ -73,21 +75,22 @@ class ISharedPropertyGroup extends IDispatch{
     CreateProperty(Name, fExists, ppProp) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(9, this, "ptr", Name, "ptr", fExists, "ptr*", ppProp, "HRESULT")
+        fExistsMarshal := fExists is VarRef ? "short*" : "ptr"
+
+        result := ComCall(9, this, "ptr", Name, fExistsMarshal, fExists, "ptr*", ppProp, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {BSTR} Name 
-     * @param {Pointer<ISharedProperty>} ppProperty 
-     * @returns {HRESULT} 
+     * @returns {ISharedProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroup-get_property
      */
-    get_Property(Name, ppProperty) {
+    get_Property(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(10, this, "ptr", Name, "ptr*", ppProperty, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", Name, "ptr*", &ppProperty := 0, "HRESULT")
+        return ISharedProperty(ppProperty)
     }
 }

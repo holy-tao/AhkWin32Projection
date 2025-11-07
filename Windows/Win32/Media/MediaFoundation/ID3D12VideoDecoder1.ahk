@@ -36,14 +36,11 @@ class ID3D12VideoDecoder1 extends ID3D12VideoDecoder{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppProtectedSession 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecoder1-getprotectedresourcesession
      */
-    GetProtectedResourceSession(riid, ppProtectedSession) {
-        ppProtectedSessionMarshal := ppProtectedSession is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", riid, ppProtectedSessionMarshal, ppProtectedSession, "HRESULT")
-        return result
+    GetProtectedResourceSession(riid) {
+        result := ComCall(9, this, "ptr", riid, "ptr*", &ppProtectedSession := 0, "HRESULT")
+        return ppProtectedSession
     }
 }

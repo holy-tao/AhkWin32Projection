@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPMBackgroundWorkerInfo.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IPMBackgroundWorkerInfoEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPMBackgroundWorkerInfo>} ppBWInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMBackgroundWorkerInfo} 
      */
-    get_Next(ppBWInfo) {
-        result := ComCall(3, this, "ptr*", ppBWInfo, "HRESULT")
-        return result
+    get_Next() {
+        result := ComCall(3, this, "ptr*", &ppBWInfo := 0, "HRESULT")
+        return IPMBackgroundWorkerInfo(ppBWInfo)
     }
 }

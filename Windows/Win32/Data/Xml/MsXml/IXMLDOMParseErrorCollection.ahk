@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IXMLDOMParseError2.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,34 +33,29 @@ class IXMLDOMParseErrorCollection extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IXMLDOMParseError2>} error 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMParseError2} 
      */
-    get_item(index, error) {
-        result := ComCall(7, this, "int", index, "ptr*", error, "HRESULT")
-        return result
+    get_item(index) {
+        result := ComCall(7, this, "int", index, "ptr*", &error := 0, "HRESULT")
+        return IXMLDOMParseError2(error)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} length 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(length) {
-        lengthMarshal := length is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, lengthMarshal, length, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(8, this, "int*", &length := 0, "HRESULT")
+        return length
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMParseError2>} error 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMParseError2} 
      */
-    get_next(error) {
-        result := ComCall(9, this, "ptr*", error, "HRESULT")
-        return result
+    get_next() {
+        result := ComCall(9, this, "ptr*", &error := 0, "HRESULT")
+        return IXMLDOMParseError2(error)
     }
 
     /**
@@ -72,11 +69,10 @@ class IXMLDOMParseErrorCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__newEnum(ppunk) {
-        result := ComCall(11, this, "ptr*", ppunk, "HRESULT")
-        return result
+    get__newEnum() {
+        result := ComCall(11, this, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 }

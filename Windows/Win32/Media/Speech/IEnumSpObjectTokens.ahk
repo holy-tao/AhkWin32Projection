@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSpObjectTokens.ahk
+#Include .\ISpObjectToken.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -63,23 +65,21 @@ class IEnumSpObjectTokens extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSpObjectTokens>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSpObjectTokens} 
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumSpObjectTokens(ppEnum)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ISpObjectToken>} ppToken 
-     * @returns {HRESULT} 
+     * @returns {ISpObjectToken} 
      */
-    Item(Index, ppToken) {
-        result := ComCall(7, this, "uint", Index, "ptr*", ppToken, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(7, this, "uint", Index, "ptr*", &ppToken := 0, "HRESULT")
+        return ISpObjectToken(ppToken)
     }
 
     /**

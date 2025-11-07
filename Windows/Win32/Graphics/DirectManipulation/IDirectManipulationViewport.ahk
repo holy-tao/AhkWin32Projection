@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -90,15 +91,12 @@ class IDirectManipulationViewport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-getstatus
      */
-    GetStatus(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, statusMarshal, status, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(8, this, "int*", &status := 0, "HRESULT")
+        return status
     }
 
     /**
@@ -131,13 +129,13 @@ class IDirectManipulationViewport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<RECT>} viewport 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-getviewportrect
      */
-    GetViewportRect(viewport) {
+    GetViewportRect() {
+        viewport := RECT()
         result := ComCall(11, this, "ptr", viewport, "HRESULT")
-        return result
+        return viewport
     }
 
     /**
@@ -197,15 +195,12 @@ class IDirectManipulationViewport extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} object 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-getprimarycontent
      */
-    GetPrimaryContent(riid, object) {
-        objectMarshal := object is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(16, this, "ptr", riid, objectMarshal, object, "HRESULT")
-        return result
+    GetPrimaryContent(riid) {
+        result := ComCall(16, this, "ptr", riid, "ptr*", &object := 0, "HRESULT")
+        return object
     }
 
     /**
@@ -300,17 +295,14 @@ class IDirectManipulationViewport extends IUnknown{
      * 
      * @param {HWND} window 
      * @param {IDirectManipulationViewportEventHandler} eventHandler 
-     * @param {Pointer<Integer>} cookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-addeventhandler
      */
-    AddEventHandler(window, eventHandler, cookie) {
+    AddEventHandler(window, eventHandler) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        cookieMarshal := cookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(25, this, "ptr", window, "ptr", eventHandler, cookieMarshal, cookie, "HRESULT")
-        return result
+        result := ComCall(25, this, "ptr", window, "ptr", eventHandler, "uint*", &cookie := 0, "HRESULT")
+        return cookie
     }
 
     /**

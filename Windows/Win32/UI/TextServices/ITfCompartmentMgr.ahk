@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfCompartment.ahk
+#Include ..\..\System\Com\IEnumGUID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,13 +49,12 @@ class ITfCompartmentMgr extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<ITfCompartment>} ppcomp 
-     * @returns {HRESULT} 
+     * @returns {ITfCompartment} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmentmgr-getcompartment
      */
-    GetCompartment(rguid, ppcomp) {
-        result := ComCall(3, this, "ptr", rguid, "ptr*", ppcomp, "HRESULT")
-        return result
+    GetCompartment(rguid) {
+        result := ComCall(3, this, "ptr", rguid, "ptr*", &ppcomp := 0, "HRESULT")
+        return ITfCompartment(ppcomp)
     }
 
     /**
@@ -70,12 +71,11 @@ class ITfCompartmentMgr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumGUID>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumGUID} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmentmgr-enumcompartments
      */
-    EnumCompartments(ppEnum) {
-        result := ComCall(5, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumCompartments() {
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumGUID(ppEnum)
     }
 }

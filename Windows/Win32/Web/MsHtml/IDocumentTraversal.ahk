@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDOMNodeIterator.ahk
+#Include .\IDOMTreeWalker.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,12 +36,11 @@ class IDocumentTraversal extends IDispatch{
      * @param {Integer} ulWhatToShow 
      * @param {Pointer<VARIANT>} pFilter 
      * @param {VARIANT_BOOL} fEntityReferenceExpansion 
-     * @param {Pointer<IDOMNodeIterator>} ppNodeIterator 
-     * @returns {HRESULT} 
+     * @returns {IDOMNodeIterator} 
      */
-    createNodeIterator(pRootNode, ulWhatToShow, pFilter, fEntityReferenceExpansion, ppNodeIterator) {
-        result := ComCall(7, this, "ptr", pRootNode, "int", ulWhatToShow, "ptr", pFilter, "short", fEntityReferenceExpansion, "ptr*", ppNodeIterator, "HRESULT")
-        return result
+    createNodeIterator(pRootNode, ulWhatToShow, pFilter, fEntityReferenceExpansion) {
+        result := ComCall(7, this, "ptr", pRootNode, "int", ulWhatToShow, "ptr", pFilter, "short", fEntityReferenceExpansion, "ptr*", &ppNodeIterator := 0, "HRESULT")
+        return IDOMNodeIterator(ppNodeIterator)
     }
 
     /**
@@ -48,11 +49,10 @@ class IDocumentTraversal extends IDispatch{
      * @param {Integer} ulWhatToShow 
      * @param {Pointer<VARIANT>} pFilter 
      * @param {VARIANT_BOOL} fEntityReferenceExpansion 
-     * @param {Pointer<IDOMTreeWalker>} ppTreeWalker 
-     * @returns {HRESULT} 
+     * @returns {IDOMTreeWalker} 
      */
-    createTreeWalker(pRootNode, ulWhatToShow, pFilter, fEntityReferenceExpansion, ppTreeWalker) {
-        result := ComCall(8, this, "ptr", pRootNode, "int", ulWhatToShow, "ptr", pFilter, "short", fEntityReferenceExpansion, "ptr*", ppTreeWalker, "HRESULT")
-        return result
+    createTreeWalker(pRootNode, ulWhatToShow, pFilter, fEntityReferenceExpansion) {
+        result := ComCall(8, this, "ptr", pRootNode, "int", ulWhatToShow, "ptr", pFilter, "short", fEntityReferenceExpansion, "ptr*", &ppTreeWalker := 0, "HRESULT")
+        return IDOMTreeWalker(ppTreeWalker)
     }
 }

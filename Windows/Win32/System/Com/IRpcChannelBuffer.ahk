@@ -45,15 +45,12 @@ class IRpcChannelBuffer extends IUnknown{
     /**
      * 
      * @param {Pointer<RPCOLEMESSAGE>} pMessage 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcchannelbuffer-sendreceive
      */
-    SendReceive(pMessage, pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pMessage, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    SendReceive(pMessage) {
+        result := ComCall(4, this, "ptr", pMessage, "uint*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**

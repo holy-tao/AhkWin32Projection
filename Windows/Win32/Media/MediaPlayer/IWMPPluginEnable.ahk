@@ -48,7 +48,9 @@ class IWMPPluginEnable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmppluginenable-getenable
      */
     GetEnable(pfEnable) {
-        result := ComCall(4, this, "ptr", pfEnable, "HRESULT")
+        pfEnableMarshal := pfEnable is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pfEnableMarshal, pfEnable, "HRESULT")
         return result
     }
 }

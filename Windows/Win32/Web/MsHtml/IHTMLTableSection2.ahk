@@ -32,11 +32,10 @@ class IHTMLTableSection2 extends IDispatch{
      * 
      * @param {Integer} indexFrom 
      * @param {Integer} indexTo 
-     * @param {Pointer<IDispatch>} row 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    moveRow(indexFrom, indexTo, row) {
-        result := ComCall(7, this, "int", indexFrom, "int", indexTo, "ptr*", row, "HRESULT")
-        return result
+    moveRow(indexFrom, indexTo) {
+        result := ComCall(7, this, "int", indexFrom, "int", indexTo, "ptr*", &row := 0, "HRESULT")
+        return IDispatch(row)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMILBitmapEffectOutputConnector.ahk
+#Include .\IMILBitmapEffectInputConnector.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,25 +35,23 @@ class IMILBitmapEffectGroup extends IUnknown{
     /**
      * 
      * @param {Integer} uiIndex 
-     * @param {Pointer<IMILBitmapEffectOutputConnector>} ppConnector 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffectOutputConnector} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectgroup-getinteriorinputconnector
      */
-    GetInteriorInputConnector(uiIndex, ppConnector) {
-        result := ComCall(3, this, "uint", uiIndex, "ptr*", ppConnector, "HRESULT")
-        return result
+    GetInteriorInputConnector(uiIndex) {
+        result := ComCall(3, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "HRESULT")
+        return IMILBitmapEffectOutputConnector(ppConnector)
     }
 
     /**
      * 
      * @param {Integer} uiIndex 
-     * @param {Pointer<IMILBitmapEffectInputConnector>} ppConnector 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffectInputConnector} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectgroup-getinterioroutputconnector
      */
-    GetInteriorOutputConnector(uiIndex, ppConnector) {
-        result := ComCall(4, this, "uint", uiIndex, "ptr*", ppConnector, "HRESULT")
-        return result
+    GetInteriorOutputConnector(uiIndex) {
+        result := ComCall(4, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "HRESULT")
+        return IMILBitmapEffectInputConnector(ppConnector)
     }
 
     /**

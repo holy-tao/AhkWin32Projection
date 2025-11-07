@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostSymbol.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -31,11 +32,10 @@ class ICodeAddressConcept extends IUnknown{
     /**
      * 
      * @param {IModelObject} pContextObject 
-     * @param {Pointer<IDebugHostSymbol>} ppSymbol 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostSymbol} 
      */
-    GetContainingSymbol(pContextObject, ppSymbol) {
-        result := ComCall(3, this, "ptr", pContextObject, "ptr*", ppSymbol, "HRESULT")
-        return result
+    GetContainingSymbol(pContextObject) {
+        result := ComCall(3, this, "ptr", pContextObject, "ptr*", &ppSymbol := 0, "HRESULT")
+        return IDebugHostSymbol(ppSymbol)
     }
 }

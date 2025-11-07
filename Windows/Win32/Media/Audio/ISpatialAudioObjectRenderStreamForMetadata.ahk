@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpatialAudioObjectForMetadataCommands.ahk
+#Include .\ISpatialAudioObjectForMetadataItems.ahk
 #Include .\ISpatialAudioObjectRenderStreamBase.ahk
 
 /**
@@ -39,24 +41,22 @@ class ISpatialAudioObjectRenderStreamForMetadata extends ISpatialAudioObjectRend
     /**
      * 
      * @param {Integer} type 
-     * @param {Pointer<ISpatialAudioObjectForMetadataCommands>} audioObject 
-     * @returns {HRESULT} 
+     * @returns {ISpatialAudioObjectForMetadataCommands} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectrenderstreamformetadata-activatespatialaudioobjectformetadatacommands
      */
-    ActivateSpatialAudioObjectForMetadataCommands(type, audioObject) {
-        result := ComCall(10, this, "int", type, "ptr*", audioObject, "HRESULT")
-        return result
+    ActivateSpatialAudioObjectForMetadataCommands(type) {
+        result := ComCall(10, this, "int", type, "ptr*", &audioObject := 0, "HRESULT")
+        return ISpatialAudioObjectForMetadataCommands(audioObject)
     }
 
     /**
      * 
      * @param {Integer} type 
-     * @param {Pointer<ISpatialAudioObjectForMetadataItems>} audioObject 
-     * @returns {HRESULT} 
+     * @returns {ISpatialAudioObjectForMetadataItems} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectrenderstreamformetadata-activatespatialaudioobjectformetadataitems
      */
-    ActivateSpatialAudioObjectForMetadataItems(type, audioObject) {
-        result := ComCall(11, this, "int", type, "ptr*", audioObject, "HRESULT")
-        return result
+    ActivateSpatialAudioObjectForMetadataItems(type) {
+        result := ComCall(11, this, "int", type, "ptr*", &audioObject := 0, "HRESULT")
+        return ISpatialAudioObjectForMetadataItems(audioObject)
     }
 }

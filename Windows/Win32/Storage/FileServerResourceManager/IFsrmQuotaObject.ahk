@@ -33,57 +33,56 @@ class IFsrmQuotaObject extends IFsrmQuotaBase{
 
     /**
      * 
-     * @param {Pointer<BSTR>} path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_path
      */
-    get_Path(path) {
+    get_Path() {
+        path := BSTR()
         result := ComCall(22, this, "ptr", path, "HRESULT")
-        return result
+        return path
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} userSid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_usersid
      */
-    get_UserSid(userSid) {
+    get_UserSid() {
+        userSid := BSTR()
         result := ComCall(23, this, "ptr", userSid, "HRESULT")
-        return result
+        return userSid
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} userAccount 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_useraccount
      */
-    get_UserAccount(userAccount) {
+    get_UserAccount() {
+        userAccount := BSTR()
         result := ComCall(24, this, "ptr", userAccount, "HRESULT")
-        return result
+        return userAccount
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} quotaTemplateName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_sourcetemplatename
      */
-    get_SourceTemplateName(quotaTemplateName) {
+    get_SourceTemplateName() {
+        quotaTemplateName := BSTR()
         result := ComCall(25, this, "ptr", quotaTemplateName, "HRESULT")
-        return result
+        return quotaTemplateName
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} matches 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_matchessourcetemplate
      */
-    get_MatchesSourceTemplate(matches) {
-        result := ComCall(26, this, "ptr", matches, "HRESULT")
-        return result
+    get_MatchesSourceTemplate() {
+        result := ComCall(26, this, "short*", &matches := 0, "HRESULT")
+        return matches
     }
 
     /**

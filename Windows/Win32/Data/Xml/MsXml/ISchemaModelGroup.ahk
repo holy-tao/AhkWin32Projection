@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISchemaItemCollection.ahk
 #Include .\ISchemaParticle.ahk
 
 /**
@@ -30,11 +31,10 @@ class ISchemaModelGroup extends ISchemaParticle{
 
     /**
      * 
-     * @param {Pointer<ISchemaItemCollection>} particles 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItemCollection} 
      */
-    get_particles(particles) {
-        result := ComCall(16, this, "ptr*", particles, "HRESULT")
-        return result
+    get_particles() {
+        result := ComCall(16, this, "ptr*", &particles := 0, "HRESULT")
+        return ISchemaItemCollection(particles)
     }
 }

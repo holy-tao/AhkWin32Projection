@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_PORT_PROP.ahk
+#Include .\IVdsController.ahk
+#Include .\IEnumVdsObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,35 +35,33 @@ class IVdsControllerPort extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_PORT_PROP>} pPortProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_PORT_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdscontrollerport-getproperties
      */
-    GetProperties(pPortProp) {
+    GetProperties() {
+        pPortProp := VDS_PORT_PROP()
         result := ComCall(3, this, "ptr", pPortProp, "HRESULT")
-        return result
+        return pPortProp
     }
 
     /**
      * 
-     * @param {Pointer<IVdsController>} ppController 
-     * @returns {HRESULT} 
+     * @returns {IVdsController} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdscontrollerport-getcontroller
      */
-    GetController(ppController) {
-        result := ComCall(4, this, "ptr*", ppController, "HRESULT")
-        return result
+    GetController() {
+        result := ComCall(4, this, "ptr*", &ppController := 0, "HRESULT")
+        return IVdsController(ppController)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdscontrollerport-queryassociatedluns
      */
-    QueryAssociatedLuns(ppEnum) {
-        result := ComCall(5, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryAssociatedLuns() {
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**

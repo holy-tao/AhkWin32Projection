@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\IUnknown.ahk
+#Include ..\..\Variant\VARIANT.ahk
+#Include .\IEventObjectCollection.ahk
 #Include ..\IDispatch.ahk
 
 /**
@@ -33,13 +36,13 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSubscriptionID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriptionid
      */
-    get_SubscriptionID(pbstrSubscriptionID) {
+    get_SubscriptionID() {
+        pbstrSubscriptionID := BSTR()
         result := ComCall(7, this, "ptr", pbstrSubscriptionID, "HRESULT")
-        return result
+        return pbstrSubscriptionID
     }
 
     /**
@@ -57,13 +60,13 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSubscriptionName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriptionname
      */
-    get_SubscriptionName(pbstrSubscriptionName) {
+    get_SubscriptionName() {
+        pbstrSubscriptionName := BSTR()
         result := ComCall(9, this, "ptr", pbstrSubscriptionName, "HRESULT")
-        return result
+        return pbstrSubscriptionName
     }
 
     /**
@@ -81,13 +84,13 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPublisherID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_publisherid
      */
-    get_PublisherID(pbstrPublisherID) {
+    get_PublisherID() {
+        pbstrPublisherID := BSTR()
         result := ComCall(11, this, "ptr", pbstrPublisherID, "HRESULT")
-        return result
+        return pbstrPublisherID
     }
 
     /**
@@ -105,13 +108,13 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrEventClassID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_eventclassid
      */
-    get_EventClassID(pbstrEventClassID) {
+    get_EventClassID() {
+        pbstrEventClassID := BSTR()
         result := ComCall(13, this, "ptr", pbstrEventClassID, "HRESULT")
-        return result
+        return pbstrEventClassID
     }
 
     /**
@@ -129,13 +132,13 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrMethodName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_methodname
      */
-    get_MethodName(pbstrMethodName) {
+    get_MethodName() {
+        pbstrMethodName := BSTR()
         result := ComCall(15, this, "ptr", pbstrMethodName, "HRESULT")
-        return result
+        return pbstrMethodName
     }
 
     /**
@@ -153,13 +156,13 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSubscriberCLSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriberclsid
      */
-    get_SubscriberCLSID(pbstrSubscriberCLSID) {
+    get_SubscriberCLSID() {
+        pbstrSubscriberCLSID := BSTR()
         result := ComCall(17, this, "ptr", pbstrSubscriberCLSID, "HRESULT")
-        return result
+        return pbstrSubscriberCLSID
     }
 
     /**
@@ -177,13 +180,12 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppSubscriberInterface 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriberinterface
      */
-    get_SubscriberInterface(ppSubscriberInterface) {
-        result := ComCall(19, this, "ptr*", ppSubscriberInterface, "HRESULT")
-        return result
+    get_SubscriberInterface() {
+        result := ComCall(19, this, "ptr*", &ppSubscriberInterface := 0, "HRESULT")
+        return IUnknown(ppSubscriberInterface)
     }
 
     /**
@@ -199,13 +201,12 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfPerUser 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_peruser
      */
-    get_PerUser(pfPerUser) {
-        result := ComCall(21, this, "ptr", pfPerUser, "HRESULT")
-        return result
+    get_PerUser() {
+        result := ComCall(21, this, "int*", &pfPerUser := 0, "HRESULT")
+        return pfPerUser
     }
 
     /**
@@ -221,13 +222,13 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrOwnerSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_ownersid
      */
-    get_OwnerSID(pbstrOwnerSID) {
+    get_OwnerSID() {
+        pbstrOwnerSID := BSTR()
         result := ComCall(23, this, "ptr", pbstrOwnerSID, "HRESULT")
-        return result
+        return pbstrOwnerSID
     }
 
     /**
@@ -245,13 +246,12 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_enabled
      */
-    get_Enabled(pfEnabled) {
-        result := ComCall(25, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(25, this, "int*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
@@ -267,13 +267,13 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_description
      */
-    get_Description(pbstrDescription) {
+    get_Description() {
+        pbstrDescription := BSTR()
         result := ComCall(27, this, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 
     /**
@@ -291,13 +291,13 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrMachineName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_machinename
      */
-    get_MachineName(pbstrMachineName) {
+    get_MachineName() {
+        pbstrMachineName := BSTR()
         result := ComCall(29, this, "ptr", pbstrMachineName, "HRESULT")
-        return result
+        return pbstrMachineName
     }
 
     /**
@@ -316,15 +316,15 @@ class IEventSubscription extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrPropertyName 
-     * @param {Pointer<VARIANT>} propertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-getpublisherproperty
      */
-    GetPublisherProperty(bstrPropertyName, propertyValue) {
+    GetPublisherProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
+        propertyValue := VARIANT()
         result := ComCall(31, this, "ptr", bstrPropertyName, "ptr", propertyValue, "HRESULT")
-        return result
+        return propertyValue
     }
 
     /**
@@ -356,27 +356,26 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEventObjectCollection>} collection 
-     * @returns {HRESULT} 
+     * @returns {IEventObjectCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-getpublisherpropertycollection
      */
-    GetPublisherPropertyCollection(collection) {
-        result := ComCall(34, this, "ptr*", collection, "HRESULT")
-        return result
+    GetPublisherPropertyCollection() {
+        result := ComCall(34, this, "ptr*", &collection := 0, "HRESULT")
+        return IEventObjectCollection(collection)
     }
 
     /**
      * 
      * @param {BSTR} bstrPropertyName 
-     * @param {Pointer<VARIANT>} propertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-getsubscriberproperty
      */
-    GetSubscriberProperty(bstrPropertyName, propertyValue) {
+    GetSubscriberProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
+        propertyValue := VARIANT()
         result := ComCall(35, this, "ptr", bstrPropertyName, "ptr", propertyValue, "HRESULT")
-        return result
+        return propertyValue
     }
 
     /**
@@ -408,24 +407,23 @@ class IEventSubscription extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEventObjectCollection>} collection 
-     * @returns {HRESULT} 
+     * @returns {IEventObjectCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-getsubscriberpropertycollection
      */
-    GetSubscriberPropertyCollection(collection) {
-        result := ComCall(38, this, "ptr*", collection, "HRESULT")
-        return result
+    GetSubscriberPropertyCollection() {
+        result := ComCall(38, this, "ptr*", &collection := 0, "HRESULT")
+        return IEventObjectCollection(collection)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrInterfaceID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_interfaceid
      */
-    get_InterfaceID(pbstrInterfaceID) {
+    get_InterfaceID() {
+        pbstrInterfaceID := BSTR()
         result := ComCall(39, this, "ptr", pbstrInterfaceID, "HRESULT")
-        return result
+        return pbstrInterfaceID
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Direct3D12\ID3D12Fence.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -61,13 +62,12 @@ class IDirect3DDevice9On12 extends IUnknown{
      * @param {IDirect3DResource9} pResource 
      * @param {Integer} NumSync 
      * @param {Pointer<Integer>} pSignalValues 
-     * @param {Pointer<ID3D12Fence>} ppFences 
-     * @returns {HRESULT} 
+     * @returns {ID3D12Fence} 
      */
-    ReturnUnderlyingResource(pResource, NumSync, pSignalValues, ppFences) {
+    ReturnUnderlyingResource(pResource, NumSync, pSignalValues) {
         pSignalValuesMarshal := pSignalValues is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pResource, "uint", NumSync, pSignalValuesMarshal, pSignalValues, "ptr*", ppFences, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pResource, "uint", NumSync, pSignalValuesMarshal, pSignalValues, "ptr*", &ppFences := 0, "HRESULT")
+        return ID3D12Fence(ppFences)
     }
 }

@@ -32,15 +32,12 @@ class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} propertiesAffected 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_propertiesaffected
      */
-    get_PropertiesAffected(propertiesAffected) {
-        propertiesAffectedMarshal := propertiesAffected is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(31, this, propertiesAffectedMarshal, propertiesAffected, "HRESULT")
-        return result
+    get_PropertiesAffected() {
+        result := ComCall(31, this, "ptr*", &propertiesAffected := 0, "HRESULT")
+        return propertiesAffected
     }
 
     /**
@@ -56,15 +53,12 @@ class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} propertiesUsed 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_propertiesused
      */
-    get_PropertiesUsed(propertiesUsed) {
-        propertiesUsedMarshal := propertiesUsed is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(33, this, propertiesUsedMarshal, propertiesUsed, "HRESULT")
-        return result
+    get_PropertiesUsed() {
+        result := ComCall(33, this, "ptr*", &propertiesUsed := 0, "HRESULT")
+        return propertiesUsed
     }
 
     /**
@@ -80,13 +74,12 @@ class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} needsExplicitValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_needsexplicitvalue
      */
-    get_NeedsExplicitValue(needsExplicitValue) {
-        result := ComCall(35, this, "ptr", needsExplicitValue, "HRESULT")
-        return result
+    get_NeedsExplicitValue() {
+        result := ComCall(35, this, "short*", &needsExplicitValue := 0, "HRESULT")
+        return needsExplicitValue
     }
 
     /**

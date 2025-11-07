@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,84 +33,75 @@ class ITCallingCard extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCardID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_permanentcardid
      */
-    get_PermanentCardID(plCardID) {
-        plCardIDMarshal := plCardID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCardIDMarshal, plCardID, "HRESULT")
-        return result
+    get_PermanentCardID() {
+        result := ComCall(7, this, "int*", &plCardID := 0, "HRESULT")
+        return plCardID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plDigits 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_numberofdigits
      */
-    get_NumberOfDigits(plDigits) {
-        plDigitsMarshal := plDigits is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plDigitsMarshal, plDigits, "HRESULT")
-        return result
+    get_NumberOfDigits() {
+        result := ComCall(8, this, "int*", &plDigits := 0, "HRESULT")
+        return plDigits
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_options
      */
-    get_Options(plOptions) {
-        plOptionsMarshal := plOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plOptionsMarshal, plOptions, "HRESULT")
-        return result
+    get_Options() {
+        result := ComCall(9, this, "int*", &plOptions := 0, "HRESULT")
+        return plOptions
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppCardName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_cardname
      */
-    get_CardName(ppCardName) {
+    get_CardName() {
+        ppCardName := BSTR()
         result := ComCall(10, this, "ptr", ppCardName, "HRESULT")
-        return result
+        return ppCardName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppRule 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_sameareadialingrule
      */
-    get_SameAreaDialingRule(ppRule) {
+    get_SameAreaDialingRule() {
+        ppRule := BSTR()
         result := ComCall(11, this, "ptr", ppRule, "HRESULT")
-        return result
+        return ppRule
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppRule 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_longdistancedialingrule
      */
-    get_LongDistanceDialingRule(ppRule) {
+    get_LongDistanceDialingRule() {
+        ppRule := BSTR()
         result := ComCall(12, this, "ptr", ppRule, "HRESULT")
-        return result
+        return ppRule
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppRule 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_internationaldialingrule
      */
-    get_InternationalDialingRule(ppRule) {
+    get_InternationalDialingRule() {
+        ppRule := BSTR()
         result := ComCall(13, this, "ptr", ppRule, "HRESULT")
-        return result
+        return ppRule
     }
 }

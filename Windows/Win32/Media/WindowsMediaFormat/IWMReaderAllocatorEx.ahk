@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INSSBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,37 +35,35 @@ class IWMReaderAllocatorEx extends IUnknown{
      * 
      * @param {Integer} wStreamNum 
      * @param {Integer} cbBuffer 
-     * @param {Pointer<INSSBuffer>} ppBuffer 
      * @param {Integer} dwFlags 
      * @param {Integer} cnsSampleTime 
      * @param {Integer} cnsSampleDuration 
      * @param {Pointer<Void>} pvContext 
-     * @returns {HRESULT} 
+     * @returns {INSSBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforstreamex
      */
-    AllocateForStreamEx(wStreamNum, cbBuffer, ppBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
+    AllocateForStreamEx(wStreamNum, cbBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", ppBuffer, "uint", dwFlags, "uint", cnsSampleTime, "uint", cnsSampleDuration, pvContextMarshal, pvContext, "HRESULT")
-        return result
+        result := ComCall(3, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", &ppBuffer := 0, "uint", dwFlags, "uint", cnsSampleTime, "uint", cnsSampleDuration, pvContextMarshal, pvContext, "HRESULT")
+        return INSSBuffer(ppBuffer)
     }
 
     /**
      * 
      * @param {Integer} dwOutputNum 
      * @param {Integer} cbBuffer 
-     * @param {Pointer<INSSBuffer>} ppBuffer 
      * @param {Integer} dwFlags 
      * @param {Integer} cnsSampleTime 
      * @param {Integer} cnsSampleDuration 
      * @param {Pointer<Void>} pvContext 
-     * @returns {HRESULT} 
+     * @returns {INSSBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforoutputex
      */
-    AllocateForOutputEx(dwOutputNum, cbBuffer, ppBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
+    AllocateForOutputEx(dwOutputNum, cbBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", dwOutputNum, "uint", cbBuffer, "ptr*", ppBuffer, "uint", dwFlags, "uint", cnsSampleTime, "uint", cnsSampleDuration, pvContextMarshal, pvContext, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", dwOutputNum, "uint", cbBuffer, "ptr*", &ppBuffer := 0, "uint", dwFlags, "uint", cnsSampleTime, "uint", cnsSampleDuration, pvContextMarshal, pvContext, "HRESULT")
+        return INSSBuffer(ppBuffer)
     }
 }

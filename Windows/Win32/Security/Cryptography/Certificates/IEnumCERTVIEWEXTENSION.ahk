@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumCERTVIEWEXTENSION.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -103,12 +104,11 @@ class IEnumCERTVIEWEXTENSION extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumCERTVIEWEXTENSION>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCERTVIEWEXTENSION} 
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-clone
      */
-    Clone(ppenum) {
-        result := ComCall(13, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(13, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumCERTVIEWEXTENSION(ppenum)
     }
 }

@@ -58,13 +58,10 @@ class IDebugApplication11032 extends IRemoteDebugApplication110{
      * 
      * @param {Integer} handleCount 
      * @param {Pointer<HANDLE>} pHandles 
-     * @param {Pointer<Integer>} pIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    CallableWaitForHandles(handleCount, pHandles, pIndex) {
-        pIndexMarshal := pIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "uint", handleCount, "ptr", pHandles, pIndexMarshal, pIndex, "HRESULT")
-        return result
+    CallableWaitForHandles(handleCount, pHandles) {
+        result := ComCall(8, this, "uint", handleCount, "ptr", pHandles, "uint*", &pIndex := 0, "HRESULT")
+        return pIndex
     }
 }

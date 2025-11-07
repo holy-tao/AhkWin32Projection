@@ -48,12 +48,11 @@ class IContactAggregationLink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppAccountId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_AccountId(ppAccountId) {
-        result := ComCall(5, this, "ptr", ppAccountId, "HRESULT")
-        return result
+    get_AccountId() {
+        result := ComCall(5, this, "ptr*", &ppAccountId := 0, "HRESULT")
+        return ppAccountId
     }
 
     /**
@@ -70,22 +69,20 @@ class IContactAggregationLink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppItemId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_Id(ppItemId) {
-        result := ComCall(7, this, "ptr", ppItemId, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(7, this, "ptr*", &ppItemId := 0, "HRESULT")
+        return ppItemId
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsLinkResolved 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsLinkResolved(pIsLinkResolved) {
-        result := ComCall(8, this, "ptr", pIsLinkResolved, "HRESULT")
-        return result
+    get_IsLinkResolved() {
+        result := ComCall(8, this, "int*", &pIsLinkResolved := 0, "HRESULT")
+        return pIsLinkResolved
     }
 
     /**
@@ -100,12 +97,11 @@ class IContactAggregationLink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppNetworkSourceId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_NetworkSourceIdString(ppNetworkSourceId) {
-        result := ComCall(10, this, "ptr", ppNetworkSourceId, "HRESULT")
-        return result
+    get_NetworkSourceIdString() {
+        result := ComCall(10, this, "ptr*", &ppNetworkSourceId := 0, "HRESULT")
+        return ppNetworkSourceId
     }
 
     /**
@@ -122,14 +118,11 @@ class IContactAggregationLink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<CONTACT_AGGREGATION_BLOB>>} ppRemoteObjectId 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
-    get_RemoteObjectId(ppRemoteObjectId) {
-        ppRemoteObjectIdMarshal := ppRemoteObjectId is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, ppRemoteObjectIdMarshal, ppRemoteObjectId, "HRESULT")
-        return result
+    get_RemoteObjectId() {
+        result := ComCall(12, this, "ptr*", &ppRemoteObjectId := 0, "HRESULT")
+        return ppRemoteObjectId
     }
 
     /**
@@ -144,12 +137,11 @@ class IContactAggregationLink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppServerPersonId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_ServerPerson(ppServerPersonId) {
-        result := ComCall(14, this, "ptr", ppServerPersonId, "HRESULT")
-        return result
+    get_ServerPerson() {
+        result := ComCall(14, this, "ptr*", &ppServerPersonId := 0, "HRESULT")
+        return ppServerPersonId
     }
 
     /**
@@ -166,12 +158,11 @@ class IContactAggregationLink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppServerPersonId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_ServerPersonBaseline(ppServerPersonId) {
-        result := ComCall(16, this, "ptr", ppServerPersonId, "HRESULT")
-        return result
+    get_ServerPersonBaseline() {
+        result := ComCall(16, this, "ptr*", &ppServerPersonId := 0, "HRESULT")
+        return ppServerPersonId
     }
 
     /**
@@ -188,14 +179,11 @@ class IContactAggregationLink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<CONTACT_AGGREGATION_BLOB>>} ppSyncIdentityHash 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
-    get_SyncIdentityHash(ppSyncIdentityHash) {
-        ppSyncIdentityHashMarshal := ppSyncIdentityHash is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(18, this, ppSyncIdentityHashMarshal, ppSyncIdentityHash, "HRESULT")
-        return result
+    get_SyncIdentityHash() {
+        result := ComCall(18, this, "ptr*", &ppSyncIdentityHash := 0, "HRESULT")
+        return ppSyncIdentityHash
     }
 
     /**

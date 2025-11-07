@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncKnowledge.ahk
+#Include .\IForgottenKnowledge.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -37,23 +39,21 @@ class ISyncFullEnumerationChange extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchange-getlearnedknowledgeafterrecoverycomplete
      */
-    GetLearnedKnowledgeAfterRecoveryComplete(ppLearnedKnowledge) {
-        result := ComCall(3, this, "ptr*", ppLearnedKnowledge, "HRESULT")
-        return result
+    GetLearnedKnowledgeAfterRecoveryComplete() {
+        result := ComCall(3, this, "ptr*", &ppLearnedKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedKnowledge)
     }
 
     /**
      * 
-     * @param {Pointer<IForgottenKnowledge>} ppLearnedForgottenKnowledge 
-     * @returns {HRESULT} 
+     * @returns {IForgottenKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchange-getlearnedforgottenknowledge
      */
-    GetLearnedForgottenKnowledge(ppLearnedForgottenKnowledge) {
-        result := ComCall(4, this, "ptr*", ppLearnedForgottenKnowledge, "HRESULT")
-        return result
+    GetLearnedForgottenKnowledge() {
+        result := ComCall(4, this, "ptr*", &ppLearnedForgottenKnowledge := 0, "HRESULT")
+        return IForgottenKnowledge(ppLearnedForgottenKnowledge)
     }
 }

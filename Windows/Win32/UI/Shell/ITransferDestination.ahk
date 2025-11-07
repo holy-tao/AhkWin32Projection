@@ -33,15 +33,12 @@ class ITransferDestination extends IUnknown{
     /**
      * 
      * @param {ITransferAdviseSink} psink 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferdestination-advise
      */
-    Advise(psink, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", psink, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Advise(psink) {
+        result := ComCall(3, this, "ptr", psink, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

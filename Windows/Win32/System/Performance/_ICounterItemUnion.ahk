@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -36,14 +38,11 @@ class _ICounterItemUnion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pdblValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_Value(pdblValue) {
-        pdblValueMarshal := pdblValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(3, this, pdblValueMarshal, pdblValue, "HRESULT")
-        return result
+    get_Value() {
+        result := ComCall(3, this, "double*", &pdblValue := 0, "HRESULT")
+        return pdblValue
     }
 
     /**
@@ -58,14 +57,11 @@ class _ICounterItemUnion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pColor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Color(pColor) {
-        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pColorMarshal, pColor, "HRESULT")
-        return result
+    get_Color() {
+        result := ComCall(5, this, "uint*", &pColor := 0, "HRESULT")
+        return pColor
     }
 
     /**
@@ -80,14 +76,11 @@ class _ICounterItemUnion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} piValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Width(piValue) {
-        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, piValueMarshal, piValue, "HRESULT")
-        return result
+    get_Width() {
+        result := ComCall(7, this, "int*", &piValue := 0, "HRESULT")
+        return piValue
     }
 
     /**
@@ -102,14 +95,11 @@ class _ICounterItemUnion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} piValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LineStyle(piValue) {
-        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, piValueMarshal, piValue, "HRESULT")
-        return result
+    get_LineStyle() {
+        result := ComCall(9, this, "int*", &piValue := 0, "HRESULT")
+        return piValue
     }
 
     /**
@@ -124,24 +114,21 @@ class _ICounterItemUnion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} piValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ScaleFactor(piValue) {
-        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, piValueMarshal, piValue, "HRESULT")
-        return result
+    get_ScaleFactor() {
+        result := ComCall(11, this, "int*", &piValue := 0, "HRESULT")
+        return piValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(pstrValue) {
+    get_Path() {
+        pstrValue := BSTR()
         result := ComCall(12, this, "ptr", pstrValue, "HRESULT")
-        return result
+        return pstrValue
     }
 
     /**
@@ -188,12 +175,11 @@ class _ICounterItemUnion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Selected(pbState) {
-        result := ComCall(16, this, "ptr", pbState, "HRESULT")
-        return result
+    get_Selected() {
+        result := ComCall(16, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -208,23 +194,22 @@ class _ICounterItemUnion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Visible(pbState) {
-        result := ComCall(18, this, "ptr", pbState, "HRESULT")
-        return result
+    get_Visible() {
+        result := ComCall(18, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
      * 
      * @param {Integer} iIndex 
      * @param {Integer} iWhich 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetDataAt(iIndex, iWhich, pVariant) {
+    GetDataAt(iIndex, iWhich) {
+        pVariant := VARIANT()
         result := ComCall(19, this, "int", iIndex, "int", iWhich, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 }

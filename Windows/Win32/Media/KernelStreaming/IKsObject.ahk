@@ -35,6 +35,6 @@ class IKsObject extends IUnknown{
      */
     KsGetObjectHandle() {
         result := ComCall(3, this, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 }

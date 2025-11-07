@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLElementCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -48,23 +49,21 @@ class IHTMLTable2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_cells(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_cells() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
      * 
      * @param {Integer} indexFrom 
      * @param {Integer} indexTo 
-     * @param {Pointer<IDispatch>} row 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    moveRow(indexFrom, indexTo, row) {
-        result := ComCall(10, this, "int", indexFrom, "int", indexTo, "ptr*", row, "HRESULT")
-        return result
+    moveRow(indexFrom, indexTo) {
+        result := ComCall(10, this, "int", indexFrom, "int", indexTo, "ptr*", &row := 0, "HRESULT")
+        return IDispatch(row)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,64 +33,52 @@ class IMcastScope extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_scopeid
      */
-    get_ScopeID(pID) {
-        pIDMarshal := pID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pIDMarshal, pID, "HRESULT")
-        return result
+    get_ScopeID() {
+        result := ComCall(7, this, "int*", &pID := 0, "HRESULT")
+        return pID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_serverid
      */
-    get_ServerID(pID) {
-        pIDMarshal := pID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pIDMarshal, pID, "HRESULT")
-        return result
+    get_ServerID() {
+        result := ComCall(8, this, "int*", &pID := 0, "HRESULT")
+        return pID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_interfaceid
      */
-    get_InterfaceID(pID) {
-        pIDMarshal := pID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pIDMarshal, pID, "HRESULT")
-        return result
+    get_InterfaceID() {
+        result := ComCall(9, this, "int*", &pID := 0, "HRESULT")
+        return pID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_scopedescription
      */
-    get_ScopeDescription(ppDescription) {
+    get_ScopeDescription() {
+        ppDescription := BSTR()
         result := ComCall(10, this, "ptr", ppDescription, "HRESULT")
-        return result
+        return ppDescription
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pTTL 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_ttl
      */
-    get_TTL(pTTL) {
-        pTTLMarshal := pTTL is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pTTLMarshal, pTTL, "HRESULT")
-        return result
+    get_TTL() {
+        result := ComCall(11, this, "int*", &pTTL := 0, "HRESULT")
+        return pTTL
     }
 }

@@ -34,16 +34,15 @@ class IFtpRoleProvider extends IUnknown{
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 
      * @param {PWSTR} pszRole 
-     * @param {Pointer<BOOL>} pfIsInRole 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsUserInRole(pszSessionId, pszSiteName, pszUserName, pszRole, pfIsInRole) {
+    IsUserInRole(pszSessionId, pszSiteName, pszUserName, pszRole) {
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
         pszSiteName := pszSiteName is String ? StrPtr(pszSiteName) : pszSiteName
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
         pszRole := pszRole is String ? StrPtr(pszRole) : pszRole
 
-        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr", pszRole, "ptr", pfIsInRole, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr", pszRole, "int*", &pfIsInRole := 0, "HRESULT")
+        return pfIsInRole
     }
 }

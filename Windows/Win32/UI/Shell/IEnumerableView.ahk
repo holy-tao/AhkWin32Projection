@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumIDList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -51,12 +52,11 @@ class IEnumerableView extends IUnknown{
      * 
      * @param {Pointer<ITEMIDLIST>} pidlFolder 
      * @param {Integer} dwEnumFlags 
-     * @param {Pointer<IEnumIDList>} ppEnumIDList 
-     * @returns {HRESULT} 
+     * @returns {IEnumIDList} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ienumerableview-createenumidlistfromcontents
      */
-    CreateEnumIDListFromContents(pidlFolder, dwEnumFlags, ppEnumIDList) {
-        result := ComCall(4, this, "ptr", pidlFolder, "uint", dwEnumFlags, "ptr*", ppEnumIDList, "HRESULT")
-        return result
+    CreateEnumIDListFromContents(pidlFolder, dwEnumFlags) {
+        result := ComCall(4, this, "ptr", pidlFolder, "uint", dwEnumFlags, "ptr*", &ppEnumIDList := 0, "HRESULT")
+        return IEnumIDList(ppEnumIDList)
     }
 }

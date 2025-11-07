@@ -1210,7 +1210,7 @@ class DataExchange {
 
         pcbDataSizeMarshal := pcbDataSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("USER32.dll\DdeAccessData", "ptr", hData, pcbDataSizeMarshal, pcbDataSize, "char*")
+        result := DllCall("USER32.dll\DdeAccessData", "ptr", hData, pcbDataSizeMarshal, pcbDataSize, "ptr")
         return result
     }
 

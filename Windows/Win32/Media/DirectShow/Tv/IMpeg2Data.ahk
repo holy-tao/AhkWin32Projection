@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISectionList.ahk
+#Include .\IMpeg2Stream.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,13 +49,12 @@ class IMpeg2Data extends IUnknown{
      * @param {Integer} tid 
      * @param {Pointer<MPEG2_FILTER>} pFilter 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<ISectionList>} ppSectionList 
-     * @returns {HRESULT} 
+     * @returns {ISectionList} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2data-getsection
      */
-    GetSection(pid, tid, pFilter, dwTimeout, ppSectionList) {
-        result := ComCall(3, this, "ushort", pid, "char", tid, "ptr", pFilter, "uint", dwTimeout, "ptr*", ppSectionList, "HRESULT")
-        return result
+    GetSection(pid, tid, pFilter, dwTimeout) {
+        result := ComCall(3, this, "ushort", pid, "char", tid, "ptr", pFilter, "uint", dwTimeout, "ptr*", &ppSectionList := 0, "HRESULT")
+        return ISectionList(ppSectionList)
     }
 
     /**
@@ -62,13 +63,12 @@ class IMpeg2Data extends IUnknown{
      * @param {Integer} tid 
      * @param {Pointer<MPEG2_FILTER>} pFilter 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<ISectionList>} ppSectionList 
-     * @returns {HRESULT} 
+     * @returns {ISectionList} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2data-gettable
      */
-    GetTable(pid, tid, pFilter, dwTimeout, ppSectionList) {
-        result := ComCall(4, this, "ushort", pid, "char", tid, "ptr", pFilter, "uint", dwTimeout, "ptr*", ppSectionList, "HRESULT")
-        return result
+    GetTable(pid, tid, pFilter, dwTimeout) {
+        result := ComCall(4, this, "ushort", pid, "char", tid, "ptr", pFilter, "uint", dwTimeout, "ptr*", &ppSectionList := 0, "HRESULT")
+        return ISectionList(ppSectionList)
     }
 
     /**
@@ -77,14 +77,13 @@ class IMpeg2Data extends IUnknown{
      * @param {Integer} tid 
      * @param {Pointer<MPEG2_FILTER>} pFilter 
      * @param {HANDLE} hDataReadyEvent 
-     * @param {Pointer<IMpeg2Stream>} ppMpegStream 
-     * @returns {HRESULT} 
+     * @returns {IMpeg2Stream} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2data-getstreamofsections
      */
-    GetStreamOfSections(pid, tid, pFilter, hDataReadyEvent, ppMpegStream) {
+    GetStreamOfSections(pid, tid, pFilter, hDataReadyEvent) {
         hDataReadyEvent := hDataReadyEvent is Win32Handle ? NumGet(hDataReadyEvent, "ptr") : hDataReadyEvent
 
-        result := ComCall(5, this, "ushort", pid, "char", tid, "ptr", pFilter, "ptr", hDataReadyEvent, "ptr*", ppMpegStream, "HRESULT")
-        return result
+        result := ComCall(5, this, "ushort", pid, "char", tid, "ptr", pFilter, "ptr", hDataReadyEvent, "ptr*", &ppMpegStream := 0, "HRESULT")
+        return IMpeg2Stream(ppMpegStream)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISWbemPrivilegeSet.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,14 +37,11 @@ class ISWbemSecurity extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} iImpersonationLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ImpersonationLevel(iImpersonationLevel) {
-        iImpersonationLevelMarshal := iImpersonationLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, iImpersonationLevelMarshal, iImpersonationLevel, "HRESULT")
-        return result
+    get_ImpersonationLevel() {
+        result := ComCall(7, this, "int*", &iImpersonationLevel := 0, "HRESULT")
+        return iImpersonationLevel
     }
 
     /**
@@ -58,14 +56,11 @@ class ISWbemSecurity extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} iAuthenticationLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AuthenticationLevel(iAuthenticationLevel) {
-        iAuthenticationLevelMarshal := iAuthenticationLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, iAuthenticationLevelMarshal, iAuthenticationLevel, "HRESULT")
-        return result
+    get_AuthenticationLevel() {
+        result := ComCall(9, this, "int*", &iAuthenticationLevel := 0, "HRESULT")
+        return iAuthenticationLevel
     }
 
     /**
@@ -80,11 +75,10 @@ class ISWbemSecurity extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISWbemPrivilegeSet>} objWbemPrivilegeSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemPrivilegeSet} 
      */
-    get_Privileges(objWbemPrivilegeSet) {
-        result := ComCall(11, this, "ptr*", objWbemPrivilegeSet, "HRESULT")
-        return result
+    get_Privileges() {
+        result := ComCall(11, this, "ptr*", &objWbemPrivilegeSet := 0, "HRESULT")
+        return ISWbemPrivilegeSet(objWbemPrivilegeSet)
     }
 }

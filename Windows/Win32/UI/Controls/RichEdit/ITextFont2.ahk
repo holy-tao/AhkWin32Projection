@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITextFont2.ahk
 #Include .\ITextFont.ahk
 
 /**
@@ -32,28 +33,22 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getcount
      */
-    GetCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(62, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(62, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getautoligatures
      */
-    GetAutoLigatures(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(63, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetAutoLigatures() {
+        result := ComCall(63, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -69,15 +64,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getautospacealpha
      */
-    GetAutospaceAlpha(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(65, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetAutospaceAlpha() {
+        result := ComCall(65, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -93,15 +85,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getautospacenumeric
      */
-    GetAutospaceNumeric(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(67, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetAutospaceNumeric() {
+        result := ComCall(67, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -117,15 +106,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getautospaceparens
      */
-    GetAutospaceParens(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(69, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetAutospaceParens() {
+        result := ComCall(69, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -141,15 +127,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getcharrep
      */
-    GetCharRep(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(71, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetCharRep() {
+        result := ComCall(71, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -165,15 +148,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getcompressionmode
      */
-    GetCompressionMode(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(73, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetCompressionMode() {
+        result := ComCall(73, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -189,15 +169,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getcookie
      */
-    GetCookie(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(75, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetCookie() {
+        result := ComCall(75, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -213,15 +190,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getdoublestrike
      */
-    GetDoubleStrike(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(77, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetDoubleStrike() {
+        result := ComCall(77, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -237,13 +211,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<ITextFont2>} ppFont 
-     * @returns {HRESULT} 
+     * @returns {ITextFont2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getduplicate2
      */
-    GetDuplicate2(ppFont) {
-        result := ComCall(79, this, "ptr*", ppFont, "HRESULT")
-        return result
+    GetDuplicate2() {
+        result := ComCall(79, this, "ptr*", &ppFont := 0, "HRESULT")
+        return ITextFont2(ppFont)
     }
 
     /**
@@ -259,28 +232,22 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getlinktype
      */
-    GetLinkType(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(81, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetLinkType() {
+        result := ComCall(81, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getmathzone
      */
-    GetMathZone(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(82, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetMathZone() {
+        result := ComCall(82, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -296,15 +263,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getmodwidthpairs
      */
-    GetModWidthPairs(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(84, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetModWidthPairs() {
+        result := ComCall(84, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -320,15 +284,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getmodwidthspace
      */
-    GetModWidthSpace(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(86, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetModWidthSpace() {
+        result := ComCall(86, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -344,15 +305,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getoldnumbers
      */
-    GetOldNumbers(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(88, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetOldNumbers() {
+        result := ComCall(88, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -368,15 +326,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getoverlapping
      */
-    GetOverlapping(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(90, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetOverlapping() {
+        result := ComCall(90, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -392,15 +347,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getpositionsubsuper
      */
-    GetPositionSubSuper(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(92, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetPositionSubSuper() {
+        result := ComCall(92, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -416,15 +368,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getscaling
      */
-    GetScaling(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(94, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetScaling() {
+        result := ComCall(94, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -440,15 +389,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Float>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getspaceextension
      */
-    GetSpaceExtension(pValue) {
-        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
-
-        result := ComCall(96, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetSpaceExtension() {
+        result := ComCall(96, this, "float*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -464,15 +410,12 @@ class ITextFont2 extends ITextFont{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getunderlinepositionmode
      */
-    GetUnderlinePositionMode(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(98, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetUnderlinePositionMode() {
+        result := ComCall(98, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -519,15 +462,12 @@ class ITextFont2 extends ITextFont{
     /**
      * 
      * @param {Integer} Type 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getproperty
      */
-    GetProperty(Type, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(102, this, "int", Type, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetProperty(Type) {
+        result := ComCall(102, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -549,15 +489,12 @@ class ITextFont2 extends ITextFont{
     /**
      * 
      * @param {ITextFont2} pFont 
-     * @param {Pointer<Integer>} pB 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-isequal2
      */
-    IsEqual2(pFont, pB) {
-        pBMarshal := pB is VarRef ? "int*" : "ptr"
-
-        result := ComCall(104, this, "ptr", pFont, pBMarshal, pB, "HRESULT")
-        return result
+    IsEqual2(pFont) {
+        result := ComCall(104, this, "ptr", pFont, "int*", &pB := 0, "HRESULT")
+        return pB
     }
 
     /**

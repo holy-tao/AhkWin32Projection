@@ -36,35 +36,29 @@ class IProtectionPolicyManagerInterop extends IInspectable{
      * @param {HSTRING} sourceIdentity 
      * @param {HSTRING} targetIdentity 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop-requestaccessforwindowasync
      */
-    RequestAccessForWindowAsync(appWindow, sourceIdentity, targetIdentity, riid, asyncOperation) {
+    RequestAccessForWindowAsync(appWindow, sourceIdentity, targetIdentity, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
         targetIdentity := targetIdentity is Win32Handle ? NumGet(targetIdentity, "ptr") : targetIdentity
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 
     /**
      * 
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} result 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop-getforwindow
      */
-    GetForWindow(appWindow, riid, result) {
+    GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        resultMarshal := result is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, resultMarshal, result, "HRESULT")
+        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, "ptr*", &result := 0, "HRESULT")
         return result
     }
 }

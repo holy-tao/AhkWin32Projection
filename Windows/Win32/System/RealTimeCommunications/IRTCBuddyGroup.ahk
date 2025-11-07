@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCEnumBuddies.ahk
+#Include .\IRTCCollection.ahk
+#Include .\IRTCProfile2.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,12 +34,12 @@ class IRTCBuddyGroup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrGroupName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrGroupName) {
+    get_Name() {
+        pbstrGroupName := BSTR()
         result := ComCall(3, this, "ptr", pbstrGroupName, "HRESULT")
-        return result
+        return pbstrGroupName
     }
 
     /**
@@ -73,32 +76,30 @@ class IRTCBuddyGroup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IRTCEnumBuddies>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IRTCEnumBuddies} 
      */
-    EnumerateBuddies(ppEnum) {
-        result := ComCall(7, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumerateBuddies() {
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IRTCEnumBuddies(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IRTCCollection} 
      */
-    get_Buddies(ppCollection) {
-        result := ComCall(8, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    get_Buddies() {
+        result := ComCall(8, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IRTCCollection(ppCollection)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Data(pbstrData) {
+    get_Data() {
+        pbstrData := BSTR()
         result := ComCall(9, this, "ptr", pbstrData, "HRESULT")
-        return result
+        return pbstrData
     }
 
     /**
@@ -115,11 +116,10 @@ class IRTCBuddyGroup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IRTCProfile2>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IRTCProfile2} 
      */
-    get_Profile(ppProfile) {
-        result := ComCall(11, this, "ptr*", ppProfile, "HRESULT")
-        return result
+    get_Profile() {
+        result := ComCall(11, this, "ptr*", &ppProfile := 0, "HRESULT")
+        return IRTCProfile2(ppProfile)
     }
 }

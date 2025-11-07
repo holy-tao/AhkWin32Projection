@@ -40,14 +40,13 @@ class IDynamicHWHandler extends IUnknown{
      * 
      * @param {PWSTR} pszDeviceID 
      * @param {Integer} dwContentType 
-     * @param {Pointer<PWSTR>} ppszAction 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-idynamichwhandler-getdynamicinfo
      */
-    GetDynamicInfo(pszDeviceID, dwContentType, ppszAction) {
+    GetDynamicInfo(pszDeviceID, dwContentType) {
         pszDeviceID := pszDeviceID is String ? StrPtr(pszDeviceID) : pszDeviceID
 
-        result := ComCall(3, this, "ptr", pszDeviceID, "uint", dwContentType, "ptr", ppszAction, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszDeviceID, "uint", dwContentType, "ptr*", &ppszAction := 0, "HRESULT")
+        return ppszAction
     }
 }

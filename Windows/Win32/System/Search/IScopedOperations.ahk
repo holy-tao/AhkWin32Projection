@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IBindResource.ahk
 
 /**
@@ -41,10 +42,13 @@ class IScopedOperations extends IBindResource{
      * @returns {HRESULT} 
      */
     Copy(cRows, rgpwszSourceURLs, rgpwszDestURLs, dwCopyFlags, pAuthenticate, rgdwStatus, rgpwszNewURLs, ppStringsBuffer) {
+        rgpwszSourceURLsMarshal := rgpwszSourceURLs is VarRef ? "ptr*" : "ptr"
+        rgpwszDestURLsMarshal := rgpwszDestURLs is VarRef ? "ptr*" : "ptr"
         rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
+        rgpwszNewURLsMarshal := rgpwszNewURLs is VarRef ? "ptr*" : "ptr"
         ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cRows, "ptr", rgpwszSourceURLs, "ptr", rgpwszDestURLs, "uint", dwCopyFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, "ptr", rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
+        result := ComCall(4, this, "ptr", cRows, rgpwszSourceURLsMarshal, rgpwszSourceURLs, rgpwszDestURLsMarshal, rgpwszDestURLs, "uint", dwCopyFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, rgpwszNewURLsMarshal, rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 
@@ -61,10 +65,13 @@ class IScopedOperations extends IBindResource{
      * @returns {HRESULT} 
      */
     Move(cRows, rgpwszSourceURLs, rgpwszDestURLs, dwMoveFlags, pAuthenticate, rgdwStatus, rgpwszNewURLs, ppStringsBuffer) {
+        rgpwszSourceURLsMarshal := rgpwszSourceURLs is VarRef ? "ptr*" : "ptr"
+        rgpwszDestURLsMarshal := rgpwszDestURLs is VarRef ? "ptr*" : "ptr"
         rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
+        rgpwszNewURLsMarshal := rgpwszNewURLs is VarRef ? "ptr*" : "ptr"
         ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", cRows, "ptr", rgpwszSourceURLs, "ptr", rgpwszDestURLs, "uint", dwMoveFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, "ptr", rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
+        result := ComCall(5, this, "ptr", cRows, rgpwszSourceURLsMarshal, rgpwszSourceURLs, rgpwszDestURLsMarshal, rgpwszDestURLs, "uint", dwMoveFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, rgpwszNewURLsMarshal, rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 
@@ -73,14 +80,13 @@ class IScopedOperations extends IBindResource{
      * @param {Pointer} cRows 
      * @param {Pointer<PWSTR>} rgpwszURLs 
      * @param {Integer} dwDeleteFlags 
-     * @param {Pointer<Integer>} rgdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Delete(cRows, rgpwszURLs, dwDeleteFlags, rgdwStatus) {
-        rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
+    Delete(cRows, rgpwszURLs, dwDeleteFlags) {
+        rgpwszURLsMarshal := rgpwszURLs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", cRows, "ptr", rgpwszURLs, "uint", dwDeleteFlags, rgdwStatusMarshal, rgdwStatus, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", cRows, rgpwszURLsMarshal, rgpwszURLs, "uint", dwDeleteFlags, "uint*", &rgdwStatus := 0, "HRESULT")
+        return rgdwStatus
     }
 
     /**
@@ -91,11 +97,10 @@ class IScopedOperations extends IBindResource{
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
-     * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    OpenRowset(pUnkOuter, pTableID, pIndexID, riid, cPropertySets, rgPropertySets, ppRowset) {
-        result := ComCall(7, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", pIndexID, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", ppRowset, "HRESULT")
-        return result
+    OpenRowset(pUnkOuter, pTableID, pIndexID, riid, cPropertySets, rgPropertySets) {
+        result := ComCall(7, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", pIndexID, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        return IUnknown(ppRowset)
     }
 }

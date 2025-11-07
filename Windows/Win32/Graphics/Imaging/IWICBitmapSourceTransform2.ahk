@@ -33,13 +33,10 @@ class IWICBitmapSourceTransform2 extends IWICBitmapSourceTransform{
      * @param {Pointer<Guid>} pPixelFormat 
      * @param {Integer} cCount 
      * @param {Pointer<IWICColorContext>} ppIColorContexts 
-     * @param {Pointer<Integer>} pcActualCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetColorContextsForPixelFormat(pPixelFormat, cCount, ppIColorContexts, pcActualCount) {
-        pcActualCountMarshal := pcActualCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pPixelFormat, "uint", cCount, "ptr*", ppIColorContexts, pcActualCountMarshal, pcActualCount, "HRESULT")
-        return result
+    GetColorContextsForPixelFormat(pPixelFormat, cCount, ppIColorContexts) {
+        result := ComCall(7, this, "ptr", pPixelFormat, "uint", cCount, "ptr*", ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
+        return pcActualCount
     }
 }

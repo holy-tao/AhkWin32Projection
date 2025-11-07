@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,92 +44,86 @@ class IFaxDevice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_id
      */
-    get_Id(plId) {
-        plIdMarshal := plId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plIdMarshal, plId, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(7, this, "int*", &plId := 0, "HRESULT")
+        return plId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDeviceName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_devicename
      */
-    get_DeviceName(pbstrDeviceName) {
+    get_DeviceName() {
+        pbstrDeviceName := BSTR()
         result := ComCall(8, this, "ptr", pbstrDeviceName, "HRESULT")
-        return result
+        return pbstrDeviceName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProviderUniqueName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_provideruniquename
      */
-    get_ProviderUniqueName(pbstrProviderUniqueName) {
+    get_ProviderUniqueName() {
+        pbstrProviderUniqueName := BSTR()
         result := ComCall(9, this, "ptr", pbstrProviderUniqueName, "HRESULT")
-        return result
+        return pbstrProviderUniqueName
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbPoweredOff 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_poweredoff
      */
-    get_PoweredOff(pbPoweredOff) {
-        result := ComCall(10, this, "ptr", pbPoweredOff, "HRESULT")
-        return result
+    get_PoweredOff() {
+        result := ComCall(10, this, "short*", &pbPoweredOff := 0, "HRESULT")
+        return pbPoweredOff
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbReceivingNow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_receivingnow
      */
-    get_ReceivingNow(pbReceivingNow) {
-        result := ComCall(11, this, "ptr", pbReceivingNow, "HRESULT")
-        return result
+    get_ReceivingNow() {
+        result := ComCall(11, this, "short*", &pbReceivingNow := 0, "HRESULT")
+        return pbReceivingNow
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbSendingNow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_sendingnow
      */
-    get_SendingNow(pbSendingNow) {
-        result := ComCall(12, this, "ptr", pbSendingNow, "HRESULT")
-        return result
+    get_SendingNow() {
+        result := ComCall(12, this, "short*", &pbSendingNow := 0, "HRESULT")
+        return pbSendingNow
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvUsedRoutingMethods 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_usedroutingmethods
      */
-    get_UsedRoutingMethods(pvUsedRoutingMethods) {
+    get_UsedRoutingMethods() {
+        pvUsedRoutingMethods := VARIANT()
         result := ComCall(13, this, "ptr", pvUsedRoutingMethods, "HRESULT")
-        return result
+        return pvUsedRoutingMethods
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_description
      */
-    get_Description(pbstrDescription) {
+    get_Description() {
+        pbstrDescription := BSTR()
         result := ComCall(14, this, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 
     /**
@@ -146,13 +141,12 @@ class IFaxDevice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbSendEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_sendenabled
      */
-    get_SendEnabled(pbSendEnabled) {
-        result := ComCall(16, this, "ptr", pbSendEnabled, "HRESULT")
-        return result
+    get_SendEnabled() {
+        result := ComCall(16, this, "short*", &pbSendEnabled := 0, "HRESULT")
+        return pbSendEnabled
     }
 
     /**
@@ -168,15 +162,12 @@ class IFaxDevice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pReceiveMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_receivemode
      */
-    get_ReceiveMode(pReceiveMode) {
-        pReceiveModeMarshal := pReceiveMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, pReceiveModeMarshal, pReceiveMode, "HRESULT")
-        return result
+    get_ReceiveMode() {
+        result := ComCall(18, this, "int*", &pReceiveMode := 0, "HRESULT")
+        return pReceiveMode
     }
 
     /**
@@ -192,15 +183,12 @@ class IFaxDevice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plRingsBeforeAnswer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_ringsbeforeanswer
      */
-    get_RingsBeforeAnswer(plRingsBeforeAnswer) {
-        plRingsBeforeAnswerMarshal := plRingsBeforeAnswer is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, plRingsBeforeAnswerMarshal, plRingsBeforeAnswer, "HRESULT")
-        return result
+    get_RingsBeforeAnswer() {
+        result := ComCall(20, this, "int*", &plRingsBeforeAnswer := 0, "HRESULT")
+        return plRingsBeforeAnswer
     }
 
     /**
@@ -216,13 +204,13 @@ class IFaxDevice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_csid
      */
-    get_CSID(pbstrCSID) {
+    get_CSID() {
+        pbstrCSID := BSTR()
         result := ComCall(22, this, "ptr", pbstrCSID, "HRESULT")
-        return result
+        return pbstrCSID
     }
 
     /**
@@ -240,13 +228,13 @@ class IFaxDevice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_tsid
      */
-    get_TSID(pbstrTSID) {
+    get_TSID() {
+        pbstrTSID := BSTR()
         result := ComCall(24, this, "ptr", pbstrTSID, "HRESULT")
-        return result
+        return pbstrTSID
     }
 
     /**
@@ -285,15 +273,15 @@ class IFaxDevice extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrGUID 
-     * @param {Pointer<VARIANT>} pvProperty 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-getextensionproperty
      */
-    GetExtensionProperty(bstrGUID, pvProperty) {
+    GetExtensionProperty(bstrGUID) {
         bstrGUID := bstrGUID is String ? BSTR.Alloc(bstrGUID).Value : bstrGUID
 
+        pvProperty := VARIANT()
         result := ComCall(28, this, "ptr", bstrGUID, "ptr", pvProperty, "HRESULT")
-        return result
+        return pvProperty
     }
 
     /**
@@ -326,13 +314,12 @@ class IFaxDevice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbRingingNow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_ringingnow
      */
-    get_RingingNow(pbRingingNow) {
-        result := ComCall(31, this, "ptr", pbRingingNow, "HRESULT")
-        return result
+    get_RingingNow() {
+        result := ComCall(31, this, "short*", &pbRingingNow := 0, "HRESULT")
+        return pbRingingNow
     }
 
     /**

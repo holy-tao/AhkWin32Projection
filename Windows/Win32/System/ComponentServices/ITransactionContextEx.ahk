@@ -55,15 +55,12 @@ class ITransactionContextEx extends IUnknown{
      * 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactioncontextex-createinstance
      */
-    CreateInstance(rclsid, riid, pObject) {
-        pObjectMarshal := pObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", rclsid, "ptr", riid, pObjectMarshal, pObject, "HRESULT")
-        return result
+    CreateInstance(rclsid, riid) {
+        result := ComCall(3, this, "ptr", rclsid, "ptr", riid, "ptr*", &pObject := 0, "HRESULT")
+        return pObject
     }
 
     /**

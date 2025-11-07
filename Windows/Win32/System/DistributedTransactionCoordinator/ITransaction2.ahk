@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\XACTTRANSINFO.ahk
 #Include .\ITransactionCloner.ahk
 
 /**
@@ -30,11 +31,11 @@ class ITransaction2 extends ITransactionCloner{
 
     /**
      * 
-     * @param {Pointer<XACTTRANSINFO>} pinfo 
-     * @returns {HRESULT} 
+     * @returns {XACTTRANSINFO} 
      */
-    GetTransactionInfo2(pinfo) {
+    GetTransactionInfo2() {
+        pinfo := XACTTRANSINFO()
         result := ComCall(7, this, "ptr", pinfo, "HRESULT")
-        return result
+        return pinfo
     }
 }

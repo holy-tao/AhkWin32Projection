@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMDMMetaData.ahk
 #Include .\IWMDMStorage2.ahk
 
 /**
@@ -32,13 +33,12 @@ class IWMDMStorage3 extends IWMDMStorage2{
 
     /**
      * 
-     * @param {Pointer<IWMDMMetaData>} ppMetadata 
-     * @returns {HRESULT} 
+     * @returns {IWMDMMetaData} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage3-getmetadata
      */
-    GetMetadata(ppMetadata) {
-        result := ComCall(15, this, "ptr*", ppMetadata, "HRESULT")
-        return result
+    GetMetadata() {
+        result := ComCall(15, this, "ptr*", &ppMetadata := 0, "HRESULT")
+        return IWMDMMetaData(ppMetadata)
     }
 
     /**
@@ -54,13 +54,12 @@ class IWMDMStorage3 extends IWMDMStorage2{
 
     /**
      * 
-     * @param {Pointer<IWMDMMetaData>} ppMetadata 
-     * @returns {HRESULT} 
+     * @returns {IWMDMMetaData} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage3-createemptymetadataobject
      */
-    CreateEmptyMetadataObject(ppMetadata) {
-        result := ComCall(17, this, "ptr*", ppMetadata, "HRESULT")
-        return result
+    CreateEmptyMetadataObject() {
+        result := ComCall(17, this, "ptr*", &ppMetadata := 0, "HRESULT")
+        return IWMDMMetaData(ppMetadata)
     }
 
     /**

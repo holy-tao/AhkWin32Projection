@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\PREVIEWHANDLERFRAMEINFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,13 +37,13 @@ class IPreviewHandlerFrame extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PREVIEWHANDLERFRAMEINFO>} pinfo 
-     * @returns {HRESULT} 
+     * @returns {PREVIEWHANDLERFRAMEINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandlerframe-getwindowcontext
      */
-    GetWindowContext(pinfo) {
+    GetWindowContext() {
+        pinfo := PREVIEWHANDLERFRAMEINFO()
         result := ComCall(3, this, "ptr", pinfo, "HRESULT")
-        return result
+        return pinfo
     }
 
     /**

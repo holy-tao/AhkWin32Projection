@@ -2,7 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLCurrentStyle.ahk
+#Include .\IHTMLRectCollection.ahk
+#Include .\IHTMLRect.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IHTMLStyle.ahk
+#Include .\IHTMLElementCollection.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -31,12 +38,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_scopeName(p) {
+    get_scopeName() {
+        p := BSTR()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -70,24 +77,24 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onlosecapture(p) {
+    get_onlosecapture() {
+        p := VARIANT()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {Integer} x 
      * @param {Integer} y 
-     * @param {Pointer<BSTR>} component 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    componentFromPoint(x, y, component) {
+    componentFromPoint(x, y) {
+        component := BSTR()
         result := ComCall(12, this, "int", x, "int", y, "ptr", component, "HRESULT")
-        return result
+        return component
     }
 
     /**
@@ -112,12 +119,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onscroll(p) {
+    get_onscroll() {
+        p := VARIANT()
         result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -132,12 +139,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondrag(p) {
+    get_ondrag() {
+        p := VARIANT()
         result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -152,12 +159,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondragend(p) {
+    get_ondragend() {
+        p := VARIANT()
         result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -172,12 +179,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondragenter(p) {
+    get_ondragenter() {
+        p := VARIANT()
         result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -192,12 +199,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondragover(p) {
+    get_ondragover() {
+        p := VARIANT()
         result := ComCall(23, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -212,12 +219,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondragleave(p) {
+    get_ondragleave() {
+        p := VARIANT()
         result := ComCall(25, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -232,12 +239,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondrop(p) {
+    get_ondrop() {
+        p := VARIANT()
         result := ComCall(27, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -252,12 +259,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onbeforecut(p) {
+    get_onbeforecut() {
+        p := VARIANT()
         result := ComCall(29, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -272,12 +279,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oncut(p) {
+    get_oncut() {
+        p := VARIANT()
         result := ComCall(31, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -292,12 +299,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onbeforecopy(p) {
+    get_onbeforecopy() {
+        p := VARIANT()
         result := ComCall(33, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -312,12 +319,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oncopy(p) {
+    get_oncopy() {
+        p := VARIANT()
         result := ComCall(35, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -332,12 +339,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onbeforepaste(p) {
+    get_onbeforepaste() {
+        p := VARIANT()
         result := ComCall(37, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -352,22 +359,21 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onpaste(p) {
+    get_onpaste() {
+        p := VARIANT()
         result := ComCall(39, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLCurrentStyle>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLCurrentStyle} 
      */
-    get_currentStyle(p) {
-        result := ComCall(40, this, "ptr*", p, "HRESULT")
-        return result
+    get_currentStyle() {
+        result := ComCall(40, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLCurrentStyle(p)
     }
 
     /**
@@ -382,32 +388,30 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onpropertychange(p) {
+    get_onpropertychange() {
+        p := VARIANT()
         result := ComCall(42, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLRectCollection>} pRectCol 
-     * @returns {HRESULT} 
+     * @returns {IHTMLRectCollection} 
      */
-    getClientRects(pRectCol) {
-        result := ComCall(43, this, "ptr*", pRectCol, "HRESULT")
-        return result
+    getClientRects() {
+        result := ComCall(43, this, "ptr*", &pRectCol := 0, "HRESULT")
+        return IHTMLRectCollection(pRectCol)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLRect>} pRect 
-     * @returns {HRESULT} 
+     * @returns {IHTMLRect} 
      */
-    getBoundingClientRect(pRect) {
-        result := ComCall(44, this, "ptr*", pRect, "HRESULT")
-        return result
+    getBoundingClientRect() {
+        result := ComCall(44, this, "ptr*", &pRect := 0, "HRESULT")
+        return IHTMLRect(pRect)
     }
 
     /**
@@ -429,27 +433,26 @@ class IHTMLElement2 extends IDispatch{
     /**
      * 
      * @param {BSTR} propname 
-     * @param {Pointer<VARIANT>} expression 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getExpression(propname, expression) {
+    getExpression(propname) {
         propname := propname is String ? BSTR.Alloc(propname).Value : propname
 
+        expression := VARIANT()
         result := ComCall(46, this, "ptr", propname, "ptr", expression, "HRESULT")
-        return result
+        return expression
     }
 
     /**
      * 
      * @param {BSTR} propname 
-     * @param {Pointer<VARIANT_BOOL>} pfSuccess 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    removeExpression(propname, pfSuccess) {
+    removeExpression(propname) {
         propname := propname is String ? BSTR.Alloc(propname).Value : propname
 
-        result := ComCall(47, this, "ptr", propname, "ptr", pfSuccess, "HRESULT")
-        return result
+        result := ComCall(47, this, "ptr", propname, "short*", &pfSuccess := 0, "HRESULT")
+        return pfSuccess
     }
 
     /**
@@ -464,14 +467,11 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_tabIndex(p) {
-        pMarshal := p is VarRef ? "short*" : "ptr"
-
-        result := ComCall(49, this, pMarshal, p, "HRESULT")
-        return result
+    get_tabIndex() {
+        result := ComCall(49, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -497,12 +497,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_accessKey(p) {
+    get_accessKey() {
+        p := BSTR()
         result := ComCall(52, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -517,12 +517,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onblur(p) {
+    get_onblur() {
+        p := VARIANT()
         result := ComCall(54, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -537,12 +537,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onfocus(p) {
+    get_onfocus() {
+        p := VARIANT()
         result := ComCall(56, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -557,12 +557,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onresize(p) {
+    get_onresize() {
+        p := VARIANT()
         result := ComCall(58, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -596,64 +596,51 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_clientHeight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(62, this, pMarshal, p, "HRESULT")
-        return result
+    get_clientHeight() {
+        result := ComCall(62, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_clientWidth(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(63, this, pMarshal, p, "HRESULT")
-        return result
+    get_clientWidth() {
+        result := ComCall(63, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_clientTop(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(64, this, pMarshal, p, "HRESULT")
-        return result
+    get_clientTop() {
+        result := ComCall(64, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_clientLeft(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(65, this, pMarshal, p, "HRESULT")
-        return result
+    get_clientLeft() {
+        result := ComCall(65, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
-     * @param {Pointer<VARIANT_BOOL>} pfResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    attachEvent(event, pDisp, pfResult) {
+    attachEvent(event, pDisp) {
         event := event is String ? BSTR.Alloc(event).Value : event
 
-        result := ComCall(66, this, "ptr", event, "ptr", pDisp, "ptr", pfResult, "HRESULT")
-        return result
+        result := ComCall(66, this, "ptr", event, "ptr", pDisp, "short*", &pfResult := 0, "HRESULT")
+        return pfResult
     }
 
     /**
@@ -671,12 +658,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_readyState(p) {
+    get_readyState() {
+        p := VARIANT()
         result := ComCall(68, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -691,12 +678,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onreadystatechange(p) {
+    get_onreadystatechange() {
+        p := VARIANT()
         result := ComCall(70, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -711,12 +698,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onrowsdelete(p) {
+    get_onrowsdelete() {
+        p := VARIANT()
         result := ComCall(72, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -731,12 +718,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onrowsinserted(p) {
+    get_onrowsinserted() {
+        p := VARIANT()
         result := ComCall(74, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -751,12 +738,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oncellchange(p) {
+    get_oncellchange() {
+        p := VARIANT()
         result := ComCall(76, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -773,46 +760,39 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_dir(p) {
+    get_dir() {
+        p := BSTR()
         result := ComCall(78, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} range 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    createControlRange(range) {
-        result := ComCall(79, this, "ptr*", range, "HRESULT")
-        return result
+    createControlRange() {
+        result := ComCall(79, this, "ptr*", &range := 0, "HRESULT")
+        return IDispatch(range)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_scrollHeight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(80, this, pMarshal, p, "HRESULT")
-        return result
+    get_scrollHeight() {
+        result := ComCall(80, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_scrollWidth(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(81, this, pMarshal, p, "HRESULT")
-        return result
+    get_scrollWidth() {
+        result := ComCall(81, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -827,14 +807,11 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_scrollTop(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(83, this, pMarshal, p, "HRESULT")
-        return result
+    get_scrollTop() {
+        result := ComCall(83, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -849,14 +826,11 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_scrollLeft(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(85, this, pMarshal, p, "HRESULT")
-        return result
+    get_scrollLeft() {
+        result := ComCall(85, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -890,125 +864,116 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oncontextmenu(p) {
+    get_oncontextmenu() {
+        p := VARIANT()
         result := ComCall(89, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {BSTR} where 
      * @param {IHTMLElement} insertedElement 
-     * @param {Pointer<IHTMLElement>} inserted 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    insertAdjacentElement(where, insertedElement, inserted) {
+    insertAdjacentElement(where, insertedElement) {
         where := where is String ? BSTR.Alloc(where).Value : where
 
-        result := ComCall(90, this, "ptr", where, "ptr", insertedElement, "ptr*", inserted, "HRESULT")
-        return result
+        result := ComCall(90, this, "ptr", where, "ptr", insertedElement, "ptr*", &inserted := 0, "HRESULT")
+        return IHTMLElement(inserted)
     }
 
     /**
      * 
      * @param {IHTMLElement} apply 
      * @param {BSTR} where 
-     * @param {Pointer<IHTMLElement>} applied 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    applyElement(apply, where, applied) {
+    applyElement(apply, where) {
         where := where is String ? BSTR.Alloc(where).Value : where
 
-        result := ComCall(91, this, "ptr", apply, "ptr", where, "ptr*", applied, "HRESULT")
-        return result
+        result := ComCall(91, this, "ptr", apply, "ptr", where, "ptr*", &applied := 0, "HRESULT")
+        return IHTMLElement(applied)
     }
 
     /**
      * 
      * @param {BSTR} where 
-     * @param {Pointer<BSTR>} text 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getAdjacentText(where, text) {
+    getAdjacentText(where) {
         where := where is String ? BSTR.Alloc(where).Value : where
 
+        text := BSTR()
         result := ComCall(92, this, "ptr", where, "ptr", text, "HRESULT")
-        return result
+        return text
     }
 
     /**
      * 
      * @param {BSTR} where 
      * @param {BSTR} newText 
-     * @param {Pointer<BSTR>} oldText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    replaceAdjacentText(where, newText, oldText) {
+    replaceAdjacentText(where, newText) {
         where := where is String ? BSTR.Alloc(where).Value : where
         newText := newText is String ? BSTR.Alloc(newText).Value : newText
 
+        oldText := BSTR()
         result := ComCall(93, this, "ptr", where, "ptr", newText, "ptr", oldText, "HRESULT")
-        return result
+        return oldText
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_canHaveChildren(p) {
-        result := ComCall(94, this, "ptr", p, "HRESULT")
-        return result
+    get_canHaveChildren() {
+        result := ComCall(94, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {BSTR} bstrUrl 
      * @param {Pointer<VARIANT>} pvarFactory 
-     * @param {Pointer<Integer>} pCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    addBehavior(bstrUrl, pvarFactory, pCookie) {
+    addBehavior(bstrUrl, pvarFactory) {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        pCookieMarshal := pCookie is VarRef ? "int*" : "ptr"
-
-        result := ComCall(95, this, "ptr", bstrUrl, "ptr", pvarFactory, pCookieMarshal, pCookie, "HRESULT")
-        return result
+        result := ComCall(95, this, "ptr", bstrUrl, "ptr", pvarFactory, "int*", &pCookie := 0, "HRESULT")
+        return pCookie
     }
 
     /**
      * 
      * @param {Integer} cookie 
-     * @param {Pointer<VARIANT_BOOL>} pfResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    removeBehavior(cookie, pfResult) {
-        result := ComCall(96, this, "int", cookie, "ptr", pfResult, "HRESULT")
-        return result
+    removeBehavior(cookie) {
+        result := ComCall(96, this, "int", cookie, "short*", &pfResult := 0, "HRESULT")
+        return pfResult
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStyle>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyle} 
      */
-    get_runtimeStyle(p) {
-        result := ComCall(97, this, "ptr*", p, "HRESULT")
-        return result
+    get_runtimeStyle() {
+        result := ComCall(97, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyle(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_behaviorUrns(p) {
-        result := ComCall(98, this, "ptr*", p, "HRESULT")
-        return result
+    get_behaviorUrns() {
+        result := ComCall(98, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
@@ -1025,12 +990,12 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_tagUrn(p) {
+    get_tagUrn() {
+        p := BSTR()
         result := ComCall(100, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1045,36 +1010,32 @@ class IHTMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onbeforeeditfocus(p) {
+    get_onbeforeeditfocus() {
+        p := VARIANT()
         result := ComCall(102, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_readyStateValue(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(103, this, pMarshal, p, "HRESULT")
-        return result
+    get_readyStateValue() {
+        result := ComCall(103, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {BSTR} v 
-     * @param {Pointer<IHTMLElementCollection>} pelColl 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    getElementsByTagName(v, pelColl) {
+    getElementsByTagName(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(104, this, "ptr", v, "ptr*", pelColl, "HRESULT")
-        return result
+        result := ComCall(104, this, "ptr", v, "ptr*", &pelColl := 0, "HRESULT")
+        return IHTMLElementCollection(pelColl)
     }
 }

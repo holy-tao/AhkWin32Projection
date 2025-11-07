@@ -32,27 +32,21 @@ class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2{
      * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {ISynchronize} pSync 
-     * @param {Pointer<Integer>} pulStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Send(pMsg, pSync, pulStatus) {
-        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pMsg, "ptr", pSync, pulStatusMarshal, pulStatus, "HRESULT")
-        return result
+    Send(pMsg, pSync) {
+        result := ComCall(9, this, "ptr", pMsg, "ptr", pSync, "uint*", &pulStatus := 0, "HRESULT")
+        return pulStatus
     }
 
     /**
      * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
-     * @param {Pointer<Integer>} pulStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Receive(pMsg, pulStatus) {
-        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "ptr", pMsg, pulStatusMarshal, pulStatus, "HRESULT")
-        return result
+    Receive(pMsg) {
+        result := ComCall(10, this, "ptr", pMsg, "uint*", &pulStatus := 0, "HRESULT")
+        return pulStatus
     }
 
     /**

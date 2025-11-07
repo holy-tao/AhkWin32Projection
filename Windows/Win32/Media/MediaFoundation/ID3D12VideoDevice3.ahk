@@ -34,29 +34,23 @@ class ID3D12VideoDevice3 extends ID3D12VideoDevice2{
      * 
      * @param {Pointer<D3D12_VIDEO_ENCODER_DESC>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppVideoEncoder 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice3-createvideoencoder
      */
-    CreateVideoEncoder(pDesc, riid, ppVideoEncoder) {
-        ppVideoEncoderMarshal := ppVideoEncoder is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(14, this, "ptr", pDesc, "ptr", riid, ppVideoEncoderMarshal, ppVideoEncoder, "HRESULT")
-        return result
+    CreateVideoEncoder(pDesc, riid) {
+        result := ComCall(14, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppVideoEncoder := 0, "HRESULT")
+        return ppVideoEncoder
     }
 
     /**
      * 
      * @param {Pointer<D3D12_VIDEO_ENCODER_HEAP_DESC>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppVideoEncoderHeap 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice3-createvideoencoderheap
      */
-    CreateVideoEncoderHeap(pDesc, riid, ppVideoEncoderHeap) {
-        ppVideoEncoderHeapMarshal := ppVideoEncoderHeap is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(15, this, "ptr", pDesc, "ptr", riid, ppVideoEncoderHeapMarshal, ppVideoEncoderHeap, "HRESULT")
-        return result
+    CreateVideoEncoderHeap(pDesc, riid) {
+        result := ComCall(15, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppVideoEncoderHeap := 0, "HRESULT")
+        return ppVideoEncoderHeap
     }
 }

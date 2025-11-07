@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,133 +31,112 @@ class IAMPlayListItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(3, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwSources 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSourceCount(pdwSources) {
-        pdwSourcesMarshal := pdwSources is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwSourcesMarshal, pdwSources, "HRESULT")
-        return result
+    GetSourceCount() {
+        result := ComCall(4, this, "uint*", &pdwSources := 0, "HRESULT")
+        return pdwSources
     }
 
     /**
      * 
      * @param {Integer} dwSourceIndex 
-     * @param {Pointer<BSTR>} pbstrURL 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetSourceURL(dwSourceIndex, pbstrURL) {
+    GetSourceURL(dwSourceIndex) {
+        pbstrURL := BSTR()
         result := ComCall(5, this, "uint", dwSourceIndex, "ptr", pbstrURL, "HRESULT")
-        return result
+        return pbstrURL
     }
 
     /**
      * 
      * @param {Integer} dwSourceIndex 
-     * @param {Pointer<Integer>} prtStart 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSourceStart(dwSourceIndex, prtStart) {
-        prtStartMarshal := prtStart is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(6, this, "uint", dwSourceIndex, prtStartMarshal, prtStart, "HRESULT")
-        return result
+    GetSourceStart(dwSourceIndex) {
+        result := ComCall(6, this, "uint", dwSourceIndex, "int64*", &prtStart := 0, "HRESULT")
+        return prtStart
     }
 
     /**
      * 
      * @param {Integer} dwSourceIndex 
-     * @param {Pointer<Integer>} prtDuration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSourceDuration(dwSourceIndex, prtDuration) {
-        prtDurationMarshal := prtDuration is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(7, this, "uint", dwSourceIndex, prtDurationMarshal, prtDuration, "HRESULT")
-        return result
+    GetSourceDuration(dwSourceIndex) {
+        result := ComCall(7, this, "uint", dwSourceIndex, "int64*", &prtDuration := 0, "HRESULT")
+        return prtDuration
     }
 
     /**
      * 
      * @param {Integer} dwSourceIndex 
-     * @param {Pointer<Integer>} pdwMarker 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSourceStartMarker(dwSourceIndex, pdwMarker) {
-        pdwMarkerMarshal := pdwMarker is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "uint", dwSourceIndex, pdwMarkerMarshal, pdwMarker, "HRESULT")
-        return result
+    GetSourceStartMarker(dwSourceIndex) {
+        result := ComCall(8, this, "uint", dwSourceIndex, "uint*", &pdwMarker := 0, "HRESULT")
+        return pdwMarker
     }
 
     /**
      * 
      * @param {Integer} dwSourceIndex 
-     * @param {Pointer<Integer>} pdwMarker 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSourceEndMarker(dwSourceIndex, pdwMarker) {
-        pdwMarkerMarshal := pdwMarker is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "uint", dwSourceIndex, pdwMarkerMarshal, pdwMarker, "HRESULT")
-        return result
+    GetSourceEndMarker(dwSourceIndex) {
+        result := ComCall(9, this, "uint", dwSourceIndex, "uint*", &pdwMarker := 0, "HRESULT")
+        return pdwMarker
     }
 
     /**
      * 
      * @param {Integer} dwSourceIndex 
-     * @param {Pointer<BSTR>} pbstrStartMarker 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetSourceStartMarkerName(dwSourceIndex, pbstrStartMarker) {
+    GetSourceStartMarkerName(dwSourceIndex) {
+        pbstrStartMarker := BSTR()
         result := ComCall(10, this, "uint", dwSourceIndex, "ptr", pbstrStartMarker, "HRESULT")
-        return result
+        return pbstrStartMarker
     }
 
     /**
      * 
      * @param {Integer} dwSourceIndex 
-     * @param {Pointer<BSTR>} pbstrEndMarker 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetSourceEndMarkerName(dwSourceIndex, pbstrEndMarker) {
+    GetSourceEndMarkerName(dwSourceIndex) {
+        pbstrEndMarker := BSTR()
         result := ComCall(11, this, "uint", dwSourceIndex, "ptr", pbstrEndMarker, "HRESULT")
-        return result
+        return pbstrEndMarker
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrURL 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetLinkURL(pbstrURL) {
+    GetLinkURL() {
+        pbstrURL := BSTR()
         result := ComCall(12, this, "ptr", pbstrURL, "HRESULT")
-        return result
+        return pbstrURL
     }
 
     /**
      * 
      * @param {Integer} dwSourceIndex 
-     * @param {Pointer<Integer>} prtScanDuration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetScanDuration(dwSourceIndex, prtScanDuration) {
-        prtScanDurationMarshal := prtScanDuration is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(13, this, "uint", dwSourceIndex, prtScanDurationMarshal, prtScanDuration, "HRESULT")
-        return result
+    GetScanDuration(dwSourceIndex) {
+        result := ComCall(13, this, "uint", dwSourceIndex, "int64*", &prtScanDuration := 0, "HRESULT")
+        return prtScanDuration
     }
 }

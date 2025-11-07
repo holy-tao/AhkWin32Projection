@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpDataKey.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -84,14 +85,13 @@ class ISpDataKey extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszValueName 
-     * @param {Pointer<PWSTR>} ppszValue 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetStringValue(pszValueName, ppszValue) {
+    GetStringValue(pszValueName) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := ComCall(6, this, "ptr", pszValueName, "ptr", ppszValue, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszValueName, "ptr*", &ppszValue := 0, "HRESULT")
+        return ppszValue
     }
 
     /**
@@ -125,27 +125,25 @@ class ISpDataKey extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszSubKeyName 
-     * @param {Pointer<ISpDataKey>} ppSubKey 
-     * @returns {HRESULT} 
+     * @returns {ISpDataKey} 
      */
-    OpenKey(pszSubKeyName, ppSubKey) {
+    OpenKey(pszSubKeyName) {
         pszSubKeyName := pszSubKeyName is String ? StrPtr(pszSubKeyName) : pszSubKeyName
 
-        result := ComCall(9, this, "ptr", pszSubKeyName, "ptr*", ppSubKey, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pszSubKeyName, "ptr*", &ppSubKey := 0, "HRESULT")
+        return ISpDataKey(ppSubKey)
     }
 
     /**
      * 
      * @param {PWSTR} pszSubKey 
-     * @param {Pointer<ISpDataKey>} ppSubKey 
-     * @returns {HRESULT} 
+     * @returns {ISpDataKey} 
      */
-    CreateKey(pszSubKey, ppSubKey) {
+    CreateKey(pszSubKey) {
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := ComCall(10, this, "ptr", pszSubKey, "ptr*", ppSubKey, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pszSubKey, "ptr*", &ppSubKey := 0, "HRESULT")
+        return ISpDataKey(ppSubKey)
     }
 
     /**
@@ -175,22 +173,20 @@ class ISpDataKey extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<PWSTR>} ppszSubKeyName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    EnumKeys(Index, ppszSubKeyName) {
-        result := ComCall(13, this, "uint", Index, "ptr", ppszSubKeyName, "HRESULT")
-        return result
+    EnumKeys(Index) {
+        result := ComCall(13, this, "uint", Index, "ptr*", &ppszSubKeyName := 0, "HRESULT")
+        return ppszSubKeyName
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<PWSTR>} ppszValueName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    EnumValues(Index, ppszValueName) {
-        result := ComCall(14, this, "uint", Index, "ptr", ppszValueName, "HRESULT")
-        return result
+    EnumValues(Index) {
+        result := ComCall(14, this, "uint", Index, "ptr*", &ppszValueName := 0, "HRESULT")
+        return ppszValueName
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509PrivateKey.ahk
+#Include .\IX509SignatureInformation.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -60,35 +62,33 @@ class ISignerCertificate extends IDispatch{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_certificate
      */
-    get_Certificate(Encoding, pValue) {
+    get_Certificate(Encoding) {
+        pValue := BSTR()
         result := ComCall(8, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<IX509PrivateKey>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509PrivateKey} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_privatekey
      */
-    get_PrivateKey(ppValue) {
-        result := ComCall(9, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_PrivateKey() {
+        result := ComCall(9, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509PrivateKey(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_silent
      */
-    get_Silent(pValue) {
-        result := ComCall(10, this, "ptr", pValue, "HRESULT")
-        return result
+    get_Silent() {
+        result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -104,15 +104,12 @@ class ISignerCertificate extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_parentwindow
      */
-    get_ParentWindow(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_ParentWindow() {
+        result := ComCall(12, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -128,13 +125,13 @@ class ISignerCertificate extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage
      */
-    get_UIContextMessage(pValue) {
+    get_UIContextMessage() {
+        pValue := BSTR()
         result := ComCall(14, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -165,12 +162,11 @@ class ISignerCertificate extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IX509SignatureInformation>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509SignatureInformation} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_signatureinformation
      */
-    get_SignatureInformation(ppValue) {
-        result := ComCall(17, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_SignatureInformation() {
+        result := ComCall(17, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509SignatureInformation(ppValue)
     }
 }

@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ISpeechPhraseRule.ahk
+#Include .\ISpeechPhraseProperties.ahk
+#Include .\ISpeechPhraseElements.ahk
+#Include .\ISpeechPhraseReplacements.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,150 +36,134 @@ class ISpeechPhraseInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} LanguageId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LanguageId(LanguageId) {
-        LanguageIdMarshal := LanguageId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, LanguageIdMarshal, LanguageId, "HRESULT")
-        return result
+    get_LanguageId() {
+        result := ComCall(7, this, "int*", &LanguageId := 0, "HRESULT")
+        return LanguageId
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} GrammarId 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_GrammarId(GrammarId) {
+    get_GrammarId() {
+        GrammarId := VARIANT()
         result := ComCall(8, this, "ptr", GrammarId, "HRESULT")
-        return result
+        return GrammarId
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} StartTime 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_StartTime(StartTime) {
+    get_StartTime() {
+        StartTime := VARIANT()
         result := ComCall(9, this, "ptr", StartTime, "HRESULT")
-        return result
+        return StartTime
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} AudioStreamPosition 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_AudioStreamPosition(AudioStreamPosition) {
+    get_AudioStreamPosition() {
+        AudioStreamPosition := VARIANT()
         result := ComCall(10, this, "ptr", AudioStreamPosition, "HRESULT")
-        return result
+        return AudioStreamPosition
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pAudioSizeBytes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AudioSizeBytes(pAudioSizeBytes) {
-        pAudioSizeBytesMarshal := pAudioSizeBytes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pAudioSizeBytesMarshal, pAudioSizeBytes, "HRESULT")
-        return result
+    get_AudioSizeBytes() {
+        result := ComCall(11, this, "int*", &pAudioSizeBytes := 0, "HRESULT")
+        return pAudioSizeBytes
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} RetainedSizeBytes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RetainedSizeBytes(RetainedSizeBytes) {
-        RetainedSizeBytesMarshal := RetainedSizeBytes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, RetainedSizeBytesMarshal, RetainedSizeBytes, "HRESULT")
-        return result
+    get_RetainedSizeBytes() {
+        result := ComCall(12, this, "int*", &RetainedSizeBytes := 0, "HRESULT")
+        return RetainedSizeBytes
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} AudioSizeTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AudioSizeTime(AudioSizeTime) {
-        AudioSizeTimeMarshal := AudioSizeTime is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, AudioSizeTimeMarshal, AudioSizeTime, "HRESULT")
-        return result
+    get_AudioSizeTime() {
+        result := ComCall(13, this, "int*", &AudioSizeTime := 0, "HRESULT")
+        return AudioSizeTime
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechPhraseRule>} Rule 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseRule} 
      */
-    get_Rule(Rule) {
-        result := ComCall(14, this, "ptr*", Rule, "HRESULT")
-        return result
+    get_Rule() {
+        result := ComCall(14, this, "ptr*", &Rule := 0, "HRESULT")
+        return ISpeechPhraseRule(Rule)
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechPhraseProperties>} Properties 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseProperties} 
      */
-    get_Properties(Properties) {
-        result := ComCall(15, this, "ptr*", Properties, "HRESULT")
-        return result
+    get_Properties() {
+        result := ComCall(15, this, "ptr*", &Properties := 0, "HRESULT")
+        return ISpeechPhraseProperties(Properties)
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechPhraseElements>} Elements 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseElements} 
      */
-    get_Elements(Elements) {
-        result := ComCall(16, this, "ptr*", Elements, "HRESULT")
-        return result
+    get_Elements() {
+        result := ComCall(16, this, "ptr*", &Elements := 0, "HRESULT")
+        return ISpeechPhraseElements(Elements)
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechPhraseReplacements>} Replacements 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseReplacements} 
      */
-    get_Replacements(Replacements) {
-        result := ComCall(17, this, "ptr*", Replacements, "HRESULT")
-        return result
+    get_Replacements() {
+        result := ComCall(17, this, "ptr*", &Replacements := 0, "HRESULT")
+        return ISpeechPhraseReplacements(Replacements)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} EngineIdGuid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_EngineId(EngineIdGuid) {
+    get_EngineId() {
+        EngineIdGuid := BSTR()
         result := ComCall(18, this, "ptr", EngineIdGuid, "HRESULT")
-        return result
+        return EngineIdGuid
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} PrivateData 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_EnginePrivateData(PrivateData) {
+    get_EnginePrivateData() {
+        PrivateData := VARIANT()
         result := ComCall(19, this, "ptr", PrivateData, "HRESULT")
-        return result
+        return PrivateData
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} PhraseBlock 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    SaveToMemory(PhraseBlock) {
+    SaveToMemory() {
+        PhraseBlock := VARIANT()
         result := ComCall(20, this, "ptr", PhraseBlock, "HRESULT")
-        return result
+        return PhraseBlock
     }
 
     /**
@@ -181,12 +171,12 @@ class ISpeechPhraseInfo extends IDispatch{
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {VARIANT_BOOL} UseReplacements 
-     * @param {Pointer<BSTR>} Text 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetText(StartElement, Elements, UseReplacements, Text) {
+    GetText(StartElement, Elements, UseReplacements) {
+        Text := BSTR()
         result := ComCall(21, this, "int", StartElement, "int", Elements, "short", UseReplacements, "ptr", Text, "HRESULT")
-        return result
+        return Text
     }
 
     /**
@@ -194,13 +184,10 @@ class ISpeechPhraseInfo extends IDispatch{
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {VARIANT_BOOL} UseReplacements 
-     * @param {Pointer<Integer>} DisplayAttributes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDisplayAttributes(StartElement, Elements, UseReplacements, DisplayAttributes) {
-        DisplayAttributesMarshal := DisplayAttributes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, "int", StartElement, "int", Elements, "short", UseReplacements, DisplayAttributesMarshal, DisplayAttributes, "HRESULT")
-        return result
+    GetDisplayAttributes(StartElement, Elements, UseReplacements) {
+        result := ComCall(22, this, "int", StartElement, "int", Elements, "short", UseReplacements, "int*", &DisplayAttributes := 0, "HRESULT")
+        return DisplayAttributes
     }
 }

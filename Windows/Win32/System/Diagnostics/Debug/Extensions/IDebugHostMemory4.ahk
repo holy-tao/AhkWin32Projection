@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\Location.ahk
 #Include .\IDebugHostMemory3.ahk
 
 /**
@@ -31,12 +32,12 @@ class IDebugHostMemory4 extends IDebugHostMemory3{
     /**
      * 
      * @param {Integer} physAddr 
-     * @param {Pointer<Location>} pPhysicalAddressLocation 
-     * @returns {HRESULT} 
+     * @returns {Location} 
      */
-    GetPhysicalAddressLocation(physAddr, pPhysicalAddressLocation) {
+    GetPhysicalAddressLocation(physAddr) {
+        pPhysicalAddressLocation := Location()
         result := ComCall(10, this, "uint", physAddr, "ptr", pPhysicalAddressLocation, "HRESULT")
-        return result
+        return pPhysicalAddressLocation
     }
 
     /**

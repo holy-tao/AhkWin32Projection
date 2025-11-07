@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCParticipant.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,35 +31,28 @@ class IRTCParticipantStateChangeEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRTCParticipant>} ppParticipant 
-     * @returns {HRESULT} 
+     * @returns {IRTCParticipant} 
      */
-    get_Participant(ppParticipant) {
-        result := ComCall(7, this, "ptr*", ppParticipant, "HRESULT")
-        return result
+    get_Participant() {
+        result := ComCall(7, this, "ptr*", &ppParticipant := 0, "HRESULT")
+        return IRTCParticipant(ppParticipant)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(penState) {
-        penStateMarshal := penState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, penStateMarshal, penState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(8, this, "int*", &penState := 0, "HRESULT")
+        return penState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plStatusCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StatusCode(plStatusCode) {
-        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
-        return result
+    get_StatusCode() {
+        result := ComCall(9, this, "int*", &plStatusCode := 0, "HRESULT")
+        return plStatusCode
     }
 }

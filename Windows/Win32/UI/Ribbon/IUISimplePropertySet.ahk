@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,12 +34,12 @@ class IUISimplePropertySet extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPVARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuisimplepropertyset-getvalue
      */
-    GetValue(key, value) {
+    GetValue(key) {
+        value := PROPVARIANT()
         result := ComCall(3, this, "ptr", key, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 }

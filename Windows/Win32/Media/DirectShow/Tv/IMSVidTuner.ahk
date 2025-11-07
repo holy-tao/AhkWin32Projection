@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITuneRequest.ahk
+#Include .\ITuningSpace.ahk
 #Include .\IMSVidVideoInputDevice.ahk
 
 /**
@@ -37,13 +39,12 @@ class IMSVidTuner extends IMSVidVideoInputDevice{
 
     /**
      * 
-     * @param {Pointer<ITuneRequest>} ppTR 
-     * @returns {HRESULT} 
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidtuner-get_tune
      */
-    get_Tune(ppTR) {
-        result := ComCall(18, this, "ptr*", ppTR, "HRESULT")
-        return result
+    get_Tune() {
+        result := ComCall(18, this, "ptr*", &ppTR := 0, "HRESULT")
+        return ITuneRequest(ppTR)
     }
 
     /**
@@ -59,13 +60,12 @@ class IMSVidTuner extends IMSVidVideoInputDevice{
 
     /**
      * 
-     * @param {Pointer<ITuningSpace>} plTS 
-     * @returns {HRESULT} 
+     * @returns {ITuningSpace} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidtuner-get_tuningspace
      */
-    get_TuningSpace(plTS) {
-        result := ComCall(20, this, "ptr*", plTS, "HRESULT")
-        return result
+    get_TuningSpace() {
+        result := ComCall(20, this, "ptr*", &plTS := 0, "HRESULT")
+        return ITuningSpace(plTS)
     }
 
     /**

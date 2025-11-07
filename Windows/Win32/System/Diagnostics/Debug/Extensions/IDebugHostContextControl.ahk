@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostContextAlternator.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -39,11 +40,10 @@ class IDebugHostContextControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugHostContextAlternator>} contextAlternator 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostContextAlternator} 
      */
-    GetContextAlternator(contextAlternator) {
-        result := ComCall(4, this, "ptr*", contextAlternator, "HRESULT")
-        return result
+    GetContextAlternator() {
+        result := ComCall(4, this, "ptr*", &contextAlternator := 0, "HRESULT")
+        return IDebugHostContextAlternator(contextAlternator)
     }
 }

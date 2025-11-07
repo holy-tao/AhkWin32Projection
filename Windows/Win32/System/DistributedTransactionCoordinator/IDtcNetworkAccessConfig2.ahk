@@ -30,22 +30,20 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbInbound 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetNetworkInboundAccess(pbInbound) {
-        result := ComCall(16, this, "ptr", pbInbound, "HRESULT")
-        return result
+    GetNetworkInboundAccess() {
+        result := ComCall(16, this, "int*", &pbInbound := 0, "HRESULT")
+        return pbInbound
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbOutbound 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetNetworkOutboundAccess(pbOutbound) {
-        result := ComCall(17, this, "ptr", pbOutbound, "HRESULT")
-        return result
+    GetNetworkOutboundAccess() {
+        result := ComCall(17, this, "int*", &pbOutbound := 0, "HRESULT")
+        return pbOutbound
     }
 
     /**
@@ -70,14 +68,11 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig{
 
     /**
      * 
-     * @param {Pointer<Integer>} pAuthLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetAuthenticationLevel(pAuthLevel) {
-        pAuthLevelMarshal := pAuthLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pAuthLevelMarshal, pAuthLevel, "HRESULT")
-        return result
+    GetAuthenticationLevel() {
+        result := ComCall(20, this, "int*", &pAuthLevel := 0, "HRESULT")
+        return pAuthLevel
     }
 
     /**

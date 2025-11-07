@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,14 +31,11 @@ class IHTMLPainterEventInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plEventInfoFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetEventInfoFlags(plEventInfoFlags) {
-        plEventInfoFlagsMarshal := plEventInfoFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, plEventInfoFlagsMarshal, plEventInfoFlags, "HRESULT")
-        return result
+    GetEventInfoFlags() {
+        result := ComCall(3, this, "int*", &plEventInfoFlags := 0, "HRESULT")
+        return plEventInfoFlags
     }
 
     /**
@@ -68,11 +66,11 @@ class IHTMLPainterEventInfo extends IUnknown{
     /**
      * 
      * @param {Integer} lPartID 
-     * @param {Pointer<BSTR>} pbstrPart 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    StringFromPartID(lPartID, pbstrPart) {
+    StringFromPartID(lPartID) {
+        pbstrPart := BSTR()
         result := ComCall(6, this, "int", lPartID, "ptr", pbstrPart, "HRESULT")
-        return result
+        return pbstrPart
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMPSyncDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,12 +47,11 @@ class IWMPSyncServices extends IUnknown{
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<IWMPSyncDevice>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IWMPSyncDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncservices-getdevice
      */
-    getDevice(lIndex, ppDevice) {
-        result := ComCall(4, this, "int", lIndex, "ptr*", ppDevice, "HRESULT")
-        return result
+    getDevice(lIndex) {
+        result := ComCall(4, this, "int", lIndex, "ptr*", &ppDevice := 0, "HRESULT")
+        return IWMPSyncDevice(ppDevice)
     }
 }

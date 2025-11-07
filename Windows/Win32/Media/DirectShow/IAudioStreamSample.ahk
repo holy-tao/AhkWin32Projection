@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAudioData.ahk
 #Include .\IStreamSample.ahk
 
 /**
@@ -32,12 +33,11 @@ class IAudioStreamSample extends IStreamSample{
 
     /**
      * 
-     * @param {Pointer<IAudioData>} ppAudio 
-     * @returns {HRESULT} 
+     * @returns {IAudioData} 
      * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-iaudiostreamsample-getaudiodata
      */
-    GetAudioData(ppAudio) {
-        result := ComCall(8, this, "ptr*", ppAudio, "HRESULT")
-        return result
+    GetAudioData() {
+        result := ComCall(8, this, "ptr*", &ppAudio := 0, "HRESULT")
+        return IAudioData(ppAudio)
     }
 }

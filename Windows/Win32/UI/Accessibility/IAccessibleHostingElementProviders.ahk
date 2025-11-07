@@ -32,28 +32,22 @@ class IAccessibleHostingElementProviders extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessiblehostingelementproviders-getembeddedfragmentroots
      */
-    GetEmbeddedFragmentRoots(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetEmbeddedFragmentRoots() {
+        result := ComCall(3, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
      * @param {IRawElementProviderSimple} pProvider 
-     * @param {Pointer<Integer>} pidObject 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessiblehostingelementproviders-getobjectidforprovider
      */
-    GetObjectIdForProvider(pProvider, pidObject) {
-        pidObjectMarshal := pidObject is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pProvider, pidObjectMarshal, pidObject, "HRESULT")
-        return result
+    GetObjectIdForProvider(pProvider) {
+        result := ComCall(4, this, "ptr", pProvider, "int*", &pidObject := 0, "HRESULT")
+        return pidObject
     }
 }

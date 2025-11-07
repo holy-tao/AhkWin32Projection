@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IADsCollection.ahk
 #Include .\IADsServiceOperations.ahk
 
 /**
@@ -64,23 +65,21 @@ class IADsFileServiceOperations extends IADsServiceOperations{
 
     /**
      * 
-     * @param {Pointer<IADsCollection>} ppSessions 
-     * @returns {HRESULT} 
+     * @returns {IADsCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsfileserviceoperations-sessions
      */
-    Sessions(ppSessions) {
-        result := ComCall(26, this, "ptr*", ppSessions, "HRESULT")
-        return result
+    Sessions() {
+        result := ComCall(26, this, "ptr*", &ppSessions := 0, "HRESULT")
+        return IADsCollection(ppSessions)
     }
 
     /**
      * 
-     * @param {Pointer<IADsCollection>} ppResources 
-     * @returns {HRESULT} 
+     * @returns {IADsCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsfileserviceoperations-resources
      */
-    Resources(ppResources) {
-        result := ComCall(27, this, "ptr*", ppResources, "HRESULT")
-        return result
+    Resources() {
+        result := ComCall(27, this, "ptr*", &ppResources := 0, "HRESULT")
+        return IADsCollection(ppResources)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugDocumentContext.ahk
+#Include .\IDebugStackFrame.ahk
 #Include .\IActiveScriptError.ahk
 
 /**
@@ -30,21 +32,19 @@ class IActiveScriptErrorDebug extends IActiveScriptError{
 
     /**
      * 
-     * @param {Pointer<IDebugDocumentContext>} ppssc 
-     * @returns {HRESULT} 
+     * @returns {IDebugDocumentContext} 
      */
-    GetDocumentContext(ppssc) {
-        result := ComCall(6, this, "ptr*", ppssc, "HRESULT")
-        return result
+    GetDocumentContext() {
+        result := ComCall(6, this, "ptr*", &ppssc := 0, "HRESULT")
+        return IDebugDocumentContext(ppssc)
     }
 
     /**
      * 
-     * @param {Pointer<IDebugStackFrame>} ppdsf 
-     * @returns {HRESULT} 
+     * @returns {IDebugStackFrame} 
      */
-    GetStackFrame(ppdsf) {
-        result := ComCall(7, this, "ptr*", ppdsf, "HRESULT")
-        return result
+    GetStackFrame() {
+        result := ComCall(7, this, "ptr*", &ppdsf := 0, "HRESULT")
+        return IDebugStackFrame(ppdsf)
     }
 }

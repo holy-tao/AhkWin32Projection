@@ -46,410 +46,308 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermGPOApply(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermGPOApply() {
+        result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermGPORead(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermGPORead() {
+        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermGPOEdit(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermGPOEdit() {
+        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermGPOEditSecurityAndDelete(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermGPOEditSecurityAndDelete() {
+        result := ComCall(10, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermGPOCustom(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermGPOCustom() {
+        result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermWMIFilterEdit(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermWMIFilterEdit() {
+        result := ComCall(12, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermWMIFilterFullControl(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermWMIFilterFullControl() {
+        result := ComCall(13, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermWMIFilterCustom(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermWMIFilterCustom() {
+        result := ComCall(14, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermSOMLink(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermSOMLink() {
+        result := ComCall(15, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermSOMLogging(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermSOMLogging() {
+        result := ComCall(16, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermSOMPlanning(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermSOMPlanning() {
+        result := ComCall(17, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermSOMGPOCreate(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermSOMGPOCreate() {
+        result := ComCall(18, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermSOMWMICreate(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermSOMWMICreate() {
+        result := ComCall(19, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermSOMWMIFullControl(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermSOMWMIFullControl() {
+        result := ComCall(20, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyGPOPermissions(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyGPOPermissions() {
+        result := ComCall(21, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyGPOEffectivePermissions(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyGPOEffectivePermissions() {
+        result := ComCall(22, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyGPODisplayName(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyGPODisplayName() {
+        result := ComCall(23, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyGPOWMIFilter(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyGPOWMIFilter() {
+        result := ComCall(24, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyGPOID(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyGPOID() {
+        result := ComCall(25, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyGPOComputerExtensions(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyGPOComputerExtensions() {
+        result := ComCall(26, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyGPOUserExtensions(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyGPOUserExtensions() {
+        result := ComCall(27, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertySOMLinks(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertySOMLinks() {
+        result := ComCall(28, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyGPODomain(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyGPODomain() {
+        result := ComCall(29, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyBackupMostRecent(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyBackupMostRecent() {
+        result := ComCall(30, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchOpEquals(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchOpEquals() {
+        result := ComCall(31, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchOpContains(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchOpContains() {
+        result := ComCall(32, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchOpNotContains(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchOpNotContains() {
+        result := ComCall(33, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchOpNotEquals(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchOpNotEquals() {
+        result := ComCall(34, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_UsePDC(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(35, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_UsePDC() {
+        result := ComCall(35, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_UseAnyDC(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(36, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_UseAnyDC() {
+        result := ComCall(36, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DoNotUseW2KDC(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(37, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DoNotUseW2KDC() {
+        result := ComCall(37, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SOMSite(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(38, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SOMSite() {
+        result := ComCall(38, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SOMDomain(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(39, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SOMDomain() {
+        result := ComCall(39, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SOMOU(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(40, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SOMOU() {
+        result := ComCall(40, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -458,315 +356,237 @@ class IGPMConstants extends IDispatch{
      * @param {VARIANT_BOOL} vbGroup 
      * @param {VARIANT_BOOL} vbDACL 
      * @param {VARIANT_BOOL} vbSACL 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmconstants-get_securityflags
      */
-    get_SecurityFlags(vbOwner, vbGroup, vbDACL, vbSACL, pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(41, this, "short", vbOwner, "short", vbGroup, "short", vbDACL, "short", vbSACL, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SecurityFlags(vbOwner, vbGroup, vbDACL, vbSACL) {
+        result := ComCall(41, this, "short", vbOwner, "short", vbGroup, "short", vbDACL, "short", vbSACL, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DoNotValidateDC(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(42, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DoNotValidateDC() {
+        result := ComCall(42, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ReportHTML(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(43, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ReportHTML() {
+        result := ComCall(43, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ReportXML(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(44, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ReportXML() {
+        result := ComCall(44, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RSOPModeUnknown(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(45, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_RSOPModeUnknown() {
+        result := ComCall(45, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RSOPModePlanning(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(46, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_RSOPModePlanning() {
+        result := ComCall(46, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RSOPModeLogging(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(47, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_RSOPModeLogging() {
+        result := ComCall(47, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EntryTypeUser(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(48, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_EntryTypeUser() {
+        result := ComCall(48, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EntryTypeComputer(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(49, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_EntryTypeComputer() {
+        result := ComCall(49, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EntryTypeLocalGroup(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(50, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_EntryTypeLocalGroup() {
+        result := ComCall(50, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EntryTypeGlobalGroup(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(51, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_EntryTypeGlobalGroup() {
+        result := ComCall(51, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EntryTypeUniversalGroup(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(52, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_EntryTypeUniversalGroup() {
+        result := ComCall(52, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EntryTypeUNCPath(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(53, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_EntryTypeUNCPath() {
+        result := ComCall(53, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EntryTypeUnknown(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(54, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_EntryTypeUnknown() {
+        result := ComCall(54, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DestinationOptionSameAsSource(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(55, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DestinationOptionSameAsSource() {
+        result := ComCall(55, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DestinationOptionNone(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(56, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DestinationOptionNone() {
+        result := ComCall(56, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DestinationOptionByRelativeName(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(57, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DestinationOptionByRelativeName() {
+        result := ComCall(57, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DestinationOptionSet(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(58, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DestinationOptionSet() {
+        result := ComCall(58, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MigrationTableOnly(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(59, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_MigrationTableOnly() {
+        result := ComCall(59, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ProcessSecurity(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(60, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ProcessSecurity() {
+        result := ComCall(60, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RsopLoggingNoComputer(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(61, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_RsopLoggingNoComputer() {
+        result := ComCall(61, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RsopLoggingNoUser(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(62, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_RsopLoggingNoUser() {
+        result := ComCall(62, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RsopPlanningAssumeSlowLink(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(63, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_RsopPlanningAssumeSlowLink() {
+        result := ComCall(63, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
      * @param {VARIANT_BOOL} vbMerge 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RsopPlanningLoopbackOption(vbMerge, pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(64, this, "short", vbMerge, pValMarshal, pVal, "HRESULT")
-        return result
+    get_RsopPlanningLoopbackOption(vbMerge) {
+        result := ComCall(64, this, "short", vbMerge, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RsopPlanningAssumeUserWQLFilterTrue(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(65, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_RsopPlanningAssumeUserWQLFilterTrue() {
+        result := ComCall(65, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RsopPlanningAssumeCompWQLFilterTrue(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(66, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_RsopPlanningAssumeCompWQLFilterTrue() {
+        result := ComCall(66, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfRange.ahk
 #Include .\ITfReadOnlyProperty.ahk
 
 /**
@@ -39,14 +40,13 @@ class ITfProperty extends ITfReadOnlyProperty{
      * 
      * @param {Integer} ec 
      * @param {ITfRange} pRange 
-     * @param {Pointer<ITfRange>} ppRange 
      * @param {Integer} aPos 
-     * @returns {HRESULT} 
+     * @returns {ITfRange} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-findrange
      */
-    FindRange(ec, pRange, ppRange, aPos) {
-        result := ComCall(7, this, "uint", ec, "ptr", pRange, "ptr*", ppRange, "int", aPos, "HRESULT")
-        return result
+    FindRange(ec, pRange, aPos) {
+        result := ComCall(7, this, "uint", ec, "ptr", pRange, "ptr*", &ppRange := 0, "int", aPos, "HRESULT")
+        return ITfRange(ppRange)
     }
 
     /**

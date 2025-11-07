@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IObjectId.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,13 +34,12 @@ class IX509SignatureInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-get_hashalgorithm
      */
-    get_HashAlgorithm(ppValue) {
-        result := ComCall(7, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_HashAlgorithm() {
+        result := ComCall(7, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
@@ -55,13 +55,12 @@ class IX509SignatureInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-get_publickeyalgorithm
      */
-    get_PublicKeyAlgorithm(ppValue) {
-        result := ComCall(9, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_PublicKeyAlgorithm() {
+        result := ComCall(9, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
@@ -78,13 +77,13 @@ class IX509SignatureInformation extends IDispatch{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-get_parameters
      */
-    get_Parameters(Encoding, pValue) {
+    get_Parameters(Encoding) {
+        pValue := BSTR()
         result := ComCall(11, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -103,13 +102,12 @@ class IX509SignatureInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-get_alternatesignaturealgorithm
      */
-    get_AlternateSignatureAlgorithm(pValue) {
-        result := ComCall(13, this, "ptr", pValue, "HRESULT")
-        return result
+    get_AlternateSignatureAlgorithm() {
+        result := ComCall(13, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -125,24 +123,22 @@ class IX509SignatureInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-get_alternatesignaturealgorithmset
      */
-    get_AlternateSignatureAlgorithmSet(pValue) {
-        result := ComCall(15, this, "ptr", pValue, "HRESULT")
-        return result
+    get_AlternateSignatureAlgorithmSet() {
+        result := ComCall(15, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-get_nullsigned
      */
-    get_NullSigned(pValue) {
-        result := ComCall(16, this, "ptr", pValue, "HRESULT")
-        return result
+    get_NullSigned() {
+        result := ComCall(16, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -160,13 +156,12 @@ class IX509SignatureInformation extends IDispatch{
      * 
      * @param {VARIANT_BOOL} Pkcs7Signature 
      * @param {VARIANT_BOOL} SignatureKey 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-getsignaturealgorithm
      */
-    GetSignatureAlgorithm(Pkcs7Signature, SignatureKey, ppValue) {
-        result := ComCall(18, this, "short", Pkcs7Signature, "short", SignatureKey, "ptr*", ppValue, "HRESULT")
-        return result
+    GetSignatureAlgorithm(Pkcs7Signature, SignatureKey) {
+        result := ComCall(18, this, "short", Pkcs7Signature, "short", SignatureKey, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**

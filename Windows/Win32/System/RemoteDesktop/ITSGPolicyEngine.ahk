@@ -98,12 +98,11 @@ class ITSGPolicyEngine extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} quarantineEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgpolicyengine-isquarantineenabled
      */
-    IsQuarantineEnabled(quarantineEnabled) {
-        result := ComCall(6, this, "ptr", quarantineEnabled, "HRESULT")
-        return result
+    IsQuarantineEnabled() {
+        result := ComCall(6, this, "int*", &quarantineEnabled := 0, "HRESULT")
+        return quarantineEnabled
     }
 }

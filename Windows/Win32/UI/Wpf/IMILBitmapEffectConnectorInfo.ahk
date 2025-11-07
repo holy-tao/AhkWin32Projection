@@ -32,50 +32,44 @@ class IMILBitmapEffectConnectorInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puiIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getindex
      */
-    GetIndex(puiIndex) {
-        puiIndexMarshal := puiIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, puiIndexMarshal, puiIndex, "HRESULT")
-        return result
+    GetIndex() {
+        result := ComCall(3, this, "uint*", &puiIndex := 0, "HRESULT")
+        return puiIndex
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getoptimalformat
      */
-    GetOptimalFormat(pFormat) {
+    GetOptimalFormat() {
+        pFormat := Guid()
         result := ComCall(4, this, "ptr", pFormat, "HRESULT")
-        return result
+        return pFormat
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulNumberFormats 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getnumberformats
      */
-    GetNumberFormats(pulNumberFormats) {
-        pulNumberFormatsMarshal := pulNumberFormats is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pulNumberFormatsMarshal, pulNumberFormats, "HRESULT")
-        return result
+    GetNumberFormats() {
+        result := ComCall(5, this, "uint*", &pulNumberFormats := 0, "HRESULT")
+        return pulNumberFormats
     }
 
     /**
      * 
      * @param {Integer} ulIndex 
-     * @param {Pointer<Guid>} pFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getformat
      */
-    GetFormat(ulIndex, pFormat) {
+    GetFormat(ulIndex) {
+        pFormat := Guid()
         result := ComCall(6, this, "uint", ulIndex, "ptr", pFormat, "HRESULT")
-        return result
+        return pFormat
     }
 }

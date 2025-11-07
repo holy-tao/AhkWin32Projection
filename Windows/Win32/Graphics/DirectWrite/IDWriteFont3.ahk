@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFace3.ahk
+#Include .\IDWriteFontFaceReference.ahk
 #Include .\IDWriteFont2.ahk
 
 /**
@@ -32,13 +34,12 @@ class IDWriteFont3 extends IDWriteFont2{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFace3>} fontFace 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFace3} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefont3-createfontface
      */
-    CreateFontFace(fontFace) {
-        result := ComCall(19, this, "ptr*", fontFace, "HRESULT")
-        return result
+    CreateFontFace() {
+        result := ComCall(19, this, "ptr*", &fontFace := 0, "HRESULT")
+        return IDWriteFontFace3(fontFace)
     }
 
     /**
@@ -54,13 +55,12 @@ class IDWriteFont3 extends IDWriteFont2{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFaceReference>} fontFaceReference 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFaceReference} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefont3-getfontfacereference
      */
-    GetFontFaceReference(fontFaceReference) {
-        result := ComCall(21, this, "ptr*", fontFaceReference, "HRESULT")
-        return result
+    GetFontFaceReference() {
+        result := ComCall(21, this, "ptr*", &fontFaceReference := 0, "HRESULT")
+        return IDWriteFontFaceReference(fontFaceReference)
     }
 
     /**

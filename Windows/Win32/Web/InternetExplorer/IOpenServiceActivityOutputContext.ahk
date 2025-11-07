@@ -51,15 +51,14 @@ class IOpenServiceActivityOutputContext extends IUnknown{
      * @param {PWSTR} pwzMethod 
      * @param {PWSTR} pwzHeaders 
      * @param {IStream} pPostData 
-     * @param {Pointer<BOOL>} pfCanNavigate 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CanNavigate(pwzUri, pwzMethod, pwzHeaders, pPostData, pfCanNavigate) {
+    CanNavigate(pwzUri, pwzMethod, pwzHeaders, pPostData) {
         pwzUri := pwzUri is String ? StrPtr(pwzUri) : pwzUri
         pwzMethod := pwzMethod is String ? StrPtr(pwzMethod) : pwzMethod
         pwzHeaders := pwzHeaders is String ? StrPtr(pwzHeaders) : pwzHeaders
 
-        result := ComCall(4, this, "ptr", pwzUri, "ptr", pwzMethod, "ptr", pwzHeaders, "ptr", pPostData, "ptr", pfCanNavigate, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pwzUri, "ptr", pwzMethod, "ptr", pwzHeaders, "ptr", pPostData, "int*", &pfCanNavigate := 0, "HRESULT")
+        return pfCanNavigate
     }
 }

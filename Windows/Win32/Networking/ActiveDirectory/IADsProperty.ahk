@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IADsCollection.ahk
 #Include .\IADs.ahk
 
 /**
@@ -40,12 +41,12 @@ class IADsProperty extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_OID(retval) {
+    get_OID() {
+        retval := BSTR()
         result := ComCall(20, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -62,12 +63,12 @@ class IADsProperty extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Syntax(retval) {
+    get_Syntax() {
+        retval := BSTR()
         result := ComCall(22, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -84,14 +85,11 @@ class IADsProperty extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaxRange(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_MaxRange() {
+        result := ComCall(24, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -106,14 +104,11 @@ class IADsProperty extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MinRange(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_MinRange() {
+        result := ComCall(26, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -128,12 +123,11 @@ class IADsProperty extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_MultiValued(retval) {
-        result := ComCall(28, this, "ptr", retval, "HRESULT")
-        return result
+    get_MultiValued() {
+        result := ComCall(28, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -148,12 +142,11 @@ class IADsProperty extends IADs{
 
     /**
      * 
-     * @param {Pointer<IADsCollection>} ppQualifiers 
-     * @returns {HRESULT} 
+     * @returns {IADsCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsproperty-qualifiers
      */
-    Qualifiers(ppQualifiers) {
-        result := ComCall(30, this, "ptr*", ppQualifiers, "HRESULT")
-        return result
+    Qualifiers() {
+        result := ComCall(30, this, "ptr*", &ppQualifiers := 0, "HRESULT")
+        return IADsCollection(ppQualifiers)
     }
 }

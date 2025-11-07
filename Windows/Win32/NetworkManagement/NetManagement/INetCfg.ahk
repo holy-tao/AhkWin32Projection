@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumNetCfgComponent.ahk
+#Include .\INetCfgComponent.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -80,38 +82,33 @@ class INetCfg extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} pguidClass 
-     * @param {Pointer<IEnumNetCfgComponent>} ppenumComponent 
-     * @returns {HRESULT} 
+     * @returns {IEnumNetCfgComponent} 
      */
-    EnumComponents(pguidClass, ppenumComponent) {
-        result := ComCall(7, this, "ptr", pguidClass, "ptr*", ppenumComponent, "HRESULT")
-        return result
+    EnumComponents(pguidClass) {
+        result := ComCall(7, this, "ptr", pguidClass, "ptr*", &ppenumComponent := 0, "HRESULT")
+        return IEnumNetCfgComponent(ppenumComponent)
     }
 
     /**
      * 
      * @param {PWSTR} pszwInfId 
-     * @param {Pointer<INetCfgComponent>} pComponent 
-     * @returns {HRESULT} 
+     * @returns {INetCfgComponent} 
      */
-    FindComponent(pszwInfId, pComponent) {
+    FindComponent(pszwInfId) {
         pszwInfId := pszwInfId is String ? StrPtr(pszwInfId) : pszwInfId
 
-        result := ComCall(8, this, "ptr", pszwInfId, "ptr*", pComponent, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", pszwInfId, "ptr*", &pComponent := 0, "HRESULT")
+        return INetCfgComponent(pComponent)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pguidClass 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    QueryNetCfgClass(pguidClass, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pguidClass, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    QueryNetCfgClass(pguidClass, riid) {
+        result := ComCall(9, this, "ptr", pguidClass, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 }

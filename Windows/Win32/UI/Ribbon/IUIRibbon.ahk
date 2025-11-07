@@ -38,15 +38,12 @@ class IUIRibbon extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} cy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiribbon-getheight
      */
-    GetHeight(cy) {
-        cyMarshal := cy is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, cyMarshal, cy, "HRESULT")
-        return result
+    GetHeight() {
+        result := ComCall(3, this, "uint*", &cy := 0, "HRESULT")
+        return cy
     }
 
     /**

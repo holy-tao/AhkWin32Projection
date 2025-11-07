@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISearchCatalogManager.ahk
 #Include .\ISearchManager.ahk
 
 /**
@@ -45,15 +46,14 @@ class ISearchManager2 extends ISearchManager{
     /**
      * 
      * @param {PWSTR} pszCatalog 
-     * @param {Pointer<ISearchCatalogManager>} ppCatalogManager 
-     * @returns {HRESULT} 
+     * @returns {ISearchCatalogManager} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager2-createcatalog
      */
-    CreateCatalog(pszCatalog, ppCatalogManager) {
+    CreateCatalog(pszCatalog) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog
 
-        result := ComCall(16, this, "ptr", pszCatalog, "ptr*", ppCatalogManager, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", pszCatalog, "ptr*", &ppCatalogManager := 0, "HRESULT")
+        return ISearchCatalogManager(ppCatalogManager)
     }
 
     /**

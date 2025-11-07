@@ -64,14 +64,11 @@ class IMFPMPHost extends IUnknown{
      * @param {Pointer<Guid>} clsid 
      * @param {IStream} pStream 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmphost-createobjectbyclsid
      */
-    CreateObjectByCLSID(clsid, pStream, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", clsid, "ptr", pStream, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateObjectByCLSID(clsid, pStream, riid) {
+        result := ComCall(5, this, "ptr", clsid, "ptr", pStream, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

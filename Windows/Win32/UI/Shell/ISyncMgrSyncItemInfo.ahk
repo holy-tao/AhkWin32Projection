@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,35 +39,33 @@ class ISyncMgrSyncItemInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszTypeLabel 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynciteminfo-gettypelabel
      */
-    GetTypeLabel(ppszTypeLabel) {
-        result := ComCall(3, this, "ptr", ppszTypeLabel, "HRESULT")
-        return result
+    GetTypeLabel() {
+        result := ComCall(3, this, "ptr*", &ppszTypeLabel := 0, "HRESULT")
+        return ppszTypeLabel
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszComment 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynciteminfo-getcomment
      */
-    GetComment(ppszComment) {
-        result := ComCall(4, this, "ptr", ppszComment, "HRESULT")
-        return result
+    GetComment() {
+        result := ComCall(4, this, "ptr*", &ppszComment := 0, "HRESULT")
+        return ppszComment
     }
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pftLastSync 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynciteminfo-getlastsynctime
      */
-    GetLastSyncTime(pftLastSync) {
+    GetLastSyncTime() {
+        pftLastSync := FILETIME()
         result := ComCall(5, this, "ptr", pftLastSync, "HRESULT")
-        return result
+        return pftLastSync
     }
 
     /**

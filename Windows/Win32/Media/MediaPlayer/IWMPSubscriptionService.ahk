@@ -41,7 +41,9 @@ class IWMPSubscriptionService extends IUnknown{
     allowPlay(hwnd, pMedia, pfAllowPlay) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", pMedia, "ptr", pfAllowPlay, "HRESULT")
+        pfAllowPlayMarshal := pfAllowPlay is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hwnd, "ptr", pMedia, pfAllowPlayMarshal, pfAllowPlay, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IWMPSubscriptionService extends IUnknown{
     allowCDBurn(hwnd, pPlaylist, pfAllowBurn) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(4, this, "ptr", hwnd, "ptr", pPlaylist, "ptr", pfAllowBurn, "HRESULT")
+        pfAllowBurnMarshal := pfAllowBurn is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", hwnd, "ptr", pPlaylist, pfAllowBurnMarshal, pfAllowBurn, "HRESULT")
         return result
     }
 
@@ -71,7 +75,9 @@ class IWMPSubscriptionService extends IUnknown{
     allowPDATransfer(hwnd, pPlaylist, pfAllowTransfer) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(5, this, "ptr", hwnd, "ptr", pPlaylist, "ptr", pfAllowTransfer, "HRESULT")
+        pfAllowTransferMarshal := pfAllowTransfer is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", hwnd, "ptr", pPlaylist, pfAllowTransferMarshal, pfAllowTransfer, "HRESULT")
         return result
     }
 

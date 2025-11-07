@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -73,22 +74,20 @@ class IWBScriptControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_selectableContent(p) {
-        result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+    get_selectableContent() {
+        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_frozen(p) {
-        result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+    get_frozen() {
+        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -103,32 +102,30 @@ class IWBScriptControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_scrollbar(p) {
-        result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+    get_scrollbar() {
+        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_version(p) {
+    get_version() {
+        p := BSTR()
         result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_visibility(p) {
-        result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+    get_visibility() {
+        result := ComCall(16, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -143,11 +140,11 @@ class IWBScriptControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onvisibilitychange(p) {
+    get_onvisibilitychange() {
+        p := VARIANT()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

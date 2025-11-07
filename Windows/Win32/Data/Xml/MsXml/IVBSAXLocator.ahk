@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,45 +31,39 @@ class IVBSAXLocator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} nColumn 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_columnNumber(nColumn) {
-        nColumnMarshal := nColumn is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, nColumnMarshal, nColumn, "HRESULT")
-        return result
+    get_columnNumber() {
+        result := ComCall(7, this, "int*", &nColumn := 0, "HRESULT")
+        return nColumn
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} nLine 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_lineNumber(nLine) {
-        nLineMarshal := nLine is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, nLineMarshal, nLine, "HRESULT")
-        return result
+    get_lineNumber() {
+        result := ComCall(8, this, "int*", &nLine := 0, "HRESULT")
+        return nLine
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} strPublicId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_publicId(strPublicId) {
+    get_publicId() {
+        strPublicId := BSTR()
         result := ComCall(9, this, "ptr", strPublicId, "HRESULT")
-        return result
+        return strPublicId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} strSystemId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_systemId(strSystemId) {
+    get_systemId() {
+        strSystemId := BSTR()
         result := ComCall(10, this, "ptr", strSystemId, "HRESULT")
-        return result
+        return strSystemId
     }
 }

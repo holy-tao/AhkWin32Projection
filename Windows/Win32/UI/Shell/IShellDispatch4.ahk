@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IShellDispatch3.ahk
 
 /**
@@ -54,26 +55,25 @@ class IShellDispatch4 extends IShellDispatch3{
     /**
      * 
      * @param {BSTR} bstrPolicyName 
-     * @param {Pointer<VARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch4-explorerpolicy
      */
-    ExplorerPolicy(bstrPolicyName, pValue) {
+    ExplorerPolicy(bstrPolicyName) {
         bstrPolicyName := bstrPolicyName is String ? BSTR.Alloc(bstrPolicyName).Value : bstrPolicyName
 
+        pValue := VARIANT()
         result := ComCall(42, this, "ptr", bstrPolicyName, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} lSetting 
-     * @param {Pointer<VARIANT_BOOL>} pResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch4-getsetting
      */
-    GetSetting(lSetting, pResult) {
-        result := ComCall(43, this, "int", lSetting, "ptr", pResult, "HRESULT")
-        return result
+    GetSetting(lSetting) {
+        result := ComCall(43, this, "int", lSetting, "short*", &pResult := 0, "HRESULT")
+        return pResult
     }
 }

@@ -112,10 +112,11 @@ class IMLangStringWStr extends IMLangString{
      * @returns {HRESULT} 
      */
     LockWStr(lSrcPos, lSrcLen, lFlags, cchRequest, ppszDest, pcchDest, plDestLen) {
+        ppszDestMarshal := ppszDest is VarRef ? "ptr*" : "ptr"
         pcchDestMarshal := pcchDest is VarRef ? "int*" : "ptr"
         plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "int", lSrcPos, "int", lSrcLen, "int", lFlags, "int", cchRequest, "ptr", ppszDest, pcchDestMarshal, pcchDest, plDestLenMarshal, plDestLen, "HRESULT")
+        result := ComCall(11, this, "int", lSrcPos, "int", lSrcLen, "int", lFlags, "int", cchRequest, ppszDestMarshal, ppszDest, pcchDestMarshal, pcchDest, plDestLenMarshal, plDestLen, "HRESULT")
         return result
     }
 

@@ -30,12 +30,11 @@ class IDtcNetworkAccessConfig3 extends IDtcNetworkAccessConfig2{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbLUAccess 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetLUAccess(pbLUAccess) {
-        result := ComCall(22, this, "ptr", pbLUAccess, "HRESULT")
-        return result
+    GetLUAccess() {
+        result := ComCall(22, this, "int*", &pbLUAccess := 0, "HRESULT")
+        return pbLUAccess
     }
 
     /**

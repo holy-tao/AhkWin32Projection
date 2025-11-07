@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IObjectIds.ahk
 #Include .\IX509Extension.ahk
 
 /**
@@ -58,12 +59,11 @@ class IX509ExtensionEnhancedKeyUsage extends IX509Extension{
 
     /**
      * 
-     * @param {Pointer<IObjectIds>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectIds} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionenhancedkeyusage-get_enhancedkeyusage
      */
-    get_EnhancedKeyUsage(ppValue) {
-        result := ComCall(14, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_EnhancedKeyUsage() {
+        result := ComCall(14, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectIds(ppValue)
     }
 }

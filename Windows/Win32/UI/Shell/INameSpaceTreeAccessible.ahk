@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,13 +40,13 @@ class INameSpaceTreeAccessible extends IUnknown{
     /**
      * 
      * @param {IShellItem} psi 
-     * @param {Pointer<BSTR>} pbstrDefaultAction 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreeaccessible-ongetdefaultaccessibilityaction
      */
-    OnGetDefaultAccessibilityAction(psi, pbstrDefaultAction) {
+    OnGetDefaultAccessibilityAction(psi) {
+        pbstrDefaultAction := BSTR()
         result := ComCall(3, this, "ptr", psi, "ptr", pbstrDefaultAction, "HRESULT")
-        return result
+        return pbstrDefaultAction
     }
 
     /**
@@ -61,12 +63,12 @@ class INameSpaceTreeAccessible extends IUnknown{
     /**
      * 
      * @param {IShellItem} psi 
-     * @param {Pointer<VARIANT>} pvarRole 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreeaccessible-ongetaccessibilityrole
      */
-    OnGetAccessibilityRole(psi, pvarRole) {
+    OnGetAccessibilityRole(psi) {
+        pvarRole := VARIANT()
         result := ComCall(5, this, "ptr", psi, "ptr", pvarRole, "HRESULT")
-        return result
+        return pvarRole
     }
 }

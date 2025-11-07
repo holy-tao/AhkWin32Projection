@@ -122,10 +122,11 @@ class IMLangStringAStr extends IMLangString{
      */
     LockAStr(lSrcPos, lSrcLen, lFlags, uCodePageIn, cchRequest, puCodePageOut, ppszDest, pcchDest, plDestLen) {
         puCodePageOutMarshal := puCodePageOut is VarRef ? "uint*" : "ptr"
+        ppszDestMarshal := ppszDest is VarRef ? "ptr*" : "ptr"
         pcchDestMarshal := pcchDest is VarRef ? "int*" : "ptr"
         plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "int", lSrcPos, "int", lSrcLen, "int", lFlags, "uint", uCodePageIn, "int", cchRequest, puCodePageOutMarshal, puCodePageOut, "ptr", ppszDest, pcchDestMarshal, pcchDest, plDestLenMarshal, plDestLen, "HRESULT")
+        result := ComCall(11, this, "int", lSrcPos, "int", lSrcLen, "int", lFlags, "uint", uCodePageIn, "int", cchRequest, puCodePageOutMarshal, puCodePageOut, ppszDestMarshal, ppszDest, pcchDestMarshal, pcchDest, plDestLenMarshal, plDestLen, "HRESULT")
         return result
     }
 

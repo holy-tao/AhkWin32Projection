@@ -46,13 +46,10 @@ class ISVGPathSegLinetoVerticalRel extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_y(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_y() {
+        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 }

@@ -56,39 +56,39 @@ class IAccDictionary extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} Term 
-     * @param {Pointer<Guid>} pParentTerm 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-getparentterm
      */
-    GetParentTerm(Term, pParentTerm) {
+    GetParentTerm(Term) {
+        pParentTerm := Guid()
         result := ComCall(4, this, "ptr", Term, "ptr", pParentTerm, "HRESULT")
-        return result
+        return pParentTerm
     }
 
     /**
      * 
      * @param {Pointer<Guid>} Term 
-     * @param {Pointer<BSTR>} pResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-getmnemonicstring
      */
-    GetMnemonicString(Term, pResult) {
+    GetMnemonicString(Term) {
+        pResult := BSTR()
         result := ComCall(5, this, "ptr", Term, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
      * 
      * @param {BSTR} bstrMnemonic 
-     * @param {Pointer<Guid>} pTerm 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-lookupmnemonicterm
      */
-    LookupMnemonicTerm(bstrMnemonic, pTerm) {
+    LookupMnemonicTerm(bstrMnemonic) {
         bstrMnemonic := bstrMnemonic is String ? BSTR.Alloc(bstrMnemonic).Value : bstrMnemonic
 
+        pTerm := Guid()
         result := ComCall(6, this, "ptr", bstrMnemonic, "ptr", pTerm, "HRESULT")
-        return result
+        return pTerm
     }
 
     /**

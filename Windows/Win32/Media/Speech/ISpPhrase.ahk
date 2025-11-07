@@ -30,26 +30,20 @@ class ISpPhrase extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SPPHRASE>>} ppCoMemPhrase 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SPPHRASE>} 
      */
-    GetPhrase(ppCoMemPhrase) {
-        ppCoMemPhraseMarshal := ppCoMemPhrase is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppCoMemPhraseMarshal, ppCoMemPhrase, "HRESULT")
-        return result
+    GetPhrase() {
+        result := ComCall(3, this, "ptr*", &ppCoMemPhrase := 0, "HRESULT")
+        return ppCoMemPhrase
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SPSERIALIZEDPHRASE>>} ppCoMemPhrase 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SPSERIALIZEDPHRASE>} 
      */
-    GetSerializedPhrase(ppCoMemPhrase) {
-        ppCoMemPhraseMarshal := ppCoMemPhrase is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppCoMemPhraseMarshal, ppCoMemPhrase, "HRESULT")
-        return result
+    GetSerializedPhrase() {
+        result := ComCall(4, this, "ptr*", &ppCoMemPhrase := 0, "HRESULT")
+        return ppCoMemPhrase
     }
 
     /**
@@ -62,9 +56,10 @@ class ISpPhrase extends IUnknown{
      * @returns {HRESULT} 
      */
     GetText(ulStart, ulCount, fUseTextReplacements, ppszCoMemText, pbDisplayAttributes) {
+        ppszCoMemTextMarshal := ppszCoMemText is VarRef ? "ptr*" : "ptr"
         pbDisplayAttributesMarshal := pbDisplayAttributes is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", ulStart, "uint", ulCount, "int", fUseTextReplacements, "ptr", ppszCoMemText, pbDisplayAttributesMarshal, pbDisplayAttributes, "HRESULT")
+        result := ComCall(5, this, "uint", ulStart, "uint", ulCount, "int", fUseTextReplacements, ppszCoMemTextMarshal, ppszCoMemText, pbDisplayAttributesMarshal, pbDisplayAttributes, "HRESULT")
         return result
     }
 

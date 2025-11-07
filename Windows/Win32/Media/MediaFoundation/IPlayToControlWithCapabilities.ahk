@@ -32,14 +32,11 @@ class IPlayToControlWithCapabilities extends IPlayToControl{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCapabilities 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-iplaytocontrolwithcapabilities-getcapabilities
      */
-    GetCapabilities(pCapabilities) {
-        pCapabilitiesMarshal := pCapabilities is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pCapabilitiesMarshal, pCapabilities, "HRESULT")
-        return result
+    GetCapabilities() {
+        result := ComCall(5, this, "int*", &pCapabilities := 0, "HRESULT")
+        return pCapabilities
     }
 }

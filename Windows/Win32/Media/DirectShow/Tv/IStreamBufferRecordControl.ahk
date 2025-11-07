@@ -68,7 +68,11 @@ class IStreamBufferRecordControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordcontrol-getrecordingstatus
      */
     GetRecordingStatus(phResult, pbStarted, pbStopped) {
-        result := ComCall(5, this, "ptr", phResult, "ptr", pbStarted, "ptr", pbStopped, "HRESULT")
+        phResultMarshal := phResult is VarRef ? "int*" : "ptr"
+        pbStartedMarshal := pbStarted is VarRef ? "int*" : "ptr"
+        pbStoppedMarshal := pbStopped is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, phResultMarshal, phResult, pbStartedMarshal, pbStarted, pbStoppedMarshal, pbStopped, "HRESULT")
         return result
     }
 }

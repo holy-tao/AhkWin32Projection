@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFMediaKeySession.ahk
+#Include .\IMFCdmSuspendNotify.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,26 +41,25 @@ class IMFMediaKeys extends IUnknown{
      * @param {Pointer} customData 
      * @param {Integer} cbCustomData 
      * @param {IMFMediaKeySessionNotify} notify 
-     * @param {Pointer<IMFMediaKeySession>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaKeySession} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeys-createsession
      */
-    CreateSession(mimeType, initData, cb, customData, cbCustomData, notify, ppSession) {
+    CreateSession(mimeType, initData, cb, customData, cbCustomData, notify) {
         mimeType := mimeType is String ? BSTR.Alloc(mimeType).Value : mimeType
 
-        result := ComCall(3, this, "ptr", mimeType, "ptr", initData, "uint", cb, "ptr", customData, "uint", cbCustomData, "ptr", notify, "ptr*", ppSession, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", mimeType, "ptr", initData, "uint", cb, "ptr", customData, "uint", cbCustomData, "ptr", notify, "ptr*", &ppSession := 0, "HRESULT")
+        return IMFMediaKeySession(ppSession)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} keySystem 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeys-get_keysystem
      */
-    get_KeySystem(keySystem) {
+    get_KeySystem() {
+        keySystem := BSTR()
         result := ComCall(4, this, "ptr", keySystem, "HRESULT")
-        return result
+        return keySystem
     }
 
     /**
@@ -73,12 +74,11 @@ class IMFMediaKeys extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFCdmSuspendNotify>} notify 
-     * @returns {HRESULT} 
+     * @returns {IMFCdmSuspendNotify} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeys-getsuspendnotify
      */
-    GetSuspendNotify(notify) {
-        result := ComCall(6, this, "ptr*", notify, "HRESULT")
-        return result
+    GetSuspendNotify() {
+        result := ComCall(6, this, "ptr*", &notify := 0, "HRESULT")
+        return IMFCdmSuspendNotify(notify)
     }
 }

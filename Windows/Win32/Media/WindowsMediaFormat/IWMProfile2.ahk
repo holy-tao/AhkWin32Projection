@@ -32,12 +32,12 @@ class IWMProfile2 extends IWMProfile{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile2-getprofileid
      */
-    GetProfileID(pguidID) {
+    GetProfileID() {
+        pguidID := Guid()
         result := ComCall(21, this, "ptr", pguidID, "HRESULT")
-        return result
+        return pguidID
     }
 }

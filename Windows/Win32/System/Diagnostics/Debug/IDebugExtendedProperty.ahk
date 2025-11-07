@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ExtendedDebugPropertyInfo.ahk
+#Include .\IEnumDebugExtendedPropertyInfo.ahk
 #Include .\IDebugProperty.ahk
 
 /**
@@ -32,23 +34,22 @@ class IDebugExtendedProperty extends IDebugProperty{
      * 
      * @param {Integer} dwFieldSpec 
      * @param {Integer} nRadix 
-     * @param {Pointer<ExtendedDebugPropertyInfo>} pExtendedPropertyInfo 
-     * @returns {HRESULT} 
+     * @returns {ExtendedDebugPropertyInfo} 
      */
-    GetExtendedPropertyInfo(dwFieldSpec, nRadix, pExtendedPropertyInfo) {
+    GetExtendedPropertyInfo(dwFieldSpec, nRadix) {
+        pExtendedPropertyInfo := ExtendedDebugPropertyInfo()
         result := ComCall(8, this, "uint", dwFieldSpec, "uint", nRadix, "ptr", pExtendedPropertyInfo, "HRESULT")
-        return result
+        return pExtendedPropertyInfo
     }
 
     /**
      * 
      * @param {Integer} dwFieldSpec 
      * @param {Integer} nRadix 
-     * @param {Pointer<IEnumDebugExtendedPropertyInfo>} ppeepi 
-     * @returns {HRESULT} 
+     * @returns {IEnumDebugExtendedPropertyInfo} 
      */
-    EnumExtendedMembers(dwFieldSpec, nRadix, ppeepi) {
-        result := ComCall(9, this, "uint", dwFieldSpec, "uint", nRadix, "ptr*", ppeepi, "HRESULT")
-        return result
+    EnumExtendedMembers(dwFieldSpec, nRadix) {
+        result := ComCall(9, this, "uint", dwFieldSpec, "uint", nRadix, "ptr*", &ppeepi := 0, "HRESULT")
+        return IEnumDebugExtendedPropertyInfo(ppeepi)
     }
 }

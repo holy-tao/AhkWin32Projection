@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk
 
 /**
  * The IVssCreateWriterMetadata interface is a C++ (not COM) interface containing methods to construct the Writer Metadata Document in response to an Identify event. It is used only in the CVssWriter::OnIdentify method.
@@ -217,13 +218,12 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
 
     /**
      * 
-     * @param {Pointer<IXMLDOMDocument>} pDoc 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMDocument} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreatewritermetadata-getdocument
      */
-    GetDocument(pDoc) {
-        result := ComCall(10, this, "ptr*", pDoc, "HRESULT")
-        return result
+    GetDocument() {
+        result := ComCall(10, this, "ptr*", &pDoc := 0, "HRESULT")
+        return IXMLDOMDocument(pDoc)
     }
 
     /**

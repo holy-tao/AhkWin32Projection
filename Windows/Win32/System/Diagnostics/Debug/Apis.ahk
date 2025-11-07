@@ -2592,9 +2592,11 @@ class Debug {
     static CheckRemoteDebuggerPresent(hProcess, pbDebuggerPresent) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
+        pbDebuggerPresentMarshal := pbDebuggerPresent is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CheckRemoteDebuggerPresent", "ptr", hProcess, "ptr", pbDebuggerPresent, "int")
+        result := DllCall("KERNEL32.dll\CheckRemoteDebuggerPresent", "ptr", hProcess, pbDebuggerPresentMarshal, pbDebuggerPresent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2675,40 +2677,36 @@ class Debug {
      * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} Ptr 
-     * @param {Pointer<Pointer<Void>>} EncodedPtr 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static EncodeRemotePointer(ProcessHandle, Ptr, EncodedPtr) {
+    static EncodeRemotePointer(ProcessHandle, Ptr) {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
         PtrMarshal := Ptr is VarRef ? "ptr" : "ptr"
-        EncodedPtrMarshal := EncodedPtr is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-util-l1-1-1.dll\EncodeRemotePointer", "ptr", ProcessHandle, PtrMarshal, Ptr, EncodedPtrMarshal, EncodedPtr, "int")
+        result := DllCall("api-ms-win-core-util-l1-1-1.dll\EncodeRemotePointer", "ptr", ProcessHandle, PtrMarshal, Ptr, "ptr*", &EncodedPtr := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return EncodedPtr
     }
 
     /**
      * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} Ptr 
-     * @param {Pointer<Pointer<Void>>} DecodedPtr 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static DecodeRemotePointer(ProcessHandle, Ptr, DecodedPtr) {
+    static DecodeRemotePointer(ProcessHandle, Ptr) {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
         PtrMarshal := Ptr is VarRef ? "ptr" : "ptr"
-        DecodedPtrMarshal := DecodedPtr is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-util-l1-1-1.dll\DecodeRemotePointer", "ptr", ProcessHandle, PtrMarshal, Ptr, DecodedPtrMarshal, DecodedPtr, "int")
+        result := DllCall("api-ms-win-core-util-l1-1-1.dll\DecodeRemotePointer", "ptr", ProcessHandle, PtrMarshal, Ptr, "ptr*", &DecodedPtr := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return DecodedPtr
     }
 
     /**
@@ -3299,10 +3297,11 @@ class Debug {
     static GetThreadWaitChain(WctHandle, Context, Flags, ThreadId, NodeCount, NodeInfoArray, IsCycle) {
         WctHandleMarshal := WctHandle is VarRef ? "ptr" : "ptr"
         NodeCountMarshal := NodeCount is VarRef ? "uint*" : "ptr"
+        IsCycleMarshal := IsCycle is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetThreadWaitChain", WctHandleMarshal, WctHandle, "ptr", Context, "uint", Flags, "uint", ThreadId, NodeCountMarshal, NodeCount, "ptr", NodeInfoArray, "ptr", IsCycle, "int")
+        result := DllCall("ADVAPI32.dll\GetThreadWaitChain", WctHandleMarshal, WctHandle, "ptr", Context, "uint", Flags, "uint", ThreadId, NodeCountMarshal, NodeCount, "ptr", NodeInfoArray, IsCycleMarshal, IsCycle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5570,7 +5569,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetHomeDirectory", "ptr", hProcess, "ptr", dir, "char*")
+        result := DllCall("dbghelp.dll\SymSetHomeDirectory", "ptr", hProcess, "ptr", dir, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5593,7 +5592,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetHomeDirectoryW", "ptr", hProcess, "ptr", dir, "char*")
+        result := DllCall("dbghelp.dll\SymSetHomeDirectoryW", "ptr", hProcess, "ptr", dir, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5616,7 +5615,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetHomeDirectory", "uint", type, "ptr", dir, "ptr", size, "char*")
+        result := DllCall("dbghelp.dll\SymGetHomeDirectory", "uint", type, "ptr", dir, "ptr", size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5639,7 +5638,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetHomeDirectoryW", "uint", type, "ptr", dir, "ptr", size, "char*")
+        result := DllCall("dbghelp.dll\SymGetHomeDirectoryW", "uint", type, "ptr", dir, "ptr", size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7412,9 +7411,12 @@ class Debug {
         FileName := FileName is String ? StrPtr(FileName) : FileName
         Match := Match is String ? StrPtr(Match) : Match
 
+        FileNameStopMarshal := FileNameStop is VarRef ? "ptr*" : "ptr"
+        MatchStopMarshal := MatchStop is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymMatchFileName", "ptr", FileName, "ptr", Match, "ptr", FileNameStop, "ptr", MatchStop, "int")
+        result := DllCall("dbghelp.dll\SymMatchFileName", "ptr", FileName, "ptr", Match, FileNameStopMarshal, FileNameStop, MatchStopMarshal, MatchStop, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7437,9 +7439,12 @@ class Debug {
         FileName := FileName is String ? StrPtr(FileName) : FileName
         Match := Match is String ? StrPtr(Match) : Match
 
+        FileNameStopMarshal := FileNameStop is VarRef ? "ptr*" : "ptr"
+        MatchStopMarshal := MatchStop is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymMatchFileNameW", "ptr", FileName, "ptr", Match, "ptr", FileNameStop, "ptr", MatchStop, "int")
+        result := DllCall("dbghelp.dll\SymMatchFileNameW", "ptr", FileName, "ptr", Match, FileNameStopMarshal, FileNameStop, MatchStopMarshal, MatchStop, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10141,7 +10146,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvDeltaName", "ptr", hProcess, "ptr", SymPath, "ptr", Type, "ptr", File1, "ptr", File2, "char*")
+        result := DllCall("dbghelp.dll\SymSrvDeltaName", "ptr", hProcess, "ptr", SymPath, "ptr", Type, "ptr", File1, "ptr", File2, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10173,7 +10178,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvDeltaNameW", "ptr", hProcess, "ptr", SymPath, "ptr", Type, "ptr", File1, "ptr", File2, "char*")
+        result := DllCall("dbghelp.dll\SymSrvDeltaNameW", "ptr", hProcess, "ptr", SymPath, "ptr", Type, "ptr", File1, "ptr", File2, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10203,7 +10208,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetSupplement", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "char*")
+        result := DllCall("dbghelp.dll\SymSrvGetSupplement", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10233,7 +10238,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetSupplementW", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "char*")
+        result := DllCall("dbghelp.dll\SymSrvGetSupplementW", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10433,7 +10438,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvStoreSupplement", "ptr", hProcess, "ptr", SrvPath, "ptr", Node, "ptr", File, "uint", Flags, "char*")
+        result := DllCall("dbghelp.dll\SymSrvStoreSupplement", "ptr", hProcess, "ptr", SrvPath, "ptr", Node, "ptr", File, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10463,7 +10468,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvStoreSupplementW", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "uint", Flags, "char*")
+        result := DllCall("dbghelp.dll\SymSrvStoreSupplementW", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10491,7 +10496,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvStoreFile", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "uint", Flags, "char*")
+        result := DllCall("dbghelp.dll\SymSrvStoreFile", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10519,7 +10524,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvStoreFileW", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "uint", Flags, "char*")
+        result := DllCall("dbghelp.dll\SymSrvStoreFileW", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 

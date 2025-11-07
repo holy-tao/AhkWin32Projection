@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1GeometryRealization.ahk
 #Include .\ID2D1DeviceContext.ahk
 
 /**
@@ -34,13 +35,12 @@ class ID2D1DeviceContext1 extends ID2D1DeviceContext{
      * 
      * @param {ID2D1Geometry} geometry 
      * @param {Float} flatteningTolerance 
-     * @param {Pointer<ID2D1GeometryRealization>} geometryRealization 
-     * @returns {HRESULT} 
+     * @returns {ID2D1GeometryRealization} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-id2d1devicecontext1-createfilledgeometryrealization
      */
-    CreateFilledGeometryRealization(geometry, flatteningTolerance, geometryRealization) {
-        result := ComCall(92, this, "ptr", geometry, "float", flatteningTolerance, "ptr*", geometryRealization, "HRESULT")
-        return result
+    CreateFilledGeometryRealization(geometry, flatteningTolerance) {
+        result := ComCall(92, this, "ptr", geometry, "float", flatteningTolerance, "ptr*", &geometryRealization := 0, "HRESULT")
+        return ID2D1GeometryRealization(geometryRealization)
     }
 
     /**
@@ -49,13 +49,12 @@ class ID2D1DeviceContext1 extends ID2D1DeviceContext{
      * @param {Float} flatteningTolerance 
      * @param {Float} strokeWidth 
      * @param {ID2D1StrokeStyle} strokeStyle 
-     * @param {Pointer<ID2D1GeometryRealization>} geometryRealization 
-     * @returns {HRESULT} 
+     * @returns {ID2D1GeometryRealization} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-id2d1devicecontext1-createstrokedgeometryrealization
      */
-    CreateStrokedGeometryRealization(geometry, flatteningTolerance, strokeWidth, strokeStyle, geometryRealization) {
-        result := ComCall(93, this, "ptr", geometry, "float", flatteningTolerance, "float", strokeWidth, "ptr", strokeStyle, "ptr*", geometryRealization, "HRESULT")
-        return result
+    CreateStrokedGeometryRealization(geometry, flatteningTolerance, strokeWidth, strokeStyle) {
+        result := ComCall(93, this, "ptr", geometry, "float", flatteningTolerance, "float", strokeWidth, "ptr", strokeStyle, "ptr*", &geometryRealization := 0, "HRESULT")
+        return ID2D1GeometryRealization(geometryRealization)
     }
 
     /**

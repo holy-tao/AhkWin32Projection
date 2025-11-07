@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
+#Include .\ITuningSpace.ahk
+#Include .\IEnumTuningSpaces.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,48 +42,42 @@ class ITuningSpaces extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspaces-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVARIANT>} NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspaces-get__newenum
      */
-    get__NewEnum(NewEnum) {
-        result := ComCall(8, this, "ptr*", NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &NewEnum := 0, "HRESULT")
+        return IEnumVARIANT(NewEnum)
     }
 
     /**
      * 
      * @param {VARIANT} varIndex 
-     * @param {Pointer<ITuningSpace>} TuningSpace 
-     * @returns {HRESULT} 
+     * @returns {ITuningSpace} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspaces-get_item
      */
-    get_Item(varIndex, TuningSpace) {
-        result := ComCall(9, this, "ptr", varIndex, "ptr*", TuningSpace, "HRESULT")
-        return result
+    get_Item(varIndex) {
+        result := ComCall(9, this, "ptr", varIndex, "ptr*", &TuningSpace := 0, "HRESULT")
+        return ITuningSpace(TuningSpace)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumTuningSpaces>} NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTuningSpaces} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspaces-get_enumtuningspaces
      */
-    get_EnumTuningSpaces(NewEnum) {
-        result := ComCall(10, this, "ptr*", NewEnum, "HRESULT")
-        return result
+    get_EnumTuningSpaces() {
+        result := ComCall(10, this, "ptr*", &NewEnum := 0, "HRESULT")
+        return IEnumTuningSpaces(NewEnum)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Properties.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -361,34 +362,28 @@ class ID2D1Properties extends IUnknown{
      * 
      * @param {PWSTR} name 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} data 
      * @param {Integer} dataSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvaluebyname(pcwstr)
      */
-    GetValueByName(name, type, data, dataSize) {
+    GetValueByName(name, type, dataSize) {
         name := name is String ? StrPtr(name) : name
 
-        dataMarshal := data is VarRef ? "char*" : "ptr"
-
-        result := ComCall(10, this, "ptr", name, "int", type, dataMarshal, data, "uint", dataSize, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", name, "int", type, "char*", &data := 0, "uint", dataSize, "HRESULT")
+        return data
     }
 
     /**
      * 
      * @param {Integer} index 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} data 
      * @param {Integer} dataSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvalue(u_t)
      */
-    GetValue(index, type, data, dataSize) {
-        dataMarshal := data is VarRef ? "char*" : "ptr"
-
-        result := ComCall(11, this, "uint", index, "int", type, dataMarshal, data, "uint", dataSize, "HRESULT")
-        return result
+    GetValue(index, type, dataSize) {
+        result := ComCall(11, this, "uint", index, "int", type, "char*", &data := 0, "uint", dataSize, "HRESULT")
+        return data
     }
 
     /**
@@ -405,12 +400,11 @@ class ID2D1Properties extends IUnknown{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ID2D1Properties>} subProperties 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Properties} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getsubproperties(uint32_id2d1properties)
      */
-    GetSubProperties(index, subProperties) {
-        result := ComCall(13, this, "uint", index, "ptr*", subProperties, "HRESULT")
-        return result
+    GetSubProperties(index) {
+        result := ComCall(13, this, "uint", index, "ptr*", &subProperties := 0, "HRESULT")
+        return ID2D1Properties(subProperties)
     }
 }

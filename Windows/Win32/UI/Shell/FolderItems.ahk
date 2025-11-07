@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\FolderItem.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * 
@@ -38,56 +40,49 @@ class FolderItems extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Application(ppid) {
-        result := ComCall(8, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Application() {
+        result := ComCall(8, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Parent(ppid) {
-        result := ComCall(9, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(9, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
      * @param {VARIANT} index 
-     * @param {Pointer<FolderItem>} ppid 
-     * @returns {HRESULT} 
+     * @returns {FolderItem} 
      * @see https://learn.microsoft.com/windows/win32/shell/folderitems-item
      */
-    Item(index, ppid) {
-        result := ComCall(10, this, "ptr", index, "ptr*", ppid, "HRESULT")
-        return result
+    Item(index) {
+        result := ComCall(10, this, "ptr", index, "ptr*", &ppid := 0, "HRESULT")
+        return FolderItem(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/shell/folderitems--newenum
      */
-    _NewEnum(ppunk) {
-        result := ComCall(11, this, "ptr*", ppunk, "HRESULT")
-        return result
+    _NewEnum() {
+        result := ComCall(11, this, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 }

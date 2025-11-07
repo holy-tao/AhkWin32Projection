@@ -40,21 +40,19 @@ class IEnhancedStorageACT3 extends IEnhancedStorageACT2{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsQueueFrozen 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsQueueFrozen(pIsQueueFrozen) {
-        result := ComCall(12, this, "ptr", pIsQueueFrozen, "HRESULT")
-        return result
+    IsQueueFrozen() {
+        result := ComCall(12, this, "int*", &pIsQueueFrozen := 0, "HRESULT")
+        return pIsQueueFrozen
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pShellExtSupport 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetShellExtSupport(pShellExtSupport) {
-        result := ComCall(13, this, "ptr", pShellExtSupport, "HRESULT")
-        return result
+    GetShellExtSupport() {
+        result := ComCall(13, this, "int*", &pShellExtSupport := 0, "HRESULT")
+        return pShellExtSupport
     }
 }

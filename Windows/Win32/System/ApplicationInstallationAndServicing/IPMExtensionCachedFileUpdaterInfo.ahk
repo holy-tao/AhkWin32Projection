@@ -30,11 +30,10 @@ class IPMExtensionCachedFileUpdaterInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pSupportsUpdates 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_SupportsUpdates(pSupportsUpdates) {
-        result := ComCall(3, this, "ptr", pSupportsUpdates, "HRESULT")
-        return result
+    get_SupportsUpdates() {
+        result := ComCall(3, this, "int*", &pSupportsUpdates := 0, "HRESULT")
+        return pSupportsUpdates
     }
 }

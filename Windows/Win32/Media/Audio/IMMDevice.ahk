@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,50 +36,42 @@ class IMMDevice extends IUnknown{
      * @param {Pointer<Guid>} iid 
      * @param {Integer} dwClsCtx 
      * @param {Pointer<PROPVARIANT>} pActivationParams 
-     * @param {Pointer<Pointer<Void>>} ppInterface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-activate
      */
-    Activate(iid, dwClsCtx, pActivationParams, ppInterface) {
-        ppInterfaceMarshal := ppInterface is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", iid, "uint", dwClsCtx, "ptr", pActivationParams, ppInterfaceMarshal, ppInterface, "HRESULT")
-        return result
+    Activate(iid, dwClsCtx, pActivationParams) {
+        result := ComCall(3, this, "ptr", iid, "uint", dwClsCtx, "ptr", pActivationParams, "ptr*", &ppInterface := 0, "HRESULT")
+        return ppInterface
     }
 
     /**
      * 
      * @param {Integer} stgmAccess 
-     * @param {Pointer<IPropertyStore>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-openpropertystore
      */
-    OpenPropertyStore(stgmAccess, ppProperties) {
-        result := ComCall(4, this, "uint", stgmAccess, "ptr*", ppProperties, "HRESULT")
-        return result
+    OpenPropertyStore(stgmAccess) {
+        result := ComCall(4, this, "uint", stgmAccess, "ptr*", &ppProperties := 0, "HRESULT")
+        return IPropertyStore(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppstrId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-getid
      */
-    GetId(ppstrId) {
-        result := ComCall(5, this, "ptr", ppstrId, "HRESULT")
-        return result
+    GetId() {
+        result := ComCall(5, this, "ptr*", &ppstrId := 0, "HRESULT")
+        return ppstrId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-getstate
      */
-    GetState(pdwState) {
-        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwStateMarshal, pdwState, "HRESULT")
-        return result
+    GetState() {
+        result := ComCall(6, this, "uint*", &pdwState := 0, "HRESULT")
+        return pdwState
     }
 }

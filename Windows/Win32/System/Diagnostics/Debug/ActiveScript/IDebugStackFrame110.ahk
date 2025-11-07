@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IScriptInvocationContext.ahk
 #Include .\IDebugStackFrame.ahk
 
 /**
@@ -30,23 +31,19 @@ class IDebugStackFrame110 extends IDebugStackFrame{
 
     /**
      * 
-     * @param {Pointer<Integer>} pStackFrameKind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetStackFrameType(pStackFrameKind) {
-        pStackFrameKindMarshal := pStackFrameKind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pStackFrameKindMarshal, pStackFrameKind, "HRESULT")
-        return result
+    GetStackFrameType() {
+        result := ComCall(8, this, "int*", &pStackFrameKind := 0, "HRESULT")
+        return pStackFrameKind
     }
 
     /**
      * 
-     * @param {Pointer<IScriptInvocationContext>} ppInvocationContext 
-     * @returns {HRESULT} 
+     * @returns {IScriptInvocationContext} 
      */
-    GetScriptInvocationContext(ppInvocationContext) {
-        result := ComCall(9, this, "ptr*", ppInvocationContext, "HRESULT")
-        return result
+    GetScriptInvocationContext() {
+        result := ComCall(9, this, "ptr*", &ppInvocationContext := 0, "HRESULT")
+        return IScriptInvocationContext(ppInvocationContext)
     }
 }

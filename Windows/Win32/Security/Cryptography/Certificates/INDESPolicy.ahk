@@ -64,16 +64,15 @@ class INDESPolicy extends IUnknown{
      * 
      * @param {PWSTR} pwszTemplate 
      * @param {PWSTR} pwszParams 
-     * @param {Pointer<PWSTR>} ppwszResponse 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-indespolicy-generatechallenge
      */
-    GenerateChallenge(pwszTemplate, pwszParams, ppwszResponse) {
+    GenerateChallenge(pwszTemplate, pwszParams) {
         pwszTemplate := pwszTemplate is String ? StrPtr(pwszTemplate) : pwszTemplate
         pwszParams := pwszParams is String ? StrPtr(pwszParams) : pwszParams
 
-        result := ComCall(5, this, "ptr", pwszTemplate, "ptr", pwszParams, "ptr", ppwszResponse, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pwszTemplate, "ptr", pwszParams, "ptr*", &ppwszResponse := 0, "HRESULT")
+        return ppwszResponse
     }
 
     /**
@@ -82,16 +81,15 @@ class INDESPolicy extends IUnknown{
      * @param {Pointer<CERTTRANSBLOB>} pctbSigningCertEncoded 
      * @param {PWSTR} pwszTemplate 
      * @param {PWSTR} pwszTransactionId 
-     * @param {Pointer<BOOL>} pfVerified 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-indespolicy-verifyrequest
      */
-    VerifyRequest(pctbRequest, pctbSigningCertEncoded, pwszTemplate, pwszTransactionId, pfVerified) {
+    VerifyRequest(pctbRequest, pctbSigningCertEncoded, pwszTemplate, pwszTransactionId) {
         pwszTemplate := pwszTemplate is String ? StrPtr(pwszTemplate) : pwszTemplate
         pwszTransactionId := pwszTransactionId is String ? StrPtr(pwszTransactionId) : pwszTransactionId
 
-        result := ComCall(6, this, "ptr", pctbRequest, "ptr", pctbSigningCertEncoded, "ptr", pwszTemplate, "ptr", pwszTransactionId, "ptr", pfVerified, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pctbRequest, "ptr", pctbSigningCertEncoded, "ptr", pwszTemplate, "ptr", pwszTransactionId, "int*", &pfVerified := 0, "HRESULT")
+        return pfVerified
     }
 
     /**

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICLRAssemblyReferenceList.ahk
+#Include .\ICLRReferenceAssemblyEnum.ahk
+#Include .\ICLRProbingAssemblyEnum.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,12 +35,13 @@ class ICLRAssemblyIdentityManager extends IUnknown{
      * 
      * @param {Pointer<PWSTR>} ppwzAssemblyReferences 
      * @param {Integer} dwNumOfReferences 
-     * @param {Pointer<ICLRAssemblyReferenceList>} ppReferenceList 
-     * @returns {HRESULT} 
+     * @returns {ICLRAssemblyReferenceList} 
      */
-    GetCLRAssemblyReferenceList(ppwzAssemblyReferences, dwNumOfReferences, ppReferenceList) {
-        result := ComCall(3, this, "ptr", ppwzAssemblyReferences, "uint", dwNumOfReferences, "ptr*", ppReferenceList, "HRESULT")
-        return result
+    GetCLRAssemblyReferenceList(ppwzAssemblyReferences, dwNumOfReferences) {
+        ppwzAssemblyReferencesMarshal := ppwzAssemblyReferences is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppwzAssemblyReferencesMarshal, ppwzAssemblyReferences, "uint", dwNumOfReferences, "ptr*", &ppReferenceList := 0, "HRESULT")
+        return ICLRAssemblyReferenceList(ppReferenceList)
     }
 
     /**
@@ -80,14 +84,13 @@ class ICLRAssemblyIdentityManager extends IUnknown{
      * @param {PWSTR} pwzFilePath 
      * @param {Integer} dwFlags 
      * @param {ICLRAssemblyReferenceList} pExcludeAssembliesList 
-     * @param {Pointer<ICLRReferenceAssemblyEnum>} ppReferenceEnum 
-     * @returns {HRESULT} 
+     * @returns {ICLRReferenceAssemblyEnum} 
      */
-    GetReferencedAssembliesFromFile(pwzFilePath, dwFlags, pExcludeAssembliesList, ppReferenceEnum) {
+    GetReferencedAssembliesFromFile(pwzFilePath, dwFlags, pExcludeAssembliesList) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        result := ComCall(6, this, "ptr", pwzFilePath, "uint", dwFlags, "ptr", pExcludeAssembliesList, "ptr*", ppReferenceEnum, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pwzFilePath, "uint", dwFlags, "ptr", pExcludeAssembliesList, "ptr*", &ppReferenceEnum := 0, "HRESULT")
+        return ICLRReferenceAssemblyEnum(ppReferenceEnum)
     }
 
     /**
@@ -95,12 +98,11 @@ class ICLRAssemblyIdentityManager extends IUnknown{
      * @param {IStream} pStream 
      * @param {Integer} dwFlags 
      * @param {ICLRAssemblyReferenceList} pExcludeAssembliesList 
-     * @param {Pointer<ICLRReferenceAssemblyEnum>} ppReferenceEnum 
-     * @returns {HRESULT} 
+     * @returns {ICLRReferenceAssemblyEnum} 
      */
-    GetReferencedAssembliesFromStream(pStream, dwFlags, pExcludeAssembliesList, ppReferenceEnum) {
-        result := ComCall(7, this, "ptr", pStream, "uint", dwFlags, "ptr", pExcludeAssembliesList, "ptr*", ppReferenceEnum, "HRESULT")
-        return result
+    GetReferencedAssembliesFromStream(pStream, dwFlags, pExcludeAssembliesList) {
+        result := ComCall(7, this, "ptr", pStream, "uint", dwFlags, "ptr", pExcludeAssembliesList, "ptr*", &ppReferenceEnum := 0, "HRESULT")
+        return ICLRReferenceAssemblyEnum(ppReferenceEnum)
     }
 
     /**
@@ -108,26 +110,24 @@ class ICLRAssemblyIdentityManager extends IUnknown{
      * @param {Integer} dwMachineType 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwzReferenceIdentity 
-     * @param {Pointer<ICLRProbingAssemblyEnum>} ppProbingAssemblyEnum 
-     * @returns {HRESULT} 
+     * @returns {ICLRProbingAssemblyEnum} 
      */
-    GetProbingAssembliesFromReference(dwMachineType, dwFlags, pwzReferenceIdentity, ppProbingAssemblyEnum) {
+    GetProbingAssembliesFromReference(dwMachineType, dwFlags, pwzReferenceIdentity) {
         pwzReferenceIdentity := pwzReferenceIdentity is String ? StrPtr(pwzReferenceIdentity) : pwzReferenceIdentity
 
-        result := ComCall(8, this, "uint", dwMachineType, "uint", dwFlags, "ptr", pwzReferenceIdentity, "ptr*", ppProbingAssemblyEnum, "HRESULT")
-        return result
+        result := ComCall(8, this, "uint", dwMachineType, "uint", dwFlags, "ptr", pwzReferenceIdentity, "ptr*", &ppProbingAssemblyEnum := 0, "HRESULT")
+        return ICLRProbingAssemblyEnum(ppProbingAssemblyEnum)
     }
 
     /**
      * 
      * @param {PWSTR} pwzAssemblyIdentity 
-     * @param {Pointer<BOOL>} pbIsStronglyNamed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsStronglyNamed(pwzAssemblyIdentity, pbIsStronglyNamed) {
+    IsStronglyNamed(pwzAssemblyIdentity) {
         pwzAssemblyIdentity := pwzAssemblyIdentity is String ? StrPtr(pwzAssemblyIdentity) : pwzAssemblyIdentity
 
-        result := ComCall(9, this, "ptr", pwzAssemblyIdentity, "ptr", pbIsStronglyNamed, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pwzAssemblyIdentity, "int*", &pbIsStronglyNamed := 0, "HRESULT")
+        return pbIsStronglyNamed
     }
 }

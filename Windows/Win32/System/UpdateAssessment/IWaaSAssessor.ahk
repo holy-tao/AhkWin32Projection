@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\OSUpdateAssessment.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -44,11 +45,11 @@ class IWaaSAssessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<OSUpdateAssessment>} result 
-     * @returns {HRESULT} 
+     * @returns {OSUpdateAssessment} 
      * @see https://learn.microsoft.com/windows/win32/api/waasapi/nf-waasapi-iwaasassessor-getosupdateassessment
      */
-    GetOSUpdateAssessment(result) {
+    GetOSUpdateAssessment() {
+        result := OSUpdateAssessment()
         result := ComCall(3, this, "ptr", result, "HRESULT")
         return result
     }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFSample.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,27 +33,23 @@ class IMFMuxStreamSampleManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMuxStreamCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamsamplemanager-getstreamcount
      */
-    GetStreamCount(pdwMuxStreamCount) {
-        pdwMuxStreamCountMarshal := pdwMuxStreamCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwMuxStreamCountMarshal, pdwMuxStreamCount, "HRESULT")
-        return result
+    GetStreamCount() {
+        result := ComCall(3, this, "uint*", &pdwMuxStreamCount := 0, "HRESULT")
+        return pdwMuxStreamCount
     }
 
     /**
      * 
      * @param {Integer} dwMuxStreamIndex 
-     * @param {Pointer<IMFSample>} ppSample 
-     * @returns {HRESULT} 
+     * @returns {IMFSample} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamsamplemanager-getsample
      */
-    GetSample(dwMuxStreamIndex, ppSample) {
-        result := ComCall(4, this, "uint", dwMuxStreamIndex, "ptr*", ppSample, "HRESULT")
-        return result
+    GetSample(dwMuxStreamIndex) {
+        result := ComCall(4, this, "uint", dwMuxStreamIndex, "ptr*", &ppSample := 0, "HRESULT")
+        return IMFSample(ppSample)
     }
 
     /**

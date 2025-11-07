@@ -32,13 +32,12 @@ class ISecurityInformation3 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszResourceName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation3-getfullresourcename
      */
-    GetFullResourceName(ppszResourceName) {
-        result := ComCall(3, this, "ptr", ppszResourceName, "HRESULT")
-        return result
+    GetFullResourceName() {
+        result := ComCall(3, this, "ptr*", &ppszResourceName := 0, "HRESULT")
+        return ppszResourceName
     }
 
     /**

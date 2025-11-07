@@ -411,7 +411,9 @@ class Magnification {
      * @since windows8.0
      */
     static MagGetInputTransform(pfEnabled, pRectSource, pRectDest) {
-        result := DllCall("MAGNIFICATION.dll\MagGetInputTransform", "ptr", pfEnabled, "ptr", pRectSource, "ptr", pRectDest, "int")
+        pfEnabledMarshal := pfEnabled is VarRef ? "int*" : "ptr"
+
+        result := DllCall("MAGNIFICATION.dll\MagGetInputTransform", pfEnabledMarshal, pfEnabled, "ptr", pRectSource, "ptr", pRectDest, "int")
         return result
     }
 

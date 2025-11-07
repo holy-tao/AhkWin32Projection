@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaTimeRange.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,13 +48,12 @@ class IMFSourceBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFMediaTimeRange>} ppBuffered 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaTimeRange} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-getbuffered
      */
-    GetBuffered(ppBuffered) {
-        result := ComCall(4, this, "ptr*", ppBuffered, "HRESULT")
-        return result
+    GetBuffered() {
+        result := ComCall(4, this, "ptr*", &ppBuffered := 0, "HRESULT")
+        return IMFMediaTimeRange(ppBuffered)
     }
 
     /**

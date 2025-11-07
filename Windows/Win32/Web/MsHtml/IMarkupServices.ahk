@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMarkupPointer.ahk
+#Include .\IMarkupContainer.ahk
+#Include .\IHTMLElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,47 +34,43 @@ class IMarkupServices extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMarkupPointer>} ppPointer 
-     * @returns {HRESULT} 
+     * @returns {IMarkupPointer} 
      */
-    CreateMarkupPointer(ppPointer) {
-        result := ComCall(3, this, "ptr*", ppPointer, "HRESULT")
-        return result
+    CreateMarkupPointer() {
+        result := ComCall(3, this, "ptr*", &ppPointer := 0, "HRESULT")
+        return IMarkupPointer(ppPointer)
     }
 
     /**
      * 
-     * @param {Pointer<IMarkupContainer>} ppMarkupContainer 
-     * @returns {HRESULT} 
+     * @returns {IMarkupContainer} 
      */
-    CreateMarkupContainer(ppMarkupContainer) {
-        result := ComCall(4, this, "ptr*", ppMarkupContainer, "HRESULT")
-        return result
+    CreateMarkupContainer() {
+        result := ComCall(4, this, "ptr*", &ppMarkupContainer := 0, "HRESULT")
+        return IMarkupContainer(ppMarkupContainer)
     }
 
     /**
      * 
      * @param {Integer} tagID 
      * @param {PWSTR} pchAttributes 
-     * @param {Pointer<IHTMLElement>} ppElement 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    CreateElement(tagID, pchAttributes, ppElement) {
+    CreateElement(tagID, pchAttributes) {
         pchAttributes := pchAttributes is String ? StrPtr(pchAttributes) : pchAttributes
 
-        result := ComCall(5, this, "int", tagID, "ptr", pchAttributes, "ptr*", ppElement, "HRESULT")
-        return result
+        result := ComCall(5, this, "int", tagID, "ptr", pchAttributes, "ptr*", &ppElement := 0, "HRESULT")
+        return IHTMLElement(ppElement)
     }
 
     /**
      * 
      * @param {IHTMLElement} pElemCloneThis 
-     * @param {Pointer<IHTMLElement>} ppElementTheClone 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    CloneElement(pElemCloneThis, ppElementTheClone) {
-        result := ComCall(6, this, "ptr", pElemCloneThis, "ptr*", ppElementTheClone, "HRESULT")
-        return result
+    CloneElement(pElemCloneThis) {
+        result := ComCall(6, this, "ptr", pElemCloneThis, "ptr*", &ppElementTheClone := 0, "HRESULT")
+        return IHTMLElement(ppElementTheClone)
     }
 
     /**
@@ -149,82 +148,73 @@ class IMarkupServices extends IUnknown{
      * 
      * @param {PWSTR} pchHTML 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IMarkupContainer>} ppContainerResult 
      * @param {IMarkupPointer} ppPointerStart 
      * @param {IMarkupPointer} ppPointerFinish 
-     * @returns {HRESULT} 
+     * @returns {IMarkupContainer} 
      */
-    ParseString(pchHTML, dwFlags, ppContainerResult, ppPointerStart, ppPointerFinish) {
+    ParseString(pchHTML, dwFlags, ppPointerStart, ppPointerFinish) {
         pchHTML := pchHTML is String ? StrPtr(pchHTML) : pchHTML
 
-        result := ComCall(13, this, "ptr", pchHTML, "uint", dwFlags, "ptr*", ppContainerResult, "ptr", ppPointerStart, "ptr", ppPointerFinish, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", pchHTML, "uint", dwFlags, "ptr*", &ppContainerResult := 0, "ptr", ppPointerStart, "ptr", ppPointerFinish, "HRESULT")
+        return IMarkupContainer(ppContainerResult)
     }
 
     /**
      * 
      * @param {HGLOBAL} hglobalHTML 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IMarkupContainer>} ppContainerResult 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
-     * @returns {HRESULT} 
+     * @returns {IMarkupContainer} 
      */
-    ParseGlobal(hglobalHTML, dwFlags, ppContainerResult, pPointerStart, pPointerFinish) {
+    ParseGlobal(hglobalHTML, dwFlags, pPointerStart, pPointerFinish) {
         hglobalHTML := hglobalHTML is Win32Handle ? NumGet(hglobalHTML, "ptr") : hglobalHTML
 
-        result := ComCall(14, this, "ptr", hglobalHTML, "uint", dwFlags, "ptr*", ppContainerResult, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", hglobalHTML, "uint", dwFlags, "ptr*", &ppContainerResult := 0, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
+        return IMarkupContainer(ppContainerResult)
     }
 
     /**
      * 
      * @param {IHTMLElement} pElement 
-     * @param {Pointer<BOOL>} pfScoped 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsScopedElement(pElement, pfScoped) {
-        result := ComCall(15, this, "ptr", pElement, "ptr", pfScoped, "HRESULT")
-        return result
+    IsScopedElement(pElement) {
+        result := ComCall(15, this, "ptr", pElement, "int*", &pfScoped := 0, "HRESULT")
+        return pfScoped
     }
 
     /**
      * 
      * @param {IHTMLElement} pElement 
-     * @param {Pointer<Integer>} ptagId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetElementTagId(pElement, ptagId) {
-        ptagIdMarshal := ptagId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, "ptr", pElement, ptagIdMarshal, ptagId, "HRESULT")
-        return result
+    GetElementTagId(pElement) {
+        result := ComCall(16, this, "ptr", pElement, "int*", &ptagId := 0, "HRESULT")
+        return ptagId
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<Integer>} ptagId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetTagIDForName(bstrName, ptagId) {
+    GetTagIDForName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        ptagIdMarshal := ptagId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, "ptr", bstrName, ptagIdMarshal, ptagId, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", bstrName, "int*", &ptagId := 0, "HRESULT")
+        return ptagId
     }
 
     /**
      * 
      * @param {Integer} tagId 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetNameForTagID(tagId, pbstrName) {
+    GetNameForTagID(tagId) {
+        pbstrName := BSTR()
         result := ComCall(18, this, "int", tagId, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**

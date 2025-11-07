@@ -66,12 +66,12 @@ class ICertPropertyRequestOriginator extends ICertProperty{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyrequestoriginator-get_requestoriginator
      */
-    get_RequestOriginator(pValue) {
+    get_RequestOriginator() {
+        pValue := BSTR()
         result := ComCall(16, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

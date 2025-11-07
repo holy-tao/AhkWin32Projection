@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -56,91 +57,86 @@ class ITfKeystrokeMgr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pclsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-getforeground
      */
-    GetForeground(pclsid) {
+    GetForeground() {
+        pclsid := Guid()
         result := ComCall(5, this, "ptr", pclsid, "HRESULT")
-        return result
+        return pclsid
     }
 
     /**
      * 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-testkeydown
      */
-    TestKeyDown(wParam, lParam, pfEaten) {
-        result := ComCall(6, this, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    TestKeyDown(wParam, lParam) {
+        result := ComCall(6, this, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 
     /**
      * 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-testkeyup
      */
-    TestKeyUp(wParam, lParam, pfEaten) {
-        result := ComCall(7, this, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    TestKeyUp(wParam, lParam) {
+        result := ComCall(7, this, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 
     /**
      * 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-keydown
      */
-    KeyDown(wParam, lParam, pfEaten) {
-        result := ComCall(8, this, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    KeyDown(wParam, lParam) {
+        result := ComCall(8, this, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 
     /**
      * 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-keyup
      */
-    KeyUp(wParam, lParam, pfEaten) {
-        result := ComCall(9, this, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    KeyUp(wParam, lParam) {
+        result := ComCall(9, this, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 
     /**
      * 
      * @param {ITfContext} pic 
      * @param {Pointer<TF_PRESERVEDKEY>} pprekey 
-     * @param {Pointer<Guid>} pguid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-getpreservedkey
      */
-    GetPreservedKey(pic, pprekey, pguid) {
+    GetPreservedKey(pic, pprekey) {
+        pguid := Guid()
         result := ComCall(10, this, "ptr", pic, "ptr", pprekey, "ptr", pguid, "HRESULT")
-        return result
+        return pguid
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rguid 
      * @param {Pointer<TF_PRESERVEDKEY>} pprekey 
-     * @param {Pointer<BOOL>} pfRegistered 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-ispreservedkey
      */
-    IsPreservedKey(rguid, pprekey, pfRegistered) {
-        result := ComCall(11, this, "ptr", rguid, "ptr", pprekey, "ptr", pfRegistered, "HRESULT")
-        return result
+    IsPreservedKey(rguid, pprekey) {
+        result := ComCall(11, this, "ptr", rguid, "ptr", pprekey, "int*", &pfRegistered := 0, "HRESULT")
+        return pfRegistered
     }
 
     /**
@@ -190,25 +186,24 @@ class ITfKeystrokeMgr extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<BSTR>} pbstrDesc 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-getpreservedkeydescription
      */
-    GetPreservedKeyDescription(rguid, pbstrDesc) {
+    GetPreservedKeyDescription(rguid) {
+        pbstrDesc := BSTR()
         result := ComCall(15, this, "ptr", rguid, "ptr", pbstrDesc, "HRESULT")
-        return result
+        return pbstrDesc
     }
 
     /**
      * 
      * @param {ITfContext} pic 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-simulatepreservedkey
      */
-    SimulatePreservedKey(pic, rguid, pfEaten) {
-        result := ComCall(16, this, "ptr", pic, "ptr", rguid, "ptr", pfEaten, "HRESULT")
-        return result
+    SimulatePreservedKey(pic, rguid) {
+        result := ComCall(16, this, "ptr", pic, "ptr", rguid, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 }

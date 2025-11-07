@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAccessible.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,12 +35,11 @@ class IAccessibleHandler extends IUnknown{
      * 
      * @param {Integer} hwnd 
      * @param {Integer} lObjectID 
-     * @param {Pointer<IAccessible>} pIAccessible 
-     * @returns {HRESULT} 
+     * @returns {IAccessible} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblehandler-accessibleobjectfromid
      */
-    AccessibleObjectFromID(hwnd, lObjectID, pIAccessible) {
-        result := ComCall(3, this, "int", hwnd, "int", lObjectID, "ptr*", pIAccessible, "HRESULT")
-        return result
+    AccessibleObjectFromID(hwnd, lObjectID) {
+        result := ComCall(3, this, "int", hwnd, "int", lObjectID, "ptr*", &pIAccessible := 0, "HRESULT")
+        return IAccessible(pIAccessible)
     }
 }

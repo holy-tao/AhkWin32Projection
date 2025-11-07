@@ -38,15 +38,12 @@ class IFindSimilarResults extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} size 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-ifindsimilarresults-getsize
      */
-    GetSize(size) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, sizeMarshal, size, "HRESULT")
-        return result
+    GetSize() {
+        result := ComCall(3, this, "uint*", &size := 0, "HRESULT")
+        return size
     }
 
     /**

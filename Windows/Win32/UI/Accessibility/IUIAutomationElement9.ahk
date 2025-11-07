@@ -32,23 +32,21 @@ class IUIAutomationElement9 extends IUIAutomationElement8{
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement9-get_currentisdialog
      */
-    get_CurrentIsDialog(retVal) {
-        result := ComCall(117, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsDialog() {
+        result := ComCall(117, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement9-get_cachedisdialog
      */
-    get_CachedIsDialog(retVal) {
-        result := ComCall(118, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsDialog() {
+        result := ComCall(118, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

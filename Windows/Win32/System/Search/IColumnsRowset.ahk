@@ -50,11 +50,10 @@ class IColumnsRowset extends IUnknown{
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
-     * @param {Pointer<IUnknown>} ppColRowset 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetColumnsRowset(pUnkOuter, cOptColumns, rgOptColumns, riid, cPropertySets, rgPropertySets, ppColRowset) {
-        result := ComCall(4, this, "ptr", pUnkOuter, "ptr", cOptColumns, "ptr", rgOptColumns, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", ppColRowset, "HRESULT")
-        return result
+    GetColumnsRowset(pUnkOuter, cOptColumns, rgOptColumns, riid, cPropertySets, rgPropertySets) {
+        result := ComCall(4, this, "ptr", pUnkOuter, "ptr", cOptColumns, "ptr", rgOptColumns, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppColRowset := 0, "HRESULT")
+        return IUnknown(ppColRowset)
     }
 }

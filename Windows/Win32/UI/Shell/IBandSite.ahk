@@ -49,15 +49,12 @@ class IBandSite extends IUnknown{
     /**
      * 
      * @param {Integer} uBand 
-     * @param {Pointer<Integer>} pdwBandID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibandsite-enumbands
      */
-    EnumBands(uBand, pdwBandID) {
-        pdwBandIDMarshal := pdwBandID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", uBand, pdwBandIDMarshal, pdwBandID, "HRESULT")
-        return result
+    EnumBands(uBand) {
+        result := ComCall(4, this, "uint", uBand, "uint*", &pdwBandID := 0, "HRESULT")
+        return pdwBandID
     }
 
     /**
@@ -107,15 +104,12 @@ class IBandSite extends IUnknown{
      * 
      * @param {Integer} dwBandID 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibandsite-getbandobject
      */
-    GetBandObject(dwBandID, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "uint", dwBandID, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetBandObject(dwBandID, riid) {
+        result := ComCall(8, this, "uint", dwBandID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**

@@ -30,25 +30,19 @@ class IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_WidthInMicrons(pulWidth) {
-        pulWidthMarshal := pulWidth is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pulWidthMarshal, pulWidth, "HRESULT")
-        return result
+    get_WidthInMicrons() {
+        result := ComCall(14, this, "uint*", &pulWidth := 0, "HRESULT")
+        return pulWidth
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulHeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_HeightInMicrons(pulHeight) {
-        pulHeightMarshal := pulHeight is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pulHeightMarshal, pulHeight, "HRESULT")
-        return result
+    get_HeightInMicrons() {
+        result := ComCall(15, this, "uint*", &pulHeight := 0, "HRESULT")
+        return pulHeight
     }
 }

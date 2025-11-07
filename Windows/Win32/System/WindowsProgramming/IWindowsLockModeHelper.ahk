@@ -30,11 +30,10 @@ class IWindowsLockModeHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isSmode 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetSMode(isSmode) {
-        result := ComCall(3, this, "ptr", isSmode, "HRESULT")
-        return result
+    GetSMode() {
+        result := ComCall(3, this, "int*", &isSmode := 0, "HRESULT")
+        return isSmode
     }
 }

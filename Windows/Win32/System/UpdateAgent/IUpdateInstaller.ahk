@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IUpdateCollection.ahk
+#Include .\IInstallationJob.ahk
+#Include .\IInstallationResult.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -44,13 +49,13 @@ class IUpdateInstaller extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_clientapplicationid
      */
-    get_ClientApplicationID(retval) {
+    get_ClientApplicationID() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -68,13 +73,12 @@ class IUpdateInstaller extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_isforced
      */
-    get_IsForced(retval) {
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsForced() {
+        result := ComCall(9, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -90,13 +94,13 @@ class IUpdateInstaller extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<HWND>} retval 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_parenthwnd
      */
-    get_ParentHwnd(retval) {
+    get_ParentHwnd() {
+        retval := HWND()
         result := ComCall(11, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -125,24 +129,22 @@ class IUpdateInstaller extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_parentwindow
      */
-    get_ParentWindow(retval) {
-        result := ComCall(14, this, "ptr*", retval, "HRESULT")
-        return result
+    get_ParentWindow() {
+        result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IUpdateCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_updates
      */
-    get_Updates(retval) {
-        result := ComCall(15, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Updates() {
+        result := ComCall(15, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateCollection(retval)
     }
 
     /**
@@ -161,13 +163,12 @@ class IUpdateInstaller extends IDispatch{
      * @param {IUnknown} onProgressChanged 
      * @param {IUnknown} onCompleted 
      * @param {VARIANT} state 
-     * @param {Pointer<IInstallationJob>} retval 
-     * @returns {HRESULT} 
+     * @returns {IInstallationJob} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-begininstall
      */
-    BeginInstall(onProgressChanged, onCompleted, state, retval) {
-        result := ComCall(17, this, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", retval, "HRESULT")
-        return result
+    BeginInstall(onProgressChanged, onCompleted, state) {
+        result := ComCall(17, this, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", &retval := 0, "HRESULT")
+        return IInstallationJob(retval)
     }
 
     /**
@@ -175,95 +176,87 @@ class IUpdateInstaller extends IDispatch{
      * @param {IUnknown} onProgressChanged 
      * @param {IUnknown} onCompleted 
      * @param {VARIANT} state 
-     * @param {Pointer<IInstallationJob>} retval 
-     * @returns {HRESULT} 
+     * @returns {IInstallationJob} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-beginuninstall
      */
-    BeginUninstall(onProgressChanged, onCompleted, state, retval) {
-        result := ComCall(18, this, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", retval, "HRESULT")
-        return result
+    BeginUninstall(onProgressChanged, onCompleted, state) {
+        result := ComCall(18, this, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", &retval := 0, "HRESULT")
+        return IInstallationJob(retval)
     }
 
     /**
      * 
      * @param {IInstallationJob} value 
-     * @param {Pointer<IInstallationResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {IInstallationResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-endinstall
      */
-    EndInstall(value, retval) {
-        result := ComCall(19, this, "ptr", value, "ptr*", retval, "HRESULT")
-        return result
+    EndInstall(value) {
+        result := ComCall(19, this, "ptr", value, "ptr*", &retval := 0, "HRESULT")
+        return IInstallationResult(retval)
     }
 
     /**
      * 
      * @param {IInstallationJob} value 
-     * @param {Pointer<IInstallationResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {IInstallationResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-enduninstall
      */
-    EndUninstall(value, retval) {
-        result := ComCall(20, this, "ptr", value, "ptr*", retval, "HRESULT")
-        return result
+    EndUninstall(value) {
+        result := ComCall(20, this, "ptr", value, "ptr*", &retval := 0, "HRESULT")
+        return IInstallationResult(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IInstallationResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {IInstallationResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-install
      */
-    Install(retval) {
-        result := ComCall(21, this, "ptr*", retval, "HRESULT")
-        return result
+    Install() {
+        result := ComCall(21, this, "ptr*", &retval := 0, "HRESULT")
+        return IInstallationResult(retval)
     }
 
     /**
      * 
      * @param {BSTR} dialogTitle 
-     * @param {Pointer<IInstallationResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {IInstallationResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-runwizard
      */
-    RunWizard(dialogTitle, retval) {
+    RunWizard(dialogTitle) {
         dialogTitle := dialogTitle is String ? BSTR.Alloc(dialogTitle).Value : dialogTitle
 
-        result := ComCall(22, this, "ptr", dialogTitle, "ptr*", retval, "HRESULT")
-        return result
+        result := ComCall(22, this, "ptr", dialogTitle, "ptr*", &retval := 0, "HRESULT")
+        return IInstallationResult(retval)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_isbusy
      */
-    get_IsBusy(retval) {
-        result := ComCall(23, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsBusy() {
+        result := ComCall(23, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IInstallationResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {IInstallationResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-uninstall
      */
-    Uninstall(retval) {
-        result := ComCall(24, this, "ptr*", retval, "HRESULT")
-        return result
+    Uninstall() {
+        result := ComCall(24, this, "ptr*", &retval := 0, "HRESULT")
+        return IInstallationResult(retval)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_allowsourceprompts
      */
-    get_AllowSourcePrompts(retval) {
-        result := ComCall(25, this, "ptr", retval, "HRESULT")
-        return result
+    get_AllowSourcePrompts() {
+        result := ComCall(25, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -279,12 +272,11 @@ class IUpdateInstaller extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_rebootrequiredbeforeinstallation
      */
-    get_RebootRequiredBeforeInstallation(retval) {
-        result := ComCall(27, this, "ptr", retval, "HRESULT")
-        return result
+    get_RebootRequiredBeforeInstallation() {
+        result := ComCall(27, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 }

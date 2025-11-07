@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\DXGI_MATRIX_3X2_F.ahk
 #Include .\IDXGISwapChain1.ahk
 
 /**
@@ -77,15 +78,12 @@ class IDXGISwapChain2 extends IDXGISwapChain1{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMaxLatency 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchain2-getmaximumframelatency
      */
-    GetMaximumFrameLatency(pMaxLatency) {
-        pMaxLatencyMarshal := pMaxLatency is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(32, this, pMaxLatencyMarshal, pMaxLatency, "HRESULT")
-        return result
+    GetMaximumFrameLatency() {
+        result := ComCall(32, this, "uint*", &pMaxLatency := 0, "HRESULT")
+        return pMaxLatency
     }
 
     /**
@@ -95,7 +93,7 @@ class IDXGISwapChain2 extends IDXGISwapChain1{
      */
     GetFrameLatencyWaitableObject() {
         result := ComCall(33, this, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -111,12 +109,12 @@ class IDXGISwapChain2 extends IDXGISwapChain1{
 
     /**
      * 
-     * @param {Pointer<DXGI_MATRIX_3X2_F>} pMatrix 
-     * @returns {HRESULT} 
+     * @returns {DXGI_MATRIX_3X2_F} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchain2-getmatrixtransform
      */
-    GetMatrixTransform(pMatrix) {
+    GetMatrixTransform() {
+        pMatrix := DXGI_MATRIX_3X2_F()
         result := ComCall(35, this, "ptr", pMatrix, "HRESULT")
-        return result
+        return pMatrix
     }
 }

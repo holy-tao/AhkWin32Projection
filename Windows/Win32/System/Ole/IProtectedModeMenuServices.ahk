@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,45 +31,41 @@ class IProtectedModeMenuServices extends IUnknown{
 
     /**
      * Creates a menu. The menu is initially empty, but it can be filled with menu items by using the InsertMenuItem, AppendMenu, and InsertMenu functions.
-     * @param {Pointer<HMENU>} phMenu 
-     * @returns {HRESULT} Type: <b>HMENU</b>
-     * 
-     * If the function succeeds, the return value is a handle to the newly created menu.
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {HMENU} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-createmenu
      */
-    CreateMenu(phMenu) {
+    CreateMenu() {
+        phMenu := HMENU()
         result := ComCall(3, this, "ptr", phMenu, "HRESULT")
-        return result
+        return phMenu
     }
 
     /**
      * 
      * @param {PWSTR} pszModuleName 
      * @param {PWSTR} pszMenuName 
-     * @param {Pointer<HMENU>} phMenu 
-     * @returns {HRESULT} 
+     * @returns {HMENU} 
      */
-    LoadMenu(pszModuleName, pszMenuName, phMenu) {
+    LoadMenu(pszModuleName, pszMenuName) {
         pszModuleName := pszModuleName is String ? StrPtr(pszModuleName) : pszModuleName
         pszMenuName := pszMenuName is String ? StrPtr(pszMenuName) : pszMenuName
 
+        phMenu := HMENU()
         result := ComCall(4, this, "ptr", pszModuleName, "ptr", pszMenuName, "ptr", phMenu, "HRESULT")
-        return result
+        return phMenu
     }
 
     /**
      * 
      * @param {PWSTR} pszModuleName 
      * @param {Integer} wResourceID 
-     * @param {Pointer<HMENU>} phMenu 
-     * @returns {HRESULT} 
+     * @returns {HMENU} 
      */
-    LoadMenuID(pszModuleName, wResourceID, phMenu) {
+    LoadMenuID(pszModuleName, wResourceID) {
         pszModuleName := pszModuleName is String ? StrPtr(pszModuleName) : pszModuleName
 
+        phMenu := HMENU()
         result := ComCall(5, this, "ptr", pszModuleName, "ushort", wResourceID, "ptr", phMenu, "HRESULT")
-        return result
+        return phMenu
     }
 }

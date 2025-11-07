@@ -41,28 +41,26 @@ class IAppxManifestProperties extends IUnknown{
     /**
      * 
      * @param {PWSTR} name 
-     * @param {Pointer<BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestproperties-getboolvalue
      */
-    GetBoolValue(name, value) {
+    GetBoolValue(name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(3, this, "ptr", name, "ptr", value, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", name, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {PWSTR} name 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestproperties-getstringvalue
      */
-    GetStringValue(name, value) {
+    GetStringValue(name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "ptr", name, "ptr", value, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", name, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 }

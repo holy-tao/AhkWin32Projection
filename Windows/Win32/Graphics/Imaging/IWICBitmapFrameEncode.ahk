@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICMetadataQueryWriter.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -162,12 +163,11 @@ class IWICBitmapFrameEncode extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWICMetadataQueryWriter>} ppIMetadataQueryWriter 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataQueryWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframeencode-getmetadataquerywriter
      */
-    GetMetadataQueryWriter(ppIMetadataQueryWriter) {
-        result := ComCall(13, this, "ptr*", ppIMetadataQueryWriter, "HRESULT")
-        return result
+    GetMetadataQueryWriter() {
+        result := ComCall(13, this, "ptr*", &ppIMetadataQueryWriter := 0, "HRESULT")
+        return IWICMetadataQueryWriter(ppIMetadataQueryWriter)
     }
 }

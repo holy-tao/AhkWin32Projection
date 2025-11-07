@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITextRangeProvider.ahk
 #Include .\ITextProvider.ahk
 
 /**
@@ -33,24 +34,24 @@ class ITextProvider2 extends ITextProvider{
     /**
      * 
      * @param {IRawElementProviderSimple} annotationElement 
-     * @param {Pointer<ITextRangeProvider>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {ITextRangeProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider2-rangefromannotation
      */
-    RangeFromAnnotation(annotationElement, pRetVal) {
-        result := ComCall(9, this, "ptr", annotationElement, "ptr*", pRetVal, "HRESULT")
-        return result
+    RangeFromAnnotation(annotationElement) {
+        result := ComCall(9, this, "ptr", annotationElement, "ptr*", &pRetVal := 0, "HRESULT")
+        return ITextRangeProvider(pRetVal)
     }
 
     /**
      * 
      * @param {Pointer<BOOL>} isActive 
-     * @param {Pointer<ITextRangeProvider>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {ITextRangeProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider2-getcaretrange
      */
-    GetCaretRange(isActive, pRetVal) {
-        result := ComCall(10, this, "ptr", isActive, "ptr*", pRetVal, "HRESULT")
-        return result
+    GetCaretRange(isActive) {
+        isActiveMarshal := isActive is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, isActiveMarshal, isActive, "ptr*", &pRetVal := 0, "HRESULT")
+        return ITextRangeProvider(pRetVal)
     }
 }

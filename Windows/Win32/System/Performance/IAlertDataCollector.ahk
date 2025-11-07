@@ -59,15 +59,12 @@ class IAlertDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} alerts 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_alertthresholds
      */
-    get_AlertThresholds(alerts) {
-        alertsMarshal := alerts is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(32, this, alertsMarshal, alerts, "HRESULT")
-        return result
+    get_AlertThresholds() {
+        result := ComCall(32, this, "ptr*", &alerts := 0, "HRESULT")
+        return alerts
     }
 
     /**
@@ -83,13 +80,12 @@ class IAlertDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} log 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_eventlog
      */
-    get_EventLog(log) {
-        result := ComCall(34, this, "ptr", log, "HRESULT")
-        return result
+    get_EventLog() {
+        result := ComCall(34, this, "short*", &log := 0, "HRESULT")
+        return log
     }
 
     /**
@@ -105,15 +101,12 @@ class IAlertDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} interval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_sampleinterval
      */
-    get_SampleInterval(interval) {
-        intervalMarshal := interval is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(36, this, intervalMarshal, interval, "HRESULT")
-        return result
+    get_SampleInterval() {
+        result := ComCall(36, this, "uint*", &interval := 0, "HRESULT")
+        return interval
     }
 
     /**
@@ -129,13 +122,13 @@ class IAlertDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<BSTR>} task 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_task
      */
-    get_Task(task) {
+    get_Task() {
+        task := BSTR()
         result := ComCall(38, this, "ptr", task, "HRESULT")
-        return result
+        return task
     }
 
     /**
@@ -153,13 +146,12 @@ class IAlertDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} RunAsSelf 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_taskrunasself
      */
-    get_TaskRunAsSelf(RunAsSelf) {
-        result := ComCall(40, this, "ptr", RunAsSelf, "HRESULT")
-        return result
+    get_TaskRunAsSelf() {
+        result := ComCall(40, this, "short*", &RunAsSelf := 0, "HRESULT")
+        return RunAsSelf
     }
 
     /**
@@ -175,13 +167,13 @@ class IAlertDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<BSTR>} task 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_taskarguments
      */
-    get_TaskArguments(task) {
+    get_TaskArguments() {
+        task := BSTR()
         result := ComCall(42, this, "ptr", task, "HRESULT")
-        return result
+        return task
     }
 
     /**
@@ -199,13 +191,13 @@ class IAlertDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<BSTR>} task 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_taskusertextarguments
      */
-    get_TaskUserTextArguments(task) {
+    get_TaskUserTextArguments() {
+        task := BSTR()
         result := ComCall(44, this, "ptr", task, "HRESULT")
-        return result
+        return task
     }
 
     /**
@@ -223,13 +215,13 @@ class IAlertDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_triggerdatacollectorset
      */
-    get_TriggerDataCollectorSet(name) {
+    get_TriggerDataCollectorSet() {
+        name := BSTR()
         result := ComCall(46, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**

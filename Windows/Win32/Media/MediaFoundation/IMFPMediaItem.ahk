@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFPMediaPlayer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * Represents a media item. (Deprecated.).
@@ -32,52 +35,42 @@ class IMFPMediaItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFPMediaPlayer>} ppMediaPlayer 
-     * @returns {HRESULT} 
+     * @returns {IMFPMediaPlayer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getmediaplayer
      */
-    GetMediaPlayer(ppMediaPlayer) {
-        result := ComCall(3, this, "ptr*", ppMediaPlayer, "HRESULT")
-        return result
+    GetMediaPlayer() {
+        result := ComCall(3, this, "ptr*", &ppMediaPlayer := 0, "HRESULT")
+        return IMFPMediaPlayer(ppMediaPlayer)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszURL 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-geturl
      */
-    GetURL(ppwszURL) {
-        result := ComCall(4, this, "ptr", ppwszURL, "HRESULT")
-        return result
+    GetURL() {
+        result := ComCall(4, this, "ptr*", &ppwszURL := 0, "HRESULT")
+        return ppwszURL
     }
 
     /**
      * The GetObject function retrieves information for the specified graphics object.
-     * @param {Pointer<IUnknown>} ppIUnknown 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {IUnknown} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(ppIUnknown) {
-        result := ComCall(5, this, "ptr*", ppIUnknown, "HRESULT")
-        return result
+    GetObject() {
+        result := ComCall(5, this, "ptr*", &ppIUnknown := 0, "HRESULT")
+        return IUnknown(ppIUnknown)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} pdwUserData 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getuserdata
      */
-    GetUserData(pdwUserData) {
-        pdwUserDataMarshal := pdwUserData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, pdwUserDataMarshal, pdwUserData, "HRESULT")
-        return result
+    GetUserData() {
+        result := ComCall(6, this, "ptr*", &pdwUserData := 0, "HRESULT")
+        return pdwUserData
     }
 
     /**
@@ -127,7 +120,10 @@ class IMFPMediaItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-hasvideo
      */
     HasVideo(pfHasVideo, pfSelected) {
-        result := ComCall(10, this, "ptr", pfHasVideo, "ptr", pfSelected, "HRESULT")
+        pfHasVideoMarshal := pfHasVideo is VarRef ? "int*" : "ptr"
+        pfSelectedMarshal := pfSelected is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pfHasVideoMarshal, pfHasVideo, pfSelectedMarshal, pfSelected, "HRESULT")
         return result
     }
 
@@ -139,56 +135,54 @@ class IMFPMediaItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-hasaudio
      */
     HasAudio(pfHasAudio, pfSelected) {
-        result := ComCall(11, this, "ptr", pfHasAudio, "ptr", pfSelected, "HRESULT")
+        pfHasAudioMarshal := pfHasAudio is VarRef ? "int*" : "ptr"
+        pfSelectedMarshal := pfSelected is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pfHasAudioMarshal, pfHasAudio, pfSelectedMarshal, pfSelected, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfProtected 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-isprotected
      */
-    IsProtected(pfProtected) {
-        result := ComCall(12, this, "ptr", pfProtected, "HRESULT")
-        return result
+    IsProtected() {
+        result := ComCall(12, this, "int*", &pfProtected := 0, "HRESULT")
+        return pfProtected
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidPositionType 
-     * @param {Pointer<PROPVARIANT>} pvDurationValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getduration
      */
-    GetDuration(guidPositionType, pvDurationValue) {
+    GetDuration(guidPositionType) {
+        pvDurationValue := PROPVARIANT()
         result := ComCall(13, this, "ptr", guidPositionType, "ptr", pvDurationValue, "HRESULT")
-        return result
+        return pvDurationValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStreamCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getnumberofstreams
      */
-    GetNumberOfStreams(pdwStreamCount) {
-        pdwStreamCountMarshal := pdwStreamCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pdwStreamCountMarshal, pdwStreamCount, "HRESULT")
-        return result
+    GetNumberOfStreams() {
+        result := ComCall(14, this, "uint*", &pdwStreamCount := 0, "HRESULT")
+        return pdwStreamCount
     }
 
     /**
      * 
      * @param {Integer} dwStreamIndex 
-     * @param {Pointer<BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getstreamselection
      */
-    GetStreamSelection(dwStreamIndex, pfEnabled) {
-        result := ComCall(15, this, "uint", dwStreamIndex, "ptr", pfEnabled, "HRESULT")
-        return result
+    GetStreamSelection(dwStreamIndex) {
+        result := ComCall(15, this, "uint", dwStreamIndex, "int*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
@@ -207,38 +201,35 @@ class IMFPMediaItem extends IUnknown{
      * 
      * @param {Integer} dwStreamIndex 
      * @param {Pointer<Guid>} guidMFAttribute 
-     * @param {Pointer<PROPVARIANT>} pvValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getstreamattribute
      */
-    GetStreamAttribute(dwStreamIndex, guidMFAttribute, pvValue) {
+    GetStreamAttribute(dwStreamIndex, guidMFAttribute) {
+        pvValue := PROPVARIANT()
         result := ComCall(17, this, "uint", dwStreamIndex, "ptr", guidMFAttribute, "ptr", pvValue, "HRESULT")
-        return result
+        return pvValue
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidMFAttribute 
-     * @param {Pointer<PROPVARIANT>} pvValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getpresentationattribute
      */
-    GetPresentationAttribute(guidMFAttribute, pvValue) {
+    GetPresentationAttribute(guidMFAttribute) {
+        pvValue := PROPVARIANT()
         result := ComCall(18, this, "ptr", guidMFAttribute, "ptr", pvValue, "HRESULT")
-        return result
+        return pvValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCharacteristics 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getcharacteristics
      */
-    GetCharacteristics(pCharacteristics) {
-        pCharacteristicsMarshal := pCharacteristics is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, pCharacteristicsMarshal, pCharacteristics, "HRESULT")
-        return result
+    GetCharacteristics() {
+        result := ComCall(19, this, "uint*", &pCharacteristics := 0, "HRESULT")
+        return pCharacteristics
     }
 
     /**
@@ -255,12 +246,11 @@ class IMFPMediaItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPropertyStore>} ppMetadataStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getmetadata
      */
-    GetMetadata(ppMetadataStore) {
-        result := ComCall(21, this, "ptr*", ppMetadataStore, "HRESULT")
-        return result
+    GetMetadata() {
+        result := ComCall(21, this, "ptr*", &ppMetadataStore := 0, "HRESULT")
+        return IPropertyStore(ppMetadataStore)
     }
 }

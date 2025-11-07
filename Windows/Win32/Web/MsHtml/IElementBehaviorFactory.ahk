@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IElementBehavior.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,14 +35,13 @@ class IElementBehaviorFactory extends IUnknown{
      * @param {BSTR} bstrBehavior 
      * @param {BSTR} bstrBehaviorUrl 
      * @param {IElementBehaviorSite} pSite 
-     * @param {Pointer<IElementBehavior>} ppBehavior 
-     * @returns {HRESULT} 
+     * @returns {IElementBehavior} 
      */
-    FindBehavior(bstrBehavior, bstrBehaviorUrl, pSite, ppBehavior) {
+    FindBehavior(bstrBehavior, bstrBehaviorUrl, pSite) {
         bstrBehavior := bstrBehavior is String ? BSTR.Alloc(bstrBehavior).Value : bstrBehavior
         bstrBehaviorUrl := bstrBehaviorUrl is String ? BSTR.Alloc(bstrBehaviorUrl).Value : bstrBehaviorUrl
 
-        result := ComCall(3, this, "ptr", bstrBehavior, "ptr", bstrBehaviorUrl, "ptr", pSite, "ptr*", ppBehavior, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", bstrBehavior, "ptr", bstrBehaviorUrl, "ptr", pSite, "ptr*", &ppBehavior := 0, "HRESULT")
+        return IElementBehavior(ppBehavior)
     }
 }

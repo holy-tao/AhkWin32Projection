@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MF_CAMERA_CONTROL_RANGE_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,13 +43,13 @@ class IMFCameraControlDefaults extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MF_CAMERA_CONTROL_RANGE_INFO>} rangeInfo 
-     * @returns {HRESULT} 
+     * @returns {MF_CAMERA_CONTROL_RANGE_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaults-getrangeinfo
      */
-    GetRangeInfo(rangeInfo) {
+    GetRangeInfo() {
+        rangeInfo := MF_CAMERA_CONTROL_RANGE_INFO()
         result := ComCall(4, this, "ptr", rangeInfo, "HRESULT")
-        return result
+        return rangeInfo
     }
 
     /**

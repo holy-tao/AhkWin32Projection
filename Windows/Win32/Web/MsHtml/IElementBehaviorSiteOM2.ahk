@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLElementDefaults.ahk
 #Include .\IElementBehaviorSiteOM.ahk
 
 /**
@@ -30,11 +31,10 @@ class IElementBehaviorSiteOM2 extends IElementBehaviorSiteOM{
 
     /**
      * 
-     * @param {Pointer<IHTMLElementDefaults>} ppDefaults 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementDefaults} 
      */
-    GetDefaults(ppDefaults) {
-        result := ComCall(9, this, "ptr*", ppDefaults, "HRESULT")
-        return result
+    GetDefaults() {
+        result := ComCall(9, this, "ptr*", &ppDefaults := 0, "HRESULT")
+        return IHTMLElementDefaults(ppDefaults)
     }
 }

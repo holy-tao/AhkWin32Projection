@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,12 +31,12 @@ class IMSMQPrivateDestination extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarHandle 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Handle(pvarHandle) {
+    get_Handle() {
+        pvarHandle := VARIANT()
         result := ComCall(7, this, "ptr", pvarHandle, "HRESULT")
-        return result
+        return pvarHandle
     }
 
     /**

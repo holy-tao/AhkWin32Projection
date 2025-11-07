@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEntity.ahk
+#Include .\IRelationship.ahk
+#Include .\INamedEntity.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,104 +35,90 @@ class IEntity extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-name
      */
-    Name(ppszName) {
-        result := ComCall(3, this, "ptr", ppszName, "HRESULT")
-        return result
+    Name() {
+        result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
      * 
-     * @param {Pointer<IEntity>} pBaseEntity 
-     * @returns {HRESULT} 
+     * @returns {IEntity} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-base
      */
-    Base(pBaseEntity) {
-        result := ComCall(4, this, "ptr*", pBaseEntity, "HRESULT")
-        return result
+    Base() {
+        result := ComCall(4, this, "ptr*", &pBaseEntity := 0, "HRESULT")
+        return IEntity(pBaseEntity)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pRelationships 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-relationships
      */
-    Relationships(riid, pRelationships) {
-        pRelationshipsMarshal := pRelationships is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", riid, pRelationshipsMarshal, pRelationships, "HRESULT")
-        return result
+    Relationships(riid) {
+        result := ComCall(5, this, "ptr", riid, "ptr*", &pRelationships := 0, "HRESULT")
+        return pRelationships
     }
 
     /**
      * 
      * @param {PWSTR} pszRelationName 
-     * @param {Pointer<IRelationship>} pRelationship 
-     * @returns {HRESULT} 
+     * @returns {IRelationship} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-getrelationship
      */
-    GetRelationship(pszRelationName, pRelationship) {
+    GetRelationship(pszRelationName) {
         pszRelationName := pszRelationName is String ? StrPtr(pszRelationName) : pszRelationName
 
-        result := ComCall(6, this, "ptr", pszRelationName, "ptr*", pRelationship, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszRelationName, "ptr*", &pRelationship := 0, "HRESULT")
+        return IRelationship(pRelationship)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pMetaData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-metadata
      */
-    MetaData(riid, pMetaData) {
-        pMetaDataMarshal := pMetaData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", riid, pMetaDataMarshal, pMetaData, "HRESULT")
-        return result
+    MetaData(riid) {
+        result := ComCall(7, this, "ptr", riid, "ptr*", &pMetaData := 0, "HRESULT")
+        return pMetaData
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pNamedEntities 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-namedentities
      */
-    NamedEntities(riid, pNamedEntities) {
-        pNamedEntitiesMarshal := pNamedEntities is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", riid, pNamedEntitiesMarshal, pNamedEntities, "HRESULT")
-        return result
+    NamedEntities(riid) {
+        result := ComCall(8, this, "ptr", riid, "ptr*", &pNamedEntities := 0, "HRESULT")
+        return pNamedEntities
     }
 
     /**
      * 
      * @param {PWSTR} pszValue 
-     * @param {Pointer<INamedEntity>} ppNamedEntity 
-     * @returns {HRESULT} 
+     * @returns {INamedEntity} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-getnamedentity
      */
-    GetNamedEntity(pszValue, ppNamedEntity) {
+    GetNamedEntity(pszValue) {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := ComCall(9, this, "ptr", pszValue, "ptr*", ppNamedEntity, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pszValue, "ptr*", &ppNamedEntity := 0, "HRESULT")
+        return INamedEntity(ppNamedEntity)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszPhrase 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-defaultphrase
      */
-    DefaultPhrase(ppszPhrase) {
-        result := ComCall(10, this, "ptr", ppszPhrase, "HRESULT")
-        return result
+    DefaultPhrase() {
+        result := ComCall(10, this, "ptr*", &ppszPhrase := 0, "HRESULT")
+        return ppszPhrase
     }
 }

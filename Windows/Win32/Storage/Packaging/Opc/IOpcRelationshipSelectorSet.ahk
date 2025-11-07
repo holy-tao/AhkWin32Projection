@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcRelationshipSelector.ahk
+#Include .\IOpcRelationshipSelectorEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,15 +48,14 @@ class IOpcRelationshipSelectorSet extends IUnknown{
      * 
      * @param {Integer} selector 
      * @param {PWSTR} selectionCriterion 
-     * @param {Pointer<IOpcRelationshipSelector>} relationshipSelector 
-     * @returns {HRESULT} 
+     * @returns {IOpcRelationshipSelector} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselectorset-create
      */
-    Create(selector, selectionCriterion, relationshipSelector) {
+    Create(selector, selectionCriterion) {
         selectionCriterion := selectionCriterion is String ? StrPtr(selectionCriterion) : selectionCriterion
 
-        result := ComCall(3, this, "int", selector, "ptr", selectionCriterion, "ptr*", relationshipSelector, "HRESULT")
-        return result
+        result := ComCall(3, this, "int", selector, "ptr", selectionCriterion, "ptr*", &relationshipSelector := 0, "HRESULT")
+        return IOpcRelationshipSelector(relationshipSelector)
     }
 
     /**
@@ -70,12 +71,11 @@ class IOpcRelationshipSelectorSet extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcRelationshipSelectorEnumerator>} relationshipSelectorEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcRelationshipSelectorEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselectorset-getenumerator
      */
-    GetEnumerator(relationshipSelectorEnumerator) {
-        result := ComCall(5, this, "ptr*", relationshipSelectorEnumerator, "HRESULT")
-        return result
+    GetEnumerator() {
+        result := ComCall(5, this, "ptr*", &relationshipSelectorEnumerator := 0, "HRESULT")
+        return IOpcRelationshipSelectorEnumerator(relationshipSelectorEnumerator)
     }
 }

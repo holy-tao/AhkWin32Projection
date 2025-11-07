@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostType.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -33,11 +34,14 @@ class IDebugHostSymbolsTargetComposition extends IUnknown{
      * @param {Pointer<IDebugServiceManager>} pServiceManager 
      * @param {Pointer<ISvcModule>} pModule 
      * @param {Pointer<ISvcSymbolType>} pType 
-     * @param {Pointer<IDebugHostType>} ppHostType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    GetTypeForServiceType(pServiceManager, pModule, pType, ppHostType) {
-        result := ComCall(3, this, "ptr", pServiceManager, "ptr", pModule, "ptr", pType, "ptr*", ppHostType, "HRESULT")
-        return result
+    GetTypeForServiceType(pServiceManager, pModule, pType) {
+        pServiceManagerMarshal := pServiceManager is VarRef ? "ptr*" : "ptr"
+        pModuleMarshal := pModule is VarRef ? "ptr*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pServiceManagerMarshal, pServiceManager, pModuleMarshal, pModule, pTypeMarshal, pType, "ptr*", &ppHostType := 0, "HRESULT")
+        return IDebugHostType(ppHostType)
     }
 }

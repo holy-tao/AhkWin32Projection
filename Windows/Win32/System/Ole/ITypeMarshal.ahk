@@ -33,17 +33,15 @@ class ITypeMarshal extends IUnknown{
      * @param {Pointer<Void>} pvType 
      * @param {Integer} dwDestContext 
      * @param {Pointer<Void>} pvDestContext 
-     * @param {Pointer<Integer>} pSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/nl-gdiplustypes-size
      */
-    Size(pvType, dwDestContext, pvDestContext, pSize) {
+    Size(pvType, dwDestContext, pvDestContext) {
         pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
-        pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pvTypeMarshal, pvType, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, pSizeMarshal, pSize, "HRESULT")
-        return result
+        result := ComCall(3, this, pvTypeMarshal, pvType, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint*", &pSize := 0, "HRESULT")
+        return pSize
     }
 
     /**
@@ -53,16 +51,14 @@ class ITypeMarshal extends IUnknown{
      * @param {Pointer<Void>} pvDestContext 
      * @param {Integer} cbBufferLength 
      * @param {Pointer} pBuffer 
-     * @param {Pointer<Integer>} pcbWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Marshal(pvType, dwDestContext, pvDestContext, cbBufferLength, pBuffer, pcbWritten) {
+    Marshal(pvType, dwDestContext, pvDestContext, cbBufferLength, pBuffer) {
         pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
-        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pvTypeMarshal, pvType, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", cbBufferLength, "ptr", pBuffer, pcbWrittenMarshal, pcbWritten, "HRESULT")
-        return result
+        result := ComCall(4, this, pvTypeMarshal, pvType, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", cbBufferLength, "ptr", pBuffer, "uint*", &pcbWritten := 0, "HRESULT")
+        return pcbWritten
     }
 
     /**

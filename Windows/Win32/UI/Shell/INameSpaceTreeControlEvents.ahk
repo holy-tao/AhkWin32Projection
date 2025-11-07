@@ -207,15 +207,12 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * 
      * @param {IShellItem} psi 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeforecontextmenu
      */
-    OnBeforeContextMenu(psi, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(17, this, "ptr", psi, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    OnBeforeContextMenu(psi, riid) {
+        result := ComCall(17, this, "ptr", psi, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -223,15 +220,12 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * @param {IShellItem} psi 
      * @param {IContextMenu} pcmIn 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onaftercontextmenu
      */
-    OnAfterContextMenu(psi, pcmIn, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(18, this, "ptr", psi, "ptr", pcmIn, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    OnAfterContextMenu(psi, pcmIn, riid) {
+        result := ComCall(18, this, "ptr", psi, "ptr", pcmIn, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**

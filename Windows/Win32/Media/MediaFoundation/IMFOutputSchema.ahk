@@ -37,36 +37,33 @@ class IMFOutputSchema extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidSchemaType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputschema-getschematype
      */
-    GetSchemaType(pguidSchemaType) {
+    GetSchemaType() {
+        pguidSchemaType := Guid()
         result := ComCall(33, this, "ptr", pguidSchemaType, "HRESULT")
-        return result
+        return pguidSchemaType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputschema-getconfigurationdata
      */
-    GetConfigurationData(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(34, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetConfigurationData() {
+        result := ComCall(34, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidOriginatorID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputschema-getoriginatorid
      */
-    GetOriginatorID(pguidOriginatorID) {
+    GetOriginatorID() {
+        pguidOriginatorID := Guid()
         result := ComCall(35, this, "ptr", pguidOriginatorID, "HRESULT")
-        return result
+        return pguidOriginatorID
     }
 }

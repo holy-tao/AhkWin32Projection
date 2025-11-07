@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,13 +38,13 @@ class IDirectManipulationContent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<RECT>} contentSize 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getcontentrect
      */
-    GetContentRect(contentSize) {
+    GetContentRect() {
+        contentSize := RECT()
         result := ComCall(3, this, "ptr", contentSize, "HRESULT")
-        return result
+        return contentSize
     }
 
     /**
@@ -60,15 +61,12 @@ class IDirectManipulationContent extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} object 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getviewport
      */
-    GetViewport(riid, object) {
-        objectMarshal := object is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", riid, objectMarshal, object, "HRESULT")
-        return result
+    GetViewport(riid) {
+        result := ComCall(5, this, "ptr", riid, "ptr*", &object := 0, "HRESULT")
+        return object
     }
 
     /**
@@ -101,30 +99,24 @@ class IDirectManipulationContent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} matrix 
      * @param {Integer} pointCount 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getoutputtransform
      */
-    GetOutputTransform(matrix, pointCount) {
-        matrixMarshal := matrix is VarRef ? "float*" : "ptr"
-
-        result := ComCall(8, this, matrixMarshal, matrix, "uint", pointCount, "HRESULT")
-        return result
+    GetOutputTransform(pointCount) {
+        result := ComCall(8, this, "float*", &matrix := 0, "uint", pointCount, "HRESULT")
+        return matrix
     }
 
     /**
      * 
-     * @param {Pointer<Float>} matrix 
      * @param {Integer} pointCount 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getcontenttransform
      */
-    GetContentTransform(matrix, pointCount) {
-        matrixMarshal := matrix is VarRef ? "float*" : "ptr"
-
-        result := ComCall(9, this, matrixMarshal, matrix, "uint", pointCount, "HRESULT")
-        return result
+    GetContentTransform(pointCount) {
+        result := ComCall(9, this, "float*", &matrix := 0, "uint", pointCount, "HRESULT")
+        return matrix
     }
 
     /**

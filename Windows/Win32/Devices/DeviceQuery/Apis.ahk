@@ -21,17 +21,16 @@ class DeviceQuery {
      * @param {Pointer<DEVPROP_FILTER_EXPRESSION>} pFilter 
      * @param {Pointer<PDEV_QUERY_RESULT_CALLBACK>} pCallback 
      * @param {Pointer<Void>} pContext 
-     * @param {Pointer<HDEVQUERY>} phDevQuery 
-     * @returns {HRESULT} 
+     * @returns {HDEVQUERY} 
      */
-    static DevCreateObjectQuery(ObjectType, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, pCallback, pContext, phDevQuery) {
+    static DevCreateObjectQuery(ObjectType, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, pCallback, pContext) {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevCreateObjectQuery", "int", ObjectType, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "ptr", pCallback, pContextMarshal, pContext, "ptr", phDevQuery, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevCreateObjectQuery", "int", ObjectType, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "ptr", pCallback, pContextMarshal, pContext, "ptr*", &phDevQuery := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phDevQuery
     }
 
     /**
@@ -46,17 +45,16 @@ class DeviceQuery {
      * @param {Pointer<DEV_QUERY_PARAMETER>} pExtendedParameters 
      * @param {Pointer<PDEV_QUERY_RESULT_CALLBACK>} pCallback 
      * @param {Pointer<Void>} pContext 
-     * @param {Pointer<HDEVQUERY>} phDevQuery 
-     * @returns {HRESULT} 
+     * @returns {HDEVQUERY} 
      */
-    static DevCreateObjectQueryEx(ObjectType, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, cExtendedParameterCount, pExtendedParameters, pCallback, pContext, phDevQuery) {
+    static DevCreateObjectQueryEx(ObjectType, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, cExtendedParameterCount, pExtendedParameters, pCallback, pContext) {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevCreateObjectQueryEx", "int", ObjectType, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, "ptr", pCallback, pContextMarshal, pContext, "ptr", phDevQuery, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevCreateObjectQueryEx", "int", ObjectType, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, "ptr", pCallback, pContextMarshal, pContext, "ptr*", &phDevQuery := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phDevQuery
     }
 
     /**
@@ -70,19 +68,18 @@ class DeviceQuery {
      * @param {Pointer<DEVPROP_FILTER_EXPRESSION>} pFilter 
      * @param {Pointer<PDEV_QUERY_RESULT_CALLBACK>} pCallback 
      * @param {Pointer<Void>} pContext 
-     * @param {Pointer<HDEVQUERY>} phDevQuery 
-     * @returns {HRESULT} 
+     * @returns {HDEVQUERY} 
      */
-    static DevCreateObjectQueryFromId(ObjectType, pszObjectId, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, pCallback, pContext, phDevQuery) {
+    static DevCreateObjectQueryFromId(ObjectType, pszObjectId, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, pCallback, pContext) {
         pszObjectId := pszObjectId is String ? StrPtr(pszObjectId) : pszObjectId
 
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevCreateObjectQueryFromId", "int", ObjectType, "ptr", pszObjectId, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "ptr", pCallback, pContextMarshal, pContext, "ptr", phDevQuery, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevCreateObjectQueryFromId", "int", ObjectType, "ptr", pszObjectId, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "ptr", pCallback, pContextMarshal, pContext, "ptr*", &phDevQuery := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phDevQuery
     }
 
     /**
@@ -98,19 +95,18 @@ class DeviceQuery {
      * @param {Pointer<DEV_QUERY_PARAMETER>} pExtendedParameters 
      * @param {Pointer<PDEV_QUERY_RESULT_CALLBACK>} pCallback 
      * @param {Pointer<Void>} pContext 
-     * @param {Pointer<HDEVQUERY>} phDevQuery 
-     * @returns {HRESULT} 
+     * @returns {HDEVQUERY} 
      */
-    static DevCreateObjectQueryFromIdEx(ObjectType, pszObjectId, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, cExtendedParameterCount, pExtendedParameters, pCallback, pContext, phDevQuery) {
+    static DevCreateObjectQueryFromIdEx(ObjectType, pszObjectId, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, cExtendedParameterCount, pExtendedParameters, pCallback, pContext) {
         pszObjectId := pszObjectId is String ? StrPtr(pszObjectId) : pszObjectId
 
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevCreateObjectQueryFromIdEx", "int", ObjectType, "ptr", pszObjectId, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, "ptr", pCallback, pContextMarshal, pContext, "ptr", phDevQuery, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevCreateObjectQueryFromIdEx", "int", ObjectType, "ptr", pszObjectId, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, "ptr", pCallback, pContextMarshal, pContext, "ptr*", &phDevQuery := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phDevQuery
     }
 
     /**
@@ -124,19 +120,18 @@ class DeviceQuery {
      * @param {Pointer<DEVPROP_FILTER_EXPRESSION>} pFilter 
      * @param {Pointer<PDEV_QUERY_RESULT_CALLBACK>} pCallback 
      * @param {Pointer<Void>} pContext 
-     * @param {Pointer<HDEVQUERY>} phDevQuery 
-     * @returns {HRESULT} 
+     * @returns {HDEVQUERY} 
      */
-    static DevCreateObjectQueryFromIds(ObjectType, pszzObjectIds, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, pCallback, pContext, phDevQuery) {
+    static DevCreateObjectQueryFromIds(ObjectType, pszzObjectIds, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, pCallback, pContext) {
         pszzObjectIds := pszzObjectIds is String ? StrPtr(pszzObjectIds) : pszzObjectIds
 
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevCreateObjectQueryFromIds", "int", ObjectType, "ptr", pszzObjectIds, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "ptr", pCallback, pContextMarshal, pContext, "ptr", phDevQuery, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevCreateObjectQueryFromIds", "int", ObjectType, "ptr", pszzObjectIds, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "ptr", pCallback, pContextMarshal, pContext, "ptr*", &phDevQuery := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phDevQuery
     }
 
     /**
@@ -152,19 +147,18 @@ class DeviceQuery {
      * @param {Pointer<DEV_QUERY_PARAMETER>} pExtendedParameters 
      * @param {Pointer<PDEV_QUERY_RESULT_CALLBACK>} pCallback 
      * @param {Pointer<Void>} pContext 
-     * @param {Pointer<HDEVQUERY>} phDevQuery 
-     * @returns {HRESULT} 
+     * @returns {HDEVQUERY} 
      */
-    static DevCreateObjectQueryFromIdsEx(ObjectType, pszzObjectIds, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, cExtendedParameterCount, pExtendedParameters, pCallback, pContext, phDevQuery) {
+    static DevCreateObjectQueryFromIdsEx(ObjectType, pszzObjectIds, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, cExtendedParameterCount, pExtendedParameters, pCallback, pContext) {
         pszzObjectIds := pszzObjectIds is String ? StrPtr(pszzObjectIds) : pszzObjectIds
 
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevCreateObjectQueryFromIdsEx", "int", ObjectType, "ptr", pszzObjectIds, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, "ptr", pCallback, pContextMarshal, pContext, "ptr", phDevQuery, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevCreateObjectQueryFromIdsEx", "int", ObjectType, "ptr", pszzObjectIds, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, "ptr", pCallback, pContextMarshal, pContext, "ptr*", &phDevQuery := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phDevQuery
     }
 
     /**

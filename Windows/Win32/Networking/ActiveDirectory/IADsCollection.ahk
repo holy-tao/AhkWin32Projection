@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,13 +40,12 @@ class IADsCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscollection-get__newenum
      */
-    get__NewEnum(ppEnumerator) {
-        result := ComCall(7, this, "ptr*", ppEnumerator, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppEnumerator := 0, "HRESULT")
+        return IUnknown(ppEnumerator)
     }
 
     /**
@@ -77,18 +78,14 @@ class IADsCollection extends IDispatch{
     /**
      * The GetObject function retrieves information for the specified graphics object.
      * @param {BSTR} bstrName 
-     * @param {Pointer<VARIANT>} pvItem 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {VARIANT} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(bstrName, pvItem) {
+    GetObject(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
+        pvItem := VARIANT()
         result := ComCall(10, this, "ptr", bstrName, "ptr", pvItem, "HRESULT")
-        return result
+        return pvItem
     }
 }

@@ -37,16 +37,13 @@ class ISpPhoneConverter extends ISpObjectWithToken{
     /**
      * 
      * @param {PWSTR} pszPhone 
-     * @param {Pointer<Integer>} pId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    PhoneToId(pszPhone, pId) {
+    PhoneToId(pszPhone) {
         pszPhone := pszPhone is String ? StrPtr(pszPhone) : pszPhone
 
-        pIdMarshal := pId is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pszPhone, pIdMarshal, pId, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszPhone, "ushort*", &pId := 0, "HRESULT")
+        return pId
     }
 
     /**

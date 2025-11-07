@@ -69,15 +69,13 @@ class IDataConvert extends IUnknown{
      * @param {Integer} wSrcType 
      * @param {Integer} wDstType 
      * @param {Pointer<Pointer>} pcbSrcLength 
-     * @param {Pointer<Pointer>} pcbDstLength 
      * @param {Pointer} pSrc 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetConversionSize(wSrcType, wDstType, pcbSrcLength, pcbDstLength, pSrc) {
+    GetConversionSize(wSrcType, wDstType, pcbSrcLength, pSrc) {
         pcbSrcLengthMarshal := pcbSrcLength is VarRef ? "ptr*" : "ptr"
-        pcbDstLengthMarshal := pcbDstLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ushort", wSrcType, "ushort", wDstType, pcbSrcLengthMarshal, pcbSrcLength, pcbDstLengthMarshal, pcbDstLength, "ptr", pSrc, "HRESULT")
-        return result
+        result := ComCall(5, this, "ushort", wSrcType, "ushort", wDstType, pcbSrcLengthMarshal, pcbSrcLength, "ptr*", &pcbDstLength := 0, "ptr", pSrc, "HRESULT")
+        return pcbDstLength
     }
 }

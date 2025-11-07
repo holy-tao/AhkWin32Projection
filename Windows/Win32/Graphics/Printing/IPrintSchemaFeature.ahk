@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IPrintSchemaOption.ahk
 #Include .\IPrintSchemaDisplayableElement.ahk
 
 /**
@@ -31,12 +32,11 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement{
 
     /**
      * 
-     * @param {Pointer<IPrintSchemaOption>} ppOption 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaOption} 
      */
-    get_SelectedOption(ppOption) {
-        result := ComCall(11, this, "ptr*", ppOption, "HRESULT")
-        return result
+    get_SelectedOption() {
+        result := ComCall(11, this, "ptr*", &ppOption := 0, "HRESULT")
+        return IPrintSchemaOption(ppOption)
     }
 
     /**
@@ -51,38 +51,33 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSelectionType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SelectionType(pSelectionType) {
-        pSelectionTypeMarshal := pSelectionType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pSelectionTypeMarshal, pSelectionType, "HRESULT")
-        return result
+    get_SelectionType() {
+        result := ComCall(13, this, "int*", &pSelectionType := 0, "HRESULT")
+        return pSelectionType
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
-     * @param {Pointer<IPrintSchemaOption>} ppOption 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaOption} 
      */
-    GetOption(bstrName, bstrNamespaceUri, ppOption) {
+    GetOption(bstrName, bstrNamespaceUri) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
 
-        result := ComCall(14, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", ppOption, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppOption := 0, "HRESULT")
+        return IPrintSchemaOption(ppOption)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbShow 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_DisplayUI(pbShow) {
-        result := ComCall(15, this, "ptr", pbShow, "HRESULT")
-        return result
+    get_DisplayUI() {
+        result := ComCall(15, this, "int*", &pbShow := 0, "HRESULT")
+        return pbShow
     }
 }

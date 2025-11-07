@@ -90,15 +90,12 @@ class IStreamBufferRecComp extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcSeconds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferreccomp-getcurrentlength
      */
-    GetCurrentLength(pcSeconds) {
-        pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pcSecondsMarshal, pcSeconds, "HRESULT")
-        return result
+    GetCurrentLength() {
+        result := ComCall(6, this, "uint*", &pcSeconds := 0, "HRESULT")
+        return pcSeconds
     }
 
     /**

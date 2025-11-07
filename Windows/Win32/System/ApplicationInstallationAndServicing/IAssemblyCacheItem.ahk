@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IStream.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -36,18 +37,17 @@ class IAssemblyCacheItem extends IUnknown{
      * @param {PWSTR} pszStreamName 
      * @param {Integer} dwFormat 
      * @param {Integer} dwFormatFlags 
-     * @param {Pointer<IStream>} ppIStream 
      * @param {Pointer<Integer>} puliMaxSize 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblycacheitem-createstream
      */
-    CreateStream(dwFlags, pszStreamName, dwFormat, dwFormatFlags, ppIStream, puliMaxSize) {
+    CreateStream(dwFlags, pszStreamName, dwFormat, dwFormatFlags, puliMaxSize) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
 
         puliMaxSizeMarshal := puliMaxSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pszStreamName, "uint", dwFormat, "uint", dwFormatFlags, "ptr*", ppIStream, puliMaxSizeMarshal, puliMaxSize, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pszStreamName, "uint", dwFormat, "uint", dwFormatFlags, "ptr*", &ppIStream := 0, puliMaxSizeMarshal, puliMaxSize, "HRESULT")
+        return IStream(ppIStream)
     }
 
     /**

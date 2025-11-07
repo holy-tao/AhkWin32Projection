@@ -33,12 +33,12 @@ class IGPMGPO2 extends IGPMGPO{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(pVal) {
+    get_Description() {
+        pVal := BSTR()
         result := ComCall(36, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**

@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IEnumAgentSession.ahk
+#Include .\ITAgentSession.ahk
+#Include ..\..\System\Com\CY.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,26 +37,24 @@ class ITAgent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumAgentSession>} ppEnumAgentSession 
-     * @returns {HRESULT} 
+     * @returns {IEnumAgentSession} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-enumerateagentsessions
      */
-    EnumerateAgentSessions(ppEnumAgentSession) {
-        result := ComCall(7, this, "ptr*", ppEnumAgentSession, "HRESULT")
-        return result
+    EnumerateAgentSessions() {
+        result := ComCall(7, this, "ptr*", &ppEnumAgentSession := 0, "HRESULT")
+        return IEnumAgentSession(ppEnumAgentSession)
     }
 
     /**
      * 
      * @param {ITACDGroup} pACDGroup 
      * @param {ITAddress} pAddress 
-     * @param {Pointer<ITAgentSession>} ppAgentSession 
-     * @returns {HRESULT} 
+     * @returns {ITAgentSession} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-createsession
      */
-    CreateSession(pACDGroup, pAddress, ppAgentSession) {
-        result := ComCall(8, this, "ptr", pACDGroup, "ptr", pAddress, "ptr*", ppAgentSession, "HRESULT")
-        return result
+    CreateSession(pACDGroup, pAddress) {
+        result := ComCall(8, this, "ptr", pACDGroup, "ptr", pAddress, "ptr*", &ppAgentSession := 0, "HRESULT")
+        return ITAgentSession(ppAgentSession)
     }
 
     /**
@@ -60,37 +62,36 @@ class ITAgent extends IDispatch{
      * @param {ITACDGroup} pACDGroup 
      * @param {ITAddress} pAddress 
      * @param {BSTR} pPIN 
-     * @param {Pointer<ITAgentSession>} ppAgentSession 
-     * @returns {HRESULT} 
+     * @returns {ITAgentSession} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-createsessionwithpin
      */
-    CreateSessionWithPIN(pACDGroup, pAddress, pPIN, ppAgentSession) {
+    CreateSessionWithPIN(pACDGroup, pAddress, pPIN) {
         pPIN := pPIN is String ? BSTR.Alloc(pPIN).Value : pPIN
 
-        result := ComCall(9, this, "ptr", pACDGroup, "ptr", pAddress, "ptr", pPIN, "ptr*", ppAgentSession, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pACDGroup, "ptr", pAddress, "ptr", pPIN, "ptr*", &ppAgentSession := 0, "HRESULT")
+        return ITAgentSession(ppAgentSession)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_id
      */
-    get_ID(ppID) {
+    get_ID() {
+        ppID := BSTR()
         result := ComCall(10, this, "ptr", ppID, "HRESULT")
-        return result
+        return ppID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppUser 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_user
      */
-    get_User(ppUser) {
+    get_User() {
+        ppUser := BSTR()
         result := ComCall(11, this, "ptr", ppUser, "HRESULT")
-        return result
+        return ppUser
     }
 
     /**
@@ -106,15 +107,12 @@ class ITAgent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pAgentState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_state
      */
-    get_State(pAgentState) {
-        pAgentStateMarshal := pAgentState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pAgentStateMarshal, pAgentState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(13, this, "int*", &pAgentState := 0, "HRESULT")
+        return pAgentState
     }
 
     /**
@@ -130,114 +128,93 @@ class ITAgent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plPeriod 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_measurementperiod
      */
-    get_MeasurementPeriod(plPeriod) {
-        plPeriodMarshal := plPeriod is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, plPeriodMarshal, plPeriod, "HRESULT")
-        return result
+    get_MeasurementPeriod() {
+        result := ComCall(15, this, "int*", &plPeriod := 0, "HRESULT")
+        return plPeriod
     }
 
     /**
      * 
-     * @param {Pointer<CY>} pcyCallrate 
-     * @returns {HRESULT} 
+     * @returns {CY} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_overallcallrate
      */
-    get_OverallCallRate(pcyCallrate) {
+    get_OverallCallRate() {
+        pcyCallrate := CY()
         result := ComCall(16, this, "ptr", pcyCallrate, "HRESULT")
-        return result
+        return pcyCallrate
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCalls 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_numberofacdcalls
      */
-    get_NumberOfACDCalls(plCalls) {
-        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, plCallsMarshal, plCalls, "HRESULT")
-        return result
+    get_NumberOfACDCalls() {
+        result := ComCall(17, this, "int*", &plCalls := 0, "HRESULT")
+        return plCalls
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCalls 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_numberofincomingcalls
      */
-    get_NumberOfIncomingCalls(plCalls) {
-        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, plCallsMarshal, plCalls, "HRESULT")
-        return result
+    get_NumberOfIncomingCalls() {
+        result := ComCall(18, this, "int*", &plCalls := 0, "HRESULT")
+        return plCalls
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCalls 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_numberofoutgoingcalls
      */
-    get_NumberOfOutgoingCalls(plCalls) {
-        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, plCallsMarshal, plCalls, "HRESULT")
-        return result
+    get_NumberOfOutgoingCalls() {
+        result := ComCall(19, this, "int*", &plCalls := 0, "HRESULT")
+        return plCalls
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plTalkTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_totalacdtalktime
      */
-    get_TotalACDTalkTime(plTalkTime) {
-        plTalkTimeMarshal := plTalkTime is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, plTalkTimeMarshal, plTalkTime, "HRESULT")
-        return result
+    get_TotalACDTalkTime() {
+        result := ComCall(20, this, "int*", &plTalkTime := 0, "HRESULT")
+        return plTalkTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCallTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_totalacdcalltime
      */
-    get_TotalACDCallTime(plCallTime) {
-        plCallTimeMarshal := plCallTime is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, plCallTimeMarshal, plCallTime, "HRESULT")
-        return result
+    get_TotalACDCallTime() {
+        result := ComCall(21, this, "int*", &plCallTime := 0, "HRESULT")
+        return plCallTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plWrapUpTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_totalwrapuptime
      */
-    get_TotalWrapUpTime(plWrapUpTime) {
-        plWrapUpTimeMarshal := plWrapUpTime is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, plWrapUpTimeMarshal, plWrapUpTime, "HRESULT")
-        return result
+    get_TotalWrapUpTime() {
+        result := ComCall(22, this, "int*", &plWrapUpTime := 0, "HRESULT")
+        return plWrapUpTime
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_agentsessions
      */
-    get_AgentSessions(pVariant) {
+    get_AgentSessions() {
+        pVariant := VARIANT()
         result := ComCall(23, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 }

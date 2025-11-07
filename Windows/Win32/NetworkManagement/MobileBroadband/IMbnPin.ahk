@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMbnPinManager.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,161 +37,130 @@ class IMbnPin extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} PinType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pintype
      */
-    get_PinType(PinType) {
-        PinTypeMarshal := PinType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, PinTypeMarshal, PinType, "HRESULT")
-        return result
+    get_PinType() {
+        result := ComCall(3, this, "int*", &PinType := 0, "HRESULT")
+        return PinType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} PinFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinformat
      */
-    get_PinFormat(PinFormat) {
-        PinFormatMarshal := PinFormat is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, PinFormatMarshal, PinFormat, "HRESULT")
-        return result
+    get_PinFormat() {
+        result := ComCall(4, this, "int*", &PinFormat := 0, "HRESULT")
+        return PinFormat
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} PinLengthMin 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinlengthmin
      */
-    get_PinLengthMin(PinLengthMin) {
-        PinLengthMinMarshal := PinLengthMin is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, PinLengthMinMarshal, PinLengthMin, "HRESULT")
-        return result
+    get_PinLengthMin() {
+        result := ComCall(5, this, "uint*", &PinLengthMin := 0, "HRESULT")
+        return PinLengthMin
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} PinLengthMax 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinlengthmax
      */
-    get_PinLengthMax(PinLengthMax) {
-        PinLengthMaxMarshal := PinLengthMax is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, PinLengthMaxMarshal, PinLengthMax, "HRESULT")
-        return result
+    get_PinLengthMax() {
+        result := ComCall(6, this, "uint*", &PinLengthMax := 0, "HRESULT")
+        return PinLengthMax
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} PinMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinmode
      */
-    get_PinMode(PinMode) {
-        PinModeMarshal := PinMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, PinModeMarshal, PinMode, "HRESULT")
-        return result
+    get_PinMode() {
+        result := ComCall(7, this, "int*", &PinMode := 0, "HRESULT")
+        return PinMode
     }
 
     /**
      * 
      * @param {PWSTR} pin 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-enable
      */
-    Enable(pin, requestID) {
+    Enable(pin) {
         pin := pin is String ? StrPtr(pin) : pin
 
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pin, requestIDMarshal, requestID, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", pin, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
      * @param {PWSTR} pin 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-disable
      */
-    Disable(pin, requestID) {
+    Disable(pin) {
         pin := pin is String ? StrPtr(pin) : pin
 
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pin, requestIDMarshal, requestID, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pin, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
      * @param {PWSTR} pin 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-enter
      */
-    Enter(pin, requestID) {
+    Enter(pin) {
         pin := pin is String ? StrPtr(pin) : pin
 
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "ptr", pin, requestIDMarshal, requestID, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pin, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
      * @param {PWSTR} pin 
      * @param {PWSTR} newPin 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-change
      */
-    Change(pin, newPin, requestID) {
+    Change(pin, newPin) {
         pin := pin is String ? StrPtr(pin) : pin
         newPin := newPin is String ? StrPtr(newPin) : newPin
 
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, "ptr", pin, "ptr", newPin, requestIDMarshal, requestID, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", pin, "ptr", newPin, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
      * @param {PWSTR} puk 
      * @param {PWSTR} newPin 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-unblock
      */
-    Unblock(puk, newPin, requestID) {
+    Unblock(puk, newPin) {
         puk := puk is String ? StrPtr(puk) : puk
         newPin := newPin is String ? StrPtr(newPin) : newPin
 
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "ptr", puk, "ptr", newPin, requestIDMarshal, requestID, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", puk, "ptr", newPin, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
-     * @param {Pointer<IMbnPinManager>} pinManager 
-     * @returns {HRESULT} 
+     * @returns {IMbnPinManager} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-getpinmanager
      */
-    GetPinManager(pinManager) {
-        result := ComCall(13, this, "ptr*", pinManager, "HRESULT")
-        return result
+    GetPinManager() {
+        result := ComCall(13, this, "ptr*", &pinManager := 0, "HRESULT")
+        return IMbnPinManager(pinManager)
     }
 }

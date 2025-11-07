@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\INSNetSourceCreator.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -62,13 +63,12 @@ class IWMSInternalAdminNetSource extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<INSNetSourceCreator>} ppNetSourceCreator 
-     * @returns {HRESULT} 
+     * @returns {INSNetSourceCreator} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource
      */
-    GetNetSourceCreator(ppNetSourceCreator) {
-        result := ComCall(4, this, "ptr*", ppNetSourceCreator, "HRESULT")
-        return result
+    GetNetSourceCreator() {
+        result := ComCall(4, this, "ptr*", &ppNetSourceCreator := 0, "HRESULT")
+        return INSNetSourceCreator(ppNetSourceCreator)
     }
 
     /**
@@ -102,7 +102,9 @@ class IWMSInternalAdminNetSource extends IUnknown{
     GetCredentials(bstrRealm, pbstrName, pbstrPassword, pfConfirmedGood) {
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
 
-        result := ComCall(6, this, "ptr", bstrRealm, "ptr", pbstrName, "ptr", pbstrPassword, "ptr", pfConfirmedGood, "HRESULT")
+        pfConfirmedGoodMarshal := pfConfirmedGood is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", bstrRealm, "ptr", pbstrName, "ptr", pbstrPassword, pfConfirmedGoodMarshal, pfConfirmedGood, "HRESULT")
         return result
     }
 
@@ -121,15 +123,12 @@ class IWMSInternalAdminNetSource extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} lpdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource-getcredentialflags
      */
-    GetCredentialFlags(lpdwFlags) {
-        lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, lpdwFlagsMarshal, lpdwFlags, "HRESULT")
-        return result
+    GetCredentialFlags() {
+        result := ComCall(8, this, "uint*", &lpdwFlags := 0, "HRESULT")
+        return lpdwFlags
     }
 
     /**
@@ -158,10 +157,11 @@ class IWMSInternalAdminNetSource extends IUnknown{
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
         bstrHost := bstrHost is String ? BSTR.Alloc(bstrHost).Value : bstrHost
 
+        pfProxyEnabledMarshal := pfProxyEnabled is VarRef ? "int*" : "ptr"
         pdwProxyPortMarshal := pdwProxyPort is VarRef ? "uint*" : "ptr"
         pdwProxyContextMarshal := pdwProxyContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", bstrProtocol, "ptr", bstrHost, "ptr", pfProxyEnabled, "ptr", pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pdwProxyContextMarshal, pdwProxyContext, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrProtocol, "ptr", bstrHost, pfProxyEnabledMarshal, pfProxyEnabled, "ptr", pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pdwProxyContextMarshal, pdwProxyContext, "HRESULT")
         return result
     }
 
@@ -191,12 +191,11 @@ class IWMSInternalAdminNetSource extends IUnknown{
     /**
      * 
      * @param {Integer} dwProxyContext 
-     * @param {Pointer<BOOL>} pfIsUsingIE 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource
      */
-    IsUsingIE(dwProxyContext, pfIsUsingIE) {
-        result := ComCall(13, this, "uint", dwProxyContext, "ptr", pfIsUsingIE, "HRESULT")
-        return result
+    IsUsingIE(dwProxyContext) {
+        result := ComCall(13, this, "uint", dwProxyContext, "int*", &pfIsUsingIE := 0, "HRESULT")
+        return pfIsUsingIE
     }
 }

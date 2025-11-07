@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMDRMTranscryptor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class IWMDRMTranscryptionManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWMDRMTranscryptor>} ppTranscryptor 
-     * @returns {HRESULT} 
+     * @returns {IWMDRMTranscryptor} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptionmanager-createtranscryptor
      */
-    CreateTranscryptor(ppTranscryptor) {
-        result := ComCall(3, this, "ptr*", ppTranscryptor, "HRESULT")
-        return result
+    CreateTranscryptor() {
+        result := ComCall(3, this, "ptr*", &ppTranscryptor := 0, "HRESULT")
+        return IWMDRMTranscryptor(ppTranscryptor)
     }
 }

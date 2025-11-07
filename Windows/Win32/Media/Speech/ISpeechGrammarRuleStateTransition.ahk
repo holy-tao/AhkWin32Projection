@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechGrammarRule.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ISpeechGrammarRuleState.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,85 +34,77 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Type 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Type(Type) {
-        TypeMarshal := Type is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, TypeMarshal, Type, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(7, this, "int*", &Type := 0, "HRESULT")
+        return Type
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Text 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Text(Text) {
+    get_Text() {
+        Text := BSTR()
         result := ComCall(8, this, "ptr", Text, "HRESULT")
-        return result
+        return Text
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechGrammarRule>} Rule 
-     * @returns {HRESULT} 
+     * @returns {ISpeechGrammarRule} 
      */
-    get_Rule(Rule) {
-        result := ComCall(9, this, "ptr*", Rule, "HRESULT")
-        return result
+    get_Rule() {
+        result := ComCall(9, this, "ptr*", &Rule := 0, "HRESULT")
+        return ISpeechGrammarRule(Rule)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Weight 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Weight(Weight) {
+    get_Weight() {
+        Weight := VARIANT()
         result := ComCall(10, this, "ptr", Weight, "HRESULT")
-        return result
+        return Weight
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} PropertyName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PropertyName(PropertyName) {
+    get_PropertyName() {
+        PropertyName := BSTR()
         result := ComCall(11, this, "ptr", PropertyName, "HRESULT")
-        return result
+        return PropertyName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} PropertyId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PropertyId(PropertyId) {
-        PropertyIdMarshal := PropertyId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, PropertyIdMarshal, PropertyId, "HRESULT")
-        return result
+    get_PropertyId() {
+        result := ComCall(12, this, "int*", &PropertyId := 0, "HRESULT")
+        return PropertyId
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} PropertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_PropertyValue(PropertyValue) {
+    get_PropertyValue() {
+        PropertyValue := VARIANT()
         result := ComCall(13, this, "ptr", PropertyValue, "HRESULT")
-        return result
+        return PropertyValue
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechGrammarRuleState>} NextState 
-     * @returns {HRESULT} 
+     * @returns {ISpeechGrammarRuleState} 
      */
-    get_NextState(NextState) {
-        result := ComCall(14, this, "ptr*", NextState, "HRESULT")
-        return result
+    get_NextState() {
+        result := ComCall(14, this, "ptr*", &NextState := 0, "HRESULT")
+        return ISpeechGrammarRuleState(NextState)
     }
 }

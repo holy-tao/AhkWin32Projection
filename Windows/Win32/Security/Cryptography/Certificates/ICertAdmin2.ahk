@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\ICertAdmin.ahk
 
 /**
@@ -53,15 +54,15 @@ class ICertAdmin2 extends ICertAdmin{
      * @param {Integer} PropIndex 
      * @param {Integer} PropType 
      * @param {Integer} Flags 
-     * @param {Pointer<VARIANT>} pvarPropertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-getcaproperty
      */
-    GetCAProperty(strConfig, PropId, PropIndex, PropType, Flags, pvarPropertyValue) {
+    GetCAProperty(strConfig, PropId, PropIndex, PropType, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
+        pvarPropertyValue := VARIANT()
         result := ComCall(18, this, "ptr", strConfig, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, "ptr", pvarPropertyValue, "HRESULT")
-        return result
+        return pvarPropertyValue
     }
 
     /**
@@ -85,32 +86,29 @@ class ICertAdmin2 extends ICertAdmin{
      * 
      * @param {BSTR} strConfig 
      * @param {Integer} PropId 
-     * @param {Pointer<Integer>} pPropFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-getcapropertyflags
      */
-    GetCAPropertyFlags(strConfig, PropId, pPropFlags) {
+    GetCAPropertyFlags(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pPropFlagsMarshal := pPropFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, "ptr", strConfig, "int", PropId, pPropFlagsMarshal, pPropFlags, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", strConfig, "int", PropId, "int*", &pPropFlags := 0, "HRESULT")
+        return pPropFlags
     }
 
     /**
      * 
      * @param {BSTR} strConfig 
      * @param {Integer} PropId 
-     * @param {Pointer<BSTR>} pstrDisplayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-getcapropertydisplayname
      */
-    GetCAPropertyDisplayName(strConfig, PropId, pstrDisplayName) {
+    GetCAPropertyDisplayName(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
+        pstrDisplayName := BSTR()
         result := ComCall(21, this, "ptr", strConfig, "int", PropId, "ptr", pstrDisplayName, "HRESULT")
-        return result
+        return pstrDisplayName
     }
 
     /**
@@ -118,15 +116,15 @@ class ICertAdmin2 extends ICertAdmin{
      * @param {BSTR} strConfig 
      * @param {Integer} RequestId 
      * @param {Integer} Flags 
-     * @param {Pointer<BSTR>} pstrArchivedKey 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-getarchivedkey
      */
-    GetArchivedKey(strConfig, RequestId, Flags, pstrArchivedKey) {
+    GetArchivedKey(strConfig, RequestId, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
+        pstrArchivedKey := BSTR()
         result := ComCall(22, this, "ptr", strConfig, "int", RequestId, "int", Flags, "ptr", pstrArchivedKey, "HRESULT")
-        return result
+        return pstrArchivedKey
     }
 
     /**
@@ -134,17 +132,17 @@ class ICertAdmin2 extends ICertAdmin{
      * @param {BSTR} strConfig 
      * @param {BSTR} strNodePath 
      * @param {BSTR} strEntryName 
-     * @param {Pointer<VARIANT>} pvarEntry 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-getconfigentry
      */
-    GetConfigEntry(strConfig, strNodePath, strEntryName, pvarEntry) {
+    GetConfigEntry(strConfig, strNodePath, strEntryName) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strNodePath := strNodePath is String ? BSTR.Alloc(strNodePath).Value : strNodePath
         strEntryName := strEntryName is String ? BSTR.Alloc(strEntryName).Value : strEntryName
 
+        pvarEntry := VARIANT()
         result := ComCall(23, this, "ptr", strConfig, "ptr", strNodePath, "ptr", strEntryName, "ptr", pvarEntry, "HRESULT")
-        return result
+        return pvarEntry
     }
 
     /**
@@ -187,17 +185,14 @@ class ICertAdmin2 extends ICertAdmin{
     /**
      * 
      * @param {BSTR} strConfig 
-     * @param {Pointer<Integer>} pRoles 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-getmyroles
      */
-    GetMyRoles(strConfig, pRoles) {
+    GetMyRoles(strConfig) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pRolesMarshal := pRoles is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(26, this, "ptr", strConfig, pRolesMarshal, pRoles, "HRESULT")
-        return result
+        result := ComCall(26, this, "ptr", strConfig, "uint*", &pRoles := 0, "HRESULT")
+        return pRoles
     }
 
     /**
@@ -207,16 +202,13 @@ class ICertAdmin2 extends ICertAdmin{
      * @param {Float} Date 
      * @param {Integer} Table 
      * @param {Integer} RowId 
-     * @param {Pointer<Integer>} pcDeleted 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-deleterow
      */
-    DeleteRow(strConfig, Flags, Date, Table, RowId, pcDeleted) {
+    DeleteRow(strConfig, Flags, Date, Table, RowId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pcDeletedMarshal := pcDeleted is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, "ptr", strConfig, "int", Flags, "double", Date, "int", Table, "int", RowId, pcDeletedMarshal, pcDeleted, "HRESULT")
-        return result
+        result := ComCall(27, this, "ptr", strConfig, "int", Flags, "double", Date, "int", Table, "int", RowId, "int*", &pcDeleted := 0, "HRESULT")
+        return pcDeleted
     }
 }

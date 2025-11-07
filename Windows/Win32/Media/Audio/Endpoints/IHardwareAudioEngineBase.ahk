@@ -34,17 +34,14 @@ class IHardwareAudioEngineBase extends IUnknown{
      * 
      * @param {PWSTR} _pwstrDeviceId 
      * @param {Integer} _uConnectorId 
-     * @param {Pointer<Integer>} _pAvailableConnectorInstanceCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-getavailableoffloadconnectorcount
      */
-    GetAvailableOffloadConnectorCount(_pwstrDeviceId, _uConnectorId, _pAvailableConnectorInstanceCount) {
+    GetAvailableOffloadConnectorCount(_pwstrDeviceId, _uConnectorId) {
         _pwstrDeviceId := _pwstrDeviceId is String ? StrPtr(_pwstrDeviceId) : _pwstrDeviceId
 
-        _pAvailableConnectorInstanceCountMarshal := _pAvailableConnectorInstanceCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", _pwstrDeviceId, "uint", _uConnectorId, _pAvailableConnectorInstanceCountMarshal, _pAvailableConnectorInstanceCount, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", _pwstrDeviceId, "uint", _uConnectorId, "uint*", &_pAvailableConnectorInstanceCount := 0, "HRESULT")
+        return _pAvailableConnectorInstanceCount
     }
 
     /**
@@ -89,12 +86,11 @@ class IHardwareAudioEngineBase extends IUnknown{
     /**
      * 
      * @param {IMMDevice} pDevice 
-     * @param {Pointer<BOOL>} _pbEnable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-getgfxstate
      */
-    GetGfxState(pDevice, _pbEnable) {
-        result := ComCall(7, this, "ptr", pDevice, "ptr", _pbEnable, "HRESULT")
-        return result
+    GetGfxState(pDevice) {
+        result := ComCall(7, this, "ptr", pDevice, "int*", &_pbEnable := 0, "HRESULT")
+        return _pbEnable
     }
 }

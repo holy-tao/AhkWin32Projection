@@ -40,14 +40,11 @@ class IMLangString extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plLen 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLength(plLen) {
-        plLenMarshal := plLen is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, plLenMarshal, plLen, "HRESULT")
-        return result
+    GetLength() {
+        result := ComCall(4, this, "int*", &plLen := 0, "HRESULT")
+        return plLen
     }
 
     /**

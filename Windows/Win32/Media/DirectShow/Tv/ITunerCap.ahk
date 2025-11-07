@@ -38,16 +38,13 @@ class ITunerCap extends IUnknown{
     /**
      * 
      * @param {Integer} ulcNetworkTypesMax 
-     * @param {Pointer<Integer>} pulcNetworkTypes 
      * @param {Pointer<Guid>} pguidNetworkTypes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunercap-get_supportednetworktypes
      */
-    get_SupportedNetworkTypes(ulcNetworkTypesMax, pulcNetworkTypes, pguidNetworkTypes) {
-        pulcNetworkTypesMarshal := pulcNetworkTypes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", ulcNetworkTypesMax, pulcNetworkTypesMarshal, pulcNetworkTypes, "ptr", pguidNetworkTypes, "HRESULT")
-        return result
+    get_SupportedNetworkTypes(ulcNetworkTypesMax, pguidNetworkTypes) {
+        result := ComCall(3, this, "uint", ulcNetworkTypesMax, "uint*", &pulcNetworkTypes := 0, "ptr", pguidNetworkTypes, "HRESULT")
+        return pulcNetworkTypes
     }
 
     /**

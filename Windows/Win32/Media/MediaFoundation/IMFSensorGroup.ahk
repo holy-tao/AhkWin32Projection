@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
+#Include .\IMFSensorDevice.ahk
+#Include .\IMFMediaSource.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,66 +37,55 @@ class IMFSensorGroup extends IUnknown{
      * 
      * @param {PWSTR} SymbolicLink 
      * @param {Integer} cchSymbolicLink 
-     * @param {Pointer<Integer>} pcchWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorgroup-getsymboliclink
      */
-    GetSymbolicLink(SymbolicLink, cchSymbolicLink, pcchWritten) {
+    GetSymbolicLink(SymbolicLink, cchSymbolicLink) {
         SymbolicLink := SymbolicLink is String ? StrPtr(SymbolicLink) : SymbolicLink
 
-        pcchWrittenMarshal := pcchWritten is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", SymbolicLink, "int", cchSymbolicLink, pcchWrittenMarshal, pcchWritten, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", SymbolicLink, "int", cchSymbolicLink, "int*", &pcchWritten := 0, "HRESULT")
+        return pcchWritten
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorgroup-getflags
      */
-    GetFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(4, this, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
      * 
-     * @param {Pointer<IMFAttributes>} ppAttributes 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorgroup-getsensorgroupattributes
      */
-    GetSensorGroupAttributes(ppAttributes) {
-        result := ComCall(5, this, "ptr*", ppAttributes, "HRESULT")
-        return result
+    GetSensorGroupAttributes() {
+        result := ComCall(5, this, "ptr*", &ppAttributes := 0, "HRESULT")
+        return IMFAttributes(ppAttributes)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorgroup-getsensordevicecount
      */
-    GetSensorDeviceCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetSensorDeviceCount() {
+        result := ComCall(6, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IMFSensorDevice>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IMFSensorDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorgroup-getsensordevice
      */
-    GetSensorDevice(dwIndex, ppDevice) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr*", ppDevice, "HRESULT")
-        return result
+    GetSensorDevice(dwIndex) {
+        result := ComCall(7, this, "uint", dwIndex, "ptr*", &ppDevice := 0, "HRESULT")
+        return IMFSensorDevice(ppDevice)
     }
 
     /**
@@ -109,25 +101,21 @@ class IMFSensorGroup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorgroup-getdefaultsensordeviceindex
      */
-    GetDefaultSensorDeviceIndex(pdwIndex) {
-        pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pdwIndexMarshal, pdwIndex, "HRESULT")
-        return result
+    GetDefaultSensorDeviceIndex() {
+        result := ComCall(9, this, "uint*", &pdwIndex := 0, "HRESULT")
+        return pdwIndex
     }
 
     /**
      * 
-     * @param {Pointer<IMFMediaSource>} ppSource 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaSource} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorgroup-createmediasource
      */
-    CreateMediaSource(ppSource) {
-        result := ComCall(10, this, "ptr*", ppSource, "HRESULT")
-        return result
+    CreateMediaSource() {
+        result := ComCall(10, this, "ptr*", &ppSource := 0, "HRESULT")
+        return IMFMediaSource(ppSource)
     }
 }

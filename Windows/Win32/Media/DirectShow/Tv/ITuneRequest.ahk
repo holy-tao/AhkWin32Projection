@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITuningSpace.ahk
+#Include .\IComponents.ahk
+#Include .\ITuneRequest.ahk
+#Include .\ILocator.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,46 +47,42 @@ class ITuneRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITuningSpace>} TuningSpace 
-     * @returns {HRESULT} 
+     * @returns {ITuningSpace} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-get_tuningspace
      */
-    get_TuningSpace(TuningSpace) {
-        result := ComCall(7, this, "ptr*", TuningSpace, "HRESULT")
-        return result
+    get_TuningSpace() {
+        result := ComCall(7, this, "ptr*", &TuningSpace := 0, "HRESULT")
+        return ITuningSpace(TuningSpace)
     }
 
     /**
      * 
-     * @param {Pointer<IComponents>} Components 
-     * @returns {HRESULT} 
+     * @returns {IComponents} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-get_components
      */
-    get_Components(Components) {
-        result := ComCall(8, this, "ptr*", Components, "HRESULT")
-        return result
+    get_Components() {
+        result := ComCall(8, this, "ptr*", &Components := 0, "HRESULT")
+        return IComponents(Components)
     }
 
     /**
      * 
-     * @param {Pointer<ITuneRequest>} NewTuneRequest 
-     * @returns {HRESULT} 
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-clone
      */
-    Clone(NewTuneRequest) {
-        result := ComCall(9, this, "ptr*", NewTuneRequest, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(9, this, "ptr*", &NewTuneRequest := 0, "HRESULT")
+        return ITuneRequest(NewTuneRequest)
     }
 
     /**
      * 
-     * @param {Pointer<ILocator>} Locator 
-     * @returns {HRESULT} 
+     * @returns {ILocator} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-get_locator
      */
-    get_Locator(Locator) {
-        result := ComCall(10, this, "ptr*", Locator, "HRESULT")
-        return result
+    get_Locator() {
+        result := ComCall(10, this, "ptr*", &Locator := 0, "HRESULT")
+        return ILocator(Locator)
     }
 
     /**

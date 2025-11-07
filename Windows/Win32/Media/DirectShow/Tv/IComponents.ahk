@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
+#Include .\IEnumComponents.ahk
+#Include .\IComponent.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\IComponents.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,61 +48,55 @@ class IComponents extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVARIANT>} ppNewEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-get__newenum
      */
-    get__NewEnum(ppNewEnum) {
-        result := ComCall(8, this, "ptr*", ppNewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &ppNewEnum := 0, "HRESULT")
+        return IEnumVARIANT(ppNewEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumComponents>} ppNewEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumComponents} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-enumcomponents
      */
-    EnumComponents(ppNewEnum) {
-        result := ComCall(9, this, "ptr*", ppNewEnum, "HRESULT")
-        return result
+    EnumComponents() {
+        result := ComCall(9, this, "ptr*", &ppNewEnum := 0, "HRESULT")
+        return IEnumComponents(ppNewEnum)
     }
 
     /**
      * 
      * @param {VARIANT} Index 
-     * @param {Pointer<IComponent>} ppComponent 
-     * @returns {HRESULT} 
+     * @returns {IComponent} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-get_item
      */
-    get_Item(Index, ppComponent) {
-        result := ComCall(10, this, "ptr", Index, "ptr*", ppComponent, "HRESULT")
-        return result
+    get_Item(Index) {
+        result := ComCall(10, this, "ptr", Index, "ptr*", &ppComponent := 0, "HRESULT")
+        return IComponent(ppComponent)
     }
 
     /**
      * 
      * @param {IComponent} Component 
-     * @param {Pointer<VARIANT>} NewIndex 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-add
      */
-    Add(Component, NewIndex) {
+    Add(Component) {
+        NewIndex := VARIANT()
         result := ComCall(11, this, "ptr", Component, "ptr", NewIndex, "HRESULT")
-        return result
+        return NewIndex
     }
 
     /**
@@ -113,13 +112,12 @@ class IComponents extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IComponents>} NewList 
-     * @returns {HRESULT} 
+     * @returns {IComponents} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-clone
      */
-    Clone(NewList) {
-        result := ComCall(13, this, "ptr*", NewList, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(13, this, "ptr*", &NewList := 0, "HRESULT")
+        return IComponents(NewList)
     }
 
     /**

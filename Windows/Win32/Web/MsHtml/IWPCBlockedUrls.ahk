@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,24 +31,21 @@ class IWPCBlockedUrls extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
      * @param {Integer} dwIdx 
-     * @param {Pointer<BSTR>} pbstrUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetUrl(dwIdx, pbstrUrl) {
+    GetUrl(dwIdx) {
+        pbstrUrl := BSTR()
         result := ComCall(4, this, "uint", dwIdx, "ptr", pbstrUrl, "HRESULT")
-        return result
+        return pbstrUrl
     }
 }

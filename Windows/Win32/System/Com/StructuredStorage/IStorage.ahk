@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IStream.ahk
+#Include .\IStorage.ahk
+#Include .\IEnumSTATSTG.ahk
+#Include ..\STATSTG.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -36,15 +40,14 @@ class IStorage extends IUnknown{
      * @param {Integer} grfMode 
      * @param {Integer} reserved1 
      * @param {Integer} reserved2 
-     * @param {Pointer<IStream>} ppstm 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istorage-createstream
      */
-    CreateStream(pwcsName, grfMode, reserved1, reserved2, ppstm) {
+    CreateStream(pwcsName, grfMode, reserved1, reserved2) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(3, this, "ptr", pwcsName, "uint", grfMode, "uint", reserved1, "uint", reserved2, "ptr*", ppstm, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwcsName, "uint", grfMode, "uint", reserved1, "uint", reserved2, "ptr*", &ppstm := 0, "HRESULT")
+        return IStream(ppstm)
     }
 
     /**
@@ -52,17 +55,16 @@ class IStorage extends IUnknown{
      * @param {PWSTR} pwcsName 
      * @param {Integer} grfMode 
      * @param {Integer} reserved2 
-     * @param {Pointer<IStream>} ppstm 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istorage-openstream
      */
-    OpenStream(pwcsName, grfMode, reserved2, ppstm) {
+    OpenStream(pwcsName, grfMode, reserved2) {
         static reserved1 := 0 ;Reserved parameters must always be NULL
 
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(4, this, "ptr", pwcsName, "ptr", reserved1, "uint", grfMode, "uint", reserved2, "ptr*", ppstm, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pwcsName, "ptr", reserved1, "uint", grfMode, "uint", reserved2, "ptr*", &ppstm := 0, "HRESULT")
+        return IStream(ppstm)
     }
 
     /**
@@ -71,15 +73,14 @@ class IStorage extends IUnknown{
      * @param {Integer} grfMode 
      * @param {Integer} reserved1 
      * @param {Integer} reserved2 
-     * @param {Pointer<IStorage>} ppstg 
-     * @returns {HRESULT} 
+     * @returns {IStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istorage-createstorage
      */
-    CreateStorage(pwcsName, grfMode, reserved1, reserved2, ppstg) {
+    CreateStorage(pwcsName, grfMode, reserved1, reserved2) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(5, this, "ptr", pwcsName, "uint", grfMode, "uint", reserved1, "uint", reserved2, "ptr*", ppstg, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pwcsName, "uint", grfMode, "uint", reserved1, "uint", reserved2, "ptr*", &ppstg := 0, "HRESULT")
+        return IStorage(ppstg)
     }
 
     /**
@@ -89,17 +90,16 @@ class IStorage extends IUnknown{
      * @param {Integer} grfMode 
      * @param {Pointer<Pointer<Integer>>} snbExclude 
      * @param {Integer} reserved 
-     * @param {Pointer<IStorage>} ppstg 
-     * @returns {HRESULT} 
+     * @returns {IStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istorage-openstorage
      */
-    OpenStorage(pwcsName, pstgPriority, grfMode, snbExclude, reserved, ppstg) {
+    OpenStorage(pwcsName, pstgPriority, grfMode, snbExclude, reserved) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
         snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwcsName, "ptr", pstgPriority, "uint", grfMode, snbExcludeMarshal, snbExclude, "uint", reserved, "ptr*", ppstg, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pwcsName, "ptr", pstgPriority, "uint", grfMode, snbExcludeMarshal, snbExclude, "uint", reserved, "ptr*", &ppstg := 0, "HRESULT")
+        return IStorage(ppstg)
     }
 
     /**
@@ -158,15 +158,14 @@ class IStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSTATSTG>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSTATSTG} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istorage-enumelements
      */
-    EnumElements(ppenum) {
+    EnumElements() {
         static reserved1 := 0, reserved2 := 0, reserved3 := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(11, this, "uint", reserved1, "ptr", reserved2, "uint", reserved3, "ptr*", ppenum, "HRESULT")
-        return result
+        result := ComCall(11, this, "uint", reserved1, "ptr", reserved2, "uint", reserved3, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumSTATSTG(ppenum)
     }
 
     /**
@@ -238,13 +237,13 @@ class IStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<STATSTG>} pstatstg 
      * @param {Integer} grfStatFlag 
-     * @returns {HRESULT} 
+     * @returns {STATSTG} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istorage-stat
      */
-    Stat(pstatstg, grfStatFlag) {
+    Stat(grfStatFlag) {
+        pstatstg := STATSTG()
         result := ComCall(17, this, "ptr", pstatstg, "uint", grfStatFlag, "HRESULT")
-        return result
+        return pstatstg
     }
 }

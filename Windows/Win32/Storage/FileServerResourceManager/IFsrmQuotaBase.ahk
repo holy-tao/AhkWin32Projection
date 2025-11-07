@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IFsrmAction.ahk
+#Include .\IFsrmCollection.ahk
 #Include .\IFsrmObject.ahk
 
 /**
@@ -32,13 +35,13 @@ class IFsrmQuotaBase extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} quotaLimit 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-get_quotalimit
      */
-    get_QuotaLimit(quotaLimit) {
+    get_QuotaLimit() {
+        quotaLimit := VARIANT()
         result := ComCall(12, this, "ptr", quotaLimit, "HRESULT")
-        return result
+        return quotaLimit
     }
 
     /**
@@ -54,15 +57,12 @@ class IFsrmQuotaBase extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} quotaFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-get_quotaflags
      */
-    get_QuotaFlags(quotaFlags) {
-        quotaFlagsMarshal := quotaFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, quotaFlagsMarshal, quotaFlags, "HRESULT")
-        return result
+    get_QuotaFlags() {
+        result := ComCall(14, this, "int*", &quotaFlags := 0, "HRESULT")
+        return quotaFlags
     }
 
     /**
@@ -78,15 +78,12 @@ class IFsrmQuotaBase extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} thresholds 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-get_thresholds
      */
-    get_Thresholds(thresholds) {
-        thresholdsMarshal := thresholds is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(16, this, thresholdsMarshal, thresholds, "HRESULT")
-        return result
+    get_Thresholds() {
+        result := ComCall(16, this, "ptr*", &thresholds := 0, "HRESULT")
+        return thresholds
     }
 
     /**
@@ -127,24 +124,22 @@ class IFsrmQuotaBase extends IFsrmObject{
      * 
      * @param {Integer} threshold 
      * @param {Integer} actionType 
-     * @param {Pointer<IFsrmAction>} action 
-     * @returns {HRESULT} 
+     * @returns {IFsrmAction} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-createthresholdaction
      */
-    CreateThresholdAction(threshold, actionType, action) {
-        result := ComCall(20, this, "int", threshold, "int", actionType, "ptr*", action, "HRESULT")
-        return result
+    CreateThresholdAction(threshold, actionType) {
+        result := ComCall(20, this, "int", threshold, "int", actionType, "ptr*", &action := 0, "HRESULT")
+        return IFsrmAction(action)
     }
 
     /**
      * 
      * @param {Integer} threshold 
-     * @param {Pointer<IFsrmCollection>} actions 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-enumthresholdactions
      */
-    EnumThresholdActions(threshold, actions) {
-        result := ComCall(21, this, "int", threshold, "ptr*", actions, "HRESULT")
-        return result
+    EnumThresholdActions(threshold) {
+        result := ComCall(21, this, "int", threshold, "ptr*", &actions := 0, "HRESULT")
+        return IFsrmCollection(actions)
     }
 }

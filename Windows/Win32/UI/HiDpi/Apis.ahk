@@ -518,61 +518,18 @@ class HiDpi {
     /**
      * Retrieves the dots per inch (dpi) awareness of the specified process.
      * @param {HANDLE} hprocess Handle of the process that is being queried. If this parameter is NULL, the current process is queried.
-     * @param {Pointer<Integer>} value The DPI awareness of the specified process. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> enumeration.
-     * @returns {HRESULT} This function returns one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function successfully retrieved the DPI awareness of the specified process.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The handle or pointer passed in is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ACCESSDENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The application does not have sufficient privileges.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The DPI awareness of the specified process. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> enumeration.
      * @see https://docs.microsoft.com/windows/win32/api//shellscalingapi/nf-shellscalingapi-getprocessdpiawareness
      * @since windows8.1
      */
-    static GetProcessDpiAwareness(hprocess, value) {
+    static GetProcessDpiAwareness(hprocess) {
         hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetProcessDpiAwareness", "ptr", hprocess, valueMarshal, value, "int")
+        result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetProcessDpiAwareness", "ptr", hprocess, "int*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**

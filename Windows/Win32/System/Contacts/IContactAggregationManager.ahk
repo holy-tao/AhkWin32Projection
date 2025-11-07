@@ -1,6 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IContactAggregationGroup.ahk
+#Include .\IContactAggregationContact.ahk
+#Include .\IContactAggregationServerPerson.ahk
+#Include .\IContactAggregationLink.ahk
+#Include .\IContactAggregationAggregate.ahk
+#Include .\IContactAggregationContactCollection.ahk
+#Include .\IContactAggregationAggregateCollection.ahk
+#Include .\IContactAggregationGroupCollection.ahk
+#Include .\IContactAggregationServerPersonCollection.ahk
+#Include .\IContactAggregationLinkCollection.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -47,44 +57,42 @@ class IContactAggregationManager extends IUnknown{
      * @param {PWSTR} pGroupName 
      * @param {Integer} options 
      * @param {Pointer<BOOL>} pCreatedGroup 
-     * @param {Pointer<IContactAggregationGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationGroup} 
      */
-    CreateOrOpenGroup(pGroupName, options, pCreatedGroup, ppGroup) {
+    CreateOrOpenGroup(pGroupName, options, pCreatedGroup) {
         pGroupName := pGroupName is String ? StrPtr(pGroupName) : pGroupName
 
-        result := ComCall(4, this, "ptr", pGroupName, "int", options, "ptr", pCreatedGroup, "ptr*", ppGroup, "HRESULT")
-        return result
+        pCreatedGroupMarshal := pCreatedGroup is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pGroupName, "int", options, pCreatedGroupMarshal, pCreatedGroup, "ptr*", &ppGroup := 0, "HRESULT")
+        return IContactAggregationGroup(ppGroup)
     }
 
     /**
      * 
-     * @param {Pointer<IContactAggregationContact>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationContact} 
      */
-    CreateExternalContact(ppItem) {
-        result := ComCall(5, this, "ptr*", ppItem, "HRESULT")
-        return result
+    CreateExternalContact() {
+        result := ComCall(5, this, "ptr*", &ppItem := 0, "HRESULT")
+        return IContactAggregationContact(ppItem)
     }
 
     /**
      * 
-     * @param {Pointer<IContactAggregationServerPerson>} ppServerPerson 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationServerPerson} 
      */
-    CreateServerPerson(ppServerPerson) {
-        result := ComCall(6, this, "ptr*", ppServerPerson, "HRESULT")
-        return result
+    CreateServerPerson() {
+        result := ComCall(6, this, "ptr*", &ppServerPerson := 0, "HRESULT")
+        return IContactAggregationServerPerson(ppServerPerson)
     }
 
     /**
      * 
-     * @param {Pointer<IContactAggregationLink>} ppServerContactLink 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationLink} 
      */
-    CreateServerContactLink(ppServerContactLink) {
-        result := ComCall(7, this, "ptr*", ppServerContactLink, "HRESULT")
-        return result
+    CreateServerContactLink() {
+        result := ComCall(7, this, "ptr*", &ppServerContactLink := 0, "HRESULT")
+        return IContactAggregationLink(ppServerContactLink)
     }
 
     /**
@@ -99,108 +107,99 @@ class IContactAggregationManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} pItemId 
-     * @param {Pointer<IContactAggregationAggregate>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationAggregate} 
      */
-    OpenAggregateContact(pItemId, ppItem) {
+    OpenAggregateContact(pItemId) {
         pItemId := pItemId is String ? StrPtr(pItemId) : pItemId
 
-        result := ComCall(9, this, "ptr", pItemId, "ptr*", ppItem, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pItemId, "ptr*", &ppItem := 0, "HRESULT")
+        return IContactAggregationAggregate(ppItem)
     }
 
     /**
      * 
      * @param {PWSTR} pItemId 
-     * @param {Pointer<IContactAggregationContact>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationContact} 
      */
-    OpenContact(pItemId, ppItem) {
+    OpenContact(pItemId) {
         pItemId := pItemId is String ? StrPtr(pItemId) : pItemId
 
-        result := ComCall(10, this, "ptr", pItemId, "ptr*", ppItem, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pItemId, "ptr*", &ppItem := 0, "HRESULT")
+        return IContactAggregationContact(ppItem)
     }
 
     /**
      * 
      * @param {PWSTR} pItemId 
-     * @param {Pointer<IContactAggregationLink>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationLink} 
      */
-    OpenServerContactLink(pItemId, ppItem) {
+    OpenServerContactLink(pItemId) {
         pItemId := pItemId is String ? StrPtr(pItemId) : pItemId
 
-        result := ComCall(11, this, "ptr", pItemId, "ptr*", ppItem, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", pItemId, "ptr*", &ppItem := 0, "HRESULT")
+        return IContactAggregationLink(ppItem)
     }
 
     /**
      * 
      * @param {PWSTR} pItemId 
-     * @param {Pointer<IContactAggregationServerPerson>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationServerPerson} 
      */
-    OpenServerPerson(pItemId, ppItem) {
+    OpenServerPerson(pItemId) {
         pItemId := pItemId is String ? StrPtr(pItemId) : pItemId
 
-        result := ComCall(12, this, "ptr", pItemId, "ptr*", ppItem, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", pItemId, "ptr*", &ppItem := 0, "HRESULT")
+        return IContactAggregationServerPerson(ppItem)
     }
 
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<IContactAggregationContactCollection>} ppItems 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationContactCollection} 
      */
-    get_Contacts(options, ppItems) {
-        result := ComCall(13, this, "int", options, "ptr*", ppItems, "HRESULT")
-        return result
+    get_Contacts(options) {
+        result := ComCall(13, this, "int", options, "ptr*", &ppItems := 0, "HRESULT")
+        return IContactAggregationContactCollection(ppItems)
     }
 
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<IContactAggregationAggregateCollection>} ppAggregates 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationAggregateCollection} 
      */
-    get_AggregateContacts(options, ppAggregates) {
-        result := ComCall(14, this, "int", options, "ptr*", ppAggregates, "HRESULT")
-        return result
+    get_AggregateContacts(options) {
+        result := ComCall(14, this, "int", options, "ptr*", &ppAggregates := 0, "HRESULT")
+        return IContactAggregationAggregateCollection(ppAggregates)
     }
 
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<IContactAggregationGroupCollection>} ppGroups 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationGroupCollection} 
      */
-    get_Groups(options, ppGroups) {
-        result := ComCall(15, this, "int", options, "ptr*", ppGroups, "HRESULT")
-        return result
+    get_Groups(options) {
+        result := ComCall(15, this, "int", options, "ptr*", &ppGroups := 0, "HRESULT")
+        return IContactAggregationGroupCollection(ppGroups)
     }
 
     /**
      * 
-     * @param {Pointer<IContactAggregationServerPersonCollection>} ppServerPersonCollection 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationServerPersonCollection} 
      */
-    get_ServerPersons(ppServerPersonCollection) {
-        result := ComCall(16, this, "ptr*", ppServerPersonCollection, "HRESULT")
-        return result
+    get_ServerPersons() {
+        result := ComCall(16, this, "ptr*", &ppServerPersonCollection := 0, "HRESULT")
+        return IContactAggregationServerPersonCollection(ppServerPersonCollection)
     }
 
     /**
      * 
      * @param {PWSTR} pPersonItemId 
-     * @param {Pointer<IContactAggregationLinkCollection>} ppServerContactLinkCollection 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationLinkCollection} 
      */
-    get_ServerContactLinks(pPersonItemId, ppServerContactLinkCollection) {
+    get_ServerContactLinks(pPersonItemId) {
         pPersonItemId := pPersonItemId is String ? StrPtr(pPersonItemId) : pPersonItemId
 
-        result := ComCall(17, this, "ptr", pPersonItemId, "ptr*", ppServerContactLinkCollection, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", pPersonItemId, "ptr*", &ppServerContactLinkCollection := 0, "HRESULT")
+        return IContactAggregationLinkCollection(ppServerContactLinkCollection)
     }
 }

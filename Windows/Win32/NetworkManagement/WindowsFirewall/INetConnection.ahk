@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INetConnection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -63,39 +64,35 @@ class INetConnection extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszwDuplicateName 
-     * @param {Pointer<INetConnection>} ppCon 
-     * @returns {HRESULT} 
+     * @returns {INetConnection} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnection-duplicate
      */
-    Duplicate(pszwDuplicateName, ppCon) {
+    Duplicate(pszwDuplicateName) {
         pszwDuplicateName := pszwDuplicateName is String ? StrPtr(pszwDuplicateName) : pszwDuplicateName
 
-        result := ComCall(6, this, "ptr", pszwDuplicateName, "ptr*", ppCon, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszwDuplicateName, "ptr*", &ppCon := 0, "HRESULT")
+        return INetConnection(ppCon)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<NETCON_PROPERTIES>>} ppProps 
-     * @returns {HRESULT} 
+     * @returns {Pointer<NETCON_PROPERTIES>} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnection-getproperties
      */
-    GetProperties(ppProps) {
-        ppPropsMarshal := ppProps is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, ppPropsMarshal, ppProps, "HRESULT")
-        return result
+    GetProperties() {
+        result := ComCall(7, this, "ptr*", &ppProps := 0, "HRESULT")
+        return ppProps
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pclsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnection-getuiobjectclassid
      */
-    GetUiObjectClassId(pclsid) {
+    GetUiObjectClassId() {
+        pclsid := Guid()
         result := ComCall(8, this, "ptr", pclsid, "HRESULT")
-        return result
+        return pclsid
     }
 
     /**

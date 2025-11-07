@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRadioInstance.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,24 +31,20 @@ class IRadioInstanceCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcInstance 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCount(pcInstance) {
-        pcInstanceMarshal := pcInstance is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcInstanceMarshal, pcInstance, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pcInstance := 0, "HRESULT")
+        return pcInstance
     }
 
     /**
      * 
      * @param {Integer} uIndex 
-     * @param {Pointer<IRadioInstance>} ppRadioInstance 
-     * @returns {HRESULT} 
+     * @returns {IRadioInstance} 
      */
-    GetAt(uIndex, ppRadioInstance) {
-        result := ComCall(4, this, "uint", uIndex, "ptr*", ppRadioInstance, "HRESULT")
-        return result
+    GetAt(uIndex) {
+        result := ComCall(4, this, "uint", uIndex, "ptr*", &ppRadioInstance := 0, "HRESULT")
+        return IRadioInstance(ppRadioInstance)
     }
 }

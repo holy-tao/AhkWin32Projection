@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IToc.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -56,11 +57,10 @@ class IClusterDetector extends IUnknown{
      * @param {Float} fMinClusterDuration 
      * @param {Float} fMaxClusterDuration 
      * @param {IToc} pSrcToc 
-     * @param {Pointer<IToc>} ppDstToc 
-     * @returns {HRESULT} 
+     * @returns {IToc} 
      */
-    Detect(dwMaxNumClusters, fMinClusterDuration, fMaxClusterDuration, pSrcToc, ppDstToc) {
-        result := ComCall(4, this, "uint", dwMaxNumClusters, "float", fMinClusterDuration, "float", fMaxClusterDuration, "ptr", pSrcToc, "ptr*", ppDstToc, "HRESULT")
-        return result
+    Detect(dwMaxNumClusters, fMinClusterDuration, fMaxClusterDuration, pSrcToc) {
+        result := ComCall(4, this, "uint", dwMaxNumClusters, "float", fMinClusterDuration, "float", fMaxClusterDuration, "ptr", pSrcToc, "ptr*", &ppDstToc := 0, "HRESULT")
+        return IToc(ppDstToc)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,27 +39,23 @@ class IMtsGrp extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsgrp-get_count
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<IUnknown>} ppUnkDispatcher 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsgrp-item
      */
-    Item(lIndex, ppUnkDispatcher) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", ppUnkDispatcher, "HRESULT")
-        return result
+    Item(lIndex) {
+        result := ComCall(8, this, "int", lIndex, "ptr*", &ppUnkDispatcher := 0, "HRESULT")
+        return IUnknown(ppUnkDispatcher)
     }
 
     /**

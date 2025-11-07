@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\IHostSecurityContext.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -68,16 +70,13 @@ class IHostSecurityManager extends IUnknown{
      * Opens the access token associated with a thread.
      * @param {Integer} dwDesiredAccess 
      * @param {BOOL} bOpenAsSelf 
-     * @param {Pointer<HANDLE>} phThreadToken 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the token has the anonymous impersonation level, the token will not be opened and <b>OpenThreadToken</b> sets  ERROR_CANT_OPEN_ANONYMOUS as the error.
+     * @returns {HANDLE} 
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-openthreadtoken
      */
-    OpenThreadToken(dwDesiredAccess, bOpenAsSelf, phThreadToken) {
+    OpenThreadToken(dwDesiredAccess, bOpenAsSelf) {
+        phThreadToken := HANDLE()
         result := ComCall(5, this, "uint", dwDesiredAccess, "int", bOpenAsSelf, "ptr", phThreadToken, "HRESULT")
-        return result
+        return phThreadToken
     }
 
     /**
@@ -99,12 +98,11 @@ class IHostSecurityManager extends IUnknown{
     /**
      * 
      * @param {Integer} eContextType 
-     * @param {Pointer<IHostSecurityContext>} ppSecurityContext 
-     * @returns {HRESULT} 
+     * @returns {IHostSecurityContext} 
      */
-    GetSecurityContext(eContextType, ppSecurityContext) {
-        result := ComCall(7, this, "int", eContextType, "ptr*", ppSecurityContext, "HRESULT")
-        return result
+    GetSecurityContext(eContextType) {
+        result := ComCall(7, this, "int", eContextType, "ptr*", &ppSecurityContext := 0, "HRESULT")
+        return IHostSecurityContext(ppSecurityContext)
     }
 
     /**

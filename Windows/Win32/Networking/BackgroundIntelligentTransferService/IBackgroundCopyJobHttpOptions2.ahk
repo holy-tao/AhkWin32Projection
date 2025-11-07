@@ -45,12 +45,11 @@ class IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobHttpOptions{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} method 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits10_2/nf-bits10_2-ibackgroundcopyjobhttpoptions2-gethttpmethod
      */
-    GetHttpMethod(method) {
-        result := ComCall(12, this, "ptr", method, "HRESULT")
-        return result
+    GetHttpMethod() {
+        result := ComCall(12, this, "ptr*", &method := 0, "HRESULT")
+        return method
     }
 }

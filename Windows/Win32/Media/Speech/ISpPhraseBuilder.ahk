@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SPPHRASERULEHANDLE.ahk
+#Include .\SPPHRASEPROPERTYHANDLE.ahk
 #Include .\ISpPhrase.ahk
 
 /**
@@ -69,28 +71,28 @@ class ISpPhraseBuilder extends ISpPhrase{
      * 
      * @param {SPPHRASERULEHANDLE} hParent 
      * @param {Pointer<SPPHRASERULE>} pRule 
-     * @param {Pointer<SPPHRASERULEHANDLE>} phNewRule 
-     * @returns {HRESULT} 
+     * @returns {SPPHRASERULEHANDLE} 
      */
-    AddRules(hParent, pRule, phNewRule) {
+    AddRules(hParent, pRule) {
         hParent := hParent is Win32Handle ? NumGet(hParent, "ptr") : hParent
 
+        phNewRule := SPPHRASERULEHANDLE()
         result := ComCall(10, this, "ptr", hParent, "ptr", pRule, "ptr", phNewRule, "HRESULT")
-        return result
+        return phNewRule
     }
 
     /**
      * 
      * @param {SPPHRASEPROPERTYHANDLE} hParent 
      * @param {Pointer<SPPHRASEPROPERTY>} pProperty 
-     * @param {Pointer<SPPHRASEPROPERTYHANDLE>} phNewProperty 
-     * @returns {HRESULT} 
+     * @returns {SPPHRASEPROPERTYHANDLE} 
      */
-    AddProperties(hParent, pProperty, phNewProperty) {
+    AddProperties(hParent, pProperty) {
         hParent := hParent is Win32Handle ? NumGet(hParent, "ptr") : hParent
 
+        phNewProperty := SPPHRASEPROPERTYHANDLE()
         result := ComCall(11, this, "ptr", hParent, "ptr", pProperty, "ptr", phNewProperty, "HRESULT")
-        return result
+        return phNewProperty
     }
 
     /**

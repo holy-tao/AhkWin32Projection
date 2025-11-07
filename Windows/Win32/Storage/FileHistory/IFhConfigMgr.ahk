@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFhScopeIterator.ahk
+#Include .\IFhTarget.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -87,27 +89,23 @@ class IFhConfigMgr extends IUnknown{
      * 
      * @param {BOOL} Include 
      * @param {Integer} Category 
-     * @param {Pointer<IFhScopeIterator>} Iterator 
-     * @returns {HRESULT} 
+     * @returns {IFhScopeIterator} 
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getincludeexcluderules
      */
-    GetIncludeExcludeRules(Include, Category, Iterator) {
-        result := ComCall(7, this, "int", Include, "int", Category, "ptr*", Iterator, "HRESULT")
-        return result
+    GetIncludeExcludeRules(Include, Category) {
+        result := ComCall(7, this, "int", Include, "int", Category, "ptr*", &Iterator := 0, "HRESULT")
+        return IFhScopeIterator(Iterator)
     }
 
     /**
      * 
      * @param {Integer} LocalPolicyType 
-     * @param {Pointer<Integer>} PolicyValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getlocalpolicy
      */
-    GetLocalPolicy(LocalPolicyType, PolicyValue) {
-        PolicyValueMarshal := PolicyValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "int", LocalPolicyType, PolicyValueMarshal, PolicyValue, "HRESULT")
-        return result
+    GetLocalPolicy(LocalPolicyType) {
+        result := ComCall(8, this, "int", LocalPolicyType, "uint*", &PolicyValue := 0, "HRESULT")
+        return PolicyValue
     }
 
     /**
@@ -124,15 +122,12 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} BackupStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getbackupstatus
      */
-    GetBackupStatus(BackupStatus) {
-        BackupStatusMarshal := BackupStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, BackupStatusMarshal, BackupStatus, "HRESULT")
-        return result
+    GetBackupStatus() {
+        result := ComCall(10, this, "int*", &BackupStatus := 0, "HRESULT")
+        return BackupStatus
     }
 
     /**
@@ -148,29 +143,25 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IFhTarget>} DefaultTarget 
-     * @returns {HRESULT} 
+     * @returns {IFhTarget} 
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getdefaulttarget
      */
-    GetDefaultTarget(DefaultTarget) {
-        result := ComCall(12, this, "ptr*", DefaultTarget, "HRESULT")
-        return result
+    GetDefaultTarget() {
+        result := ComCall(12, this, "ptr*", &DefaultTarget := 0, "HRESULT")
+        return IFhTarget(DefaultTarget)
     }
 
     /**
      * 
      * @param {BSTR} TargetUrl 
-     * @param {Pointer<Integer>} ValidationResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-validatetarget
      */
-    ValidateTarget(TargetUrl, ValidationResult) {
+    ValidateTarget(TargetUrl) {
         TargetUrl := TargetUrl is String ? BSTR.Alloc(TargetUrl).Value : TargetUrl
 
-        ValidationResultMarshal := ValidationResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, "ptr", TargetUrl, ValidationResultMarshal, ValidationResult, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", TargetUrl, "int*", &ValidationResult := 0, "HRESULT")
+        return ValidationResult
     }
 
     /**

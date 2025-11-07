@@ -78,7 +78,10 @@ class INamespaceWalkCB extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalkcb-initializeprogressdialog
      */
     InitializeProgressDialog(ppszTitle, ppszCancel) {
-        result := ComCall(6, this, "ptr", ppszTitle, "ptr", ppszCancel, "HRESULT")
+        ppszTitleMarshal := ppszTitle is VarRef ? "ptr*" : "ptr"
+        ppszCancelMarshal := ppszCancel is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, ppszTitleMarshal, ppszTitle, ppszCancelMarshal, ppszCancel, "HRESULT")
         return result
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGPoint.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,14 +47,11 @@ class ISVGPoint extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_x(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_x() {
+        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -68,24 +66,20 @@ class ISVGPoint extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_y(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_y() {
+        result := ComCall(10, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {ISVGMatrix} pMatrix 
-     * @param {Pointer<ISVGPoint>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    matrixTransform(pMatrix, ppResult) {
-        result := ComCall(11, this, "ptr", pMatrix, "ptr*", ppResult, "HRESULT")
-        return result
+    matrixTransform(pMatrix) {
+        result := ComCall(11, this, "ptr", pMatrix, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPoint(ppResult)
     }
 }

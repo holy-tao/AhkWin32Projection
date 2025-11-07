@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxManifestDriverDependenciesEnumerator.ahk
+#Include .\IAppxManifestOSPackageDependenciesEnumerator.ahk
+#Include .\IAppxManifestHostRuntimeDependenciesEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,31 +33,28 @@ class IAppxManifestReader7 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAppxManifestDriverDependenciesEnumerator>} driverDependencies 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestDriverDependenciesEnumerator} 
      */
-    GetDriverDependencies(driverDependencies) {
-        result := ComCall(3, this, "ptr*", driverDependencies, "HRESULT")
-        return result
+    GetDriverDependencies() {
+        result := ComCall(3, this, "ptr*", &driverDependencies := 0, "HRESULT")
+        return IAppxManifestDriverDependenciesEnumerator(driverDependencies)
     }
 
     /**
      * 
-     * @param {Pointer<IAppxManifestOSPackageDependenciesEnumerator>} osPackageDependencies 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestOSPackageDependenciesEnumerator} 
      */
-    GetOSPackageDependencies(osPackageDependencies) {
-        result := ComCall(4, this, "ptr*", osPackageDependencies, "HRESULT")
-        return result
+    GetOSPackageDependencies() {
+        result := ComCall(4, this, "ptr*", &osPackageDependencies := 0, "HRESULT")
+        return IAppxManifestOSPackageDependenciesEnumerator(osPackageDependencies)
     }
 
     /**
      * 
-     * @param {Pointer<IAppxManifestHostRuntimeDependenciesEnumerator>} hostRuntimeDependencies 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestHostRuntimeDependenciesEnumerator} 
      */
-    GetHostRuntimeDependencies(hostRuntimeDependencies) {
-        result := ComCall(5, this, "ptr*", hostRuntimeDependencies, "HRESULT")
-        return result
+    GetHostRuntimeDependencies() {
+        result := ComCall(5, this, "ptr*", &hostRuntimeDependencies := 0, "HRESULT")
+        return IAppxManifestHostRuntimeDependenciesEnumerator(hostRuntimeDependencies)
     }
 }

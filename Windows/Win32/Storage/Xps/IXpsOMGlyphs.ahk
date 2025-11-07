@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\XPS_POINT.ahk
+#Include .\IXpsOMFontResource.ahk
+#Include .\IXpsOMBrush.ahk
+#Include .\IXpsOMGlyphsEditor.ahk
+#Include .\IXpsOMGlyphs.ahk
 #Include .\IXpsOMVisual.ahk
 
 /**
@@ -73,26 +78,22 @@ class IXpsOMGlyphs extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} unicodeString 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getunicodestring
      */
-    GetUnicodeString(unicodeString) {
-        result := ComCall(30, this, "ptr", unicodeString, "HRESULT")
-        return result
+    GetUnicodeString() {
+        result := ComCall(30, this, "ptr*", &unicodeString := 0, "HRESULT")
+        return unicodeString
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} indexCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getglyphindexcount
      */
-    GetGlyphIndexCount(indexCount) {
-        indexCountMarshal := indexCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(31, this, indexCountMarshal, indexCount, "HRESULT")
-        return result
+    GetGlyphIndexCount() {
+        result := ComCall(31, this, "uint*", &indexCount := 0, "HRESULT")
+        return indexCount
     }
 
     /**
@@ -111,15 +112,12 @@ class IXpsOMGlyphs extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<Integer>} glyphMappingCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getglyphmappingcount
      */
-    GetGlyphMappingCount(glyphMappingCount) {
-        glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, glyphMappingCountMarshal, glyphMappingCount, "HRESULT")
-        return result
+    GetGlyphMappingCount() {
+        result := ComCall(33, this, "uint*", &glyphMappingCount := 0, "HRESULT")
+        return glyphMappingCount
     }
 
     /**
@@ -138,78 +136,65 @@ class IXpsOMGlyphs extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<Integer>} prohibitedCaretStopCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getprohibitedcaretstopcount
      */
-    GetProhibitedCaretStopCount(prohibitedCaretStopCount) {
-        prohibitedCaretStopCountMarshal := prohibitedCaretStopCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(35, this, prohibitedCaretStopCountMarshal, prohibitedCaretStopCount, "HRESULT")
-        return result
+    GetProhibitedCaretStopCount() {
+        result := ComCall(35, this, "uint*", &prohibitedCaretStopCount := 0, "HRESULT")
+        return prohibitedCaretStopCount
     }
 
     /**
      * 
      * @param {Pointer<Integer>} prohibitedCaretStopCount 
-     * @param {Pointer<Integer>} prohibitedCaretStops 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getprohibitedcaretstops
      */
-    GetProhibitedCaretStops(prohibitedCaretStopCount, prohibitedCaretStops) {
+    GetProhibitedCaretStops(prohibitedCaretStopCount) {
         prohibitedCaretStopCountMarshal := prohibitedCaretStopCount is VarRef ? "uint*" : "ptr"
-        prohibitedCaretStopsMarshal := prohibitedCaretStops is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(36, this, prohibitedCaretStopCountMarshal, prohibitedCaretStopCount, prohibitedCaretStopsMarshal, prohibitedCaretStops, "HRESULT")
-        return result
+        result := ComCall(36, this, prohibitedCaretStopCountMarshal, prohibitedCaretStopCount, "uint*", &prohibitedCaretStops := 0, "HRESULT")
+        return prohibitedCaretStops
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} bidiLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getbidilevel
      */
-    GetBidiLevel(bidiLevel) {
-        bidiLevelMarshal := bidiLevel is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(37, this, bidiLevelMarshal, bidiLevel, "HRESULT")
-        return result
+    GetBidiLevel() {
+        result := ComCall(37, this, "uint*", &bidiLevel := 0, "HRESULT")
+        return bidiLevel
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} isSideways 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getissideways
      */
-    GetIsSideways(isSideways) {
-        result := ComCall(38, this, "ptr", isSideways, "HRESULT")
-        return result
+    GetIsSideways() {
+        result := ComCall(38, this, "int*", &isSideways := 0, "HRESULT")
+        return isSideways
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} deviceFontName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getdevicefontname
      */
-    GetDeviceFontName(deviceFontName) {
-        result := ComCall(39, this, "ptr", deviceFontName, "HRESULT")
-        return result
+    GetDeviceFontName() {
+        result := ComCall(39, this, "ptr*", &deviceFontName := 0, "HRESULT")
+        return deviceFontName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} styleSimulations 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getstylesimulations
      */
-    GetStyleSimulations(styleSimulations) {
-        styleSimulationsMarshal := styleSimulations is VarRef ? "int*" : "ptr"
-
-        result := ComCall(40, this, styleSimulationsMarshal, styleSimulations, "HRESULT")
-        return result
+    GetStyleSimulations() {
+        result := ComCall(40, this, "int*", &styleSimulations := 0, "HRESULT")
+        return styleSimulations
     }
 
     /**
@@ -225,13 +210,13 @@ class IXpsOMGlyphs extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<XPS_POINT>} origin 
-     * @returns {HRESULT} 
+     * @returns {XPS_POINT} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getorigin
      */
-    GetOrigin(origin) {
+    GetOrigin() {
+        origin := XPS_POINT()
         result := ComCall(42, this, "ptr", origin, "HRESULT")
-        return result
+        return origin
     }
 
     /**
@@ -247,15 +232,12 @@ class IXpsOMGlyphs extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<Float>} fontRenderingEmSize 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getfontrenderingemsize
      */
-    GetFontRenderingEmSize(fontRenderingEmSize) {
-        fontRenderingEmSizeMarshal := fontRenderingEmSize is VarRef ? "float*" : "ptr"
-
-        result := ComCall(44, this, fontRenderingEmSizeMarshal, fontRenderingEmSize, "HRESULT")
-        return result
+    GetFontRenderingEmSize() {
+        result := ComCall(44, this, "float*", &fontRenderingEmSize := 0, "HRESULT")
+        return fontRenderingEmSize
     }
 
     /**
@@ -271,13 +253,12 @@ class IXpsOMGlyphs extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<IXpsOMFontResource>} fontResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMFontResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getfontresource
      */
-    GetFontResource(fontResource) {
-        result := ComCall(46, this, "ptr*", fontResource, "HRESULT")
-        return result
+    GetFontResource() {
+        result := ComCall(46, this, "ptr*", &fontResource := 0, "HRESULT")
+        return IXpsOMFontResource(fontResource)
     }
 
     /**
@@ -293,15 +274,12 @@ class IXpsOMGlyphs extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<Integer>} fontFaceIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getfontfaceindex
      */
-    GetFontFaceIndex(fontFaceIndex) {
-        fontFaceIndexMarshal := fontFaceIndex is VarRef ? "short*" : "ptr"
-
-        result := ComCall(48, this, fontFaceIndexMarshal, fontFaceIndex, "HRESULT")
-        return result
+    GetFontFaceIndex() {
+        result := ComCall(48, this, "short*", &fontFaceIndex := 0, "HRESULT")
+        return fontFaceIndex
     }
 
     /**
@@ -317,24 +295,22 @@ class IXpsOMGlyphs extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<IXpsOMBrush>} fillBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getfillbrush
      */
-    GetFillBrush(fillBrush) {
-        result := ComCall(50, this, "ptr*", fillBrush, "HRESULT")
-        return result
+    GetFillBrush() {
+        result := ComCall(50, this, "ptr*", &fillBrush := 0, "HRESULT")
+        return IXpsOMBrush(fillBrush)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMBrush>} fillBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getfillbrushlocal
      */
-    GetFillBrushLocal(fillBrush) {
-        result := ComCall(51, this, "ptr*", fillBrush, "HRESULT")
-        return result
+    GetFillBrushLocal() {
+        result := ComCall(51, this, "ptr*", &fillBrush := 0, "HRESULT")
+        return IXpsOMBrush(fillBrush)
     }
 
     /**
@@ -350,13 +326,12 @@ class IXpsOMGlyphs extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} key 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getfillbrushlookup
      */
-    GetFillBrushLookup(key) {
-        result := ComCall(53, this, "ptr", key, "HRESULT")
-        return result
+    GetFillBrushLookup() {
+        result := ComCall(53, this, "ptr*", &key := 0, "HRESULT")
+        return key
     }
 
     /**
@@ -374,23 +349,21 @@ class IXpsOMGlyphs extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<IXpsOMGlyphsEditor>} editor 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGlyphsEditor} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getglyphseditor
      */
-    GetGlyphsEditor(editor) {
-        result := ComCall(55, this, "ptr*", editor, "HRESULT")
-        return result
+    GetGlyphsEditor() {
+        result := ComCall(55, this, "ptr*", &editor := 0, "HRESULT")
+        return IXpsOMGlyphsEditor(editor)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMGlyphs>} glyphs 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGlyphs} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-clone
      */
-    Clone(glyphs) {
-        result := ComCall(56, this, "ptr*", glyphs, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(56, this, "ptr*", &glyphs := 0, "HRESULT")
+        return IXpsOMGlyphs(glyphs)
     }
 }

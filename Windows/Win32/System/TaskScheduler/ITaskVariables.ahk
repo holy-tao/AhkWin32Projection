@@ -33,13 +33,13 @@ class ITaskVariables extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pInput 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskvariables-getinput
      */
-    GetInput(pInput) {
+    GetInput() {
+        pInput := BSTR()
         result := ComCall(3, this, "ptr", pInput, "HRESULT")
-        return result
+        return pInput
     }
 
     /**
@@ -57,12 +57,12 @@ class ITaskVariables extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pContext 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskvariables-getcontext
      */
-    GetContext(pContext) {
+    GetContext() {
+        pContext := BSTR()
         result := ComCall(5, this, "ptr", pContext, "HRESULT")
-        return result
+        return pContext
     }
 }

@@ -39,33 +39,28 @@ class ID3D12Device3 extends ID3D12Device2{
      * 
      * @param {Pointer<Void>} pAddress 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvHeap 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device3-openexistingheapfromaddress
      */
-    OpenExistingHeapFromAddress(pAddress, riid, ppvHeap) {
+    OpenExistingHeapFromAddress(pAddress, riid) {
         pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
-        ppvHeapMarshal := ppvHeap is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(48, this, pAddressMarshal, pAddress, "ptr", riid, ppvHeapMarshal, ppvHeap, "HRESULT")
-        return result
+        result := ComCall(48, this, pAddressMarshal, pAddress, "ptr", riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        return ppvHeap
     }
 
     /**
      * 
      * @param {HANDLE} hFileMapping 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvHeap 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device3-openexistingheapfromfilemapping
      */
-    OpenExistingHeapFromFileMapping(hFileMapping, riid, ppvHeap) {
+    OpenExistingHeapFromFileMapping(hFileMapping, riid) {
         hFileMapping := hFileMapping is Win32Handle ? NumGet(hFileMapping, "ptr") : hFileMapping
 
-        ppvHeapMarshal := ppvHeap is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(49, this, "ptr", hFileMapping, "ptr", riid, ppvHeapMarshal, ppvHeap, "HRESULT")
-        return result
+        result := ComCall(49, this, "ptr", hFileMapping, "ptr", riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        return ppvHeap
     }
 
     /**

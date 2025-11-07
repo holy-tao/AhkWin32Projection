@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\HREPORT.ahk
+#Include .\HREPORTSTORE.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
@@ -246,19 +248,19 @@ class ErrorReporting {
      * @param {PWSTR} pwzEventType A pointer to a Unicode string that specifies the name of the event.
      * @param {Integer} repType 
      * @param {Pointer<WER_REPORT_INFORMATION>} pReportInformation A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_report_information">WER_REPORT_INFORMATION</a> structure that specifies information for the report.
-     * @param {Pointer<HREPORT>} phReportHandle A handle to the report. If the function fails, this handle is <b>NULL</b>.
-     * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure.
+     * @returns {HREPORT} A handle to the report. If the function fails, this handle is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//werapi/nf-werapi-werreportcreate
      * @since windows6.0.6000
      */
-    static WerReportCreate(pwzEventType, repType, pReportInformation, phReportHandle) {
+    static WerReportCreate(pwzEventType, repType, pReportInformation) {
         pwzEventType := pwzEventType is String ? StrPtr(pwzEventType) : pwzEventType
 
+        phReportHandle := HREPORT()
         result := DllCall("wer.dll\WerReportCreate", "ptr", pwzEventType, "int", repType, "ptr", pReportInformation, "ptr", phReportHandle, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phReportHandle
     }
 
     /**
@@ -387,21 +389,18 @@ class ErrorReporting {
      * @param {HREPORT} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
      * @param {Integer} consent 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} pSubmitResult 
-     * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//werapi/nf-werapi-werreportsubmit
      * @since windows6.0.6000
      */
-    static WerReportSubmit(hReportHandle, consent, dwFlags, pSubmitResult) {
+    static WerReportSubmit(hReportHandle, consent, dwFlags) {
         hReportHandle := hReportHandle is Win32Handle ? NumGet(hReportHandle, "ptr") : hReportHandle
 
-        pSubmitResultMarshal := pSubmitResult is VarRef ? "int*" : "ptr"
-
-        result := DllCall("wer.dll\WerReportSubmit", "ptr", hReportHandle, "int", consent, "uint", dwFlags, pSubmitResultMarshal, pSubmitResult, "int")
+        result := DllCall("wer.dll\WerReportSubmit", "ptr", hReportHandle, "int", consent, "uint", dwFlags, "int*", &pSubmitResult := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pSubmitResult
     }
 
     /**
@@ -1030,21 +1029,18 @@ class ErrorReporting {
     /**
      * Retrieves the fault reporting settings for the specified process.
      * @param {HANDLE} hProcess A handle to the process. This handle must have the PROCESS_VM_READ or PROCESS_QUERY_INFORMATION access right.
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//werapi/nf-werapi-wergetflags
      * @since windows6.0.6000
      */
-    static WerGetFlags(hProcess, pdwFlags) {
+    static WerGetFlags(hProcess) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\WerGetFlags", "ptr", hProcess, pdwFlagsMarshal, pdwFlags, "int")
+        result := DllCall("KERNEL32.dll\WerGetFlags", "ptr", hProcess, "uint*", &pdwFlags := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwFlags
     }
 
     /**
@@ -1222,35 +1218,17 @@ class ErrorReporting {
     /**
      * Opens the collection of stored error reports.
      * @param {Integer} repStoreType The type of report store to open. See Remarks for details.
-     * @param {Pointer<HREPORTSTORE>} phReportStore A pointer to a report store. On a successful call, this will point to the retrieved report store.
-     * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not a valid value.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {HREPORTSTORE} A pointer to a report store. On a successful call, this will point to the retrieved report store.
      * @see https://docs.microsoft.com/windows/win32/api//werapi/nf-werapi-werstoreopen
      * @since windows10.0.15063
      */
-    static WerStoreOpen(repStoreType, phReportStore) {
+    static WerStoreOpen(repStoreType) {
+        phReportStore := HREPORTSTORE()
         result := DllCall("wer.dll\WerStoreOpen", "int", repStoreType, "ptr", phReportStore, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phReportStore
     }
 
     /**
@@ -1269,95 +1247,35 @@ class ErrorReporting {
     /**
      * Gets a reference to the first report in the report store.
      * @param {HREPORTSTORE} hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
-     * @param {Pointer<PWSTR>} ppszReportKey A pointer to the report key string. On a successful call, this will point to the retrieved report key.
-     * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALID_ARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not a valid value.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NO_MORE_FILES</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There are no error reports in the store.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {PWSTR} A pointer to the report key string. On a successful call, this will point to the retrieved report key.
      * @see https://docs.microsoft.com/windows/win32/api//werapi/nf-werapi-werstoregetfirstreportkey
      * @since windows10.0.15063
      */
-    static WerStoreGetFirstReportKey(hReportStore, ppszReportKey) {
+    static WerStoreGetFirstReportKey(hReportStore) {
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
 
-        result := DllCall("wer.dll\WerStoreGetFirstReportKey", "ptr", hReportStore, "ptr", ppszReportKey, "int")
+        result := DllCall("wer.dll\WerStoreGetFirstReportKey", "ptr", hReportStore, "ptr*", &ppszReportKey := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszReportKey
     }
 
     /**
      * Gets a reference to the next report in the error report store.
      * @param {HREPORTSTORE} hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
-     * @param {Pointer<PWSTR>} ppszReportKey A pointer to the report key string. On a successful call, this will point to the retrieved report key.
-     * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALID_ARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not a valid value.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NO_MORE_FILES</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There are no more error reports in the store.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {PWSTR} A pointer to the report key string. On a successful call, this will point to the retrieved report key.
      * @see https://docs.microsoft.com/windows/win32/api//werapi/nf-werapi-werstoregetnextreportkey
      * @since windows10.0.15063
      */
-    static WerStoreGetNextReportKey(hReportStore, ppszReportKey) {
+    static WerStoreGetNextReportKey(hReportStore) {
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
 
-        result := DllCall("wer.dll\WerStoreGetNextReportKey", "ptr", hReportStore, "ptr", ppszReportKey, "int")
+        result := DllCall("wer.dll\WerStoreGetNextReportKey", "ptr", hReportStore, "ptr*", &ppszReportKey := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszReportKey
     }
 
     /**
@@ -1455,37 +1373,31 @@ class ErrorReporting {
     /**
      * 
      * @param {HREPORTSTORE} hReportStore 
-     * @param {Pointer<Integer>} pdwReportCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static WerStoreGetReportCount(hReportStore, pdwReportCount) {
+    static WerStoreGetReportCount(hReportStore) {
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
 
-        pdwReportCountMarshal := pdwReportCount is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("wer.dll\WerStoreGetReportCount", "ptr", hReportStore, pdwReportCountMarshal, pdwReportCount, "int")
+        result := DllCall("wer.dll\WerStoreGetReportCount", "ptr", hReportStore, "uint*", &pdwReportCount := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwReportCount
     }
 
     /**
      * 
      * @param {HREPORTSTORE} hReportStore 
-     * @param {Pointer<Integer>} pqwSizeInBytes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static WerStoreGetSizeOnDisk(hReportStore, pqwSizeInBytes) {
+    static WerStoreGetSizeOnDisk(hReportStore) {
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
 
-        pqwSizeInBytesMarshal := pqwSizeInBytes is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("wer.dll\WerStoreGetSizeOnDisk", "ptr", hReportStore, pqwSizeInBytesMarshal, pqwSizeInBytes, "int")
+        result := DllCall("wer.dll\WerStoreGetSizeOnDisk", "ptr", hReportStore, "uint*", &pqwSizeInBytes := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pqwSizeInBytes
     }
 
     /**
@@ -1511,20 +1423,17 @@ class ErrorReporting {
      * @param {HREPORTSTORE} hReportStore 
      * @param {PWSTR} pszReportKey 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} pSubmitResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static WerStoreUploadReport(hReportStore, pszReportKey, dwFlags, pSubmitResult) {
+    static WerStoreUploadReport(hReportStore, pszReportKey, dwFlags) {
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
         pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
-        pSubmitResultMarshal := pSubmitResult is VarRef ? "int*" : "ptr"
-
-        result := DllCall("wer.dll\WerStoreUploadReport", "ptr", hReportStore, "ptr", pszReportKey, "uint", dwFlags, pSubmitResultMarshal, pSubmitResult, "int")
+        result := DllCall("wer.dll\WerStoreUploadReport", "ptr", hReportStore, "ptr", pszReportKey, "uint", dwFlags, "int*", &pSubmitResult := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pSubmitResult
     }
 
     /**

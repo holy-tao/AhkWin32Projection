@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWSDAsyncResult.ahk
+#Include .\IWSDServiceProxy.ahk
+#Include .\IWSDEndpointProxy.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -67,13 +70,12 @@ class IWSDDeviceProxy extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWSDAsyncResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IWSDAsyncResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata
      */
-    BeginGetMetadata(ppResult) {
-        result := ComCall(4, this, "ptr*", ppResult, "HRESULT")
-        return result
+    BeginGetMetadata() {
+        result := ComCall(4, this, "ptr*", &ppResult := 0, "HRESULT")
+        return IWSDAsyncResult(ppResult)
     }
 
     /**
@@ -89,90 +91,75 @@ class IWSDDeviceProxy extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<WSD_HOST_METADATA>>} ppHostMetadata 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSD_HOST_METADATA>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-gethostmetadata
      */
-    GetHostMetadata(ppHostMetadata) {
-        ppHostMetadataMarshal := ppHostMetadata is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, ppHostMetadataMarshal, ppHostMetadata, "HRESULT")
-        return result
+    GetHostMetadata() {
+        result := ComCall(6, this, "ptr*", &ppHostMetadata := 0, "HRESULT")
+        return ppHostMetadata
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<WSD_THIS_MODEL_METADATA>>} ppManufacturerMetadata 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSD_THIS_MODEL_METADATA>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getthismodelmetadata
      */
-    GetThisModelMetadata(ppManufacturerMetadata) {
-        ppManufacturerMetadataMarshal := ppManufacturerMetadata is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, ppManufacturerMetadataMarshal, ppManufacturerMetadata, "HRESULT")
-        return result
+    GetThisModelMetadata() {
+        result := ComCall(7, this, "ptr*", &ppManufacturerMetadata := 0, "HRESULT")
+        return ppManufacturerMetadata
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<WSD_THIS_DEVICE_METADATA>>} ppThisDeviceMetadata 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSD_THIS_DEVICE_METADATA>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getthisdevicemetadata
      */
-    GetThisDeviceMetadata(ppThisDeviceMetadata) {
-        ppThisDeviceMetadataMarshal := ppThisDeviceMetadata is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, ppThisDeviceMetadataMarshal, ppThisDeviceMetadata, "HRESULT")
-        return result
+    GetThisDeviceMetadata() {
+        result := ComCall(8, this, "ptr*", &ppThisDeviceMetadata := 0, "HRESULT")
+        return ppThisDeviceMetadata
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<WSD_METADATA_SECTION_LIST>>} ppMetadata 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSD_METADATA_SECTION_LIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getallmetadata
      */
-    GetAllMetadata(ppMetadata) {
-        ppMetadataMarshal := ppMetadata is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, ppMetadataMarshal, ppMetadata, "HRESULT")
-        return result
+    GetAllMetadata() {
+        result := ComCall(9, this, "ptr*", &ppMetadata := 0, "HRESULT")
+        return ppMetadata
     }
 
     /**
      * 
      * @param {PWSTR} pszServiceId 
-     * @param {Pointer<IWSDServiceProxy>} ppServiceProxy 
-     * @returns {HRESULT} 
+     * @returns {IWSDServiceProxy} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getserviceproxybyid
      */
-    GetServiceProxyById(pszServiceId, ppServiceProxy) {
+    GetServiceProxyById(pszServiceId) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
 
-        result := ComCall(10, this, "ptr", pszServiceId, "ptr*", ppServiceProxy, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pszServiceId, "ptr*", &ppServiceProxy := 0, "HRESULT")
+        return IWSDServiceProxy(ppServiceProxy)
     }
 
     /**
      * 
      * @param {Pointer<WSDXML_NAME>} pType 
-     * @param {Pointer<IWSDServiceProxy>} ppServiceProxy 
-     * @returns {HRESULT} 
+     * @returns {IWSDServiceProxy} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getserviceproxybytype
      */
-    GetServiceProxyByType(pType, ppServiceProxy) {
-        result := ComCall(11, this, "ptr", pType, "ptr*", ppServiceProxy, "HRESULT")
-        return result
+    GetServiceProxyByType(pType) {
+        result := ComCall(11, this, "ptr", pType, "ptr*", &ppServiceProxy := 0, "HRESULT")
+        return IWSDServiceProxy(ppServiceProxy)
     }
 
     /**
      * 
-     * @param {Pointer<IWSDEndpointProxy>} ppProxy 
-     * @returns {HRESULT} 
+     * @returns {IWSDEndpointProxy} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getendpointproxy
      */
-    GetEndpointProxy(ppProxy) {
-        result := ComCall(12, this, "ptr*", ppProxy, "HRESULT")
-        return result
+    GetEndpointProxy() {
+        result := ComCall(12, this, "ptr*", &ppProxy := 0, "HRESULT")
+        return IWSDEndpointProxy(ppProxy)
     }
 }

@@ -48,7 +48,9 @@ class ITransactionStatus extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionstatus-gettransactionstatus
      */
     GetTransactionStatus(pHrStatus) {
-        result := ComCall(4, this, "ptr", pHrStatus, "HRESULT")
+        pHrStatusMarshal := pHrStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pHrStatusMarshal, pHrStatus, "HRESULT")
         return result
     }
 }

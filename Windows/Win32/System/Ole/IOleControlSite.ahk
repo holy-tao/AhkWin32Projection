@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -53,13 +54,12 @@ class IOleControlSite extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppDisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iolecontrolsite-getextendedcontrol
      */
-    GetExtendedControl(ppDisp) {
-        result := ComCall(5, this, "ptr*", ppDisp, "HRESULT")
-        return result
+    GetExtendedControl() {
+        result := ComCall(5, this, "ptr*", &ppDisp := 0, "HRESULT")
+        return IDispatch(ppDisp)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMDSPEnumDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,15 +49,12 @@ class IMDSPEnumDevice extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspenumdevice-skip
      */
-    Skip(celt, pceltFetched) {
-        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", celt, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+    Skip(celt) {
+        result := ComCall(4, this, "uint", celt, "uint*", &pceltFetched := 0, "HRESULT")
+        return pceltFetched
     }
 
     /**
@@ -71,12 +69,11 @@ class IMDSPEnumDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMDSPEnumDevice>} ppEnumDevice 
-     * @returns {HRESULT} 
+     * @returns {IMDSPEnumDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspenumdevice-clone
      */
-    Clone(ppEnumDevice) {
-        result := ComCall(6, this, "ptr*", ppEnumDevice, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnumDevice := 0, "HRESULT")
+        return IMDSPEnumDevice(ppEnumDevice)
     }
 }

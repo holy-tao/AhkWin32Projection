@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\TF_INPUTPROCESSORPROFILE.ahk
+#Include .\IEnumTfInputProcessorProfiles.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -90,27 +92,26 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} guidProfile 
      * @param {HKL} hkl 
-     * @param {Pointer<TF_INPUTPROCESSORPROFILE>} pProfile 
-     * @returns {HRESULT} 
+     * @returns {TF_INPUTPROCESSORPROFILE} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-getprofile
      */
-    GetProfile(dwProfileType, langid, clsid, guidProfile, hkl, pProfile) {
+    GetProfile(dwProfileType, langid, clsid, guidProfile, hkl) {
         hkl := hkl is Win32Handle ? NumGet(hkl, "ptr") : hkl
 
+        pProfile := TF_INPUTPROCESSORPROFILE()
         result := ComCall(5, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", guidProfile, "ptr", hkl, "ptr", pProfile, "HRESULT")
-        return result
+        return pProfile
     }
 
     /**
      * 
      * @param {Integer} langid 
-     * @param {Pointer<IEnumTfInputProcessorProfiles>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfInputProcessorProfiles} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-enumprofiles
      */
-    EnumProfiles(langid, ppEnum) {
-        result := ComCall(6, this, "ushort", langid, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumProfiles(langid) {
+        result := ComCall(6, this, "ushort", langid, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfInputProcessorProfiles(ppEnum)
     }
 
     /**
@@ -168,12 +169,12 @@ class ITfInputProcessorProfileMgr extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} catid 
-     * @param {Pointer<TF_INPUTPROCESSORPROFILE>} pProfile 
-     * @returns {HRESULT} 
+     * @returns {TF_INPUTPROCESSORPROFILE} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-getactiveprofile
      */
-    GetActiveProfile(catid, pProfile) {
+    GetActiveProfile(catid) {
+        pProfile := TF_INPUTPROCESSORPROFILE()
         result := ComCall(10, this, "ptr", catid, "ptr", pProfile, "HRESULT")
-        return result
+        return pProfile
     }
 }

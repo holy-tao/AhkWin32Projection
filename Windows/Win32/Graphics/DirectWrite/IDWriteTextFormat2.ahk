@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_LINE_SPACING.ahk
 #Include .\IDWriteTextFormat1.ahk
 
 /**
@@ -43,12 +44,12 @@ class IDWriteTextFormat2 extends IDWriteTextFormat1{
 
     /**
      * 
-     * @param {Pointer<DWRITE_LINE_SPACING>} lineSpacingOptions 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_LINE_SPACING} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritetextformat2-getlinespacing
      */
-    GetLineSpacing(lineSpacingOptions) {
+    GetLineSpacing() {
+        lineSpacingOptions := DWRITE_LINE_SPACING()
         result := ComCall(37, this, "ptr", lineSpacingOptions, "HRESULT")
-        return result
+        return lineSpacingOptions
     }
 }

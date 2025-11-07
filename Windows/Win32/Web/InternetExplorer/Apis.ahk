@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\System\Registry\HKEY.ahk
+#Include .\IMapMIMEToCLSID.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -2364,7 +2368,9 @@ class InternetExplorer {
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
         lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
 
-        result := DllCall("Ieframe.dll\IEShowSaveFileDialog", "ptr", hwnd, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", lppwstrDestinationFilePath, "ptr", phState, "int")
+        lppwstrDestinationFilePathMarshal := lppwstrDestinationFilePath is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("Ieframe.dll\IEShowSaveFileDialog", "ptr", hwnd, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, lppwstrDestinationFilePathMarshal, lppwstrDestinationFilePath, "ptr", phState, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2381,61 +2387,59 @@ class InternetExplorer {
      * @param {PWSTR} lpwstrDefExt 
      * @param {Integer} dwFilterIndex 
      * @param {Integer} dwFlags 
-     * @param {Pointer<HANDLE>} phFile 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static IEShowOpenFileDialog(hwnd, lpwstrFileName, cchMaxFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, phFile) {
+    static IEShowOpenFileDialog(hwnd, lpwstrFileName, cchMaxFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpwstrFileName := lpwstrFileName is String ? StrPtr(lpwstrFileName) : lpwstrFileName
         lpwstrInitialDir := lpwstrInitialDir is String ? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
         lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
 
+        phFile := HANDLE()
         result := DllCall("Ieframe.dll\IEShowOpenFileDialog", "ptr", hwnd, "ptr", lpwstrFileName, "uint", cchMaxFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", phFile, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phFile
     }
 
     /**
      * 
-     * @param {Pointer<HKEY>} pHKey 
-     * @returns {HRESULT} 
+     * @returns {HKEY} 
      */
-    static IEGetWriteableLowHKCU(pHKey) {
+    static IEGetWriteableLowHKCU() {
+        pHKey := HKEY()
         result := DllCall("Ieframe.dll\IEGetWriteableLowHKCU", "ptr", pHKey, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pHKey
     }
 
     /**
      * 
      * @param {Pointer<Guid>} clsidFolderID 
-     * @param {Pointer<PWSTR>} lppwstrPath 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    static IEGetWriteableFolderPath(clsidFolderID, lppwstrPath) {
-        result := DllCall("Ieframe.dll\IEGetWriteableFolderPath", "ptr", clsidFolderID, "ptr", lppwstrPath, "int")
+    static IEGetWriteableFolderPath(clsidFolderID) {
+        result := DllCall("Ieframe.dll\IEGetWriteableFolderPath", "ptr", clsidFolderID, "ptr*", &lppwstrPath := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lppwstrPath
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbResult 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    static IEIsProtectedModeProcess(pbResult) {
-        result := DllCall("Ieframe.dll\IEIsProtectedModeProcess", "ptr", pbResult, "int")
+    static IEIsProtectedModeProcess() {
+        result := DllCall("Ieframe.dll\IEIsProtectedModeProcess", "int*", &pbResult := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbResult
     }
 
     /**
@@ -2767,21 +2771,18 @@ class InternetExplorer {
      * @param {PSTR} pszRatingInfo 
      * @param {Pointer} pData 
      * @param {Integer} cbData 
-     * @param {Pointer<Pointer<Void>>} ppRatingDetails 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static RatingCheckUserAccess(pszUsername, pszURL, pszRatingInfo, pData, cbData, ppRatingDetails) {
+    static RatingCheckUserAccess(pszUsername, pszURL, pszRatingInfo, pData, cbData) {
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
         pszRatingInfo := pszRatingInfo is String ? StrPtr(pszRatingInfo) : pszRatingInfo
 
-        ppRatingDetailsMarshal := ppRatingDetails is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("MSRATING.dll\RatingCheckUserAccess", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, ppRatingDetailsMarshal, ppRatingDetails, "int")
+        result := DllCall("MSRATING.dll\RatingCheckUserAccess", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, "ptr*", &ppRatingDetails := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppRatingDetails
     }
 
     /**
@@ -2791,21 +2792,18 @@ class InternetExplorer {
      * @param {PWSTR} pszRatingInfo 
      * @param {Pointer} pData 
      * @param {Integer} cbData 
-     * @param {Pointer<Pointer<Void>>} ppRatingDetails 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static RatingCheckUserAccessW(pszUsername, pszURL, pszRatingInfo, pData, cbData, ppRatingDetails) {
+    static RatingCheckUserAccessW(pszUsername, pszURL, pszRatingInfo, pData, cbData) {
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
         pszRatingInfo := pszRatingInfo is String ? StrPtr(pszRatingInfo) : pszRatingInfo
 
-        ppRatingDetailsMarshal := ppRatingDetails is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("MSRATING.dll\RatingCheckUserAccessW", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, ppRatingDetailsMarshal, ppRatingDetails, "int")
+        result := DllCall("MSRATING.dll\RatingCheckUserAccessW", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, "ptr*", &ppRatingDetails := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppRatingDetails
     }
 
     /**
@@ -2813,21 +2811,18 @@ class InternetExplorer {
      * @param {HWND} hDlg 
      * @param {PSTR} pszUsername 
      * @param {PSTR} pszContentDescription 
-     * @param {Pointer<Void>} pRatingDetails 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      */
-    static RatingAccessDeniedDialog(hDlg, pszUsername, pszContentDescription, pRatingDetails) {
+    static RatingAccessDeniedDialog(hDlg, pszUsername, pszContentDescription) {
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszContentDescription := pszContentDescription is String ? StrPtr(pszContentDescription) : pszContentDescription
 
-        pRatingDetailsMarshal := pRatingDetails is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("MSRATING.dll\RatingAccessDeniedDialog", "ptr", hDlg, "ptr", pszUsername, "ptr", pszContentDescription, pRatingDetailsMarshal, pRatingDetails, "int")
+        result := DllCall("MSRATING.dll\RatingAccessDeniedDialog", "ptr", hDlg, "ptr", pszUsername, "ptr", pszContentDescription, "ptr", &pRatingDetails := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pRatingDetails
     }
 
     /**
@@ -2835,61 +2830,52 @@ class InternetExplorer {
      * @param {HWND} hDlg 
      * @param {PWSTR} pszUsername 
      * @param {PWSTR} pszContentDescription 
-     * @param {Pointer<Void>} pRatingDetails 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      */
-    static RatingAccessDeniedDialogW(hDlg, pszUsername, pszContentDescription, pRatingDetails) {
+    static RatingAccessDeniedDialogW(hDlg, pszUsername, pszContentDescription) {
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszContentDescription := pszContentDescription is String ? StrPtr(pszContentDescription) : pszContentDescription
 
-        pRatingDetailsMarshal := pRatingDetails is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("MSRATING.dll\RatingAccessDeniedDialogW", "ptr", hDlg, "ptr", pszUsername, "ptr", pszContentDescription, pRatingDetailsMarshal, pRatingDetails, "int")
+        result := DllCall("MSRATING.dll\RatingAccessDeniedDialogW", "ptr", hDlg, "ptr", pszUsername, "ptr", pszContentDescription, "ptr", &pRatingDetails := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pRatingDetails
     }
 
     /**
      * 
      * @param {HWND} hDlg 
      * @param {PSTR} pszUsername 
-     * @param {Pointer<Void>} pRatingDetails 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      */
-    static RatingAccessDeniedDialog2(hDlg, pszUsername, pRatingDetails) {
+    static RatingAccessDeniedDialog2(hDlg, pszUsername) {
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
-        pRatingDetailsMarshal := pRatingDetails is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2", "ptr", hDlg, "ptr", pszUsername, pRatingDetailsMarshal, pRatingDetails, "int")
+        result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2", "ptr", hDlg, "ptr", pszUsername, "ptr", &pRatingDetails := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pRatingDetails
     }
 
     /**
      * 
      * @param {HWND} hDlg 
      * @param {PWSTR} pszUsername 
-     * @param {Pointer<Void>} pRatingDetails 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      */
-    static RatingAccessDeniedDialog2W(hDlg, pszUsername, pRatingDetails) {
+    static RatingAccessDeniedDialog2W(hDlg, pszUsername) {
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
-        pRatingDetailsMarshal := pRatingDetails is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2W", "ptr", hDlg, "ptr", pszUsername, pRatingDetailsMarshal, pRatingDetails, "int")
+        result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2W", "ptr", hDlg, "ptr", pszUsername, "ptr", &pRatingDetails := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pRatingDetails
     }
 
     /**
@@ -2927,17 +2913,17 @@ class InternetExplorer {
      * @param {PSTR} pszTargetUrl 
      * @param {Integer} dwUserData 
      * @param {Pointer} fCallback 
-     * @param {Pointer<HANDLE>} phRatingObtainQuery 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static RatingObtainQuery(pszTargetUrl, dwUserData, fCallback, phRatingObtainQuery) {
+    static RatingObtainQuery(pszTargetUrl, dwUserData, fCallback) {
         pszTargetUrl := pszTargetUrl is String ? StrPtr(pszTargetUrl) : pszTargetUrl
 
+        phRatingObtainQuery := HANDLE()
         result := DllCall("MSRATING.dll\RatingObtainQuery", "ptr", pszTargetUrl, "uint", dwUserData, "ptr", fCallback, "ptr", phRatingObtainQuery, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phRatingObtainQuery
     }
 
     /**
@@ -2945,17 +2931,17 @@ class InternetExplorer {
      * @param {PWSTR} pszTargetUrl 
      * @param {Integer} dwUserData 
      * @param {Pointer} fCallback 
-     * @param {Pointer<HANDLE>} phRatingObtainQuery 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static RatingObtainQueryW(pszTargetUrl, dwUserData, fCallback, phRatingObtainQuery) {
+    static RatingObtainQueryW(pszTargetUrl, dwUserData, fCallback) {
         pszTargetUrl := pszTargetUrl is String ? StrPtr(pszTargetUrl) : pszTargetUrl
 
+        phRatingObtainQuery := HANDLE()
         result := DllCall("MSRATING.dll\RatingObtainQueryW", "ptr", pszTargetUrl, "uint", dwUserData, "ptr", fCallback, "ptr", phRatingObtainQuery, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phRatingObtainQuery
     }
 
     /**
@@ -3080,15 +3066,14 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<IMapMIMEToCLSID>} ppMap 
-     * @returns {HRESULT} 
+     * @returns {IMapMIMEToCLSID} 
      */
-    static CreateMIMEMap(ppMap) {
-        result := DllCall("ImgUtil.dll\CreateMIMEMap", "ptr*", ppMap, "int")
+    static CreateMIMEMap() {
+        result := DllCall("ImgUtil.dll\CreateMIMEMap", "ptr*", &ppMap := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMapMIMEToCLSID(ppMap)
     }
 
     /**
@@ -3110,17 +3095,16 @@ class InternetExplorer {
      * 
      * @param {IStream} pInStream 
      * @param {Pointer<Integer>} pnFormat 
-     * @param {Pointer<IStream>} ppOutStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      */
-    static SniffStream(pInStream, pnFormat, ppOutStream) {
+    static SniffStream(pInStream, pnFormat) {
         pnFormatMarshal := pnFormat is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ImgUtil.dll\SniffStream", "ptr", pInStream, pnFormatMarshal, pnFormat, "ptr*", ppOutStream, "int")
+        result := DllCall("ImgUtil.dll\SniffStream", "ptr", pInStream, pnFormatMarshal, pnFormat, "ptr*", &ppOutStream := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IStream(ppOutStream)
     }
 
     /**
@@ -3207,17 +3191,16 @@ class InternetExplorer {
     /**
      * 
      * @param {HBITMAP} hbmDib 
-     * @param {Pointer<IDirectDrawSurface>} ppSurface 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawSurface} 
      */
-    static CreateDDrawSurfaceOnDIB(hbmDib, ppSurface) {
+    static CreateDDrawSurfaceOnDIB(hbmDib) {
         hbmDib := hbmDib is Win32Handle ? NumGet(hbmDib, "ptr") : hbmDib
 
-        result := DllCall("ImgUtil.dll\CreateDDrawSurfaceOnDIB", "ptr", hbmDib, "ptr*", ppSurface, "int")
+        result := DllCall("ImgUtil.dll\CreateDDrawSurfaceOnDIB", "ptr", hbmDib, "ptr*", &ppSurface := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDirectDrawSurface(ppSurface)
     }
 
     /**

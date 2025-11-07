@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IUri.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IUriContainer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUri>} ppIUri 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      */
-    GetIUri(ppIUri) {
-        result := ComCall(3, this, "ptr*", ppIUri, "HRESULT")
-        return result
+    GetIUri() {
+        result := ComCall(3, this, "ptr*", &ppIUri := 0, "HRESULT")
+        return IUri(ppIUri)
     }
 }

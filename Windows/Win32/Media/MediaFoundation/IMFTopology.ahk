@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFTopologyNode.ahk
+#Include .\IMFCollection.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -32,15 +34,12 @@ class IMFTopology extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} pID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopology-gettopologyid
      */
-    GetTopologyID(pID) {
-        pIDMarshal := pID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, pIDMarshal, pID, "HRESULT")
-        return result
+    GetTopologyID() {
+        result := ComCall(33, this, "uint*", &pID := 0, "HRESULT")
+        return pID
     }
 
     /**
@@ -67,27 +66,23 @@ class IMFTopology extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwNodes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopology-getnodecount
      */
-    GetNodeCount(pwNodes) {
-        pwNodesMarshal := pwNodes is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(36, this, pwNodesMarshal, pwNodes, "HRESULT")
-        return result
+    GetNodeCount() {
+        result := ComCall(36, this, "ushort*", &pwNodes := 0, "HRESULT")
+        return pwNodes
     }
 
     /**
      * 
      * @param {Integer} wIndex 
-     * @param {Pointer<IMFTopologyNode>} ppNode 
-     * @returns {HRESULT} 
+     * @returns {IMFTopologyNode} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopology-getnode
      */
-    GetNode(wIndex, ppNode) {
-        result := ComCall(37, this, "ushort", wIndex, "ptr*", ppNode, "HRESULT")
-        return result
+    GetNode(wIndex) {
+        result := ComCall(37, this, "ushort", wIndex, "ptr*", &ppNode := 0, "HRESULT")
+        return IMFTopologyNode(ppNode)
     }
 
     /**
@@ -114,34 +109,31 @@ class IMFTopology extends IMFAttributes{
     /**
      * 
      * @param {Integer} qwTopoNodeID 
-     * @param {Pointer<IMFTopologyNode>} ppNode 
-     * @returns {HRESULT} 
+     * @returns {IMFTopologyNode} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopology-getnodebyid
      */
-    GetNodeByID(qwTopoNodeID, ppNode) {
-        result := ComCall(40, this, "uint", qwTopoNodeID, "ptr*", ppNode, "HRESULT")
-        return result
+    GetNodeByID(qwTopoNodeID) {
+        result := ComCall(40, this, "uint", qwTopoNodeID, "ptr*", &ppNode := 0, "HRESULT")
+        return IMFTopologyNode(ppNode)
     }
 
     /**
      * 
-     * @param {Pointer<IMFCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IMFCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopology-getsourcenodecollection
      */
-    GetSourceNodeCollection(ppCollection) {
-        result := ComCall(41, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    GetSourceNodeCollection() {
+        result := ComCall(41, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IMFCollection(ppCollection)
     }
 
     /**
      * 
-     * @param {Pointer<IMFCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IMFCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopology-getoutputnodecollection
      */
-    GetOutputNodeCollection(ppCollection) {
-        result := ComCall(42, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    GetOutputNodeCollection() {
+        result := ComCall(42, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IMFCollection(ppCollection)
     }
 }

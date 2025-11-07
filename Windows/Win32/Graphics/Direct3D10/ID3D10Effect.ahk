@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10Device.ahk
+#Include .\D3D10_EFFECT_DESC.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -72,24 +74,23 @@ class ID3D10Effect extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ID3D10Device>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {ID3D10Device} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getdevice
      */
-    GetDevice(ppDevice) {
-        result := ComCall(5, this, "ptr*", ppDevice, "HRESULT")
-        return result
+    GetDevice() {
+        result := ComCall(5, this, "ptr*", &ppDevice := 0, "HRESULT")
+        return ID3D10Device(ppDevice)
     }
 
     /**
      * 
-     * @param {Pointer<D3D10_EFFECT_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_EFFECT_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getdesc
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := D3D10_EFFECT_DESC()
         result := ComCall(6, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**

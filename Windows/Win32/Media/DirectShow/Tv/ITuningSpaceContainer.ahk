@@ -2,6 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
+#Include .\ITuningSpace.ahk
+#Include .\ITuningSpaces.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumTuningSpaces.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,38 +43,33 @@ class ITuningSpaceContainer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVARIANT>} NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-get__newenum
      */
-    get__NewEnum(NewEnum) {
-        result := ComCall(8, this, "ptr*", NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &NewEnum := 0, "HRESULT")
+        return IEnumVARIANT(NewEnum)
     }
 
     /**
      * 
      * @param {VARIANT} varIndex 
-     * @param {Pointer<ITuningSpace>} TuningSpace 
-     * @returns {HRESULT} 
+     * @returns {ITuningSpace} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-get_item
      */
-    get_Item(varIndex, TuningSpace) {
-        result := ComCall(9, this, "ptr", varIndex, "ptr*", TuningSpace, "HRESULT")
-        return result
+    get_Item(varIndex) {
+        result := ComCall(9, this, "ptr", varIndex, "ptr*", &TuningSpace := 0, "HRESULT")
+        return ITuningSpace(TuningSpace)
     }
 
     /**
@@ -87,77 +87,70 @@ class ITuningSpaceContainer extends IDispatch{
     /**
      * 
      * @param {BSTR} SpaceCLSID 
-     * @param {Pointer<ITuningSpaces>} NewColl 
-     * @returns {HRESULT} 
+     * @returns {ITuningSpaces} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-tuningspacesforclsid
      */
-    TuningSpacesForCLSID(SpaceCLSID, NewColl) {
+    TuningSpacesForCLSID(SpaceCLSID) {
         SpaceCLSID := SpaceCLSID is String ? BSTR.Alloc(SpaceCLSID).Value : SpaceCLSID
 
-        result := ComCall(11, this, "ptr", SpaceCLSID, "ptr*", NewColl, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", SpaceCLSID, "ptr*", &NewColl := 0, "HRESULT")
+        return ITuningSpaces(NewColl)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} SpaceCLSID 
-     * @param {Pointer<ITuningSpaces>} NewColl 
-     * @returns {HRESULT} 
+     * @returns {ITuningSpaces} 
      */
-    _TuningSpacesForCLSID2(SpaceCLSID, NewColl) {
-        result := ComCall(12, this, "ptr", SpaceCLSID, "ptr*", NewColl, "HRESULT")
-        return result
+    _TuningSpacesForCLSID2(SpaceCLSID) {
+        result := ComCall(12, this, "ptr", SpaceCLSID, "ptr*", &NewColl := 0, "HRESULT")
+        return ITuningSpaces(NewColl)
     }
 
     /**
      * 
      * @param {BSTR} Name 
-     * @param {Pointer<ITuningSpaces>} NewColl 
-     * @returns {HRESULT} 
+     * @returns {ITuningSpaces} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-tuningspacesforname
      */
-    TuningSpacesForName(Name, NewColl) {
+    TuningSpacesForName(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(13, this, "ptr", Name, "ptr*", NewColl, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", Name, "ptr*", &NewColl := 0, "HRESULT")
+        return ITuningSpaces(NewColl)
     }
 
     /**
      * 
      * @param {ITuningSpace} TuningSpace 
-     * @param {Pointer<Integer>} ID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-findid
      */
-    FindID(TuningSpace, ID) {
-        IDMarshal := ID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, "ptr", TuningSpace, IDMarshal, ID, "HRESULT")
-        return result
+    FindID(TuningSpace) {
+        result := ComCall(14, this, "ptr", TuningSpace, "int*", &ID := 0, "HRESULT")
+        return ID
     }
 
     /**
      * 
      * @param {ITuningSpace} TuningSpace 
-     * @param {Pointer<VARIANT>} NewIndex 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-add
      */
-    Add(TuningSpace, NewIndex) {
+    Add(TuningSpace) {
+        NewIndex := VARIANT()
         result := ComCall(15, this, "ptr", TuningSpace, "ptr", NewIndex, "HRESULT")
-        return result
+        return NewIndex
     }
 
     /**
      * 
-     * @param {Pointer<IEnumTuningSpaces>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTuningSpaces} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-get_enumtuningspaces
      */
-    get_EnumTuningSpaces(ppEnum) {
-        result := ComCall(16, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    get_EnumTuningSpaces() {
+        result := ComCall(16, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTuningSpaces(ppEnum)
     }
 
     /**
@@ -173,15 +166,12 @@ class ITuningSpaceContainer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} MaxCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-get_maxcount
      */
-    get_MaxCount(MaxCount) {
-        MaxCountMarshal := MaxCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, MaxCountMarshal, MaxCount, "HRESULT")
-        return result
+    get_MaxCount() {
+        result := ComCall(18, this, "int*", &MaxCount := 0, "HRESULT")
+        return MaxCount
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,36 +48,33 @@ class IInkCursorButton extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbutton-get_name
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(7, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Id 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbutton-get_id
      */
-    get_Id(Id) {
+    get_Id() {
+        Id := BSTR()
         result := ComCall(8, this, "ptr", Id, "HRESULT")
-        return result
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} CurrentState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbutton-get_state
      */
-    get_State(CurrentState) {
-        CurrentStateMarshal := CurrentState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, CurrentStateMarshal, CurrentState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(9, this, "int*", &CurrentState := 0, "HRESULT")
+        return CurrentState
     }
 }

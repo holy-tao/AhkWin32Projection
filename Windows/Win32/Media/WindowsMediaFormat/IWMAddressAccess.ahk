@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WM_ADDRESS_ACCESSENTRY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,28 +34,25 @@ class IWMAddressAccess extends IUnknown{
     /**
      * 
      * @param {Integer} aeType 
-     * @param {Pointer<Integer>} pcEntries 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmaddressaccess-getaccessentrycount
      */
-    GetAccessEntryCount(aeType, pcEntries) {
-        pcEntriesMarshal := pcEntries is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "int", aeType, pcEntriesMarshal, pcEntries, "HRESULT")
-        return result
+    GetAccessEntryCount(aeType) {
+        result := ComCall(3, this, "int", aeType, "uint*", &pcEntries := 0, "HRESULT")
+        return pcEntries
     }
 
     /**
      * 
      * @param {Integer} aeType 
      * @param {Integer} dwEntryNum 
-     * @param {Pointer<WM_ADDRESS_ACCESSENTRY>} pAddrAccessEntry 
-     * @returns {HRESULT} 
+     * @returns {WM_ADDRESS_ACCESSENTRY} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmaddressaccess-getaccessentry
      */
-    GetAccessEntry(aeType, dwEntryNum, pAddrAccessEntry) {
+    GetAccessEntry(aeType, dwEntryNum) {
+        pAddrAccessEntry := WM_ADDRESS_ACCESSENTRY()
         result := ComCall(4, this, "int", aeType, "uint", dwEntryNum, "ptr", pAddrAccessEntry, "HRESULT")
-        return result
+        return pAddrAccessEntry
     }
 
     /**

@@ -38,16 +38,13 @@ class IBDA_AutoDemodulateEx extends IBDA_AutoDemodulate{
     /**
      * 
      * @param {Integer} ulcDeviceNodeTypesMax 
-     * @param {Pointer<Integer>} pulcDeviceNodeTypes 
      * @param {Pointer<Guid>} pguidDeviceNodeTypes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_autodemodulateex-get_supporteddevicenodetypes
      */
-    get_SupportedDeviceNodeTypes(ulcDeviceNodeTypesMax, pulcDeviceNodeTypes, pguidDeviceNodeTypes) {
-        pulcDeviceNodeTypesMarshal := pulcDeviceNodeTypes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", ulcDeviceNodeTypesMax, pulcDeviceNodeTypesMarshal, pulcDeviceNodeTypes, "ptr", pguidDeviceNodeTypes, "HRESULT")
-        return result
+    get_SupportedDeviceNodeTypes(ulcDeviceNodeTypesMax, pguidDeviceNodeTypes) {
+        result := ComCall(4, this, "uint", ulcDeviceNodeTypesMax, "uint*", &pulcDeviceNodeTypes := 0, "ptr", pguidDeviceNodeTypes, "HRESULT")
+        return pulcDeviceNodeTypes
     }
 
     /**

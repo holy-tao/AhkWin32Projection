@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -66,13 +67,12 @@ class ICameraUIControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbDeferralRequired 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontrol-suspend
      */
-    Suspend(pbDeferralRequired) {
-        result := ComCall(5, this, "ptr", pbDeferralRequired, "HRESULT")
-        return result
+    Suspend() {
+        result := ComCall(5, this, "int*", &pbDeferralRequired := 0, "HRESULT")
+        return pbDeferralRequired
     }
 
     /**
@@ -87,39 +87,33 @@ class ICameraUIControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pViewType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontrol-getcurrentviewtype
      */
-    GetCurrentViewType(pViewType) {
-        pViewTypeMarshal := pViewType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pViewTypeMarshal, pViewType, "HRESULT")
-        return result
+    GetCurrentViewType() {
+        result := ComCall(7, this, "int*", &pViewType := 0, "HRESULT")
+        return pViewType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrActiveItemPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontrol-getactiveitem
      */
-    GetActiveItem(pbstrActiveItemPath) {
+    GetActiveItem() {
+        pbstrActiveItemPath := BSTR()
         result := ComCall(8, this, "ptr", pbstrActiveItemPath, "HRESULT")
-        return result
+        return pbstrActiveItemPath
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppSelectedItemPaths 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontrol-getselecteditems
      */
-    GetSelectedItems(ppSelectedItemPaths) {
-        ppSelectedItemPathsMarshal := ppSelectedItemPaths is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, ppSelectedItemPathsMarshal, ppSelectedItemPaths, "HRESULT")
-        return result
+    GetSelectedItems() {
+        result := ComCall(9, this, "ptr*", &ppSelectedItemPaths := 0, "HRESULT")
+        return ppSelectedItemPaths
     }
 
     /**

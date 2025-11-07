@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumCall.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -61,15 +63,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pTone 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_tone
      */
-    get_Tone(pTone) {
-        pToneMarshal := pTone is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pToneMarshal, pTone, "HRESULT")
-        return result
+    get_Tone() {
+        result := ComCall(9, this, "int*", &pTone := 0, "HRESULT")
+        return pTone
     }
 
     /**
@@ -96,13 +95,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfRinging 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_ringer
      */
-    get_Ringer(pfRinging) {
-        result := ComCall(12, this, "ptr", pfRinging, "HRESULT")
-        return result
+    get_Ringer() {
+        result := ComCall(12, this, "short*", &pfRinging := 0, "HRESULT")
+        return pfRinging
     }
 
     /**
@@ -118,13 +116,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_phonehandlingenabled
      */
-    get_PhoneHandlingEnabled(pfEnabled) {
-        result := ComCall(14, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    get_PhoneHandlingEnabled() {
+        result := ComCall(14, this, "short*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
@@ -140,15 +137,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plTimeout 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autoendofnumbertimeout
      */
-    get_AutoEndOfNumberTimeout(plTimeout) {
-        plTimeoutMarshal := plTimeout is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, plTimeoutMarshal, plTimeout, "HRESULT")
-        return result
+    get_AutoEndOfNumberTimeout() {
+        result := ComCall(16, this, "int*", &plTimeout := 0, "HRESULT")
+        return plTimeout
     }
 
     /**
@@ -164,13 +158,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autodialtone
      */
-    get_AutoDialtone(pfEnabled) {
-        result := ComCall(18, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    get_AutoDialtone() {
+        result := ComCall(18, this, "short*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
@@ -186,13 +179,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autostoptonesononhook
      */
-    get_AutoStopTonesOnOnHook(pfEnabled) {
-        result := ComCall(20, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    get_AutoStopTonesOnOnHook() {
+        result := ComCall(20, this, "short*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
@@ -208,13 +200,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autostopringonoffhook
      */
-    get_AutoStopRingOnOffHook(pfEnabled) {
-        result := ComCall(22, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    get_AutoStopRingOnOffHook() {
+        result := ComCall(22, this, "short*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
@@ -230,13 +221,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autokeypadtones
      */
-    get_AutoKeypadTones(pfEnabled) {
-        result := ComCall(24, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    get_AutoKeypadTones() {
+        result := ComCall(24, this, "short*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
@@ -252,15 +242,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plDuration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autokeypadtonesminimumduration
      */
-    get_AutoKeypadTonesMinimumDuration(plDuration) {
-        plDurationMarshal := plDuration is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, plDurationMarshal, plDuration, "HRESULT")
-        return result
+    get_AutoKeypadTonesMinimumDuration() {
+        result := ComCall(26, this, "int*", &plDuration := 0, "HRESULT")
+        return plDuration
     }
 
     /**
@@ -276,13 +263,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} fEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autovolumecontrol
      */
-    get_AutoVolumeControl(fEnabled) {
-        result := ComCall(28, this, "ptr", fEnabled, "HRESULT")
-        return result
+    get_AutoVolumeControl() {
+        result := ComCall(28, this, "short*", &fEnabled := 0, "HRESULT")
+        return fEnabled
     }
 
     /**
@@ -298,15 +284,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plStepSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autovolumecontrolstep
      */
-    get_AutoVolumeControlStep(plStepSize) {
-        plStepSizeMarshal := plStepSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, plStepSizeMarshal, plStepSize, "HRESULT")
-        return result
+    get_AutoVolumeControlStep() {
+        result := ComCall(30, this, "int*", &plStepSize := 0, "HRESULT")
+        return plStepSize
     }
 
     /**
@@ -322,15 +305,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plDelay 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autovolumecontrolrepeatdelay
      */
-    get_AutoVolumeControlRepeatDelay(plDelay) {
-        plDelayMarshal := plDelay is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, plDelayMarshal, plDelay, "HRESULT")
-        return result
+    get_AutoVolumeControlRepeatDelay() {
+        result := ComCall(32, this, "int*", &plDelay := 0, "HRESULT")
+        return plDelay
     }
 
     /**
@@ -346,15 +326,12 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plPeriod 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autovolumecontrolrepeatperiod
      */
-    get_AutoVolumeControlRepeatPeriod(plPeriod) {
-        plPeriodMarshal := plPeriod is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, plPeriodMarshal, plPeriod, "HRESULT")
-        return result
+    get_AutoVolumeControlRepeatPeriod() {
+        result := ComCall(34, this, "int*", &plPeriod := 0, "HRESULT")
+        return plPeriod
     }
 
     /**
@@ -382,23 +359,22 @@ class ITAutomatedPhoneControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumCall>} ppCallEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCall} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-enumerateselectedcalls
      */
-    EnumerateSelectedCalls(ppCallEnum) {
-        result := ComCall(37, this, "ptr*", ppCallEnum, "HRESULT")
-        return result
+    EnumerateSelectedCalls() {
+        result := ComCall(37, this, "ptr*", &ppCallEnum := 0, "HRESULT")
+        return IEnumCall(ppCallEnum)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_selectedcalls
      */
-    get_SelectedCalls(pVariant) {
+    get_SelectedCalls() {
+        pVariant := VARIANT()
         result := ComCall(38, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 }

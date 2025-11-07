@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\IXMLDOMNode.ahk
 
 /**
@@ -30,22 +32,22 @@ class IXMLDOMAttribute extends IXMLDOMNode{
 
     /**
      * 
-     * @param {Pointer<BSTR>} attributeName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(attributeName) {
+    get_name() {
+        attributeName := BSTR()
         result := ComCall(43, this, "ptr", attributeName, "HRESULT")
-        return result
+        return attributeName
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} attributeValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_value(attributeValue) {
+    get_value() {
+        attributeValue := VARIANT()
         result := ComCall(44, this, "ptr", attributeValue, "HRESULT")
-        return result
+        return attributeValue
     }
 
     /**

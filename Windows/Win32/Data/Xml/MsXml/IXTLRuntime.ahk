@@ -32,97 +32,82 @@ class IXTLRuntime extends IXMLDOMNode{
     /**
      * 
      * @param {IXMLDOMNode} pNode 
-     * @param {Pointer<Integer>} pID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    uniqueID(pNode, pID) {
-        pIDMarshal := pID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(43, this, "ptr", pNode, pIDMarshal, pID, "HRESULT")
-        return result
+    uniqueID(pNode) {
+        result := ComCall(43, this, "ptr", pNode, "int*", &pID := 0, "HRESULT")
+        return pID
     }
 
     /**
      * 
      * @param {IXMLDOMNode} pNode 
-     * @param {Pointer<Integer>} pDepth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    depth(pNode, pDepth) {
-        pDepthMarshal := pDepth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(44, this, "ptr", pNode, pDepthMarshal, pDepth, "HRESULT")
-        return result
+    depth(pNode) {
+        result := ComCall(44, this, "ptr", pNode, "int*", &pDepth := 0, "HRESULT")
+        return pDepth
     }
 
     /**
      * 
      * @param {IXMLDOMNode} pNode 
-     * @param {Pointer<Integer>} pNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    childNumber(pNode, pNumber) {
-        pNumberMarshal := pNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(45, this, "ptr", pNode, pNumberMarshal, pNumber, "HRESULT")
-        return result
+    childNumber(pNode) {
+        result := ComCall(45, this, "ptr", pNode, "int*", &pNumber := 0, "HRESULT")
+        return pNumber
     }
 
     /**
      * 
      * @param {BSTR} bstrNodeName 
      * @param {IXMLDOMNode} pNode 
-     * @param {Pointer<Integer>} pNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ancestorChildNumber(bstrNodeName, pNode, pNumber) {
+    ancestorChildNumber(bstrNodeName, pNode) {
         bstrNodeName := bstrNodeName is String ? BSTR.Alloc(bstrNodeName).Value : bstrNodeName
 
-        pNumberMarshal := pNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(46, this, "ptr", bstrNodeName, "ptr", pNode, pNumberMarshal, pNumber, "HRESULT")
-        return result
+        result := ComCall(46, this, "ptr", bstrNodeName, "ptr", pNode, "int*", &pNumber := 0, "HRESULT")
+        return pNumber
     }
 
     /**
      * 
      * @param {IXMLDOMNode} pNode 
-     * @param {Pointer<Integer>} pNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    absoluteChildNumber(pNode, pNumber) {
-        pNumberMarshal := pNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(47, this, "ptr", pNode, pNumberMarshal, pNumber, "HRESULT")
-        return result
+    absoluteChildNumber(pNode) {
+        result := ComCall(47, this, "ptr", pNode, "int*", &pNumber := 0, "HRESULT")
+        return pNumber
     }
 
     /**
      * 
      * @param {Integer} lIndex 
      * @param {BSTR} bstrFormat 
-     * @param {Pointer<BSTR>} pbstrFormattedString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    formatIndex(lIndex, bstrFormat, pbstrFormattedString) {
+    formatIndex(lIndex, bstrFormat) {
         bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
 
+        pbstrFormattedString := BSTR()
         result := ComCall(48, this, "int", lIndex, "ptr", bstrFormat, "ptr", pbstrFormattedString, "HRESULT")
-        return result
+        return pbstrFormattedString
     }
 
     /**
      * 
      * @param {Float} dblNumber 
      * @param {BSTR} bstrFormat 
-     * @param {Pointer<BSTR>} pbstrFormattedString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    formatNumber(dblNumber, bstrFormat, pbstrFormattedString) {
+    formatNumber(dblNumber, bstrFormat) {
         bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
 
+        pbstrFormattedString := BSTR()
         result := ComCall(49, this, "double", dblNumber, "ptr", bstrFormat, "ptr", pbstrFormattedString, "HRESULT")
-        return result
+        return pbstrFormattedString
     }
 
     /**
@@ -130,14 +115,14 @@ class IXTLRuntime extends IXMLDOMNode{
      * @param {VARIANT} varDate 
      * @param {BSTR} bstrFormat 
      * @param {VARIANT} varDestLocale 
-     * @param {Pointer<BSTR>} pbstrFormattedString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    formatDate(varDate, bstrFormat, varDestLocale, pbstrFormattedString) {
+    formatDate(varDate, bstrFormat, varDestLocale) {
         bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
 
+        pbstrFormattedString := BSTR()
         result := ComCall(50, this, "ptr", varDate, "ptr", bstrFormat, "ptr", varDestLocale, "ptr", pbstrFormattedString, "HRESULT")
-        return result
+        return pbstrFormattedString
     }
 
     /**
@@ -145,13 +130,13 @@ class IXTLRuntime extends IXMLDOMNode{
      * @param {VARIANT} varTime 
      * @param {BSTR} bstrFormat 
      * @param {VARIANT} varDestLocale 
-     * @param {Pointer<BSTR>} pbstrFormattedString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    formatTime(varTime, bstrFormat, varDestLocale, pbstrFormattedString) {
+    formatTime(varTime, bstrFormat, varDestLocale) {
         bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
 
+        pbstrFormattedString := BSTR()
         result := ComCall(51, this, "ptr", varTime, "ptr", bstrFormat, "ptr", varDestLocale, "ptr", pbstrFormattedString, "HRESULT")
-        return result
+        return pbstrFormattedString
     }
 }

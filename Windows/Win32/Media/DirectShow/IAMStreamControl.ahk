@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\AM_STREAM_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -61,12 +62,12 @@ class IAMStreamControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<AM_STREAM_INFO>} pInfo 
-     * @returns {HRESULT} 
+     * @returns {AM_STREAM_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamcontrol-getinfo
      */
-    GetInfo(pInfo) {
+    GetInfo() {
+        pInfo := AM_STREAM_INFO()
         result := ComCall(5, this, "ptr", pInfo, "HRESULT")
-        return result
+        return pInfo
     }
 }

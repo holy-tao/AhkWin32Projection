@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,35 +31,32 @@ class IRTCPresenceDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} penStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Status(penStatus) {
-        penStatusMarshal := penStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, penStatusMarshal, penStatus, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(3, this, "int*", &penStatus := 0, "HRESULT")
+        return penStatus
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrNotes 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Notes(pbstrNotes) {
+    get_Notes() {
+        pbstrNotes := BSTR()
         result := ComCall(4, this, "ptr", pbstrNotes, "HRESULT")
-        return result
+        return pbstrNotes
     }
 
     /**
      * 
      * @param {Integer} enProperty 
-     * @param {Pointer<BSTR>} pbstrProperty 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PresenceProperty(enProperty, pbstrProperty) {
+    get_PresenceProperty(enProperty) {
+        pbstrProperty := BSTR()
         result := ComCall(5, this, "int", enProperty, "ptr", pbstrProperty, "HRESULT")
-        return result
+        return pbstrProperty
     }
 
     /**

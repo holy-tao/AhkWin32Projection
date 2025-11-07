@@ -33,14 +33,11 @@ class ID3D11On12Device1 extends ID3D11On12Device{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvDevice 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nf-d3d11on12-id3d11on12device1-getd3d12device
      */
-    GetD3D12Device(riid, ppvDevice) {
-        ppvDeviceMarshal := ppvDevice is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", riid, ppvDeviceMarshal, ppvDevice, "HRESULT")
-        return result
+    GetD3D12Device(riid) {
+        result := ComCall(6, this, "ptr", riid, "ptr*", &ppvDevice := 0, "HRESULT")
+        return ppvDevice
     }
 }

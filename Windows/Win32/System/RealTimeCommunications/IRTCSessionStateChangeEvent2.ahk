@@ -30,37 +30,30 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMediaTypes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MediaTypes(pMediaTypes) {
-        pMediaTypesMarshal := pMediaTypes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pMediaTypesMarshal, pMediaTypes, "HRESULT")
-        return result
+    get_MediaTypes() {
+        result := ComCall(11, this, "int*", &pMediaTypes := 0, "HRESULT")
+        return pMediaTypes
     }
 
     /**
      * 
      * @param {Integer} enSecurityType 
-     * @param {Pointer<Integer>} penSecurityLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RemotePreferredSecurityLevel(enSecurityType, penSecurityLevel) {
-        penSecurityLevelMarshal := penSecurityLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, "int", enSecurityType, penSecurityLevelMarshal, penSecurityLevel, "HRESULT")
-        return result
+    get_RemotePreferredSecurityLevel(enSecurityType) {
+        result := ComCall(12, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "HRESULT")
+        return penSecurityLevel
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfIsForked 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsForked(pfIsForked) {
-        result := ComCall(13, this, "ptr", pfIsForked, "HRESULT")
-        return result
+    get_IsForked() {
+        result := ComCall(13, this, "short*", &pfIsForked := 0, "HRESULT")
+        return pfIsForked
     }
 
     /**

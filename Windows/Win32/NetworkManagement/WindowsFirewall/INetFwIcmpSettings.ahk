@@ -43,13 +43,12 @@ class INetFwIcmpSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} allow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutbounddestinationunreachable
      */
-    get_AllowOutboundDestinationUnreachable(allow) {
-        result := ComCall(7, this, "ptr", allow, "HRESULT")
-        return result
+    get_AllowOutboundDestinationUnreachable() {
+        result := ComCall(7, this, "short*", &allow := 0, "HRESULT")
+        return allow
     }
 
     /**
@@ -65,13 +64,12 @@ class INetFwIcmpSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} allow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowredirect
      */
-    get_AllowRedirect(allow) {
-        result := ComCall(9, this, "ptr", allow, "HRESULT")
-        return result
+    get_AllowRedirect() {
+        result := ComCall(9, this, "short*", &allow := 0, "HRESULT")
+        return allow
     }
 
     /**
@@ -87,13 +85,12 @@ class INetFwIcmpSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} allow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowinboundechorequest
      */
-    get_AllowInboundEchoRequest(allow) {
-        result := ComCall(11, this, "ptr", allow, "HRESULT")
-        return result
+    get_AllowInboundEchoRequest() {
+        result := ComCall(11, this, "short*", &allow := 0, "HRESULT")
+        return allow
     }
 
     /**
@@ -109,13 +106,12 @@ class INetFwIcmpSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} allow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundtimeexceeded
      */
-    get_AllowOutboundTimeExceeded(allow) {
-        result := ComCall(13, this, "ptr", allow, "HRESULT")
-        return result
+    get_AllowOutboundTimeExceeded() {
+        result := ComCall(13, this, "short*", &allow := 0, "HRESULT")
+        return allow
     }
 
     /**
@@ -131,13 +127,12 @@ class INetFwIcmpSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} allow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundparameterproblem
      */
-    get_AllowOutboundParameterProblem(allow) {
-        result := ComCall(15, this, "ptr", allow, "HRESULT")
-        return result
+    get_AllowOutboundParameterProblem() {
+        result := ComCall(15, this, "short*", &allow := 0, "HRESULT")
+        return allow
     }
 
     /**
@@ -153,13 +148,12 @@ class INetFwIcmpSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} allow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundsourcequench
      */
-    get_AllowOutboundSourceQuench(allow) {
-        result := ComCall(17, this, "ptr", allow, "HRESULT")
-        return result
+    get_AllowOutboundSourceQuench() {
+        result := ComCall(17, this, "short*", &allow := 0, "HRESULT")
+        return allow
     }
 
     /**
@@ -175,13 +169,12 @@ class INetFwIcmpSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} allow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowinboundrouterrequest
      */
-    get_AllowInboundRouterRequest(allow) {
-        result := ComCall(19, this, "ptr", allow, "HRESULT")
-        return result
+    get_AllowInboundRouterRequest() {
+        result := ComCall(19, this, "short*", &allow := 0, "HRESULT")
+        return allow
     }
 
     /**
@@ -197,13 +190,12 @@ class INetFwIcmpSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} allow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowinboundtimestamprequest
      */
-    get_AllowInboundTimestampRequest(allow) {
-        result := ComCall(21, this, "ptr", allow, "HRESULT")
-        return result
+    get_AllowInboundTimestampRequest() {
+        result := ComCall(21, this, "short*", &allow := 0, "HRESULT")
+        return allow
     }
 
     /**
@@ -219,13 +211,12 @@ class INetFwIcmpSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} allow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowinboundmaskrequest
      */
-    get_AllowInboundMaskRequest(allow) {
-        result := ComCall(23, this, "ptr", allow, "HRESULT")
-        return result
+    get_AllowInboundMaskRequest() {
+        result := ComCall(23, this, "short*", &allow := 0, "HRESULT")
+        return allow
     }
 
     /**
@@ -241,13 +232,12 @@ class INetFwIcmpSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} allow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwicmpsettings-get_allowoutboundpackettoobig
      */
-    get_AllowOutboundPacketTooBig(allow) {
-        result := ComCall(25, this, "ptr", allow, "HRESULT")
-        return result
+    get_AllowOutboundPacketTooBig() {
+        result := ComCall(25, this, "short*", &allow := 0, "HRESULT")
+        return allow
     }
 
     /**

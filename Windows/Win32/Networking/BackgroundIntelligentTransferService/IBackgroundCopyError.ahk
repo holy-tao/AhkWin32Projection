@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IBackgroundCopyFile.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,54 +40,51 @@ class IBackgroundCopyError extends IUnknown{
      */
     GetError(pContext, pCode) {
         pContextMarshal := pContext is VarRef ? "int*" : "ptr"
+        pCodeMarshal := pCode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pContextMarshal, pContext, "ptr", pCode, "HRESULT")
+        result := ComCall(3, this, pContextMarshal, pContext, pCodeMarshal, pCode, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IBackgroundCopyFile>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IBackgroundCopyFile} 
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyerror-getfile
      */
-    GetFile(pVal) {
-        result := ComCall(4, this, "ptr*", pVal, "HRESULT")
-        return result
+    GetFile() {
+        result := ComCall(4, this, "ptr*", &pVal := 0, "HRESULT")
+        return IBackgroundCopyFile(pVal)
     }
 
     /**
      * 
      * @param {Integer} LanguageId 
-     * @param {Pointer<PWSTR>} pErrorDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyerror-geterrordescription
      */
-    GetErrorDescription(LanguageId, pErrorDescription) {
-        result := ComCall(5, this, "uint", LanguageId, "ptr", pErrorDescription, "HRESULT")
-        return result
+    GetErrorDescription(LanguageId) {
+        result := ComCall(5, this, "uint", LanguageId, "ptr*", &pErrorDescription := 0, "HRESULT")
+        return pErrorDescription
     }
 
     /**
      * 
      * @param {Integer} LanguageId 
-     * @param {Pointer<PWSTR>} pContextDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyerror-geterrorcontextdescription
      */
-    GetErrorContextDescription(LanguageId, pContextDescription) {
-        result := ComCall(6, this, "uint", LanguageId, "ptr", pContextDescription, "HRESULT")
-        return result
+    GetErrorContextDescription(LanguageId) {
+        result := ComCall(6, this, "uint", LanguageId, "ptr*", &pContextDescription := 0, "HRESULT")
+        return pContextDescription
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pProtocol 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyerror-getprotocol
      */
-    GetProtocol(pProtocol) {
-        result := ComCall(7, this, "ptr", pProtocol, "HRESULT")
-        return result
+    GetProtocol() {
+        result := ComCall(7, this, "ptr*", &pProtocol := 0, "HRESULT")
+        return pProtocol
     }
 }

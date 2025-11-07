@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IShellItem.ahk
+#Include .\IEnumShellItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -56,95 +58,78 @@ class IShellItemArray extends IUnknown{
      * @param {IBindCtx} pbc 
      * @param {Pointer<Guid>} bhid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvOut 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-bindtohandler
      */
-    BindToHandler(pbc, bhid, riid, ppvOut) {
-        ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pbc, "ptr", bhid, "ptr", riid, ppvOutMarshal, ppvOut, "HRESULT")
-        return result
+    BindToHandler(pbc, bhid, riid) {
+        result := ComCall(3, this, "ptr", pbc, "ptr", bhid, "ptr", riid, "ptr*", &ppvOut := 0, "HRESULT")
+        return ppvOut
     }
 
     /**
      * 
      * @param {Integer} flags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-getpropertystore
      */
-    GetPropertyStore(flags, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "int", flags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetPropertyStore(flags, riid) {
+        result := ComCall(4, this, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} keyType 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-getpropertydescriptionlist
      */
-    GetPropertyDescriptionList(keyType, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", keyType, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetPropertyDescriptionList(keyType, riid) {
+        result := ComCall(5, this, "ptr", keyType, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Integer} AttribFlags 
      * @param {Integer} sfgaoMask 
-     * @param {Pointer<Integer>} psfgaoAttribs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-getattributes
      */
-    GetAttributes(AttribFlags, sfgaoMask, psfgaoAttribs) {
-        psfgaoAttribsMarshal := psfgaoAttribs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "int", AttribFlags, "uint", sfgaoMask, psfgaoAttribsMarshal, psfgaoAttribs, "HRESULT")
-        return result
+    GetAttributes(AttribFlags, sfgaoMask) {
+        result := ComCall(6, this, "int", AttribFlags, "uint", sfgaoMask, "uint*", &psfgaoAttribs := 0, "HRESULT")
+        return psfgaoAttribs
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwNumItems 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-getcount
      */
-    GetCount(pdwNumItems) {
-        pdwNumItemsMarshal := pdwNumItems is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwNumItemsMarshal, pdwNumItems, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(7, this, "uint*", &pdwNumItems := 0, "HRESULT")
+        return pdwNumItems
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IShellItem>} ppsi 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-getitemat
      */
-    GetItemAt(dwIndex, ppsi) {
-        result := ComCall(8, this, "uint", dwIndex, "ptr*", ppsi, "HRESULT")
-        return result
+    GetItemAt(dwIndex) {
+        result := ComCall(8, this, "uint", dwIndex, "ptr*", &ppsi := 0, "HRESULT")
+        return IShellItem(ppsi)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumShellItems>} ppenumShellItems 
-     * @returns {HRESULT} 
+     * @returns {IEnumShellItems} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-enumitems
      */
-    EnumItems(ppenumShellItems) {
-        result := ComCall(9, this, "ptr*", ppenumShellItems, "HRESULT")
-        return result
+    EnumItems() {
+        result := ComCall(9, this, "ptr*", &ppenumShellItems := 0, "HRESULT")
+        return IEnumShellItems(ppenumShellItems)
     }
 }

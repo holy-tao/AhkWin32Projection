@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransactionExport.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,25 +31,24 @@ class ITransactionExportFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pclsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetRemoteClassId(pclsid) {
+    GetRemoteClassId() {
+        pclsid := Guid()
         result := ComCall(3, this, "ptr", pclsid, "HRESULT")
-        return result
+        return pclsid
     }
 
     /**
      * 
      * @param {Integer} cbWhereabouts 
      * @param {Pointer<Integer>} rgbWhereabouts 
-     * @param {Pointer<ITransactionExport>} ppExport 
-     * @returns {HRESULT} 
+     * @returns {ITransactionExport} 
      */
-    Create(cbWhereabouts, rgbWhereabouts, ppExport) {
+    Create(cbWhereabouts, rgbWhereabouts) {
         rgbWhereaboutsMarshal := rgbWhereabouts is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", cbWhereabouts, rgbWhereaboutsMarshal, rgbWhereabouts, "ptr*", ppExport, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", cbWhereabouts, rgbWhereaboutsMarshal, rgbWhereabouts, "ptr*", &ppExport := 0, "HRESULT")
+        return ITransactionExport(ppExport)
     }
 }

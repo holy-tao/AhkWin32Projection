@@ -72,7 +72,9 @@ class IGetAppTrackerData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getapplicationprocessdetails
      */
     GetApplicationProcessDetails(ApplicationInstanceId, ProcessId, Flags, Summary, Statistics, RecycleInfo, AnyComponentsHangMonitored) {
-        result := ComCall(4, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "uint", Flags, "ptr", Summary, "ptr", Statistics, "ptr", RecycleInfo, "ptr", AnyComponentsHangMonitored, "HRESULT")
+        AnyComponentsHangMonitoredMarshal := AnyComponentsHangMonitored is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "uint", Flags, "ptr", Summary, "ptr", Statistics, "ptr", RecycleInfo, AnyComponentsHangMonitoredMarshal, AnyComponentsHangMonitored, "HRESULT")
         return result
     }
 
@@ -134,25 +136,21 @@ class IGetAppTrackerData extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} TopLevelCollection 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-gettrackerdataascollectionobject
      */
-    GetTrackerDataAsCollectionObject(TopLevelCollection) {
-        result := ComCall(8, this, "ptr*", TopLevelCollection, "HRESULT")
-        return result
+    GetTrackerDataAsCollectionObject() {
+        result := ComCall(8, this, "ptr*", &TopLevelCollection := 0, "HRESULT")
+        return IUnknown(TopLevelCollection)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} PollingIntervalInSeconds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getsuggestedpollinginterval
      */
-    GetSuggestedPollingInterval(PollingIntervalInSeconds) {
-        PollingIntervalInSecondsMarshal := PollingIntervalInSeconds is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, PollingIntervalInSecondsMarshal, PollingIntervalInSeconds, "HRESULT")
-        return result
+    GetSuggestedPollingInterval() {
+        result := ComCall(9, this, "uint*", &PollingIntervalInSeconds := 0, "HRESULT")
+        return PollingIntervalInSeconds
     }
 }

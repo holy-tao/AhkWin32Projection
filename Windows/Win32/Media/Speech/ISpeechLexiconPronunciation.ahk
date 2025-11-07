@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,57 +32,48 @@ class ISpeechLexiconPronunciation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} LexiconType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Type(LexiconType) {
-        LexiconTypeMarshal := LexiconType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, LexiconTypeMarshal, LexiconType, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(7, this, "int*", &LexiconType := 0, "HRESULT")
+        return LexiconType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} LangId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LangId(LangId) {
-        LangIdMarshal := LangId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, LangIdMarshal, LangId, "HRESULT")
-        return result
+    get_LangId() {
+        result := ComCall(8, this, "int*", &LangId := 0, "HRESULT")
+        return LangId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} PartOfSpeech 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PartOfSpeech(PartOfSpeech) {
-        PartOfSpeechMarshal := PartOfSpeech is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, PartOfSpeechMarshal, PartOfSpeech, "HRESULT")
-        return result
+    get_PartOfSpeech() {
+        result := ComCall(9, this, "int*", &PartOfSpeech := 0, "HRESULT")
+        return PartOfSpeech
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} PhoneIds 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_PhoneIds(PhoneIds) {
+    get_PhoneIds() {
+        PhoneIds := VARIANT()
         result := ComCall(10, this, "ptr", PhoneIds, "HRESULT")
-        return result
+        return PhoneIds
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Symbolic 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Symbolic(Symbolic) {
+    get_Symbolic() {
+        Symbolic := BSTR()
         result := ComCall(11, this, "ptr", Symbolic, "HRESULT")
-        return result
+        return Symbolic
     }
 }

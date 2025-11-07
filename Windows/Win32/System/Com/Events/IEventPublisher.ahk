@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\Variant\VARIANT.ahk
+#Include .\IEventObjectCollection.ahk
 #Include ..\IDispatch.ahk
 
 /**
@@ -33,12 +35,12 @@ class IEventPublisher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPublisherID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PublisherID(pbstrPublisherID) {
+    get_PublisherID() {
+        pbstrPublisherID := BSTR()
         result := ComCall(7, this, "ptr", pbstrPublisherID, "HRESULT")
-        return result
+        return pbstrPublisherID
     }
 
     /**
@@ -56,13 +58,13 @@ class IEventPublisher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPublisherName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-get_publishername
      */
-    get_PublisherName(pbstrPublisherName) {
+    get_PublisherName() {
+        pbstrPublisherName := BSTR()
         result := ComCall(9, this, "ptr", pbstrPublisherName, "HRESULT")
-        return result
+        return pbstrPublisherName
     }
 
     /**
@@ -80,13 +82,13 @@ class IEventPublisher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPublisherType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-get_publishertype
      */
-    get_PublisherType(pbstrPublisherType) {
+    get_PublisherType() {
+        pbstrPublisherType := BSTR()
         result := ComCall(11, this, "ptr", pbstrPublisherType, "HRESULT")
-        return result
+        return pbstrPublisherType
     }
 
     /**
@@ -104,13 +106,13 @@ class IEventPublisher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrOwnerSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-get_ownersid
      */
-    get_OwnerSID(pbstrOwnerSID) {
+    get_OwnerSID() {
+        pbstrOwnerSID := BSTR()
         result := ComCall(13, this, "ptr", pbstrOwnerSID, "HRESULT")
-        return result
+        return pbstrOwnerSID
     }
 
     /**
@@ -128,13 +130,13 @@ class IEventPublisher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-get_description
      */
-    get_Description(pbstrDescription) {
+    get_Description() {
+        pbstrDescription := BSTR()
         result := ComCall(15, this, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 
     /**
@@ -153,15 +155,15 @@ class IEventPublisher extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrPropertyName 
-     * @param {Pointer<VARIANT>} propertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-getdefaultproperty
      */
-    GetDefaultProperty(bstrPropertyName, propertyValue) {
+    GetDefaultProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
+        propertyValue := VARIANT()
         result := ComCall(17, this, "ptr", bstrPropertyName, "ptr", propertyValue, "HRESULT")
-        return result
+        return propertyValue
     }
 
     /**
@@ -193,12 +195,11 @@ class IEventPublisher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEventObjectCollection>} collection 
-     * @returns {HRESULT} 
+     * @returns {IEventObjectCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-getdefaultpropertycollection
      */
-    GetDefaultPropertyCollection(collection) {
-        result := ComCall(20, this, "ptr*", collection, "HRESULT")
-        return result
+    GetDefaultPropertyCollection() {
+        result := ComCall(20, this, "ptr*", &collection := 0, "HRESULT")
+        return IEventObjectCollection(collection)
     }
 }

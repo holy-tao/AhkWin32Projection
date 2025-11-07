@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IXpsOMPart extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} partUri 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompart-getpartname
      */
-    GetPartName(partUri) {
-        result := ComCall(3, this, "ptr*", partUri, "HRESULT")
-        return result
+    GetPartName() {
+        result := ComCall(3, this, "ptr*", &partUri := 0, "HRESULT")
+        return IOpcPartUri(partUri)
     }
 
     /**

@@ -30,14 +30,11 @@ class IZoneIdentifier extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwZone 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetId(pdwZone) {
-        pdwZoneMarshal := pdwZone is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwZoneMarshal, pdwZone, "HRESULT")
-        return result
+    GetId() {
+        result := ComCall(3, this, "uint*", &pdwZone := 0, "HRESULT")
+        return pdwZone
     }
 
     /**

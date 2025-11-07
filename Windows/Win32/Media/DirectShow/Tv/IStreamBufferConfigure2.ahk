@@ -48,15 +48,12 @@ class IStreamBufferConfigure2 extends IStreamBufferConfigure{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbBytesPerPacket 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure2-getmultiplexedpacketsize
      */
-    GetMultiplexedPacketSize(pcbBytesPerPacket) {
-        pcbBytesPerPacketMarshal := pcbBytesPerPacket is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pcbBytesPerPacketMarshal, pcbBytesPerPacket, "HRESULT")
-        return result
+    GetMultiplexedPacketSize() {
+        result := ComCall(10, this, "uint*", &pcbBytesPerPacket := 0, "HRESULT")
+        return pcbBytesPerPacket
     }
 
     /**

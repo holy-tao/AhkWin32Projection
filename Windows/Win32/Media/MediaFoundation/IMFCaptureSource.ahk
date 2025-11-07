@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaSource.ahk
+#Include .\IMFActivate.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMediaType.ahk
 
 /**
  * Controls the capture source object. The capture source manages the audio and video capture devices.
@@ -38,38 +41,35 @@ class IMFCaptureSource extends IUnknown{
     /**
      * 
      * @param {Integer} mfCaptureEngineDeviceType 
-     * @param {Pointer<IMFMediaSource>} ppMediaSource 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaSource} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcapturedevicesource
      */
-    GetCaptureDeviceSource(mfCaptureEngineDeviceType, ppMediaSource) {
-        result := ComCall(3, this, "int", mfCaptureEngineDeviceType, "ptr*", ppMediaSource, "HRESULT")
-        return result
+    GetCaptureDeviceSource(mfCaptureEngineDeviceType) {
+        result := ComCall(3, this, "int", mfCaptureEngineDeviceType, "ptr*", &ppMediaSource := 0, "HRESULT")
+        return IMFMediaSource(ppMediaSource)
     }
 
     /**
      * 
      * @param {Integer} mfCaptureEngineDeviceType 
-     * @param {Pointer<IMFActivate>} ppActivate 
-     * @returns {HRESULT} 
+     * @returns {IMFActivate} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcapturedeviceactivate
      */
-    GetCaptureDeviceActivate(mfCaptureEngineDeviceType, ppActivate) {
-        result := ComCall(4, this, "int", mfCaptureEngineDeviceType, "ptr*", ppActivate, "HRESULT")
-        return result
+    GetCaptureDeviceActivate(mfCaptureEngineDeviceType) {
+        result := ComCall(4, this, "int", mfCaptureEngineDeviceType, "ptr*", &ppActivate := 0, "HRESULT")
+        return IMFActivate(ppActivate)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rguidService 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppUnknown 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getservice
      */
-    GetService(rguidService, riid, ppUnknown) {
-        result := ComCall(5, this, "ptr", rguidService, "ptr", riid, "ptr*", ppUnknown, "HRESULT")
-        return result
+    GetService(rguidService, riid) {
+        result := ComCall(5, this, "ptr", rguidService, "ptr", riid, "ptr*", &ppUnknown := 0, "HRESULT")
+        return IUnknown(ppUnknown)
     }
 
     /**
@@ -111,13 +111,12 @@ class IMFCaptureSource extends IUnknown{
      * 
      * @param {Integer} dwSourceStreamIndex 
      * @param {Integer} dwMediaTypeIndex 
-     * @param {Pointer<IMFMediaType>} ppMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getavailabledevicemediatype
      */
-    GetAvailableDeviceMediaType(dwSourceStreamIndex, dwMediaTypeIndex, ppMediaType) {
-        result := ComCall(9, this, "uint", dwSourceStreamIndex, "uint", dwMediaTypeIndex, "ptr*", ppMediaType, "HRESULT")
-        return result
+    GetAvailableDeviceMediaType(dwSourceStreamIndex, dwMediaTypeIndex) {
+        result := ComCall(9, this, "uint", dwSourceStreamIndex, "uint", dwMediaTypeIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        return IMFMediaType(ppMediaType)
     }
 
     /**
@@ -135,52 +134,44 @@ class IMFCaptureSource extends IUnknown{
     /**
      * 
      * @param {Integer} dwSourceStreamIndex 
-     * @param {Pointer<IMFMediaType>} ppMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcurrentdevicemediatype
      */
-    GetCurrentDeviceMediaType(dwSourceStreamIndex, ppMediaType) {
-        result := ComCall(11, this, "uint", dwSourceStreamIndex, "ptr*", ppMediaType, "HRESULT")
-        return result
+    GetCurrentDeviceMediaType(dwSourceStreamIndex) {
+        result := ComCall(11, this, "uint", dwSourceStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        return IMFMediaType(ppMediaType)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStreamCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getdevicestreamcount
      */
-    GetDeviceStreamCount(pdwStreamCount) {
-        pdwStreamCountMarshal := pdwStreamCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pdwStreamCountMarshal, pdwStreamCount, "HRESULT")
-        return result
+    GetDeviceStreamCount() {
+        result := ComCall(12, this, "uint*", &pdwStreamCount := 0, "HRESULT")
+        return pdwStreamCount
     }
 
     /**
      * 
      * @param {Integer} dwSourceStreamIndex 
-     * @param {Pointer<Integer>} pStreamCategory 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getdevicestreamcategory
      */
-    GetDeviceStreamCategory(dwSourceStreamIndex, pStreamCategory) {
-        pStreamCategoryMarshal := pStreamCategory is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, "uint", dwSourceStreamIndex, pStreamCategoryMarshal, pStreamCategory, "HRESULT")
-        return result
+    GetDeviceStreamCategory(dwSourceStreamIndex) {
+        result := ComCall(13, this, "uint", dwSourceStreamIndex, "int*", &pStreamCategory := 0, "HRESULT")
+        return pStreamCategory
     }
 
     /**
      * 
      * @param {Integer} dwStreamIndex 
-     * @param {Pointer<BOOL>} pfMirrorState 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getmirrorstate
      */
-    GetMirrorState(dwStreamIndex, pfMirrorState) {
-        result := ComCall(14, this, "uint", dwStreamIndex, "ptr", pfMirrorState, "HRESULT")
-        return result
+    GetMirrorState(dwStreamIndex) {
+        result := ComCall(14, this, "uint", dwStreamIndex, "int*", &pfMirrorState := 0, "HRESULT")
+        return pfMirrorState
     }
 
     /**
@@ -198,14 +189,11 @@ class IMFCaptureSource extends IUnknown{
     /**
      * 
      * @param {Integer} uifriendlyName 
-     * @param {Pointer<Integer>} pdwActualStreamIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getstreamindexfromfriendlyname
      */
-    GetStreamIndexFromFriendlyName(uifriendlyName, pdwActualStreamIndex) {
-        pdwActualStreamIndexMarshal := pdwActualStreamIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, "uint", uifriendlyName, pdwActualStreamIndexMarshal, pdwActualStreamIndex, "HRESULT")
-        return result
+    GetStreamIndexFromFriendlyName(uifriendlyName) {
+        result := ComCall(16, this, "uint", uifriendlyName, "uint*", &pdwActualStreamIndex := 0, "HRESULT")
+        return pdwActualStreamIndex
     }
 }

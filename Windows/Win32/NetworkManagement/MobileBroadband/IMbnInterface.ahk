@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\MBN_INTERFACE_CAPS.ahk
+#Include .\IMbnSubscriberInformation.ahk
+#Include .\MBN_PROVIDER.ahk
+#Include .\IMbnConnection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,135 +44,118 @@ class IMbnInterface extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} InterfaceID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-get_interfaceid
      */
-    get_InterfaceID(InterfaceID) {
+    get_InterfaceID() {
+        InterfaceID := BSTR()
         result := ComCall(3, this, "ptr", InterfaceID, "HRESULT")
-        return result
+        return InterfaceID
     }
 
     /**
      * 
-     * @param {Pointer<MBN_INTERFACE_CAPS>} interfaceCaps 
-     * @returns {HRESULT} 
+     * @returns {MBN_INTERFACE_CAPS} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-getinterfacecapability
      */
-    GetInterfaceCapability(interfaceCaps) {
+    GetInterfaceCapability() {
+        interfaceCaps := MBN_INTERFACE_CAPS()
         result := ComCall(4, this, "ptr", interfaceCaps, "HRESULT")
-        return result
+        return interfaceCaps
     }
 
     /**
      * 
-     * @param {Pointer<IMbnSubscriberInformation>} subscriberInformation 
-     * @returns {HRESULT} 
+     * @returns {IMbnSubscriberInformation} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-getsubscriberinformation
      */
-    GetSubscriberInformation(subscriberInformation) {
-        result := ComCall(5, this, "ptr*", subscriberInformation, "HRESULT")
-        return result
+    GetSubscriberInformation() {
+        result := ComCall(5, this, "ptr*", &subscriberInformation := 0, "HRESULT")
+        return IMbnSubscriberInformation(subscriberInformation)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} readyState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-getreadystate
      */
-    GetReadyState(readyState) {
-        readyStateMarshal := readyState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, readyStateMarshal, readyState, "HRESULT")
-        return result
+    GetReadyState() {
+        result := ComCall(6, this, "int*", &readyState := 0, "HRESULT")
+        return readyState
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} emergencyMode 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-inemergencymode
      */
-    InEmergencyMode(emergencyMode) {
-        result := ComCall(7, this, "ptr", emergencyMode, "HRESULT")
-        return result
+    InEmergencyMode() {
+        result := ComCall(7, this, "short*", &emergencyMode := 0, "HRESULT")
+        return emergencyMode
     }
 
     /**
      * 
-     * @param {Pointer<MBN_PROVIDER>} homeProvider 
-     * @returns {HRESULT} 
+     * @returns {MBN_PROVIDER} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-gethomeprovider
      */
-    GetHomeProvider(homeProvider) {
+    GetHomeProvider() {
+        homeProvider := MBN_PROVIDER()
         result := ComCall(8, this, "ptr", homeProvider, "HRESULT")
-        return result
+        return homeProvider
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} preferredProviders 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-getpreferredproviders
      */
-    GetPreferredProviders(preferredProviders) {
-        preferredProvidersMarshal := preferredProviders is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, preferredProvidersMarshal, preferredProviders, "HRESULT")
-        return result
+    GetPreferredProviders() {
+        result := ComCall(9, this, "ptr*", &preferredProviders := 0, "HRESULT")
+        return preferredProviders
     }
 
     /**
      * 
      * @param {Pointer<SAFEARRAY>} preferredProviders 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-setpreferredproviders
      */
-    SetPreferredProviders(preferredProviders, requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "ptr", preferredProviders, requestIDMarshal, requestID, "HRESULT")
-        return result
+    SetPreferredProviders(preferredProviders) {
+        result := ComCall(10, this, "ptr", preferredProviders, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
      * @param {Pointer<Integer>} age 
-     * @param {Pointer<Pointer<SAFEARRAY>>} visibleProviders 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-getvisibleproviders
      */
-    GetVisibleProviders(age, visibleProviders) {
+    GetVisibleProviders(age) {
         ageMarshal := age is VarRef ? "uint*" : "ptr"
-        visibleProvidersMarshal := visibleProviders is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, ageMarshal, age, visibleProvidersMarshal, visibleProviders, "HRESULT")
-        return result
+        result := ComCall(11, this, ageMarshal, age, "ptr*", &visibleProviders := 0, "HRESULT")
+        return visibleProviders
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-scannetwork
      */
-    ScanNetwork(requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, requestIDMarshal, requestID, "HRESULT")
-        return result
+    ScanNetwork() {
+        result := ComCall(12, this, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
-     * @param {Pointer<IMbnConnection>} mbnConnection 
-     * @returns {HRESULT} 
+     * @returns {IMbnConnection} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-getconnection
      */
-    GetConnection(mbnConnection) {
-        result := ComCall(13, this, "ptr*", mbnConnection, "HRESULT")
-        return result
+    GetConnection() {
+        result := ComCall(13, this, "ptr*", &mbnConnection := 0, "HRESULT")
+        return IMbnConnection(mbnConnection)
     }
 }

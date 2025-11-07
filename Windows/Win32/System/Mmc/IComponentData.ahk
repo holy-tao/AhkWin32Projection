@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IComponent.ahk
+#Include ..\Com\IDataObject.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -53,13 +55,12 @@ class IComponentData extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IComponent>} ppComponent 
-     * @returns {HRESULT} 
+     * @returns {IComponent} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-createcomponent
      */
-    CreateComponent(ppComponent) {
-        result := ComCall(4, this, "ptr*", ppComponent, "HRESULT")
-        return result
+    CreateComponent() {
+        result := ComCall(4, this, "ptr*", &ppComponent := 0, "HRESULT")
+        return IComponent(ppComponent)
     }
 
     /**
@@ -90,13 +91,12 @@ class IComponentData extends IUnknown{
      * 
      * @param {Pointer} cookie 
      * @param {Integer} type 
-     * @param {Pointer<IDataObject>} ppDataObject 
-     * @returns {HRESULT} 
+     * @returns {IDataObject} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-querydataobject
      */
-    QueryDataObject(cookie, type, ppDataObject) {
-        result := ComCall(7, this, "ptr", cookie, "int", type, "ptr*", ppDataObject, "HRESULT")
-        return result
+    QueryDataObject(cookie, type) {
+        result := ComCall(7, this, "ptr", cookie, "int", type, "ptr*", &ppDataObject := 0, "HRESULT")
+        return IDataObject(ppDataObject)
     }
 
     /**

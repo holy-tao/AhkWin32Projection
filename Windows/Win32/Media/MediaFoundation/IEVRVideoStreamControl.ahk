@@ -43,12 +43,11 @@ class IEVRVideoStreamControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} lpfActive 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-ievrvideostreamcontrol-getstreamactivestate
      */
-    GetStreamActiveState(lpfActive) {
-        result := ComCall(4, this, "ptr", lpfActive, "HRESULT")
-        return result
+    GetStreamActiveState() {
+        result := ComCall(4, this, "int*", &lpfActive := 0, "HRESULT")
+        return lpfActive
     }
 }

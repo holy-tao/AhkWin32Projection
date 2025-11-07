@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRDPSRAPIAttendeeManager.ahk
+#Include .\IRDPSRAPIInvitationManager.ahk
+#Include .\IRDPSRAPIApplicationFilter.ahk
+#Include .\IRDPSRAPIVirtualChannelManager.ahk
+#Include .\IRDPSRAPISessionProperties.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -60,46 +65,42 @@ class IRDPSRAPIViewer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRDPSRAPIAttendeeManager>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIAttendeeManager} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-get_attendees
      */
-    get_Attendees(ppVal) {
-        result := ComCall(9, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get_Attendees() {
+        result := ComCall(9, this, "ptr*", &ppVal := 0, "HRESULT")
+        return IRDPSRAPIAttendeeManager(ppVal)
     }
 
     /**
      * 
-     * @param {Pointer<IRDPSRAPIInvitationManager>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIInvitationManager} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-get_invitations
      */
-    get_Invitations(ppVal) {
-        result := ComCall(10, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get_Invitations() {
+        result := ComCall(10, this, "ptr*", &ppVal := 0, "HRESULT")
+        return IRDPSRAPIInvitationManager(ppVal)
     }
 
     /**
      * 
-     * @param {Pointer<IRDPSRAPIApplicationFilter>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIApplicationFilter} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-get_applicationfilter
      */
-    get_ApplicationFilter(ppVal) {
-        result := ComCall(11, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get_ApplicationFilter() {
+        result := ComCall(11, this, "ptr*", &ppVal := 0, "HRESULT")
+        return IRDPSRAPIApplicationFilter(ppVal)
     }
 
     /**
      * 
-     * @param {Pointer<IRDPSRAPIVirtualChannelManager>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIVirtualChannelManager} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-get_virtualchannelmanager
      */
-    get_VirtualChannelManager(ppVal) {
-        result := ComCall(12, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get_VirtualChannelManager() {
+        result := ComCall(12, this, "ptr*", &ppVal := 0, "HRESULT")
+        return IRDPSRAPIVirtualChannelManager(ppVal)
     }
 
     /**
@@ -115,13 +116,12 @@ class IRDPSRAPIViewer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pvbSmartSizing 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-get_smartsizing
      */
-    get_SmartSizing(pvbSmartSizing) {
-        result := ComCall(14, this, "ptr", pvbSmartSizing, "HRESULT")
-        return result
+    get_SmartSizing() {
+        result := ComCall(14, this, "short*", &pvbSmartSizing := 0, "HRESULT")
+        return pvbSmartSizing
     }
 
     /**
@@ -150,13 +150,13 @@ class IRDPSRAPIViewer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDisconnectedText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-get_disconnectedtext
      */
-    get_DisconnectedText(pbstrDisconnectedText) {
+    get_DisconnectedText() {
+        pbstrDisconnectedText := BSTR()
         result := ComCall(17, this, "ptr", pbstrDisconnectedText, "HRESULT")
-        return result
+        return pbstrDisconnectedText
     }
 
     /**
@@ -172,13 +172,12 @@ class IRDPSRAPIViewer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRDPSRAPISessionProperties>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPISessionProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-get_properties
      */
-    get_Properties(ppVal) {
-        result := ComCall(19, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get_Properties() {
+        result := ComCall(19, this, "ptr*", &ppVal := 0, "HRESULT")
+        return IRDPSRAPISessionProperties(ppVal)
     }
 
     /**
@@ -186,16 +185,16 @@ class IRDPSRAPIViewer extends IDispatch{
      * @param {BSTR} bstrConnectionString 
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrPassword 
-     * @param {Pointer<BSTR>} pbstrReverseConnectString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-startreverseconnectlistener
      */
-    StartReverseConnectListener(bstrConnectionString, bstrUserName, bstrPassword, pbstrReverseConnectString) {
+    StartReverseConnectListener(bstrConnectionString, bstrUserName, bstrPassword) {
         bstrConnectionString := bstrConnectionString is String ? BSTR.Alloc(bstrConnectionString).Value : bstrConnectionString
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
+        pbstrReverseConnectString := BSTR()
         result := ComCall(20, this, "ptr", bstrConnectionString, "ptr", bstrUserName, "ptr", bstrPassword, "ptr", pbstrReverseConnectString, "HRESULT")
-        return result
+        return pbstrReverseConnectString
     }
 }

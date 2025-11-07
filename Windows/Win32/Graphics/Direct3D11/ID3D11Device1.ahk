@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11DeviceContext1.ahk
+#Include .\ID3D11BlendState1.ahk
+#Include .\ID3D11RasterizerState1.ahk
 #Include .\ID3D11Device.ahk
 
 /**
@@ -43,37 +46,34 @@ class ID3D11Device1 extends ID3D11Device{
     /**
      * 
      * @param {Integer} ContextFlags 
-     * @param {Pointer<ID3D11DeviceContext1>} ppDeferredContext 
-     * @returns {HRESULT} 
+     * @returns {ID3D11DeviceContext1} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-createdeferredcontext1
      */
-    CreateDeferredContext1(ContextFlags, ppDeferredContext) {
-        result := ComCall(44, this, "uint", ContextFlags, "ptr*", ppDeferredContext, "HRESULT")
-        return result
+    CreateDeferredContext1(ContextFlags) {
+        result := ComCall(44, this, "uint", ContextFlags, "ptr*", &ppDeferredContext := 0, "HRESULT")
+        return ID3D11DeviceContext1(ppDeferredContext)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_BLEND_DESC1>} pBlendStateDesc 
-     * @param {Pointer<ID3D11BlendState1>} ppBlendState 
-     * @returns {HRESULT} 
+     * @returns {ID3D11BlendState1} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-createblendstate1
      */
-    CreateBlendState1(pBlendStateDesc, ppBlendState) {
-        result := ComCall(45, this, "ptr", pBlendStateDesc, "ptr*", ppBlendState, "HRESULT")
-        return result
+    CreateBlendState1(pBlendStateDesc) {
+        result := ComCall(45, this, "ptr", pBlendStateDesc, "ptr*", &ppBlendState := 0, "HRESULT")
+        return ID3D11BlendState1(ppBlendState)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_RASTERIZER_DESC1>} pRasterizerDesc 
-     * @param {Pointer<ID3D11RasterizerState1>} ppRasterizerState 
-     * @returns {HRESULT} 
+     * @returns {ID3D11RasterizerState1} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-createrasterizerstate1
      */
-    CreateRasterizerState1(pRasterizerDesc, ppRasterizerState) {
-        result := ComCall(46, this, "ptr", pRasterizerDesc, "ptr*", ppRasterizerState, "HRESULT")
-        return result
+    CreateRasterizerState1(pRasterizerDesc) {
+        result := ComCall(46, this, "ptr", pRasterizerDesc, "ptr*", &ppRasterizerState := 0, "HRESULT")
+        return ID3D11RasterizerState1(ppRasterizerState)
     }
 
     /**
@@ -100,17 +100,14 @@ class ID3D11Device1 extends ID3D11Device{
      * 
      * @param {HANDLE} hResource 
      * @param {Pointer<Guid>} returnedInterface 
-     * @param {Pointer<Pointer<Void>>} ppResource 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-opensharedresource1
      */
-    OpenSharedResource1(hResource, returnedInterface, ppResource) {
+    OpenSharedResource1(hResource, returnedInterface) {
         hResource := hResource is Win32Handle ? NumGet(hResource, "ptr") : hResource
 
-        ppResourceMarshal := ppResource is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(48, this, "ptr", hResource, "ptr", returnedInterface, ppResourceMarshal, ppResource, "HRESULT")
-        return result
+        result := ComCall(48, this, "ptr", hResource, "ptr", returnedInterface, "ptr*", &ppResource := 0, "HRESULT")
+        return ppResource
     }
 
     /**
@@ -118,16 +115,13 @@ class ID3D11Device1 extends ID3D11Device{
      * @param {PWSTR} lpName 
      * @param {Integer} dwDesiredAccess 
      * @param {Pointer<Guid>} returnedInterface 
-     * @param {Pointer<Pointer<Void>>} ppResource 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-opensharedresourcebyname
      */
-    OpenSharedResourceByName(lpName, dwDesiredAccess, returnedInterface, ppResource) {
+    OpenSharedResourceByName(lpName, dwDesiredAccess, returnedInterface) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        ppResourceMarshal := ppResource is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(49, this, "ptr", lpName, "uint", dwDesiredAccess, "ptr", returnedInterface, ppResourceMarshal, ppResource, "HRESULT")
-        return result
+        result := ComCall(49, this, "ptr", lpName, "uint", dwDesiredAccess, "ptr", returnedInterface, "ptr*", &ppResource := 0, "HRESULT")
+        return ppResource
     }
 }

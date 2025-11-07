@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCSession2.ahk
+#Include .\IRTCParticipant.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,41 +33,39 @@ class IRTCInfoEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRTCSession2>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {IRTCSession2} 
      */
-    get_Session(ppSession) {
-        result := ComCall(7, this, "ptr*", ppSession, "HRESULT")
-        return result
+    get_Session() {
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        return IRTCSession2(ppSession)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCParticipant>} ppParticipant 
-     * @returns {HRESULT} 
+     * @returns {IRTCParticipant} 
      */
-    get_Participant(ppParticipant) {
-        result := ComCall(8, this, "ptr*", ppParticipant, "HRESULT")
-        return result
+    get_Participant() {
+        result := ComCall(8, this, "ptr*", &ppParticipant := 0, "HRESULT")
+        return IRTCParticipant(ppParticipant)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrInfo 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Info(pbstrInfo) {
+    get_Info() {
+        pbstrInfo := BSTR()
         result := ComCall(9, this, "ptr", pbstrInfo, "HRESULT")
-        return result
+        return pbstrInfo
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrInfoHeader 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_InfoHeader(pbstrInfoHeader) {
+    get_InfoHeader() {
+        pbstrInfoHeader := BSTR()
         result := ComCall(10, this, "ptr", pbstrInfoHeader, "HRESULT")
-        return result
+        return pbstrInfoHeader
     }
 }

@@ -97,7 +97,9 @@ class IMaintenanceSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imaintenancesettings-get_exclusive
      */
     get_Exclusive(target) {
-        result := ComCall(12, this, "ptr", target, "HRESULT")
+        targetMarshal := target is VarRef ? "short*" : "ptr"
+
+        result := ComCall(12, this, targetMarshal, target, "HRESULT")
         return result
     }
 }

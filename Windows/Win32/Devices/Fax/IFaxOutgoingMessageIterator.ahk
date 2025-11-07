@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFaxOutgoingMessage.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,37 +43,32 @@ class IFaxOutgoingMessageIterator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFaxOutgoingMessage>} pFaxOutgoingMessage 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutgoingMessage} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessageiterator-get_message
      */
-    get_Message(pFaxOutgoingMessage) {
-        result := ComCall(7, this, "ptr*", pFaxOutgoingMessage, "HRESULT")
-        return result
+    get_Message() {
+        result := ComCall(7, this, "ptr*", &pFaxOutgoingMessage := 0, "HRESULT")
+        return IFaxOutgoingMessage(pFaxOutgoingMessage)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbEOF 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessageiterator-get_ateof
      */
-    get_AtEOF(pbEOF) {
-        result := ComCall(8, this, "ptr", pbEOF, "HRESULT")
-        return result
+    get_AtEOF() {
+        result := ComCall(8, this, "short*", &pbEOF := 0, "HRESULT")
+        return pbEOF
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plPrefetchSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessageiterator-get_prefetchsize
      */
-    get_PrefetchSize(plPrefetchSize) {
-        plPrefetchSizeMarshal := plPrefetchSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plPrefetchSizeMarshal, plPrefetchSize, "HRESULT")
-        return result
+    get_PrefetchSize() {
+        result := ComCall(9, this, "int*", &plPrefetchSize := 0, "HRESULT")
+        return plPrefetchSize
     }
 
     /**

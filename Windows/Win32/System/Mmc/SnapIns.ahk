@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\SnapIn.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,35 +39,30 @@ class SnapIns extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(7, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<SnapIn>} SnapIn 
-     * @returns {HRESULT} 
+     * @returns {SnapIn} 
      */
-    Item(Index, SnapIn) {
-        result := ComCall(8, this, "int", Index, "ptr*", SnapIn, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(8, this, "int", Index, "ptr*", &SnapIn := 0, "HRESULT")
+        return SnapIn(SnapIn)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
@@ -73,14 +70,13 @@ class SnapIns extends IDispatch{
      * @param {BSTR} SnapinNameOrCLSID 
      * @param {VARIANT} ParentSnapin 
      * @param {VARIANT} Properties 
-     * @param {Pointer<SnapIn>} SnapIn 
-     * @returns {HRESULT} 
+     * @returns {SnapIn} 
      */
-    Add(SnapinNameOrCLSID, ParentSnapin, Properties, SnapIn) {
+    Add(SnapinNameOrCLSID, ParentSnapin, Properties) {
         SnapinNameOrCLSID := SnapinNameOrCLSID is String ? BSTR.Alloc(SnapinNameOrCLSID).Value : SnapinNameOrCLSID
 
-        result := ComCall(10, this, "ptr", SnapinNameOrCLSID, "ptr", ParentSnapin, "ptr", Properties, "ptr*", SnapIn, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", SnapinNameOrCLSID, "ptr", ParentSnapin, "ptr", Properties, "ptr*", &SnapIn := 0, "HRESULT")
+        return SnapIn(SnapIn)
     }
 
     /**

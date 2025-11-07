@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsSignature.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,13 +43,12 @@ class IXpsSignatureRequest extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} intent 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getintent
      */
-    GetIntent(intent) {
-        result := ComCall(3, this, "ptr", intent, "HRESULT")
-        return result
+    GetIntent() {
+        result := ComCall(3, this, "ptr*", &intent := 0, "HRESULT")
+        return intent
     }
 
     /**
@@ -66,13 +66,12 @@ class IXpsSignatureRequest extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} signerName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getrequestedsigner
      */
-    GetRequestedSigner(signerName) {
-        result := ComCall(5, this, "ptr", signerName, "HRESULT")
-        return result
+    GetRequestedSigner() {
+        result := ComCall(5, this, "ptr*", &signerName := 0, "HRESULT")
+        return signerName
     }
 
     /**
@@ -90,13 +89,12 @@ class IXpsSignatureRequest extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} dateString 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getrequestsignbydate
      */
-    GetRequestSignByDate(dateString) {
-        result := ComCall(7, this, "ptr", dateString, "HRESULT")
-        return result
+    GetRequestSignByDate() {
+        result := ComCall(7, this, "ptr*", &dateString := 0, "HRESULT")
+        return dateString
     }
 
     /**
@@ -114,13 +112,12 @@ class IXpsSignatureRequest extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} place 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getsigninglocale
      */
-    GetSigningLocale(place) {
-        result := ComCall(9, this, "ptr", place, "HRESULT")
-        return result
+    GetSigningLocale() {
+        result := ComCall(9, this, "ptr*", &place := 0, "HRESULT")
+        return place
     }
 
     /**
@@ -169,23 +166,21 @@ class IXpsSignatureRequest extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} requestId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getrequestid
      */
-    GetRequestId(requestId) {
-        result := ComCall(13, this, "ptr", requestId, "HRESULT")
-        return result
+    GetRequestId() {
+        result := ComCall(13, this, "ptr*", &requestId := 0, "HRESULT")
+        return requestId
     }
 
     /**
      * 
-     * @param {Pointer<IXpsSignature>} signature 
-     * @returns {HRESULT} 
+     * @returns {IXpsSignature} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getsignature
      */
-    GetSignature(signature) {
-        result := ComCall(14, this, "ptr*", signature, "HRESULT")
-        return result
+    GetSignature() {
+        result := ComCall(14, this, "ptr*", &signature := 0, "HRESULT")
+        return IXpsSignature(signature)
     }
 }

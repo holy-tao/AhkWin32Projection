@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDXGIAdapter.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IDXGISwapChain.ahk
 #Include .\IDXGIObject.ahk
 
 /**
@@ -60,13 +63,12 @@ class IDXGIFactory extends IDXGIObject{
     /**
      * 
      * @param {Integer} Adapter 
-     * @param {Pointer<IDXGIAdapter>} ppAdapter 
-     * @returns {HRESULT} 
+     * @returns {IDXGIAdapter} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory-enumadapters
      */
-    EnumAdapters(Adapter, ppAdapter) {
-        result := ComCall(7, this, "uint", Adapter, "ptr*", ppAdapter, "HRESULT")
-        return result
+    EnumAdapters(Adapter) {
+        result := ComCall(7, this, "uint", Adapter, "ptr*", &ppAdapter := 0, "HRESULT")
+        return IDXGIAdapter(ppAdapter)
     }
 
     /**
@@ -85,39 +87,37 @@ class IDXGIFactory extends IDXGIObject{
 
     /**
      * 
-     * @param {Pointer<HWND>} pWindowHandle 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory-getwindowassociation
      */
-    GetWindowAssociation(pWindowHandle) {
+    GetWindowAssociation() {
+        pWindowHandle := HWND()
         result := ComCall(9, this, "ptr", pWindowHandle, "HRESULT")
-        return result
+        return pWindowHandle
     }
 
     /**
      * 
      * @param {IUnknown} pDevice 
      * @param {Pointer<DXGI_SWAP_CHAIN_DESC>} pDesc 
-     * @param {Pointer<IDXGISwapChain>} ppSwapChain 
-     * @returns {HRESULT} 
+     * @returns {IDXGISwapChain} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory-createswapchain
      */
-    CreateSwapChain(pDevice, pDesc, ppSwapChain) {
-        result := ComCall(10, this, "ptr", pDevice, "ptr", pDesc, "ptr*", ppSwapChain, "int")
-        return result
+    CreateSwapChain(pDevice, pDesc) {
+        result := ComCall(10, this, "ptr", pDevice, "ptr", pDesc, "ptr*", &ppSwapChain := 0, "int")
+        return IDXGISwapChain(ppSwapChain)
     }
 
     /**
      * 
      * @param {HMODULE} Module 
-     * @param {Pointer<IDXGIAdapter>} ppAdapter 
-     * @returns {HRESULT} 
+     * @returns {IDXGIAdapter} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory-createsoftwareadapter
      */
-    CreateSoftwareAdapter(Module, ppAdapter) {
+    CreateSoftwareAdapter(Module) {
         Module := Module is Win32Handle ? NumGet(Module, "ptr") : Module
 
-        result := ComCall(11, this, "ptr", Module, "ptr*", ppAdapter, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", Module, "ptr*", &ppAdapter := 0, "HRESULT")
+        return IDXGIAdapter(ppAdapter)
     }
 }

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IDebugFAEntryTags.ahk
+#Include ..\..\..\..\Data\Xml\MsXml\IXMLDOMElement.ahk
+#Include ..\..\..\Variant\VARIANT.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -264,22 +267,20 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugFAEntryTags>} FATagControl 
-     * @returns {HRESULT} 
+     * @returns {IDebugFAEntryTags} 
      */
-    GetDebugFATagControl(FATagControl) {
-        result := ComCall(23, this, "ptr*", FATagControl, "HRESULT")
-        return result
+    GetDebugFATagControl() {
+        result := ComCall(23, this, "ptr*", &FATagControl := 0, "HRESULT")
+        return IDebugFAEntryTags(FATagControl)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMElement>} ppXMLDOMElement 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMElement} 
      */
-    GetAnalysisXml(ppXMLDOMElement) {
-        result := ComCall(24, this, "ptr*", ppXMLDOMElement, "HRESULT")
-        return result
+    GetAnalysisXml() {
+        result := ComCall(24, this, "ptr*", &ppXMLDOMElement := 0, "HRESULT")
+        return IXMLDOMElement(ppXMLDOMElement)
     }
 
     /**
@@ -306,23 +307,23 @@ class IDebugFailureAnalysis3 extends IUnknown{
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<VARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    AttributeGet(nIndex, pValue) {
+    AttributeGet(nIndex) {
+        pValue := VARIANT()
         result := ComCall(27, this, "uint", nIndex, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<BSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    AttributeGetName(nIndex, pName) {
+    AttributeGetName(nIndex) {
+        pName := BSTR()
         result := ComCall(28, this, "uint", nIndex, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
@@ -406,12 +407,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<VARIANT_BOOL>} pSet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    ProblemClassIsSet(nIndex, pSet) {
-        result := ComCall(36, this, "uint", nIndex, "ptr", pSet, "HRESULT")
-        return result
+    ProblemClassIsSet(nIndex) {
+        result := ComCall(36, this, "uint", nIndex, "short*", &pSet := 0, "HRESULT")
+        return pSet
     }
 
     /**
@@ -463,14 +463,13 @@ class IDebugFailureAnalysis3 extends IUnknown{
     /**
      * 
      * @param {BSTR} Key 
-     * @param {Pointer<IUnknown>} ppXMLDOMElement 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetAdditionalXML(Key, ppXMLDOMElement) {
+    GetAdditionalXML(Key) {
         Key := Key is String ? BSTR.Alloc(Key).Value : Key
 
-        result := ComCall(41, this, "ptr", Key, "ptr*", ppXMLDOMElement, "HRESULT")
-        return result
+        result := ComCall(41, this, "ptr", Key, "ptr*", &ppXMLDOMElement := 0, "HRESULT")
+        return IUnknown(ppXMLDOMElement)
     }
 
     /**

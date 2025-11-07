@@ -43,52 +43,42 @@ class ITransformProvider2 extends ITransformProvider{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-get_canzoom
      */
-    get_CanZoom(pRetVal) {
-        result := ComCall(10, this, "ptr", pRetVal, "HRESULT")
-        return result
+    get_CanZoom() {
+        result := ComCall(10, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-get_zoomlevel
      */
-    get_ZoomLevel(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(11, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_ZoomLevel() {
+        result := ComCall(11, this, "double*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-get_zoomminimum
      */
-    get_ZoomMinimum(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(12, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_ZoomMinimum() {
+        result := ComCall(12, this, "double*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-get_zoommaximum
      */
-    get_ZoomMaximum(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(13, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_ZoomMaximum() {
+        result := ComCall(13, this, "double*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**

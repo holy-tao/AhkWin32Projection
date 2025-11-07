@@ -32,13 +32,12 @@ class IOfflineFilesPinInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbPinned 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinned
      */
-    IsPinned(pbPinned) {
-        result := ComCall(3, this, "ptr", pbPinned, "HRESULT")
-        return result
+    IsPinned() {
+        result := ComCall(3, this, "int*", &pbPinned := 0, "HRESULT")
+        return pbPinned
     }
 
     /**
@@ -49,7 +48,10 @@ class IOfflineFilesPinInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforuser
      */
     IsPinnedForUser(pbPinnedForUser, pbInherit) {
-        result := ComCall(4, this, "ptr", pbPinnedForUser, "ptr", pbInherit, "HRESULT")
+        pbPinnedForUserMarshal := pbPinnedForUser is VarRef ? "int*" : "ptr"
+        pbInheritMarshal := pbInherit is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pbPinnedForUserMarshal, pbPinnedForUser, pbInheritMarshal, pbInherit, "HRESULT")
         return result
     }
 
@@ -61,7 +63,10 @@ class IOfflineFilesPinInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforuserbypolicy
      */
     IsPinnedForUserByPolicy(pbPinnedForUser, pbInherit) {
-        result := ComCall(5, this, "ptr", pbPinnedForUser, "ptr", pbInherit, "HRESULT")
+        pbPinnedForUserMarshal := pbPinnedForUser is VarRef ? "int*" : "ptr"
+        pbInheritMarshal := pbInherit is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pbPinnedForUserMarshal, pbPinnedForUser, pbInheritMarshal, pbInherit, "HRESULT")
         return result
     }
 
@@ -73,7 +78,10 @@ class IOfflineFilesPinInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforcomputer
      */
     IsPinnedForComputer(pbPinnedForComputer, pbInherit) {
-        result := ComCall(6, this, "ptr", pbPinnedForComputer, "ptr", pbInherit, "HRESULT")
+        pbPinnedForComputerMarshal := pbPinnedForComputer is VarRef ? "int*" : "ptr"
+        pbInheritMarshal := pbInherit is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pbPinnedForComputerMarshal, pbPinnedForComputer, pbInheritMarshal, pbInherit, "HRESULT")
         return result
     }
 
@@ -85,7 +93,10 @@ class IOfflineFilesPinInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforfolderredirection
      */
     IsPinnedForFolderRedirection(pbPinnedForFolderRedirection, pbInherit) {
-        result := ComCall(7, this, "ptr", pbPinnedForFolderRedirection, "ptr", pbInherit, "HRESULT")
+        pbPinnedForFolderRedirectionMarshal := pbPinnedForFolderRedirection is VarRef ? "int*" : "ptr"
+        pbInheritMarshal := pbInherit is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pbPinnedForFolderRedirectionMarshal, pbPinnedForFolderRedirection, pbInheritMarshal, pbInherit, "HRESULT")
         return result
     }
 }

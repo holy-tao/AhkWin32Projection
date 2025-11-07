@@ -32,15 +32,12 @@ class IXpsOMBrush extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<Float>} opacity 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsombrush-getopacity
      */
-    GetOpacity(opacity) {
-        opacityMarshal := opacity is VarRef ? "float*" : "ptr"
-
-        result := ComCall(5, this, opacityMarshal, opacity, "HRESULT")
-        return result
+    GetOpacity() {
+        result := ComCall(5, this, "float*", &opacity := 0, "HRESULT")
+        return opacity
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLDataTransfer.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,12 +38,11 @@ class IDOMDragEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLDataTransfer>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDataTransfer} 
      */
-    get_dataTransfer(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_dataTransfer() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDataTransfer(p)
     }
 
     /**

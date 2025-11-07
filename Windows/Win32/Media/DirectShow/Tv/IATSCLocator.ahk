@@ -43,15 +43,12 @@ class IATSCLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} PhysicalChannel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator-get_physicalchannel
      */
-    get_PhysicalChannel(PhysicalChannel) {
-        PhysicalChannelMarshal := PhysicalChannel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, PhysicalChannelMarshal, PhysicalChannel, "HRESULT")
-        return result
+    get_PhysicalChannel() {
+        result := ComCall(22, this, "int*", &PhysicalChannel := 0, "HRESULT")
+        return PhysicalChannel
     }
 
     /**
@@ -67,15 +64,12 @@ class IATSCLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} TSID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator-get_tsid
      */
-    get_TSID(TSID) {
-        TSIDMarshal := TSID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, TSIDMarshal, TSID, "HRESULT")
-        return result
+    get_TSID() {
+        result := ComCall(24, this, "int*", &TSID := 0, "HRESULT")
+        return TSID
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFaxInboundRoutingExtensions.ahk
+#Include .\IFaxInboundRoutingMethods.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,23 +44,21 @@ class IFaxInboundRouting extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFaxInboundRoutingExtensions>} pFaxInboundRoutingExtensions 
-     * @returns {HRESULT} 
+     * @returns {IFaxInboundRoutingExtensions} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundrouting-getextensions
      */
-    GetExtensions(pFaxInboundRoutingExtensions) {
-        result := ComCall(7, this, "ptr*", pFaxInboundRoutingExtensions, "HRESULT")
-        return result
+    GetExtensions() {
+        result := ComCall(7, this, "ptr*", &pFaxInboundRoutingExtensions := 0, "HRESULT")
+        return IFaxInboundRoutingExtensions(pFaxInboundRoutingExtensions)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxInboundRoutingMethods>} pFaxInboundRoutingMethods 
-     * @returns {HRESULT} 
+     * @returns {IFaxInboundRoutingMethods} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundrouting-getmethods
      */
-    GetMethods(pFaxInboundRoutingMethods) {
-        result := ComCall(8, this, "ptr*", pFaxInboundRoutingMethods, "HRESULT")
-        return result
+    GetMethods() {
+        result := ComCall(8, this, "ptr*", &pFaxInboundRoutingMethods := 0, "HRESULT")
+        return IFaxInboundRoutingMethods(pFaxInboundRoutingMethods)
     }
 }

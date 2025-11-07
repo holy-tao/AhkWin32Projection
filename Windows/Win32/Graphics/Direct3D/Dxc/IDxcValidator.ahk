@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcOperationResult.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,11 +33,10 @@ class IDxcValidator extends IUnknown{
      * 
      * @param {IDxcBlob} pShader 
      * @param {Integer} Flags 
-     * @param {Pointer<IDxcOperationResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcOperationResult} 
      */
-    Validate(pShader, Flags, ppResult) {
-        result := ComCall(3, this, "ptr", pShader, "uint", Flags, "ptr*", ppResult, "HRESULT")
-        return result
+    Validate(pShader, Flags) {
+        result := ComCall(3, this, "ptr", pShader, "uint", Flags, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcOperationResult(ppResult)
     }
 }

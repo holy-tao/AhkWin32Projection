@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISWbemServices.ahk
+#Include .\ISWbemSecurity.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -45,10 +47,9 @@ class ISWbemLocator extends IDispatch{
      * @param {BSTR} strAuthority 
      * @param {Integer} iSecurityFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemServices>} objWbemServices 
-     * @returns {HRESULT} 
+     * @returns {ISWbemServices} 
      */
-    ConnectServer(strServer, strNamespace, strUser, strPassword, strLocale, strAuthority, iSecurityFlags, objWbemNamedValueSet, objWbemServices) {
+    ConnectServer(strServer, strNamespace, strUser, strPassword, strLocale, strAuthority, iSecurityFlags, objWbemNamedValueSet) {
         strServer := strServer is String ? BSTR.Alloc(strServer).Value : strServer
         strNamespace := strNamespace is String ? BSTR.Alloc(strNamespace).Value : strNamespace
         strUser := strUser is String ? BSTR.Alloc(strUser).Value : strUser
@@ -56,17 +57,16 @@ class ISWbemLocator extends IDispatch{
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
         strAuthority := strAuthority is String ? BSTR.Alloc(strAuthority).Value : strAuthority
 
-        result := ComCall(7, this, "ptr", strServer, "ptr", strNamespace, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "ptr", strAuthority, "int", iSecurityFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemServices, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", strServer, "ptr", strNamespace, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "ptr", strAuthority, "int", iSecurityFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemServices := 0, "HRESULT")
+        return ISWbemServices(objWbemServices)
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemSecurity>} objWbemSecurity 
-     * @returns {HRESULT} 
+     * @returns {ISWbemSecurity} 
      */
-    get_Security_(objWbemSecurity) {
-        result := ComCall(8, this, "ptr*", objWbemSecurity, "HRESULT")
-        return result
+    get_Security_() {
+        result := ComCall(8, this, "ptr*", &objWbemSecurity := 0, "HRESULT")
+        return ISWbemSecurity(objWbemSecurity)
     }
 }

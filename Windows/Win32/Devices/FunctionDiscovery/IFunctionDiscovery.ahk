@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFunctionInstanceCollection.ahk
+#Include .\IFunctionInstance.ahk
+#Include .\IFunctionInstanceCollectionQuery.ahk
+#Include .\IFunctionInstanceQuery.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,30 +45,28 @@ class IFunctionDiscovery extends IUnknown{
      * @param {PWSTR} pszCategory 
      * @param {PWSTR} pszSubCategory 
      * @param {BOOL} fIncludeAllSubCategories 
-     * @param {Pointer<IFunctionInstanceCollection>} ppIFunctionInstanceCollection 
-     * @returns {HRESULT} 
+     * @returns {IFunctionInstanceCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-getinstancecollection
      */
-    GetInstanceCollection(pszCategory, pszSubCategory, fIncludeAllSubCategories, ppIFunctionInstanceCollection) {
+    GetInstanceCollection(pszCategory, pszSubCategory, fIncludeAllSubCategories) {
         pszCategory := pszCategory is String ? StrPtr(pszCategory) : pszCategory
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
 
-        result := ComCall(3, this, "ptr", pszCategory, "ptr", pszSubCategory, "int", fIncludeAllSubCategories, "ptr*", ppIFunctionInstanceCollection, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszCategory, "ptr", pszSubCategory, "int", fIncludeAllSubCategories, "ptr*", &ppIFunctionInstanceCollection := 0, "HRESULT")
+        return IFunctionInstanceCollection(ppIFunctionInstanceCollection)
     }
 
     /**
      * 
      * @param {PWSTR} pszFunctionInstanceIdentity 
-     * @param {Pointer<IFunctionInstance>} ppIFunctionInstance 
-     * @returns {HRESULT} 
+     * @returns {IFunctionInstance} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-getinstance
      */
-    GetInstance(pszFunctionInstanceIdentity, ppIFunctionInstance) {
+    GetInstance(pszFunctionInstanceIdentity) {
         pszFunctionInstanceIdentity := pszFunctionInstanceIdentity is String ? StrPtr(pszFunctionInstanceIdentity) : pszFunctionInstanceIdentity
 
-        result := ComCall(4, this, "ptr", pszFunctionInstanceIdentity, "ptr*", ppIFunctionInstance, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszFunctionInstanceIdentity, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        return IFunctionInstance(ppIFunctionInstance)
     }
 
     /**
@@ -74,18 +76,17 @@ class IFunctionDiscovery extends IUnknown{
      * @param {BOOL} fIncludeAllSubCategories 
      * @param {IFunctionDiscoveryNotification} pIFunctionDiscoveryNotification 
      * @param {Pointer<Integer>} pfdqcQueryContext 
-     * @param {Pointer<IFunctionInstanceCollectionQuery>} ppIFunctionInstanceCollectionQuery 
-     * @returns {HRESULT} 
+     * @returns {IFunctionInstanceCollectionQuery} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-createinstancecollectionquery
      */
-    CreateInstanceCollectionQuery(pszCategory, pszSubCategory, fIncludeAllSubCategories, pIFunctionDiscoveryNotification, pfdqcQueryContext, ppIFunctionInstanceCollectionQuery) {
+    CreateInstanceCollectionQuery(pszCategory, pszSubCategory, fIncludeAllSubCategories, pIFunctionDiscoveryNotification, pfdqcQueryContext) {
         pszCategory := pszCategory is String ? StrPtr(pszCategory) : pszCategory
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
 
         pfdqcQueryContextMarshal := pfdqcQueryContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszCategory, "ptr", pszSubCategory, "int", fIncludeAllSubCategories, "ptr", pIFunctionDiscoveryNotification, pfdqcQueryContextMarshal, pfdqcQueryContext, "ptr*", ppIFunctionInstanceCollectionQuery, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszCategory, "ptr", pszSubCategory, "int", fIncludeAllSubCategories, "ptr", pIFunctionDiscoveryNotification, pfdqcQueryContextMarshal, pfdqcQueryContext, "ptr*", &ppIFunctionInstanceCollectionQuery := 0, "HRESULT")
+        return IFunctionInstanceCollectionQuery(ppIFunctionInstanceCollectionQuery)
     }
 
     /**
@@ -93,17 +94,16 @@ class IFunctionDiscovery extends IUnknown{
      * @param {PWSTR} pszFunctionInstanceIdentity 
      * @param {IFunctionDiscoveryNotification} pIFunctionDiscoveryNotification 
      * @param {Pointer<Integer>} pfdqcQueryContext 
-     * @param {Pointer<IFunctionInstanceQuery>} ppIFunctionInstanceQuery 
-     * @returns {HRESULT} 
+     * @returns {IFunctionInstanceQuery} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-createinstancequery
      */
-    CreateInstanceQuery(pszFunctionInstanceIdentity, pIFunctionDiscoveryNotification, pfdqcQueryContext, ppIFunctionInstanceQuery) {
+    CreateInstanceQuery(pszFunctionInstanceIdentity, pIFunctionDiscoveryNotification, pfdqcQueryContext) {
         pszFunctionInstanceIdentity := pszFunctionInstanceIdentity is String ? StrPtr(pszFunctionInstanceIdentity) : pszFunctionInstanceIdentity
 
         pfdqcQueryContextMarshal := pfdqcQueryContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pszFunctionInstanceIdentity, "ptr", pIFunctionDiscoveryNotification, pfdqcQueryContextMarshal, pfdqcQueryContext, "ptr*", ppIFunctionInstanceQuery, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszFunctionInstanceIdentity, "ptr", pIFunctionDiscoveryNotification, pfdqcQueryContextMarshal, pfdqcQueryContext, "ptr*", &ppIFunctionInstanceQuery := 0, "HRESULT")
+        return IFunctionInstanceQuery(ppIFunctionInstanceQuery)
     }
 
     /**
@@ -112,17 +112,16 @@ class IFunctionDiscovery extends IUnknown{
      * @param {PWSTR} pszCategory 
      * @param {PWSTR} pszSubCategory 
      * @param {PWSTR} pszCategoryIdentity 
-     * @param {Pointer<IFunctionInstance>} ppIFunctionInstance 
-     * @returns {HRESULT} 
+     * @returns {IFunctionInstance} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscovery-addinstance
      */
-    AddInstance(enumSystemVisibility, pszCategory, pszSubCategory, pszCategoryIdentity, ppIFunctionInstance) {
+    AddInstance(enumSystemVisibility, pszCategory, pszSubCategory, pszCategoryIdentity) {
         pszCategory := pszCategory is String ? StrPtr(pszCategory) : pszCategory
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
         pszCategoryIdentity := pszCategoryIdentity is String ? StrPtr(pszCategoryIdentity) : pszCategoryIdentity
 
-        result := ComCall(7, this, "int", enumSystemVisibility, "ptr", pszCategory, "ptr", pszSubCategory, "ptr", pszCategoryIdentity, "ptr*", ppIFunctionInstance, "HRESULT")
-        return result
+        result := ComCall(7, this, "int", enumSystemVisibility, "ptr", pszCategory, "ptr", pszSubCategory, "ptr", pszCategoryIdentity, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        return IFunctionInstance(ppIFunctionInstance)
     }
 
     /**

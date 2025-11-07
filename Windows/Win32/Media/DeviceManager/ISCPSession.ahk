@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISCPSecureQuery.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -61,12 +62,11 @@ class ISCPSession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISCPSecureQuery>} ppSecureQuery 
-     * @returns {HRESULT} 
+     * @returns {ISCPSecureQuery} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsession-getsecurequery
      */
-    GetSecureQuery(ppSecureQuery) {
-        result := ComCall(5, this, "ptr*", ppSecureQuery, "HRESULT")
-        return result
+    GetSecureQuery() {
+        result := ComCall(5, this, "ptr*", &ppSecureQuery := 0, "HRESULT")
+        return ISCPSecureQuery(ppSecureQuery)
     }
 }

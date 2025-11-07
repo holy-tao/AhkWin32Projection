@@ -33,15 +33,12 @@ class INSSBuffer2 extends INSSBuffer{
     /**
      * 
      * @param {Integer} cbProperties 
-     * @param {Pointer<Integer>} pbProperties 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer2
      */
-    GetSampleProperties(cbProperties, pbProperties) {
-        pbPropertiesMarshal := pbProperties is VarRef ? "char*" : "ptr"
-
-        result := ComCall(8, this, "uint", cbProperties, pbPropertiesMarshal, pbProperties, "HRESULT")
-        return result
+    GetSampleProperties(cbProperties) {
+        result := ComCall(8, this, "uint", cbProperties, "char*", &pbProperties := 0, "HRESULT")
+        return pbProperties
     }
 
     /**

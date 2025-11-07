@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncMgrSyncItem.ahk
+#Include .\IEnumSyncMgrSyncItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,38 +39,33 @@ class ISyncMgrSyncItemContainer extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszItemID 
-     * @param {Pointer<ISyncMgrSyncItem>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {ISyncMgrSyncItem} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitemcontainer-getsyncitem
      */
-    GetSyncItem(pszItemID, ppItem) {
+    GetSyncItem(pszItemID) {
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(3, this, "ptr", pszItemID, "ptr*", ppItem, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszItemID, "ptr*", &ppItem := 0, "HRESULT")
+        return ISyncMgrSyncItem(ppItem)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumSyncMgrSyncItems>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSyncMgrSyncItems} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitemcontainer-getsyncitemenumerator
      */
-    GetSyncItemEnumerator(ppenum) {
-        result := ComCall(4, this, "ptr*", ppenum, "HRESULT")
-        return result
+    GetSyncItemEnumerator() {
+        result := ComCall(4, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumSyncMgrSyncItems(ppenum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcItems 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitemcontainer-getsyncitemcount
      */
-    GetSyncItemCount(pcItems) {
-        pcItemsMarshal := pcItems is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pcItemsMarshal, pcItems, "HRESULT")
-        return result
+    GetSyncItemCount() {
+        result := ComCall(5, this, "uint*", &pcItems := 0, "HRESULT")
+        return pcItems
     }
 }

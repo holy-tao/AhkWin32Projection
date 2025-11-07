@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ITemplatePrinter.ahk
 
 /**
@@ -41,12 +42,11 @@ class ITemplatePrinter2 extends ITemplatePrinter{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_selectionEnabled(p) {
-        result := ComCall(63, this, "ptr", p, "HRESULT")
-        return result
+    get_selectionEnabled() {
+        result := ComCall(63, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -61,12 +61,11 @@ class ITemplatePrinter2 extends ITemplatePrinter{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_frameActiveEnabled(p) {
-        result := ComCall(65, this, "ptr", p, "HRESULT")
-        return result
+    get_frameActiveEnabled() {
+        result := ComCall(65, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -83,12 +82,12 @@ class ITemplatePrinter2 extends ITemplatePrinter{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_orientation(p) {
+    get_orientation() {
+        p := BSTR()
         result := ComCall(67, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -103,24 +102,23 @@ class ITemplatePrinter2 extends ITemplatePrinter{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_usePrinterCopyCollate(p) {
-        result := ComCall(69, this, "ptr", p, "HRESULT")
-        return result
+    get_usePrinterCopyCollate() {
+        result := ComCall(69, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {BSTR} bstrProperty 
-     * @param {Pointer<VARIANT>} pvar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    deviceSupports(bstrProperty, pvar) {
+    deviceSupports(bstrProperty) {
         bstrProperty := bstrProperty is String ? BSTR.Alloc(bstrProperty).Value : bstrProperty
 
+        pvar := VARIANT()
         result := ComCall(70, this, "ptr", bstrProperty, "ptr", pvar, "HRESULT")
-        return result
+        return pvar
     }
 }

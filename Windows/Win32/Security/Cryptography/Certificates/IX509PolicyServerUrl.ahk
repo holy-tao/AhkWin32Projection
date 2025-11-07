@@ -54,13 +54,13 @@ class IX509PolicyServerUrl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-get_url
      */
-    get_Url(ppValue) {
+    get_Url() {
+        ppValue := BSTR()
         result := ComCall(8, this, "ptr", ppValue, "HRESULT")
-        return result
+        return ppValue
     }
 
     /**
@@ -78,13 +78,12 @@ class IX509PolicyServerUrl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-get_default
      */
-    get_Default(pValue) {
-        result := ComCall(10, this, "ptr", pValue, "HRESULT")
-        return result
+    get_Default() {
+        result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -100,15 +99,12 @@ class IX509PolicyServerUrl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-get_flags
      */
-    get_Flags(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Flags() {
+        result := ComCall(12, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -124,15 +120,12 @@ class IX509PolicyServerUrl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-get_authflags
      */
-    get_AuthFlags(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_AuthFlags() {
+        result := ComCall(14, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -148,15 +141,12 @@ class IX509PolicyServerUrl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-get_cost
      */
-    get_Cost(pValue) {
-        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Cost() {
+        result := ComCall(16, this, "uint*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -173,13 +163,13 @@ class IX509PolicyServerUrl extends IDispatch{
     /**
      * 
      * @param {Integer} propertyId 
-     * @param {Pointer<BSTR>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-getstringproperty
      */
-    GetStringProperty(propertyId, ppValue) {
+    GetStringProperty(propertyId) {
+        ppValue := BSTR()
         result := ComCall(18, this, "int", propertyId, "ptr", ppValue, "HRESULT")
-        return result
+        return ppValue
     }
 
     /**

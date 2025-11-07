@@ -36,15 +36,12 @@ class IBDA_AUX extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwNumAuxInputsBSTR 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_aux-querycapabilities
      */
-    QueryCapabilities(pdwNumAuxInputsBSTR) {
-        pdwNumAuxInputsBSTRMarshal := pdwNumAuxInputsBSTR is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwNumAuxInputsBSTRMarshal, pdwNumAuxInputsBSTR, "HRESULT")
-        return result
+    QueryCapabilities() {
+        result := ComCall(3, this, "uint*", &pdwNumAuxInputsBSTR := 0, "HRESULT")
+        return pdwNumAuxInputsBSTR
     }
 
     /**

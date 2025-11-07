@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHlinkBrowseContext.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,12 +41,11 @@ class IHlinkFrame extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHlinkBrowseContext>} ppihlbc 
-     * @returns {HRESULT} 
+     * @returns {IHlinkBrowseContext} 
      */
-    GetBrowseContext(ppihlbc) {
-        result := ComCall(4, this, "ptr*", ppihlbc, "HRESULT")
-        return result
+    GetBrowseContext() {
+        result := ComCall(4, this, "ptr*", &ppihlbc := 0, "HRESULT")
+        return IHlinkBrowseContext(ppihlbc)
     }
 
     /**

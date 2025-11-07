@@ -5357,8 +5357,9 @@ class WNet {
      */
     static WNetGetResourceInformationA(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem) {
         lpcbBufferMarshal := lpcbBuffer is VarRef ? "uint*" : "ptr"
+        lplpSystemMarshal := lplpSystem is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MPR.dll\WNetGetResourceInformationA", "ptr", lpNetResource, "ptr", lpBuffer, lpcbBufferMarshal, lpcbBuffer, "ptr", lplpSystem, "uint")
+        result := DllCall("MPR.dll\WNetGetResourceInformationA", "ptr", lpNetResource, "ptr", lpBuffer, lpcbBufferMarshal, lpcbBuffer, lplpSystemMarshal, lplpSystem, "uint")
         return result
     }
 
@@ -5469,8 +5470,9 @@ class WNet {
      */
     static WNetGetResourceInformationW(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem) {
         lpcbBufferMarshal := lpcbBuffer is VarRef ? "uint*" : "ptr"
+        lplpSystemMarshal := lplpSystem is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MPR.dll\WNetGetResourceInformationW", "ptr", lpNetResource, "ptr", lpBuffer, lpcbBufferMarshal, lpcbBuffer, "ptr", lplpSystem, "uint")
+        result := DllCall("MPR.dll\WNetGetResourceInformationW", "ptr", lpNetResource, "ptr", lpBuffer, lpcbBufferMarshal, lpcbBuffer, lplpSystemMarshal, lplpSystem, "uint")
         return result
     }
 
@@ -7752,8 +7754,9 @@ class WNet {
      */
     static NPGetResourceInformation(lpNetResource, lpBuffer, lpBufferSize, lplpSystem) {
         lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+        lplpSystemMarshal := lplpSystem is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("davclnt.dll\NPGetResourceInformation", "ptr", lpNetResource, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, "ptr", lplpSystem, "uint")
+        result := DllCall("davclnt.dll\NPGetResourceInformation", "ptr", lpNetResource, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, lplpSystemMarshal, lplpSystem, "uint")
         return result
     }
 

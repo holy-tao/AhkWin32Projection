@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumString.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,30 +46,27 @@ class IWICMetadataQueryReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidContainerFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicmetadataqueryreader-getcontainerformat
      */
-    GetContainerFormat(pguidContainerFormat) {
+    GetContainerFormat() {
+        pguidContainerFormat := Guid()
         result := ComCall(3, this, "ptr", pguidContainerFormat, "HRESULT")
-        return result
+        return pguidContainerFormat
     }
 
     /**
      * 
      * @param {Integer} cchMaxLength 
      * @param {PWSTR} wzNamespace 
-     * @param {Pointer<Integer>} pcchActualLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicmetadataqueryreader-getlocation
      */
-    GetLocation(cchMaxLength, wzNamespace, pcchActualLength) {
+    GetLocation(cchMaxLength, wzNamespace) {
         wzNamespace := wzNamespace is String ? StrPtr(wzNamespace) : wzNamespace
 
-        pcchActualLengthMarshal := pcchActualLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", cchMaxLength, "ptr", wzNamespace, pcchActualLengthMarshal, pcchActualLength, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", cchMaxLength, "ptr", wzNamespace, "uint*", &pcchActualLength := 0, "HRESULT")
+        return pcchActualLength
     }
 
     /**
@@ -87,12 +85,11 @@ class IWICMetadataQueryReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumString>} ppIEnumString 
-     * @returns {HRESULT} 
+     * @returns {IEnumString} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicmetadataqueryreader-getenumerator
      */
-    GetEnumerator(ppIEnumString) {
-        result := ComCall(6, this, "ptr*", ppIEnumString, "HRESULT")
-        return result
+    GetEnumerator() {
+        result := ComCall(6, this, "ptr*", &ppIEnumString := 0, "HRESULT")
+        return IEnumString(ppIEnumString)
     }
 }

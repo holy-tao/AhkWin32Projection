@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFaxOutgoingJob.ahk
 
 /**
@@ -36,36 +37,32 @@ class IFaxOutgoingJob2 extends IFaxOutgoingJob{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbHasCoverPage 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_hascoverpage
      */
-    get_HasCoverPage(pbHasCoverPage) {
-        result := ComCall(38, this, "ptr", pbHasCoverPage, "HRESULT")
-        return result
+    get_HasCoverPage() {
+        result := ComCall(38, this, "short*", &pbHasCoverPage := 0, "HRESULT")
+        return pbHasCoverPage
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrReceiptAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_receiptaddress
      */
-    get_ReceiptAddress(pbstrReceiptAddress) {
+    get_ReceiptAddress() {
+        pbstrReceiptAddress := BSTR()
         result := ComCall(39, this, "ptr", pbstrReceiptAddress, "HRESULT")
-        return result
+        return pbstrReceiptAddress
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pScheduleType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_scheduletype
      */
-    get_ScheduleType(pScheduleType) {
-        pScheduleTypeMarshal := pScheduleType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(40, this, pScheduleTypeMarshal, pScheduleType, "HRESULT")
-        return result
+    get_ScheduleType() {
+        result := ComCall(40, this, "int*", &pScheduleType := 0, "HRESULT")
+        return pScheduleType
     }
 }

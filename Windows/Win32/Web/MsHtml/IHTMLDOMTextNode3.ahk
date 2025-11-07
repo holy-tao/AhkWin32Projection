@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLDOMNode.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,12 +34,12 @@ class IHTMLDOMTextNode3 extends IDispatch{
      * 
      * @param {Integer} offset 
      * @param {Integer} Count 
-     * @param {Pointer<BSTR>} pbstrsubString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    substringData(offset, Count, pbstrsubString) {
+    substringData(offset, Count) {
+        pbstrsubString := BSTR()
         result := ComCall(7, this, "int", offset, "int", Count, "ptr", pbstrsubString, "HRESULT")
-        return result
+        return pbstrsubString
     }
 
     /**
@@ -82,45 +83,42 @@ class IHTMLDOMTextNode3 extends IDispatch{
     /**
      * 
      * @param {Integer} offset 
-     * @param {Pointer<IHTMLDOMNode>} pRetNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    splitText(offset, pRetNode) {
-        result := ComCall(11, this, "int", offset, "ptr*", pRetNode, "HRESULT")
-        return result
+    splitText(offset) {
+        result := ComCall(11, this, "int", offset, "ptr*", &pRetNode := 0, "HRESULT")
+        return IHTMLDOMNode(pRetNode)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_wholeText(p) {
+    get_wholeText() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {BSTR} bstrText 
-     * @param {Pointer<IHTMLDOMNode>} ppRetNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    replaceWholeText(bstrText, ppRetNode) {
+    replaceWholeText(bstrText) {
         bstrText := bstrText is String ? BSTR.Alloc(bstrText).Value : bstrText
 
-        result := ComCall(13, this, "ptr", bstrText, "ptr*", ppRetNode, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", bstrText, "ptr*", &ppRetNode := 0, "HRESULT")
+        return IHTMLDOMNode(ppRetNode)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfHasAttributes 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    hasAttributes(pfHasAttributes) {
-        result := ComCall(14, this, "ptr", pfHasAttributes, "HRESULT")
-        return result
+    hasAttributes() {
+        result := ComCall(14, this, "short*", &pfHasAttributes := 0, "HRESULT")
+        return pfHasAttributes
     }
 
     /**

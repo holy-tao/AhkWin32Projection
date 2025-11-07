@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,18 +39,17 @@ class IDocObjectService extends IUnknown{
      * @param {Integer} cbPostData 
      * @param {PWSTR} lpszHeaders 
      * @param {BOOL} fPlayNavSound 
-     * @param {Pointer<BOOL>} pfCancel 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    FireBeforeNavigate2(pDispatch, lpszUrl, dwFlags, lpszFrameName, pPostData, cbPostData, lpszHeaders, fPlayNavSound, pfCancel) {
+    FireBeforeNavigate2(pDispatch, lpszUrl, dwFlags, lpszFrameName, pPostData, cbPostData, lpszHeaders, fPlayNavSound) {
         lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
         lpszFrameName := lpszFrameName is String ? StrPtr(lpszFrameName) : lpszFrameName
         lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
         pPostDataMarshal := pPostData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pDispatch, "ptr", lpszUrl, "uint", dwFlags, "ptr", lpszFrameName, pPostDataMarshal, pPostData, "uint", cbPostData, "ptr", lpszHeaders, "int", fPlayNavSound, "ptr", pfCancel, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pDispatch, "ptr", lpszUrl, "uint", dwFlags, "ptr", lpszFrameName, pPostDataMarshal, pPostData, "uint", cbPostData, "ptr", lpszHeaders, "int", fPlayNavSound, "int*", &pfCancel := 0, "HRESULT")
+        return pfCancel
     }
 
     /**
@@ -104,12 +104,12 @@ class IDocObjectService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPendingUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetPendingUrl(pbstrPendingUrl) {
+    GetPendingUrl() {
+        pbstrPendingUrl := BSTR()
         result := ComCall(9, this, "ptr", pbstrPendingUrl, "HRESULT")
-        return result
+        return pbstrPendingUrl
     }
 
     /**
@@ -124,24 +124,23 @@ class IDocObjectService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSearch 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetUrlSearchComponent(pbstrSearch) {
+    GetUrlSearchComponent() {
+        pbstrSearch := BSTR()
         result := ComCall(11, this, "ptr", pbstrSearch, "HRESULT")
-        return result
+        return pbstrSearch
     }
 
     /**
      * 
      * @param {PWSTR} lpszUrl 
-     * @param {Pointer<BOOL>} pfIsError 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsErrorUrl(lpszUrl, pfIsError) {
+    IsErrorUrl(lpszUrl) {
         lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
 
-        result := ComCall(12, this, "ptr", lpszUrl, "ptr", pfIsError, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", lpszUrl, "int*", &pfIsError := 0, "HRESULT")
+        return pfIsError
     }
 }

@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXVA2_VideoProcessorCaps.ahk
+#Include .\DXVA2_ValueRange.ahk
+#Include .\DXVA2_ProcAmpValues.ahk
+#Include .\DXVA2_Fixed32.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -67,39 +71,37 @@ class IMFVideoProcessor extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} lpdwNumProcessingModes 
-     * @param {Pointer<Pointer<Guid>>} ppVideoProcessingModes 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Guid>} 
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-getavailablevideoprocessormodes
      */
-    GetAvailableVideoProcessorModes(lpdwNumProcessingModes, ppVideoProcessingModes) {
+    GetAvailableVideoProcessorModes(lpdwNumProcessingModes) {
         lpdwNumProcessingModesMarshal := lpdwNumProcessingModes is VarRef ? "uint*" : "ptr"
-        ppVideoProcessingModesMarshal := ppVideoProcessingModes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, lpdwNumProcessingModesMarshal, lpdwNumProcessingModes, ppVideoProcessingModesMarshal, ppVideoProcessingModes, "HRESULT")
-        return result
+        result := ComCall(3, this, lpdwNumProcessingModesMarshal, lpdwNumProcessingModes, "ptr*", &ppVideoProcessingModes := 0, "HRESULT")
+        return ppVideoProcessingModes
     }
 
     /**
      * 
      * @param {Pointer<Guid>} lpVideoProcessorMode 
-     * @param {Pointer<DXVA2_VideoProcessorCaps>} lpVideoProcessorCaps 
-     * @returns {HRESULT} 
+     * @returns {DXVA2_VideoProcessorCaps} 
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-getvideoprocessorcaps
      */
-    GetVideoProcessorCaps(lpVideoProcessorMode, lpVideoProcessorCaps) {
+    GetVideoProcessorCaps(lpVideoProcessorMode) {
+        lpVideoProcessorCaps := DXVA2_VideoProcessorCaps()
         result := ComCall(4, this, "ptr", lpVideoProcessorMode, "ptr", lpVideoProcessorCaps, "HRESULT")
-        return result
+        return lpVideoProcessorCaps
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} lpMode 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-getvideoprocessormode
      */
-    GetVideoProcessorMode(lpMode) {
+    GetVideoProcessorMode() {
+        lpMode := Guid()
         result := ComCall(5, this, "ptr", lpMode, "HRESULT")
-        return result
+        return lpMode
     }
 
     /**
@@ -116,25 +118,25 @@ class IMFVideoProcessor extends IUnknown{
     /**
      * 
      * @param {Integer} dwProperty 
-     * @param {Pointer<DXVA2_ValueRange>} pPropRange 
-     * @returns {HRESULT} 
+     * @returns {DXVA2_ValueRange} 
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-getprocamprange
      */
-    GetProcAmpRange(dwProperty, pPropRange) {
+    GetProcAmpRange(dwProperty) {
+        pPropRange := DXVA2_ValueRange()
         result := ComCall(7, this, "uint", dwProperty, "ptr", pPropRange, "HRESULT")
-        return result
+        return pPropRange
     }
 
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<DXVA2_ProcAmpValues>} Values 
-     * @returns {HRESULT} 
+     * @returns {DXVA2_ProcAmpValues} 
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-getprocampvalues
      */
-    GetProcAmpValues(dwFlags, Values) {
+    GetProcAmpValues(dwFlags) {
+        Values := DXVA2_ProcAmpValues()
         result := ComCall(8, this, "uint", dwFlags, "ptr", Values, "HRESULT")
-        return result
+        return Values
     }
 
     /**
@@ -152,25 +154,25 @@ class IMFVideoProcessor extends IUnknown{
     /**
      * 
      * @param {Integer} dwProperty 
-     * @param {Pointer<DXVA2_ValueRange>} pPropRange 
-     * @returns {HRESULT} 
+     * @returns {DXVA2_ValueRange} 
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-getfilteringrange
      */
-    GetFilteringRange(dwProperty, pPropRange) {
+    GetFilteringRange(dwProperty) {
+        pPropRange := DXVA2_ValueRange()
         result := ComCall(10, this, "uint", dwProperty, "ptr", pPropRange, "HRESULT")
-        return result
+        return pPropRange
     }
 
     /**
      * 
      * @param {Integer} dwProperty 
-     * @param {Pointer<DXVA2_Fixed32>} pValue 
-     * @returns {HRESULT} 
+     * @returns {DXVA2_Fixed32} 
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-getfilteringvalue
      */
-    GetFilteringValue(dwProperty, pValue) {
+    GetFilteringValue(dwProperty) {
+        pValue := DXVA2_Fixed32()
         result := ComCall(11, this, "uint", dwProperty, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -187,13 +189,12 @@ class IMFVideoProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<COLORREF>} lpClrBkg 
-     * @returns {HRESULT} 
+     * @returns {COLORREF} 
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-getbackgroundcolor
      */
-    GetBackgroundColor(lpClrBkg) {
-        result := ComCall(13, this, "ptr", lpClrBkg, "HRESULT")
-        return result
+    GetBackgroundColor() {
+        result := ComCall(13, this, "uint*", &lpClrBkg := 0, "HRESULT")
+        return lpClrBkg
     }
 
     /**

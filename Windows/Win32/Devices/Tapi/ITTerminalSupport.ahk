@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumTerminal.ahk
+#Include .\IEnumTerminalClass.ahk
+#Include .\ITTerminal.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,46 +37,44 @@ class ITTerminalSupport extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-get_staticterminals
      */
-    get_StaticTerminals(pVariant) {
+    get_StaticTerminals() {
+        pVariant := VARIANT()
         result := ComCall(7, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumTerminal>} ppTerminalEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IEnumTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-enumeratestaticterminals
      */
-    EnumerateStaticTerminals(ppTerminalEnumerator) {
-        result := ComCall(8, this, "ptr*", ppTerminalEnumerator, "HRESULT")
-        return result
+    EnumerateStaticTerminals() {
+        result := ComCall(8, this, "ptr*", &ppTerminalEnumerator := 0, "HRESULT")
+        return IEnumTerminal(ppTerminalEnumerator)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-get_dynamicterminalclasses
      */
-    get_DynamicTerminalClasses(pVariant) {
+    get_DynamicTerminalClasses() {
+        pVariant := VARIANT()
         result := ComCall(9, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumTerminalClass>} ppTerminalClassEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IEnumTerminalClass} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-enumeratedynamicterminalclasses
      */
-    EnumerateDynamicTerminalClasses(ppTerminalClassEnumerator) {
-        result := ComCall(10, this, "ptr*", ppTerminalClassEnumerator, "HRESULT")
-        return result
+    EnumerateDynamicTerminalClasses() {
+        result := ComCall(10, this, "ptr*", &ppTerminalClassEnumerator := 0, "HRESULT")
+        return IEnumTerminalClass(ppTerminalClassEnumerator)
     }
 
     /**
@@ -80,27 +82,25 @@ class ITTerminalSupport extends IDispatch{
      * @param {BSTR} pTerminalClass 
      * @param {Integer} lMediaType 
      * @param {Integer} Direction 
-     * @param {Pointer<ITTerminal>} ppTerminal 
-     * @returns {HRESULT} 
+     * @returns {ITTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-createterminal
      */
-    CreateTerminal(pTerminalClass, lMediaType, Direction, ppTerminal) {
+    CreateTerminal(pTerminalClass, lMediaType, Direction) {
         pTerminalClass := pTerminalClass is String ? BSTR.Alloc(pTerminalClass).Value : pTerminalClass
 
-        result := ComCall(11, this, "ptr", pTerminalClass, "int", lMediaType, "int", Direction, "ptr*", ppTerminal, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", pTerminalClass, "int", lMediaType, "int", Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+        return ITTerminal(ppTerminal)
     }
 
     /**
      * 
      * @param {Integer} lMediaType 
      * @param {Integer} Direction 
-     * @param {Pointer<ITTerminal>} ppTerminal 
-     * @returns {HRESULT} 
+     * @returns {ITTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-getdefaultstaticterminal
      */
-    GetDefaultStaticTerminal(lMediaType, Direction, ppTerminal) {
-        result := ComCall(12, this, "int", lMediaType, "int", Direction, "ptr*", ppTerminal, "HRESULT")
-        return result
+    GetDefaultStaticTerminal(lMediaType, Direction) {
+        result := ComCall(12, this, "int", lMediaType, "int", Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+        return ITTerminal(ppTerminal)
     }
 }

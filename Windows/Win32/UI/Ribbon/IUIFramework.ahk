@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -94,28 +95,25 @@ class IUIFramework extends IUnknown{
      * 
      * @param {Integer} viewId 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-getview
      */
-    GetView(viewId, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "uint", viewId, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetView(viewId, riid) {
+        result := ComCall(6, this, "uint", viewId, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Integer} commandId 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPVARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-getuicommandproperty
      */
-    GetUICommandProperty(commandId, key, value) {
+    GetUICommandProperty(commandId, key) {
+        value := PROPVARIANT()
         result := ComCall(7, this, "uint", commandId, "ptr", key, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**

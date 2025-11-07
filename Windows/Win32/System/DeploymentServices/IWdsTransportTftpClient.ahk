@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,88 +39,73 @@ class IWdsTransportTftpClient extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszFileName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_filename
      */
-    get_FileName(pbszFileName) {
+    get_FileName() {
+        pbszFileName := BSTR()
         result := ComCall(7, this, "ptr", pbszFileName, "HRESULT")
-        return result
+        return pbszFileName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszIpAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_ipaddress
      */
-    get_IpAddress(pbszIpAddress) {
+    get_IpAddress() {
+        pbszIpAddress := BSTR()
         result := ComCall(8, this, "ptr", pbszIpAddress, "HRESULT")
-        return result
+        return pbszIpAddress
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulTimeout 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_timeout
      */
-    get_Timeout(pulTimeout) {
-        pulTimeoutMarshal := pulTimeout is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pulTimeoutMarshal, pulTimeout, "HRESULT")
-        return result
+    get_Timeout() {
+        result := ComCall(9, this, "uint*", &pulTimeout := 0, "HRESULT")
+        return pulTimeout
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pul64CurrentOffset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_currentfileoffset
      */
-    get_CurrentFileOffset(pul64CurrentOffset) {
-        pul64CurrentOffsetMarshal := pul64CurrentOffset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pul64CurrentOffsetMarshal, pul64CurrentOffset, "HRESULT")
-        return result
+    get_CurrentFileOffset() {
+        result := ComCall(10, this, "uint*", &pul64CurrentOffset := 0, "HRESULT")
+        return pul64CurrentOffset
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pul64FileSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_filesize
      */
-    get_FileSize(pul64FileSize) {
-        pul64FileSizeMarshal := pul64FileSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pul64FileSizeMarshal, pul64FileSize, "HRESULT")
-        return result
+    get_FileSize() {
+        result := ComCall(11, this, "uint*", &pul64FileSize := 0, "HRESULT")
+        return pul64FileSize
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulBlockSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_blocksize
      */
-    get_BlockSize(pulBlockSize) {
-        pulBlockSizeMarshal := pulBlockSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pulBlockSizeMarshal, pulBlockSize, "HRESULT")
-        return result
+    get_BlockSize() {
+        result := ComCall(12, this, "uint*", &pulBlockSize := 0, "HRESULT")
+        return pulBlockSize
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulWindowSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_windowsize
      */
-    get_WindowSize(pulWindowSize) {
-        pulWindowSizeMarshal := pulWindowSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pulWindowSizeMarshal, pulWindowSize, "HRESULT")
-        return result
+    get_WindowSize() {
+        result := ComCall(13, this, "uint*", &pulWindowSize := 0, "HRESULT")
+        return pulWindowSize
     }
 }

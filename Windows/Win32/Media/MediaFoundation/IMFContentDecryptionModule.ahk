@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFCdmSuspendNotify.ahk
+#Include .\IMFContentDecryptionModuleSession.ahk
+#Include .\IMFTrustedInput.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,13 +50,12 @@ class IMFContentDecryptionModule extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFCdmSuspendNotify>} notify 
-     * @returns {HRESULT} 
+     * @returns {IMFCdmSuspendNotify} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-getsuspendnotify
      */
-    GetSuspendNotify(notify) {
-        result := ComCall(4, this, "ptr*", notify, "HRESULT")
-        return result
+    GetSuspendNotify() {
+        result := ComCall(4, this, "ptr*", &notify := 0, "HRESULT")
+        return IMFCdmSuspendNotify(notify)
     }
 
     /**
@@ -71,13 +73,12 @@ class IMFContentDecryptionModule extends IUnknown{
      * 
      * @param {Integer} sessionType 
      * @param {IMFContentDecryptionModuleSessionCallbacks} callbacks 
-     * @param {Pointer<IMFContentDecryptionModuleSession>} session 
-     * @returns {HRESULT} 
+     * @returns {IMFContentDecryptionModuleSession} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-createsession
      */
-    CreateSession(sessionType, callbacks, session) {
-        result := ComCall(6, this, "int", sessionType, "ptr", callbacks, "ptr*", session, "HRESULT")
-        return result
+    CreateSession(sessionType, callbacks) {
+        result := ComCall(6, this, "int", sessionType, "ptr", callbacks, "ptr*", &session := 0, "HRESULT")
+        return IMFContentDecryptionModuleSession(session)
     }
 
     /**
@@ -98,15 +99,14 @@ class IMFContentDecryptionModule extends IUnknown{
      * 
      * @param {Pointer<Integer>} contentInitData 
      * @param {Integer} contentInitDataSize 
-     * @param {Pointer<IMFTrustedInput>} trustedInput 
-     * @returns {HRESULT} 
+     * @returns {IMFTrustedInput} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-createtrustedinput
      */
-    CreateTrustedInput(contentInitData, contentInitDataSize, trustedInput) {
+    CreateTrustedInput(contentInitData, contentInitDataSize) {
         contentInitDataMarshal := contentInitData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, contentInitDataMarshal, contentInitData, "uint", contentInitDataSize, "ptr*", trustedInput, "HRESULT")
-        return result
+        result := ComCall(8, this, contentInitDataMarshal, contentInitData, "uint", contentInitDataSize, "ptr*", &trustedInput := 0, "HRESULT")
+        return IMFTrustedInput(trustedInput)
     }
 
     /**

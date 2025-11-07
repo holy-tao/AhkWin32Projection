@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -35,18 +36,20 @@ class IDebugDocumentTextExternalAuthor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPathName(pbstrLongName, pfIsOriginalFile) {
-        result := ComCall(3, this, "ptr", pbstrLongName, "ptr", pfIsOriginalFile, "HRESULT")
+        pfIsOriginalFileMarshal := pfIsOriginalFile is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pbstrLongName, pfIsOriginalFileMarshal, pfIsOriginalFile, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrShortName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetFileName(pbstrShortName) {
+    GetFileName() {
+        pbstrShortName := BSTR()
         result := ComCall(4, this, "ptr", pbstrShortName, "HRESULT")
-        return result
+        return pbstrShortName
     }
 
     /**

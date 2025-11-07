@@ -3,6 +3,7 @@
 #Include ./Yunit/Yunit.ahk
 #Include ./YunitExtensions/Assert.ahk
 
+#Include ../Guid.ahk
 #Include ../Windows/Win32/Foundation/Apis.ahk
 #Include ../Windows/Win32/Foundation/SYSTEMTIME.ahk
 #Include ../Windows/Win32/System/SystemInformation/Apis.ahk
@@ -219,6 +220,31 @@ class GeneratedApiSmokeTests {
 
             YUnit.Assert(NumGet(aptTyp, "int") != 0xFFFFFFFF)
             YUnit.Assert(NumGet(aptQualifier, "int") != 0xFFFFFFFF)
+        }
+    }
+
+    /**
+     * Tests for "com-like" methods which have logical return values that differ from the C function's
+     * actual return value
+     */
+    class ReturnValueMarshalling {
+
+        ComLikeApis_OnSuccess_ReturnLogicalValue(){
+            pFolderPath := Shell.SHGetKnownFolderPath(Guid(Shell.FOLDERID_Documents), 0, 0)
+            pFolderStr := StrGet(pFolderPath, , "UTF-16")
+
+            try{
+                Assert.Equals(pFolderStr, A_MyDocuments)
+            }
+            finally{
+                Com.CoTaskMemFree(pFolderPath)
+            }
+        }
+
+        ComLikeApis_OnFailure_ThrowOSErrors(){
+            ; Downside of the logical return value thing is that we now leak the PWSTR on failure
+            ; See https://github.com/holy-tao/AhkWin32Projection/issues/58#issuecomment-3494255901
+            Assert.Throws((*) => Shell.SHGetKnownFolderPath(Guid(0), 0, 0), OSError)
         }
     }
 }

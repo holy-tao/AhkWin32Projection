@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\NLM_DATAPLAN_STATUS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,28 +33,25 @@ class INetworkCostManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCost 
      * @param {Pointer<NLM_SOCKADDR>} pDestIPAddr 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkcostmanager-getcost
      */
-    GetCost(pCost, pDestIPAddr) {
-        pCostMarshal := pCost is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pCostMarshal, pCost, "ptr", pDestIPAddr, "HRESULT")
-        return result
+    GetCost(pDestIPAddr) {
+        result := ComCall(3, this, "uint*", &pCost := 0, "ptr", pDestIPAddr, "HRESULT")
+        return pCost
     }
 
     /**
      * 
-     * @param {Pointer<NLM_DATAPLAN_STATUS>} pDataPlanStatus 
      * @param {Pointer<NLM_SOCKADDR>} pDestIPAddr 
-     * @returns {HRESULT} 
+     * @returns {NLM_DATAPLAN_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkcostmanager-getdataplanstatus
      */
-    GetDataPlanStatus(pDataPlanStatus, pDestIPAddr) {
+    GetDataPlanStatus(pDestIPAddr) {
+        pDataPlanStatus := NLM_DATAPLAN_STATUS()
         result := ComCall(4, this, "ptr", pDataPlanStatus, "ptr", pDestIPAddr, "HRESULT")
-        return result
+        return pDataPlanStatus
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGRect.ahk
+#Include .\ISVGPoint.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,55 +38,46 @@ class ISVGZoomEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGRect>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGRect} 
      */
-    get_zoomRectScreen(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_zoomRectScreen() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGRect(p)
     }
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_previousScale(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_previousScale() {
+        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<ISVGPoint>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    get_previousTranslate(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_previousTranslate() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGPoint(p)
     }
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_newScale(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_newScale() {
+        result := ComCall(10, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<ISVGPoint>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    get_newTranslate(p) {
-        result := ComCall(11, this, "ptr*", p, "HRESULT")
-        return result
+    get_newTranslate() {
+        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGPoint(p)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcCertificateEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -66,12 +67,11 @@ class IOpcCertificateSet extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcCertificateEnumerator>} certificateEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcCertificateEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateset-getenumerator
      */
-    GetEnumerator(certificateEnumerator) {
-        result := ComCall(5, this, "ptr*", certificateEnumerator, "HRESULT")
-        return result
+    GetEnumerator() {
+        result := ComCall(5, this, "ptr*", &certificateEnumerator := 0, "HRESULT")
+        return IOpcCertificateEnumerator(certificateEnumerator)
     }
 }

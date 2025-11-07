@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Graphics\Direct2D\ID2D1Geometry.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,22 +31,20 @@ class IGeometrySource2DInterop extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ID2D1Geometry>} value 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Geometry} 
      */
-    GetGeometry(value) {
-        result := ComCall(3, this, "ptr*", value, "HRESULT")
-        return result
+    GetGeometry() {
+        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        return ID2D1Geometry(value)
     }
 
     /**
      * 
      * @param {ID2D1Factory} factory 
-     * @param {Pointer<ID2D1Geometry>} value 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Geometry} 
      */
-    TryGetGeometryUsingFactory(factory, value) {
-        result := ComCall(4, this, "ptr", factory, "ptr*", value, "HRESULT")
-        return result
+    TryGetGeometryUsingFactory(factory) {
+        result := ComCall(4, this, "ptr", factory, "ptr*", &value := 0, "HRESULT")
+        return ID2D1Geometry(value)
     }
 }

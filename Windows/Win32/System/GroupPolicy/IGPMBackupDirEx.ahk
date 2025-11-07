@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,49 +40,46 @@ class IGPMBackupDirEx extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrBackupDir 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_BackupDir(pbstrBackupDir) {
+    get_BackupDir() {
+        pbstrBackupDir := BSTR()
         result := ComCall(7, this, "ptr", pbstrBackupDir, "HRESULT")
-        return result
+        return pbstrBackupDir
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pgpmBackupType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BackupType(pgpmBackupType) {
-        pgpmBackupTypeMarshal := pgpmBackupType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pgpmBackupTypeMarshal, pgpmBackupType, "HRESULT")
-        return result
+    get_BackupType() {
+        result := ComCall(8, this, "int*", &pgpmBackupType := 0, "HRESULT")
+        return pgpmBackupType
     }
 
     /**
      * 
      * @param {BSTR} bstrID 
-     * @param {Pointer<VARIANT>} pvarBackup 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmbackupdirex-getbackup
      */
-    GetBackup(bstrID, pvarBackup) {
+    GetBackup(bstrID) {
         bstrID := bstrID is String ? BSTR.Alloc(bstrID).Value : bstrID
 
+        pvarBackup := VARIANT()
         result := ComCall(9, this, "ptr", bstrID, "ptr", pvarBackup, "HRESULT")
-        return result
+        return pvarBackup
     }
 
     /**
      * 
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria 
-     * @param {Pointer<VARIANT>} pvarBackupCollection 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmbackupdirex-searchbackups
      */
-    SearchBackups(pIGPMSearchCriteria, pvarBackupCollection) {
+    SearchBackups(pIGPMSearchCriteria) {
+        pvarBackupCollection := VARIANT()
         result := ComCall(10, this, "ptr", pIGPMSearchCriteria, "ptr", pvarBackupCollection, "HRESULT")
-        return result
+        return pvarBackupCollection
     }
 }

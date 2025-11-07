@@ -117,74 +117,66 @@ class IWebBrowser extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppDisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Application(ppDisp) {
-        result := ComCall(15, this, "ptr*", ppDisp, "HRESULT")
-        return result
+    get_Application() {
+        result := ComCall(15, this, "ptr*", &ppDisp := 0, "HRESULT")
+        return IDispatch(ppDisp)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppDisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Parent(ppDisp) {
-        result := ComCall(16, this, "ptr*", ppDisp, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(16, this, "ptr*", &ppDisp := 0, "HRESULT")
+        return IDispatch(ppDisp)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppDisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Container(ppDisp) {
-        result := ComCall(17, this, "ptr*", ppDisp, "HRESULT")
-        return result
+    get_Container() {
+        result := ComCall(17, this, "ptr*", &ppDisp := 0, "HRESULT")
+        return IDispatch(ppDisp)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppDisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Document(ppDisp) {
-        result := ComCall(18, this, "ptr*", ppDisp, "HRESULT")
-        return result
+    get_Document() {
+        result := ComCall(18, this, "ptr*", &ppDisp := 0, "HRESULT")
+        return IDispatch(ppDisp)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pBool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_TopLevelContainer(pBool) {
-        result := ComCall(19, this, "ptr", pBool, "HRESULT")
-        return result
+    get_TopLevelContainer() {
+        result := ComCall(19, this, "short*", &pBool := 0, "HRESULT")
+        return pBool
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Type 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Type(Type) {
+    get_Type() {
+        Type := BSTR()
         result := ComCall(20, this, "ptr", Type, "HRESULT")
-        return result
+        return Type
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pl 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Left(pl) {
-        plMarshal := pl is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, plMarshal, pl, "HRESULT")
-        return result
+    get_Left() {
+        result := ComCall(21, this, "int*", &pl := 0, "HRESULT")
+        return pl
     }
 
     /**
@@ -199,14 +191,11 @@ class IWebBrowser extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pl 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Top(pl) {
-        plMarshal := pl is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, plMarshal, pl, "HRESULT")
-        return result
+    get_Top() {
+        result := ComCall(23, this, "int*", &pl := 0, "HRESULT")
+        return pl
     }
 
     /**
@@ -221,14 +210,11 @@ class IWebBrowser extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pl 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Width(pl) {
-        plMarshal := pl is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, plMarshal, pl, "HRESULT")
-        return result
+    get_Width() {
+        result := ComCall(25, this, "int*", &pl := 0, "HRESULT")
+        return pl
     }
 
     /**
@@ -243,14 +229,11 @@ class IWebBrowser extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pl 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Height(pl) {
-        plMarshal := pl is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, plMarshal, pl, "HRESULT")
-        return result
+    get_Height() {
+        result := ComCall(27, this, "int*", &pl := 0, "HRESULT")
+        return pl
     }
 
     /**
@@ -265,31 +248,30 @@ class IWebBrowser extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} LocationName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LocationName(LocationName) {
+    get_LocationName() {
+        LocationName := BSTR()
         result := ComCall(29, this, "ptr", LocationName, "HRESULT")
-        return result
+        return LocationName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} LocationURL 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LocationURL(LocationURL) {
+    get_LocationURL() {
+        LocationURL := BSTR()
         result := ComCall(30, this, "ptr", LocationURL, "HRESULT")
-        return result
+        return LocationURL
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pBool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Busy(pBool) {
-        result := ComCall(31, this, "ptr", pBool, "HRESULT")
-        return result
+    get_Busy() {
+        result := ComCall(31, this, "short*", &pBool := 0, "HRESULT")
+        return pBool
     }
 }

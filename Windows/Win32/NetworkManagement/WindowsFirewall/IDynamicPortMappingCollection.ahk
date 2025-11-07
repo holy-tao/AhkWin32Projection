@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDynamicPortMapping.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,12 +33,11 @@ class IDynamicPortMappingCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(pVal) {
-        result := ComCall(7, this, "ptr*", pVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
+        return IUnknown(pVal)
     }
 
     /**
@@ -44,27 +45,23 @@ class IDynamicPortMappingCollection extends IDispatch{
      * @param {BSTR} bstrRemoteHost 
      * @param {Integer} lExternalPort 
      * @param {BSTR} bstrProtocol 
-     * @param {Pointer<IDynamicPortMapping>} ppDPM 
-     * @returns {HRESULT} 
+     * @returns {IDynamicPortMapping} 
      */
-    get_Item(bstrRemoteHost, lExternalPort, bstrProtocol, ppDPM) {
+    get_Item(bstrRemoteHost, lExternalPort, bstrProtocol) {
         bstrRemoteHost := bstrRemoteHost is String ? BSTR.Alloc(bstrRemoteHost).Value : bstrRemoteHost
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(8, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "ptr*", ppDPM, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "ptr*", &ppDPM := 0, "HRESULT")
+        return IDynamicPortMapping(ppDPM)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -92,16 +89,15 @@ class IDynamicPortMappingCollection extends IDispatch{
      * @param {VARIANT_BOOL} bEnabled 
      * @param {BSTR} bstrDescription 
      * @param {Integer} lLeaseDuration 
-     * @param {Pointer<IDynamicPortMapping>} ppDPM 
-     * @returns {HRESULT} 
+     * @returns {IDynamicPortMapping} 
      */
-    Add(bstrRemoteHost, lExternalPort, bstrProtocol, lInternalPort, bstrInternalClient, bEnabled, bstrDescription, lLeaseDuration, ppDPM) {
+    Add(bstrRemoteHost, lExternalPort, bstrProtocol, lInternalPort, bstrInternalClient, bEnabled, bstrDescription, lLeaseDuration) {
         bstrRemoteHost := bstrRemoteHost is String ? BSTR.Alloc(bstrRemoteHost).Value : bstrRemoteHost
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
         bstrInternalClient := bstrInternalClient is String ? BSTR.Alloc(bstrInternalClient).Value : bstrInternalClient
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(11, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "int", lInternalPort, "ptr", bstrInternalClient, "short", bEnabled, "ptr", bstrDescription, "int", lLeaseDuration, "ptr*", ppDPM, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "int", lInternalPort, "ptr", bstrInternalClient, "short", bEnabled, "ptr", bstrDescription, "int", lLeaseDuration, "ptr*", &ppDPM := 0, "HRESULT")
+        return IDynamicPortMapping(ppDPM)
     }
 }

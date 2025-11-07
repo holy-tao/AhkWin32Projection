@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1PathGeometry1.ahk
 #Include .\ID2D1SvgAttribute.ahk
 
 /**
@@ -58,17 +59,14 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
 
     /**
      * 
-     * @param {Pointer<Float>} data 
      * @param {Integer} dataCount 
      * @param {Integer} startIndex 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getsegmentdata
      */
-    GetSegmentData(data, dataCount, startIndex) {
-        dataMarshal := data is VarRef ? "float*" : "ptr"
-
-        result := ComCall(8, this, dataMarshal, data, "uint", dataCount, "uint", startIndex, "HRESULT")
-        return result
+    GetSegmentData(dataCount, startIndex) {
+        result := ComCall(8, this, "float*", &data := 0, "uint", dataCount, "uint", startIndex, "HRESULT")
+        return data
     }
 
     /**
@@ -109,17 +107,14 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
 
     /**
      * 
-     * @param {Pointer<Integer>} commands 
      * @param {Integer} commandsCount 
      * @param {Integer} startIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getcommands
      */
-    GetCommands(commands, commandsCount, startIndex) {
-        commandsMarshal := commands is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, commandsMarshal, commands, "uint", commandsCount, "uint", startIndex, "HRESULT")
-        return result
+    GetCommands(commandsCount, startIndex) {
+        result := ComCall(12, this, "int*", &commands := 0, "uint", commandsCount, "uint", startIndex, "HRESULT")
+        return commands
     }
 
     /**
@@ -135,12 +130,11 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
     /**
      * 
      * @param {Integer} fillMode 
-     * @param {Pointer<ID2D1PathGeometry1>} pathGeometry 
-     * @returns {HRESULT} 
+     * @returns {ID2D1PathGeometry1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-createpathgeometry
      */
-    CreatePathGeometry(fillMode, pathGeometry) {
-        result := ComCall(14, this, "int", fillMode, "ptr*", pathGeometry, "HRESULT")
-        return result
+    CreatePathGeometry(fillMode) {
+        result := ComCall(14, this, "int", fillMode, "ptr*", &pathGeometry := 0, "HRESULT")
+        return ID2D1PathGeometry1(pathGeometry)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MFARGB.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IMFTimedTextRegion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getname
      */
-    GetName(name) {
-        result := ComCall(3, this, "ptr", name, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
+        return name
     }
 
     /**
@@ -77,39 +77,33 @@ class IMFTimedTextRegion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MFARGB>} bgColor 
-     * @returns {HRESULT} 
+     * @returns {MFARGB} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getbackgroundcolor
      */
-    GetBackgroundColor(bgColor) {
+    GetBackgroundColor() {
+        bgColor := MFARGB()
         result := ComCall(6, this, "ptr", bgColor, "HRESULT")
-        return result
+        return bgColor
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} writingMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getwritingmode
      */
-    GetWritingMode(writingMode) {
-        writingModeMarshal := writingMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, writingModeMarshal, writingMode, "HRESULT")
-        return result
+    GetWritingMode() {
+        result := ComCall(7, this, "int*", &writingMode := 0, "HRESULT")
+        return writingMode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} displayAlign 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getdisplayalignment
      */
-    GetDisplayAlignment(displayAlign) {
-        displayAlignMarshal := displayAlign is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, displayAlignMarshal, displayAlign, "HRESULT")
-        return result
+    GetDisplayAlignment() {
+        result := ComCall(8, this, "int*", &displayAlign := 0, "HRESULT")
+        return displayAlign
     }
 
     /**
@@ -129,13 +123,12 @@ class IMFTimedTextRegion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} clipOverflow 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getclipoverflow
      */
-    GetClipOverflow(clipOverflow) {
-        result := ComCall(10, this, "ptr", clipOverflow, "HRESULT")
-        return result
+    GetClipOverflow() {
+        result := ComCall(10, this, "int*", &clipOverflow := 0, "HRESULT")
+        return clipOverflow
     }
 
     /**
@@ -161,38 +154,31 @@ class IMFTimedTextRegion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} wrap 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getwrap
      */
-    GetWrap(wrap) {
-        result := ComCall(12, this, "ptr", wrap, "HRESULT")
-        return result
+    GetWrap() {
+        result := ComCall(12, this, "int*", &wrap := 0, "HRESULT")
+        return wrap
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} zIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getzindex
      */
-    GetZIndex(zIndex) {
-        zIndexMarshal := zIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, zIndexMarshal, zIndex, "HRESULT")
-        return result
+    GetZIndex() {
+        result := ComCall(13, this, "int*", &zIndex := 0, "HRESULT")
+        return zIndex
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} scrollMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getscrollmode
      */
-    GetScrollMode(scrollMode) {
-        scrollModeMarshal := scrollMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, scrollModeMarshal, scrollMode, "HRESULT")
-        return result
+    GetScrollMode() {
+        result := ComCall(14, this, "int*", &scrollMode := 0, "HRESULT")
+        return scrollMode
     }
 }

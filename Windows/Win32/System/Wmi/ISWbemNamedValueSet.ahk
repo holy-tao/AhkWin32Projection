@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ISWbemNamedValue.ahk
+#Include .\ISWbemNamedValueSet.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,38 +40,33 @@ class ISWbemNamedValueSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(pUnk) {
-        result := ComCall(7, this, "ptr*", pUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")
+        return IUnknown(pUnk)
     }
 
     /**
      * 
      * @param {BSTR} strName 
      * @param {Integer} iFlags 
-     * @param {Pointer<ISWbemNamedValue>} objWbemNamedValue 
-     * @returns {HRESULT} 
+     * @returns {ISWbemNamedValue} 
      */
-    Item(strName, iFlags, objWbemNamedValue) {
+    Item(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(8, this, "ptr", strName, "int", iFlags, "ptr*", objWbemNamedValue, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", strName, "int", iFlags, "ptr*", &objWbemNamedValue := 0, "HRESULT")
+        return ISWbemNamedValue(objWbemNamedValue)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} iCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(iCount) {
-        iCountMarshal := iCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, iCountMarshal, iCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &iCount := 0, "HRESULT")
+        return iCount
     }
 
     /**
@@ -76,14 +74,13 @@ class ISWbemNamedValueSet extends IDispatch{
      * @param {BSTR} strName 
      * @param {Pointer<VARIANT>} varValue 
      * @param {Integer} iFlags 
-     * @param {Pointer<ISWbemNamedValue>} objWbemNamedValue 
-     * @returns {HRESULT} 
+     * @returns {ISWbemNamedValue} 
      */
-    Add(strName, varValue, iFlags, objWbemNamedValue) {
+    Add(strName, varValue, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(10, this, "ptr", strName, "ptr", varValue, "int", iFlags, "ptr*", objWbemNamedValue, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", strName, "ptr", varValue, "int", iFlags, "ptr*", &objWbemNamedValue := 0, "HRESULT")
+        return ISWbemNamedValue(objWbemNamedValue)
     }
 
     /**
@@ -101,12 +98,11 @@ class ISWbemNamedValueSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISWbemNamedValueSet>} objWbemNamedValueSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemNamedValueSet} 
      */
-    Clone(objWbemNamedValueSet) {
-        result := ComCall(12, this, "ptr*", objWbemNamedValueSet, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(12, this, "ptr*", &objWbemNamedValueSet := 0, "HRESULT")
+        return ISWbemNamedValueSet(objWbemNamedValueSet)
     }
 
     /**

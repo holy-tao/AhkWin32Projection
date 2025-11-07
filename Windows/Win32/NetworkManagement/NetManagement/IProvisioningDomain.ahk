@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMNodeList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,15 +46,14 @@ class IProvisioningDomain extends IUnknown{
      * @param {PWSTR} pszwDomain 
      * @param {PWSTR} pszwLanguage 
      * @param {PWSTR} pszwXPathQuery 
-     * @param {Pointer<IXMLDOMNodeList>} Nodes 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNodeList} 
      */
-    Query(pszwDomain, pszwLanguage, pszwXPathQuery, Nodes) {
+    Query(pszwDomain, pszwLanguage, pszwXPathQuery) {
         pszwDomain := pszwDomain is String ? StrPtr(pszwDomain) : pszwDomain
         pszwLanguage := pszwLanguage is String ? StrPtr(pszwLanguage) : pszwLanguage
         pszwXPathQuery := pszwXPathQuery is String ? StrPtr(pszwXPathQuery) : pszwXPathQuery
 
-        result := ComCall(4, this, "ptr", pszwDomain, "ptr", pszwLanguage, "ptr", pszwXPathQuery, "ptr*", Nodes, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszwDomain, "ptr", pszwLanguage, "ptr", pszwXPathQuery, "ptr*", &Nodes := 0, "HRESULT")
+        return IXMLDOMNodeList(Nodes)
     }
 }

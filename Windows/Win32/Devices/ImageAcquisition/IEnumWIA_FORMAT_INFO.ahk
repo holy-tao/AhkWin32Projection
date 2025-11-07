@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumWIA_FORMAT_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -102,25 +103,21 @@ class IEnumWIA_FORMAT_INFO extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumWIA_FORMAT_INFO>} ppIEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWIA_FORMAT_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_format_info-clone
      */
-    Clone(ppIEnum) {
-        result := ComCall(6, this, "ptr*", ppIEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppIEnum := 0, "HRESULT")
+        return IEnumWIA_FORMAT_INFO(ppIEnum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_format_info-getcount
      */
-    GetCount(pcelt) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pceltMarshal, pcelt, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(7, this, "uint*", &pcelt := 0, "HRESULT")
+        return pcelt
     }
 }

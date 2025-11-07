@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMReaderAllocatorEx.ahk
 #Include .\IWMSyncReader.ahk
 
 /**
@@ -48,15 +49,12 @@ class IWMSyncReader2 extends IWMSyncReader{
      * @param {Integer} wStreamNum 
      * @param {Integer} qwFrameNumber 
      * @param {Integer} cFramesToRead 
-     * @param {Pointer<Integer>} pcnsStartTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader2-setrangebyframeex
      */
-    SetRangeByFrameEx(wStreamNum, qwFrameNumber, cFramesToRead, pcnsStartTime) {
-        pcnsStartTimeMarshal := pcnsStartTime is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(25, this, "ushort", wStreamNum, "uint", qwFrameNumber, "int64", cFramesToRead, pcnsStartTimeMarshal, pcnsStartTime, "HRESULT")
-        return result
+    SetRangeByFrameEx(wStreamNum, qwFrameNumber, cFramesToRead) {
+        result := ComCall(25, this, "ushort", wStreamNum, "uint", qwFrameNumber, "int64", cFramesToRead, "uint*", &pcnsStartTime := 0, "HRESULT")
+        return pcnsStartTime
     }
 
     /**
@@ -74,13 +72,12 @@ class IWMSyncReader2 extends IWMSyncReader{
     /**
      * 
      * @param {Integer} dwOutputNum 
-     * @param {Pointer<IWMReaderAllocatorEx>} ppAllocator 
-     * @returns {HRESULT} 
+     * @returns {IWMReaderAllocatorEx} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader2-getallocateforoutput
      */
-    GetAllocateForOutput(dwOutputNum, ppAllocator) {
-        result := ComCall(27, this, "uint", dwOutputNum, "ptr*", ppAllocator, "HRESULT")
-        return result
+    GetAllocateForOutput(dwOutputNum) {
+        result := ComCall(27, this, "uint", dwOutputNum, "ptr*", &ppAllocator := 0, "HRESULT")
+        return IWMReaderAllocatorEx(ppAllocator)
     }
 
     /**
@@ -98,12 +95,11 @@ class IWMSyncReader2 extends IWMSyncReader{
     /**
      * 
      * @param {Integer} dwSreamNum 
-     * @param {Pointer<IWMReaderAllocatorEx>} ppAllocator 
-     * @returns {HRESULT} 
+     * @returns {IWMReaderAllocatorEx} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader2-getallocateforstream
      */
-    GetAllocateForStream(dwSreamNum, ppAllocator) {
-        result := ComCall(29, this, "ushort", dwSreamNum, "ptr*", ppAllocator, "HRESULT")
-        return result
+    GetAllocateForStream(dwSreamNum) {
+        result := ComCall(29, this, "ushort", dwSreamNum, "ptr*", &ppAllocator := 0, "HRESULT")
+        return IWMReaderAllocatorEx(ppAllocator)
     }
 }

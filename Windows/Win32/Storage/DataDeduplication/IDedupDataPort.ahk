@@ -52,12 +52,12 @@ class IDedupDataPort extends IUnknown{
      * 
      * @param {Integer} Count 
      * @param {Pointer<DedupHash>} pHashes 
-     * @param {Pointer<Guid>} pRequestId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    LookupChunks(Count, pHashes, pRequestId) {
+    LookupChunks(Count, pHashes) {
+        pRequestId := Guid()
         result := ComCall(4, this, "uint", Count, "ptr", pHashes, "ptr", pRequestId, "HRESULT")
-        return result
+        return pRequestId
     }
 
     /**
@@ -66,14 +66,14 @@ class IDedupDataPort extends IUnknown{
      * @param {Pointer<DedupChunk>} pChunkMetadata 
      * @param {Integer} DataByteCount 
      * @param {Pointer<Integer>} pChunkData 
-     * @param {Pointer<Guid>} pRequestId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    InsertChunks(ChunkCount, pChunkMetadata, DataByteCount, pChunkData, pRequestId) {
+    InsertChunks(ChunkCount, pChunkMetadata, DataByteCount, pChunkData) {
         pChunkDataMarshal := pChunkData is VarRef ? "char*" : "ptr"
 
+        pRequestId := Guid()
         result := ComCall(5, this, "uint", ChunkCount, "ptr", pChunkMetadata, "uint", DataByteCount, pChunkDataMarshal, pChunkData, "ptr", pRequestId, "HRESULT")
-        return result
+        return pRequestId
     }
 
     /**
@@ -82,12 +82,12 @@ class IDedupDataPort extends IUnknown{
      * @param {Pointer<DedupChunk>} pChunkMetadata 
      * @param {Integer} DataByteCount 
      * @param {IStream} pChunkDataStream 
-     * @param {Pointer<Guid>} pRequestId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    InsertChunksWithStream(ChunkCount, pChunkMetadata, DataByteCount, pChunkDataStream, pRequestId) {
+    InsertChunksWithStream(ChunkCount, pChunkMetadata, DataByteCount, pChunkDataStream) {
+        pRequestId := Guid()
         result := ComCall(6, this, "uint", ChunkCount, "ptr", pChunkMetadata, "uint", DataByteCount, "ptr", pChunkDataStream, "ptr", pRequestId, "HRESULT")
-        return result
+        return pRequestId
     }
 
     /**
@@ -96,12 +96,12 @@ class IDedupDataPort extends IUnknown{
      * @param {Pointer<DedupStream>} pStreams 
      * @param {Integer} EntryCount 
      * @param {Pointer<DedupStreamEntry>} pEntries 
-     * @param {Pointer<Guid>} pRequestId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    CommitStreams(StreamCount, pStreams, EntryCount, pEntries, pRequestId) {
+    CommitStreams(StreamCount, pStreams, EntryCount, pEntries) {
+        pRequestId := Guid()
         result := ComCall(7, this, "uint", StreamCount, "ptr", pStreams, "uint", EntryCount, "ptr", pEntries, "ptr", pRequestId, "HRESULT")
-        return result
+        return pRequestId
     }
 
     /**
@@ -110,24 +110,24 @@ class IDedupDataPort extends IUnknown{
      * @param {Pointer<DedupStream>} pStreams 
      * @param {Integer} EntryCount 
      * @param {IStream} pEntriesStream 
-     * @param {Pointer<Guid>} pRequestId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    CommitStreamsWithStream(StreamCount, pStreams, EntryCount, pEntriesStream, pRequestId) {
+    CommitStreamsWithStream(StreamCount, pStreams, EntryCount, pEntriesStream) {
+        pRequestId := Guid()
         result := ComCall(8, this, "uint", StreamCount, "ptr", pStreams, "uint", EntryCount, "ptr", pEntriesStream, "ptr", pRequestId, "HRESULT")
-        return result
+        return pRequestId
     }
 
     /**
      * 
      * @param {Integer} StreamCount 
      * @param {Pointer<BSTR>} pStreamPaths 
-     * @param {Pointer<Guid>} pRequestId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetStreams(StreamCount, pStreamPaths, pRequestId) {
+    GetStreams(StreamCount, pStreamPaths) {
+        pRequestId := Guid()
         result := ComCall(9, this, "uint", StreamCount, "ptr", pStreamPaths, "ptr", pRequestId, "HRESULT")
-        return result
+        return pRequestId
     }
 
     /**
@@ -159,12 +159,12 @@ class IDedupDataPort extends IUnknown{
      * 
      * @param {Integer} Count 
      * @param {Pointer<DedupHash>} pHashes 
-     * @param {Pointer<Guid>} pRequestId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetChunks(Count, pHashes, pRequestId) {
+    GetChunks(Count, pHashes) {
+        pRequestId := Guid()
         result := ComCall(11, this, "uint", Count, "ptr", pHashes, "ptr", pRequestId, "HRESULT")
-        return result
+        return pRequestId
     }
 
     /**
@@ -195,14 +195,11 @@ class IDedupDataPort extends IUnknown{
     /**
      * 
      * @param {Guid} RequestId 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRequestStatus(RequestId, pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, "ptr", RequestId, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    GetRequestStatus(RequestId) {
+        result := ComCall(13, this, "ptr", RequestId, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
@@ -216,11 +213,12 @@ class IDedupDataPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRequestResults(RequestId, MaxWaitMs, pBatchResult, pBatchCount, pStatus, ppItemResults) {
+        pBatchResultMarshal := pBatchResult is VarRef ? "int*" : "ptr"
         pBatchCountMarshal := pBatchCount is VarRef ? "uint*" : "ptr"
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
         ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, "ptr", RequestId, "uint", MaxWaitMs, "ptr", pBatchResult, pBatchCountMarshal, pBatchCount, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
+        result := ComCall(14, this, "ptr", RequestId, "uint", MaxWaitMs, pBatchResultMarshal, pBatchResult, pBatchCountMarshal, pBatchCount, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
         return result
     }
 }

@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IPrintSchemaFeature.ahk
+#Include .\IPrintSchemaPageImageableSize.ahk
+#Include .\IPrintSchemaOption.ahk
+#Include .\IPrintSchemaOptionCollection.ahk
 #Include .\IPrintSchemaElement.ahk
 
 /**
@@ -32,84 +36,73 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement{
     /**
      * 
      * @param {BSTR} bstrKeyName 
-     * @param {Pointer<IPrintSchemaFeature>} ppFeature 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaFeature} 
      */
-    GetFeatureByKeyName(bstrKeyName, ppFeature) {
+    GetFeatureByKeyName(bstrKeyName) {
         bstrKeyName := bstrKeyName is String ? BSTR.Alloc(bstrKeyName).Value : bstrKeyName
 
-        result := ComCall(10, this, "ptr", bstrKeyName, "ptr*", ppFeature, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrKeyName, "ptr*", &ppFeature := 0, "HRESULT")
+        return IPrintSchemaFeature(ppFeature)
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
-     * @param {Pointer<IPrintSchemaFeature>} ppFeature 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaFeature} 
      */
-    GetFeature(bstrName, bstrNamespaceUri, ppFeature) {
+    GetFeature(bstrName, bstrNamespaceUri) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
 
-        result := ComCall(11, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", ppFeature, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppFeature := 0, "HRESULT")
+        return IPrintSchemaFeature(ppFeature)
     }
 
     /**
      * 
-     * @param {Pointer<IPrintSchemaPageImageableSize>} ppPageImageableSize 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaPageImageableSize} 
      */
-    get_PageImageableSize(ppPageImageableSize) {
-        result := ComCall(12, this, "ptr*", ppPageImageableSize, "HRESULT")
-        return result
+    get_PageImageableSize() {
+        result := ComCall(12, this, "ptr*", &ppPageImageableSize := 0, "HRESULT")
+        return IPrintSchemaPageImageableSize(ppPageImageableSize)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulJobCopiesAllDocumentsMinValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_JobCopiesAllDocumentsMinValue(pulJobCopiesAllDocumentsMinValue) {
-        pulJobCopiesAllDocumentsMinValueMarshal := pulJobCopiesAllDocumentsMinValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pulJobCopiesAllDocumentsMinValueMarshal, pulJobCopiesAllDocumentsMinValue, "HRESULT")
-        return result
+    get_JobCopiesAllDocumentsMinValue() {
+        result := ComCall(13, this, "uint*", &pulJobCopiesAllDocumentsMinValue := 0, "HRESULT")
+        return pulJobCopiesAllDocumentsMinValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulJobCopiesAllDocumentsMaxValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_JobCopiesAllDocumentsMaxValue(pulJobCopiesAllDocumentsMaxValue) {
-        pulJobCopiesAllDocumentsMaxValueMarshal := pulJobCopiesAllDocumentsMaxValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pulJobCopiesAllDocumentsMaxValueMarshal, pulJobCopiesAllDocumentsMaxValue, "HRESULT")
-        return result
+    get_JobCopiesAllDocumentsMaxValue() {
+        result := ComCall(14, this, "uint*", &pulJobCopiesAllDocumentsMaxValue := 0, "HRESULT")
+        return pulJobCopiesAllDocumentsMaxValue
     }
 
     /**
      * 
      * @param {IPrintSchemaFeature} pFeature 
-     * @param {Pointer<IPrintSchemaOption>} ppOption 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaOption} 
      */
-    GetSelectedOptionInPrintTicket(pFeature, ppOption) {
-        result := ComCall(15, this, "ptr", pFeature, "ptr*", ppOption, "HRESULT")
-        return result
+    GetSelectedOptionInPrintTicket(pFeature) {
+        result := ComCall(15, this, "ptr", pFeature, "ptr*", &ppOption := 0, "HRESULT")
+        return IPrintSchemaOption(ppOption)
     }
 
     /**
      * 
      * @param {IPrintSchemaFeature} pFeature 
-     * @param {Pointer<IPrintSchemaOptionCollection>} ppOptionCollection 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaOptionCollection} 
      */
-    GetOptions(pFeature, ppOptionCollection) {
-        result := ComCall(16, this, "ptr", pFeature, "ptr*", ppOptionCollection, "HRESULT")
-        return result
+    GetOptions(pFeature) {
+        result := ComCall(16, this, "ptr", pFeature, "ptr*", &ppOptionCollection := 0, "HRESULT")
+        return IPrintSchemaOptionCollection(ppOptionCollection)
     }
 }

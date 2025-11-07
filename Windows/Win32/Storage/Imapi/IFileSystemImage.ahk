@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsiDirectoryItem.ahk
+#Include .\IBootOptions.ahk
+#Include .\IFileSystemImageResult.ahk
+#Include .\IFsiFileItem.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,26 +42,22 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFsiDirectoryItem>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IFsiDirectoryItem} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_root
      */
-    get_Root(pVal) {
-        result := ComCall(7, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_Root() {
+        result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
+        return IFsiDirectoryItem(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_sessionstartblock
      */
-    get_SessionStartBlock(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SessionStartBlock() {
+        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -73,15 +73,12 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_freemediablocks
      */
-    get_FreeMediaBlocks(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_FreeMediaBlocks() {
+        result := ComCall(10, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -108,26 +105,23 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_usedblocks
      */
-    get_UsedBlocks(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_UsedBlocks() {
+        result := ComCall(13, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_volumename
      */
-    get_VolumeName(pVal) {
+    get_VolumeName() {
+        pVal := BSTR()
         result := ComCall(14, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -145,24 +139,23 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_importedvolumename
      */
-    get_ImportedVolumeName(pVal) {
+    get_ImportedVolumeName() {
+        pVal := BSTR()
         result := ComCall(16, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<IBootOptions>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IBootOptions} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_bootimageoptions
      */
-    get_BootImageOptions(pVal) {
-        result := ComCall(17, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_BootImageOptions() {
+        result := ComCall(17, this, "ptr*", &pVal := 0, "HRESULT")
+        return IBootOptions(pVal)
     }
 
     /**
@@ -178,39 +171,33 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_filecount
      */
-    get_FileCount(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_FileCount() {
+        result := ComCall(19, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_directorycount
      */
-    get_DirectoryCount(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DirectoryCount() {
+        result := ComCall(20, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_workingdirectory
      */
-    get_WorkingDirectory(pVal) {
+    get_WorkingDirectory() {
+        pVal := BSTR()
         result := ComCall(21, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -228,26 +215,22 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_changepoint
      */
-    get_ChangePoint(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ChangePoint() {
+        result := ComCall(23, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_strictfilesystemcompliance
      */
-    get_StrictFileSystemCompliance(pVal) {
-        result := ComCall(24, this, "ptr", pVal, "HRESULT")
-        return result
+    get_StrictFileSystemCompliance() {
+        result := ComCall(24, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -263,13 +246,12 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_userestrictedcharacterset
      */
-    get_UseRestrictedCharacterSet(pVal) {
-        result := ComCall(26, this, "ptr", pVal, "HRESULT")
-        return result
+    get_UseRestrictedCharacterSet() {
+        result := ComCall(26, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -285,15 +267,12 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_filesystemstocreate
      */
-    get_FileSystemsToCreate(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_FileSystemsToCreate() {
+        result := ComCall(28, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -309,15 +288,12 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_filesystemssupported
      */
-    get_FileSystemsSupported(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_FileSystemsSupported() {
+        result := ComCall(30, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -333,28 +309,22 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_udfrevision
      */
-    get_UDFRevision(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_UDFRevision() {
+        result := ComCall(32, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_udfrevisionssupported
      */
-    get_UDFRevisionsSupported(pVal) {
-        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(33, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_UDFRevisionsSupported() {
+        result := ComCall(33, this, "ptr*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -392,107 +362,88 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_iso9660interchangelevel
      */
-    get_ISO9660InterchangeLevel(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(37, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ISO9660InterchangeLevel() {
+        result := ComCall(37, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_iso9660interchangelevelssupported
      */
-    get_ISO9660InterchangeLevelsSupported(pVal) {
-        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(38, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ISO9660InterchangeLevelsSupported() {
+        result := ComCall(38, this, "ptr*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<IFileSystemImageResult>} resultStream 
-     * @returns {HRESULT} 
+     * @returns {IFileSystemImageResult} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-createresultimage
      */
-    CreateResultImage(resultStream) {
-        result := ComCall(39, this, "ptr*", resultStream, "HRESULT")
-        return result
+    CreateResultImage() {
+        result := ComCall(39, this, "ptr*", &resultStream := 0, "HRESULT")
+        return IFileSystemImageResult(resultStream)
     }
 
     /**
      * 
      * @param {BSTR} fullPath 
-     * @param {Pointer<Integer>} itemType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-exists
      */
-    Exists(fullPath, itemType) {
+    Exists(fullPath) {
         fullPath := fullPath is String ? BSTR.Alloc(fullPath).Value : fullPath
 
-        itemTypeMarshal := itemType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(40, this, "ptr", fullPath, itemTypeMarshal, itemType, "HRESULT")
-        return result
+        result := ComCall(40, this, "ptr", fullPath, "int*", &itemType := 0, "HRESULT")
+        return itemType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} discIdentifier 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-calculatediscidentifier
      */
-    CalculateDiscIdentifier(discIdentifier) {
+    CalculateDiscIdentifier() {
+        discIdentifier := BSTR()
         result := ComCall(41, this, "ptr", discIdentifier, "HRESULT")
-        return result
+        return discIdentifier
     }
 
     /**
      * 
      * @param {IDiscRecorder2} discRecorder 
-     * @param {Pointer<Integer>} fileSystems 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-identifyfilesystemsondisc
      */
-    IdentifyFileSystemsOnDisc(discRecorder, fileSystems) {
-        fileSystemsMarshal := fileSystems is VarRef ? "int*" : "ptr"
-
-        result := ComCall(42, this, "ptr", discRecorder, fileSystemsMarshal, fileSystems, "HRESULT")
-        return result
+    IdentifyFileSystemsOnDisc(discRecorder) {
+        result := ComCall(42, this, "ptr", discRecorder, "int*", &fileSystems := 0, "HRESULT")
+        return fileSystems
     }
 
     /**
      * 
      * @param {Integer} fileSystems 
-     * @param {Pointer<Integer>} importDefault 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-getdefaultfilesystemforimport
      */
-    GetDefaultFileSystemForImport(fileSystems, importDefault) {
-        importDefaultMarshal := importDefault is VarRef ? "int*" : "ptr"
-
-        result := ComCall(43, this, "int", fileSystems, importDefaultMarshal, importDefault, "HRESULT")
-        return result
+    GetDefaultFileSystemForImport(fileSystems) {
+        result := ComCall(43, this, "int", fileSystems, "int*", &importDefault := 0, "HRESULT")
+        return importDefault
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} importedFileSystem 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-importfilesystem
      */
-    ImportFileSystem(importedFileSystem) {
-        importedFileSystemMarshal := importedFileSystem is VarRef ? "int*" : "ptr"
-
-        result := ComCall(44, this, importedFileSystemMarshal, importedFileSystem, "HRESULT")
-        return result
+    ImportFileSystem() {
+        result := ComCall(44, this, "int*", &importedFileSystem := 0, "HRESULT")
+        return importedFileSystem
     }
 
     /**
@@ -530,73 +481,70 @@ class IFileSystemImage extends IDispatch{
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IFsiDirectoryItem>} newItem 
-     * @returns {HRESULT} 
+     * @returns {IFsiDirectoryItem} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-createdirectoryitem
      */
-    CreateDirectoryItem(name, newItem) {
+    CreateDirectoryItem(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(48, this, "ptr", name, "ptr*", newItem, "HRESULT")
-        return result
+        result := ComCall(48, this, "ptr", name, "ptr*", &newItem := 0, "HRESULT")
+        return IFsiDirectoryItem(newItem)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IFsiFileItem>} newItem 
-     * @returns {HRESULT} 
+     * @returns {IFsiFileItem} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-createfileitem
      */
-    CreateFileItem(name, newItem) {
+    CreateFileItem(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(49, this, "ptr", name, "ptr*", newItem, "HRESULT")
-        return result
+        result := ComCall(49, this, "ptr", name, "ptr*", &newItem := 0, "HRESULT")
+        return IFsiFileItem(newItem)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_volumenameudf
      */
-    get_VolumeNameUDF(pVal) {
+    get_VolumeNameUDF() {
+        pVal := BSTR()
         result := ComCall(50, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_volumenamejoliet
      */
-    get_VolumeNameJoliet(pVal) {
+    get_VolumeNameJoliet() {
+        pVal := BSTR()
         result := ComCall(51, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_volumenameiso9660
      */
-    get_VolumeNameISO9660(pVal) {
+    get_VolumeNameISO9660() {
+        pVal := BSTR()
         result := ComCall(52, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_stagefiles
      */
-    get_StageFiles(pVal) {
-        result := ComCall(53, this, "ptr", pVal, "HRESULT")
-        return result
+    get_StageFiles() {
+        result := ComCall(53, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -612,15 +560,12 @@ class IFileSystemImage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_multisessioninterfaces
      */
-    get_MultisessionInterfaces(pVal) {
-        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(55, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_MultisessionInterfaces() {
+        result := ComCall(55, this, "ptr*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**

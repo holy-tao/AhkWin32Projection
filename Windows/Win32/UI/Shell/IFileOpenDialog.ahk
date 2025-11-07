@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IShellItemArray.ahk
 #Include .\IFileDialog.ahk
 
 /**
@@ -46,23 +47,21 @@ class IFileOpenDialog extends IFileDialog{
 
     /**
      * 
-     * @param {Pointer<IShellItemArray>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IShellItemArray} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileopendialog-getresults
      */
-    GetResults(ppenum) {
-        result := ComCall(27, this, "ptr*", ppenum, "HRESULT")
-        return result
+    GetResults() {
+        result := ComCall(27, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IShellItemArray(ppenum)
     }
 
     /**
      * 
-     * @param {Pointer<IShellItemArray>} ppsai 
-     * @returns {HRESULT} 
+     * @returns {IShellItemArray} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileopendialog-getselecteditems
      */
-    GetSelectedItems(ppsai) {
-        result := ComCall(28, this, "ptr*", ppsai, "HRESULT")
-        return result
+    GetSelectedItems() {
+        result := ComCall(28, this, "ptr*", &ppsai := 0, "HRESULT")
+        return IShellItemArray(ppsai)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMDMStorage.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,15 +37,14 @@ class IWMDMStorageControl extends IUnknown{
      * @param {PWSTR} pwszFile 
      * @param {IWMDMOperation} pOperation 
      * @param {IWMDMProgress} pProgress 
-     * @param {Pointer<IWMDMStorage>} ppNewObject 
-     * @returns {HRESULT} 
+     * @returns {IWMDMStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstoragecontrol-insert
      */
-    Insert(fuMode, pwszFile, pOperation, pProgress, ppNewObject) {
+    Insert(fuMode, pwszFile, pOperation, pProgress) {
         pwszFile := pwszFile is String ? StrPtr(pwszFile) : pwszFile
 
-        result := ComCall(3, this, "uint", fuMode, "ptr", pwszFile, "ptr", pOperation, "ptr", pProgress, "ptr*", ppNewObject, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", fuMode, "ptr", pwszFile, "ptr", pOperation, "ptr", pProgress, "ptr*", &ppNewObject := 0, "HRESULT")
+        return IWMDMStorage(ppNewObject)
     }
 
     /**

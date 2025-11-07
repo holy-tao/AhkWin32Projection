@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUICommandHandler.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -49,13 +50,12 @@ class IUIApplication extends IUnknown{
      * 
      * @param {Integer} commandId 
      * @param {Integer} typeID 
-     * @param {Pointer<IUICommandHandler>} commandHandler 
-     * @returns {HRESULT} 
+     * @returns {IUICommandHandler} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiapplication-oncreateuicommand
      */
-    OnCreateUICommand(commandId, typeID, commandHandler) {
-        result := ComCall(4, this, "uint", commandId, "int", typeID, "ptr*", commandHandler, "HRESULT")
-        return result
+    OnCreateUICommand(commandId, typeID) {
+        result := ComCall(4, this, "uint", commandId, "int", typeID, "ptr*", &commandHandler := 0, "HRESULT")
+        return IUICommandHandler(commandHandler)
     }
 
     /**

@@ -31,12 +31,11 @@ class IWICDisplayAdaptationControl extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} pguidDstFormat 
-     * @param {Pointer<BOOL>} pfIsSupported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    DoesSupportChangingMaxLuminance(pguidDstFormat, pfIsSupported) {
-        result := ComCall(3, this, "ptr", pguidDstFormat, "ptr", pfIsSupported, "HRESULT")
-        return result
+    DoesSupportChangingMaxLuminance(pguidDstFormat) {
+        result := ComCall(3, this, "ptr", pguidDstFormat, "int*", &pfIsSupported := 0, "HRESULT")
+        return pfIsSupported
     }
 
     /**
@@ -51,13 +50,10 @@ class IWICDisplayAdaptationControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pfLuminanceInNits 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    GetDisplayMaxLuminance(pfLuminanceInNits) {
-        pfLuminanceInNitsMarshal := pfLuminanceInNits is VarRef ? "float*" : "ptr"
-
-        result := ComCall(5, this, pfLuminanceInNitsMarshal, pfLuminanceInNits, "HRESULT")
-        return result
+    GetDisplayMaxLuminance() {
+        result := ComCall(5, this, "float*", &pfLuminanceInNits := 0, "HRESULT")
+        return pfLuminanceInNits
     }
 }

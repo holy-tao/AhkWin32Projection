@@ -32,13 +32,12 @@ class IAudioLoudness extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudioloudness-getenabled
      */
-    GetEnabled(pbEnabled) {
-        result := ComCall(3, this, "ptr", pbEnabled, "HRESULT")
-        return result
+    GetEnabled() {
+        result := ComCall(3, this, "int*", &pbEnabled := 0, "HRESULT")
+        return pbEnabled
     }
 
     /**

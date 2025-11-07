@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMbnInterface.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -125,27 +126,23 @@ class IMbnInterfaceManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} interfaceID 
-     * @param {Pointer<IMbnInterface>} mbnInterface 
-     * @returns {HRESULT} 
+     * @returns {IMbnInterface} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfacemanager-getinterface
      */
-    GetInterface(interfaceID, mbnInterface) {
+    GetInterface(interfaceID) {
         interfaceID := interfaceID is String ? StrPtr(interfaceID) : interfaceID
 
-        result := ComCall(3, this, "ptr", interfaceID, "ptr*", mbnInterface, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", interfaceID, "ptr*", &mbnInterface := 0, "HRESULT")
+        return IMbnInterface(mbnInterface)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} mbnInterfaces 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfacemanager-getinterfaces
      */
-    GetInterfaces(mbnInterfaces) {
-        mbnInterfacesMarshal := mbnInterfaces is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, mbnInterfacesMarshal, mbnInterfaces, "HRESULT")
-        return result
+    GetInterfaces() {
+        result := ComCall(4, this, "ptr*", &mbnInterfaces := 0, "HRESULT")
+        return mbnInterfaces
     }
 }

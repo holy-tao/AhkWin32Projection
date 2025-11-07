@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDataObject.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,12 +46,13 @@ class ISecurityInformation2 extends IUnknown{
      * 
      * @param {Integer} cSids 
      * @param {Pointer<PSID>} rgpSids 
-     * @param {Pointer<IDataObject>} ppdo 
-     * @returns {HRESULT} 
+     * @returns {IDataObject} 
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation2-lookupsids
      */
-    LookupSids(cSids, rgpSids, ppdo) {
-        result := ComCall(4, this, "uint", cSids, "ptr", rgpSids, "ptr*", ppdo, "HRESULT")
-        return result
+    LookupSids(cSids, rgpSids) {
+        rgpSidsMarshal := rgpSids is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", cSids, rgpSidsMarshal, rgpSids, "ptr*", &ppdo := 0, "HRESULT")
+        return IDataObject(ppdo)
     }
 }

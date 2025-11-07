@@ -31,27 +31,21 @@ class IVssAdminEx extends IVssAdmin{
     /**
      * 
      * @param {Guid} pProviderId 
-     * @param {Pointer<Integer>} pllOriginalCapabilityMask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetProviderCapability(pProviderId, pllOriginalCapabilityMask) {
-        pllOriginalCapabilityMaskMarshal := pllOriginalCapabilityMask is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pProviderId, pllOriginalCapabilityMaskMarshal, pllOriginalCapabilityMask, "HRESULT")
-        return result
+    GetProviderCapability(pProviderId) {
+        result := ComCall(7, this, "ptr", pProviderId, "uint*", &pllOriginalCapabilityMask := 0, "HRESULT")
+        return pllOriginalCapabilityMask
     }
 
     /**
      * 
      * @param {Guid} ProviderId 
-     * @param {Pointer<Integer>} plContext 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetProviderContext(ProviderId, plContext) {
-        plContextMarshal := plContext is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "ptr", ProviderId, plContextMarshal, plContext, "HRESULT")
-        return result
+    GetProviderContext(ProviderId) {
+        result := ComCall(8, this, "ptr", ProviderId, "int*", &plContext := 0, "HRESULT")
+        return plContext
     }
 
     /**

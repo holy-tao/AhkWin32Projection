@@ -48,53 +48,12 @@ class IUIAutomationWindowPattern extends IUnknown{
     /**
      * Waits until the specified process has finished processing its initial input and is waiting for user input with no input pending, or until the time-out interval has elapsed.
      * @param {Integer} milliseconds 
-     * @param {Pointer<BOOL>} success 
-     * @returns {HRESULT} The following table shows the possible return values for this function.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>0</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The wait was satisfied successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>WAIT_TIMEOUT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The wait was terminated because the time-out interval elapsed.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>WAIT_FAILED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An error occurred.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BOOL} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-waitforinputidle
      */
-    WaitForInputIdle(milliseconds, success) {
-        result := ComCall(4, this, "int", milliseconds, "ptr", success, "HRESULT")
-        return result
+    WaitForInputIdle(milliseconds) {
+        result := ComCall(4, this, "int", milliseconds, "int*", &success := 0, "HRESULT")
+        return success
     }
 
     /**
@@ -110,141 +69,121 @@ class IUIAutomationWindowPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentcanmaximize
      */
-    get_CurrentCanMaximize(retVal) {
-        result := ComCall(6, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentCanMaximize() {
+        result := ComCall(6, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentcanminimize
      */
-    get_CurrentCanMinimize(retVal) {
-        result := ComCall(7, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentCanMinimize() {
+        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentismodal
      */
-    get_CurrentIsModal(retVal) {
-        result := ComCall(8, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsModal() {
+        result := ComCall(8, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentistopmost
      */
-    get_CurrentIsTopmost(retVal) {
-        result := ComCall(9, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsTopmost() {
+        result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentwindowvisualstate
      */
-    get_CurrentWindowVisualState(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentWindowVisualState() {
+        result := ComCall(10, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentwindowinteractionstate
      */
-    get_CurrentWindowInteractionState(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentWindowInteractionState() {
+        result := ComCall(11, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedcanmaximize
      */
-    get_CachedCanMaximize(retVal) {
-        result := ComCall(12, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedCanMaximize() {
+        result := ComCall(12, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedcanminimize
      */
-    get_CachedCanMinimize(retVal) {
-        result := ComCall(13, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedCanMinimize() {
+        result := ComCall(13, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedismodal
      */
-    get_CachedIsModal(retVal) {
-        result := ComCall(14, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsModal() {
+        result := ComCall(14, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedistopmost
      */
-    get_CachedIsTopmost(retVal) {
-        result := ComCall(15, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsTopmost() {
+        result := ComCall(15, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedwindowvisualstate
      */
-    get_CachedWindowVisualState(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedWindowVisualState() {
+        result := ComCall(16, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedwindowinteractionstate
      */
-    get_CachedWindowInteractionState(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedWindowInteractionState() {
+        result := ComCall(17, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

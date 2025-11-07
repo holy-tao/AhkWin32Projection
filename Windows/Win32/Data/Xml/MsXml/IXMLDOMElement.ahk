@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\IXMLDOMAttribute.ahk
+#Include .\IXMLDOMNodeList.ahk
 #Include .\IXMLDOMNode.ahk
 
 /**
@@ -31,25 +34,25 @@ class IXMLDOMElement extends IXMLDOMNode{
 
     /**
      * 
-     * @param {Pointer<BSTR>} tagName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_tagName(tagName) {
+    get_tagName() {
+        tagName := BSTR()
         result := ComCall(43, this, "ptr", tagName, "HRESULT")
-        return result
+        return tagName
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<VARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getAttribute(name, value) {
+    getAttribute(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
+        value := VARIANT()
         result := ComCall(44, this, "ptr", name, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
@@ -80,49 +83,45 @@ class IXMLDOMElement extends IXMLDOMNode{
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IXMLDOMAttribute>} attributeNode 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMAttribute} 
      */
-    getAttributeNode(name, attributeNode) {
+    getAttributeNode(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(47, this, "ptr", name, "ptr*", attributeNode, "HRESULT")
-        return result
+        result := ComCall(47, this, "ptr", name, "ptr*", &attributeNode := 0, "HRESULT")
+        return IXMLDOMAttribute(attributeNode)
     }
 
     /**
      * 
      * @param {IXMLDOMAttribute} DOMAttribute 
-     * @param {Pointer<IXMLDOMAttribute>} attributeNode 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMAttribute} 
      */
-    setAttributeNode(DOMAttribute, attributeNode) {
-        result := ComCall(48, this, "ptr", DOMAttribute, "ptr*", attributeNode, "HRESULT")
-        return result
+    setAttributeNode(DOMAttribute) {
+        result := ComCall(48, this, "ptr", DOMAttribute, "ptr*", &attributeNode := 0, "HRESULT")
+        return IXMLDOMAttribute(attributeNode)
     }
 
     /**
      * 
      * @param {IXMLDOMAttribute} DOMAttribute 
-     * @param {Pointer<IXMLDOMAttribute>} attributeNode 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMAttribute} 
      */
-    removeAttributeNode(DOMAttribute, attributeNode) {
-        result := ComCall(49, this, "ptr", DOMAttribute, "ptr*", attributeNode, "HRESULT")
-        return result
+    removeAttributeNode(DOMAttribute) {
+        result := ComCall(49, this, "ptr", DOMAttribute, "ptr*", &attributeNode := 0, "HRESULT")
+        return IXMLDOMAttribute(attributeNode)
     }
 
     /**
      * 
      * @param {BSTR} tagName 
-     * @param {Pointer<IXMLDOMNodeList>} resultList 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNodeList} 
      */
-    getElementsByTagName(tagName, resultList) {
+    getElementsByTagName(tagName) {
         tagName := tagName is String ? BSTR.Alloc(tagName).Value : tagName
 
-        result := ComCall(50, this, "ptr", tagName, "ptr*", resultList, "HRESULT")
-        return result
+        result := ComCall(50, this, "ptr", tagName, "ptr*", &resultList := 0, "HRESULT")
+        return IXMLDOMNodeList(resultList)
     }
 
     /**

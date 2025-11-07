@@ -30,11 +30,11 @@ class IActiveScriptSIPInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} poid_sip 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetSIPOID(poid_sip) {
+    GetSIPOID() {
+        poid_sip := Guid()
         result := ComCall(3, this, "ptr", poid_sip, "HRESULT")
-        return result
+        return poid_sip
     }
 }

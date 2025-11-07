@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,25 +31,22 @@ class IPropertyKeyStore extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} keyCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetKeyCount(keyCount) {
-        keyCountMarshal := keyCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, keyCountMarshal, keyCount, "HRESULT")
-        return result
+    GetKeyCount() {
+        result := ComCall(3, this, "int*", &keyCount := 0, "HRESULT")
+        return keyCount
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<PROPERTYKEY>} pkey 
-     * @returns {HRESULT} 
+     * @returns {PROPERTYKEY} 
      */
-    GetKeyAt(index, pkey) {
+    GetKeyAt(index) {
+        pkey := PROPERTYKEY()
         result := ComCall(4, this, "int", index, "ptr", pkey, "HRESULT")
-        return result
+        return pkey
     }
 
     /**

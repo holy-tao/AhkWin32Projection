@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\ITnef.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Tapi
@@ -11187,19 +11188,18 @@ class Tapi {
      * @param {Integer} ulFlags 
      * @param {IMessage} lpMessage 
      * @param {Integer} wKeyVal 
-     * @param {Pointer<ITnef>} lppTNEF 
-     * @returns {HRESULT} 
+     * @returns {ITnef} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/opentnefstream
      */
-    static OpenTnefStream(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal, lppTNEF) {
+    static OpenTnefStream(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal) {
         lpvSupportMarshal := lpvSupport is VarRef ? "ptr" : "ptr"
         lpszStreamNameMarshal := lpszStreamName is VarRef ? "char*" : "ptr"
 
-        result := DllCall("MAPI32.dll\OpenTnefStream", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr*", lppTNEF, "int")
+        result := DllCall("MAPI32.dll\OpenTnefStream", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr*", &lppTNEF := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ITnef(lppTNEF)
     }
 
     /**
@@ -11211,19 +11211,18 @@ class Tapi {
      * @param {IMessage} lpMessage 
      * @param {Integer} wKeyVal 
      * @param {IAddrBook} lpAdressBook 
-     * @param {Pointer<ITnef>} lppTNEF 
-     * @returns {HRESULT} 
+     * @returns {ITnef} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/opentnefstreamex
      */
-    static OpenTnefStreamEx(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal, lpAdressBook, lppTNEF) {
+    static OpenTnefStreamEx(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal, lpAdressBook) {
         lpvSupportMarshal := lpvSupport is VarRef ? "ptr" : "ptr"
         lpszStreamNameMarshal := lpszStreamName is VarRef ? "char*" : "ptr"
 
-        result := DllCall("MAPI32.dll\OpenTnefStreamEx", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lpAdressBook, "ptr*", lppTNEF, "int")
+        result := DllCall("MAPI32.dll\OpenTnefStreamEx", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lpAdressBook, "ptr*", &lppTNEF := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ITnef(lppTNEF)
     }
 
     /**

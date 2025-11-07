@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumWbemClassObject.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -76,13 +77,12 @@ class IEnumWbemClassObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumWbemClassObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWbemClassObject} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-ienumwbemclassobject-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumWbemClassObject(ppEnum)
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -53,13 +55,13 @@ class ITextInputPanel extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HWND>} AttachedEditWindow 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_attachededitwindow
      */
-    get_AttachedEditWindow(AttachedEditWindow) {
+    get_AttachedEditWindow() {
+        AttachedEditWindow := HWND()
         result := ComCall(3, this, "ptr", AttachedEditWindow, "HRESULT")
-        return result
+        return AttachedEditWindow
     }
 
     /**
@@ -77,28 +79,22 @@ class ITextInputPanel extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} CurrentInteractionMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentinteractionmode
      */
-    get_CurrentInteractionMode(CurrentInteractionMode) {
-        CurrentInteractionModeMarshal := CurrentInteractionMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, CurrentInteractionModeMarshal, CurrentInteractionMode, "HRESULT")
-        return result
+    get_CurrentInteractionMode() {
+        result := ComCall(5, this, "int*", &CurrentInteractionMode := 0, "HRESULT")
+        return CurrentInteractionMode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} State 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_defaultinplacestate
      */
-    get_DefaultInPlaceState(State) {
-        StateMarshal := State is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, StateMarshal, State, "HRESULT")
-        return result
+    get_DefaultInPlaceState() {
+        result := ComCall(6, this, "int*", &State := 0, "HRESULT")
+        return State
     }
 
     /**
@@ -114,28 +110,22 @@ class ITextInputPanel extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} State 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentinplacestate
      */
-    get_CurrentInPlaceState(State) {
-        StateMarshal := State is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, StateMarshal, State, "HRESULT")
-        return result
+    get_CurrentInPlaceState() {
+        result := ComCall(8, this, "int*", &State := 0, "HRESULT")
+        return State
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Area 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_defaultinputarea
      */
-    get_DefaultInputArea(Area) {
-        AreaMarshal := Area is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, AreaMarshal, Area, "HRESULT")
-        return result
+    get_DefaultInputArea() {
+        result := ComCall(9, this, "int*", &Area := 0, "HRESULT")
+        return Area
     }
 
     /**
@@ -151,41 +141,32 @@ class ITextInputPanel extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Area 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentinputarea
      */
-    get_CurrentInputArea(Area) {
-        AreaMarshal := Area is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, AreaMarshal, Area, "HRESULT")
-        return result
+    get_CurrentInputArea() {
+        result := ComCall(11, this, "int*", &Area := 0, "HRESULT")
+        return Area
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Mode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentcorrectionmode
      */
-    get_CurrentCorrectionMode(Mode) {
-        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, ModeMarshal, Mode, "HRESULT")
-        return result
+    get_CurrentCorrectionMode() {
+        result := ComCall(12, this, "int*", &Mode := 0, "HRESULT")
+        return Mode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Direction 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_preferredinplacedirection
      */
-    get_PreferredInPlaceDirection(Direction) {
-        DirectionMarshal := Direction is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, DirectionMarshal, Direction, "HRESULT")
-        return result
+    get_PreferredInPlaceDirection() {
+        result := ComCall(13, this, "int*", &Direction := 0, "HRESULT")
+        return Direction
     }
 
     /**
@@ -201,13 +182,12 @@ class ITextInputPanel extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} Expand 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_expandpostinsertioncorrection
      */
-    get_ExpandPostInsertionCorrection(Expand) {
-        result := ComCall(15, this, "ptr", Expand, "HRESULT")
-        return result
+    get_ExpandPostInsertionCorrection() {
+        result := ComCall(15, this, "int*", &Expand := 0, "HRESULT")
+        return Expand
     }
 
     /**
@@ -223,13 +203,12 @@ class ITextInputPanel extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} Visible 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_inplacevisibleonfocus
      */
-    get_InPlaceVisibleOnFocus(Visible) {
-        result := ComCall(17, this, "ptr", Visible, "HRESULT")
-        return result
+    get_InPlaceVisibleOnFocus() {
+        result := ComCall(17, this, "int*", &Visible := 0, "HRESULT")
+        return Visible
     }
 
     /**
@@ -245,39 +224,33 @@ class ITextInputPanel extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<RECT>} BoundingRectangle 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_inplaceboundingrectangle
      */
-    get_InPlaceBoundingRectangle(BoundingRectangle) {
+    get_InPlaceBoundingRectangle() {
+        BoundingRectangle := RECT()
         result := ComCall(19, this, "ptr", BoundingRectangle, "HRESULT")
-        return result
+        return BoundingRectangle
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Height 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_popupcorrectionheight
      */
-    get_PopUpCorrectionHeight(Height) {
-        HeightMarshal := Height is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, HeightMarshal, Height, "HRESULT")
-        return result
+    get_PopUpCorrectionHeight() {
+        result := ComCall(20, this, "int*", &Height := 0, "HRESULT")
+        return Height
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Height 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_popdowncorrectionheight
      */
-    get_PopDownCorrectionHeight(Height) {
-        HeightMarshal := Height is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, HeightMarshal, Height, "HRESULT")
-        return result
+    get_PopDownCorrectionHeight() {
+        result := ComCall(21, this, "int*", &Height := 0, "HRESULT")
+        return Height
     }
 
     /**

@@ -53,7 +53,9 @@ class ISyncSessionState2 extends ISyncSessionState{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate2-getsessionerrorstatus
      */
     GetSessionErrorStatus(phrSessionError) {
-        result := ComCall(11, this, "ptr", phrSessionError, "HRESULT")
+        phrSessionErrorMarshal := phrSessionError is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, phrSessionErrorMarshal, phrSessionError, "HRESULT")
         return result
     }
 }

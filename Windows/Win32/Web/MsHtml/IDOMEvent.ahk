@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IEventTarget.ahk
+#Include .\IHTMLElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,86 +39,75 @@ class IDOMEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_bubbles(p) {
-        result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+    get_bubbles() {
+        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_cancelable(p) {
-        result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+    get_cancelable() {
+        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IEventTarget>} p 
-     * @returns {HRESULT} 
+     * @returns {IEventTarget} 
      */
-    get_currentTarget(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_currentTarget() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IEventTarget(p)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_defaultPrevented(p) {
-        result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+    get_defaultPrevented() {
+        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_eventPhase(p) {
-        pMarshal := p is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(11, this, pMarshal, p, "HRESULT")
-        return result
+    get_eventPhase() {
+        result := ComCall(11, this, "ushort*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IEventTarget>} p 
-     * @returns {HRESULT} 
+     * @returns {IEventTarget} 
      */
-    get_target(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_target() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return IEventTarget(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_timeStamp(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pMarshal, p, "HRESULT")
-        return result
+    get_timeStamp() {
+        result := ComCall(13, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_type(p) {
+    get_type() {
+        p := BSTR()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -162,12 +153,11 @@ class IDOMEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_isTrusted(p) {
-        result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+    get_isTrusted() {
+        result := ComCall(19, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -182,21 +172,19 @@ class IDOMEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_cancelBubble(p) {
-        result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+    get_cancelBubble() {
+        result := ComCall(21, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_srcElement(p) {
-        result := ComCall(22, this, "ptr*", p, "HRESULT")
-        return result
+    get_srcElement() {
+        result := ComCall(22, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 }

@@ -2261,7 +2261,9 @@ class Authorization {
     static AuthzEvaluateSacl(AuthzClientContext, pRequest, Sacl, GrantedAccess, AccessGranted, pbGenerateAudit) {
         AuthzClientContext := AuthzClientContext is Win32Handle ? NumGet(AuthzClientContext, "ptr") : AuthzClientContext
 
-        result := DllCall("AUTHZ.dll\AuthzEvaluateSacl", "ptr", AuthzClientContext, "ptr", pRequest, "ptr", Sacl, "uint", GrantedAccess, "int", AccessGranted, "ptr", pbGenerateAudit, "int")
+        pbGenerateAuditMarshal := pbGenerateAudit is VarRef ? "int*" : "ptr"
+
+        result := DllCall("AUTHZ.dll\AuthzEvaluateSacl", "ptr", AuthzClientContext, "ptr", pRequest, "ptr", Sacl, "uint", GrantedAccess, "int", AccessGranted, pbGenerateAuditMarshal, pbGenerateAudit, "int")
         return result
     }
 
@@ -2739,10 +2741,12 @@ class Authorization {
     static GetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
+        ppsidOwnerMarshal := ppsidOwner is VarRef ? "ptr*" : "ptr"
+        ppsidGroupMarshal := ppsidGroup is VarRef ? "ptr*" : "ptr"
         ppDaclMarshal := ppDacl is VarRef ? "ptr*" : "ptr"
         ppSaclMarshal := ppSacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
+        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, ppsidOwnerMarshal, ppsidOwner, ppsidGroupMarshal, ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
@@ -2771,10 +2775,12 @@ class Authorization {
     static GetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
+        ppsidOwnerMarshal := ppsidOwner is VarRef ? "ptr*" : "ptr"
+        ppsidGroupMarshal := ppsidGroup is VarRef ? "ptr*" : "ptr"
         ppDaclMarshal := ppDacl is VarRef ? "ptr*" : "ptr"
         ppSaclMarshal := ppSacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
+        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, ppsidOwnerMarshal, ppsidOwner, ppsidGroupMarshal, ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
@@ -2802,10 +2808,12 @@ class Authorization {
     static GetSecurityInfo(handle, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
         handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
 
+        ppsidOwnerMarshal := ppsidOwner is VarRef ? "ptr*" : "ptr"
+        ppsidGroupMarshal := ppsidGroup is VarRef ? "ptr*" : "ptr"
         ppDaclMarshal := ppDacl is VarRef ? "ptr*" : "ptr"
         ppSaclMarshal := ppSacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetSecurityInfo", "ptr", handle, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
+        result := DllCall("ADVAPI32.dll\GetSecurityInfo", "ptr", handle, "int", ObjectType, "uint", SecurityInfo, ppsidOwnerMarshal, ppsidOwner, ppsidGroupMarshal, ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
@@ -3961,7 +3969,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetTrusteeNameA(pTrustee) {
-        result := DllCall("ADVAPI32.dll\GetTrusteeNameA", "ptr", pTrustee, "char*")
+        result := DllCall("ADVAPI32.dll\GetTrusteeNameA", "ptr", pTrustee, "ptr")
         return result
     }
 
@@ -3976,7 +3984,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetTrusteeNameW(pTrustee) {
-        result := DllCall("ADVAPI32.dll\GetTrusteeNameW", "ptr", pTrustee, "char*")
+        result := DllCall("ADVAPI32.dll\GetTrusteeNameW", "ptr", pTrustee, "ptr")
         return result
     }
 
@@ -4127,9 +4135,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertSidToStringSidA(Sid, StringSid) {
+        StringSidMarshal := StringSid is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidA", "ptr", Sid, "ptr", StringSid, "int")
+        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidA", "ptr", Sid, StringSidMarshal, StringSid, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4189,9 +4199,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertSidToStringSidW(Sid, StringSid) {
+        StringSidMarshal := StringSid is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidW", "ptr", Sid, "ptr", StringSid, "int")
+        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidW", "ptr", Sid, StringSidMarshal, StringSid, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4247,9 +4259,11 @@ class Authorization {
     static ConvertStringSidToSidA(StringSid, Sid) {
         StringSid := StringSid is String ? StrPtr(StringSid) : StringSid
 
+        SidMarshal := Sid is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidA", "ptr", StringSid, "ptr", Sid, "int")
+        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidA", "ptr", StringSid, SidMarshal, Sid, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4305,9 +4319,11 @@ class Authorization {
     static ConvertStringSidToSidW(StringSid, Sid) {
         StringSid := StringSid is String ? StrPtr(StringSid) : StringSid
 
+        SidMarshal := Sid is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidW", "ptr", StringSid, "ptr", Sid, "int")
+        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidW", "ptr", StringSid, SidMarshal, Sid, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4528,11 +4544,12 @@ class Authorization {
     static ConvertSecurityDescriptorToStringSecurityDescriptorA(SecurityDescriptor, RequestedStringSDRevision, SecurityInformation, StringSecurityDescriptor, StringSecurityDescriptorLen) {
         SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
 
+        StringSecurityDescriptorMarshal := StringSecurityDescriptor is VarRef ? "ptr*" : "ptr"
         StringSecurityDescriptorLenMarshal := StringSecurityDescriptorLen is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorA", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, "ptr", StringSecurityDescriptor, StringSecurityDescriptorLenMarshal, StringSecurityDescriptorLen, "int")
+        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorA", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, StringSecurityDescriptorMarshal, StringSecurityDescriptor, StringSecurityDescriptorLenMarshal, StringSecurityDescriptorLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4613,11 +4630,12 @@ class Authorization {
     static ConvertSecurityDescriptorToStringSecurityDescriptorW(SecurityDescriptor, RequestedStringSDRevision, SecurityInformation, StringSecurityDescriptor, StringSecurityDescriptorLen) {
         SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
 
+        StringSecurityDescriptorMarshal := StringSecurityDescriptor is VarRef ? "ptr*" : "ptr"
         StringSecurityDescriptorLenMarshal := StringSecurityDescriptorLen is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorW", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, "ptr", StringSecurityDescriptor, StringSecurityDescriptorLenMarshal, StringSecurityDescriptorLen, "int")
+        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorW", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, StringSecurityDescriptorMarshal, StringSecurityDescriptor, StringSecurityDescriptorLenMarshal, StringSecurityDescriptorLen, "int")
         if(A_LastError)
             throw OSError()
 

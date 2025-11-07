@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumAgentHandler.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,23 +34,22 @@ class ITTAPICallCenter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumAgentHandler>} ppEnumHandler 
-     * @returns {HRESULT} 
+     * @returns {IEnumAgentHandler} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ittapicallcenter-enumerateagenthandlers
      */
-    EnumerateAgentHandlers(ppEnumHandler) {
-        result := ComCall(7, this, "ptr*", ppEnumHandler, "HRESULT")
-        return result
+    EnumerateAgentHandlers() {
+        result := ComCall(7, this, "ptr*", &ppEnumHandler := 0, "HRESULT")
+        return IEnumAgentHandler(ppEnumHandler)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ittapicallcenter-get_agenthandlers
      */
-    get_AgentHandlers(pVariant) {
+    get_AgentHandlers() {
+        pVariant := VARIANT()
         result := ComCall(8, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 }

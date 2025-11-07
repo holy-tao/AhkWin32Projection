@@ -45,27 +45,23 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * 
      * @param {BSTR} URL 
      * @param {BSTR} Verb 
-     * @param {Pointer<Integer>} pdwResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    IsServiceInstalled(URL, Verb, pdwResult) {
+    IsServiceInstalled(URL, Verb) {
         URL := URL is String ? BSTR.Alloc(URL).Value : URL
         Verb := Verb is String ? BSTR.Alloc(Verb).Value : Verb
 
-        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(37, this, "ptr", URL, "ptr", Verb, pdwResultMarshal, pdwResult, "HRESULT")
-        return result
+        result := ComCall(37, this, "ptr", URL, "ptr", Verb, "uint*", &pdwResult := 0, "HRESULT")
+        return pdwResult
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    InPrivateFilteringEnabled(pfEnabled) {
-        result := ComCall(38, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    InPrivateFilteringEnabled() {
+        result := ComCall(38, this, "short*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
@@ -123,12 +119,11 @@ class IShellUIHelper3 extends IShellUIHelper2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    IsSuggestedSitesEnabled(pfEnabled) {
-        result := ComCall(44, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    IsSuggestedSitesEnabled() {
+        result := ComCall(44, this, "short*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**

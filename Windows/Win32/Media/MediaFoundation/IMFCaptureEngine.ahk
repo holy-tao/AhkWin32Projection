@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFCaptureSink.ahk
+#Include .\IMFCaptureSource.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -114,23 +116,21 @@ class IMFCaptureEngine extends IUnknown{
     /**
      * 
      * @param {Integer} mfCaptureEngineSinkType 
-     * @param {Pointer<IMFCaptureSink>} ppSink 
-     * @returns {HRESULT} 
+     * @returns {IMFCaptureSink} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-getsink
      */
-    GetSink(mfCaptureEngineSinkType, ppSink) {
-        result := ComCall(9, this, "int", mfCaptureEngineSinkType, "ptr*", ppSink, "HRESULT")
-        return result
+    GetSink(mfCaptureEngineSinkType) {
+        result := ComCall(9, this, "int", mfCaptureEngineSinkType, "ptr*", &ppSink := 0, "HRESULT")
+        return IMFCaptureSink(ppSink)
     }
 
     /**
      * 
-     * @param {Pointer<IMFCaptureSource>} ppSource 
-     * @returns {HRESULT} 
+     * @returns {IMFCaptureSource} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-getsource
      */
-    GetSource(ppSource) {
-        result := ComCall(10, this, "ptr*", ppSource, "HRESULT")
-        return result
+    GetSource() {
+        result := ComCall(10, this, "ptr*", &ppSource := 0, "HRESULT")
+        return IMFCaptureSource(ppSource)
     }
 }

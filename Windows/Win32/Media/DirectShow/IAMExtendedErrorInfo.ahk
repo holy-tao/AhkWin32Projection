@@ -43,7 +43,9 @@ class IAMExtendedErrorInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendederrorinfo-get_haserror
      */
     get_HasError(pHasError) {
-        result := ComCall(7, this, "ptr", pHasError, "HRESULT")
+        pHasErrorMarshal := pHasError is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, pHasErrorMarshal, pHasError, "HRESULT")
         return result
     }
 

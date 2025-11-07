@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWRdsProtocolConnectionCallback.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -38,12 +39,11 @@ class IWRdsProtocolListenerCallback extends IUnknown{
      * 
      * @param {IWRdsProtocolConnection} pConnection 
      * @param {Pointer<WRDS_CONNECTION_SETTINGS>} pWRdsConnectionSettings 
-     * @param {Pointer<IWRdsProtocolConnectionCallback>} pCallback 
-     * @returns {HRESULT} 
+     * @returns {IWRdsProtocolConnectionCallback} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollistenercallback-onconnected
      */
-    OnConnected(pConnection, pWRdsConnectionSettings, pCallback) {
-        result := ComCall(3, this, "ptr", pConnection, "ptr", pWRdsConnectionSettings, "ptr*", pCallback, "HRESULT")
-        return result
+    OnConnected(pConnection, pWRdsConnectionSettings) {
+        result := ComCall(3, this, "ptr", pConnection, "ptr", pWRdsConnectionSettings, "ptr*", &pCallback := 0, "HRESULT")
+        return IWRdsProtocolConnectionCallback(pCallback)
     }
 }

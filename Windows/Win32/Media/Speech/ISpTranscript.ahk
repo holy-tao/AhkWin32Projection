@@ -30,12 +30,11 @@ class ISpTranscript extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszTranscript 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetTranscript(ppszTranscript) {
-        result := ComCall(3, this, "ptr", ppszTranscript, "HRESULT")
-        return result
+    GetTranscript() {
+        result := ComCall(3, this, "ptr*", &ppszTranscript := 0, "HRESULT")
+        return ppszTranscript
     }
 
     /**

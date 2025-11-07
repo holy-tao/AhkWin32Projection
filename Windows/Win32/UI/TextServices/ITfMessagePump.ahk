@@ -62,7 +62,9 @@ class ITfMessagePump extends IUnknown{
     PeekMessageA(pMsg, hwnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg, pfResult) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(3, this, "ptr", pMsg, "ptr", hwnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "uint", wRemoveMsg, "ptr", pfResult, "HRESULT")
+        pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pMsg, "ptr", hwnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "uint", wRemoveMsg, pfResultMarshal, pfResult, "HRESULT")
         return result
     }
 
@@ -126,7 +128,9 @@ class ITfMessagePump extends IUnknown{
     GetMessageA(pMsg, hwnd, wMsgFilterMin, wMsgFilterMax, pfResult) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(4, this, "ptr", pMsg, "ptr", hwnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "ptr", pfResult, "HRESULT")
+        pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pMsg, "ptr", hwnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, pfResultMarshal, pfResult, "HRESULT")
         return result
     }
 
@@ -156,7 +160,9 @@ class ITfMessagePump extends IUnknown{
     PeekMessageW(pMsg, hwnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg, pfResult) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(5, this, "ptr", pMsg, "ptr", hwnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "uint", wRemoveMsg, "ptr", pfResult, "HRESULT")
+        pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pMsg, "ptr", hwnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "uint", wRemoveMsg, pfResultMarshal, pfResult, "HRESULT")
         return result
     }
 
@@ -220,7 +226,9 @@ class ITfMessagePump extends IUnknown{
     GetMessageW(pMsg, hwnd, wMsgFilterMin, wMsgFilterMax, pfResult) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(6, this, "ptr", pMsg, "ptr", hwnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "ptr", pfResult, "HRESULT")
+        pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pMsg, "ptr", hwnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, pfResultMarshal, pfResult, "HRESULT")
         return result
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpeechAudioFormat.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,12 +32,11 @@ class ISpeechBaseStream extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechAudioFormat>} AudioFormat 
-     * @returns {HRESULT} 
+     * @returns {ISpeechAudioFormat} 
      */
-    get_Format(AudioFormat) {
-        result := ComCall(7, this, "ptr*", AudioFormat, "HRESULT")
-        return result
+    get_Format() {
+        result := ComCall(7, this, "ptr*", &AudioFormat := 0, "HRESULT")
+        return ISpeechAudioFormat(AudioFormat)
     }
 
     /**
@@ -65,25 +66,22 @@ class ISpeechBaseStream extends IDispatch{
     /**
      * 
      * @param {VARIANT} Buffer 
-     * @param {Pointer<Integer>} BytesWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Write(Buffer, BytesWritten) {
-        BytesWrittenMarshal := BytesWritten is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, "ptr", Buffer, BytesWrittenMarshal, BytesWritten, "HRESULT")
-        return result
+    Write(Buffer) {
+        result := ComCall(10, this, "ptr", Buffer, "int*", &BytesWritten := 0, "HRESULT")
+        return BytesWritten
     }
 
     /**
      * 
      * @param {VARIANT} Position 
      * @param {Integer} Origin 
-     * @param {Pointer<VARIANT>} NewPosition 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    Seek(Position, Origin, NewPosition) {
+    Seek(Position, Origin) {
+        NewPosition := VARIANT()
         result := ComCall(11, this, "ptr", Position, "uint", Origin, "ptr", NewPosition, "HRESULT")
-        return result
+        return NewPosition
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostSymbol.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -39,11 +40,10 @@ class IDebugHostSymbolEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugHostSymbol>} symbol 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostSymbol} 
      */
-    GetNext(symbol) {
-        result := ComCall(4, this, "ptr*", symbol, "HRESULT")
-        return result
+    GetNext() {
+        result := ComCall(4, this, "ptr*", &symbol := 0, "HRESULT")
+        return IDebugHostSymbol(symbol)
     }
 }

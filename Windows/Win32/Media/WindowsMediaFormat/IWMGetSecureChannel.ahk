@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMSecureChannel.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class IWMGetSecureChannel extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWMSecureChannel>} ppPeer 
-     * @returns {HRESULT} 
+     * @returns {IWMSecureChannel} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmgetsecurechannel-getpeersecurechannelinterface
      */
-    GetPeerSecureChannelInterface(ppPeer) {
-        result := ComCall(3, this, "ptr*", ppPeer, "HRESULT")
-        return result
+    GetPeerSecureChannelInterface() {
+        result := ComCall(3, this, "ptr*", &ppPeer := 0, "HRESULT")
+        return IWMSecureChannel(ppPeer)
     }
 }

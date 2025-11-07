@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\pluginResource.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -71,71 +73,65 @@ class ItsPubPlugin extends IUnknown{
      * 
      * @param {PWSTR} alias 
      * @param {Integer} flags 
-     * @param {Pointer<pluginResource>} resource 
-     * @returns {HRESULT} 
+     * @returns {pluginResource} 
      * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-getresource
      */
-    GetResource(alias, flags, resource) {
+    GetResource(alias, flags) {
         alias := alias is String ? StrPtr(alias) : alias
 
+        resource := pluginResource()
         result := ComCall(4, this, "ptr", alias, "int", flags, "ptr", resource, "HRESULT")
-        return result
+        return resource
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lastUpdateTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-getcachelastupdatetime
      */
-    GetCacheLastUpdateTime(lastUpdateTime) {
-        lastUpdateTimeMarshal := lastUpdateTime is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, lastUpdateTimeMarshal, lastUpdateTime, "HRESULT")
-        return result
+    GetCacheLastUpdateTime() {
+        result := ComCall(5, this, "uint*", &lastUpdateTime := 0, "HRESULT")
+        return lastUpdateTime
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-get_pluginname
      */
-    get_pluginName(pVal) {
+    get_pluginName() {
+        pVal := BSTR()
         result := ComCall(6, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-get_pluginversion
      */
-    get_pluginVersion(pVal) {
+    get_pluginVersion() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} resourceType 
      * @param {PWSTR} resourceLocation 
      * @param {PWSTR} endPointName 
      * @param {PWSTR} userID 
      * @param {PWSTR} alias 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-resolveresource
      */
-    ResolveResource(resourceType, resourceLocation, endPointName, userID, alias) {
+    ResolveResource(resourceLocation, endPointName, userID, alias) {
         resourceLocation := resourceLocation is String ? StrPtr(resourceLocation) : resourceLocation
         endPointName := endPointName is String ? StrPtr(endPointName) : endPointName
         userID := userID is String ? StrPtr(userID) : userID
         alias := alias is String ? StrPtr(alias) : alias
 
-        resourceTypeMarshal := resourceType is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, resourceTypeMarshal, resourceType, "ptr", resourceLocation, "ptr", endPointName, "ptr", userID, "ptr", alias, "HRESULT")
-        return result
+        result := ComCall(8, this, "uint*", &resourceType := 0, "ptr", resourceLocation, "ptr", endPointName, "ptr", userID, "ptr", alias, "HRESULT")
+        return resourceType
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFile.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,23 +33,21 @@ class IDWriteFontFileEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasCurrentFile 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfileenumerator-movenext
      */
-    MoveNext(hasCurrentFile) {
-        result := ComCall(3, this, "ptr", hasCurrentFile, "HRESULT")
-        return result
+    MoveNext() {
+        result := ComCall(3, this, "int*", &hasCurrentFile := 0, "HRESULT")
+        return hasCurrentFile
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFile>} fontFile 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFile} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfileenumerator-getcurrentfontfile
      */
-    GetCurrentFontFile(fontFile) {
-        result := ComCall(4, this, "ptr*", fontFile, "HRESULT")
-        return result
+    GetCurrentFontFile() {
+        result := ComCall(4, this, "ptr*", &fontFile := 0, "HRESULT")
+        return IDWriteFontFile(fontFile)
     }
 }

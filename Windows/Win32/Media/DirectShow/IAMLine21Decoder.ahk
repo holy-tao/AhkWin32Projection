@@ -144,7 +144,9 @@ class IAMLine21Decoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getredrawalways
      */
     GetRedrawAlways(lpbOption) {
-        result := ComCall(12, this, "ptr", lpbOption, "HRESULT")
+        lpbOptionMarshal := lpbOption is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, lpbOptionMarshal, lpbOption, "HRESULT")
         return result
     }
 

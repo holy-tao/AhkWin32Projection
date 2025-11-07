@@ -41,12 +41,11 @@ class ID3D11VideoProcessorEnumerator1 extends ID3D11VideoProcessorEnumerator{
      * @param {Integer} InputColorSpace 
      * @param {Integer} OutputFormat 
      * @param {Integer} OutputColorSpace 
-     * @param {Pointer<BOOL>} pSupported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videoprocessorenumerator1-checkvideoprocessorformatconversion
      */
-    CheckVideoProcessorFormatConversion(InputFormat, InputColorSpace, OutputFormat, OutputColorSpace, pSupported) {
-        result := ComCall(13, this, "int", InputFormat, "int", InputColorSpace, "int", OutputFormat, "int", OutputColorSpace, "ptr", pSupported, "HRESULT")
-        return result
+    CheckVideoProcessorFormatConversion(InputFormat, InputColorSpace, OutputFormat, OutputColorSpace) {
+        result := ComCall(13, this, "int", InputFormat, "int", InputColorSpace, "int", OutputFormat, "int", OutputColorSpace, "int*", &pSupported := 0, "HRESULT")
+        return pSupported
     }
 }

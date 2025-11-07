@@ -32,14 +32,11 @@ class IVdsProviderSupport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} ulVersionSupport 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsprovidersupport-getversionsupport
      */
-    GetVersionSupport(ulVersionSupport) {
-        ulVersionSupportMarshal := ulVersionSupport is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, ulVersionSupportMarshal, ulVersionSupport, "HRESULT")
-        return result
+    GetVersionSupport() {
+        result := ComCall(3, this, "uint*", &ulVersionSupport := 0, "HRESULT")
+        return ulVersionSupport
     }
 }

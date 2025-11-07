@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISchema.ahk
+#Include .\ISchemaItem.ahk
 #Include .\IXMLDOMSchemaCollection.ahk
 
 /**
@@ -50,35 +52,32 @@ class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} validateOnLoad 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_validateOnLoad(validateOnLoad) {
-        result := ComCall(16, this, "ptr", validateOnLoad, "HRESULT")
-        return result
+    get_validateOnLoad() {
+        result := ComCall(16, this, "short*", &validateOnLoad := 0, "HRESULT")
+        return validateOnLoad
     }
 
     /**
      * 
      * @param {BSTR} namespaceURI 
-     * @param {Pointer<ISchema>} schema 
-     * @returns {HRESULT} 
+     * @returns {ISchema} 
      */
-    getSchema(namespaceURI, schema) {
+    getSchema(namespaceURI) {
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(17, this, "ptr", namespaceURI, "ptr*", schema, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", namespaceURI, "ptr*", &schema := 0, "HRESULT")
+        return ISchema(schema)
     }
 
     /**
      * 
      * @param {IXMLDOMNode} node 
-     * @param {Pointer<ISchemaItem>} item 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItem} 
      */
-    getDeclaration(node, item) {
-        result := ComCall(18, this, "ptr", node, "ptr*", item, "HRESULT")
-        return result
+    getDeclaration(node) {
+        result := ComCall(18, this, "ptr", node, "ptr*", &item := 0, "HRESULT")
+        return ISchemaItem(item)
     }
 }

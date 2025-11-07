@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPhotoAcquireSource.ahk
+#Include ..\..\System\Com\IEnumString.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,15 +41,14 @@ class IPhotoAcquire extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszDevice 
-     * @param {Pointer<IPhotoAcquireSource>} ppPhotoAcquireSource 
-     * @returns {HRESULT} 
+     * @returns {IPhotoAcquireSource} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquire-createphotosource
      */
-    CreatePhotoSource(pszDevice, ppPhotoAcquireSource) {
+    CreatePhotoSource(pszDevice) {
         pszDevice := pszDevice is String ? StrPtr(pszDevice) : pszDevice
 
-        result := ComCall(3, this, "ptr", pszDevice, "ptr*", ppPhotoAcquireSource, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszDevice, "ptr*", &ppPhotoAcquireSource := 0, "HRESULT")
+        return IPhotoAcquireSource(ppPhotoAcquireSource)
     }
 
     /**
@@ -70,12 +71,11 @@ class IPhotoAcquire extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumString>} ppEnumFilePaths 
-     * @returns {HRESULT} 
+     * @returns {IEnumString} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquire-enumresults
      */
-    EnumResults(ppEnumFilePaths) {
-        result := ComCall(5, this, "ptr*", ppEnumFilePaths, "HRESULT")
-        return result
+    EnumResults() {
+        result := ComCall(5, this, "ptr*", &ppEnumFilePaths := 0, "HRESULT")
+        return IEnumString(ppEnumFilePaths)
     }
 }

@@ -32,13 +32,12 @@ class IPortableDeviceDataStream extends IStream{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszObjectID 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicedatastream-getobjectid
      */
-    GetObjectID(ppszObjectID) {
-        result := ComCall(14, this, "ptr", ppszObjectID, "HRESULT")
-        return result
+    GetObjectID() {
+        result := ComCall(14, this, "ptr*", &ppszObjectID := 0, "HRESULT")
+        return ppszObjectID
     }
 
     /**

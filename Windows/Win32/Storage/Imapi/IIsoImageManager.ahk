@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -40,24 +41,23 @@ class IIsoImageManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iisoimagemanager-get_path
      */
-    get_Path(pVal) {
+    get_Path() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<IStream>} data 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iisoimagemanager-get_stream
      */
-    get_Stream(data) {
-        result := ComCall(8, this, "ptr*", data, "HRESULT")
-        return result
+    get_Stream() {
+        result := ComCall(8, this, "ptr*", &data := 0, "HRESULT")
+        return IStream(data)
     }
 
     /**

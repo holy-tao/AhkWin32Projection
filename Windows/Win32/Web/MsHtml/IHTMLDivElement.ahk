@@ -49,12 +49,12 @@ class IHTMLDivElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_align(p) {
+    get_align() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -69,11 +69,10 @@ class IHTMLDivElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_noWrap(p) {
-        result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+    get_noWrap() {
+        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

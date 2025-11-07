@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTfPropertyValue.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IEnumTfPropertyValue extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumTfPropertyValue>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfPropertyValue} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfpropertyvalue-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfPropertyValue(ppEnum)
     }
 
     /**

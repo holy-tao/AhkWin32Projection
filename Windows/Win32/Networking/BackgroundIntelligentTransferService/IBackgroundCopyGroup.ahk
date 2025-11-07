@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IBackgroundCopyJob1.ahk
+#Include .\IEnumBackgroundCopyJobs1.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,13 +36,13 @@ class IBackgroundCopyGroup extends IUnknown{
     /**
      * 
      * @param {Integer} propID 
-     * @param {Pointer<VARIANT>} pvarVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getprop
      */
-    GetProp(propID, pvarVal) {
+    GetProp(propID) {
+        pvarVal := VARIANT()
         result := ComCall(3, this, "int", propID, "ptr", pvarVal, "HRESULT")
-        return result
+        return pvarVal
     }
 
     /**
@@ -57,15 +60,12 @@ class IBackgroundCopyGroup extends IUnknown{
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} pdwProgress 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getprogress
      */
-    GetProgress(dwFlags, pdwProgress) {
-        pdwProgressMarshal := pdwProgress is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", dwFlags, pdwProgressMarshal, pdwProgress, "HRESULT")
-        return result
+    GetProgress(dwFlags) {
+        result := ComCall(5, this, "uint", dwFlags, "uint*", &pdwProgress := 0, "HRESULT")
+        return pdwProgress
     }
 
     /**
@@ -86,13 +86,12 @@ class IBackgroundCopyGroup extends IUnknown{
     /**
      * 
      * @param {Guid} jobID 
-     * @param {Pointer<IBackgroundCopyJob1>} ppJob 
-     * @returns {HRESULT} 
+     * @returns {IBackgroundCopyJob1} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getjob
      */
-    GetJob(jobID, ppJob) {
-        result := ComCall(7, this, "ptr", jobID, "ptr*", ppJob, "HRESULT")
-        return result
+    GetJob(jobID) {
+        result := ComCall(7, this, "ptr", jobID, "ptr*", &ppJob := 0, "HRESULT")
+        return IBackgroundCopyJob1(ppJob)
     }
 
     /**
@@ -127,50 +126,45 @@ class IBackgroundCopyGroup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-get_size
      */
-    get_Size(pdwSize) {
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwSizeMarshal, pdwSize, "HRESULT")
-        return result
+    get_Size() {
+        result := ComCall(11, this, "uint*", &pdwSize := 0, "HRESULT")
+        return pdwSize
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidGroupID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-get_groupid
      */
-    get_GroupID(pguidGroupID) {
+    get_GroupID() {
+        pguidGroupID := Guid()
         result := ComCall(12, this, "ptr", pguidGroupID, "HRESULT")
-        return result
+        return pguidGroupID
     }
 
     /**
      * 
      * @param {Guid} guidJobID 
-     * @param {Pointer<IBackgroundCopyJob1>} ppJob 
-     * @returns {HRESULT} 
+     * @returns {IBackgroundCopyJob1} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-createjob
      */
-    CreateJob(guidJobID, ppJob) {
-        result := ComCall(13, this, "ptr", guidJobID, "ptr*", ppJob, "HRESULT")
-        return result
+    CreateJob(guidJobID) {
+        result := ComCall(13, this, "ptr", guidJobID, "ptr*", &ppJob := 0, "HRESULT")
+        return IBackgroundCopyJob1(ppJob)
     }
 
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IEnumBackgroundCopyJobs1>} ppEnumJobs 
-     * @returns {HRESULT} 
+     * @returns {IEnumBackgroundCopyJobs1} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-enumjobs
      */
-    EnumJobs(dwFlags, ppEnumJobs) {
-        result := ComCall(14, this, "uint", dwFlags, "ptr*", ppEnumJobs, "HRESULT")
-        return result
+    EnumJobs(dwFlags) {
+        result := ComCall(14, this, "uint", dwFlags, "ptr*", &ppEnumJobs := 0, "HRESULT")
+        return IEnumBackgroundCopyJobs1(ppEnumJobs)
     }
 
     /**
@@ -186,13 +180,12 @@ class IBackgroundCopyGroup extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} iid 
-     * @param {Pointer<IUnknown>} pUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopygroup
      */
-    QueryNewJobInterface(iid, pUnk) {
-        result := ComCall(16, this, "ptr", iid, "ptr*", pUnk, "HRESULT")
-        return result
+    QueryNewJobInterface(iid) {
+        result := ComCall(16, this, "ptr", iid, "ptr*", &pUnk := 0, "HRESULT")
+        return IUnknown(pUnk)
     }
 
     /**

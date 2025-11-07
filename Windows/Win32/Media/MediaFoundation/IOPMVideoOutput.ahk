@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\OPM_REQUESTED_INFORMATION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -60,25 +61,25 @@ class IOPMVideoOutput extends IUnknown{
     /**
      * 
      * @param {Pointer<OPM_GET_INFO_PARAMETERS>} pParameters 
-     * @param {Pointer<OPM_REQUESTED_INFORMATION>} pRequestedInformation 
-     * @returns {HRESULT} 
+     * @returns {OPM_REQUESTED_INFORMATION} 
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-iopmvideooutput-getinformation
      */
-    GetInformation(pParameters, pRequestedInformation) {
+    GetInformation(pParameters) {
+        pRequestedInformation := OPM_REQUESTED_INFORMATION()
         result := ComCall(5, this, "ptr", pParameters, "ptr", pRequestedInformation, "HRESULT")
-        return result
+        return pRequestedInformation
     }
 
     /**
      * 
      * @param {Pointer<OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS>} pParameters 
-     * @param {Pointer<OPM_REQUESTED_INFORMATION>} pRequestedInformation 
-     * @returns {HRESULT} 
+     * @returns {OPM_REQUESTED_INFORMATION} 
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-iopmvideooutput-coppcompatiblegetinformation
      */
-    COPPCompatibleGetInformation(pParameters, pRequestedInformation) {
+    COPPCompatibleGetInformation(pParameters) {
+        pRequestedInformation := OPM_REQUESTED_INFORMATION()
         result := ComCall(6, this, "ptr", pParameters, "ptr", pRequestedInformation, "HRESULT")
-        return result
+        return pRequestedInformation
     }
 
     /**

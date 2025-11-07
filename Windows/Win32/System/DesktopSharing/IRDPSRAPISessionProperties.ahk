@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -40,15 +41,15 @@ class IRDPSRAPISessionProperties extends IDispatch{
     /**
      * 
      * @param {BSTR} PropertyName 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisessionproperties-get_property
      */
-    get_Property(PropertyName, pVal) {
+    get_Property(PropertyName) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
+        pVal := VARIANT()
         result := ComCall(7, this, "ptr", PropertyName, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**

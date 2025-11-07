@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,12 +38,11 @@ class IDestinationStreamFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IStream>} ppstm 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idestinationstreamfactory-getdestinationstream
      */
-    GetDestinationStream(ppstm) {
-        result := ComCall(3, this, "ptr*", ppstm, "HRESULT")
-        return result
+    GetDestinationStream() {
+        result := ComCall(3, this, "ptr*", &ppstm := 0, "HRESULT")
+        return IStream(ppstm)
     }
 }

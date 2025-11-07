@@ -35,16 +35,13 @@ class IWbemConnectorLogin extends IUnknown{
      * @param {Integer} lFlags 
      * @param {IWbemContext} pCtx 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pInterface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    ConnectorLogin(wszNetworkResource, wszPreferredLocale, lFlags, pCtx, riid, pInterface) {
+    ConnectorLogin(wszNetworkResource, wszPreferredLocale, lFlags, pCtx, riid) {
         wszNetworkResource := wszNetworkResource is String ? StrPtr(wszNetworkResource) : wszNetworkResource
         wszPreferredLocale := wszPreferredLocale is String ? StrPtr(wszPreferredLocale) : wszPreferredLocale
 
-        pInterfaceMarshal := pInterface is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", wszNetworkResource, "ptr", wszPreferredLocale, "int", lFlags, "ptr", pCtx, "ptr", riid, pInterfaceMarshal, pInterface, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", wszNetworkResource, "ptr", wszPreferredLocale, "int", lFlags, "ptr", pCtx, "ptr", riid, "ptr*", &pInterface := 0, "HRESULT")
+        return pInterface
     }
 }

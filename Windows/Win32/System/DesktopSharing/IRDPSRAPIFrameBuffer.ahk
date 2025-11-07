@@ -38,41 +38,32 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_width
      */
-    get_Width(plWidth) {
-        plWidthMarshal := plWidth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plWidthMarshal, plWidth, "HRESULT")
-        return result
+    get_Width() {
+        result := ComCall(7, this, "int*", &plWidth := 0, "HRESULT")
+        return plWidth
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plHeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_height
      */
-    get_Height(plHeight) {
-        plHeightMarshal := plHeight is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plHeightMarshal, plHeight, "HRESULT")
-        return result
+    get_Height() {
+        result := ComCall(8, this, "int*", &plHeight := 0, "HRESULT")
+        return plHeight
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plBpp 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_bpp
      */
-    get_Bpp(plBpp) {
-        plBppMarshal := plBpp is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plBppMarshal, plBpp, "HRESULT")
-        return result
+    get_Bpp() {
+        result := ComCall(9, this, "int*", &plBpp := 0, "HRESULT")
+        return plBpp
     }
 
     /**
@@ -81,14 +72,11 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
      * @param {Integer} y 
      * @param {Integer} Width 
      * @param {Integer} Heigth 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppBits 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-getframebufferbits
      */
-    GetFrameBufferBits(x, y, Width, Heigth, ppBits) {
-        ppBitsMarshal := ppBits is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "int", x, "int", y, "int", Width, "int", Heigth, ppBitsMarshal, ppBits, "HRESULT")
-        return result
+    GetFrameBufferBits(x, y, Width, Heigth) {
+        result := ComCall(10, this, "int", x, "int", y, "int", Width, "int", Heigth, "ptr*", &ppBits := 0, "HRESULT")
+        return ppBits
     }
 }

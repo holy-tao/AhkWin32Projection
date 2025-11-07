@@ -37,15 +37,12 @@ class IMSVidAnalogTuner extends IMSVidTuner{
 
     /**
      * 
-     * @param {Pointer<Integer>} Channel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_channel
      */
-    get_Channel(Channel) {
-        ChannelMarshal := Channel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, ChannelMarshal, Channel, "HRESULT")
-        return result
+    get_Channel() {
+        result := ComCall(22, this, "int*", &Channel := 0, "HRESULT")
+        return Channel
     }
 
     /**
@@ -61,41 +58,32 @@ class IMSVidAnalogTuner extends IMSVidTuner{
 
     /**
      * 
-     * @param {Pointer<Integer>} lcc 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_videofrequency
      */
-    get_VideoFrequency(lcc) {
-        lccMarshal := lcc is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, lccMarshal, lcc, "HRESULT")
-        return result
+    get_VideoFrequency() {
+        result := ComCall(24, this, "int*", &lcc := 0, "HRESULT")
+        return lcc
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lcc 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_audiofrequency
      */
-    get_AudioFrequency(lcc) {
-        lccMarshal := lcc is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, lccMarshal, lcc, "HRESULT")
-        return result
+    get_AudioFrequency() {
+        result := ComCall(25, this, "int*", &lcc := 0, "HRESULT")
+        return lcc
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lcc 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_countrycode
      */
-    get_CountryCode(lcc) {
-        lccMarshal := lcc is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, lccMarshal, lcc, "HRESULT")
-        return result
+    get_CountryCode() {
+        result := ComCall(26, this, "int*", &lcc := 0, "HRESULT")
+        return lcc
     }
 
     /**
@@ -111,13 +99,12 @@ class IMSVidAnalogTuner extends IMSVidTuner{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfSapOn 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_sap
      */
-    get_SAP(pfSapOn) {
-        result := ComCall(28, this, "ptr", pfSapOn, "HRESULT")
-        return result
+    get_SAP() {
+        result := ComCall(28, this, "short*", &pfSapOn := 0, "HRESULT")
+        return pfSapOn
     }
 
     /**
@@ -135,14 +122,13 @@ class IMSVidAnalogTuner extends IMSVidTuner{
      * 
      * @param {Integer} nChannel 
      * @param {Pointer<Integer>} SignalStrength 
-     * @param {Pointer<VARIANT_BOOL>} fSignalPresent 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-channelavailable
      */
-    ChannelAvailable(nChannel, SignalStrength, fSignalPresent) {
+    ChannelAvailable(nChannel, SignalStrength) {
         SignalStrengthMarshal := SignalStrength is VarRef ? "int*" : "ptr"
 
-        result := ComCall(30, this, "int", nChannel, SignalStrengthMarshal, SignalStrength, "ptr", fSignalPresent, "HRESULT")
-        return result
+        result := ComCall(30, this, "int", nChannel, SignalStrengthMarshal, SignalStrength, "short*", &fSignalPresent := 0, "HRESULT")
+        return fSignalPresent
     }
 }

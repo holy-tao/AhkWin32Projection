@@ -33,13 +33,13 @@ class INetFwRule3 extends INetFwRule2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} wszPackageId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_localapppackageid
      */
-    get_LocalAppPackageId(wszPackageId) {
+    get_LocalAppPackageId() {
+        wszPackageId := BSTR()
         result := ComCall(45, this, "ptr", wszPackageId, "HRESULT")
-        return result
+        return wszPackageId
     }
 
     /**
@@ -57,13 +57,13 @@ class INetFwRule3 extends INetFwRule2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} wszUserOwner 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_localuserowner
      */
-    get_LocalUserOwner(wszUserOwner) {
+    get_LocalUserOwner() {
+        wszUserOwner := BSTR()
         result := ComCall(47, this, "ptr", wszUserOwner, "HRESULT")
-        return result
+        return wszUserOwner
     }
 
     /**
@@ -81,13 +81,13 @@ class INetFwRule3 extends INetFwRule2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} wszUserAuthList 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_localuserauthorizedlist
      */
-    get_LocalUserAuthorizedList(wszUserAuthList) {
+    get_LocalUserAuthorizedList() {
+        wszUserAuthList := BSTR()
         result := ComCall(49, this, "ptr", wszUserAuthList, "HRESULT")
-        return result
+        return wszUserAuthList
     }
 
     /**
@@ -105,13 +105,13 @@ class INetFwRule3 extends INetFwRule2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} wszUserAuthList 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_remoteuserauthorizedlist
      */
-    get_RemoteUserAuthorizedList(wszUserAuthList) {
+    get_RemoteUserAuthorizedList() {
+        wszUserAuthList := BSTR()
         result := ComCall(51, this, "ptr", wszUserAuthList, "HRESULT")
-        return result
+        return wszUserAuthList
     }
 
     /**
@@ -129,13 +129,13 @@ class INetFwRule3 extends INetFwRule2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} wszUserAuthList 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_remotemachineauthorizedlist
      */
-    get_RemoteMachineAuthorizedList(wszUserAuthList) {
+    get_RemoteMachineAuthorizedList() {
+        wszUserAuthList := BSTR()
         result := ComCall(53, this, "ptr", wszUserAuthList, "HRESULT")
-        return result
+        return wszUserAuthList
     }
 
     /**
@@ -153,15 +153,12 @@ class INetFwRule3 extends INetFwRule2{
 
     /**
      * 
-     * @param {Pointer<Integer>} lOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_secureflags
      */
-    get_SecureFlags(lOptions) {
-        lOptionsMarshal := lOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(55, this, lOptionsMarshal, lOptions, "HRESULT")
-        return result
+    get_SecureFlags() {
+        result := ComCall(55, this, "int*", &lOptions := 0, "HRESULT")
+        return lOptions
     }
 
     /**

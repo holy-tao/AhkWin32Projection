@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\STINOTIFY.ahk
+#Include .\_ERROR_INFOW.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -101,32 +103,22 @@ class IStiDevice extends IUnknown{
      * @param {Integer} cbInDataSize 
      * @param {Pointer} pOutData 
      * @param {Integer} dwOutDataSize 
-     * @param {Pointer<Integer>} pdwActualData 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero, except with the <a href="/previous-versions/windows/desktop/legacy/ff686811(v=vs.85)">QUERYESCSUPPORT</a> printer escape, which checks for implementation only. If the escape is not implemented, the return value is zero.
-     * 
-     * If the function fails, the return value is a system error code.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-escape
      */
-    Escape(EscapeFunction, lpInData, cbInDataSize, pOutData, dwOutDataSize, pdwActualData) {
-        pdwActualDataMarshal := pdwActualData is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "uint", EscapeFunction, "ptr", lpInData, "uint", cbInDataSize, "ptr", pOutData, "uint", dwOutDataSize, pdwActualDataMarshal, pdwActualData, "HRESULT")
-        return result
+    Escape(EscapeFunction, lpInData, cbInDataSize, pOutData, dwOutDataSize) {
+        result := ComCall(8, this, "uint", EscapeFunction, "ptr", lpInData, "uint", cbInDataSize, "ptr", pOutData, "uint", dwOutDataSize, "uint*", &pdwActualData := 0, "HRESULT")
+        return pdwActualData
     }
 
     /**
      * Retrieves the calling thread's last-error code value.
-     * @param {Pointer<Integer>} pdwLastDeviceError 
-     * @returns {HRESULT} The return value is the calling thread's last-error code.
-     * 
-     * The Return Value section of the documentation for each function that sets the last-error code notes the conditions under which the function sets the last-error code. Most functions that set the thread's last-error code set it when they fail. However, some functions also set the last-error code when they succeed. If the function is not documented to set the last-error code, the value returned by this function is simply the most recent last-error code to have been set; some functions set the last-error code to 0 on success and others do not.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
      */
-    GetLastError(pdwLastDeviceError) {
-        pdwLastDeviceErrorMarshal := pdwLastDeviceError is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pdwLastDeviceErrorMarshal, pdwLastDeviceError, "HRESULT")
-        return result
+    GetLastError() {
+        result := ComCall(9, this, "uint*", &pdwLastDeviceError := 0, "HRESULT")
+        return pdwLastDeviceError
     }
 
     /**
@@ -212,12 +204,12 @@ class IStiDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<STINOTIFY>} lpNotify 
-     * @returns {HRESULT} 
+     * @returns {STINOTIFY} 
      */
-    GetLastNotificationData(lpNotify) {
+    GetLastNotificationData() {
+        lpNotify := STINOTIFY()
         result := ComCall(17, this, "ptr", lpNotify, "HRESULT")
-        return result
+        return lpNotify
     }
 
     /**
@@ -231,11 +223,11 @@ class IStiDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<_ERROR_INFOW>} pLastErrorInfo 
-     * @returns {HRESULT} 
+     * @returns {_ERROR_INFOW} 
      */
-    GetLastErrorInfo(pLastErrorInfo) {
+    GetLastErrorInfo() {
+        pLastErrorInfo := _ERROR_INFOW()
         result := ComCall(19, this, "ptr", pLastErrorInfo, "HRESULT")
-        return result
+        return pLastErrorInfo
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMStreamConfig.ahk
+#Include .\IWMMutualExclusion.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,17 +34,12 @@ class IWMProfile extends IUnknown{
 
     /**
      * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
-     * @param {Pointer<Integer>} pdwVersion 
-     * @returns {HRESULT} If the function succeeds, the return value includes the major and minor version numbers of the operating system in the low-order word, and information about the operating system platform in the high-order word.
-     * 
-     * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
-    GetVersion(pdwVersion) {
-        pdwVersionMarshal := pdwVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pdwVersionMarshal, pdwVersion, "HRESULT")
-        return result
+    GetVersion() {
+        result := ComCall(3, this, "int*", &pdwVersion := 0, "HRESULT")
+        return pdwVersion
     }
 
     /**
@@ -105,39 +102,34 @@ class IWMProfile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcStreams 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-getstreamcount
      */
-    GetStreamCount(pcStreams) {
-        pcStreamsMarshal := pcStreams is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pcStreamsMarshal, pcStreams, "HRESULT")
-        return result
+    GetStreamCount() {
+        result := ComCall(8, this, "uint*", &pcStreams := 0, "HRESULT")
+        return pcStreams
     }
 
     /**
      * 
      * @param {Integer} dwStreamIndex 
-     * @param {Pointer<IWMStreamConfig>} ppConfig 
-     * @returns {HRESULT} 
+     * @returns {IWMStreamConfig} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-getstream
      */
-    GetStream(dwStreamIndex, ppConfig) {
-        result := ComCall(9, this, "uint", dwStreamIndex, "ptr*", ppConfig, "HRESULT")
-        return result
+    GetStream(dwStreamIndex) {
+        result := ComCall(9, this, "uint", dwStreamIndex, "ptr*", &ppConfig := 0, "HRESULT")
+        return IWMStreamConfig(ppConfig)
     }
 
     /**
      * 
      * @param {Integer} wStreamNum 
-     * @param {Pointer<IWMStreamConfig>} ppConfig 
-     * @returns {HRESULT} 
+     * @returns {IWMStreamConfig} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-getstreambynumber
      */
-    GetStreamByNumber(wStreamNum, ppConfig) {
-        result := ComCall(10, this, "ushort", wStreamNum, "ptr*", ppConfig, "HRESULT")
-        return result
+    GetStreamByNumber(wStreamNum) {
+        result := ComCall(10, this, "ushort", wStreamNum, "ptr*", &ppConfig := 0, "HRESULT")
+        return IWMStreamConfig(ppConfig)
     }
 
     /**
@@ -187,38 +179,33 @@ class IWMProfile extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} guidStreamType 
-     * @param {Pointer<IWMStreamConfig>} ppConfig 
-     * @returns {HRESULT} 
+     * @returns {IWMStreamConfig} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-createnewstream
      */
-    CreateNewStream(guidStreamType, ppConfig) {
-        result := ComCall(15, this, "ptr", guidStreamType, "ptr*", ppConfig, "HRESULT")
-        return result
+    CreateNewStream(guidStreamType) {
+        result := ComCall(15, this, "ptr", guidStreamType, "ptr*", &ppConfig := 0, "HRESULT")
+        return IWMStreamConfig(ppConfig)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcME 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-getmutualexclusioncount
      */
-    GetMutualExclusionCount(pcME) {
-        pcMEMarshal := pcME is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pcMEMarshal, pcME, "HRESULT")
-        return result
+    GetMutualExclusionCount() {
+        result := ComCall(16, this, "uint*", &pcME := 0, "HRESULT")
+        return pcME
     }
 
     /**
      * 
      * @param {Integer} dwMEIndex 
-     * @param {Pointer<IWMMutualExclusion>} ppME 
-     * @returns {HRESULT} 
+     * @returns {IWMMutualExclusion} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-getmutualexclusion
      */
-    GetMutualExclusion(dwMEIndex, ppME) {
-        result := ComCall(17, this, "uint", dwMEIndex, "ptr*", ppME, "HRESULT")
-        return result
+    GetMutualExclusion(dwMEIndex) {
+        result := ComCall(17, this, "uint", dwMEIndex, "ptr*", &ppME := 0, "HRESULT")
+        return IWMMutualExclusion(ppME)
     }
 
     /**
@@ -245,12 +232,11 @@ class IWMProfile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWMMutualExclusion>} ppME 
-     * @returns {HRESULT} 
+     * @returns {IWMMutualExclusion} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-createnewmutualexclusion
      */
-    CreateNewMutualExclusion(ppME) {
-        result := ComCall(20, this, "ptr*", ppME, "HRESULT")
-        return result
+    CreateNewMutualExclusion() {
+        result := ComCall(20, this, "ptr*", &ppME := 0, "HRESULT")
+        return IWMMutualExclusion(ppME)
     }
 }

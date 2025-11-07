@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncChange.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,46 +33,42 @@ class IChangeConflict extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISyncChange>} ppConflictingChange 
-     * @returns {HRESULT} 
+     * @returns {ISyncChange} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getdestinationproviderconflictingchange
      */
-    GetDestinationProviderConflictingChange(ppConflictingChange) {
-        result := ComCall(3, this, "ptr*", ppConflictingChange, "HRESULT")
-        return result
+    GetDestinationProviderConflictingChange() {
+        result := ComCall(3, this, "ptr*", &ppConflictingChange := 0, "HRESULT")
+        return ISyncChange(ppConflictingChange)
     }
 
     /**
      * 
-     * @param {Pointer<ISyncChange>} ppConflictingChange 
-     * @returns {HRESULT} 
+     * @returns {ISyncChange} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getsourceproviderconflictingchange
      */
-    GetSourceProviderConflictingChange(ppConflictingChange) {
-        result := ComCall(4, this, "ptr*", ppConflictingChange, "HRESULT")
-        return result
+    GetSourceProviderConflictingChange() {
+        result := ComCall(4, this, "ptr*", &ppConflictingChange := 0, "HRESULT")
+        return ISyncChange(ppConflictingChange)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppConflictingData 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getdestinationproviderconflictingdata
      */
-    GetDestinationProviderConflictingData(ppConflictingData) {
-        result := ComCall(5, this, "ptr*", ppConflictingData, "HRESULT")
-        return result
+    GetDestinationProviderConflictingData() {
+        result := ComCall(5, this, "ptr*", &ppConflictingData := 0, "HRESULT")
+        return IUnknown(ppConflictingData)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppConflictingData 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getsourceproviderconflictingdata
      */
-    GetSourceProviderConflictingData(ppConflictingData) {
-        result := ComCall(6, this, "ptr*", ppConflictingData, "HRESULT")
-        return result
+    GetSourceProviderConflictingData() {
+        result := ComCall(6, this, "ptr*", &ppConflictingData := 0, "HRESULT")
+        return IUnknown(ppConflictingData)
     }
 
     /**

@@ -37,15 +37,12 @@ class IWMHeaderInfo2 extends IWMHeaderInfo{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcCodecInfos 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo2-getcodecinfocount
      */
-    GetCodecInfoCount(pcCodecInfos) {
-        pcCodecInfosMarshal := pcCodecInfos is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pcCodecInfosMarshal, pcCodecInfos, "HRESULT")
-        return result
+    GetCodecInfoCount() {
+        result := ComCall(15, this, "uint*", &pcCodecInfos := 0, "HRESULT")
+        return pcCodecInfos
     }
 
     /**

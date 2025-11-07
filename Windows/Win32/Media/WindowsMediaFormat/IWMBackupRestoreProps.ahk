@@ -32,15 +32,12 @@ class IWMBackupRestoreProps extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcProps 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmbackuprestoreprops-getpropcount
      */
-    GetPropCount(pcProps) {
-        pcPropsMarshal := pcProps is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(3, this, pcPropsMarshal, pcProps, "HRESULT")
-        return result
+    GetPropCount() {
+        result := ComCall(3, this, "ushort*", &pcProps := 0, "HRESULT")
+        return pcProps
     }
 
     /**

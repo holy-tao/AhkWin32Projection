@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationTextRange.ahk
 #Include .\IUIAutomationTextPattern.ahk
 
 /**
@@ -32,23 +33,21 @@ class IUIAutomationTextEditPattern extends IUIAutomationTextPattern{
 
     /**
      * 
-     * @param {Pointer<IUIAutomationTextRange>} range 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtexteditpattern-getactivecomposition
      */
-    GetActiveComposition(range) {
-        result := ComCall(9, this, "ptr*", range, "HRESULT")
-        return result
+    GetActiveComposition() {
+        result := ComCall(9, this, "ptr*", &range := 0, "HRESULT")
+        return IUIAutomationTextRange(range)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationTextRange>} range 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtexteditpattern-getconversiontarget
      */
-    GetConversionTarget(range) {
-        result := ComCall(10, this, "ptr*", range, "HRESULT")
-        return result
+    GetConversionTarget() {
+        result := ComCall(10, this, "ptr*", &range := 0, "HRESULT")
+        return IUIAutomationTextRange(range)
     }
 }

@@ -43,15 +43,12 @@ class IFaxReceiptOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_authenticationtype
      */
-    get_AuthenticationType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    get_AuthenticationType() {
+        result := ComCall(7, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
@@ -67,13 +64,13 @@ class IFaxReceiptOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSMTPServer 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpserver
      */
-    get_SMTPServer(pbstrSMTPServer) {
+    get_SMTPServer() {
+        pbstrSMTPServer := BSTR()
         result := ComCall(9, this, "ptr", pbstrSMTPServer, "HRESULT")
-        return result
+        return pbstrSMTPServer
     }
 
     /**
@@ -91,15 +88,12 @@ class IFaxReceiptOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plSMTPPort 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpport
      */
-    get_SMTPPort(plSMTPPort) {
-        plSMTPPortMarshal := plSMTPPort is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plSMTPPortMarshal, plSMTPPort, "HRESULT")
-        return result
+    get_SMTPPort() {
+        result := ComCall(11, this, "int*", &plSMTPPort := 0, "HRESULT")
+        return plSMTPPort
     }
 
     /**
@@ -115,13 +109,13 @@ class IFaxReceiptOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSMTPSender 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpsender
      */
-    get_SMTPSender(pbstrSMTPSender) {
+    get_SMTPSender() {
+        pbstrSMTPSender := BSTR()
         result := ComCall(13, this, "ptr", pbstrSMTPSender, "HRESULT")
-        return result
+        return pbstrSMTPSender
     }
 
     /**
@@ -139,13 +133,13 @@ class IFaxReceiptOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSMTPUser 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpuser
      */
-    get_SMTPUser(pbstrSMTPUser) {
+    get_SMTPUser() {
+        pbstrSMTPUser := BSTR()
         result := ComCall(15, this, "ptr", pbstrSMTPUser, "HRESULT")
-        return result
+        return pbstrSMTPUser
     }
 
     /**
@@ -163,15 +157,12 @@ class IFaxReceiptOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pAllowedReceipts 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_allowedreceipts
      */
-    get_AllowedReceipts(pAllowedReceipts) {
-        pAllowedReceiptsMarshal := pAllowedReceipts is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pAllowedReceiptsMarshal, pAllowedReceipts, "HRESULT")
-        return result
+    get_AllowedReceipts() {
+        result := ComCall(17, this, "int*", &pAllowedReceipts := 0, "HRESULT")
+        return pAllowedReceipts
     }
 
     /**
@@ -187,13 +178,13 @@ class IFaxReceiptOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSMTPPassword 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtppassword
      */
-    get_SMTPPassword(pbstrSMTPPassword) {
+    get_SMTPPassword() {
+        pbstrSMTPPassword := BSTR()
         result := ComCall(19, this, "ptr", pbstrSMTPPassword, "HRESULT")
-        return result
+        return pbstrSMTPPassword
     }
 
     /**
@@ -231,13 +222,12 @@ class IFaxReceiptOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbUseForInboundRouting 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_useforinboundrouting
      */
-    get_UseForInboundRouting(pbUseForInboundRouting) {
-        result := ComCall(23, this, "ptr", pbUseForInboundRouting, "HRESULT")
-        return result
+    get_UseForInboundRouting() {
+        result := ComCall(23, this, "short*", &pbUseForInboundRouting := 0, "HRESULT")
+        return pbUseForInboundRouting
     }
 
     /**

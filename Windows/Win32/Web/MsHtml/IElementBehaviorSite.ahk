@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class IElementBehaviorSite extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} ppElement 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    GetElement(ppElement) {
-        result := ComCall(3, this, "ptr*", ppElement, "HRESULT")
-        return result
+    GetElement() {
+        result := ComCall(3, this, "ptr*", &ppElement := 0, "HRESULT")
+        return IHTMLElement(ppElement)
     }
 
     /**

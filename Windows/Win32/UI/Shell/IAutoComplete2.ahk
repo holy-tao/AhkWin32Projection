@@ -53,14 +53,11 @@ class IAutoComplete2 extends IAutoComplete{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlag 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-iautocomplete2-getoptions
      */
-    GetOptions(pdwFlag) {
-        pdwFlagMarshal := pdwFlag is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwFlagMarshal, pdwFlag, "HRESULT")
-        return result
+    GetOptions() {
+        result := ComCall(6, this, "uint*", &pdwFlag := 0, "HRESULT")
+        return pdwFlag
     }
 }

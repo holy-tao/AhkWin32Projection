@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -62,45 +63,41 @@ class IUIAutomationSelectionItemPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionitempattern-get_currentisselected
      */
-    get_CurrentIsSelected(retVal) {
-        result := ComCall(6, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsSelected() {
+        result := ComCall(6, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElement>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionitempattern-get_currentselectioncontainer
      */
-    get_CurrentSelectionContainer(retVal) {
-        result := ComCall(7, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CurrentSelectionContainer() {
+        result := ComCall(7, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElement(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionitempattern-get_cachedisselected
      */
-    get_CachedIsSelected(retVal) {
-        result := ComCall(8, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsSelected() {
+        result := ComCall(8, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElement>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionitempattern-get_cachedselectioncontainer
      */
-    get_CachedSelectionContainer(retVal) {
-        result := ComCall(9, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CachedSelectionContainer() {
+        result := ComCall(9, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElement(retVal)
     }
 }

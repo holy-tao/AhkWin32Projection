@@ -32,15 +32,12 @@ class IWMPacketSize2 extends IWMPacketSize{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMinPacketSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmpacketsize2-getminpacketsize
      */
-    GetMinPacketSize(pdwMinPacketSize) {
-        pdwMinPacketSizeMarshal := pdwMinPacketSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwMinPacketSizeMarshal, pdwMinPacketSize, "HRESULT")
-        return result
+    GetMinPacketSize() {
+        result := ComCall(5, this, "uint*", &pdwMinPacketSize := 0, "HRESULT")
+        return pdwMinPacketSize
     }
 
     /**

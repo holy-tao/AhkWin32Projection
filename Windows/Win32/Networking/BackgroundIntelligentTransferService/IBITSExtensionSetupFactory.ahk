@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IBITSExtensionSetup.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -48,18 +49,13 @@ class IBITSExtensionSetupFactory extends IDispatch{
     /**
      * The GetObject function retrieves information for the specified graphics object.
      * @param {BSTR} Path 
-     * @param {Pointer<IBITSExtensionSetup>} ppExtensionSetup 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {IBITSExtensionSetup} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(Path, ppExtensionSetup) {
+    GetObject(Path) {
         Path := Path is String ? BSTR.Alloc(Path).Value : Path
 
-        result := ComCall(7, this, "ptr", Path, "ptr*", ppExtensionSetup, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", Path, "ptr*", &ppExtensionSetup := 0, "HRESULT")
+        return IBITSExtensionSetup(ppExtensionSetup)
     }
 }

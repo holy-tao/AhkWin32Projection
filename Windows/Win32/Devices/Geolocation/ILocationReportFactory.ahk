@@ -49,26 +49,20 @@ class ILocationReportFactory extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Status(pVal) {
-        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(9, this, "uint*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pMilliseconds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ReportInterval(pMilliseconds) {
-        pMillisecondsMarshal := pMilliseconds is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pMillisecondsMarshal, pMilliseconds, "HRESULT")
-        return result
+    get_ReportInterval() {
+        result := ComCall(10, this, "uint*", &pMilliseconds := 0, "HRESULT")
+        return pMilliseconds
     }
 
     /**
@@ -83,14 +77,11 @@ class ILocationReportFactory extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDesiredAccuracy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DesiredAccuracy(pDesiredAccuracy) {
-        pDesiredAccuracyMarshal := pDesiredAccuracy is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pDesiredAccuracyMarshal, pDesiredAccuracy, "HRESULT")
-        return result
+    get_DesiredAccuracy() {
+        result := ComCall(12, this, "uint*", &pDesiredAccuracy := 0, "HRESULT")
+        return pDesiredAccuracy
     }
 
     /**

@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWiaItem2.ahk
+#Include .\IEnumWiaItem2.ahk
+#Include .\IEnumWIA_DEV_CAPS.ahk
+#Include .\IWiaPreview.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,15 +40,14 @@ class IWiaItem2 extends IUnknown{
      * @param {Integer} lItemFlags 
      * @param {Integer} lCreationFlags 
      * @param {BSTR} bstrItemName 
-     * @param {Pointer<IWiaItem2>} ppIWiaItem2 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem2} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-createchilditem
      */
-    CreateChildItem(lItemFlags, lCreationFlags, bstrItemName, ppIWiaItem2) {
+    CreateChildItem(lItemFlags, lCreationFlags, bstrItemName) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        result := ComCall(3, this, "int", lItemFlags, "int", lCreationFlags, "ptr", bstrItemName, "ptr*", ppIWiaItem2, "HRESULT")
-        return result
+        result := ComCall(3, this, "int", lItemFlags, "int", lCreationFlags, "ptr", bstrItemName, "ptr*", &ppIWiaItem2 := 0, "HRESULT")
+        return IWiaItem2(ppIWiaItem2)
     }
 
     /**
@@ -61,52 +64,47 @@ class IWiaItem2 extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} pCategoryGUID 
-     * @param {Pointer<IEnumWiaItem2>} ppIEnumWiaItem2 
-     * @returns {HRESULT} 
+     * @returns {IEnumWiaItem2} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-enumchilditems
      */
-    EnumChildItems(pCategoryGUID, ppIEnumWiaItem2) {
-        result := ComCall(5, this, "ptr", pCategoryGUID, "ptr*", ppIEnumWiaItem2, "HRESULT")
-        return result
+    EnumChildItems(pCategoryGUID) {
+        result := ComCall(5, this, "ptr", pCategoryGUID, "ptr*", &ppIEnumWiaItem2 := 0, "HRESULT")
+        return IEnumWiaItem2(ppIEnumWiaItem2)
     }
 
     /**
      * 
      * @param {Integer} lFlags 
      * @param {BSTR} bstrFullItemName 
-     * @param {Pointer<IWiaItem2>} ppIWiaItem2 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem2} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-finditembyname
      */
-    FindItemByName(lFlags, bstrFullItemName, ppIWiaItem2) {
+    FindItemByName(lFlags, bstrFullItemName) {
         bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
 
-        result := ComCall(6, this, "int", lFlags, "ptr", bstrFullItemName, "ptr*", ppIWiaItem2, "HRESULT")
-        return result
+        result := ComCall(6, this, "int", lFlags, "ptr", bstrFullItemName, "ptr*", &ppIWiaItem2 := 0, "HRESULT")
+        return IWiaItem2(ppIWiaItem2)
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pItemCategoryGUID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-getitemcategory
      */
-    GetItemCategory(pItemCategoryGUID) {
+    GetItemCategory() {
+        pItemCategoryGUID := Guid()
         result := ComCall(7, this, "ptr", pItemCategoryGUID, "HRESULT")
-        return result
+        return pItemCategoryGUID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pItemType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-getitemtype
      */
-    GetItemType(pItemType) {
-        pItemTypeMarshal := pItemType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pItemTypeMarshal, pItemType, "HRESULT")
-        return result
+    GetItemType() {
+        result := ComCall(8, this, "int*", &pItemType := 0, "HRESULT")
+        return pItemType
     }
 
     /**
@@ -149,13 +147,12 @@ class IWiaItem2 extends IUnknown{
     /**
      * 
      * @param {Integer} lFlags 
-     * @param {Pointer<IEnumWIA_DEV_CAPS>} ppIEnumWIA_DEV_CAPS 
-     * @returns {HRESULT} 
+     * @returns {IEnumWIA_DEV_CAPS} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-enumdevicecapabilities
      */
-    EnumDeviceCapabilities(lFlags, ppIEnumWIA_DEV_CAPS) {
-        result := ComCall(11, this, "int", lFlags, "ptr*", ppIEnumWIA_DEV_CAPS, "HRESULT")
-        return result
+    EnumDeviceCapabilities(lFlags) {
+        result := ComCall(11, this, "int", lFlags, "ptr*", &ppIEnumWIA_DEV_CAPS := 0, "HRESULT")
+        return IEnumWIA_DEV_CAPS(ppIEnumWIA_DEV_CAPS)
     }
 
     /**
@@ -170,7 +167,9 @@ class IWiaItem2 extends IUnknown{
     CheckExtension(lFlags, bstrName, riidExtensionInterface, pbExtensionExists) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(12, this, "int", lFlags, "ptr", bstrName, "ptr", riidExtensionInterface, "ptr", pbExtensionExists, "HRESULT")
+        pbExtensionExistsMarshal := pbExtensionExists is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "int", lFlags, "ptr", bstrName, "ptr", riidExtensionInterface, pbExtensionExistsMarshal, pbExtensionExists, "HRESULT")
         return result
     }
 
@@ -194,49 +193,45 @@ class IWiaItem2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWiaItem2>} ppIWiaItem2 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem2} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-getparentitem
      */
-    GetParentItem(ppIWiaItem2) {
-        result := ComCall(14, this, "ptr*", ppIWiaItem2, "HRESULT")
-        return result
+    GetParentItem() {
+        result := ComCall(14, this, "ptr*", &ppIWiaItem2 := 0, "HRESULT")
+        return IWiaItem2(ppIWiaItem2)
     }
 
     /**
      * 
-     * @param {Pointer<IWiaItem2>} ppIWiaItem2 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem2} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-getrootitem
      */
-    GetRootItem(ppIWiaItem2) {
-        result := ComCall(15, this, "ptr*", ppIWiaItem2, "HRESULT")
-        return result
+    GetRootItem() {
+        result := ComCall(15, this, "ptr*", &ppIWiaItem2 := 0, "HRESULT")
+        return IWiaItem2(ppIWiaItem2)
     }
 
     /**
      * 
      * @param {Integer} lFlags 
-     * @param {Pointer<IWiaPreview>} ppWiaPreview 
-     * @returns {HRESULT} 
+     * @returns {IWiaPreview} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-getpreviewcomponent
      */
-    GetPreviewComponent(lFlags, ppWiaPreview) {
-        result := ComCall(16, this, "int", lFlags, "ptr*", ppWiaPreview, "HRESULT")
-        return result
+    GetPreviewComponent(lFlags) {
+        result := ComCall(16, this, "int", lFlags, "ptr*", &ppWiaPreview := 0, "HRESULT")
+        return IWiaPreview(ppWiaPreview)
     }
 
     /**
      * 
      * @param {Integer} lFlags 
      * @param {Pointer<Guid>} pEventGUID 
-     * @param {Pointer<IEnumWIA_DEV_CAPS>} ppIEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWIA_DEV_CAPS} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-enumregistereventinfo
      */
-    EnumRegisterEventInfo(lFlags, pEventGUID, ppIEnum) {
-        result := ComCall(17, this, "int", lFlags, "ptr", pEventGUID, "ptr*", ppIEnum, "HRESULT")
-        return result
+    EnumRegisterEventInfo(lFlags, pEventGUID) {
+        result := ComCall(17, this, "int", lFlags, "ptr", pEventGUID, "ptr*", &ppIEnum := 0, "HRESULT")
+        return IEnumWIA_DEV_CAPS(ppIEnum)
     }
 
     /**

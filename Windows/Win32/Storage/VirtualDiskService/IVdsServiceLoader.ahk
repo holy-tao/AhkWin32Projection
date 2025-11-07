@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVdsService.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,14 +34,13 @@ class IVdsServiceLoader extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwszMachineName 
-     * @param {Pointer<IVdsService>} ppService 
-     * @returns {HRESULT} 
+     * @returns {IVdsService} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceloader-loadservice
      */
-    LoadService(pwszMachineName, ppService) {
+    LoadService(pwszMachineName) {
         pwszMachineName := pwszMachineName is String ? StrPtr(pwszMachineName) : pwszMachineName
 
-        result := ComCall(3, this, "ptr", pwszMachineName, "ptr*", ppService, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwszMachineName, "ptr*", &ppService := 0, "HRESULT")
+        return IVdsService(ppService)
     }
 }

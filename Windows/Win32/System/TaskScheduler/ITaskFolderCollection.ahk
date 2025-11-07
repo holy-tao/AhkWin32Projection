@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITaskFolder.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,37 +34,32 @@ class ITaskFolderCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfoldercollection-get_count
      */
-    get_Count(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {VARIANT} index 
-     * @param {Pointer<ITaskFolder>} ppFolder 
-     * @returns {HRESULT} 
+     * @returns {ITaskFolder} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfoldercollection-get_item
      */
-    get_Item(index, ppFolder) {
-        result := ComCall(8, this, "ptr", index, "ptr*", ppFolder, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(8, this, "ptr", index, "ptr*", &ppFolder := 0, "HRESULT")
+        return ITaskFolder(ppFolder)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfoldercollection-get__newenum
      */
-    get__NewEnum(ppEnum) {
-        result := ComCall(9, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IUnknown(ppEnum)
     }
 }

@@ -85,12 +85,11 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} Connected 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    Finish_IsConnected(Connected) {
-        result := ComCall(8, this, "ptr", Connected, "HRESULT")
-        return result
+    Finish_IsConnected() {
+        result := ComCall(8, this, "int*", &Connected := 0, "HRESULT")
+        return Connected
     }
 
     /**
@@ -111,7 +110,9 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_GetUrl(PostData, Url) {
-        result := ComCall(10, this, "ptr", PostData, "ptr", Url, "HRESULT")
+        UrlMarshal := Url is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", PostData, UrlMarshal, Url, "HRESULT")
         return result
     }
 
@@ -126,13 +127,10 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Finish_GetAccountState(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pStateMarshal, pState, "HRESULT")
-        return result
+    Finish_GetAccountState() {
+        result := ComCall(12, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 }

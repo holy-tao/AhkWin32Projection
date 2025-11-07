@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSyncMgrEvents.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -72,12 +73,11 @@ class IEnumSyncMgrEvents extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSyncMgrEvents>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSyncMgrEvents} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-ienumsyncmgrevents-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumSyncMgrEvents(ppenum)
     }
 }

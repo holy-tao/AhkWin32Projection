@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,50 +38,44 @@ class IHTMLStorage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_remainingSpace(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_remainingSpace() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<BSTR>} __MIDL__IHTMLStorage0000 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    key(lIndex, __MIDL__IHTMLStorage0000) {
+    key(lIndex) {
+        __MIDL__IHTMLStorage0000 := BSTR()
         result := ComCall(9, this, "int", lIndex, "ptr", __MIDL__IHTMLStorage0000, "HRESULT")
-        return result
+        return __MIDL__IHTMLStorage0000
     }
 
     /**
      * 
      * @param {BSTR} bstrKey 
-     * @param {Pointer<VARIANT>} __MIDL__IHTMLStorage0001 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getItem(bstrKey, __MIDL__IHTMLStorage0001) {
+    getItem(bstrKey) {
         bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
 
+        __MIDL__IHTMLStorage0001 := VARIANT()
         result := ComCall(10, this, "ptr", bstrKey, "ptr", __MIDL__IHTMLStorage0001, "HRESULT")
-        return result
+        return __MIDL__IHTMLStorage0001
     }
 
     /**

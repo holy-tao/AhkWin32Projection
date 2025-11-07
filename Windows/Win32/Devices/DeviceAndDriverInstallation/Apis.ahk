@@ -6173,13 +6173,14 @@ class DeviceAndDriverInstallation {
     static SetupGetFileCompressionInfoA(SourceFileName, ActualSourceFileName, SourceFileSize, TargetFileSize, CompressionType) {
         SourceFileName := SourceFileName is String ? StrPtr(SourceFileName) : SourceFileName
 
+        ActualSourceFileNameMarshal := ActualSourceFileName is VarRef ? "ptr*" : "ptr"
         SourceFileSizeMarshal := SourceFileSize is VarRef ? "uint*" : "ptr"
         TargetFileSizeMarshal := TargetFileSize is VarRef ? "uint*" : "ptr"
         CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupGetFileCompressionInfoA", "ptr", SourceFileName, "ptr", ActualSourceFileName, SourceFileSizeMarshal, SourceFileSize, TargetFileSizeMarshal, TargetFileSize, CompressionTypeMarshal, CompressionType, "uint")
+        result := DllCall("SETUPAPI.dll\SetupGetFileCompressionInfoA", "ptr", SourceFileName, ActualSourceFileNameMarshal, ActualSourceFileName, SourceFileSizeMarshal, SourceFileSize, TargetFileSizeMarshal, TargetFileSize, CompressionTypeMarshal, CompressionType, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -6203,13 +6204,14 @@ class DeviceAndDriverInstallation {
     static SetupGetFileCompressionInfoW(SourceFileName, ActualSourceFileName, SourceFileSize, TargetFileSize, CompressionType) {
         SourceFileName := SourceFileName is String ? StrPtr(SourceFileName) : SourceFileName
 
+        ActualSourceFileNameMarshal := ActualSourceFileName is VarRef ? "ptr*" : "ptr"
         SourceFileSizeMarshal := SourceFileSize is VarRef ? "uint*" : "ptr"
         TargetFileSizeMarshal := TargetFileSize is VarRef ? "uint*" : "ptr"
         CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupGetFileCompressionInfoW", "ptr", SourceFileName, "ptr", ActualSourceFileName, SourceFileSizeMarshal, SourceFileSize, TargetFileSizeMarshal, TargetFileSize, CompressionTypeMarshal, CompressionType, "uint")
+        result := DllCall("SETUPAPI.dll\SetupGetFileCompressionInfoW", "ptr", SourceFileName, ActualSourceFileNameMarshal, ActualSourceFileName, SourceFileSizeMarshal, SourceFileSize, TargetFileSizeMarshal, TargetFileSize, CompressionTypeMarshal, CompressionType, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -6553,9 +6555,11 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupSetSourceListA(Flags, SourceList, SourceCount) {
+        SourceListMarshal := SourceList is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupSetSourceListA", "uint", Flags, "ptr", SourceList, "uint", SourceCount, "int")
+        result := DllCall("SETUPAPI.dll\SetupSetSourceListA", "uint", Flags, SourceListMarshal, SourceList, "uint", SourceCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6575,9 +6579,11 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupSetSourceListW(Flags, SourceList, SourceCount) {
+        SourceListMarshal := SourceList is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupSetSourceListW", "uint", Flags, "ptr", SourceList, "uint", SourceCount, "int")
+        result := DllCall("SETUPAPI.dll\SetupSetSourceListW", "uint", Flags, SourceListMarshal, SourceList, "uint", SourceCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7450,10 +7456,11 @@ class DeviceAndDriverInstallation {
 
         InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        FileWasInUseMarshal := FileWasInUse is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupInstallFileExA", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, "uint", CopyStyle, "ptr", CopyMsgHandler, ContextMarshal, Context, "ptr", FileWasInUse, "int")
+        result := DllCall("SETUPAPI.dll\SetupInstallFileExA", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, "uint", CopyStyle, "ptr", CopyMsgHandler, ContextMarshal, Context, FileWasInUseMarshal, FileWasInUse, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7487,10 +7494,11 @@ class DeviceAndDriverInstallation {
 
         InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        FileWasInUseMarshal := FileWasInUse is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupInstallFileExW", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, "uint", CopyStyle, "ptr", CopyMsgHandler, ContextMarshal, Context, "ptr", FileWasInUse, "int")
+        result := DllCall("SETUPAPI.dll\SetupInstallFileExW", InfHandleMarshal, InfHandle, "ptr", InfContext, "ptr", SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, "uint", CopyStyle, "ptr", CopyMsgHandler, ContextMarshal, Context, FileWasInUseMarshal, FileWasInUse, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8827,10 +8835,11 @@ class DeviceAndDriverInstallation {
         DestinationInfFileName := DestinationInfFileName is String ? StrPtr(DestinationInfFileName) : DestinationInfFileName
 
         RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+        DestinationInfFileNameComponentMarshal := DestinationInfFileNameComponent is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupCopyOEMInfA", "ptr", SourceInfFileName, "ptr", OEMSourceMediaLocation, "uint", OEMSourceMediaType, "uint", CopyStyle, "ptr", DestinationInfFileName, "uint", DestinationInfFileNameSize, RequiredSizeMarshal, RequiredSize, "ptr", DestinationInfFileNameComponent, "int")
+        result := DllCall("SETUPAPI.dll\SetupCopyOEMInfA", "ptr", SourceInfFileName, "ptr", OEMSourceMediaLocation, "uint", OEMSourceMediaType, "uint", CopyStyle, "ptr", DestinationInfFileName, "uint", DestinationInfFileNameSize, RequiredSizeMarshal, RequiredSize, DestinationInfFileNameComponentMarshal, DestinationInfFileNameComponent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8904,10 +8913,11 @@ class DeviceAndDriverInstallation {
         DestinationInfFileName := DestinationInfFileName is String ? StrPtr(DestinationInfFileName) : DestinationInfFileName
 
         RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+        DestinationInfFileNameComponentMarshal := DestinationInfFileNameComponent is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupCopyOEMInfW", "ptr", SourceInfFileName, "ptr", OEMSourceMediaLocation, "uint", OEMSourceMediaType, "uint", CopyStyle, "ptr", DestinationInfFileName, "uint", DestinationInfFileNameSize, RequiredSizeMarshal, RequiredSize, "ptr", DestinationInfFileNameComponent, "int")
+        result := DllCall("SETUPAPI.dll\SetupCopyOEMInfW", "ptr", SourceInfFileName, "ptr", OEMSourceMediaLocation, "uint", OEMSourceMediaType, "uint", CopyStyle, "ptr", DestinationInfFileName, "uint", DestinationInfFileNameSize, RequiredSizeMarshal, RequiredSize, DestinationInfFileNameComponentMarshal, DestinationInfFileNameComponent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17524,10 +17534,11 @@ class DeviceAndDriverInstallation {
 
         InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
         RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+        ExtensionMarshal := Extension is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallA", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, "ptr", Extension, "int")
+        result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallA", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, ExtensionMarshal, Extension, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17552,10 +17563,11 @@ class DeviceAndDriverInstallation {
 
         InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
         RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+        ExtensionMarshal := Extension is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallW", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, "ptr", Extension, "int")
+        result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallW", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, ExtensionMarshal, Extension, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17583,10 +17595,11 @@ class DeviceAndDriverInstallation {
 
         InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
         RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+        ExtensionMarshal := Extension is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallExA", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", AlternatePlatformInfo, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, "ptr", Extension, "ptr", Reserved, "int")
+        result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallExA", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", AlternatePlatformInfo, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, ExtensionMarshal, Extension, "ptr", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17614,10 +17627,11 @@ class DeviceAndDriverInstallation {
 
         InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
         RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+        ExtensionMarshal := Extension is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallExW", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", AlternatePlatformInfo, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, "ptr", Extension, "ptr", Reserved, "int")
+        result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallExW", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", AlternatePlatformInfo, "ptr", InfSectionWithExt, "uint", InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, ExtensionMarshal, Extension, "ptr", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18869,7 +18883,9 @@ class DeviceAndDriverInstallation {
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_detect_resource_conflict
      */
     static CM_Detect_Resource_Conflict(dnDevInst, ResourceID, ResourceData, ResourceLen, pbConflictDetected, ulFlags) {
-        result := DllCall("CFGMGR32.dll\CM_Detect_Resource_Conflict", "uint", dnDevInst, "uint", ResourceID, "ptr", ResourceData, "uint", ResourceLen, "ptr", pbConflictDetected, "uint", ulFlags, "uint")
+        pbConflictDetectedMarshal := pbConflictDetected is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CFGMGR32.dll\CM_Detect_Resource_Conflict", "uint", dnDevInst, "uint", ResourceID, "ptr", ResourceData, "uint", ResourceLen, pbConflictDetectedMarshal, pbConflictDetected, "uint", ulFlags, "uint")
         return result
     }
 
@@ -18886,7 +18902,9 @@ class DeviceAndDriverInstallation {
      * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_detect_resource_conflict_ex
      */
     static CM_Detect_Resource_Conflict_Ex(dnDevInst, ResourceID, ResourceData, ResourceLen, pbConflictDetected, ulFlags, hMachine) {
-        result := DllCall("CFGMGR32.dll\CM_Detect_Resource_Conflict_Ex", "uint", dnDevInst, "uint", ResourceID, "ptr", ResourceData, "uint", ResourceLen, "ptr", pbConflictDetected, "uint", ulFlags, "ptr", hMachine, "uint")
+        pbConflictDetectedMarshal := pbConflictDetected is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CFGMGR32.dll\CM_Detect_Resource_Conflict_Ex", "uint", dnDevInst, "uint", ResourceID, "ptr", ResourceData, "uint", ResourceLen, pbConflictDetectedMarshal, pbConflictDetected, "uint", ulFlags, "ptr", hMachine, "uint")
         return result
     }
 
@@ -22557,7 +22575,9 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static CM_Is_Dock_Station_Present(pbPresent) {
-        result := DllCall("CFGMGR32.dll\CM_Is_Dock_Station_Present", "ptr", pbPresent, "uint")
+        pbPresentMarshal := pbPresent is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CFGMGR32.dll\CM_Is_Dock_Station_Present", pbPresentMarshal, pbPresent, "uint")
         return result
     }
 
@@ -22573,7 +22593,9 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static CM_Is_Dock_Station_Present_Ex(pbPresent, hMachine) {
-        result := DllCall("CFGMGR32.dll\CM_Is_Dock_Station_Present_Ex", "ptr", pbPresent, "ptr", hMachine, "uint")
+        pbPresentMarshal := pbPresent is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CFGMGR32.dll\CM_Is_Dock_Station_Present_Ex", pbPresentMarshal, pbPresent, "ptr", hMachine, "uint")
         return result
     }
 
@@ -23204,9 +23226,11 @@ class DeviceAndDriverInstallation {
         HardwareId := HardwareId is String ? StrPtr(HardwareId) : HardwareId
         FullInfPath := FullInfPath is String ? StrPtr(FullInfPath) : FullInfPath
 
+        bRebootRequiredMarshal := bRebootRequired is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("newdev.dll\UpdateDriverForPlugAndPlayDevicesA", "ptr", hwndParent, "ptr", HardwareId, "ptr", FullInfPath, "uint", InstallFlags, "ptr", bRebootRequired, "int")
+        result := DllCall("newdev.dll\UpdateDriverForPlugAndPlayDevicesA", "ptr", hwndParent, "ptr", HardwareId, "ptr", FullInfPath, "uint", InstallFlags, bRebootRequiredMarshal, bRebootRequired, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23298,9 +23322,11 @@ class DeviceAndDriverInstallation {
         HardwareId := HardwareId is String ? StrPtr(HardwareId) : HardwareId
         FullInfPath := FullInfPath is String ? StrPtr(FullInfPath) : FullInfPath
 
+        bRebootRequiredMarshal := bRebootRequired is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("newdev.dll\UpdateDriverForPlugAndPlayDevicesW", "ptr", hwndParent, "ptr", HardwareId, "ptr", FullInfPath, "uint", InstallFlags, "ptr", bRebootRequired, "int")
+        result := DllCall("newdev.dll\UpdateDriverForPlugAndPlayDevicesW", "ptr", hwndParent, "ptr", HardwareId, "ptr", FullInfPath, "uint", InstallFlags, bRebootRequiredMarshal, bRebootRequired, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23363,9 +23389,11 @@ class DeviceAndDriverInstallation {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
 
+        NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("newdev.dll\DiInstallDevice", "ptr", hwndParent, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "uint", Flags, "ptr", NeedReboot, "int")
+        result := DllCall("newdev.dll\DiInstallDevice", "ptr", hwndParent, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", DriverInfoData, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23443,9 +23471,11 @@ class DeviceAndDriverInstallation {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
 
+        NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("newdev.dll\DiInstallDriverW", "ptr", hwndParent, "ptr", InfPath, "uint", Flags, "ptr", NeedReboot, "int")
+        result := DllCall("newdev.dll\DiInstallDriverW", "ptr", hwndParent, "ptr", InfPath, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23523,9 +23553,11 @@ class DeviceAndDriverInstallation {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
 
+        NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("newdev.dll\DiInstallDriverA", "ptr", hwndParent, "ptr", InfPath, "uint", Flags, "ptr", NeedReboot, "int")
+        result := DllCall("newdev.dll\DiInstallDriverA", "ptr", hwndParent, "ptr", InfPath, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23586,9 +23618,11 @@ class DeviceAndDriverInstallation {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
 
+        NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("newdev.dll\DiUninstallDevice", "ptr", hwndParent, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Flags, "ptr", NeedReboot, "int")
+        result := DllCall("newdev.dll\DiUninstallDevice", "ptr", hwndParent, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23609,9 +23643,11 @@ class DeviceAndDriverInstallation {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
 
+        NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("newdev.dll\DiUninstallDriverW", "ptr", hwndParent, "ptr", InfPath, "uint", Flags, "ptr", NeedReboot, "int")
+        result := DllCall("newdev.dll\DiUninstallDriverW", "ptr", hwndParent, "ptr", InfPath, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23689,9 +23725,11 @@ class DeviceAndDriverInstallation {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
 
+        NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("newdev.dll\DiUninstallDriverA", "ptr", hwndParent, "ptr", InfPath, "uint", Flags, "ptr", NeedReboot, "int")
+        result := DllCall("newdev.dll\DiUninstallDriverA", "ptr", hwndParent, "ptr", InfPath, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23764,9 +23802,11 @@ class DeviceAndDriverInstallation {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
 
+        NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("newdev.dll\DiShowUpdateDevice", "ptr", hwndParent, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Flags, "ptr", NeedReboot, "int")
+        result := DllCall("newdev.dll\DiShowUpdateDevice", "ptr", hwndParent, "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23847,9 +23887,11 @@ class DeviceAndDriverInstallation {
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
+        NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("newdev.dll\DiRollbackDriver", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", hwndParent, "uint", Flags, "ptr", NeedReboot, "int")
+        result := DllCall("newdev.dll\DiRollbackDriver", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", hwndParent, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23868,7 +23910,9 @@ class DeviceAndDriverInstallation {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
 
-        result := DllCall("newdev.dll\DiShowUpdateDriver", "ptr", hwndParent, "ptr", FilePath, "uint", Flags, "ptr", NeedReboot, "int")
+        NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+
+        result := DllCall("newdev.dll\DiShowUpdateDriver", "ptr", hwndParent, "ptr", FilePath, "uint", Flags, NeedRebootMarshal, NeedReboot, "int")
         return result
     }
 

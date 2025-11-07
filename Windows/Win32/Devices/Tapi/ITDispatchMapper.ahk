@@ -35,14 +35,13 @@ class ITDispatchMapper extends IDispatch{
      * 
      * @param {BSTR} pIID 
      * @param {IDispatch} pInterfaceToMap 
-     * @param {Pointer<IDispatch>} ppReturnedInterface 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdispatchmapper-querydispatchinterface
      */
-    QueryDispatchInterface(pIID, pInterfaceToMap, ppReturnedInterface) {
+    QueryDispatchInterface(pIID, pInterfaceToMap) {
         pIID := pIID is String ? BSTR.Alloc(pIID).Value : pIID
 
-        result := ComCall(7, this, "ptr", pIID, "ptr", pInterfaceToMap, "ptr*", ppReturnedInterface, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pIID, "ptr", pInterfaceToMap, "ptr*", &ppReturnedInterface := 0, "HRESULT")
+        return IDispatch(ppReturnedInterface)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VSS_VOLUME_PROTECTION_INFO.ahk
 #Include .\IVssDifferentialSoftwareSnapshotMgmt2.ahk
 
 /**
@@ -54,15 +55,15 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
     /**
      * 
      * @param {Pointer<Integer>} pwszVolumeName 
-     * @param {Pointer<VSS_VOLUME_PROTECTION_INFO>} protectionLevel 
-     * @returns {HRESULT} 
+     * @returns {VSS_VOLUME_PROTECTION_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-getvolumeprotectlevel
      */
-    GetVolumeProtectLevel(pwszVolumeName, protectionLevel) {
+    GetVolumeProtectLevel(pwszVolumeName) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
 
+        protectionLevel := VSS_VOLUME_PROTECTION_INFO()
         result := ComCall(14, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr", protectionLevel, "HRESULT")
-        return result
+        return protectionLevel
     }
 
     /**

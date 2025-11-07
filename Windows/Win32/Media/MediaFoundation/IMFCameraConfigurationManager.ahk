@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFCameraControlDefaultsCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,13 +34,12 @@ class IMFCameraConfigurationManager extends IUnknown{
     /**
      * 
      * @param {IMFAttributes} cameraAttributes 
-     * @param {Pointer<IMFCameraControlDefaultsCollection>} configurations 
-     * @returns {HRESULT} 
+     * @returns {IMFCameraControlDefaultsCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameraconfigurationmanager-loaddefaults
      */
-    LoadDefaults(cameraAttributes, configurations) {
-        result := ComCall(3, this, "ptr", cameraAttributes, "ptr*", configurations, "HRESULT")
-        return result
+    LoadDefaults(cameraAttributes) {
+        result := ComCall(3, this, "ptr", cameraAttributes, "ptr*", &configurations := 0, "HRESULT")
+        return IMFCameraControlDefaultsCollection(configurations)
     }
 
     /**

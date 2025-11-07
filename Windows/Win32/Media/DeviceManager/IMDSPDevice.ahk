@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WMDMID.ahk
+#Include .\IMDSPEnumStorage.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -60,44 +62,36 @@ class IMDSPDevice extends IUnknown{
 
     /**
      * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
-     * @param {Pointer<Integer>} pdwVersion 
-     * @returns {HRESULT} If the function succeeds, the return value includes the major and minor version numbers of the operating system in the low-order word, and information about the operating system platform in the high-order word.
-     * 
-     * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
-    GetVersion(pdwVersion) {
-        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwVersionMarshal, pdwVersion, "HRESULT")
-        return result
+    GetVersion() {
+        result := ComCall(5, this, "uint*", &pdwVersion := 0, "HRESULT")
+        return pdwVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-gettype
      */
-    GetType(pdwType) {
-        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwTypeMarshal, pdwType, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(6, this, "uint*", &pdwType := 0, "HRESULT")
+        return pdwType
     }
 
     /**
      * 
-     * @param {Pointer<WMDMID>} pSerialNumber 
      * @param {Pointer<Integer>} abMac 
-     * @returns {HRESULT} 
+     * @returns {WMDMID} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getserialnumber
      */
-    GetSerialNumber(pSerialNumber, abMac) {
+    GetSerialNumber(abMac) {
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
+        pSerialNumber := WMDMID()
         result := ComCall(7, this, "ptr", pSerialNumber, abMacMarshal, abMac, "HRESULT")
-        return result
+        return pSerialNumber
     }
 
     /**
@@ -117,39 +111,32 @@ class IMDSPDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getstatus
      */
-    GetStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(9, this, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} hIcon 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getdeviceicon
      */
-    GetDeviceIcon(hIcon) {
-        hIconMarshal := hIcon is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, hIconMarshal, hIcon, "HRESULT")
-        return result
+    GetDeviceIcon() {
+        result := ComCall(10, this, "uint*", &hIcon := 0, "HRESULT")
+        return hIcon
     }
 
     /**
      * 
-     * @param {Pointer<IMDSPEnumStorage>} ppEnumStorage 
-     * @returns {HRESULT} 
+     * @returns {IMDSPEnumStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-enumstorage
      */
-    EnumStorage(ppEnumStorage) {
-        result := ComCall(11, this, "ptr*", ppEnumStorage, "HRESULT")
-        return result
+    EnumStorage() {
+        result := ComCall(11, this, "ptr*", &ppEnumStorage := 0, "HRESULT")
+        return IMDSPEnumStorage(ppEnumStorage)
     }
 
     /**

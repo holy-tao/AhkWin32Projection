@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1SvgGlyphStyle.ahk
 #Include .\ID2D1DeviceContext3.ahk
 
 /**
@@ -32,13 +33,12 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
 
     /**
      * 
-     * @param {Pointer<ID2D1SvgGlyphStyle>} svgGlyphStyle 
-     * @returns {HRESULT} 
+     * @returns {ID2D1SvgGlyphStyle} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-createsvgglyphstyle
      */
-    CreateSvgGlyphStyle(svgGlyphStyle) {
-        result := ComCall(108, this, "ptr*", svgGlyphStyle, "HRESULT")
-        return result
+    CreateSvgGlyphStyle() {
+        result := ComCall(108, this, "ptr*", &svgGlyphStyle := 0, "HRESULT")
+        return ID2D1SvgGlyphStyle(svgGlyphStyle)
     }
 
     /**

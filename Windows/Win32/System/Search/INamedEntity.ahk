@@ -32,23 +32,21 @@ class INamedEntity extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszValue 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-inamedentity-getvalue
      */
-    GetValue(ppszValue) {
-        result := ComCall(3, this, "ptr", ppszValue, "HRESULT")
-        return result
+    GetValue() {
+        result := ComCall(3, this, "ptr*", &ppszValue := 0, "HRESULT")
+        return ppszValue
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszPhrase 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-inamedentity-defaultphrase
      */
-    DefaultPhrase(ppszPhrase) {
-        result := ComCall(4, this, "ptr", ppszPhrase, "HRESULT")
-        return result
+    DefaultPhrase() {
+        result := ComCall(4, this, "ptr*", &ppszPhrase := 0, "HRESULT")
+        return ppszPhrase
     }
 }

@@ -32,15 +32,12 @@ class IAMParse extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} prtCurrent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amparse/nf-amparse-iamparse-getparsetime
      */
-    GetParseTime(prtCurrent) {
-        prtCurrentMarshal := prtCurrent is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(3, this, prtCurrentMarshal, prtCurrent, "HRESULT")
-        return result
+    GetParseTime() {
+        result := ComCall(3, this, "int64*", &prtCurrent := 0, "HRESULT")
+        return prtCurrent
     }
 
     /**

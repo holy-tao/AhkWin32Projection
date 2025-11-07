@@ -31,14 +31,11 @@ class IMFFaceDetectionTransform extends IUnknown{
     /**
      * 
      * @param {IMFFaceDetectionTransformCallback} callback 
-     * @param {Pointer<Pointer<Void>>} callbackToken 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    SetDetectionCallback(callback, callbackToken) {
-        callbackTokenMarshal := callbackToken is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", callback, callbackTokenMarshal, callbackToken, "HRESULT")
-        return result
+    SetDetectionCallback(callback) {
+        result := ComCall(3, this, "ptr", callback, "ptr*", &callbackToken := 0, "HRESULT")
+        return callbackToken
     }
 
     /**

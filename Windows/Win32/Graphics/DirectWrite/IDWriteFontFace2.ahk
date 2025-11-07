@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_COLOR_F.ahk
 #Include .\IDWriteFontFace1.ahk
 
 /**
@@ -65,15 +66,13 @@ class IDWriteFontFace2 extends IDWriteFontFace1{
      * @param {Integer} colorPaletteIndex 
      * @param {Integer} firstEntryIndex 
      * @param {Integer} entryCount 
-     * @param {Pointer<DWRITE_COLOR_F>} paletteEntries 
-     * @returns {HRESULT} If the function succeeds and the handle to the logical palette is a valid pointer (not <b>NULL</b>), the return value is the number of entries retrieved from the logical palette. If the function succeeds and handle to the logical palette is <b>NULL</b>, the return value is the number of entries in the given palette.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {DWRITE_COLOR_F} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpaletteentries
      */
-    GetPaletteEntries(colorPaletteIndex, firstEntryIndex, entryCount, paletteEntries) {
+    GetPaletteEntries(colorPaletteIndex, firstEntryIndex, entryCount) {
+        paletteEntries := DWRITE_COLOR_F()
         result := ComCall(33, this, "uint", colorPaletteIndex, "uint", firstEntryIndex, "uint", entryCount, "ptr", paletteEntries, "HRESULT")
-        return result
+        return paletteEntries
     }
 
     /**

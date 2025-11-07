@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\IGameInput.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
@@ -48,15 +49,14 @@ class GameInput {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<IGameInput>} gameInput 
-     * @returns {HRESULT} 
+     * @returns {IGameInput} 
      */
-    static GameInputCreate(gameInput) {
-        result := DllCall("GameInput.dll\GameInputCreate", "ptr*", gameInput, "int")
+    static GameInputCreate() {
+        result := DllCall("GameInput.dll\GameInputCreate", "ptr*", &gameInput := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IGameInput(gameInput)
     }
 
 ;@endregion Methods

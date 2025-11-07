@@ -44,12 +44,11 @@ class IPersistTuneXmlUtility extends IUnknown{
     /**
      * 
      * @param {VARIANT} varValue 
-     * @param {Pointer<IUnknown>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ipersisttunexmlutility-deserialize
      */
-    Deserialize(varValue, ppObject) {
-        result := ComCall(3, this, "ptr", varValue, "ptr*", ppObject, "HRESULT")
-        return result
+    Deserialize(varValue) {
+        result := ComCall(3, this, "ptr", varValue, "ptr*", &ppObject := 0, "HRESULT")
+        return IUnknown(ppObject)
     }
 }

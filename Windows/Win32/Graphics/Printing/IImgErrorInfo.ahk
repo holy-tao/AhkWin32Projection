@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ImgErrorInfo.ahk
 #Include ..\..\System\Com\IErrorInfo.ahk
 
 /**
@@ -30,76 +32,70 @@ class IImgErrorInfo extends IErrorInfo{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDevDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDeveloperDescription(pbstrDevDescription) {
+    GetDeveloperDescription() {
+        pbstrDevDescription := BSTR()
         result := ComCall(8, this, "ptr", pbstrDevDescription, "HRESULT")
-        return result
+        return pbstrDevDescription
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pErrorId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetUserErrorId(pErrorId) {
+    GetUserErrorId() {
+        pErrorId := Guid()
         result := ComCall(9, this, "ptr", pErrorId, "HRESULT")
-        return result
+        return pErrorId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcUserParams 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetUserParameterCount(pcUserParams) {
-        pcUserParamsMarshal := pcUserParams is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pcUserParamsMarshal, pcUserParams, "HRESULT")
-        return result
+    GetUserParameterCount() {
+        result := ComCall(10, this, "uint*", &pcUserParams := 0, "HRESULT")
+        return pcUserParams
     }
 
     /**
      * 
      * @param {Integer} cParam 
-     * @param {Pointer<BSTR>} pbstrParam 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetUserParameter(cParam, pbstrParam) {
+    GetUserParameter(cParam) {
+        pbstrParam := BSTR()
         result := ComCall(11, this, "uint", cParam, "ptr", pbstrParam, "HRESULT")
-        return result
+        return pbstrParam
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFallback 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetUserFallback(pbstrFallback) {
+    GetUserFallback() {
+        pbstrFallback := BSTR()
         result := ComCall(12, this, "ptr", pbstrFallback, "HRESULT")
-        return result
+        return pbstrFallback
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pExceptionId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetExceptionId(pExceptionId) {
-        pExceptionIdMarshal := pExceptionId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pExceptionIdMarshal, pExceptionId, "HRESULT")
-        return result
+    GetExceptionId() {
+        result := ComCall(13, this, "uint*", &pExceptionId := 0, "HRESULT")
+        return pExceptionId
     }
 
     /**
      * 
-     * @param {Pointer<ImgErrorInfo>} pErrorInfo 
-     * @returns {HRESULT} 
+     * @returns {ImgErrorInfo} 
      */
-    DetachErrorInfo(pErrorInfo) {
+    DetachErrorInfo() {
+        pErrorInfo := ImgErrorInfo()
         result := ComCall(14, this, "ptr", pErrorInfo, "HRESULT")
-        return result
+        return pErrorInfo
     }
 }

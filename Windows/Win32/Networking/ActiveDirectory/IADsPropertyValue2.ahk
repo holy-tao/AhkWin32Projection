@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -338,15 +339,15 @@ class IADsPropertyValue2 extends IDispatch{
     /**
      * 
      * @param {Pointer<Integer>} lnADsType 
-     * @param {Pointer<VARIANT>} pvProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertyvalue2-getobjectproperty
      */
-    GetObjectProperty(lnADsType, pvProp) {
+    GetObjectProperty(lnADsType) {
         lnADsTypeMarshal := lnADsType is VarRef ? "int*" : "ptr"
 
+        pvProp := VARIANT()
         result := ComCall(7, this, lnADsTypeMarshal, lnADsType, "ptr", pvProp, "HRESULT")
-        return result
+        return pvProp
     }
 
     /**

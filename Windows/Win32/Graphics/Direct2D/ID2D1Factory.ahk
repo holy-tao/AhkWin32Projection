@@ -1,6 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1RectangleGeometry.ahk
+#Include .\ID2D1RoundedRectangleGeometry.ahk
+#Include .\ID2D1EllipseGeometry.ahk
+#Include .\ID2D1GeometryGroup.ahk
+#Include .\ID2D1TransformedGeometry.ahk
+#Include .\ID2D1PathGeometry.ahk
+#Include .\ID2D1StrokeStyle.ahk
+#Include .\ID2D1DrawingStateBlock.ahk
+#Include .\ID2D1RenderTarget.ahk
+#Include .\ID2D1HwndRenderTarget.ahk
+#Include .\ID2D1DCRenderTarget.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -87,37 +98,34 @@ class ID2D1Factory extends IUnknown{
     /**
      * 
      * @param {Pointer<D2D_RECT_F>} rectangle 
-     * @param {Pointer<ID2D1RectangleGeometry>} rectangleGeometry 
-     * @returns {HRESULT} 
+     * @returns {ID2D1RectangleGeometry} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createrectanglegeometry
      */
-    CreateRectangleGeometry(rectangle, rectangleGeometry) {
-        result := ComCall(5, this, "ptr", rectangle, "ptr*", rectangleGeometry, "HRESULT")
-        return result
+    CreateRectangleGeometry(rectangle) {
+        result := ComCall(5, this, "ptr", rectangle, "ptr*", &rectangleGeometry := 0, "HRESULT")
+        return ID2D1RectangleGeometry(rectangleGeometry)
     }
 
     /**
      * 
      * @param {Pointer<D2D1_ROUNDED_RECT>} roundedRectangle 
-     * @param {Pointer<ID2D1RoundedRectangleGeometry>} roundedRectangleGeometry 
-     * @returns {HRESULT} 
+     * @returns {ID2D1RoundedRectangleGeometry} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createroundedrectanglegeometry
      */
-    CreateRoundedRectangleGeometry(roundedRectangle, roundedRectangleGeometry) {
-        result := ComCall(6, this, "ptr", roundedRectangle, "ptr*", roundedRectangleGeometry, "HRESULT")
-        return result
+    CreateRoundedRectangleGeometry(roundedRectangle) {
+        result := ComCall(6, this, "ptr", roundedRectangle, "ptr*", &roundedRectangleGeometry := 0, "HRESULT")
+        return ID2D1RoundedRectangleGeometry(roundedRectangleGeometry)
     }
 
     /**
      * 
      * @param {Pointer<D2D1_ELLIPSE>} ellipse 
-     * @param {Pointer<ID2D1EllipseGeometry>} ellipseGeometry 
-     * @returns {HRESULT} 
+     * @returns {ID2D1EllipseGeometry} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createellipsegeometry
      */
-    CreateEllipseGeometry(ellipse, ellipseGeometry) {
-        result := ComCall(7, this, "ptr", ellipse, "ptr*", ellipseGeometry, "HRESULT")
-        return result
+    CreateEllipseGeometry(ellipse) {
+        result := ComCall(7, this, "ptr", ellipse, "ptr*", &ellipseGeometry := 0, "HRESULT")
+        return ID2D1EllipseGeometry(ellipseGeometry)
     }
 
     /**
@@ -125,37 +133,34 @@ class ID2D1Factory extends IUnknown{
      * @param {Integer} fillMode 
      * @param {Pointer<ID2D1Geometry>} geometries 
      * @param {Integer} geometriesCount 
-     * @param {Pointer<ID2D1GeometryGroup>} geometryGroup 
-     * @returns {HRESULT} 
+     * @returns {ID2D1GeometryGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-creategeometrygroup
      */
-    CreateGeometryGroup(fillMode, geometries, geometriesCount, geometryGroup) {
-        result := ComCall(8, this, "int", fillMode, "ptr*", geometries, "uint", geometriesCount, "ptr*", geometryGroup, "HRESULT")
-        return result
+    CreateGeometryGroup(fillMode, geometries, geometriesCount) {
+        result := ComCall(8, this, "int", fillMode, "ptr*", geometries, "uint", geometriesCount, "ptr*", &geometryGroup := 0, "HRESULT")
+        return ID2D1GeometryGroup(geometryGroup)
     }
 
     /**
      * 
      * @param {ID2D1Geometry} sourceGeometry 
      * @param {Pointer<D2D_MATRIX_3X2_F>} transform 
-     * @param {Pointer<ID2D1TransformedGeometry>} transformedGeometry 
-     * @returns {HRESULT} 
+     * @returns {ID2D1TransformedGeometry} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createtransformedgeometry
      */
-    CreateTransformedGeometry(sourceGeometry, transform, transformedGeometry) {
-        result := ComCall(9, this, "ptr", sourceGeometry, "ptr", transform, "ptr*", transformedGeometry, "HRESULT")
-        return result
+    CreateTransformedGeometry(sourceGeometry, transform) {
+        result := ComCall(9, this, "ptr", sourceGeometry, "ptr", transform, "ptr*", &transformedGeometry := 0, "HRESULT")
+        return ID2D1TransformedGeometry(transformedGeometry)
     }
 
     /**
      * 
-     * @param {Pointer<ID2D1PathGeometry>} pathGeometry 
-     * @returns {HRESULT} 
+     * @returns {ID2D1PathGeometry} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-createpathgeometry
      */
-    CreatePathGeometry(pathGeometry) {
-        result := ComCall(10, this, "ptr*", pathGeometry, "HRESULT")
-        return result
+    CreatePathGeometry() {
+        result := ComCall(10, this, "ptr*", &pathGeometry := 0, "HRESULT")
+        return ID2D1PathGeometry(pathGeometry)
     }
 
     /**
@@ -163,78 +168,72 @@ class ID2D1Factory extends IUnknown{
      * @param {Pointer<D2D1_STROKE_STYLE_PROPERTIES>} strokeStyleProperties 
      * @param {Pointer<Float>} dashes 
      * @param {Integer} dashesCount 
-     * @param {Pointer<ID2D1StrokeStyle>} strokeStyle 
-     * @returns {HRESULT} 
+     * @returns {ID2D1StrokeStyle} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createstrokestyle
      */
-    CreateStrokeStyle(strokeStyleProperties, dashes, dashesCount, strokeStyle) {
+    CreateStrokeStyle(strokeStyleProperties, dashes, dashesCount) {
         dashesMarshal := dashes is VarRef ? "float*" : "ptr"
 
-        result := ComCall(11, this, "ptr", strokeStyleProperties, dashesMarshal, dashes, "uint", dashesCount, "ptr*", strokeStyle, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", strokeStyleProperties, dashesMarshal, dashes, "uint", dashesCount, "ptr*", &strokeStyle := 0, "HRESULT")
+        return ID2D1StrokeStyle(strokeStyle)
     }
 
     /**
      * 
      * @param {Pointer<D2D1_DRAWING_STATE_DESCRIPTION>} drawingStateDescription 
      * @param {IDWriteRenderingParams} textRenderingParams 
-     * @param {Pointer<ID2D1DrawingStateBlock>} drawingStateBlock 
-     * @returns {HRESULT} 
+     * @returns {ID2D1DrawingStateBlock} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createdrawingstateblock
      */
-    CreateDrawingStateBlock(drawingStateDescription, textRenderingParams, drawingStateBlock) {
-        result := ComCall(12, this, "ptr", drawingStateDescription, "ptr", textRenderingParams, "ptr*", drawingStateBlock, "HRESULT")
-        return result
+    CreateDrawingStateBlock(drawingStateDescription, textRenderingParams) {
+        result := ComCall(12, this, "ptr", drawingStateDescription, "ptr", textRenderingParams, "ptr*", &drawingStateBlock := 0, "HRESULT")
+        return ID2D1DrawingStateBlock(drawingStateBlock)
     }
 
     /**
      * 
      * @param {IWICBitmap} target 
      * @param {Pointer<D2D1_RENDER_TARGET_PROPERTIES>} renderTargetProperties 
-     * @param {Pointer<ID2D1RenderTarget>} renderTarget 
-     * @returns {HRESULT} 
+     * @returns {ID2D1RenderTarget} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createwicbitmaprendertarget
      */
-    CreateWicBitmapRenderTarget(target, renderTargetProperties, renderTarget) {
-        result := ComCall(13, this, "ptr", target, "ptr", renderTargetProperties, "ptr*", renderTarget, "HRESULT")
-        return result
+    CreateWicBitmapRenderTarget(target, renderTargetProperties) {
+        result := ComCall(13, this, "ptr", target, "ptr", renderTargetProperties, "ptr*", &renderTarget := 0, "HRESULT")
+        return ID2D1RenderTarget(renderTarget)
     }
 
     /**
      * 
      * @param {Pointer<D2D1_RENDER_TARGET_PROPERTIES>} renderTargetProperties 
      * @param {Pointer<D2D1_HWND_RENDER_TARGET_PROPERTIES>} hwndRenderTargetProperties 
-     * @param {Pointer<ID2D1HwndRenderTarget>} hwndRenderTarget 
-     * @returns {HRESULT} 
+     * @returns {ID2D1HwndRenderTarget} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createhwndrendertarget
      */
-    CreateHwndRenderTarget(renderTargetProperties, hwndRenderTargetProperties, hwndRenderTarget) {
-        result := ComCall(14, this, "ptr", renderTargetProperties, "ptr", hwndRenderTargetProperties, "ptr*", hwndRenderTarget, "HRESULT")
-        return result
+    CreateHwndRenderTarget(renderTargetProperties, hwndRenderTargetProperties) {
+        result := ComCall(14, this, "ptr", renderTargetProperties, "ptr", hwndRenderTargetProperties, "ptr*", &hwndRenderTarget := 0, "HRESULT")
+        return ID2D1HwndRenderTarget(hwndRenderTarget)
     }
 
     /**
      * 
      * @param {IDXGISurface} dxgiSurface 
      * @param {Pointer<D2D1_RENDER_TARGET_PROPERTIES>} renderTargetProperties 
-     * @param {Pointer<ID2D1RenderTarget>} renderTarget 
-     * @returns {HRESULT} 
+     * @returns {ID2D1RenderTarget} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-createdxgisurfacerendertarget(idxgisurface_constd2d1_render_target_properties__id2d1rendertarget)
      */
-    CreateDxgiSurfaceRenderTarget(dxgiSurface, renderTargetProperties, renderTarget) {
-        result := ComCall(15, this, "ptr", dxgiSurface, "ptr", renderTargetProperties, "ptr*", renderTarget, "HRESULT")
-        return result
+    CreateDxgiSurfaceRenderTarget(dxgiSurface, renderTargetProperties) {
+        result := ComCall(15, this, "ptr", dxgiSurface, "ptr", renderTargetProperties, "ptr*", &renderTarget := 0, "HRESULT")
+        return ID2D1RenderTarget(renderTarget)
     }
 
     /**
      * 
      * @param {Pointer<D2D1_RENDER_TARGET_PROPERTIES>} renderTargetProperties 
-     * @param {Pointer<ID2D1DCRenderTarget>} dcRenderTarget 
-     * @returns {HRESULT} 
+     * @returns {ID2D1DCRenderTarget} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-createdcrendertarget
      */
-    CreateDCRenderTarget(renderTargetProperties, dcRenderTarget) {
-        result := ComCall(16, this, "ptr", renderTargetProperties, "ptr*", dcRenderTarget, "HRESULT")
-        return result
+    CreateDCRenderTarget(renderTargetProperties) {
+        result := ComCall(16, this, "ptr", renderTargetProperties, "ptr*", &dcRenderTarget := 0, "HRESULT")
+        return ID2D1DCRenderTarget(dcRenderTarget)
     }
 }

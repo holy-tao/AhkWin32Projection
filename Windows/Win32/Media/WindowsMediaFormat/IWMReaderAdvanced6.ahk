@@ -36,17 +36,15 @@ class IWMReaderAdvanced6 extends IWMReaderAdvanced5{
      * @param {Integer} cbCertificate 
      * @param {Integer} dwCertificateType 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} pbInitializationVector 
      * @param {Pointer<Integer>} pcbInitializationVector 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced6-setprotectstreamsamples
      */
-    SetProtectStreamSamples(pbCertificate, cbCertificate, dwCertificateType, dwFlags, pbInitializationVector, pcbInitializationVector) {
+    SetProtectStreamSamples(pbCertificate, cbCertificate, dwCertificateType, dwFlags, pcbInitializationVector) {
         pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
-        pbInitializationVectorMarshal := pbInitializationVector is VarRef ? "char*" : "ptr"
         pcbInitializationVectorMarshal := pcbInitializationVector is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(50, this, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "uint", dwCertificateType, "uint", dwFlags, pbInitializationVectorMarshal, pbInitializationVector, pcbInitializationVectorMarshal, pcbInitializationVector, "HRESULT")
-        return result
+        result := ComCall(50, this, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "uint", dwCertificateType, "uint", dwFlags, "char*", &pbInitializationVector := 0, pcbInitializationVectorMarshal, pcbInitializationVector, "HRESULT")
+        return pbInitializationVector
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_PARAMETER_DESC.ahk
 
 /**
  * A function-parameter-reflection interface accesses function-parameter info.
@@ -39,12 +40,12 @@ class ID3D11FunctionParameterReflection extends Win32ComInterface{
 
     /**
      * 
-     * @param {Pointer<D3D11_PARAMETER_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D11_PARAMETER_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionparameterreflection-getdesc
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := D3D11_PARAMETER_DESC()
         result := ComCall(0, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 }

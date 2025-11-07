@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\COLORKEY.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,14 @@ class IOverlay extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pdwColors 
-     * @param {Pointer<Pointer<PALETTEENTRY>>} ppPalette 
-     * @returns {HRESULT} 
+     * @returns {Pointer<PALETTEENTRY>} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-getpalette
      */
-    GetPalette(pdwColors, ppPalette) {
+    GetPalette(pdwColors) {
         pdwColorsMarshal := pdwColors is VarRef ? "uint*" : "ptr"
-        ppPaletteMarshal := ppPalette is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pdwColorsMarshal, pdwColors, ppPaletteMarshal, ppPalette, "HRESULT")
-        return result
+        result := ComCall(3, this, pdwColorsMarshal, pdwColors, "ptr*", &ppPalette := 0, "HRESULT")
+        return ppPalette
     }
 
     /**
@@ -59,24 +59,24 @@ class IOverlay extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<COLORKEY>} pColorKey 
-     * @returns {HRESULT} 
+     * @returns {COLORKEY} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-getdefaultcolorkey
      */
-    GetDefaultColorKey(pColorKey) {
+    GetDefaultColorKey() {
+        pColorKey := COLORKEY()
         result := ComCall(5, this, "ptr", pColorKey, "HRESULT")
-        return result
+        return pColorKey
     }
 
     /**
      * 
-     * @param {Pointer<COLORKEY>} pColorKey 
-     * @returns {HRESULT} 
+     * @returns {COLORKEY} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-getcolorkey
      */
-    GetColorKey(pColorKey) {
+    GetColorKey() {
+        pColorKey := COLORKEY()
         result := ComCall(6, this, "ptr", pColorKey, "HRESULT")
-        return result
+        return pColorKey
     }
 
     /**
@@ -92,13 +92,13 @@ class IOverlay extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HWND>} pHwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-getwindowhandle
      */
-    GetWindowHandle(pHwnd) {
+    GetWindowHandle() {
+        pHwnd := HWND()
         result := ComCall(8, this, "ptr", pHwnd, "HRESULT")
-        return result
+        return pHwnd
     }
 
     /**

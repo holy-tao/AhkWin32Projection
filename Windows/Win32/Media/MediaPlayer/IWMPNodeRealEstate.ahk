@@ -78,7 +78,9 @@ class IWMPNodeRealEstate extends IUnknown{
      * @returns {HRESULT} 
      */
     GetWindowless(pfWindowless) {
-        result := ComCall(7, this, "ptr", pfWindowless, "HRESULT")
+        pfWindowlessMarshal := pfWindowless is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pfWindowlessMarshal, pfWindowless, "HRESULT")
         return result
     }
 
@@ -98,7 +100,9 @@ class IWMPNodeRealEstate extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFullScreen(pfFullScreen) {
-        result := ComCall(9, this, "ptr", pfFullScreen, "HRESULT")
+        pfFullScreenMarshal := pfFullScreen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pfFullScreenMarshal, pfFullScreen, "HRESULT")
         return result
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_LIBRARY_DESC.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,13 +43,13 @@ class ID3D12LibraryReflection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<D3D12_LIBRARY_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D12_LIBRARY_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12libraryreflection-getdesc
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := D3D12_LIBRARY_DESC()
         result := ComCall(3, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**

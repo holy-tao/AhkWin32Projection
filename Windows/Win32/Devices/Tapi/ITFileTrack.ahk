@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITTerminal.ahk
+#Include .\ITScriptableAudioFormat.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,15 +34,12 @@ class ITFileTrack extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer<AM_MEDIA_TYPE>>} ppmt 
-     * @returns {HRESULT} 
+     * @returns {Pointer<AM_MEDIA_TYPE>} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfiletrack-get_format
      */
-    get_Format(ppmt) {
-        ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, ppmtMarshal, ppmt, "HRESULT")
-        return result
+    get_Format() {
+        result := ComCall(7, this, "ptr*", &ppmt := 0, "HRESULT")
+        return ppmt
     }
 
     /**
@@ -56,24 +55,22 @@ class ITFileTrack extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITTerminal>} ppControllingTerminal 
-     * @returns {HRESULT} 
+     * @returns {ITTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfiletrack-get_controllingterminal
      */
-    get_ControllingTerminal(ppControllingTerminal) {
-        result := ComCall(9, this, "ptr*", ppControllingTerminal, "HRESULT")
-        return result
+    get_ControllingTerminal() {
+        result := ComCall(9, this, "ptr*", &ppControllingTerminal := 0, "HRESULT")
+        return ITTerminal(ppControllingTerminal)
     }
 
     /**
      * 
-     * @param {Pointer<ITScriptableAudioFormat>} ppAudioFormat 
-     * @returns {HRESULT} 
+     * @returns {ITScriptableAudioFormat} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfiletrack-get_audioformatforscripting
      */
-    get_AudioFormatForScripting(ppAudioFormat) {
-        result := ComCall(10, this, "ptr*", ppAudioFormat, "HRESULT")
-        return result
+    get_AudioFormatForScripting() {
+        result := ComCall(10, this, "ptr*", &ppAudioFormat := 0, "HRESULT")
+        return ITScriptableAudioFormat(ppAudioFormat)
     }
 
     /**
@@ -89,12 +86,11 @@ class ITFileTrack extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITScriptableAudioFormat>} ppAudioFormat 
-     * @returns {HRESULT} 
+     * @returns {ITScriptableAudioFormat} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfiletrack-get_emptyaudioformatforscripting
      */
-    get_EmptyAudioFormatForScripting(ppAudioFormat) {
-        result := ComCall(12, this, "ptr*", ppAudioFormat, "HRESULT")
-        return result
+    get_EmptyAudioFormatForScripting() {
+        result := ComCall(12, this, "ptr*", &ppAudioFormat := 0, "HRESULT")
+        return ITScriptableAudioFormat(ppAudioFormat)
     }
 }

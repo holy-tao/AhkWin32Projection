@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IConnectionPoint.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,13 +39,12 @@ class IExpDispSupport extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IConnectionPoint>} ppccp 
-     * @returns {HRESULT} 
+     * @returns {IConnectionPoint} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-iexpdispsupport-findconnectionpoint
      */
-    FindConnectionPoint(riid, ppccp) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppccp, "HRESULT")
-        return result
+    FindConnectionPoint(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppccp := 0, "HRESULT")
+        return IConnectionPoint(ppccp)
     }
 
     /**

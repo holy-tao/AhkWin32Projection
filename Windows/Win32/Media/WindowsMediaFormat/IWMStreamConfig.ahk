@@ -32,26 +32,23 @@ class IWMStreamConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidStreamType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getstreamtype
      */
-    GetStreamType(pguidStreamType) {
+    GetStreamType() {
+        pguidStreamType := Guid()
         result := ComCall(3, this, "ptr", pguidStreamType, "HRESULT")
-        return result
+        return pguidStreamType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pwStreamNum 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getstreamnumber
      */
-    GetStreamNumber(pwStreamNum) {
-        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(4, this, pwStreamNumMarshal, pwStreamNum, "HRESULT")
-        return result
+    GetStreamNumber() {
+        result := ComCall(4, this, "ushort*", &pwStreamNum := 0, "HRESULT")
+        return pwStreamNum
     }
 
     /**
@@ -125,15 +122,12 @@ class IWMStreamConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwBitrate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getbitrate
      */
-    GetBitrate(pdwBitrate) {
-        pdwBitrateMarshal := pdwBitrate is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pdwBitrateMarshal, pdwBitrate, "HRESULT")
-        return result
+    GetBitrate() {
+        result := ComCall(10, this, "uint*", &pdwBitrate := 0, "HRESULT")
+        return pdwBitrate
     }
 
     /**
@@ -149,15 +143,12 @@ class IWMStreamConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pmsBufferWindow 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getbufferwindow
      */
-    GetBufferWindow(pmsBufferWindow) {
-        pmsBufferWindowMarshal := pmsBufferWindow is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pmsBufferWindowMarshal, pmsBufferWindow, "HRESULT")
-        return result
+    GetBufferWindow() {
+        result := ComCall(12, this, "uint*", &pmsBufferWindow := 0, "HRESULT")
+        return pmsBufferWindow
     }
 
     /**

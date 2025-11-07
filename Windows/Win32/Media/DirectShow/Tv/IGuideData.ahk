@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumTuneRequests.ahk
+#Include .\IEnumGuideDataProperties.ahk
+#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,70 +44,64 @@ class IGuideData extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumTuneRequests>} ppEnumTuneRequests 
-     * @returns {HRESULT} 
+     * @returns {IEnumTuneRequests} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedata-getservices
      */
-    GetServices(ppEnumTuneRequests) {
-        result := ComCall(3, this, "ptr*", ppEnumTuneRequests, "HRESULT")
-        return result
+    GetServices() {
+        result := ComCall(3, this, "ptr*", &ppEnumTuneRequests := 0, "HRESULT")
+        return IEnumTuneRequests(ppEnumTuneRequests)
     }
 
     /**
      * 
      * @param {ITuneRequest} pTuneRequest 
-     * @param {Pointer<IEnumGuideDataProperties>} ppEnumProperties 
-     * @returns {HRESULT} 
+     * @returns {IEnumGuideDataProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedata-getserviceproperties
      */
-    GetServiceProperties(pTuneRequest, ppEnumProperties) {
-        result := ComCall(4, this, "ptr", pTuneRequest, "ptr*", ppEnumProperties, "HRESULT")
-        return result
+    GetServiceProperties(pTuneRequest) {
+        result := ComCall(4, this, "ptr", pTuneRequest, "ptr*", &ppEnumProperties := 0, "HRESULT")
+        return IEnumGuideDataProperties(ppEnumProperties)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVARIANT>} pEnumPrograms 
-     * @returns {HRESULT} 
+     * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedata-getguideprogramids
      */
-    GetGuideProgramIDs(pEnumPrograms) {
-        result := ComCall(5, this, "ptr*", pEnumPrograms, "HRESULT")
-        return result
+    GetGuideProgramIDs() {
+        result := ComCall(5, this, "ptr*", &pEnumPrograms := 0, "HRESULT")
+        return IEnumVARIANT(pEnumPrograms)
     }
 
     /**
      * 
      * @param {VARIANT} varProgramDescriptionID 
-     * @param {Pointer<IEnumGuideDataProperties>} ppEnumProperties 
-     * @returns {HRESULT} 
+     * @returns {IEnumGuideDataProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedata-getprogramproperties
      */
-    GetProgramProperties(varProgramDescriptionID, ppEnumProperties) {
-        result := ComCall(6, this, "ptr", varProgramDescriptionID, "ptr*", ppEnumProperties, "HRESULT")
-        return result
+    GetProgramProperties(varProgramDescriptionID) {
+        result := ComCall(6, this, "ptr", varProgramDescriptionID, "ptr*", &ppEnumProperties := 0, "HRESULT")
+        return IEnumGuideDataProperties(ppEnumProperties)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVARIANT>} pEnumScheduleEntries 
-     * @returns {HRESULT} 
+     * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedata-getscheduleentryids
      */
-    GetScheduleEntryIDs(pEnumScheduleEntries) {
-        result := ComCall(7, this, "ptr*", pEnumScheduleEntries, "HRESULT")
-        return result
+    GetScheduleEntryIDs() {
+        result := ComCall(7, this, "ptr*", &pEnumScheduleEntries := 0, "HRESULT")
+        return IEnumVARIANT(pEnumScheduleEntries)
     }
 
     /**
      * 
      * @param {VARIANT} varScheduleEntryDescriptionID 
-     * @param {Pointer<IEnumGuideDataProperties>} ppEnumProperties 
-     * @returns {HRESULT} 
+     * @returns {IEnumGuideDataProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedata-getscheduleentryproperties
      */
-    GetScheduleEntryProperties(varScheduleEntryDescriptionID, ppEnumProperties) {
-        result := ComCall(8, this, "ptr", varScheduleEntryDescriptionID, "ptr*", ppEnumProperties, "HRESULT")
-        return result
+    GetScheduleEntryProperties(varScheduleEntryDescriptionID) {
+        result := ComCall(8, this, "ptr", varScheduleEntryDescriptionID, "ptr*", &ppEnumProperties := 0, "HRESULT")
+        return IEnumGuideDataProperties(ppEnumProperties)
     }
 }

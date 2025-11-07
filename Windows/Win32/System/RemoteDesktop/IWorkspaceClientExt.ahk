@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,24 +33,24 @@ class IWorkspaceClientExt extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrWorkspaceId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-getresourceid
      */
-    GetResourceId(bstrWorkspaceId) {
+    GetResourceId() {
+        bstrWorkspaceId := BSTR()
         result := ComCall(3, this, "ptr", bstrWorkspaceId, "HRESULT")
-        return result
+        return bstrWorkspaceId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrWorkspaceDisplayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-getresourcedisplayname
      */
-    GetResourceDisplayName(bstrWorkspaceDisplayName) {
+    GetResourceDisplayName() {
+        bstrWorkspaceDisplayName := BSTR()
         result := ComCall(4, this, "ptr", bstrWorkspaceDisplayName, "HRESULT")
-        return result
+        return bstrWorkspaceDisplayName
     }
 
     /**

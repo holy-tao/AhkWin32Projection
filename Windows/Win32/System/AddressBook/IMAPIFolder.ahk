@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMessage.ahk
+#Include .\IMAPIFolder.ahk
 #Include .\IMAPIContainer.ahk
 
 /**
@@ -29,13 +31,12 @@ class IMAPIFolder extends IMAPIContainer{
      * 
      * @param {Pointer<Guid>} lpInterface 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IMessage>} lppMessage 
-     * @returns {HRESULT} 
+     * @returns {IMessage} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-createmessage
      */
-    CreateMessage(lpInterface, ulFlags, lppMessage) {
-        result := ComCall(19, this, "ptr", lpInterface, "uint", ulFlags, "ptr*", lppMessage, "HRESULT")
-        return result
+    CreateMessage(lpInterface, ulFlags) {
+        result := ComCall(19, this, "ptr", lpInterface, "uint", ulFlags, "ptr*", &lppMessage := 0, "HRESULT")
+        return IMessage(lppMessage)
     }
 
     /**
@@ -77,16 +78,15 @@ class IMAPIFolder extends IMAPIContainer{
      * @param {Pointer<Integer>} lpszFolderComment 
      * @param {Pointer<Guid>} lpInterface 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IMAPIFolder>} lppFolder 
-     * @returns {HRESULT} 
+     * @returns {IMAPIFolder} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-createfolder
      */
-    CreateFolder(ulFolderType, lpszFolderName, lpszFolderComment, lpInterface, ulFlags, lppFolder) {
+    CreateFolder(ulFolderType, lpszFolderName, lpszFolderComment, lpInterface, ulFlags) {
         lpszFolderNameMarshal := lpszFolderName is VarRef ? "char*" : "ptr"
         lpszFolderCommentMarshal := lpszFolderComment is VarRef ? "char*" : "ptr"
 
-        result := ComCall(22, this, "uint", ulFolderType, lpszFolderNameMarshal, lpszFolderName, lpszFolderCommentMarshal, lpszFolderComment, "ptr", lpInterface, "uint", ulFlags, "ptr*", lppFolder, "HRESULT")
-        return result
+        result := ComCall(22, this, "uint", ulFolderType, lpszFolderNameMarshal, lpszFolderName, lpszFolderCommentMarshal, lpszFolderComment, "ptr", lpInterface, "uint", ulFlags, "ptr*", &lppFolder := 0, "HRESULT")
+        return IMAPIFolder(lppFolder)
     }
 
     /**
@@ -144,15 +144,12 @@ class IMAPIFolder extends IMAPIContainer{
      * @param {Integer} cbEntryID 
      * @param {Pointer} lpEntryID 
      * @param {Integer} ulFlags 
-     * @param {Pointer<Integer>} lpulMessageStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-getmessagestatus
      */
-    GetMessageStatus(cbEntryID, lpEntryID, ulFlags, lpulMessageStatus) {
-        lpulMessageStatusMarshal := lpulMessageStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(26, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulFlags, lpulMessageStatusMarshal, lpulMessageStatus, "HRESULT")
-        return result
+    GetMessageStatus(cbEntryID, lpEntryID, ulFlags) {
+        result := ComCall(26, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulFlags, "uint*", &lpulMessageStatus := 0, "HRESULT")
+        return lpulMessageStatus
     }
 
     /**
@@ -161,15 +158,12 @@ class IMAPIFolder extends IMAPIContainer{
      * @param {Pointer} lpEntryID 
      * @param {Integer} ulNewStatus 
      * @param {Integer} ulNewStatusMask 
-     * @param {Pointer<Integer>} lpulOldStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-setmessagestatus
      */
-    SetMessageStatus(cbEntryID, lpEntryID, ulNewStatus, ulNewStatusMask, lpulOldStatus) {
-        lpulOldStatusMarshal := lpulOldStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(27, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulNewStatus, "uint", ulNewStatusMask, lpulOldStatusMarshal, lpulOldStatus, "HRESULT")
-        return result
+    SetMessageStatus(cbEntryID, lpEntryID, ulNewStatus, ulNewStatusMask) {
+        result := ComCall(27, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulNewStatus, "uint", ulNewStatusMask, "uint*", &lpulOldStatus := 0, "HRESULT")
+        return lpulOldStatus
     }
 
     /**

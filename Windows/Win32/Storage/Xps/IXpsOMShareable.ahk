@@ -32,25 +32,21 @@ class IXpsOMShareable extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} owner 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-getowner
      */
-    GetOwner(owner) {
-        result := ComCall(3, this, "ptr*", owner, "HRESULT")
-        return result
+    GetOwner() {
+        result := ComCall(3, this, "ptr*", &owner := 0, "HRESULT")
+        return IUnknown(owner)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} type 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype
      */
-    GetType(type) {
-        typeMarshal := type is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, typeMarshal, type, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(4, this, "int*", &type := 0, "HRESULT")
+        return type
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITPhone.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,51 +33,41 @@ class ITPhoneDeviceSpecificEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITPhone>} ppPhone 
-     * @returns {HRESULT} 
+     * @returns {ITPhone} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphonedevicespecificevent-get_phone
      */
-    get_Phone(ppPhone) {
-        result := ComCall(7, this, "ptr*", ppPhone, "HRESULT")
-        return result
+    get_Phone() {
+        result := ComCall(7, this, "ptr*", &ppPhone := 0, "HRESULT")
+        return ITPhone(ppPhone)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pParam1 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphonedevicespecificevent-get_lparam1
      */
-    get_lParam1(pParam1) {
-        pParam1Marshal := pParam1 is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pParam1Marshal, pParam1, "HRESULT")
-        return result
+    get_lParam1() {
+        result := ComCall(8, this, "int*", &pParam1 := 0, "HRESULT")
+        return pParam1
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pParam2 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphonedevicespecificevent-get_lparam2
      */
-    get_lParam2(pParam2) {
-        pParam2Marshal := pParam2 is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pParam2Marshal, pParam2, "HRESULT")
-        return result
+    get_lParam2() {
+        result := ComCall(9, this, "int*", &pParam2 := 0, "HRESULT")
+        return pParam2
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pParam3 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphonedevicespecificevent-get_lparam3
      */
-    get_lParam3(pParam3) {
-        pParam3Marshal := pParam3 is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pParam3Marshal, pParam3, "HRESULT")
-        return result
+    get_lParam3() {
+        result := ComCall(10, this, "int*", &pParam3 := 0, "HRESULT")
+        return pParam3
     }
 }

@@ -34,12 +34,11 @@ class IMFTrustedInput extends IUnknown{
      * 
      * @param {Integer} dwStreamID 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppunkObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedinput-getinputtrustauthority
      */
-    GetInputTrustAuthority(dwStreamID, riid, ppunkObject) {
-        result := ComCall(3, this, "uint", dwStreamID, "ptr", riid, "ptr*", ppunkObject, "HRESULT")
-        return result
+    GetInputTrustAuthority(dwStreamID, riid) {
+        result := ComCall(3, this, "uint", dwStreamID, "ptr", riid, "ptr*", &ppunkObject := 0, "HRESULT")
+        return IUnknown(ppunkObject)
     }
 }

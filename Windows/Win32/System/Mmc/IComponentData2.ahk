@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IComponentData.ahk
 
 /**
@@ -34,12 +35,11 @@ class IComponentData2 extends IComponentData{
      * 
      * @param {Pointer} cookie 
      * @param {Integer} type 
-     * @param {Pointer<IDispatch>} ppDispatch 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata2-querydispatch
      */
-    QueryDispatch(cookie, type, ppDispatch) {
-        result := ComCall(10, this, "ptr", cookie, "int", type, "ptr*", ppDispatch, "HRESULT")
-        return result
+    QueryDispatch(cookie, type) {
+        result := ComCall(10, this, "ptr", cookie, "int", type, "ptr*", &ppDispatch := 0, "HRESULT")
+        return IDispatch(ppDispatch)
     }
 }

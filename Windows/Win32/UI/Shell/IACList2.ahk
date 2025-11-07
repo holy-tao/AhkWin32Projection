@@ -54,14 +54,11 @@ class IACList2 extends IACList{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlag 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iaclist2-getoptions
      */
-    GetOptions(pdwFlag) {
-        pdwFlagMarshal := pdwFlag is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwFlagMarshal, pdwFlag, "HRESULT")
-        return result
+    GetOptions() {
+        result := ComCall(5, this, "uint*", &pdwFlag := 0, "HRESULT")
+        return pdwFlag
     }
 }

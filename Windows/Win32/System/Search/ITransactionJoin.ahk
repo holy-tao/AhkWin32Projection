@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\DistributedTransactionCoordinator\ITransactionOptions.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class ITransactionJoin extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITransactionOptions>} ppOptions 
-     * @returns {HRESULT} 
+     * @returns {ITransactionOptions} 
      */
-    GetOptionsObject(ppOptions) {
-        result := ComCall(3, this, "ptr*", ppOptions, "HRESULT")
-        return result
+    GetOptionsObject() {
+        result := ComCall(3, this, "ptr*", &ppOptions := 0, "HRESULT")
+        return ITransactionOptions(ppOptions)
     }
 
     /**

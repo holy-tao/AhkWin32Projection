@@ -103,7 +103,9 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     CheckForCompareStates(fCompareStates) {
-        result := ComCall(8, this, "ptr", fCompareStates, "HRESULT")
+        fCompareStatesMarshal := fCompareStates is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, fCompareStatesMarshal, fCompareStates, "HRESULT")
         return result
     }
 

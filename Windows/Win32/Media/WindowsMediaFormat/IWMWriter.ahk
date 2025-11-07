@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMInputMediaProps.ahk
+#Include .\INSSBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -67,27 +69,23 @@ class IWMWriter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcInputs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriter-getinputcount
      */
-    GetInputCount(pcInputs) {
-        pcInputsMarshal := pcInputs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pcInputsMarshal, pcInputs, "HRESULT")
-        return result
+    GetInputCount() {
+        result := ComCall(6, this, "uint*", &pcInputs := 0, "HRESULT")
+        return pcInputs
     }
 
     /**
      * 
      * @param {Integer} dwInputNum 
-     * @param {Pointer<IWMInputMediaProps>} ppInput 
-     * @returns {HRESULT} 
+     * @returns {IWMInputMediaProps} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriter-getinputprops
      */
-    GetInputProps(dwInputNum, ppInput) {
-        result := ComCall(7, this, "uint", dwInputNum, "ptr*", ppInput, "HRESULT")
-        return result
+    GetInputProps(dwInputNum) {
+        result := ComCall(7, this, "uint", dwInputNum, "ptr*", &ppInput := 0, "HRESULT")
+        return IWMInputMediaProps(ppInput)
     }
 
     /**
@@ -105,28 +103,24 @@ class IWMWriter extends IUnknown{
     /**
      * 
      * @param {Integer} dwInputNumber 
-     * @param {Pointer<Integer>} pcFormats 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriter-getinputformatcount
      */
-    GetInputFormatCount(dwInputNumber, pcFormats) {
-        pcFormatsMarshal := pcFormats is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "uint", dwInputNumber, pcFormatsMarshal, pcFormats, "HRESULT")
-        return result
+    GetInputFormatCount(dwInputNumber) {
+        result := ComCall(9, this, "uint", dwInputNumber, "uint*", &pcFormats := 0, "HRESULT")
+        return pcFormats
     }
 
     /**
      * 
      * @param {Integer} dwInputNumber 
      * @param {Integer} dwFormatNumber 
-     * @param {Pointer<IWMInputMediaProps>} pProps 
-     * @returns {HRESULT} 
+     * @returns {IWMInputMediaProps} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriter-getinputformat
      */
-    GetInputFormat(dwInputNumber, dwFormatNumber, pProps) {
-        result := ComCall(10, this, "uint", dwInputNumber, "uint", dwFormatNumber, "ptr*", pProps, "HRESULT")
-        return result
+    GetInputFormat(dwInputNumber, dwFormatNumber) {
+        result := ComCall(10, this, "uint", dwInputNumber, "uint", dwFormatNumber, "ptr*", &pProps := 0, "HRESULT")
+        return IWMInputMediaProps(pProps)
     }
 
     /**
@@ -152,13 +146,12 @@ class IWMWriter extends IUnknown{
     /**
      * 
      * @param {Integer} dwSampleSize 
-     * @param {Pointer<INSSBuffer>} ppSample 
-     * @returns {HRESULT} 
+     * @returns {INSSBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriter-allocatesample
      */
-    AllocateSample(dwSampleSize, ppSample) {
-        result := ComCall(13, this, "uint", dwSampleSize, "ptr*", ppSample, "HRESULT")
-        return result
+    AllocateSample(dwSampleSize) {
+        result := ComCall(13, this, "uint", dwSampleSize, "ptr*", &ppSample := 0, "HRESULT")
+        return INSSBuffer(ppSample)
     }
 
     /**

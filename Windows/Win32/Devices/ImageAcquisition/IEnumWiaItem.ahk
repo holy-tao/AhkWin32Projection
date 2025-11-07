@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWiaItem.ahk
+#Include .\IEnumWiaItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -67,16 +69,15 @@ class IEnumWiaItem extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<IWiaItem>} ppIWiaItem 
      * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwiaitem-next
      */
-    Next(celt, ppIWiaItem, pceltFetched) {
+    Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", ppIWiaItem, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", celt, "ptr*", &ppIWiaItem := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        return IWiaItem(ppIWiaItem)
     }
 
     /**
@@ -102,25 +103,21 @@ class IEnumWiaItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumWiaItem>} ppIEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWiaItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwiaitem-clone
      */
-    Clone(ppIEnum) {
-        result := ComCall(6, this, "ptr*", ppIEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppIEnum := 0, "HRESULT")
+        return IEnumWiaItem(ppIEnum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} celt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwiaitem-getcount
      */
-    GetCount(celt) {
-        celtMarshal := celt is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, celtMarshal, celt, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(7, this, "uint*", &celt := 0, "HRESULT")
+        return celt
     }
 }

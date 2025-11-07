@@ -37,13 +37,12 @@ class IAutomaticUpdatesSettings2 extends IAutomaticUpdatesSettings{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings2-get_includerecommendedupdates
      */
-    get_IncludeRecommendedUpdates(retval) {
-        result := ComCall(17, this, "ptr", retval, "HRESULT")
-        return result
+    get_IncludeRecommendedUpdates() {
+        result := ComCall(17, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -61,12 +60,11 @@ class IAutomaticUpdatesSettings2 extends IAutomaticUpdatesSettings{
      * 
      * @param {Integer} userType 
      * @param {Integer} permissionType 
-     * @param {Pointer<VARIANT_BOOL>} userHasPermission 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings2-checkpermission
      */
-    CheckPermission(userType, permissionType, userHasPermission) {
-        result := ComCall(19, this, "int", userType, "int", permissionType, "ptr", userHasPermission, "HRESULT")
-        return result
+    CheckPermission(userType, permissionType) {
+        result := ComCall(19, this, "int", userType, "int", permissionType, "short*", &userHasPermission := 0, "HRESULT")
+        return userHasPermission
     }
 }

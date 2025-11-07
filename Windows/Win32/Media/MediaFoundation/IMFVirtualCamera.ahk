@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaSource.ahk
+#Include .\IMFCameraSyncObject.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -108,13 +110,12 @@ class IMFVirtualCamera extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<IMFMediaSource>} ppMediaSource 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaSource} 
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfvirtualcamera-getmediasource
      */
-    GetMediaSource(ppMediaSource) {
-        result := ComCall(39, this, "ptr*", ppMediaSource, "HRESULT")
-        return result
+    GetMediaSource() {
+        result := ComCall(39, this, "ptr*", &ppMediaSource := 0, "HRESULT")
+        return IMFMediaSource(ppMediaSource)
     }
 
     /**
@@ -126,15 +127,12 @@ class IMFVirtualCamera extends IMFAttributes{
      * @param {Integer} propertyPayloadLength 
      * @param {Pointer} data 
      * @param {Integer} dataLength 
-     * @param {Pointer<Integer>} dataWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfvirtualcamera-sendcameraproperty
      */
-    SendCameraProperty(propertySet, propertyId, propertyFlags, propertyPayload, propertyPayloadLength, data, dataLength, dataWritten) {
-        dataWrittenMarshal := dataWritten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(40, this, "ptr", propertySet, "uint", propertyId, "uint", propertyFlags, "ptr", propertyPayload, "uint", propertyPayloadLength, "ptr", data, "uint", dataLength, dataWrittenMarshal, dataWritten, "HRESULT")
-        return result
+    SendCameraProperty(propertySet, propertyId, propertyFlags, propertyPayload, propertyPayloadLength, data, dataLength) {
+        result := ComCall(40, this, "ptr", propertySet, "uint", propertyId, "uint", propertyFlags, "ptr", propertyPayload, "uint", propertyPayloadLength, "ptr", data, "uint", dataLength, "uint*", &dataWritten := 0, "HRESULT")
+        return dataWritten
     }
 
     /**
@@ -143,15 +141,14 @@ class IMFVirtualCamera extends IMFAttributes{
      * @param {Integer} kseventId 
      * @param {Integer} kseventFlags 
      * @param {HANDLE} eventHandle 
-     * @param {Pointer<IMFCameraSyncObject>} cameraSyncObject 
-     * @returns {HRESULT} 
+     * @returns {IMFCameraSyncObject} 
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfvirtualcamera-createsyncevent
      */
-    CreateSyncEvent(kseventSet, kseventId, kseventFlags, eventHandle, cameraSyncObject) {
+    CreateSyncEvent(kseventSet, kseventId, kseventFlags, eventHandle) {
         eventHandle := eventHandle is Win32Handle ? NumGet(eventHandle, "ptr") : eventHandle
 
-        result := ComCall(41, this, "ptr", kseventSet, "uint", kseventId, "uint", kseventFlags, "ptr", eventHandle, "ptr*", cameraSyncObject, "HRESULT")
-        return result
+        result := ComCall(41, this, "ptr", kseventSet, "uint", kseventId, "uint", kseventFlags, "ptr", eventHandle, "ptr*", &cameraSyncObject := 0, "HRESULT")
+        return IMFCameraSyncObject(cameraSyncObject)
     }
 
     /**
@@ -161,15 +158,14 @@ class IMFVirtualCamera extends IMFAttributes{
      * @param {Integer} kseventFlags 
      * @param {HANDLE} semaphoreHandle 
      * @param {Integer} semaphoreAdjustment 
-     * @param {Pointer<IMFCameraSyncObject>} cameraSyncObject 
-     * @returns {HRESULT} 
+     * @returns {IMFCameraSyncObject} 
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfvirtualcamera-createsyncsemaphore
      */
-    CreateSyncSemaphore(kseventSet, kseventId, kseventFlags, semaphoreHandle, semaphoreAdjustment, cameraSyncObject) {
+    CreateSyncSemaphore(kseventSet, kseventId, kseventFlags, semaphoreHandle, semaphoreAdjustment) {
         semaphoreHandle := semaphoreHandle is Win32Handle ? NumGet(semaphoreHandle, "ptr") : semaphoreHandle
 
-        result := ComCall(42, this, "ptr", kseventSet, "uint", kseventId, "uint", kseventFlags, "ptr", semaphoreHandle, "int", semaphoreAdjustment, "ptr*", cameraSyncObject, "HRESULT")
-        return result
+        result := ComCall(42, this, "ptr", kseventSet, "uint", kseventId, "uint", kseventFlags, "ptr", semaphoreHandle, "int", semaphoreAdjustment, "ptr*", &cameraSyncObject := 0, "HRESULT")
+        return IMFCameraSyncObject(cameraSyncObject)
     }
 
     /**

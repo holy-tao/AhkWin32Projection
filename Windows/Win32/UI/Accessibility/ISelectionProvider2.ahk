@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRawElementProviderSimple.ahk
 #Include .\ISelectionProvider.ahk
 
 /**
@@ -58,47 +59,41 @@ class ISelectionProvider2 extends ISelectionProvider{
 
     /**
      * 
-     * @param {Pointer<IRawElementProviderSimple>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_firstselecteditem
      */
-    get_FirstSelectedItem(retVal) {
-        result := ComCall(6, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_FirstSelectedItem() {
+        result := ComCall(6, this, "ptr*", &retVal := 0, "HRESULT")
+        return IRawElementProviderSimple(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<IRawElementProviderSimple>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_lastselecteditem
      */
-    get_LastSelectedItem(retVal) {
-        result := ComCall(7, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_LastSelectedItem() {
+        result := ComCall(7, this, "ptr*", &retVal := 0, "HRESULT")
+        return IRawElementProviderSimple(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<IRawElementProviderSimple>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_currentselecteditem
      */
-    get_CurrentSelectedItem(retVal) {
-        result := ComCall(8, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CurrentSelectedItem() {
+        result := ComCall(8, this, "ptr*", &retVal := 0, "HRESULT")
+        return IRawElementProviderSimple(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_itemcount
      */
-    get_ItemCount(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_ItemCount() {
+        result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

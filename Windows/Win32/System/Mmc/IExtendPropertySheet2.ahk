@@ -41,7 +41,9 @@ class IExtendPropertySheet2 extends IExtendPropertySheet{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendpropertysheet2-getwatermarks
      */
     GetWatermarks(lpIDataObject, lphWatermark, lphHeader, lphPalette, bStretch) {
-        result := ComCall(5, this, "ptr", lpIDataObject, "ptr", lphWatermark, "ptr", lphHeader, "ptr", lphPalette, "ptr", bStretch, "HRESULT")
+        bStretchMarshal := bStretch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", lpIDataObject, "ptr", lphWatermark, "ptr", lphHeader, "ptr", lphPalette, bStretchMarshal, bStretch, "HRESULT")
         return result
     }
 }

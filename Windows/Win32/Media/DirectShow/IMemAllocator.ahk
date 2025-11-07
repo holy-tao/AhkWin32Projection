@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ALLOCATOR_PROPERTIES.ahk
+#Include .\IMediaSample.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,24 +35,24 @@ class IMemAllocator extends IUnknown{
     /**
      * 
      * @param {Pointer<ALLOCATOR_PROPERTIES>} pRequest 
-     * @param {Pointer<ALLOCATOR_PROPERTIES>} pActual 
-     * @returns {HRESULT} 
+     * @returns {ALLOCATOR_PROPERTIES} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imemallocator-setproperties
      */
-    SetProperties(pRequest, pActual) {
+    SetProperties(pRequest) {
+        pActual := ALLOCATOR_PROPERTIES()
         result := ComCall(3, this, "ptr", pRequest, "ptr", pActual, "HRESULT")
-        return result
+        return pActual
     }
 
     /**
      * 
-     * @param {Pointer<ALLOCATOR_PROPERTIES>} pProps 
-     * @returns {HRESULT} 
+     * @returns {ALLOCATOR_PROPERTIES} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imemallocator-getproperties
      */
-    GetProperties(pProps) {
+    GetProperties() {
+        pProps := ALLOCATOR_PROPERTIES()
         result := ComCall(4, this, "ptr", pProps, "HRESULT")
-        return result
+        return pProps
     }
 
     /**
@@ -75,19 +77,18 @@ class IMemAllocator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMediaSample>} ppBuffer 
      * @param {Pointer<Integer>} pStartTime 
      * @param {Pointer<Integer>} pEndTime 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {IMediaSample} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imemallocator-getbuffer
      */
-    GetBuffer(ppBuffer, pStartTime, pEndTime, dwFlags) {
+    GetBuffer(pStartTime, pEndTime, dwFlags) {
         pStartTimeMarshal := pStartTime is VarRef ? "int64*" : "ptr"
         pEndTimeMarshal := pEndTime is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(7, this, "ptr*", ppBuffer, pStartTimeMarshal, pStartTime, pEndTimeMarshal, pEndTime, "uint", dwFlags, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr*", &ppBuffer := 0, pStartTimeMarshal, pStartTime, pEndTimeMarshal, pEndTime, "uint", dwFlags, "HRESULT")
+        return IMediaSample(ppBuffer)
     }
 
     /**

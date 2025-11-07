@@ -59,14 +59,13 @@ class IPreviousVersionsInfo extends IUnknown{
      * 
      * @param {PWSTR} pszPath 
      * @param {BOOL} fOkToBeSlow 
-     * @param {Pointer<BOOL>} pfAvailable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ipreviousversionsinfo-aresnapshotsavailable
      */
-    AreSnapshotsAvailable(pszPath, fOkToBeSlow, pfAvailable) {
+    AreSnapshotsAvailable(pszPath, fOkToBeSlow) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(3, this, "ptr", pszPath, "int", fOkToBeSlow, "ptr", pfAvailable, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszPath, "int", fOkToBeSlow, "int*", &pfAvailable := 0, "HRESULT")
+        return pfAvailable
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugDocumentContext.ahk
 #Include .\IDebugDocument.ahk
 
 /**
@@ -30,14 +31,11 @@ class IDebugDocumentText extends IDebugDocument{
 
     /**
      * 
-     * @param {Pointer<Integer>} ptextdocattr 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDocumentAttributes(ptextdocattr) {
-        ptextdocattrMarshal := ptextdocattr is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, ptextdocattrMarshal, ptextdocattr, "HRESULT")
-        return result
+    GetDocumentAttributes() {
+        result := ComCall(5, this, "uint*", &ptextdocattr := 0, "HRESULT")
+        return ptextdocattr
     }
 
     /**
@@ -57,14 +55,11 @@ class IDebugDocumentText extends IDebugDocument{
     /**
      * 
      * @param {Integer} cLineNumber 
-     * @param {Pointer<Integer>} pcCharacterPosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPositionOfLine(cLineNumber, pcCharacterPosition) {
-        pcCharacterPositionMarshal := pcCharacterPosition is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "uint", cLineNumber, pcCharacterPositionMarshal, pcCharacterPosition, "HRESULT")
-        return result
+    GetPositionOfLine(cLineNumber) {
+        result := ComCall(7, this, "uint", cLineNumber, "uint*", &pcCharacterPosition := 0, "HRESULT")
+        return pcCharacterPosition
     }
 
     /**
@@ -120,11 +115,10 @@ class IDebugDocumentText extends IDebugDocument{
      * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumChars 
-     * @param {Pointer<IDebugDocumentContext>} ppsc 
-     * @returns {HRESULT} 
+     * @returns {IDebugDocumentContext} 
      */
-    GetContextOfPosition(cCharacterPosition, cNumChars, ppsc) {
-        result := ComCall(11, this, "uint", cCharacterPosition, "uint", cNumChars, "ptr*", ppsc, "HRESULT")
-        return result
+    GetContextOfPosition(cCharacterPosition, cNumChars) {
+        result := ComCall(11, this, "uint", cCharacterPosition, "uint", cNumChars, "ptr*", &ppsc := 0, "HRESULT")
+        return IDebugDocumentContext(ppsc)
     }
 }

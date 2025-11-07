@@ -43,13 +43,12 @@ class IWMReaderAdvanced extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfUserClock 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getuserprovidedclock
      */
-    GetUserProvidedClock(pfUserClock) {
-        result := ComCall(4, this, "ptr", pfUserClock, "HRESULT")
-        return result
+    GetUserProvidedClock() {
+        result := ComCall(4, this, "int*", &pfUserClock := 0, "HRESULT")
+        return pfUserClock
     }
 
     /**
@@ -76,13 +75,12 @@ class IWMReaderAdvanced extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfSelection 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getmanualstreamselection
      */
-    GetManualStreamSelection(pfSelection) {
-        result := ComCall(7, this, "ptr", pfSelection, "HRESULT")
-        return result
+    GetManualStreamSelection() {
+        result := ComCall(7, this, "int*", &pfSelection := 0, "HRESULT")
+        return pfSelection
     }
 
     /**
@@ -104,15 +102,12 @@ class IWMReaderAdvanced extends IUnknown{
     /**
      * 
      * @param {Integer} wStreamNum 
-     * @param {Pointer<Integer>} pSelection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getstreamselected
      */
-    GetStreamSelected(wStreamNum, pSelection) {
-        pSelectionMarshal := pSelection is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "ushort", wStreamNum, pSelectionMarshal, pSelection, "HRESULT")
-        return result
+    GetStreamSelected(wStreamNum) {
+        result := ComCall(9, this, "ushort", wStreamNum, "int*", &pSelection := 0, "HRESULT")
+        return pSelection
     }
 
     /**
@@ -128,13 +123,12 @@ class IWMReaderAdvanced extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfGetCallbacks 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getreceiveselectioncallbacks
      */
-    GetReceiveSelectionCallbacks(pfGetCallbacks) {
-        result := ComCall(11, this, "ptr", pfGetCallbacks, "HRESULT")
-        return result
+    GetReceiveSelectionCallbacks() {
+        result := ComCall(11, this, "int*", &pfGetCallbacks := 0, "HRESULT")
+        return pfGetCallbacks
     }
 
     /**
@@ -152,13 +146,12 @@ class IWMReaderAdvanced extends IUnknown{
     /**
      * 
      * @param {Integer} wStreamNum 
-     * @param {Pointer<BOOL>} pfReceiveStreamSamples 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getreceivestreamsamples
      */
-    GetReceiveStreamSamples(wStreamNum, pfReceiveStreamSamples) {
-        result := ComCall(13, this, "ushort", wStreamNum, "ptr", pfReceiveStreamSamples, "HRESULT")
-        return result
+    GetReceiveStreamSamples(wStreamNum) {
+        result := ComCall(13, this, "ushort", wStreamNum, "int*", &pfReceiveStreamSamples := 0, "HRESULT")
+        return pfReceiveStreamSamples
     }
 
     /**
@@ -176,13 +169,12 @@ class IWMReaderAdvanced extends IUnknown{
     /**
      * 
      * @param {Integer} dwOutputNum 
-     * @param {Pointer<BOOL>} pfAllocate 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getallocateforoutput
      */
-    GetAllocateForOutput(dwOutputNum, pfAllocate) {
-        result := ComCall(15, this, "uint", dwOutputNum, "ptr", pfAllocate, "HRESULT")
-        return result
+    GetAllocateForOutput(dwOutputNum) {
+        result := ComCall(15, this, "uint", dwOutputNum, "int*", &pfAllocate := 0, "HRESULT")
+        return pfAllocate
     }
 
     /**
@@ -200,13 +192,12 @@ class IWMReaderAdvanced extends IUnknown{
     /**
      * 
      * @param {Integer} dwSreamNum 
-     * @param {Pointer<BOOL>} pfAllocate 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getallocateforstream
      */
-    GetAllocateForStream(dwSreamNum, pfAllocate) {
-        result := ComCall(17, this, "ushort", dwSreamNum, "ptr", pfAllocate, "HRESULT")
-        return result
+    GetAllocateForStream(dwSreamNum) {
+        result := ComCall(17, this, "ushort", dwSreamNum, "int*", &pfAllocate := 0, "HRESULT")
+        return pfAllocate
     }
 
     /**
@@ -234,29 +225,23 @@ class IWMReaderAdvanced extends IUnknown{
     /**
      * 
      * @param {Integer} dwOutput 
-     * @param {Pointer<Integer>} pcbMax 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getmaxoutputsamplesize
      */
-    GetMaxOutputSampleSize(dwOutput, pcbMax) {
-        pcbMaxMarshal := pcbMax is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, "uint", dwOutput, pcbMaxMarshal, pcbMax, "HRESULT")
-        return result
+    GetMaxOutputSampleSize(dwOutput) {
+        result := ComCall(20, this, "uint", dwOutput, "uint*", &pcbMax := 0, "HRESULT")
+        return pcbMax
     }
 
     /**
      * 
      * @param {Integer} wStream 
-     * @param {Pointer<Integer>} pcbMax 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getmaxstreamsamplesize
      */
-    GetMaxStreamSampleSize(wStream, pcbMax) {
-        pcbMaxMarshal := pcbMax is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, "ushort", wStream, pcbMaxMarshal, pcbMax, "HRESULT")
-        return result
+    GetMaxStreamSampleSize(wStream) {
+        result := ComCall(21, this, "ushort", wStream, "uint*", &pcbMax := 0, "HRESULT")
+        return pcbMax
     }
 
     /**

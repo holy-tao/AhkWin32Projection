@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumCall.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,49 +44,42 @@ class ITCallHub extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumCall>} ppEnumCall 
-     * @returns {HRESULT} 
+     * @returns {IEnumCall} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-enumeratecalls
      */
-    EnumerateCalls(ppEnumCall) {
-        result := ComCall(8, this, "ptr*", ppEnumCall, "HRESULT")
-        return result
+    EnumerateCalls() {
+        result := ComCall(8, this, "ptr*", &ppEnumCall := 0, "HRESULT")
+        return IEnumCall(ppEnumCall)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pCalls 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-get_calls
      */
-    get_Calls(pCalls) {
+    get_Calls() {
+        pCalls := VARIANT()
         result := ComCall(9, this, "ptr", pCalls, "HRESULT")
-        return result
+        return pCalls
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCalls 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-get_numcalls
      */
-    get_NumCalls(plCalls) {
-        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plCallsMarshal, plCalls, "HRESULT")
-        return result
+    get_NumCalls() {
+        result := ComCall(10, this, "int*", &plCalls := 0, "HRESULT")
+        return plCalls
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-get_state
      */
-    get_State(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pStateMarshal, pState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(11, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DSFXGargle.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,11 +41,11 @@ class IDirectSoundFXGargle extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DSFXGargle>} pDsFxGargle 
-     * @returns {HRESULT} 
+     * @returns {DSFXGargle} 
      */
-    GetAllParameters(pDsFxGargle) {
+    GetAllParameters() {
+        pDsFxGargle := DSFXGargle()
         result := ComCall(4, this, "ptr", pDsFxGargle, "HRESULT")
-        return result
+        return pDsFxGargle
     }
 }

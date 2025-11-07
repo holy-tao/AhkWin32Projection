@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechDataKey.ahk
+#Include .\ISpeechObjectTokens.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,12 +33,12 @@ class ISpeechObjectTokenCategory extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Id 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Id(Id) {
+    get_Id() {
+        Id := BSTR()
         result := ComCall(7, this, "ptr", Id, "HRESULT")
-        return result
+        return Id
     }
 
     /**
@@ -53,12 +55,12 @@ class ISpeechObjectTokenCategory extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} TokenId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Default(TokenId) {
+    get_Default() {
+        TokenId := BSTR()
         result := ComCall(9, this, "ptr", TokenId, "HRESULT")
-        return result
+        return TokenId
     }
 
     /**
@@ -77,26 +79,24 @@ class ISpeechObjectTokenCategory extends IDispatch{
     /**
      * 
      * @param {Integer} Location 
-     * @param {Pointer<ISpeechDataKey>} DataKey 
-     * @returns {HRESULT} 
+     * @returns {ISpeechDataKey} 
      */
-    GetDataKey(Location, DataKey) {
-        result := ComCall(11, this, "int", Location, "ptr*", DataKey, "HRESULT")
-        return result
+    GetDataKey(Location) {
+        result := ComCall(11, this, "int", Location, "ptr*", &DataKey := 0, "HRESULT")
+        return ISpeechDataKey(DataKey)
     }
 
     /**
      * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
-     * @param {Pointer<ISpeechObjectTokens>} Tokens 
-     * @returns {HRESULT} 
+     * @returns {ISpeechObjectTokens} 
      */
-    EnumerateTokens(RequiredAttributes, OptionalAttributes, Tokens) {
+    EnumerateTokens(RequiredAttributes, OptionalAttributes) {
         RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
         OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
 
-        result := ComCall(12, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", Tokens, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &Tokens := 0, "HRESULT")
+        return ISpeechObjectTokens(Tokens)
     }
 }

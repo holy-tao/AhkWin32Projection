@@ -2,7 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFaxSender.ahk
+#Include .\IFaxRecipients.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IFaxDocument interface defines a messaging object used by a fax client application to compose a fax document and submit it to the fax service for processing.
@@ -44,13 +47,13 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrBody 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_body
      */
-    get_Body(pbstrBody) {
+    get_Body() {
+        pbstrBody := BSTR()
         result := ComCall(7, this, "ptr", pbstrBody, "HRESULT")
-        return result
+        return pbstrBody
     }
 
     /**
@@ -68,35 +71,33 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFaxSender>} ppFaxSender 
-     * @returns {HRESULT} 
+     * @returns {IFaxSender} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_sender
      */
-    get_Sender(ppFaxSender) {
-        result := ComCall(9, this, "ptr*", ppFaxSender, "HRESULT")
-        return result
+    get_Sender() {
+        result := ComCall(9, this, "ptr*", &ppFaxSender := 0, "HRESULT")
+        return IFaxSender(ppFaxSender)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxRecipients>} ppFaxRecipients 
-     * @returns {HRESULT} 
+     * @returns {IFaxRecipients} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_recipients
      */
-    get_Recipients(ppFaxRecipients) {
-        result := ComCall(10, this, "ptr*", ppFaxRecipients, "HRESULT")
-        return result
+    get_Recipients() {
+        result := ComCall(10, this, "ptr*", &ppFaxRecipients := 0, "HRESULT")
+        return IFaxRecipients(ppFaxRecipients)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCoverPage 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_coverpage
      */
-    get_CoverPage(pbstrCoverPage) {
+    get_CoverPage() {
+        pbstrCoverPage := BSTR()
         result := ComCall(11, this, "ptr", pbstrCoverPage, "HRESULT")
-        return result
+        return pbstrCoverPage
     }
 
     /**
@@ -114,13 +115,13 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSubject 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_subject
      */
-    get_Subject(pbstrSubject) {
+    get_Subject() {
+        pbstrSubject := BSTR()
         result := ComCall(13, this, "ptr", pbstrSubject, "HRESULT")
-        return result
+        return pbstrSubject
     }
 
     /**
@@ -138,13 +139,13 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrNote 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_note
      */
-    get_Note(pbstrNote) {
+    get_Note() {
+        pbstrNote := BSTR()
         result := ComCall(15, this, "ptr", pbstrNote, "HRESULT")
-        return result
+        return pbstrNote
     }
 
     /**
@@ -162,15 +163,12 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pdateScheduleTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_scheduletime
      */
-    get_ScheduleTime(pdateScheduleTime) {
-        pdateScheduleTimeMarshal := pdateScheduleTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(17, this, pdateScheduleTimeMarshal, pdateScheduleTime, "HRESULT")
-        return result
+    get_ScheduleTime() {
+        result := ComCall(17, this, "double*", &pdateScheduleTime := 0, "HRESULT")
+        return pdateScheduleTime
     }
 
     /**
@@ -186,13 +184,13 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrReceiptAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_receiptaddress
      */
-    get_ReceiptAddress(pbstrReceiptAddress) {
+    get_ReceiptAddress() {
+        pbstrReceiptAddress := BSTR()
         result := ComCall(19, this, "ptr", pbstrReceiptAddress, "HRESULT")
-        return result
+        return pbstrReceiptAddress
     }
 
     /**
@@ -210,13 +208,13 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDocumentName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_documentname
      */
-    get_DocumentName(pbstrDocumentName) {
+    get_DocumentName() {
+        pbstrDocumentName := BSTR()
         result := ComCall(21, this, "ptr", pbstrDocumentName, "HRESULT")
-        return result
+        return pbstrDocumentName
     }
 
     /**
@@ -234,14 +232,11 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCallHandle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CallHandle(plCallHandle) {
-        plCallHandleMarshal := plCallHandle is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, plCallHandleMarshal, plCallHandle, "HRESULT")
-        return result
+    get_CallHandle() {
+        result := ComCall(23, this, "int*", &plCallHandle := 0, "HRESULT")
+        return plCallHandle
     }
 
     /**
@@ -256,15 +251,12 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCoverPageType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_coverpagetype
      */
-    get_CoverPageType(pCoverPageType) {
-        pCoverPageTypeMarshal := pCoverPageType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, pCoverPageTypeMarshal, pCoverPageType, "HRESULT")
-        return result
+    get_CoverPageType() {
+        result := ComCall(25, this, "int*", &pCoverPageType := 0, "HRESULT")
+        return pCoverPageType
     }
 
     /**
@@ -280,15 +272,12 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pScheduleType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_scheduletype
      */
-    get_ScheduleType(pScheduleType) {
-        pScheduleTypeMarshal := pScheduleType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, pScheduleTypeMarshal, pScheduleType, "HRESULT")
-        return result
+    get_ScheduleType() {
+        result := ComCall(27, this, "int*", &pScheduleType := 0, "HRESULT")
+        return pScheduleType
     }
 
     /**
@@ -304,15 +293,12 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pReceiptType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_receipttype
      */
-    get_ReceiptType(pReceiptType) {
-        pReceiptTypeMarshal := pReceiptType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, pReceiptTypeMarshal, pReceiptType, "HRESULT")
-        return result
+    get_ReceiptType() {
+        result := ComCall(29, this, "int*", &pReceiptType := 0, "HRESULT")
+        return pReceiptType
     }
 
     /**
@@ -328,13 +314,12 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbUseGrouping 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_groupbroadcastreceipts
      */
-    get_GroupBroadcastReceipts(pbUseGrouping) {
-        result := ComCall(31, this, "ptr", pbUseGrouping, "HRESULT")
-        return result
+    get_GroupBroadcastReceipts() {
+        result := ComCall(31, this, "short*", &pbUseGrouping := 0, "HRESULT")
+        return pbUseGrouping
     }
 
     /**
@@ -350,15 +335,12 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_priority
      */
-    get_Priority(pPriority) {
-        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, pPriorityMarshal, pPriority, "HRESULT")
-        return result
+    get_Priority() {
+        result := ComCall(33, this, "int*", &pPriority := 0, "HRESULT")
+        return pPriority
     }
 
     /**
@@ -374,12 +356,11 @@ class IFaxDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppTapiConnection 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_TapiConnection(ppTapiConnection) {
-        result := ComCall(35, this, "ptr*", ppTapiConnection, "HRESULT")
-        return result
+    get_TapiConnection() {
+        result := ComCall(35, this, "ptr*", &ppTapiConnection := 0, "HRESULT")
+        return IDispatch(ppTapiConnection)
     }
 
     /**
@@ -395,38 +376,37 @@ class IFaxDocument extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrFaxServerName 
-     * @param {Pointer<VARIANT>} pvFaxOutgoingJobIDs 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-submit
      */
-    Submit(bstrFaxServerName, pvFaxOutgoingJobIDs) {
+    Submit(bstrFaxServerName) {
         bstrFaxServerName := bstrFaxServerName is String ? BSTR.Alloc(bstrFaxServerName).Value : bstrFaxServerName
 
+        pvFaxOutgoingJobIDs := VARIANT()
         result := ComCall(37, this, "ptr", bstrFaxServerName, "ptr", pvFaxOutgoingJobIDs, "HRESULT")
-        return result
+        return pvFaxOutgoingJobIDs
     }
 
     /**
      * 
      * @param {IFaxServer} pFaxServer 
-     * @param {Pointer<VARIANT>} pvFaxOutgoingJobIDs 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-connectedsubmit
      */
-    ConnectedSubmit(pFaxServer, pvFaxOutgoingJobIDs) {
+    ConnectedSubmit(pFaxServer) {
+        pvFaxOutgoingJobIDs := VARIANT()
         result := ComCall(38, this, "ptr", pFaxServer, "ptr", pvFaxOutgoingJobIDs, "HRESULT")
-        return result
+        return pvFaxOutgoingJobIDs
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbAttachFax 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_attachfaxtoreceipt
      */
-    get_AttachFaxToReceipt(pbAttachFax) {
-        result := ComCall(39, this, "ptr", pbAttachFax, "HRESULT")
-        return result
+    get_AttachFaxToReceipt() {
+        result := ComCall(39, this, "short*", &pbAttachFax := 0, "HRESULT")
+        return pbAttachFax
     }
 
     /**

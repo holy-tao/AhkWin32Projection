@@ -36,21 +36,14 @@ class IOleItemContainer extends IOleContainer{
      * @param {Integer} dwSpeedNeeded 
      * @param {IBindCtx} pbc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {Pointer<Void>} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(pszItem, dwSpeedNeeded, pbc, riid, ppvObject) {
+    GetObject(pszItem, dwSpeedNeeded, pbc, riid) {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
 
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pszItem, "uint", dwSpeedNeeded, "ptr", pbc, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszItem, "uint", dwSpeedNeeded, "ptr", pbc, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**
@@ -58,17 +51,14 @@ class IOleItemContainer extends IOleContainer{
      * @param {PWSTR} pszItem 
      * @param {IBindCtx} pbc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvStorage 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleitemcontainer-getobjectstorage
      */
-    GetObjectStorage(pszItem, pbc, riid, ppvStorage) {
+    GetObjectStorage(pszItem, pbc, riid) {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
 
-        ppvStorageMarshal := ppvStorage is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pszItem, "ptr", pbc, "ptr", riid, ppvStorageMarshal, ppvStorage, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pszItem, "ptr", pbc, "ptr", riid, "ptr*", &ppvStorage := 0, "HRESULT")
+        return ppvStorage
     }
 
     /**

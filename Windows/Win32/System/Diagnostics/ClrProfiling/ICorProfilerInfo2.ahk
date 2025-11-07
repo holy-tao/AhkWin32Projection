@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICorProfilerObjectEnum.ahk
+#Include .\COR_PRF_GC_GENERATION_RANGE.ahk
+#Include .\COR_PRF_EX_CLAUSE_INFO.ahk
 #Include .\ICorProfilerInfo.ahk
 
 /**
@@ -162,15 +165,13 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @param {Integer} typeDef 
      * @param {Integer} cTypeArgs 
      * @param {Pointer<Pointer>} typeArgs 
-     * @param {Pointer<Pointer>} pClassID 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetClassFromTokenAndTypeArgs(moduleID, typeDef, cTypeArgs, typeArgs, pClassID) {
+    GetClassFromTokenAndTypeArgs(moduleID, typeDef, cTypeArgs, typeArgs) {
         typeArgsMarshal := typeArgs is VarRef ? "ptr*" : "ptr"
-        pClassIDMarshal := pClassID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(43, this, "ptr", moduleID, "uint", typeDef, "uint", cTypeArgs, typeArgsMarshal, typeArgs, pClassIDMarshal, pClassID, "HRESULT")
-        return result
+        result := ComCall(43, this, "ptr", moduleID, "uint", typeDef, "uint", cTypeArgs, typeArgsMarshal, typeArgs, "ptr*", &pClassID := 0, "HRESULT")
+        return pClassID
     }
 
     /**
@@ -180,26 +181,23 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @param {Pointer} classId 
      * @param {Integer} cTypeArgs 
      * @param {Pointer<Pointer>} typeArgs 
-     * @param {Pointer<Pointer>} pFunctionID 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetFunctionFromTokenAndTypeArgs(moduleID, funcDef, classId, cTypeArgs, typeArgs, pFunctionID) {
+    GetFunctionFromTokenAndTypeArgs(moduleID, funcDef, classId, cTypeArgs, typeArgs) {
         typeArgsMarshal := typeArgs is VarRef ? "ptr*" : "ptr"
-        pFunctionIDMarshal := pFunctionID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(44, this, "ptr", moduleID, "uint", funcDef, "ptr", classId, "uint", cTypeArgs, typeArgsMarshal, typeArgs, pFunctionIDMarshal, pFunctionID, "HRESULT")
-        return result
+        result := ComCall(44, this, "ptr", moduleID, "uint", funcDef, "ptr", classId, "uint", cTypeArgs, typeArgsMarshal, typeArgs, "ptr*", &pFunctionID := 0, "HRESULT")
+        return pFunctionID
     }
 
     /**
      * 
      * @param {Pointer} moduleID 
-     * @param {Pointer<ICorProfilerObjectEnum>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {ICorProfilerObjectEnum} 
      */
-    EnumModuleFrozenObjects(moduleID, ppEnum) {
-        result := ComCall(45, this, "ptr", moduleID, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumModuleFrozenObjects(moduleID) {
+        result := ComCall(45, this, "ptr", moduleID, "ptr*", &ppEnum := 0, "HRESULT")
+        return ICorProfilerObjectEnum(ppEnum)
     }
 
     /**
@@ -223,41 +221,32 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
     /**
      * 
      * @param {Pointer} classId 
-     * @param {Pointer<Integer>} pBufferOffset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetBoxClassLayout(classId, pBufferOffset) {
-        pBufferOffsetMarshal := pBufferOffset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(47, this, "ptr", classId, pBufferOffsetMarshal, pBufferOffset, "HRESULT")
-        return result
+    GetBoxClassLayout(classId) {
+        result := ComCall(47, this, "ptr", classId, "uint*", &pBufferOffset := 0, "HRESULT")
+        return pBufferOffset
     }
 
     /**
      * 
      * @param {Pointer} threadId 
-     * @param {Pointer<Pointer>} pAppDomainId 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetThreadAppDomain(threadId, pAppDomainId) {
-        pAppDomainIdMarshal := pAppDomainId is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(48, this, "ptr", threadId, pAppDomainIdMarshal, pAppDomainId, "HRESULT")
-        return result
+    GetThreadAppDomain(threadId) {
+        result := ComCall(48, this, "ptr", threadId, "ptr*", &pAppDomainId := 0, "HRESULT")
+        return pAppDomainId
     }
 
     /**
      * 
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
-     * @param {Pointer<Pointer<Void>>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetRVAStaticAddress(classId, fieldToken, ppAddress) {
-        ppAddressMarshal := ppAddress is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(49, this, "ptr", classId, "uint", fieldToken, ppAddressMarshal, ppAddress, "HRESULT")
-        return result
+    GetRVAStaticAddress(classId, fieldToken) {
+        result := ComCall(49, this, "ptr", classId, "uint", fieldToken, "ptr*", &ppAddress := 0, "HRESULT")
+        return ppAddress
     }
 
     /**
@@ -265,14 +254,11 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
      * @param {Pointer} appDomainId 
-     * @param {Pointer<Pointer<Void>>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetAppDomainStaticAddress(classId, fieldToken, appDomainId, ppAddress) {
-        ppAddressMarshal := ppAddress is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(50, this, "ptr", classId, "uint", fieldToken, "ptr", appDomainId, ppAddressMarshal, ppAddress, "HRESULT")
-        return result
+    GetAppDomainStaticAddress(classId, fieldToken, appDomainId) {
+        result := ComCall(50, this, "ptr", classId, "uint", fieldToken, "ptr", appDomainId, "ptr*", &ppAddress := 0, "HRESULT")
+        return ppAddress
     }
 
     /**
@@ -280,14 +266,11 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
      * @param {Pointer} threadId 
-     * @param {Pointer<Pointer<Void>>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetThreadStaticAddress(classId, fieldToken, threadId, ppAddress) {
-        ppAddressMarshal := ppAddress is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(51, this, "ptr", classId, "uint", fieldToken, "ptr", threadId, ppAddressMarshal, ppAddress, "HRESULT")
-        return result
+    GetThreadStaticAddress(classId, fieldToken, threadId) {
+        result := ComCall(51, this, "ptr", classId, "uint", fieldToken, "ptr", threadId, "ptr*", &ppAddress := 0, "HRESULT")
+        return ppAddress
     }
 
     /**
@@ -295,28 +278,22 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
      * @param {Pointer} contextId 
-     * @param {Pointer<Pointer<Void>>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetContextStaticAddress(classId, fieldToken, contextId, ppAddress) {
-        ppAddressMarshal := ppAddress is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(52, this, "ptr", classId, "uint", fieldToken, "ptr", contextId, ppAddressMarshal, ppAddress, "HRESULT")
-        return result
+    GetContextStaticAddress(classId, fieldToken, contextId) {
+        result := ComCall(52, this, "ptr", classId, "uint", fieldToken, "ptr", contextId, "ptr*", &ppAddress := 0, "HRESULT")
+        return ppAddress
     }
 
     /**
      * 
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
-     * @param {Pointer<Integer>} pFieldInfo 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetStaticFieldInfo(classId, fieldToken, pFieldInfo) {
-        pFieldInfoMarshal := pFieldInfo is VarRef ? "int*" : "ptr"
-
-        result := ComCall(53, this, "ptr", classId, "uint", fieldToken, pFieldInfoMarshal, pFieldInfo, "HRESULT")
-        return result
+    GetStaticFieldInfo(classId, fieldToken) {
+        result := ComCall(53, this, "ptr", classId, "uint", fieldToken, "int*", &pFieldInfo := 0, "HRESULT")
+        return pFieldInfo
     }
 
     /**
@@ -336,21 +313,21 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
     /**
      * 
      * @param {Pointer} objectId 
-     * @param {Pointer<COR_PRF_GC_GENERATION_RANGE>} range 
-     * @returns {HRESULT} 
+     * @returns {COR_PRF_GC_GENERATION_RANGE} 
      */
-    GetObjectGeneration(objectId, range) {
+    GetObjectGeneration(objectId) {
+        range := COR_PRF_GC_GENERATION_RANGE()
         result := ComCall(55, this, "ptr", objectId, "ptr", range, "HRESULT")
-        return result
+        return range
     }
 
     /**
      * 
-     * @param {Pointer<COR_PRF_EX_CLAUSE_INFO>} pinfo 
-     * @returns {HRESULT} 
+     * @returns {COR_PRF_EX_CLAUSE_INFO} 
      */
-    GetNotifiedExceptionClauseInfo(pinfo) {
+    GetNotifiedExceptionClauseInfo() {
+        pinfo := COR_PRF_EX_CLAUSE_INFO()
         result := ComCall(56, this, "ptr", pinfo, "HRESULT")
-        return result
+        return pinfo
     }
 }

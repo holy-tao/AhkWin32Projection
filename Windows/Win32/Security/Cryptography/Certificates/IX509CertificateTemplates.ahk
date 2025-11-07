@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509CertificateTemplate.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,37 +36,32 @@ class IX509CertificateTemplates extends IDispatch{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<IX509CertificateTemplate>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IX509CertificateTemplate} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-get_itembyindex
      */
-    get_ItemByIndex(Index, pVal) {
-        result := ComCall(7, this, "int", Index, "ptr*", pVal, "HRESULT")
-        return result
+    get_ItemByIndex(Index) {
+        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        return IX509CertificateTemplate(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-get_count
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-get__newenum
      */
-    get__NewEnum(pVal) {
-        result := ComCall(9, this, "ptr*", pVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
+        return IUnknown(pVal)
     }
 
     /**
@@ -102,26 +99,24 @@ class IX509CertificateTemplates extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IX509CertificateTemplate>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509CertificateTemplate} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-get_itembyname
      */
-    get_ItemByName(bstrName, ppValue) {
+    get_ItemByName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(13, this, "ptr", bstrName, "ptr*", ppValue, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", bstrName, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509CertificateTemplate(ppValue)
     }
 
     /**
      * 
      * @param {IObjectId} pOid 
-     * @param {Pointer<IX509CertificateTemplate>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509CertificateTemplate} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-get_itembyoid
      */
-    get_ItemByOid(pOid, ppValue) {
-        result := ComCall(14, this, "ptr", pOid, "ptr*", ppValue, "HRESULT")
-        return result
+    get_ItemByOid(pOid) {
+        result := ComCall(14, this, "ptr", pOid, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509CertificateTemplate(ppValue)
     }
 }

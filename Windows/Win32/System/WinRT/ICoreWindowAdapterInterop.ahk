@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IInspectable.ahk
 
 /**
@@ -30,72 +31,65 @@ class ICoreWindowAdapterInterop extends IInspectable{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} value 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_AppActivationClientAdapter(value) {
-        result := ComCall(6, this, "ptr*", value, "HRESULT")
-        return result
+    get_AppActivationClientAdapter() {
+        result := ComCall(6, this, "ptr*", &value := 0, "HRESULT")
+        return IUnknown(value)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} value 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_ApplicationViewClientAdapter(value) {
-        result := ComCall(7, this, "ptr*", value, "HRESULT")
-        return result
+    get_ApplicationViewClientAdapter() {
+        result := ComCall(7, this, "ptr*", &value := 0, "HRESULT")
+        return IUnknown(value)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} value 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_CoreApplicationViewClientAdapter(value) {
-        result := ComCall(8, this, "ptr*", value, "HRESULT")
-        return result
+    get_CoreApplicationViewClientAdapter() {
+        result := ComCall(8, this, "ptr*", &value := 0, "HRESULT")
+        return IUnknown(value)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} value 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_HoloViewClientAdapter(value) {
-        result := ComCall(9, this, "ptr*", value, "HRESULT")
-        return result
+    get_HoloViewClientAdapter() {
+        result := ComCall(9, this, "ptr*", &value := 0, "HRESULT")
+        return IUnknown(value)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} value 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_PositionerClientAdapter(value) {
-        result := ComCall(10, this, "ptr*", value, "HRESULT")
-        return result
+    get_PositionerClientAdapter() {
+        result := ComCall(10, this, "ptr*", &value := 0, "HRESULT")
+        return IUnknown(value)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} value 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_SystemNavigationClientAdapter(value) {
-        result := ComCall(11, this, "ptr*", value, "HRESULT")
-        return result
+    get_SystemNavigationClientAdapter() {
+        result := ComCall(11, this, "ptr*", &value := 0, "HRESULT")
+        return IUnknown(value)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} value 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_TitleBarClientAdapter(value) {
-        result := ComCall(12, this, "ptr*", value, "HRESULT")
-        return result
+    get_TitleBarClientAdapter() {
+        result := ComCall(12, this, "ptr*", &value := 0, "HRESULT")
+        return IUnknown(value)
     }
 
     /**

@@ -43,29 +43,23 @@ class IPropertyDescriptionList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcElem 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionlist-getcount
      */
-    GetCount(pcElem) {
-        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcElemMarshal, pcElem, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pcElem := 0, "HRESULT")
+        return pcElem
     }
 
     /**
      * 
      * @param {Integer} iElem 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionlist-getat
      */
-    GetAt(iElem, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", iElem, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetAt(iElem, riid) {
+        result := ComCall(4, this, "uint", iElem, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

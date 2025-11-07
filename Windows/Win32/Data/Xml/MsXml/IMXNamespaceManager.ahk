@@ -40,12 +40,11 @@ class IMXNamespaceManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} fOverride 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    getAllowOverride(fOverride) {
-        result := ComCall(4, this, "ptr", fOverride, "HRESULT")
-        return result
+    getAllowOverride() {
+        result := ComCall(4, this, "short*", &fOverride := 0, "HRESULT")
+        return fOverride
     }
 
     /**

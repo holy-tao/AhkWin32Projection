@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumAgent.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class IEnumAgent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumAgent>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumAgent} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumagent-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumAgent(ppEnum)
     }
 }

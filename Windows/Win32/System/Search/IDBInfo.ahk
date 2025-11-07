@@ -30,12 +30,11 @@ class IDBInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszKeywords 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetKeywords(ppwszKeywords) {
-        result := ComCall(3, this, "ptr", ppwszKeywords, "HRESULT")
-        return result
+    GetKeywords() {
+        result := ComCall(3, this, "ptr*", &ppwszKeywords := 0, "HRESULT")
+        return ppwszKeywords
     }
 
     /**

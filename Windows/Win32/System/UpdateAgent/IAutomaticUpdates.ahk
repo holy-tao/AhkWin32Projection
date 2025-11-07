@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAutomaticUpdatesSettings.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -83,24 +84,22 @@ class IAutomaticUpdates extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IAutomaticUpdatesSettings>} retval 
-     * @returns {HRESULT} 
+     * @returns {IAutomaticUpdatesSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdates-get_settings
      */
-    get_Settings(retval) {
-        result := ComCall(11, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Settings() {
+        result := ComCall(11, this, "ptr*", &retval := 0, "HRESULT")
+        return IAutomaticUpdatesSettings(retval)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdates-get_serviceenabled
      */
-    get_ServiceEnabled(retval) {
-        result := ComCall(12, this, "ptr", retval, "HRESULT")
-        return result
+    get_ServiceEnabled() {
+        result := ComCall(12, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

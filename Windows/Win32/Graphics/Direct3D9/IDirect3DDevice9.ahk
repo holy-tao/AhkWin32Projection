@@ -1,6 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirect3D9.ahk
+#Include .\IDirect3DSwapChain9.ahk
+#Include .\IDirect3DSurface9.ahk
+#Include .\IDirect3DTexture9.ahk
+#Include .\IDirect3DVolumeTexture9.ahk
+#Include .\IDirect3DCubeTexture9.ahk
+#Include .\IDirect3DVertexBuffer9.ahk
+#Include .\IDirect3DIndexBuffer9.ahk
+#Include .\IDirect3DStateBlock9.ahk
+#Include .\IDirect3DBaseTexture9.ahk
+#Include .\IDirect3DVertexDeclaration9.ahk
+#Include .\IDirect3DVertexShader9.ahk
+#Include .\IDirect3DPixelShader9.ahk
+#Include .\IDirect3DQuery9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -78,13 +92,12 @@ class IDirect3DDevice9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirect3D9>} ppD3D9 
-     * @returns {HRESULT} 
+     * @returns {IDirect3D9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getdirect3d
      */
-    GetDirect3D(ppD3D9) {
-        result := ComCall(6, this, "ptr*", ppD3D9, "HRESULT")
-        return result
+    GetDirect3D() {
+        result := ComCall(6, this, "ptr*", &ppD3D9 := 0, "HRESULT")
+        return IDirect3D9(ppD3D9)
     }
 
     /**
@@ -166,25 +179,23 @@ class IDirect3DDevice9 extends IUnknown{
     /**
      * 
      * @param {Pointer<D3DPRESENT_PARAMETERS>} pPresentationParameters 
-     * @param {Pointer<IDirect3DSwapChain9>} pSwapChain 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSwapChain9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createadditionalswapchain
      */
-    CreateAdditionalSwapChain(pPresentationParameters, pSwapChain) {
-        result := ComCall(13, this, "ptr", pPresentationParameters, "ptr*", pSwapChain, "HRESULT")
-        return result
+    CreateAdditionalSwapChain(pPresentationParameters) {
+        result := ComCall(13, this, "ptr", pPresentationParameters, "ptr*", &pSwapChain := 0, "HRESULT")
+        return IDirect3DSwapChain9(pSwapChain)
     }
 
     /**
      * 
      * @param {Integer} iSwapChain 
-     * @param {Pointer<IDirect3DSwapChain9>} pSwapChain 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSwapChain9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getswapchain
      */
-    GetSwapChain(iSwapChain, pSwapChain) {
-        result := ComCall(14, this, "uint", iSwapChain, "ptr*", pSwapChain, "HRESULT")
-        return result
+    GetSwapChain(iSwapChain) {
+        result := ComCall(14, this, "uint", iSwapChain, "ptr*", &pSwapChain := 0, "HRESULT")
+        return IDirect3DSwapChain9(pSwapChain)
     }
 
     /**
@@ -229,13 +240,12 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Integer} iSwapChain 
      * @param {Integer} iBackBuffer 
      * @param {Integer} Type 
-     * @param {Pointer<IDirect3DSurface9>} ppBackBuffer 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getbackbuffer
      */
-    GetBackBuffer(iSwapChain, iBackBuffer, Type, ppBackBuffer) {
-        result := ComCall(18, this, "uint", iSwapChain, "uint", iBackBuffer, "int", Type, "ptr*", ppBackBuffer, "HRESULT")
-        return result
+    GetBackBuffer(iSwapChain, iBackBuffer, Type) {
+        result := ComCall(18, this, "uint", iSwapChain, "uint", iBackBuffer, "int", Type, "ptr*", &ppBackBuffer := 0, "HRESULT")
+        return IDirect3DSurface9(ppBackBuffer)
     }
 
     /**
@@ -292,14 +302,13 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Integer} Usage 
      * @param {Integer} Format 
      * @param {Integer} Pool 
-     * @param {Pointer<IDirect3DTexture9>} ppTexture 
      * @param {Pointer<HANDLE>} pSharedHandle 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DTexture9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createtexture
      */
-    CreateTexture(Width, Height, Levels, Usage, Format, Pool, ppTexture, pSharedHandle) {
-        result := ComCall(23, this, "uint", Width, "uint", Height, "uint", Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", ppTexture, "ptr", pSharedHandle, "HRESULT")
-        return result
+    CreateTexture(Width, Height, Levels, Usage, Format, Pool, pSharedHandle) {
+        result := ComCall(23, this, "uint", Width, "uint", Height, "uint", Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppTexture := 0, "ptr", pSharedHandle, "HRESULT")
+        return IDirect3DTexture9(ppTexture)
     }
 
     /**
@@ -311,14 +320,13 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Integer} Usage 
      * @param {Integer} Format 
      * @param {Integer} Pool 
-     * @param {Pointer<IDirect3DVolumeTexture9>} ppVolumeTexture 
      * @param {Pointer<HANDLE>} pSharedHandle 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DVolumeTexture9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createvolumetexture
      */
-    CreateVolumeTexture(Width, Height, Depth, Levels, Usage, Format, Pool, ppVolumeTexture, pSharedHandle) {
-        result := ComCall(24, this, "uint", Width, "uint", Height, "uint", Depth, "uint", Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", ppVolumeTexture, "ptr", pSharedHandle, "HRESULT")
-        return result
+    CreateVolumeTexture(Width, Height, Depth, Levels, Usage, Format, Pool, pSharedHandle) {
+        result := ComCall(24, this, "uint", Width, "uint", Height, "uint", Depth, "uint", Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppVolumeTexture := 0, "ptr", pSharedHandle, "HRESULT")
+        return IDirect3DVolumeTexture9(ppVolumeTexture)
     }
 
     /**
@@ -328,14 +336,13 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Integer} Usage 
      * @param {Integer} Format 
      * @param {Integer} Pool 
-     * @param {Pointer<IDirect3DCubeTexture9>} ppCubeTexture 
      * @param {Pointer<HANDLE>} pSharedHandle 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DCubeTexture9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createcubetexture
      */
-    CreateCubeTexture(EdgeLength, Levels, Usage, Format, Pool, ppCubeTexture, pSharedHandle) {
-        result := ComCall(25, this, "uint", EdgeLength, "uint", Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", ppCubeTexture, "ptr", pSharedHandle, "HRESULT")
-        return result
+    CreateCubeTexture(EdgeLength, Levels, Usage, Format, Pool, pSharedHandle) {
+        result := ComCall(25, this, "uint", EdgeLength, "uint", Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppCubeTexture := 0, "ptr", pSharedHandle, "HRESULT")
+        return IDirect3DCubeTexture9(ppCubeTexture)
     }
 
     /**
@@ -344,14 +351,13 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Integer} Usage 
      * @param {Integer} FVF 
      * @param {Integer} Pool 
-     * @param {Pointer<IDirect3DVertexBuffer9>} ppVertexBuffer 
      * @param {Pointer<HANDLE>} pSharedHandle 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DVertexBuffer9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createvertexbuffer
      */
-    CreateVertexBuffer(Length, Usage, FVF, Pool, ppVertexBuffer, pSharedHandle) {
-        result := ComCall(26, this, "uint", Length, "uint", Usage, "uint", FVF, "int", Pool, "ptr*", ppVertexBuffer, "ptr", pSharedHandle, "HRESULT")
-        return result
+    CreateVertexBuffer(Length, Usage, FVF, Pool, pSharedHandle) {
+        result := ComCall(26, this, "uint", Length, "uint", Usage, "uint", FVF, "int", Pool, "ptr*", &ppVertexBuffer := 0, "ptr", pSharedHandle, "HRESULT")
+        return IDirect3DVertexBuffer9(ppVertexBuffer)
     }
 
     /**
@@ -360,14 +366,13 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Integer} Usage 
      * @param {Integer} Format 
      * @param {Integer} Pool 
-     * @param {Pointer<IDirect3DIndexBuffer9>} ppIndexBuffer 
      * @param {Pointer<HANDLE>} pSharedHandle 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DIndexBuffer9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createindexbuffer
      */
-    CreateIndexBuffer(Length, Usage, Format, Pool, ppIndexBuffer, pSharedHandle) {
-        result := ComCall(27, this, "uint", Length, "uint", Usage, "uint", Format, "int", Pool, "ptr*", ppIndexBuffer, "ptr", pSharedHandle, "HRESULT")
-        return result
+    CreateIndexBuffer(Length, Usage, Format, Pool, pSharedHandle) {
+        result := ComCall(27, this, "uint", Length, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppIndexBuffer := 0, "ptr", pSharedHandle, "HRESULT")
+        return IDirect3DIndexBuffer9(ppIndexBuffer)
     }
 
     /**
@@ -378,14 +383,13 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Integer} MultiSample 
      * @param {Integer} MultisampleQuality 
      * @param {BOOL} Lockable 
-     * @param {Pointer<IDirect3DSurface9>} ppSurface 
      * @param {Pointer<HANDLE>} pSharedHandle 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createrendertarget
      */
-    CreateRenderTarget(Width, Height, Format, MultiSample, MultisampleQuality, Lockable, ppSurface, pSharedHandle) {
-        result := ComCall(28, this, "uint", Width, "uint", Height, "uint", Format, "int", MultiSample, "uint", MultisampleQuality, "int", Lockable, "ptr*", ppSurface, "ptr", pSharedHandle, "HRESULT")
-        return result
+    CreateRenderTarget(Width, Height, Format, MultiSample, MultisampleQuality, Lockable, pSharedHandle) {
+        result := ComCall(28, this, "uint", Width, "uint", Height, "uint", Format, "int", MultiSample, "uint", MultisampleQuality, "int", Lockable, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "HRESULT")
+        return IDirect3DSurface9(ppSurface)
     }
 
     /**
@@ -396,14 +400,13 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Integer} MultiSample 
      * @param {Integer} MultisampleQuality 
      * @param {BOOL} Discard 
-     * @param {Pointer<IDirect3DSurface9>} ppSurface 
      * @param {Pointer<HANDLE>} pSharedHandle 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createdepthstencilsurface
      */
-    CreateDepthStencilSurface(Width, Height, Format, MultiSample, MultisampleQuality, Discard, ppSurface, pSharedHandle) {
-        result := ComCall(29, this, "uint", Width, "uint", Height, "uint", Format, "int", MultiSample, "uint", MultisampleQuality, "int", Discard, "ptr*", ppSurface, "ptr", pSharedHandle, "HRESULT")
-        return result
+    CreateDepthStencilSurface(Width, Height, Format, MultiSample, MultisampleQuality, Discard, pSharedHandle) {
+        result := ComCall(29, this, "uint", Width, "uint", Height, "uint", Format, "int", MultiSample, "uint", MultisampleQuality, "int", Discard, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "HRESULT")
+        return IDirect3DSurface9(ppSurface)
     }
 
     /**
@@ -490,14 +493,13 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Integer} Height 
      * @param {Integer} Format 
      * @param {Integer} Pool 
-     * @param {Pointer<IDirect3DSurface9>} ppSurface 
      * @param {Pointer<HANDLE>} pSharedHandle 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createoffscreenplainsurface
      */
-    CreateOffscreenPlainSurface(Width, Height, Format, Pool, ppSurface, pSharedHandle) {
-        result := ComCall(36, this, "uint", Width, "uint", Height, "uint", Format, "int", Pool, "ptr*", ppSurface, "ptr", pSharedHandle, "HRESULT")
-        return result
+    CreateOffscreenPlainSurface(Width, Height, Format, Pool, pSharedHandle) {
+        result := ComCall(36, this, "uint", Width, "uint", Height, "uint", Format, "int", Pool, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "HRESULT")
+        return IDirect3DSurface9(ppSurface)
     }
 
     /**
@@ -515,13 +517,12 @@ class IDirect3DDevice9 extends IUnknown{
     /**
      * 
      * @param {Integer} RenderTargetIndex 
-     * @param {Pointer<IDirect3DSurface9>} ppRenderTarget 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getrendertarget
      */
-    GetRenderTarget(RenderTargetIndex, ppRenderTarget) {
-        result := ComCall(38, this, "uint", RenderTargetIndex, "ptr*", ppRenderTarget, "HRESULT")
-        return result
+    GetRenderTarget(RenderTargetIndex) {
+        result := ComCall(38, this, "uint", RenderTargetIndex, "ptr*", &ppRenderTarget := 0, "HRESULT")
+        return IDirect3DSurface9(ppRenderTarget)
     }
 
     /**
@@ -537,13 +538,12 @@ class IDirect3DDevice9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirect3DSurface9>} ppZStencilSurface 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getdepthstencilsurface
      */
-    GetDepthStencilSurface(ppZStencilSurface) {
-        result := ComCall(40, this, "ptr*", ppZStencilSurface, "HRESULT")
-        return result
+    GetDepthStencilSurface() {
+        result := ComCall(40, this, "ptr*", &ppZStencilSurface := 0, "HRESULT")
+        return IDirect3DSurface9(ppZStencilSurface)
     }
 
     /**
@@ -706,7 +706,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getlightenable
      */
     GetLightEnable(Index, pEnable) {
-        result := ComCall(54, this, "uint", Index, "ptr", pEnable, "HRESULT")
+        pEnableMarshal := pEnable is VarRef ? "int*" : "ptr"
+
+        result := ComCall(54, this, "uint", Index, pEnableMarshal, pEnable, "HRESULT")
         return result
     }
 
@@ -767,13 +769,12 @@ class IDirect3DDevice9 extends IUnknown{
     /**
      * 
      * @param {Integer} Type 
-     * @param {Pointer<IDirect3DStateBlock9>} ppSB 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DStateBlock9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createstateblock
      */
-    CreateStateBlock(Type, ppSB) {
-        result := ComCall(59, this, "int", Type, "ptr*", ppSB, "HRESULT")
-        return result
+    CreateStateBlock(Type) {
+        result := ComCall(59, this, "int", Type, "ptr*", &ppSB := 0, "HRESULT")
+        return IDirect3DStateBlock9(ppSB)
     }
 
     /**
@@ -788,13 +789,12 @@ class IDirect3DDevice9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirect3DStateBlock9>} ppSB 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DStateBlock9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-endstateblock
      */
-    EndStateBlock(ppSB) {
-        result := ComCall(61, this, "ptr*", ppSB, "HRESULT")
-        return result
+    EndStateBlock() {
+        result := ComCall(61, this, "ptr*", &ppSB := 0, "HRESULT")
+        return IDirect3DStateBlock9(ppSB)
     }
 
     /**
@@ -822,13 +822,12 @@ class IDirect3DDevice9 extends IUnknown{
     /**
      * 
      * @param {Integer} Stage 
-     * @param {Pointer<IDirect3DBaseTexture9>} ppTexture 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DBaseTexture9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-gettexture
      */
-    GetTexture(Stage, ppTexture) {
-        result := ComCall(64, this, "uint", Stage, "ptr*", ppTexture, "HRESULT")
-        return result
+    GetTexture(Stage) {
+        result := ComCall(64, this, "uint", Stage, "ptr*", &ppTexture := 0, "HRESULT")
+        return IDirect3DBaseTexture9(ppTexture)
     }
 
     /**
@@ -1113,13 +1112,12 @@ class IDirect3DDevice9 extends IUnknown{
     /**
      * 
      * @param {Pointer<D3DVERTEXELEMENT9>} pVertexElements 
-     * @param {Pointer<IDirect3DVertexDeclaration9>} ppDecl 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DVertexDeclaration9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createvertexdeclaration
      */
-    CreateVertexDeclaration(pVertexElements, ppDecl) {
-        result := ComCall(86, this, "ptr", pVertexElements, "ptr*", ppDecl, "HRESULT")
-        return result
+    CreateVertexDeclaration(pVertexElements) {
+        result := ComCall(86, this, "ptr", pVertexElements, "ptr*", &ppDecl := 0, "HRESULT")
+        return IDirect3DVertexDeclaration9(ppDecl)
     }
 
     /**
@@ -1135,13 +1133,12 @@ class IDirect3DDevice9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirect3DVertexDeclaration9>} ppDecl 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DVertexDeclaration9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getvertexdeclaration
      */
-    GetVertexDeclaration(ppDecl) {
-        result := ComCall(88, this, "ptr*", ppDecl, "HRESULT")
-        return result
+    GetVertexDeclaration() {
+        result := ComCall(88, this, "ptr*", &ppDecl := 0, "HRESULT")
+        return IDirect3DVertexDeclaration9(ppDecl)
     }
 
     /**
@@ -1171,15 +1168,14 @@ class IDirect3DDevice9 extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pFunction 
-     * @param {Pointer<IDirect3DVertexShader9>} ppShader 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DVertexShader9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createvertexshader
      */
-    CreateVertexShader(pFunction, ppShader) {
+    CreateVertexShader(pFunction) {
         pFunctionMarshal := pFunction is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(91, this, pFunctionMarshal, pFunction, "ptr*", ppShader, "HRESULT")
-        return result
+        result := ComCall(91, this, pFunctionMarshal, pFunction, "ptr*", &ppShader := 0, "HRESULT")
+        return IDirect3DVertexShader9(ppShader)
     }
 
     /**
@@ -1195,13 +1191,12 @@ class IDirect3DDevice9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirect3DVertexShader9>} ppShader 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DVertexShader9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getvertexshader
      */
-    GetVertexShader(ppShader) {
-        result := ComCall(93, this, "ptr*", ppShader, "HRESULT")
-        return result
+    GetVertexShader() {
+        result := ComCall(93, this, "ptr*", &ppShader := 0, "HRESULT")
+        return IDirect3DVertexShader9(ppShader)
     }
 
     /**
@@ -1273,7 +1268,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setvertexshaderconstantb
      */
     SetVertexShaderConstantB(StartRegister, pConstantData, BoolCount) {
-        result := ComCall(98, this, "uint", StartRegister, "ptr", pConstantData, "uint", BoolCount, "HRESULT")
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(98, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", BoolCount, "HRESULT")
         return result
     }
 
@@ -1286,7 +1283,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getvertexshaderconstantb
      */
     GetVertexShaderConstantB(StartRegister, pConstantData, BoolCount) {
-        result := ComCall(99, this, "uint", StartRegister, "ptr", pConstantData, "uint", BoolCount, "HRESULT")
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(99, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", BoolCount, "HRESULT")
         return result
     }
 
@@ -1307,18 +1306,17 @@ class IDirect3DDevice9 extends IUnknown{
     /**
      * 
      * @param {Integer} StreamNumber 
-     * @param {Pointer<IDirect3DVertexBuffer9>} ppStreamData 
      * @param {Pointer<Integer>} pOffsetInBytes 
      * @param {Pointer<Integer>} pStride 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DVertexBuffer9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getstreamsource
      */
-    GetStreamSource(StreamNumber, ppStreamData, pOffsetInBytes, pStride) {
+    GetStreamSource(StreamNumber, pOffsetInBytes, pStride) {
         pOffsetInBytesMarshal := pOffsetInBytes is VarRef ? "uint*" : "ptr"
         pStrideMarshal := pStride is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(101, this, "uint", StreamNumber, "ptr*", ppStreamData, pOffsetInBytesMarshal, pOffsetInBytes, pStrideMarshal, pStride, "HRESULT")
-        return result
+        result := ComCall(101, this, "uint", StreamNumber, "ptr*", &ppStreamData := 0, pOffsetInBytesMarshal, pOffsetInBytes, pStrideMarshal, pStride, "HRESULT")
+        return IDirect3DVertexBuffer9(ppStreamData)
     }
 
     /**
@@ -1360,27 +1358,25 @@ class IDirect3DDevice9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirect3DIndexBuffer9>} ppIndexData 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DIndexBuffer9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getindices
      */
-    GetIndices(ppIndexData) {
-        result := ComCall(105, this, "ptr*", ppIndexData, "HRESULT")
-        return result
+    GetIndices() {
+        result := ComCall(105, this, "ptr*", &ppIndexData := 0, "HRESULT")
+        return IDirect3DIndexBuffer9(ppIndexData)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pFunction 
-     * @param {Pointer<IDirect3DPixelShader9>} ppShader 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DPixelShader9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createpixelshader
      */
-    CreatePixelShader(pFunction, ppShader) {
+    CreatePixelShader(pFunction) {
         pFunctionMarshal := pFunction is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(106, this, pFunctionMarshal, pFunction, "ptr*", ppShader, "HRESULT")
-        return result
+        result := ComCall(106, this, pFunctionMarshal, pFunction, "ptr*", &ppShader := 0, "HRESULT")
+        return IDirect3DPixelShader9(ppShader)
     }
 
     /**
@@ -1396,13 +1392,12 @@ class IDirect3DDevice9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirect3DPixelShader9>} ppShader 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DPixelShader9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getpixelshader
      */
-    GetPixelShader(ppShader) {
-        result := ComCall(108, this, "ptr*", ppShader, "HRESULT")
-        return result
+    GetPixelShader() {
+        result := ComCall(108, this, "ptr*", &ppShader := 0, "HRESULT")
+        return IDirect3DPixelShader9(ppShader)
     }
 
     /**
@@ -1474,7 +1469,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setpixelshaderconstantb
      */
     SetPixelShaderConstantB(StartRegister, pConstantData, BoolCount) {
-        result := ComCall(113, this, "uint", StartRegister, "ptr", pConstantData, "uint", BoolCount, "HRESULT")
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(113, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", BoolCount, "HRESULT")
         return result
     }
 
@@ -1487,7 +1484,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getpixelshaderconstantb
      */
     GetPixelShaderConstantB(StartRegister, pConstantData, BoolCount) {
-        result := ComCall(114, this, "uint", StartRegister, "ptr", pConstantData, "uint", BoolCount, "HRESULT")
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(114, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", BoolCount, "HRESULT")
         return result
     }
 
@@ -1535,12 +1534,11 @@ class IDirect3DDevice9 extends IUnknown{
     /**
      * 
      * @param {Integer} Type 
-     * @param {Pointer<IDirect3DQuery9>} ppQuery 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DQuery9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createquery
      */
-    CreateQuery(Type, ppQuery) {
-        result := ComCall(118, this, "int", Type, "ptr*", ppQuery, "HRESULT")
-        return result
+    CreateQuery(Type) {
+        result := ComCall(118, this, "int", Type, "ptr*", &ppQuery := 0, "HRESULT")
+        return IDirect3DQuery9(ppQuery)
     }
 }

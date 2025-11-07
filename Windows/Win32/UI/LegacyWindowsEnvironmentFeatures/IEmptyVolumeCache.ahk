@@ -59,24 +59,23 @@ class IEmptyVolumeCache extends IUnknown{
         hkRegKey := hkRegKey is Win32Handle ? NumGet(hkRegKey, "ptr") : hkRegKey
         pcwszVolume := pcwszVolume is String ? StrPtr(pcwszVolume) : pcwszVolume
 
+        ppwszDisplayNameMarshal := ppwszDisplayName is VarRef ? "ptr*" : "ptr"
+        ppwszDescriptionMarshal := ppwszDescription is VarRef ? "ptr*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hkRegKey, "ptr", pcwszVolume, "ptr", ppwszDisplayName, "ptr", ppwszDescription, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", hkRegKey, "ptr", pcwszVolume, ppwszDisplayNameMarshal, ppwszDisplayName, ppwszDescriptionMarshal, ppwszDescription, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwlSpaceUsed 
      * @param {IEmptyVolumeCacheCallBack} picb 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache-getspaceused
      */
-    GetSpaceUsed(pdwlSpaceUsed, picb) {
-        pdwlSpaceUsedMarshal := pdwlSpaceUsed is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwlSpaceUsedMarshal, pdwlSpaceUsed, "ptr", picb, "HRESULT")
-        return result
+    GetSpaceUsed(picb) {
+        result := ComCall(4, this, "uint*", &pdwlSpaceUsed := 0, "ptr", picb, "HRESULT")
+        return pdwlSpaceUsed
     }
 
     /**
@@ -106,14 +105,11 @@ class IEmptyVolumeCache extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache-deactivate
      */
-    Deactivate(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    Deactivate() {
+        result := ComCall(7, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 }

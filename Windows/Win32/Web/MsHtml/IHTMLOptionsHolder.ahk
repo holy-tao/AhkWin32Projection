@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLDocument2.ahk
+#Include .\IHTMLFontNamesCollection.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLWindow2.ahk
+#Include .\IHTMLFontSizesCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,22 +36,20 @@ class IHTMLOptionsHolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLDocument2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument2} 
      */
-    get_document(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_document() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDocument2(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLFontNamesCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLFontNamesCollection} 
      */
-    get_fonts(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_fonts() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLFontNamesCollection(p)
     }
 
     /**
@@ -61,12 +64,12 @@ class IHTMLOptionsHolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_execArg(p) {
+    get_execArg() {
+        p := VARIANT()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -81,14 +84,11 @@ class IHTMLOptionsHolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_errorLine(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pMarshal, p, "HRESULT")
-        return result
+    get_errorLine() {
+        result := ComCall(12, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -103,14 +103,11 @@ class IHTMLOptionsHolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_errorCharacter(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pMarshal, p, "HRESULT")
-        return result
+    get_errorCharacter() {
+        result := ComCall(14, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -125,14 +122,11 @@ class IHTMLOptionsHolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_errorCode(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pMarshal, p, "HRESULT")
-        return result
+    get_errorCode() {
+        result := ComCall(16, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -149,12 +143,12 @@ class IHTMLOptionsHolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_errorMessage(p) {
+    get_errorMessage() {
+        p := BSTR()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -169,22 +163,20 @@ class IHTMLOptionsHolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_errorDebug(p) {
-        result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+    get_errorDebug() {
+        result := ComCall(20, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLWindow2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLWindow2} 
      */
-    get_unsecuredWindowOfDocument(p) {
-        result := ComCall(21, this, "ptr*", p, "HRESULT")
-        return result
+    get_unsecuredWindowOfDocument() {
+        result := ComCall(21, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLWindow2(p)
     }
 
     /**
@@ -201,12 +193,12 @@ class IHTMLOptionsHolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_findText(p) {
+    get_findText() {
+        p := BSTR()
         result := ComCall(23, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -221,25 +213,23 @@ class IHTMLOptionsHolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_anythingAfterFrameset(p) {
-        result := ComCall(25, this, "ptr", p, "HRESULT")
-        return result
+    get_anythingAfterFrameset() {
+        result := ComCall(25, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {BSTR} fontName 
-     * @param {Pointer<IHTMLFontSizesCollection>} pSizesCollection 
-     * @returns {HRESULT} 
+     * @returns {IHTMLFontSizesCollection} 
      */
-    sizes(fontName, pSizesCollection) {
+    sizes(fontName) {
         fontName := fontName is String ? BSTR.Alloc(fontName).Value : fontName
 
-        result := ComCall(26, this, "ptr", fontName, "ptr*", pSizesCollection, "HRESULT")
-        return result
+        result := ComCall(26, this, "ptr", fontName, "ptr*", &pSizesCollection := 0, "HRESULT")
+        return IHTMLFontSizesCollection(pSizesCollection)
     }
 
     /**
@@ -248,12 +238,12 @@ class IHTMLOptionsHolder extends IDispatch{
      * @param {VARIANT} initDir 
      * @param {VARIANT} filter 
      * @param {VARIANT} title 
-     * @param {Pointer<BSTR>} pathName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    openfiledlg(initFile, initDir, filter, title, pathName) {
+    openfiledlg(initFile, initDir, filter, title) {
+        pathName := BSTR()
         result := ComCall(27, this, "ptr", initFile, "ptr", initDir, "ptr", filter, "ptr", title, "ptr", pathName, "HRESULT")
-        return result
+        return pathName
     }
 
     /**
@@ -262,25 +252,22 @@ class IHTMLOptionsHolder extends IDispatch{
      * @param {VARIANT} initDir 
      * @param {VARIANT} filter 
      * @param {VARIANT} title 
-     * @param {Pointer<BSTR>} pathName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    savefiledlg(initFile, initDir, filter, title, pathName) {
+    savefiledlg(initFile, initDir, filter, title) {
+        pathName := BSTR()
         result := ComCall(28, this, "ptr", initFile, "ptr", initDir, "ptr", filter, "ptr", title, "ptr", pathName, "HRESULT")
-        return result
+        return pathName
     }
 
     /**
      * 
      * @param {VARIANT} initColor 
-     * @param {Pointer<Integer>} rgbColor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    choosecolordlg(initColor, rgbColor) {
-        rgbColorMarshal := rgbColor is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, "ptr", initColor, rgbColorMarshal, rgbColor, "HRESULT")
-        return result
+    choosecolordlg(initColor) {
+        result := ComCall(29, this, "ptr", initColor, "int*", &rgbColor := 0, "HRESULT")
+        return rgbColor
     }
 
     /**
@@ -295,36 +282,32 @@ class IHTMLOptionsHolder extends IDispatch{
     /**
      * 
      * @param {IHTMLObjectElement} object 
-     * @param {Pointer<VARIANT_BOOL>} fApartment 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    isApartmentModel(object, fApartment) {
-        result := ComCall(31, this, "ptr", object, "ptr", fApartment, "HRESULT")
-        return result
+    isApartmentModel(object) {
+        result := ComCall(31, this, "ptr", object, "short*", &fApartment := 0, "HRESULT")
+        return fApartment
     }
 
     /**
      * 
      * @param {BSTR} fontName 
-     * @param {Pointer<Integer>} charset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getCharset(fontName, charset) {
+    getCharset(fontName) {
         fontName := fontName is String ? BSTR.Alloc(fontName).Value : fontName
 
-        charsetMarshal := charset is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, "ptr", fontName, charsetMarshal, charset, "HRESULT")
-        return result
+        result := ComCall(32, this, "ptr", fontName, "int*", &charset := 0, "HRESULT")
+        return charset
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_secureConnectionInfo(p) {
+    get_secureConnectionInfo() {
+        p := BSTR()
         result := ComCall(33, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

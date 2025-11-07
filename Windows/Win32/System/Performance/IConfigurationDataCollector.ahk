@@ -58,15 +58,12 @@ class IConfigurationDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_filemaxcount
      */
-    get_FileMaxCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(32, this, countMarshal, count, "HRESULT")
-        return result
+    get_FileMaxCount() {
+        result := ComCall(32, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
@@ -82,15 +79,12 @@ class IConfigurationDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} depth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_filemaxrecursivedepth
      */
-    get_FileMaxRecursiveDepth(depth) {
-        depthMarshal := depth is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(34, this, depthMarshal, depth, "HRESULT")
-        return result
+    get_FileMaxRecursiveDepth() {
+        result := ComCall(34, this, "uint*", &depth := 0, "HRESULT")
+        return depth
     }
 
     /**
@@ -106,15 +100,12 @@ class IConfigurationDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} size 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_filemaxtotalsize
      */
-    get_FileMaxTotalSize(size) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(36, this, sizeMarshal, size, "HRESULT")
-        return result
+    get_FileMaxTotalSize() {
+        result := ComCall(36, this, "uint*", &size := 0, "HRESULT")
+        return size
     }
 
     /**
@@ -130,15 +121,12 @@ class IConfigurationDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} Files 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_files
      */
-    get_Files(Files) {
-        FilesMarshal := Files is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(38, this, FilesMarshal, Files, "HRESULT")
-        return result
+    get_Files() {
+        result := ComCall(38, this, "ptr*", &Files := 0, "HRESULT")
+        return Files
     }
 
     /**
@@ -154,15 +142,12 @@ class IConfigurationDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} Queries 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_managementqueries
      */
-    get_ManagementQueries(Queries) {
-        QueriesMarshal := Queries is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(40, this, QueriesMarshal, Queries, "HRESULT")
-        return result
+    get_ManagementQueries() {
+        result := ComCall(40, this, "ptr*", &Queries := 0, "HRESULT")
+        return Queries
     }
 
     /**
@@ -178,13 +163,12 @@ class IConfigurationDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} network 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_querynetworkadapters
      */
-    get_QueryNetworkAdapters(network) {
-        result := ComCall(42, this, "ptr", network, "HRESULT")
-        return result
+    get_QueryNetworkAdapters() {
+        result := ComCall(42, this, "short*", &network := 0, "HRESULT")
+        return network
     }
 
     /**
@@ -200,15 +184,12 @@ class IConfigurationDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} query 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_registrykeys
      */
-    get_RegistryKeys(query) {
-        queryMarshal := query is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(44, this, queryMarshal, query, "HRESULT")
-        return result
+    get_RegistryKeys() {
+        result := ComCall(44, this, "ptr*", &query := 0, "HRESULT")
+        return query
     }
 
     /**
@@ -224,15 +205,12 @@ class IConfigurationDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} depth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_registrymaxrecursivedepth
      */
-    get_RegistryMaxRecursiveDepth(depth) {
-        depthMarshal := depth is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(46, this, depthMarshal, depth, "HRESULT")
-        return result
+    get_RegistryMaxRecursiveDepth() {
+        result := ComCall(46, this, "uint*", &depth := 0, "HRESULT")
+        return depth
     }
 
     /**
@@ -248,13 +226,13 @@ class IConfigurationDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<BSTR>} FileName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_systemstatefile
      */
-    get_SystemStateFile(FileName) {
+    get_SystemStateFile() {
+        FileName := BSTR()
         result := ComCall(48, this, "ptr", FileName, "HRESULT")
-        return result
+        return FileName
     }
 
     /**

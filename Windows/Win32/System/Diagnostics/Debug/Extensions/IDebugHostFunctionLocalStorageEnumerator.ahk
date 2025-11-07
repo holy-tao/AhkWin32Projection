@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostFunctionLocalStorage.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -39,11 +40,10 @@ class IDebugHostFunctionLocalStorageEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugHostFunctionLocalStorage>} storage 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostFunctionLocalStorage} 
      */
-    GetNext(storage) {
-        result := ComCall(4, this, "ptr*", storage, "HRESULT")
-        return result
+    GetNext() {
+        result := ComCall(4, this, "ptr*", &storage := 0, "HRESULT")
+        return IDebugHostFunctionLocalStorage(storage)
     }
 }

@@ -34,13 +34,12 @@ class IControlbar extends IUnknown{
      * 
      * @param {Integer} nType 
      * @param {IExtendControlbar} pExtendControlbar 
-     * @param {Pointer<IUnknown>} ppUnknown 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icontrolbar-create
      */
-    Create(nType, pExtendControlbar, ppUnknown) {
-        result := ComCall(3, this, "int", nType, "ptr", pExtendControlbar, "ptr*", ppUnknown, "HRESULT")
-        return result
+    Create(nType, pExtendControlbar) {
+        result := ComCall(3, this, "int", nType, "ptr", pExtendControlbar, "ptr*", &ppUnknown := 0, "HRESULT")
+        return IUnknown(ppUnknown)
     }
 
     /**

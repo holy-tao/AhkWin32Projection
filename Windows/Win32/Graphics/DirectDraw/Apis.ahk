@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\IDirectDraw.ahk
+#Include .\IDirectDrawClipper.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -4786,30 +4788,16 @@ class DirectDraw {
     /**
      * Creates an instance of a DirectDraw object.
      * @param {Pointer<Guid>} lpGUID A pointer to the globally unique identifier (GUID) that represents the driver to be created. This can be NULL to indicate the active display driver, or you can pass one of the following flags to restrict the active display driver's behavior for debugging purposes:
-     * @param {Pointer<IDirectDraw>} lplpDD A pointer to a variable to be set to a valid <b>IDirectDraw</b> interface pointer if the call succeeds.
      * @param {IUnknown} pUnkOuter Allows for future compatibility with COM aggregation features. Presently, however, this function returns an error if this parameter is anything but NULL.
-     * @returns {HRESULT} If the function succeeds, the return value is DD_OK.
-     * 
-     * 
-     * 
-     * If it fails, the function can return one of the following error values:
-     * 
-     * <ul>
-     * <li>DDERR_DIRECTDRAWALREADYCREATED</li>
-     * <li>DDERR_GENERIC</li>
-     * <li>DDERR_INVALIDDIRECTDRAWGUID</li>
-     * <li>DDERR_INVALIDPARAMS</li>
-     * <li>DDERR_NODIRECTDRAWHW</li>
-     * <li>DDERR_OUTOFMEMORY</li>
-     * </ul>
+     * @returns {IDirectDraw} A pointer to a variable to be set to a valid <b>IDirectDraw</b> interface pointer if the call succeeds.
      * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-directdrawcreate
      */
-    static DirectDrawCreate(lpGUID, lplpDD, pUnkOuter) {
-        result := DllCall("DDRAW.dll\DirectDrawCreate", "ptr", lpGUID, "ptr*", lplpDD, "ptr", pUnkOuter, "int")
+    static DirectDrawCreate(lpGUID, pUnkOuter) {
+        result := DllCall("DDRAW.dll\DirectDrawCreate", "ptr", lpGUID, "ptr*", &lplpDD := 0, "ptr", pUnkOuter, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDirectDraw(lplpDD)
     }
 
     /**
@@ -4847,26 +4835,16 @@ class DirectDraw {
     /**
      * Creates an instance of a DirectDrawClipper object that is not associated with a DirectDraw object.
      * @param {Integer} dwFlags Currently not used and must be set to 0.
-     * @param {Pointer<IDirectDrawClipper>} lplpDDClipper Address of a pointer to be filled with the address of the new DirectDrawClipper object.
      * @param {IUnknown} pUnkOuter Allows for future compatibility with COM aggregation features. Currently, this function returns an error if this parameter is not NULL.
-     * @returns {HRESULT} If the function succeeds, the return value is DD_OK.
-     * 
-     * 
-     * 
-     * If it fails, the function can return one of the following error values:
-     * 
-     * <ul>
-     * <li>DDERR_INVALIDPARAMS</li>
-     * <li>DDERR_OUTOFMEMORY</li>
-     * </ul>
+     * @returns {IDirectDrawClipper} Address of a pointer to be filled with the address of the new DirectDrawClipper object.
      * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-directdrawcreateclipper
      */
-    static DirectDrawCreateClipper(dwFlags, lplpDDClipper, pUnkOuter) {
-        result := DllCall("DDRAW.dll\DirectDrawCreateClipper", "uint", dwFlags, "ptr*", lplpDDClipper, "ptr", pUnkOuter, "int")
+    static DirectDrawCreateClipper(dwFlags, pUnkOuter) {
+        result := DllCall("DDRAW.dll\DirectDrawCreateClipper", "uint", dwFlags, "ptr*", &lplpDDClipper := 0, "ptr", pUnkOuter, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDirectDrawClipper(lplpDDClipper)
     }
 
 ;@endregion Methods

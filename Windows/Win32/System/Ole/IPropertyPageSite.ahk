@@ -51,26 +51,22 @@ class IPropertyPageSite extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pLocaleID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-getlocaleid
      */
-    GetLocaleID(pLocaleID) {
-        pLocaleIDMarshal := pLocaleID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pLocaleIDMarshal, pLocaleID, "HRESULT")
-        return result
+    GetLocaleID() {
+        result := ComCall(4, this, "uint*", &pLocaleID := 0, "HRESULT")
+        return pLocaleID
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-getpagecontainer
      */
-    GetPageContainer(ppUnk) {
-        result := ComCall(5, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    GetPageContainer() {
+        result := ComCall(5, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**

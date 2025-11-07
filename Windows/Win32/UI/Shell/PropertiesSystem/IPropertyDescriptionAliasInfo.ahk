@@ -33,28 +33,22 @@ class IPropertyDescriptionAliasInfo extends IPropertyDescription{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionaliasinfo-getsortbyalias
      */
-    GetSortByAlias(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(24, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetSortByAlias(riid) {
+        result := ComCall(24, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionaliasinfo-getadditionalsortbyaliases
      */
-    GetAdditionalSortByAliases(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(25, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetAdditionalSortByAliases(riid) {
+        result := ComCall(25, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

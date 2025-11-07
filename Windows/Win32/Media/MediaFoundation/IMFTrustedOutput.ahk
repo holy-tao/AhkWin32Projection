@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFOutputTrustAuthority.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,37 +38,32 @@ class IMFTrustedOutput extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcOutputTrustAuthorities 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritycount
      */
-    GetOutputTrustAuthorityCount(pcOutputTrustAuthorities) {
-        pcOutputTrustAuthoritiesMarshal := pcOutputTrustAuthorities is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcOutputTrustAuthoritiesMarshal, pcOutputTrustAuthorities, "HRESULT")
-        return result
+    GetOutputTrustAuthorityCount() {
+        result := ComCall(3, this, "uint*", &pcOutputTrustAuthorities := 0, "HRESULT")
+        return pcOutputTrustAuthorities
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IMFOutputTrustAuthority>} ppauthority 
-     * @returns {HRESULT} 
+     * @returns {IMFOutputTrustAuthority} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritybyindex
      */
-    GetOutputTrustAuthorityByIndex(dwIndex, ppauthority) {
-        result := ComCall(4, this, "uint", dwIndex, "ptr*", ppauthority, "HRESULT")
-        return result
+    GetOutputTrustAuthorityByIndex(dwIndex) {
+        result := ComCall(4, this, "uint", dwIndex, "ptr*", &ppauthority := 0, "HRESULT")
+        return IMFOutputTrustAuthority(ppauthority)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsFinal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedoutput-isfinal
      */
-    IsFinal(pfIsFinal) {
-        result := ComCall(5, this, "ptr", pfIsFinal, "HRESULT")
-        return result
+    IsFinal() {
+        result := ComCall(5, this, "int*", &pfIsFinal := 0, "HRESULT")
+        return pfIsFinal
     }
 }

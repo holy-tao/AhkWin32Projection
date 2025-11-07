@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMediaStream.ahk
 #Include .\IBaseFilter.ahk
 
 /**
@@ -44,25 +45,23 @@ class IMediaStreamFilter extends IBaseFilter{
     /**
      * 
      * @param {Pointer<Guid>} idPurpose 
-     * @param {Pointer<IMediaStream>} ppMediaStream 
-     * @returns {HRESULT} 
+     * @returns {IMediaStream} 
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-imediastreamfilter-getmediastream
      */
-    GetMediaStream(idPurpose, ppMediaStream) {
-        result := ComCall(16, this, "ptr", idPurpose, "ptr*", ppMediaStream, "HRESULT")
-        return result
+    GetMediaStream(idPurpose) {
+        result := ComCall(16, this, "ptr", idPurpose, "ptr*", &ppMediaStream := 0, "HRESULT")
+        return IMediaStream(ppMediaStream)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<IMediaStream>} ppMediaStream 
-     * @returns {HRESULT} 
+     * @returns {IMediaStream} 
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-imediastreamfilter-enummediastreams
      */
-    EnumMediaStreams(Index, ppMediaStream) {
-        result := ComCall(17, this, "int", Index, "ptr*", ppMediaStream, "HRESULT")
-        return result
+    EnumMediaStreams(Index) {
+        result := ComCall(17, this, "int", Index, "ptr*", &ppMediaStream := 0, "HRESULT")
+        return IMediaStream(ppMediaStream)
     }
 
     /**
@@ -91,15 +90,12 @@ class IMediaStreamFilter extends IBaseFilter{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCurrentStreamTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-imediastreamfilter-getcurrentstreamtime
      */
-    GetCurrentStreamTime(pCurrentStreamTime) {
-        pCurrentStreamTimeMarshal := pCurrentStreamTime is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(20, this, pCurrentStreamTimeMarshal, pCurrentStreamTime, "HRESULT")
-        return result
+    GetCurrentStreamTime() {
+        result := ComCall(20, this, "int64*", &pCurrentStreamTime := 0, "HRESULT")
+        return pCurrentStreamTime
     }
 
     /**

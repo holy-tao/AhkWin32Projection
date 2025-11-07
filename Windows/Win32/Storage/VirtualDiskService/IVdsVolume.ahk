@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_VOLUME_PROP.ahk
+#Include .\IVdsPack.ahk
+#Include .\IEnumVdsObject.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,96 +36,89 @@ class IVdsVolume extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_VOLUME_PROP>} pVolumeProperties 
-     * @returns {HRESULT} 
+     * @returns {VDS_VOLUME_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-getproperties
      */
-    GetProperties(pVolumeProperties) {
+    GetProperties() {
+        pVolumeProperties := VDS_VOLUME_PROP()
         result := ComCall(3, this, "ptr", pVolumeProperties, "HRESULT")
-        return result
+        return pVolumeProperties
     }
 
     /**
      * 
-     * @param {Pointer<IVdsPack>} ppPack 
-     * @returns {HRESULT} 
+     * @returns {IVdsPack} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-getpack
      */
-    GetPack(ppPack) {
-        result := ComCall(4, this, "ptr*", ppPack, "HRESULT")
-        return result
+    GetPack() {
+        result := ComCall(4, this, "ptr*", &ppPack := 0, "HRESULT")
+        return IVdsPack(ppPack)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-queryplexes
      */
-    QueryPlexes(ppEnum) {
-        result := ComCall(5, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryPlexes() {
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer<VDS_INPUT_DISK>} pInputDiskArray 
      * @param {Integer} lNumberOfDisks 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-extend
      */
-    Extend(pInputDiskArray, lNumberOfDisks, ppAsync) {
-        result := ComCall(6, this, "ptr", pInputDiskArray, "int", lNumberOfDisks, "ptr*", ppAsync, "HRESULT")
-        return result
+    Extend(pInputDiskArray, lNumberOfDisks) {
+        result := ComCall(6, this, "ptr", pInputDiskArray, "int", lNumberOfDisks, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
      * 
      * @param {Integer} ullNumberOfBytesToRemove 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-shrink
      */
-    Shrink(ullNumberOfBytesToRemove, ppAsync) {
-        result := ComCall(7, this, "uint", ullNumberOfBytesToRemove, "ptr*", ppAsync, "HRESULT")
-        return result
+    Shrink(ullNumberOfBytesToRemove) {
+        result := ComCall(7, this, "uint", ullNumberOfBytesToRemove, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
      * 
      * @param {Guid} VolumeId 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-addplex
      */
-    AddPlex(VolumeId, ppAsync) {
-        result := ComCall(8, this, "ptr", VolumeId, "ptr*", ppAsync, "HRESULT")
-        return result
+    AddPlex(VolumeId) {
+        result := ComCall(8, this, "ptr", VolumeId, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
      * 
      * @param {Guid} plexId 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-breakplex
      */
-    BreakPlex(plexId, ppAsync) {
-        result := ComCall(9, this, "ptr", plexId, "ptr*", ppAsync, "HRESULT")
-        return result
+    BreakPlex(plexId) {
+        result := ComCall(9, this, "ptr", plexId, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
      * 
      * @param {Guid} plexId 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-removeplex
      */
-    RemovePlex(plexId, ppAsync) {
-        result := ComCall(10, this, "ptr", plexId, "ptr*", ppAsync, "HRESULT")
-        return result
+    RemovePlex(plexId) {
+        result := ComCall(10, this, "ptr", plexId, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**

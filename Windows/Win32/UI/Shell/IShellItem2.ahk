@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\IShellItem.ahk
 
 /**
@@ -34,15 +36,12 @@ class IShellItem2 extends IShellItem{
      * 
      * @param {Integer} flags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystore
      */
-    GetPropertyStore(flags, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "int", flags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetPropertyStore(flags, riid) {
+        result := ComCall(8, this, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -50,15 +49,12 @@ class IShellItem2 extends IShellItem{
      * @param {Integer} flags 
      * @param {IUnknown} punkCreateObject 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystorewithcreateobject
      */
-    GetPropertyStoreWithCreateObject(flags, punkCreateObject, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "int", flags, "ptr", punkCreateObject, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetPropertyStoreWithCreateObject(flags, punkCreateObject, riid) {
+        result := ComCall(9, this, "int", flags, "ptr", punkCreateObject, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -67,30 +63,24 @@ class IShellItem2 extends IShellItem{
      * @param {Integer} cKeys 
      * @param {Integer} flags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystoreforkeys
      */
-    GetPropertyStoreForKeys(rgKeys, cKeys, flags, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetPropertyStoreForKeys(rgKeys, cKeys, flags, riid) {
+        result := ComCall(10, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} keyType 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertydescriptionlist
      */
-    GetPropertyDescriptionList(keyType, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "ptr", keyType, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetPropertyDescriptionList(keyType, riid) {
+        result := ComCall(11, this, "ptr", keyType, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -107,105 +97,91 @@ class IShellItem2 extends IShellItem{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPVARIANT>} ppropvar 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getproperty
      */
-    GetProperty(key, ppropvar) {
+    GetProperty(key) {
+        ppropvar := PROPVARIANT()
         result := ComCall(13, this, "ptr", key, "ptr", ppropvar, "HRESULT")
-        return result
+        return ppropvar
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<Guid>} pclsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getclsid
      */
-    GetCLSID(key, pclsid) {
+    GetCLSID(key) {
+        pclsid := Guid()
         result := ComCall(14, this, "ptr", key, "ptr", pclsid, "HRESULT")
-        return result
+        return pclsid
     }
 
     /**
      * Retrieves the date and time that a file or directory was created, last accessed, and last modified.
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<FILETIME>} pft 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {FILETIME} 
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfiletime
      */
-    GetFileTime(key, pft) {
+    GetFileTime(key) {
+        pft := FILETIME()
         result := ComCall(15, this, "ptr", key, "ptr", pft, "HRESULT")
-        return result
+        return pft
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<Integer>} pi 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getint32
      */
-    GetInt32(key, pi) {
-        piMarshal := pi is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, "ptr", key, piMarshal, pi, "HRESULT")
-        return result
+    GetInt32(key) {
+        result := ComCall(16, this, "ptr", key, "int*", &pi := 0, "HRESULT")
+        return pi
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PWSTR>} ppsz 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getstring
      */
-    GetString(key, ppsz) {
-        result := ComCall(17, this, "ptr", key, "ptr", ppsz, "HRESULT")
-        return result
+    GetString(key) {
+        result := ComCall(17, this, "ptr", key, "ptr*", &ppsz := 0, "HRESULT")
+        return ppsz
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<Integer>} pui 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getuint32
      */
-    GetUInt32(key, pui) {
-        puiMarshal := pui is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, "ptr", key, puiMarshal, pui, "HRESULT")
-        return result
+    GetUInt32(key) {
+        result := ComCall(18, this, "ptr", key, "uint*", &pui := 0, "HRESULT")
+        return pui
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<Integer>} pull 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getuint64
      */
-    GetUInt64(key, pull) {
-        pullMarshal := pull is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, "ptr", key, pullMarshal, pull, "HRESULT")
-        return result
+    GetUInt64(key) {
+        result := ComCall(19, this, "ptr", key, "uint*", &pull := 0, "HRESULT")
+        return pull
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<BOOL>} pf 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getbool
      */
-    GetBool(key, pf) {
-        result := ComCall(20, this, "ptr", key, "ptr", pf, "HRESULT")
-        return result
+    GetBool(key) {
+        result := ComCall(20, this, "ptr", key, "int*", &pf := 0, "HRESULT")
+        return pf
     }
 }

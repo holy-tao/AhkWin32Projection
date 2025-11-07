@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\CONFIRM_CONFLICT_ITEM.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,26 +33,23 @@ class ISyncMgrConflictItems extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictitems-getcount
      */
-    GetCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} iIndex 
-     * @param {Pointer<CONFIRM_CONFLICT_ITEM>} pItemInfo 
-     * @returns {HRESULT} 
+     * @returns {CONFIRM_CONFLICT_ITEM} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictitems-getitem
      */
-    GetItem(iIndex, pItemInfo) {
+    GetItem(iIndex) {
+        pItemInfo := CONFIRM_CONFLICT_ITEM()
         result := ComCall(4, this, "uint", iIndex, "ptr", pItemInfo, "HRESULT")
-        return result
+        return pItemInfo
     }
 }

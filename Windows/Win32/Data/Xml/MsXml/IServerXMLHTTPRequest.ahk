@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\IXMLHTTPRequest.ahk
 
 /**
@@ -44,23 +45,22 @@ class IServerXMLHTTPRequest extends IXMLHTTPRequest{
     /**
      * 
      * @param {VARIANT} timeoutInSeconds 
-     * @param {Pointer<VARIANT_BOOL>} isSuccessful 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    waitForResponse(timeoutInSeconds, isSuccessful) {
-        result := ComCall(22, this, "ptr", timeoutInSeconds, "ptr", isSuccessful, "HRESULT")
-        return result
+    waitForResponse(timeoutInSeconds) {
+        result := ComCall(22, this, "ptr", timeoutInSeconds, "short*", &isSuccessful := 0, "HRESULT")
+        return isSuccessful
     }
 
     /**
      * 
      * @param {Integer} option 
-     * @param {Pointer<VARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getOption(option, value) {
+    getOption(option) {
+        value := VARIANT()
         result := ComCall(23, this, "int", option, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpatialAudioMetadataItems.ahk
 #Include .\ISpatialAudioObjectBase.ahk
 
 /**
@@ -38,12 +39,11 @@ class ISpatialAudioObjectForMetadataItems extends ISpatialAudioObjectBase{
 
     /**
      * 
-     * @param {Pointer<ISpatialAudioMetadataItems>} metadataItems 
-     * @returns {HRESULT} 
+     * @returns {ISpatialAudioMetadataItems} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectformetadataitems-getspatialaudiometadataitems
      */
-    GetSpatialAudioMetadataItems(metadataItems) {
-        result := ComCall(7, this, "ptr*", metadataItems, "HRESULT")
-        return result
+    GetSpatialAudioMetadataItems() {
+        result := ComCall(7, this, "ptr*", &metadataItems := 0, "HRESULT")
+        return ISpatialAudioMetadataItems(metadataItems)
     }
 }

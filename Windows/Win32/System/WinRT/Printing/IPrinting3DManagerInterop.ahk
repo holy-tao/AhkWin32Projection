@@ -37,33 +37,27 @@ class IPrinting3DManagerInterop extends IInspectable{
      * 
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} printManager 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/print3dmanagerinterop/nf-print3dmanagerinterop-iprinting3dmanagerinterop-getforwindow
      */
-    GetForWindow(appWindow, riid, printManager) {
+    GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        printManagerMarshal := printManager is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, printManagerMarshal, printManager, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", &printManager := 0, "HRESULT")
+        return printManager
     }
 
     /**
      * 
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/print3dmanagerinterop/nf-print3dmanagerinterop-iprinting3dmanagerinterop-showprintuiforwindowasync
      */
-    ShowPrintUIForWindowAsync(appWindow, riid, asyncOperation) {
+    ShowPrintUIForWindowAsync(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 }

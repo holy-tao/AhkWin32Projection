@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
+#Include .\IMAGEINFO.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,35 +37,29 @@ class IImageList extends IUnknown{
      * 
      * @param {HBITMAP} hbmImage 
      * @param {HBITMAP} hbmMask 
-     * @param {Pointer<Integer>} pi 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-add
      */
-    Add(hbmImage, hbmMask, pi) {
+    Add(hbmImage, hbmMask) {
         hbmImage := hbmImage is Win32Handle ? NumGet(hbmImage, "ptr") : hbmImage
         hbmMask := hbmMask is Win32Handle ? NumGet(hbmMask, "ptr") : hbmMask
 
-        piMarshal := pi is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", hbmImage, "ptr", hbmMask, piMarshal, pi, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hbmImage, "ptr", hbmMask, "int*", &pi := 0, "HRESULT")
+        return pi
     }
 
     /**
      * 
      * @param {Integer} i 
      * @param {HICON} hicon 
-     * @param {Pointer<Integer>} pi 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-replaceicon
      */
-    ReplaceIcon(i, hicon, pi) {
+    ReplaceIcon(i, hicon) {
         hicon := hicon is Win32Handle ? NumGet(hicon, "ptr") : hicon
 
-        piMarshal := pi is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "int", i, "ptr", hicon, piMarshal, pi, "HRESULT")
-        return result
+        result := ComCall(4, this, "int", i, "ptr", hicon, "int*", &pi := 0, "HRESULT")
+        return pi
     }
 
     /**
@@ -97,17 +94,14 @@ class IImageList extends IUnknown{
      * 
      * @param {HBITMAP} hbmImage 
      * @param {COLORREF} crMask 
-     * @param {Pointer<Integer>} pi 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-addmasked
      */
-    AddMasked(hbmImage, crMask, pi) {
+    AddMasked(hbmImage, crMask) {
         hbmImage := hbmImage is Win32Handle ? NumGet(hbmImage, "ptr") : hbmImage
 
-        piMarshal := pi is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "ptr", hbmImage, "uint", crMask, piMarshal, pi, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", hbmImage, "uint", crMask, "int*", &pi := 0, "HRESULT")
+        return pi
     }
 
     /**
@@ -136,25 +130,25 @@ class IImageList extends IUnknown{
      * 
      * @param {Integer} i 
      * @param {Integer} flags 
-     * @param {Pointer<HICON>} picon 
-     * @returns {HRESULT} 
+     * @returns {HICON} 
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-geticon
      */
-    GetIcon(i, flags, picon) {
+    GetIcon(i, flags) {
+        picon := HICON()
         result := ComCall(10, this, "int", i, "uint", flags, "ptr", picon, "HRESULT")
-        return result
+        return picon
     }
 
     /**
      * 
      * @param {Integer} i 
-     * @param {Pointer<IMAGEINFO>} pImageInfo 
-     * @returns {HRESULT} 
+     * @returns {IMAGEINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getimageinfo
      */
-    GetImageInfo(i, pImageInfo) {
+    GetImageInfo(i) {
+        pImageInfo := IMAGEINFO()
         result := ComCall(11, this, "int", i, "ptr", pImageInfo, "HRESULT")
-        return result
+        return pImageInfo
     }
 
     /**
@@ -179,41 +173,35 @@ class IImageList extends IUnknown{
      * @param {Integer} dx 
      * @param {Integer} dy 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-merge
      */
-    Merge(i1, punk2, i2, dx, dy, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(13, this, "int", i1, "ptr", punk2, "int", i2, "int", dx, "int", dy, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    Merge(i1, punk2, i2, dx, dy, riid) {
+        result := ComCall(13, this, "int", i1, "ptr", punk2, "int", i2, "int", dx, "int", dy, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-clone
      */
-    Clone(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(14, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    Clone(riid) {
+        result := ComCall(14, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Integer} i 
-     * @param {Pointer<RECT>} prc 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getimagerect
      */
-    GetImageRect(i, prc) {
+    GetImageRect(i) {
+        prc := RECT()
         result := ComCall(15, this, "int", i, "ptr", prc, "HRESULT")
-        return result
+        return prc
     }
 
     /**
@@ -245,15 +233,12 @@ class IImageList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pi 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getimagecount
      */
-    GetImageCount(pi) {
-        piMarshal := pi is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, piMarshal, pi, "HRESULT")
-        return result
+    GetImageCount() {
+        result := ComCall(18, this, "int*", &pi := 0, "HRESULT")
+        return pi
     }
 
     /**
@@ -270,28 +255,22 @@ class IImageList extends IUnknown{
     /**
      * The SetBkColor function sets the current background color to the specified color value, or to the nearest physical color if the device cannot represent the specified color value.
      * @param {COLORREF} clrBk 
-     * @param {Pointer<COLORREF>} pclr 
-     * @returns {HRESULT} If the function succeeds, the return value specifies the previous background color as a <a href="/windows/desktop/gdi/colorref">COLORREF</a> value.
-     * 
-     * If the function fails, the return value is CLR_INVALID.
+     * @returns {COLORREF} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setbkcolor
      */
-    SetBkColor(clrBk, pclr) {
-        result := ComCall(20, this, "uint", clrBk, "ptr", pclr, "HRESULT")
-        return result
+    SetBkColor(clrBk) {
+        result := ComCall(20, this, "uint", clrBk, "uint*", &pclr := 0, "HRESULT")
+        return pclr
     }
 
     /**
      * The GetBkColor function returns the current background color for the specified device context.
-     * @param {Pointer<COLORREF>} pclr 
-     * @returns {HRESULT} If the function succeeds, the return value is a <a href="/windows/desktop/gdi/colorref">COLORREF</a> value for the current background color.
-     * 
-     * If the function fails, the return value is CLR_INVALID.
+     * @returns {COLORREF} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getbkcolor
      */
-    GetBkColor(pclr) {
-        result := ComCall(21, this, "ptr", pclr, "HRESULT")
-        return result
+    GetBkColor() {
+        result := ComCall(21, this, "uint*", &pclr := 0, "HRESULT")
+        return pclr
     }
 
     /**
@@ -401,28 +380,22 @@ class IImageList extends IUnknown{
     /**
      * 
      * @param {Integer} i 
-     * @param {Pointer<Integer>} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getitemflags
      */
-    GetItemFlags(i, dwFlags) {
-        dwFlagsMarshal := dwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(30, this, "int", i, dwFlagsMarshal, dwFlags, "HRESULT")
-        return result
+    GetItemFlags(i) {
+        result := ComCall(30, this, "int", i, "uint*", &dwFlags := 0, "HRESULT")
+        return dwFlags
     }
 
     /**
      * 
      * @param {Integer} iOverlay 
-     * @param {Pointer<Integer>} piIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getoverlayimage
      */
-    GetOverlayImage(iOverlay, piIndex) {
-        piIndexMarshal := piIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, "int", iOverlay, piIndexMarshal, piIndex, "HRESULT")
-        return result
+    GetOverlayImage(iOverlay) {
+        result := ComCall(31, this, "int", iOverlay, "int*", &piIndex := 0, "HRESULT")
+        return piIndex
     }
 }

@@ -31,34 +31,31 @@ class IFeedEnclosure extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} enclosureUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Url(enclosureUrl) {
+    get_Url() {
+        enclosureUrl := BSTR()
         result := ComCall(7, this, "ptr", enclosureUrl, "HRESULT")
-        return result
+        return enclosureUrl
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} mimeType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Type(mimeType) {
+    get_Type() {
+        mimeType := BSTR()
         result := ComCall(8, this, "ptr", mimeType, "HRESULT")
-        return result
+        return mimeType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} length 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Length(length) {
-        lengthMarshal := length is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, lengthMarshal, length, "HRESULT")
-        return result
+    get_Length() {
+        result := ComCall(9, this, "int*", &length := 0, "HRESULT")
+        return length
     }
 
     /**
@@ -81,66 +78,59 @@ class IFeedEnclosure extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DownloadStatus(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, statusMarshal, status, "HRESULT")
-        return result
+    get_DownloadStatus() {
+        result := ComCall(12, this, "int*", &status := 0, "HRESULT")
+        return status
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} error 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LastDownloadError(error) {
-        errorMarshal := error is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, errorMarshal, error, "HRESULT")
-        return result
+    get_LastDownloadError() {
+        result := ComCall(13, this, "int*", &error := 0, "HRESULT")
+        return error
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} localPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LocalPath(localPath) {
+    get_LocalPath() {
+        localPath := BSTR()
         result := ComCall(14, this, "ptr", localPath, "HRESULT")
-        return result
+        return localPath
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Parent(disp) {
-        result := ComCall(15, this, "ptr*", disp, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(15, this, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} enclosureUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DownloadUrl(enclosureUrl) {
+    get_DownloadUrl() {
+        enclosureUrl := BSTR()
         result := ComCall(16, this, "ptr", enclosureUrl, "HRESULT")
-        return result
+        return enclosureUrl
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} mimeType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DownloadMimeType(mimeType) {
+    get_DownloadMimeType() {
+        mimeType := BSTR()
         result := ComCall(17, this, "ptr", mimeType, "HRESULT")
-        return result
+        return mimeType
     }
 
     /**

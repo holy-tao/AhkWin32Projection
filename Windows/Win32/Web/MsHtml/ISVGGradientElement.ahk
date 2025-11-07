@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedEnumeration.ahk
+#Include .\ISVGAnimatedTransformList.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,12 +48,11 @@ class ISVGGradientElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedEnumeration>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedEnumeration} 
      */
-    get_gradientUnits(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_gradientUnits() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedEnumeration(p)
     }
 
     /**
@@ -66,12 +67,11 @@ class ISVGGradientElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedTransformList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedTransformList} 
      */
-    get_gradientTransform(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_gradientTransform() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedTransformList(p)
     }
 
     /**
@@ -86,11 +86,10 @@ class ISVGGradientElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedEnumeration>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedEnumeration} 
      */
-    get_spreadMethod(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_spreadMethod() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedEnumeration(p)
     }
 }

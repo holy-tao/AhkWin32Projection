@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\Extensions.ahk
+#Include .\Properties.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,62 +39,60 @@ class SnapIn extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(7, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Vendor 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Vendor(Vendor) {
+    get_Vendor() {
+        Vendor := BSTR()
         result := ComCall(8, this, "ptr", Vendor, "HRESULT")
-        return result
+        return Vendor
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Version 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Version(Version) {
+    get_Version() {
+        Version := BSTR()
         result := ComCall(9, this, "ptr", Version, "HRESULT")
-        return result
+        return Version
     }
 
     /**
      * 
-     * @param {Pointer<Extensions>} Extensions 
-     * @returns {HRESULT} 
+     * @returns {Extensions} 
      */
-    get_Extensions(Extensions) {
-        result := ComCall(10, this, "ptr*", Extensions, "HRESULT")
-        return result
+    get_Extensions() {
+        result := ComCall(10, this, "ptr*", &Extensions := 0, "HRESULT")
+        return Extensions(Extensions)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} SnapinCLSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SnapinCLSID(SnapinCLSID) {
+    get_SnapinCLSID() {
+        SnapinCLSID := BSTR()
         result := ComCall(11, this, "ptr", SnapinCLSID, "HRESULT")
-        return result
+        return SnapinCLSID
     }
 
     /**
      * 
-     * @param {Pointer<Properties>} Properties 
-     * @returns {HRESULT} 
+     * @returns {Properties} 
      */
-    get_Properties(Properties) {
-        result := ComCall(12, this, "ptr*", Properties, "HRESULT")
-        return result
+    get_Properties() {
+        result := ComCall(12, this, "ptr*", &Properties := 0, "HRESULT")
+        return Properties(Properties)
     }
 
     /**

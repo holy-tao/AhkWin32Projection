@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IEnumWiaItem.ahk
+#Include .\IWiaItem.ahk
+#Include .\IEnumWIA_DEV_CAPS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -134,15 +137,12 @@ class IWiaItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pItemType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-getitemtype
      */
-    GetItemType(pItemType) {
-        pItemTypeMarshal := pItemType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pItemTypeMarshal, pItemType, "HRESULT")
-        return result
+    GetItemType() {
+        result := ComCall(3, this, "int*", &pItemType := 0, "HRESULT")
+        return pItemType
     }
 
     /**
@@ -158,13 +158,12 @@ class IWiaItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumWiaItem>} ppIEnumWiaItem 
-     * @returns {HRESULT} 
+     * @returns {IEnumWiaItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-enumchilditems
      */
-    EnumChildItems(ppIEnumWiaItem) {
-        result := ComCall(5, this, "ptr*", ppIEnumWiaItem, "HRESULT")
-        return result
+    EnumChildItems() {
+        result := ComCall(5, this, "ptr*", &ppIEnumWiaItem := 0, "HRESULT")
+        return IEnumWiaItem(ppIEnumWiaItem)
     }
 
     /**
@@ -183,44 +182,41 @@ class IWiaItem extends IUnknown{
      * @param {Integer} lFlags 
      * @param {BSTR} bstrItemName 
      * @param {BSTR} bstrFullItemName 
-     * @param {Pointer<IWiaItem>} ppIWiaItem 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-createchilditem
      */
-    CreateChildItem(lFlags, bstrItemName, bstrFullItemName, ppIWiaItem) {
+    CreateChildItem(lFlags, bstrItemName, bstrFullItemName) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
         bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
 
-        result := ComCall(7, this, "int", lFlags, "ptr", bstrItemName, "ptr", bstrFullItemName, "ptr*", ppIWiaItem, "HRESULT")
-        return result
+        result := ComCall(7, this, "int", lFlags, "ptr", bstrItemName, "ptr", bstrFullItemName, "ptr*", &ppIWiaItem := 0, "HRESULT")
+        return IWiaItem(ppIWiaItem)
     }
 
     /**
      * 
      * @param {Integer} lFlags 
      * @param {Pointer<Guid>} pEventGUID 
-     * @param {Pointer<IEnumWIA_DEV_CAPS>} ppIEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWIA_DEV_CAPS} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-enumregistereventinfo
      */
-    EnumRegisterEventInfo(lFlags, pEventGUID, ppIEnum) {
-        result := ComCall(8, this, "int", lFlags, "ptr", pEventGUID, "ptr*", ppIEnum, "HRESULT")
-        return result
+    EnumRegisterEventInfo(lFlags, pEventGUID) {
+        result := ComCall(8, this, "int", lFlags, "ptr", pEventGUID, "ptr*", &ppIEnum := 0, "HRESULT")
+        return IEnumWIA_DEV_CAPS(ppIEnum)
     }
 
     /**
      * 
      * @param {Integer} lFlags 
      * @param {BSTR} bstrFullItemName 
-     * @param {Pointer<IWiaItem>} ppIWiaItem 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-finditembyname
      */
-    FindItemByName(lFlags, bstrFullItemName, ppIWiaItem) {
+    FindItemByName(lFlags, bstrFullItemName) {
         bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
 
-        result := ComCall(9, this, "int", lFlags, "ptr", bstrFullItemName, "ptr*", ppIWiaItem, "HRESULT")
-        return result
+        result := ComCall(9, this, "int", lFlags, "ptr", bstrFullItemName, "ptr*", &ppIWiaItem := 0, "HRESULT")
+        return IWiaItem(ppIWiaItem)
     }
 
     /**
@@ -258,58 +254,56 @@ class IWiaItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWiaItem>} ppIWiaItem 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-getrootitem
      */
-    GetRootItem(ppIWiaItem) {
-        result := ComCall(12, this, "ptr*", ppIWiaItem, "HRESULT")
-        return result
+    GetRootItem() {
+        result := ComCall(12, this, "ptr*", &ppIWiaItem := 0, "HRESULT")
+        return IWiaItem(ppIWiaItem)
     }
 
     /**
      * 
      * @param {Integer} lFlags 
-     * @param {Pointer<IEnumWIA_DEV_CAPS>} ppIEnumWIA_DEV_CAPS 
-     * @returns {HRESULT} 
+     * @returns {IEnumWIA_DEV_CAPS} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-enumdevicecapabilities
      */
-    EnumDeviceCapabilities(lFlags, ppIEnumWIA_DEV_CAPS) {
-        result := ComCall(13, this, "int", lFlags, "ptr*", ppIEnumWIA_DEV_CAPS, "HRESULT")
-        return result
+    EnumDeviceCapabilities(lFlags) {
+        result := ComCall(13, this, "int", lFlags, "ptr*", &ppIEnumWIA_DEV_CAPS := 0, "HRESULT")
+        return IEnumWIA_DEV_CAPS(ppIEnumWIA_DEV_CAPS)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-dumpitemdata
      */
-    DumpItemData(bstrData) {
+    DumpItemData() {
+        bstrData := BSTR()
         result := ComCall(14, this, "ptr", bstrData, "HRESULT")
-        return result
+        return bstrData
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-dumpdrvitemdata
      */
-    DumpDrvItemData(bstrData) {
+    DumpDrvItemData() {
+        bstrData := BSTR()
         result := ComCall(15, this, "ptr", bstrData, "HRESULT")
-        return result
+        return bstrData
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-dumptreeitemdata
      */
-    DumpTreeItemData(bstrData) {
+    DumpTreeItemData() {
+        bstrData := BSTR()
         result := ComCall(16, this, "ptr", bstrData, "HRESULT")
-        return result
+        return bstrData
     }
 
     /**

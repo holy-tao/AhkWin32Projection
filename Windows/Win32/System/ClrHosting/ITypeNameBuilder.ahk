@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -127,12 +128,12 @@ class ITypeNameBuilder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pszStringRepresentation 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    ToString(pszStringRepresentation) {
+    ToString() {
+        pszStringRepresentation := BSTR()
         result := ComCall(13, this, "ptr", pszStringRepresentation, "HRESULT")
-        return result
+        return pszStringRepresentation
     }
 
     /**

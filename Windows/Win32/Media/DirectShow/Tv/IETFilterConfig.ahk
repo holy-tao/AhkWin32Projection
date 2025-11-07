@@ -48,12 +48,11 @@ class IETFilterConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnkDRMSecureChannel 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilterconfig-getsecurechannelobject
      */
-    GetSecureChannelObject(ppUnkDRMSecureChannel) {
-        result := ComCall(4, this, "ptr*", ppUnkDRMSecureChannel, "HRESULT")
-        return result
+    GetSecureChannelObject() {
+        result := ComCall(4, this, "ptr*", &ppUnkDRMSecureChannel := 0, "HRESULT")
+        return IUnknown(ppUnkDRMSecureChannel)
     }
 }

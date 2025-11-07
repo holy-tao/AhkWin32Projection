@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IInkCursor.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -45,36 +47,31 @@ class IInkCursors extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursors-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} _NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(_NewEnum) {
-        result := ComCall(8, this, "ptr*", _NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "HRESULT")
+        return IUnknown(_NewEnum)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<IInkCursor>} Cursor 
-     * @returns {HRESULT} 
+     * @returns {IInkCursor} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursors-item
      */
-    Item(Index, Cursor) {
-        result := ComCall(9, this, "int", Index, "ptr*", Cursor, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(9, this, "int", Index, "ptr*", &Cursor := 0, "HRESULT")
+        return IInkCursor(Cursor)
     }
 }

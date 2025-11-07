@@ -41,78 +41,69 @@ class IADsPrintJob extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_HostPrintQueue(retval) {
+    get_HostPrintQueue() {
+        retval := BSTR()
         result := ComCall(20, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_User(retval) {
+    get_User() {
+        retval := BSTR()
         result := ComCall(21, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_UserPath(retval) {
+    get_UserPath() {
+        retval := BSTR()
         result := ComCall(22, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_TimeSubmitted(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(23, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_TimeSubmitted() {
+        result := ComCall(23, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TotalPages(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_TotalPages() {
+        result := ComCall(24, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Size(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Size() {
+        result := ComCall(25, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(retval) {
+    get_Description() {
+        retval := BSTR()
         result := ComCall(26, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -129,14 +120,11 @@ class IADsPrintJob extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Priority(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Priority() {
+        result := ComCall(28, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -151,14 +139,11 @@ class IADsPrintJob extends IADs{
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_StartTime(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(30, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_StartTime() {
+        result := ComCall(30, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -173,14 +158,11 @@ class IADsPrintJob extends IADs{
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_UntilTime(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(32, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_UntilTime() {
+        result := ComCall(32, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -195,12 +177,12 @@ class IADsPrintJob extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Notify(retval) {
+    get_Notify() {
+        retval := BSTR()
         result := ComCall(34, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -217,12 +199,12 @@ class IADsPrintJob extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_NotifyPath(retval) {
+    get_NotifyPath() {
+        retval := BSTR()
         result := ComCall(36, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**

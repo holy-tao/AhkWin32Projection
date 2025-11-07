@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfComposition.ahk
+#Include .\IEnumITfCompositionView.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,37 +37,34 @@ class ITfContextComposition extends IUnknown{
      * @param {Integer} ecWrite 
      * @param {ITfRange} pCompositionRange 
      * @param {ITfCompositionSink} pSink 
-     * @param {Pointer<ITfComposition>} ppComposition 
-     * @returns {HRESULT} 
+     * @returns {ITfComposition} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextcomposition-startcomposition
      */
-    StartComposition(ecWrite, pCompositionRange, pSink, ppComposition) {
-        result := ComCall(3, this, "uint", ecWrite, "ptr", pCompositionRange, "ptr", pSink, "ptr*", ppComposition, "HRESULT")
-        return result
+    StartComposition(ecWrite, pCompositionRange, pSink) {
+        result := ComCall(3, this, "uint", ecWrite, "ptr", pCompositionRange, "ptr", pSink, "ptr*", &ppComposition := 0, "HRESULT")
+        return ITfComposition(ppComposition)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumITfCompositionView>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumITfCompositionView} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextcomposition-enumcompositions
      */
-    EnumCompositions(ppEnum) {
-        result := ComCall(4, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumCompositions() {
+        result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumITfCompositionView(ppEnum)
     }
 
     /**
      * 
      * @param {Integer} ecRead 
      * @param {ITfRange} pTestRange 
-     * @param {Pointer<IEnumITfCompositionView>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumITfCompositionView} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextcomposition-findcomposition
      */
-    FindComposition(ecRead, pTestRange, ppEnum) {
-        result := ComCall(5, this, "uint", ecRead, "ptr", pTestRange, "ptr*", ppEnum, "HRESULT")
-        return result
+    FindComposition(ecRead, pTestRange) {
+        result := ComCall(5, this, "uint", ecRead, "ptr", pTestRange, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumITfCompositionView(ppEnum)
     }
 
     /**
@@ -73,12 +72,11 @@ class ITfContextComposition extends IUnknown{
      * @param {Integer} ecWrite 
      * @param {ITfCompositionView} pComposition 
      * @param {ITfCompositionSink} pSink 
-     * @param {Pointer<ITfComposition>} ppComposition 
-     * @returns {HRESULT} 
+     * @returns {ITfComposition} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextcomposition-takeownership
      */
-    TakeOwnership(ecWrite, pComposition, pSink, ppComposition) {
-        result := ComCall(6, this, "uint", ecWrite, "ptr", pComposition, "ptr", pSink, "ptr*", ppComposition, "HRESULT")
-        return result
+    TakeOwnership(ecWrite, pComposition, pSink) {
+        result := ComCall(6, this, "uint", ecWrite, "ptr", pComposition, "ptr", pSink, "ptr*", &ppComposition := 0, "HRESULT")
+        return ITfComposition(ppComposition)
     }
 }

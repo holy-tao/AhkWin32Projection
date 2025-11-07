@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,36 +35,32 @@ class IAzRoleAssignments extends IDispatch{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<VARIANT>} pvarObtPtr 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroleassignments-get_item
      */
-    get_Item(Index, pvarObtPtr) {
+    get_Item(Index) {
+        pvarObtPtr := VARIANT()
         result := ComCall(7, this, "int", Index, "ptr", pvarObtPtr, "HRESULT")
-        return result
+        return pvarObtPtr
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroleassignments-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnumPtr 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroleassignments-get__newenum
      */
-    get__NewEnum(ppEnumPtr) {
-        result := ComCall(9, this, "ptr*", ppEnumPtr, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppEnumPtr := 0, "HRESULT")
+        return IUnknown(ppEnumPtr)
     }
 }

@@ -32,53 +32,41 @@ class IDiscFormat2TrackAtOnceEventArgs extends IWriteEngine2EventArgs{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_currenttracknumber
      */
-    get_CurrentTrackNumber(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, valueMarshal, value, "HRESULT")
-        return result
+    get_CurrentTrackNumber() {
+        result := ComCall(14, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_currentaction
      */
-    get_CurrentAction(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, valueMarshal, value, "HRESULT")
-        return result
+    get_CurrentAction() {
+        result := ComCall(15, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_elapsedtime
      */
-    get_ElapsedTime(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, valueMarshal, value, "HRESULT")
-        return result
+    get_ElapsedTime() {
+        result := ComCall(16, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonceeventargs-get_remainingtime
      */
-    get_RemainingTime(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, valueMarshal, value, "HRESULT")
-        return result
+    get_RemainingTime() {
+        result := ComCall(17, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 }

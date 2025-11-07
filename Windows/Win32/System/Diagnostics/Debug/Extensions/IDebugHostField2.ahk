@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostType3.ahk
 #Include .\IDebugHostField.ahk
 
 /**
@@ -30,11 +31,10 @@ class IDebugHostField2 extends IDebugHostField{
 
     /**
      * 
-     * @param {Pointer<IDebugHostType3>} containingParentType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType3} 
      */
-    GetContainingType(containingParentType) {
-        result := ComCall(14, this, "ptr*", containingParentType, "HRESULT")
-        return result
+    GetContainingType() {
+        result := ComCall(14, this, "ptr*", &containingParentType := 0, "HRESULT")
+        return IDebugHostType3(containingParentType)
     }
 }

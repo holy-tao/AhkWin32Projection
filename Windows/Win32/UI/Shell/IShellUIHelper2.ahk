@@ -75,32 +75,30 @@ class IShellUIHelper2 extends IShellUIHelper{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    SqmEnabled(pfEnabled) {
-        result := ComCall(24, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    SqmEnabled() {
+        result := ComCall(24, this, "short*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    PhishingEnabled(pfEnabled) {
-        result := ComCall(25, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    PhishingEnabled() {
+        result := ComCall(25, this, "short*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUri 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    BrandImageUri(pbstrUri) {
+    BrandImageUri() {
+        pbstrUri := BSTR()
         result := ComCall(26, this, "ptr", pbstrUri, "HRESULT")
-        return result
+        return pbstrUri
     }
 
     /**
@@ -134,36 +132,32 @@ class IShellUIHelper2 extends IShellUIHelper{
     /**
      * 
      * @param {BSTR} URL 
-     * @param {Pointer<Integer>} pdwResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    IsSearchProviderInstalled(URL, pdwResult) {
+    IsSearchProviderInstalled(URL) {
         URL := URL is String ? BSTR.Alloc(URL).Value : URL
 
-        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(30, this, "ptr", URL, pdwResultMarshal, pdwResult, "HRESULT")
-        return result
+        result := ComCall(30, this, "ptr", URL, "uint*", &pdwResult := 0, "HRESULT")
+        return pdwResult
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfMigrated 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    IsSearchMigrated(pfMigrated) {
-        result := ComCall(31, this, "ptr", pfMigrated, "HRESULT")
-        return result
+    IsSearchMigrated() {
+        result := ComCall(31, this, "short*", &pfMigrated := 0, "HRESULT")
+        return pfMigrated
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    DefaultSearchProvider(pbstrName) {
+    DefaultSearchProvider() {
+        pbstrName := BSTR()
         result := ComCall(32, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -178,21 +172,20 @@ class IShellUIHelper2 extends IShellUIHelper{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfShown 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    RunOnceHasShown(pfShown) {
-        result := ComCall(34, this, "ptr", pfShown, "HRESULT")
-        return result
+    RunOnceHasShown() {
+        result := ComCall(34, this, "short*", &pfShown := 0, "HRESULT")
+        return pfShown
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    SearchGuideUrl(pbstrUrl) {
+    SearchGuideUrl() {
+        pbstrUrl := BSTR()
         result := ComCall(35, this, "ptr", pbstrUrl, "HRESULT")
-        return result
+        return pbstrUrl
     }
 }

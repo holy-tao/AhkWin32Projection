@@ -44,12 +44,11 @@ class IUniformResourceLocatorW extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszURL 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetURL(ppszURL) {
-        result := ComCall(4, this, "ptr", ppszURL, "HRESULT")
-        return result
+    GetURL() {
+        result := ComCall(4, this, "ptr*", &ppszURL := 0, "HRESULT")
+        return ppszURL
     }
 
     /**

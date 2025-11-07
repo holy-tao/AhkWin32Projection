@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITTAPI.ahk
+#Include .\ITAddress.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,49 +34,41 @@ class ITTAPIObjectEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITTAPI>} ppTAPIObject 
-     * @returns {HRESULT} 
+     * @returns {ITTAPI} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapiobjectevent-get_tapiobject
      */
-    get_TAPIObject(ppTAPIObject) {
-        result := ComCall(7, this, "ptr*", ppTAPIObject, "HRESULT")
-        return result
+    get_TAPIObject() {
+        result := ComCall(7, this, "ptr*", &ppTAPIObject := 0, "HRESULT")
+        return ITTAPI(ppTAPIObject)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pEvent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapiobjectevent-get_event
      */
-    get_Event(pEvent) {
-        pEventMarshal := pEvent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pEventMarshal, pEvent, "HRESULT")
-        return result
+    get_Event() {
+        result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")
+        return pEvent
     }
 
     /**
      * 
-     * @param {Pointer<ITAddress>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {ITAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapiobjectevent-get_address
      */
-    get_Address(ppAddress) {
-        result := ComCall(9, this, "ptr*", ppAddress, "HRESULT")
-        return result
+    get_Address() {
+        result := ComCall(9, this, "ptr*", &ppAddress := 0, "HRESULT")
+        return ITAddress(ppAddress)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCallbackInstance 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapiobjectevent-get_callbackinstance
      */
-    get_CallbackInstance(plCallbackInstance) {
-        plCallbackInstanceMarshal := plCallbackInstance is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plCallbackInstanceMarshal, plCallbackInstance, "HRESULT")
-        return result
+    get_CallbackInstance() {
+        result := ComCall(10, this, "int*", &plCallbackInstance := 0, "HRESULT")
+        return plCallbackInstance
     }
 }

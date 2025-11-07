@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IShellDispatch.ahk
 
 /**
@@ -35,18 +36,15 @@ class IShellDispatch2 extends IShellDispatch{
      * 
      * @param {BSTR} Group 
      * @param {BSTR} Restriction 
-     * @param {Pointer<Integer>} plRestrictValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch2-isrestricted
      */
-    IsRestricted(Group, Restriction, plRestrictValue) {
+    IsRestricted(Group, Restriction) {
         Group := Group is String ? BSTR.Alloc(Group).Value : Group
         Restriction := Restriction is String ? BSTR.Alloc(Restriction).Value : Restriction
 
-        plRestrictValueMarshal := plRestrictValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, "ptr", Group, "ptr", Restriction, plRestrictValueMarshal, plRestrictValue, "HRESULT")
-        return result
+        result := ComCall(30, this, "ptr", Group, "ptr", Restriction, "int*", &plRestrictValue := 0, "HRESULT")
+        return plRestrictValue
     }
 
     /**
@@ -86,87 +84,87 @@ class IShellDispatch2 extends IShellDispatch{
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<VARIANT>} pv 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch2-getsysteminformation
      */
-    GetSystemInformation(name, pv) {
+    GetSystemInformation(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
+        pv := VARIANT()
         result := ComCall(33, this, "ptr", name, "ptr", pv, "HRESULT")
-        return result
+        return pv
     }
 
     /**
      * 
      * @param {BSTR} ServiceName 
      * @param {VARIANT} Persistent 
-     * @param {Pointer<VARIANT>} pSuccess 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch2-servicestart
      */
-    ServiceStart(ServiceName, Persistent, pSuccess) {
+    ServiceStart(ServiceName, Persistent) {
         ServiceName := ServiceName is String ? BSTR.Alloc(ServiceName).Value : ServiceName
 
+        pSuccess := VARIANT()
         result := ComCall(34, this, "ptr", ServiceName, "ptr", Persistent, "ptr", pSuccess, "HRESULT")
-        return result
+        return pSuccess
     }
 
     /**
      * 
      * @param {BSTR} ServiceName 
      * @param {VARIANT} Persistent 
-     * @param {Pointer<VARIANT>} pSuccess 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch2-servicestop
      */
-    ServiceStop(ServiceName, Persistent, pSuccess) {
+    ServiceStop(ServiceName, Persistent) {
         ServiceName := ServiceName is String ? BSTR.Alloc(ServiceName).Value : ServiceName
 
+        pSuccess := VARIANT()
         result := ComCall(35, this, "ptr", ServiceName, "ptr", Persistent, "ptr", pSuccess, "HRESULT")
-        return result
+        return pSuccess
     }
 
     /**
      * 
      * @param {BSTR} ServiceName 
-     * @param {Pointer<VARIANT>} pRunning 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch2-isservicerunning
      */
-    IsServiceRunning(ServiceName, pRunning) {
+    IsServiceRunning(ServiceName) {
         ServiceName := ServiceName is String ? BSTR.Alloc(ServiceName).Value : ServiceName
 
+        pRunning := VARIANT()
         result := ComCall(36, this, "ptr", ServiceName, "ptr", pRunning, "HRESULT")
-        return result
+        return pRunning
     }
 
     /**
      * 
      * @param {BSTR} ServiceName 
-     * @param {Pointer<VARIANT>} pCanStartStop 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch2-canstartstopservice
      */
-    CanStartStopService(ServiceName, pCanStartStop) {
+    CanStartStopService(ServiceName) {
         ServiceName := ServiceName is String ? BSTR.Alloc(ServiceName).Value : ServiceName
 
+        pCanStartStop := VARIANT()
         result := ComCall(37, this, "ptr", ServiceName, "ptr", pCanStartStop, "HRESULT")
-        return result
+        return pCanStartStop
     }
 
     /**
      * 
      * @param {BSTR} bstrClsid 
      * @param {VARIANT} bShow 
-     * @param {Pointer<VARIANT>} pSuccess 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch2-showbrowserbar
      */
-    ShowBrowserBar(bstrClsid, bShow, pSuccess) {
+    ShowBrowserBar(bstrClsid, bShow) {
         bstrClsid := bstrClsid is String ? BSTR.Alloc(bstrClsid).Value : bstrClsid
 
+        pSuccess := VARIANT()
         result := ComCall(38, this, "ptr", bstrClsid, "ptr", bShow, "ptr", pSuccess, "HRESULT")
-        return result
+        return pSuccess
     }
 }

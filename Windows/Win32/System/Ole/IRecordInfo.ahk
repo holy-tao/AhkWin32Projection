@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\ITypeInfo.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,15 +35,12 @@ class IRecordInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Void>} pvNew 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordinit
      */
-    RecordInit(pvNew) {
-        pvNewMarshal := pvNew is VarRef ? "ptr" : "ptr"
-
-        result := ComCall(3, this, pvNewMarshal, pvNew, "HRESULT")
-        return result
+    RecordInit() {
+        result := ComCall(3, this, "ptr", &pvNew := 0, "HRESULT")
+        return pvNew
     }
 
     /**
@@ -59,79 +59,73 @@ class IRecordInfo extends IUnknown{
     /**
      * 
      * @param {Pointer<Void>} pvExisting 
-     * @param {Pointer<Void>} pvNew 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordcopy
      */
-    RecordCopy(pvExisting, pvNew) {
+    RecordCopy(pvExisting) {
         pvExistingMarshal := pvExisting is VarRef ? "ptr" : "ptr"
-        pvNewMarshal := pvNew is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pvExistingMarshal, pvExisting, pvNewMarshal, pvNew, "HRESULT")
-        return result
+        result := ComCall(5, this, pvExistingMarshal, pvExisting, "ptr", &pvNew := 0, "HRESULT")
+        return pvNew
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getguid
      */
-    GetGuid(pguid) {
+    GetGuid() {
+        pguid := Guid()
         result := ComCall(6, this, "ptr", pguid, "HRESULT")
-        return result
+        return pguid
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getname
      */
-    GetName(pbstrName) {
+    GetName() {
+        pbstrName := BSTR()
         result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getsize
      */
-    GetSize(pcbSize) {
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pcbSizeMarshal, pcbSize, "HRESULT")
-        return result
+    GetSize() {
+        result := ComCall(8, this, "uint*", &pcbSize := 0, "HRESULT")
+        return pcbSize
     }
 
     /**
      * 
-     * @param {Pointer<ITypeInfo>} ppTypeInfo 
-     * @returns {HRESULT} 
+     * @returns {ITypeInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-gettypeinfo
      */
-    GetTypeInfo(ppTypeInfo) {
-        result := ComCall(9, this, "ptr*", ppTypeInfo, "HRESULT")
-        return result
+    GetTypeInfo() {
+        result := ComCall(9, this, "ptr*", &ppTypeInfo := 0, "HRESULT")
+        return ITypeInfo(ppTypeInfo)
     }
 
     /**
      * 
      * @param {Pointer<Void>} pvData 
      * @param {PWSTR} szFieldName 
-     * @param {Pointer<VARIANT>} pvarField 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getfield
      */
-    GetField(pvData, szFieldName, pvarField) {
+    GetField(pvData, szFieldName) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
 
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
+        pvarField := VARIANT()
         result := ComCall(10, this, pvDataMarshal, pvData, "ptr", szFieldName, "ptr", pvarField, "HRESULT")
-        return result
+        return pvarField
     }
 
     /**
@@ -192,15 +186,15 @@ class IRecordInfo extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pcNames 
-     * @param {Pointer<BSTR>} rgBstrNames 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getfieldnames
      */
-    GetFieldNames(pcNames, rgBstrNames) {
+    GetFieldNames(pcNames) {
         pcNamesMarshal := pcNames is VarRef ? "uint*" : "ptr"
 
+        rgBstrNames := BSTR()
         result := ComCall(14, this, pcNamesMarshal, pcNames, "ptr", rgBstrNames, "HRESULT")
-        return result
+        return rgBstrNames
     }
 
     /**
@@ -227,16 +221,14 @@ class IRecordInfo extends IUnknown{
     /**
      * 
      * @param {Pointer<Void>} pvSource 
-     * @param {Pointer<Pointer<Void>>} ppvDest 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordcreatecopy
      */
-    RecordCreateCopy(pvSource, ppvDest) {
+    RecordCreateCopy(pvSource) {
         pvSourceMarshal := pvSource is VarRef ? "ptr" : "ptr"
-        ppvDestMarshal := ppvDest is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, pvSourceMarshal, pvSource, ppvDestMarshal, ppvDest, "HRESULT")
-        return result
+        result := ComCall(17, this, pvSourceMarshal, pvSource, "ptr*", &ppvDest := 0, "HRESULT")
+        return ppvDest
     }
 
     /**

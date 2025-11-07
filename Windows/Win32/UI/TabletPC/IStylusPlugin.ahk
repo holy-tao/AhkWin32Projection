@@ -282,14 +282,11 @@ class IStylusPlugin extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDataInterest 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-datainterest
      */
-    DataInterest(pDataInterest) {
-        pDataInterestMarshal := pDataInterest is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, pDataInterestMarshal, pDataInterest, "HRESULT")
-        return result
+    DataInterest() {
+        result := ComCall(19, this, "int*", &pDataInterest := 0, "HRESULT")
+        return pDataInterest
     }
 }

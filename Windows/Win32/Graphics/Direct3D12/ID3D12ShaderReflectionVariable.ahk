@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_SHADER_VARIABLE_DESC.ahk
 
 /**
  * This shader-reflection interface provides access to a variable.
@@ -36,13 +37,13 @@ class ID3D12ShaderReflectionVariable extends Win32ComInterface{
 
     /**
      * 
-     * @param {Pointer<D3D12_SHADER_VARIABLE_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D12_SHADER_VARIABLE_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectionvariable-getdesc
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := D3D12_SHADER_VARIABLE_DESC()
         result := ComCall(0, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**

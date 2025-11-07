@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D10_SHADER_DESC.ahk
+#Include .\D3D10_SHADER_INPUT_BIND_DESC.ahk
+#Include .\D3D10_SIGNATURE_PARAMETER_DESC.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,12 +40,12 @@ class ID3D10ShaderReflection1 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<D3D10_SHADER_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SHADER_DESC} 
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := D3D10_SHADER_DESC()
         result := ComCall(3, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
@@ -70,34 +73,34 @@ class ID3D10ShaderReflection1 extends IUnknown{
     /**
      * 
      * @param {Integer} ResourceIndex 
-     * @param {Pointer<D3D10_SHADER_INPUT_BIND_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SHADER_INPUT_BIND_DESC} 
      */
-    GetResourceBindingDesc(ResourceIndex, pDesc) {
+    GetResourceBindingDesc(ResourceIndex) {
+        pDesc := D3D10_SHADER_INPUT_BIND_DESC()
         result := ComCall(6, this, "uint", ResourceIndex, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
      * @param {Integer} ParameterIndex 
-     * @param {Pointer<D3D10_SIGNATURE_PARAMETER_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SIGNATURE_PARAMETER_DESC} 
      */
-    GetInputParameterDesc(ParameterIndex, pDesc) {
+    GetInputParameterDesc(ParameterIndex) {
+        pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
         result := ComCall(7, this, "uint", ParameterIndex, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
      * @param {Integer} ParameterIndex 
-     * @param {Pointer<D3D10_SIGNATURE_PARAMETER_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SIGNATURE_PARAMETER_DESC} 
      */
-    GetOutputParameterDesc(ParameterIndex, pDesc) {
+    GetOutputParameterDesc(ParameterIndex) {
+        pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
         result := ComCall(8, this, "uint", ParameterIndex, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
@@ -116,101 +119,84 @@ class ID3D10ShaderReflection1 extends IUnknown{
     /**
      * 
      * @param {PSTR} Name 
-     * @param {Pointer<D3D10_SHADER_INPUT_BIND_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SHADER_INPUT_BIND_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getresourcebindingdescbyname
      */
-    GetResourceBindingDescByName(Name, pDesc) {
+    GetResourceBindingDescByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
+        pDesc := D3D10_SHADER_INPUT_BIND_DESC()
         result := ComCall(10, this, "ptr", Name, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getmovinstructioncount
      */
-    GetMovInstructionCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetMovInstructionCount() {
+        result := ComCall(11, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getmovcinstructioncount
      */
-    GetMovcInstructionCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetMovcInstructionCount() {
+        result := ComCall(12, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getconversioninstructioncount
      */
-    GetConversionInstructionCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetConversionInstructionCount() {
+        result := ComCall(13, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getbitwiseinstructioncount
      */
-    GetBitwiseInstructionCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetBitwiseInstructionCount() {
+        result := ComCall(14, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pPrim 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getgsinputprimitive
      */
-    GetGSInputPrimitive(pPrim) {
-        pPrimMarshal := pPrim is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pPrimMarshal, pPrim, "HRESULT")
-        return result
+    GetGSInputPrimitive() {
+        result := ComCall(15, this, "int*", &pPrim := 0, "HRESULT")
+        return pPrim
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbLevel9Shader 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-islevel9shader
      */
-    IsLevel9Shader(pbLevel9Shader) {
-        result := ComCall(16, this, "ptr", pbLevel9Shader, "HRESULT")
-        return result
+    IsLevel9Shader() {
+        result := ComCall(16, this, "int*", &pbLevel9Shader := 0, "HRESULT")
+        return pbLevel9Shader
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbSampleFrequency 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-issamplefrequencyshader
      */
-    IsSampleFrequencyShader(pbSampleFrequency) {
-        result := ComCall(17, this, "ptr", pbSampleFrequency, "HRESULT")
-        return result
+    IsSampleFrequencyShader() {
+        result := ComCall(17, this, "int*", &pbSampleFrequency := 0, "HRESULT")
+        return pbSampleFrequency
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugClient.ahk
+#Include .\DEBUG_BREAKPOINT_PARAMETERS.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,14 +32,11 @@ class IDebugBreakpoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetId(Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, IdMarshal, Id, "HRESULT")
-        return result
+    GetId() {
+        result := ComCall(3, this, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
@@ -56,24 +55,20 @@ class IDebugBreakpoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugClient>} Adder 
-     * @returns {HRESULT} 
+     * @returns {IDebugClient} 
      */
-    GetAdder(Adder) {
-        result := ComCall(5, this, "ptr*", Adder, "HRESULT")
-        return result
+    GetAdder() {
+        result := ComCall(5, this, "ptr*", &Adder := 0, "HRESULT")
+        return IDebugClient(Adder)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFlags(Flags) {
-        FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, FlagsMarshal, Flags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(6, this, "uint*", &Flags := 0, "HRESULT")
+        return Flags
     }
 
     /**
@@ -183,14 +178,11 @@ class IDebugBreakpoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Offset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetOffset(Offset) {
-        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, OffsetMarshal, Offset, "HRESULT")
-        return result
+    GetOffset() {
+        result := ComCall(10, this, "uint*", &Offset := 0, "HRESULT")
+        return Offset
     }
 
     /**
@@ -230,14 +222,11 @@ class IDebugBreakpoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPassCount(Count) {
-        CountMarshal := Count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, CountMarshal, Count, "HRESULT")
-        return result
+    GetPassCount() {
+        result := ComCall(14, this, "uint*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
@@ -252,26 +241,20 @@ class IDebugBreakpoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentPassCount(Count) {
-        CountMarshal := Count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, CountMarshal, Count, "HRESULT")
-        return result
+    GetCurrentPassCount() {
+        result := ComCall(16, this, "uint*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMatchThreadId(Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, IdMarshal, Id, "HRESULT")
-        return result
+    GetMatchThreadId() {
+        result := ComCall(17, this, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
@@ -288,16 +271,13 @@ class IDebugBreakpoint extends IUnknown{
      * 
      * @param {PSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} CommandSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCommand(Buffer, BufferSize, CommandSize) {
+    GetCommand(Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        CommandSizeMarshal := CommandSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, "ptr", Buffer, "uint", BufferSize, CommandSizeMarshal, CommandSize, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", Buffer, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        return CommandSize
     }
 
     /**
@@ -316,16 +296,13 @@ class IDebugBreakpoint extends IUnknown{
      * 
      * @param {PSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} ExpressionSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetOffsetExpression(Buffer, BufferSize, ExpressionSize) {
+    GetOffsetExpression(Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        ExpressionSizeMarshal := ExpressionSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, "ptr", Buffer, "uint", BufferSize, ExpressionSizeMarshal, ExpressionSize, "HRESULT")
-        return result
+        result := ComCall(21, this, "ptr", Buffer, "uint", BufferSize, "uint*", &ExpressionSize := 0, "HRESULT")
+        return ExpressionSize
     }
 
     /**
@@ -342,11 +319,11 @@ class IDebugBreakpoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DEBUG_BREAKPOINT_PARAMETERS>} Params 
-     * @returns {HRESULT} 
+     * @returns {DEBUG_BREAKPOINT_PARAMETERS} 
      */
-    GetParameters(Params) {
+    GetParameters() {
+        Params := DEBUG_BREAKPOINT_PARAMETERS()
         result := ComCall(23, this, "ptr", Params, "HRESULT")
-        return result
+        return Params
     }
 }

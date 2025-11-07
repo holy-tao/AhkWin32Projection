@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\HDIAGNOSTIC_DATA_QUERY_SESSION.ahk
+#Include .\HDIAGNOSTIC_EVENT_TAG_DESCRIPTION.ahk
+#Include .\HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION.ahk
+#Include .\HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION.ahk
+#Include .\HDIAGNOSTIC_RECORD.ahk
+#Include .\HDIAGNOSTIC_REPORT.ahk
 
 /**
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
@@ -15,19 +21,18 @@ class DiagnosticDataQuery {
      * Creates a Diagnostic Data Query API session handle to be used to uniquely identify a Diagnostic Data Query session.
      * @param {Integer} accessLevel Type: **[DdqAccessLevel](/windows/win32/api/diagnosticdataquery/ne-diagnosticdataquerytypes-ddqaccesslevel)**
      * The access level desired for this session.
-     * @param {Pointer<HDIAGNOSTIC_DATA_QUERY_SESSION>} hSession Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
+     * @returns {HDIAGNOSTIC_DATA_QUERY_SESSION} Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
      * This output parameter is a handle to the created Diagnostic Data Query session.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqcreatesession
      * @since windows10.0.19041
      */
-    static DdqCreateSession(accessLevel, hSession) {
+    static DdqCreateSession(accessLevel) {
+        hSession := HDIAGNOSTIC_DATA_QUERY_SESSION()
         result := DllCall("DiagnosticDataQuery.dll\DdqCreateSession", "int", accessLevel, "ptr", hSession, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return hSession
     }
 
     /**
@@ -53,42 +58,34 @@ class DiagnosticDataQuery {
      * Returns the data access level of the current Diagnostic Data Query session.
      * @param {HDIAGNOSTIC_DATA_QUERY_SESSION} hSession Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
      * Handle to the Diagnostic Data Query session.
-     * @param {Pointer<Integer>} accessLevel Type: **[DdqAccessLevel\*](/windows/win32/api/diagnosticdataquery/ne-diagnosticdataquerytypes-ddqaccesslevel)**
+     * @returns {Integer} Type: **[DdqAccessLevel\*](/windows/win32/api/diagnosticdataquery/ne-diagnosticdataquerytypes-ddqaccesslevel)**
      * This output parameter is the pointer to the access level for this session.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetsessionaccesslevel
      * @since windows10.0.19041
      */
-    static DdqGetSessionAccessLevel(hSession, accessLevel) {
+    static DdqGetSessionAccessLevel(hSession) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        accessLevelMarshal := accessLevel is VarRef ? "int*" : "ptr"
-
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetSessionAccessLevel", "ptr", hSession, accessLevelMarshal, accessLevel, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetSessionAccessLevel", "ptr", hSession, "int*", &accessLevel := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return accessLevel
     }
 
     /**
      * Returns the highest available data access level for the API caller. This can be NoData, CurrentUserData or AllUserData.
-     * @param {Pointer<Integer>} accessLevel Type: **[DdqAccessLevel\*](/windows/win32/api/diagnosticdataquery/ne-diagnosticdataquerytypes-ddqaccesslevel)**
+     * @returns {Integer} Type: **[DdqAccessLevel\*](/windows/win32/api/diagnosticdataquery/ne-diagnosticdataquerytypes-ddqaccesslevel)**
      * This output parameter is a pointer to the highest access level available for the API caller.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticdataaccesslevelallowed
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticDataAccessLevelAllowed(accessLevel) {
-        accessLevelMarshal := accessLevel is VarRef ? "int*" : "ptr"
-
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticDataAccessLevelAllowed", accessLevelMarshal, accessLevel, "int")
+    static DdqGetDiagnosticDataAccessLevelAllowed() {
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticDataAccessLevelAllowed", "int*", &accessLevel := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return accessLevel
     }
 
     /**
@@ -128,41 +125,39 @@ class DiagnosticDataQuery {
      * Handle to the Diagnostic Data Query session.
      * @param {Integer} rowId Type: **[INT64](/windows/desktop/winprog/windows-data-types)**
      * The row id for the event record of interest.
-     * @param {Pointer<PWSTR>} payload Type: **[PCWSTR\*](/windows/desktop/winprog/windows-data-types)**
+     * @returns {PWSTR} Type: **[PCWSTR\*](/windows/desktop/winprog/windows-data-types)**
      * This output parameter is a pointer to the payload text.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticrecordpayload
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticRecordPayload(hSession, rowId, payload) {
+    static DdqGetDiagnosticRecordPayload(hSession, rowId) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordPayload", "ptr", hSession, "int64", rowId, "ptr", payload, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordPayload", "ptr", hSession, "int64", rowId, "ptr*", &payload := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return payload
     }
 
     /**
      * 
      * @param {HDIAGNOSTIC_DATA_QUERY_SESSION} hSession 
      * @param {PWSTR} locale 
-     * @param {Pointer<HDIAGNOSTIC_EVENT_TAG_DESCRIPTION>} hTagDescription 
-     * @returns {HRESULT} 
+     * @returns {HDIAGNOSTIC_EVENT_TAG_DESCRIPTION} 
      * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticrecordlocaletags
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticRecordLocaleTags(hSession, locale, hTagDescription) {
+    static DdqGetDiagnosticRecordLocaleTags(hSession, locale) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
         locale := locale is String ? StrPtr(locale) : locale
 
+        hTagDescription := HDIAGNOSTIC_EVENT_TAG_DESCRIPTION()
         result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordLocaleTags", "ptr", hSession, "ptr", locale, "ptr", hTagDescription, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return hTagDescription
     }
 
     /**
@@ -211,44 +206,39 @@ class DiagnosticDataQuery {
      * Fetches the number (size) of tags in the resource pointed to by the HDIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION handle.
      * @param {HDIAGNOSTIC_EVENT_TAG_DESCRIPTION} hTagDescription Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
      * Handle to the resource that contains the list of tag descriptions.
-     * @param {Pointer<Integer>} tagDescriptionCount Type: **[UINT32](/windows/desktop/winprog/windows-data-types)**
+     * @returns {Integer} Type: **[UINT32](/windows/desktop/winprog/windows-data-types)**
      * This output parameter is the number of tags in the list of tag descriptions.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticrecordlocaletagcount
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticRecordLocaleTagCount(hTagDescription, tagDescriptionCount) {
+    static DdqGetDiagnosticRecordLocaleTagCount(hTagDescription) {
         hTagDescription := hTagDescription is Win32Handle ? NumGet(hTagDescription, "ptr") : hTagDescription
 
-        tagDescriptionCountMarshal := tagDescriptionCount is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordLocaleTagCount", "ptr", hTagDescription, tagDescriptionCountMarshal, tagDescriptionCount, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordLocaleTagCount", "ptr", hTagDescription, "uint*", &tagDescriptionCount := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return tagDescriptionCount
     }
 
     /**
      * Fetches Diagnostic Data Producers available for a Diagnostic Data Query session.
      * @param {HDIAGNOSTIC_DATA_QUERY_SESSION} hSession Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
      * Handle to the Diagnostic Data Query session.
-     * @param {Pointer<HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION>} hProducerDescription Type: **[HANDLE\*](/windows/desktop/winprog/windows-data-types)**
+     * @returns {HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION} Type: **[HANDLE\*](/windows/desktop/winprog/windows-data-types)**
      * This output parameter is a pointer to the handle for the resource that contains the list of producers.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticrecordproducers
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticRecordProducers(hSession, hProducerDescription) {
+    static DdqGetDiagnosticRecordProducers(hSession) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
+        hProducerDescription := HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION()
         result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordProducers", "ptr", hSession, "ptr", hProducerDescription, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return hProducerDescription
     }
 
     /**
@@ -297,23 +287,19 @@ class DiagnosticDataQuery {
      * Fetches the number (size) of producers in the resource pointed to by the HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION.
      * @param {HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION} hProducerDescription Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
      * Handle to the resource that contains list of producers.
-     * @param {Pointer<Integer>} producerDescriptionCount Type: **[UNINT32\*](/windows/desktop/winprog/windows-data-types)**
+     * @returns {Integer} Type: **[UNINT32\*](/windows/desktop/winprog/windows-data-types)**
      * This output parameter is a pointer to the number of producers in provided resource.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticrecordproducercount
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticRecordProducerCount(hProducerDescription, producerDescriptionCount) {
+    static DdqGetDiagnosticRecordProducerCount(hProducerDescription) {
         hProducerDescription := hProducerDescription is Win32Handle ? NumGet(hProducerDescription, "ptr") : hProducerDescription
 
-        producerDescriptionCountMarshal := producerDescriptionCount is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordProducerCount", "ptr", hProducerDescription, producerDescriptionCountMarshal, producerDescriptionCount, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordProducerCount", "ptr", hProducerDescription, "uint*", &producerDescriptionCount := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return producerDescriptionCount
     }
 
     /**
@@ -322,22 +308,21 @@ class DiagnosticDataQuery {
      * Handle to the Diagnostic Data Query session.
      * @param {PWSTR} producerName Type: **[PCWSTR](/windows/desktop/winprog/windows-data-types)**
      * The name of the producer of interest.
-     * @param {Pointer<HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION>} hCategoryDescription Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
+     * @returns {HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION} Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
      * Handle to the resource that contains the list of categories and their descriptions that belong to the given producer.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticrecordproducercategories
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticRecordProducerCategories(hSession, producerName, hCategoryDescription) {
+    static DdqGetDiagnosticRecordProducerCategories(hSession, producerName) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
         producerName := producerName is String ? StrPtr(producerName) : producerName
 
+        hCategoryDescription := HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION()
         result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordProducerCategories", "ptr", hSession, "ptr", producerName, "ptr", hCategoryDescription, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return hCategoryDescription
     }
 
     /**
@@ -386,23 +371,19 @@ class DiagnosticDataQuery {
      * Fetches the number (size) of diagnostic record categories in the resource pointed by the HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION handle.
      * @param {HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION} hCategoryDescription Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
      * Handle to the resource that contains the list of categories and their descriptions.
-     * @param {Pointer<Integer>} categoryDescriptionCount Type: **[UINT32\*](/windows/desktop/winprog/windows-data-types)**
+     * @returns {Integer} Type: **[UINT32\*](/windows/desktop/winprog/windows-data-types)**
      * This output parameter is a pointer to the number of categories in the diagnostic record category array.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticrecordcategorycount
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticRecordCategoryCount(hCategoryDescription, categoryDescriptionCount) {
+    static DdqGetDiagnosticRecordCategoryCount(hCategoryDescription) {
         hCategoryDescription := hCategoryDescription is Win32Handle ? NumGet(hCategoryDescription, "ptr") : hCategoryDescription
 
-        categoryDescriptionCountMarshal := categoryDescriptionCount is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordCategoryCount", "ptr", hCategoryDescription, categoryDescriptionCountMarshal, categoryDescriptionCount, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordCategoryCount", "ptr", hCategoryDescription, "uint*", &categoryDescriptionCount := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return categoryDescriptionCount
     }
 
     /**
@@ -423,14 +404,12 @@ class DiagnosticDataQuery {
      * The version of the event.
      * @param {Pointer<Integer>} eventKeywords Type: **[UINT64\*](/windows/win32/winprog/windows-data-types)**
      * Pointer to the event keywords.
-     * @param {Pointer<BOOL>} isSampledIn Type: **[BOOL\*](/windows/win32/winprog/windows-data-types)**
+     * @returns {BOOL} Type: **[BOOL\*](/windows/win32/winprog/windows-data-types)**
      * This output parameter is a pointer to a boolean value that is TRUE if the event is sampled in and FALSE otherwise.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqisdiagnosticrecordsampledin
      * @since windows10.0.19041
      */
-    static DdqIsDiagnosticRecordSampledIn(hSession, providerGroup, providerId, providerName, eventId, eventName, eventVersion, eventKeywords, isSampledIn) {
+    static DdqIsDiagnosticRecordSampledIn(hSession, providerGroup, providerId, providerName, eventId, eventName, eventVersion, eventKeywords) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
         providerName := providerName is String ? StrPtr(providerName) : providerName
         eventName := eventName is String ? StrPtr(eventName) : eventName
@@ -439,11 +418,11 @@ class DiagnosticDataQuery {
         eventVersionMarshal := eventVersion is VarRef ? "uint*" : "ptr"
         eventKeywordsMarshal := eventKeywords is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqIsDiagnosticRecordSampledIn", "ptr", hSession, "ptr", providerGroup, "ptr", providerId, "ptr", providerName, eventIdMarshal, eventId, "ptr", eventName, eventVersionMarshal, eventVersion, eventKeywordsMarshal, eventKeywords, "ptr", isSampledIn, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqIsDiagnosticRecordSampledIn", "ptr", hSession, "ptr", providerGroup, "ptr", providerId, "ptr", providerName, eventIdMarshal, eventId, "ptr", eventName, eventVersionMarshal, eventVersion, eventKeywordsMarshal, eventKeywords, "int*", &isSampledIn := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return isSampledIn
     }
 
     /**
@@ -458,21 +437,20 @@ class DiagnosticDataQuery {
      * The number of records in a desired record page
      * @param {Integer} baseRowId Type: **[INT64](/windows/desktop/winprog/windows-data-types)**
      * Filters out new records by returning only records with rowId value less than or equal to baseRowId (this is useful if querying code wants to limit results to only events that were available at the time of DdqGetDiagnosticRecordStats call. The maxRowId parameter can be used as baseRowId). No filtering is applied if –1 is passed for baseRowId.
-     * @param {Pointer<HDIAGNOSTIC_RECORD>} hRecord Type: **[HANDLE\*](/windows/desktop/winprog/windows-data-types)**
+     * @returns {HDIAGNOSTIC_RECORD} Type: **[HANDLE\*](/windows/desktop/winprog/windows-data-types)**
      * This output parameter is a pointer to the handle for the resource that contains the list of matching records.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticrecordpage
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticRecordPage(hSession, searchCriteria, offset, pageRecordCount, baseRowId, hRecord) {
+    static DdqGetDiagnosticRecordPage(hSession, searchCriteria, offset, pageRecordCount, baseRowId) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
+        hRecord := HDIAGNOSTIC_RECORD()
         result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordPage", "ptr", hSession, "ptr", searchCriteria, "uint", offset, "uint", pageRecordCount, "int64", baseRowId, "ptr", hRecord, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return hRecord
     }
 
     /**
@@ -521,23 +499,19 @@ class DiagnosticDataQuery {
      * Fetches number (size) of elements in the resource pointed to by the HDIAGNOSTIC_DATA_RECORD handle.
      * @param {HDIAGNOSTIC_RECORD} hRecord Type: **[HANDLE](/windows/desktop/winprog/windows-data-types)**
      * Handle to the resource that contains the DIAGNOSTIC_DATA_RECORD list.
-     * @param {Pointer<Integer>} recordCount Type: **[UINT32](/windows/desktop/winprog/windows-data-types)**
+     * @returns {Integer} Type: **[UINT32](/windows/desktop/winprog/windows-data-types)**
      * Number of items in the DIAGNOSTIC_DATA_RECORD list.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticrecordcount
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticRecordCount(hRecord, recordCount) {
+    static DdqGetDiagnosticRecordCount(hRecord) {
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
 
-        recordCountMarshal := recordCount is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordCount", "ptr", hRecord, recordCountMarshal, recordCount, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordCount", "ptr", hRecord, "uint*", &recordCount := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return recordCount
     }
 
     /**
@@ -546,23 +520,19 @@ class DiagnosticDataQuery {
      * Handle to the Diagnostic Data Query session.
      * @param {Integer} reportStoreType Type: **[UINT32](/windows/desktop/winprog/windows-data-types)**
      * The type of report store to extract from. See remarks.
-     * @param {Pointer<Integer>} reportCount Type: **[UINT32\*](/windows/desktop/com/structure-of-com-error-codes)**
+     * @returns {Integer} Type: **[UINT32\*](/windows/desktop/com/structure-of-com-error-codes)**
      * Pointer to the number of error reports.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticreportstorereportcount
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticReportStoreReportCount(hSession, reportStoreType, reportCount) {
+    static DdqGetDiagnosticReportStoreReportCount(hSession, reportStoreType) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        reportCountMarshal := reportCount is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportStoreReportCount", "ptr", hSession, "uint", reportStoreType, reportCountMarshal, reportCount, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportStoreReportCount", "ptr", hSession, "uint", reportStoreType, "uint*", &reportCount := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return reportCount
     }
 
     /**
@@ -590,21 +560,20 @@ class DiagnosticDataQuery {
      * Handle to the Diagnostic Data Query session.
      * @param {Integer} reportStoreType Type: **[UINT32](/windows/desktop/winprog/windows-data-types)**
      * The type of report store to extract from. See remarks.
-     * @param {Pointer<HDIAGNOSTIC_REPORT>} hReport Type: **[HANDLE\*](/windows/desktop/winprog/windows-data-types)**
+     * @returns {HDIAGNOSTIC_REPORT} Type: **[HANDLE\*](/windows/desktop/winprog/windows-data-types)**
      * This output parameter is a pointer to the handle for the resource that contains the known set of problem reports.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticreport
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticReport(hSession, reportStoreType, hReport) {
+    static DdqGetDiagnosticReport(hSession, reportStoreType) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
+        hReport := HDIAGNOSTIC_REPORT()
         result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReport", "ptr", hSession, "uint", reportStoreType, "ptr", hReport, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return hReport
     }
 
     /**
@@ -653,23 +622,19 @@ class DiagnosticDataQuery {
      * Fetches the number (size) of error reports in the resource pointed to by HDIAGNOSTIC_REPORT_DATA handle.
      * @param {HDIAGNOSTIC_REPORT} hReport Type: **[HANDLE](/windows/desktop/com/structure-of-com-error-codes)**
      * Handle to the resource that contains the set of error reports.
-     * @param {Pointer<Integer>} reportCount Type: **[UINT32\*](/windows/desktop/com/structure-of-com-error-codes)**
+     * @returns {Integer} Type: **[UINT32\*](/windows/desktop/com/structure-of-com-error-codes)**
      * Pointer to the number of error reports.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * Returns S_OK on successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquery/nf-diagnosticdataquery-ddqgetdiagnosticreportcount
      * @since windows10.0.19041
      */
-    static DdqGetDiagnosticReportCount(hReport, reportCount) {
+    static DdqGetDiagnosticReportCount(hReport) {
         hReport := hReport is Win32Handle ? NumGet(hReport, "ptr") : hReport
 
-        reportCountMarshal := reportCount is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportCount", "ptr", hReport, reportCountMarshal, reportCount, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportCount", "ptr", hReport, "uint*", &reportCount := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return reportCount
     }
 
     /**
@@ -719,10 +684,11 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordTagDistribution(hSession, producerNames, producerNameCount, tagStats, statCount) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
+        producerNamesMarshal := producerNames is VarRef ? "ptr*" : "ptr"
         tagStatsMarshal := tagStats is VarRef ? "ptr*" : "ptr"
         statCountMarshal := statCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordTagDistribution", "ptr", hSession, "ptr", producerNames, "uint", producerNameCount, tagStatsMarshal, tagStats, statCountMarshal, statCount, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordTagDistribution", "ptr", hSession, producerNamesMarshal, producerNames, "uint", producerNameCount, tagStatsMarshal, tagStats, statCountMarshal, statCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -751,10 +717,11 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordBinaryDistribution(hSession, producerNames, producerNameCount, topNBinaries, binaryStats, statCount) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
+        producerNamesMarshal := producerNames is VarRef ? "ptr*" : "ptr"
         binaryStatsMarshal := binaryStats is VarRef ? "ptr*" : "ptr"
         statCountMarshal := statCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordBinaryDistribution", "ptr", hSession, "ptr", producerNames, "uint", producerNameCount, "uint", topNBinaries, binaryStatsMarshal, binaryStats, statCountMarshal, statCount, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordBinaryDistribution", "ptr", hSession, producerNamesMarshal, producerNames, "uint", producerNameCount, "uint", topNBinaries, binaryStatsMarshal, binaryStats, statCountMarshal, statCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -779,7 +746,9 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordSummary(hSession, producerNames, producerNameCount, generalStats) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordSummary", "ptr", hSession, "ptr", producerNames, "uint", producerNameCount, "ptr", generalStats, "int")
+        producerNamesMarshal := producerNames is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordSummary", "ptr", hSession, producerNamesMarshal, producerNames, "uint", producerNameCount, "ptr", generalStats, "int")
         if(result != 0)
             throw OSError(result)
 

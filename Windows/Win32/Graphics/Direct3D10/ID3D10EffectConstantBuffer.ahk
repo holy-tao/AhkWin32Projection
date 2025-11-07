@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10Buffer.ahk
+#Include .\ID3D10ShaderResourceView.ahk
 #Include .\ID3D10EffectVariable.ahk
 
 /**
@@ -48,13 +50,12 @@ class ID3D10EffectConstantBuffer extends ID3D10EffectVariable{
 
     /**
      * 
-     * @param {Pointer<ID3D10Buffer>} ppConstantBuffer 
-     * @returns {HRESULT} 
+     * @returns {ID3D10Buffer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectconstantbuffer-getconstantbuffer
      */
-    GetConstantBuffer(ppConstantBuffer) {
-        result := ComCall(26, this, "ptr*", ppConstantBuffer, "HRESULT")
-        return result
+    GetConstantBuffer() {
+        result := ComCall(26, this, "ptr*", &ppConstantBuffer := 0, "HRESULT")
+        return ID3D10Buffer(ppConstantBuffer)
     }
 
     /**
@@ -70,12 +71,11 @@ class ID3D10EffectConstantBuffer extends ID3D10EffectVariable{
 
     /**
      * 
-     * @param {Pointer<ID3D10ShaderResourceView>} ppTextureBuffer 
-     * @returns {HRESULT} 
+     * @returns {ID3D10ShaderResourceView} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectconstantbuffer-gettexturebuffer
      */
-    GetTextureBuffer(ppTextureBuffer) {
-        result := ComCall(28, this, "ptr*", ppTextureBuffer, "HRESULT")
-        return result
+    GetTextureBuffer() {
+        result := ComCall(28, this, "ptr*", &ppTextureBuffer := 0, "HRESULT")
+        return ID3D10ShaderResourceView(ppTextureBuffer)
     }
 }

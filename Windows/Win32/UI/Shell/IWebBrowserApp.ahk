@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IWebBrowser.ahk
 
 /**
@@ -68,65 +69,63 @@ class IWebBrowserApp extends IWebBrowser{
     /**
      * 
      * @param {BSTR} Property 
-     * @param {Pointer<VARIANT>} pvtValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetProperty(Property, pvtValue) {
+    GetProperty(Property) {
         Property := Property is String ? BSTR.Alloc(Property).Value : Property
 
+        pvtValue := VARIANT()
         result := ComCall(35, this, "ptr", Property, "ptr", pvtValue, "HRESULT")
-        return result
+        return pvtValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(36, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
-     * @param {Pointer<SHANDLE_PTR>} pHWND 
-     * @returns {HRESULT} 
+     * @returns {SHANDLE_PTR} 
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
      */
-    get_HWND(pHWND) {
-        result := ComCall(37, this, "ptr", pHWND, "HRESULT")
-        return result
+    get_HWND() {
+        result := ComCall(37, this, "ptr*", &pHWND := 0, "HRESULT")
+        return pHWND
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} FullName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_FullName(FullName) {
+    get_FullName() {
+        FullName := BSTR()
         result := ComCall(38, this, "ptr", FullName, "HRESULT")
-        return result
+        return FullName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(Path) {
+    get_Path() {
+        Path := BSTR()
         result := ComCall(39, this, "ptr", Path, "HRESULT")
-        return result
+        return Path
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pBool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Visible(pBool) {
-        result := ComCall(40, this, "ptr", pBool, "HRESULT")
-        return result
+    get_Visible() {
+        result := ComCall(40, this, "short*", &pBool := 0, "HRESULT")
+        return pBool
     }
 
     /**
@@ -141,12 +140,11 @@ class IWebBrowserApp extends IWebBrowser{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pBool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_StatusBar(pBool) {
-        result := ComCall(42, this, "ptr", pBool, "HRESULT")
-        return result
+    get_StatusBar() {
+        result := ComCall(42, this, "short*", &pBool := 0, "HRESULT")
+        return pBool
     }
 
     /**
@@ -161,12 +159,12 @@ class IWebBrowserApp extends IWebBrowser{
 
     /**
      * 
-     * @param {Pointer<BSTR>} StatusText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_StatusText(StatusText) {
+    get_StatusText() {
+        StatusText := BSTR()
         result := ComCall(44, this, "ptr", StatusText, "HRESULT")
-        return result
+        return StatusText
     }
 
     /**
@@ -183,15 +181,12 @@ class IWebBrowserApp extends IWebBrowser{
 
     /**
      * 
-     * @param {Pointer<Integer>} Value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-get_toolbar
      */
-    get_ToolBar(Value) {
-        ValueMarshal := Value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(46, this, ValueMarshal, Value, "HRESULT")
-        return result
+    get_ToolBar() {
+        result := ComCall(46, this, "int*", &Value := 0, "HRESULT")
+        return Value
     }
 
     /**
@@ -207,12 +202,11 @@ class IWebBrowserApp extends IWebBrowser{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_MenuBar(Value) {
-        result := ComCall(48, this, "ptr", Value, "HRESULT")
-        return result
+    get_MenuBar() {
+        result := ComCall(48, this, "short*", &Value := 0, "HRESULT")
+        return Value
     }
 
     /**
@@ -227,12 +221,11 @@ class IWebBrowserApp extends IWebBrowser{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbFullScreen 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_FullScreen(pbFullScreen) {
-        result := ComCall(50, this, "ptr", pbFullScreen, "HRESULT")
-        return result
+    get_FullScreen() {
+        result := ComCall(50, this, "short*", &pbFullScreen := 0, "HRESULT")
+        return pbFullScreen
     }
 
     /**

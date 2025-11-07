@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyStorage.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,41 +33,32 @@ class IJolietDiscMaster extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnBlocks 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-ijolietdiscmaster-gettotaldatablocks
      */
-    GetTotalDataBlocks(pnBlocks) {
-        pnBlocksMarshal := pnBlocks is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pnBlocksMarshal, pnBlocks, "HRESULT")
-        return result
+    GetTotalDataBlocks() {
+        result := ComCall(3, this, "int*", &pnBlocks := 0, "HRESULT")
+        return pnBlocks
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnBlocks 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-ijolietdiscmaster-getuseddatablocks
      */
-    GetUsedDataBlocks(pnBlocks) {
-        pnBlocksMarshal := pnBlocks is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pnBlocksMarshal, pnBlocks, "HRESULT")
-        return result
+    GetUsedDataBlocks() {
+        result := ComCall(4, this, "int*", &pnBlocks := 0, "HRESULT")
+        return pnBlocks
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnBlockBytes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-ijolietdiscmaster-getdatablocksize
      */
-    GetDataBlockSize(pnBlockBytes) {
-        pnBlockBytesMarshal := pnBlockBytes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pnBlockBytesMarshal, pnBlockBytes, "HRESULT")
-        return result
+    GetDataBlockSize() {
+        result := ComCall(5, this, "int*", &pnBlockBytes := 0, "HRESULT")
+        return pnBlockBytes
     }
 
     /**
@@ -83,13 +75,12 @@ class IJolietDiscMaster extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPropertyStorage>} ppPropStg 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-ijolietdiscmaster-getjolietproperties
      */
-    GetJolietProperties(ppPropStg) {
-        result := ComCall(7, this, "ptr*", ppPropStg, "HRESULT")
-        return result
+    GetJolietProperties() {
+        result := ComCall(7, this, "ptr*", &ppPropStg := 0, "HRESULT")
+        return IPropertyStorage(ppPropStg)
     }
 
     /**

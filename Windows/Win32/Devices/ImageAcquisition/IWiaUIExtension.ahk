@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,31 +47,31 @@ class IWiaUIExtension extends IUnknown{
     /**
      * 
      * @param {BSTR} bstrDeviceId 
-     * @param {Pointer<HICON>} phIcon 
      * @param {Integer} nSize 
-     * @returns {HRESULT} 
+     * @returns {HICON} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiauiextension-getdeviceicon
      */
-    GetDeviceIcon(bstrDeviceId, phIcon, nSize) {
+    GetDeviceIcon(bstrDeviceId, nSize) {
         bstrDeviceId := bstrDeviceId is String ? BSTR.Alloc(bstrDeviceId).Value : bstrDeviceId
 
+        phIcon := HICON()
         result := ComCall(4, this, "ptr", bstrDeviceId, "ptr", phIcon, "uint", nSize, "HRESULT")
-        return result
+        return phIcon
     }
 
     /**
      * 
      * @param {BSTR} bstrDeviceId 
-     * @param {Pointer<HBITMAP>} phBitmap 
      * @param {Integer} nMaxWidth 
      * @param {Integer} nMaxHeight 
-     * @returns {HRESULT} 
+     * @returns {HBITMAP} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiauiextension-getdevicebitmaplogo
      */
-    GetDeviceBitmapLogo(bstrDeviceId, phBitmap, nMaxWidth, nMaxHeight) {
+    GetDeviceBitmapLogo(bstrDeviceId, nMaxWidth, nMaxHeight) {
         bstrDeviceId := bstrDeviceId is String ? BSTR.Alloc(bstrDeviceId).Value : bstrDeviceId
 
+        phBitmap := HBITMAP()
         result := ComCall(5, this, "ptr", bstrDeviceId, "ptr", phBitmap, "uint", nMaxWidth, "uint", nMaxHeight, "HRESULT")
-        return result
+        return phBitmap
     }
 }

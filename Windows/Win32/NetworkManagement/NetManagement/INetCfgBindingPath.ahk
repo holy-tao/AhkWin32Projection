@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INetCfgComponent.ahk
+#Include .\IEnumNetCfgBindingInterface.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -69,43 +71,37 @@ class INetCfgBindingPath extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszwPathToken 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetPathToken(ppszwPathToken) {
-        result := ComCall(7, this, "ptr", ppszwPathToken, "HRESULT")
-        return result
+    GetPathToken() {
+        result := ComCall(7, this, "ptr*", &ppszwPathToken := 0, "HRESULT")
+        return ppszwPathToken
     }
 
     /**
      * 
-     * @param {Pointer<INetCfgComponent>} ppComponent 
-     * @returns {HRESULT} 
+     * @returns {INetCfgComponent} 
      */
-    GetOwner(ppComponent) {
-        result := ComCall(8, this, "ptr*", ppComponent, "HRESULT")
-        return result
+    GetOwner() {
+        result := ComCall(8, this, "ptr*", &ppComponent := 0, "HRESULT")
+        return INetCfgComponent(ppComponent)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcInterfaces 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDepth(pcInterfaces) {
-        pcInterfacesMarshal := pcInterfaces is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pcInterfacesMarshal, pcInterfaces, "HRESULT")
-        return result
+    GetDepth() {
+        result := ComCall(9, this, "uint*", &pcInterfaces := 0, "HRESULT")
+        return pcInterfaces
     }
 
     /**
      * 
-     * @param {Pointer<IEnumNetCfgBindingInterface>} ppenumInterface 
-     * @returns {HRESULT} 
+     * @returns {IEnumNetCfgBindingInterface} 
      */
-    EnumBindingInterfaces(ppenumInterface) {
-        result := ComCall(10, this, "ptr*", ppenumInterface, "HRESULT")
-        return result
+    EnumBindingInterfaces() {
+        result := ComCall(10, this, "ptr*", &ppenumInterface := 0, "HRESULT")
+        return IEnumNetCfgBindingInterface(ppenumInterface)
     }
 }

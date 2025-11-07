@@ -36,18 +36,15 @@ class IAssemblyLocator extends IDispatch{
      * @param {BSTR} applicationDir 
      * @param {BSTR} applicationName 
      * @param {BSTR} assemblyName 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pModules 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iassemblylocator-getmodules
      */
-    GetModules(applicationDir, applicationName, assemblyName, pModules) {
+    GetModules(applicationDir, applicationName, assemblyName) {
         applicationDir := applicationDir is String ? BSTR.Alloc(applicationDir).Value : applicationDir
         applicationName := applicationName is String ? BSTR.Alloc(applicationName).Value : applicationName
         assemblyName := assemblyName is String ? BSTR.Alloc(assemblyName).Value : assemblyName
 
-        pModulesMarshal := pModules is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", applicationDir, "ptr", applicationName, "ptr", assemblyName, pModulesMarshal, pModules, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", applicationDir, "ptr", applicationName, "ptr", assemblyName, "ptr*", &pModules := 0, "HRESULT")
+        return pModules
     }
 }

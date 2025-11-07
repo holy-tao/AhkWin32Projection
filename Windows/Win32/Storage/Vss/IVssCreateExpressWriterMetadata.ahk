@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -147,12 +148,12 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrXML 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreateexpresswritermetadata-saveasxml
      */
-    SaveAsXML(pbstrXML) {
+    SaveAsXML() {
+        pbstrXML := BSTR()
         result := ComCall(9, this, "ptr", pbstrXML, "HRESULT")
-        return result
+        return pbstrXML
     }
 }

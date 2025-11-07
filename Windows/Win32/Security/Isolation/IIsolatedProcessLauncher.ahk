@@ -61,12 +61,12 @@ class IIsolatedProcessLauncher extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} guid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetContainerGuid(guid) {
+    GetContainerGuid() {
+        guid := Guid()
         result := ComCall(5, this, "ptr", guid, "HRESULT")
-        return result
+        return guid
     }
 
     /**
@@ -81,11 +81,10 @@ class IIsolatedProcessLauncher extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} running 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsContainerRunning(running) {
-        result := ComCall(7, this, "ptr", running, "HRESULT")
-        return result
+    IsContainerRunning() {
+        result := ComCall(7, this, "int*", &running := 0, "HRESULT")
+        return running
     }
 }

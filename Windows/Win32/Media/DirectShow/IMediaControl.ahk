@@ -64,15 +64,12 @@ class IMediaControl extends IDispatch{
     /**
      * 
      * @param {Integer} msTimeout 
-     * @param {Pointer<Integer>} pfs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediacontrol-getstate
      */
-    GetState(msTimeout, pfs) {
-        pfsMarshal := pfs is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, "int", msTimeout, pfsMarshal, pfs, "HRESULT")
-        return result
+    GetState(msTimeout) {
+        result := ComCall(10, this, "int", msTimeout, "int*", &pfs := 0, "HRESULT")
+        return pfs
     }
 
     /**
@@ -91,37 +88,34 @@ class IMediaControl extends IDispatch{
     /**
      * 
      * @param {BSTR} strFilename 
-     * @param {Pointer<IDispatch>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediacontrol-addsourcefilter
      */
-    AddSourceFilter(strFilename, ppUnk) {
+    AddSourceFilter(strFilename) {
         strFilename := strFilename is String ? BSTR.Alloc(strFilename).Value : strFilename
 
-        result := ComCall(12, this, "ptr", strFilename, "ptr*", ppUnk, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", strFilename, "ptr*", &ppUnk := 0, "HRESULT")
+        return IDispatch(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediacontrol-get_filtercollection
      */
-    get_FilterCollection(ppUnk) {
-        result := ComCall(13, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_FilterCollection() {
+        result := ComCall(13, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IDispatch(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediacontrol-get_regfiltercollection
      */
-    get_RegFilterCollection(ppUnk) {
-        result := ComCall(14, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_RegFilterCollection() {
+        result := ComCall(14, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IDispatch(ppUnk)
     }
 
     /**

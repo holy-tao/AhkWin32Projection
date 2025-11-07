@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITCallInfo.ahk
+#Include .\ITTerminal.ahk
+#Include .\ITStream.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,71 +35,61 @@ class ITCallMediaEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITCallInfo>} ppCallInfo 
-     * @returns {HRESULT} 
+     * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallmediaevent-get_call
      */
-    get_Call(ppCallInfo) {
-        result := ComCall(7, this, "ptr*", ppCallInfo, "HRESULT")
-        return result
+    get_Call() {
+        result := ComCall(7, this, "ptr*", &ppCallInfo := 0, "HRESULT")
+        return ITCallInfo(ppCallInfo)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCallMediaEvent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallmediaevent-get_event
      */
-    get_Event(pCallMediaEvent) {
-        pCallMediaEventMarshal := pCallMediaEvent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pCallMediaEventMarshal, pCallMediaEvent, "HRESULT")
-        return result
+    get_Event() {
+        result := ComCall(8, this, "int*", &pCallMediaEvent := 0, "HRESULT")
+        return pCallMediaEvent
     }
 
     /**
      * 
-     * @param {Pointer<HRESULT>} phrError 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallmediaevent-get_error
      */
-    get_Error(phrError) {
-        result := ComCall(9, this, "ptr", phrError, "HRESULT")
-        return result
+    get_Error() {
+        result := ComCall(9, this, "int*", &phrError := 0, "HRESULT")
+        return phrError
     }
 
     /**
      * 
-     * @param {Pointer<ITTerminal>} ppTerminal 
-     * @returns {HRESULT} 
+     * @returns {ITTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallmediaevent-get_terminal
      */
-    get_Terminal(ppTerminal) {
-        result := ComCall(10, this, "ptr*", ppTerminal, "HRESULT")
-        return result
+    get_Terminal() {
+        result := ComCall(10, this, "ptr*", &ppTerminal := 0, "HRESULT")
+        return ITTerminal(ppTerminal)
     }
 
     /**
      * 
-     * @param {Pointer<ITStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {ITStream} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallmediaevent-get_stream
      */
-    get_Stream(ppStream) {
-        result := ComCall(11, this, "ptr*", ppStream, "HRESULT")
-        return result
+    get_Stream() {
+        result := ComCall(11, this, "ptr*", &ppStream := 0, "HRESULT")
+        return ITStream(ppStream)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCause 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallmediaevent-get_cause
      */
-    get_Cause(pCause) {
-        pCauseMarshal := pCause is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pCauseMarshal, pCause, "HRESULT")
-        return result
+    get_Cause() {
+        result := ComCall(12, this, "int*", &pCause := 0, "HRESULT")
+        return pCause
     }
 }

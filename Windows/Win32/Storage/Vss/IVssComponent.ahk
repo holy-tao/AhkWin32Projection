@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IVssWMFiledesc.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -95,13 +96,12 @@ class IVssComponent extends IUnknown{
     /**
      * 
      * @param {Integer} iMapping 
-     * @param {Pointer<IVssWMFiledesc>} ppFiledesc 
-     * @returns {HRESULT} 
+     * @returns {IVssWMFiledesc} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getalternatelocationmapping
      */
-    GetAlternateLocationMapping(iMapping, ppFiledesc) {
-        result := ComCall(8, this, "uint", iMapping, "ptr*", ppFiledesc, "HRESULT")
-        return result
+    GetAlternateLocationMapping(iMapping) {
+        result := ComCall(8, this, "uint", iMapping, "ptr*", &ppFiledesc := 0, "HRESULT")
+        return IVssWMFiledesc(ppFiledesc)
     }
 
     /**
@@ -217,13 +217,12 @@ class IVssComponent extends IUnknown{
     /**
      * 
      * @param {Integer} iNewTarget 
-     * @param {Pointer<IVssWMFiledesc>} ppFiledesc 
-     * @returns {HRESULT} 
+     * @returns {IVssWMFiledesc} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getnewtarget
      */
-    GetNewTarget(iNewTarget, ppFiledesc) {
-        result := ComCall(17, this, "uint", iNewTarget, "ptr*", ppFiledesc, "HRESULT")
-        return result
+    GetNewTarget(iNewTarget) {
+        result := ComCall(17, this, "uint", iNewTarget, "ptr*", &ppFiledesc := 0, "HRESULT")
+        return IVssWMFiledesc(ppFiledesc)
     }
 
     /**
@@ -534,7 +533,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getdifferencedfile
      */
     GetDifferencedFile(iDifferencedFile, pbstrPath, pbstrFilespec, pbRecursive, pbstrLsnString, pftLastModifyTime) {
-        result := ComCall(40, this, "uint", iDifferencedFile, "ptr", pbstrPath, "ptr", pbstrFilespec, "ptr", pbRecursive, "ptr", pbstrLsnString, "ptr", pftLastModifyTime, "HRESULT")
+        pbRecursiveMarshal := pbRecursive is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, "uint", iDifferencedFile, "ptr", pbstrPath, "ptr", pbstrFilespec, pbRecursiveMarshal, pbRecursive, "ptr", pbstrLsnString, "ptr", pftLastModifyTime, "HRESULT")
         return result
     }
 }

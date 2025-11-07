@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcPartUri.ahk
 #Include ..\..\..\System\Com\IUri.ahk
 
 /**
@@ -38,36 +39,33 @@ class IOpcUri extends IUri{
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} relationshipPartUri 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcuri-getrelationshipsparturi
      */
-    GetRelationshipsPartUri(relationshipPartUri) {
-        result := ComCall(28, this, "ptr*", relationshipPartUri, "HRESULT")
-        return result
+    GetRelationshipsPartUri() {
+        result := ComCall(28, this, "ptr*", &relationshipPartUri := 0, "HRESULT")
+        return IOpcPartUri(relationshipPartUri)
     }
 
     /**
      * 
      * @param {IOpcPartUri} targetPartUri 
-     * @param {Pointer<IUri>} relativeUri 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcuri-getrelativeuri
      */
-    GetRelativeUri(targetPartUri, relativeUri) {
-        result := ComCall(29, this, "ptr", targetPartUri, "ptr*", relativeUri, "HRESULT")
-        return result
+    GetRelativeUri(targetPartUri) {
+        result := ComCall(29, this, "ptr", targetPartUri, "ptr*", &relativeUri := 0, "HRESULT")
+        return IUri(relativeUri)
     }
 
     /**
      * 
      * @param {IUri} relativeUri 
-     * @param {Pointer<IOpcPartUri>} combinedUri 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcuri-combineparturi
      */
-    CombinePartUri(relativeUri, combinedUri) {
-        result := ComCall(30, this, "ptr", relativeUri, "ptr*", combinedUri, "HRESULT")
-        return result
+    CombinePartUri(relativeUri) {
+        result := ComCall(30, this, "ptr", relativeUri, "ptr*", &combinedUri := 0, "HRESULT")
+        return IOpcPartUri(combinedUri)
     }
 }

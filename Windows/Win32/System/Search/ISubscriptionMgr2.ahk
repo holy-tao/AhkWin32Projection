@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISubscriptionItem.ahk
+#Include .\IEnumSubscription.ahk
 #Include .\ISubscriptionMgr.ahk
 
 /**
@@ -31,50 +33,44 @@ class ISubscriptionMgr2 extends ISubscriptionMgr{
     /**
      * 
      * @param {PWSTR} pwszURL 
-     * @param {Pointer<ISubscriptionItem>} ppSubscriptionItem 
-     * @returns {HRESULT} 
+     * @returns {ISubscriptionItem} 
      */
-    GetItemFromURL(pwszURL, ppSubscriptionItem) {
+    GetItemFromURL(pwszURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(11, this, "ptr", pwszURL, "ptr*", ppSubscriptionItem, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", pwszURL, "ptr*", &ppSubscriptionItem := 0, "HRESULT")
+        return ISubscriptionItem(ppSubscriptionItem)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pSubscriptionCookie 
-     * @param {Pointer<ISubscriptionItem>} ppSubscriptionItem 
-     * @returns {HRESULT} 
+     * @returns {ISubscriptionItem} 
      */
-    GetItemFromCookie(pSubscriptionCookie, ppSubscriptionItem) {
-        result := ComCall(12, this, "ptr", pSubscriptionCookie, "ptr*", ppSubscriptionItem, "HRESULT")
-        return result
+    GetItemFromCookie(pSubscriptionCookie) {
+        result := ComCall(12, this, "ptr", pSubscriptionCookie, "ptr*", &ppSubscriptionItem := 0, "HRESULT")
+        return ISubscriptionItem(ppSubscriptionItem)
     }
 
     /**
      * 
      * @param {Integer} dwNumCookies 
      * @param {Pointer<Guid>} pCookies 
-     * @param {Pointer<Integer>} pdwRunState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSubscriptionRunState(dwNumCookies, pCookies, pdwRunState) {
-        pdwRunStateMarshal := pdwRunState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, "uint", dwNumCookies, "ptr", pCookies, pdwRunStateMarshal, pdwRunState, "HRESULT")
-        return result
+    GetSubscriptionRunState(dwNumCookies, pCookies) {
+        result := ComCall(13, this, "uint", dwNumCookies, "ptr", pCookies, "uint*", &pdwRunState := 0, "HRESULT")
+        return pdwRunState
     }
 
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IEnumSubscription>} ppEnumSubscriptions 
-     * @returns {HRESULT} 
+     * @returns {IEnumSubscription} 
      */
-    EnumSubscriptions(dwFlags, ppEnumSubscriptions) {
-        result := ComCall(14, this, "uint", dwFlags, "ptr*", ppEnumSubscriptions, "HRESULT")
-        return result
+    EnumSubscriptions(dwFlags) {
+        result := ComCall(14, this, "uint", dwFlags, "ptr*", &ppEnumSubscriptions := 0, "HRESULT")
+        return IEnumSubscription(ppEnumSubscriptions)
     }
 
     /**

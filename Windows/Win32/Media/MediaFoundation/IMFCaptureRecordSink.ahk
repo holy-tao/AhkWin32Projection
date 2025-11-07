@@ -97,15 +97,12 @@ class IMFCaptureRecordSink extends IMFCaptureSink{
     /**
      * 
      * @param {Integer} dwStreamIndex 
-     * @param {Pointer<Integer>} pdwRotationValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturerecordsink-getrotation
      */
-    GetRotation(dwStreamIndex, pdwRotationValue) {
-        pdwRotationValueMarshal := pdwRotationValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "uint", dwStreamIndex, pdwRotationValueMarshal, pdwRotationValue, "HRESULT")
-        return result
+    GetRotation(dwStreamIndex) {
+        result := ComCall(12, this, "uint", dwStreamIndex, "uint*", &pdwRotationValue := 0, "HRESULT")
+        return pdwRotationValue
     }
 
     /**

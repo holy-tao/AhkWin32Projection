@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPrinterExtensionContext.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,34 +32,29 @@ class IPrinterExtensionContextCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(pulCount) {
-        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pulCountMarshal, pulCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "uint*", &pulCount := 0, "HRESULT")
+        return pulCount
     }
 
     /**
      * 
      * @param {Integer} ulIndex 
-     * @param {Pointer<IPrinterExtensionContext>} ppContext 
-     * @returns {HRESULT} 
+     * @returns {IPrinterExtensionContext} 
      */
-    GetAt(ulIndex, ppContext) {
-        result := ComCall(8, this, "uint", ulIndex, "ptr*", ppContext, "HRESULT")
-        return result
+    GetAt(ulIndex) {
+        result := ComCall(8, this, "uint", ulIndex, "ptr*", &ppContext := 0, "HRESULT")
+        return IPrinterExtensionContext(ppContext)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(ppUnk) {
-        result := ComCall(9, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 }

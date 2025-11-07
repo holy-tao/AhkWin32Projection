@@ -846,68 +846,24 @@ class BiometricFramework {
      * If you specify <b>FALSE</b> to open the framework session synchronously, success or failure is returned to the caller directly by this function in the  <b>HRESULT</b> return value. If the session is opened successfully, the first  asynchronous completion event your application receives will be for an asynchronous operation requested after the framework has been open.
      * 
      * If you specify <b>TRUE</b> to open the framework session asynchronously, the first asynchronous completion notice received will be for opening the framework. If the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_CALLBACK</b>, operation results are delivered to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure in the callback function specified by the <i>CallbackRoutine</i> parameter. If the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>, operation results are delivered to the <b>WINBIO_ASYNC_RESULT</b> structure pointed to by the <b>LPARAM</b> field of the window message.
-     * @param {Pointer<Integer>} FrameworkHandle If the function does not succeed, this parameter will be <b>NULL</b>.
+     * @returns {Integer} If the function does not succeed, this parameter will be <b>NULL</b>.
      * 
      * If the session is opened synchronously and successfully, this parameter will contain a pointer to the  session handle.
      * 
      * If you specify that the session be opened asynchronously, this method returns immediately, the session handle will be <b>NULL</b>, and you must examine the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure to determine whether the session was successfully opened.
-     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_OUTOFMEMORY</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is not enough memory available to create the framework session.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_INVALIDARG</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * If you set the notification method to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>, the <i>TargetWindow</i> parameter cannot be <b>NULL</b> or <b>HWND_BROADCAST</b> and the <i>MessageCode</i> parameter cannot be zero (0).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_POINTER</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>FrameworkHandle</i> parameter and the <i>AsynchronousOpen</i> parameter must be set.
-     * 
-     * If you set the notification method to <b>WINBIO_ASYNC_NOTIFY_CALLBACK</b>, you must also specify the address of a callback function in the <i>CallbackRoutine</i> parameter.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbioasyncopenframework
      * @since windows8.0
      */
-    static WinBioAsyncOpenFramework(NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen, FrameworkHandle) {
+    static WinBioAsyncOpenFramework(NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen) {
         TargetWindow := TargetWindow is Win32Handle ? NumGet(TargetWindow, "ptr") : TargetWindow
 
         UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
-        FrameworkHandleMarshal := FrameworkHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioAsyncOpenFramework", "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, UserDataMarshal, UserData, "int", AsynchronousOpen, FrameworkHandleMarshal, FrameworkHandle, "int")
+        result := DllCall("winbio.dll\WinBioAsyncOpenFramework", "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, UserDataMarshal, UserData, "int", AsynchronousOpen, "uint*", &FrameworkHandle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return FrameworkHandle
     }
 
     /**
@@ -1333,104 +1289,18 @@ class BiometricFramework {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} SessionHandle Pointer to the new session handle. If the function does not succeed, the handle is set to zero.
-     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_INVALIDARG</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more arguments have incorrect values or are incompatible with other arguments.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_POINTER</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The session handle pointer in the <i>SessionHandle</i> parameter cannot be <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_ACCESSDENIED</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>Flags</i> parameter contains the <b>WINBIO_FLAG_RAW</b> or the <b>WINBIO_FLAG_MAINTENANCE</b> flag and the caller has not been granted either access permission.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_INVALID_UNIT</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the biometric unit numbers specified in the <i>UnitArray</i> parameter is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_NOT_ACTIVE_CONSOLE</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The client application is running on a remote desktop client and is attempting to open a system pool session.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_SENSOR_UNAVAILABLE</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>PoolType</i> parameter is set to WINBIO_POOL_PRIVATE and one or more of the requested sensors in that pool is not available.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_DISABLED</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Current administrative policy prohibits use of the Windows Biometric Framework API.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to the new session handle. If the function does not succeed, the handle is set to zero.
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbioopensession
      * @since windows6.1
      */
-    static WinBioOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId, SessionHandle) {
+    static WinBioOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId) {
         UnitArrayMarshal := UnitArray is VarRef ? "uint*" : "ptr"
-        SessionHandleMarshal := SessionHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, UnitArrayMarshal, UnitArray, "ptr", UnitCount, "ptr", DatabaseId, SessionHandleMarshal, SessionHandle, "int")
+        result := DllCall("winbio.dll\WinBioOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, UnitArrayMarshal, UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "uint*", &SessionHandle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return SessionHandle
     }
 
     /**
@@ -1557,124 +1427,25 @@ class BiometricFramework {
      * If you specify <b>FALSE</b> to open the framework session synchronously, success or failure is returned to the caller directly by this function in the  <b>HRESULT</b> return value. If the session is opened successfully, the first  asynchronous completion event your application receives will be for an asynchronous operation requested after the framework has been open.
      * 
      * If you specify <b>TRUE</b> to open the framework session asynchronously, the first asynchronous completion notice received will be for opening the framework. If the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_CALLBACK</b>, operation results are delivered to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure in the callback function specified by the <i>CallbackRoutine</i> parameter. If the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>, operation results are delivered to the <b>WINBIO_ASYNC_RESULT</b> structure pointed to by the LPARAM field of the window message.
-     * @param {Pointer<Integer>} SessionHandle If the function does not succeed, this parameter will be <b>NULL</b>.
+     * @returns {Integer} If the function does not succeed, this parameter will be <b>NULL</b>.
      * 
      * If the session is opened synchronously and successfully, this parameter will contain a pointer to the  session handle.
      * 
      * If you specify that the session be opened asynchronously, this method returns immediately, the session handle will be <b>NULL</b>, and you must examine the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure to determine whether the session was successfully opened.
-     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_OUTOFMEMORY</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is not enough memory available to create the biometric session.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_INVALIDARG</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * If you set the notification method to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>, the <i>TargetWindow</i> parameter cannot be <b>NULL</b> or <b>HWND_BROADCAST</b> and the <i>MessageCode</i> parameter cannot be zero (0).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_POINTER</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>SessionHandle</i> parameter and the <i>AsynchronousOpen</i> parameter must be set.
-     * 
-     * If you set the notification method to <b>WINBIO_ASYNC_NOTIFY_CALLBACK</b>, you must also specify the address of a callback function in the <i>CallbackRoutine</i> parameter.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_ACCESSDENIED</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>Flags</i> parameter contains the <b>WINBIO_FLAG_RAW</b> or the <b>WINBIO_FLAG_MAINTENANCE</b> flag and the caller has not been granted either access permission.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_INVALID_UNIT</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the biometric unit numbers specified in the <i>UnitArray</i> parameter is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_NOT_ACTIVE_CONSOLE</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The client application is running on a remote desktop client and is attempting to open a system pool session.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_SENSOR_UNAVAILABLE</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>PoolType</i> parameter is set to <b>WINBIO_POOL_PRIVATE</b> and one or more of the requested sensors in that pool is not available.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_DISABLED</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Current administrative policy prohibits use of the Windows Biometric Framework API.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbioasyncopensession
      * @since windows8.0
      */
-    static WinBioAsyncOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId, NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen, SessionHandle) {
+    static WinBioAsyncOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId, NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen) {
         TargetWindow := TargetWindow is Win32Handle ? NumGet(TargetWindow, "ptr") : TargetWindow
 
         UnitArrayMarshal := UnitArray is VarRef ? "uint*" : "ptr"
         UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
-        SessionHandleMarshal := SessionHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioAsyncOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, UnitArrayMarshal, UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, UserDataMarshal, UserData, "int", AsynchronousOpen, SessionHandleMarshal, SessionHandle, "int")
+        result := DllCall("winbio.dll\WinBioAsyncOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, UnitArrayMarshal, UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, UserDataMarshal, UserData, "int", AsynchronousOpen, "uint*", &SessionHandle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return SessionHandle
     }
 
     /**
@@ -2112,59 +1883,16 @@ class BiometricFramework {
     /**
      * Retrieves the ID number of a biometric unit selected interactively by a user.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
-     * @param {Pointer<Integer>} UnitId A pointer to a <b>ULONG</b> value that specifies the biometric unit.
-     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_HANDLE</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The session handle is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_POINTER</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The pointer specified by the <i>UnitId</i> parameter cannot be <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>WINBIO_E_ENROLLMENT_IN_PROGRESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation could not be completed because the biometric unit is currently being used for an enrollment transaction (system pool only).
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} A pointer to a <b>ULONG</b> value that specifies the biometric unit.
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbiolocatesensor
      * @since windows6.1
      */
-    static WinBioLocateSensor(SessionHandle, UnitId) {
-        UnitIdMarshal := UnitId is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("winbio.dll\WinBioLocateSensor", "uint", SessionHandle, UnitIdMarshal, UnitId, "int")
+    static WinBioLocateSensor(SessionHandle) {
+        result := DllCall("winbio.dll\WinBioLocateSensor", "uint", SessionHandle, "uint*", &UnitId := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return UnitId
     }
 
     /**
@@ -2355,7 +2083,7 @@ class BiometricFramework {
     /**
      * Captures a biometric sample and adds it to a template. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
-     * @param {Pointer<Integer>} RejectDetail A pointer to a <b>ULONG</b> value that contains additional information the failure to capture a biometric sample. If the capture succeeded, this parameter is set to zero. The following values are defined for fingerprint capture:
+     * @returns {Integer} A pointer to a <b>ULONG</b> value that contains additional information the failure to capture a biometric sample. If the capture succeeded, this parameter is set to zero. The following values are defined for fingerprint capture:
      * 
      * <ul>
      * <li>WINBIO_FP_TOO_HIGH</li>
@@ -2369,91 +2097,15 @@ class BiometricFramework {
      * <li>WINBIO_FP_TOO_SHORT</li>
      * <li>WINBIO_FP_MERGE_FAILURE</li>
      * </ul>
-     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_ACCESSDENIED</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The calling account is not allowed to perform enrollment.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_HANDLE</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The session handle is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_POINTER</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The pointer specified by the <i>RejectDetail</i> parameter cannot be <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_BAD_CAPTURE</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The sample could not be captured. Use the <i>RejectDetail</i> value for more information.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_LOCK_VIOLATION</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The biometric unit is in use and is locked.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_I_MORE_DATA</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The matching engine requires one or more additional samples to generate a reliable template. You should update instructions to the user to submit more samples and call <a href="/windows/desktop/api/winbio/nf-winbio-winbioenrollcapture">WinBioEnrollCapture</a> again.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbioenrollcapture
      * @since windows6.1
      */
-    static WinBioEnrollCapture(SessionHandle, RejectDetail) {
-        RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("winbio.dll\WinBioEnrollCapture", "uint", SessionHandle, RejectDetailMarshal, RejectDetail, "int")
+    static WinBioEnrollCapture(SessionHandle) {
+        result := DllCall("winbio.dll\WinBioEnrollCapture", "uint", SessionHandle, "uint*", &RejectDetail := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return RejectDetail
     }
 
     /**
@@ -2519,81 +2171,16 @@ class BiometricFramework {
      * Finalizes a pending biometric template and saves it to the database associated with the biometric unit used for enrollment. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
      * @param {Pointer<WINBIO_IDENTITY>} Identity Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that receives the identifier (GUID or SID) of the template.
-     * @param {Pointer<Integer>} IsNewTemplate Pointer to a Boolean value that specifies whether the template being added to the database is new.
-     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_HANDLE</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The session handle is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_POINTER</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The pointers specified by the <i>Identity</i> and <i>IsNewTemplate</i> parameters cannot be <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>WINBIO_E_DATABASE_FULL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is no space available in the database for the template.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>WINBIO_E_DUPLICATE_TEMPLATE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The template matches one already saved in the database with a different identity or sub-factor (system pool only).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_LOCK_VIOLATION</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The biometric unit is in use and is locked.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to a Boolean value that specifies whether the template being added to the database is new.
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbioenrollcommit
      * @since windows6.1
      */
-    static WinBioEnrollCommit(SessionHandle, Identity, IsNewTemplate) {
-        IsNewTemplateMarshal := IsNewTemplate is VarRef ? "char*" : "ptr"
-
-        result := DllCall("winbio.dll\WinBioEnrollCommit", "uint", SessionHandle, "ptr", Identity, IsNewTemplateMarshal, IsNewTemplate, "int")
+    static WinBioEnrollCommit(SessionHandle, Identity) {
+        result := DllCall("winbio.dll\WinBioEnrollCommit", "uint", SessionHandle, "ptr", Identity, "char*", &IsNewTemplate := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IsNewTemplate
     }
 
     /**
@@ -3393,82 +2980,18 @@ class BiometricFramework {
      * @param {Pointer} ReceiveBuffer Address of the buffer that receives information sent by the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} ReceiveBufferSize Size, in bytes, of the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @param {Pointer<Pointer>} ReceiveDataSize Pointer to a <b>SIZE_T</b> value that contains the size, in bytes, of the data written to the buffer specified by the <i>ReceiveBuffer</i> parameter.
-     * @param {Pointer<Integer>} OperationStatus Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
-     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_HANDLE</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The session handle is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_INVALIDARG</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The value specified in the <i>ControlCode</i> parameter is not recognized.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_POINTER</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>SendBuffer</i>, <i>ReceiveBuffer</i>, <i>ReceiveDataSize</i>, <i>OperationStatus</i> parameters cannot be <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_INVALID_CONTROL_CODE</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The value specified in the <i>ControlCode</i> parameter is not recognized.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_LOCK_VIOLATION</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The biometric unit specified by the <i>UnitId</i> parameter must be locked before any control operations can be performed.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbiocontrolunit
      * @since windows6.1
      */
-    static WinBioControlUnit(SessionHandle, UnitId, Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize, OperationStatus) {
+    static WinBioControlUnit(SessionHandle, UnitId, Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize) {
         ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : "ptr"
-        OperationStatusMarshal := OperationStatus is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioControlUnit", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, OperationStatusMarshal, OperationStatus, "int")
+        result := DllCall("winbio.dll\WinBioControlUnit", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return OperationStatus
     }
 
     /**
@@ -3482,93 +3005,18 @@ class BiometricFramework {
      * @param {Pointer} ReceiveBuffer Address of the buffer that receives information sent by the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} ReceiveBufferSize Size, in bytes, of the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @param {Pointer<Pointer>} ReceiveDataSize Pointer to a <b>SIZE_T</b> value that contains the size, in bytes, of the data written to the buffer specified by the <i>ReceiveBuffer</i> parameter.
-     * @param {Pointer<Integer>} OperationStatus Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
-     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_HANDLE</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The session handle is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_INVALIDARG</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The value specified in the <i>ControlCode</i> parameter is not recognized.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_POINTER</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>SendBuffer</i>, <i>ReceiveBuffer</i>, <i>ReceiveDataSize</i>, <i>OperationStatus</i> parameters cannot be <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_ACCESSDENIED</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller does not have permission to perform the operation, or the session was not opened by using <b>WINBIO_FLAG_MAINTENANCE</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_INVALIDARG</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The value specified in the <i>ControlCode</i> parameter is not recognized.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_LOCK_VIOLATION</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The biometric unit specified by the <i>UnitId</i> parameter must be locked before any control operations can be performed.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbiocontrolunitprivileged
      * @since windows6.1
      */
-    static WinBioControlUnitPrivileged(SessionHandle, UnitId, Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize, OperationStatus) {
+    static WinBioControlUnitPrivileged(SessionHandle, UnitId, Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize) {
         ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : "ptr"
-        OperationStatusMarshal := OperationStatus is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioControlUnitPrivileged", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, OperationStatusMarshal, OperationStatus, "int")
+        result := DllCall("winbio.dll\WinBioControlUnitPrivileged", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return OperationStatus
     }
 
     /**
@@ -4107,59 +3555,16 @@ class BiometricFramework {
      * Retrieves a value that specifies whether credentials have been set for the specified user. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
      * @param {WINBIO_IDENTITY} Identity A  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the SID of the user account for which the credential is being queried.
      * @param {Integer} Type 
-     * @param {Pointer<Integer>} CredentialState 
-     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>E_ACCESSDENIED</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller does not have permission to retrieve the  credential state.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_UNKNOWN_ID</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified identity does not exist.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><b>WINBIO_E_CRED_PROV_DISABLED</b></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Current administrative policy prohibits use of the credential provider.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbiogetcredentialstate
      * @since windows6.1
      */
-    static WinBioGetCredentialState(Identity, Type, CredentialState) {
-        CredentialStateMarshal := CredentialState is VarRef ? "int*" : "ptr"
-
-        result := DllCall("winbio.dll\WinBioGetCredentialState", "ptr", Identity, "int", Type, CredentialStateMarshal, CredentialState, "int")
+    static WinBioGetCredentialState(Identity, Type) {
+        result := DllCall("winbio.dll\WinBioGetCredentialState", "ptr", Identity, "int", Type, "int*", &CredentialState := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return CredentialState
     }
 
     /**
@@ -4275,52 +3680,20 @@ class BiometricFramework {
      * <pre class="syntax" xml:space="preserve"><code>WINBIO_IDENTITY identity = {};
      * identity.Type = WINBIO_ID_TYPE_WILDCARD;
      * </code></pre>
-     * @param {Pointer<Integer>} EnrolledFactors A set of <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-biometric-type-constants">WINBIO_BIOMETRIC_TYPE</a> flags that indicate the biometric enrollments that the specified user has on the computer. A value of 0 indicates that the user has no biometric enrollments.
+     * @returns {Integer} A set of <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-biometric-type-constants">WINBIO_BIOMETRIC_TYPE</a> flags that indicate the biometric enrollments that the specified user has on the computer. A value of 0 indicates that the user has no biometric enrollments.
      * 
      * These enrollments represent system pool enrollments only, such as enrollments that you can use to authenticate a user for sign-in, unlock, and so on.          This value does not include private pool enrollments.
      * 
      * If you specify the wildcard identity type for the  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that you use for the <i>AccountOwner</i> parameter, this set of flags represents the combined set of enrollments for all users with accounts on the computer.
-     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>AccountOwner</i> and <i>EnrolledFactors</i> parameters cannot be <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <b>Type</b> member of the <a href="/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that the  <i>AccountOnwer</i> parameter specified was not <b>WINBIO_ID_TYPE_SID</b> or <b>WINBIO_ID_TYPE_WILDCARD</b>, or the <b>AccountSid</b> member of the <b>WINBIO_IDENTITY</b> structure was not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbiogetenrolledfactors
      * @since windows10.0.10240
      */
-    static WinBioGetEnrolledFactors(AccountOwner, EnrolledFactors) {
-        EnrolledFactorsMarshal := EnrolledFactors is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("winbio.dll\WinBioGetEnrolledFactors", "ptr", AccountOwner, EnrolledFactorsMarshal, EnrolledFactors, "int")
+    static WinBioGetEnrolledFactors(AccountOwner) {
+        result := DllCall("winbio.dll\WinBioGetEnrolledFactors", "ptr", AccountOwner, "uint*", &EnrolledFactors := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return EnrolledFactors
     }
 
     /**
@@ -4370,17 +3743,14 @@ class BiometricFramework {
 
     /**
      * 
-     * @param {Pointer<Integer>} Value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static WinBioIsESSCapable(Value) {
-        ValueMarshal := Value is VarRef ? "char*" : "ptr"
-
-        result := DllCall("winbio.dll\WinBioIsESSCapable", ValueMarshal, Value, "int")
+    static WinBioIsESSCapable() {
+        result := DllCall("winbio.dll\WinBioIsESSCapable", "char*", &Value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return Value
     }
 
     /**

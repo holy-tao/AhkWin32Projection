@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10SamplerState.ahk
+#Include .\D3D10_SAMPLER_DESC.ahk
 #Include .\ID3D10EffectVariable.ahk
 
 /**
@@ -41,24 +43,23 @@ class ID3D10EffectSamplerVariable extends ID3D10EffectVariable{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ID3D10SamplerState>} ppSampler 
-     * @returns {HRESULT} 
+     * @returns {ID3D10SamplerState} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectsamplervariable-getsampler
      */
-    GetSampler(Index, ppSampler) {
-        result := ComCall(25, this, "uint", Index, "ptr*", ppSampler, "HRESULT")
-        return result
+    GetSampler(Index) {
+        result := ComCall(25, this, "uint", Index, "ptr*", &ppSampler := 0, "HRESULT")
+        return ID3D10SamplerState(ppSampler)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<D3D10_SAMPLER_DESC>} pSamplerDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SAMPLER_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectsamplervariable-getbackingstore
      */
-    GetBackingStore(Index, pSamplerDesc) {
+    GetBackingStore(Index) {
+        pSamplerDesc := D3D10_SAMPLER_DESC()
         result := ComCall(26, this, "uint", Index, "ptr", pSamplerDesc, "HRESULT")
-        return result
+        return pSamplerDesc
     }
 }

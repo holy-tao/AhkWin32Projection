@@ -59,25 +59,21 @@ class IX509ExtensionBasicConstraints extends IX509Extension{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionbasicconstraints-get_isca
      */
-    get_IsCA(pValue) {
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
-        return result
+    get_IsCA() {
+        result := ComCall(14, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionbasicconstraints-get_pathlenconstraint
      */
-    get_PathLenConstraint(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_PathLenConstraint() {
+        result := ComCall(15, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 }

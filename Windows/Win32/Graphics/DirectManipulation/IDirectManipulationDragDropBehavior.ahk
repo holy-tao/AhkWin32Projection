@@ -50,14 +50,11 @@ class IDirectManipulationDragDropBehavior extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationdragdropbehavior-getstatus
      */
-    GetStatus(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, statusMarshal, status, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(4, this, "int*", &status := 0, "HRESULT")
+        return status
     }
 }

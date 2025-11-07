@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to the collection of open Shell windows.
@@ -64,38 +65,33 @@ class IShellWindows extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
      * @param {VARIANT} index 
-     * @param {Pointer<IDispatch>} Folder 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-item
      */
-    Item(index, Folder) {
-        result := ComCall(8, this, "ptr", index, "ptr*", Folder, "HRESULT")
-        return result
+    Item(index) {
+        result := ComCall(8, this, "ptr", index, "ptr*", &Folder := 0, "HRESULT")
+        return IDispatch(Folder)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-_newenum
      */
-    _NewEnum(ppunk) {
-        result := ComCall(9, this, "ptr*", ppunk, "HRESULT")
-        return result
+    _NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
@@ -103,15 +99,12 @@ class IShellWindows extends IDispatch{
      * @param {IDispatch} pid 
      * @param {Integer} hwnd 
      * @param {Integer} swClass 
-     * @param {Pointer<Integer>} plCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-register
      */
-    Register(pid, hwnd, swClass, plCookie) {
-        plCookieMarshal := plCookie is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, "ptr", pid, "int", hwnd, "int", swClass, plCookieMarshal, plCookie, "HRESULT")
-        return result
+    Register(pid, hwnd, swClass) {
+        result := ComCall(10, this, "ptr", pid, "int", hwnd, "int", swClass, "int*", &plCookie := 0, "HRESULT")
+        return plCookie
     }
 
     /**
@@ -120,15 +113,12 @@ class IShellWindows extends IDispatch{
      * @param {Pointer<VARIANT>} pvarloc 
      * @param {Pointer<VARIANT>} pvarlocRoot 
      * @param {Integer} swClass 
-     * @param {Pointer<Integer>} plCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-registerpending
      */
-    RegisterPending(lThreadId, pvarloc, pvarlocRoot, swClass, plCookie) {
-        plCookieMarshal := plCookie is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "int", lThreadId, "ptr", pvarloc, "ptr", pvarlocRoot, "int", swClass, plCookieMarshal, plCookie, "HRESULT")
-        return result
+    RegisterPending(lThreadId, pvarloc, pvarlocRoot, swClass) {
+        result := ComCall(11, this, "int", lThreadId, "ptr", pvarloc, "ptr", pvarlocRoot, "int", swClass, "int*", &plCookie := 0, "HRESULT")
+        return plCookie
     }
 
     /**
@@ -173,15 +163,14 @@ class IShellWindows extends IDispatch{
      * @param {Integer} swClass 
      * @param {Pointer<Integer>} phwnd 
      * @param {Integer} swfwOptions 
-     * @param {Pointer<IDispatch>} ppdispOut 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-findwindowsw
      */
-    FindWindowSW(pvarLoc, pvarLocRoot, swClass, phwnd, swfwOptions, ppdispOut) {
+    FindWindowSW(pvarLoc, pvarLocRoot, swClass, phwnd, swfwOptions) {
         phwndMarshal := phwnd is VarRef ? "int*" : "ptr"
 
-        result := ComCall(15, this, "ptr", pvarLoc, "ptr", pvarLocRoot, "int", swClass, phwndMarshal, phwnd, "int", swfwOptions, "ptr*", ppdispOut, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", pvarLoc, "ptr", pvarLocRoot, "int", swClass, phwndMarshal, phwnd, "int", swfwOptions, "ptr*", &ppdispOut := 0, "HRESULT")
+        return IDispatch(ppdispOut)
     }
 
     /**

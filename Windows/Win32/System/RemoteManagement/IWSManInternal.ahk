@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,11 +40,11 @@ class IWSManInternal extends IDispatch{
      * @param {IDispatch} session 
      * @param {VARIANT} resourceUri 
      * @param {Integer} flags 
-     * @param {Pointer<BSTR>} resource 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    ConfigSDDL(session, resourceUri, flags, resource) {
+    ConfigSDDL(session, resourceUri, flags) {
+        resource := BSTR()
         result := ComCall(7, this, "ptr", session, "ptr", resourceUri, "int", flags, "ptr", resource, "HRESULT")
-        return result
+        return resource
     }
 }

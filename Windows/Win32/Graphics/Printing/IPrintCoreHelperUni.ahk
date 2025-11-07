@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include .\IPrintCoreHelper.ahk
 
 /**
@@ -33,22 +34,20 @@ class IPrintCoreHelperUni extends IPrintCoreHelper{
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {Integer} cbSize 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IStream>} ppSnapshotStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      */
-    CreateGDLSnapshot(pDevmode, cbSize, dwFlags, ppSnapshotStream) {
-        result := ComCall(12, this, "ptr", pDevmode, "uint", cbSize, "uint", dwFlags, "ptr*", ppSnapshotStream, "HRESULT")
-        return result
+    CreateGDLSnapshot(pDevmode, cbSize, dwFlags) {
+        result := ComCall(12, this, "ptr", pDevmode, "uint", cbSize, "uint", dwFlags, "ptr*", &ppSnapshotStream := 0, "HRESULT")
+        return IStream(ppSnapshotStream)
     }
 
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IStream>} ppSnapshotStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      */
-    CreateDefaultGDLSnapshot(dwFlags, ppSnapshotStream) {
-        result := ComCall(13, this, "uint", dwFlags, "ptr*", ppSnapshotStream, "HRESULT")
-        return result
+    CreateDefaultGDLSnapshot(dwFlags) {
+        result := ComCall(13, this, "uint", dwFlags, "ptr*", &ppSnapshotStream := 0, "HRESULT")
+        return IStream(ppSnapshotStream)
     }
 }

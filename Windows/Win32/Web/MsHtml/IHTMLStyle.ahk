@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -49,12 +50,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_fontFamily(p) {
+    get_fontFamily() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -71,12 +72,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_fontStyle(p) {
+    get_fontStyle() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -93,12 +94,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_fontVariant(p) {
+    get_fontVariant() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -115,12 +116,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_fontWeight(p) {
+    get_fontWeight() {
+        p := BSTR()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -135,12 +136,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_fontSize(p) {
+    get_fontSize() {
+        p := VARIANT()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -157,12 +158,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_font(p) {
+    get_font() {
+        p := BSTR()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -177,12 +178,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_color(p) {
+    get_color() {
+        p := VARIANT()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -199,12 +200,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_background(p) {
+    get_background() {
+        p := BSTR()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -219,12 +220,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_backgroundColor(p) {
+    get_backgroundColor() {
+        p := VARIANT()
         result := ComCall(24, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -241,12 +242,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_backgroundImage(p) {
+    get_backgroundImage() {
+        p := BSTR()
         result := ComCall(26, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -263,12 +264,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_backgroundRepeat(p) {
+    get_backgroundRepeat() {
+        p := BSTR()
         result := ComCall(28, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -285,12 +286,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_backgroundAttachment(p) {
+    get_backgroundAttachment() {
+        p := BSTR()
         result := ComCall(30, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -307,12 +308,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_backgroundPosition(p) {
+    get_backgroundPosition() {
+        p := BSTR()
         result := ComCall(32, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -327,12 +328,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_backgroundPositionX(p) {
+    get_backgroundPositionX() {
+        p := VARIANT()
         result := ComCall(34, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -347,12 +348,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_backgroundPositionY(p) {
+    get_backgroundPositionY() {
+        p := VARIANT()
         result := ComCall(36, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -367,12 +368,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_wordSpacing(p) {
+    get_wordSpacing() {
+        p := VARIANT()
         result := ComCall(38, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -387,12 +388,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_letterSpacing(p) {
+    get_letterSpacing() {
+        p := VARIANT()
         result := ComCall(40, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -409,12 +410,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_textDecoration(p) {
+    get_textDecoration() {
+        p := BSTR()
         result := ComCall(42, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -429,12 +430,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_textDecorationNone(p) {
-        result := ComCall(44, this, "ptr", p, "HRESULT")
-        return result
+    get_textDecorationNone() {
+        result := ComCall(44, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -449,12 +449,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_textDecorationUnderline(p) {
-        result := ComCall(46, this, "ptr", p, "HRESULT")
-        return result
+    get_textDecorationUnderline() {
+        result := ComCall(46, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -469,12 +468,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_textDecorationOverline(p) {
-        result := ComCall(48, this, "ptr", p, "HRESULT")
-        return result
+    get_textDecorationOverline() {
+        result := ComCall(48, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -489,12 +487,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_textDecorationLineThrough(p) {
-        result := ComCall(50, this, "ptr", p, "HRESULT")
-        return result
+    get_textDecorationLineThrough() {
+        result := ComCall(50, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -509,12 +506,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_textDecorationBlink(p) {
-        result := ComCall(52, this, "ptr", p, "HRESULT")
-        return result
+    get_textDecorationBlink() {
+        result := ComCall(52, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -529,12 +525,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_verticalAlign(p) {
+    get_verticalAlign() {
+        p := VARIANT()
         result := ComCall(54, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -551,12 +547,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_textTransform(p) {
+    get_textTransform() {
+        p := BSTR()
         result := ComCall(56, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -573,12 +569,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_textAlign(p) {
+    get_textAlign() {
+        p := BSTR()
         result := ComCall(58, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -593,12 +589,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_textIndent(p) {
+    get_textIndent() {
+        p := VARIANT()
         result := ComCall(60, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -613,12 +609,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_lineHeight(p) {
+    get_lineHeight() {
+        p := VARIANT()
         result := ComCall(62, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -633,12 +629,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_marginTop(p) {
+    get_marginTop() {
+        p := VARIANT()
         result := ComCall(64, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -653,12 +649,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_marginRight(p) {
+    get_marginRight() {
+        p := VARIANT()
         result := ComCall(66, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -673,12 +669,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_marginBottom(p) {
+    get_marginBottom() {
+        p := VARIANT()
         result := ComCall(68, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -693,12 +689,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_marginLeft(p) {
+    get_marginLeft() {
+        p := VARIANT()
         result := ComCall(70, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -715,12 +711,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_margin(p) {
+    get_margin() {
+        p := BSTR()
         result := ComCall(72, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -735,12 +731,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_paddingTop(p) {
+    get_paddingTop() {
+        p := VARIANT()
         result := ComCall(74, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -755,12 +751,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_paddingRight(p) {
+    get_paddingRight() {
+        p := VARIANT()
         result := ComCall(76, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -775,12 +771,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_paddingBottom(p) {
+    get_paddingBottom() {
+        p := VARIANT()
         result := ComCall(78, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -795,12 +791,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_paddingLeft(p) {
+    get_paddingLeft() {
+        p := VARIANT()
         result := ComCall(80, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -817,12 +813,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_padding(p) {
+    get_padding() {
+        p := BSTR()
         result := ComCall(82, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -839,12 +835,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_border(p) {
+    get_border() {
+        p := BSTR()
         result := ComCall(84, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -861,12 +857,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderTop(p) {
+    get_borderTop() {
+        p := BSTR()
         result := ComCall(86, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -883,12 +879,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderRight(p) {
+    get_borderRight() {
+        p := BSTR()
         result := ComCall(88, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -905,12 +901,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderBottom(p) {
+    get_borderBottom() {
+        p := BSTR()
         result := ComCall(90, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -927,12 +923,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderLeft(p) {
+    get_borderLeft() {
+        p := BSTR()
         result := ComCall(92, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -949,12 +945,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderColor(p) {
+    get_borderColor() {
+        p := BSTR()
         result := ComCall(94, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -969,12 +965,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_borderTopColor(p) {
+    get_borderTopColor() {
+        p := VARIANT()
         result := ComCall(96, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -989,12 +985,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_borderRightColor(p) {
+    get_borderRightColor() {
+        p := VARIANT()
         result := ComCall(98, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1009,12 +1005,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_borderBottomColor(p) {
+    get_borderBottomColor() {
+        p := VARIANT()
         result := ComCall(100, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1029,12 +1025,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_borderLeftColor(p) {
+    get_borderLeftColor() {
+        p := VARIANT()
         result := ComCall(102, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1051,12 +1047,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderWidth(p) {
+    get_borderWidth() {
+        p := BSTR()
         result := ComCall(104, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1071,12 +1067,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_borderTopWidth(p) {
+    get_borderTopWidth() {
+        p := VARIANT()
         result := ComCall(106, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1091,12 +1087,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_borderRightWidth(p) {
+    get_borderRightWidth() {
+        p := VARIANT()
         result := ComCall(108, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1111,12 +1107,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_borderBottomWidth(p) {
+    get_borderBottomWidth() {
+        p := VARIANT()
         result := ComCall(110, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1131,12 +1127,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_borderLeftWidth(p) {
+    get_borderLeftWidth() {
+        p := VARIANT()
         result := ComCall(112, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1153,12 +1149,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderStyle(p) {
+    get_borderStyle() {
+        p := BSTR()
         result := ComCall(114, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1175,12 +1171,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderTopStyle(p) {
+    get_borderTopStyle() {
+        p := BSTR()
         result := ComCall(116, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1197,12 +1193,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderRightStyle(p) {
+    get_borderRightStyle() {
+        p := BSTR()
         result := ComCall(118, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1219,12 +1215,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderBottomStyle(p) {
+    get_borderBottomStyle() {
+        p := BSTR()
         result := ComCall(120, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1241,12 +1237,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderLeftStyle(p) {
+    get_borderLeftStyle() {
+        p := BSTR()
         result := ComCall(122, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1261,12 +1257,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_width(p) {
+    get_width() {
+        p := VARIANT()
         result := ComCall(124, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1281,12 +1277,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_height(p) {
+    get_height() {
+        p := VARIANT()
         result := ComCall(126, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1303,12 +1299,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_styleFloat(p) {
+    get_styleFloat() {
+        p := BSTR()
         result := ComCall(128, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1325,12 +1321,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_clear(p) {
+    get_clear() {
+        p := BSTR()
         result := ComCall(130, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1347,12 +1343,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_display(p) {
+    get_display() {
+        p := BSTR()
         result := ComCall(132, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1369,12 +1365,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_visibility(p) {
+    get_visibility() {
+        p := BSTR()
         result := ComCall(134, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1391,12 +1387,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_listStyleType(p) {
+    get_listStyleType() {
+        p := BSTR()
         result := ComCall(136, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1413,12 +1409,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_listStylePosition(p) {
+    get_listStylePosition() {
+        p := BSTR()
         result := ComCall(138, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1435,12 +1431,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_listStyleImage(p) {
+    get_listStyleImage() {
+        p := BSTR()
         result := ComCall(140, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1457,12 +1453,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_listStyle(p) {
+    get_listStyle() {
+        p := BSTR()
         result := ComCall(142, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1479,12 +1475,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_whiteSpace(p) {
+    get_whiteSpace() {
+        p := BSTR()
         result := ComCall(144, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1499,12 +1495,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_top(p) {
+    get_top() {
+        p := VARIANT()
         result := ComCall(146, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1519,22 +1515,22 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_left(p) {
+    get_left() {
+        p := VARIANT()
         result := ComCall(148, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_position(p) {
+    get_position() {
+        p := BSTR()
         result := ComCall(149, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1549,12 +1545,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_zIndex(p) {
+    get_zIndex() {
+        p := VARIANT()
         result := ComCall(151, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1571,12 +1567,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_overflow(p) {
+    get_overflow() {
+        p := BSTR()
         result := ComCall(153, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1593,12 +1589,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_pageBreakBefore(p) {
+    get_pageBreakBefore() {
+        p := BSTR()
         result := ComCall(155, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1615,12 +1611,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_pageBreakAfter(p) {
+    get_pageBreakAfter() {
+        p := BSTR()
         result := ComCall(157, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1637,12 +1633,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_cssText(p) {
+    get_cssText() {
+        p := BSTR()
         result := ComCall(159, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1657,14 +1653,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_pixelTop(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(161, this, pMarshal, p, "HRESULT")
-        return result
+    get_pixelTop() {
+        result := ComCall(161, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -1679,14 +1672,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_pixelLeft(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(163, this, pMarshal, p, "HRESULT")
-        return result
+    get_pixelLeft() {
+        result := ComCall(163, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -1701,14 +1691,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_pixelWidth(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(165, this, pMarshal, p, "HRESULT")
-        return result
+    get_pixelWidth() {
+        result := ComCall(165, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -1723,14 +1710,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_pixelHeight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(167, this, pMarshal, p, "HRESULT")
-        return result
+    get_pixelHeight() {
+        result := ComCall(167, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -1745,14 +1729,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_posTop(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(169, this, pMarshal, p, "HRESULT")
-        return result
+    get_posTop() {
+        result := ComCall(169, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -1767,14 +1748,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_posLeft(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(171, this, pMarshal, p, "HRESULT")
-        return result
+    get_posLeft() {
+        result := ComCall(171, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -1789,14 +1767,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_posWidth(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(173, this, pMarshal, p, "HRESULT")
-        return result
+    get_posWidth() {
+        result := ComCall(173, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -1811,14 +1786,11 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_posHeight(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(175, this, pMarshal, p, "HRESULT")
-        return result
+    get_posHeight() {
+        result := ComCall(175, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -1835,12 +1807,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_cursor(p) {
+    get_cursor() {
+        p := BSTR()
         result := ComCall(177, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1857,12 +1829,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_clip(p) {
+    get_clip() {
+        p := BSTR()
         result := ComCall(179, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1879,12 +1851,12 @@ class IHTMLStyle extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_filter(p) {
+    get_filter() {
+        p := BSTR()
         result := ComCall(181, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1905,37 +1877,36 @@ class IHTMLStyle extends IDispatch{
      * 
      * @param {BSTR} strAttributeName 
      * @param {Integer} lFlags 
-     * @param {Pointer<VARIANT>} AttributeValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getAttribute(strAttributeName, lFlags, AttributeValue) {
+    getAttribute(strAttributeName, lFlags) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
+        AttributeValue := VARIANT()
         result := ComCall(183, this, "ptr", strAttributeName, "int", lFlags, "ptr", AttributeValue, "HRESULT")
-        return result
+        return AttributeValue
     }
 
     /**
      * 
      * @param {BSTR} strAttributeName 
      * @param {Integer} lFlags 
-     * @param {Pointer<VARIANT_BOOL>} pfSuccess 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    removeAttribute(strAttributeName, lFlags, pfSuccess) {
+    removeAttribute(strAttributeName, lFlags) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(184, this, "ptr", strAttributeName, "int", lFlags, "ptr", pfSuccess, "HRESULT")
-        return result
+        result := ComCall(184, this, "ptr", strAttributeName, "int", lFlags, "short*", &pfSuccess := 0, "HRESULT")
+        return pfSuccess
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} String 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toString(String) {
+    toString() {
+        String := BSTR()
         result := ComCall(185, this, "ptr", String, "HRESULT")
-        return result
+        return String
     }
 }

@@ -32,12 +32,12 @@ class IMFVideoDeviceID extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pDeviceID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodeviceid-getdeviceid
      */
-    GetDeviceID(pDeviceID) {
+    GetDeviceID() {
+        pDeviceID := Guid()
         result := ComCall(3, this, "ptr", pDeviceID, "HRESULT")
-        return result
+        return pDeviceID
     }
 }

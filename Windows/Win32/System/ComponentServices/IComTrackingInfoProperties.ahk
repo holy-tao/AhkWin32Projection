@@ -32,26 +32,22 @@ class IComTrackingInfoProperties extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfoproperties-propcount
      */
-    PropCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    PropCount() {
+        result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} ulIndex 
-     * @param {Pointer<PWSTR>} ppszPropName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfoproperties-getpropname
      */
-    GetPropName(ulIndex, ppszPropName) {
-        result := ComCall(4, this, "uint", ulIndex, "ptr", ppszPropName, "HRESULT")
-        return result
+    GetPropName(ulIndex) {
+        result := ComCall(4, this, "uint", ulIndex, "ptr*", &ppszPropName := 0, "HRESULT")
+        return ppszPropName
     }
 }

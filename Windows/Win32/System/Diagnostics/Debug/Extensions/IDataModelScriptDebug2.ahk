@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDataModelScriptDebugBreakpoint.ahk
 #Include .\IDataModelScriptDebug.ahk
 
 /**
@@ -31,13 +32,12 @@ class IDataModelScriptDebug2 extends IDataModelScriptDebug{
     /**
      * 
      * @param {PWSTR} functionName 
-     * @param {Pointer<IDataModelScriptDebugBreakpoint>} breakpoint 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptDebugBreakpoint} 
      */
-    SetBreakpointAtFunction(functionName, breakpoint) {
+    SetBreakpointAtFunction(functionName) {
         functionName := functionName is String ? StrPtr(functionName) : functionName
 
-        result := ComCall(13, this, "ptr", functionName, "ptr*", breakpoint, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", functionName, "ptr*", &breakpoint := 0, "HRESULT")
+        return IDataModelScriptDebugBreakpoint(breakpoint)
     }
 }

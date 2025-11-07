@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MF_TRANSCODE_SINK_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -96,12 +97,12 @@ class IMFTranscodeSinkInfoProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MF_TRANSCODE_SINK_INFO>} pSinkInfo 
-     * @returns {HRESULT} 
+     * @returns {MF_TRANSCODE_SINK_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftranscodesinkinfoprovider-getsinkinfo
      */
-    GetSinkInfo(pSinkInfo) {
+    GetSinkInfo() {
+        pSinkInfo := MF_TRANSCODE_SINK_INFO()
         result := ComCall(6, this, "ptr", pSinkInfo, "HRESULT")
-        return result
+        return pSinkInfo
     }
 }

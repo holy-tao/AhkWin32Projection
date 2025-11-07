@@ -32,11 +32,11 @@ class IActivationFilter extends IUnknown{
      * 
      * @param {Integer} dwActivationType 
      * @param {Pointer<Guid>} rclsid 
-     * @param {Pointer<Guid>} pReplacementClsId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    HandleActivation(dwActivationType, rclsid, pReplacementClsId) {
+    HandleActivation(dwActivationType, rclsid) {
+        pReplacementClsId := Guid()
         result := ComCall(3, this, "uint", dwActivationType, "ptr", rclsid, "ptr", pReplacementClsId, "HRESULT")
-        return result
+        return pReplacementClsId
     }
 }

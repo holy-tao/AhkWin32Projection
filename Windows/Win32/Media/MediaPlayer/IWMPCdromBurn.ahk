@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWMPPlaylist.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,7 +42,9 @@ class IWMPCdromBurn extends IUnknown{
     isAvailable(bstrItem, pIsAvailable) {
         bstrItem := bstrItem is String ? BSTR.Alloc(bstrItem).Value : bstrItem
 
-        result := ComCall(3, this, "ptr", bstrItem, "ptr", pIsAvailable, "HRESULT")
+        pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : "ptr"
+
+        result := ComCall(3, this, "ptr", bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
         return result
     }
 
@@ -109,13 +112,12 @@ class IWMPCdromBurn extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWMPPlaylist>} ppPlaylist 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromburn-get_burnplaylist
      */
-    get_burnPlaylist(ppPlaylist) {
-        result := ComCall(9, this, "ptr*", ppPlaylist, "HRESULT")
-        return result
+    get_burnPlaylist() {
+        result := ComCall(9, this, "ptr*", &ppPlaylist := 0, "HRESULT")
+        return IWMPPlaylist(ppPlaylist)
     }
 
     /**

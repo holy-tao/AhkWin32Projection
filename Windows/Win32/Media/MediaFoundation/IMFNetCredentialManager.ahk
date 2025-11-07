@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFNetCredential.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,13 +47,12 @@ class IMFNetCredentialManager extends IUnknown{
     /**
      * 
      * @param {IMFAsyncResult} pResult 
-     * @param {Pointer<IMFNetCredential>} ppCred 
-     * @returns {HRESULT} 
+     * @returns {IMFNetCredential} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredentialmanager-endgetcredentials
      */
-    EndGetCredentials(pResult, ppCred) {
-        result := ComCall(4, this, "ptr", pResult, "ptr*", ppCred, "HRESULT")
-        return result
+    EndGetCredentials(pResult) {
+        result := ComCall(4, this, "ptr", pResult, "ptr*", &ppCred := 0, "HRESULT")
+        return IMFNetCredential(ppCred)
     }
 
     /**

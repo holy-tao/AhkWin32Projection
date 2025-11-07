@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -64,50 +65,43 @@ class IFileIsInUse extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getappname
      */
-    GetAppName(ppszName) {
-        result := ComCall(3, this, "ptr", ppszName, "HRESULT")
-        return result
+    GetAppName() {
+        result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pfut 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getusage
      */
-    GetUsage(pfut) {
-        pfutMarshal := pfut is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pfutMarshal, pfut, "HRESULT")
-        return result
+    GetUsage() {
+        result := ComCall(4, this, "int*", &pfut := 0, "HRESULT")
+        return pfut
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCapFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getcapabilities
      */
-    GetCapabilities(pdwCapFlags) {
-        pdwCapFlagsMarshal := pdwCapFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwCapFlagsMarshal, pdwCapFlags, "HRESULT")
-        return result
+    GetCapabilities() {
+        result := ComCall(5, this, "uint*", &pdwCapFlags := 0, "HRESULT")
+        return pdwCapFlags
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} phwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getswitchtohwnd
      */
-    GetSwitchToHWND(phwnd) {
+    GetSwitchToHWND() {
+        phwnd := HWND()
         result := ComCall(6, this, "ptr", phwnd, "HRESULT")
-        return result
+        return phwnd
     }
 
     /**

@@ -36,30 +36,28 @@ class IVssHardwareSnapshotProvider extends IUnknown{
      * @param {Integer} lContext 
      * @param {Pointer<Pointer<Integer>>} rgwszDevices 
      * @param {Pointer<VDS_LUN_INFORMATION>} pLunInformation 
-     * @param {Pointer<BOOL>} pbIsSupported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-arelunssupported
      */
-    AreLunsSupported(lLunCount, lContext, rgwszDevices, pLunInformation, pbIsSupported) {
+    AreLunsSupported(lLunCount, lContext, rgwszDevices, pLunInformation) {
         rgwszDevicesMarshal := rgwszDevices is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "int", lLunCount, "int", lContext, rgwszDevicesMarshal, rgwszDevices, "ptr", pLunInformation, "ptr", pbIsSupported, "HRESULT")
-        return result
+        result := ComCall(3, this, "int", lLunCount, "int", lContext, rgwszDevicesMarshal, rgwszDevices, "ptr", pLunInformation, "int*", &pbIsSupported := 0, "HRESULT")
+        return pbIsSupported
     }
 
     /**
      * 
      * @param {Pointer<Integer>} wszDeviceName 
      * @param {Pointer<VDS_LUN_INFORMATION>} pLunInfo 
-     * @param {Pointer<BOOL>} pbIsSupported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-fillinluninfo
      */
-    FillInLunInfo(wszDeviceName, pLunInfo, pbIsSupported) {
+    FillInLunInfo(wszDeviceName, pLunInfo) {
         wszDeviceNameMarshal := wszDeviceName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, wszDeviceNameMarshal, wszDeviceName, "ptr", pLunInfo, "ptr", pbIsSupported, "HRESULT")
-        return result
+        result := ComCall(4, this, wszDeviceNameMarshal, wszDeviceName, "ptr", pLunInfo, "int*", &pbIsSupported := 0, "HRESULT")
+        return pbIsSupported
     }
 
     /**

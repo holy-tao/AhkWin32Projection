@@ -83,18 +83,15 @@ class IDsDisplaySpecifier extends IUnknown{
      * @param {Integer} dwFlags 
      * @param {PWSTR} pszBuffer 
      * @param {Integer} cchBuffer 
-     * @param {Pointer<Integer>} presid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsdisplayspecifier-geticonlocation
      */
-    GetIconLocation(pszObjectClass, dwFlags, pszBuffer, cchBuffer, presid) {
+    GetIconLocation(pszObjectClass, dwFlags, pszBuffer, cchBuffer) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        presidMarshal := presid is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pszObjectClass, "uint", dwFlags, "ptr", pszBuffer, "int", cchBuffer, presidMarshal, presid, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszObjectClass, "uint", dwFlags, "ptr", pszBuffer, "int", cchBuffer, "int*", &presid := 0, "HRESULT")
+        return presid
     }
 
     /**
@@ -110,7 +107,7 @@ class IDsDisplaySpecifier extends IUnknown{
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
         result := ComCall(7, this, "ptr", pszObjectClass, "uint", dwFlags, "int", cxIcon, "int", cyIcon, "ptr")
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**

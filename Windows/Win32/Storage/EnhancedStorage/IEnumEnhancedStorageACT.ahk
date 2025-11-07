@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnhancedStorageACT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,14 +55,13 @@ class IEnumEnhancedStorageACT extends IUnknown{
     /**
      * 
      * @param {PWSTR} szVolume 
-     * @param {Pointer<IEnhancedStorageACT>} ppIEnhancedStorageACT 
-     * @returns {HRESULT} 
+     * @returns {IEnhancedStorageACT} 
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienumenhancedstorageact-getmatchingact
      */
-    GetMatchingACT(szVolume, ppIEnhancedStorageACT) {
+    GetMatchingACT(szVolume) {
         szVolume := szVolume is String ? StrPtr(szVolume) : szVolume
 
-        result := ComCall(4, this, "ptr", szVolume, "ptr*", ppIEnhancedStorageACT, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", szVolume, "ptr*", &ppIEnhancedStorageACT := 0, "HRESULT")
+        return IEnhancedStorageACT(ppIEnhancedStorageACT)
     }
 }

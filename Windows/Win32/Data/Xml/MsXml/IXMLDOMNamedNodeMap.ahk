@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLDOMNode.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,101 +34,91 @@ class IXMLDOMNamedNodeMap extends IDispatch{
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IXMLDOMNode>} namedItem 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    getNamedItem(name, namedItem) {
+    getNamedItem(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(7, this, "ptr", name, "ptr*", namedItem, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", name, "ptr*", &namedItem := 0, "HRESULT")
+        return IXMLDOMNode(namedItem)
     }
 
     /**
      * 
      * @param {IXMLDOMNode} newItem 
-     * @param {Pointer<IXMLDOMNode>} nameItem 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    setNamedItem(newItem, nameItem) {
-        result := ComCall(8, this, "ptr", newItem, "ptr*", nameItem, "HRESULT")
-        return result
+    setNamedItem(newItem) {
+        result := ComCall(8, this, "ptr", newItem, "ptr*", &nameItem := 0, "HRESULT")
+        return IXMLDOMNode(nameItem)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IXMLDOMNode>} namedItem 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    removeNamedItem(name, namedItem) {
+    removeNamedItem(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(9, this, "ptr", name, "ptr*", namedItem, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", name, "ptr*", &namedItem := 0, "HRESULT")
+        return IXMLDOMNode(namedItem)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IXMLDOMNode>} listItem 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    get_item(index, listItem) {
-        result := ComCall(10, this, "int", index, "ptr*", listItem, "HRESULT")
-        return result
+    get_item(index) {
+        result := ComCall(10, this, "int", index, "ptr*", &listItem := 0, "HRESULT")
+        return IXMLDOMNode(listItem)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} listLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(listLength) {
-        listLengthMarshal := listLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, listLengthMarshal, listLength, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {BSTR} baseName 
-     * @param {BSTR} namespaceURI 
-     * @param {Pointer<IXMLDOMNode>} qualifiedItem 
-     * @returns {HRESULT} 
-     */
-    getQualifiedItem(baseName, namespaceURI, qualifiedItem) {
-        baseName := baseName is String ? BSTR.Alloc(baseName).Value : baseName
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
-
-        result := ComCall(12, this, "ptr", baseName, "ptr", namespaceURI, "ptr*", qualifiedItem, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(11, this, "int*", &listLength := 0, "HRESULT")
+        return listLength
     }
 
     /**
      * 
      * @param {BSTR} baseName 
      * @param {BSTR} namespaceURI 
-     * @param {Pointer<IXMLDOMNode>} qualifiedItem 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    removeQualifiedItem(baseName, namespaceURI, qualifiedItem) {
+    getQualifiedItem(baseName, namespaceURI) {
         baseName := baseName is String ? BSTR.Alloc(baseName).Value : baseName
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(13, this, "ptr", baseName, "ptr", namespaceURI, "ptr*", qualifiedItem, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", baseName, "ptr", namespaceURI, "ptr*", &qualifiedItem := 0, "HRESULT")
+        return IXMLDOMNode(qualifiedItem)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} nextItem 
-     * @returns {HRESULT} 
+     * @param {BSTR} baseName 
+     * @param {BSTR} namespaceURI 
+     * @returns {IXMLDOMNode} 
      */
-    nextNode(nextItem) {
-        result := ComCall(14, this, "ptr*", nextItem, "HRESULT")
-        return result
+    removeQualifiedItem(baseName, namespaceURI) {
+        baseName := baseName is String ? BSTR.Alloc(baseName).Value : baseName
+        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+
+        result := ComCall(13, this, "ptr", baseName, "ptr", namespaceURI, "ptr*", &qualifiedItem := 0, "HRESULT")
+        return IXMLDOMNode(qualifiedItem)
+    }
+
+    /**
+     * 
+     * @returns {IXMLDOMNode} 
+     */
+    nextNode() {
+        result := ComCall(14, this, "ptr*", &nextItem := 0, "HRESULT")
+        return IXMLDOMNode(nextItem)
     }
 
     /**
@@ -140,11 +132,10 @@ class IXMLDOMNamedNodeMap extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__newEnum(ppUnk) {
-        result := ComCall(16, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get__newEnum() {
+        result := ComCall(16, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 }

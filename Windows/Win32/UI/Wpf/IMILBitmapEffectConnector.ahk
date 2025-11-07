@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMILBitmapEffect.ahk
 #Include .\IMILBitmapEffectConnectorInfo.ahk
 
 /**
@@ -32,23 +33,21 @@ class IMILBitmapEffectConnector extends IMILBitmapEffectConnectorInfo{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfConnected 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnector-isconnected
      */
-    IsConnected(pfConnected) {
-        result := ComCall(7, this, "ptr", pfConnected, "HRESULT")
-        return result
+    IsConnected() {
+        result := ComCall(7, this, "short*", &pfConnected := 0, "HRESULT")
+        return pfConnected
     }
 
     /**
      * 
-     * @param {Pointer<IMILBitmapEffect>} ppEffect 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnector-getbitmapeffect
      */
-    GetBitmapEffect(ppEffect) {
-        result := ComCall(8, this, "ptr*", ppEffect, "HRESULT")
-        return result
+    GetBitmapEffect() {
+        result := ComCall(8, this, "ptr*", &ppEffect := 0, "HRESULT")
+        return IMILBitmapEffect(ppEffect)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,24 +32,20 @@ class ISClusterNames extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(8, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
@@ -62,21 +60,21 @@ class ISClusterNames extends IDispatch{
     /**
      * 
      * @param {VARIANT} varIndex 
-     * @param {Pointer<BSTR>} pbstrClusterName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Item(varIndex, pbstrClusterName) {
+    get_Item(varIndex) {
+        pbstrClusterName := BSTR()
         result := ComCall(10, this, "ptr", varIndex, "ptr", pbstrClusterName, "HRESULT")
-        return result
+        return pbstrClusterName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDomainName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DomainName(pbstrDomainName) {
+    get_DomainName() {
+        pbstrDomainName := BSTR()
         result := ComCall(11, this, "ptr", pbstrDomainName, "HRESULT")
-        return result
+        return pbstrDomainName
     }
 }

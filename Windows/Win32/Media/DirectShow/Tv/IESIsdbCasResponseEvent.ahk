@@ -36,53 +36,41 @@ class IESIsdbCasResponseEvent extends IESEvent{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRequestId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesisdbcasresponseevent-getrequestid
      */
-    GetRequestId(pRequestId) {
-        pRequestIdMarshal := pRequestId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pRequestIdMarshal, pRequestId, "HRESULT")
-        return result
+    GetRequestId() {
+        result := ComCall(8, this, "uint*", &pRequestId := 0, "HRESULT")
+        return pRequestId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesisdbcasresponseevent-getstatus
      */
-    GetStatus(pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(9, this, "uint*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRequestLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesisdbcasresponseevent-getdatalength
      */
-    GetDataLength(pRequestLength) {
-        pRequestLengthMarshal := pRequestLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pRequestLengthMarshal, pRequestLength, "HRESULT")
-        return result
+    GetDataLength() {
+        result := ComCall(10, this, "uint*", &pRequestLength := 0, "HRESULT")
+        return pRequestLength
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pbData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesisdbcasresponseevent-getresponsedata
      */
-    GetResponseData(pbData) {
-        pbDataMarshal := pbData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, pbDataMarshal, pbData, "HRESULT")
-        return result
+    GetResponseData() {
+        result := ComCall(11, this, "ptr*", &pbData := 0, "HRESULT")
+        return pbData
     }
 }

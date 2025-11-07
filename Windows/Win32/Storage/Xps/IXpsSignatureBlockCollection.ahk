@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsSignatureBlock.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,27 +40,23 @@ class IXpsSignatureBlockCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblockcollection-getcount
      */
-    GetCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, countMarshal, count, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IXpsSignatureBlock>} signatureBlock 
-     * @returns {HRESULT} 
+     * @returns {IXpsSignatureBlock} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblockcollection-getat
      */
-    GetAt(index, signatureBlock) {
-        result := ComCall(4, this, "uint", index, "ptr*", signatureBlock, "HRESULT")
-        return result
+    GetAt(index) {
+        result := ComCall(4, this, "uint", index, "ptr*", &signatureBlock := 0, "HRESULT")
+        return IXpsSignatureBlock(signatureBlock)
     }
 
     /**

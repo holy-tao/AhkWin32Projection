@@ -45,23 +45,19 @@ class ISideShowContent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} out_pcontentId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ContentId(out_pcontentId) {
-        out_pcontentIdMarshal := out_pcontentId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, out_pcontentIdMarshal, out_pcontentId, "HRESULT")
-        return result
+    get_ContentId() {
+        result := ComCall(4, this, "uint*", &out_pcontentId := 0, "HRESULT")
+        return out_pcontentId
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} out_pfDifferentiateContent 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_DifferentiateContent(out_pfDifferentiateContent) {
-        result := ComCall(5, this, "ptr", out_pfDifferentiateContent, "HRESULT")
-        return result
+    get_DifferentiateContent() {
+        result := ComCall(5, this, "int*", &out_pfDifferentiateContent := 0, "HRESULT")
+        return out_pfDifferentiateContent
     }
 }

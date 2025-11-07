@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,45 +31,42 @@ class IRadioInstance extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidSignature 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetRadioManagerSignature(pguidSignature) {
+    GetRadioManagerSignature() {
+        pguidSignature := Guid()
         result := ComCall(3, this, "ptr", pguidSignature, "HRESULT")
-        return result
+        return pguidSignature
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetInstanceSignature(pbstrId) {
+    GetInstanceSignature() {
+        pbstrId := BSTR()
         result := ComCall(4, this, "ptr", pbstrId, "HRESULT")
-        return result
+        return pbstrId
     }
 
     /**
      * 
      * @param {Integer} lcid 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetFriendlyName(lcid, pbstrName) {
+    GetFriendlyName(lcid) {
+        pbstrName := BSTR()
         result := ComCall(5, this, "uint", lcid, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRadioState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRadioState(pRadioState) {
-        pRadioStateMarshal := pRadioState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pRadioStateMarshal, pRadioState, "HRESULT")
-        return result
+    GetRadioState() {
+        result := ComCall(6, this, "int*", &pRadioState := 0, "HRESULT")
+        return pRadioState
     }
 
     /**

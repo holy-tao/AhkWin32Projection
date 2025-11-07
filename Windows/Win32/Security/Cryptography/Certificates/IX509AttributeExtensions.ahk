@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509Extensions.ahk
 #Include .\IX509Attribute.ahk
 
 /**
@@ -58,12 +59,11 @@ class IX509AttributeExtensions extends IX509Attribute{
 
     /**
      * 
-     * @param {Pointer<IX509Extensions>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509Extensions} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeextensions-get_x509extensions
      */
-    get_X509Extensions(ppValue) {
-        result := ComCall(12, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_X509Extensions() {
+        result := ComCall(12, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509Extensions(ppValue)
     }
 }

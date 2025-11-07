@@ -891,9 +891,10 @@ class Credentials {
      * @see https://docs.microsoft.com/windows/win32/api//keycredmgr/nf-keycredmgr-keycredentialmanagergetoperationerrorstates
      */
     static KeyCredentialManagerGetOperationErrorStates(keyCredentialManagerOperationType, isReady, keyCredentialManagerOperationErrorStates) {
+        isReadyMarshal := isReady is VarRef ? "int*" : "ptr"
         keyCredentialManagerOperationErrorStatesMarshal := keyCredentialManagerOperationErrorStates is VarRef ? "int*" : "ptr"
 
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetOperationErrorStates", "int", keyCredentialManagerOperationType, "ptr", isReady, keyCredentialManagerOperationErrorStatesMarshal, keyCredentialManagerOperationErrorStates, "int")
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetOperationErrorStates", "int", keyCredentialManagerOperationType, isReadyMarshal, isReady, keyCredentialManagerOperationErrorStatesMarshal, keyCredentialManagerOperationErrorStates, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -919,18 +920,15 @@ class Credentials {
 
     /**
      * API to get a unique identifier of the users enrollment.
-     * @param {Pointer<Pointer<KeyCredentialManagerInfo>>} keyCredentialManagerInfo Pointer to a pointer variable that receives a <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation.md">KeyCredentialManagerFreeInformation</a> function.
-     * @returns {HRESULT} Returns an HRESULT.
+     * @returns {Pointer<KeyCredentialManagerInfo>} Pointer to a pointer variable that receives a <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation.md">KeyCredentialManagerFreeInformation</a> function.
      * @see https://docs.microsoft.com/windows/win32/api//keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation
      */
-    static KeyCredentialManagerGetInformation(keyCredentialManagerInfo) {
-        keyCredentialManagerInfoMarshal := keyCredentialManagerInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", keyCredentialManagerInfoMarshal, keyCredentialManagerInfo, "int")
+    static KeyCredentialManagerGetInformation() {
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", "ptr*", &keyCredentialManagerInfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return keyCredentialManagerInfo
     }
 
     /**
@@ -2198,10 +2196,11 @@ class Credentials {
      */
     static CredMarshalCredentialW(CredType, Credential, MarshaledCredential) {
         CredentialMarshal := Credential is VarRef ? "ptr" : "ptr"
+        MarshaledCredentialMarshal := MarshaledCredential is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredMarshalCredentialW", "int", CredType, CredentialMarshal, Credential, "ptr", MarshaledCredential, "int")
+        result := DllCall("ADVAPI32.dll\CredMarshalCredentialW", "int", CredType, CredentialMarshal, Credential, MarshaledCredentialMarshal, MarshaledCredential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2231,10 +2230,11 @@ class Credentials {
      */
     static CredMarshalCredentialA(CredType, Credential, MarshaledCredential) {
         CredentialMarshal := Credential is VarRef ? "ptr" : "ptr"
+        MarshaledCredentialMarshal := MarshaledCredential is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredMarshalCredentialA", "int", CredType, CredentialMarshal, Credential, "ptr", MarshaledCredential, "int")
+        result := DllCall("ADVAPI32.dll\CredMarshalCredentialA", "int", CredType, CredentialMarshal, Credential, MarshaledCredentialMarshal, MarshaledCredential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3259,7 +3259,9 @@ class Credentials {
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-        result := DllCall("credui.dll\CredUIPromptForCredentialsW", "ptr", pUiInfo, "ptr", pszTargetName, "ptr", pContext, "uint", dwAuthError, "ptr", pszUserName, "uint", ulUserNameBufferSize, "ptr", pszPassword, "uint", ulPasswordBufferSize, "ptr", save, "uint", dwFlags, "uint")
+        saveMarshal := save is VarRef ? "int*" : "ptr"
+
+        result := DllCall("credui.dll\CredUIPromptForCredentialsW", "ptr", pUiInfo, "ptr", pszTargetName, "ptr", pContext, "uint", dwAuthError, "ptr", pszUserName, "uint", ulUserNameBufferSize, "ptr", pszPassword, "uint", ulPasswordBufferSize, saveMarshal, save, "uint", dwFlags, "uint")
         return result
     }
 
@@ -3377,7 +3379,9 @@ class Credentials {
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-        result := DllCall("credui.dll\CredUIPromptForCredentialsA", "ptr", pUiInfo, "ptr", pszTargetName, "ptr", pContext, "uint", dwAuthError, "ptr", pszUserName, "uint", ulUserNameBufferSize, "ptr", pszPassword, "uint", ulPasswordBufferSize, "ptr", save, "uint", dwFlags, "uint")
+        saveMarshal := save is VarRef ? "int*" : "ptr"
+
+        result := DllCall("credui.dll\CredUIPromptForCredentialsA", "ptr", pUiInfo, "ptr", pszTargetName, "ptr", pContext, "uint", dwAuthError, "ptr", pszUserName, "uint", ulUserNameBufferSize, "ptr", pszPassword, "uint", ulPasswordBufferSize, saveMarshal, save, "uint", dwFlags, "uint")
         return result
     }
 
@@ -3418,8 +3422,9 @@ class Credentials {
         pulAuthPackageMarshal := pulAuthPackage is VarRef ? "uint*" : "ptr"
         ppvOutAuthBufferMarshal := ppvOutAuthBuffer is VarRef ? "ptr*" : "ptr"
         pulOutAuthBufferSizeMarshal := pulOutAuthBufferSize is VarRef ? "uint*" : "ptr"
+        pfSaveMarshal := pfSave is VarRef ? "int*" : "ptr"
 
-        result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsW", "ptr", pUiInfo, "uint", dwAuthError, pulAuthPackageMarshal, pulAuthPackage, "ptr", pvInAuthBuffer, "uint", ulInAuthBufferSize, ppvOutAuthBufferMarshal, ppvOutAuthBuffer, pulOutAuthBufferSizeMarshal, pulOutAuthBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
+        result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsW", "ptr", pUiInfo, "uint", dwAuthError, pulAuthPackageMarshal, pulAuthPackage, "ptr", pvInAuthBuffer, "uint", ulInAuthBufferSize, ppvOutAuthBufferMarshal, ppvOutAuthBuffer, pulOutAuthBufferSizeMarshal, pulOutAuthBufferSize, pfSaveMarshal, pfSave, "uint", dwFlags, "uint")
         return result
     }
 
@@ -3460,8 +3465,9 @@ class Credentials {
         pulAuthPackageMarshal := pulAuthPackage is VarRef ? "uint*" : "ptr"
         ppvOutAuthBufferMarshal := ppvOutAuthBuffer is VarRef ? "ptr*" : "ptr"
         pulOutAuthBufferSizeMarshal := pulOutAuthBufferSize is VarRef ? "uint*" : "ptr"
+        pfSaveMarshal := pfSave is VarRef ? "int*" : "ptr"
 
-        result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsA", "ptr", pUiInfo, "uint", dwAuthError, pulAuthPackageMarshal, pulAuthPackage, "ptr", pvInAuthBuffer, "uint", ulInAuthBufferSize, ppvOutAuthBufferMarshal, ppvOutAuthBuffer, pulOutAuthBufferSizeMarshal, pulOutAuthBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
+        result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsA", "ptr", pUiInfo, "uint", dwAuthError, pulAuthPackageMarshal, pulAuthPackage, "ptr", pvInAuthBuffer, "uint", ulInAuthBufferSize, ppvOutAuthBufferMarshal, ppvOutAuthBuffer, pulOutAuthBufferSizeMarshal, pulOutAuthBufferSize, pfSaveMarshal, pfSave, "uint", dwFlags, "uint")
         return result
     }
 
@@ -3697,7 +3703,9 @@ class Credentials {
         UserName := UserName is String ? StrPtr(UserName) : UserName
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-        result := DllCall("credui.dll\CredUICmdLinePromptForCredentialsW", "ptr", pszTargetName, "ptr", pContext, "uint", dwAuthError, "ptr", UserName, "uint", ulUserBufferSize, "ptr", pszPassword, "uint", ulPasswordBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
+        pfSaveMarshal := pfSave is VarRef ? "int*" : "ptr"
+
+        result := DllCall("credui.dll\CredUICmdLinePromptForCredentialsW", "ptr", pszTargetName, "ptr", pContext, "uint", dwAuthError, "ptr", UserName, "uint", ulUserBufferSize, "ptr", pszPassword, "uint", ulPasswordBufferSize, pfSaveMarshal, pfSave, "uint", dwFlags, "uint")
         return result
     }
 
@@ -3807,7 +3815,9 @@ class Credentials {
         UserName := UserName is String ? StrPtr(UserName) : UserName
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-        result := DllCall("credui.dll\CredUICmdLinePromptForCredentialsA", "ptr", pszTargetName, "ptr", pContext, "uint", dwAuthError, "ptr", UserName, "uint", ulUserBufferSize, "ptr", pszPassword, "uint", ulPasswordBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
+        pfSaveMarshal := pfSave is VarRef ? "int*" : "ptr"
+
+        result := DllCall("credui.dll\CredUICmdLinePromptForCredentialsA", "ptr", pszTargetName, "ptr", pContext, "uint", dwAuthError, "ptr", UserName, "uint", ulUserBufferSize, "ptr", pszPassword, "uint", ulPasswordBufferSize, pfSaveMarshal, pfSave, "uint", dwFlags, "uint")
         return result
     }
 
@@ -3980,7 +3990,9 @@ class Credentials {
     static CredUIReadSSOCredW(pszRealm, ppszUsername) {
         pszRealm := pszRealm is String ? StrPtr(pszRealm) : pszRealm
 
-        result := DllCall("credui.dll\CredUIReadSSOCredW", "ptr", pszRealm, "ptr", ppszUsername, "uint")
+        ppszUsernameMarshal := ppszUsername is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("credui.dll\CredUIReadSSOCredW", "ptr", pszRealm, ppszUsernameMarshal, ppszUsername, "uint")
         return result
     }
 

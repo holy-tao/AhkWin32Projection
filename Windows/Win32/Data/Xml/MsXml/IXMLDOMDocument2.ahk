@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLDOMSchemaCollection.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\IXMLDOMParseError.ahk
 #Include .\IXMLDOMDocument.ahk
 
 /**
@@ -31,22 +34,21 @@ class IXMLDOMDocument2 extends IXMLDOMDocument{
 
     /**
      * 
-     * @param {Pointer<IXMLDOMSchemaCollection>} namespaceCollection 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMSchemaCollection} 
      */
-    get_namespaces(namespaceCollection) {
-        result := ComCall(76, this, "ptr*", namespaceCollection, "HRESULT")
-        return result
+    get_namespaces() {
+        result := ComCall(76, this, "ptr*", &namespaceCollection := 0, "HRESULT")
+        return IXMLDOMSchemaCollection(namespaceCollection)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} otherCollection 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_schemas(otherCollection) {
+    get_schemas() {
+        otherCollection := VARIANT()
         result := ComCall(77, this, "ptr", otherCollection, "HRESULT")
-        return result
+        return otherCollection
     }
 
     /**
@@ -61,12 +63,11 @@ class IXMLDOMDocument2 extends IXMLDOMDocument{
 
     /**
      * 
-     * @param {Pointer<IXMLDOMParseError>} errorObj 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMParseError} 
      */
-    validate(errorObj) {
-        result := ComCall(79, this, "ptr*", errorObj, "HRESULT")
-        return result
+    validate() {
+        result := ComCall(79, this, "ptr*", &errorObj := 0, "HRESULT")
+        return IXMLDOMParseError(errorObj)
     }
 
     /**
@@ -85,13 +86,13 @@ class IXMLDOMDocument2 extends IXMLDOMDocument{
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<VARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getProperty(name, value) {
+    getProperty(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
+        value := VARIANT()
         result := ComCall(81, this, "ptr", name, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 }

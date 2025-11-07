@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMBackupDirEx.ahk
 #Include .\IGPM.ahk
 
 /**
@@ -35,15 +36,14 @@ class IGPM2 extends IGPM{
      * 
      * @param {BSTR} bstrBackupDir 
      * @param {Integer} backupDirType 
-     * @param {Pointer<IGPMBackupDirEx>} ppIGPMBackupDirEx 
-     * @returns {HRESULT} 
+     * @returns {IGPMBackupDirEx} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm2-getbackupdirex
      */
-    GetBackupDirEx(bstrBackupDir, backupDirType, ppIGPMBackupDirEx) {
+    GetBackupDirEx(bstrBackupDir, backupDirType) {
         bstrBackupDir := bstrBackupDir is String ? BSTR.Alloc(bstrBackupDir).Value : bstrBackupDir
 
-        result := ComCall(19, this, "ptr", bstrBackupDir, "int", backupDirType, "ptr*", ppIGPMBackupDirEx, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", bstrBackupDir, "int", backupDirType, "ptr*", &ppIGPMBackupDirEx := 0, "HRESULT")
+        return IGPMBackupDirEx(ppIGPMBackupDirEx)
     }
 
     /**

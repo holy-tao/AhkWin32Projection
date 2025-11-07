@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Gdi\HDC.ahk
 #Include .\IDXGISurface.ahk
 
 /**
@@ -45,15 +46,13 @@ class IDXGISurface1 extends IDXGISurface{
     /**
      * The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
      * @param {BOOL} Discard 
-     * @param {Pointer<HDC>} phdc 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to the DC for the specified window's client area.
-     * 
-     * If the function fails, the return value is <b>NULL</b>.
+     * @returns {HDC} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdc
      */
-    GetDC(Discard, phdc) {
+    GetDC(Discard) {
+        phdc := HDC()
         result := ComCall(11, this, "int", Discard, "ptr", phdc, "HRESULT")
-        return result
+        return phdc
     }
 
     /**

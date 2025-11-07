@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,12 +44,12 @@ class ILayoutRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrElementId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_nextRect(pbstrElementId) {
+    get_nextRect() {
+        pbstrElementId := BSTR()
         result := ComCall(8, this, "ptr", pbstrElementId, "HRESULT")
-        return result
+        return pbstrElementId
     }
 
     /**
@@ -63,12 +64,12 @@ class ILayoutRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarContentSrc 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_contentSrc(pvarContentSrc) {
+    get_contentSrc() {
+        pvarContentSrc := VARIANT()
         result := ComCall(10, this, "ptr", pvarContentSrc, "HRESULT")
-        return result
+        return pvarContentSrc
     }
 
     /**
@@ -83,12 +84,11 @@ class ILayoutRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_honorPageBreaks(p) {
-        result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+    get_honorPageBreaks() {
+        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -103,12 +103,11 @@ class ILayoutRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_honorPageRules(p) {
-        result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+    get_honorPageRules() {
+        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -123,21 +122,19 @@ class ILayoutRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppElem 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_nextRectElement(ppElem) {
-        result := ComCall(16, this, "ptr*", ppElem, "HRESULT")
-        return result
+    get_nextRectElement() {
+        result := ComCall(16, this, "ptr*", &ppElem := 0, "HRESULT")
+        return IDispatch(ppElem)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} pDoc 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_contentDocument(pDoc) {
-        result := ComCall(17, this, "ptr*", pDoc, "HRESULT")
-        return result
+    get_contentDocument() {
+        result := ComCall(17, this, "ptr*", &pDoc := 0, "HRESULT")
+        return IDispatch(pDoc)
     }
 }

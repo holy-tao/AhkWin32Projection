@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,23 +32,20 @@ class IHTMLFramesCollection2 extends IDispatch{
     /**
      * 
      * @param {Pointer<VARIANT>} pvarIndex 
-     * @param {Pointer<VARIANT>} pvarResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    item(pvarIndex, pvarResult) {
+    item(pvarIndex) {
+        pvarResult := VARIANT()
         result := ComCall(7, this, "ptr", pvarIndex, "ptr", pvarResult, "HRESULT")
-        return result
+        return pvarResult
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 }

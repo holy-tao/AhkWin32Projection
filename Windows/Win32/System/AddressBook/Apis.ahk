@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\Com\IStream.ahk
+#Include .\IMAPIAdviseSink.ahk
+#Include ..\Com\StructuredStorage\IStorage.ahk
 
 /**
  * @namespace Windows.Win32.System.AddressBook
@@ -1239,19 +1242,18 @@ class AddressBook {
      * @param {Integer} ulFlags 
      * @param {Pointer<Integer>} lpszFileName 
      * @param {Pointer<Integer>} lpszPrefix 
-     * @param {Pointer<IStream>} lppStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/openstreamonfile
      */
-    static OpenStreamOnFile(lpAllocateBuffer, lpFreeBuffer, ulFlags, lpszFileName, lpszPrefix, lppStream) {
+    static OpenStreamOnFile(lpAllocateBuffer, lpFreeBuffer, ulFlags, lpszFileName, lpszPrefix) {
         lpszFileNameMarshal := lpszFileName is VarRef ? "char*" : "ptr"
         lpszPrefixMarshal := lpszPrefix is VarRef ? "char*" : "ptr"
 
-        result := DllCall("MAPI32.dll\OpenStreamOnFile", "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "uint", ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", lppStream, "int")
+        result := DllCall("MAPI32.dll\OpenStreamOnFile", "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "uint", ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", &lppStream := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IStream(lppStream)
     }
 
     /**
@@ -1370,33 +1372,31 @@ class AddressBook {
      * 
      * @param {Pointer<LPNOTIFCALLBACK>} lpfnCallback 
      * @param {Pointer<Void>} lpvContext 
-     * @param {Pointer<IMAPIAdviseSink>} lppAdviseSink 
-     * @returns {HRESULT} 
+     * @returns {IMAPIAdviseSink} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrallocadvisesink
      */
-    static HrAllocAdviseSink(lpfnCallback, lpvContext, lppAdviseSink) {
+    static HrAllocAdviseSink(lpfnCallback, lpvContext) {
         lpvContextMarshal := lpvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("MAPI32.dll\HrAllocAdviseSink", "ptr", lpfnCallback, lpvContextMarshal, lpvContext, "ptr*", lppAdviseSink, "int")
+        result := DllCall("MAPI32.dll\HrAllocAdviseSink", "ptr", lpfnCallback, lpvContextMarshal, lpvContext, "ptr*", &lppAdviseSink := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMAPIAdviseSink(lppAdviseSink)
     }
 
     /**
      * 
      * @param {IMAPIAdviseSink} lpAdviseSink 
-     * @param {Pointer<IMAPIAdviseSink>} lppAdviseSink 
-     * @returns {HRESULT} 
+     * @returns {IMAPIAdviseSink} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrthisthreadadvisesink
      */
-    static HrThisThreadAdviseSink(lpAdviseSink, lppAdviseSink) {
-        result := DllCall("MAPI32.dll\HrThisThreadAdviseSink", "ptr", lpAdviseSink, "ptr*", lppAdviseSink, "int")
+    static HrThisThreadAdviseSink(lpAdviseSink) {
+        result := DllCall("MAPI32.dll\HrThisThreadAdviseSink", "ptr", lpAdviseSink, "ptr*", &lppAdviseSink := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMAPIAdviseSink(lppAdviseSink)
     }
 
     /**
@@ -1704,7 +1704,7 @@ class AddressBook {
     static SzFindCh(lpsz, ch) {
         lpszMarshal := lpsz is VarRef ? "char*" : "ptr"
 
-        result := DllCall("MAPI32.dll\SzFindCh", lpszMarshal, lpsz, "ushort", ch, "char*")
+        result := DllCall("MAPI32.dll\SzFindCh", lpszMarshal, lpsz, "ushort", ch, "ptr")
         return result
     }
 
@@ -1718,7 +1718,7 @@ class AddressBook {
     static SzFindLastCh(lpsz, ch) {
         lpszMarshal := lpsz is VarRef ? "char*" : "ptr"
 
-        result := DllCall("MAPI32.dll\SzFindLastCh", lpszMarshal, lpsz, "ushort", ch, "char*")
+        result := DllCall("MAPI32.dll\SzFindLastCh", lpszMarshal, lpsz, "ushort", ch, "ptr")
         return result
     }
 
@@ -1733,7 +1733,7 @@ class AddressBook {
         lpszMarshal := lpsz is VarRef ? "char*" : "ptr"
         lpszKeyMarshal := lpszKey is VarRef ? "char*" : "ptr"
 
-        result := DllCall("MAPI32.dll\SzFindSz", lpszMarshal, lpsz, lpszKeyMarshal, lpszKey, "char*")
+        result := DllCall("MAPI32.dll\SzFindSz", lpszMarshal, lpsz, lpszKeyMarshal, lpszKey, "ptr")
         return result
     }
 
@@ -1865,20 +1865,18 @@ class AddressBook {
      * @param {Pointer<Integer>} lpszDLLName 
      * @param {Integer} cbOrigEntry 
      * @param {Pointer} lpOrigEntry 
-     * @param {Pointer<Integer>} lpcbWrappedEntry 
      * @param {Pointer} lppWrappedEntry 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/wrapstoreentryid
      */
-    static WrapStoreEntryID(ulFlags, lpszDLLName, cbOrigEntry, lpOrigEntry, lpcbWrappedEntry, lppWrappedEntry) {
+    static WrapStoreEntryID(ulFlags, lpszDLLName, cbOrigEntry, lpOrigEntry, lppWrappedEntry) {
         lpszDLLNameMarshal := lpszDLLName is VarRef ? "char*" : "ptr"
-        lpcbWrappedEntryMarshal := lpcbWrappedEntry is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MAPI32.dll\WrapStoreEntryID", "uint", ulFlags, lpszDLLNameMarshal, lpszDLLName, "uint", cbOrigEntry, "ptr", lpOrigEntry, lpcbWrappedEntryMarshal, lpcbWrappedEntry, "ptr", lppWrappedEntry, "int")
+        result := DllCall("MAPI32.dll\WrapStoreEntryID", "uint", ulFlags, lpszDLLNameMarshal, lpszDLLName, "uint", cbOrigEntry, "ptr", lpOrigEntry, "uint*", &lpcbWrappedEntry := 0, "ptr", lppWrappedEntry, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lpcbWrappedEntry
     }
 
     /**
@@ -1890,7 +1888,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/rtfsync
      */
     static RTFSync(lpMessage, ulFlags, lpfMessageUpdated) {
-        result := DllCall("MAPI32.dll\RTFSync", "ptr", lpMessage, "uint", ulFlags, "ptr", lpfMessageUpdated, "int")
+        lpfMessageUpdatedMarshal := lpfMessageUpdated is VarRef ? "int*" : "ptr"
+
+        result := DllCall("MAPI32.dll\RTFSync", "ptr", lpMessage, "uint", ulFlags, lpfMessageUpdatedMarshal, lpfMessageUpdated, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1901,16 +1901,15 @@ class AddressBook {
      * 
      * @param {IStream} lpCompressedRTFStream 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IStream>} lpUncompressedRTFStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/wrapcompressedrtfstream
      */
-    static WrapCompressedRTFStream(lpCompressedRTFStream, ulFlags, lpUncompressedRTFStream) {
-        result := DllCall("MAPI32.dll\WrapCompressedRTFStream", "ptr", lpCompressedRTFStream, "uint", ulFlags, "ptr*", lpUncompressedRTFStream, "int")
+    static WrapCompressedRTFStream(lpCompressedRTFStream, ulFlags) {
+        result := DllCall("MAPI32.dll\WrapCompressedRTFStream", "ptr", lpCompressedRTFStream, "uint", ulFlags, "ptr*", &lpUncompressedRTFStream := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IStream(lpUncompressedRTFStream)
     }
 
     /**
@@ -1918,16 +1917,15 @@ class AddressBook {
      * @param {IUnknown} lpUnkIn 
      * @param {Pointer<Guid>} lpInterface 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IStorage>} lppStorageOut 
-     * @returns {HRESULT} 
+     * @returns {IStorage} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hristoragefromstream
      */
-    static HrIStorageFromStream(lpUnkIn, lpInterface, ulFlags, lppStorageOut) {
-        result := DllCall("MAPI32.dll\HrIStorageFromStream", "ptr", lpUnkIn, "ptr", lpInterface, "uint", ulFlags, "ptr*", lppStorageOut, "int")
+    static HrIStorageFromStream(lpUnkIn, lpInterface, ulFlags) {
+        result := DllCall("MAPI32.dll\HrIStorageFromStream", "ptr", lpUnkIn, "ptr", lpInterface, "uint", ulFlags, "ptr*", &lppStorageOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IStorage(lppStorageOut)
     }
 
     /**

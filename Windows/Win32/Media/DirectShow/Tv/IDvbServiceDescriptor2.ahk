@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IDvbServiceDescriptor.ahk
 
 /**
@@ -33,24 +34,24 @@ class IDvbServiceDescriptor2 extends IDvbServiceDescriptor{
     /**
      * 
      * @param {Integer} convMode 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getserviceprovidernamew
      */
-    GetServiceProviderNameW(convMode, pbstrName) {
+    GetServiceProviderNameW(convMode) {
+        pbstrName := BSTR()
         result := ComCall(11, this, "int", convMode, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
      * @param {Integer} convMode 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getservicenamew
      */
-    GetServiceNameW(convMode, pbstrName) {
+    GetServiceNameW(convMode) {
+        pbstrName := BSTR()
         result := ComCall(12, this, "int", convMode, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\Property.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,37 +41,32 @@ class Properties extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(7, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
      * @param {BSTR} Name 
-     * @param {Pointer<Property>} Property 
-     * @returns {HRESULT} 
+     * @returns {Property} 
      */
-    Item(Name, Property) {
+    Item(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(8, this, "ptr", Name, "ptr*", Property, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", Name, "ptr*", &Property := 0, "HRESULT")
+        return Property(Property)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**

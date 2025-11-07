@@ -48,15 +48,12 @@ class IAMVideoCompression extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pKeyFrameRate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-get_keyframerate
      */
-    get_KeyFrameRate(pKeyFrameRate) {
-        pKeyFrameRateMarshal := pKeyFrameRate is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pKeyFrameRateMarshal, pKeyFrameRate, "HRESULT")
-        return result
+    get_KeyFrameRate() {
+        result := ComCall(4, this, "int*", &pKeyFrameRate := 0, "HRESULT")
+        return pKeyFrameRate
     }
 
     /**
@@ -72,15 +69,12 @@ class IAMVideoCompression extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pPFramesPerKeyFrame 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-get_pframesperkeyframe
      */
-    get_PFramesPerKeyFrame(pPFramesPerKeyFrame) {
-        pPFramesPerKeyFrameMarshal := pPFramesPerKeyFrame is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pPFramesPerKeyFrameMarshal, pPFramesPerKeyFrame, "HRESULT")
-        return result
+    get_PFramesPerKeyFrame() {
+        result := ComCall(6, this, "int*", &pPFramesPerKeyFrame := 0, "HRESULT")
+        return pPFramesPerKeyFrame
     }
 
     /**
@@ -96,15 +90,12 @@ class IAMVideoCompression extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pQuality 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-get_quality
      */
-    get_Quality(pQuality) {
-        pQualityMarshal := pQuality is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, pQualityMarshal, pQuality, "HRESULT")
-        return result
+    get_Quality() {
+        result := ComCall(8, this, "double*", &pQuality := 0, "HRESULT")
+        return pQuality
     }
 
     /**
@@ -120,15 +111,12 @@ class IAMVideoCompression extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pWindowSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-get_windowsize
      */
-    get_WindowSize(pWindowSize) {
-        pWindowSizeMarshal := pWindowSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pWindowSizeMarshal, pWindowSize, "HRESULT")
-        return result
+    get_WindowSize() {
+        result := ComCall(10, this, "uint*", &pWindowSize := 0, "HRESULT")
+        return pWindowSize
     }
 
     /**

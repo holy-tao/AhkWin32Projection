@@ -65,7 +65,7 @@ class ITextHost2 extends ITextHost{
      */
     TxGetPalette() {
         result := ComCall(45, this, "ptr")
-        return result
+        return HPALETTE({Value: result}, True)
     }
 
     /**
@@ -92,7 +92,7 @@ class ITextHost2 extends ITextHost{
         hcur := hcur is Win32Handle ? NumGet(hcur, "ptr") : hcur
 
         result := ComCall(47, this, "ptr", hcur, "int", bText, "ptr")
-        return result
+        return HCURSOR({Value: result}, True)
     }
 
     /**

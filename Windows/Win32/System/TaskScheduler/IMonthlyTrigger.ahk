@@ -93,7 +93,9 @@ class IMonthlyTrigger extends ITrigger{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlytrigger-get_runonlastdayofmonth
      */
     get_RunOnLastDayOfMonth(pLastDay) {
-        result := ComCall(24, this, "ptr", pLastDay, "HRESULT")
+        pLastDayMarshal := pLastDay is VarRef ? "short*" : "ptr"
+
+        result := ComCall(24, this, pLastDayMarshal, pLastDay, "HRESULT")
         return result
     }
 

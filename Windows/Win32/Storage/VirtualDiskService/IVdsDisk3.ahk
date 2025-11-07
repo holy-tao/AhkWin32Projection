@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_DISK_PROP2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,13 @@ class IVdsDisk3 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_DISK_PROP2>} pDiskProperties 
-     * @returns {HRESULT} 
+     * @returns {VDS_DISK_PROP2} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdisk3-getproperties2
      */
-    GetProperties2(pDiskProperties) {
+    GetProperties2() {
+        pDiskProperties := VDS_DISK_PROP2()
         result := ComCall(3, this, "ptr", pDiskProperties, "HRESULT")
-        return result
+        return pDiskProperties
     }
 
     /**

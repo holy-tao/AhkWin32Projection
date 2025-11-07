@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -34,31 +35,28 @@ class IDisplayDeviceInterop extends IUnknown{
      * @param {Pointer<SECURITY_ATTRIBUTES>} pSecurityAttributes 
      * @param {Integer} Access 
      * @param {HSTRING} Name 
-     * @param {Pointer<HANDLE>} pHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.devices.display.core.interop/nf-windows-devices-display-core-interop-idisplaydeviceinterop-createsharedhandle
      */
-    CreateSharedHandle(pObject, pSecurityAttributes, Access, Name, pHandle) {
+    CreateSharedHandle(pObject, pSecurityAttributes, Access, Name) {
         Name := Name is Win32Handle ? NumGet(Name, "ptr") : Name
 
+        pHandle := HANDLE()
         result := ComCall(3, this, "ptr", pObject, "ptr", pSecurityAttributes, "uint", Access, "ptr", Name, "ptr", pHandle, "HRESULT")
-        return result
+        return pHandle
     }
 
     /**
      * 
      * @param {HANDLE} NTHandle 
      * @param {Guid} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.devices.display.core.interop/nf-windows-devices-display-core-interop-idisplaydeviceinterop-opensharedhandle
      */
-    OpenSharedHandle(NTHandle, riid, ppvObj) {
+    OpenSharedHandle(NTHandle, riid) {
         NTHandle := NTHandle is Win32Handle ? NumGet(NTHandle, "ptr") : NTHandle
 
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", NTHandle, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", NTHandle, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        return ppvObj
     }
 }

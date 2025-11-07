@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPresentationManager.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -52,12 +53,11 @@ class IPresentationFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPresentationManager>} ppPresentationManager 
-     * @returns {HRESULT} 
+     * @returns {IPresentationManager} 
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationfactory-createpresentationmanager
      */
-    CreatePresentationManager(ppPresentationManager) {
-        result := ComCall(5, this, "ptr*", ppPresentationManager, "HRESULT")
-        return result
+    CreatePresentationManager() {
+        result := ComCall(5, this, "ptr*", &ppPresentationManager := 0, "HRESULT")
+        return IPresentationManager(ppPresentationManager)
     }
 }

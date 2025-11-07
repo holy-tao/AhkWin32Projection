@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\SORTCOLUMN.ahk
+#Include .\IShellItemArray.ahk
 #Include .\IFolderView.ahk
 
 /**
@@ -54,7 +57,9 @@ class IFolderView2 extends IFolderView{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getgroupby
      */
     GetGroupBy(pkey, pfAscending) {
-        result := ComCall(18, this, "ptr", pkey, "ptr", pfAscending, "HRESULT")
+        pfAscendingMarshal := pfAscending is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, "ptr", pkey, pfAscendingMarshal, pfAscending, "HRESULT")
         return result
     }
 
@@ -76,14 +81,14 @@ class IFolderView2 extends IFolderView{
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {Pointer<PROPERTYKEY>} propkey 
-     * @param {Pointer<PROPVARIANT>} ppropvar 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getviewproperty
      * @deprecated
      */
-    GetViewProperty(pidl, propkey, ppropvar) {
+    GetViewProperty(pidl, propkey) {
+        ppropvar := PROPVARIANT()
         result := ComCall(20, this, "ptr", pidl, "ptr", propkey, "ptr", ppropvar, "HRESULT")
-        return result
+        return ppropvar
     }
 
     /**
@@ -144,28 +149,22 @@ class IFolderView2 extends IFolderView{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getcurrentfolderflags
      */
-    GetCurrentFolderFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(25, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetCurrentFolderFlags() {
+        result := ComCall(25, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcColumns 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getsortcolumncount
      */
-    GetSortColumnCount(pcColumns) {
-        pcColumnsMarshal := pcColumns is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, pcColumnsMarshal, pcColumns, "HRESULT")
-        return result
+    GetSortColumnCount() {
+        result := ComCall(26, this, "int*", &pcColumns := 0, "HRESULT")
+        return pcColumns
     }
 
     /**
@@ -182,84 +181,71 @@ class IFolderView2 extends IFolderView{
 
     /**
      * 
-     * @param {Pointer<SORTCOLUMN>} rgSortColumns 
      * @param {Integer} cColumns 
-     * @returns {HRESULT} 
+     * @returns {SORTCOLUMN} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getsortcolumns
      */
-    GetSortColumns(rgSortColumns, cColumns) {
+    GetSortColumns(cColumns) {
+        rgSortColumns := SORTCOLUMN()
         result := ComCall(28, this, "ptr", rgSortColumns, "int", cColumns, "HRESULT")
-        return result
+        return rgSortColumns
     }
 
     /**
      * 
      * @param {Integer} iItem 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getitem
      */
-    GetItem(iItem, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(29, this, "int", iItem, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetItem(iItem, riid) {
+        result := ComCall(29, this, "int", iItem, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Integer} iStart 
      * @param {BOOL} fPrevious 
-     * @param {Pointer<Integer>} piItem 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getvisibleitem
      */
-    GetVisibleItem(iStart, fPrevious, piItem) {
-        piItemMarshal := piItem is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, "int", iStart, "int", fPrevious, piItemMarshal, piItem, "HRESULT")
-        return result
+    GetVisibleItem(iStart, fPrevious) {
+        result := ComCall(30, this, "int", iStart, "int", fPrevious, "int*", &piItem := 0, "HRESULT")
+        return piItem
     }
 
     /**
      * 
      * @param {Integer} iStart 
-     * @param {Pointer<Integer>} piItem 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getselecteditem
      */
-    GetSelectedItem(iStart, piItem) {
-        piItemMarshal := piItem is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, "int", iStart, piItemMarshal, piItem, "HRESULT")
-        return result
+    GetSelectedItem(iStart) {
+        result := ComCall(31, this, "int", iStart, "int*", &piItem := 0, "HRESULT")
+        return piItem
     }
 
     /**
      * 
      * @param {BOOL} fNoneImpliesFolder 
-     * @param {Pointer<IShellItemArray>} ppsia 
-     * @returns {HRESULT} 
+     * @returns {IShellItemArray} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getselection
      */
-    GetSelection(fNoneImpliesFolder, ppsia) {
-        result := ComCall(32, this, "int", fNoneImpliesFolder, "ptr*", ppsia, "HRESULT")
-        return result
+    GetSelection(fNoneImpliesFolder) {
+        result := ComCall(32, this, "int", fNoneImpliesFolder, "ptr*", &ppsia := 0, "HRESULT")
+        return IShellItemArray(ppsia)
     }
 
     /**
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getselectionstate
      */
-    GetSelectionState(pidl, pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, "ptr", pidl, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetSelectionState(pidl) {
+        result := ComCall(33, this, "ptr", pidl, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -315,15 +301,12 @@ class IFolderView2 extends IFolderView{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcVisibleRows 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getgroupsubsetcount
      */
-    GetGroupSubsetCount(pcVisibleRows) {
-        pcVisibleRowsMarshal := pcVisibleRows is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(38, this, pcVisibleRowsMarshal, pcVisibleRows, "HRESULT")
-        return result
+    GetGroupSubsetCount() {
+        result := ComCall(38, this, "uint*", &pcVisibleRows := 0, "HRESULT")
+        return pcVisibleRows
     }
 
     /**

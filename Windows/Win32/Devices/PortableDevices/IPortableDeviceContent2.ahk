@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include .\IPortableDeviceContent.ahk
 
 /**
@@ -34,17 +35,16 @@ class IPortableDeviceContent2 extends IPortableDeviceContent{
      * 
      * @param {PWSTR} pszObjectID 
      * @param {IPortableDeviceValues} pProperties 
-     * @param {Pointer<IStream>} ppData 
      * @param {Pointer<Integer>} pdwOptimalWriteBufferSize 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent2-updateobjectwithpropertiesanddata
      */
-    UpdateObjectWithPropertiesAndData(pszObjectID, pProperties, ppData, pdwOptimalWriteBufferSize) {
+    UpdateObjectWithPropertiesAndData(pszObjectID, pProperties, pdwOptimalWriteBufferSize) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
         pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", pszObjectID, "ptr", pProperties, "ptr*", ppData, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", pszObjectID, "ptr", pProperties, "ptr*", &ppData := 0, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, "HRESULT")
+        return IStream(ppData)
     }
 }

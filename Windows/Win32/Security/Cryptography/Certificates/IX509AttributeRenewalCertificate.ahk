@@ -62,12 +62,12 @@ class IX509AttributeRenewalCertificate extends IX509Attribute{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributerenewalcertificate-get_renewalcertificate
      */
-    get_RenewalCertificate(Encoding, pValue) {
+    get_RenewalCertificate(Encoding) {
+        pValue := BSTR()
         result := ComCall(12, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

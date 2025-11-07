@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumPIDMap.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -61,12 +62,11 @@ class IMPEG2PIDMap extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumPIDMap>} pIEnumPIDMap 
-     * @returns {HRESULT} 
+     * @returns {IEnumPIDMap} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-impeg2pidmap-enumpidmap
      */
-    EnumPIDMap(pIEnumPIDMap) {
-        result := ComCall(5, this, "ptr*", pIEnumPIDMap, "HRESULT")
-        return result
+    EnumPIDMap() {
+        result := ComCall(5, this, "ptr*", &pIEnumPIDMap := 0, "HRESULT")
+        return IEnumPIDMap(pIEnumPIDMap)
     }
 }

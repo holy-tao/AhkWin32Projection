@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_FILE_SYSTEM_PROP.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +34,13 @@ class IVdsVolumeMF extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_FILE_SYSTEM_PROP>} pFileSystemProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_FILE_SYSTEM_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf-getfilesystemproperties
      */
-    GetFileSystemProperties(pFileSystemProp) {
+    GetFileSystemProperties() {
+        pFileSystemProp := VDS_FILE_SYSTEM_PROP()
         result := ComCall(3, this, "ptr", pFileSystemProp, "HRESULT")
-        return result
+        return pFileSystemProp
     }
 
     /**
@@ -49,15 +51,14 @@ class IVdsVolumeMF extends IUnknown{
      * @param {BOOL} bForce 
      * @param {BOOL} bQuickFormat 
      * @param {BOOL} bEnableCompression 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf-format
      */
-    Format(type, pwszLabel, dwUnitAllocationSize, bForce, bQuickFormat, bEnableCompression, ppAsync) {
+    Format(type, pwszLabel, dwUnitAllocationSize, bForce, bQuickFormat, bEnableCompression) {
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(4, this, "int", type, "ptr", pwszLabel, "uint", dwUnitAllocationSize, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", ppAsync, "HRESULT")
-        return result
+        result := ComCall(4, this, "int", type, "ptr", pwszLabel, "uint", dwUnitAllocationSize, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**

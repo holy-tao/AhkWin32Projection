@@ -48,42 +48,35 @@ class IAppVisibility extends IUnknown{
     /**
      * 
      * @param {HMONITOR} hMonitor 
-     * @param {Pointer<Integer>} pMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iappvisibility-getappvisibilityonmonitor
      */
-    GetAppVisibilityOnMonitor(hMonitor, pMode) {
+    GetAppVisibilityOnMonitor(hMonitor) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
-        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", hMonitor, pModeMarshal, pMode, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hMonitor, "int*", &pMode := 0, "HRESULT")
+        return pMode
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfVisible 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iappvisibility-islaunchervisible
      */
-    IsLauncherVisible(pfVisible) {
-        result := ComCall(4, this, "ptr", pfVisible, "HRESULT")
-        return result
+    IsLauncherVisible() {
+        result := ComCall(4, this, "int*", &pfVisible := 0, "HRESULT")
+        return pfVisible
     }
 
     /**
      * 
      * @param {IAppVisibilityEvents} pCallback 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iappvisibility-advise
      */
-    Advise(pCallback, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pCallback, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Advise(pCallback) {
+        result := ComCall(5, this, "ptr", pCallback, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

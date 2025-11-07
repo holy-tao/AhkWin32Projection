@@ -43,7 +43,7 @@ class IDWriteAsyncResult extends IUnknown{
      */
     GetWaitHandle() {
         result := ComCall(3, this, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DSFXI3DL2Reverb.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,12 +41,12 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DSFXI3DL2Reverb>} pDsFxI3DL2Reverb 
-     * @returns {HRESULT} 
+     * @returns {DSFXI3DL2Reverb} 
      */
-    GetAllParameters(pDsFxI3DL2Reverb) {
+    GetAllParameters() {
+        pDsFxI3DL2Reverb := DSFXI3DL2Reverb()
         result := ComCall(4, this, "ptr", pDsFxI3DL2Reverb, "HRESULT")
-        return result
+        return pDsFxI3DL2Reverb
     }
 
     /**
@@ -60,14 +61,11 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwPreset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPreset(pdwPreset) {
-        pdwPresetMarshal := pdwPreset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwPresetMarshal, pdwPreset, "HRESULT")
-        return result
+    GetPreset() {
+        result := ComCall(6, this, "uint*", &pdwPreset := 0, "HRESULT")
+        return pdwPreset
     }
 
     /**
@@ -82,13 +80,10 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plQuality 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetQuality(plQuality) {
-        plQualityMarshal := plQuality is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plQualityMarshal, plQuality, "HRESULT")
-        return result
+    GetQuality() {
+        result := ComCall(8, this, "int*", &plQuality := 0, "HRESULT")
+        return plQuality
     }
 }

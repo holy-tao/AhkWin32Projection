@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -42,11 +43,11 @@ class IDataModelConcept extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} modelName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(modelName) {
+    GetName() {
+        modelName := BSTR()
         result := ComCall(4, this, "ptr", modelName, "HRESULT")
-        return result
+        return modelName
     }
 }

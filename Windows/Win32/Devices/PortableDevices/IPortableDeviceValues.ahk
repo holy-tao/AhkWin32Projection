@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPortableDeviceValues.ahk
+#Include .\IPortableDevicePropVariantCollection.ahk
+#Include .\IPortableDeviceKeyCollection.ahk
+#Include .\IPortableDeviceValuesCollection.ahk
 
 /**
  * 
@@ -77,13 +83,13 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPVARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getvalue
      */
-    GetValue(key, pValue) {
+    GetValue(key) {
+        pValue := PROPVARIANT()
         result := ComCall(6, this, "ptr", key, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -103,13 +109,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PWSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getstringvalue
      */
-    GetStringValue(key, pValue) {
-        result := ComCall(8, this, "ptr", key, "ptr", pValue, "HRESULT")
-        return result
+    GetStringValue(key) {
+        result := ComCall(8, this, "ptr", key, "ptr*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -127,15 +132,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getunsignedintegervalue
      */
-    GetUnsignedIntegerValue(key, pValue) {
-        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "ptr", key, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetUnsignedIntegerValue(key) {
+        result := ComCall(10, this, "ptr", key, "uint*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -153,15 +155,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getsignedintegervalue
      */
-    GetSignedIntegerValue(key, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, "ptr", key, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetSignedIntegerValue(key) {
+        result := ComCall(12, this, "ptr", key, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -179,15 +178,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getunsignedlargeintegervalue
      */
-    GetUnsignedLargeIntegerValue(key, pValue) {
-        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "ptr", key, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetUnsignedLargeIntegerValue(key) {
+        result := ComCall(14, this, "ptr", key, "uint*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -205,15 +201,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getsignedlargeintegervalue
      */
-    GetSignedLargeIntegerValue(key, pValue) {
-        pValueMarshal := pValue is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(16, this, "ptr", key, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetSignedLargeIntegerValue(key) {
+        result := ComCall(16, this, "ptr", key, "int64*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -231,15 +224,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<Float>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getfloatvalue
      */
-    GetFloatValue(key, pValue) {
-        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
-
-        result := ComCall(18, this, "ptr", key, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetFloatValue(key) {
+        result := ComCall(18, this, "ptr", key, "float*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -257,13 +247,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<HRESULT>} pValue 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-geterrorvalue
      */
-    GetErrorValue(key, pValue) {
-        result := ComCall(20, this, "ptr", key, "ptr", pValue, "HRESULT")
-        return result
+    GetErrorValue(key) {
+        result := ComCall(20, this, "ptr", key, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -281,13 +270,13 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPERTYKEY>} pValue 
-     * @returns {HRESULT} 
+     * @returns {PROPERTYKEY} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getkeyvalue
      */
-    GetKeyValue(key, pValue) {
+    GetKeyValue(key) {
+        pValue := PROPERTYKEY()
         result := ComCall(22, this, "ptr", key, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -305,13 +294,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getboolvalue
      */
-    GetBoolValue(key, pValue) {
-        result := ComCall(24, this, "ptr", key, "ptr", pValue, "HRESULT")
-        return result
+    GetBoolValue(key) {
+        result := ComCall(24, this, "ptr", key, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -329,13 +317,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<IUnknown>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getiunknownvalue
      */
-    GetIUnknownValue(key, ppValue) {
-        result := ComCall(26, this, "ptr", key, "ptr*", ppValue, "HRESULT")
-        return result
+    GetIUnknownValue(key) {
+        result := ComCall(26, this, "ptr", key, "ptr*", &ppValue := 0, "HRESULT")
+        return IUnknown(ppValue)
     }
 
     /**
@@ -353,13 +340,13 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<Guid>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getguidvalue
      */
-    GetGuidValue(key, pValue) {
+    GetGuidValue(key) {
+        pValue := Guid()
         result := ComCall(28, this, "ptr", key, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -408,13 +395,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<IPortableDeviceValues>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getiportabledevicevaluesvalue
      */
-    GetIPortableDeviceValuesValue(key, ppValue) {
-        result := ComCall(32, this, "ptr", key, "ptr*", ppValue, "HRESULT")
-        return result
+    GetIPortableDeviceValuesValue(key) {
+        result := ComCall(32, this, "ptr", key, "ptr*", &ppValue := 0, "HRESULT")
+        return IPortableDeviceValues(ppValue)
     }
 
     /**
@@ -432,13 +418,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<IPortableDevicePropVariantCollection>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IPortableDevicePropVariantCollection} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getiportabledevicepropvariantcollectionvalue
      */
-    GetIPortableDevicePropVariantCollectionValue(key, ppValue) {
-        result := ComCall(34, this, "ptr", key, "ptr*", ppValue, "HRESULT")
-        return result
+    GetIPortableDevicePropVariantCollectionValue(key) {
+        result := ComCall(34, this, "ptr", key, "ptr*", &ppValue := 0, "HRESULT")
+        return IPortableDevicePropVariantCollection(ppValue)
     }
 
     /**
@@ -456,13 +441,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<IPortableDeviceKeyCollection>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceKeyCollection} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getiportabledevicekeycollectionvalue
      */
-    GetIPortableDeviceKeyCollectionValue(key, ppValue) {
-        result := ComCall(36, this, "ptr", key, "ptr*", ppValue, "HRESULT")
-        return result
+    GetIPortableDeviceKeyCollectionValue(key) {
+        result := ComCall(36, this, "ptr", key, "ptr*", &ppValue := 0, "HRESULT")
+        return IPortableDeviceKeyCollection(ppValue)
     }
 
     /**
@@ -480,13 +464,12 @@ class IPortableDeviceValues extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<IPortableDeviceValuesCollection>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValuesCollection} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getiportabledevicevaluescollectionvalue
      */
-    GetIPortableDeviceValuesCollectionValue(key, ppValue) {
-        result := ComCall(38, this, "ptr", key, "ptr*", ppValue, "HRESULT")
-        return result
+    GetIPortableDeviceValuesCollectionValue(key) {
+        result := ComCall(38, this, "ptr", key, "ptr*", &ppValue := 0, "HRESULT")
+        return IPortableDeviceValuesCollection(ppValue)
     }
 
     /**

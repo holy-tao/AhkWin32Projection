@@ -32,14 +32,13 @@ class INetCfgLock extends IUnknown{
      * 
      * @param {Integer} cmsTimeout 
      * @param {PWSTR} pszwClientDescription 
-     * @param {Pointer<PWSTR>} ppszwClientDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    AcquireWriteLock(cmsTimeout, pszwClientDescription, ppszwClientDescription) {
+    AcquireWriteLock(cmsTimeout, pszwClientDescription) {
         pszwClientDescription := pszwClientDescription is String ? StrPtr(pszwClientDescription) : pszwClientDescription
 
-        result := ComCall(3, this, "uint", cmsTimeout, "ptr", pszwClientDescription, "ptr", ppszwClientDescription, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cmsTimeout, "ptr", pszwClientDescription, "ptr*", &ppszwClientDescription := 0, "HRESULT")
+        return ppszwClientDescription
     }
 
     /**
@@ -53,11 +52,10 @@ class INetCfgLock extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszwClientDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    IsWriteLocked(ppszwClientDescription) {
-        result := ComCall(5, this, "ptr", ppszwClientDescription, "HRESULT")
-        return result
+    IsWriteLocked() {
+        result := ComCall(5, this, "ptr*", &ppszwClientDescription := 0, "HRESULT")
+        return ppszwClientDescription
     }
 }

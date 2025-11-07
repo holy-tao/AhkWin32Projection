@@ -44,17 +44,14 @@ class IWinMLEvaluationContext extends IUnknown{
     /**
      * 
      * @param {PWSTR} Name 
-     * @param {Pointer<Pointer<WINML_BINDING_DESC>>} pDescriptor 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WINML_BINDING_DESC>} 
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlevaluationcontext-getvaluebyname
      */
-    GetValueByName(Name, pDescriptor) {
+    GetValueByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        pDescriptorMarshal := pDescriptor is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", Name, pDescriptorMarshal, pDescriptor, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", Name, "ptr*", &pDescriptor := 0, "HRESULT")
+        return pDescriptor
     }
 
     /**

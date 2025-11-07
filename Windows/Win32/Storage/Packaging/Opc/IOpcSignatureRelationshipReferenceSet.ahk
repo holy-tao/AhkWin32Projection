@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcSignatureRelationshipReference.ahk
+#Include .\IOpcRelationshipSelectorSet.ahk
+#Include .\IOpcSignatureRelationshipReferenceEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -49,26 +52,24 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
      * @param {Integer} relationshipSigningOption 
      * @param {IOpcRelationshipSelectorSet} selectorSet 
      * @param {Integer} transformMethod 
-     * @param {Pointer<IOpcSignatureRelationshipReference>} relationshipReference 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureRelationshipReference} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-create
      */
-    Create(sourceUri, digestMethod, relationshipSigningOption, selectorSet, transformMethod, relationshipReference) {
+    Create(sourceUri, digestMethod, relationshipSigningOption, selectorSet, transformMethod) {
         digestMethod := digestMethod is String ? StrPtr(digestMethod) : digestMethod
 
-        result := ComCall(3, this, "ptr", sourceUri, "ptr", digestMethod, "int", relationshipSigningOption, "ptr", selectorSet, "int", transformMethod, "ptr*", relationshipReference, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", sourceUri, "ptr", digestMethod, "int", relationshipSigningOption, "ptr", selectorSet, "int", transformMethod, "ptr*", &relationshipReference := 0, "HRESULT")
+        return IOpcSignatureRelationshipReference(relationshipReference)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcRelationshipSelectorSet>} selectorSet 
-     * @returns {HRESULT} 
+     * @returns {IOpcRelationshipSelectorSet} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-createrelationshipselectorset
      */
-    CreateRelationshipSelectorSet(selectorSet) {
-        result := ComCall(4, this, "ptr*", selectorSet, "HRESULT")
-        return result
+    CreateRelationshipSelectorSet() {
+        result := ComCall(4, this, "ptr*", &selectorSet := 0, "HRESULT")
+        return IOpcRelationshipSelectorSet(selectorSet)
     }
 
     /**
@@ -84,12 +85,11 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureRelationshipReferenceEnumerator>} relationshipReferenceEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureRelationshipReferenceEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-getenumerator
      */
-    GetEnumerator(relationshipReferenceEnumerator) {
-        result := ComCall(6, this, "ptr*", relationshipReferenceEnumerator, "HRESULT")
-        return result
+    GetEnumerator() {
+        result := ComCall(6, this, "ptr*", &relationshipReferenceEnumerator := 0, "HRESULT")
+        return IOpcSignatureRelationshipReferenceEnumerator(relationshipReferenceEnumerator)
     }
 }

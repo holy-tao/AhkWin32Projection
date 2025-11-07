@@ -273,12 +273,11 @@ class ICorProfilerCallback extends IUnknown{
     /**
      * 
      * @param {Pointer} functionId 
-     * @param {Pointer<BOOL>} pbUseCachedFunction 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    JITCachedFunctionSearchStarted(functionId, pbUseCachedFunction) {
-        result := ComCall(25, this, "ptr", functionId, "ptr", pbUseCachedFunction, "HRESULT")
-        return result
+    JITCachedFunctionSearchStarted(functionId) {
+        result := ComCall(25, this, "ptr", functionId, "int*", &pbUseCachedFunction := 0, "HRESULT")
+        return pbUseCachedFunction
     }
 
     /**
@@ -306,12 +305,11 @@ class ICorProfilerCallback extends IUnknown{
      * 
      * @param {Pointer} callerId 
      * @param {Pointer} calleeId 
-     * @param {Pointer<BOOL>} pfShouldInline 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    JITInlining(callerId, calleeId, pfShouldInline) {
-        result := ComCall(28, this, "ptr", callerId, "ptr", calleeId, "ptr", pfShouldInline, "HRESULT")
-        return result
+    JITInlining(callerId, calleeId) {
+        result := ComCall(28, this, "ptr", callerId, "ptr", calleeId, "int*", &pfShouldInline := 0, "HRESULT")
+        return pfShouldInline
     }
 
     /**

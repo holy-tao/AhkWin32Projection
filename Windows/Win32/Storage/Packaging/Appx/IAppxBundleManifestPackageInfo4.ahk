@@ -30,11 +30,10 @@ class IAppxBundleManifestPackageInfo4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isStub 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetIsStub(isStub) {
-        result := ComCall(3, this, "ptr", isStub, "HRESULT")
-        return result
+    GetIsStub() {
+        result := ComCall(3, this, "int*", &isStub := 0, "HRESULT")
+        return isStub
     }
 }

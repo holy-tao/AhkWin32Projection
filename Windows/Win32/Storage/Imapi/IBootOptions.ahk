@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -49,24 +50,23 @@ class IBootOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IStream>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_bootimage
      */
-    get_BootImage(pVal) {
-        result := ComCall(7, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_BootImage() {
+        result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
+        return IStream(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_manufacturer
      */
-    get_Manufacturer(pVal) {
+    get_Manufacturer() {
+        pVal := BSTR()
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -84,15 +84,12 @@ class IBootOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_platformid
      */
-    get_PlatformId(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PlatformId() {
+        result := ComCall(10, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -108,15 +105,12 @@ class IBootOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_emulation
      */
-    get_Emulation(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Emulation() {
+        result := ComCall(12, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -132,15 +126,12 @@ class IBootOptions extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_imagesize
      */
-    get_ImageSize(pVal) {
-        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ImageSize() {
+        result := ComCall(14, this, "uint*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**

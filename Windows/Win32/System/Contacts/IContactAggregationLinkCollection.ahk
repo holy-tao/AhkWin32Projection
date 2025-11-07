@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IContactAggregationLink.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class IContactAggregationLinkCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IContactAggregationLink>} ppServerContactLink 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationLink} 
      */
-    FindFirst(ppServerContactLink) {
-        result := ComCall(3, this, "ptr*", ppServerContactLink, "HRESULT")
-        return result
+    FindFirst() {
+        result := ComCall(3, this, "ptr*", &ppServerContactLink := 0, "HRESULT")
+        return IContactAggregationLink(ppServerContactLink)
     }
 
     /**
@@ -43,36 +43,31 @@ class IContactAggregationLinkCollection extends IUnknown{
      * @param {PWSTR} pSourceType 
      * @param {PWSTR} pAccountId 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pRemoteId 
-     * @param {Pointer<IContactAggregationLink>} ppServerContactLink 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationLink} 
      */
-    FindFirstByRemoteId(pSourceType, pAccountId, pRemoteId, ppServerContactLink) {
+    FindFirstByRemoteId(pSourceType, pAccountId, pRemoteId) {
         pSourceType := pSourceType is String ? StrPtr(pSourceType) : pSourceType
         pAccountId := pAccountId is String ? StrPtr(pAccountId) : pAccountId
 
-        result := ComCall(4, this, "ptr", pSourceType, "ptr", pAccountId, "ptr", pRemoteId, "ptr*", ppServerContactLink, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pSourceType, "ptr", pAccountId, "ptr", pRemoteId, "ptr*", &ppServerContactLink := 0, "HRESULT")
+        return IContactAggregationLink(ppServerContactLink)
     }
 
     /**
      * 
-     * @param {Pointer<IContactAggregationLink>} ppServerContactLink 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationLink} 
      */
-    FindNext(ppServerContactLink) {
-        result := ComCall(5, this, "ptr*", ppServerContactLink, "HRESULT")
-        return result
+    FindNext() {
+        result := ComCall(5, this, "ptr*", &ppServerContactLink := 0, "HRESULT")
+        return IContactAggregationLink(ppServerContactLink)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(6, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 }

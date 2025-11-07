@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,11 +33,11 @@ class IVBSAXEntityResolver extends IDispatch{
      * 
      * @param {Pointer<BSTR>} strPublicId 
      * @param {Pointer<BSTR>} strSystemId 
-     * @param {Pointer<VARIANT>} varInput 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    resolveEntity(strPublicId, strSystemId, varInput) {
+    resolveEntity(strPublicId, strSystemId) {
+        varInput := VARIANT()
         result := ComCall(7, this, "ptr", strPublicId, "ptr", strSystemId, "ptr", varInput, "HRESULT")
-        return result
+        return varInput
     }
 }

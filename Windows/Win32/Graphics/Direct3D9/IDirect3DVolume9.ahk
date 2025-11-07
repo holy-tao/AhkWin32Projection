@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirect3DDevice9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -51,13 +52,12 @@ class IDirect3DVolume9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirect3DDevice9>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DDevice9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-getdevice
      */
-    GetDevice(ppDevice) {
-        result := ComCall(3, this, "ptr*", ppDevice, "HRESULT")
-        return result
+    GetDevice() {
+        result := ComCall(3, this, "ptr*", &ppDevice := 0, "HRESULT")
+        return IDirect3DDevice9(ppDevice)
     }
 
     /**

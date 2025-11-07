@@ -37,7 +37,9 @@ class IWMPLibrarySharingServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrarysharingservices-islibraryshared
      */
     isLibraryShared(pvbShared) {
-        result := ComCall(3, this, "ptr", pvbShared, "HRESULT")
+        pvbSharedMarshal := pvbShared is VarRef ? "short*" : "ptr"
+
+        result := ComCall(3, this, pvbSharedMarshal, pvbShared, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IWMPLibrarySharingServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrarysharingservices-islibrarysharingenabled
      */
     isLibrarySharingEnabled(pvbEnabled) {
-        result := ComCall(4, this, "ptr", pvbEnabled, "HRESULT")
+        pvbEnabledMarshal := pvbEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(4, this, pvbEnabledMarshal, pvbEnabled, "HRESULT")
         return result
     }
 

@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -69,24 +70,24 @@ class IXMLHTTPRequest extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrHeader 
-     * @param {Pointer<BSTR>} pbstrValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getResponseHeader(bstrHeader, pbstrValue) {
+    getResponseHeader(bstrHeader) {
         bstrHeader := bstrHeader is String ? BSTR.Alloc(bstrHeader).Value : bstrHeader
 
+        pbstrValue := BSTR()
         result := ComCall(9, this, "ptr", bstrHeader, "ptr", pbstrValue, "HRESULT")
-        return result
+        return pbstrValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrHeaders 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getAllResponseHeaders(pbstrHeaders) {
+    getAllResponseHeaders() {
+        pbstrHeaders := BSTR()
         result := ComCall(10, this, "ptr", pbstrHeaders, "HRESULT")
-        return result
+        return pbstrHeaders
     }
 
     /**
@@ -334,76 +335,69 @@ class IXMLHTTPRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_status(plStatus) {
-        plStatusMarshal := plStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, plStatusMarshal, plStatus, "HRESULT")
-        return result
+    get_status() {
+        result := ComCall(13, this, "int*", &plStatus := 0, "HRESULT")
+        return plStatus
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrStatus 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_statusText(pbstrStatus) {
+    get_statusText() {
+        pbstrStatus := BSTR()
         result := ComCall(14, this, "ptr", pbstrStatus, "HRESULT")
-        return result
+        return pbstrStatus
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppBody 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_responseXML(ppBody) {
-        result := ComCall(15, this, "ptr*", ppBody, "HRESULT")
-        return result
+    get_responseXML() {
+        result := ComCall(15, this, "ptr*", &ppBody := 0, "HRESULT")
+        return IDispatch(ppBody)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrBody 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_responseText(pbstrBody) {
+    get_responseText() {
+        pbstrBody := BSTR()
         result := ComCall(16, this, "ptr", pbstrBody, "HRESULT")
-        return result
+        return pbstrBody
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarBody 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_responseBody(pvarBody) {
+    get_responseBody() {
+        pvarBody := VARIANT()
         result := ComCall(17, this, "ptr", pvarBody, "HRESULT")
-        return result
+        return pvarBody
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarBody 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_responseStream(pvarBody) {
+    get_responseStream() {
+        pvarBody := VARIANT()
         result := ComCall(18, this, "ptr", pvarBody, "HRESULT")
-        return result
+        return pvarBody
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_readyState(plState) {
-        plStateMarshal := plState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, plStateMarshal, plState, "HRESULT")
-        return result
+    get_readyState() {
+        result := ComCall(19, this, "int*", &plState := 0, "HRESULT")
+        return plState
     }
 
     /**

@@ -36,12 +36,11 @@ class ITfTransitoryExtensionSink extends IUnknown{
      * @param {Integer} ecReadOnly 
      * @param {ITfRange} pResultRange 
      * @param {ITfRange} pCompositionRange 
-     * @param {Pointer<BOOL>} pfDeleteResultRange 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftransitoryextensionsink-ontransitoryextensionupdated
      */
-    OnTransitoryExtensionUpdated(pic, ecReadOnly, pResultRange, pCompositionRange, pfDeleteResultRange) {
-        result := ComCall(3, this, "ptr", pic, "uint", ecReadOnly, "ptr", pResultRange, "ptr", pCompositionRange, "ptr", pfDeleteResultRange, "HRESULT")
-        return result
+    OnTransitoryExtensionUpdated(pic, ecReadOnly, pResultRange, pCompositionRange) {
+        result := ComCall(3, this, "ptr", pic, "uint", ecReadOnly, "ptr", pResultRange, "ptr", pCompositionRange, "int*", &pfDeleteResultRange := 0, "HRESULT")
+        return pfDeleteResultRange
     }
 }

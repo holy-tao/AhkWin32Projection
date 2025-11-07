@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\MediaFoundation\AM_MEDIA_TYPE.ahk
+#Include .\IComponentType.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -44,15 +46,12 @@ class IComponentType extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Category 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_category
      */
-    get_Category(Category) {
-        CategoryMarshal := Category is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CategoryMarshal, Category, "HRESULT")
-        return result
+    get_Category() {
+        result := ComCall(7, this, "int*", &Category := 0, "HRESULT")
+        return Category
     }
 
     /**
@@ -68,13 +67,13 @@ class IComponentType extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} MediaMajorType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediamajortype
      */
-    get_MediaMajorType(MediaMajorType) {
+    get_MediaMajorType() {
+        MediaMajorType := BSTR()
         result := ComCall(9, this, "ptr", MediaMajorType, "HRESULT")
-        return result
+        return MediaMajorType
     }
 
     /**
@@ -92,13 +91,13 @@ class IComponentType extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Guid>} MediaMajorTypeGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get__mediamajortype
      */
-    get__MediaMajorType(MediaMajorTypeGuid) {
+    get__MediaMajorType() {
+        MediaMajorTypeGuid := Guid()
         result := ComCall(11, this, "ptr", MediaMajorTypeGuid, "HRESULT")
-        return result
+        return MediaMajorTypeGuid
     }
 
     /**
@@ -114,13 +113,13 @@ class IComponentType extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} MediaSubType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediasubtype
      */
-    get_MediaSubType(MediaSubType) {
+    get_MediaSubType() {
+        MediaSubType := BSTR()
         result := ComCall(13, this, "ptr", MediaSubType, "HRESULT")
-        return result
+        return MediaSubType
     }
 
     /**
@@ -138,13 +137,13 @@ class IComponentType extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Guid>} MediaSubTypeGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get__mediasubtype
      */
-    get__MediaSubType(MediaSubTypeGuid) {
+    get__MediaSubType() {
+        MediaSubTypeGuid := Guid()
         result := ComCall(15, this, "ptr", MediaSubTypeGuid, "HRESULT")
-        return result
+        return MediaSubTypeGuid
     }
 
     /**
@@ -160,13 +159,13 @@ class IComponentType extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} MediaFormatType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediaformattype
      */
-    get_MediaFormatType(MediaFormatType) {
+    get_MediaFormatType() {
+        MediaFormatType := BSTR()
         result := ComCall(17, this, "ptr", MediaFormatType, "HRESULT")
-        return result
+        return MediaFormatType
     }
 
     /**
@@ -184,13 +183,13 @@ class IComponentType extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Guid>} MediaFormatTypeGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get__mediaformattype
      */
-    get__MediaFormatType(MediaFormatTypeGuid) {
+    get__MediaFormatType() {
+        MediaFormatTypeGuid := Guid()
         result := ComCall(19, this, "ptr", MediaFormatTypeGuid, "HRESULT")
-        return result
+        return MediaFormatTypeGuid
     }
 
     /**
@@ -206,13 +205,13 @@ class IComponentType extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<AM_MEDIA_TYPE>} MediaType 
-     * @returns {HRESULT} 
+     * @returns {AM_MEDIA_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediatype
      */
-    get_MediaType(MediaType) {
+    get_MediaType() {
+        MediaType := AM_MEDIA_TYPE()
         result := ComCall(21, this, "ptr", MediaType, "HRESULT")
-        return result
+        return MediaType
     }
 
     /**
@@ -228,12 +227,11 @@ class IComponentType extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IComponentType>} NewCT 
-     * @returns {HRESULT} 
+     * @returns {IComponentType} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-clone
      */
-    Clone(NewCT) {
-        result := ComCall(23, this, "ptr*", NewCT, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(23, this, "ptr*", &NewCT := 0, "HRESULT")
+        return IComponentType(NewCT)
     }
 }

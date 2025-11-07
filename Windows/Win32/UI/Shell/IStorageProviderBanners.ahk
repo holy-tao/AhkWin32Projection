@@ -80,14 +80,13 @@ class IStorageProviderBanners extends IUnknown{
      * 
      * @param {PWSTR} providerIdentity 
      * @param {PWSTR} subscriptionId 
-     * @param {Pointer<PWSTR>} contentId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetBanner(providerIdentity, subscriptionId, contentId) {
+    GetBanner(providerIdentity, subscriptionId) {
         providerIdentity := providerIdentity is String ? StrPtr(providerIdentity) : providerIdentity
         subscriptionId := subscriptionId is String ? StrPtr(subscriptionId) : subscriptionId
 
-        result := ComCall(6, this, "ptr", providerIdentity, "ptr", subscriptionId, "ptr", contentId, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", providerIdentity, "ptr", subscriptionId, "ptr*", &contentId := 0, "HRESULT")
+        return contentId
     }
 }

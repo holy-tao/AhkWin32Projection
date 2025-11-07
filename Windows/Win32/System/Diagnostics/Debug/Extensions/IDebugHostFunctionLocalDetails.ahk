@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IDebugHostType.ahk
+#Include .\IDebugHostFunctionLocalStorageEnumerator.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,55 +33,47 @@ class IDebugHostFunctionLocalDetails extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(name) {
+    GetName() {
+        name := BSTR()
         result := ComCall(3, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostType>} localType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    GetType(localType) {
-        result := ComCall(4, this, "ptr*", localType, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(4, this, "ptr*", &localType := 0, "HRESULT")
+        return IDebugHostType(localType)
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostFunctionLocalStorageEnumerator>} storageEnum 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostFunctionLocalStorageEnumerator} 
      */
-    EnumerateStorage(storageEnum) {
-        result := ComCall(5, this, "ptr*", storageEnum, "HRESULT")
-        return result
+    EnumerateStorage() {
+        result := ComCall(5, this, "ptr*", &storageEnum := 0, "HRESULT")
+        return IDebugHostFunctionLocalStorageEnumerator(storageEnum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} kind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLocalKind(kind) {
-        kindMarshal := kind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, kindMarshal, kind, "HRESULT")
-        return result
+    GetLocalKind() {
+        result := ComCall(6, this, "int*", &kind := 0, "HRESULT")
+        return kind
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} argPosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetArgumentPosition(argPosition) {
-        argPositionMarshal := argPosition is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, argPositionMarshal, argPosition, "HRESULT")
-        return result
+    GetArgumentPosition() {
+        result := ComCall(7, this, "uint*", &argPosition := 0, "HRESULT")
+        return argPosition
     }
 }

@@ -120,7 +120,7 @@ class Environment {
      * @since windows5.1.2600
      */
     static GetCommandLineA() {
-        result := DllCall("KERNEL32.dll\GetCommandLineA", "char*")
+        result := DllCall("KERNEL32.dll\GetCommandLineA", "ptr")
         return result
     }
 
@@ -131,7 +131,7 @@ class Environment {
      * @since windows5.1.2600
      */
     static GetCommandLineW() {
-        result := DllCall("KERNEL32.dll\GetCommandLineW", "char*")
+        result := DllCall("KERNEL32.dll\GetCommandLineW", "ptr")
         return result
     }
 
@@ -144,7 +144,7 @@ class Environment {
      * @since windows5.1.2600
      */
     static GetEnvironmentStrings() {
-        result := DllCall("KERNEL32.dll\GetEnvironmentStrings", "char*")
+        result := DllCall("KERNEL32.dll\GetEnvironmentStrings", "ptr")
         return result
     }
 
@@ -157,7 +157,7 @@ class Environment {
      * @since windows5.1.2600
      */
     static GetEnvironmentStringsW() {
-        result := DllCall("KERNEL32.dll\GetEnvironmentStringsW", "char*")
+        result := DllCall("KERNEL32.dll\GetEnvironmentStringsW", "ptr")
         return result
     }
 
@@ -1060,20 +1060,18 @@ class Environment {
      * @param {Pointer<Integer>} EnclaveData A pointer to a 64-byte buffer of data that the enclave wants to insert into its signed report.  For example, this buffer could include a 256-bit nonce that the relying party supplied, followed by a SHA-256 hash of additional data that the enclave wants to convey, such as a public key that corresponds to a private key that the enclave owns.  If this parameter is NULL, the corresponding field of the report is  filled with zeroes.
      * @param {Pointer} Report A pointer to a buffer where the report should be placed.  This report may be stored either within the address range of the enclave or within the address space of the host process.  Specify NULL to indicate that only the size of the buffer required for the output should be calculated, and not the report itself.
      * @param {Integer} BufferSize The size of the buffer to which the <i>Report</i> parameter points.  If <i>Report</i> is NULL, <i>BufferSize</i> must be zero.  If <i>Report</i> is not NULL, and if the size of the report is larger than this value, an error is returned.
-     * @param {Pointer<Integer>} OutputSize A pointer to a variable that receives the size of the report.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} A pointer to a variable that receives the size of the report.
      * @see https://docs.microsoft.com/windows/win32/api//winenclaveapi/nf-winenclaveapi-enclavegetattestationreport
      * @since windows10.0.16299
      */
-    static EnclaveGetAttestationReport(EnclaveData, Report, BufferSize, OutputSize) {
+    static EnclaveGetAttestationReport(EnclaveData, Report, BufferSize) {
         EnclaveDataMarshal := EnclaveData is VarRef ? "char*" : "ptr"
-        OutputSizeMarshal := OutputSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("vertdll.dll\EnclaveGetAttestationReport", EnclaveDataMarshal, EnclaveData, "ptr", Report, "uint", BufferSize, OutputSizeMarshal, OutputSize, "int")
+        result := DllCall("vertdll.dll\EnclaveGetAttestationReport", EnclaveDataMarshal, EnclaveData, "ptr", Report, "uint", BufferSize, "uint*", &OutputSize := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return OutputSize
     }
 
     /**
@@ -1132,19 +1130,16 @@ class Environment {
      * </table>
      * @param {Pointer} ProtectedBlob A pointer to a buffer where the sealed data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this parameter is NULL, only the size of the protected blob is calculated.
      * @param {Integer} BufferSize A pointer to a variable that holds the size of the buffer to which the <i>ProtectedBlob</i> parameter points.  If <i>ProtectedBlob</i> is NULL, this value must be zero.  If <i>ProtectedBlob</i> is not NULL, and if the size of the encrypted data is larger than this value, an error occurs.
-     * @param {Pointer<Integer>} ProtectedBlobSize A pointer to a variable that receives the actual size of the encrypted blob.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} A pointer to a variable that receives the actual size of the encrypted blob.
      * @see https://docs.microsoft.com/windows/win32/api//winenclaveapi/nf-winenclaveapi-enclavesealdata
      * @since windows10.0.16299
      */
-    static EnclaveSealData(DataToEncrypt, DataToEncryptSize, IdentityPolicy, RuntimePolicy, ProtectedBlob, BufferSize, ProtectedBlobSize) {
-        ProtectedBlobSizeMarshal := ProtectedBlobSize is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("vertdll.dll\EnclaveSealData", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "int", IdentityPolicy, "uint", RuntimePolicy, "ptr", ProtectedBlob, "uint", BufferSize, ProtectedBlobSizeMarshal, ProtectedBlobSize, "int")
+    static EnclaveSealData(DataToEncrypt, DataToEncryptSize, IdentityPolicy, RuntimePolicy, ProtectedBlob, BufferSize) {
+        result := DllCall("vertdll.dll\EnclaveSealData", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "int", IdentityPolicy, "uint", RuntimePolicy, "ptr", ProtectedBlob, "uint", BufferSize, "uint*", &ProtectedBlobSize := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ProtectedBlobSize
     }
 
     /**
@@ -1196,17 +1191,14 @@ class Environment {
      * @param {Pointer<TRUSTLET_BINDING_DATA>} TrustletBindingData 
      * @param {Pointer} EncryptedData 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} EncryptedDataSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static EnclaveEncryptDataForTrustlet(DataToEncrypt, DataToEncryptSize, TrustletBindingData, EncryptedData, BufferSize, EncryptedDataSize) {
-        EncryptedDataSizeMarshal := EncryptedDataSize is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("vertdll.dll\EnclaveEncryptDataForTrustlet", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "ptr", TrustletBindingData, "ptr", EncryptedData, "uint", BufferSize, EncryptedDataSizeMarshal, EncryptedDataSize, "int")
+    static EnclaveEncryptDataForTrustlet(DataToEncrypt, DataToEncryptSize, TrustletBindingData, EncryptedData, BufferSize) {
+        result := DllCall("vertdll.dll\EnclaveEncryptDataForTrustlet", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "ptr", TrustletBindingData, "ptr", EncryptedData, "uint", BufferSize, "uint*", &EncryptedDataSize := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return EncryptedDataSize
     }
 
     /**

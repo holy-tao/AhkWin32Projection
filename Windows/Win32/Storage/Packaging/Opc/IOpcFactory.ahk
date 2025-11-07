@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcUri.ahk
+#Include .\IOpcPartUri.ahk
+#Include ..\..\..\System\Com\IStream.ahk
+#Include .\IOpcPackage.ahk
+#Include .\IOpcDigitalSignatureManager.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -51,27 +56,25 @@ class IOpcFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcUri>} rootUri 
-     * @returns {HRESULT} 
+     * @returns {IOpcUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-createpackagerooturi
      */
-    CreatePackageRootUri(rootUri) {
-        result := ComCall(3, this, "ptr*", rootUri, "HRESULT")
-        return result
+    CreatePackageRootUri() {
+        result := ComCall(3, this, "ptr*", &rootUri := 0, "HRESULT")
+        return IOpcUri(rootUri)
     }
 
     /**
      * 
      * @param {PWSTR} pwzUri 
-     * @param {Pointer<IOpcPartUri>} partUri 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-createparturi
      */
-    CreatePartUri(pwzUri, partUri) {
+    CreatePartUri(pwzUri) {
         pwzUri := pwzUri is String ? StrPtr(pwzUri) : pwzUri
 
-        result := ComCall(4, this, "ptr", pwzUri, "ptr*", partUri, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pwzUri, "ptr*", &partUri := 0, "HRESULT")
+        return IOpcPartUri(partUri)
     }
 
     /**
@@ -80,39 +83,36 @@ class IOpcFactory extends IUnknown{
      * @param {Integer} ioMode 
      * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes 
      * @param {Integer} dwFlagsAndAttributes 
-     * @param {Pointer<IStream>} stream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-createstreamonfile
      */
-    CreateStreamOnFile(filename, ioMode, securityAttributes, dwFlagsAndAttributes, stream) {
+    CreateStreamOnFile(filename, ioMode, securityAttributes, dwFlagsAndAttributes) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(5, this, "ptr", filename, "int", ioMode, "ptr", securityAttributes, "uint", dwFlagsAndAttributes, "ptr*", stream, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", filename, "int", ioMode, "ptr", securityAttributes, "uint", dwFlagsAndAttributes, "ptr*", &stream := 0, "HRESULT")
+        return IStream(stream)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcPackage>} package 
-     * @returns {HRESULT} 
+     * @returns {IOpcPackage} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-createpackage
      */
-    CreatePackage(package) {
-        result := ComCall(6, this, "ptr*", package, "HRESULT")
-        return result
+    CreatePackage() {
+        result := ComCall(6, this, "ptr*", &package := 0, "HRESULT")
+        return IOpcPackage(package)
     }
 
     /**
      * 
      * @param {IStream} stream 
      * @param {Integer} flags 
-     * @param {Pointer<IOpcPackage>} package 
-     * @returns {HRESULT} 
+     * @returns {IOpcPackage} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-readpackagefromstream
      */
-    ReadPackageFromStream(stream, flags, package) {
-        result := ComCall(7, this, "ptr", stream, "int", flags, "ptr*", package, "HRESULT")
-        return result
+    ReadPackageFromStream(stream, flags) {
+        result := ComCall(7, this, "ptr", stream, "int", flags, "ptr*", &package := 0, "HRESULT")
+        return IOpcPackage(package)
     }
 
     /**
@@ -131,12 +131,11 @@ class IOpcFactory extends IUnknown{
     /**
      * 
      * @param {IOpcPackage} package 
-     * @param {Pointer<IOpcDigitalSignatureManager>} signatureManager 
-     * @returns {HRESULT} 
+     * @returns {IOpcDigitalSignatureManager} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-createdigitalsignaturemanager
      */
-    CreateDigitalSignatureManager(package, signatureManager) {
-        result := ComCall(9, this, "ptr", package, "ptr*", signatureManager, "HRESULT")
-        return result
+    CreateDigitalSignatureManager(package) {
+        result := ComCall(9, this, "ptr", package, "ptr*", &signatureManager := 0, "HRESULT")
+        return IOpcDigitalSignatureManager(signatureManager)
     }
 }

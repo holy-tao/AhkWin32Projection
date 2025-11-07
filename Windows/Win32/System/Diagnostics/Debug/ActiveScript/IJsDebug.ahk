@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IJsDebugProcess.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -33,11 +34,10 @@ class IJsDebug extends IUnknown{
      * @param {Integer} processId 
      * @param {Integer} runtimeJsBaseAddress 
      * @param {IJsDebugDataTarget} pDataTarget 
-     * @param {Pointer<IJsDebugProcess>} ppProcess 
-     * @returns {HRESULT} 
+     * @returns {IJsDebugProcess} 
      */
-    OpenVirtualProcess(processId, runtimeJsBaseAddress, pDataTarget, ppProcess) {
-        result := ComCall(3, this, "uint", processId, "uint", runtimeJsBaseAddress, "ptr", pDataTarget, "ptr*", ppProcess, "HRESULT")
-        return result
+    OpenVirtualProcess(processId, runtimeJsBaseAddress, pDataTarget) {
+        result := ComCall(3, this, "uint", processId, "uint", runtimeJsBaseAddress, "ptr", pDataTarget, "ptr*", &ppProcess := 0, "HRESULT")
+        return IJsDebugProcess(ppProcess)
     }
 }

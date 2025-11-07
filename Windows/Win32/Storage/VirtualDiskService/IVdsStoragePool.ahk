@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVdsProvider.ahk
+#Include .\VDS_STORAGE_POOL_PROP.ahk
+#Include .\VDS_POOL_ATTRIBUTES.ahk
+#Include .\IEnumVdsObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,35 +36,34 @@ class IVdsStoragePool extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IVdsProvider>} ppProvider 
-     * @returns {HRESULT} 
+     * @returns {IVdsProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsstoragepool-getprovider
      */
-    GetProvider(ppProvider) {
-        result := ComCall(3, this, "ptr*", ppProvider, "HRESULT")
-        return result
+    GetProvider() {
+        result := ComCall(3, this, "ptr*", &ppProvider := 0, "HRESULT")
+        return IVdsProvider(ppProvider)
     }
 
     /**
      * 
-     * @param {Pointer<VDS_STORAGE_POOL_PROP>} pStoragePoolProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_STORAGE_POOL_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsstoragepool-getproperties
      */
-    GetProperties(pStoragePoolProp) {
+    GetProperties() {
+        pStoragePoolProp := VDS_STORAGE_POOL_PROP()
         result := ComCall(4, this, "ptr", pStoragePoolProp, "HRESULT")
-        return result
+        return pStoragePoolProp
     }
 
     /**
      * 
-     * @param {Pointer<VDS_POOL_ATTRIBUTES>} pStoragePoolAttributes 
-     * @returns {HRESULT} 
+     * @returns {VDS_POOL_ATTRIBUTES} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsstoragepool-getattributes
      */
-    GetAttributes(pStoragePoolAttributes) {
+    GetAttributes() {
+        pStoragePoolAttributes := VDS_POOL_ATTRIBUTES()
         result := ComCall(5, this, "ptr", pStoragePoolAttributes, "HRESULT")
-        return result
+        return pStoragePoolAttributes
     }
 
     /**
@@ -80,23 +83,21 @@ class IVdsStoragePool extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsstoragepool-queryallocatedluns
      */
-    QueryAllocatedLuns(ppEnum) {
-        result := ComCall(7, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryAllocatedLuns() {
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsstoragepool-queryallocatedstoragepools
      */
-    QueryAllocatedStoragePools(ppEnum) {
-        result := ComCall(8, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryAllocatedStoragePools() {
+        result := ComCall(8, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 }

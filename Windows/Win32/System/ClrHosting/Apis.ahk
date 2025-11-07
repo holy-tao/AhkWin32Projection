@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -211,21 +212,18 @@ class ClrHosting {
      * @param {PWSTR} pExe 
      * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
-     * @param {Pointer<Integer>} dwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @deprecated
      */
-    static GetRequestedRuntimeVersion(pExe, pVersion, cchBuffer, dwLength) {
+    static GetRequestedRuntimeVersion(pExe, pVersion, cchBuffer) {
         pExe := pExe is String ? StrPtr(pExe) : pExe
         pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
-        dwLengthMarshal := dwLength is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersion", "ptr", pExe, "ptr", pVersion, "uint", cchBuffer, dwLengthMarshal, dwLength, "int")
+        result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersion", "ptr", pExe, "ptr", pVersion, "uint", cchBuffer, "uint*", &dwLength := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return dwLength
     }
 
     /**
@@ -539,18 +537,17 @@ class ClrHosting {
      * 
      * @param {Integer} iDebuggerVersion 
      * @param {PWSTR} szDebuggeeVersion 
-     * @param {Pointer<IUnknown>} ppCordb 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @deprecated
      */
-    static CreateDebuggingInterfaceFromVersion(iDebuggerVersion, szDebuggeeVersion, ppCordb) {
+    static CreateDebuggingInterfaceFromVersion(iDebuggerVersion, szDebuggeeVersion) {
         szDebuggeeVersion := szDebuggeeVersion is String ? StrPtr(szDebuggeeVersion) : szDebuggeeVersion
 
-        result := DllCall("MSCorEE.dll\CreateDebuggingInterfaceFromVersion", "int", iDebuggerVersion, "ptr", szDebuggeeVersion, "ptr*", ppCordb, "int")
+        result := DllCall("MSCorEE.dll\CreateDebuggingInterfaceFromVersion", "int", iDebuggerVersion, "ptr", szDebuggeeVersion, "ptr*", &ppCordb := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppCordb)
     }
 
     /**
@@ -558,21 +555,18 @@ class ClrHosting {
      * @param {HANDLE} hProcess 
      * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
-     * @param {Pointer<Integer>} dwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @deprecated
      */
-    static GetVersionFromProcess(hProcess, pVersion, cchBuffer, dwLength) {
+    static GetVersionFromProcess(hProcess, pVersion, cchBuffer) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
-        dwLengthMarshal := dwLength is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("MSCorEE.dll\GetVersionFromProcess", "ptr", hProcess, "ptr", pVersion, "uint", cchBuffer, dwLengthMarshal, dwLength, "int")
+        result := DllCall("MSCorEE.dll\GetVersionFromProcess", "ptr", hProcess, "ptr", pVersion, "uint", cchBuffer, "uint*", &dwLength := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return dwLength
     }
 
     /**
@@ -589,7 +583,10 @@ class ClrHosting {
     static CorLaunchApplication(dwClickOnceHost, pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData, lpProcessInformation) {
         pwzAppFullName := pwzAppFullName is String ? StrPtr(pwzAppFullName) : pwzAppFullName
 
-        result := DllCall("MSCorEE.dll\CorLaunchApplication", "int", dwClickOnceHost, "ptr", pwzAppFullName, "uint", dwManifestPaths, "ptr", ppwzManifestPaths, "uint", dwActivationData, "ptr", ppwzActivationData, "ptr", lpProcessInformation, "int")
+        ppwzManifestPathsMarshal := ppwzManifestPaths is VarRef ? "ptr*" : "ptr"
+        ppwzActivationDataMarshal := ppwzActivationData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MSCorEE.dll\CorLaunchApplication", "int", dwClickOnceHost, "ptr", pwzAppFullName, "uint", dwManifestPaths, ppwzManifestPathsMarshal, ppwzManifestPaths, "uint", dwActivationData, ppwzActivationDataMarshal, ppwzActivationData, "ptr", lpProcessInformation, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -601,51 +598,44 @@ class ClrHosting {
      * @param {Pointer<Guid>} rclsid 
      * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
-     * @param {Pointer<Integer>} dwLength 
      * @param {Integer} dwResolutionFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static GetRequestedRuntimeVersionForCLSID(rclsid, pVersion, cchBuffer, dwLength, dwResolutionFlags) {
+    static GetRequestedRuntimeVersionForCLSID(rclsid, pVersion, cchBuffer, dwResolutionFlags) {
         pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
-        dwLengthMarshal := dwLength is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersionForCLSID", "ptr", rclsid, "ptr", pVersion, "uint", cchBuffer, dwLengthMarshal, dwLength, "int", dwResolutionFlags, "int")
+        result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersionForCLSID", "ptr", rclsid, "ptr", pVersion, "uint", cchBuffer, "uint*", &dwLength := 0, "int", dwResolutionFlags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return dwLength
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppManager 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    static GetCLRIdentityManager(riid, ppManager) {
-        result := DllCall("MSCorEE.dll\GetCLRIdentityManager", "ptr", riid, "ptr*", ppManager, "int")
+    static GetCLRIdentityManager(riid) {
+        result := DllCall("MSCorEE.dll\GetCLRIdentityManager", "ptr", riid, "ptr*", &ppManager := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppManager)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppInterface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static CLRCreateInstance(clsid, riid, ppInterface) {
-        ppInterfaceMarshal := ppInterface is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("MSCorEE.dll\CLRCreateInstance", "ptr", clsid, "ptr", riid, ppInterfaceMarshal, ppInterface, "int")
+    static CLRCreateInstance(clsid, riid) {
+        result := DllCall("MSCorEE.dll\CLRCreateInstance", "ptr", clsid, "ptr", riid, "ptr*", &ppInterface := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppInterface
     }
 
 ;@endregion Methods

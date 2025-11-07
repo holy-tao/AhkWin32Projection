@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -72,11 +73,11 @@ class ISelectionServicesListener extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pTypeDetail 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetTypeDetail(pTypeDetail) {
+    GetTypeDetail() {
+        pTypeDetail := BSTR()
         result := ComCall(7, this, "ptr", pTypeDetail, "HRESULT")
-        return result
+        return pTypeDetail
     }
 }

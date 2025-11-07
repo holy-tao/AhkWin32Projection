@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCSession.ahk
+#Include .\IRTCParticipant.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,65 +33,57 @@ class IRTCMessagingEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRTCSession>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {IRTCSession} 
      */
-    get_Session(ppSession) {
-        result := ComCall(7, this, "ptr*", ppSession, "HRESULT")
-        return result
+    get_Session() {
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        return IRTCSession(ppSession)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCParticipant>} ppParticipant 
-     * @returns {HRESULT} 
+     * @returns {IRTCParticipant} 
      */
-    get_Participant(ppParticipant) {
-        result := ComCall(8, this, "ptr*", ppParticipant, "HRESULT")
-        return result
+    get_Participant() {
+        result := ComCall(8, this, "ptr*", &ppParticipant := 0, "HRESULT")
+        return IRTCParticipant(ppParticipant)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penEventType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EventType(penEventType) {
-        penEventTypeMarshal := penEventType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, penEventTypeMarshal, penEventType, "HRESULT")
-        return result
+    get_EventType() {
+        result := ComCall(9, this, "int*", &penEventType := 0, "HRESULT")
+        return penEventType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrMessage 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Message(pbstrMessage) {
+    get_Message() {
+        pbstrMessage := BSTR()
         result := ComCall(10, this, "ptr", pbstrMessage, "HRESULT")
-        return result
+        return pbstrMessage
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrMessageHeader 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_MessageHeader(pbstrMessageHeader) {
+    get_MessageHeader() {
+        pbstrMessageHeader := BSTR()
         result := ComCall(11, this, "ptr", pbstrMessageHeader, "HRESULT")
-        return result
+        return pbstrMessageHeader
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penUserStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_UserStatus(penUserStatus) {
-        penUserStatusMarshal := penUserStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, penUserStatusMarshal, penUserStatus, "HRESULT")
-        return result
+    get_UserStatus() {
+        result := ComCall(12, this, "int*", &penUserStatus := 0, "HRESULT")
+        return penUserStatus
     }
 }

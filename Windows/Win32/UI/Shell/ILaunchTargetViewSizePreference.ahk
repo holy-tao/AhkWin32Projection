@@ -32,14 +32,11 @@ class ILaunchTargetViewSizePreference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} targetSizeOnLaunch 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchtargetviewsizepreference-gettargetviewsizepreference
      */
-    GetTargetViewSizePreference(targetSizeOnLaunch) {
-        targetSizeOnLaunchMarshal := targetSizeOnLaunch is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, targetSizeOnLaunchMarshal, targetSizeOnLaunch, "HRESULT")
-        return result
+    GetTargetViewSizePreference() {
+        result := ComCall(3, this, "int*", &targetSizeOnLaunch := 0, "HRESULT")
+        return targetSizeOnLaunch
     }
 }

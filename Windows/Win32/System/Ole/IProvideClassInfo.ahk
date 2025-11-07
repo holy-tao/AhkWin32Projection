@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\ITypeInfo.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class IProvideClassInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITypeInfo>} ppTI 
-     * @returns {HRESULT} 
+     * @returns {ITypeInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iprovideclassinfo-getclassinfo
      */
-    GetClassInfo(ppTI) {
-        result := ComCall(3, this, "ptr*", ppTI, "HRESULT")
-        return result
+    GetClassInfo() {
+        result := ComCall(3, this, "ptr*", &ppTI := 0, "HRESULT")
+        return ITypeInfo(ppTI)
     }
 }

@@ -51,17 +51,14 @@ class IVisualTreeService3 extends IVisualTreeService2{
      * @param {Integer} dictionaryHandle 
      * @param {PWSTR} resourceName 
      * @param {BOOL} resourceIsImplicitStyle 
-     * @param {Pointer<Integer>} resourceHandle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice3-getdictionaryitem
      */
-    GetDictionaryItem(dictionaryHandle, resourceName, resourceIsImplicitStyle, resourceHandle) {
+    GetDictionaryItem(dictionaryHandle, resourceName, resourceIsImplicitStyle) {
         resourceName := resourceName is String ? StrPtr(resourceName) : resourceName
 
-        resourceHandleMarshal := resourceHandle is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, "uint", dictionaryHandle, "ptr", resourceName, "int", resourceIsImplicitStyle, resourceHandleMarshal, resourceHandle, "HRESULT")
-        return result
+        result := ComCall(20, this, "uint", dictionaryHandle, "ptr", resourceName, "int", resourceIsImplicitStyle, "uint*", &resourceHandle := 0, "HRESULT")
+        return resourceHandle
     }
 
     /**

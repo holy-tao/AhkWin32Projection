@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaEngine.ahk
+#Include .\IMFMediaTimeRange.ahk
+#Include .\IMFMediaError.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,34 +44,31 @@ class IMFMediaEngineClassFactory extends IUnknown{
      * 
      * @param {Integer} dwFlags 
      * @param {IMFAttributes} pAttr 
-     * @param {Pointer<IMFMediaEngine>} ppPlayer 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaEngine} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory-createinstance
      */
-    CreateInstance(dwFlags, pAttr, ppPlayer) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pAttr, "ptr*", ppPlayer, "HRESULT")
-        return result
+    CreateInstance(dwFlags, pAttr) {
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pAttr, "ptr*", &ppPlayer := 0, "HRESULT")
+        return IMFMediaEngine(ppPlayer)
     }
 
     /**
      * 
-     * @param {Pointer<IMFMediaTimeRange>} ppTimeRange 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaTimeRange} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory-createtimerange
      */
-    CreateTimeRange(ppTimeRange) {
-        result := ComCall(4, this, "ptr*", ppTimeRange, "HRESULT")
-        return result
+    CreateTimeRange() {
+        result := ComCall(4, this, "ptr*", &ppTimeRange := 0, "HRESULT")
+        return IMFMediaTimeRange(ppTimeRange)
     }
 
     /**
      * 
-     * @param {Pointer<IMFMediaError>} ppError 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaError} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory-createerror
      */
-    CreateError(ppError) {
-        result := ComCall(5, this, "ptr*", ppError, "HRESULT")
-        return result
+    CreateError() {
+        result := ComCall(5, this, "ptr*", &ppError := 0, "HRESULT")
+        return IMFMediaError(ppError)
     }
 }

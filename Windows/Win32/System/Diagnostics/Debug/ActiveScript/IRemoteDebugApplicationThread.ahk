@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IRemoteDebugApplication.ahk
+#Include .\IEnumDebugStackFrames.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,34 +32,29 @@ class IRemoteDebugApplicationThread extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} dwThreadId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSystemThreadId(dwThreadId) {
-        dwThreadIdMarshal := dwThreadId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, dwThreadIdMarshal, dwThreadId, "HRESULT")
-        return result
+    GetSystemThreadId() {
+        result := ComCall(3, this, "uint*", &dwThreadId := 0, "HRESULT")
+        return dwThreadId
     }
 
     /**
      * 
-     * @param {Pointer<IRemoteDebugApplication>} pprda 
-     * @returns {HRESULT} 
+     * @returns {IRemoteDebugApplication} 
      */
-    GetApplication(pprda) {
-        result := ComCall(4, this, "ptr*", pprda, "HRESULT")
-        return result
+    GetApplication() {
+        result := ComCall(4, this, "ptr*", &pprda := 0, "HRESULT")
+        return IRemoteDebugApplication(pprda)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumDebugStackFrames>} ppedsf 
-     * @returns {HRESULT} 
+     * @returns {IEnumDebugStackFrames} 
      */
-    EnumStackFrames(ppedsf) {
-        result := ComCall(5, this, "ptr*", ppedsf, "HRESULT")
-        return result
+    EnumStackFrames() {
+        result := ComCall(5, this, "ptr*", &ppedsf := 0, "HRESULT")
+        return IEnumDebugStackFrames(ppedsf)
     }
 
     /**
@@ -84,49 +81,37 @@ class IRemoteDebugApplicationThread extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetState(pState) {
-        pStateMarshal := pState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pStateMarshal, pState, "HRESULT")
-        return result
+    GetState() {
+        result := ComCall(8, this, "uint*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Suspend(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    Suspend() {
+        result := ComCall(9, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Resume(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    Resume() {
+        result := ComCall(10, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSuspendCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetSuspendCount() {
+        result := ComCall(11, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 }

@@ -46,45 +46,43 @@ class IUIAutomationValuePattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_currentvalue
      */
-    get_CurrentValue(retVal) {
+    get_CurrentValue() {
+        retVal := BSTR()
         result := ComCall(4, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_currentisreadonly
      */
-    get_CurrentIsReadOnly(retVal) {
-        result := ComCall(5, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsReadOnly() {
+        result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_cachedvalue
      */
-    get_CachedValue(retVal) {
+    get_CachedValue() {
+        retVal := BSTR()
         result := ComCall(6, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_cachedisreadonly
      */
-    get_CachedIsReadOnly(retVal) {
-        result := ComCall(7, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsReadOnly() {
+        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

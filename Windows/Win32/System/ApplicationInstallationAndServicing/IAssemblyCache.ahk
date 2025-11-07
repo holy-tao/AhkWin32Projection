@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAssemblyCacheItem.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -67,28 +68,26 @@ class IAssemblyCache extends IUnknown{
      * 
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} pvReserved 
-     * @param {Pointer<IAssemblyCacheItem>} ppAsmItem 
      * @param {PWSTR} pszAssemblyName 
-     * @returns {HRESULT} 
+     * @returns {IAssemblyCacheItem} 
      * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblycache-createassemblycacheitem
      */
-    CreateAssemblyCacheItem(dwFlags, pvReserved, ppAsmItem, pszAssemblyName) {
+    CreateAssemblyCacheItem(dwFlags, pvReserved, pszAssemblyName) {
         pszAssemblyName := pszAssemblyName is String ? StrPtr(pszAssemblyName) : pszAssemblyName
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "uint", dwFlags, pvReservedMarshal, pvReserved, "ptr*", ppAsmItem, "ptr", pszAssemblyName, "HRESULT")
-        return result
+        result := ComCall(5, this, "uint", dwFlags, pvReservedMarshal, pvReserved, "ptr*", &ppAsmItem := 0, "ptr", pszAssemblyName, "HRESULT")
+        return IAssemblyCacheItem(ppAsmItem)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    Reserved(ppUnk) {
-        result := ComCall(6, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    Reserved() {
+        result := ComCall(6, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**

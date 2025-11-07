@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWSDAsyncResult.ahk
+#Include .\IWSDEndpointProxy.ahk
 #Include .\IWSDMetadataExchange.ahk
 
 /**
@@ -39,40 +41,33 @@ class IWSDServiceProxy extends IWSDMetadataExchange{
 
     /**
      * 
-     * @param {Pointer<IWSDAsyncResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IWSDAsyncResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxy-begingetmetadata
      */
-    BeginGetMetadata(ppResult) {
-        result := ComCall(4, this, "ptr*", ppResult, "HRESULT")
-        return result
+    BeginGetMetadata() {
+        result := ComCall(4, this, "ptr*", &ppResult := 0, "HRESULT")
+        return IWSDAsyncResult(ppResult)
     }
 
     /**
      * 
      * @param {IWSDAsyncResult} pResult 
-     * @param {Pointer<Pointer<WSD_METADATA_SECTION_LIST>>} ppMetadata 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSD_METADATA_SECTION_LIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxy-endgetmetadata
      */
-    EndGetMetadata(pResult, ppMetadata) {
-        ppMetadataMarshal := ppMetadata is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pResult, ppMetadataMarshal, ppMetadata, "HRESULT")
-        return result
+    EndGetMetadata(pResult) {
+        result := ComCall(5, this, "ptr", pResult, "ptr*", &ppMetadata := 0, "HRESULT")
+        return ppMetadata
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<WSD_SERVICE_METADATA>>} ppServiceMetadata 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSD_SERVICE_METADATA>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxy-getservicemetadata
      */
-    GetServiceMetadata(ppServiceMetadata) {
-        ppServiceMetadataMarshal := ppServiceMetadata is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, ppServiceMetadataMarshal, ppServiceMetadata, "HRESULT")
-        return result
+    GetServiceMetadata() {
+        result := ComCall(6, this, "ptr*", &ppServiceMetadata := 0, "HRESULT")
+        return ppServiceMetadata
     }
 
     /**
@@ -80,15 +75,12 @@ class IWSDServiceProxy extends IWSDMetadataExchange{
      * @param {Pointer<WSD_OPERATION>} pOperation 
      * @param {IUnknown} pUnknown 
      * @param {Pointer<WSDXML_ELEMENT>} pAny 
-     * @param {Pointer<Pointer<WSDXML_ELEMENT>>} ppAny 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSDXML_ELEMENT>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxy-subscribetooperation
      */
-    SubscribeToOperation(pOperation, pUnknown, pAny, ppAny) {
-        ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pOperation, "ptr", pUnknown, "ptr", pAny, ppAnyMarshal, ppAny, "HRESULT")
-        return result
+    SubscribeToOperation(pOperation, pUnknown, pAny) {
+        result := ComCall(7, this, "ptr", pOperation, "ptr", pUnknown, "ptr", pAny, "ptr*", &ppAny := 0, "HRESULT")
+        return ppAny
     }
 
     /**
@@ -115,12 +107,11 @@ class IWSDServiceProxy extends IWSDMetadataExchange{
 
     /**
      * 
-     * @param {Pointer<IWSDEndpointProxy>} ppProxy 
-     * @returns {HRESULT} 
+     * @returns {IWSDEndpointProxy} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxy-getendpointproxy
      */
-    GetEndpointProxy(ppProxy) {
-        result := ComCall(10, this, "ptr*", ppProxy, "HRESULT")
-        return result
+    GetEndpointProxy() {
+        result := ComCall(10, this, "ptr*", &ppProxy := 0, "HRESULT")
+        return IWSDEndpointProxy(ppProxy)
     }
 }

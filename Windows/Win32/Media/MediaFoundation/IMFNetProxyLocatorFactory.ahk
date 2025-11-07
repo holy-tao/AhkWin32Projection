@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFNetProxyLocator.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,14 +34,13 @@ class IMFNetProxyLocatorFactory extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszProtocol 
-     * @param {Pointer<IMFNetProxyLocator>} ppProxyLocator 
-     * @returns {HRESULT} 
+     * @returns {IMFNetProxyLocator} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetproxylocatorfactory-createproxylocator
      */
-    CreateProxyLocator(pszProtocol, ppProxyLocator) {
+    CreateProxyLocator(pszProtocol) {
         pszProtocol := pszProtocol is String ? StrPtr(pszProtocol) : pszProtocol
 
-        result := ComCall(3, this, "ptr", pszProtocol, "ptr*", ppProxyLocator, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszProtocol, "ptr*", &ppProxyLocator := 0, "HRESULT")
+        return IMFNetProxyLocator(ppProxyLocator)
     }
 }

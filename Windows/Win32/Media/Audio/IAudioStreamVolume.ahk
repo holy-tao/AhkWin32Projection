@@ -32,15 +32,12 @@ class IAudioStreamVolume extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiostreamvolume-getchannelcount
      */
-    GetChannelCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetChannelCount() {
+        result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
@@ -58,15 +55,12 @@ class IAudioStreamVolume extends IUnknown{
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<Float>} pfLevel 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiostreamvolume-getchannelvolume
      */
-    GetChannelVolume(dwIndex, pfLevel) {
-        pfLevelMarshal := pfLevel is VarRef ? "float*" : "ptr"
-
-        result := ComCall(5, this, "uint", dwIndex, pfLevelMarshal, pfLevel, "HRESULT")
-        return result
+    GetChannelVolume(dwIndex) {
+        result := ComCall(5, this, "uint", dwIndex, "float*", &pfLevel := 0, "HRESULT")
+        return pfLevel
     }
 
     /**
@@ -86,14 +80,11 @@ class IAudioStreamVolume extends IUnknown{
     /**
      * 
      * @param {Integer} dwCount 
-     * @param {Pointer<Float>} pfVolumes 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiostreamvolume-getallvolumes
      */
-    GetAllVolumes(dwCount, pfVolumes) {
-        pfVolumesMarshal := pfVolumes is VarRef ? "float*" : "ptr"
-
-        result := ComCall(7, this, "uint", dwCount, pfVolumesMarshal, pfVolumes, "HRESULT")
-        return result
+    GetAllVolumes(dwCount) {
+        result := ComCall(7, this, "uint", dwCount, "float*", &pfVolumes := 0, "HRESULT")
+        return pfVolumes
     }
 }

@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGElement.ahk
+#Include .\ISVGUseElement.ahk
+#Include .\ISVGElementInstance.ahk
+#Include .\ISVGElementInstanceList.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,81 +40,73 @@ class ISVGElementInstance extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGElement>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGElement} 
      */
-    get_correspondingElement(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_correspondingElement() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGUseElement>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGUseElement} 
      */
-    get_correspondingUseElement(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_correspondingUseElement() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGUseElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGElementInstance>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGElementInstance} 
      */
-    get_parentNode(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_parentNode() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGElementInstance(p)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGElementInstanceList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGElementInstanceList} 
      */
-    get_childNodes(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_childNodes() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGElementInstanceList(p)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGElementInstance>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGElementInstance} 
      */
-    get_firstChild(p) {
-        result := ComCall(11, this, "ptr*", p, "HRESULT")
-        return result
+    get_firstChild() {
+        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGElementInstance(p)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGElementInstance>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGElementInstance} 
      */
-    get_lastChild(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_lastChild() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGElementInstance(p)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGElementInstance>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGElementInstance} 
      */
-    get_previousSibling(p) {
-        result := ComCall(13, this, "ptr*", p, "HRESULT")
-        return result
+    get_previousSibling() {
+        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGElementInstance(p)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGElementInstance>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGElementInstance} 
      */
-    get_nextSibling(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_nextSibling() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGElementInstance(p)
     }
 }

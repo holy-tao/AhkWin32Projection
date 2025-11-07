@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IBlockRangeList.ahk
 #Include .\IFileSystemImageResult.ahk
 
 /**
@@ -37,12 +38,11 @@ class IFileSystemImageResult2 extends IFileSystemImageResult{
 
     /**
      * 
-     * @param {Pointer<IBlockRangeList>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IBlockRangeList} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult2-get_modifiedblocks
      */
-    get_ModifiedBlocks(pVal) {
-        result := ComCall(12, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_ModifiedBlocks() {
+        result := ComCall(12, this, "ptr*", &pVal := 0, "HRESULT")
+        return IBlockRangeList(pVal)
     }
 }

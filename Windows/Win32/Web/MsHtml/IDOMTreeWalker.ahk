@@ -30,44 +30,38 @@ class IDOMTreeWalker extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_root(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_root() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_whatToShow(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_whatToShow() {
+        result := ComCall(8, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_filter(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_filter() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_expandEntityReferences(p) {
-        result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+    get_expandEntityReferences() {
+        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -82,81 +76,73 @@ class IDOMTreeWalker extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_currentNode(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_currentNode() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppRetNode 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    parentNode(ppRetNode) {
-        result := ComCall(13, this, "ptr*", ppRetNode, "HRESULT")
-        return result
+    parentNode() {
+        result := ComCall(13, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        return IDispatch(ppRetNode)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppRetNode 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    firstChild(ppRetNode) {
-        result := ComCall(14, this, "ptr*", ppRetNode, "HRESULT")
-        return result
+    firstChild() {
+        result := ComCall(14, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        return IDispatch(ppRetNode)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppRetNode 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    lastChild(ppRetNode) {
-        result := ComCall(15, this, "ptr*", ppRetNode, "HRESULT")
-        return result
+    lastChild() {
+        result := ComCall(15, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        return IDispatch(ppRetNode)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppRetNode 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    previousSibling(ppRetNode) {
-        result := ComCall(16, this, "ptr*", ppRetNode, "HRESULT")
-        return result
+    previousSibling() {
+        result := ComCall(16, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        return IDispatch(ppRetNode)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppRetNode 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    nextSibling(ppRetNode) {
-        result := ComCall(17, this, "ptr*", ppRetNode, "HRESULT")
-        return result
+    nextSibling() {
+        result := ComCall(17, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        return IDispatch(ppRetNode)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppRetNode 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    previousNode(ppRetNode) {
-        result := ComCall(18, this, "ptr*", ppRetNode, "HRESULT")
-        return result
+    previousNode() {
+        result := ComCall(18, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        return IDispatch(ppRetNode)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppRetNode 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    nextNode(ppRetNode) {
-        result := ComCall(19, this, "ptr*", ppRetNode, "HRESULT")
-        return result
+    nextNode() {
+        result := ComCall(19, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        return IDispatch(ppRetNode)
     }
 }

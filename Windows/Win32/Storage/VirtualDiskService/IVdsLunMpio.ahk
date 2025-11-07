@@ -82,14 +82,11 @@ class IVdsLunMpio extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulLbFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunmpio-getsupportedlbpolicies
      */
-    GetSupportedLbPolicies(pulLbFlags) {
-        pulLbFlagsMarshal := pulLbFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pulLbFlagsMarshal, pulLbFlags, "HRESULT")
-        return result
+    GetSupportedLbPolicies() {
+        result := ComCall(6, this, "uint*", &pulLbFlags := 0, "HRESULT")
+        return pulLbFlags
     }
 }

@@ -44,198 +44,168 @@ class IFaxIncomingJob extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_size
      */
-    get_Size(plSize) {
-        plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plSizeMarshal, plSize, "HRESULT")
-        return result
+    get_Size() {
+        result := ComCall(7, this, "int*", &plSize := 0, "HRESULT")
+        return plSize
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_id
      */
-    get_Id(pbstrId) {
+    get_Id() {
+        pbstrId := BSTR()
         result := ComCall(8, this, "ptr", pbstrId, "HRESULT")
-        return result
+        return pbstrId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCurrentPage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_currentpage
      */
-    get_CurrentPage(plCurrentPage) {
-        plCurrentPageMarshal := plCurrentPage is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCurrentPageMarshal, plCurrentPage, "HRESULT")
-        return result
+    get_CurrentPage() {
+        result := ComCall(9, this, "int*", &plCurrentPage := 0, "HRESULT")
+        return plCurrentPage
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plDeviceId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_deviceid
      */
-    get_DeviceId(plDeviceId) {
-        plDeviceIdMarshal := plDeviceId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plDeviceIdMarshal, plDeviceId, "HRESULT")
-        return result
+    get_DeviceId() {
+        result := ComCall(10, this, "int*", &plDeviceId := 0, "HRESULT")
+        return plDeviceId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_status
      */
-    get_Status(pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(11, this, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pExtendedStatusCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_extendedstatuscode
      */
-    get_ExtendedStatusCode(pExtendedStatusCode) {
-        pExtendedStatusCodeMarshal := pExtendedStatusCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pExtendedStatusCodeMarshal, pExtendedStatusCode, "HRESULT")
-        return result
+    get_ExtendedStatusCode() {
+        result := ComCall(12, this, "int*", &pExtendedStatusCode := 0, "HRESULT")
+        return pExtendedStatusCode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrExtendedStatus 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_extendedstatus
      */
-    get_ExtendedStatus(pbstrExtendedStatus) {
+    get_ExtendedStatus() {
+        pbstrExtendedStatus := BSTR()
         result := ComCall(13, this, "ptr", pbstrExtendedStatus, "HRESULT")
-        return result
+        return pbstrExtendedStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pAvailableOperations 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_availableoperations
      */
-    get_AvailableOperations(pAvailableOperations) {
-        pAvailableOperationsMarshal := pAvailableOperations is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pAvailableOperationsMarshal, pAvailableOperations, "HRESULT")
-        return result
+    get_AvailableOperations() {
+        result := ComCall(14, this, "int*", &pAvailableOperations := 0, "HRESULT")
+        return pAvailableOperations
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plRetries 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_retries
      */
-    get_Retries(plRetries) {
-        plRetriesMarshal := plRetries is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, plRetriesMarshal, plRetries, "HRESULT")
-        return result
+    get_Retries() {
+        result := ComCall(15, this, "int*", &plRetries := 0, "HRESULT")
+        return plRetries
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pdateTransmissionStart 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_transmissionstart
      */
-    get_TransmissionStart(pdateTransmissionStart) {
-        pdateTransmissionStartMarshal := pdateTransmissionStart is VarRef ? "double*" : "ptr"
-
-        result := ComCall(16, this, pdateTransmissionStartMarshal, pdateTransmissionStart, "HRESULT")
-        return result
+    get_TransmissionStart() {
+        result := ComCall(16, this, "double*", &pdateTransmissionStart := 0, "HRESULT")
+        return pdateTransmissionStart
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pdateTransmissionEnd 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_transmissionend
      */
-    get_TransmissionEnd(pdateTransmissionEnd) {
-        pdateTransmissionEndMarshal := pdateTransmissionEnd is VarRef ? "double*" : "ptr"
-
-        result := ComCall(17, this, pdateTransmissionEndMarshal, pdateTransmissionEnd, "HRESULT")
-        return result
+    get_TransmissionEnd() {
+        result := ComCall(17, this, "double*", &pdateTransmissionEnd := 0, "HRESULT")
+        return pdateTransmissionEnd
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_csid
      */
-    get_CSID(pbstrCSID) {
+    get_CSID() {
+        pbstrCSID := BSTR()
         result := ComCall(18, this, "ptr", pbstrCSID, "HRESULT")
-        return result
+        return pbstrCSID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_tsid
      */
-    get_TSID(pbstrTSID) {
+    get_TSID() {
+        pbstrTSID := BSTR()
         result := ComCall(19, this, "ptr", pbstrTSID, "HRESULT")
-        return result
+        return pbstrTSID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCallerId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_callerid
      */
-    get_CallerId(pbstrCallerId) {
+    get_CallerId() {
+        pbstrCallerId := BSTR()
         result := ComCall(20, this, "ptr", pbstrCallerId, "HRESULT")
-        return result
+        return pbstrCallerId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrRoutingInformation 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_routinginformation
      */
-    get_RoutingInformation(pbstrRoutingInformation) {
+    get_RoutingInformation() {
+        pbstrRoutingInformation := BSTR()
         result := ComCall(21, this, "ptr", pbstrRoutingInformation, "HRESULT")
-        return result
+        return pbstrRoutingInformation
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pJobType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingjob-get_jobtype
      */
-    get_JobType(pJobType) {
-        pJobTypeMarshal := pJobType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, pJobTypeMarshal, pJobType, "HRESULT")
-        return result
+    get_JobType() {
+        result := ComCall(22, this, "int*", &pJobType := 0, "HRESULT")
+        return pJobType
     }
 
     /**

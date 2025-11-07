@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFPresentationClock.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,12 +48,11 @@ class IMFClockConsumer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFPresentationClock>} ppPresentationClock 
-     * @returns {HRESULT} 
+     * @returns {IMFPresentationClock} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockconsumer-getpresentationclock
      */
-    GetPresentationClock(ppPresentationClock) {
-        result := ComCall(4, this, "ptr*", ppPresentationClock, "HRESULT")
-        return result
+    GetPresentationClock() {
+        result := ComCall(4, this, "ptr*", &ppPresentationClock := 0, "HRESULT")
+        return IMFPresentationClock(ppPresentationClock)
     }
 }

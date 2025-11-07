@@ -209,34 +209,28 @@ class IPackageDebugSettings extends IUnknown{
     /**
      * 
      * @param {PWSTR} packageFullName 
-     * @param {Pointer<Integer>} packageExecutionState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-getpackageexecutionstate
      */
-    GetPackageExecutionState(packageFullName, packageExecutionState) {
+    GetPackageExecutionState(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        packageExecutionStateMarshal := packageExecutionState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, "ptr", packageFullName, packageExecutionStateMarshal, packageExecutionState, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", packageFullName, "int*", &packageExecutionState := 0, "HRESULT")
+        return packageExecutionState
     }
 
     /**
      * 
      * @param {PWSTR} packageFullName 
      * @param {IPackageExecutionStateChangeNotification} pPackageExecutionStateChangeNotification 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-registerforpackagestatechanges
      */
-    RegisterForPackageStateChanges(packageFullName, pPackageExecutionStateChangeNotification, pdwCookie) {
+    RegisterForPackageStateChanges(packageFullName, pPackageExecutionStateChangeNotification) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, "ptr", packageFullName, "ptr", pPackageExecutionStateChangeNotification, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", packageFullName, "ptr", pPackageExecutionStateChangeNotification, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

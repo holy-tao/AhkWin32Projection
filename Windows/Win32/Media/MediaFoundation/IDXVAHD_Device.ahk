@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include .\DXVAHD_VPDEVCAPS.ahk
+#Include .\DXVAHD_VPCAPS.ahk
+#Include .\DXVAHD_CUSTOM_RATE_DATA.ahk
+#Include .\DXVAHD_FILTER_RANGE_DATA.ahk
+#Include .\IDXVAHD_VideoProcessor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,101 +45,93 @@ class IDXVAHD_Device extends IUnknown{
      * @param {Integer} Usage 
      * @param {Integer} Type 
      * @param {Integer} NumSurfaces 
-     * @param {Pointer<IDirect3DSurface9>} ppSurfaces 
      * @param {Pointer<HANDLE>} pSharedHandle 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-createvideosurface
      */
-    CreateVideoSurface(Width, Height, Format, Pool, Usage, Type, NumSurfaces, ppSurfaces, pSharedHandle) {
-        result := ComCall(3, this, "uint", Width, "uint", Height, "uint", Format, "int", Pool, "uint", Usage, "int", Type, "uint", NumSurfaces, "ptr*", ppSurfaces, "ptr", pSharedHandle, "HRESULT")
-        return result
+    CreateVideoSurface(Width, Height, Format, Pool, Usage, Type, NumSurfaces, pSharedHandle) {
+        result := ComCall(3, this, "uint", Width, "uint", Height, "uint", Format, "int", Pool, "uint", Usage, "int", Type, "uint", NumSurfaces, "ptr*", &ppSurfaces := 0, "ptr", pSharedHandle, "HRESULT")
+        return IDirect3DSurface9(ppSurfaces)
     }
 
     /**
      * 
-     * @param {Pointer<DXVAHD_VPDEVCAPS>} pCaps 
-     * @returns {HRESULT} 
+     * @returns {DXVAHD_VPDEVCAPS} 
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessordevicecaps
      */
-    GetVideoProcessorDeviceCaps(pCaps) {
+    GetVideoProcessorDeviceCaps() {
+        pCaps := DXVAHD_VPDEVCAPS()
         result := ComCall(4, this, "ptr", pCaps, "HRESULT")
-        return result
+        return pCaps
     }
 
     /**
      * 
      * @param {Integer} Count 
-     * @param {Pointer<Integer>} pFormats 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessoroutputformats
      */
-    GetVideoProcessorOutputFormats(Count, pFormats) {
-        pFormatsMarshal := pFormats is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", Count, pFormatsMarshal, pFormats, "HRESULT")
-        return result
+    GetVideoProcessorOutputFormats(Count) {
+        result := ComCall(5, this, "uint", Count, "uint*", &pFormats := 0, "HRESULT")
+        return pFormats
     }
 
     /**
      * 
      * @param {Integer} Count 
-     * @param {Pointer<Integer>} pFormats 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessorinputformats
      */
-    GetVideoProcessorInputFormats(Count, pFormats) {
-        pFormatsMarshal := pFormats is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", Count, pFormatsMarshal, pFormats, "HRESULT")
-        return result
+    GetVideoProcessorInputFormats(Count) {
+        result := ComCall(6, this, "uint", Count, "uint*", &pFormats := 0, "HRESULT")
+        return pFormats
     }
 
     /**
      * 
      * @param {Integer} Count 
-     * @param {Pointer<DXVAHD_VPCAPS>} pCaps 
-     * @returns {HRESULT} 
+     * @returns {DXVAHD_VPCAPS} 
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessorcaps
      */
-    GetVideoProcessorCaps(Count, pCaps) {
+    GetVideoProcessorCaps(Count) {
+        pCaps := DXVAHD_VPCAPS()
         result := ComCall(7, this, "uint", Count, "ptr", pCaps, "HRESULT")
-        return result
+        return pCaps
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pVPGuid 
      * @param {Integer} Count 
-     * @param {Pointer<DXVAHD_CUSTOM_RATE_DATA>} pRates 
-     * @returns {HRESULT} 
+     * @returns {DXVAHD_CUSTOM_RATE_DATA} 
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessorcustomrates
      */
-    GetVideoProcessorCustomRates(pVPGuid, Count, pRates) {
+    GetVideoProcessorCustomRates(pVPGuid, Count) {
+        pRates := DXVAHD_CUSTOM_RATE_DATA()
         result := ComCall(8, this, "ptr", pVPGuid, "uint", Count, "ptr", pRates, "HRESULT")
-        return result
+        return pRates
     }
 
     /**
      * 
      * @param {Integer} Filter 
-     * @param {Pointer<DXVAHD_FILTER_RANGE_DATA>} pRange 
-     * @returns {HRESULT} 
+     * @returns {DXVAHD_FILTER_RANGE_DATA} 
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessorfilterrange
      */
-    GetVideoProcessorFilterRange(Filter, pRange) {
+    GetVideoProcessorFilterRange(Filter) {
+        pRange := DXVAHD_FILTER_RANGE_DATA()
         result := ComCall(9, this, "int", Filter, "ptr", pRange, "HRESULT")
-        return result
+        return pRange
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pVPGuid 
-     * @param {Pointer<IDXVAHD_VideoProcessor>} ppVideoProcessor 
-     * @returns {HRESULT} 
+     * @returns {IDXVAHD_VideoProcessor} 
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-createvideoprocessor
      */
-    CreateVideoProcessor(pVPGuid, ppVideoProcessor) {
-        result := ComCall(10, this, "ptr", pVPGuid, "ptr*", ppVideoProcessor, "HRESULT")
-        return result
+    CreateVideoProcessor(pVPGuid) {
+        result := ComCall(10, this, "ptr", pVPGuid, "ptr*", &ppVideoProcessor := 0, "HRESULT")
+        return IDXVAHD_VideoProcessor(ppVideoProcessor)
     }
 }

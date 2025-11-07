@@ -69,15 +69,12 @@ class IMFSimpleAudioVolume extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pfLevel 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsimpleaudiovolume-getmastervolume
      */
-    GetMasterVolume(pfLevel) {
-        pfLevelMarshal := pfLevel is VarRef ? "float*" : "ptr"
-
-        result := ComCall(4, this, pfLevelMarshal, pfLevel, "HRESULT")
-        return result
+    GetMasterVolume() {
+        result := ComCall(4, this, "float*", &pfLevel := 0, "HRESULT")
+        return pfLevel
     }
 
     /**
@@ -93,12 +90,11 @@ class IMFSimpleAudioVolume extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbMute 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsimpleaudiovolume-getmute
      */
-    GetMute(pbMute) {
-        result := ComCall(6, this, "ptr", pbMute, "HRESULT")
-        return result
+    GetMute() {
+        result := ComCall(6, this, "int*", &pbMute := 0, "HRESULT")
+        return pbMute
     }
 }

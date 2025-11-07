@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITraceEvent.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -37,39 +38,32 @@ class ITraceEvent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITraceEvent>} NewEvent 
-     * @returns {HRESULT} 
+     * @returns {ITraceEvent} 
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-clone
      */
-    Clone(NewEvent) {
-        result := ComCall(3, this, "ptr*", NewEvent, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(3, this, "ptr*", &NewEvent := 0, "HRESULT")
+        return ITraceEvent(NewEvent)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} UserContext 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-getusercontext
      */
-    GetUserContext(UserContext) {
-        UserContextMarshal := UserContext is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, UserContextMarshal, UserContext, "HRESULT")
-        return result
+    GetUserContext() {
+        result := ComCall(4, this, "ptr*", &UserContext := 0, "HRESULT")
+        return UserContext
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<EVENT_RECORD>>} EventRecord 
-     * @returns {HRESULT} 
+     * @returns {Pointer<EVENT_RECORD>} 
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-geteventrecord
      */
-    GetEventRecord(EventRecord) {
-        EventRecordMarshal := EventRecord is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, EventRecordMarshal, EventRecord, "HRESULT")
-        return result
+    GetEventRecord() {
+        result := ComCall(5, this, "ptr*", &EventRecord := 0, "HRESULT")
+        return EventRecord
     }
 
     /**

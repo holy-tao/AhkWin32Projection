@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IUPnPDevice.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,39 +41,34 @@ class IUPnPDevices extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevices-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevices-get__newenum
      */
-    get__NewEnum(ppunk) {
-        result := ComCall(8, this, "ptr*", ppunk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
      * 
      * @param {BSTR} bstrUDN 
-     * @param {Pointer<IUPnPDevice>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IUPnPDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevices-get_item
      */
-    get_Item(bstrUDN, ppDevice) {
+    get_Item(bstrUDN) {
         bstrUDN := bstrUDN is String ? BSTR.Alloc(bstrUDN).Value : bstrUDN
 
-        result := ComCall(9, this, "ptr", bstrUDN, "ptr*", ppDevice, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrUDN, "ptr*", &ppDevice := 0, "HRESULT")
+        return IUPnPDevice(ppDevice)
     }
 }

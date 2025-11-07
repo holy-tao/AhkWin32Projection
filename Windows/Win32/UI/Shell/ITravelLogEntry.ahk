@@ -30,21 +30,19 @@ class ITravelLogEntry extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszTitle 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetTitle(ppszTitle) {
-        result := ComCall(3, this, "ptr", ppszTitle, "HRESULT")
-        return result
+    GetTitle() {
+        result := ComCall(3, this, "ptr*", &ppszTitle := 0, "HRESULT")
+        return ppszTitle
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszURL 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetURL(ppszURL) {
-        result := ComCall(4, this, "ptr", ppszURL, "HRESULT")
-        return result
+    GetURL() {
+        result := ComCall(4, this, "ptr*", &ppszURL := 0, "HRESULT")
+        return ppszURL
     }
 }

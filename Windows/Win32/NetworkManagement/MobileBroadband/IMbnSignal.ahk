@@ -36,27 +36,21 @@ class IMbnSignal extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} signalStrength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsignal-getsignalstrength
      */
-    GetSignalStrength(signalStrength) {
-        signalStrengthMarshal := signalStrength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, signalStrengthMarshal, signalStrength, "HRESULT")
-        return result
+    GetSignalStrength() {
+        result := ComCall(3, this, "uint*", &signalStrength := 0, "HRESULT")
+        return signalStrength
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} signalError 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsignal-getsignalerror
      */
-    GetSignalError(signalError) {
-        signalErrorMarshal := signalError is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, signalErrorMarshal, signalError, "HRESULT")
-        return result
+    GetSignalError() {
+        result := ComCall(4, this, "uint*", &signalError := 0, "HRESULT")
+        return signalError
     }
 }

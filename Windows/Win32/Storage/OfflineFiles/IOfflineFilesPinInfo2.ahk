@@ -32,12 +32,11 @@ class IOfflineFilesPinInfo2 extends IOfflineFilesPinInfo{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbPartlyPinned 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo2-ispartlypinned
      */
-    IsPartlyPinned(pbPartlyPinned) {
-        result := ComCall(8, this, "ptr", pbPartlyPinned, "HRESULT")
-        return result
+    IsPartlyPinned() {
+        result := ComCall(8, this, "int*", &pbPartlyPinned := 0, "HRESULT")
+        return pbPartlyPinned
     }
 }

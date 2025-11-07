@@ -51,7 +51,10 @@ class ICLRDomainManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPropertiesForDefaultAppDomain(nProperties, pwszPropertyNames, pwszPropertyValues) {
-        result := ComCall(4, this, "uint", nProperties, "ptr", pwszPropertyNames, "ptr", pwszPropertyValues, "HRESULT")
+        pwszPropertyNamesMarshal := pwszPropertyNames is VarRef ? "ptr*" : "ptr"
+        pwszPropertyValuesMarshal := pwszPropertyValues is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", nProperties, pwszPropertyNamesMarshal, pwszPropertyNames, pwszPropertyValuesMarshal, pwszPropertyValues, "HRESULT")
         return result
     }
 }

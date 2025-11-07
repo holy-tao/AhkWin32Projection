@@ -35,31 +35,25 @@ class ICertAdmin extends IDispatch{
      * 
      * @param {BSTR} strConfig 
      * @param {BSTR} strSerialNumber 
-     * @param {Pointer<Integer>} pDisposition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin-isvalidcertificate
      */
-    IsValidCertificate(strConfig, strSerialNumber, pDisposition) {
+    IsValidCertificate(strConfig, strSerialNumber) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "ptr", strConfig, "ptr", strSerialNumber, pDispositionMarshal, pDisposition, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", strConfig, "ptr", strSerialNumber, "int*", &pDisposition := 0, "HRESULT")
+        return pDisposition
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pReason 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin-getrevocationreason
      */
-    GetRevocationReason(pReason) {
-        pReasonMarshal := pReason is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pReasonMarshal, pReason, "HRESULT")
-        return result
+    GetRevocationReason() {
+        result := ComCall(8, this, "int*", &pReason := 0, "HRESULT")
+        return pReason
     }
 
     /**
@@ -132,17 +126,14 @@ class ICertAdmin extends IDispatch{
      * 
      * @param {BSTR} strConfig 
      * @param {Integer} RequestId 
-     * @param {Pointer<Integer>} pDisposition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin-resubmitrequest
      */
-    ResubmitRequest(strConfig, RequestId, pDisposition) {
+    ResubmitRequest(strConfig, RequestId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, "ptr", strConfig, "int", RequestId, pDispositionMarshal, pDisposition, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", strConfig, "int", RequestId, "int*", &pDisposition := 0, "HRESULT")
+        return pDisposition
     }
 
     /**
@@ -163,15 +154,15 @@ class ICertAdmin extends IDispatch{
      * 
      * @param {BSTR} strConfig 
      * @param {Integer} Flags 
-     * @param {Pointer<BSTR>} pstrCRL 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin-getcrl
      */
-    GetCRL(strConfig, Flags, pstrCRL) {
+    GetCRL(strConfig, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
+        pstrCRL := BSTR()
         result := ComCall(15, this, "ptr", strConfig, "int", Flags, "ptr", pstrCRL, "HRESULT")
-        return result
+        return pstrCRL
     }
 
     /**
@@ -179,17 +170,14 @@ class ICertAdmin extends IDispatch{
      * @param {BSTR} strConfig 
      * @param {BSTR} strCertificate 
      * @param {Integer} Flags 
-     * @param {Pointer<Integer>} pRequestId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin-importcertificate
      */
-    ImportCertificate(strConfig, strCertificate, Flags, pRequestId) {
+    ImportCertificate(strConfig, strCertificate, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
 
-        pRequestIdMarshal := pRequestId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, "ptr", strConfig, "ptr", strCertificate, "int", Flags, pRequestIdMarshal, pRequestId, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", strConfig, "ptr", strCertificate, "int", Flags, "int*", &pRequestId := 0, "HRESULT")
+        return pRequestId
     }
 }

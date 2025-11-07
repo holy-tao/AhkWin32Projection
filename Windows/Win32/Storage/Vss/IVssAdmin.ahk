@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVssEnumObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -62,13 +63,12 @@ class IVssAdmin extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IVssEnumObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IVssEnumObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vsadmin/nf-vsadmin-ivssadmin-queryproviders
      */
-    QueryProviders(ppEnum) {
-        result := ComCall(5, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryProviders() {
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IVssEnumObject(ppEnum)
     }
 
     /**

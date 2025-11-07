@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -62,15 +63,15 @@ class IFolderFilter extends IUnknown{
      * 
      * @param {IShellFolder} psf 
      * @param {Pointer<ITEMIDLIST>} pidlFolder 
-     * @param {Pointer<HWND>} phwnd 
      * @param {Pointer<Integer>} pgrfFlags 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderfilter-getenumflags
      */
-    GetEnumFlags(psf, pidlFolder, phwnd, pgrfFlags) {
+    GetEnumFlags(psf, pidlFolder, pgrfFlags) {
         pgrfFlagsMarshal := pgrfFlags is VarRef ? "uint*" : "ptr"
 
+        phwnd := HWND()
         result := ComCall(4, this, "ptr", psf, "ptr", pidlFolder, "ptr", phwnd, pgrfFlagsMarshal, pgrfFlags, "HRESULT")
-        return result
+        return phwnd
     }
 }

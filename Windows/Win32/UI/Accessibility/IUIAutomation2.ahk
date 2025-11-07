@@ -32,13 +32,12 @@ class IUIAutomation2 extends IUIAutomation{
 
     /**
      * 
-     * @param {Pointer<BOOL>} autoSetFocus 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-get_autosetfocus
      */
-    get_AutoSetFocus(autoSetFocus) {
-        result := ComCall(58, this, "ptr", autoSetFocus, "HRESULT")
-        return result
+    get_AutoSetFocus() {
+        result := ComCall(58, this, "int*", &autoSetFocus := 0, "HRESULT")
+        return autoSetFocus
     }
 
     /**
@@ -54,15 +53,12 @@ class IUIAutomation2 extends IUIAutomation{
 
     /**
      * 
-     * @param {Pointer<Integer>} timeout 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-get_connectiontimeout
      */
-    get_ConnectionTimeout(timeout) {
-        timeoutMarshal := timeout is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(60, this, timeoutMarshal, timeout, "HRESULT")
-        return result
+    get_ConnectionTimeout() {
+        result := ComCall(60, this, "uint*", &timeout := 0, "HRESULT")
+        return timeout
     }
 
     /**
@@ -78,15 +74,12 @@ class IUIAutomation2 extends IUIAutomation{
 
     /**
      * 
-     * @param {Pointer<Integer>} timeout 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-get_transactiontimeout
      */
-    get_TransactionTimeout(timeout) {
-        timeoutMarshal := timeout is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(62, this, timeoutMarshal, timeout, "HRESULT")
-        return result
+    get_TransactionTimeout() {
+        result := ComCall(62, this, "uint*", &timeout := 0, "HRESULT")
+        return timeout
     }
 
     /**

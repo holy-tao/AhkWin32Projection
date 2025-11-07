@@ -41,12 +41,11 @@ class IActivationFactory extends IInspectable{
 
     /**
      * 
-     * @param {Pointer<IInspectable>} instance 
-     * @returns {HRESULT} 
+     * @returns {IInspectable} 
      * @see https://learn.microsoft.com/windows/win32/api/activation/nf-activation-iactivationfactory-activateinstance
      */
-    ActivateInstance(instance) {
-        result := ComCall(6, this, "ptr*", instance, "HRESULT")
-        return result
+    ActivateInstance() {
+        result := ComCall(6, this, "ptr*", &instance := 0, "HRESULT")
+        return IInspectable(instance)
     }
 }

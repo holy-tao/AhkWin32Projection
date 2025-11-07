@@ -39,8 +39,9 @@ class IAMPhysicalPinInfo extends IUnknown{
      */
     GetPhysicalType(pType, ppszType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        ppszTypeMarshal := ppszType is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pTypeMarshal, pType, "ptr", ppszType, "HRESULT")
+        result := ComCall(3, this, pTypeMarshal, pType, ppszTypeMarshal, ppszType, "HRESULT")
         return result
     }
 }

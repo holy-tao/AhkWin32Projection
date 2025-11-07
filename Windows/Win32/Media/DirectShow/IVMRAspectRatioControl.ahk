@@ -32,15 +32,12 @@ class IVMRAspectRatioControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} lpdwARMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmraspectratiocontrol-getaspectratiomode
      */
-    GetAspectRatioMode(lpdwARMode) {
-        lpdwARModeMarshal := lpdwARMode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, lpdwARModeMarshal, lpdwARMode, "HRESULT")
-        return result
+    GetAspectRatioMode() {
+        result := ComCall(3, this, "uint*", &lpdwARMode := 0, "HRESULT")
+        return lpdwARMode
     }
 
     /**

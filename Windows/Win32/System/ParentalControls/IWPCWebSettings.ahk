@@ -32,15 +32,12 @@ class IWPCWebSettings extends IWPCSettings{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwSettings 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcwebsettings-getsettings
      */
-    GetSettings(pdwSettings) {
-        pdwSettingsMarshal := pdwSettings is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pdwSettingsMarshal, pdwSettings, "HRESULT")
-        return result
+    GetSettings() {
+        result := ComCall(6, this, "int*", &pdwSettings := 0, "HRESULT")
+        return pdwSettings
     }
 
     /**
@@ -49,15 +46,16 @@ class IWPCWebSettings extends IWPCSettings{
      * @param {PWSTR} pcszURL 
      * @param {Integer} cURLs 
      * @param {Pointer<PWSTR>} ppcszSubURLs 
-     * @param {Pointer<BOOL>} pfChanged 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcwebsettings-requesturloverride
      */
-    RequestURLOverride(hWnd, pcszURL, cURLs, ppcszSubURLs, pfChanged) {
+    RequestURLOverride(hWnd, pcszURL, cURLs, ppcszSubURLs) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         pcszURL := pcszURL is String ? StrPtr(pcszURL) : pcszURL
 
-        result := ComCall(7, this, "ptr", hWnd, "ptr", pcszURL, "uint", cURLs, "ptr", ppcszSubURLs, "ptr", pfChanged, "HRESULT")
-        return result
+        ppcszSubURLsMarshal := ppcszSubURLs is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", hWnd, "ptr", pcszURL, "uint", cURLs, ppcszSubURLsMarshal, ppcszSubURLs, "int*", &pfChanged := 0, "HRESULT")
+        return pfChanged
     }
 }

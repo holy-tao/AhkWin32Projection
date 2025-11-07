@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzRoleDefinitions.ahk
+#Include .\IAzScope.ahk
 #Include .\IAzRole.ahk
 
 /**
@@ -59,23 +61,21 @@ class IAzRoleAssignment extends IAzRole{
 
     /**
      * 
-     * @param {Pointer<IAzRoleDefinitions>} ppRoleDefinitions 
-     * @returns {HRESULT} 
+     * @returns {IAzRoleDefinitions} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroleassignment-get_roledefinitions
      */
-    get_RoleDefinitions(ppRoleDefinitions) {
-        result := ComCall(36, this, "ptr*", ppRoleDefinitions, "HRESULT")
-        return result
+    get_RoleDefinitions() {
+        result := ComCall(36, this, "ptr*", &ppRoleDefinitions := 0, "HRESULT")
+        return IAzRoleDefinitions(ppRoleDefinitions)
     }
 
     /**
      * 
-     * @param {Pointer<IAzScope>} ppScope 
-     * @returns {HRESULT} 
+     * @returns {IAzScope} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroleassignment-get_scope
      */
-    get_Scope(ppScope) {
-        result := ComCall(37, this, "ptr*", ppScope, "HRESULT")
-        return result
+    get_Scope() {
+        result := ComCall(37, this, "ptr*", &ppScope := 0, "HRESULT")
+        return IAzScope(ppScope)
     }
 }

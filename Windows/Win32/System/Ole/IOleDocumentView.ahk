@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IOleInPlaceSite.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\IOleDocumentView.ahk
 
 /**
  * The IOleDocumentView interface enables a container to communicate with each view supported by a document object.
@@ -43,24 +46,22 @@ class IOleDocumentView extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOleInPlaceSite>} ppIPSite 
-     * @returns {HRESULT} 
+     * @returns {IOleInPlaceSite} 
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-ioledocumentview-getinplacesite
      */
-    GetInPlaceSite(ppIPSite) {
-        result := ComCall(4, this, "ptr*", ppIPSite, "HRESULT")
-        return result
+    GetInPlaceSite() {
+        result := ComCall(4, this, "ptr*", &ppIPSite := 0, "HRESULT")
+        return IOleInPlaceSite(ppIPSite)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-ioledocumentview-getdocument
      */
-    GetDocument(ppunk) {
-        result := ComCall(5, this, "ptr*", ppunk, "HRESULT")
-        return result
+    GetDocument() {
+        result := ComCall(5, this, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
@@ -78,13 +79,13 @@ class IOleDocumentView extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<RECT>} prcView 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-ioledocumentview-getrect
      */
-    GetRect(prcView) {
+    GetRect() {
+        prcView := RECT()
         result := ComCall(7, this, "ptr", prcView, "HRESULT")
-        return result
+        return prcView
     }
 
     /**
@@ -169,12 +170,11 @@ class IOleDocumentView extends IUnknown{
     /**
      * 
      * @param {IOleInPlaceSite} pIPSiteNew 
-     * @param {Pointer<IOleDocumentView>} ppViewNew 
-     * @returns {HRESULT} 
+     * @returns {IOleDocumentView} 
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-ioledocumentview-clone
      */
-    Clone(pIPSiteNew, ppViewNew) {
-        result := ComCall(15, this, "ptr", pIPSiteNew, "ptr*", ppViewNew, "HRESULT")
-        return result
+    Clone(pIPSiteNew) {
+        result := ComCall(15, this, "ptr", pIPSiteNew, "ptr*", &ppViewNew := 0, "HRESULT")
+        return IOleDocumentView(ppViewNew)
     }
 }

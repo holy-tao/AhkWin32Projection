@@ -32,13 +32,12 @@ class IMFTimedTextFormattedText extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} text 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextformattedtext-gettext
      */
-    GetText(text) {
-        result := ComCall(3, this, "ptr", text, "HRESULT")
-        return result
+    GetText() {
+        result := ComCall(3, this, "ptr*", &text := 0, "HRESULT")
+        return text
     }
 
     /**

@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IItemEnumerator.ahk
+#Include .\ISettingsNamespace.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ISettingsIdentity.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\ITargetInfo.ahk
+#Include .\ISettingsContext.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -40,15 +47,14 @@ class ISettingsEngine extends IUnknown{
      * 
      * @param {Integer} Flags 
      * @param {Pointer<Void>} Reserved 
-     * @param {Pointer<IItemEnumerator>} Namespaces 
-     * @returns {HRESULT} 
+     * @returns {IItemEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getnamespaces
      */
-    GetNamespaces(Flags, Reserved, Namespaces) {
+    GetNamespaces(Flags, Reserved) {
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "int", Flags, ReservedMarshal, Reserved, "ptr*", Namespaces, "HRESULT")
-        return result
+        result := ComCall(3, this, "int", Flags, ReservedMarshal, Reserved, "ptr*", &Namespaces := 0, "HRESULT")
+        return IItemEnumerator(Namespaces)
     }
 
     /**
@@ -56,53 +62,49 @@ class ISettingsEngine extends IUnknown{
      * @param {ISettingsIdentity} SettingsID 
      * @param {Integer} Access 
      * @param {Pointer<Void>} Reserved 
-     * @param {Pointer<ISettingsNamespace>} NamespaceItem 
-     * @returns {HRESULT} 
+     * @returns {ISettingsNamespace} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getnamespace
      */
-    GetNamespace(SettingsID, Access, Reserved, NamespaceItem) {
+    GetNamespace(SettingsID, Access, Reserved) {
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", SettingsID, "int", Access, ReservedMarshal, Reserved, "ptr*", NamespaceItem, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", SettingsID, "int", Access, ReservedMarshal, Reserved, "ptr*", &NamespaceItem := 0, "HRESULT")
+        return ISettingsNamespace(NamespaceItem)
     }
 
     /**
      * 
      * @param {Integer} HResult 
-     * @param {Pointer<BSTR>} Message 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-geterrordescription
      */
-    GetErrorDescription(HResult, Message) {
+    GetErrorDescription(HResult) {
+        Message := BSTR()
         result := ComCall(5, this, "int", HResult, "ptr", Message, "HRESULT")
-        return result
+        return Message
     }
 
     /**
      * 
-     * @param {Pointer<ISettingsIdentity>} SettingsID 
-     * @returns {HRESULT} 
+     * @returns {ISettingsIdentity} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-createsettingsidentity
      */
-    CreateSettingsIdentity(SettingsID) {
-        result := ComCall(6, this, "ptr*", SettingsID, "HRESULT")
-        return result
+    CreateSettingsIdentity() {
+        result := ComCall(6, this, "ptr*", &SettingsID := 0, "HRESULT")
+        return ISettingsIdentity(SettingsID)
     }
 
     /**
      * 
      * @param {Pointer<Void>} Reserved 
-     * @param {Pointer<Integer>} Status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getstorestatus
      */
-    GetStoreStatus(Reserved, Status) {
+    GetStoreStatus(Reserved) {
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-        StatusMarshal := Status is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, ReservedMarshal, Reserved, StatusMarshal, Status, "HRESULT")
-        return result
+        result := ComCall(7, this, ReservedMarshal, Reserved, "int*", &Status := 0, "HRESULT")
+        return Status
     }
 
     /**
@@ -134,13 +136,13 @@ class ISettingsEngine extends IUnknown{
      * @param {ISettingsIdentity} SettingsID 
      * @param {IStream} Stream 
      * @param {BOOL} PushSettings 
-     * @param {Pointer<VARIANT>} Results 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-registernamespace
      */
-    RegisterNamespace(SettingsID, Stream, PushSettings, Results) {
+    RegisterNamespace(SettingsID, Stream, PushSettings) {
+        Results := VARIANT()
         result := ComCall(10, this, "ptr", SettingsID, "ptr", Stream, "int", PushSettings, "ptr", Results, "HRESULT")
-        return result
+        return Results
     }
 
     /**
@@ -157,24 +159,22 @@ class ISettingsEngine extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITargetInfo>} Target 
-     * @returns {HRESULT} 
+     * @returns {ITargetInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-createtargetinfo
      */
-    CreateTargetInfo(Target) {
-        result := ComCall(12, this, "ptr*", Target, "HRESULT")
-        return result
+    CreateTargetInfo() {
+        result := ComCall(12, this, "ptr*", &Target := 0, "HRESULT")
+        return ITargetInfo(Target)
     }
 
     /**
      * 
-     * @param {Pointer<ITargetInfo>} Target 
-     * @returns {HRESULT} 
+     * @returns {ITargetInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-gettargetinfo
      */
-    GetTargetInfo(Target) {
-        result := ComCall(13, this, "ptr*", Target, "HRESULT")
-        return result
+    GetTargetInfo() {
+        result := ComCall(13, this, "ptr*", &Target := 0, "HRESULT")
+        return ITargetInfo(Target)
     }
 
     /**
@@ -192,15 +192,14 @@ class ISettingsEngine extends IUnknown{
      * 
      * @param {Integer} Flags 
      * @param {Pointer<Void>} Reserved 
-     * @param {Pointer<ISettingsContext>} SettingsContext 
-     * @returns {HRESULT} 
+     * @returns {ISettingsContext} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-createsettingscontext
      */
-    CreateSettingsContext(Flags, Reserved, SettingsContext) {
+    CreateSettingsContext(Flags, Reserved) {
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(15, this, "uint", Flags, ReservedMarshal, Reserved, "ptr*", SettingsContext, "HRESULT")
-        return result
+        result := ComCall(15, this, "uint", Flags, ReservedMarshal, Reserved, "ptr*", &SettingsContext := 0, "HRESULT")
+        return ISettingsContext(SettingsContext)
     }
 
     /**
@@ -217,25 +216,22 @@ class ISettingsEngine extends IUnknown{
      * 
      * @param {ISettingsContext} SettingsContext 
      * @param {Pointer<Pointer<PWSTR>>} pppwzIdentities 
-     * @param {Pointer<Pointer>} pcIdentities 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-applysettingscontext
      */
-    ApplySettingsContext(SettingsContext, pppwzIdentities, pcIdentities) {
+    ApplySettingsContext(SettingsContext, pppwzIdentities) {
         pppwzIdentitiesMarshal := pppwzIdentities is VarRef ? "ptr*" : "ptr"
-        pcIdentitiesMarshal := pcIdentities is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, "ptr", SettingsContext, pppwzIdentitiesMarshal, pppwzIdentities, pcIdentitiesMarshal, pcIdentities, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", SettingsContext, pppwzIdentitiesMarshal, pppwzIdentities, "ptr*", &pcIdentities := 0, "HRESULT")
+        return pcIdentities
     }
 
     /**
      * 
-     * @param {Pointer<ISettingsContext>} SettingsContext 
-     * @returns {HRESULT} 
+     * @returns {ISettingsContext} 
      */
-    GetSettingsContext(SettingsContext) {
-        result := ComCall(18, this, "ptr*", SettingsContext, "HRESULT")
-        return result
+    GetSettingsContext() {
+        result := ComCall(18, this, "ptr*", &SettingsContext := 0, "HRESULT")
+        return ISettingsContext(SettingsContext)
     }
 }

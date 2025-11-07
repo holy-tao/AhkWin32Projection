@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ILocationReport.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -56,12 +57,11 @@ class IDefaultLocation extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} reportType 
-     * @param {Pointer<ILocationReport>} ppLocationReport 
-     * @returns {HRESULT} 
+     * @returns {ILocationReport} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-idefaultlocation-getreport
      */
-    GetReport(reportType, ppLocationReport) {
-        result := ComCall(4, this, "ptr", reportType, "ptr*", ppLocationReport, "HRESULT")
-        return result
+    GetReport(reportType) {
+        result := ComCall(4, this, "ptr", reportType, "ptr*", &ppLocationReport := 0, "HRESULT")
+        return ILocationReport(ppLocationReport)
     }
 }

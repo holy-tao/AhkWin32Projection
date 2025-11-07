@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMMapEntry.ahk
+#Include .\IGPMResult.ahk
+#Include .\IGPMMapEntryCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -67,29 +70,27 @@ class IGPMMigrationTable extends IDispatch{
      * @param {BSTR} bstrSource 
      * @param {Integer} gpmEntryType 
      * @param {Pointer<VARIANT>} pvarDestination 
-     * @param {Pointer<IGPMMapEntry>} ppEntry 
-     * @returns {HRESULT} 
+     * @returns {IGPMMapEntry} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-addentry
      */
-    AddEntry(bstrSource, gpmEntryType, pvarDestination, ppEntry) {
+    AddEntry(bstrSource, gpmEntryType, pvarDestination) {
         bstrSource := bstrSource is String ? BSTR.Alloc(bstrSource).Value : bstrSource
 
-        result := ComCall(9, this, "ptr", bstrSource, "int", gpmEntryType, "ptr", pvarDestination, "ptr*", ppEntry, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrSource, "int", gpmEntryType, "ptr", pvarDestination, "ptr*", &ppEntry := 0, "HRESULT")
+        return IGPMMapEntry(ppEntry)
     }
 
     /**
      * 
      * @param {BSTR} bstrSource 
-     * @param {Pointer<IGPMMapEntry>} ppEntry 
-     * @returns {HRESULT} 
+     * @returns {IGPMMapEntry} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-getentry
      */
-    GetEntry(bstrSource, ppEntry) {
+    GetEntry(bstrSource) {
         bstrSource := bstrSource is String ? BSTR.Alloc(bstrSource).Value : bstrSource
 
-        result := ComCall(10, this, "ptr", bstrSource, "ptr*", ppEntry, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrSource, "ptr*", &ppEntry := 0, "HRESULT")
+        return IGPMMapEntry(ppEntry)
     }
 
     /**
@@ -109,36 +110,33 @@ class IGPMMigrationTable extends IDispatch{
      * 
      * @param {BSTR} bstrSource 
      * @param {Pointer<VARIANT>} pvarDestination 
-     * @param {Pointer<IGPMMapEntry>} ppEntry 
-     * @returns {HRESULT} 
+     * @returns {IGPMMapEntry} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-updatedestination
      */
-    UpdateDestination(bstrSource, pvarDestination, ppEntry) {
+    UpdateDestination(bstrSource, pvarDestination) {
         bstrSource := bstrSource is String ? BSTR.Alloc(bstrSource).Value : bstrSource
 
-        result := ComCall(12, this, "ptr", bstrSource, "ptr", pvarDestination, "ptr*", ppEntry, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", bstrSource, "ptr", pvarDestination, "ptr*", &ppEntry := 0, "HRESULT")
+        return IGPMMapEntry(ppEntry)
     }
 
     /**
      * 
-     * @param {Pointer<IGPMResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-validate
      */
-    Validate(ppResult) {
-        result := ComCall(13, this, "ptr*", ppResult, "HRESULT")
-        return result
+    Validate() {
+        result := ComCall(13, this, "ptr*", &ppResult := 0, "HRESULT")
+        return IGPMResult(ppResult)
     }
 
     /**
      * 
-     * @param {Pointer<IGPMMapEntryCollection>} ppEntries 
-     * @returns {HRESULT} 
+     * @returns {IGPMMapEntryCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-getentries
      */
-    GetEntries(ppEntries) {
-        result := ComCall(14, this, "ptr*", ppEntries, "HRESULT")
-        return result
+    GetEntries() {
+        result := ComCall(14, this, "ptr*", &ppEntries := 0, "HRESULT")
+        return IGPMMapEntryCollection(ppEntries)
     }
 }

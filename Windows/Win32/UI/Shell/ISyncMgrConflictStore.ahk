@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSyncMgrConflict.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,31 +45,27 @@ class ISyncMgrConflictStore extends IUnknown{
      * 
      * @param {PWSTR} pszHandlerID 
      * @param {PWSTR} pszItemID 
-     * @param {Pointer<IEnumSyncMgrConflict>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSyncMgrConflict} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictstore-enumconflicts
      */
-    EnumConflicts(pszHandlerID, pszItemID, ppEnum) {
+    EnumConflicts(pszHandlerID, pszItemID) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(3, this, "ptr", pszHandlerID, "ptr", pszItemID, "ptr*", ppEnum, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszHandlerID, "ptr", pszItemID, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumSyncMgrConflict(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer<SYNCMGR_CONFLICT_ID_INFO>} pConflictIdInfo 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictstore-bindtoconflict
      */
-    BindToConflict(pConflictIdInfo, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pConflictIdInfo, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    BindToConflict(pConflictIdInfo, riid) {
+        result := ComCall(4, this, "ptr", pConflictIdInfo, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -87,17 +84,14 @@ class ISyncMgrConflictStore extends IUnknown{
      * 
      * @param {PWSTR} pszHandlerID 
      * @param {PWSTR} pszItemID 
-     * @param {Pointer<Integer>} pnConflicts 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictstore-getcount
      */
-    GetCount(pszHandlerID, pszItemID, pnConflicts) {
+    GetCount(pszHandlerID, pszItemID) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        pnConflictsMarshal := pnConflicts is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pszHandlerID, "ptr", pszItemID, pnConflictsMarshal, pnConflicts, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszHandlerID, "ptr", pszItemID, "uint*", &pnConflicts := 0, "HRESULT")
+        return pnConflicts
     }
 }

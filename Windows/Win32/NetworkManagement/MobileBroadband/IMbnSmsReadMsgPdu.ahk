@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,51 +40,42 @@ class IMbnSmsReadMsgPdu extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Index 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgpdu-get_index
      */
-    get_Index(Index) {
-        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, IndexMarshal, Index, "HRESULT")
-        return result
+    get_Index() {
+        result := ComCall(3, this, "uint*", &Index := 0, "HRESULT")
+        return Index
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgpdu-get_status
      */
-    get_Status(Status) {
-        StatusMarshal := Status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, StatusMarshal, Status, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(4, this, "int*", &Status := 0, "HRESULT")
+        return Status
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} PduData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgpdu-get_pdudata
      */
-    get_PduData(PduData) {
+    get_PduData() {
+        PduData := BSTR()
         result := ComCall(5, this, "ptr", PduData, "HRESULT")
-        return result
+        return PduData
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} Message 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgpdu-get_message
      */
-    get_Message(Message) {
-        MessageMarshal := Message is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, MessageMarshal, Message, "HRESULT")
-        return result
+    get_Message() {
+        result := ComCall(6, this, "ptr*", &Message := 0, "HRESULT")
+        return Message
     }
 }

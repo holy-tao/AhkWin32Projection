@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_VOLUME_PROP2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,12 @@ class IVdsVolume2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_VOLUME_PROP2>} pVolumeProperties 
-     * @returns {HRESULT} 
+     * @returns {VDS_VOLUME_PROP2} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume2-getproperties2
      */
-    GetProperties2(pVolumeProperties) {
+    GetProperties2() {
+        pVolumeProperties := VDS_VOLUME_PROP2()
         result := ComCall(3, this, "ptr", pVolumeProperties, "HRESULT")
-        return result
+        return pVolumeProperties
     }
 }

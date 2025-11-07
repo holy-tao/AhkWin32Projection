@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IMoniker.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -33,12 +34,11 @@ class IHlinkSite extends IUnknown{
      * @param {Integer} dwSiteData 
      * @param {Pointer<Guid>} guidService 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppiunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    QueryService(dwSiteData, guidService, riid, ppiunk) {
-        result := ComCall(3, this, "uint", dwSiteData, "ptr", guidService, "ptr", riid, "ptr*", ppiunk, "HRESULT")
-        return result
+    QueryService(dwSiteData, guidService, riid) {
+        result := ComCall(3, this, "uint", dwSiteData, "ptr", guidService, "ptr", riid, "ptr*", &ppiunk := 0, "HRESULT")
+        return IUnknown(ppiunk)
     }
 
     /**
@@ -46,12 +46,11 @@ class IHlinkSite extends IUnknown{
      * @param {Integer} dwSiteData 
      * @param {Integer} dwAssign 
      * @param {Integer} dwWhich 
-     * @param {Pointer<IMoniker>} ppimk 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      */
-    GetMoniker(dwSiteData, dwAssign, dwWhich, ppimk) {
-        result := ComCall(4, this, "uint", dwSiteData, "uint", dwAssign, "uint", dwWhich, "ptr*", ppimk, "HRESULT")
-        return result
+    GetMoniker(dwSiteData, dwAssign, dwWhich) {
+        result := ComCall(4, this, "uint", dwSiteData, "uint", dwAssign, "uint", dwWhich, "ptr*", &ppimk := 0, "HRESULT")
+        return IMoniker(ppimk)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFContentDecryptionModuleAccess.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -53,14 +54,13 @@ class IMFContentDecryptionModuleFactory extends IUnknown{
      * @param {PWSTR} keySystem 
      * @param {Pointer<IPropertyStore>} configurations 
      * @param {Integer} numConfigurations 
-     * @param {Pointer<IMFContentDecryptionModuleAccess>} contentDecryptionModuleAccess 
-     * @returns {HRESULT} 
+     * @returns {IMFContentDecryptionModuleAccess} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulefactory-createcontentdecryptionmoduleaccess
      */
-    CreateContentDecryptionModuleAccess(keySystem, configurations, numConfigurations, contentDecryptionModuleAccess) {
+    CreateContentDecryptionModuleAccess(keySystem, configurations, numConfigurations) {
         keySystem := keySystem is String ? StrPtr(keySystem) : keySystem
 
-        result := ComCall(4, this, "ptr", keySystem, "ptr*", configurations, "uint", numConfigurations, "ptr*", contentDecryptionModuleAccess, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", keySystem, "ptr*", configurations, "uint", numConfigurations, "ptr*", &contentDecryptionModuleAccess := 0, "HRESULT")
+        return IMFContentDecryptionModuleAccess(contentDecryptionModuleAccess)
     }
 }

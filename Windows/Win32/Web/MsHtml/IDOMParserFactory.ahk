@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDOMParser.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,11 +37,10 @@ class IDOMParserFactory extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDOMParser>} __MIDL__IDOMParserFactory0000 
-     * @returns {HRESULT} 
+     * @returns {IDOMParser} 
      */
-    create(__MIDL__IDOMParserFactory0000) {
-        result := ComCall(7, this, "ptr*", __MIDL__IDOMParserFactory0000, "HRESULT")
-        return result
+    create() {
+        result := ComCall(7, this, "ptr*", &__MIDL__IDOMParserFactory0000 := 0, "HRESULT")
+        return IDOMParser(__MIDL__IDOMParserFactory0000)
     }
 }

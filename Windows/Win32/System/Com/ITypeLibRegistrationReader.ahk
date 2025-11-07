@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumUnknown.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class ITypeLibRegistrationReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumUnknown>} ppEnumUnknown 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      */
-    EnumTypeLibRegistrations(ppEnumUnknown) {
-        result := ComCall(3, this, "ptr*", ppEnumUnknown, "HRESULT")
-        return result
+    EnumTypeLibRegistrations() {
+        result := ComCall(3, this, "ptr*", &ppEnumUnknown := 0, "HRESULT")
+        return IEnumUnknown(ppEnumUnknown)
     }
 }

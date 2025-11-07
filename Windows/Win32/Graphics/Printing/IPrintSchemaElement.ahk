@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,31 +32,30 @@ class IPrintSchemaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppXmlNode 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_XmlNode(ppXmlNode) {
-        result := ComCall(7, this, "ptr*", ppXmlNode, "HRESULT")
-        return result
+    get_XmlNode() {
+        result := ComCall(7, this, "ptr*", &ppXmlNode := 0, "HRESULT")
+        return IUnknown(ppXmlNode)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(8, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrNamespaceUri 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_NamespaceUri(pbstrNamespaceUri) {
+    get_NamespaceUri() {
+        pbstrNamespaceUri := BSTR()
         result := ComCall(9, this, "ptr", pbstrNamespaceUri, "HRESULT")
-        return result
+        return pbstrNamespaceUri
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IInkExtendedProperty.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,52 +48,46 @@ class IInkExtendedProperties extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperties-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} _NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(_NewEnum) {
-        result := ComCall(8, this, "ptr*", _NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "HRESULT")
+        return IUnknown(_NewEnum)
     }
 
     /**
      * 
      * @param {VARIANT} Identifier 
-     * @param {Pointer<IInkExtendedProperty>} Item 
-     * @returns {HRESULT} 
+     * @returns {IInkExtendedProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperties-item
      */
-    Item(Identifier, Item) {
-        result := ComCall(9, this, "ptr", Identifier, "ptr*", Item, "HRESULT")
-        return result
+    Item(Identifier) {
+        result := ComCall(9, this, "ptr", Identifier, "ptr*", &Item := 0, "HRESULT")
+        return IInkExtendedProperty(Item)
     }
 
     /**
      * 
      * @param {BSTR} Guid 
      * @param {VARIANT} Data 
-     * @param {Pointer<IInkExtendedProperty>} InkExtendedProperty 
-     * @returns {HRESULT} 
+     * @returns {IInkExtendedProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperties-add
      */
-    Add(Guid, Data, InkExtendedProperty) {
+    Add(Guid, Data) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
 
-        result := ComCall(10, this, "ptr", Guid, "ptr", Data, "ptr*", InkExtendedProperty, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", Guid, "ptr", Data, "ptr*", &InkExtendedProperty := 0, "HRESULT")
+        return IInkExtendedProperty(InkExtendedProperty)
     }
 
     /**
@@ -118,14 +114,13 @@ class IInkExtendedProperties extends IDispatch{
     /**
      * 
      * @param {BSTR} Guid 
-     * @param {Pointer<VARIANT_BOOL>} DoesPropertyExist 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperties-doespropertyexist
      */
-    DoesPropertyExist(Guid, DoesPropertyExist) {
+    DoesPropertyExist(Guid) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
 
-        result := ComCall(13, this, "ptr", Guid, "ptr", DoesPropertyExist, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", Guid, "short*", &DoesPropertyExist := 0, "HRESULT")
+        return DoesPropertyExist
     }
 }

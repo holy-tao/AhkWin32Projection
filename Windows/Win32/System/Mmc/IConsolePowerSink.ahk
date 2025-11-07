@@ -42,12 +42,11 @@ class IConsolePowerSink extends IUnknown{
      * 
      * @param {Integer} nEvent 
      * @param {LPARAM} lParam 
-     * @param {Pointer<LRESULT>} plReturn 
-     * @returns {HRESULT} 
+     * @returns {LRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolepowersink-onpowerbroadcast
      */
-    OnPowerBroadcast(nEvent, lParam, plReturn) {
-        result := ComCall(3, this, "uint", nEvent, "ptr", lParam, "ptr", plReturn, "HRESULT")
-        return result
+    OnPowerBroadcast(nEvent, lParam) {
+        result := ComCall(3, this, "uint", nEvent, "ptr", lParam, "ptr*", &plReturn := 0, "HRESULT")
+        return plReturn
     }
 }

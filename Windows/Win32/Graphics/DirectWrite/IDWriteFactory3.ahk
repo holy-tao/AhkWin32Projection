@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteGlyphRunAnalysis.ahk
+#Include .\IDWriteRenderingParams3.ahk
+#Include .\IDWriteFontFaceReference.ahk
+#Include .\IDWriteFontSet.ahk
+#Include .\IDWriteFontSetBuilder.ahk
+#Include .\IDWriteFontCollection1.ahk
+#Include .\IDWriteFontDownloadQueue.ahk
 #Include .\IDWriteFactory2.ahk
 
 /**
@@ -40,13 +47,12 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * @param {Integer} antialiasMode 
      * @param {Float} baselineOriginX 
      * @param {Float} baselineOriginY 
-     * @param {Pointer<IDWriteGlyphRunAnalysis>} glyphRunAnalysis 
-     * @returns {HRESULT} 
+     * @returns {IDWriteGlyphRunAnalysis} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createglyphrunanalysis
      */
-    CreateGlyphRunAnalysis(glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY, glyphRunAnalysis) {
-        result := ComCall(31, this, "ptr", glyphRun, "ptr", transform, "int", renderingMode, "int", measuringMode, "int", gridFitMode, "int", antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", glyphRunAnalysis, "HRESULT")
-        return result
+    CreateGlyphRunAnalysis(glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
+        result := ComCall(31, this, "ptr", glyphRun, "ptr", transform, "int", renderingMode, "int", measuringMode, "int", gridFitMode, "int", antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+        return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 
     /**
@@ -58,13 +64,12 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * @param {Integer} pixelGeometry 
      * @param {Integer} renderingMode 
      * @param {Integer} gridFitMode 
-     * @param {Pointer<IDWriteRenderingParams3>} renderingParams 
-     * @returns {HRESULT} 
+     * @returns {IDWriteRenderingParams3} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createcustomrenderingparams
      */
-    CreateCustomRenderingParams(gamma, enhancedContrast, grayscaleEnhancedContrast, clearTypeLevel, pixelGeometry, renderingMode, gridFitMode, renderingParams) {
-        result := ComCall(32, this, "float", gamma, "float", enhancedContrast, "float", grayscaleEnhancedContrast, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "int", gridFitMode, "ptr*", renderingParams, "HRESULT")
-        return result
+    CreateCustomRenderingParams(gamma, enhancedContrast, grayscaleEnhancedContrast, clearTypeLevel, pixelGeometry, renderingMode, gridFitMode) {
+        result := ComCall(32, this, "float", gamma, "float", enhancedContrast, "float", grayscaleEnhancedContrast, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "int", gridFitMode, "ptr*", &renderingParams := 0, "HRESULT")
+        return IDWriteRenderingParams3(renderingParams)
     }
 
     /**
@@ -72,13 +77,12 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * @param {IDWriteFontFile} fontFile 
      * @param {Integer} faceIndex 
      * @param {Integer} fontSimulations 
-     * @param {Pointer<IDWriteFontFaceReference>} fontFaceReference 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFaceReference} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createfontfacereference(wcharconst_filetimeconst_uint32_dwrite_font_simulations_idwritefontfacereference)
      */
-    CreateFontFaceReference(fontFile, faceIndex, fontSimulations, fontFaceReference) {
-        result := ComCall(33, this, "ptr", fontFile, "uint", faceIndex, "int", fontSimulations, "ptr*", fontFaceReference, "HRESULT")
-        return result
+    CreateFontFaceReference(fontFile, faceIndex, fontSimulations) {
+        result := ComCall(33, this, "ptr", fontFile, "uint", faceIndex, "int", fontSimulations, "ptr*", &fontFaceReference := 0, "HRESULT")
+        return IDWriteFontFaceReference(fontFaceReference)
     }
 
     /**
@@ -87,72 +91,66 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * @param {Pointer<FILETIME>} lastWriteTime 
      * @param {Integer} faceIndex 
      * @param {Integer} fontSimulations 
-     * @param {Pointer<IDWriteFontFaceReference>} fontFaceReference 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFaceReference} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createfontfacereference(wcharconst_filetimeconst_uint32_dwrite_font_simulations_idwritefontfacereference)
      */
-    CreateFontFaceReference1(filePath, lastWriteTime, faceIndex, fontSimulations, fontFaceReference) {
+    CreateFontFaceReference1(filePath, lastWriteTime, faceIndex, fontSimulations) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := ComCall(34, this, "ptr", filePath, "ptr", lastWriteTime, "uint", faceIndex, "int", fontSimulations, "ptr*", fontFaceReference, "HRESULT")
-        return result
+        result := ComCall(34, this, "ptr", filePath, "ptr", lastWriteTime, "uint", faceIndex, "int", fontSimulations, "ptr*", &fontFaceReference := 0, "HRESULT")
+        return IDWriteFontFaceReference(fontFaceReference)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteFontSet>} fontSet 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-getsystemfontset
      */
-    GetSystemFontSet(fontSet) {
-        result := ComCall(35, this, "ptr*", fontSet, "HRESULT")
-        return result
+    GetSystemFontSet() {
+        result := ComCall(35, this, "ptr*", &fontSet := 0, "HRESULT")
+        return IDWriteFontSet(fontSet)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteFontSetBuilder>} fontSetBuilder 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSetBuilder} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createfontsetbuilder
      */
-    CreateFontSetBuilder(fontSetBuilder) {
-        result := ComCall(36, this, "ptr*", fontSetBuilder, "HRESULT")
-        return result
+    CreateFontSetBuilder() {
+        result := ComCall(36, this, "ptr*", &fontSetBuilder := 0, "HRESULT")
+        return IDWriteFontSetBuilder(fontSetBuilder)
     }
 
     /**
      * 
      * @param {IDWriteFontSet} fontSet 
-     * @param {Pointer<IDWriteFontCollection1>} fontCollection 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontCollection1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createfontcollectionfromfontset
      */
-    CreateFontCollectionFromFontSet(fontSet, fontCollection) {
-        result := ComCall(37, this, "ptr", fontSet, "ptr*", fontCollection, "HRESULT")
-        return result
+    CreateFontCollectionFromFontSet(fontSet) {
+        result := ComCall(37, this, "ptr", fontSet, "ptr*", &fontCollection := 0, "HRESULT")
+        return IDWriteFontCollection1(fontCollection)
     }
 
     /**
      * 
      * @param {BOOL} includeDownloadableFonts 
-     * @param {Pointer<IDWriteFontCollection1>} fontCollection 
      * @param {BOOL} checkForUpdates 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontCollection1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-getsystemfontcollection
      */
-    GetSystemFontCollection(includeDownloadableFonts, fontCollection, checkForUpdates) {
-        result := ComCall(38, this, "int", includeDownloadableFonts, "ptr*", fontCollection, "int", checkForUpdates, "HRESULT")
-        return result
+    GetSystemFontCollection(includeDownloadableFonts, checkForUpdates) {
+        result := ComCall(38, this, "int", includeDownloadableFonts, "ptr*", &fontCollection := 0, "int", checkForUpdates, "HRESULT")
+        return IDWriteFontCollection1(fontCollection)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteFontDownloadQueue>} fontDownloadQueue 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontDownloadQueue} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-getfontdownloadqueue
      */
-    GetFontDownloadQueue(fontDownloadQueue) {
-        result := ComCall(39, this, "ptr*", fontDownloadQueue, "HRESULT")
-        return result
+    GetFontDownloadQueue() {
+        result := ComCall(39, this, "ptr*", &fontDownloadQueue := 0, "HRESULT")
+        return IDWriteFontDownloadQueue(fontDownloadQueue)
     }
 }

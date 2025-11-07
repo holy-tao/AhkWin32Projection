@@ -52,15 +52,14 @@ class IStreamBufferSink extends IUnknown{
      * 
      * @param {PWSTR} pszFilename 
      * @param {Integer} dwRecordType 
-     * @param {Pointer<IUnknown>} pRecordingIUnknown 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambuffersink-createrecorder
      */
-    CreateRecorder(pszFilename, dwRecordType, pRecordingIUnknown) {
+    CreateRecorder(pszFilename, dwRecordType) {
         pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
-        result := ComCall(4, this, "ptr", pszFilename, "uint", dwRecordType, "ptr*", pRecordingIUnknown, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszFilename, "uint", dwRecordType, "ptr*", &pRecordingIUnknown := 0, "HRESULT")
+        return IUnknown(pRecordingIUnknown)
     }
 
     /**

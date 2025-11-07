@@ -36,17 +36,14 @@ class IUPnPServiceAsync extends IUnknown{
      * @param {BSTR} bstrActionName 
      * @param {VARIANT} vInActionArgs 
      * @param {IUPnPAsyncResult} pAsyncResult 
-     * @param {Pointer<Integer>} pullRequestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceasync-begininvokeaction
      */
-    BeginInvokeAction(bstrActionName, vInActionArgs, pAsyncResult, pullRequestID) {
+    BeginInvokeAction(bstrActionName, vInActionArgs, pAsyncResult) {
         bstrActionName := bstrActionName is String ? BSTR.Alloc(bstrActionName).Value : bstrActionName
 
-        pullRequestIDMarshal := pullRequestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", bstrActionName, "ptr", vInActionArgs, "ptr", pAsyncResult, pullRequestIDMarshal, pullRequestID, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", bstrActionName, "ptr", vInActionArgs, "ptr", pAsyncResult, "uint*", &pullRequestID := 0, "HRESULT")
+        return pullRequestID
     }
 
     /**
@@ -66,17 +63,14 @@ class IUPnPServiceAsync extends IUnknown{
      * 
      * @param {BSTR} bstrVariableName 
      * @param {IUPnPAsyncResult} pAsyncResult 
-     * @param {Pointer<Integer>} pullRequestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceasync-beginquerystatevariable
      */
-    BeginQueryStateVariable(bstrVariableName, pAsyncResult, pullRequestID) {
+    BeginQueryStateVariable(bstrVariableName, pAsyncResult) {
         bstrVariableName := bstrVariableName is String ? BSTR.Alloc(bstrVariableName).Value : bstrVariableName
 
-        pullRequestIDMarshal := pullRequestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", bstrVariableName, "ptr", pAsyncResult, pullRequestIDMarshal, pullRequestID, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", bstrVariableName, "ptr", pAsyncResult, "uint*", &pullRequestID := 0, "HRESULT")
+        return pullRequestID
     }
 
     /**
@@ -95,15 +89,12 @@ class IUPnPServiceAsync extends IUnknown{
      * 
      * @param {IUnknown} pUnkCallback 
      * @param {IUPnPAsyncResult} pAsyncResult 
-     * @param {Pointer<Integer>} pullRequestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceasync-beginsubscribetoevents
      */
-    BeginSubscribeToEvents(pUnkCallback, pAsyncResult, pullRequestID) {
-        pullRequestIDMarshal := pullRequestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pUnkCallback, "ptr", pAsyncResult, pullRequestIDMarshal, pullRequestID, "HRESULT")
-        return result
+    BeginSubscribeToEvents(pUnkCallback, pAsyncResult) {
+        result := ComCall(7, this, "ptr", pUnkCallback, "ptr", pAsyncResult, "uint*", &pullRequestID := 0, "HRESULT")
+        return pullRequestID
     }
 
     /**
@@ -120,27 +111,24 @@ class IUPnPServiceAsync extends IUnknown{
     /**
      * 
      * @param {IUPnPAsyncResult} pAsyncResult 
-     * @param {Pointer<Integer>} pullRequestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceasync-beginscpddownload
      */
-    BeginSCPDDownload(pAsyncResult, pullRequestID) {
-        pullRequestIDMarshal := pullRequestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pAsyncResult, pullRequestIDMarshal, pullRequestID, "HRESULT")
-        return result
+    BeginSCPDDownload(pAsyncResult) {
+        result := ComCall(9, this, "ptr", pAsyncResult, "uint*", &pullRequestID := 0, "HRESULT")
+        return pullRequestID
     }
 
     /**
      * 
      * @param {Integer} ullRequestID 
-     * @param {Pointer<BSTR>} pbstrSCPDDoc 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceasync-endscpddownload
      */
-    EndSCPDDownload(ullRequestID, pbstrSCPDDoc) {
+    EndSCPDDownload(ullRequestID) {
+        pbstrSCPDDoc := BSTR()
         result := ComCall(10, this, "uint", ullRequestID, "ptr", pbstrSCPDDoc, "HRESULT")
-        return result
+        return pbstrSCPDDoc
     }
 
     /**

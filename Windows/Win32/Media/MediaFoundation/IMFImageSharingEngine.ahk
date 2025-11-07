@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DEVICE_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,13 @@ class IMFImageSharingEngine extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DEVICE_INFO>} pDevice 
-     * @returns {HRESULT} 
+     * @returns {DEVICE_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-imfimagesharingengine-getdevice
      */
-    GetDevice(pDevice) {
+    GetDevice() {
+        pDevice := DEVICE_INFO()
         result := ComCall(4, this, "ptr", pDevice, "HRESULT")
-        return result
+        return pDevice
     }
 
     /**

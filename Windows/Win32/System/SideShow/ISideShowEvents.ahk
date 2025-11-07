@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISideShowContent.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,12 +32,11 @@ class ISideShowEvents extends IUnknown{
     /**
      * 
      * @param {Integer} in_contentId 
-     * @param {Pointer<ISideShowContent>} out_ppIContent 
-     * @returns {HRESULT} 
+     * @returns {ISideShowContent} 
      */
-    ContentMissing(in_contentId, out_ppIContent) {
-        result := ComCall(3, this, "uint", in_contentId, "ptr*", out_ppIContent, "HRESULT")
-        return result
+    ContentMissing(in_contentId) {
+        result := ComCall(3, this, "uint", in_contentId, "ptr*", &out_ppIContent := 0, "HRESULT")
+        return ISideShowContent(out_ppIContent)
     }
 
     /**

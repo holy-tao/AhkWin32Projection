@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1SpriteBatch.ahk
 #Include .\ID2D1DeviceContext2.ahk
 
 /**
@@ -32,13 +33,12 @@ class ID2D1DeviceContext3 extends ID2D1DeviceContext2{
 
     /**
      * 
-     * @param {Pointer<ID2D1SpriteBatch>} spriteBatch 
-     * @returns {HRESULT} 
+     * @returns {ID2D1SpriteBatch} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext3-createspritebatch
      */
-    CreateSpriteBatch(spriteBatch) {
-        result := ComCall(106, this, "ptr*", spriteBatch, "HRESULT")
-        return result
+    CreateSpriteBatch() {
+        result := ComCall(106, this, "ptr*", &spriteBatch := 0, "HRESULT")
+        return ID2D1SpriteBatch(spriteBatch)
     }
 
     /**

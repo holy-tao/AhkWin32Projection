@@ -2,6 +2,16 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLElementCollection.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IHTMLSelectionObject.ahk
+#Include .\IHTMLFramesCollection2.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLLocation.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLWindow2.ahk
+#Include .\IHTMLStyleSheetsCollection.ahk
+#Include .\IHTMLStyleSheet.ahk
 #Include .\IHTMLDocument.ahk
 
 /**
@@ -31,82 +41,74 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_all(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_all() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_body(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_body() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_activeElement(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_activeElement() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_images(p) {
-        result := ComCall(11, this, "ptr*", p, "HRESULT")
-        return result
+    get_images() {
+        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_applets(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_applets() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_links(p) {
-        result := ComCall(13, this, "ptr*", p, "HRESULT")
-        return result
+    get_links() {
+        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_forms(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_forms() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_anchors(p) {
-        result := ComCall(15, this, "ptr*", p, "HRESULT")
-        return result
+    get_anchors() {
+        result := ComCall(15, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
@@ -123,22 +125,21 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_title(p) {
+    get_title() {
+        p := BSTR()
         result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_scripts(p) {
-        result := ComCall(18, this, "ptr*", p, "HRESULT")
-        return result
+    get_scripts() {
+        result := ComCall(18, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
@@ -155,62 +156,58 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_designMode(p) {
+    get_designMode() {
+        p := BSTR()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLSelectionObject>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLSelectionObject} 
      */
-    get_selection(p) {
-        result := ComCall(21, this, "ptr*", p, "HRESULT")
-        return result
+    get_selection() {
+        result := ComCall(21, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLSelectionObject(p)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_readyState(p) {
+    get_readyState() {
+        p := BSTR()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLFramesCollection2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLFramesCollection2} 
      */
-    get_frames(p) {
-        result := ComCall(23, this, "ptr*", p, "HRESULT")
-        return result
+    get_frames() {
+        result := ComCall(23, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLFramesCollection2(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_embeds(p) {
-        result := ComCall(24, this, "ptr*", p, "HRESULT")
-        return result
+    get_embeds() {
+        result := ComCall(24, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_plugins(p) {
-        result := ComCall(25, this, "ptr*", p, "HRESULT")
-        return result
+    get_plugins() {
+        result := ComCall(25, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
@@ -225,12 +222,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_alinkColor(p) {
+    get_alinkColor() {
+        p := VARIANT()
         result := ComCall(27, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -245,12 +242,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_bgColor(p) {
+    get_bgColor() {
+        p := VARIANT()
         result := ComCall(29, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -265,12 +262,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_fgColor(p) {
+    get_fgColor() {
+        p := VARIANT()
         result := ComCall(31, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -285,12 +282,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_linkColor(p) {
+    get_linkColor() {
+        p := VARIANT()
         result := ComCall(33, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -305,42 +302,41 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_vlinkColor(p) {
+    get_vlinkColor() {
+        p := VARIANT()
         result := ComCall(35, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_referrer(p) {
+    get_referrer() {
+        p := BSTR()
         result := ComCall(36, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLLocation>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLLocation} 
      */
-    get_location(p) {
-        result := ComCall(37, this, "ptr*", p, "HRESULT")
-        return result
+    get_location() {
+        result := ComCall(37, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLLocation(p)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_lastModified(p) {
+    get_lastModified() {
+        p := BSTR()
         result := ComCall(38, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -357,12 +353,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_URL(p) {
+    get_URL() {
+        p := BSTR()
         result := ComCall(40, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -379,12 +375,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_domain(p) {
+    get_domain() {
+        p := BSTR()
         result := ComCall(42, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -401,12 +397,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_cookie(p) {
+    get_cookie() {
+        p := BSTR()
         result := ComCall(44, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -421,12 +417,11 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_expando(p) {
-        result := ComCall(46, this, "ptr", p, "HRESULT")
-        return result
+    get_expando() {
+        result := ComCall(46, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -443,12 +438,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_charset(p) {
+    get_charset() {
+        p := BSTR()
         result := ComCall(48, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -465,92 +460,92 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_defaultCharset(p) {
+    get_defaultCharset() {
+        p := BSTR()
         result := ComCall(50, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_mimeType(p) {
+    get_mimeType() {
+        p := BSTR()
         result := ComCall(51, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_fileSize(p) {
+    get_fileSize() {
+        p := BSTR()
         result := ComCall(52, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_fileCreatedDate(p) {
+    get_fileCreatedDate() {
+        p := BSTR()
         result := ComCall(53, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_fileModifiedDate(p) {
+    get_fileModifiedDate() {
+        p := BSTR()
         result := ComCall(54, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_fileUpdatedDate(p) {
+    get_fileUpdatedDate() {
+        p := BSTR()
         result := ComCall(55, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_security(p) {
+    get_security() {
+        p := BSTR()
         result := ComCall(56, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_protocol(p) {
+    get_protocol() {
+        p := BSTR()
         result := ComCall(57, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_nameProp(p) {
+    get_nameProp() {
+        p := BSTR()
         result := ComCall(58, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -579,14 +574,13 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @param {VARIANT} name 
      * @param {VARIANT} features 
      * @param {VARIANT} replace 
-     * @param {Pointer<IDispatch>} pomWindowResult 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    open(url, name, features, replace, pomWindowResult) {
+    open(url, name, features, replace) {
         url := url is String ? BSTR.Alloc(url).Value : url
 
-        result := ComCall(61, this, "ptr", url, "ptr", name, "ptr", features, "ptr", replace, "ptr*", pomWindowResult, "HRESULT")
-        return result
+        result := ComCall(61, this, "ptr", url, "ptr", name, "ptr", features, "ptr", replace, "ptr*", &pomWindowResult := 0, "HRESULT")
+        return IDispatch(pomWindowResult)
     }
 
     /**
@@ -610,79 +604,75 @@ class IHTMLDocument2 extends IHTMLDocument{
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryCommandSupported(cmdID, pfRet) {
+    queryCommandSupported(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(64, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(64, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryCommandEnabled(cmdID, pfRet) {
+    queryCommandEnabled(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(65, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(65, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryCommandState(cmdID, pfRet) {
+    queryCommandState(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(66, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(66, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryCommandIndeterm(cmdID, pfRet) {
+    queryCommandIndeterm(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(67, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(67, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<BSTR>} pcmdText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    queryCommandText(cmdID, pcmdText) {
+    queryCommandText(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
+        pcmdText := BSTR()
         result := ComCall(68, this, "ptr", cmdID, "ptr", pcmdText, "HRESULT")
-        return result
+        return pcmdText
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT>} pcmdValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    queryCommandValue(cmdID, pcmdValue) {
+    queryCommandValue(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
+        pcmdValue := VARIANT()
         result := ComCall(69, this, "ptr", cmdID, "ptr", pcmdValue, "HRESULT")
-        return result
+        return pcmdValue
     }
 
     /**
@@ -690,40 +680,37 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @param {BSTR} cmdID 
      * @param {VARIANT_BOOL} showUI 
      * @param {VARIANT} value 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    execCommand(cmdID, showUI, value, pfRet) {
+    execCommand(cmdID, showUI, value) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(70, this, "ptr", cmdID, "short", showUI, "ptr", value, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(70, this, "ptr", cmdID, "short", showUI, "ptr", value, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    execCommandShowHelp(cmdID, pfRet) {
+    execCommandShowHelp(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(71, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(71, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} eTag 
-     * @param {Pointer<IHTMLElement>} newElem 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    createElement(eTag, newElem) {
+    createElement(eTag) {
         eTag := eTag is String ? BSTR.Alloc(eTag).Value : eTag
 
-        result := ComCall(72, this, "ptr", eTag, "ptr*", newElem, "HRESULT")
-        return result
+        result := ComCall(72, this, "ptr", eTag, "ptr*", &newElem := 0, "HRESULT")
+        return IHTMLElement(newElem)
     }
 
     /**
@@ -738,12 +725,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onhelp(p) {
+    get_onhelp() {
+        p := VARIANT()
         result := ComCall(74, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -758,12 +745,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onclick(p) {
+    get_onclick() {
+        p := VARIANT()
         result := ComCall(76, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -778,12 +765,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondblclick(p) {
+    get_ondblclick() {
+        p := VARIANT()
         result := ComCall(78, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -798,12 +785,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onkeyup(p) {
+    get_onkeyup() {
+        p := VARIANT()
         result := ComCall(80, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -818,12 +805,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onkeydown(p) {
+    get_onkeydown() {
+        p := VARIANT()
         result := ComCall(82, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -838,12 +825,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onkeypress(p) {
+    get_onkeypress() {
+        p := VARIANT()
         result := ComCall(84, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -858,12 +845,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmouseup(p) {
+    get_onmouseup() {
+        p := VARIANT()
         result := ComCall(86, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -878,12 +865,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmousedown(p) {
+    get_onmousedown() {
+        p := VARIANT()
         result := ComCall(88, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -898,12 +885,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmousemove(p) {
+    get_onmousemove() {
+        p := VARIANT()
         result := ComCall(90, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -918,12 +905,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmouseout(p) {
+    get_onmouseout() {
+        p := VARIANT()
         result := ComCall(92, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -938,12 +925,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmouseover(p) {
+    get_onmouseover() {
+        p := VARIANT()
         result := ComCall(94, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -958,12 +945,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onreadystatechange(p) {
+    get_onreadystatechange() {
+        p := VARIANT()
         result := ComCall(96, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -978,12 +965,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onafterupdate(p) {
+    get_onafterupdate() {
+        p := VARIANT()
         result := ComCall(98, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -998,12 +985,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onrowexit(p) {
+    get_onrowexit() {
+        p := VARIANT()
         result := ComCall(100, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1018,12 +1005,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onrowenter(p) {
+    get_onrowenter() {
+        p := VARIANT()
         result := ComCall(102, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1038,12 +1025,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondragstart(p) {
+    get_ondragstart() {
+        p := VARIANT()
         result := ComCall(104, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1058,44 +1045,41 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onselectstart(p) {
+    get_onselectstart() {
+        p := VARIANT()
         result := ComCall(106, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {Integer} x 
      * @param {Integer} y 
-     * @param {Pointer<IHTMLElement>} elementHit 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    elementFromPoint(x, y, elementHit) {
-        result := ComCall(107, this, "int", x, "int", y, "ptr*", elementHit, "HRESULT")
-        return result
+    elementFromPoint(x, y) {
+        result := ComCall(107, this, "int", x, "int", y, "ptr*", &elementHit := 0, "HRESULT")
+        return IHTMLElement(elementHit)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLWindow2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLWindow2} 
      */
-    get_parentWindow(p) {
-        result := ComCall(108, this, "ptr*", p, "HRESULT")
-        return result
+    get_parentWindow() {
+        result := ComCall(108, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLWindow2(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStyleSheetsCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheetsCollection} 
      */
-    get_styleSheets(p) {
-        result := ComCall(109, this, "ptr*", p, "HRESULT")
-        return result
+    get_styleSheets() {
+        result := ComCall(109, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyleSheetsCollection(p)
     }
 
     /**
@@ -1110,12 +1094,12 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onbeforeupdate(p) {
+    get_onbeforeupdate() {
+        p := VARIANT()
         result := ComCall(111, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1130,35 +1114,34 @@ class IHTMLDocument2 extends IHTMLDocument{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onerrorupdate(p) {
+    get_onerrorupdate() {
+        p := VARIANT()
         result := ComCall(113, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} String 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toString(String) {
+    toString() {
+        String := BSTR()
         result := ComCall(114, this, "ptr", String, "HRESULT")
-        return result
+        return String
     }
 
     /**
      * 
      * @param {BSTR} bstrHref 
      * @param {Integer} lIndex 
-     * @param {Pointer<IHTMLStyleSheet>} ppnewStyleSheet 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheet} 
      */
-    createStyleSheet(bstrHref, lIndex, ppnewStyleSheet) {
+    createStyleSheet(bstrHref, lIndex) {
         bstrHref := bstrHref is String ? BSTR.Alloc(bstrHref).Value : bstrHref
 
-        result := ComCall(115, this, "ptr", bstrHref, "int", lIndex, "ptr*", ppnewStyleSheet, "HRESULT")
-        return result
+        result := ComCall(115, this, "ptr", bstrHref, "int", lIndex, "ptr*", &ppnewStyleSheet := 0, "HRESULT")
+        return IHTMLStyleSheet(ppnewStyleSheet)
     }
 }

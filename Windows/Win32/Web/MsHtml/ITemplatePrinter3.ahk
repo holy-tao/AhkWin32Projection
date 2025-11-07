@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ITemplatePrinter2.ahk
 
 /**
@@ -43,12 +44,12 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_headerFooterFont(p) {
+    get_headerFooterFont() {
+        p := BSTR()
         result := ComCall(72, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -56,12 +57,12 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      * @param {IDispatch} pageRule 
      * @param {Integer} pageWidth 
      * @param {Integer} pageHeight 
-     * @param {Pointer<VARIANT>} pMargin 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getPageMarginTop(pageRule, pageWidth, pageHeight, pMargin) {
+    getPageMarginTop(pageRule, pageWidth, pageHeight) {
+        pMargin := VARIANT()
         result := ComCall(73, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "HRESULT")
-        return result
+        return pMargin
     }
 
     /**
@@ -69,12 +70,12 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      * @param {IDispatch} pageRule 
      * @param {Integer} pageWidth 
      * @param {Integer} pageHeight 
-     * @param {Pointer<VARIANT>} pMargin 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getPageMarginRight(pageRule, pageWidth, pageHeight, pMargin) {
+    getPageMarginRight(pageRule, pageWidth, pageHeight) {
+        pMargin := VARIANT()
         result := ComCall(74, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "HRESULT")
-        return result
+        return pMargin
     }
 
     /**
@@ -82,12 +83,12 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      * @param {IDispatch} pageRule 
      * @param {Integer} pageWidth 
      * @param {Integer} pageHeight 
-     * @param {Pointer<VARIANT>} pMargin 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getPageMarginBottom(pageRule, pageWidth, pageHeight, pMargin) {
+    getPageMarginBottom(pageRule, pageWidth, pageHeight) {
+        pMargin := VARIANT()
         result := ComCall(75, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "HRESULT")
-        return result
+        return pMargin
     }
 
     /**
@@ -95,55 +96,51 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      * @param {IDispatch} pageRule 
      * @param {Integer} pageWidth 
      * @param {Integer} pageHeight 
-     * @param {Pointer<VARIANT>} pMargin 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getPageMarginLeft(pageRule, pageWidth, pageHeight, pMargin) {
+    getPageMarginLeft(pageRule, pageWidth, pageHeight) {
+        pMargin := VARIANT()
         result := ComCall(76, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "HRESULT")
-        return result
+        return pMargin
     }
 
     /**
      * 
      * @param {IDispatch} pageRule 
-     * @param {Pointer<VARIANT_BOOL>} pbImportant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    getPageMarginTopImportant(pageRule, pbImportant) {
-        result := ComCall(77, this, "ptr", pageRule, "ptr", pbImportant, "HRESULT")
-        return result
+    getPageMarginTopImportant(pageRule) {
+        result := ComCall(77, this, "ptr", pageRule, "short*", &pbImportant := 0, "HRESULT")
+        return pbImportant
     }
 
     /**
      * 
      * @param {IDispatch} pageRule 
-     * @param {Pointer<VARIANT_BOOL>} pbImportant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    getPageMarginRightImportant(pageRule, pbImportant) {
-        result := ComCall(78, this, "ptr", pageRule, "ptr", pbImportant, "HRESULT")
-        return result
+    getPageMarginRightImportant(pageRule) {
+        result := ComCall(78, this, "ptr", pageRule, "short*", &pbImportant := 0, "HRESULT")
+        return pbImportant
     }
 
     /**
      * 
      * @param {IDispatch} pageRule 
-     * @param {Pointer<VARIANT_BOOL>} pbImportant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    getPageMarginBottomImportant(pageRule, pbImportant) {
-        result := ComCall(79, this, "ptr", pageRule, "ptr", pbImportant, "HRESULT")
-        return result
+    getPageMarginBottomImportant(pageRule) {
+        result := ComCall(79, this, "ptr", pageRule, "short*", &pbImportant := 0, "HRESULT")
+        return pbImportant
     }
 
     /**
      * 
      * @param {IDispatch} pageRule 
-     * @param {Pointer<VARIANT_BOOL>} pbImportant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    getPageMarginLeftImportant(pageRule, pbImportant) {
-        result := ComCall(80, this, "ptr", pageRule, "ptr", pbImportant, "HRESULT")
-        return result
+    getPageMarginLeftImportant(pageRule) {
+        result := ComCall(80, this, "ptr", pageRule, "short*", &pbImportant := 0, "HRESULT")
+        return pbImportant
     }
 }

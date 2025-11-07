@@ -40,15 +40,12 @@ class IFsrmActionReport extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} reportTypes 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionreport-get_reporttypes
      */
-    get_ReportTypes(reportTypes) {
-        reportTypesMarshal := reportTypes is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, reportTypesMarshal, reportTypes, "HRESULT")
-        return result
+    get_ReportTypes() {
+        result := ComCall(12, this, "ptr*", &reportTypes := 0, "HRESULT")
+        return reportTypes
     }
 
     /**
@@ -64,13 +61,13 @@ class IFsrmActionReport extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<BSTR>} mailTo 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionreport-get_mailto
      */
-    get_MailTo(mailTo) {
+    get_MailTo() {
+        mailTo := BSTR()
         result := ComCall(14, this, "ptr", mailTo, "HRESULT")
-        return result
+        return mailTo
     }
 
     /**

@@ -51,7 +51,9 @@ class IDWriteTextLayout1 extends IDWriteTextLayout{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextlayout1-getpairkerning
      */
     GetPairKerning(currentPosition, isPairKerningEnabled, textRange) {
-        result := ComCall(68, this, "uint", currentPosition, "ptr", isPairKerningEnabled, "ptr", textRange, "HRESULT")
+        isPairKerningEnabledMarshal := isPairKerningEnabled is VarRef ? "int*" : "ptr"
+
+        result := ComCall(68, this, "uint", currentPosition, isPairKerningEnabledMarshal, isPairKerningEnabled, "ptr", textRange, "HRESULT")
         return result
     }
 

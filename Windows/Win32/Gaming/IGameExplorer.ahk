@@ -74,13 +74,12 @@ class IGameExplorer extends IUnknown{
     /**
      * 
      * @param {BSTR} bstrGDFBinaryPath 
-     * @param {Pointer<BOOL>} pfHasAccess 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    VerifyAccess(bstrGDFBinaryPath, pfHasAccess) {
+    VerifyAccess(bstrGDFBinaryPath) {
         bstrGDFBinaryPath := bstrGDFBinaryPath is String ? BSTR.Alloc(bstrGDFBinaryPath).Value : bstrGDFBinaryPath
 
-        result := ComCall(6, this, "ptr", bstrGDFBinaryPath, "ptr", pfHasAccess, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", bstrGDFBinaryPath, "int*", &pfHasAccess := 0, "HRESULT")
+        return pfHasAccess
     }
 }

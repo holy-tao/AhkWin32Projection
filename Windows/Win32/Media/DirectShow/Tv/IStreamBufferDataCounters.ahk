@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\SBE_PIN_DATA.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,13 +38,13 @@ class IStreamBufferDataCounters extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SBE_PIN_DATA>} pPinData 
-     * @returns {HRESULT} 
+     * @returns {SBE_PIN_DATA} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferdatacounters-getdata
      */
-    GetData(pPinData) {
+    GetData() {
+        pPinData := SBE_PIN_DATA()
         result := ComCall(3, this, "ptr", pPinData, "HRESULT")
-        return result
+        return pPinData
     }
 
     /**

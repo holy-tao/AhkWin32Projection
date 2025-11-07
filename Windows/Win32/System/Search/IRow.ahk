@@ -60,11 +60,10 @@ class IRow extends IUnknown{
      * @param {Pointer<Guid>} rguidColumnType 
      * @param {Integer} dwBindFlags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    Open(pUnkOuter, pColumnID, rguidColumnType, dwBindFlags, riid, ppUnk) {
-        result := ComCall(5, this, "ptr", pUnkOuter, "ptr", pColumnID, "ptr", rguidColumnType, "uint", dwBindFlags, "ptr", riid, "ptr*", ppUnk, "HRESULT")
-        return result
+    Open(pUnkOuter, pColumnID, rguidColumnType, dwBindFlags, riid) {
+        result := ComCall(5, this, "ptr", pUnkOuter, "ptr", pColumnID, "ptr", rguidColumnType, "uint", dwBindFlags, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IRDPSRAPIWindow.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,24 +40,22 @@ class IRDPSRAPIWindowList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindowlist-get__newenum
      */
-    get__NewEnum(retval) {
-        result := ComCall(7, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
      * @param {Integer} item 
-     * @param {Pointer<IRDPSRAPIWindow>} pWindow 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIWindow} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindowlist-get_item
      */
-    get_Item(item, pWindow) {
-        result := ComCall(8, this, "int", item, "ptr*", pWindow, "HRESULT")
-        return result
+    get_Item(item) {
+        result := ComCall(8, this, "int", item, "ptr*", &pWindow := 0, "HRESULT")
+        return IRDPSRAPIWindow(pWindow)
     }
 }

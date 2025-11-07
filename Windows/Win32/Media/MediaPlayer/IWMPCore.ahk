@@ -2,6 +2,16 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWMPControls.ahk
+#Include .\IWMPSettings.ahk
+#Include .\IWMPMedia.ahk
+#Include .\IWMPMediaCollection.ahk
+#Include .\IWMPPlaylistCollection.ahk
+#Include .\IWMPNetwork.ahk
+#Include .\IWMPPlaylist.ahk
+#Include .\IWMPCdromCollection.ahk
+#Include .\IWMPClosedCaption.ahk
+#Include .\IWMPError.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -93,35 +103,32 @@ class IWMPCore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWMPControls>} ppControl 
-     * @returns {HRESULT} 
+     * @returns {IWMPControls} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_controls
      */
-    get_controls(ppControl) {
-        result := ComCall(12, this, "ptr*", ppControl, "HRESULT")
-        return result
+    get_controls() {
+        result := ComCall(12, this, "ptr*", &ppControl := 0, "HRESULT")
+        return IWMPControls(ppControl)
     }
 
     /**
      * 
-     * @param {Pointer<IWMPSettings>} ppSettings 
-     * @returns {HRESULT} 
+     * @returns {IWMPSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_settings
      */
-    get_settings(ppSettings) {
-        result := ComCall(13, this, "ptr*", ppSettings, "HRESULT")
-        return result
+    get_settings() {
+        result := ComCall(13, this, "ptr*", &ppSettings := 0, "HRESULT")
+        return IWMPSettings(ppSettings)
     }
 
     /**
      * 
-     * @param {Pointer<IWMPMedia>} ppMedia 
-     * @returns {HRESULT} 
+     * @returns {IWMPMedia} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_currentmedia
      */
-    get_currentMedia(ppMedia) {
-        result := ComCall(14, this, "ptr*", ppMedia, "HRESULT")
-        return result
+    get_currentMedia() {
+        result := ComCall(14, this, "ptr*", &ppMedia := 0, "HRESULT")
+        return IWMPMedia(ppMedia)
     }
 
     /**
@@ -137,24 +144,22 @@ class IWMPCore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWMPMediaCollection>} ppMediaCollection 
-     * @returns {HRESULT} 
+     * @returns {IWMPMediaCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_mediacollection
      */
-    get_mediaCollection(ppMediaCollection) {
-        result := ComCall(16, this, "ptr*", ppMediaCollection, "HRESULT")
-        return result
+    get_mediaCollection() {
+        result := ComCall(16, this, "ptr*", &ppMediaCollection := 0, "HRESULT")
+        return IWMPMediaCollection(ppMediaCollection)
     }
 
     /**
      * 
-     * @param {Pointer<IWMPPlaylistCollection>} ppPlaylistCollection 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylistCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_playlistcollection
      */
-    get_playlistCollection(ppPlaylistCollection) {
-        result := ComCall(17, this, "ptr*", ppPlaylistCollection, "HRESULT")
-        return result
+    get_playlistCollection() {
+        result := ComCall(17, this, "ptr*", &ppPlaylistCollection := 0, "HRESULT")
+        return IWMPPlaylistCollection(ppPlaylistCollection)
     }
 
     /**
@@ -183,24 +188,22 @@ class IWMPCore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWMPNetwork>} ppQNI 
-     * @returns {HRESULT} 
+     * @returns {IWMPNetwork} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_network
      */
-    get_network(ppQNI) {
-        result := ComCall(20, this, "ptr*", ppQNI, "HRESULT")
-        return result
+    get_network() {
+        result := ComCall(20, this, "ptr*", &ppQNI := 0, "HRESULT")
+        return IWMPNetwork(ppQNI)
     }
 
     /**
      * 
-     * @param {Pointer<IWMPPlaylist>} ppPL 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_currentplaylist
      */
-    get_currentPlaylist(ppPL) {
-        result := ComCall(21, this, "ptr*", ppPL, "HRESULT")
-        return result
+    get_currentPlaylist() {
+        result := ComCall(21, this, "ptr*", &ppPL := 0, "HRESULT")
+        return IWMPPlaylist(ppPL)
     }
 
     /**
@@ -216,24 +219,22 @@ class IWMPCore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWMPCdromCollection>} ppCdromCollection 
-     * @returns {HRESULT} 
+     * @returns {IWMPCdromCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_cdromcollection
      */
-    get_cdromCollection(ppCdromCollection) {
-        result := ComCall(23, this, "ptr*", ppCdromCollection, "HRESULT")
-        return result
+    get_cdromCollection() {
+        result := ComCall(23, this, "ptr*", &ppCdromCollection := 0, "HRESULT")
+        return IWMPCdromCollection(ppCdromCollection)
     }
 
     /**
      * 
-     * @param {Pointer<IWMPClosedCaption>} ppClosedCaption 
-     * @returns {HRESULT} 
+     * @returns {IWMPClosedCaption} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_closedcaption
      */
-    get_closedCaption(ppClosedCaption) {
-        result := ComCall(24, this, "ptr*", ppClosedCaption, "HRESULT")
-        return result
+    get_closedCaption() {
+        result := ComCall(24, this, "ptr*", &ppClosedCaption := 0, "HRESULT")
+        return IWMPClosedCaption(ppClosedCaption)
     }
 
     /**
@@ -243,19 +244,20 @@ class IWMPCore extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_isonline
      */
     get_isOnline(pfOnline) {
-        result := ComCall(25, this, "ptr", pfOnline, "HRESULT")
+        pfOnlineMarshal := pfOnline is VarRef ? "short*" : "ptr"
+
+        result := ComCall(25, this, pfOnlineMarshal, pfOnline, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IWMPError>} ppError 
-     * @returns {HRESULT} 
+     * @returns {IWMPError} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_error
      */
-    get_error(ppError) {
-        result := ComCall(26, this, "ptr*", ppError, "HRESULT")
-        return result
+    get_error() {
+        result := ComCall(26, this, "ptr*", &ppError := 0, "HRESULT")
+        return IWMPError(ppError)
     }
 
     /**

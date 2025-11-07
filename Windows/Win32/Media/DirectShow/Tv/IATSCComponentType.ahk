@@ -43,15 +43,12 @@ class IATSCComponentType extends IMPEG2ComponentType{
 
     /**
      * 
-     * @param {Pointer<Integer>} Flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsccomponenttype-get_flags
      */
-    get_Flags(Flags) {
-        FlagsMarshal := Flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, FlagsMarshal, Flags, "HRESULT")
-        return result
+    get_Flags() {
+        result := ComCall(28, this, "int*", &Flags := 0, "HRESULT")
+        return Flags
     }
 
     /**

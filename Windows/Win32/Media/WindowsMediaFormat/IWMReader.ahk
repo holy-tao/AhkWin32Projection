@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMOutputMediaProps.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -59,27 +60,23 @@ class IWMReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcOutputs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreader-getoutputcount
      */
-    GetOutputCount(pcOutputs) {
-        pcOutputsMarshal := pcOutputs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pcOutputsMarshal, pcOutputs, "HRESULT")
-        return result
+    GetOutputCount() {
+        result := ComCall(5, this, "uint*", &pcOutputs := 0, "HRESULT")
+        return pcOutputs
     }
 
     /**
      * 
      * @param {Integer} dwOutputNum 
-     * @param {Pointer<IWMOutputMediaProps>} ppOutput 
-     * @returns {HRESULT} 
+     * @returns {IWMOutputMediaProps} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreader-getoutputprops
      */
-    GetOutputProps(dwOutputNum, ppOutput) {
-        result := ComCall(6, this, "uint", dwOutputNum, "ptr*", ppOutput, "HRESULT")
-        return result
+    GetOutputProps(dwOutputNum) {
+        result := ComCall(6, this, "uint", dwOutputNum, "ptr*", &ppOutput := 0, "HRESULT")
+        return IWMOutputMediaProps(ppOutput)
     }
 
     /**
@@ -97,28 +94,24 @@ class IWMReader extends IUnknown{
     /**
      * 
      * @param {Integer} dwOutputNumber 
-     * @param {Pointer<Integer>} pcFormats 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreader-getoutputformatcount
      */
-    GetOutputFormatCount(dwOutputNumber, pcFormats) {
-        pcFormatsMarshal := pcFormats is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "uint", dwOutputNumber, pcFormatsMarshal, pcFormats, "HRESULT")
-        return result
+    GetOutputFormatCount(dwOutputNumber) {
+        result := ComCall(8, this, "uint", dwOutputNumber, "uint*", &pcFormats := 0, "HRESULT")
+        return pcFormats
     }
 
     /**
      * 
      * @param {Integer} dwOutputNumber 
      * @param {Integer} dwFormatNumber 
-     * @param {Pointer<IWMOutputMediaProps>} ppProps 
-     * @returns {HRESULT} 
+     * @returns {IWMOutputMediaProps} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreader-getoutputformat
      */
-    GetOutputFormat(dwOutputNumber, dwFormatNumber, ppProps) {
-        result := ComCall(9, this, "uint", dwOutputNumber, "uint", dwFormatNumber, "ptr*", ppProps, "HRESULT")
-        return result
+    GetOutputFormat(dwOutputNumber, dwFormatNumber) {
+        result := ComCall(9, this, "uint", dwOutputNumber, "uint", dwFormatNumber, "ptr*", &ppProps := 0, "HRESULT")
+        return IWMOutputMediaProps(ppProps)
     }
 
     /**

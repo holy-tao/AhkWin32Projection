@@ -82,7 +82,9 @@ class IEnroll4 extends IEnroll2{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-binaryblobtostring
      */
     binaryBlobToString(Flags, pblobBinary, ppwszString) {
-        result := ComCall(95, this, "int", Flags, "ptr", pblobBinary, "ptr", ppwszString, "HRESULT")
+        ppwszStringMarshal := ppwszString is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(95, this, "int", Flags, "ptr", pblobBinary, ppwszStringMarshal, ppwszString, "HRESULT")
         return result
     }
 
@@ -462,7 +464,9 @@ class IEnroll4 extends IEnroll2{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-get_includesubjectkeyid
      */
     get_IncludeSubjectKeyID(pfInclude) {
-        result := ComCall(122, this, "ptr", pfInclude, "HRESULT")
+        pfIncludeMarshal := pfInclude is VarRef ? "int*" : "ptr"
+
+        result := ComCall(122, this, pfIncludeMarshal, pfInclude, "HRESULT")
         return result
     }
 }

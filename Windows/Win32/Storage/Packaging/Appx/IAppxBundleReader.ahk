@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxFile.ahk
+#Include .\IAppxBlockMapReader.ahk
+#Include .\IAppxBundleManifestReader.ahk
+#Include .\IAppxFilesEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,59 +43,54 @@ class IAppxBundleReader extends IUnknown{
     /**
      * 
      * @param {Integer} fileType 
-     * @param {Pointer<IAppxFile>} footprintFile 
-     * @returns {HRESULT} 
+     * @returns {IAppxFile} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlereader-getfootprintfile
      */
-    GetFootprintFile(fileType, footprintFile) {
-        result := ComCall(3, this, "int", fileType, "ptr*", footprintFile, "HRESULT")
-        return result
+    GetFootprintFile(fileType) {
+        result := ComCall(3, this, "int", fileType, "ptr*", &footprintFile := 0, "HRESULT")
+        return IAppxFile(footprintFile)
     }
 
     /**
      * 
-     * @param {Pointer<IAppxBlockMapReader>} blockMapReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxBlockMapReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlereader-getblockmap
      */
-    GetBlockMap(blockMapReader) {
-        result := ComCall(4, this, "ptr*", blockMapReader, "HRESULT")
-        return result
+    GetBlockMap() {
+        result := ComCall(4, this, "ptr*", &blockMapReader := 0, "HRESULT")
+        return IAppxBlockMapReader(blockMapReader)
     }
 
     /**
      * 
-     * @param {Pointer<IAppxBundleManifestReader>} manifestReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxBundleManifestReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlereader-getmanifest
      */
-    GetManifest(manifestReader) {
-        result := ComCall(5, this, "ptr*", manifestReader, "HRESULT")
-        return result
+    GetManifest() {
+        result := ComCall(5, this, "ptr*", &manifestReader := 0, "HRESULT")
+        return IAppxBundleManifestReader(manifestReader)
     }
 
     /**
      * 
-     * @param {Pointer<IAppxFilesEnumerator>} payloadPackages 
-     * @returns {HRESULT} 
+     * @returns {IAppxFilesEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlereader-getpayloadpackages
      */
-    GetPayloadPackages(payloadPackages) {
-        result := ComCall(6, this, "ptr*", payloadPackages, "HRESULT")
-        return result
+    GetPayloadPackages() {
+        result := ComCall(6, this, "ptr*", &payloadPackages := 0, "HRESULT")
+        return IAppxFilesEnumerator(payloadPackages)
     }
 
     /**
      * 
      * @param {PWSTR} fileName 
-     * @param {Pointer<IAppxFile>} payloadPackage 
-     * @returns {HRESULT} 
+     * @returns {IAppxFile} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlereader-getpayloadpackage
      */
-    GetPayloadPackage(fileName, payloadPackage) {
+    GetPayloadPackage(fileName) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(7, this, "ptr", fileName, "ptr*", payloadPackage, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", fileName, "ptr*", &payloadPackage := 0, "HRESULT")
+        return IAppxFile(payloadPackage)
     }
 }

@@ -32,25 +32,22 @@ class ISyncRegistrationChange extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} psreEvent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncregistrationchange-getevent
      */
-    GetEvent(psreEvent) {
-        psreEventMarshal := psreEvent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, psreEventMarshal, psreEvent, "HRESULT")
-        return result
+    GetEvent() {
+        result := ComCall(3, this, "int*", &psreEvent := 0, "HRESULT")
+        return psreEvent
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidInstanceId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncregistrationchange-getinstanceid
      */
-    GetInstanceId(pguidInstanceId) {
+    GetInstanceId() {
+        pguidInstanceId := Guid()
         result := ComCall(4, this, "ptr", pguidInstanceId, "HRESULT")
-        return result
+        return pguidInstanceId
     }
 }

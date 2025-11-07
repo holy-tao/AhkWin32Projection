@@ -31,26 +31,20 @@ class IAudioProcessingObjectVBR extends IUnknown{
     /**
      * 
      * @param {Integer} u32MaxOutputFrameCount 
-     * @param {Pointer<Integer>} pu32InputFrameCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    CalcMaxInputFrames(u32MaxOutputFrameCount, pu32InputFrameCount) {
-        pu32InputFrameCountMarshal := pu32InputFrameCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", u32MaxOutputFrameCount, pu32InputFrameCountMarshal, pu32InputFrameCount, "HRESULT")
-        return result
+    CalcMaxInputFrames(u32MaxOutputFrameCount) {
+        result := ComCall(3, this, "uint", u32MaxOutputFrameCount, "uint*", &pu32InputFrameCount := 0, "HRESULT")
+        return pu32InputFrameCount
     }
 
     /**
      * 
      * @param {Integer} u32MaxInputFrameCount 
-     * @param {Pointer<Integer>} pu32OutputFrameCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    CalcMaxOutputFrames(u32MaxInputFrameCount, pu32OutputFrameCount) {
-        pu32OutputFrameCountMarshal := pu32OutputFrameCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", u32MaxInputFrameCount, pu32OutputFrameCountMarshal, pu32OutputFrameCount, "HRESULT")
-        return result
+    CalcMaxOutputFrames(u32MaxInputFrameCount) {
+        result := ComCall(4, this, "uint", u32MaxInputFrameCount, "uint*", &pu32OutputFrameCount := 0, "HRESULT")
+        return pu32OutputFrameCount
     }
 }

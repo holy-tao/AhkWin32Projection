@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRegisteredSyncProvider.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
@@ -42,12 +43,11 @@ class ISyncProviderInfo extends IPropertyStore{
     /**
      * 
      * @param {Integer} dwClsContext 
-     * @param {Pointer<IRegisteredSyncProvider>} ppSyncProvider 
-     * @returns {HRESULT} 
+     * @returns {IRegisteredSyncProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderinfo-getsyncprovider
      */
-    GetSyncProvider(dwClsContext, ppSyncProvider) {
-        result := ComCall(8, this, "uint", dwClsContext, "ptr*", ppSyncProvider, "HRESULT")
-        return result
+    GetSyncProvider(dwClsContext) {
+        result := ComCall(8, this, "uint", dwClsContext, "ptr*", &ppSyncProvider := 0, "HRESULT")
+        return IRegisteredSyncProvider(ppSyncProvider)
     }
 }

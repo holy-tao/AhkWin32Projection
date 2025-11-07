@@ -46,7 +46,9 @@ class IWordBreaker extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-iwordbreaker-init
      */
     Init(fQuery, ulMaxTokenSize, pfLicense) {
-        result := ComCall(3, this, "int", fQuery, "uint", ulMaxTokenSize, "ptr", pfLicense, "HRESULT")
+        pfLicenseMarshal := pfLicense is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", fQuery, "uint", ulMaxTokenSize, pfLicenseMarshal, pfLicense, "HRESULT")
         return result
     }
 

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFStreamSink.ahk
+#Include .\IMFPresentationClock.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,28 +34,24 @@ class IMFMediaSink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCharacteristics 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasink-getcharacteristics
      */
-    GetCharacteristics(pdwCharacteristics) {
-        pdwCharacteristicsMarshal := pdwCharacteristics is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCharacteristicsMarshal, pdwCharacteristics, "HRESULT")
-        return result
+    GetCharacteristics() {
+        result := ComCall(3, this, "uint*", &pdwCharacteristics := 0, "HRESULT")
+        return pdwCharacteristics
     }
 
     /**
      * 
      * @param {Integer} dwStreamSinkIdentifier 
      * @param {IMFMediaType} pMediaType 
-     * @param {Pointer<IMFStreamSink>} ppStreamSink 
-     * @returns {HRESULT} 
+     * @returns {IMFStreamSink} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasink-addstreamsink
      */
-    AddStreamSink(dwStreamSinkIdentifier, pMediaType, ppStreamSink) {
-        result := ComCall(4, this, "uint", dwStreamSinkIdentifier, "ptr", pMediaType, "ptr*", ppStreamSink, "HRESULT")
-        return result
+    AddStreamSink(dwStreamSinkIdentifier, pMediaType) {
+        result := ComCall(4, this, "uint", dwStreamSinkIdentifier, "ptr", pMediaType, "ptr*", &ppStreamSink := 0, "HRESULT")
+        return IMFStreamSink(ppStreamSink)
     }
 
     /**
@@ -69,39 +67,34 @@ class IMFMediaSink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcStreamSinkCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasink-getstreamsinkcount
      */
-    GetStreamSinkCount(pcStreamSinkCount) {
-        pcStreamSinkCountMarshal := pcStreamSinkCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pcStreamSinkCountMarshal, pcStreamSinkCount, "HRESULT")
-        return result
+    GetStreamSinkCount() {
+        result := ComCall(6, this, "uint*", &pcStreamSinkCount := 0, "HRESULT")
+        return pcStreamSinkCount
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IMFStreamSink>} ppStreamSink 
-     * @returns {HRESULT} 
+     * @returns {IMFStreamSink} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasink-getstreamsinkbyindex
      */
-    GetStreamSinkByIndex(dwIndex, ppStreamSink) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr*", ppStreamSink, "HRESULT")
-        return result
+    GetStreamSinkByIndex(dwIndex) {
+        result := ComCall(7, this, "uint", dwIndex, "ptr*", &ppStreamSink := 0, "HRESULT")
+        return IMFStreamSink(ppStreamSink)
     }
 
     /**
      * 
      * @param {Integer} dwStreamSinkIdentifier 
-     * @param {Pointer<IMFStreamSink>} ppStreamSink 
-     * @returns {HRESULT} 
+     * @returns {IMFStreamSink} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasink-getstreamsinkbyid
      */
-    GetStreamSinkById(dwStreamSinkIdentifier, ppStreamSink) {
-        result := ComCall(8, this, "uint", dwStreamSinkIdentifier, "ptr*", ppStreamSink, "HRESULT")
-        return result
+    GetStreamSinkById(dwStreamSinkIdentifier) {
+        result := ComCall(8, this, "uint", dwStreamSinkIdentifier, "ptr*", &ppStreamSink := 0, "HRESULT")
+        return IMFStreamSink(ppStreamSink)
     }
 
     /**
@@ -117,13 +110,12 @@ class IMFMediaSink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFPresentationClock>} ppPresentationClock 
-     * @returns {HRESULT} 
+     * @returns {IMFPresentationClock} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasink-getpresentationclock
      */
-    GetPresentationClock(ppPresentationClock) {
-        result := ComCall(10, this, "ptr*", ppPresentationClock, "HRESULT")
-        return result
+    GetPresentationClock() {
+        result := ComCall(10, this, "ptr*", &ppPresentationClock := 0, "HRESULT")
+        return IMFPresentationClock(ppPresentationClock)
     }
 
     /**

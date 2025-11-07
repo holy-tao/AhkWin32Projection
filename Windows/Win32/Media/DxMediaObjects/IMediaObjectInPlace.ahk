@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMediaObjectInPlace.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -119,25 +120,21 @@ class IMediaObjectInPlace extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMediaObjectInPlace>} ppMediaObject 
-     * @returns {HRESULT} 
+     * @returns {IMediaObjectInPlace} 
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobjectinplace-clone
      */
-    Clone(ppMediaObject) {
-        result := ComCall(4, this, "ptr*", ppMediaObject, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(4, this, "ptr*", &ppMediaObject := 0, "HRESULT")
+        return IMediaObjectInPlace(ppMediaObject)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pLatencyTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobjectinplace-getlatency
      */
-    GetLatency(pLatencyTime) {
-        pLatencyTimeMarshal := pLatencyTime is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(5, this, pLatencyTimeMarshal, pLatencyTime, "HRESULT")
-        return result
+    GetLatency() {
+        result := ComCall(5, this, "int64*", &pLatencyTime := 0, "HRESULT")
+        return pLatencyTime
     }
 }

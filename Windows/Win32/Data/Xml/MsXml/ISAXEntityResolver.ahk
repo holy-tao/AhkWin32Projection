@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,14 +33,14 @@ class ISAXEntityResolver extends IUnknown{
      * 
      * @param {PWSTR} pwchPublicId 
      * @param {PWSTR} pwchSystemId 
-     * @param {Pointer<VARIANT>} pvarInput 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    resolveEntity(pwchPublicId, pwchSystemId, pvarInput) {
+    resolveEntity(pwchPublicId, pwchSystemId) {
         pwchPublicId := pwchPublicId is String ? StrPtr(pwchPublicId) : pwchPublicId
         pwchSystemId := pwchSystemId is String ? StrPtr(pwchSystemId) : pwchSystemId
 
+        pvarInput := VARIANT()
         result := ComCall(3, this, "ptr", pwchPublicId, "ptr", pwchSystemId, "ptr", pvarInput, "HRESULT")
-        return result
+        return pvarInput
     }
 }

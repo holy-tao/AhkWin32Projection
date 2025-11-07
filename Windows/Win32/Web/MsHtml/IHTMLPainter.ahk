@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\HTML_PAINTER_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -58,12 +59,12 @@ class IHTMLPainter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HTML_PAINTER_INFO>} pInfo 
-     * @returns {HRESULT} 
+     * @returns {HTML_PAINTER_INFO} 
      */
-    GetPainterInfo(pInfo) {
+    GetPainterInfo() {
+        pInfo := HTML_PAINTER_INFO()
         result := ComCall(5, this, "ptr", pInfo, "HRESULT")
-        return result
+        return pInfo
     }
 
     /**
@@ -74,9 +75,10 @@ class IHTMLPainter extends IUnknown{
      * @returns {HRESULT} 
      */
     HitTestPoint(pt, pbHit, plPartID) {
+        pbHitMarshal := pbHit is VarRef ? "int*" : "ptr"
         plPartIDMarshal := plPartID is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pt, "ptr", pbHit, plPartIDMarshal, plPartID, "HRESULT")
+        result := ComCall(6, this, "ptr", pt, pbHitMarshal, pbHit, plPartIDMarshal, plPartID, "HRESULT")
         return result
     }
 }

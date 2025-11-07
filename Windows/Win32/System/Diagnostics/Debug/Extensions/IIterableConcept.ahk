@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IModelIterator.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -31,24 +32,20 @@ class IIterableConcept extends IUnknown{
     /**
      * 
      * @param {IModelObject} contextObject 
-     * @param {Pointer<Integer>} dimensionality 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDefaultIndexDimensionality(contextObject, dimensionality) {
-        dimensionalityMarshal := dimensionality is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", contextObject, dimensionalityMarshal, dimensionality, "HRESULT")
-        return result
+    GetDefaultIndexDimensionality(contextObject) {
+        result := ComCall(3, this, "ptr", contextObject, "uint*", &dimensionality := 0, "HRESULT")
+        return dimensionality
     }
 
     /**
      * 
      * @param {IModelObject} contextObject 
-     * @param {Pointer<IModelIterator>} iterator 
-     * @returns {HRESULT} 
+     * @returns {IModelIterator} 
      */
-    GetIterator(contextObject, iterator) {
-        result := ComCall(4, this, "ptr", contextObject, "ptr*", iterator, "HRESULT")
-        return result
+    GetIterator(contextObject) {
+        result := ComCall(4, this, "ptr", contextObject, "ptr*", &iterator := 0, "HRESULT")
+        return IModelIterator(iterator)
     }
 }

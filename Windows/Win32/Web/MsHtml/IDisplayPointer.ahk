@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ILineInfo.ahk
+#Include .\IHTMLElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,14 +36,11 @@ class IDisplayPointer extends IUnknown{
      * @param {Integer} eCoordSystem 
      * @param {IHTMLElement} pElementContext 
      * @param {Integer} dwHitTestOptions 
-     * @param {Pointer<Integer>} pdwHitTestResults 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    MoveToPoint(ptPoint, eCoordSystem, pElementContext, dwHitTestOptions, pdwHitTestResults) {
-        pdwHitTestResultsMarshal := pdwHitTestResults is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", ptPoint, "int", eCoordSystem, "ptr", pElementContext, "uint", dwHitTestOptions, pdwHitTestResultsMarshal, pdwHitTestResults, "HRESULT")
-        return result
+    MoveToPoint(ptPoint, eCoordSystem, pElementContext, dwHitTestOptions) {
+        result := ComCall(3, this, "ptr", ptPoint, "int", eCoordSystem, "ptr", pElementContext, "uint", dwHitTestOptions, "uint*", &pdwHitTestResults := 0, "HRESULT")
+        return pdwHitTestResults
     }
 
     /**
@@ -87,14 +86,11 @@ class IDisplayPointer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} peGravity 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPointerGravity(peGravity) {
-        peGravityMarshal := peGravity is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, peGravityMarshal, peGravity, "HRESULT")
-        return result
+    GetPointerGravity() {
+        result := ComCall(8, this, "int*", &peGravity := 0, "HRESULT")
+        return peGravity
     }
 
     /**
@@ -109,24 +105,20 @@ class IDisplayPointer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} peGravity 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDisplayGravity(peGravity) {
-        peGravityMarshal := peGravity is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, peGravityMarshal, peGravity, "HRESULT")
-        return result
+    GetDisplayGravity() {
+        result := ComCall(10, this, "int*", &peGravity := 0, "HRESULT")
+        return peGravity
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfPositioned 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsPositioned(pfPositioned) {
-        result := ComCall(11, this, "ptr", pfPositioned, "HRESULT")
-        return result
+    IsPositioned() {
+        result := ComCall(11, this, "int*", &pfPositioned := 0, "HRESULT")
+        return pfPositioned
     }
 
     /**
@@ -141,44 +133,40 @@ class IDisplayPointer extends IUnknown{
     /**
      * 
      * @param {IDisplayPointer} pDispPointer 
-     * @param {Pointer<BOOL>} pfIsEqual 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsEqualTo(pDispPointer, pfIsEqual) {
-        result := ComCall(13, this, "ptr", pDispPointer, "ptr", pfIsEqual, "HRESULT")
-        return result
+    IsEqualTo(pDispPointer) {
+        result := ComCall(13, this, "ptr", pDispPointer, "int*", &pfIsEqual := 0, "HRESULT")
+        return pfIsEqual
     }
 
     /**
      * 
      * @param {IDisplayPointer} pDispPointer 
-     * @param {Pointer<BOOL>} pfIsLeftOf 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsLeftOf(pDispPointer, pfIsLeftOf) {
-        result := ComCall(14, this, "ptr", pDispPointer, "ptr", pfIsLeftOf, "HRESULT")
-        return result
+    IsLeftOf(pDispPointer) {
+        result := ComCall(14, this, "ptr", pDispPointer, "int*", &pfIsLeftOf := 0, "HRESULT")
+        return pfIsLeftOf
     }
 
     /**
      * 
      * @param {IDisplayPointer} pDispPointer 
-     * @param {Pointer<BOOL>} pfIsRightOf 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsRightOf(pDispPointer, pfIsRightOf) {
-        result := ComCall(15, this, "ptr", pDispPointer, "ptr", pfIsRightOf, "HRESULT")
-        return result
+    IsRightOf(pDispPointer) {
+        result := ComCall(15, this, "ptr", pDispPointer, "int*", &pfIsRightOf := 0, "HRESULT")
+        return pfIsRightOf
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfBOL 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsAtBOL(pfBOL) {
-        result := ComCall(16, this, "ptr", pfBOL, "HRESULT")
-        return result
+    IsAtBOL() {
+        result := ComCall(16, this, "int*", &pfBOL := 0, "HRESULT")
+        return pfBOL
     }
 
     /**
@@ -203,33 +191,28 @@ class IDisplayPointer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ILineInfo>} ppLineInfo 
-     * @returns {HRESULT} 
+     * @returns {ILineInfo} 
      */
-    GetLineInfo(ppLineInfo) {
-        result := ComCall(19, this, "ptr*", ppLineInfo, "HRESULT")
-        return result
+    GetLineInfo() {
+        result := ComCall(19, this, "ptr*", &ppLineInfo := 0, "HRESULT")
+        return ILineInfo(ppLineInfo)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} ppLayoutElement 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    GetFlowElement(ppLayoutElement) {
-        result := ComCall(20, this, "ptr*", ppLayoutElement, "HRESULT")
-        return result
+    GetFlowElement() {
+        result := ComCall(20, this, "ptr*", &ppLayoutElement := 0, "HRESULT")
+        return IHTMLElement(ppLayoutElement)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwBreaks 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    QueryBreaks(pdwBreaks) {
-        pdwBreaksMarshal := pdwBreaks is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, pdwBreaksMarshal, pdwBreaks, "HRESULT")
-        return result
+    QueryBreaks() {
+        result := ComCall(21, this, "uint*", &pdwBreaks := 0, "HRESULT")
+        return pdwBreaks
     }
 }

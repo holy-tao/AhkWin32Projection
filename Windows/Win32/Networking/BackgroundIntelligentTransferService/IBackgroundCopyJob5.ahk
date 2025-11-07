@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\BITS_JOB_PROPERTY_VALUE.ahk
 #Include .\IBackgroundCopyJob4.ahk
 
 /**
@@ -45,12 +46,12 @@ class IBackgroundCopyJob5 extends IBackgroundCopyJob4{
     /**
      * 
      * @param {Integer} PropertyId 
-     * @param {Pointer<BITS_JOB_PROPERTY_VALUE>} PropertyValue 
-     * @returns {HRESULT} 
+     * @returns {BITS_JOB_PROPERTY_VALUE} 
      * @see https://learn.microsoft.com/windows/win32/api/bits5_0/nf-bits5_0-ibackgroundcopyjob5-getproperty
      */
-    GetProperty(PropertyId, PropertyValue) {
+    GetProperty(PropertyId) {
+        PropertyValue := BITS_JOB_PROPERTY_VALUE()
         result := ComCall(54, this, "int", PropertyId, "ptr", PropertyValue, "HRESULT")
-        return result
+        return PropertyValue
     }
 }

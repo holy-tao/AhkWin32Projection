@@ -65,7 +65,9 @@ class IWMPSettings2 extends IWMPSettings{
     requestMediaAccessRights(bstrDesiredAccess, pvbAccepted) {
         bstrDesiredAccess := bstrDesiredAccess is String ? BSTR.Alloc(bstrDesiredAccess).Value : bstrDesiredAccess
 
-        result := ComCall(32, this, "ptr", bstrDesiredAccess, "ptr", pvbAccepted, "HRESULT")
+        pvbAcceptedMarshal := pvbAccepted is VarRef ? "short*" : "ptr"
+
+        result := ComCall(32, this, "ptr", bstrDesiredAccess, pvbAcceptedMarshal, pvbAccepted, "HRESULT")
         return result
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICBitmapDecoder.ahk
 #Include .\IWICBitmapCodecInfo.ahk
 
 /**
@@ -50,23 +51,21 @@ class IWICBitmapDecoderInfo extends IWICBitmapCodecInfo{
     /**
      * 
      * @param {IStream} pIStream 
-     * @param {Pointer<BOOL>} pfMatches 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoderinfo-matchespattern
      */
-    MatchesPattern(pIStream, pfMatches) {
-        result := ComCall(24, this, "ptr", pIStream, "ptr", pfMatches, "HRESULT")
-        return result
+    MatchesPattern(pIStream) {
+        result := ComCall(24, this, "ptr", pIStream, "int*", &pfMatches := 0, "HRESULT")
+        return pfMatches
     }
 
     /**
      * 
-     * @param {Pointer<IWICBitmapDecoder>} ppIBitmapDecoder 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapDecoder} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoderinfo-createinstance
      */
-    CreateInstance(ppIBitmapDecoder) {
-        result := ComCall(25, this, "ptr*", ppIBitmapDecoder, "HRESULT")
-        return result
+    CreateInstance() {
+        result := ComCall(25, this, "ptr*", &ppIBitmapDecoder := 0, "HRESULT")
+        return IWICBitmapDecoder(ppIBitmapDecoder)
     }
 }

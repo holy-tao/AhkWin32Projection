@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -27,60 +28,54 @@ class IVssWMFiledesc extends IUnknown{
 
     /**
      * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
-     * @param {Pointer<BSTR>} pbstrPath 
-     * @returns {HRESULT} If the <i>nSize</i> parameter is nonzero, the return value is the number of points enumerated. If <i>nSize</i> is 0, the return value is the total number of points in the path (and <b>GetPath</b> writes nothing to the buffers). If <i>nSize</i> is nonzero and is less than the number of points in the path, the return value is 1.
+     * @returns {BSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
      */
-    GetPath(pbstrPath) {
+    GetPath() {
+        pbstrPath := BSTR()
         result := ComCall(3, this, "ptr", pbstrPath, "HRESULT")
-        return result
+        return pbstrPath
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFilespec 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmfiledesc-getfilespec
      */
-    GetFilespec(pbstrFilespec) {
+    GetFilespec() {
+        pbstrFilespec := BSTR()
         result := ComCall(4, this, "ptr", pbstrFilespec, "HRESULT")
-        return result
+        return pbstrFilespec
     }
 
     /**
      * 
-     * @param {Pointer<Boolean>} pbRecursive 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmfiledesc-getrecursive
      */
-    GetRecursive(pbRecursive) {
-        pbRecursiveMarshal := pbRecursive is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pbRecursiveMarshal, pbRecursive, "HRESULT")
-        return result
+    GetRecursive() {
+        result := ComCall(5, this, "int*", &pbRecursive := 0, "HRESULT")
+        return pbRecursive
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrAlternateLocation 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmfiledesc-getalternatelocation
      */
-    GetAlternateLocation(pbstrAlternateLocation) {
+    GetAlternateLocation() {
+        pbstrAlternateLocation := BSTR()
         result := ComCall(6, this, "ptr", pbstrAlternateLocation, "HRESULT")
-        return result
+        return pbstrAlternateLocation
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwTypeMask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmfiledesc-getbackuptypemask
      */
-    GetBackupTypeMask(pdwTypeMask) {
-        pdwTypeMaskMarshal := pdwTypeMask is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwTypeMaskMarshal, pdwTypeMask, "HRESULT")
-        return result
+    GetBackupTypeMask() {
+        result := ComCall(7, this, "uint*", &pdwTypeMask := 0, "HRESULT")
+        return pdwTypeMask
     }
 }

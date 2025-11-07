@@ -47,8 +47,9 @@ class IRichChunk extends IUnknown{
     GetData(pFirstPos, pLength, ppsz, pValue) {
         pFirstPosMarshal := pFirstPos is VarRef ? "uint*" : "ptr"
         pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
+        ppszMarshal := ppsz is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pFirstPosMarshal, pFirstPos, pLengthMarshal, pLength, "ptr", ppsz, "ptr", pValue, "HRESULT")
+        result := ComCall(3, this, pFirstPosMarshal, pFirstPos, pLengthMarshal, pLength, ppszMarshal, ppsz, "ptr", pValue, "HRESULT")
         return result
     }
 }

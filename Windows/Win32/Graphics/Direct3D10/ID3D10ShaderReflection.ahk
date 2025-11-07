@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D10_SHADER_DESC.ahk
+#Include .\D3D10_SHADER_INPUT_BIND_DESC.ahk
+#Include .\D3D10_SIGNATURE_PARAMETER_DESC.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,13 +40,13 @@ class ID3D10ShaderReflection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<D3D10_SHADER_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SHADER_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getdesc
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := D3D10_SHADER_DESC()
         result := ComCall(3, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
@@ -73,36 +76,36 @@ class ID3D10ShaderReflection extends IUnknown{
     /**
      * 
      * @param {Integer} ResourceIndex 
-     * @param {Pointer<D3D10_SHADER_INPUT_BIND_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SHADER_INPUT_BIND_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getresourcebindingdesc
      */
-    GetResourceBindingDesc(ResourceIndex, pDesc) {
+    GetResourceBindingDesc(ResourceIndex) {
+        pDesc := D3D10_SHADER_INPUT_BIND_DESC()
         result := ComCall(6, this, "uint", ResourceIndex, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
      * @param {Integer} ParameterIndex 
-     * @param {Pointer<D3D10_SIGNATURE_PARAMETER_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SIGNATURE_PARAMETER_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getinputparameterdesc
      */
-    GetInputParameterDesc(ParameterIndex, pDesc) {
+    GetInputParameterDesc(ParameterIndex) {
+        pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
         result := ComCall(7, this, "uint", ParameterIndex, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
      * @param {Integer} ParameterIndex 
-     * @param {Pointer<D3D10_SIGNATURE_PARAMETER_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SIGNATURE_PARAMETER_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getoutputparameterdesc
      */
-    GetOutputParameterDesc(ParameterIndex, pDesc) {
+    GetOutputParameterDesc(ParameterIndex) {
+        pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
         result := ComCall(8, this, "uint", ParameterIndex, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 }

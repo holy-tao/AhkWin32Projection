@@ -2,6 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include .\IInkDisp.ahk
+#Include .\IInkExtendedProperties.ahk
+#Include .\IInkRectangle.ahk
+#Include .\IInkStrokeDisp.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,37 +44,33 @@ class IInkStrokeDisp extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} ID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_id
      */
-    get_ID(ID) {
-        IDMarshal := ID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, IDMarshal, ID, "HRESULT")
-        return result
+    get_ID() {
+        result := ComCall(7, this, "int*", &ID := 0, "HRESULT")
+        return ID
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Points 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_bezierpoints
      */
-    get_BezierPoints(Points) {
+    get_BezierPoints() {
+        Points := VARIANT()
         result := ComCall(8, this, "ptr", Points, "HRESULT")
-        return result
+        return Points
     }
 
     /**
      * 
-     * @param {Pointer<IInkDrawingAttributes>} DrawAttrs 
-     * @returns {HRESULT} 
+     * @returns {IInkDrawingAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_drawingattributes
      */
-    get_DrawingAttributes(DrawAttrs) {
-        result := ComCall(9, this, "ptr*", DrawAttrs, "HRESULT")
-        return result
+    get_DrawingAttributes() {
+        result := ComCall(9, this, "ptr*", &DrawAttrs := 0, "HRESULT")
+        return IInkDrawingAttributes(DrawAttrs)
     }
 
     /**
@@ -83,141 +85,131 @@ class IInkStrokeDisp extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkDisp>} Ink 
-     * @returns {HRESULT} 
+     * @returns {IInkDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_ink
      */
-    get_Ink(Ink) {
-        result := ComCall(11, this, "ptr*", Ink, "HRESULT")
-        return result
+    get_Ink() {
+        result := ComCall(11, this, "ptr*", &Ink := 0, "HRESULT")
+        return IInkDisp(Ink)
     }
 
     /**
      * 
-     * @param {Pointer<IInkExtendedProperties>} Properties 
-     * @returns {HRESULT} 
+     * @returns {IInkExtendedProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_extendedproperties
      */
-    get_ExtendedProperties(Properties) {
-        result := ComCall(12, this, "ptr*", Properties, "HRESULT")
-        return result
+    get_ExtendedProperties() {
+        result := ComCall(12, this, "ptr*", &Properties := 0, "HRESULT")
+        return IInkExtendedProperties(Properties)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Cusps 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_polylinecusps
      */
-    get_PolylineCusps(Cusps) {
+    get_PolylineCusps() {
+        Cusps := VARIANT()
         result := ComCall(13, this, "ptr", Cusps, "HRESULT")
-        return result
+        return Cusps
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Cusps 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_beziercusps
      */
-    get_BezierCusps(Cusps) {
+    get_BezierCusps() {
+        Cusps := VARIANT()
         result := ComCall(14, this, "ptr", Cusps, "HRESULT")
-        return result
+        return Cusps
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Intersections 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_selfintersections
      */
-    get_SelfIntersections(Intersections) {
+    get_SelfIntersections() {
+        Intersections := VARIANT()
         result := ComCall(15, this, "ptr", Intersections, "HRESULT")
-        return result
+        return Intersections
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_packetcount
      */
-    get_PacketCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_PacketCount() {
+        result := ComCall(16, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_packetsize
      */
-    get_PacketSize(plSize) {
-        plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, plSizeMarshal, plSize, "HRESULT")
-        return result
+    get_PacketSize() {
+        result := ComCall(17, this, "int*", &plSize := 0, "HRESULT")
+        return plSize
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} PacketDescription 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_packetdescription
      */
-    get_PacketDescription(PacketDescription) {
+    get_PacketDescription() {
+        PacketDescription := VARIANT()
         result := ComCall(18, this, "ptr", PacketDescription, "HRESULT")
-        return result
+        return PacketDescription
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Deleted 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_deleted
      */
-    get_Deleted(Deleted) {
-        result := ComCall(19, this, "ptr", Deleted, "HRESULT")
-        return result
+    get_Deleted() {
+        result := ComCall(19, this, "short*", &Deleted := 0, "HRESULT")
+        return Deleted
     }
 
     /**
      * 
      * @param {Integer} BoundingBoxMode 
-     * @param {Pointer<IInkRectangle>} Rectangle 
-     * @returns {HRESULT} 
+     * @returns {IInkRectangle} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-getboundingbox
      */
-    GetBoundingBox(BoundingBoxMode, Rectangle) {
-        result := ComCall(20, this, "int", BoundingBoxMode, "ptr*", Rectangle, "HRESULT")
-        return result
+    GetBoundingBox(BoundingBoxMode) {
+        result := ComCall(20, this, "int", BoundingBoxMode, "ptr*", &Rectangle := 0, "HRESULT")
+        return IInkRectangle(Rectangle)
     }
 
     /**
      * 
      * @param {IInkStrokes} Strokes 
-     * @param {Pointer<VARIANT>} Intersections 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-findintersections
      */
-    FindIntersections(Strokes, Intersections) {
+    FindIntersections(Strokes) {
+        Intersections := VARIANT()
         result := ComCall(21, this, "ptr", Strokes, "ptr", Intersections, "HRESULT")
-        return result
+        return Intersections
     }
 
     /**
      * 
      * @param {IInkRectangle} Rectangle 
-     * @param {Pointer<VARIANT>} Intersections 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-getrectangleintersections
      */
-    GetRectangleIntersections(Rectangle, Intersections) {
+    GetRectangleIntersections(Rectangle) {
+        Intersections := VARIANT()
         result := ComCall(22, this, "ptr", Rectangle, "ptr", Intersections, "HRESULT")
-        return result
+        return Intersections
     }
 
     /**
@@ -236,13 +228,12 @@ class IInkStrokeDisp extends IDispatch{
      * @param {Integer} X 
      * @param {Integer} Y 
      * @param {Float} Radius 
-     * @param {Pointer<VARIANT_BOOL>} Intersects 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-hittestcircle
      */
-    HitTestCircle(X, Y, Radius, Intersects) {
-        result := ComCall(24, this, "int", X, "int", Y, "float", Radius, "ptr", Intersects, "HRESULT")
-        return result
+    HitTestCircle(X, Y, Radius) {
+        result := ComCall(24, this, "int", X, "int", Y, "float", Radius, "short*", &Intersects := 0, "HRESULT")
+        return Intersects
     }
 
     /**
@@ -250,28 +241,25 @@ class IInkStrokeDisp extends IDispatch{
      * @param {Integer} X 
      * @param {Integer} Y 
      * @param {Pointer<Float>} Distance 
-     * @param {Pointer<Float>} Point 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-nearestpoint
      */
-    NearestPoint(X, Y, Distance, Point) {
+    NearestPoint(X, Y, Distance) {
         DistanceMarshal := Distance is VarRef ? "float*" : "ptr"
-        PointMarshal := Point is VarRef ? "float*" : "ptr"
 
-        result := ComCall(25, this, "int", X, "int", Y, DistanceMarshal, Distance, PointMarshal, Point, "HRESULT")
-        return result
+        result := ComCall(25, this, "int", X, "int", Y, DistanceMarshal, Distance, "float*", &Point := 0, "HRESULT")
+        return Point
     }
 
     /**
      * 
      * @param {Float} SplitAt 
-     * @param {Pointer<IInkStrokeDisp>} NewStroke 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokeDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-split
      */
-    Split(SplitAt, NewStroke) {
-        result := ComCall(26, this, "float", SplitAt, "ptr*", NewStroke, "HRESULT")
-        return result
+    Split(SplitAt) {
+        result := ComCall(26, this, "float", SplitAt, "ptr*", &NewStroke := 0, "HRESULT")
+        return IInkStrokeDisp(NewStroke)
     }
 
     /**
@@ -300,13 +288,13 @@ class IInkStrokeDisp extends IDispatch{
      * 
      * @param {Integer} Index 
      * @param {Integer} Count 
-     * @param {Pointer<VARIANT>} Points 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-getpoints
      */
-    GetPoints(Index, Count, Points) {
+    GetPoints(Index, Count) {
+        Points := VARIANT()
         result := ComCall(28, this, "int", Index, "int", Count, "ptr", Points, "HRESULT")
-        return result
+        return Points
     }
 
     /**
@@ -314,28 +302,25 @@ class IInkStrokeDisp extends IDispatch{
      * @param {VARIANT} Points 
      * @param {Integer} Index 
      * @param {Integer} Count 
-     * @param {Pointer<Integer>} NumberOfPointsSet 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-setpoints
      */
-    SetPoints(Points, Index, Count, NumberOfPointsSet) {
-        NumberOfPointsSetMarshal := NumberOfPointsSet is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, "ptr", Points, "int", Index, "int", Count, NumberOfPointsSetMarshal, NumberOfPointsSet, "HRESULT")
-        return result
+    SetPoints(Points, Index, Count) {
+        result := ComCall(29, this, "ptr", Points, "int", Index, "int", Count, "int*", &NumberOfPointsSet := 0, "HRESULT")
+        return NumberOfPointsSet
     }
 
     /**
      * 
      * @param {Integer} Index 
      * @param {Integer} Count 
-     * @param {Pointer<VARIANT>} PacketData 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-getpacketdata
      */
-    GetPacketData(Index, Count, PacketData) {
+    GetPacketData(Index, Count) {
+        PacketData := VARIANT()
         result := ComCall(30, this, "int", Index, "int", Count, "ptr", PacketData, "HRESULT")
-        return result
+        return PacketData
     }
 
     /**
@@ -343,15 +328,15 @@ class IInkStrokeDisp extends IDispatch{
      * @param {BSTR} PropertyName 
      * @param {Integer} Index 
      * @param {Integer} Count 
-     * @param {Pointer<VARIANT>} PacketValues 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-getpacketvaluesbyproperty
      */
-    GetPacketValuesByProperty(PropertyName, Index, Count, PacketValues) {
+    GetPacketValuesByProperty(PropertyName, Index, Count) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
+        PacketValues := VARIANT()
         result := ComCall(31, this, "ptr", PropertyName, "int", Index, "int", Count, "ptr", PacketValues, "HRESULT")
-        return result
+        return PacketValues
     }
 
     /**
@@ -360,29 +345,26 @@ class IInkStrokeDisp extends IDispatch{
      * @param {VARIANT} PacketValues 
      * @param {Integer} Index 
      * @param {Integer} Count 
-     * @param {Pointer<Integer>} NumberOfPacketsSet 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-setpacketvaluesbyproperty
      */
-    SetPacketValuesByProperty(bstrPropertyName, PacketValues, Index, Count, NumberOfPacketsSet) {
+    SetPacketValuesByProperty(bstrPropertyName, PacketValues, Index, Count) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        NumberOfPacketsSetMarshal := NumberOfPacketsSet is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, "ptr", bstrPropertyName, "ptr", PacketValues, "int", Index, "int", Count, NumberOfPacketsSetMarshal, NumberOfPacketsSet, "HRESULT")
-        return result
+        result := ComCall(32, this, "ptr", bstrPropertyName, "ptr", PacketValues, "int", Index, "int", Count, "int*", &NumberOfPacketsSet := 0, "HRESULT")
+        return NumberOfPacketsSet
     }
 
     /**
      * 
      * @param {Integer} FittingError 
-     * @param {Pointer<VARIANT>} FlattenedBezierPoints 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-getflattenedbezierpoints
      */
-    GetFlattenedBezierPoints(FittingError, FlattenedBezierPoints) {
+    GetFlattenedBezierPoints(FittingError) {
+        FlattenedBezierPoints := VARIANT()
         result := ComCall(33, this, "int", FittingError, "ptr", FlattenedBezierPoints, "HRESULT")
-        return result
+        return FlattenedBezierPoints
     }
 
     /**

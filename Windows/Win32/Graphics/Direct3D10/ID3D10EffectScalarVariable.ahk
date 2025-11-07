@@ -43,15 +43,12 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
 
     /**
      * 
-     * @param {Pointer<Float>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getfloat
      */
-    GetFloat(pValue) {
-        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
-
-        result := ComCall(26, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetFloat() {
+        result := ComCall(26, this, "float*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -71,17 +68,14 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
 
     /**
      * 
-     * @param {Pointer<Float>} pData 
      * @param {Integer} Offset 
      * @param {Integer} Count 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getfloatarray
      */
-    GetFloatArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
-
-        result := ComCall(28, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
-        return result
+    GetFloatArray(Offset, Count) {
+        result := ComCall(28, this, "float*", &pData := 0, "uint", Offset, "uint", Count, "HRESULT")
+        return pData
     }
 
     /**
@@ -97,15 +91,12 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getint
      */
-    GetInt(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetInt() {
+        result := ComCall(30, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -125,17 +116,14 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
 
     /**
      * 
-     * @param {Pointer<Integer>} pData 
      * @param {Integer} Offset 
      * @param {Integer} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getintarray
      */
-    GetIntArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
-        return result
+    GetIntArray(Offset, Count) {
+        result := ComCall(32, this, "int*", &pData := 0, "uint", Offset, "uint", Count, "HRESULT")
+        return pData
     }
 
     /**
@@ -151,13 +139,12 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getbool
      */
-    GetBool(pValue) {
-        result := ComCall(34, this, "ptr", pValue, "HRESULT")
-        return result
+    GetBool() {
+        result := ComCall(34, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -169,20 +156,21 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setboolarray
      */
     SetBoolArray(pData, Offset, Count) {
-        result := ComCall(35, this, "ptr", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pData 
      * @param {Integer} Offset 
      * @param {Integer} Count 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getboolarray
      */
-    GetBoolArray(pData, Offset, Count) {
-        result := ComCall(36, this, "ptr", pData, "uint", Offset, "uint", Count, "HRESULT")
-        return result
+    GetBoolArray(Offset, Count) {
+        result := ComCall(36, this, "int*", &pData := 0, "uint", Offset, "uint", Count, "HRESULT")
+        return pData
     }
 }

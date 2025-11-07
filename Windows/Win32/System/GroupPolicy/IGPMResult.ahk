@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IGPMStatusMsgCollection.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,22 +40,21 @@ class IGPMResult extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IGPMStatusMsgCollection>} ppIGPMStatusMsgCollection 
-     * @returns {HRESULT} 
+     * @returns {IGPMStatusMsgCollection} 
      */
-    get_Status(ppIGPMStatusMsgCollection) {
-        result := ComCall(7, this, "ptr*", ppIGPMStatusMsgCollection, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(7, this, "ptr*", &ppIGPMStatusMsgCollection := 0, "HRESULT")
+        return IGPMStatusMsgCollection(ppIGPMStatusMsgCollection)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Result(pvarResult) {
+    get_Result() {
+        pvarResult := VARIANT()
         result := ComCall(8, this, "ptr", pvarResult, "HRESULT")
-        return result
+        return pvarResult
     }
 
     /**

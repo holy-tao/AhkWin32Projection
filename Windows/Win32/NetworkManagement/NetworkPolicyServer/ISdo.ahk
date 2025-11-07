@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,25 +35,24 @@ class ISdo extends IDispatch{
     /**
      * 
      * @param {Integer} Id 
-     * @param {Pointer<IUnknown>} ppPropertyInfo 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdo-getpropertyinfo
      */
-    GetPropertyInfo(Id, ppPropertyInfo) {
-        result := ComCall(7, this, "int", Id, "ptr*", ppPropertyInfo, "HRESULT")
-        return result
+    GetPropertyInfo(Id) {
+        result := ComCall(7, this, "int", Id, "ptr*", &ppPropertyInfo := 0, "HRESULT")
+        return IUnknown(ppPropertyInfo)
     }
 
     /**
      * 
      * @param {Integer} Id 
-     * @param {Pointer<VARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdo-getproperty
      */
-    GetProperty(Id, pValue) {
+    GetProperty(Id) {
+        pValue := VARIANT()
         result := ComCall(8, this, "int", Id, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -99,12 +100,11 @@ class ISdo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnumVARIANT 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdo-get__newenum
      */
-    get__NewEnum(ppEnumVARIANT) {
-        result := ComCall(13, this, "ptr*", ppEnumVARIANT, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(13, this, "ptr*", &ppEnumVARIANT := 0, "HRESULT")
+        return IUnknown(ppEnumVARIANT)
     }
 }

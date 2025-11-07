@@ -35,18 +35,15 @@ class IInternetProtocolInfo extends IUnknown{
      * @param {Integer} dwParseFlags 
      * @param {PWSTR} pwzResult 
      * @param {Integer} cchResult 
-     * @param {Pointer<Integer>} pcchResult 
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ParseUrl(pwzUrl, ParseAction, dwParseFlags, pwzResult, cchResult, pcchResult, dwReserved) {
+    ParseUrl(pwzUrl, ParseAction, dwParseFlags, pwzResult, cchResult, dwReserved) {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        pcchResultMarshal := pcchResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pwzUrl, "int", ParseAction, "uint", dwParseFlags, "ptr", pwzResult, "uint", cchResult, pcchResultMarshal, pcchResult, "uint", dwReserved, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwzUrl, "int", ParseAction, "uint", dwParseFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "HRESULT")
+        return pcchResult
     }
 
     /**
@@ -56,19 +53,16 @@ class IInternetProtocolInfo extends IUnknown{
      * @param {Integer} dwCombineFlags 
      * @param {PWSTR} pwzResult 
      * @param {Integer} cchResult 
-     * @param {Pointer<Integer>} pcchResult 
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    CombineUrl(pwzBaseUrl, pwzRelativeUrl, dwCombineFlags, pwzResult, cchResult, pcchResult, dwReserved) {
+    CombineUrl(pwzBaseUrl, pwzRelativeUrl, dwCombineFlags, pwzResult, cchResult, dwReserved) {
         pwzBaseUrl := pwzBaseUrl is String ? StrPtr(pwzBaseUrl) : pwzBaseUrl
         pwzRelativeUrl := pwzRelativeUrl is String ? StrPtr(pwzRelativeUrl) : pwzRelativeUrl
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        pcchResultMarshal := pcchResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pwzBaseUrl, "ptr", pwzRelativeUrl, "uint", dwCombineFlags, "ptr", pwzResult, "uint", cchResult, pcchResultMarshal, pcchResult, "uint", dwReserved, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pwzBaseUrl, "ptr", pwzRelativeUrl, "uint", dwCombineFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "HRESULT")
+        return pcchResult
     }
 
     /**

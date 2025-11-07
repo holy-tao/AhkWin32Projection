@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncChange.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class ISyncChangeUnit extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISyncChange>} ppSyncChange 
-     * @returns {HRESULT} 
+     * @returns {ISyncChange} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangeunit-getitemchange
      */
-    GetItemChange(ppSyncChange) {
-        result := ComCall(3, this, "ptr*", ppSyncChange, "HRESULT")
-        return result
+    GetItemChange() {
+        result := ComCall(3, this, "ptr*", &ppSyncChange := 0, "HRESULT")
+        return ISyncChange(ppSyncChange)
     }
 
     /**

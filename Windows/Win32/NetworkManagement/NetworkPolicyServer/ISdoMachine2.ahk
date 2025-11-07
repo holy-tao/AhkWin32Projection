@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ISdoMachine.ahk
 
 /**
@@ -32,14 +33,13 @@ class ISdoMachine2 extends ISdoMachine{
     /**
      * 
      * @param {BSTR} bstrServiceName 
-     * @param {Pointer<IUnknown>} ppTemplatesSDO 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetTemplatesSDO(bstrServiceName, ppTemplatesSDO) {
+    GetTemplatesSDO(bstrServiceName) {
         bstrServiceName := bstrServiceName is String ? BSTR.Alloc(bstrServiceName).Value : bstrServiceName
 
-        result := ComCall(16, this, "ptr", bstrServiceName, "ptr*", ppTemplatesSDO, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", bstrServiceName, "ptr*", &ppTemplatesSDO := 0, "HRESULT")
+        return IUnknown(ppTemplatesSDO)
     }
 
     /**

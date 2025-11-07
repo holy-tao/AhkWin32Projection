@@ -33,15 +33,12 @@ class ITfFnPropertyUIStatus extends ITfFunction{
     /**
      * 
      * @param {Pointer<Guid>} refguidProp 
-     * @param {Pointer<Integer>} pdw 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnpropertyuistatus-getstatus
      */
-    GetStatus(refguidProp, pdw) {
-        pdwMarshal := pdw is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", refguidProp, pdwMarshal, pdw, "HRESULT")
-        return result
+    GetStatus(refguidProp) {
+        result := ComCall(4, this, "ptr", refguidProp, "uint*", &pdw := 0, "HRESULT")
+        return pdw
     }
 
     /**

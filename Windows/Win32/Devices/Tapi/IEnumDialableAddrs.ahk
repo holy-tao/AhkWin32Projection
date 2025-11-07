@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IEnumDialableAddrs.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,16 @@ class IEnumDialableAddrs extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<BSTR>} ppElements 
      * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdialableaddrs-next
      */
-    Next(celt, ppElements, pcFetched) {
+    Next(celt, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
+        ppElements := BSTR()
         result := ComCall(3, this, "uint", celt, "ptr", ppElements, pcFetchedMarshal, pcFetched, "HRESULT")
-        return result
+        return ppElements
     }
 
     /**
@@ -68,12 +70,11 @@ class IEnumDialableAddrs extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumDialableAddrs>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDialableAddrs} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdialableaddrs-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDialableAddrs(ppEnum)
     }
 }

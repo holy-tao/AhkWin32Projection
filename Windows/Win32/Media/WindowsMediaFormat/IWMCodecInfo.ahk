@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMStreamConfig.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,30 +34,24 @@ class IWMCodecInfo extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} guidType 
-     * @param {Pointer<Integer>} pcCodecs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo-getcodecinfocount
      */
-    GetCodecInfoCount(guidType, pcCodecs) {
-        pcCodecsMarshal := pcCodecs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", guidType, pcCodecsMarshal, pcCodecs, "HRESULT")
-        return result
+    GetCodecInfoCount(guidType) {
+        result := ComCall(3, this, "ptr", guidType, "uint*", &pcCodecs := 0, "HRESULT")
+        return pcCodecs
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidType 
      * @param {Integer} dwCodecIndex 
-     * @param {Pointer<Integer>} pcFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo-getcodecformatcount
      */
-    GetCodecFormatCount(guidType, dwCodecIndex, pcFormat) {
-        pcFormatMarshal := pcFormat is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", guidType, "uint", dwCodecIndex, pcFormatMarshal, pcFormat, "HRESULT")
-        return result
+    GetCodecFormatCount(guidType, dwCodecIndex) {
+        result := ComCall(4, this, "ptr", guidType, "uint", dwCodecIndex, "uint*", &pcFormat := 0, "HRESULT")
+        return pcFormat
     }
 
     /**
@@ -64,12 +59,11 @@ class IWMCodecInfo extends IUnknown{
      * @param {Pointer<Guid>} guidType 
      * @param {Integer} dwCodecIndex 
      * @param {Integer} dwFormatIndex 
-     * @param {Pointer<IWMStreamConfig>} ppIStreamConfig 
-     * @returns {HRESULT} 
+     * @returns {IWMStreamConfig} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo-getcodecformat
      */
-    GetCodecFormat(guidType, dwCodecIndex, dwFormatIndex, ppIStreamConfig) {
-        result := ComCall(5, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr*", ppIStreamConfig, "HRESULT")
-        return result
+    GetCodecFormat(guidType, dwCodecIndex, dwFormatIndex) {
+        result := ComCall(5, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr*", &ppIStreamConfig := 0, "HRESULT")
+        return IWMStreamConfig(ppIStreamConfig)
     }
 }

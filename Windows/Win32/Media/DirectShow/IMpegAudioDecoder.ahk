@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MPEG1WAVEFORMAT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,15 +33,12 @@ class IMpegAudioDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDivider 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_frequencydivider
      */
-    get_FrequencyDivider(pDivider) {
-        pDividerMarshal := pDivider is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pDividerMarshal, pDivider, "HRESULT")
-        return result
+    get_FrequencyDivider() {
+        result := ComCall(3, this, "uint*", &pDivider := 0, "HRESULT")
+        return pDivider
     }
 
     /**
@@ -56,15 +54,12 @@ class IMpegAudioDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pAccuracy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_decoderaccuracy
      */
-    get_DecoderAccuracy(pAccuracy) {
-        pAccuracyMarshal := pAccuracy is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pAccuracyMarshal, pAccuracy, "HRESULT")
-        return result
+    get_DecoderAccuracy() {
+        result := ComCall(5, this, "uint*", &pAccuracy := 0, "HRESULT")
+        return pAccuracy
     }
 
     /**
@@ -80,15 +75,12 @@ class IMpegAudioDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pStereo 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_stereo
      */
-    get_Stereo(pStereo) {
-        pStereoMarshal := pStereo is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pStereoMarshal, pStereo, "HRESULT")
-        return result
+    get_Stereo() {
+        result := ComCall(7, this, "uint*", &pStereo := 0, "HRESULT")
+        return pStereo
     }
 
     /**
@@ -104,15 +96,12 @@ class IMpegAudioDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pWordSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_decoderwordsize
      */
-    get_DecoderWordSize(pWordSize) {
-        pWordSizeMarshal := pWordSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pWordSizeMarshal, pWordSize, "HRESULT")
-        return result
+    get_DecoderWordSize() {
+        result := ComCall(9, this, "uint*", &pWordSize := 0, "HRESULT")
+        return pWordSize
     }
 
     /**
@@ -128,15 +117,12 @@ class IMpegAudioDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pIntDecode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_integerdecode
      */
-    get_IntegerDecode(pIntDecode) {
-        pIntDecodeMarshal := pIntDecode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pIntDecodeMarshal, pIntDecode, "HRESULT")
-        return result
+    get_IntegerDecode() {
+        result := ComCall(11, this, "uint*", &pIntDecode := 0, "HRESULT")
+        return pIntDecode
     }
 
     /**
@@ -176,12 +162,12 @@ class IMpegAudioDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MPEG1WAVEFORMAT>} lpFmt 
-     * @returns {HRESULT} 
+     * @returns {MPEG1WAVEFORMAT} 
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_audioformat
      */
-    get_AudioFormat(lpFmt) {
+    get_AudioFormat() {
+        lpFmt := MPEG1WAVEFORMAT()
         result := ComCall(15, this, "ptr", lpFmt, "HRESULT")
-        return result
+        return lpFmt
     }
 }

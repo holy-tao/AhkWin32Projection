@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumDMO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,9 +41,10 @@ class IEnumDMO extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-ienumdmo-next
      */
     Next(cItemsToFetch, pCLSID, Names, pcItemsFetched) {
+        NamesMarshal := Names is VarRef ? "ptr*" : "ptr"
         pcItemsFetchedMarshal := pcItemsFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cItemsToFetch, "ptr", pCLSID, "ptr", Names, pcItemsFetchedMarshal, pcItemsFetched, "HRESULT")
+        result := ComCall(3, this, "uint", cItemsToFetch, "ptr", pCLSID, NamesMarshal, Names, pcItemsFetchedMarshal, pcItemsFetched, "HRESULT")
         return result
     }
 
@@ -69,12 +71,11 @@ class IEnumDMO extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumDMO>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDMO} 
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-ienumdmo-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDMO(ppEnum)
     }
 }

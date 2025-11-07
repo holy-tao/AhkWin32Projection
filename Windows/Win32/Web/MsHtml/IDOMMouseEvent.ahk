@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IEventTarget.ahk
+#Include .\IHTMLElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,112 +39,92 @@ class IDOMMouseEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_screenX(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_screenX() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_screenY(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_screenY() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_clientX(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pMarshal, p, "HRESULT")
-        return result
+    get_clientX() {
+        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_clientY(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_clientY() {
+        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ctrlKey(p) {
-        result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+    get_ctrlKey() {
+        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_shiftKey(p) {
-        result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+    get_shiftKey() {
+        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_altKey(p) {
-        result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+    get_altKey() {
+        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_metaKey(p) {
-        result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+    get_metaKey() {
+        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_button(p) {
-        pMarshal := p is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(15, this, pMarshal, p, "HRESULT")
-        return result
+    get_button() {
+        result := ComCall(15, this, "ushort*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IEventTarget>} p 
-     * @returns {HRESULT} 
+     * @returns {IEventTarget} 
      */
-    get_relatedTarget(p) {
-        result := ComCall(16, this, "ptr*", p, "HRESULT")
-        return result
+    get_relatedTarget() {
+        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        return IEventTarget(p)
     }
 
     /**
@@ -174,153 +156,120 @@ class IDOMMouseEvent extends IDispatch{
     /**
      * 
      * @param {BSTR} keyArg 
-     * @param {Pointer<VARIANT_BOOL>} activated 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    getModifierState(keyArg, activated) {
+    getModifierState(keyArg) {
         keyArg := keyArg is String ? BSTR.Alloc(keyArg).Value : keyArg
 
-        result := ComCall(18, this, "ptr", keyArg, "ptr", activated, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", keyArg, "short*", &activated := 0, "HRESULT")
+        return activated
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_buttons(p) {
-        pMarshal := p is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(19, this, pMarshal, p, "HRESULT")
-        return result
+    get_buttons() {
+        result := ComCall(19, this, "ushort*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_fromElement(p) {
-        result := ComCall(20, this, "ptr*", p, "HRESULT")
-        return result
+    get_fromElement() {
+        result := ComCall(20, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_toElement(p) {
-        result := ComCall(21, this, "ptr*", p, "HRESULT")
-        return result
+    get_toElement() {
+        result := ComCall(21, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_x(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, pMarshal, p, "HRESULT")
-        return result
+    get_x() {
+        result := ComCall(22, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_y(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, pMarshal, p, "HRESULT")
-        return result
+    get_y() {
+        result := ComCall(23, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_offsetX(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, pMarshal, p, "HRESULT")
-        return result
+    get_offsetX() {
+        result := ComCall(24, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_offsetY(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, pMarshal, p, "HRESULT")
-        return result
+    get_offsetY() {
+        result := ComCall(25, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_pageX(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, pMarshal, p, "HRESULT")
-        return result
+    get_pageX() {
+        result := ComCall(26, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_pageY(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, pMarshal, p, "HRESULT")
-        return result
+    get_pageY() {
+        result := ComCall(27, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_layerX(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, pMarshal, p, "HRESULT")
-        return result
+    get_layerX() {
+        result := ComCall(28, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_layerY(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, pMarshal, p, "HRESULT")
-        return result
+    get_layerY() {
+        result := ComCall(29, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_which(p) {
-        pMarshal := p is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(30, this, pMarshal, p, "HRESULT")
-        return result
+    get_which() {
+        result := ComCall(30, this, "ushort*", &p := 0, "HRESULT")
+        return p
     }
 }

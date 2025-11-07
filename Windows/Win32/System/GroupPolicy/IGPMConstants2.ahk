@@ -38,181 +38,136 @@ class IGPMConstants2 extends IGPMConstants{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BackupTypeGPO(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(67, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_BackupTypeGPO() {
+        result := ComCall(67, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BackupTypeStarterGPO(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(68, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_BackupTypeStarterGPO() {
+        result := ComCall(68, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StarterGPOTypeSystem(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(69, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_StarterGPOTypeSystem() {
+        result := ComCall(69, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StarterGPOTypeCustom(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(70, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_StarterGPOTypeCustom() {
+        result := ComCall(70, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyStarterGPOPermissions(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(71, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyStarterGPOPermissions() {
+        result := ComCall(71, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyStarterGPOEffectivePermissions(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(72, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyStarterGPOEffectivePermissions() {
+        result := ComCall(72, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyStarterGPODisplayName(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(73, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyStarterGPODisplayName() {
+        result := ComCall(73, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyStarterGPOID(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(74, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyStarterGPOID() {
+        result := ComCall(74, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchPropertyStarterGPODomain(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(75, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SearchPropertyStarterGPODomain() {
+        result := ComCall(75, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermStarterGPORead(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(76, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermStarterGPORead() {
+        result := ComCall(76, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermStarterGPOEdit(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(77, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermStarterGPOEdit() {
+        result := ComCall(77, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermStarterGPOFullControl(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(78, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermStarterGPOFullControl() {
+        result := ComCall(78, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PermStarterGPOCustom(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(79, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_PermStarterGPOCustom() {
+        result := ComCall(79, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ReportLegacy(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(80, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ReportLegacy() {
+        result := ComCall(80, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ReportComments(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(81, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ReportComments() {
+        result := ComCall(81, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 }

@@ -52,11 +52,10 @@ class AsyncIFtpHomeDirectoryProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszHomeDirectoryData 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Finish_GetUserHomeDirectoryData(ppszHomeDirectoryData) {
-        result := ComCall(4, this, "ptr", ppszHomeDirectoryData, "HRESULT")
-        return result
+    Finish_GetUserHomeDirectoryData() {
+        result := ComCall(4, this, "ptr*", &ppszHomeDirectoryData := 0, "HRESULT")
+        return ppszHomeDirectoryData
     }
 }

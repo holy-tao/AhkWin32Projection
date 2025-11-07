@@ -2,6 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\IVBSAXEntityResolver.ahk
+#Include .\IVBSAXContentHandler.ahk
+#Include .\IVBSAXDTDHandler.ahk
+#Include .\IVBSAXErrorHandler.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,14 +37,13 @@ class IVBSAXXMLReader extends IDispatch{
     /**
      * 
      * @param {BSTR} strName 
-     * @param {Pointer<VARIANT_BOOL>} fValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    getFeature(strName, fValue) {
+    getFeature(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(7, this, "ptr", strName, "ptr", fValue, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", strName, "short*", &fValue := 0, "HRESULT")
+        return fValue
     }
 
     /**
@@ -58,14 +62,14 @@ class IVBSAXXMLReader extends IDispatch{
     /**
      * 
      * @param {BSTR} strName 
-     * @param {Pointer<VARIANT>} varValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getProperty(strName, varValue) {
+    getProperty(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
+        varValue := VARIANT()
         result := ComCall(9, this, "ptr", strName, "ptr", varValue, "HRESULT")
-        return result
+        return varValue
     }
 
     /**
@@ -83,12 +87,11 @@ class IVBSAXXMLReader extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IVBSAXEntityResolver>} oResolver 
-     * @returns {HRESULT} 
+     * @returns {IVBSAXEntityResolver} 
      */
-    get_entityResolver(oResolver) {
-        result := ComCall(11, this, "ptr*", oResolver, "HRESULT")
-        return result
+    get_entityResolver() {
+        result := ComCall(11, this, "ptr*", &oResolver := 0, "HRESULT")
+        return IVBSAXEntityResolver(oResolver)
     }
 
     /**
@@ -103,12 +106,11 @@ class IVBSAXXMLReader extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IVBSAXContentHandler>} oHandler 
-     * @returns {HRESULT} 
+     * @returns {IVBSAXContentHandler} 
      */
-    get_contentHandler(oHandler) {
-        result := ComCall(13, this, "ptr*", oHandler, "HRESULT")
-        return result
+    get_contentHandler() {
+        result := ComCall(13, this, "ptr*", &oHandler := 0, "HRESULT")
+        return IVBSAXContentHandler(oHandler)
     }
 
     /**
@@ -123,12 +125,11 @@ class IVBSAXXMLReader extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IVBSAXDTDHandler>} oHandler 
-     * @returns {HRESULT} 
+     * @returns {IVBSAXDTDHandler} 
      */
-    get_dtdHandler(oHandler) {
-        result := ComCall(15, this, "ptr*", oHandler, "HRESULT")
-        return result
+    get_dtdHandler() {
+        result := ComCall(15, this, "ptr*", &oHandler := 0, "HRESULT")
+        return IVBSAXDTDHandler(oHandler)
     }
 
     /**
@@ -143,12 +144,11 @@ class IVBSAXXMLReader extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IVBSAXErrorHandler>} oHandler 
-     * @returns {HRESULT} 
+     * @returns {IVBSAXErrorHandler} 
      */
-    get_errorHandler(oHandler) {
-        result := ComCall(17, this, "ptr*", oHandler, "HRESULT")
-        return result
+    get_errorHandler() {
+        result := ComCall(17, this, "ptr*", &oHandler := 0, "HRESULT")
+        return IVBSAXErrorHandler(oHandler)
     }
 
     /**
@@ -163,12 +163,12 @@ class IVBSAXXMLReader extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strBaseURL 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_baseURL(strBaseURL) {
+    get_baseURL() {
+        strBaseURL := BSTR()
         result := ComCall(19, this, "ptr", strBaseURL, "HRESULT")
-        return result
+        return strBaseURL
     }
 
     /**
@@ -185,12 +185,12 @@ class IVBSAXXMLReader extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strSecureBaseURL 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_secureBaseURL(strSecureBaseURL) {
+    get_secureBaseURL() {
+        strSecureBaseURL := BSTR()
         result := ComCall(21, this, "ptr", strSecureBaseURL, "HRESULT")
-        return result
+        return strSecureBaseURL
     }
 
     /**

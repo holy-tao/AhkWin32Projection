@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\CAUUID.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -39,12 +40,12 @@ class ISpecifyPropertyPages extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<CAUUID>} pPages 
-     * @returns {HRESULT} 
+     * @returns {CAUUID} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ispecifypropertypages-getpages
      */
-    GetPages(pPages) {
+    GetPages() {
+        pPages := CAUUID()
         result := ComCall(3, this, "ptr", pPages, "HRESULT")
-        return result
+        return pPages
     }
 }

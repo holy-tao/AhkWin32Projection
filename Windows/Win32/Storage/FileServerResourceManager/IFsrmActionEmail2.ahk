@@ -32,15 +32,12 @@ class IFsrmActionEmail2 extends IFsrmActionEmail{
 
     /**
      * 
-     * @param {Pointer<Integer>} attachmentFileListSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail2-get_attachmentfilelistsize
      */
-    get_AttachmentFileListSize(attachmentFileListSize) {
-        attachmentFileListSizeMarshal := attachmentFileListSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, attachmentFileListSizeMarshal, attachmentFileListSize, "HRESULT")
-        return result
+    get_AttachmentFileListSize() {
+        result := ComCall(26, this, "int*", &attachmentFileListSize := 0, "HRESULT")
+        return attachmentFileListSize
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ISClusPropertyValueData.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,12 +32,12 @@ class ISClusPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Value(pvarValue) {
+    get_Value() {
+        pvarValue := VARIANT()
         result := ComCall(7, this, "ptr", pvarValue, "HRESULT")
-        return result
+        return pvarValue
     }
 
     /**
@@ -50,14 +52,11 @@ class ISClusPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Type(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(9, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
@@ -72,14 +71,11 @@ class ISClusPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Format(pFormat) {
-        pFormatMarshal := pFormat is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pFormatMarshal, pFormat, "HRESULT")
-        return result
+    get_Format() {
+        result := ComCall(11, this, "int*", &pFormat := 0, "HRESULT")
+        return pFormat
     }
 
     /**
@@ -94,35 +90,28 @@ class ISClusPropertyValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Length(pLength) {
-        pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pLengthMarshal, pLength, "HRESULT")
-        return result
+    get_Length() {
+        result := ComCall(13, this, "int*", &pLength := 0, "HRESULT")
+        return pLength
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DataCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    get_DataCount() {
+        result := ComCall(14, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<ISClusPropertyValueData>} ppClusterPropertyValueData 
-     * @returns {HRESULT} 
+     * @returns {ISClusPropertyValueData} 
      */
-    get_Data(ppClusterPropertyValueData) {
-        result := ComCall(15, this, "ptr*", ppClusterPropertyValueData, "HRESULT")
-        return result
+    get_Data() {
+        result := ComCall(15, this, "ptr*", &ppClusterPropertyValueData := 0, "HRESULT")
+        return ISClusPropertyValueData(ppClusterPropertyValueData)
     }
 }

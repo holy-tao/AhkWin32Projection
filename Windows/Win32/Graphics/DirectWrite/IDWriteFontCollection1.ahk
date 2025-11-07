@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontSet.ahk
+#Include .\IDWriteFontFamily1.ahk
 #Include .\IDWriteFontCollection.ahk
 
 /**
@@ -32,23 +34,21 @@ class IDWriteFontCollection1 extends IDWriteFontCollection{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontSet>} fontSet 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontcollection1-getfontset
      */
-    GetFontSet(fontSet) {
-        result := ComCall(7, this, "ptr*", fontSet, "HRESULT")
-        return result
+    GetFontSet() {
+        result := ComCall(7, this, "ptr*", &fontSet := 0, "HRESULT")
+        return IDWriteFontSet(fontSet)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IDWriteFontFamily1>} fontFamily 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFamily1} 
      */
-    GetFontFamily(index, fontFamily) {
-        result := ComCall(8, this, "uint", index, "ptr*", fontFamily, "HRESULT")
-        return result
+    GetFontFamily(index) {
+        result := ComCall(8, this, "uint", index, "ptr*", &fontFamily := 0, "HRESULT")
+        return IDWriteFontFamily1(fontFamily)
     }
 }

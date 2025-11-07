@@ -35,16 +35,14 @@ class ID3D12Device14 extends ID3D12Device13{
      * @param {Pointer} blobLengthInBytes 
      * @param {PWSTR} subobjectName 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvRootSignature 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateRootSignatureFromSubobjectInLibrary(nodeMask, pLibraryBlob, blobLengthInBytes, subobjectName, riid, ppvRootSignature) {
+    CreateRootSignatureFromSubobjectInLibrary(nodeMask, pLibraryBlob, blobLengthInBytes, subobjectName, riid) {
         subobjectName := subobjectName is String ? StrPtr(subobjectName) : subobjectName
 
         pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : "ptr"
-        ppvRootSignatureMarshal := ppvRootSignature is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(82, this, "uint", nodeMask, pLibraryBlobMarshal, pLibraryBlob, "ptr", blobLengthInBytes, "ptr", subobjectName, "ptr", riid, ppvRootSignatureMarshal, ppvRootSignature, "HRESULT")
-        return result
+        result := ComCall(82, this, "uint", nodeMask, pLibraryBlobMarshal, pLibraryBlob, "ptr", blobLengthInBytes, "ptr", subobjectName, "ptr", riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
+        return ppvRootSignature
     }
 }

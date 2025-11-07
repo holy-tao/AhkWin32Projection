@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\Direct3D\ID3DBlob.ahk
+#Include .\ID3DX11Scan.ahk
+#Include .\ID3DX11SegmentedScan.ahk
+#Include .\ID3DX11FFT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11
@@ -2861,21 +2865,18 @@ class Direct3D11 {
      *  </td>
      * </tr>
      * </table>
-     * @param {Pointer<ID3DBlob>} ppDisassembly Type: <b>ID3D10Blob**</b>
+     * @returns {ID3DBlob} Type: <b>ID3D10Blob**</b>
      * 
      * A pointer to a buffer that receives the ID3DBlob interface that accesses the disassembled HLSL code.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * This method returns an HRESULT error code.
      * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/nf-d3d11shadertracing-d3ddisassemble11trace
      * @since windows8.0
      */
-    static D3DDisassemble11Trace(pSrcData, SrcDataSize, pTrace, StartStep, NumSteps, Flags, ppDisassembly) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble11Trace", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pTrace, "uint", StartStep, "uint", NumSteps, "uint", Flags, "ptr*", ppDisassembly, "int")
+    static D3DDisassemble11Trace(pSrcData, SrcDataSize, pTrace, StartStep, NumSteps, Flags) {
+        result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble11Trace", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pTrace, "uint", StartStep, "uint", NumSteps, "uint", Flags, "ptr*", &ppDisassembly := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DBlob(ppDisassembly)
     }
 
     /**
@@ -2889,20 +2890,17 @@ class Direct3D11 {
      * @param {Integer} MaxScanCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Maximum number of scans in multiscan.
-     * @param {Pointer<ID3DX11Scan>} ppScan Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11scan">ID3DX11Scan</a>**</b>
+     * @returns {ID3DX11Scan} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11scan">ID3DX11Scan</a>**</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11scan">ID3DX11Scan Interface</a> pointer that will be set to the created interface object.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * The return value is one of the values listed in <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createscan
      */
-    static D3DX11CreateScan(pDeviceContext, MaxElementScanSize, MaxScanCount, ppScan) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "uint", MaxScanCount, "ptr*", ppScan, "int")
+    static D3DX11CreateScan(pDeviceContext, MaxElementScanSize, MaxScanCount) {
+        result := DllCall("d3dcsx.dll\D3DX11CreateScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "uint", MaxScanCount, "ptr*", &ppScan := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DX11Scan(ppScan)
     }
 
     /**
@@ -2913,20 +2911,17 @@ class Direct3D11 {
      * @param {Integer} MaxElementScanSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Maximum single scan size, in elements (FLOAT, UINT, or INT).
-     * @param {Pointer<ID3DX11SegmentedScan>} ppScan Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11segmentedscan">ID3DX11SegmentedScan</a>**</b>
+     * @returns {ID3DX11SegmentedScan} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11segmentedscan">ID3DX11SegmentedScan</a>**</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11segmentedscan">ID3DX11SegmentedScan Interface</a> pointer that will be set to the created interface object.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * The return value is one of the values listed in <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createsegmentedscan
      */
-    static D3DX11CreateSegmentedScan(pDeviceContext, MaxElementScanSize, ppScan) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateSegmentedScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "ptr*", ppScan, "int")
+    static D3DX11CreateSegmentedScan(pDeviceContext, MaxElementScanSize) {
+        result := DllCall("d3dcsx.dll\D3DX11CreateSegmentedScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "ptr*", &ppScan := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DX11SegmentedScan(ppScan)
     }
 
     /**
@@ -2944,20 +2939,17 @@ class Direct3D11 {
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a> structure that receives the buffer requirements to execute the FFT algorithms.
      *               Use this info to allocate raw buffers of the specified (or larger) sizes and then call the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nf-d3dcsx-id3dx11fft-attachbuffersandprecompute">ID3DX11FFT::AttachBuffersAndPrecompute</a> method to register the buffers with the FFT object.
-     * @param {Pointer<ID3DX11FFT>} ppFFT Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
+     * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * One of the <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft
      */
-    static D3DX11CreateFFT(pDeviceContext, pDesc, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT", "ptr", pDeviceContext, "ptr", pDesc, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
+    static D3DX11CreateFFT(pDeviceContext, pDesc, Flags, pBufferInfo) {
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT", "ptr", pDeviceContext, "ptr", pDesc, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DX11FFT(ppFFT)
     }
 
     /**
@@ -2974,20 +2966,17 @@ class Direct3D11 {
      * @param {Pointer<D3DX11_FFT_BUFFER_INFO>} pBufferInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a> structure that receives the buffer requirements to execute the FFT algorithms. Use this info to allocate raw buffers of the specified (or larger) sizes and then call the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nf-d3dcsx-id3dx11fft-attachbuffersandprecompute">ID3DX11FFT::AttachBuffersAndPrecompute</a> method to register the buffers with the FFT object.
-     * @param {Pointer<ID3DX11FFT>} ppFFT Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
+     * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * The return value is one of the values listed in <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft1dreal
      */
-    static D3DX11CreateFFT1DReal(pDeviceContext, X, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DReal", "ptr", pDeviceContext, "uint", X, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
+    static D3DX11CreateFFT1DReal(pDeviceContext, X, Flags, pBufferInfo) {
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DReal", "ptr", pDeviceContext, "uint", X, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DX11FFT(ppFFT)
     }
 
     /**
@@ -3004,20 +2993,17 @@ class Direct3D11 {
      * @param {Pointer<D3DX11_FFT_BUFFER_INFO>} pBufferInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a> structure that receives the buffer requirements to execute the FFT algorithms. Use this info to allocate raw buffers of the specified (or larger) sizes and then call the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nf-d3dcsx-id3dx11fft-attachbuffersandprecompute">ID3DX11FFT::AttachBuffersAndPrecompute</a> method to register the buffers with the FFT object.
-     * @param {Pointer<ID3DX11FFT>} ppFFT Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
+     * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * The return value is one of the values listed in <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft1dcomplex
      */
-    static D3DX11CreateFFT1DComplex(pDeviceContext, X, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DComplex", "ptr", pDeviceContext, "uint", X, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
+    static D3DX11CreateFFT1DComplex(pDeviceContext, X, Flags, pBufferInfo) {
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DComplex", "ptr", pDeviceContext, "uint", X, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DX11FFT(ppFFT)
     }
 
     /**
@@ -3037,20 +3023,17 @@ class Direct3D11 {
      * @param {Pointer<D3DX11_FFT_BUFFER_INFO>} pBufferInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a> structure that receives the buffer requirements to execute the FFT algorithms. Use this info to allocate raw buffers of the specified (or larger) sizes and then call the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nf-d3dcsx-id3dx11fft-attachbuffersandprecompute">ID3DX11FFT::AttachBuffersAndPrecompute</a> method to register the buffers with the FFT object.
-     * @param {Pointer<ID3DX11FFT>} ppFFT Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
+     * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * The return value is one of the values listed in <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft2dreal
      */
-    static D3DX11CreateFFT2DReal(pDeviceContext, X, Y, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
+    static D3DX11CreateFFT2DReal(pDeviceContext, X, Y, Flags, pBufferInfo) {
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DX11FFT(ppFFT)
     }
 
     /**
@@ -3070,20 +3053,17 @@ class Direct3D11 {
      * @param {Pointer<D3DX11_FFT_BUFFER_INFO>} pBufferInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a> structure that receives the buffer requirements to execute the FFT algorithms. Use this info to allocate raw buffers of the specified (or larger) sizes and then call the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nf-d3dcsx-id3dx11fft-attachbuffersandprecompute">ID3DX11FFT::AttachBuffersAndPrecompute</a> method to register the buffers with the FFT object.
-     * @param {Pointer<ID3DX11FFT>} ppFFT Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
+     * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * The return value is one of the values listed in <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft2dcomplex
      */
-    static D3DX11CreateFFT2DComplex(pDeviceContext, X, Y, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
+    static D3DX11CreateFFT2DComplex(pDeviceContext, X, Y, Flags, pBufferInfo) {
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DX11FFT(ppFFT)
     }
 
     /**
@@ -3106,20 +3086,17 @@ class Direct3D11 {
      * @param {Pointer<D3DX11_FFT_BUFFER_INFO>} pBufferInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a> structure that receives the buffer requirements to execute the FFT algorithms. Use this info to allocate raw buffers of the specified (or larger) sizes and then call the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nf-d3dcsx-id3dx11fft-attachbuffersandprecompute">ID3DX11FFT::AttachBuffersAndPrecompute</a> method to register the buffers with the FFT object.
-     * @param {Pointer<ID3DX11FFT>} ppFFT Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
+     * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * The return value is one of the values listed in <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft3dreal
      */
-    static D3DX11CreateFFT3DReal(pDeviceContext, X, Y, Z, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
+    static D3DX11CreateFFT3DReal(pDeviceContext, X, Y, Z, Flags, pBufferInfo) {
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DX11FFT(ppFFT)
     }
 
     /**
@@ -3142,20 +3119,17 @@ class Direct3D11 {
      * @param {Pointer<D3DX11_FFT_BUFFER_INFO>} pBufferInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info">D3DX11_FFT_BUFFER_INFO</a> structure that receives the buffer requirements to execute the FFT algorithms. Use this info to allocate raw buffers of the specified (or larger) sizes and then call the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nf-d3dcsx-id3dx11fft-attachbuffersandprecompute">ID3DX11FFT::AttachBuffersAndPrecompute</a> method to register the buffers with the FFT object.
-     * @param {Pointer<ID3DX11FFT>} ppFFT Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
+     * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * The return value is one of the values listed in <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft3dcomplex
      */
-    static D3DX11CreateFFT3DComplex(pDeviceContext, X, Y, Z, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
+    static D3DX11CreateFFT3DComplex(pDeviceContext, X, Y, Z, Flags, pBufferInfo) {
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DX11FFT(ppFFT)
     }
 
 ;@endregion Methods

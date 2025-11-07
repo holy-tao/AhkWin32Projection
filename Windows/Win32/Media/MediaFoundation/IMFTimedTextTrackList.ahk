@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFTimedTextTrack.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,24 +44,22 @@ class IMFTimedTextTrackList extends IUnknown{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IMFTimedTextTrack>} track 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextTrack} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttracklist-gettrack
      */
-    GetTrack(index, track) {
-        result := ComCall(4, this, "uint", index, "ptr*", track, "HRESULT")
-        return result
+    GetTrack(index) {
+        result := ComCall(4, this, "uint", index, "ptr*", &track := 0, "HRESULT")
+        return IMFTimedTextTrack(track)
     }
 
     /**
      * 
      * @param {Integer} trackId 
-     * @param {Pointer<IMFTimedTextTrack>} track 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextTrack} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttracklist-gettrackbyid
      */
-    GetTrackById(trackId, track) {
-        result := ComCall(5, this, "uint", trackId, "ptr*", track, "HRESULT")
-        return result
+    GetTrackById(trackId) {
+        result := ComCall(5, this, "uint", trackId, "ptr*", &track := 0, "HRESULT")
+        return IMFTimedTextTrack(track)
     }
 }

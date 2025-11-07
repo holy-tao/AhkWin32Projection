@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\MLOperatorEdgeDescription.ahk
 #Include .\IMLOperatorAttributes.ahk
 
 /**
@@ -69,39 +70,33 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes{
     /**
      * 
      * @param {Integer} inputIndex 
-     * @param {Pointer<MLOperatorEdgeDescription>} edgeDescription 
-     * @returns {HRESULT} 
+     * @returns {MLOperatorEdgeDescription} 
      */
-    GetInputEdgeDescription(inputIndex, edgeDescription) {
+    GetInputEdgeDescription(inputIndex) {
+        edgeDescription := MLOperatorEdgeDescription()
         result := ComCall(11, this, "uint", inputIndex, "ptr", edgeDescription, "HRESULT")
-        return result
+        return edgeDescription
     }
 
     /**
      * 
      * @param {Integer} inputIndex 
-     * @param {Pointer<Integer>} dimensionCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetInputTensorDimensionCount(inputIndex, dimensionCount) {
-        dimensionCountMarshal := dimensionCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "uint", inputIndex, dimensionCountMarshal, dimensionCount, "HRESULT")
-        return result
+    GetInputTensorDimensionCount(inputIndex) {
+        result := ComCall(12, this, "uint", inputIndex, "uint*", &dimensionCount := 0, "HRESULT")
+        return dimensionCount
     }
 
     /**
      * 
      * @param {Integer} inputIndex 
      * @param {Integer} dimensionCount 
-     * @param {Pointer<Integer>} dimensions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetInputTensorShape(inputIndex, dimensionCount, dimensions) {
-        dimensionsMarshal := dimensions is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, "uint", inputIndex, "uint", dimensionCount, dimensionsMarshal, dimensions, "HRESULT")
-        return result
+    GetInputTensorShape(inputIndex, dimensionCount) {
+        result := ComCall(13, this, "uint", inputIndex, "uint", dimensionCount, "uint*", &dimensions := 0, "HRESULT")
+        return dimensions
     }
 
     /**

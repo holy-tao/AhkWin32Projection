@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncFilter.ahk
 #Include .\ISyncFilterInfo.ahk
 
 /**
@@ -30,11 +31,10 @@ class ICustomFilterInfo extends ISyncFilterInfo{
 
     /**
      * 
-     * @param {Pointer<ISyncFilter>} pISyncFilter 
-     * @returns {HRESULT} 
+     * @returns {ISyncFilter} 
      */
-    GetSyncFilter(pISyncFilter) {
-        result := ComCall(4, this, "ptr*", pISyncFilter, "HRESULT")
-        return result
+    GetSyncFilter() {
+        result := ComCall(4, this, "ptr*", &pISyncFilter := 0, "HRESULT")
+        return ISyncFilter(pISyncFilter)
     }
 }

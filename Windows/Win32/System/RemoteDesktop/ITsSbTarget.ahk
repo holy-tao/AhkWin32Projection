@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\TSSD_ConnectionPoint.ahk
+#Include .\ITsSbTargetPropertySet.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,13 +35,13 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetname
      */
-    get_TargetName(pVal) {
+    get_TargetName() {
+        pVal := BSTR()
         result := ComCall(3, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -57,13 +59,13 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_farmname
      */
-    get_FarmName(pVal) {
+    get_FarmName() {
+        pVal := BSTR()
         result := ComCall(5, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -81,13 +83,13 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} TargetFqdnName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetfqdn
      */
-    get_TargetFQDN(TargetFqdnName) {
+    get_TargetFQDN() {
+        TargetFqdnName := BSTR()
         result := ComCall(7, this, "ptr", TargetFqdnName, "HRESULT")
-        return result
+        return TargetFqdnName
     }
 
     /**
@@ -105,13 +107,13 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} TargetNetbiosName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetnetbios
      */
-    get_TargetNetbios(TargetNetbiosName) {
+    get_TargetNetbios() {
+        TargetNetbiosName := BSTR()
         result := ComCall(9, this, "ptr", TargetNetbiosName, "HRESULT")
-        return result
+        return TargetNetbiosName
     }
 
     /**
@@ -129,16 +131,16 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<TSSD_ConnectionPoint>} SOCKADDR 
      * @param {Pointer<Integer>} numAddresses 
-     * @returns {HRESULT} 
+     * @returns {TSSD_ConnectionPoint} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_ipaddresses
      */
-    get_IpAddresses(SOCKADDR, numAddresses) {
+    get_IpAddresses(numAddresses) {
         numAddressesMarshal := numAddresses is VarRef ? "uint*" : "ptr"
 
+        SOCKADDR := TSSD_ConnectionPoint()
         result := ComCall(11, this, "ptr", SOCKADDR, numAddressesMarshal, numAddresses, "HRESULT")
-        return result
+        return SOCKADDR
     }
 
     /**
@@ -155,15 +157,12 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetstate
      */
-    get_TargetState(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pStateMarshal, pState, "HRESULT")
-        return result
+    get_TargetState() {
+        result := ComCall(13, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
@@ -179,13 +178,12 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITsSbTargetPropertySet>} ppPropertySet 
-     * @returns {HRESULT} 
+     * @returns {ITsSbTargetPropertySet} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetpropertyset
      */
-    get_TargetPropertySet(ppPropertySet) {
-        result := ComCall(15, this, "ptr*", ppPropertySet, "HRESULT")
-        return result
+    get_TargetPropertySet() {
+        result := ComCall(15, this, "ptr*", &ppPropertySet := 0, "HRESULT")
+        return ITsSbTargetPropertySet(ppPropertySet)
     }
 
     /**
@@ -201,13 +199,13 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_environmentname
      */
-    get_EnvironmentName(pVal) {
+    get_EnvironmentName() {
+        pVal := BSTR()
         result := ComCall(17, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -225,40 +223,31 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pNumSessions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_numsessions
      */
-    get_NumSessions(pNumSessions) {
-        pNumSessionsMarshal := pNumSessions is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, pNumSessionsMarshal, pNumSessions, "HRESULT")
-        return result
+    get_NumSessions() {
+        result := ComCall(19, this, "uint*", &pNumSessions := 0, "HRESULT")
+        return pNumSessions
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pNumPendingConnections 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_numpendingconnections
      */
-    get_NumPendingConnections(pNumPendingConnections) {
-        pNumPendingConnectionsMarshal := pNumPendingConnections is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, pNumPendingConnectionsMarshal, pNumPendingConnections, "HRESULT")
-        return result
+    get_NumPendingConnections() {
+        result := ComCall(20, this, "uint*", &pNumPendingConnections := 0, "HRESULT")
+        return pNumPendingConnections
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pTargetLoad 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetload
      */
-    get_TargetLoad(pTargetLoad) {
-        pTargetLoadMarshal := pTargetLoad is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, pTargetLoadMarshal, pTargetLoad, "HRESULT")
-        return result
+    get_TargetLoad() {
+        result := ComCall(21, this, "uint*", &pTargetLoad := 0, "HRESULT")
+        return pTargetLoad
     }
 }

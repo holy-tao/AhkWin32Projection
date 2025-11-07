@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IIdleSettings.ahk
+#Include .\INetworkSettings.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -55,7 +57,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_allowdemandstart
      */
     get_AllowDemandStart(pAllowDemandStart) {
-        result := ComCall(7, this, "ptr", pAllowDemandStart, "HRESULT")
+        pAllowDemandStartMarshal := pAllowDemandStart is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, pAllowDemandStartMarshal, pAllowDemandStart, "HRESULT")
         return result
     }
 
@@ -149,7 +153,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_stopifgoingonbatteries
      */
     get_StopIfGoingOnBatteries(pStopIfOnBatteries) {
-        result := ComCall(15, this, "ptr", pStopIfOnBatteries, "HRESULT")
+        pStopIfOnBatteriesMarshal := pStopIfOnBatteries is VarRef ? "short*" : "ptr"
+
+        result := ComCall(15, this, pStopIfOnBatteriesMarshal, pStopIfOnBatteries, "HRESULT")
         return result
     }
 
@@ -171,7 +177,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_disallowstartifonbatteries
      */
     get_DisallowStartIfOnBatteries(pDisallowStart) {
-        result := ComCall(17, this, "ptr", pDisallowStart, "HRESULT")
+        pDisallowStartMarshal := pDisallowStart is VarRef ? "short*" : "ptr"
+
+        result := ComCall(17, this, pDisallowStartMarshal, pDisallowStart, "HRESULT")
         return result
     }
 
@@ -193,7 +201,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_allowhardterminate
      */
     get_AllowHardTerminate(pAllowHardTerminate) {
-        result := ComCall(19, this, "ptr", pAllowHardTerminate, "HRESULT")
+        pAllowHardTerminateMarshal := pAllowHardTerminate is VarRef ? "short*" : "ptr"
+
+        result := ComCall(19, this, pAllowHardTerminateMarshal, pAllowHardTerminate, "HRESULT")
         return result
     }
 
@@ -215,7 +225,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_startwhenavailable
      */
     get_StartWhenAvailable(pStartWhenAvailable) {
-        result := ComCall(21, this, "ptr", pStartWhenAvailable, "HRESULT")
+        pStartWhenAvailableMarshal := pStartWhenAvailable is VarRef ? "short*" : "ptr"
+
+        result := ComCall(21, this, pStartWhenAvailableMarshal, pStartWhenAvailable, "HRESULT")
         return result
     }
 
@@ -261,7 +273,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_runonlyifnetworkavailable
      */
     get_RunOnlyIfNetworkAvailable(pRunOnlyIfNetworkAvailable) {
-        result := ComCall(25, this, "ptr", pRunOnlyIfNetworkAvailable, "HRESULT")
+        pRunOnlyIfNetworkAvailableMarshal := pRunOnlyIfNetworkAvailable is VarRef ? "short*" : "ptr"
+
+        result := ComCall(25, this, pRunOnlyIfNetworkAvailableMarshal, pRunOnlyIfNetworkAvailable, "HRESULT")
         return result
     }
 
@@ -307,7 +321,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_enabled
      */
     get_Enabled(pEnabled) {
-        result := ComCall(29, this, "ptr", pEnabled, "HRESULT")
+        pEnabledMarshal := pEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(29, this, pEnabledMarshal, pEnabled, "HRESULT")
         return result
     }
 
@@ -400,7 +416,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_hidden
      */
     get_Hidden(pHidden) {
-        result := ComCall(37, this, "ptr", pHidden, "HRESULT")
+        pHiddenMarshal := pHidden is VarRef ? "short*" : "ptr"
+
+        result := ComCall(37, this, pHiddenMarshal, pHidden, "HRESULT")
         return result
     }
 
@@ -417,13 +435,12 @@ class ITaskSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IIdleSettings>} ppIdleSettings 
-     * @returns {HRESULT} 
+     * @returns {IIdleSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_idlesettings
      */
-    get_IdleSettings(ppIdleSettings) {
-        result := ComCall(39, this, "ptr*", ppIdleSettings, "HRESULT")
-        return result
+    get_IdleSettings() {
+        result := ComCall(39, this, "ptr*", &ppIdleSettings := 0, "HRESULT")
+        return IIdleSettings(ppIdleSettings)
     }
 
     /**
@@ -444,7 +461,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_runonlyifidle
      */
     get_RunOnlyIfIdle(pRunOnlyIfIdle) {
-        result := ComCall(41, this, "ptr", pRunOnlyIfIdle, "HRESULT")
+        pRunOnlyIfIdleMarshal := pRunOnlyIfIdle is VarRef ? "short*" : "ptr"
+
+        result := ComCall(41, this, pRunOnlyIfIdleMarshal, pRunOnlyIfIdle, "HRESULT")
         return result
     }
 
@@ -466,7 +485,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_waketorun
      */
     get_WakeToRun(pWake) {
-        result := ComCall(43, this, "ptr", pWake, "HRESULT")
+        pWakeMarshal := pWake is VarRef ? "short*" : "ptr"
+
+        result := ComCall(43, this, pWakeMarshal, pWake, "HRESULT")
         return result
     }
 
@@ -483,13 +504,12 @@ class ITaskSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<INetworkSettings>} ppNetworkSettings 
-     * @returns {HRESULT} 
+     * @returns {INetworkSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_networksettings
      */
-    get_NetworkSettings(ppNetworkSettings) {
-        result := ComCall(45, this, "ptr*", ppNetworkSettings, "HRESULT")
-        return result
+    get_NetworkSettings() {
+        result := ComCall(45, this, "ptr*", &ppNetworkSettings := 0, "HRESULT")
+        return INetworkSettings(ppNetworkSettings)
     }
 
     /**

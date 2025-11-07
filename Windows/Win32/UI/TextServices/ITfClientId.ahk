@@ -33,14 +33,11 @@ class ITfClientId extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} rclsid 
-     * @param {Pointer<Integer>} ptid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfclientid-getclientid
      */
-    GetClientId(rclsid, ptid) {
-        ptidMarshal := ptid is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", rclsid, ptidMarshal, ptid, "HRESULT")
-        return result
+    GetClientId(rclsid) {
+        result := ComCall(3, this, "ptr", rclsid, "uint*", &ptid := 0, "HRESULT")
+        return ptid
     }
 }

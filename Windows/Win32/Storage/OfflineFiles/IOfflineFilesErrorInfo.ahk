@@ -32,25 +32,21 @@ class IOfflineFilesErrorInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<BYTE_BLOB>>} ppBlob 
-     * @returns {HRESULT} 
+     * @returns {Pointer<BYTE_BLOB>} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileserrorinfo-getrawdata
      */
-    GetRawData(ppBlob) {
-        ppBlobMarshal := ppBlob is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppBlobMarshal, ppBlob, "HRESULT")
-        return result
+    GetRawData() {
+        result := ComCall(3, this, "ptr*", &ppBlob := 0, "HRESULT")
+        return ppBlob
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileserrorinfo-getdescription
      */
-    GetDescription(ppszDescription) {
-        result := ComCall(4, this, "ptr", ppszDescription, "HRESULT")
-        return result
+    GetDescription() {
+        result := ComCall(4, this, "ptr*", &ppszDescription := 0, "HRESULT")
+        return ppszDescription
     }
 }

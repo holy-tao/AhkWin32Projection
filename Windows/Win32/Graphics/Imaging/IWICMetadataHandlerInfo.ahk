@@ -32,94 +32,82 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidMetadataFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getmetadataformat
      */
-    GetMetadataFormat(pguidMetadataFormat) {
+    GetMetadataFormat() {
+        pguidMetadataFormat := Guid()
         result := ComCall(11, this, "ptr", pguidMetadataFormat, "HRESULT")
-        return result
+        return pguidMetadataFormat
     }
 
     /**
      * 
      * @param {Integer} cContainerFormats 
      * @param {Pointer<Guid>} pguidContainerFormats 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getcontainerformats
      */
-    GetContainerFormats(cContainerFormats, pguidContainerFormats, pcchActual) {
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "uint", cContainerFormats, "ptr", pguidContainerFormats, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+    GetContainerFormats(cContainerFormats, pguidContainerFormats) {
+        result := ComCall(12, this, "uint", cContainerFormats, "ptr", pguidContainerFormats, "uint*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 
     /**
      * 
      * @param {Integer} cchDeviceManufacturer 
      * @param {PWSTR} wzDeviceManufacturer 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getdevicemanufacturer
      */
-    GetDeviceManufacturer(cchDeviceManufacturer, wzDeviceManufacturer, pcchActual) {
+    GetDeviceManufacturer(cchDeviceManufacturer, wzDeviceManufacturer) {
         wzDeviceManufacturer := wzDeviceManufacturer is String ? StrPtr(wzDeviceManufacturer) : wzDeviceManufacturer
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, "uint", cchDeviceManufacturer, "ptr", wzDeviceManufacturer, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+        result := ComCall(13, this, "uint", cchDeviceManufacturer, "ptr", wzDeviceManufacturer, "uint*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 
     /**
      * 
      * @param {Integer} cchDeviceModels 
      * @param {PWSTR} wzDeviceModels 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getdevicemodels
      */
-    GetDeviceModels(cchDeviceModels, wzDeviceModels, pcchActual) {
+    GetDeviceModels(cchDeviceModels, wzDeviceModels) {
         wzDeviceModels := wzDeviceModels is String ? StrPtr(wzDeviceModels) : wzDeviceModels
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "uint", cchDeviceModels, "ptr", wzDeviceModels, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+        result := ComCall(14, this, "uint", cchDeviceModels, "ptr", wzDeviceModels, "uint*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfRequiresFullStream 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doesrequirefullstream
      */
-    DoesRequireFullStream(pfRequiresFullStream) {
-        result := ComCall(15, this, "ptr", pfRequiresFullStream, "HRESULT")
-        return result
+    DoesRequireFullStream() {
+        result := ComCall(15, this, "int*", &pfRequiresFullStream := 0, "HRESULT")
+        return pfRequiresFullStream
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfSupportsPadding 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doessupportpadding
      */
-    DoesSupportPadding(pfSupportsPadding) {
-        result := ComCall(16, this, "ptr", pfSupportsPadding, "HRESULT")
-        return result
+    DoesSupportPadding() {
+        result := ComCall(16, this, "int*", &pfSupportsPadding := 0, "HRESULT")
+        return pfSupportsPadding
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfFixedSize 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doesrequirefixedsize
      */
-    DoesRequireFixedSize(pfFixedSize) {
-        result := ComCall(17, this, "ptr", pfFixedSize, "HRESULT")
-        return result
+    DoesRequireFixedSize() {
+        result := ComCall(17, this, "int*", &pfFixedSize := 0, "HRESULT")
+        return pfFixedSize
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1.ahk
+#Include .\D3D12_DRED_PAGE_FAULT_OUTPUT1.ahk
 #Include .\ID3D12DeviceRemovedExtendedData.ahk
 
 /**
@@ -30,21 +32,21 @@ class ID3D12DeviceRemovedExtendedData1 extends ID3D12DeviceRemovedExtendedData{
 
     /**
      * 
-     * @param {Pointer<D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1>} pOutput 
-     * @returns {HRESULT} 
+     * @returns {D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1} 
      */
-    GetAutoBreadcrumbsOutput1(pOutput) {
+    GetAutoBreadcrumbsOutput1() {
+        pOutput := D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1()
         result := ComCall(5, this, "ptr", pOutput, "HRESULT")
-        return result
+        return pOutput
     }
 
     /**
      * 
-     * @param {Pointer<D3D12_DRED_PAGE_FAULT_OUTPUT1>} pOutput 
-     * @returns {HRESULT} 
+     * @returns {D3D12_DRED_PAGE_FAULT_OUTPUT1} 
      */
-    GetPageFaultAllocationOutput1(pOutput) {
+    GetPageFaultAllocationOutput1() {
+        pOutput := D3D12_DRED_PAGE_FAULT_OUTPUT1()
         result := ComCall(6, this, "ptr", pOutput, "HRESULT")
-        return result
+        return pOutput
     }
 }

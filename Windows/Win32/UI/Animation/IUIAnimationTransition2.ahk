@@ -32,15 +32,12 @@ class IUIAnimationTransition2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} dimension 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition2-getdimension
      */
-    GetDimension(dimension) {
-        dimensionMarshal := dimension is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, dimensionMarshal, dimension, "HRESULT")
-        return result
+    GetDimension() {
+        result := ComCall(3, this, "uint*", &dimension := 0, "HRESULT")
+        return dimension
     }
 
     /**
@@ -105,14 +102,11 @@ class IUIAnimationTransition2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} duration 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition2-getduration
      */
-    GetDuration(duration) {
-        durationMarshal := duration is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, durationMarshal, duration, "HRESULT")
-        return result
+    GetDuration() {
+        result := ComCall(9, this, "double*", &duration := 0, "HRESULT")
+        return duration
     }
 }

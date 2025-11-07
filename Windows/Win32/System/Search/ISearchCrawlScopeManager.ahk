@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSearchRoots.ahk
+#Include .\IEnumSearchScopeRules.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -76,13 +78,12 @@ class ISearchCrawlScopeManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSearchRoots>} ppSearchRoots 
-     * @returns {HRESULT} 
+     * @returns {IEnumSearchRoots} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcrawlscopemanager-enumerateroots
      */
-    EnumerateRoots(ppSearchRoots) {
-        result := ComCall(6, this, "ptr*", ppSearchRoots, "HRESULT")
-        return result
+    EnumerateRoots() {
+        result := ComCall(6, this, "ptr*", &ppSearchRoots := 0, "HRESULT")
+        return IEnumSearchRoots(ppSearchRoots)
     }
 
     /**
@@ -132,55 +133,51 @@ class ISearchCrawlScopeManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSearchScopeRules>} ppSearchScopeRules 
-     * @returns {HRESULT} 
+     * @returns {IEnumSearchScopeRules} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcrawlscopemanager-enumeratescoperules
      */
-    EnumerateScopeRules(ppSearchScopeRules) {
-        result := ComCall(10, this, "ptr*", ppSearchScopeRules, "HRESULT")
-        return result
+    EnumerateScopeRules() {
+        result := ComCall(10, this, "ptr*", &ppSearchScopeRules := 0, "HRESULT")
+        return IEnumSearchScopeRules(ppSearchScopeRules)
     }
 
     /**
      * 
      * @param {PWSTR} pszURL 
-     * @param {Pointer<BOOL>} pfHasParentRule 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcrawlscopemanager-hasparentscoperule
      */
-    HasParentScopeRule(pszURL, pfHasParentRule) {
+    HasParentScopeRule(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(11, this, "ptr", pszURL, "ptr", pfHasParentRule, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", pszURL, "int*", &pfHasParentRule := 0, "HRESULT")
+        return pfHasParentRule
     }
 
     /**
      * 
      * @param {PWSTR} pszURL 
-     * @param {Pointer<BOOL>} pfHasChildRule 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcrawlscopemanager-haschildscoperule
      */
-    HasChildScopeRule(pszURL, pfHasChildRule) {
+    HasChildScopeRule(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(12, this, "ptr", pszURL, "ptr", pfHasChildRule, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", pszURL, "int*", &pfHasChildRule := 0, "HRESULT")
+        return pfHasChildRule
     }
 
     /**
      * 
      * @param {PWSTR} pszURL 
-     * @param {Pointer<BOOL>} pfIsIncluded 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcrawlscopemanager-includedincrawlscope
      */
-    IncludedInCrawlScope(pszURL, pfIsIncluded) {
+    IncludedInCrawlScope(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(13, this, "ptr", pszURL, "ptr", pfIsIncluded, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", pszURL, "int*", &pfIsIncluded := 0, "HRESULT")
+        return pfIsIncluded
     }
 
     /**
@@ -194,9 +191,10 @@ class ISearchCrawlScopeManager extends IUnknown{
     IncludedInCrawlScopeEx(pszURL, pfIsIncluded, pReason) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
+        pfIsIncludedMarshal := pfIsIncluded is VarRef ? "int*" : "ptr"
         pReasonMarshal := pReason is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, "ptr", pszURL, "ptr", pfIsIncluded, pReasonMarshal, pReason, "HRESULT")
+        result := ComCall(14, this, "ptr", pszURL, pfIsIncludedMarshal, pfIsIncluded, pReasonMarshal, pReason, "HRESULT")
         return result
     }
 
@@ -223,17 +221,14 @@ class ISearchCrawlScopeManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszURL 
-     * @param {Pointer<Integer>} plScopeId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcrawlscopemanager-getparentscopeversionid
      */
-    GetParentScopeVersionId(pszURL, plScopeId) {
+    GetParentScopeVersionId(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        plScopeIdMarshal := plScopeId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, "ptr", pszURL, plScopeIdMarshal, plScopeId, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", pszURL, "int*", &plScopeId := 0, "HRESULT")
+        return plScopeId
     }
 
     /**

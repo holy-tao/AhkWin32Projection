@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISchemaStringCollection.ahk
 #Include .\ISchemaParticle.ahk
 
 /**
@@ -30,23 +31,19 @@ class ISchemaAny extends ISchemaParticle{
 
     /**
      * 
-     * @param {Pointer<ISchemaStringCollection>} namespaces 
-     * @returns {HRESULT} 
+     * @returns {ISchemaStringCollection} 
      */
-    get_namespaces(namespaces) {
-        result := ComCall(16, this, "ptr*", namespaces, "HRESULT")
-        return result
+    get_namespaces() {
+        result := ComCall(16, this, "ptr*", &namespaces := 0, "HRESULT")
+        return ISchemaStringCollection(namespaces)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} processContents 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_processContents(processContents) {
-        processContentsMarshal := processContents is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, processContentsMarshal, processContents, "HRESULT")
-        return result
+    get_processContents() {
+        result := ComCall(17, this, "int*", &processContents := 0, "HRESULT")
+        return processContents
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfRange.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,23 +33,22 @@ class ITfCompositionView extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pclsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompositionview-getownerclsid
      */
-    GetOwnerClsid(pclsid) {
+    GetOwnerClsid() {
+        pclsid := Guid()
         result := ComCall(3, this, "ptr", pclsid, "HRESULT")
-        return result
+        return pclsid
     }
 
     /**
      * 
-     * @param {Pointer<ITfRange>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITfRange} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompositionview-getrange
      */
-    GetRange(ppRange) {
-        result := ComCall(4, this, "ptr*", ppRange, "HRESULT")
-        return result
+    GetRange() {
+        result := ComCall(4, this, "ptr*", &ppRange := 0, "HRESULT")
+        return ITfRange(ppRange)
     }
 }

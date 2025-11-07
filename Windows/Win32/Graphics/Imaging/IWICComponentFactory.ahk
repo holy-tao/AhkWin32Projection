@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICMetadataReader.ahk
+#Include .\IWICMetadataWriter.ahk
+#Include .\IWICMetadataQueryReader.ahk
+#Include .\IWICMetadataQueryWriter.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
 #Include .\IWICImagingFactory.ahk
 
 /**
@@ -36,13 +41,12 @@ class IWICComponentFactory extends IWICImagingFactory{
      * @param {Pointer<Guid>} pguidVendor 
      * @param {Integer} dwOptions 
      * @param {IStream} pIStream 
-     * @param {Pointer<IWICMetadataReader>} ppIReader 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataReader} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatareader
      */
-    CreateMetadataReader(guidMetadataFormat, pguidVendor, dwOptions, pIStream, ppIReader) {
-        result := ComCall(28, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "uint", dwOptions, "ptr", pIStream, "ptr*", ppIReader, "HRESULT")
-        return result
+    CreateMetadataReader(guidMetadataFormat, pguidVendor, dwOptions, pIStream) {
+        result := ComCall(28, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "uint", dwOptions, "ptr", pIStream, "ptr*", &ppIReader := 0, "HRESULT")
+        return IWICMetadataReader(ppIReader)
     }
 
     /**
@@ -51,13 +55,12 @@ class IWICComponentFactory extends IWICImagingFactory{
      * @param {Pointer<Guid>} pguidVendor 
      * @param {Integer} dwOptions 
      * @param {IStream} pIStream 
-     * @param {Pointer<IWICMetadataReader>} ppIReader 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataReader} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatareaderfromcontainer
      */
-    CreateMetadataReaderFromContainer(guidContainerFormat, pguidVendor, dwOptions, pIStream, ppIReader) {
-        result := ComCall(29, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "uint", dwOptions, "ptr", pIStream, "ptr*", ppIReader, "HRESULT")
-        return result
+    CreateMetadataReaderFromContainer(guidContainerFormat, pguidVendor, dwOptions, pIStream) {
+        result := ComCall(29, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "uint", dwOptions, "ptr", pIStream, "ptr*", &ppIReader := 0, "HRESULT")
+        return IWICMetadataReader(ppIReader)
     }
 
     /**
@@ -65,62 +68,57 @@ class IWICComponentFactory extends IWICImagingFactory{
      * @param {Pointer<Guid>} guidMetadataFormat 
      * @param {Pointer<Guid>} pguidVendor 
      * @param {Integer} dwMetadataOptions 
-     * @param {Pointer<IWICMetadataWriter>} ppIWriter 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatawriter
      */
-    CreateMetadataWriter(guidMetadataFormat, pguidVendor, dwMetadataOptions, ppIWriter) {
-        result := ComCall(30, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "uint", dwMetadataOptions, "ptr*", ppIWriter, "HRESULT")
-        return result
+    CreateMetadataWriter(guidMetadataFormat, pguidVendor, dwMetadataOptions) {
+        result := ComCall(30, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "uint", dwMetadataOptions, "ptr*", &ppIWriter := 0, "HRESULT")
+        return IWICMetadataWriter(ppIWriter)
     }
 
     /**
      * 
      * @param {IWICMetadataReader} pIReader 
      * @param {Pointer<Guid>} pguidVendor 
-     * @param {Pointer<IWICMetadataWriter>} ppIWriter 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatawriterfromreader
      */
-    CreateMetadataWriterFromReader(pIReader, pguidVendor, ppIWriter) {
-        result := ComCall(31, this, "ptr", pIReader, "ptr", pguidVendor, "ptr*", ppIWriter, "HRESULT")
-        return result
+    CreateMetadataWriterFromReader(pIReader, pguidVendor) {
+        result := ComCall(31, this, "ptr", pIReader, "ptr", pguidVendor, "ptr*", &ppIWriter := 0, "HRESULT")
+        return IWICMetadataWriter(ppIWriter)
     }
 
     /**
      * 
      * @param {IWICMetadataBlockReader} pIBlockReader 
-     * @param {Pointer<IWICMetadataQueryReader>} ppIQueryReader 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataQueryReader} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createqueryreaderfromblockreader
      */
-    CreateQueryReaderFromBlockReader(pIBlockReader, ppIQueryReader) {
-        result := ComCall(32, this, "ptr", pIBlockReader, "ptr*", ppIQueryReader, "HRESULT")
-        return result
+    CreateQueryReaderFromBlockReader(pIBlockReader) {
+        result := ComCall(32, this, "ptr", pIBlockReader, "ptr*", &ppIQueryReader := 0, "HRESULT")
+        return IWICMetadataQueryReader(ppIQueryReader)
     }
 
     /**
      * 
      * @param {IWICMetadataBlockWriter} pIBlockWriter 
-     * @param {Pointer<IWICMetadataQueryWriter>} ppIQueryWriter 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataQueryWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createquerywriterfromblockwriter
      */
-    CreateQueryWriterFromBlockWriter(pIBlockWriter, ppIQueryWriter) {
-        result := ComCall(33, this, "ptr", pIBlockWriter, "ptr*", ppIQueryWriter, "HRESULT")
-        return result
+    CreateQueryWriterFromBlockWriter(pIBlockWriter) {
+        result := ComCall(33, this, "ptr", pIBlockWriter, "ptr*", &ppIQueryWriter := 0, "HRESULT")
+        return IWICMetadataQueryWriter(ppIQueryWriter)
     }
 
     /**
      * 
      * @param {Pointer<PROPBAG2>} ppropOptions 
      * @param {Integer} cCount 
-     * @param {Pointer<IPropertyBag2>} ppIPropertyBag 
-     * @returns {HRESULT} 
+     * @returns {IPropertyBag2} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createencoderpropertybag
      */
-    CreateEncoderPropertyBag(ppropOptions, cCount, ppIPropertyBag) {
-        result := ComCall(34, this, "ptr", ppropOptions, "uint", cCount, "ptr*", ppIPropertyBag, "HRESULT")
-        return result
+    CreateEncoderPropertyBag(ppropOptions, cCount) {
+        result := ComCall(34, this, "ptr", ppropOptions, "uint", cCount, "ptr*", &ppIPropertyBag := 0, "HRESULT")
+        return IPropertyBag2(ppIPropertyBag)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCSession.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,53 +32,48 @@ class IRTCParticipant extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUserURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_UserURI(pbstrUserURI) {
+    get_UserURI() {
+        pbstrUserURI := BSTR()
         result := ComCall(3, this, "ptr", pbstrUserURI, "HRESULT")
-        return result
+        return pbstrUserURI
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(4, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfRemovable 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Removable(pfRemovable) {
-        result := ComCall(5, this, "ptr", pfRemovable, "HRESULT")
-        return result
+    get_Removable() {
+        result := ComCall(5, this, "short*", &pfRemovable := 0, "HRESULT")
+        return pfRemovable
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(penState) {
-        penStateMarshal := penState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, penStateMarshal, penState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(6, this, "int*", &penState := 0, "HRESULT")
+        return penState
     }
 
     /**
      * 
-     * @param {Pointer<IRTCSession>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {IRTCSession} 
      */
-    get_Session(ppSession) {
-        result := ComCall(7, this, "ptr*", ppSession, "HRESULT")
-        return result
+    get_Session() {
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        return IRTCSession(ppSession)
     }
 }

@@ -42,37 +42,31 @@ class IShellIconOverlayManager extends IUnknown{
      * 
      * @param {PWSTR} pwszPath 
      * @param {Integer} dwAttrib 
-     * @param {Pointer<Integer>} pIndex 
      * @param {Integer} dwflags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-getfileoverlayinfo
      */
-    GetFileOverlayInfo(pwszPath, dwAttrib, pIndex, dwflags) {
+    GetFileOverlayInfo(pwszPath, dwAttrib, dwflags) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pwszPath, "uint", dwAttrib, pIndexMarshal, pIndex, "uint", dwflags, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwszPath, "uint", dwAttrib, "int*", &pIndex := 0, "uint", dwflags, "HRESULT")
+        return pIndex
     }
 
     /**
      * 
      * @param {PWSTR} pwszPath 
      * @param {Integer} dwAttrib 
-     * @param {Pointer<Integer>} pIndex 
      * @param {Integer} dwflags 
      * @param {Integer} iReservedID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-getreservedoverlayinfo
      */
-    GetReservedOverlayInfo(pwszPath, dwAttrib, pIndex, dwflags, iReservedID) {
+    GetReservedOverlayInfo(pwszPath, dwAttrib, dwflags, iReservedID) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pwszPath, "uint", dwAttrib, pIndexMarshal, pIndex, "uint", dwflags, "int", iReservedID, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pwszPath, "uint", dwAttrib, "int*", &pIndex := 0, "uint", dwflags, "int", iReservedID, "HRESULT")
+        return pIndex
     }
 
     /**
@@ -99,15 +93,12 @@ class IShellIconOverlayManager extends IUnknown{
     /**
      * 
      * @param {Integer} iImage 
-     * @param {Pointer<Integer>} piIndex 
      * @param {BOOL} fAdd 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-overlayindexfromimageindex
      */
-    OverlayIndexFromImageIndex(iImage, piIndex, fAdd) {
-        piIndexMarshal := piIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "int", iImage, piIndexMarshal, piIndex, "int", fAdd, "HRESULT")
-        return result
+    OverlayIndexFromImageIndex(iImage, fAdd) {
+        result := ComCall(7, this, "int", iImage, "int*", &piIndex := 0, "int", fAdd, "HRESULT")
+        return piIndex
     }
 }

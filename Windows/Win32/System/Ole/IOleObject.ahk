@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IOleClientSite.ahk
+#Include ..\Com\IMoniker.ahk
+#Include ..\Com\IDataObject.ahk
+#Include .\IEnumOLEVERB.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\Com\IEnumSTATDATA.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -43,13 +49,12 @@ class IOleObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOleClientSite>} ppClientSite 
-     * @returns {HRESULT} 
+     * @returns {IOleClientSite} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getclientsite
      */
-    GetClientSite(ppClientSite) {
-        result := ComCall(4, this, "ptr*", ppClientSite, "HRESULT")
-        return result
+    GetClientSite() {
+        result := ComCall(4, this, "ptr*", &ppClientSite := 0, "HRESULT")
+        return IOleClientSite(ppClientSite)
     }
 
     /**
@@ -94,13 +99,12 @@ class IOleObject extends IUnknown{
      * 
      * @param {Integer} dwAssign 
      * @param {Integer} dwWhichMoniker 
-     * @param {Pointer<IMoniker>} ppmk 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getmoniker
      */
-    GetMoniker(dwAssign, dwWhichMoniker, ppmk) {
-        result := ComCall(8, this, "uint", dwAssign, "uint", dwWhichMoniker, "ptr*", ppmk, "HRESULT")
-        return result
+    GetMoniker(dwAssign, dwWhichMoniker) {
+        result := ComCall(8, this, "uint", dwAssign, "uint", dwWhichMoniker, "ptr*", &ppmk := 0, "HRESULT")
+        return IMoniker(ppmk)
     }
 
     /**
@@ -119,17 +123,12 @@ class IOleObject extends IUnknown{
     /**
      * Retrieves data from the clipboard in a specified format. The clipboard must have been opened previously.
      * @param {Integer} dwReserved 
-     * @param {Pointer<IDataObject>} ppDataObject 
-     * @returns {HRESULT} Type: <b>HANDLE</b>
-     * 
-     * If the function succeeds, the return value is the handle to a clipboard object in the specified format.
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {IDataObject} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getclipboarddata
      */
-    GetClipboardData(dwReserved, ppDataObject) {
-        result := ComCall(10, this, "uint", dwReserved, "ptr*", ppDataObject, "HRESULT")
-        return result
+    GetClipboardData(dwReserved) {
+        result := ComCall(10, this, "uint", dwReserved, "ptr*", &ppDataObject := 0, "HRESULT")
+        return IDataObject(ppDataObject)
     }
 
     /**
@@ -152,13 +151,12 @@ class IOleObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumOLEVERB>} ppEnumOleVerb 
-     * @returns {HRESULT} 
+     * @returns {IEnumOLEVERB} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-enumverbs
      */
-    EnumVerbs(ppEnumOleVerb) {
-        result := ComCall(12, this, "ptr*", ppEnumOleVerb, "HRESULT")
-        return result
+    EnumVerbs() {
+        result := ComCall(12, this, "ptr*", &ppEnumOleVerb := 0, "HRESULT")
+        return IEnumOLEVERB(ppEnumOleVerb)
     }
 
     /**
@@ -183,25 +181,24 @@ class IOleObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pClsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getuserclassid
      */
-    GetUserClassID(pClsid) {
+    GetUserClassID() {
+        pClsid := Guid()
         result := ComCall(15, this, "ptr", pClsid, "HRESULT")
-        return result
+        return pClsid
     }
 
     /**
      * 
      * @param {Integer} dwFormOfType 
-     * @param {Pointer<PWSTR>} pszUserType 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getusertype
      */
-    GetUserType(dwFormOfType, pszUserType) {
-        result := ComCall(16, this, "uint", dwFormOfType, "ptr", pszUserType, "HRESULT")
-        return result
+    GetUserType(dwFormOfType) {
+        result := ComCall(16, this, "uint", dwFormOfType, "ptr*", &pszUserType := 0, "HRESULT")
+        return pszUserType
     }
 
     /**
@@ -219,27 +216,24 @@ class IOleObject extends IUnknown{
     /**
      * 
      * @param {Integer} dwDrawAspect 
-     * @param {Pointer<SIZE>} psizel 
-     * @returns {HRESULT} 
+     * @returns {SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getextent
      */
-    GetExtent(dwDrawAspect, psizel) {
+    GetExtent(dwDrawAspect) {
+        psizel := SIZE()
         result := ComCall(18, this, "uint", dwDrawAspect, "ptr", psizel, "HRESULT")
-        return result
+        return psizel
     }
 
     /**
      * 
      * @param {IAdviseSink} pAdvSink 
-     * @param {Pointer<Integer>} pdwConnection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-advise
      */
-    Advise(pAdvSink, pdwConnection) {
-        pdwConnectionMarshal := pdwConnection is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, "ptr", pAdvSink, pdwConnectionMarshal, pdwConnection, "HRESULT")
-        return result
+    Advise(pAdvSink) {
+        result := ComCall(19, this, "ptr", pAdvSink, "uint*", &pdwConnection := 0, "HRESULT")
+        return pdwConnection
     }
 
     /**
@@ -255,27 +249,23 @@ class IOleObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSTATDATA>} ppenumAdvise 
-     * @returns {HRESULT} 
+     * @returns {IEnumSTATDATA} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-enumadvise
      */
-    EnumAdvise(ppenumAdvise) {
-        result := ComCall(21, this, "ptr*", ppenumAdvise, "HRESULT")
-        return result
+    EnumAdvise() {
+        result := ComCall(21, this, "ptr*", &ppenumAdvise := 0, "HRESULT")
+        return IEnumSTATDATA(ppenumAdvise)
     }
 
     /**
      * 
      * @param {Integer} dwAspect 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getmiscstatus
      */
-    GetMiscStatus(dwAspect, pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, "uint", dwAspect, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetMiscStatus(dwAspect) {
+        result := ComCall(22, this, "uint", dwAspect, "int*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**

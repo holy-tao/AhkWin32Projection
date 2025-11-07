@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IPrintSchemaParameterInitializer.ahk
 #Include .\IPrintSchemaTicket.ahk
 
 /**
@@ -33,14 +34,13 @@ class IPrintSchemaTicket2 extends IPrintSchemaTicket{
      * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
-     * @param {Pointer<IPrintSchemaParameterInitializer>} ppParameterInitializer 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaParameterInitializer} 
      */
-    GetParameterInitializer(bstrName, bstrNamespaceUri, ppParameterInitializer) {
+    GetParameterInitializer(bstrName, bstrNamespaceUri) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
 
-        result := ComCall(18, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", ppParameterInitializer, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppParameterInitializer := 0, "HRESULT")
+        return IPrintSchemaParameterInitializer(ppParameterInitializer)
     }
 }

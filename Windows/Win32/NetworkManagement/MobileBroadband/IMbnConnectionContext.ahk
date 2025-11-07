@@ -36,31 +36,25 @@ class IMbnConnectionContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} provisionedContexts 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectioncontext-getprovisionedcontexts
      */
-    GetProvisionedContexts(provisionedContexts) {
-        provisionedContextsMarshal := provisionedContexts is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, provisionedContextsMarshal, provisionedContexts, "HRESULT")
-        return result
+    GetProvisionedContexts() {
+        result := ComCall(3, this, "ptr*", &provisionedContexts := 0, "HRESULT")
+        return provisionedContexts
     }
 
     /**
      * 
      * @param {MBN_CONTEXT} provisionedContexts 
      * @param {PWSTR} providerID 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectioncontext-setprovisionedcontext
      */
-    SetProvisionedContext(provisionedContexts, providerID, requestID) {
+    SetProvisionedContext(provisionedContexts, providerID) {
         providerID := providerID is String ? StrPtr(providerID) : providerID
 
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", provisionedContexts, "ptr", providerID, requestIDMarshal, requestID, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", provisionedContexts, "ptr", providerID, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 }

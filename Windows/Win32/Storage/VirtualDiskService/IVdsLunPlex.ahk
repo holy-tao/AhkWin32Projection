@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_LUN_PLEX_PROP.ahk
+#Include .\IVdsLun.ahk
+#Include .\VDS_HINTS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,24 +35,23 @@ class IVdsLunPlex extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_LUN_PLEX_PROP>} pPlexProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_LUN_PLEX_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunplex-getproperties
      */
-    GetProperties(pPlexProp) {
+    GetProperties() {
+        pPlexProp := VDS_LUN_PLEX_PROP()
         result := ComCall(3, this, "ptr", pPlexProp, "HRESULT")
-        return result
+        return pPlexProp
     }
 
     /**
      * 
-     * @param {Pointer<IVdsLun>} ppLun 
-     * @returns {HRESULT} 
+     * @returns {IVdsLun} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunplex-getlun
      */
-    GetLun(ppLun) {
-        result := ComCall(4, this, "ptr*", ppLun, "HRESULT")
-        return result
+    GetLun() {
+        result := ComCall(4, this, "ptr*", &ppLun := 0, "HRESULT")
+        return IVdsLun(ppLun)
     }
 
     /**
@@ -69,13 +71,13 @@ class IVdsLunPlex extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_HINTS>} pHints 
-     * @returns {HRESULT} 
+     * @returns {VDS_HINTS} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunplex-queryhints
      */
-    QueryHints(pHints) {
+    QueryHints() {
+        pHints := VDS_HINTS()
         result := ComCall(6, this, "ptr", pHints, "HRESULT")
-        return result
+        return pHints
     }
 
     /**

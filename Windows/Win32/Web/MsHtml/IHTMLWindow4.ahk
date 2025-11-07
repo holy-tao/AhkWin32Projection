@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLFrameBase.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -31,21 +32,19 @@ class IHTMLWindow4 extends IDispatch{
     /**
      * 
      * @param {Pointer<VARIANT>} varArgIn 
-     * @param {Pointer<IDispatch>} ppPopup 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    createPopup(varArgIn, ppPopup) {
-        result := ComCall(7, this, "ptr", varArgIn, "ptr*", ppPopup, "HRESULT")
-        return result
+    createPopup(varArgIn) {
+        result := ComCall(7, this, "ptr", varArgIn, "ptr*", &ppPopup := 0, "HRESULT")
+        return IDispatch(ppPopup)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLFrameBase>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLFrameBase} 
      */
-    get_frameElement(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_frameElement() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLFrameBase(p)
     }
 }

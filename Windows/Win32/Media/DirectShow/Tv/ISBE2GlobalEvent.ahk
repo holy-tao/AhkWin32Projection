@@ -48,10 +48,11 @@ class ISBE2GlobalEvent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2globalevent-getevent
      */
     GetEvent(idEvt, param1, param2, param3, param4, pSpanning, pcb, pb) {
+        pSpanningMarshal := pSpanning is VarRef ? "int*" : "ptr"
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
         pbMarshal := pb is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", idEvt, "uint", param1, "uint", param2, "uint", param3, "uint", param4, "ptr", pSpanning, pcbMarshal, pcb, pbMarshal, pb, "HRESULT")
+        result := ComCall(3, this, "ptr", idEvt, "uint", param1, "uint", param2, "uint", param3, "uint", param4, pSpanningMarshal, pSpanning, pcbMarshal, pcb, pbMarshal, pb, "HRESULT")
         return result
     }
 }

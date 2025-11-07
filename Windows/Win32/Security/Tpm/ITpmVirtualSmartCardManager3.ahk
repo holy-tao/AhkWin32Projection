@@ -45,10 +45,9 @@ class ITpmVirtualSmartCardManager3 extends ITpmVirtualSmartCardManager2{
      * @param {Integer} attestationType 
      * @param {BOOL} fGenerate 
      * @param {ITpmVirtualSmartCardManagerStatusCallback} pStatusCallback 
-     * @param {Pointer<PWSTR>} ppszInstanceId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    CreateVirtualSmartCardWithAttestation(pszFriendlyName, bAdminAlgId, pbAdminKey, cbAdminKey, pbAdminKcv, cbAdminKcv, pbPuk, cbPuk, pbPin, cbPin, pbPinPolicy, cbPinPolicy, attestationType, fGenerate, pStatusCallback, ppszInstanceId) {
+    CreateVirtualSmartCardWithAttestation(pszFriendlyName, bAdminAlgId, pbAdminKey, cbAdminKey, pbAdminKcv, cbAdminKcv, pbPuk, cbPuk, pbPin, cbPin, pbPinPolicy, cbPinPolicy, attestationType, fGenerate, pStatusCallback) {
         pszFriendlyName := pszFriendlyName is String ? StrPtr(pszFriendlyName) : pszFriendlyName
 
         pbAdminKeyMarshal := pbAdminKey is VarRef ? "char*" : "ptr"
@@ -57,7 +56,7 @@ class ITpmVirtualSmartCardManager3 extends ITpmVirtualSmartCardManager2{
         pbPinMarshal := pbPin is VarRef ? "char*" : "ptr"
         pbPinPolicyMarshal := pbPinPolicy is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, pbPinPolicyMarshal, pbPinPolicy, "uint", cbPinPolicy, "int", attestationType, "int", fGenerate, "ptr", pStatusCallback, "ptr", ppszInstanceId, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, pbPinPolicyMarshal, pbPinPolicy, "uint", cbPinPolicy, "int", attestationType, "int", fGenerate, "ptr", pStatusCallback, "ptr*", &ppszInstanceId := 0, "HRESULT")
+        return ppszInstanceId
     }
 }

@@ -44,15 +44,12 @@ class ITForwardInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plNumRings 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation-get_numringsnoanswer
      */
-    get_NumRingsNoAnswer(plNumRings) {
-        plNumRingsMarshal := plNumRings is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plNumRingsMarshal, plNumRings, "HRESULT")
-        return result
+    get_NumRingsNoAnswer() {
+        result := ComCall(8, this, "int*", &plNumRings := 0, "HRESULT")
+        return plNumRings
     }
 
     /**
@@ -74,25 +71,25 @@ class ITForwardInformation extends IDispatch{
     /**
      * 
      * @param {Integer} ForwardType 
-     * @param {Pointer<BSTR>} ppDestAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation-get_forwardtypedestination
      */
-    get_ForwardTypeDestination(ForwardType, ppDestAddress) {
+    get_ForwardTypeDestination(ForwardType) {
+        ppDestAddress := BSTR()
         result := ComCall(10, this, "int", ForwardType, "ptr", ppDestAddress, "HRESULT")
-        return result
+        return ppDestAddress
     }
 
     /**
      * 
      * @param {Integer} Forwardtype 
-     * @param {Pointer<BSTR>} ppCallerAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation-get_forwardtypecaller
      */
-    get_ForwardTypeCaller(Forwardtype, ppCallerAddress) {
+    get_ForwardTypeCaller(Forwardtype) {
+        ppCallerAddress := BSTR()
         result := ComCall(11, this, "int", Forwardtype, "ptr", ppCallerAddress, "HRESULT")
-        return result
+        return ppCallerAddress
     }
 
     /**

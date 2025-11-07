@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAudioMediaType.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,22 +32,20 @@ class IAudioProcessingObjectPreferredFormatSupport extends IUnknown{
     /**
      * 
      * @param {IAudioMediaType} outputFormat 
-     * @param {Pointer<IAudioMediaType>} preferredFormat 
-     * @returns {HRESULT} 
+     * @returns {IAudioMediaType} 
      */
-    GetPreferredInputFormat(outputFormat, preferredFormat) {
-        result := ComCall(3, this, "ptr", outputFormat, "ptr*", preferredFormat, "HRESULT")
-        return result
+    GetPreferredInputFormat(outputFormat) {
+        result := ComCall(3, this, "ptr", outputFormat, "ptr*", &preferredFormat := 0, "HRESULT")
+        return IAudioMediaType(preferredFormat)
     }
 
     /**
      * 
      * @param {IAudioMediaType} inputFormat 
-     * @param {Pointer<IAudioMediaType>} preferredFormat 
-     * @returns {HRESULT} 
+     * @returns {IAudioMediaType} 
      */
-    GetPreferredOutputFormat(inputFormat, preferredFormat) {
-        result := ComCall(4, this, "ptr", inputFormat, "ptr*", preferredFormat, "HRESULT")
-        return result
+    GetPreferredOutputFormat(inputFormat) {
+        result := ComCall(4, this, "ptr", inputFormat, "ptr*", &preferredFormat := 0, "HRESULT")
+        return IAudioMediaType(preferredFormat)
     }
 }

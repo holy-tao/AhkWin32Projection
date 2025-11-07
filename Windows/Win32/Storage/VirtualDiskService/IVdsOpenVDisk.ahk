@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,15 +37,14 @@ class IVdsOpenVDisk extends IUnknown{
      * @param {Integer} Flags 
      * @param {Integer} ProviderSpecificFlags 
      * @param {Integer} TimeoutInMs 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsopenvdisk-attach
      */
-    Attach(pStringSecurityDescriptor, Flags, ProviderSpecificFlags, TimeoutInMs, ppAsync) {
+    Attach(pStringSecurityDescriptor, Flags, ProviderSpecificFlags, TimeoutInMs) {
         pStringSecurityDescriptor := pStringSecurityDescriptor is String ? StrPtr(pStringSecurityDescriptor) : pStringSecurityDescriptor
 
-        result := ComCall(3, this, "ptr", pStringSecurityDescriptor, "int", Flags, "uint", ProviderSpecificFlags, "uint", TimeoutInMs, "ptr*", ppAsync, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pStringSecurityDescriptor, "int", Flags, "uint", ProviderSpecificFlags, "uint", TimeoutInMs, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
@@ -75,38 +75,35 @@ class IVdsOpenVDisk extends IUnknown{
      * 
      * @param {Integer} Flags 
      * @param {Integer} Reserved 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsopenvdisk-compact
      */
-    Compact(Flags, Reserved, ppAsync) {
-        result := ComCall(6, this, "int", Flags, "uint", Reserved, "ptr*", ppAsync, "HRESULT")
-        return result
+    Compact(Flags, Reserved) {
+        result := ComCall(6, this, "int", Flags, "uint", Reserved, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
      * 
      * @param {Integer} Flags 
      * @param {Integer} MergeDepth 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsopenvdisk-merge
      */
-    Merge(Flags, MergeDepth, ppAsync) {
-        result := ComCall(7, this, "int", Flags, "uint", MergeDepth, "ptr*", ppAsync, "HRESULT")
-        return result
+    Merge(Flags, MergeDepth) {
+        result := ComCall(7, this, "int", Flags, "uint", MergeDepth, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
      * 
      * @param {Integer} Flags 
      * @param {Integer} NewSize 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsopenvdisk-expand
      */
-    Expand(Flags, NewSize, ppAsync) {
-        result := ComCall(8, this, "int", Flags, "uint", NewSize, "ptr*", ppAsync, "HRESULT")
-        return result
+    Expand(Flags, NewSize) {
+        result := ComCall(8, this, "int", Flags, "uint", NewSize, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 }

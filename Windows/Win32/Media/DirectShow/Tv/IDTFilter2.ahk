@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IDTFilter.ahk
 
 /**
@@ -37,28 +38,26 @@ class IDTFilter2 extends IDTFilter{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrChallengeUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-get_challengeurl
      */
-    get_ChallengeUrl(pbstrChallengeUrl) {
+    get_ChallengeUrl() {
+        pbstrChallengeUrl := BSTR()
         result := ComCall(11, this, "ptr", pbstrChallengeUrl, "HRESULT")
-        return result
+        return pbstrChallengeUrl
     }
 
     /**
      * 
      * @param {Pointer<Integer>} protType 
-     * @param {Pointer<Integer>} lpDateTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-getcurrlicenseexpdate
      */
-    GetCurrLicenseExpDate(protType, lpDateTime) {
+    GetCurrLicenseExpDate(protType) {
         protTypeMarshal := protType is VarRef ? "int*" : "ptr"
-        lpDateTimeMarshal := lpDateTime is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, protTypeMarshal, protType, lpDateTimeMarshal, lpDateTime, "HRESULT")
-        return result
+        result := ComCall(12, this, protTypeMarshal, protType, "int*", &lpDateTime := 0, "HRESULT")
+        return lpDateTime
     }
 
     /**

@@ -30,11 +30,10 @@ class IHandlerInfo2 extends IHandlerInfo{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetApplicationId(value) {
-        result := ComCall(6, this, "ptr", value, "HRESULT")
-        return result
+    GetApplicationId() {
+        result := ComCall(6, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 }

@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumDirectory.ahk
+#Include .\ITDirectory.ahk
+#Include .\ITDirectoryObject.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,87 +37,50 @@ class ITRendezvous extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itrendezvous-get_defaultdirectories
      */
-    get_DefaultDirectories(pVariant) {
+    get_DefaultDirectories() {
+        pVariant := VARIANT()
         result := ComCall(7, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumDirectory>} ppEnumDirectory 
-     * @returns {HRESULT} 
+     * @returns {IEnumDirectory} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itrendezvous-enumeratedefaultdirectories
      */
-    EnumerateDefaultDirectories(ppEnumDirectory) {
-        result := ComCall(8, this, "ptr*", ppEnumDirectory, "HRESULT")
-        return result
+    EnumerateDefaultDirectories() {
+        result := ComCall(8, this, "ptr*", &ppEnumDirectory := 0, "HRESULT")
+        return IEnumDirectory(ppEnumDirectory)
     }
 
     /**
      * Creates a new directory.
      * @param {Integer} DirectoryType 
      * @param {BSTR} pName 
-     * @param {Pointer<ITDirectory>} ppDir 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the 
-     *        following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ALREADY_EXISTS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified directory already exists.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_PATH_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more intermediate directories do not exist; this function will only create the final directory in 
-     *         the path.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {ITDirectory} 
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-createdirectory
      */
-    CreateDirectory(DirectoryType, pName, ppDir) {
+    CreateDirectory(DirectoryType, pName) {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName
 
-        result := ComCall(9, this, "int", DirectoryType, "ptr", pName, "ptr*", ppDir, "HRESULT")
-        return result
+        result := ComCall(9, this, "int", DirectoryType, "ptr", pName, "ptr*", &ppDir := 0, "HRESULT")
+        return ITDirectory(ppDir)
     }
 
     /**
      * 
      * @param {Integer} DirectoryObjectType 
      * @param {BSTR} pName 
-     * @param {Pointer<ITDirectoryObject>} ppDirectoryObject 
-     * @returns {HRESULT} 
+     * @returns {ITDirectoryObject} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itrendezvous-createdirectoryobject
      */
-    CreateDirectoryObject(DirectoryObjectType, pName, ppDirectoryObject) {
+    CreateDirectoryObject(DirectoryObjectType, pName) {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName
 
-        result := ComCall(10, this, "int", DirectoryObjectType, "ptr", pName, "ptr*", ppDirectoryObject, "HRESULT")
-        return result
+        result := ComCall(10, this, "int", DirectoryObjectType, "ptr", pName, "ptr*", &ppDirectoryObject := 0, "HRESULT")
+        return ITDirectoryObject(ppDirectoryObject)
     }
 }

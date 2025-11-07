@@ -238,107 +238,35 @@ class Recovery {
      * On output, specifies the size of the buffer that was used.
      * 
      * To determine the required buffer size, set <i>pwzCommandLine</i> to <b>NULL</b> and this parameter to zero. The size includes one for the <b>null</b>-terminator character. Note that the function returns S_OK, not HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) in this case.
-     * @param {Pointer<Integer>} pdwFlags A pointer to a variable that receives the flags specified by the application when it called the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registerapplicationrestart">RegisterApplicationRestart</a> function.
-     * @returns {HRESULT} This function returns <b>S_OK</b> on success or one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_NOT_FOUND)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The application did not register for restart.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>pwzCommandLine</i> buffer is too small. The function returns the required buffer size in <i>pcchSize</i>. Use the required size to reallocate the buffer.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} A pointer to a variable that receives the flags specified by the application when it called the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registerapplicationrestart">RegisterApplicationRestart</a> function.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getapplicationrestartsettings
      * @since windows6.0.6000
      */
-    static GetApplicationRestartSettings(hProcess, pwzCommandline, pcchSize, pdwFlags) {
+    static GetApplicationRestartSettings(hProcess, pwzCommandline, pcchSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         pwzCommandline := pwzCommandline is String ? StrPtr(pwzCommandline) : pwzCommandline
 
         pcchSizeMarshal := pcchSize is VarRef ? "uint*" : "ptr"
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetApplicationRestartSettings", "ptr", hProcess, "ptr", pwzCommandline, pcchSizeMarshal, pcchSize, pdwFlagsMarshal, pdwFlags, "int")
+        result := DllCall("KERNEL32.dll\GetApplicationRestartSettings", "ptr", hProcess, "ptr", pwzCommandline, pcchSizeMarshal, pcchSize, "uint*", &pdwFlags := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwFlags
     }
 
     /**
      * Indicates that the calling application is continuing to recover data.
-     * @param {Pointer<BOOL>} pbCancelled Indicates whether the user has canceled the recovery process. Set by WER if the user clicks the Cancel button.
-     * @returns {HRESULT} This function returns <b>S_OK</b> on success or one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * You can call this function only after Windows Error Reporting has called your recovery callback function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>pbCancelled</i> cannot be <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BOOL} Indicates whether the user has canceled the recovery process. Set by WER if the user clicks the Cancel button.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-applicationrecoveryinprogress
      * @since windows6.0.6000
      */
-    static ApplicationRecoveryInProgress(pbCancelled) {
-        result := DllCall("KERNEL32.dll\ApplicationRecoveryInProgress", "ptr", pbCancelled, "int")
+    static ApplicationRecoveryInProgress() {
+        result := DllCall("KERNEL32.dll\ApplicationRecoveryInProgress", "int*", &pbCancelled := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbCancelled
     }
 
     /**

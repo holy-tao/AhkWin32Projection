@@ -61,41 +61,21 @@ class IDWriteFontFileStream extends IUnknown{
 
     /**
      * Retrieves the size of the specified file, in bytes.
-     * @param {Pointer<Integer>} fileSize 
-     * @returns {HRESULT} If the function succeeds, the return value is the low-order doubleword of the file size, and, if 
-     *        <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the function puts the 
-     *        high-order doubleword of the file size into the variable pointed to by that parameter.
-     * 
-     * If the function fails and <i>lpFileSizeHigh</i> is <b>NULL</b>, the 
-     *        return value is <b>INVALID_FILE_SIZE</b>. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. When 
-     *        <i>lpFileSizeHigh</i> is <b>NULL</b>, the results returned for large 
-     *        files are ambiguous, and you will not be able to determine the actual size of the file. It is recommended that 
-     *        you use <a href="/windows/desktop/api/fileapi/nf-fileapi-getfilesizeex">GetFileSizeEx</a> instead.
-     * 
-     * If the function fails and <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the 
-     *        return value is <b>INVALID_FILE_SIZE</b> and 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return a value other than 
-     *        <b>NO_ERROR</b>.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
      */
-    GetFileSize(fileSize) {
-        fileSizeMarshal := fileSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, fileSizeMarshal, fileSize, "HRESULT")
-        return result
+    GetFileSize() {
+        result := ComCall(5, this, "uint*", &fileSize := 0, "HRESULT")
+        return fileSize
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lastWriteTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfilestream-getlastwritetime
      */
-    GetLastWriteTime(lastWriteTime) {
-        lastWriteTimeMarshal := lastWriteTime is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, lastWriteTimeMarshal, lastWriteTime, "HRESULT")
-        return result
+    GetLastWriteTime() {
+        result := ComCall(6, this, "uint*", &lastWriteTime := 0, "HRESULT")
+        return lastWriteTime
     }
 }

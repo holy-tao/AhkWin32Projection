@@ -40,15 +40,13 @@ class ILanguageExceptionStackBackTrace extends IUnknown{
      * 
      * @param {Integer} maxFramesToCapture 
      * @param {Pointer<Pointer>} stackBackTrace 
-     * @param {Pointer<Integer>} framesCaptured 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionstackbacktrace-getstackbacktrace
      */
-    GetStackBackTrace(maxFramesToCapture, stackBackTrace, framesCaptured) {
+    GetStackBackTrace(maxFramesToCapture, stackBackTrace) {
         stackBackTraceMarshal := stackBackTrace is VarRef ? "ptr*" : "ptr"
-        framesCapturedMarshal := framesCaptured is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", maxFramesToCapture, stackBackTraceMarshal, stackBackTrace, framesCapturedMarshal, framesCaptured, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", maxFramesToCapture, stackBackTraceMarshal, stackBackTrace, "uint*", &framesCaptured := 0, "HRESULT")
+        return framesCaptured
     }
 }

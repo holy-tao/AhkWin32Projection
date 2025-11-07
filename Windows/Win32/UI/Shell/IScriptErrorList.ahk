@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -48,98 +49,85 @@ class IScriptErrorList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCanAdvance 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    canAdvanceError(pfCanAdvance) {
-        result := ComCall(9, this, "ptr", pfCanAdvance, "HRESULT")
-        return result
+    canAdvanceError() {
+        result := ComCall(9, this, "int*", &pfCanAdvance := 0, "HRESULT")
+        return pfCanAdvance
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCanRetreat 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    canRetreatError(pfCanRetreat) {
-        result := ComCall(10, this, "ptr", pfCanRetreat, "HRESULT")
-        return result
+    canRetreatError() {
+        result := ComCall(10, this, "int*", &pfCanRetreat := 0, "HRESULT")
+        return pfCanRetreat
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plLine 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getErrorLine(plLine) {
-        plLineMarshal := plLine is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plLineMarshal, plLine, "HRESULT")
-        return result
+    getErrorLine() {
+        result := ComCall(11, this, "int*", &plLine := 0, "HRESULT")
+        return plLine
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plChar 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getErrorChar(plChar) {
-        plCharMarshal := plChar is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plCharMarshal, plChar, "HRESULT")
-        return result
+    getErrorChar() {
+        result := ComCall(12, this, "int*", &plChar := 0, "HRESULT")
+        return plChar
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getErrorCode(plCode) {
-        plCodeMarshal := plCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, plCodeMarshal, plCode, "HRESULT")
-        return result
+    getErrorCode() {
+        result := ComCall(13, this, "int*", &plCode := 0, "HRESULT")
+        return plCode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getErrorMsg(pstr) {
+    getErrorMsg() {
+        pstr := BSTR()
         result := ComCall(14, this, "ptr", pstr, "HRESULT")
-        return result
+        return pstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getErrorUrl(pstr) {
+    getErrorUrl() {
+        pstr := BSTR()
         result := ComCall(15, this, "ptr", pstr, "HRESULT")
-        return result
+        return pstr
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfAlwaysShowLocked 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    getAlwaysShowLockState(pfAlwaysShowLocked) {
-        result := ComCall(16, this, "ptr", pfAlwaysShowLocked, "HRESULT")
-        return result
+    getAlwaysShowLockState() {
+        result := ComCall(16, this, "int*", &pfAlwaysShowLocked := 0, "HRESULT")
+        return pfAlwaysShowLocked
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfDetailsPaneOpen 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    getDetailsPaneOpen(pfDetailsPaneOpen) {
-        result := ComCall(17, this, "ptr", pfDetailsPaneOpen, "HRESULT")
-        return result
+    getDetailsPaneOpen() {
+        result := ComCall(17, this, "int*", &pfDetailsPaneOpen := 0, "HRESULT")
+        return pfDetailsPaneOpen
     }
 
     /**
@@ -154,12 +142,11 @@ class IScriptErrorList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfPerErrorDisplay 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    getPerErrorDisplay(pfPerErrorDisplay) {
-        result := ComCall(19, this, "ptr", pfPerErrorDisplay, "HRESULT")
-        return result
+    getPerErrorDisplay() {
+        result := ComCall(19, this, "int*", &pfPerErrorDisplay := 0, "HRESULT")
+        return pfPerErrorDisplay
     }
 
     /**

@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_SUB_SYSTEM_PROP.ahk
+#Include .\IVdsProvider.ahk
+#Include .\IEnumVdsObject.ahk
+#Include .\IVdsDrive.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,70 +37,65 @@ class IVdsSubSystem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_SUB_SYSTEM_PROP>} pSubSystemProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_SUB_SYSTEM_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-getproperties
      */
-    GetProperties(pSubSystemProp) {
+    GetProperties() {
+        pSubSystemProp := VDS_SUB_SYSTEM_PROP()
         result := ComCall(3, this, "ptr", pSubSystemProp, "HRESULT")
-        return result
+        return pSubSystemProp
     }
 
     /**
      * 
-     * @param {Pointer<IVdsProvider>} ppProvider 
-     * @returns {HRESULT} 
+     * @returns {IVdsProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-getprovider
      */
-    GetProvider(ppProvider) {
-        result := ComCall(4, this, "ptr*", ppProvider, "HRESULT")
-        return result
+    GetProvider() {
+        result := ComCall(4, this, "ptr*", &ppProvider := 0, "HRESULT")
+        return IVdsProvider(ppProvider)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-querycontrollers
      */
-    QueryControllers(ppEnum) {
-        result := ComCall(5, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryControllers() {
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-queryluns
      */
-    QueryLuns(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryLuns() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-querydrives
      */
-    QueryDrives(ppEnum) {
-        result := ComCall(7, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryDrives() {
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
      * @param {Integer} sBusNumber 
      * @param {Integer} sSlotNumber 
-     * @param {Pointer<IVdsDrive>} ppDrive 
-     * @returns {HRESULT} 
+     * @returns {IVdsDrive} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-getdrive
      */
-    GetDrive(sBusNumber, sSlotNumber, ppDrive) {
-        result := ComCall(8, this, "short", sBusNumber, "short", sSlotNumber, "ptr*", ppDrive, "HRESULT")
-        return result
+    GetDrive(sBusNumber, sSlotNumber) {
+        result := ComCall(8, this, "short", sBusNumber, "short", sSlotNumber, "ptr*", &ppDrive := 0, "HRESULT")
+        return IVdsDrive(ppDrive)
     }
 
     /**
@@ -130,15 +130,14 @@ class IVdsSubSystem extends IUnknown{
      * @param {Integer} lNumberOfDrives 
      * @param {PWSTR} pwszUnmaskingList 
      * @param {Pointer<VDS_HINTS>} pHints 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-createlun
      */
-    CreateLun(type, ullSizeInBytes, pDriveIdArray, lNumberOfDrives, pwszUnmaskingList, pHints, ppAsync) {
+    CreateLun(type, ullSizeInBytes, pDriveIdArray, lNumberOfDrives, pwszUnmaskingList, pHints) {
         pwszUnmaskingList := pwszUnmaskingList is String ? StrPtr(pwszUnmaskingList) : pwszUnmaskingList
 
-        result := ComCall(11, this, "int", type, "uint", ullSizeInBytes, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pwszUnmaskingList, "ptr", pHints, "ptr*", ppAsync, "HRESULT")
-        return result
+        result := ComCall(11, this, "int", type, "uint", ullSizeInBytes, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pwszUnmaskingList, "ptr", pHints, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
@@ -170,14 +169,11 @@ class IVdsSubSystem extends IUnknown{
      * @param {Pointer<Guid>} pDriveIdArray 
      * @param {Integer} lNumberOfDrives 
      * @param {Pointer<VDS_HINTS>} pHints 
-     * @param {Pointer<Integer>} pullMaxLunSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-querymaxluncreatesize
      */
-    QueryMaxLunCreateSize(type, pDriveIdArray, lNumberOfDrives, pHints, pullMaxLunSize) {
-        pullMaxLunSizeMarshal := pullMaxLunSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "int", type, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pHints, pullMaxLunSizeMarshal, pullMaxLunSize, "HRESULT")
-        return result
+    QueryMaxLunCreateSize(type, pDriveIdArray, lNumberOfDrives, pHints) {
+        result := ComCall(14, this, "int", type, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pHints, "uint*", &pullMaxLunSize := 0, "HRESULT")
+        return pullMaxLunSize
     }
 }

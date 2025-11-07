@@ -43,12 +43,12 @@ class IWebBridge extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_URL(p) {
+    get_URL() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -63,12 +63,11 @@ class IWebBridge extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Scrollbar(p) {
-        result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+    get_Scrollbar() {
+        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -83,34 +82,29 @@ class IWebBridge extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_embed(p) {
-        result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+    get_embed() {
+        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_event(p) {
-        result := ComCall(13, this, "ptr*", p, "HRESULT")
-        return result
+    get_event() {
+        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_readyState(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pMarshal, p, "HRESULT")
-        return result
+    get_readyState() {
+        result := ComCall(14, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**

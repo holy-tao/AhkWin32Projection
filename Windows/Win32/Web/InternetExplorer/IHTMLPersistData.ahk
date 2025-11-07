@@ -32,34 +32,31 @@ class IHTMLPersistData extends IUnknown{
      * 
      * @param {IUnknown} pUnk 
      * @param {Integer} lType 
-     * @param {Pointer<VARIANT_BOOL>} fContinueBroacast 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    save(pUnk, lType, fContinueBroacast) {
-        result := ComCall(3, this, "ptr", pUnk, "int", lType, "ptr", fContinueBroacast, "HRESULT")
-        return result
+    save(pUnk, lType) {
+        result := ComCall(3, this, "ptr", pUnk, "int", lType, "short*", &fContinueBroacast := 0, "HRESULT")
+        return fContinueBroacast
     }
 
     /**
      * 
      * @param {IUnknown} pUnk 
      * @param {Integer} lType 
-     * @param {Pointer<VARIANT_BOOL>} fDoDefault 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    load(pUnk, lType, fDoDefault) {
-        result := ComCall(4, this, "ptr", pUnk, "int", lType, "ptr", fDoDefault, "HRESULT")
-        return result
+    load(pUnk, lType) {
+        result := ComCall(4, this, "ptr", pUnk, "int", lType, "short*", &fDoDefault := 0, "HRESULT")
+        return fDoDefault
     }
 
     /**
      * 
      * @param {Integer} lType 
-     * @param {Pointer<VARIANT_BOOL>} pfSupportsType 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryType(lType, pfSupportsType) {
-        result := ComCall(5, this, "int", lType, "ptr", pfSupportsType, "HRESULT")
-        return result
+    queryType(lType) {
+        result := ComCall(5, this, "int", lType, "short*", &pfSupportsType := 0, "HRESULT")
+        return pfSupportsType
     }
 }

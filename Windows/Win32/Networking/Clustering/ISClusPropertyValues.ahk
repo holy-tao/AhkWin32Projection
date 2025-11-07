@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISClusPropertyValue.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,49 +33,43 @@ class ISClusPropertyValues extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(8, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
      * @param {VARIANT} varIndex 
-     * @param {Pointer<ISClusPropertyValue>} ppPropertyValue 
-     * @returns {HRESULT} 
+     * @returns {ISClusPropertyValue} 
      */
-    get_Item(varIndex, ppPropertyValue) {
-        result := ComCall(9, this, "ptr", varIndex, "ptr*", ppPropertyValue, "HRESULT")
-        return result
+    get_Item(varIndex) {
+        result := ComCall(9, this, "ptr", varIndex, "ptr*", &ppPropertyValue := 0, "HRESULT")
+        return ISClusPropertyValue(ppPropertyValue)
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
      * @param {VARIANT} varValue 
-     * @param {Pointer<ISClusPropertyValue>} ppPropertyValue 
-     * @returns {HRESULT} 
+     * @returns {ISClusPropertyValue} 
      */
-    CreateItem(bstrName, varValue, ppPropertyValue) {
+    CreateItem(bstrName, varValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(10, this, "ptr", bstrName, "ptr", varValue, "ptr*", ppPropertyValue, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrName, "ptr", varValue, "ptr*", &ppPropertyValue := 0, "HRESULT")
+        return ISClusPropertyValue(ppPropertyValue)
     }
 
     /**

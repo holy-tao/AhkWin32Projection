@@ -34,51 +34,47 @@ class ITfContextKeyEventSink extends IUnknown{
      * 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextkeyeventsink-onkeydown
      */
-    OnKeyDown(wParam, lParam, pfEaten) {
-        result := ComCall(3, this, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    OnKeyDown(wParam, lParam) {
+        result := ComCall(3, this, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 
     /**
      * 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextkeyeventsink-onkeyup
      */
-    OnKeyUp(wParam, lParam, pfEaten) {
-        result := ComCall(4, this, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    OnKeyUp(wParam, lParam) {
+        result := ComCall(4, this, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 
     /**
      * 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextkeyeventsink-ontestkeydown
      */
-    OnTestKeyDown(wParam, lParam, pfEaten) {
-        result := ComCall(5, this, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    OnTestKeyDown(wParam, lParam) {
+        result := ComCall(5, this, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 
     /**
      * 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextkeyeventsink-ontestkeyup
      */
-    OnTestKeyUp(wParam, lParam, pfEaten) {
-        result := ComCall(6, this, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    OnTestKeyUp(wParam, lParam) {
+        result := ComCall(6, this, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 }

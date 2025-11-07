@@ -34,15 +34,12 @@ class IWMReaderAccelerator extends IUnknown{
      * 
      * @param {Integer} dwOutputNum 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvCodecInterface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderaccelerator-getcodecinterface
      */
-    GetCodecInterface(dwOutputNum, riid, ppvCodecInterface) {
-        ppvCodecInterfaceMarshal := ppvCodecInterface is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "uint", dwOutputNum, "ptr", riid, ppvCodecInterfaceMarshal, ppvCodecInterface, "HRESULT")
-        return result
+    GetCodecInterface(dwOutputNum, riid) {
+        result := ComCall(3, this, "uint", dwOutputNum, "ptr", riid, "ptr*", &ppvCodecInterface := 0, "HRESULT")
+        return ppvCodecInterface
     }
 
     /**

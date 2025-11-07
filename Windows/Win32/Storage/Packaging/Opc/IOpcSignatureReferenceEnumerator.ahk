@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcSignatureReference.ahk
+#Include .\IOpcSignatureReferenceEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,45 +44,41 @@ class IOpcSignatureReferenceEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasNext 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceenumerator-movenext
      */
-    MoveNext(hasNext) {
-        result := ComCall(3, this, "ptr", hasNext, "HRESULT")
-        return result
+    MoveNext() {
+        result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
+        return hasNext
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasPrevious 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceenumerator-moveprevious
      */
-    MovePrevious(hasPrevious) {
-        result := ComCall(4, this, "ptr", hasPrevious, "HRESULT")
-        return result
+    MovePrevious() {
+        result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
+        return hasPrevious
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureReference>} reference 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureReference} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceenumerator-getcurrent
      */
-    GetCurrent(reference) {
-        result := ComCall(5, this, "ptr*", reference, "HRESULT")
-        return result
+    GetCurrent() {
+        result := ComCall(5, this, "ptr*", &reference := 0, "HRESULT")
+        return IOpcSignatureReference(reference)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureReferenceEnumerator>} copy 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureReferenceEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceenumerator-clone
      */
-    Clone(copy) {
-        result := ComCall(6, this, "ptr*", copy, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")
+        return IOpcSignatureReferenceEnumerator(copy)
     }
 }

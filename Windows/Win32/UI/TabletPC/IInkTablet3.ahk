@@ -32,25 +32,21 @@ class IInkTablet3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pIsMultiTouch 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet3-get_ismultitouch
      */
-    get_IsMultiTouch(pIsMultiTouch) {
-        result := ComCall(7, this, "ptr", pIsMultiTouch, "HRESULT")
-        return result
+    get_IsMultiTouch() {
+        result := ComCall(7, this, "short*", &pIsMultiTouch := 0, "HRESULT")
+        return pIsMultiTouch
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pMaximumCursors 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet3-get_maximumcursors
      */
-    get_MaximumCursors(pMaximumCursors) {
-        pMaximumCursorsMarshal := pMaximumCursors is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pMaximumCursorsMarshal, pMaximumCursors, "HRESULT")
-        return result
+    get_MaximumCursors() {
+        result := ComCall(8, this, "uint*", &pMaximumCursors := 0, "HRESULT")
+        return pMaximumCursors
     }
 }

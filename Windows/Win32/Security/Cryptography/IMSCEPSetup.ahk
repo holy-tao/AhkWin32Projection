@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,26 +34,23 @@ class IMSCEPSetup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-imscepsetup-get_msceperrorid
      */
-    get_MSCEPErrorId(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_MSCEPErrorId() {
+        result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-imscepsetup-get_msceperrorstring
      */
-    get_MSCEPErrorString(pVal) {
+    get_MSCEPErrorString() {
+        pVal := BSTR()
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -68,13 +66,13 @@ class IMSCEPSetup extends IDispatch{
     /**
      * 
      * @param {Integer} propertyId 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-imscepsetup-getmscepsetupproperty
      */
-    GetMSCEPSetupProperty(propertyId, pVal) {
+    GetMSCEPSetupProperty(propertyId) {
+        pVal := VARIANT()
         result := ComCall(10, this, "int", propertyId, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -106,40 +104,39 @@ class IMSCEPSetup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbEmpty 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-imscepsetup-ismscepstoreempty
      */
-    IsMSCEPStoreEmpty(pbEmpty) {
-        result := ComCall(13, this, "ptr", pbEmpty, "HRESULT")
-        return result
+    IsMSCEPStoreEmpty() {
+        result := ComCall(13, this, "short*", &pbEmpty := 0, "HRESULT")
+        return pbEmpty
     }
 
     /**
      * 
      * @param {VARIANT_BOOL} bExchange 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-imscepsetup-getprovidernamelist
      */
-    GetProviderNameList(bExchange, pVal) {
+    GetProviderNameList(bExchange) {
+        pVal := VARIANT()
         result := ComCall(14, this, "short", bExchange, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {VARIANT_BOOL} bExchange 
      * @param {BSTR} bstrProviderName 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-imscepsetup-getkeylengthlist
      */
-    GetKeyLengthList(bExchange, bstrProviderName, pVal) {
+    GetKeyLengthList(bExchange, bstrProviderName) {
         bstrProviderName := bstrProviderName is String ? BSTR.Alloc(bstrProviderName).Value : bstrProviderName
 
+        pVal := VARIANT()
         result := ComCall(15, this, "short", bExchange, "ptr", bstrProviderName, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**

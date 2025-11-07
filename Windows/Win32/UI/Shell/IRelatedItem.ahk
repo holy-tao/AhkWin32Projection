@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IShellItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,25 +40,21 @@ class IRelatedItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irelateditem-getitemidlist
      */
-    GetItemIDList(ppidl) {
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppidlMarshal, ppidl, "HRESULT")
-        return result
+    GetItemIDList() {
+        result := ComCall(3, this, "ptr*", &ppidl := 0, "HRESULT")
+        return ppidl
     }
 
     /**
      * 
-     * @param {Pointer<IShellItem>} ppsi 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-irelateditem-getitem
      */
-    GetItem(ppsi) {
-        result := ComCall(4, this, "ptr*", ppsi, "HRESULT")
-        return result
+    GetItem() {
+        result := ComCall(4, this, "ptr*", &ppsi := 0, "HRESULT")
+        return IShellItem(ppsi)
     }
 }

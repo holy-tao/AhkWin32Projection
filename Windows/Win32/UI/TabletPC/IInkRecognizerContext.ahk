@@ -2,6 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IInkStrokes.ahk
+#Include .\IInkRecognizerGuide.ahk
+#Include .\IInkWordList.ahk
+#Include .\IInkRecognizer.ahk
+#Include .\IInkRecognitionResult.ahk
+#Include .\IInkRecognizerContext.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,13 +39,12 @@ class IInkRecognizerContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_strokes
      */
-    get_Strokes(Strokes) {
-        result := ComCall(7, this, "ptr*", Strokes, "HRESULT")
-        return result
+    get_Strokes() {
+        result := ComCall(7, this, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**
@@ -55,15 +60,12 @@ class IInkRecognizerContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Mode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_characterautocompletionmode
      */
-    get_CharacterAutoCompletionMode(Mode) {
-        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, ModeMarshal, Mode, "HRESULT")
-        return result
+    get_CharacterAutoCompletionMode() {
+        result := ComCall(9, this, "int*", &Mode := 0, "HRESULT")
+        return Mode
     }
 
     /**
@@ -79,13 +81,13 @@ class IInkRecognizerContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Factoid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_factoid
      */
-    get_Factoid(Factoid) {
+    get_Factoid() {
+        Factoid := BSTR()
         result := ComCall(11, this, "ptr", Factoid, "HRESULT")
-        return result
+        return Factoid
     }
 
     /**
@@ -103,13 +105,12 @@ class IInkRecognizerContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkRecognizerGuide>} RecognizerGuide 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognizerGuide} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_guide
      */
-    get_Guide(RecognizerGuide) {
-        result := ComCall(13, this, "ptr*", RecognizerGuide, "HRESULT")
-        return result
+    get_Guide() {
+        result := ComCall(13, this, "ptr*", &RecognizerGuide := 0, "HRESULT")
+        return IInkRecognizerGuide(RecognizerGuide)
     }
 
     /**
@@ -125,13 +126,13 @@ class IInkRecognizerContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Prefix 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_prefixtext
      */
-    get_PrefixText(Prefix) {
+    get_PrefixText() {
+        Prefix := BSTR()
         result := ComCall(15, this, "ptr", Prefix, "HRESULT")
-        return result
+        return Prefix
     }
 
     /**
@@ -149,13 +150,13 @@ class IInkRecognizerContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Suffix 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_suffixtext
      */
-    get_SuffixText(Suffix) {
+    get_SuffixText() {
+        Suffix := BSTR()
         result := ComCall(17, this, "ptr", Suffix, "HRESULT")
-        return result
+        return Suffix
     }
 
     /**
@@ -173,15 +174,12 @@ class IInkRecognizerContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Modes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_recognitionflags
      */
-    get_RecognitionFlags(Modes) {
-        ModesMarshal := Modes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, ModesMarshal, Modes, "HRESULT")
-        return result
+    get_RecognitionFlags() {
+        result := ComCall(19, this, "int*", &Modes := 0, "HRESULT")
+        return Modes
     }
 
     /**
@@ -197,13 +195,12 @@ class IInkRecognizerContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkWordList>} WordList 
-     * @returns {HRESULT} 
+     * @returns {IInkWordList} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_wordlist
      */
-    get_WordList(WordList) {
-        result := ComCall(21, this, "ptr*", WordList, "HRESULT")
-        return result
+    get_WordList() {
+        result := ComCall(21, this, "ptr*", &WordList := 0, "HRESULT")
+        return IInkWordList(WordList)
     }
 
     /**
@@ -219,27 +216,25 @@ class IInkRecognizerContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkRecognizer>} Recognizer 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognizer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_recognizer
      */
-    get_Recognizer(Recognizer) {
-        result := ComCall(23, this, "ptr*", Recognizer, "HRESULT")
-        return result
+    get_Recognizer() {
+        result := ComCall(23, this, "ptr*", &Recognizer := 0, "HRESULT")
+        return IInkRecognizer(Recognizer)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} RecognitionStatus 
-     * @param {Pointer<IInkRecognitionResult>} RecognitionResult 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognitionResult} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-recognize
      */
-    Recognize(RecognitionStatus, RecognitionResult) {
+    Recognize(RecognitionStatus) {
         RecognitionStatusMarshal := RecognitionStatus is VarRef ? "int*" : "ptr"
 
-        result := ComCall(24, this, RecognitionStatusMarshal, RecognitionStatus, "ptr*", RecognitionResult, "HRESULT")
-        return result
+        result := ComCall(24, this, RecognitionStatusMarshal, RecognitionStatus, "ptr*", &RecognitionResult := 0, "HRESULT")
+        return IInkRecognitionResult(RecognitionResult)
     }
 
     /**
@@ -337,101 +332,24 @@ class IInkRecognizerContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkRecognizerContext>} RecoContext 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognizerContext} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-clone
      */
-    Clone(RecoContext) {
-        result := ComCall(29, this, "ptr*", RecoContext, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(29, this, "ptr*", &RecoContext := 0, "HRESULT")
+        return IInkRecognizerContext(RecoContext)
     }
 
     /**
      * Returns a value that indicates whether a word, date, time, number, or other text that is passed in is contained in the dictionary.The results of this test depend on the factoid setting.
      * @param {BSTR} String 
-     * @param {Pointer<VARIANT_BOOL>} Supported 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * This function also returns S_OK if the recognizer does not support this function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unable to allocate memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The string is not supported.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid argument was received.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} 
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-isstringsupported
      */
-    IsStringSupported(String, Supported) {
+    IsStringSupported(String) {
         String := String is String ? BSTR.Alloc(String).Value : String
 
-        result := ComCall(30, this, "ptr", String, "ptr", Supported, "HRESULT")
-        return result
+        result := ComCall(30, this, "ptr", String, "short*", &Supported := 0, "HRESULT")
+        return Supported
     }
 }

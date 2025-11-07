@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\XPS_POINT.ahk
+#Include .\XPS_SIZE.ahk
+#Include .\IXpsOMRadialGradientBrush.ahk
 #Include .\IXpsOMGradientBrush.ahk
 
 /**
@@ -86,13 +89,13 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * 
-     * @param {Pointer<XPS_POINT>} center 
-     * @returns {HRESULT} 
+     * @returns {XPS_POINT} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getcenter
      */
-    GetCenter(center) {
+    GetCenter() {
+        center := XPS_POINT()
         result := ComCall(17, this, "ptr", center, "HRESULT")
-        return result
+        return center
     }
 
     /**
@@ -108,13 +111,13 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * 
-     * @param {Pointer<XPS_SIZE>} radiiSizes 
-     * @returns {HRESULT} 
+     * @returns {XPS_SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getradiisizes
      */
-    GetRadiiSizes(radiiSizes) {
+    GetRadiiSizes() {
+        radiiSizes := XPS_SIZE()
         result := ComCall(19, this, "ptr", radiiSizes, "HRESULT")
-        return result
+        return radiiSizes
     }
 
     /**
@@ -130,13 +133,13 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * 
-     * @param {Pointer<XPS_POINT>} origin 
-     * @returns {HRESULT} 
+     * @returns {XPS_POINT} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-getgradientorigin
      */
-    GetGradientOrigin(origin) {
+    GetGradientOrigin() {
+        origin := XPS_POINT()
         result := ComCall(21, this, "ptr", origin, "HRESULT")
-        return result
+        return origin
     }
 
     /**
@@ -152,12 +155,11 @@ class IXpsOMRadialGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * 
-     * @param {Pointer<IXpsOMRadialGradientBrush>} radialGradientBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMRadialGradientBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomradialgradientbrush-clone
      */
-    Clone(radialGradientBrush) {
-        result := ComCall(23, this, "ptr*", radialGradientBrush, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(23, this, "ptr*", &radialGradientBrush := 0, "HRESULT")
+        return IXpsOMRadialGradientBrush(radialGradientBrush)
     }
 }

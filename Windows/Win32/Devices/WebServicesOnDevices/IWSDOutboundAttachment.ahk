@@ -34,16 +34,14 @@ class IWSDOutboundAttachment extends IWSDAttachment{
      * 
      * @param {Pointer<Integer>} pBuffer 
      * @param {Integer} dwBytesToWrite 
-     * @param {Pointer<Integer>} pdwNumberOfBytesWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdattachment/nf-wsdattachment-iwsdoutboundattachment-write
      */
-    Write(pBuffer, dwBytesToWrite, pdwNumberOfBytesWritten) {
+    Write(pBuffer, dwBytesToWrite) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
-        pdwNumberOfBytesWrittenMarshal := pdwNumberOfBytesWritten is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pBufferMarshal, pBuffer, "uint", dwBytesToWrite, pdwNumberOfBytesWrittenMarshal, pdwNumberOfBytesWritten, "HRESULT")
-        return result
+        result := ComCall(3, this, pBufferMarshal, pBuffer, "uint", dwBytesToWrite, "uint*", &pdwNumberOfBytesWritten := 0, "HRESULT")
+        return pdwNumberOfBytesWritten
     }
 
     /**

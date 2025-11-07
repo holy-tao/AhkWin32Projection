@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITStream.ahk
+#Include .\IEnumStream.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,13 +37,12 @@ class ITStreamControl extends IDispatch{
      * 
      * @param {Integer} lMediaType 
      * @param {Integer} td 
-     * @param {Pointer<ITStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {ITStream} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstreamcontrol-createstream
      */
-    CreateStream(lMediaType, td, ppStream) {
-        result := ComCall(7, this, "int", lMediaType, "int", td, "ptr*", ppStream, "HRESULT")
-        return result
+    CreateStream(lMediaType, td) {
+        result := ComCall(7, this, "int", lMediaType, "int", td, "ptr*", &ppStream := 0, "HRESULT")
+        return ITStream(ppStream)
     }
 
     /**
@@ -56,23 +58,22 @@ class ITStreamControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumStream>} ppEnumStream 
-     * @returns {HRESULT} 
+     * @returns {IEnumStream} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstreamcontrol-enumeratestreams
      */
-    EnumerateStreams(ppEnumStream) {
-        result := ComCall(9, this, "ptr*", ppEnumStream, "HRESULT")
-        return result
+    EnumerateStreams() {
+        result := ComCall(9, this, "ptr*", &ppEnumStream := 0, "HRESULT")
+        return IEnumStream(ppEnumStream)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstreamcontrol-get_streams
      */
-    get_Streams(pVariant) {
+    get_Streams() {
+        pVariant := VARIANT()
         result := ComCall(10, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 }

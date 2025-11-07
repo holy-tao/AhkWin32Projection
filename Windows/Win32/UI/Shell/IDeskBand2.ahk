@@ -49,13 +49,12 @@ class IDeskBand2 extends IDeskBand{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCanRenderComposited 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ideskband2-canrendercomposited
      */
-    CanRenderComposited(pfCanRenderComposited) {
-        result := ComCall(9, this, "ptr", pfCanRenderComposited, "HRESULT")
-        return result
+    CanRenderComposited() {
+        result := ComCall(9, this, "int*", &pfCanRenderComposited := 0, "HRESULT")
+        return pfCanRenderComposited
     }
 
     /**
@@ -71,12 +70,11 @@ class IDeskBand2 extends IDeskBand{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCompositionEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ideskband2-getcompositionstate
      */
-    GetCompositionState(pfCompositionEnabled) {
-        result := ComCall(11, this, "ptr", pfCompositionEnabled, "HRESULT")
-        return result
+    GetCompositionState() {
+        result := ComCall(11, this, "int*", &pfCompositionEnabled := 0, "HRESULT")
+        return pfCompositionEnabled
     }
 }

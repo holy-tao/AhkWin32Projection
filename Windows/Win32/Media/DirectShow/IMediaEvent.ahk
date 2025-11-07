@@ -32,15 +32,12 @@ class IMediaEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer>} hEvent 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaevent-geteventhandle
      */
-    GetEventHandle(hEvent) {
-        hEventMarshal := hEvent is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, hEventMarshal, hEvent, "HRESULT")
-        return result
+    GetEventHandle() {
+        result := ComCall(7, this, "ptr*", &hEvent := 0, "HRESULT")
+        return hEvent
     }
 
     /**
@@ -64,15 +61,12 @@ class IMediaEvent extends IDispatch{
     /**
      * 
      * @param {Integer} msTimeout 
-     * @param {Pointer<Integer>} pEvCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaevent-waitforcompletion
      */
-    WaitForCompletion(msTimeout, pEvCode) {
-        pEvCodeMarshal := pEvCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "int", msTimeout, pEvCodeMarshal, pEvCode, "HRESULT")
-        return result
+    WaitForCompletion(msTimeout) {
+        result := ComCall(9, this, "int", msTimeout, "int*", &pEvCode := 0, "HRESULT")
+        return pEvCode
     }
 
     /**

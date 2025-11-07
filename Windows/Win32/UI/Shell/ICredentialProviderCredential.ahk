@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -70,13 +71,12 @@ class ICredentialProviderCredential extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbAutoLogon 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-setselected
      */
-    SetSelected(pbAutoLogon) {
-        result := ComCall(5, this, "ptr", pbAutoLogon, "HRESULT")
-        return result
+    SetSelected() {
+        result := ComCall(5, this, "int*", &pbAutoLogon := 0, "HRESULT")
+        return pbAutoLogon
     }
 
     /**
@@ -108,25 +108,24 @@ class ICredentialProviderCredential extends IUnknown{
     /**
      * 
      * @param {Integer} dwFieldID 
-     * @param {Pointer<PWSTR>} ppsz 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getstringvalue
      */
-    GetStringValue(dwFieldID, ppsz) {
-        result := ComCall(8, this, "uint", dwFieldID, "ptr", ppsz, "HRESULT")
-        return result
+    GetStringValue(dwFieldID) {
+        result := ComCall(8, this, "uint", dwFieldID, "ptr*", &ppsz := 0, "HRESULT")
+        return ppsz
     }
 
     /**
      * 
      * @param {Integer} dwFieldID 
-     * @param {Pointer<HBITMAP>} phbmp 
-     * @returns {HRESULT} 
+     * @returns {HBITMAP} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getbitmapvalue
      */
-    GetBitmapValue(dwFieldID, phbmp) {
+    GetBitmapValue(dwFieldID) {
+        phbmp := HBITMAP()
         result := ComCall(9, this, "uint", dwFieldID, "ptr", phbmp, "HRESULT")
-        return result
+        return phbmp
     }
 
     /**
@@ -138,22 +137,22 @@ class ICredentialProviderCredential extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getcheckboxvalue
      */
     GetCheckboxValue(dwFieldID, pbChecked, ppszLabel) {
-        result := ComCall(10, this, "uint", dwFieldID, "ptr", pbChecked, "ptr", ppszLabel, "HRESULT")
+        pbCheckedMarshal := pbChecked is VarRef ? "int*" : "ptr"
+        ppszLabelMarshal := ppszLabel is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "uint", dwFieldID, pbCheckedMarshal, pbChecked, ppszLabelMarshal, ppszLabel, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Integer} dwFieldID 
-     * @param {Pointer<Integer>} pdwAdjacentTo 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getsubmitbuttonvalue
      */
-    GetSubmitButtonValue(dwFieldID, pdwAdjacentTo) {
-        pdwAdjacentToMarshal := pdwAdjacentTo is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, "uint", dwFieldID, pdwAdjacentToMarshal, pdwAdjacentTo, "HRESULT")
-        return result
+    GetSubmitButtonValue(dwFieldID) {
+        result := ComCall(11, this, "uint", dwFieldID, "uint*", &pdwAdjacentTo := 0, "HRESULT")
+        return pdwAdjacentTo
     }
 
     /**
@@ -176,13 +175,12 @@ class ICredentialProviderCredential extends IUnknown{
      * 
      * @param {Integer} dwFieldID 
      * @param {Integer} dwItem 
-     * @param {Pointer<PWSTR>} ppszItem 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getcomboboxvalueat
      */
-    GetComboBoxValueAt(dwFieldID, dwItem, ppszItem) {
-        result := ComCall(13, this, "uint", dwFieldID, "uint", dwItem, "ptr", ppszItem, "HRESULT")
-        return result
+    GetComboBoxValueAt(dwFieldID, dwItem) {
+        result := ComCall(13, this, "uint", dwFieldID, "uint", dwItem, "ptr*", &ppszItem := 0, "HRESULT")
+        return ppszItem
     }
 
     /**
@@ -245,9 +243,10 @@ class ICredentialProviderCredential extends IUnknown{
      */
     GetSerialization(pcpgsr, pcpcs, ppszOptionalStatusText, pcpsiOptionalStatusIcon) {
         pcpgsrMarshal := pcpgsr is VarRef ? "int*" : "ptr"
+        ppszOptionalStatusTextMarshal := ppszOptionalStatusText is VarRef ? "ptr*" : "ptr"
         pcpsiOptionalStatusIconMarshal := pcpsiOptionalStatusIcon is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, pcpgsrMarshal, pcpgsr, "ptr", pcpcs, "ptr", ppszOptionalStatusText, pcpsiOptionalStatusIconMarshal, pcpsiOptionalStatusIcon, "HRESULT")
+        result := ComCall(18, this, pcpgsrMarshal, pcpgsr, "ptr", pcpcs, ppszOptionalStatusTextMarshal, ppszOptionalStatusText, pcpsiOptionalStatusIconMarshal, pcpsiOptionalStatusIcon, "HRESULT")
         return result
     }
 
@@ -261,9 +260,10 @@ class ICredentialProviderCredential extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-reportresult
      */
     ReportResult(ntsStatus, ntsSubstatus, ppszOptionalStatusText, pcpsiOptionalStatusIcon) {
+        ppszOptionalStatusTextMarshal := ppszOptionalStatusText is VarRef ? "ptr*" : "ptr"
         pcpsiOptionalStatusIconMarshal := pcpsiOptionalStatusIcon is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, "int", ntsStatus, "int", ntsSubstatus, "ptr", ppszOptionalStatusText, pcpsiOptionalStatusIconMarshal, pcpsiOptionalStatusIcon, "HRESULT")
+        result := ComCall(19, this, "int", ntsStatus, "int", ntsSubstatus, ppszOptionalStatusTextMarshal, ppszOptionalStatusText, pcpsiOptionalStatusIconMarshal, pcpsiOptionalStatusIcon, "HRESULT")
         return result
     }
 }

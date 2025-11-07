@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -93,17 +94,17 @@ class ICertManageModule extends IDispatch{
      * @param {BSTR} strStorageLocation 
      * @param {BSTR} strPropertyName 
      * @param {Integer} Flags 
-     * @param {Pointer<VARIANT>} pvarProperty 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certmod/nf-certmod-icertmanagemodule-getproperty
      */
-    GetProperty(strConfig, strStorageLocation, strPropertyName, Flags, pvarProperty) {
+    GetProperty(strConfig, strStorageLocation, strPropertyName, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strStorageLocation := strStorageLocation is String ? BSTR.Alloc(strStorageLocation).Value : strStorageLocation
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
+        pvarProperty := VARIANT()
         result := ComCall(7, this, "ptr", strConfig, "ptr", strStorageLocation, "ptr", strPropertyName, "int", Flags, "ptr", pvarProperty, "HRESULT")
-        return result
+        return pvarProperty
     }
 
     /**

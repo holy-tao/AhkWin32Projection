@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITrigger.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -52,36 +54,33 @@ class ITriggerCollection extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ITrigger>} ppTrigger 
-     * @returns {HRESULT} 
+     * @returns {ITrigger} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itriggercollection-get_item
      */
-    get_Item(index, ppTrigger) {
-        result := ComCall(8, this, "int", index, "ptr*", ppTrigger, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(8, this, "int", index, "ptr*", &ppTrigger := 0, "HRESULT")
+        return ITrigger(ppTrigger)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itriggercollection-get__newenum
      */
-    get__NewEnum(ppEnum) {
-        result := ComCall(9, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IUnknown(ppEnum)
     }
 
     /**
      * 
      * @param {Integer} type 
-     * @param {Pointer<ITrigger>} ppTrigger 
-     * @returns {HRESULT} 
+     * @returns {ITrigger} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itriggercollection-create
      */
-    Create(type, ppTrigger) {
-        result := ComCall(10, this, "int", type, "ptr*", ppTrigger, "HRESULT")
-        return result
+    Create(type) {
+        result := ComCall(10, this, "int", type, "ptr*", &ppTrigger := 0, "HRESULT")
+        return ITrigger(ppTrigger)
     }
 
     /**

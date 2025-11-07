@@ -112,15 +112,12 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} lpAspectRatioMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getaspectratiomode
      */
-    GetAspectRatioMode(lpAspectRatioMode) {
-        lpAspectRatioModeMarshal := lpAspectRatioMode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, lpAspectRatioModeMarshal, lpAspectRatioMode, "HRESULT")
-        return result
+    GetAspectRatioMode() {
+        result := ComCall(8, this, "uint*", &lpAspectRatioMode := 0, "HRESULT")
+        return lpAspectRatioMode
     }
 
     /**
@@ -174,15 +171,12 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} lpDib 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getcurrentimage
      */
-    GetCurrentImage(lpDib) {
-        lpDibMarshal := lpDib is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(13, this, lpDibMarshal, lpDib, "HRESULT")
-        return result
+    GetCurrentImage() {
+        result := ComCall(13, this, "ptr*", &lpDib := 0, "HRESULT")
+        return lpDib
     }
 
     /**
@@ -198,12 +192,11 @@ class IVMRWindowlessControl9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<COLORREF>} lpClr 
-     * @returns {HRESULT} 
+     * @returns {COLORREF} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getbordercolor
      */
-    GetBorderColor(lpClr) {
-        result := ComCall(15, this, "ptr", lpClr, "HRESULT")
-        return result
+    GetBorderColor() {
+        result := ComCall(15, this, "uint*", &lpClr := 0, "HRESULT")
+        return lpClr
     }
 }

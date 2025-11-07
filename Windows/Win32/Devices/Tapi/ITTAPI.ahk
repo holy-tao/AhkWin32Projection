@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumAddress.ahk
+#Include .\IEnumCallHub.ahk
+#Include ..\..\System\Com\IEnumUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -63,24 +67,23 @@ class ITTAPI extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-get_addresses
      */
-    get_Addresses(pVariant) {
+    get_Addresses() {
+        pVariant := VARIANT()
         result := ComCall(9, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumAddress>} ppEnumAddress 
-     * @returns {HRESULT} 
+     * @returns {IEnumAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-enumerateaddresses
      */
-    EnumerateAddresses(ppEnumAddress) {
-        result := ComCall(10, this, "ptr*", ppEnumAddress, "HRESULT")
-        return result
+    EnumerateAddresses() {
+        result := ComCall(10, this, "ptr*", &ppEnumAddress := 0, "HRESULT")
+        return IEnumAddress(ppEnumAddress)
     }
 
     /**
@@ -90,15 +93,12 @@ class ITTAPI extends IDispatch{
      * @param {VARIANT_BOOL} fOwner 
      * @param {Integer} lMediaTypes 
      * @param {Integer} lCallbackInstance 
-     * @param {Pointer<Integer>} plRegister 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications
      */
-    RegisterCallNotifications(pAddress, fMonitor, fOwner, lMediaTypes, lCallbackInstance, plRegister) {
-        plRegisterMarshal := plRegister is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "ptr", pAddress, "short", fMonitor, "short", fOwner, "int", lMediaTypes, "int", lCallbackInstance, plRegisterMarshal, plRegister, "HRESULT")
-        return result
+    RegisterCallNotifications(pAddress, fMonitor, fOwner, lMediaTypes, lCallbackInstance) {
+        result := ComCall(11, this, "ptr", pAddress, "short", fMonitor, "short", fOwner, "int", lMediaTypes, "int", lCallbackInstance, "int*", &plRegister := 0, "HRESULT")
+        return plRegister
     }
 
     /**
@@ -114,24 +114,23 @@ class ITTAPI extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-get_callhubs
      */
-    get_CallHubs(pVariant) {
+    get_CallHubs() {
+        pVariant := VARIANT()
         result := ComCall(13, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumCallHub>} ppEnumCallHub 
-     * @returns {HRESULT} 
+     * @returns {IEnumCallHub} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-enumeratecallhubs
      */
-    EnumerateCallHubs(ppEnumCallHub) {
-        result := ComCall(14, this, "ptr*", ppEnumCallHub, "HRESULT")
-        return result
+    EnumerateCallHubs() {
+        result := ComCall(14, this, "ptr*", &ppEnumCallHub := 0, "HRESULT")
+        return IEnumCallHub(ppEnumCallHub)
     }
 
     /**
@@ -148,24 +147,23 @@ class ITTAPI extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumUnknown>} ppEnumUnknown 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-enumerateprivatetapiobjects
      */
-    EnumeratePrivateTAPIObjects(ppEnumUnknown) {
-        result := ComCall(16, this, "ptr*", ppEnumUnknown, "HRESULT")
-        return result
+    EnumeratePrivateTAPIObjects() {
+        result := ComCall(16, this, "ptr*", &ppEnumUnknown := 0, "HRESULT")
+        return IEnumUnknown(ppEnumUnknown)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-get_privatetapiobjects
      */
-    get_PrivateTAPIObjects(pVariant) {
+    get_PrivateTAPIObjects() {
+        pVariant := VARIANT()
         result := ComCall(17, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
@@ -223,14 +221,11 @@ class ITTAPI extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plFilterMask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-get_eventfilter
      */
-    get_EventFilter(plFilterMask) {
-        plFilterMaskMarshal := plFilterMask is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, plFilterMaskMarshal, plFilterMask, "HRESULT")
-        return result
+    get_EventFilter() {
+        result := ComCall(22, this, "int*", &plFilterMask := 0, "HRESULT")
+        return plFilterMask
     }
 }

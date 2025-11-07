@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IStaticPortMapping.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,41 +35,36 @@ class IStaticPortMappingCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmappingcollection-get__newenum
      */
-    get__NewEnum(pVal) {
-        result := ComCall(7, this, "ptr*", pVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
+        return IUnknown(pVal)
     }
 
     /**
      * 
      * @param {Integer} lExternalPort 
      * @param {BSTR} bstrProtocol 
-     * @param {Pointer<IStaticPortMapping>} ppSPM 
-     * @returns {HRESULT} 
+     * @returns {IStaticPortMapping} 
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmappingcollection-get_item
      */
-    get_Item(lExternalPort, bstrProtocol, ppSPM) {
+    get_Item(lExternalPort, bstrProtocol) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(8, this, "int", lExternalPort, "ptr", bstrProtocol, "ptr*", ppSPM, "HRESULT")
-        return result
+        result := ComCall(8, this, "int", lExternalPort, "ptr", bstrProtocol, "ptr*", &ppSPM := 0, "HRESULT")
+        return IStaticPortMapping(ppSPM)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmappingcollection-get_count
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -92,16 +89,15 @@ class IStaticPortMappingCollection extends IDispatch{
      * @param {BSTR} bstrInternalClient 
      * @param {VARIANT_BOOL} bEnabled 
      * @param {BSTR} bstrDescription 
-     * @param {Pointer<IStaticPortMapping>} ppSPM 
-     * @returns {HRESULT} 
+     * @returns {IStaticPortMapping} 
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmappingcollection-add
      */
-    Add(lExternalPort, bstrProtocol, lInternalPort, bstrInternalClient, bEnabled, bstrDescription, ppSPM) {
+    Add(lExternalPort, bstrProtocol, lInternalPort, bstrInternalClient, bEnabled, bstrDescription) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
         bstrInternalClient := bstrInternalClient is String ? BSTR.Alloc(bstrInternalClient).Value : bstrInternalClient
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(11, this, "int", lExternalPort, "ptr", bstrProtocol, "int", lInternalPort, "ptr", bstrInternalClient, "short", bEnabled, "ptr", bstrDescription, "ptr*", ppSPM, "HRESULT")
-        return result
+        result := ComCall(11, this, "int", lExternalPort, "ptr", bstrProtocol, "int", lInternalPort, "ptr", bstrInternalClient, "short", bEnabled, "ptr", bstrDescription, "ptr*", &ppSPM := 0, "HRESULT")
+        return IStaticPortMapping(ppSPM)
     }
 }

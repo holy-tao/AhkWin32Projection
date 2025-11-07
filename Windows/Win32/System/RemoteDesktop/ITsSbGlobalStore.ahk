@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITsSbTarget.ahk
+#Include .\ITsSbSession.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -36,17 +38,16 @@ class ITsSbGlobalStore extends IUnknown{
      * @param {BSTR} ProviderName 
      * @param {BSTR} TargetName 
      * @param {BSTR} FarmName 
-     * @param {Pointer<ITsSbTarget>} ppTarget 
-     * @returns {HRESULT} 
+     * @returns {ITsSbTarget} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-querytarget
      */
-    QueryTarget(ProviderName, TargetName, FarmName, ppTarget) {
+    QueryTarget(ProviderName, TargetName, FarmName) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
         FarmName := FarmName is String ? BSTR.Alloc(FarmName).Value : FarmName
 
-        result := ComCall(3, this, "ptr", ProviderName, "ptr", TargetName, "ptr", FarmName, "ptr*", ppTarget, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", ProviderName, "ptr", TargetName, "ptr", FarmName, "ptr*", &ppTarget := 0, "HRESULT")
+        return ITsSbTarget(ppTarget)
     }
 
     /**
@@ -54,16 +55,15 @@ class ITsSbGlobalStore extends IUnknown{
      * @param {BSTR} ProviderName 
      * @param {Integer} dwSessionId 
      * @param {BSTR} TargetName 
-     * @param {Pointer<ITsSbSession>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {ITsSbSession} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-querysessionbysessionid
      */
-    QuerySessionBySessionId(ProviderName, dwSessionId, TargetName, ppSession) {
+    QuerySessionBySessionId(ProviderName, dwSessionId, TargetName) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
 
-        result := ComCall(4, this, "ptr", ProviderName, "uint", dwSessionId, "ptr", TargetName, "ptr*", ppSession, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", ProviderName, "uint", dwSessionId, "ptr", TargetName, "ptr*", &ppSession := 0, "HRESULT")
+        return ITsSbSession(ppSession)
     }
 
     /**
@@ -90,38 +90,34 @@ class ITsSbGlobalStore extends IUnknown{
      * @param {BSTR} FarmName 
      * @param {BSTR} EnvName 
      * @param {Pointer<Integer>} pdwCount 
-     * @param {Pointer<Pointer<ITsSbTarget>>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITsSbTarget>} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-enumeratetargets
      */
-    EnumerateTargets(ProviderName, FarmName, EnvName, pdwCount, pVal) {
+    EnumerateTargets(ProviderName, FarmName, EnvName, pdwCount) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
         FarmName := FarmName is String ? BSTR.Alloc(FarmName).Value : FarmName
         EnvName := EnvName is String ? BSTR.Alloc(EnvName).Value : EnvName
 
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", ProviderName, "ptr", FarmName, "ptr", EnvName, pdwCountMarshal, pdwCount, pValMarshal, pVal, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", ProviderName, "ptr", FarmName, "ptr", EnvName, pdwCountMarshal, pdwCount, "ptr*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} ProviderName 
      * @param {Pointer<Integer>} pdwCount 
-     * @param {Pointer<Pointer<ITsSbEnvironment>>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITsSbEnvironment>} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-enumerateenvironmentsbyprovider
      */
-    EnumerateEnvironmentsByProvider(ProviderName, pdwCount, ppVal) {
+    EnumerateEnvironmentsByProvider(ProviderName, pdwCount) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
 
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-        ppValMarshal := ppVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", ProviderName, pdwCountMarshal, pdwCount, ppValMarshal, ppVal, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", ProviderName, pdwCountMarshal, pdwCount, "ptr*", &ppVal := 0, "HRESULT")
+        return ppVal
     }
 
     /**
@@ -134,11 +130,10 @@ class ITsSbGlobalStore extends IUnknown{
      * @param {BSTR} initialProgram 
      * @param {Pointer<Integer>} pSessionState 
      * @param {Pointer<Integer>} pdwCount 
-     * @param {Pointer<Pointer<ITsSbSession>>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITsSbSession>} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-enumeratesessions
      */
-    EnumerateSessions(ProviderName, targetName, userName, userDomain, poolName, initialProgram, pSessionState, pdwCount, ppVal) {
+    EnumerateSessions(ProviderName, targetName, userName, userDomain, poolName, initialProgram, pSessionState, pdwCount) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
         userName := userName is String ? BSTR.Alloc(userName).Value : userName
@@ -148,10 +143,9 @@ class ITsSbGlobalStore extends IUnknown{
 
         pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-        ppValMarshal := ppVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", ProviderName, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, ppValMarshal, ppVal, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", ProviderName, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, "ptr*", &ppVal := 0, "HRESULT")
+        return ppVal
     }
 
     /**

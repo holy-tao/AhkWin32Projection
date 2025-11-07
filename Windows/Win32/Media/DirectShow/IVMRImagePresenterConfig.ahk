@@ -43,14 +43,11 @@ class IVMRImagePresenterConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} dwRenderFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagepresenterconfig-getrenderingprefs
      */
-    GetRenderingPrefs(dwRenderFlags) {
-        dwRenderFlagsMarshal := dwRenderFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, dwRenderFlagsMarshal, dwRenderFlags, "HRESULT")
-        return result
+    GetRenderingPrefs() {
+        result := ComCall(4, this, "uint*", &dwRenderFlags := 0, "HRESULT")
+        return dwRenderFlags
     }
 }

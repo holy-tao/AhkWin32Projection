@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\IFsrmReport.ahk
 #Include .\IFsrmObject.ahk
 
 /**
@@ -44,13 +46,13 @@ class IFsrmReportJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} taskName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_task
      */
-    get_Task(taskName) {
+    get_Task() {
+        taskName := BSTR()
         result := ComCall(12, this, "ptr", taskName, "HRESULT")
-        return result
+        return taskName
     }
 
     /**
@@ -68,15 +70,12 @@ class IFsrmReportJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} namespaceRoots 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_namespaceroots
      */
-    get_NamespaceRoots(namespaceRoots) {
-        namespaceRootsMarshal := namespaceRoots is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(14, this, namespaceRootsMarshal, namespaceRoots, "HRESULT")
-        return result
+    get_NamespaceRoots() {
+        result := ComCall(14, this, "ptr*", &namespaceRoots := 0, "HRESULT")
+        return namespaceRoots
     }
 
     /**
@@ -92,15 +91,12 @@ class IFsrmReportJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} formats 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_formats
      */
-    get_Formats(formats) {
-        formatsMarshal := formats is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(16, this, formatsMarshal, formats, "HRESULT")
-        return result
+    get_Formats() {
+        result := ComCall(16, this, "ptr*", &formats := 0, "HRESULT")
+        return formats
     }
 
     /**
@@ -116,13 +112,13 @@ class IFsrmReportJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} mailTo 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_mailto
      */
-    get_MailTo(mailTo) {
+    get_MailTo() {
+        mailTo := BSTR()
         result := ComCall(18, this, "ptr", mailTo, "HRESULT")
-        return result
+        return mailTo
     }
 
     /**
@@ -140,73 +136,65 @@ class IFsrmReportJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} runningStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_runningstatus
      */
-    get_RunningStatus(runningStatus) {
-        runningStatusMarshal := runningStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, runningStatusMarshal, runningStatus, "HRESULT")
-        return result
+    get_RunningStatus() {
+        result := ComCall(20, this, "int*", &runningStatus := 0, "HRESULT")
+        return runningStatus
     }
 
     /**
      * 
-     * @param {Pointer<Float>} lastRun 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_lastrun
      */
-    get_LastRun(lastRun) {
-        lastRunMarshal := lastRun is VarRef ? "double*" : "ptr"
-
-        result := ComCall(21, this, lastRunMarshal, lastRun, "HRESULT")
-        return result
+    get_LastRun() {
+        result := ComCall(21, this, "double*", &lastRun := 0, "HRESULT")
+        return lastRun
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} lastError 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_lasterror
      */
-    get_LastError(lastError) {
+    get_LastError() {
+        lastError := BSTR()
         result := ComCall(22, this, "ptr", lastError, "HRESULT")
-        return result
+        return lastError
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_lastgeneratedindirectory
      */
-    get_LastGeneratedInDirectory(path) {
+    get_LastGeneratedInDirectory() {
+        path := BSTR()
         result := ComCall(23, this, "ptr", path, "HRESULT")
-        return result
+        return path
     }
 
     /**
      * 
-     * @param {Pointer<IFsrmCollection>} reports 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-enumreports
      */
-    EnumReports(reports) {
-        result := ComCall(24, this, "ptr*", reports, "HRESULT")
-        return result
+    EnumReports() {
+        result := ComCall(24, this, "ptr*", &reports := 0, "HRESULT")
+        return IFsrmCollection(reports)
     }
 
     /**
      * 
      * @param {Integer} reportType 
-     * @param {Pointer<IFsrmReport>} report 
-     * @returns {HRESULT} 
+     * @returns {IFsrmReport} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-createreport
      */
-    CreateReport(reportType, report) {
-        result := ComCall(25, this, "int", reportType, "ptr*", report, "HRESULT")
-        return result
+    CreateReport(reportType) {
+        result := ComCall(25, this, "int", reportType, "ptr*", &report := 0, "HRESULT")
+        return IFsrmReport(report)
     }
 
     /**
@@ -223,13 +211,12 @@ class IFsrmReportJob extends IFsrmObject{
     /**
      * 
      * @param {Integer} waitSeconds 
-     * @param {Pointer<VARIANT_BOOL>} completed 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-waitforcompletion
      */
-    WaitForCompletion(waitSeconds, completed) {
-        result := ComCall(27, this, "int", waitSeconds, "ptr", completed, "HRESULT")
-        return result
+    WaitForCompletion(waitSeconds) {
+        result := ComCall(27, this, "int", waitSeconds, "short*", &completed := 0, "HRESULT")
+        return completed
     }
 
     /**

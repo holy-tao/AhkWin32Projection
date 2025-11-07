@@ -42,16 +42,13 @@ class IPropertyDescriptionRelatedPropertyInfo extends IPropertyDescription{
      * 
      * @param {PWSTR} pszRelationshipName 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionrelatedpropertyinfo-getrelatedproperty
      */
-    GetRelatedProperty(pszRelationshipName, riid, ppv) {
+    GetRelatedProperty(pszRelationshipName, riid) {
         pszRelationshipName := pszRelationshipName is String ? StrPtr(pszRelationshipName) : pszRelationshipName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(24, this, "ptr", pszRelationshipName, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(24, this, "ptr", pszRelationshipName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

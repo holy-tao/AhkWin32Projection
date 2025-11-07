@@ -42,23 +42,21 @@ class IUIAutomationElement3 extends IUIAutomationElement2{
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement3-get_currentisperipheral
      */
-    get_CurrentIsPeripheral(retVal) {
-        result := ComCall(92, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsPeripheral() {
+        result := ComCall(92, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement3-get_cachedisperipheral
      */
-    get_CachedIsPeripheral(retVal) {
-        result := ComCall(93, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsPeripheral() {
+        result := ComCall(93, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

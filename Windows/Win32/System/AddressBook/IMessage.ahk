@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMAPITable.ahk
+#Include .\IAttach.ahk
 #Include .\IMAPIProp.ahk
 
 /**
@@ -28,13 +30,12 @@ class IMessage extends IMAPIProp{
     /**
      * 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IMAPITable>} lppTable 
-     * @returns {HRESULT} 
+     * @returns {IMAPITable} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-getattachmenttable
      */
-    GetAttachmentTable(ulFlags, lppTable) {
-        result := ComCall(14, this, "uint", ulFlags, "ptr*", lppTable, "HRESULT")
-        return result
+    GetAttachmentTable(ulFlags) {
+        result := ComCall(14, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        return IMAPITable(lppTable)
     }
 
     /**
@@ -42,13 +43,12 @@ class IMessage extends IMAPIProp{
      * @param {Integer} ulAttachmentNum 
      * @param {Pointer<Guid>} lpInterface 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IAttach>} lppAttach 
-     * @returns {HRESULT} 
+     * @returns {IAttach} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-openattach
      */
-    OpenAttach(ulAttachmentNum, lpInterface, ulFlags, lppAttach) {
-        result := ComCall(15, this, "uint", ulAttachmentNum, "ptr", lpInterface, "uint", ulFlags, "ptr*", lppAttach, "HRESULT")
-        return result
+    OpenAttach(ulAttachmentNum, lpInterface, ulFlags) {
+        result := ComCall(15, this, "uint", ulAttachmentNum, "ptr", lpInterface, "uint", ulFlags, "ptr*", &lppAttach := 0, "HRESULT")
+        return IAttach(lppAttach)
     }
 
     /**
@@ -84,13 +84,12 @@ class IMessage extends IMAPIProp{
     /**
      * 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IMAPITable>} lppTable 
-     * @returns {HRESULT} 
+     * @returns {IMAPITable} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-getrecipienttable
      */
-    GetRecipientTable(ulFlags, lppTable) {
-        result := ComCall(18, this, "uint", ulFlags, "ptr*", lppTable, "HRESULT")
-        return result
+    GetRecipientTable(ulFlags) {
+        result := ComCall(18, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        return IMAPITable(lppTable)
     }
 
     /**

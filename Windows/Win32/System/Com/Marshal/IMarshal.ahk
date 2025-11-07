@@ -203,17 +203,17 @@ class IMarshal extends IUnknown{
      * @param {Pointer<Void>} pv 
      * @param {Integer} dwDestContext 
      * @param {Integer} mshlflags 
-     * @param {Pointer<Guid>} pCid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imarshal-getunmarshalclass
      */
-    GetUnmarshalClass(riid, pv, dwDestContext, mshlflags, pCid) {
+    GetUnmarshalClass(riid, pv, dwDestContext, mshlflags) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
 
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
+        pCid := Guid()
         result := ComCall(3, this, "ptr", riid, pvMarshal, pv, "uint", dwDestContext, "ptr", pvDestContext, "uint", mshlflags, "ptr", pCid, "HRESULT")
-        return result
+        return pCid
     }
 
     /**
@@ -222,18 +222,16 @@ class IMarshal extends IUnknown{
      * @param {Pointer<Void>} pv 
      * @param {Integer} dwDestContext 
      * @param {Integer} mshlflags 
-     * @param {Pointer<Integer>} pSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imarshal-getmarshalsizemax
      */
-    GetMarshalSizeMax(riid, pv, dwDestContext, mshlflags, pSize) {
+    GetMarshalSizeMax(riid, pv, dwDestContext, mshlflags) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
 
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
-        pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", riid, pvMarshal, pv, "uint", dwDestContext, "ptr", pvDestContext, "uint", mshlflags, pSizeMarshal, pSize, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", riid, pvMarshal, pv, "uint", dwDestContext, "ptr", pvDestContext, "uint", mshlflags, "uint*", &pSize := 0, "HRESULT")
+        return pSize
     }
 
     /**
@@ -259,15 +257,12 @@ class IMarshal extends IUnknown{
      * 
      * @param {IStream} pStm 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imarshal-unmarshalinterface
      */
-    UnmarshalInterface(pStm, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pStm, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    UnmarshalInterface(pStm, riid) {
+        result := ComCall(6, this, "ptr", pStm, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**

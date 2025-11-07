@@ -63,7 +63,9 @@ class ObjectControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontrol-canbepooled
      */
     CanBePooled(pbPoolable) {
-        result := ComCall(5, this, "ptr", pbPoolable, "HRESULT")
+        pbPoolableMarshal := pbPoolable is VarRef ? "short*" : "ptr"
+
+        result := ComCall(5, this, pbPoolableMarshal, pbPoolable, "HRESULT")
         return result
     }
 }

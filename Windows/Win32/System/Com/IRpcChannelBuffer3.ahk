@@ -31,28 +31,22 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
     /**
      * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
-     * @param {Pointer<Integer>} pulStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Send(pMsg, pulStatus) {
-        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pMsg, pulStatusMarshal, pulStatus, "HRESULT")
-        return result
+    Send(pMsg) {
+        result := ComCall(9, this, "ptr", pMsg, "uint*", &pulStatus := 0, "HRESULT")
+        return pulStatus
     }
 
     /**
      * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {Integer} ulSize 
-     * @param {Pointer<Integer>} pulStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Receive(pMsg, ulSize, pulStatus) {
-        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "ptr", pMsg, "uint", ulSize, pulStatusMarshal, pulStatus, "HRESULT")
-        return result
+    Receive(pMsg, ulSize) {
+        result := ComCall(10, this, "ptr", pMsg, "uint", ulSize, "uint*", &pulStatus := 0, "HRESULT")
+        return pulStatus
     }
 
     /**
@@ -69,14 +63,11 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
      * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pInterface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetCallContext(pMsg, riid, pInterface) {
-        pInterfaceMarshal := pInterface is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, "ptr", pMsg, "ptr", riid, pInterfaceMarshal, pInterface, "HRESULT")
-        return result
+    GetCallContext(pMsg, riid) {
+        result := ComCall(12, this, "ptr", pMsg, "ptr", riid, "ptr*", &pInterface := 0, "HRESULT")
+        return pInterface
     }
 
     /**
@@ -97,14 +88,11 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
     /**
      * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetState(pMsg, pState) {
-        pStateMarshal := pState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "ptr", pMsg, pStateMarshal, pState, "HRESULT")
-        return result
+    GetState(pMsg) {
+        result := ComCall(14, this, "ptr", pMsg, "uint*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**

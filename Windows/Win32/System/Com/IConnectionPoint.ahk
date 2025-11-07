@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IConnectionPointContainer.ahk
+#Include .\IEnumConnections.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -50,38 +52,34 @@ class IConnectionPoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pIID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-getconnectioninterface
      */
-    GetConnectionInterface(pIID) {
+    GetConnectionInterface() {
+        pIID := Guid()
         result := ComCall(3, this, "ptr", pIID, "HRESULT")
-        return result
+        return pIID
     }
 
     /**
      * 
-     * @param {Pointer<IConnectionPointContainer>} ppCPC 
-     * @returns {HRESULT} 
+     * @returns {IConnectionPointContainer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-getconnectionpointcontainer
      */
-    GetConnectionPointContainer(ppCPC) {
-        result := ComCall(4, this, "ptr*", ppCPC, "HRESULT")
-        return result
+    GetConnectionPointContainer() {
+        result := ComCall(4, this, "ptr*", &ppCPC := 0, "HRESULT")
+        return IConnectionPointContainer(ppCPC)
     }
 
     /**
      * 
      * @param {IUnknown} pUnkSink 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-advise
      */
-    Advise(pUnkSink, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pUnkSink, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Advise(pUnkSink) {
+        result := ComCall(5, this, "ptr", pUnkSink, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -97,12 +95,11 @@ class IConnectionPoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumConnections>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumConnections} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-enumconnections
      */
-    EnumConnections(ppEnum) {
-        result := ComCall(7, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumConnections() {
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumConnections(ppEnum)
     }
 }

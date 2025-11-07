@@ -38,7 +38,10 @@ class IWMPNodeWindowedHost extends IUnknown{
      * @returns {HRESULT} 
      */
     OnWindowMessageFromRenderer(uMsg, wparam, lparam, plRet, pfHandled) {
-        result := ComCall(3, this, "uint", uMsg, "ptr", wparam, "ptr", lparam, "ptr", plRet, "ptr", pfHandled, "HRESULT")
+        plRetMarshal := plRet is VarRef ? "ptr*" : "ptr"
+        pfHandledMarshal := pfHandled is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", uMsg, "ptr", wparam, "ptr", lparam, plRetMarshal, plRet, pfHandledMarshal, pfHandled, "HRESULT")
         return result
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,14 +45,14 @@ class IPrintPipelinePropertyBag extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszName 
-     * @param {Pointer<VARIANT>} pVar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetProperty(pszName, pVar) {
+    GetProperty(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
+        pVar := VARIANT()
         result := ComCall(4, this, "ptr", pszName, "ptr", pVar, "HRESULT")
-        return result
+        return pVar
     }
 
     /**

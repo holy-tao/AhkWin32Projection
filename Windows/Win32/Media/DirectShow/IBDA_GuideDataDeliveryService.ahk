@@ -37,13 +37,13 @@ class IBDA_GuideDataDeliveryService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidDataType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getguidedatatype
      */
-    GetGuideDataType(pguidDataType) {
+    GetGuideDataType() {
+        pguidDataType := Guid()
         result := ComCall(3, this, "ptr", pguidDataType, "HRESULT")
-        return result
+        return pguidDataType
     }
 
     /**
@@ -76,41 +76,39 @@ class IBDA_GuideDataDeliveryService extends IUnknown{
     /**
      * 
      * @param {Integer} ul64ServiceIdx 
-     * @param {Pointer<BSTR>} pbstrTuneXml 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-gettunexmlfromserviceidx
      */
-    GetTuneXmlFromServiceIdx(ul64ServiceIdx, pbstrTuneXml) {
+    GetTuneXmlFromServiceIdx(ul64ServiceIdx) {
+        pbstrTuneXml := BSTR()
         result := ComCall(6, this, "uint", ul64ServiceIdx, "ptr", pbstrTuneXml, "HRESULT")
-        return result
+        return pbstrTuneXml
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pulcbBufferLen 
-     * @param {Pointer<Integer>} pbBuffer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getservices
      */
-    GetServices(pulcbBufferLen, pbBuffer) {
+    GetServices(pulcbBufferLen) {
         pulcbBufferLenMarshal := pulcbBufferLen is VarRef ? "uint*" : "ptr"
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, pulcbBufferLenMarshal, pulcbBufferLen, pbBufferMarshal, pbBuffer, "HRESULT")
-        return result
+        result := ComCall(7, this, pulcbBufferLenMarshal, pulcbBufferLen, "char*", &pbBuffer := 0, "HRESULT")
+        return pbBuffer
     }
 
     /**
      * 
      * @param {BSTR} bstrTuneXml 
-     * @param {Pointer<BSTR>} pbstrServiceDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getserviceinfofromtunexml
      */
-    GetServiceInfoFromTuneXml(bstrTuneXml, pbstrServiceDescription) {
+    GetServiceInfoFromTuneXml(bstrTuneXml) {
         bstrTuneXml := bstrTuneXml is String ? BSTR.Alloc(bstrTuneXml).Value : bstrTuneXml
 
+        pbstrServiceDescription := BSTR()
         result := ComCall(8, this, "ptr", bstrTuneXml, "ptr", pbstrServiceDescription, "HRESULT")
-        return result
+        return pbstrServiceDescription
     }
 }

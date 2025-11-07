@@ -50,18 +50,15 @@ class IApplicationActivationManager extends IUnknown{
      * @param {PWSTR} appUserModelId 
      * @param {PWSTR} arguments 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} processId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationactivationmanager-activateapplication
      */
-    ActivateApplication(appUserModelId, arguments, options, processId) {
+    ActivateApplication(appUserModelId, arguments, options) {
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId
         arguments := arguments is String ? StrPtr(arguments) : arguments
 
-        processIdMarshal := processId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", appUserModelId, "ptr", arguments, "int", options, processIdMarshal, processId, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", appUserModelId, "ptr", arguments, "int", options, "uint*", &processId := 0, "HRESULT")
+        return processId
     }
 
     /**
@@ -69,34 +66,28 @@ class IApplicationActivationManager extends IUnknown{
      * @param {PWSTR} appUserModelId 
      * @param {IShellItemArray} itemArray 
      * @param {PWSTR} verb 
-     * @param {Pointer<Integer>} processId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationactivationmanager-activateforfile
      */
-    ActivateForFile(appUserModelId, itemArray, verb, processId) {
+    ActivateForFile(appUserModelId, itemArray, verb) {
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId
         verb := verb is String ? StrPtr(verb) : verb
 
-        processIdMarshal := processId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", appUserModelId, "ptr", itemArray, "ptr", verb, processIdMarshal, processId, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", appUserModelId, "ptr", itemArray, "ptr", verb, "uint*", &processId := 0, "HRESULT")
+        return processId
     }
 
     /**
      * 
      * @param {PWSTR} appUserModelId 
      * @param {IShellItemArray} itemArray 
-     * @param {Pointer<Integer>} processId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationactivationmanager-activateforprotocol
      */
-    ActivateForProtocol(appUserModelId, itemArray, processId) {
+    ActivateForProtocol(appUserModelId, itemArray) {
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId
 
-        processIdMarshal := processId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", appUserModelId, "ptr", itemArray, processIdMarshal, processId, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", appUserModelId, "ptr", itemArray, "uint*", &processId := 0, "HRESULT")
+        return processId
     }
 }

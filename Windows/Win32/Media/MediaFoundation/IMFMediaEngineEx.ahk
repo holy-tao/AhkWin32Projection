@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\IMFMediaEngine.ahk
 
 /**
@@ -53,13 +55,13 @@ class IMFMediaEngineEx extends IMFMediaEngine{
     /**
      * 
      * @param {Integer} StatisticID 
-     * @param {Pointer<PROPVARIANT>} pStatistic 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstatistics
      */
-    GetStatistics(StatisticID, pStatistic) {
+    GetStatistics(StatisticID) {
+        pStatistic := PROPVARIANT()
         result := ComCall(46, this, "int", StatisticID, "ptr", pStatistic, "HRESULT")
-        return result
+        return pStatistic
     }
 
     /**
@@ -120,65 +122,58 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCharacteristics 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getresourcecharacteristics
      */
-    GetResourceCharacteristics(pCharacteristics) {
-        pCharacteristicsMarshal := pCharacteristics is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(52, this, pCharacteristicsMarshal, pCharacteristics, "HRESULT")
-        return result
+    GetResourceCharacteristics() {
+        result := ComCall(52, this, "uint*", &pCharacteristics := 0, "HRESULT")
+        return pCharacteristics
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidMFAttribute 
-     * @param {Pointer<PROPVARIANT>} pvValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getpresentationattribute
      */
-    GetPresentationAttribute(guidMFAttribute, pvValue) {
+    GetPresentationAttribute(guidMFAttribute) {
+        pvValue := PROPVARIANT()
         result := ComCall(53, this, "ptr", guidMFAttribute, "ptr", pvValue, "HRESULT")
-        return result
+        return pvValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStreamCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getnumberofstreams
      */
-    GetNumberOfStreams(pdwStreamCount) {
-        pdwStreamCountMarshal := pdwStreamCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(54, this, pdwStreamCountMarshal, pdwStreamCount, "HRESULT")
-        return result
+    GetNumberOfStreams() {
+        result := ComCall(54, this, "uint*", &pdwStreamCount := 0, "HRESULT")
+        return pdwStreamCount
     }
 
     /**
      * 
      * @param {Integer} dwStreamIndex 
      * @param {Pointer<Guid>} guidMFAttribute 
-     * @param {Pointer<PROPVARIANT>} pvValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstreamattribute
      */
-    GetStreamAttribute(dwStreamIndex, guidMFAttribute, pvValue) {
+    GetStreamAttribute(dwStreamIndex, guidMFAttribute) {
+        pvValue := PROPVARIANT()
         result := ComCall(55, this, "uint", dwStreamIndex, "ptr", guidMFAttribute, "ptr", pvValue, "HRESULT")
-        return result
+        return pvValue
     }
 
     /**
      * 
      * @param {Integer} dwStreamIndex 
-     * @param {Pointer<BOOL>} pEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstreamselection
      */
-    GetStreamSelection(dwStreamIndex, pEnabled) {
-        result := ComCall(56, this, "uint", dwStreamIndex, "ptr", pEnabled, "HRESULT")
-        return result
+    GetStreamSelection(dwStreamIndex) {
+        result := ComCall(56, this, "uint", dwStreamIndex, "int*", &pEnabled := 0, "HRESULT")
+        return pEnabled
     }
 
     /**
@@ -205,13 +200,12 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pProtected 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-isprotected
      */
-    IsProtected(pProtected) {
-        result := ComCall(59, this, "ptr", pProtected, "HRESULT")
-        return result
+    IsProtected() {
+        result := ComCall(59, this, "int*", &pProtected := 0, "HRESULT")
+        return pProtected
     }
 
     /**
@@ -261,15 +255,12 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * 
-     * @param {Pointer<Float>} pTimeToFire 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-gettimelinemarkertimer
      */
-    GetTimelineMarkerTimer(pTimeToFire) {
-        pTimeToFireMarshal := pTimeToFire is VarRef ? "double*" : "ptr"
-
-        result := ComCall(64, this, pTimeToFireMarshal, pTimeToFire, "HRESULT")
-        return result
+    GetTimelineMarkerTimer() {
+        result := ComCall(64, this, "double*", &pTimeToFire := 0, "HRESULT")
+        return pTimeToFire
     }
 
     /**
@@ -294,15 +285,12 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * 
-     * @param {Pointer<Integer>} packMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstereo3dframepackingmode
      */
-    GetStereo3DFramePackingMode(packMode) {
-        packModeMarshal := packMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(67, this, packModeMarshal, packMode, "HRESULT")
-        return result
+    GetStereo3DFramePackingMode() {
+        result := ComCall(67, this, "int*", &packMode := 0, "HRESULT")
+        return packMode
     }
 
     /**
@@ -318,15 +306,12 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * 
-     * @param {Pointer<Integer>} outputType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstereo3drendermode
      */
-    GetStereo3DRenderMode(outputType) {
-        outputTypeMarshal := outputType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(69, this, outputTypeMarshal, outputType, "HRESULT")
-        return result
+    GetStereo3DRenderMode() {
+        result := ComCall(69, this, "int*", &outputType := 0, "HRESULT")
+        return outputType
     }
 
     /**
@@ -353,13 +338,13 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} phSwapchain 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getvideoswapchainhandle
      */
-    GetVideoSwapchainHandle(phSwapchain) {
+    GetVideoSwapchainHandle() {
+        phSwapchain := HANDLE()
         result := ComCall(72, this, "ptr", phSwapchain, "HRESULT")
-        return result
+        return phSwapchain
     }
 
     /**
@@ -375,15 +360,12 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCategory 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getaudiostreamcategory
      */
-    GetAudioStreamCategory(pCategory) {
-        pCategoryMarshal := pCategory is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(74, this, pCategoryMarshal, pCategory, "HRESULT")
-        return result
+    GetAudioStreamCategory() {
+        result := ComCall(74, this, "uint*", &pCategory := 0, "HRESULT")
+        return pCategory
     }
 
     /**
@@ -399,15 +381,12 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRole 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getaudioendpointrole
      */
-    GetAudioEndpointRole(pRole) {
-        pRoleMarshal := pRole is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(76, this, pRoleMarshal, pRole, "HRESULT")
-        return result
+    GetAudioEndpointRole() {
+        result := ComCall(76, this, "uint*", &pRole := 0, "HRESULT")
+        return pRole
     }
 
     /**
@@ -423,13 +402,12 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getrealtimemode
      */
-    GetRealTimeMode(pfEnabled) {
-        result := ComCall(78, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    GetRealTimeMode() {
+        result := ComCall(78, this, "int*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**

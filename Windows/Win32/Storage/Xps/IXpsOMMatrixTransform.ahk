@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\XPS_MATRIX.ahk
+#Include .\IXpsOMMatrixTransform.ahk
 #Include .\IXpsOMShareable.ahk
 
 /**
@@ -77,13 +79,13 @@ class IXpsOMMatrixTransform extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<XPS_MATRIX>} matrix 
-     * @returns {HRESULT} 
+     * @returns {XPS_MATRIX} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsommatrixtransform-getmatrix
      */
-    GetMatrix(matrix) {
+    GetMatrix() {
+        matrix := XPS_MATRIX()
         result := ComCall(5, this, "ptr", matrix, "HRESULT")
-        return result
+        return matrix
     }
 
     /**
@@ -99,12 +101,11 @@ class IXpsOMMatrixTransform extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<IXpsOMMatrixTransform>} matrixTransform 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMMatrixTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsommatrixtransform-clone
      */
-    Clone(matrixTransform) {
-        result := ComCall(7, this, "ptr*", matrixTransform, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(7, this, "ptr*", &matrixTransform := 0, "HRESULT")
+        return IXpsOMMatrixTransform(matrixTransform)
     }
 }

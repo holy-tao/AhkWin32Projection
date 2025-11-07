@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * 
@@ -38,32 +39,30 @@ class FolderItemVerb extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Application(ppid) {
-        result := ComCall(7, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Application() {
+        result := ComCall(7, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Parent(ppid) {
-        result := ComCall(8, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(8, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbs) {
+    get_Name() {
+        pbs := BSTR()
         result := ComCall(9, this, "ptr", pbs, "HRESULT")
-        return result
+        return pbs
     }
 
     /**

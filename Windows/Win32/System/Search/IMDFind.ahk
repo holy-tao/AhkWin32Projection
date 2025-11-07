@@ -33,14 +33,13 @@ class IMDFind extends IUnknown{
      * @param {Pointer} ulStartingOrdinal 
      * @param {Pointer} cMembers 
      * @param {Pointer<PWSTR>} rgpwszMember 
-     * @param {Pointer<Pointer>} pulCellOrdinal 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    FindCell(ulStartingOrdinal, cMembers, rgpwszMember, pulCellOrdinal) {
-        pulCellOrdinalMarshal := pulCellOrdinal is VarRef ? "ptr*" : "ptr"
+    FindCell(ulStartingOrdinal, cMembers, rgpwszMember) {
+        rgpwszMemberMarshal := rgpwszMember is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", ulStartingOrdinal, "ptr", cMembers, "ptr", rgpwszMember, pulCellOrdinalMarshal, pulCellOrdinal, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", ulStartingOrdinal, "ptr", cMembers, rgpwszMemberMarshal, rgpwszMember, "ptr*", &pulCellOrdinal := 0, "HRESULT")
+        return pulCellOrdinal
     }
 
     /**
@@ -49,13 +48,12 @@ class IMDFind extends IUnknown{
      * @param {Pointer} ulStartingOrdinal 
      * @param {Pointer} cMembers 
      * @param {Pointer<PWSTR>} rgpwszMember 
-     * @param {Pointer<Integer>} pulTupleOrdinal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    FindTuple(ulAxisIdentifier, ulStartingOrdinal, cMembers, rgpwszMember, pulTupleOrdinal) {
-        pulTupleOrdinalMarshal := pulTupleOrdinal is VarRef ? "uint*" : "ptr"
+    FindTuple(ulAxisIdentifier, ulStartingOrdinal, cMembers, rgpwszMember) {
+        rgpwszMemberMarshal := rgpwszMember is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulAxisIdentifier, "ptr", ulStartingOrdinal, "ptr", cMembers, "ptr", rgpwszMember, pulTupleOrdinalMarshal, pulTupleOrdinal, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", ulAxisIdentifier, "ptr", ulStartingOrdinal, "ptr", cMembers, rgpwszMemberMarshal, rgpwszMember, "uint*", &pulTupleOrdinal := 0, "HRESULT")
+        return pulTupleOrdinal
     }
 }

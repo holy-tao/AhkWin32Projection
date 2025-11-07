@@ -35,7 +35,9 @@ class IDiagnosticsScriptEngineSite extends IUnknown{
      * @returns {HRESULT} 
      */
     OnMessage(pszData, ulDataCount) {
-        result := ComCall(3, this, "ptr", pszData, "uint", ulDataCount, "HRESULT")
+        pszDataMarshal := pszData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pszDataMarshal, pszData, "uint", ulDataCount, "HRESULT")
         return result
     }
 

@@ -31,14 +31,11 @@ class ITransactionExport extends IUnknown{
     /**
      * 
      * @param {IUnknown} punkTransaction 
-     * @param {Pointer<Integer>} pcbTransactionCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Export(punkTransaction, pcbTransactionCookie) {
-        pcbTransactionCookieMarshal := pcbTransactionCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", punkTransaction, pcbTransactionCookieMarshal, pcbTransactionCookie, "HRESULT")
-        return result
+    Export(punkTransaction) {
+        result := ComCall(3, this, "ptr", punkTransaction, "uint*", &pcbTransactionCookie := 0, "HRESULT")
+        return pcbTransactionCookie
     }
 
     /**

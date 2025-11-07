@@ -46,17 +46,14 @@ class IQueryParserManager extends IUnknown{
      * @param {PWSTR} pszCatalog 
      * @param {Integer} langidForKeywords 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppQueryParser 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparsermanager-createloadedparser
      */
-    CreateLoadedParser(pszCatalog, langidForKeywords, riid, ppQueryParser) {
+    CreateLoadedParser(pszCatalog, langidForKeywords, riid) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog
 
-        ppQueryParserMarshal := ppQueryParser is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pszCatalog, "ushort", langidForKeywords, "ptr", riid, ppQueryParserMarshal, ppQueryParser, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszCatalog, "ushort", langidForKeywords, "ptr", riid, "ptr*", &ppQueryParser := 0, "HRESULT")
+        return ppQueryParser
     }
 
     /**

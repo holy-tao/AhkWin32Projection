@@ -32,13 +32,12 @@ class IBackgroundCopyFile3 extends IBackgroundCopyFile2{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pFilename 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyfile3-gettemporaryname
      */
-    GetTemporaryName(pFilename) {
-        result := ComCall(8, this, "ptr", pFilename, "HRESULT")
-        return result
+    GetTemporaryName() {
+        result := ComCall(8, this, "ptr*", &pFilename := 0, "HRESULT")
+        return pFilename
     }
 
     /**
@@ -54,23 +53,21 @@ class IBackgroundCopyFile3 extends IBackgroundCopyFile2{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pState 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyfile3-getvalidationstate
      */
-    GetValidationState(pState) {
-        result := ComCall(10, this, "ptr", pState, "HRESULT")
-        return result
+    GetValidationState() {
+        result := ComCall(10, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyfile3-isdownloadedfrompeer
      */
-    IsDownloadedFromPeer(pVal) {
-        result := ComCall(11, this, "ptr", pVal, "HRESULT")
-        return result
+    IsDownloadedFromPeer() {
+        result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 }

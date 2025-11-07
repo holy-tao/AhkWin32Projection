@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ISpeechBaseStream.ahk
 
 /**
@@ -40,11 +41,11 @@ class ISpeechMemoryStream extends ISpeechBaseStream{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pData 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetData(pData) {
+    GetData() {
+        pData := VARIANT()
         result := ComCall(13, this, "ptr", pData, "HRESULT")
-        return result
+        return pData
     }
 }

@@ -32,16 +32,13 @@ class ID2D1VertexBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} data 
      * @param {Integer} bufferSize 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1vertexbuffer-map
      */
-    Map(data, bufferSize) {
-        dataMarshal := data is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, dataMarshal, data, "uint", bufferSize, "HRESULT")
-        return result
+    Map(bufferSize) {
+        result := ComCall(3, this, "ptr*", &data := 0, "uint", bufferSize, "HRESULT")
+        return data
     }
 
     /**

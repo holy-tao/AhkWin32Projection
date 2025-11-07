@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcBlob.ahk
+#Include .\IDxcBlobEncoding.ahk
+#Include ..\..\..\System\Com\IStream.ahk
+#Include .\IDxcIncludeHandler.ahk
+#Include .\IDxcBlobUtf8.ahk
+#Include .\IDxcBlobUtf16.ahk
+#Include .\IDxcCompilerArgs.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,12 +40,11 @@ class IDxcUtils extends IUnknown{
      * @param {IDxcBlob} pBlob 
      * @param {Integer} offset 
      * @param {Integer} length 
-     * @param {Pointer<IDxcBlob>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlob} 
      */
-    CreateBlobFromBlob(pBlob, offset, length, ppResult) {
-        result := ComCall(3, this, "ptr", pBlob, "uint", offset, "uint", length, "ptr*", ppResult, "HRESULT")
-        return result
+    CreateBlobFromBlob(pBlob, offset, length) {
+        result := ComCall(3, this, "ptr", pBlob, "uint", offset, "uint", length, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcBlob(ppResult)
     }
 
     /**
@@ -46,12 +52,11 @@ class IDxcUtils extends IUnknown{
      * @param {Pointer} pData 
      * @param {Integer} size 
      * @param {Integer} codePage 
-     * @param {Pointer<IDxcBlobEncoding>} ppBlobEncoding 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlobEncoding} 
      */
-    CreateBlobFromPinned(pData, size, codePage, ppBlobEncoding) {
-        result := ComCall(4, this, "ptr", pData, "uint", size, "uint", codePage, "ptr*", ppBlobEncoding, "HRESULT")
-        return result
+    CreateBlobFromPinned(pData, size, codePage) {
+        result := ComCall(4, this, "ptr", pData, "uint", size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
+        return IDxcBlobEncoding(ppBlobEncoding)
     }
 
     /**
@@ -60,12 +65,11 @@ class IDxcUtils extends IUnknown{
      * @param {IMalloc} pIMalloc 
      * @param {Integer} size 
      * @param {Integer} codePage 
-     * @param {Pointer<IDxcBlobEncoding>} ppBlobEncoding 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlobEncoding} 
      */
-    MoveToBlob(pData, pIMalloc, size, codePage, ppBlobEncoding) {
-        result := ComCall(5, this, "ptr", pData, "ptr", pIMalloc, "uint", size, "uint", codePage, "ptr*", ppBlobEncoding, "HRESULT")
-        return result
+    MoveToBlob(pData, pIMalloc, size, codePage) {
+        result := ComCall(5, this, "ptr", pData, "ptr", pIMalloc, "uint", size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
+        return IDxcBlobEncoding(ppBlobEncoding)
     }
 
     /**
@@ -73,71 +77,65 @@ class IDxcUtils extends IUnknown{
      * @param {Pointer} pData 
      * @param {Integer} size 
      * @param {Integer} codePage 
-     * @param {Pointer<IDxcBlobEncoding>} ppBlobEncoding 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlobEncoding} 
      */
-    CreateBlob(pData, size, codePage, ppBlobEncoding) {
-        result := ComCall(6, this, "ptr", pData, "uint", size, "uint", codePage, "ptr*", ppBlobEncoding, "HRESULT")
-        return result
+    CreateBlob(pData, size, codePage) {
+        result := ComCall(6, this, "ptr", pData, "uint", size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
+        return IDxcBlobEncoding(ppBlobEncoding)
     }
 
     /**
      * 
      * @param {PWSTR} pFileName 
      * @param {Pointer<Integer>} pCodePage 
-     * @param {Pointer<IDxcBlobEncoding>} ppBlobEncoding 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlobEncoding} 
      */
-    LoadFile(pFileName, pCodePage, ppBlobEncoding) {
+    LoadFile(pFileName, pCodePage) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
         pCodePageMarshal := pCodePage is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pFileName, pCodePageMarshal, pCodePage, "ptr*", ppBlobEncoding, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pFileName, pCodePageMarshal, pCodePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
+        return IDxcBlobEncoding(ppBlobEncoding)
     }
 
     /**
      * 
      * @param {IDxcBlob} pBlob 
-     * @param {Pointer<IStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      */
-    CreateReadOnlyStreamFromBlob(pBlob, ppStream) {
-        result := ComCall(8, this, "ptr", pBlob, "ptr*", ppStream, "HRESULT")
-        return result
+    CreateReadOnlyStreamFromBlob(pBlob) {
+        result := ComCall(8, this, "ptr", pBlob, "ptr*", &ppStream := 0, "HRESULT")
+        return IStream(ppStream)
     }
 
     /**
      * 
-     * @param {Pointer<IDxcIncludeHandler>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcIncludeHandler} 
      */
-    CreateDefaultIncludeHandler(ppResult) {
-        result := ComCall(9, this, "ptr*", ppResult, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {IDxcBlob} pBlob 
-     * @param {Pointer<IDxcBlobUtf8>} ppBlobEncoding 
-     * @returns {HRESULT} 
-     */
-    GetBlobAsUtf8(pBlob, ppBlobEncoding) {
-        result := ComCall(10, this, "ptr", pBlob, "ptr*", ppBlobEncoding, "HRESULT")
-        return result
+    CreateDefaultIncludeHandler() {
+        result := ComCall(9, this, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcIncludeHandler(ppResult)
     }
 
     /**
      * 
      * @param {IDxcBlob} pBlob 
-     * @param {Pointer<IDxcBlobUtf16>} ppBlobEncoding 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlobUtf8} 
      */
-    GetBlobAsWide(pBlob, ppBlobEncoding) {
-        result := ComCall(11, this, "ptr", pBlob, "ptr*", ppBlobEncoding, "HRESULT")
-        return result
+    GetBlobAsUtf8(pBlob) {
+        result := ComCall(10, this, "ptr", pBlob, "ptr*", &ppBlobEncoding := 0, "HRESULT")
+        return IDxcBlobUtf8(ppBlobEncoding)
+    }
+
+    /**
+     * 
+     * @param {IDxcBlob} pBlob 
+     * @returns {IDxcBlobUtf16} 
+     */
+    GetBlobAsWide(pBlob) {
+        result := ComCall(11, this, "ptr", pBlob, "ptr*", &ppBlobEncoding := 0, "HRESULT")
+        return IDxcBlobUtf16(ppBlobEncoding)
     }
 
     /**
@@ -179,16 +177,17 @@ class IDxcUtils extends IUnknown{
      * @param {Integer} argCount 
      * @param {Pointer<DxcDefine>} pDefines 
      * @param {Integer} defineCount 
-     * @param {Pointer<IDxcCompilerArgs>} ppArgs 
-     * @returns {HRESULT} 
+     * @returns {IDxcCompilerArgs} 
      */
-    BuildArguments(pSourceName, pEntryPoint, pTargetProfile, pArguments, argCount, pDefines, defineCount, ppArgs) {
+    BuildArguments(pSourceName, pEntryPoint, pTargetProfile, pArguments, argCount, pDefines, defineCount) {
         pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
         pEntryPoint := pEntryPoint is String ? StrPtr(pEntryPoint) : pEntryPoint
         pTargetProfile := pTargetProfile is String ? StrPtr(pTargetProfile) : pTargetProfile
 
-        result := ComCall(14, this, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, "ptr", pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr*", ppArgs, "HRESULT")
-        return result
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr*", &ppArgs := 0, "HRESULT")
+        return IDxcCompilerArgs(ppArgs)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IEnumSTATDATA.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -34,15 +35,12 @@ class IOleCache extends IUnknown{
      * 
      * @param {Pointer<FORMATETC>} pformatetc 
      * @param {Integer} advf 
-     * @param {Pointer<Integer>} pdwConnection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecache-cache
      */
-    Cache(pformatetc, advf, pdwConnection) {
-        pdwConnectionMarshal := pdwConnection is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pformatetc, "uint", advf, pdwConnectionMarshal, pdwConnection, "HRESULT")
-        return result
+    Cache(pformatetc, advf) {
+        result := ComCall(3, this, "ptr", pformatetc, "uint", advf, "uint*", &pdwConnection := 0, "HRESULT")
+        return pdwConnection
     }
 
     /**
@@ -58,13 +56,12 @@ class IOleCache extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSTATDATA>} ppenumSTATDATA 
-     * @returns {HRESULT} 
+     * @returns {IEnumSTATDATA} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecache-enumcache
      */
-    EnumCache(ppenumSTATDATA) {
-        result := ComCall(5, this, "ptr*", ppenumSTATDATA, "HRESULT")
-        return result
+    EnumCache() {
+        result := ComCall(5, this, "ptr*", &ppenumSTATDATA := 0, "HRESULT")
+        return IEnumSTATDATA(ppenumSTATDATA)
     }
 
     /**

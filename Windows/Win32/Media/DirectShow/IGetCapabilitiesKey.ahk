@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,12 @@ class IGetCapabilitiesKey extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HKEY>} pHKey 
-     * @returns {HRESULT} 
+     * @returns {HKEY} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igetcapabilitieskey-getcapabilitieskey
      */
-    GetCapabilitiesKey(pHKey) {
+    GetCapabilitiesKey() {
+        pHKey := HKEY()
         result := ComCall(3, this, "ptr", pHKey, "HRESULT")
-        return result
+        return pHKey
     }
 }

@@ -32,79 +32,61 @@ class IQualProp extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcFrames 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_framesdroppedinrenderer
      */
-    get_FramesDroppedInRenderer(pcFrames) {
-        pcFramesMarshal := pcFrames is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pcFramesMarshal, pcFrames, "HRESULT")
-        return result
+    get_FramesDroppedInRenderer() {
+        result := ComCall(3, this, "int*", &pcFrames := 0, "HRESULT")
+        return pcFrames
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcFramesDrawn 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_framesdrawn
      */
-    get_FramesDrawn(pcFramesDrawn) {
-        pcFramesDrawnMarshal := pcFramesDrawn is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pcFramesDrawnMarshal, pcFramesDrawn, "HRESULT")
-        return result
+    get_FramesDrawn() {
+        result := ComCall(4, this, "int*", &pcFramesDrawn := 0, "HRESULT")
+        return pcFramesDrawn
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} piAvgFrameRate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_avgframerate
      */
-    get_AvgFrameRate(piAvgFrameRate) {
-        piAvgFrameRateMarshal := piAvgFrameRate is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, piAvgFrameRateMarshal, piAvgFrameRate, "HRESULT")
-        return result
+    get_AvgFrameRate() {
+        result := ComCall(5, this, "int*", &piAvgFrameRate := 0, "HRESULT")
+        return piAvgFrameRate
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} iJitter 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_jitter
      */
-    get_Jitter(iJitter) {
-        iJitterMarshal := iJitter is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, iJitterMarshal, iJitter, "HRESULT")
-        return result
+    get_Jitter() {
+        result := ComCall(6, this, "int*", &iJitter := 0, "HRESULT")
+        return iJitter
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} piAvg 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_avgsyncoffset
      */
-    get_AvgSyncOffset(piAvg) {
-        piAvgMarshal := piAvg is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, piAvgMarshal, piAvg, "HRESULT")
-        return result
+    get_AvgSyncOffset() {
+        result := ComCall(7, this, "int*", &piAvg := 0, "HRESULT")
+        return piAvg
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} piDev 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_devsyncoffset
      */
-    get_DevSyncOffset(piDev) {
-        piDevMarshal := piDev is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, piDevMarshal, piDev, "HRESULT")
-        return result
+    get_DevSyncOffset() {
+        result := ComCall(8, this, "int*", &piDev := 0, "HRESULT")
+        return piDev
     }
 }

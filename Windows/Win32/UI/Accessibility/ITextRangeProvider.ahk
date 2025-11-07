@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITextRangeProvider.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IRawElementProviderSimple.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,25 +41,23 @@ class ITextRangeProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITextRangeProvider>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {ITextRangeProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-clone
      */
-    Clone(pRetVal) {
-        result := ComCall(3, this, "ptr*", pRetVal, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(3, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return ITextRangeProvider(pRetVal)
     }
 
     /**
      * 
      * @param {ITextRangeProvider} range 
-     * @param {Pointer<BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-compare
      */
-    Compare(range, pRetVal) {
-        result := ComCall(4, this, "ptr", range, "ptr", pRetVal, "HRESULT")
-        return result
+    Compare(range) {
+        result := ComCall(4, this, "ptr", range, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
@@ -64,15 +65,12 @@ class ITextRangeProvider extends IUnknown{
      * @param {Integer} endpoint 
      * @param {ITextRangeProvider} targetRange 
      * @param {Integer} targetEndpoint 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-compareendpoints
      */
-    CompareEndpoints(endpoint, targetRange, targetEndpoint, pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, "int", endpoint, "ptr", targetRange, "int", targetEndpoint, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    CompareEndpoints(endpoint, targetRange, targetEndpoint) {
+        result := ComCall(5, this, "int", endpoint, "ptr", targetRange, "int", targetEndpoint, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
@@ -91,13 +89,12 @@ class ITextRangeProvider extends IUnknown{
      * @param {Integer} attributeId 
      * @param {VARIANT} val 
      * @param {BOOL} backward 
-     * @param {Pointer<ITextRangeProvider>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {ITextRangeProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-findattribute
      */
-    FindAttribute(attributeId, val, backward, pRetVal) {
-        result := ComCall(7, this, "int", attributeId, "ptr", val, "int", backward, "ptr*", pRetVal, "HRESULT")
-        return result
+    FindAttribute(attributeId, val, backward) {
+        result := ComCall(7, this, "int", attributeId, "ptr", val, "int", backward, "ptr*", &pRetVal := 0, "HRESULT")
+        return ITextRangeProvider(pRetVal)
     }
 
     /**
@@ -105,78 +102,70 @@ class ITextRangeProvider extends IUnknown{
      * @param {BSTR} text 
      * @param {BOOL} backward 
      * @param {BOOL} ignoreCase 
-     * @param {Pointer<ITextRangeProvider>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {ITextRangeProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-findtext
      */
-    FindText(text, backward, ignoreCase, pRetVal) {
+    FindText(text, backward, ignoreCase) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(8, this, "ptr", text, "int", backward, "int", ignoreCase, "ptr*", pRetVal, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", text, "int", backward, "int", ignoreCase, "ptr*", &pRetVal := 0, "HRESULT")
+        return ITextRangeProvider(pRetVal)
     }
 
     /**
      * 
      * @param {Integer} attributeId 
-     * @param {Pointer<VARIANT>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-getattributevalue
      */
-    GetAttributeValue(attributeId, pRetVal) {
+    GetAttributeValue(attributeId) {
+        pRetVal := VARIANT()
         result := ComCall(9, this, "int", attributeId, "ptr", pRetVal, "HRESULT")
-        return result
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-getboundingrectangles
      */
-    GetBoundingRectangles(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetBoundingRectangles() {
+        result := ComCall(10, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<IRawElementProviderSimple>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-getenclosingelement
      */
-    GetEnclosingElement(pRetVal) {
-        result := ComCall(11, this, "ptr*", pRetVal, "HRESULT")
-        return result
+    GetEnclosingElement() {
+        result := ComCall(11, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return IRawElementProviderSimple(pRetVal)
     }
 
     /**
      * 
      * @param {Integer} maxLength 
-     * @param {Pointer<BSTR>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-gettext
      */
-    GetText(maxLength, pRetVal) {
+    GetText(maxLength) {
+        pRetVal := BSTR()
         result := ComCall(12, this, "int", maxLength, "ptr", pRetVal, "HRESULT")
-        return result
+        return pRetVal
     }
 
     /**
      * 
      * @param {Integer} unit 
      * @param {Integer} count 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-move
      */
-    Move(unit, count, pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, "int", unit, "int", count, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    Move(unit, count) {
+        result := ComCall(13, this, "int", unit, "int", count, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
@@ -184,15 +173,12 @@ class ITextRangeProvider extends IUnknown{
      * @param {Integer} endpoint 
      * @param {Integer} unit 
      * @param {Integer} count 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-moveendpointbyunit
      */
-    MoveEndpointByUnit(endpoint, unit, count, pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, "int", endpoint, "int", unit, "int", count, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    MoveEndpointByUnit(endpoint, unit, count) {
+        result := ComCall(14, this, "int", endpoint, "int", unit, "int", count, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
@@ -251,14 +237,11 @@ class ITextRangeProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-getchildren
      */
-    GetChildren(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(20, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetChildren() {
+        result := ComCall(20, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

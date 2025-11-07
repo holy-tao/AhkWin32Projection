@@ -3382,10 +3382,12 @@ class WindowsFilteringPlatform {
     static FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -4348,10 +4350,12 @@ class WindowsFilteringPlatform {
     static FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -5913,10 +5917,12 @@ class WindowsFilteringPlatform {
     static FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -6675,10 +6681,12 @@ class WindowsFilteringPlatform {
     static FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -7376,10 +7384,12 @@ class WindowsFilteringPlatform {
     static FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -8081,10 +8091,12 @@ class WindowsFilteringPlatform {
     static FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -8942,10 +8954,12 @@ class WindowsFilteringPlatform {
     static FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -11516,10 +11530,12 @@ class WindowsFilteringPlatform {
     static IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -11935,10 +11951,12 @@ class WindowsFilteringPlatform {
     static IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -12326,10 +12344,12 @@ class WindowsFilteringPlatform {
 
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecKeyManagerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", reserved, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecKeyManagerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", reserved, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -13228,10 +13248,12 @@ class WindowsFilteringPlatform {
     static IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -13894,10 +13916,12 @@ class WindowsFilteringPlatform {
     static FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -14920,10 +14944,12 @@ class WindowsFilteringPlatform {
     static FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -15350,10 +15376,12 @@ class WindowsFilteringPlatform {
     static FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
+        sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaKeys2.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,31 +34,29 @@ class IMFMediaKeySystemAccess extends IUnknown{
     /**
      * 
      * @param {IPropertyStore} pCdmCustomConfig 
-     * @param {Pointer<IMFMediaKeys2>} ppKeys 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaKeys2} 
      */
-    CreateMediaKeys(pCdmCustomConfig, ppKeys) {
-        result := ComCall(3, this, "ptr", pCdmCustomConfig, "ptr*", ppKeys, "HRESULT")
-        return result
+    CreateMediaKeys(pCdmCustomConfig) {
+        result := ComCall(3, this, "ptr", pCdmCustomConfig, "ptr*", &ppKeys := 0, "HRESULT")
+        return IMFMediaKeys2(ppKeys)
     }
 
     /**
      * 
-     * @param {Pointer<IPropertyStore>} ppSupportedConfiguration 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      */
-    get_SupportedConfiguration(ppSupportedConfiguration) {
-        result := ComCall(4, this, "ptr*", ppSupportedConfiguration, "HRESULT")
-        return result
+    get_SupportedConfiguration() {
+        result := ComCall(4, this, "ptr*", &ppSupportedConfiguration := 0, "HRESULT")
+        return IPropertyStore(ppSupportedConfiguration)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pKeySystem 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_KeySystem(pKeySystem) {
+    get_KeySystem() {
+        pKeySystem := BSTR()
         result := ComCall(5, this, "ptr", pKeySystem, "HRESULT")
-        return result
+        return pKeySystem
     }
 }

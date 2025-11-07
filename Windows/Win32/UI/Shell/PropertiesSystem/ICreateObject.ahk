@@ -35,14 +35,11 @@ class ICreateObject extends IUnknown{
      * @param {Pointer<Guid>} clsid 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-icreateobject-createobject
      */
-    CreateObject(clsid, pUnkOuter, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", clsid, "ptr", pUnkOuter, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateObject(clsid, pUnkOuter, riid) {
+        result := ComCall(3, this, "ptr", clsid, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

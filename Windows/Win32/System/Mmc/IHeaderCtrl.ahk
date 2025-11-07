@@ -74,13 +74,12 @@ class IHeaderCtrl extends IUnknown{
     /**
      * 
      * @param {Integer} nCol 
-     * @param {Pointer<PWSTR>} pText 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-getcolumntext
      */
-    GetColumnText(nCol, pText) {
-        result := ComCall(6, this, "int", nCol, "ptr", pText, "HRESULT")
-        return result
+    GetColumnText(nCol) {
+        result := ComCall(6, this, "int", nCol, "ptr*", &pText := 0, "HRESULT")
+        return pText
     }
 
     /**
@@ -98,14 +97,11 @@ class IHeaderCtrl extends IUnknown{
     /**
      * 
      * @param {Integer} nCol 
-     * @param {Pointer<Integer>} pWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-getcolumnwidth
      */
-    GetColumnWidth(nCol, pWidth) {
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "int", nCol, pWidthMarshal, pWidth, "HRESULT")
-        return result
+    GetColumnWidth(nCol) {
+        result := ComCall(8, this, "int", nCol, "int*", &pWidth := 0, "HRESULT")
+        return pWidth
     }
 }

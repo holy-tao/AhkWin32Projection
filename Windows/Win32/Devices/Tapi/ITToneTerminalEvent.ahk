@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITTerminal.ahk
+#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,34 +34,31 @@ class ITToneTerminalEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITTerminal>} ppTerminal 
-     * @returns {HRESULT} 
+     * @returns {ITTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittoneterminalevent-get_terminal
      */
-    get_Terminal(ppTerminal) {
-        result := ComCall(7, this, "ptr*", ppTerminal, "HRESULT")
-        return result
+    get_Terminal() {
+        result := ComCall(7, this, "ptr*", &ppTerminal := 0, "HRESULT")
+        return ITTerminal(ppTerminal)
     }
 
     /**
      * 
-     * @param {Pointer<ITCallInfo>} ppCall 
-     * @returns {HRESULT} 
+     * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittoneterminalevent-get_call
      */
-    get_Call(ppCall) {
-        result := ComCall(8, this, "ptr*", ppCall, "HRESULT")
-        return result
+    get_Call() {
+        result := ComCall(8, this, "ptr*", &ppCall := 0, "HRESULT")
+        return ITCallInfo(ppCall)
     }
 
     /**
      * 
-     * @param {Pointer<HRESULT>} phrErrorCode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittoneterminalevent-get_error
      */
-    get_Error(phrErrorCode) {
-        result := ComCall(9, this, "ptr", phrErrorCode, "HRESULT")
-        return result
+    get_Error() {
+        result := ComCall(9, this, "int*", &phrErrorCode := 0, "HRESULT")
+        return phrErrorCode
     }
 }

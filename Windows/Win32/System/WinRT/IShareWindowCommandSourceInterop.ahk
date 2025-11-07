@@ -34,16 +34,13 @@ class IShareWindowCommandSourceInterop extends IUnknown{
      * 
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} shareWindowCommandSource 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/sharewindowcommandsourceinterop/nf-sharewindowcommandsourceinterop-isharewindowcommandsourceinterop-getforwindow
      */
-    GetForWindow(appWindow, riid, shareWindowCommandSource) {
+    GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        shareWindowCommandSourceMarshal := shareWindowCommandSource is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", appWindow, "ptr", riid, shareWindowCommandSourceMarshal, shareWindowCommandSource, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", appWindow, "ptr", riid, "ptr*", &shareWindowCommandSource := 0, "HRESULT")
+        return shareWindowCommandSource
     }
 }

@@ -50,14 +50,11 @@ class IBurnVerification extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iburnverification-get_burnverificationlevel
      */
-    get_BurnVerificationLevel(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, valueMarshal, value, "HRESULT")
-        return result
+    get_BurnVerificationLevel() {
+        result := ComCall(4, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 }

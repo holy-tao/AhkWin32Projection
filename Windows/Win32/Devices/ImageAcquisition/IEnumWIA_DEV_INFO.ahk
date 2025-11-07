@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWiaPropertyStorage.ahk
+#Include .\IEnumWIA_DEV_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -67,16 +69,15 @@ class IEnumWIA_DEV_INFO extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<IWiaPropertyStorage>} rgelt 
      * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {IWiaPropertyStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_info-next
      */
-    Next(celt, rgelt, pceltFetched) {
+    Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", celt, "ptr*", &rgelt := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        return IWiaPropertyStorage(rgelt)
     }
 
     /**
@@ -102,25 +103,21 @@ class IEnumWIA_DEV_INFO extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumWIA_DEV_INFO>} ppIEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWIA_DEV_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_info-clone
      */
-    Clone(ppIEnum) {
-        result := ComCall(6, this, "ptr*", ppIEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppIEnum := 0, "HRESULT")
+        return IEnumWIA_DEV_INFO(ppIEnum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} celt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_dev_info-getcount
      */
-    GetCount(celt) {
-        celtMarshal := celt is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, celtMarshal, celt, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(7, this, "uint*", &celt := 0, "HRESULT")
+        return celt
     }
 }

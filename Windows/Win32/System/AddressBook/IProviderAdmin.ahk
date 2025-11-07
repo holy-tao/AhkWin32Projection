@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMAPITable.ahk
+#Include .\MAPIUID.ahk
+#Include .\IProfSect.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -29,29 +32,23 @@ class IProviderAdmin extends IUnknown{
      * Retrieves the calling thread's last-error code value.
      * @param {HRESULT} hResult 
      * @param {Integer} ulFlags 
-     * @param {Pointer<Pointer<MAPIERROR>>} lppMAPIError 
-     * @returns {HRESULT} The return value is the calling thread's last-error code.
-     * 
-     * The Return Value section of the documentation for each function that sets the last-error code notes the conditions under which the function sets the last-error code. Most functions that set the thread's last-error code set it when they fail. However, some functions also set the last-error code when they succeed. If the function is not documented to set the last-error code, the value returned by this function is simply the most recent last-error code to have been set; some functions set the last-error code to 0 on success and others do not.
+     * @returns {Pointer<MAPIERROR>} 
      * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
      */
-    GetLastError(hResult, ulFlags, lppMAPIError) {
-        lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "int", hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
-        return result
+    GetLastError(hResult, ulFlags) {
+        result := ComCall(3, this, "int", hResult, "uint", ulFlags, "ptr*", &lppMAPIError := 0, "HRESULT")
+        return lppMAPIError
     }
 
     /**
      * 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IMAPITable>} lppTable 
-     * @returns {HRESULT} 
+     * @returns {IMAPITable} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-getprovidertable
      */
-    GetProviderTable(ulFlags, lppTable) {
-        result := ComCall(4, this, "uint", ulFlags, "ptr*", lppTable, "HRESULT")
-        return result
+    GetProviderTable(ulFlags) {
+        result := ComCall(4, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        return IMAPITable(lppTable)
     }
 
     /**
@@ -61,15 +58,15 @@ class IProviderAdmin extends IUnknown{
      * @param {Pointer<SPropValue>} lpProps 
      * @param {Pointer} ulUIParam 
      * @param {Integer} ulFlags 
-     * @param {Pointer<MAPIUID>} lpUID 
-     * @returns {HRESULT} 
+     * @returns {MAPIUID} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-createprovider
      */
-    CreateProvider(lpszProvider, cValues, lpProps, ulUIParam, ulFlags, lpUID) {
+    CreateProvider(lpszProvider, cValues, lpProps, ulUIParam, ulFlags) {
         lpszProviderMarshal := lpszProvider is VarRef ? "char*" : "ptr"
 
+        lpUID := MAPIUID()
         result := ComCall(5, this, lpszProviderMarshal, lpszProvider, "uint", cValues, "ptr", lpProps, "ptr", ulUIParam, "uint", ulFlags, "ptr", lpUID, "HRESULT")
-        return result
+        return lpUID
     }
 
     /**
@@ -88,12 +85,11 @@ class IProviderAdmin extends IUnknown{
      * @param {Pointer<MAPIUID>} lpUID 
      * @param {Pointer<Guid>} lpInterface 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IProfSect>} lppProfSect 
-     * @returns {HRESULT} 
+     * @returns {IProfSect} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-openprofilesection
      */
-    OpenProfileSection(lpUID, lpInterface, ulFlags, lppProfSect) {
-        result := ComCall(7, this, "ptr", lpUID, "ptr", lpInterface, "uint", ulFlags, "ptr*", lppProfSect, "HRESULT")
-        return result
+    OpenProfileSection(lpUID, lpInterface, ulFlags) {
+        result := ComCall(7, this, "ptr", lpUID, "ptr", lpInterface, "uint", ulFlags, "ptr*", &lppProfSect := 0, "HRESULT")
+        return IProfSect(lppProfSect)
     }
 }

@@ -37,15 +37,12 @@ class ID3D11On12Device extends IUnknown{
      * @param {Integer} InState 
      * @param {Integer} OutState 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppResource11 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nf-d3d11on12-id3d11on12device-createwrappedresource
      */
-    CreateWrappedResource(pResource12, pFlags11, InState, OutState, riid, ppResource11) {
-        ppResource11Marshal := ppResource11 is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pResource12, "ptr", pFlags11, "int", InState, "int", OutState, "ptr", riid, ppResource11Marshal, ppResource11, "HRESULT")
-        return result
+    CreateWrappedResource(pResource12, pFlags11, InState, OutState, riid) {
+        result := ComCall(3, this, "ptr", pResource12, "ptr", pFlags11, "int", InState, "int", OutState, "ptr", riid, "ptr*", &ppResource11 := 0, "HRESULT")
+        return ppResource11
     }
 
     /**

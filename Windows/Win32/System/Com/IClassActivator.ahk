@@ -36,14 +36,11 @@ class IClassActivator extends IUnknown{
      * @param {Integer} dwClassContext 
      * @param {Integer} locale 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iclassactivator-getclassobject
      */
-    GetClassObject(rclsid, dwClassContext, locale, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", rclsid, "uint", dwClassContext, "uint", locale, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetClassObject(rclsid, dwClassContext, locale, riid) {
+        result := ComCall(3, this, "ptr", rclsid, "uint", dwClassContext, "uint", locale, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

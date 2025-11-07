@@ -161,15 +161,12 @@ class IExplorerBrowser extends IUnknown{
     /**
      * 
      * @param {IExplorerBrowserEvents} psbe 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-advise
      */
-    Advise(psbe, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "ptr", psbe, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Advise(psbe) {
+        result := ComCall(9, this, "ptr", psbe, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -196,15 +193,12 @@ class IExplorerBrowser extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlag 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-getoptions
      */
-    GetOptions(pdwFlag) {
-        pdwFlagMarshal := pdwFlag is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pdwFlagMarshal, pdwFlag, "HRESULT")
-        return result
+    GetOptions() {
+        result := ComCall(12, this, "int*", &pdwFlag := 0, "HRESULT")
+        return pdwFlag
     }
 
     /**
@@ -256,14 +250,11 @@ class IExplorerBrowser extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-getcurrentview
      */
-    GetCurrentView(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(17, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetCurrentView(riid) {
+        result := ComCall(17, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

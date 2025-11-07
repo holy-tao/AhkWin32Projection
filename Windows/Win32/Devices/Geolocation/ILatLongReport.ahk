@@ -38,66 +38,51 @@ class ILatLongReport extends ILocationReport{
 
     /**
      * 
-     * @param {Pointer<Float>} pLatitude 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilatlongreport-getlatitude
      */
-    GetLatitude(pLatitude) {
-        pLatitudeMarshal := pLatitude is VarRef ? "double*" : "ptr"
-
-        result := ComCall(6, this, pLatitudeMarshal, pLatitude, "HRESULT")
-        return result
+    GetLatitude() {
+        result := ComCall(6, this, "double*", &pLatitude := 0, "HRESULT")
+        return pLatitude
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pLongitude 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilatlongreport-getlongitude
      */
-    GetLongitude(pLongitude) {
-        pLongitudeMarshal := pLongitude is VarRef ? "double*" : "ptr"
-
-        result := ComCall(7, this, pLongitudeMarshal, pLongitude, "HRESULT")
-        return result
+    GetLongitude() {
+        result := ComCall(7, this, "double*", &pLongitude := 0, "HRESULT")
+        return pLongitude
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pErrorRadius 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilatlongreport-geterrorradius
      */
-    GetErrorRadius(pErrorRadius) {
-        pErrorRadiusMarshal := pErrorRadius is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, pErrorRadiusMarshal, pErrorRadius, "HRESULT")
-        return result
+    GetErrorRadius() {
+        result := ComCall(8, this, "double*", &pErrorRadius := 0, "HRESULT")
+        return pErrorRadius
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pAltitude 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilatlongreport-getaltitude
      */
-    GetAltitude(pAltitude) {
-        pAltitudeMarshal := pAltitude is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, pAltitudeMarshal, pAltitude, "HRESULT")
-        return result
+    GetAltitude() {
+        result := ComCall(9, this, "double*", &pAltitude := 0, "HRESULT")
+        return pAltitude
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pAltitudeError 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilatlongreport-getaltitudeerror
      */
-    GetAltitudeError(pAltitudeError) {
-        pAltitudeErrorMarshal := pAltitudeError is VarRef ? "double*" : "ptr"
-
-        result := ComCall(10, this, pAltitudeErrorMarshal, pAltitudeError, "HRESULT")
-        return result
+    GetAltitudeError() {
+        result := ComCall(10, this, "double*", &pAltitudeError := 0, "HRESULT")
+        return pAltitudeError
     }
 }

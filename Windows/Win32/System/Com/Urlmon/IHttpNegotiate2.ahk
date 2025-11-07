@@ -30,16 +30,14 @@ class IHttpNegotiate2 extends IHttpNegotiate{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbSecurityId 
      * @param {Pointer<Integer>} pcbSecurityId 
      * @param {Pointer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRootSecurityId(pbSecurityId, pcbSecurityId, dwReserved) {
-        pbSecurityIdMarshal := pbSecurityId is VarRef ? "char*" : "ptr"
+    GetRootSecurityId(pcbSecurityId, dwReserved) {
         pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pbSecurityIdMarshal, pbSecurityId, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
-        return result
+        result := ComCall(5, this, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        return pbSecurityId
     }
 }

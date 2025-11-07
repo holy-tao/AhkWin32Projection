@@ -51,15 +51,13 @@ class IResourceManager extends IUnknown{
      * @param {Pointer<Integer>} pPrepInfo 
      * @param {Integer} cbPrepInfo 
      * @param {Integer} lTimeout 
-     * @param {Pointer<Integer>} pXactStat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Reenlist(pPrepInfo, cbPrepInfo, lTimeout, pXactStat) {
+    Reenlist(pPrepInfo, cbPrepInfo, lTimeout) {
         pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
-        pXactStatMarshal := pXactStat is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, pPrepInfoMarshal, pPrepInfo, "uint", cbPrepInfo, "uint", lTimeout, pXactStatMarshal, pXactStat, "HRESULT")
-        return result
+        result := ComCall(4, this, pPrepInfoMarshal, pPrepInfo, "uint", cbPrepInfo, "uint", lTimeout, "int*", &pXactStat := 0, "HRESULT")
+        return pXactStat
     }
 
     /**
@@ -74,13 +72,10 @@ class IResourceManager extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} iid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetDistributedTransactionManager(iid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", iid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    GetDistributedTransactionManager(iid) {
+        result := ComCall(6, this, "ptr", iid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 }

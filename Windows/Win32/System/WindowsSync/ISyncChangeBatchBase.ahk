@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSyncChanges.ahk
+#Include .\ISyncChangeBuilder.ahk
+#Include .\ISyncKnowledge.ahk
+#Include .\IForgottenKnowledge.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -37,13 +41,12 @@ class ISyncChangeBatchBase extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSyncChanges>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSyncChanges} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getchangeenumerator
      */
-    GetChangeEnumerator(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    GetChangeEnumerator() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumSyncChanges(ppEnum)
     }
 
     /**
@@ -53,7 +56,9 @@ class ISyncChangeBatchBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getislastbatch
      */
     GetIsLastBatch(pfLastBatch) {
-        result := ComCall(4, this, "ptr", pfLastBatch, "HRESULT")
+        pfLastBatchMarshal := pfLastBatch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pfLastBatchMarshal, pfLastBatch, "HRESULT")
         return result
     }
 
@@ -118,49 +123,45 @@ class ISyncChangeBatchBase extends IUnknown{
      * @param {Pointer<SYNC_VERSION>} pCreationVersion 
      * @param {Integer} dwFlags 
      * @param {Integer} dwWorkForChange 
-     * @param {Pointer<ISyncChangeBuilder>} ppChangeBuilder 
-     * @returns {HRESULT} 
+     * @returns {ISyncChangeBuilder} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-additemmetadatatogroup
      */
-    AddItemMetadataToGroup(pbOwnerReplicaId, pbItemId, pChangeVersion, pCreationVersion, dwFlags, dwWorkForChange, ppChangeBuilder) {
+    AddItemMetadataToGroup(pbOwnerReplicaId, pbItemId, pChangeVersion, pCreationVersion, dwFlags, dwWorkForChange) {
         pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr*", ppChangeBuilder, "HRESULT")
-        return result
+        result := ComCall(9, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        return ISyncChangeBuilder(ppChangeBuilder)
     }
 
     /**
      * 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getlearnedknowledge
      */
-    GetLearnedKnowledge(ppLearnedKnowledge) {
-        result := ComCall(10, this, "ptr*", ppLearnedKnowledge, "HRESULT")
-        return result
+    GetLearnedKnowledge() {
+        result := ComCall(10, this, "ptr*", &ppLearnedKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedKnowledge)
     }
 
     /**
      * 
-     * @param {Pointer<ISyncKnowledge>} ppPrerequisteKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getprerequisiteknowledge
      */
-    GetPrerequisiteKnowledge(ppPrerequisteKnowledge) {
-        result := ComCall(11, this, "ptr*", ppPrerequisteKnowledge, "HRESULT")
-        return result
+    GetPrerequisiteKnowledge() {
+        result := ComCall(11, this, "ptr*", &ppPrerequisteKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppPrerequisteKnowledge)
     }
 
     /**
      * 
-     * @param {Pointer<IForgottenKnowledge>} ppSourceForgottenKnowledge 
-     * @returns {HRESULT} 
+     * @returns {IForgottenKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getsourceforgottenknowledge
      */
-    GetSourceForgottenKnowledge(ppSourceForgottenKnowledge) {
-        result := ComCall(12, this, "ptr*", ppSourceForgottenKnowledge, "HRESULT")
-        return result
+    GetSourceForgottenKnowledge() {
+        result := ComCall(12, this, "ptr*", &ppSourceForgottenKnowledge := 0, "HRESULT")
+        return IForgottenKnowledge(ppSourceForgottenKnowledge)
     }
 
     /**

@@ -1,6 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\IDataAdviseHolder.ahk
+#Include .\IMoniker.ahk
+#Include .\IBindCtx.ahk
+#Include .\IRunningObjectTable.ahk
+#Include .\IBindStatusCallback.ahk
+#Include .\IMalloc.ahk
+#Include .\CO_MTA_USAGE_COOKIE.ahk
+#Include .\IUnknown.ahk
+#Include .\CO_DEVICE_CATALOG_COOKIE.ahk
+#Include .\IUri.ahk
+#Include .\IUriBuilder.ahk
+#Include .\IErrorInfo.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -390,48 +402,16 @@ class Com {
     /**
      * Registers an implementation of the IInitializeSpy interface. The IInitializeSpy interface is defied to allow developers to perform initialization and cleanup on COM apartments.
      * @param {IInitializeSpy} pSpy A pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iinitializespy">IInitializeSpy</a> implementation.
-     * @param {Pointer<Integer>} puliCookie The address at which to store a cookie that identifies this registration.
-     * @returns {HRESULT} This function can return the standard return value E_INVALIDARG, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object was successfully registered.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object does not support <a href="/windows/desktop/api/objidl/nn-objidl-iinitializespy">IInitializeSpy</a>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The address at which to store a cookie that identifies this registration.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-coregisterinitializespy
      * @since windows5.1.2600
      */
-    static CoRegisterInitializeSpy(pSpy, puliCookie) {
-        puliCookieMarshal := puliCookie is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoRegisterInitializeSpy", "ptr", pSpy, puliCookieMarshal, puliCookie, "int")
+    static CoRegisterInitializeSpy(pSpy) {
+        result := DllCall("OLE32.dll\CoRegisterInitializeSpy", "ptr", pSpy, "uint*", &puliCookie := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puliCookie
     }
 
     /**
@@ -852,35 +832,16 @@ class Com {
 
     /**
      * Retrieves a pointer to the OLE implementation of IDataAdviseHolder on the data advise holder object.
-     * @param {Pointer<IDataAdviseHolder>} ppDAHolder Address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataadviseholder">IDataAdviseHolder</a> pointer variable that receives the interface pointer to the new advise holder object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory for the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IDataAdviseHolder} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataadviseholder">IDataAdviseHolder</a> pointer variable that receives the interface pointer to the new advise holder object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-createdataadviseholder
      * @since windows5.0
      */
-    static CreateDataAdviseHolder(ppDAHolder) {
-        result := DllCall("OLE32.dll\CreateDataAdviseHolder", "ptr*", ppDAHolder, "int")
+    static CreateDataAdviseHolder() {
+        result := DllCall("OLE32.dll\CreateDataAdviseHolder", "ptr*", &ppDAHolder := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDataAdviseHolder(ppDAHolder)
     }
 
     /**
@@ -888,60 +849,16 @@ class Com {
      * @param {IUnknown} pUnkOuter If the cache is to be created as part of an aggregate, pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the aggregate. If not, the parameter should be <b>NULL</b>.
      * @param {Pointer<Guid>} rclsid CLSID used to generate icon labels. This value is typically CLSID_NULL.
      * @param {Pointer<Guid>} iid Reference to the identifier of the interface the caller wants to use to communicate with the cache. This value is typically IID_IOleCache (defined in the OLE headers to equal the interface identifier for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iolecache">IOleCache</a>).
-     * @param {Pointer<Pointer<Void>>} ppv Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer to the supplied cache object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The interface represented by riid is not supported by the object. The parameter <i>ppvObj</i> is set to <b>NULL</b>.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory for the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer to the supplied cache object.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-createdatacache
      * @since windows5.0
      */
-    static CreateDataCache(pUnkOuter, rclsid, iid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\CreateDataCache", "ptr", pUnkOuter, "ptr", rclsid, "ptr", iid, ppvMarshal, ppv, "int")
+    static CreateDataCache(pUnkOuter, rclsid, iid) {
+        result := DllCall("OLE32.dll\CreateDataCache", "ptr", pUnkOuter, "ptr", rclsid, "ptr", iid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -998,48 +915,16 @@ class Com {
      * @param {IMoniker} pmk A pointer to the object's moniker. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>.
      * @param {Integer} grfOpt This parameter is reserved for future use and must be 0.
      * @param {Pointer<Guid>} iidResult The interface identifier to be used to communicate with the object.
-     * @param {Pointer<Pointer<Void>>} ppvResult The address of pointer variable that receives the interface pointer requested in <i>iidResult</i>. Upon successful return, *<i>ppvResult</i> contains the requested interface pointer. If an error occurs, *<i>ppvResult</i> is <b>NULL</b>. If the call is successful, the caller is responsible for releasing the pointer with a call to the object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @returns {HRESULT} This function can return the following error codes, or any of the error values returned by the <a href="/windows/desktop/api/objidl/nf-objidl-imoniker-bindtoobject">IMoniker::BindToObject</a> method.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object was located and activated, if necessary, and a pointer to the requested interface was returned.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_E_NOOBJECT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object that the moniker object identified could not be found.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} The address of pointer variable that receives the interface pointer requested in <i>iidResult</i>. Upon successful return, *<i>ppvResult</i> contains the requested interface pointer. If an error occurs, *<i>ppvResult</i> is <b>NULL</b>. If the call is successful, the caller is responsible for releasing the pointer with a call to the object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-bindmoniker
      * @since windows5.0
      */
-    static BindMoniker(pmk, grfOpt, iidResult, ppvResult) {
-        ppvResultMarshal := ppvResult is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\BindMoniker", "ptr", pmk, "uint", grfOpt, "ptr", iidResult, ppvResultMarshal, ppvResult, "int")
+    static BindMoniker(pmk, grfOpt, iidResult) {
+        result := DllCall("OLE32.dll\BindMoniker", "ptr", pmk, "uint", grfOpt, "ptr", iidResult, "ptr*", &ppvResult := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvResult
     }
 
     /**
@@ -1047,94 +932,18 @@ class Com {
      * @param {PWSTR} pszName The display name of the object to be created.
      * @param {Pointer<BIND_OPTS>} pBindOptions The binding options used to create a moniker that creates the actual object. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-bind_opts">BIND_OPTS</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer<Guid>} riid A reference to the identifier of an interface that is implemented on the object to be created.
-     * @param {Pointer<Pointer<Void>>} ppv The address of a pointer to the interface specified by <i>riid</i> on the object that is created.
-     * @returns {HRESULT} This function can return the standard return values E_FAIL, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object was created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_E_SYNTAX</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>pszName</i> parameter is not a properly formed display name.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_E_NOOBJECT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object identified by this moniker, or some object identified by the composite moniker of which this moniker is a part, could not be found.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_E_EXCEEDEDDEADLINE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The binding operation could not be completed within the time limit specified by the <a href="/windows/desktop/api/objidl/ns-objidl-bind_opts">BIND_OPTS</a> structure passed in <i>pBindOptions</i>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_E_CONNECTMANUALLY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The binding operation requires assistance from the end user. The most common reasons for returning this value are that a password is needed or that a floppy needs to be mounted.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_E_INTERMEDIATEINTERFACENOTSUPPORTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An intermediate object was found but it did not support an interface required to complete the binding operation. For example, an item moniker returns this value if its container does not support the <a href="/windows/desktop/api/oleidl/nn-oleidl-ioleitemcontainer">IOleItemContainer</a> interface.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} The address of a pointer to the interface specified by <i>riid</i> on the object that is created.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-cogetobject
      * @since windows5.0
      */
-    static CoGetObject(pszName, pBindOptions, riid, ppv) {
+    static CoGetObject(pszName, pBindOptions, riid) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoGetObject", "ptr", pszName, "ptr", pBindOptions, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("OLE32.dll\CoGetObject", "ptr", pszName, "ptr", pBindOptions, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -1195,210 +1004,64 @@ class Com {
      * Provides a moniker that, when composed onto the end of the first specified moniker (or one with a similar structure), yields the second specified moniker.
      * @param {IMoniker} pmkSrc A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker that, when composed with the relative moniker to be created, produces <i>pmkDest</i>. This moniker identifies the "source" of the relative moniker to be created.
      * @param {IMoniker} pmkDest A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker to be expressed relative to <i>pmkSrc</i>. This moniker identifies the destination of the relative moniker to be created.
-     * @param {Pointer<IMoniker>} ppmkRelPath The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new relative moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the interface pointer value is <b>NULL</b>.
      * @param {BOOL} dwReserved This parameter is reserved and must be nonzero.
-     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A meaningful relative path has been returned.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_S_HIM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The only form of the relative path is the other moniker.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_E_NOTBINDABLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>pmkSrc</i> parameter is a relative moniker, such as an item moniker, and must be composed with the moniker of its container before a relative path can be determined.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new relative moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the interface pointer value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-monikerrelativepathto
      * @since windows5.0
      */
-    static MonikerRelativePathTo(pmkSrc, pmkDest, ppmkRelPath, dwReserved) {
-        result := DllCall("ole32.dll\MonikerRelativePathTo", "ptr", pmkSrc, "ptr", pmkDest, "ptr*", ppmkRelPath, "int", dwReserved, "int")
+    static MonikerRelativePathTo(pmkSrc, pmkDest, dwReserved) {
+        result := DllCall("ole32.dll\MonikerRelativePathTo", "ptr", pmkSrc, "ptr", pmkDest, "ptr*", &ppmkRelPath := 0, "int", dwReserved, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMoniker(ppmkRelPath)
     }
 
     /**
      * Creates a new moniker based on the common prefix that this moniker (the one comprising the data of this moniker object) shares with another moniker.
      * @param {IMoniker} pmkThis A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on one of the monikers for which a common prefix is sought; usually the moniker in which this call is used to implement <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imoniker-commonprefixwith">IMoniker::CommonPrefixWith</a>.
      * @param {IMoniker} pmkOther A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker to be compared with the first moniker.
-     * @param {Pointer<IMoniker>} ppmkCommon The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the moniker based on the common prefix of <i>pmkThis</i> and <i>pmkOther</i>. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the supplied interface pointer value is <b>NULL</b>.
-     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A common prefix exists that is neither <i>pmkThis</i> nor <i>pmkOther</i>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_S_HIM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The entire <i>pmkOther</i> moniker is a prefix of the <i>pmkThis</i> moniker.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_S_ME</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The entire <i>pmkThis</i> moniker is a prefix of the <i>pmkOther</i> moniker.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_S_US</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>pmkThis</i> and <i>pmkOther</i> monikers are equal.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_E_NOPREFIX</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The monikers have no common prefix.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_E_NOTBINDABLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * This function was called on a relative moniker. It is not meaningful to take the common prefix of relative monikers.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the moniker based on the common prefix of <i>pmkThis</i> and <i>pmkOther</i>. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the supplied interface pointer value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-monikercommonprefixwith
      * @since windows5.0
      */
-    static MonikerCommonPrefixWith(pmkThis, pmkOther, ppmkCommon) {
-        result := DllCall("ole32.dll\MonikerCommonPrefixWith", "ptr", pmkThis, "ptr", pmkOther, "ptr*", ppmkCommon, "int")
+    static MonikerCommonPrefixWith(pmkThis, pmkOther) {
+        result := DllCall("ole32.dll\MonikerCommonPrefixWith", "ptr", pmkThis, "ptr", pmkOther, "ptr*", &ppmkCommon := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMoniker(ppmkCommon)
     }
 
     /**
      * Returns a pointer to an implementation of IBindCtx (a bind context object). This object stores information about a particular moniker-binding operation.
      * @param {Integer} reserved This parameter is reserved and must be 0.
-     * @param {Pointer<IBindCtx>} ppbc Address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>* pointer variable that receives the interface pointer to the new bind context object. When the function is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the bind context. A <b>NULL</b> value for the bind context indicates that an error occurred.
-     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @returns {IBindCtx} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>* pointer variable that receives the interface pointer to the new bind context object. When the function is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the bind context. A <b>NULL</b> value for the bind context indicates that an error occurred.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-createbindctx
      * @since windows5.0
      */
-    static CreateBindCtx(reserved, ppbc) {
-        result := DllCall("OLE32.dll\CreateBindCtx", "uint", reserved, "ptr*", ppbc, "int")
+    static CreateBindCtx(reserved) {
+        result := DllCall("OLE32.dll\CreateBindCtx", "uint", reserved, "ptr*", &ppbc := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IBindCtx(ppbc)
     }
 
     /**
      * Performs a generic composition of two monikers and supplies a pointer to the resulting composite moniker.
      * @param {IMoniker} pmkFirst A pointer to the moniker to be composed to the left of the moniker that pmkRest points to. Can point to any kind of moniker, including a generic composite.
      * @param {IMoniker} pmkRest A pointer to the moniker to be composed to the right of the moniker to which <i>pmkFirst</i> points. Can point to any kind of moniker compatible with the type of the <i>pmkRest</i> moniker, including a generic composite.
-     * @param {Pointer<IMoniker>} ppmkComposite The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the composite moniker object that is the result of composing <i>pmkFirst</i> and <i>pmkRest</i>. This object supports the OLE composite moniker implementation of <b>IMoniker</b>. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If either <i>pmkFirst</i> or <i>pmkRest</i> are <b>NULL</b>, the supplied pointer is the one that is non-<b>NULL</b>. If both <i>pmkFirst</i> and <i>pmkRest</i> are <b>NULL</b>, or if an error occurs, the returned pointer is <b>NULL</b>.
-     * @returns {HRESULT} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input monikers were composed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_E_SYNTAX</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The two monikers could not be composed due to an error in the syntax of a path (for example, if both pmkFirst and pmkRest are file monikers based on absolute paths).
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the composite moniker object that is the result of composing <i>pmkFirst</i> and <i>pmkRest</i>. This object supports the OLE composite moniker implementation of <b>IMoniker</b>. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If either <i>pmkFirst</i> or <i>pmkRest</i> are <b>NULL</b>, the supplied pointer is the one that is non-<b>NULL</b>. If both <i>pmkFirst</i> and <i>pmkRest</i> are <b>NULL</b>, or if an error occurs, the returned pointer is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-creategenericcomposite
      * @since windows5.0
      */
-    static CreateGenericComposite(pmkFirst, pmkRest, ppmkComposite) {
-        result := DllCall("OLE32.dll\CreateGenericComposite", "ptr", pmkFirst, "ptr", pmkRest, "ptr*", ppmkComposite, "int")
+    static CreateGenericComposite(pmkFirst, pmkRest) {
+        result := DllCall("OLE32.dll\CreateGenericComposite", "ptr", pmkFirst, "ptr", pmkRest, "ptr*", &ppmkComposite := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMoniker(ppmkComposite)
     }
 
     /**
@@ -1462,46 +1125,16 @@ class Com {
     /**
      * Creates a class moniker that refers to the specified class.
      * @param {Pointer<Guid>} rclsid A reference to the CLSID of the object type to which this moniker binds.
-     * @param {Pointer<IMoniker>} ppmk The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new class moniker. On successful return, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the value of the moniker pointer is <b>NULL</b>.
-     * @returns {HRESULT} This function can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The moniker has been created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more arguments are invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new class moniker. On successful return, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the value of the moniker pointer is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-createclassmoniker
      * @since windows5.0
      */
-    static CreateClassMoniker(rclsid, ppmk) {
-        result := DllCall("OLE32.dll\CreateClassMoniker", "ptr", rclsid, "ptr*", ppmk, "int")
+    static CreateClassMoniker(rclsid) {
+        result := DllCall("OLE32.dll\CreateClassMoniker", "ptr", rclsid, "ptr*", &ppmk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMoniker(ppmk)
     }
 
     /**
@@ -1509,131 +1142,96 @@ class Com {
      * @param {PWSTR} lpszPathName The path on which this moniker is to be based.
      * 
      * This parameter can specify a relative path, a UNC path, or a drive-letter-based path. If based on a relative path, the resulting moniker must be composed onto another file moniker before it can be bound.
-     * @param {Pointer<IMoniker>} ppmk The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new file moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the file moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the value of the interface pointer is <b>NULL</b>.
-     * @returns {HRESULT} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The moniker was created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>MK_E_SYNTAX</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was an error in the syntax of the path.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new file moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the file moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the value of the interface pointer is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-createfilemoniker
      * @since windows5.0
      */
-    static CreateFileMoniker(lpszPathName, ppmk) {
+    static CreateFileMoniker(lpszPathName) {
         lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
 
-        result := DllCall("OLE32.dll\CreateFileMoniker", "ptr", lpszPathName, "ptr*", ppmk, "int")
+        result := DllCall("OLE32.dll\CreateFileMoniker", "ptr", lpszPathName, "ptr*", &ppmk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMoniker(ppmk)
     }
 
     /**
      * Creates an item moniker that identifies an object within a containing object (typically a compound document).
      * @param {PWSTR} lpszDelim A pointer to a wide character string (two bytes per character) zero-terminated string containing the delimiter (typically "!") used to separate this item's display name from the display name of its containing object.
      * @param {PWSTR} lpszItem A pointer to a zero-terminated string indicating the containing object's name for the object being identified. This name can later be used to retrieve a pointer to the object in a call to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleitemcontainer-getobject">IOleItemContainer::GetObject</a>.
-     * @param {Pointer<IMoniker>} ppmk The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the item moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the item moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the supplied interface pointer has a <b>NULL</b> value.
-     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the item moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the item moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the supplied interface pointer has a <b>NULL</b> value.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-createitemmoniker
      * @since windows5.0
      */
-    static CreateItemMoniker(lpszDelim, lpszItem, ppmk) {
+    static CreateItemMoniker(lpszDelim, lpszItem) {
         lpszDelim := lpszDelim is String ? StrPtr(lpszDelim) : lpszDelim
         lpszItem := lpszItem is String ? StrPtr(lpszItem) : lpszItem
 
-        result := DllCall("OLE32.dll\CreateItemMoniker", "ptr", lpszDelim, "ptr", lpszItem, "ptr*", ppmk, "int")
+        result := DllCall("OLE32.dll\CreateItemMoniker", "ptr", lpszDelim, "ptr", lpszItem, "ptr*", &ppmk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMoniker(ppmk)
     }
 
     /**
      * Creates and returns a new anti-moniker.
-     * @param {Pointer<IMoniker>} ppmk The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new anti-moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the anti-moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the anti-moniker pointer is <b>NULL</b>.
-     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new anti-moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the anti-moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the anti-moniker pointer is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-createantimoniker
      * @since windows5.0
      */
-    static CreateAntiMoniker(ppmk) {
-        result := DllCall("OLE32.dll\CreateAntiMoniker", "ptr*", ppmk, "int")
+    static CreateAntiMoniker() {
+        result := DllCall("OLE32.dll\CreateAntiMoniker", "ptr*", &ppmk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMoniker(ppmk)
     }
 
     /**
      * Creates a pointer moniker based on a pointer to an object.
      * @param {IUnknown} punk A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object to be identified by the resulting moniker.
-     * @param {Pointer<IMoniker>} ppmk The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new pointer moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the returned interface pointer has a <b>NULL</b> value.
-     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
+     * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new pointer moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the returned interface pointer has a <b>NULL</b> value.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-createpointermoniker
      * @since windows5.0
      */
-    static CreatePointerMoniker(punk, ppmk) {
-        result := DllCall("OLE32.dll\CreatePointerMoniker", "ptr", punk, "ptr*", ppmk, "int")
+    static CreatePointerMoniker(punk) {
+        result := DllCall("OLE32.dll\CreatePointerMoniker", "ptr", punk, "ptr*", &ppmk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMoniker(ppmk)
     }
 
     /**
      * Creates an OBJREF moniker based on a pointer to an object.
      * @param {IUnknown} punk A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object that the moniker is to represent.
-     * @param {Pointer<IMoniker>} ppmk Address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the OBJREF moniker that was created.
-     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
+     * @returns {IMoniker} Address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the OBJREF moniker that was created.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-createobjrefmoniker
      * @since windows5.0
      */
-    static CreateObjrefMoniker(punk, ppmk) {
-        result := DllCall("OLE32.dll\CreateObjrefMoniker", "ptr", punk, "ptr*", ppmk, "int")
+    static CreateObjrefMoniker(punk) {
+        result := DllCall("OLE32.dll\CreateObjrefMoniker", "ptr", punk, "ptr*", &ppmk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMoniker(ppmk)
     }
 
     /**
      * Returns a pointer to the IRunningObjectTable interface on the local running object table (ROT).
      * @param {Integer} reserved This parameter is reserved and must be 0.
-     * @param {Pointer<IRunningObjectTable>} pprot The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunningobjecttable">IRunningObjectTable</a>* pointer variable that receives the interface pointer to the local ROT. When the function is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the interface pointer. If an error occurs, *<i>pprot</i> is undefined.
-     * @returns {HRESULT} This function can return the standard return values E_UNEXPECTED and S_OK.
+     * @returns {IRunningObjectTable} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunningobjecttable">IRunningObjectTable</a>* pointer variable that receives the interface pointer to the local ROT. When the function is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the interface pointer. If an error occurs, *<i>pprot</i> is undefined.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-getrunningobjecttable
      * @since windows5.0
      */
-    static GetRunningObjectTable(reserved, pprot) {
-        result := DllCall("OLE32.dll\GetRunningObjectTable", "uint", reserved, "ptr*", pprot, "int")
+    static GetRunningObjectTable(reserved) {
+        result := DllCall("OLE32.dll\GetRunningObjectTable", "uint", reserved, "ptr*", &pprot := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IRunningObjectTable(pprot)
     }
 
     /**
@@ -1641,34 +1239,32 @@ class Com {
      * @param {HWND} hwndParent 
      * @param {PWSTR} pszTitle 
      * @param {IBindStatusCallback} pIbscCaller 
-     * @param {Pointer<IBindStatusCallback>} ppIbsc 
-     * @returns {HRESULT} 
+     * @returns {IBindStatusCallback} 
      */
-    static CreateStdProgressIndicator(hwndParent, pszTitle, pIbscCaller, ppIbsc) {
+    static CreateStdProgressIndicator(hwndParent, pszTitle, pIbscCaller) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
 
-        result := DllCall("ole32.dll\CreateStdProgressIndicator", "ptr", hwndParent, "ptr", pszTitle, "ptr", pIbscCaller, "ptr*", ppIbsc, "int")
+        result := DllCall("ole32.dll\CreateStdProgressIndicator", "ptr", hwndParent, "ptr", pszTitle, "ptr", pIbscCaller, "ptr*", &ppIbsc := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IBindStatusCallback(ppIbsc)
     }
 
     /**
      * Retrieves a pointer to the default OLE task memory allocator (which supports the system implementation of the IMalloc interface) so applications can call its methods to manage memory.
      * @param {Integer} dwMemContext This parameter must be 1.
-     * @param {Pointer<IMalloc>} ppMalloc The address of an <b>IMalloc*</b> pointer variable that receives the interface pointer to the memory allocator.
-     * @returns {HRESULT} This function can return the standard return values S_OK, E_INVALIDARG, and E_OUTOFMEMORY.
+     * @returns {IMalloc} The address of an <b>IMalloc*</b> pointer variable that receives the interface pointer to the memory allocator.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cogetmalloc
      * @since windows5.0
      */
-    static CoGetMalloc(dwMemContext, ppMalloc) {
-        result := DllCall("OLE32.dll\CoGetMalloc", "uint", dwMemContext, "ptr*", ppMalloc, "int")
+    static CoGetMalloc(dwMemContext) {
+        result := DllCall("OLE32.dll\CoGetMalloc", "uint", dwMemContext, "ptr*", &ppMalloc := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMalloc(ppMalloc)
     }
 
     /**
@@ -1765,59 +1361,16 @@ class Com {
 
     /**
      * Returns a pointer to a DWORD that contains the apartment ID of the caller's thread.
-     * @param {Pointer<Integer>} lpdwTID Receives the apartment ID of the caller's thread. For a single threaded apartment (STA), this is the current thread ID. For a multithreaded apartment (MTA), the value is 0.  For a neutral apartment (NA), the value is -1.
-     * @returns {HRESULT} This function can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_TRUE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller's thread ID is set and the caller is in the same process.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller's thread ID is set and the caller is in a different process.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller's thread ID was not set.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Receives the apartment ID of the caller's thread. For a single threaded apartment (STA), this is the current thread ID. For a multithreaded apartment (MTA), the value is 0.  For a neutral apartment (NA), the value is -1.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cogetcallertid
      * @since windows5.0
      */
-    static CoGetCallerTID(lpdwTID) {
-        lpdwTIDMarshal := lpdwTID is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoGetCallerTID", lpdwTIDMarshal, lpdwTID, "int")
+    static CoGetCallerTID() {
+        result := DllCall("OLE32.dll\CoGetCallerTID", "uint*", &lpdwTID := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lpdwTID
     }
 
     /**
@@ -1877,60 +1430,16 @@ class Com {
 
     /**
      * Returns a pointer to an implementation of IObjContext for the current context.
-     * @param {Pointer<Pointer>} pToken A pointer to an implementation of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iobjcontext">IObjContext</a> for the current context.
-     * @returns {HRESULT} This function can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The token was retrieved successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller did not pass a valid token pointer variable.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_NOTINITIALIZED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller is not in an initialized apartment.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer} A pointer to an implementation of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iobjcontext">IObjContext</a> for the current context.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cogetcontexttoken
      * @since windows5.0
      */
-    static CoGetContextToken(pToken) {
-        pTokenMarshal := pToken is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoGetContextToken", pTokenMarshal, pToken, "int")
+    static CoGetContextToken() {
+        result := DllCall("OLE32.dll\CoGetContextToken", "ptr*", &pToken := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pToken
     }
 
     /**
@@ -1995,16 +1504,16 @@ class Com {
 
     /**
      * Keeps MTA support active when no MTA threads are running.
-     * @param {Pointer<CO_MTA_USAGE_COOKIE>} pCookie Address of a <b>PVOID</b> variable that receives the cookie for the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codecrementmtausage">CoDecrementMTAUsage</a> function, or <b>NULL</b> if the call fails.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {CO_MTA_USAGE_COOKIE} Address of a <b>PVOID</b> variable that receives the cookie for the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codecrementmtausage">CoDecrementMTAUsage</a> function, or <b>NULL</b> if the call fails.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-coincrementmtausage
      */
-    static CoIncrementMTAUsage(pCookie) {
+    static CoIncrementMTAUsage() {
+        pCookie := CO_MTA_USAGE_COOKIE()
         result := DllCall("OLE32.dll\CoIncrementMTAUsage", "ptr", pCookie, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pCookie
     }
 
     /**
@@ -2045,59 +1554,16 @@ class Com {
      * For objects running within COM applications, IID_IComThreadingInfo, IID_IContext, and IID_IContextCallback are available.
      * 
      * For objects running within COM+ applications, IID_IObjectContext, IID_IObjectContextActivity IID_IObjectContextInfo, and IID_IContextState are available.
-     * @param {Pointer<Pointer<Void>>} ppv The address of a pointer to the interface specified by <i>riid</i> on the context object.
-     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object context was successfully retrieved.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The requested interface was not available.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_NOTINITIALIZED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Before this function can be called, the <a href="/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a> function must be called on the current thread.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} The address of a pointer to the interface specified by <i>riid</i> on the context object.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cogetobjectcontext
      * @since windows5.0
      */
-    static CoGetObjectContext(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoGetObjectContext", "ptr", riid, ppvMarshal, ppv, "int")
+    static CoGetObjectContext(riid) {
+        result := DllCall("OLE32.dll\CoGetObjectContext", "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -2106,128 +1572,18 @@ class Com {
      * @param {Integer} dwClsContext The context in which the executable code is to be run. To enable a remote activation, include CLSCTX_REMOTE_SERVER. For more information on the context values and their use, see the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration.
      * @param {Pointer<Void>} pvReserved A pointer to computer on which to instantiate the class object. If this parameter is <b>NULL</b>, the class object is instantiated on the current computer or at the computer specified under the class's <a href="https://docs.microsoft.com/windows/desktop/com/remoteservername">RemoteServerName</a> key, according to the interpretation of the <i>dwClsCtx</i> parameter. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-coserverinfo">COSERVERINFO</a>.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface, which will be supplied in _ppv_ on successful return. This interface will be used to communicate with the class object. Typically this value is IID_IClassFactory, although other values such as IID_IClassFactory2 which supports a form of licensing are allowed. All OLE-defined interface IIDs are defined in the OLE header files as IID_interfacename, where interfacename is the name of the interface.
-     * @param {Pointer<Pointer<Void>>} ppv The address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer.
-     * @returns {HRESULT} This function can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Location and connection to the specified class object was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_CLASSNOTREG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The CLSID is not properly registered. This error can also indicate that the value you specified in <i>dwClsContext</i> is not in the registry.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Either the object pointed to by <i>ppv</i> does not support the interface identified by <i>riid</i>, or the <a href="/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> operation on the class object returned E_NOINTERFACE.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_READREGDB</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was an error reading the registration database.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_DLLNOTFOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Either the in-process DLL or handler DLL was not found (depending  on the context).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_APPNOTFOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The executable (.exe) was not found (CLSCTX_LOCAL_SERVER only).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ACCESSDENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was a general access failure on load.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_ERRORINDLL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is an error in the executable image.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_APPDIDNTREG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The executable was launched, but it did not register the class object (and it may have shut down).
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} The address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cogetclassobject
      * @since windows5.0
      */
-    static CoGetClassObject(rclsid, dwClsContext, pvReserved, riid, ppv) {
+    static CoGetClassObject(rclsid, dwClsContext, pvReserved, riid) {
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLE32.dll\CoGetClassObject", "ptr", rclsid, "uint", dwClsContext, pvReservedMarshal, pvReserved, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("OLE32.dll\CoGetClassObject", "ptr", rclsid, "uint", dwClsContext, pvReservedMarshal, pvReserved, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -2236,37 +1592,16 @@ class Com {
      * @param {IUnknown} pUnk A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the class object whose availability is being published.
      * @param {Integer} dwClsContext The context in which the executable code is to be run. For information on these context values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration.
      * @param {Integer} flags Indicates how connections are made to the class object. For information on these flags, see the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/ne-combaseapi-regcls">REGCLS</a> enumeration.
-     * @param {Pointer<Integer>} lpdwRegister A pointer to a value that identifies the class object registered; later used by the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-corevokeclassobject">CoRevokeClassObject</a> function to revoke the registration.
-     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The class object was registered successfully.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} A pointer to a value that identifies the class object registered; later used by the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-corevokeclassobject">CoRevokeClassObject</a> function to revoke the registration.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-coregisterclassobject
      * @since windows5.0
      */
-    static CoRegisterClassObject(rclsid, pUnk, dwClsContext, flags, lpdwRegister) {
-        lpdwRegisterMarshal := lpdwRegister is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoRegisterClassObject", "ptr", rclsid, "ptr", pUnk, "uint", dwClsContext, "uint", flags, lpdwRegisterMarshal, lpdwRegister, "int")
+    static CoRegisterClassObject(rclsid, pUnk, dwClsContext, flags) {
+        result := DllCall("OLE32.dll\CoRegisterClassObject", "ptr", rclsid, "ptr", pUnk, "uint", dwClsContext, "uint", flags, "uint*", &lpdwRegister := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lpdwRegister
     }
 
     /**
@@ -2492,35 +1827,16 @@ class Com {
     /**
      * Creates an aggregatable object capable of context-dependent marshaling.
      * @param {IUnknown} punkOuter A pointer to the aggregating object's controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>.
-     * @param {Pointer<IUnknown>} ppunkMarshal Address of the pointer variable that receives the interface pointer to the aggregatable marshaler.
-     * @returns {HRESULT} This function can return the standard return value E_OUTOFMEMORY, as well as the following value.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The marshaler was created.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IUnknown} Address of the pointer variable that receives the interface pointer to the aggregatable marshaler.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cocreatefreethreadedmarshaler
      * @since windows5.0
      */
-    static CoCreateFreeThreadedMarshaler(punkOuter, ppunkMarshal) {
-        result := DllCall("OLE32.dll\CoCreateFreeThreadedMarshaler", "ptr", punkOuter, "ptr*", ppunkMarshal, "int")
+    static CoCreateFreeThreadedMarshaler(punkOuter) {
+        result := DllCall("OLE32.dll\CoCreateFreeThreadedMarshaler", "ptr", punkOuter, "ptr*", &ppunkMarshal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppunkMarshal)
     }
 
     /**
@@ -2725,48 +2041,16 @@ class Com {
     /**
      * Retrieves the context of the current call on the current thread.
      * @param {Pointer<Guid>} riid Interface identifier (IID) of the call context that is being requested. If you are using the default call context supported by standard marshaling, IID_IServerSecurity is available. For COM+ applications using role-based security, IID_ISecurityCallContext is available.
-     * @param {Pointer<Pointer<Void>>} ppInterface Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppInterface</i> contains the requested interface pointer.
-     * @returns {HRESULT} This function can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The context was retrieved successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The call context does not support the interface specified by <i>riid</i>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppInterface</i> contains the requested interface pointer.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cogetcallcontext
      * @since windows5.0
      */
-    static CoGetCallContext(riid, ppInterface) {
-        ppInterfaceMarshal := ppInterface is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoGetCallContext", "ptr", riid, ppInterfaceMarshal, ppInterface, "int")
+    static CoGetCallContext(riid) {
+        result := DllCall("OLE32.dll\CoGetCallContext", "ptr", riid, "ptr*", &ppInterface := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppInterface
     }
 
     /**
@@ -2786,12 +2070,13 @@ class Com {
     static CoQueryProxyBlanket(pProxy, pwAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pAuthInfo, pCapabilites) {
         pwAuthnSvcMarshal := pwAuthnSvc is VarRef ? "uint*" : "ptr"
         pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : "ptr"
+        pServerPrincNameMarshal := pServerPrincName is VarRef ? "ptr*" : "ptr"
         pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : "ptr"
         pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : "ptr"
         pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr*" : "ptr"
         pCapabilitesMarshal := pCapabilites is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OLE32.dll\CoQueryProxyBlanket", "ptr", pProxy, pwAuthnSvcMarshal, pwAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, "ptr", pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pAuthInfoMarshal, pAuthInfo, pCapabilitesMarshal, pCapabilites, "int")
+        result := DllCall("OLE32.dll\CoQueryProxyBlanket", "ptr", pProxy, pwAuthnSvcMarshal, pwAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pAuthInfoMarshal, pAuthInfo, pCapabilitesMarshal, pCapabilites, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2874,46 +2159,16 @@ class Com {
     /**
      * Makes a private copy of the specified proxy.
      * @param {IUnknown} pProxy A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the proxy to be copied. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<IUnknown>} ppCopy Address of the pointer variable that receives the interface pointer to the copy of the proxy. This parameter cannot be <b>NULL</b>.
-     * @returns {HRESULT} This function can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more arguments are invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IUnknown} Address of the pointer variable that receives the interface pointer to the copy of the proxy. This parameter cannot be <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cocopyproxy
      * @since windows5.0
      */
-    static CoCopyProxy(pProxy, ppCopy) {
-        result := DllCall("OLE32.dll\CoCopyProxy", "ptr", pProxy, "ptr*", ppCopy, "int")
+    static CoCopyProxy(pProxy) {
+        result := DllCall("OLE32.dll\CoCopyProxy", "ptr", pProxy, "ptr*", &ppCopy := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppCopy)
     }
 
     /**
@@ -2932,12 +2187,13 @@ class Com {
     static CoQueryClientBlanket(pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pPrivs, pCapabilities) {
         pAuthnSvcMarshal := pAuthnSvc is VarRef ? "uint*" : "ptr"
         pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : "ptr"
+        pServerPrincNameMarshal := pServerPrincName is VarRef ? "ptr*" : "ptr"
         pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : "ptr"
         pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : "ptr"
         pPrivsMarshal := pPrivs is VarRef ? "ptr*" : "ptr"
         pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OLE32.dll\CoQueryClientBlanket", pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, "ptr", pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pPrivsMarshal, pPrivs, pCapabilitiesMarshal, pCapabilities, "int")
+        result := DllCall("OLE32.dll\CoQueryClientBlanket", pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pPrivsMarshal, pPrivs, pCapabilitiesMarshal, pCapabilities, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2994,46 +2250,16 @@ class Com {
     /**
      * Switches the call context object used by CoGetCallContext.
      * @param {IUnknown} pNewObject A pointer to an interface on the new call context object. COM stores this pointer without adding a reference to the pointer until <b>CoSwitchCallContext</b> is called with another object. This parameter may be <b>NULL</b> if you are calling <b>CoSwitchCallContext</b> to switch back to the original call context but there was no original call context.
-     * @param {Pointer<IUnknown>} ppOldObject The address of pointer variable that receives a pointer to the call context object of the call currently in progress. This value is returned so that the original call context can be restored by the custom marshaller. The returned pointer will be <b>NULL</b> if there was no call in progress.
-     * @returns {HRESULT} This function can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUT_OF_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Out of memory.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IUnknown} The address of pointer variable that receives a pointer to the call context object of the call currently in progress. This value is returned so that the original call context can be restored by the custom marshaller. The returned pointer will be <b>NULL</b> if there was no call in progress.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-coswitchcallcontext
      * @since windows5.0
      */
-    static CoSwitchCallContext(pNewObject, ppOldObject) {
-        result := DllCall("OLE32.dll\CoSwitchCallContext", "ptr", pNewObject, "ptr*", ppOldObject, "int")
+    static CoSwitchCallContext(pNewObject) {
+        result := DllCall("OLE32.dll\CoSwitchCallContext", "ptr", pNewObject, "ptr*", &ppOldObject := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppOldObject)
     }
 
     /**
@@ -3042,81 +2268,16 @@ class Com {
      * @param {IUnknown} pUnkOuter If <b>NULL</b>, indicates that the object is not being created as part of an aggregate. If non-<b>NULL</b>, pointer to the aggregate object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface (the controlling <b>IUnknown</b>).
      * @param {Integer} dwClsContext Context in which the code that manages the newly created object will run. The values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a>.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be used to communicate with the object.
-     * @param {Pointer<Pointer<Void>>} ppv Address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer. Upon failure, *<i>ppv</i> contains <b>NULL</b>.
-     * @returns {HRESULT} This function can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An instance of the specified object class was successfully created.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_CLASSNOTREG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A specified class is not registered in the registration database. Also can indicate that the type of server you requested in the <a href="/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration is not registered or the values for the server types in the registry are corrupt.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CLASS_E_NOAGGREGATION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * This class cannot be created as part of an aggregate.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified class does not implement the requested interface, or the controlling <a href="/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> does not expose the requested interface.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>ppv</i> parameter is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer. Upon failure, *<i>ppv</i> contains <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cocreateinstance
      * @since windows5.0
      */
-    static CoCreateInstance(rclsid, pUnkOuter, dwClsContext, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoCreateInstance", "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, ppvMarshal, ppv, "int")
+    static CoCreateInstance(rclsid, pUnkOuter, dwClsContext, riid) {
+        result := DllCall("OLE32.dll\CoCreateInstance", "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -3304,48 +2465,16 @@ class Com {
      * Obtains a pointer to a call control interface, normally ICancelMethodCalls, on the cancel object corresponding to an outbound COM method call pending on the same or another client thread.
      * @param {Integer} dwThreadId The identifier of the thread on which the pending COM call is to be canceled. If this parameter is 0, the call is on the current thread.
      * @param {Pointer<Guid>} iid The globally unique identifier of an interface on the cancel object for the call to be canceled. This argument is usually IID_ICancelMethodCalls.
-     * @param {Pointer<Pointer<Void>>} ppUnk Receives the address of a pointer to the interface specified by <i>riid</i>.
-     * @returns {HRESULT} This function can return the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The call control object was retrieved successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object on which the call is executing does not support the interface specified by <i>riid</i>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Receives the address of a pointer to the interface specified by <i>riid</i>.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cogetcancelobject
      * @since windows5.0
      */
-    static CoGetCancelObject(dwThreadId, iid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoGetCancelObject", "uint", dwThreadId, "ptr", iid, ppUnkMarshal, ppUnk, "int")
+    static CoGetCancelObject(dwThreadId, iid) {
+        result := DllCall("OLE32.dll\CoGetCancelObject", "uint", dwThreadId, "ptr", iid, "ptr*", &ppUnk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppUnk
     }
 
     /**
@@ -3578,17 +2707,16 @@ class Com {
     /**
      * Converts a CLSID into a string of printable characters. Different CLSIDs always convert to different strings.
      * @param {Pointer<Guid>} rclsid The CLSID to be converted.
-     * @param {Pointer<PWSTR>} lplpsz The address of a pointer variable that receives a pointer to the resulting string. The string that represents <i>rclsid</i> includes enclosing braces.
-     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @returns {PWSTR} The address of a pointer variable that receives a pointer to the resulting string. The string that represents <i>rclsid</i> includes enclosing braces.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-stringfromclsid
      * @since windows5.0
      */
-    static StringFromCLSID(rclsid, lplpsz) {
-        result := DllCall("OLE32.dll\StringFromCLSID", "ptr", rclsid, "ptr", lplpsz, "int")
+    static StringFromCLSID(rclsid) {
+        result := DllCall("OLE32.dll\StringFromCLSID", "ptr", rclsid, "ptr*", &lplpsz := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lplpsz
     }
 
     /**
@@ -3663,17 +2791,16 @@ class Com {
     /**
      * Converts an interface identifier into a string of printable characters.
      * @param {Pointer<Guid>} rclsid The interface identifier to be converted.
-     * @param {Pointer<PWSTR>} lplpsz The address of a pointer variable that receives a pointer to the resulting string. The string that represents <i>rclsid</i> includes enclosing braces.
-     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @returns {PWSTR} The address of a pointer variable that receives a pointer to the resulting string. The string that represents <i>rclsid</i> includes enclosing braces.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-stringfromiid
      * @since windows5.0
      */
-    static StringFromIID(rclsid, lplpsz) {
-        result := DllCall("OLE32.dll\StringFromIID", "ptr", rclsid, "ptr", lplpsz, "int")
+    static StringFromIID(rclsid) {
+        result := DllCall("OLE32.dll\StringFromIID", "ptr", rclsid, "ptr*", &lplpsz := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lplpsz
     }
 
     /**
@@ -3697,57 +2824,16 @@ class Com {
     /**
      * Retrieves the ProgID for a given CLSID.
      * @param {Pointer<Guid>} clsid The CLSID for which the ProgID is to be requested.
-     * @param {Pointer<PWSTR>} lplpszProgID The address of a pointer variable that receives the ProgID string. The string that represents <i>clsid</i> includes enclosing braces.
-     * @returns {HRESULT} This function can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The ProgID was returned successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_CLASSNOTREG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Class not registered in the registry.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_READREGDB</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was an error reading from the registry.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {PWSTR} The address of a pointer variable that receives the ProgID string. The string that represents <i>clsid</i> includes enclosing braces.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-progidfromclsid
      * @since windows5.0
      */
-    static ProgIDFromCLSID(clsid, lplpszProgID) {
-        result := DllCall("OLE32.dll\ProgIDFromCLSID", "ptr", clsid, "ptr", lplpszProgID, "int")
+    static ProgIDFromCLSID(clsid) {
+        result := DllCall("OLE32.dll\ProgIDFromCLSID", "ptr", clsid, "ptr*", &lplpszProgID := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lplpszProgID
     }
 
     /**
@@ -3865,78 +2951,22 @@ class Com {
      * @param {Integer} dwTimeout The timeout period, in milliseconds.
      * @param {Integer} cHandles The number of elements in the <i>pHandles</i> array.
      * @param {Pointer<HANDLE>} pHandles An array of handles.
-     * @param {Pointer<Integer>} lpdwindex A pointer to a variable that, when the returned status is S_OK, receives a value indicating the event that caused the function to return. This value is usually the index into <i>pHandles</i> for the handle that was signaled.
+     * @returns {Integer} A pointer to a variable that, when the returned status is S_OK, receives a value indicating the event that caused the function to return. This value is usually the index into <i>pHandles</i> for the handle that was signaled.
      * 
      * If <i>pHandles</i> includes one or more handles to mutex objects, a value between WAIT_ABANDONED_0 and (WAIT_ABANDONED_0 + nCount - 1) indicates the index into <i>pHandles</i> for the mutex that was abandoned.
      * 
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/ne-combaseapi-cowait_flags">COWAIT_ALERTABLE</a> flag is set in <i>dwFlags</i>, a value of WAIT_IO_COMPLETION indicates the wait was ended by one or more user-mode asynchronous procedure calls (APC) queued to the thread.
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitformultipleobjectsex">WaitForMultipleObjectsEx</a> for more information.
-     * @returns {HRESULT} This function can return the following values.
-     * 
-     * <div class="alert"><b>Note</b>  The return value of <b>CoWaitForMultipleHandles</b> can be nondeterministic if the <a href="/windows/desktop/api/combaseapi/ne-combaseapi-cowait_flags">COWAIT_ALERTABLE</a> flag is set in <i>dwFlags</i>, or if <i>pHandles</i> includes one or more handles to mutex objects. The recommended workaround is to call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError(ERROR_SUCCESS)</a> before <b>CoWaitForMultipleHandles</b>.</div>
-     * <div> </div>
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The required handle or handles were signaled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>pHandles</i> was <b>NULL</b>, <i>lpdwindex</i> was <b>NULL</b>, or <i>dwFlags</i> was not a value from the <a href="/windows/desktop/api/combaseapi/ne-combaseapi-cowait_flags">COWAIT_FLAGS</a> enumeration.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>RPC_E_NO_SYNC</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The value of <i>pHandles</i> was 0.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>RPC_S_CALLPENDING</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The timeout period elapsed before the required handle or handles were signaled.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cowaitformultiplehandles
      * @since windows5.0
      */
-    static CoWaitForMultipleHandles(dwFlags, dwTimeout, cHandles, pHandles, lpdwindex) {
-        lpdwindexMarshal := lpdwindex is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoWaitForMultipleHandles", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, lpdwindexMarshal, lpdwindex, "int")
+    static CoWaitForMultipleHandles(dwFlags, dwTimeout, cHandles, pHandles) {
+        result := DllCall("OLE32.dll\CoWaitForMultipleHandles", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "uint*", &lpdwindex := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lpdwindex
     }
 
     /**
@@ -3945,18 +2975,15 @@ class Com {
      * @param {Integer} dwTimeout The timeout in milliseconds of the wait.
      * @param {Integer} cHandles The length of the <i>pHandles</i> array. Must be &lt;= 56.
      * @param {Pointer<HANDLE>} pHandles An array of handles to waitable kernel objects.
-     * @param {Pointer<Integer>} lpdwindex Receives the index of the handle that satisfied the wait.
-     * @returns {HRESULT} Same return values as <a href="/windows/desktop/api/combaseapi/nf-combaseapi-cowaitformultiplehandles">CoWaitForMultipleHandles</a>, except the ASTA-specific CO_E_NOTSUPPORTED cases instead return E_INVALIDARG from all apartment types.
+     * @returns {Integer} Receives the index of the handle that satisfied the wait.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cowaitformultipleobjects
      */
-    static CoWaitForMultipleObjects(dwFlags, dwTimeout, cHandles, pHandles, lpdwindex) {
-        lpdwindexMarshal := lpdwindex is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoWaitForMultipleObjects", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, lpdwindexMarshal, lpdwindex, "int")
+    static CoWaitForMultipleObjects(dwFlags, dwTimeout, cHandles, pHandles) {
+        result := DllCall("OLE32.dll\CoWaitForMultipleObjects", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "uint*", &lpdwindex := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lpdwindex
     }
 
     /**
@@ -4131,18 +3158,18 @@ class Com {
     /**
      * 
      * @param {PWSTR} deviceInstanceId 
-     * @param {Pointer<CO_DEVICE_CATALOG_COOKIE>} cookie 
-     * @returns {HRESULT} 
+     * @returns {CO_DEVICE_CATALOG_COOKIE} 
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregisterdevicecatalog
      */
-    static CoRegisterDeviceCatalog(deviceInstanceId, cookie) {
+    static CoRegisterDeviceCatalog(deviceInstanceId) {
         deviceInstanceId := deviceInstanceId is String ? StrPtr(deviceInstanceId) : deviceInstanceId
 
+        cookie := CO_DEVICE_CATALOG_COOKIE()
         result := DllCall("OLE32.dll\CoRegisterDeviceCatalog", "ptr", deviceInstanceId, "ptr", cookie, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return cookie
     }
 
     /**
@@ -4165,19 +3192,18 @@ class Com {
      * 
      * @param {PWSTR} pwzURI 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IUri>} ppURI 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      */
-    static CreateUri(pwzURI, dwFlags, ppURI) {
+    static CreateUri(pwzURI, dwFlags) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         pwzURI := pwzURI is String ? StrPtr(pwzURI) : pwzURI
 
-        result := DllCall("URLMON.dll\CreateUri", "ptr", pwzURI, "uint", dwFlags, "ptr", dwReserved, "ptr*", ppURI, "int")
+        result := DllCall("URLMON.dll\CreateUri", "ptr", pwzURI, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppURI := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUri(ppURI)
     }
 
     /**
@@ -4185,20 +3211,19 @@ class Com {
      * @param {PWSTR} pwzURI 
      * @param {PWSTR} pwzFragment 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IUri>} ppURI 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      */
-    static CreateUriWithFragment(pwzURI, pwzFragment, dwFlags, ppURI) {
+    static CreateUriWithFragment(pwzURI, pwzFragment, dwFlags) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         pwzURI := pwzURI is String ? StrPtr(pwzURI) : pwzURI
         pwzFragment := pwzFragment is String ? StrPtr(pwzFragment) : pwzFragment
 
-        result := DllCall("URLMON.dll\CreateUriWithFragment", "ptr", pwzURI, "ptr", pwzFragment, "uint", dwFlags, "ptr", dwReserved, "ptr*", ppURI, "int")
+        result := DllCall("URLMON.dll\CreateUriWithFragment", "ptr", pwzURI, "ptr", pwzFragment, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppURI := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUri(ppURI)
     }
 
     /**
@@ -4207,19 +3232,18 @@ class Com {
      * @param {Integer} dwEncodingFlags 
      * @param {Integer} dwCodePage 
      * @param {Integer} dwCreateFlags 
-     * @param {Pointer<IUri>} ppUri 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      */
-    static CreateUriFromMultiByteString(pszANSIInputUri, dwEncodingFlags, dwCodePage, dwCreateFlags, ppUri) {
+    static CreateUriFromMultiByteString(pszANSIInputUri, dwEncodingFlags, dwCodePage, dwCreateFlags) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         pszANSIInputUri := pszANSIInputUri is String ? StrPtr(pszANSIInputUri) : pszANSIInputUri
 
-        result := DllCall("urlmon.dll\CreateUriFromMultiByteString", "ptr", pszANSIInputUri, "uint", dwEncodingFlags, "uint", dwCodePage, "uint", dwCreateFlags, "ptr", dwReserved, "ptr*", ppUri, "int")
+        result := DllCall("urlmon.dll\CreateUriFromMultiByteString", "ptr", pszANSIInputUri, "uint", dwEncodingFlags, "uint", dwCodePage, "uint", dwCreateFlags, "ptr", dwReserved, "ptr*", &ppUri := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUri(ppUri)
     }
 
     /**
@@ -4227,15 +3251,14 @@ class Com {
      * @param {IUri} pIUri 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwReserved 
-     * @param {Pointer<IUriBuilder>} ppIUriBuilder 
-     * @returns {HRESULT} 
+     * @returns {IUriBuilder} 
      */
-    static CreateIUriBuilder(pIUri, dwFlags, dwReserved, ppIUriBuilder) {
-        result := DllCall("URLMON.dll\CreateIUriBuilder", "ptr", pIUri, "uint", dwFlags, "ptr", dwReserved, "ptr*", ppIUriBuilder, "int")
+    static CreateIUriBuilder(pIUri, dwFlags, dwReserved) {
+        result := DllCall("URLMON.dll\CreateIUriBuilder", "ptr", pIUri, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppIUriBuilder := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUriBuilder(ppIUriBuilder)
     }
 
     /**
@@ -4256,46 +3279,15 @@ class Com {
     /**
      * Obtains the error information pointer set by the previous call to SetErrorInfo in the current logical thread.
      * @param {Integer} dwReserved Reserved for future use. Must be zero.
-     * @param {Pointer<IErrorInfo>} pperrinfo An error object.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was no error object to return.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IErrorInfo} An error object.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-geterrorinfo
      */
-    static GetErrorInfo(dwReserved, pperrinfo) {
-        result := DllCall("OLEAUT32.dll\GetErrorInfo", "uint", dwReserved, "ptr*", pperrinfo, "int")
+    static GetErrorInfo(dwReserved) {
+        result := DllCall("OLEAUT32.dll\GetErrorInfo", "uint", dwReserved, "ptr*", &pperrinfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IErrorInfo(pperrinfo)
     }
 
 ;@endregion Methods

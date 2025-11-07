@@ -8057,7 +8057,7 @@ class WinSock {
     static inet_ntoa(in_R) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\inet_ntoa", "ptr", in_R, "char*")
+        result := DllCall("WS2_32.dll\inet_ntoa", "ptr", in_R, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21630,7 +21630,7 @@ class WinSock {
     static RtlIpv4AddressToStringA(Addr, S) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv4AddressToStringA", "ptr", Addr, "ptr", S, "char*")
+        result := DllCall("ntdll.dll\RtlIpv4AddressToStringA", "ptr", Addr, "ptr", S, "ptr")
         return result
     }
 
@@ -21696,7 +21696,7 @@ class WinSock {
     static RtlIpv4AddressToStringW(Addr, S) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv4AddressToStringW", "ptr", Addr, "ptr", S, "char*")
+        result := DllCall("ntdll.dll\RtlIpv4AddressToStringW", "ptr", Addr, "ptr", S, "ptr")
         return result
     }
 
@@ -21803,7 +21803,9 @@ class WinSock {
     static RtlIpv4StringToAddressA(S, Strict, Terminator, Addr) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv4StringToAddressA", "ptr", S, "char", Strict, "ptr", Terminator, "ptr", Addr, "int")
+        TerminatorMarshal := Terminator is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIpv4StringToAddressA", "ptr", S, "char", Strict, TerminatorMarshal, Terminator, "ptr", Addr, "int")
         return result
     }
 
@@ -21894,7 +21896,9 @@ class WinSock {
     static RtlIpv4StringToAddressW(S, Strict, Terminator, Addr) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv4StringToAddressW", "ptr", S, "char", Strict, "ptr", Terminator, "ptr", Addr, "int")
+        TerminatorMarshal := Terminator is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIpv4StringToAddressW", "ptr", S, "char", Strict, TerminatorMarshal, Terminator, "ptr", Addr, "int")
         return result
     }
 
@@ -21964,7 +21968,7 @@ class WinSock {
     static RtlIpv6AddressToStringA(Addr, S) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv6AddressToStringA", "ptr", Addr, "ptr", S, "char*")
+        result := DllCall("ntdll.dll\RtlIpv6AddressToStringA", "ptr", Addr, "ptr", S, "ptr")
         return result
     }
 
@@ -22030,7 +22034,7 @@ class WinSock {
     static RtlIpv6AddressToStringW(Addr, S) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv6AddressToStringW", "ptr", Addr, "ptr", S, "char*")
+        result := DllCall("ntdll.dll\RtlIpv6AddressToStringW", "ptr", Addr, "ptr", S, "ptr")
         return result
     }
 
@@ -22135,7 +22139,9 @@ class WinSock {
     static RtlIpv6StringToAddressA(S, Terminator, Addr) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv6StringToAddressA", "ptr", S, "ptr", Terminator, "ptr", Addr, "int")
+        TerminatorMarshal := Terminator is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIpv6StringToAddressA", "ptr", S, TerminatorMarshal, Terminator, "ptr", Addr, "int")
         return result
     }
 
@@ -22236,7 +22242,9 @@ class WinSock {
     static RtlIpv6StringToAddressW(S, Terminator, Addr) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv6StringToAddressW", "ptr", S, "ptr", Terminator, "ptr", Addr, "int")
+        TerminatorMarshal := Terminator is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIpv6StringToAddressW", "ptr", S, TerminatorMarshal, Terminator, "ptr", Addr, "int")
         return result
     }
 
@@ -22307,7 +22315,7 @@ class WinSock {
     static RtlEthernetAddressToStringA(Addr, S) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlEthernetAddressToStringA", "ptr", Addr, "ptr", S, "char*")
+        result := DllCall("ntdll.dll\RtlEthernetAddressToStringA", "ptr", Addr, "ptr", S, "ptr")
         return result
     }
 
@@ -22324,7 +22332,7 @@ class WinSock {
     static RtlEthernetAddressToStringW(Addr, S) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlEthernetAddressToStringW", "ptr", Addr, "ptr", S, "char*")
+        result := DllCall("ntdll.dll\RtlEthernetAddressToStringW", "ptr", Addr, "ptr", S, "ptr")
         return result
     }
 
@@ -22375,7 +22383,9 @@ class WinSock {
     static RtlEthernetStringToAddressA(S, Terminator, Addr) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlEthernetStringToAddressA", "ptr", S, "ptr", Terminator, "ptr", Addr, "int")
+        TerminatorMarshal := Terminator is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlEthernetStringToAddressA", "ptr", S, TerminatorMarshal, Terminator, "ptr", Addr, "int")
         return result
     }
 
@@ -22426,7 +22436,9 @@ class WinSock {
     static RtlEthernetStringToAddressW(S, Terminator, Addr) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlEthernetStringToAddressW", "ptr", S, "ptr", Terminator, "ptr", Addr, "int")
+        TerminatorMarshal := Terminator is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlEthernetStringToAddressW", "ptr", S, TerminatorMarshal, Terminator, "ptr", Addr, "int")
         return result
     }
 
@@ -27876,7 +27888,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\inet_ntop", "int", Family, pAddrMarshal, pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "char*")
+        result := DllCall("WS2_32.dll\inet_ntop", "int", Family, pAddrMarshal, pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -27974,7 +27986,7 @@ class WinSock {
 
         pAddrMarshal := pAddr is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WS2_32.dll\InetNtopW", "int", Family, pAddrMarshal, pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "char*")
+        result := DllCall("WS2_32.dll\InetNtopW", "int", Family, pAddrMarshal, pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "ptr")
         return result
     }
 

@@ -41,14 +41,11 @@ class IADsSecurityDescriptor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Revision(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Revision() {
+        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -63,14 +60,11 @@ class IADsSecurityDescriptor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Control(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Control() {
+        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -85,12 +79,12 @@ class IADsSecurityDescriptor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Owner(retval) {
+    get_Owner() {
+        retval := BSTR()
         result := ComCall(11, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -107,12 +101,11 @@ class IADsSecurityDescriptor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_OwnerDefaulted(retval) {
-        result := ComCall(13, this, "ptr", retval, "HRESULT")
-        return result
+    get_OwnerDefaulted() {
+        result := ComCall(13, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -127,12 +120,12 @@ class IADsSecurityDescriptor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Group(retval) {
+    get_Group() {
+        retval := BSTR()
         result := ComCall(15, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -149,12 +142,11 @@ class IADsSecurityDescriptor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_GroupDefaulted(retval) {
-        result := ComCall(17, this, "ptr", retval, "HRESULT")
-        return result
+    get_GroupDefaulted() {
+        result := ComCall(17, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -169,12 +161,11 @@ class IADsSecurityDescriptor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} retval 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_DiscretionaryAcl(retval) {
-        result := ComCall(19, this, "ptr*", retval, "HRESULT")
-        return result
+    get_DiscretionaryAcl() {
+        result := ComCall(19, this, "ptr*", &retval := 0, "HRESULT")
+        return IDispatch(retval)
     }
 
     /**
@@ -189,12 +180,11 @@ class IADsSecurityDescriptor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_DaclDefaulted(retval) {
-        result := ComCall(21, this, "ptr", retval, "HRESULT")
-        return result
+    get_DaclDefaulted() {
+        result := ComCall(21, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -209,12 +199,11 @@ class IADsSecurityDescriptor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} retval 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_SystemAcl(retval) {
-        result := ComCall(23, this, "ptr*", retval, "HRESULT")
-        return result
+    get_SystemAcl() {
+        result := ComCall(23, this, "ptr*", &retval := 0, "HRESULT")
+        return IDispatch(retval)
     }
 
     /**
@@ -229,12 +218,11 @@ class IADsSecurityDescriptor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_SaclDefaulted(retval) {
-        result := ComCall(25, this, "ptr", retval, "HRESULT")
-        return result
+    get_SaclDefaulted() {
+        result := ComCall(25, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -249,12 +237,11 @@ class IADsSecurityDescriptor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppSecurityDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecuritydescriptor-copysecuritydescriptor
      */
-    CopySecurityDescriptor(ppSecurityDescriptor) {
-        result := ComCall(27, this, "ptr*", ppSecurityDescriptor, "HRESULT")
-        return result
+    CopySecurityDescriptor() {
+        result := ComCall(27, this, "ptr*", &ppSecurityDescriptor := 0, "HRESULT")
+        return IDispatch(ppSecurityDescriptor)
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include .\IFunctionInstance.ahk
+#Include .\IFunctionInstanceCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +35,12 @@ class IFunctionDiscoveryProviderFactory extends IUnknown{
 
     /**
      * Creates an empty property store object.
-     * @param {Pointer<IPropertyStore>} ppIPropertyStore 
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {IPropertyStore} 
      * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-createpropertystore
      */
-    CreatePropertyStore(ppIPropertyStore) {
-        result := ComCall(3, this, "ptr*", ppIPropertyStore, "HRESULT")
-        return result
+    CreatePropertyStore() {
+        result := ComCall(3, this, "ptr*", &ppIPropertyStore := 0, "HRESULT")
+        return IPropertyStore(ppIPropertyStore)
     }
 
     /**
@@ -48,26 +50,24 @@ class IFunctionDiscoveryProviderFactory extends IUnknown{
      * @param {Pointer} iProviderInstanceContext 
      * @param {IPropertyStore} pIPropertyStore 
      * @param {IFunctionDiscoveryProvider} pIFunctionDiscoveryProvider 
-     * @param {Pointer<IFunctionInstance>} ppIFunctionInstance 
-     * @returns {HRESULT} 
+     * @returns {IFunctionInstance} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory-createinstance
      */
-    CreateInstance(pszSubCategory, pszProviderInstanceIdentity, iProviderInstanceContext, pIPropertyStore, pIFunctionDiscoveryProvider, ppIFunctionInstance) {
+    CreateInstance(pszSubCategory, pszProviderInstanceIdentity, iProviderInstanceContext, pIPropertyStore, pIFunctionDiscoveryProvider) {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
         pszProviderInstanceIdentity := pszProviderInstanceIdentity is String ? StrPtr(pszProviderInstanceIdentity) : pszProviderInstanceIdentity
 
-        result := ComCall(4, this, "ptr", pszSubCategory, "ptr", pszProviderInstanceIdentity, "ptr", iProviderInstanceContext, "ptr", pIPropertyStore, "ptr", pIFunctionDiscoveryProvider, "ptr*", ppIFunctionInstance, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszSubCategory, "ptr", pszProviderInstanceIdentity, "ptr", iProviderInstanceContext, "ptr", pIPropertyStore, "ptr", pIFunctionDiscoveryProvider, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        return IFunctionInstance(ppIFunctionInstance)
     }
 
     /**
      * 
-     * @param {Pointer<IFunctionInstanceCollection>} ppIFunctionInstanceCollection 
-     * @returns {HRESULT} 
+     * @returns {IFunctionInstanceCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderfactory-createfunctioninstancecollection
      */
-    CreateFunctionInstanceCollection(ppIFunctionInstanceCollection) {
-        result := ComCall(5, this, "ptr*", ppIFunctionInstanceCollection, "HRESULT")
-        return result
+    CreateFunctionInstanceCollection() {
+        result := ComCall(5, this, "ptr*", &ppIFunctionInstanceCollection := 0, "HRESULT")
+        return IFunctionInstanceCollection(ppIFunctionInstanceCollection)
     }
 }

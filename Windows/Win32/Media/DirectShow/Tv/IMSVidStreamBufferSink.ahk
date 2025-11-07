@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IMSVidStreamBufferRecordingControl.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidOutputDevice.ahk
 
 /**
@@ -45,40 +47,38 @@ class IMSVidStreamBufferSink extends IMSVidOutputDevice{
     /**
      * 
      * @param {BSTR} pszFilename 
-     * @param {Pointer<IMSVidStreamBufferRecordingControl>} pRecordingIUnknown 
-     * @returns {HRESULT} 
+     * @returns {IMSVidStreamBufferRecordingControl} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink-get_contentrecorder
      */
-    get_ContentRecorder(pszFilename, pRecordingIUnknown) {
+    get_ContentRecorder(pszFilename) {
         pszFilename := pszFilename is String ? BSTR.Alloc(pszFilename).Value : pszFilename
 
-        result := ComCall(16, this, "ptr", pszFilename, "ptr*", pRecordingIUnknown, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", pszFilename, "ptr*", &pRecordingIUnknown := 0, "HRESULT")
+        return IMSVidStreamBufferRecordingControl(pRecordingIUnknown)
     }
 
     /**
      * 
      * @param {BSTR} pszFilename 
-     * @param {Pointer<IMSVidStreamBufferRecordingControl>} pRecordingIUnknown 
-     * @returns {HRESULT} 
+     * @returns {IMSVidStreamBufferRecordingControl} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink-get_referencerecorder
      */
-    get_ReferenceRecorder(pszFilename, pRecordingIUnknown) {
+    get_ReferenceRecorder(pszFilename) {
         pszFilename := pszFilename is String ? BSTR.Alloc(pszFilename).Value : pszFilename
 
-        result := ComCall(17, this, "ptr", pszFilename, "ptr*", pRecordingIUnknown, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", pszFilename, "ptr*", &pRecordingIUnknown := 0, "HRESULT")
+        return IMSVidStreamBufferRecordingControl(pRecordingIUnknown)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink-get_sinkname
      */
-    get_SinkName(pName) {
+    get_SinkName() {
+        pName := BSTR()
         result := ComCall(18, this, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
@@ -106,12 +106,11 @@ class IMSVidStreamBufferSink extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} sbeConfig 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink-get_sbesink
      */
-    get_SBESink(sbeConfig) {
-        result := ComCall(21, this, "ptr*", sbeConfig, "HRESULT")
-        return result
+    get_SBESink() {
+        result := ComCall(21, this, "ptr*", &sbeConfig := 0, "HRESULT")
+        return IUnknown(sbeConfig)
     }
 }

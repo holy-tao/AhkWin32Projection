@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMAPIProp.ahk
+#Include .\FlagList.ahk
 #Include .\IMAPIContainer.ahk
 
 /**
@@ -30,13 +32,12 @@ class IABContainer extends IMAPIContainer{
      * @param {Integer} cbEntryID 
      * @param {Pointer} lpEntryID 
      * @param {Integer} ulCreateFlags 
-     * @param {Pointer<IMAPIProp>} lppMAPIPropEntry 
-     * @returns {HRESULT} 
+     * @returns {IMAPIProp} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iabcontainer-createentry
      */
-    CreateEntry(cbEntryID, lpEntryID, ulCreateFlags, lppMAPIPropEntry) {
-        result := ComCall(19, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulCreateFlags, "ptr*", lppMAPIPropEntry, "HRESULT")
-        return result
+    CreateEntry(cbEntryID, lpEntryID, ulCreateFlags) {
+        result := ComCall(19, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulCreateFlags, "ptr*", &lppMAPIPropEntry := 0, "HRESULT")
+        return IMAPIProp(lppMAPIPropEntry)
     }
 
     /**
@@ -70,12 +71,12 @@ class IABContainer extends IMAPIContainer{
      * @param {Pointer<SPropTagArray>} lpPropTagArray 
      * @param {Integer} ulFlags 
      * @param {Pointer<ADRLIST>} lpAdrList 
-     * @param {Pointer<FlagList>} lpFlagList 
-     * @returns {HRESULT} 
+     * @returns {FlagList} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iabcontainer-resolvenames
      */
-    ResolveNames(lpPropTagArray, ulFlags, lpAdrList, lpFlagList) {
+    ResolveNames(lpPropTagArray, ulFlags, lpAdrList) {
+        lpFlagList := FlagList()
         result := ComCall(22, this, "ptr", lpPropTagArray, "uint", ulFlags, "ptr", lpAdrList, "ptr", lpFlagList, "HRESULT")
-        return result
+        return lpFlagList
     }
 }

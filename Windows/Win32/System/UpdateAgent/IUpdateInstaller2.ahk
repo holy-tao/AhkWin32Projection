@@ -37,13 +37,12 @@ class IUpdateInstaller2 extends IUpdateInstaller{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller2-get_forcequiet
      */
-    get_ForceQuiet(retval) {
-        result := ComCall(28, this, "ptr", retval, "HRESULT")
-        return result
+    get_ForceQuiet() {
+        result := ComCall(28, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

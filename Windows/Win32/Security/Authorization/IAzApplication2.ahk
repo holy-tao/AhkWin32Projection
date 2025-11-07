@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzClientContext2.ahk
 #Include .\IAzApplication.ahk
 
 /**
@@ -36,27 +37,25 @@ class IAzApplication2 extends IAzApplication{
      * @param {Integer} ulTokenHandleLowPart 
      * @param {Integer} ulTokenHandleHighPart 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzClientContext2>} ppClientContext 
-     * @returns {HRESULT} 
+     * @returns {IAzClientContext2} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication2-initializeclientcontextfromtoken2
      */
-    InitializeClientContextFromToken2(ulTokenHandleLowPart, ulTokenHandleHighPart, varReserved, ppClientContext) {
-        result := ComCall(68, this, "uint", ulTokenHandleLowPart, "uint", ulTokenHandleHighPart, "ptr", varReserved, "ptr*", ppClientContext, "HRESULT")
-        return result
+    InitializeClientContextFromToken2(ulTokenHandleLowPart, ulTokenHandleHighPart, varReserved) {
+        result := ComCall(68, this, "uint", ulTokenHandleLowPart, "uint", ulTokenHandleHighPart, "ptr", varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
+        return IAzClientContext2(ppClientContext)
     }
 
     /**
      * 
      * @param {BSTR} IdentifyingString 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzClientContext2>} ppClientContext 
-     * @returns {HRESULT} 
+     * @returns {IAzClientContext2} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication2-initializeclientcontext2
      */
-    InitializeClientContext2(IdentifyingString, varReserved, ppClientContext) {
+    InitializeClientContext2(IdentifyingString, varReserved) {
         IdentifyingString := IdentifyingString is String ? BSTR.Alloc(IdentifyingString).Value : IdentifyingString
 
-        result := ComCall(69, this, "ptr", IdentifyingString, "ptr", varReserved, "ptr*", ppClientContext, "HRESULT")
-        return result
+        result := ComCall(69, this, "ptr", IdentifyingString, "ptr", varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
+        return IAzClientContext2(ppClientContext)
     }
 }

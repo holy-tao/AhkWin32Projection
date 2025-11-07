@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,12 +34,11 @@ class ITfPersistentPropertyLoaderACP extends IUnknown{
     /**
      * 
      * @param {Pointer<TF_PERSISTENT_PROPERTY_HEADER_ACP>} pHdr 
-     * @param {Pointer<IStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpersistentpropertyloaderacp-loadproperty
      */
-    LoadProperty(pHdr, ppStream) {
-        result := ComCall(3, this, "ptr", pHdr, "ptr*", ppStream, "HRESULT")
-        return result
+    LoadProperty(pHdr) {
+        result := ComCall(3, this, "ptr", pHdr, "ptr*", &ppStream := 0, "HRESULT")
+        return IStream(ppStream)
     }
 }

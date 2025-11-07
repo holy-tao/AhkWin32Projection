@@ -44,15 +44,12 @@ class IPropertyStoreCache extends IPropertyStore{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<Integer>} pstate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorecache-getstate
      */
-    GetState(key, pstate) {
-        pstateMarshal := pstate is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "ptr", key, pstateMarshal, pstate, "HRESULT")
-        return result
+    GetState(key) {
+        result := ComCall(8, this, "ptr", key, "int*", &pstate := 0, "HRESULT")
+        return pstate
     }
 
     /**

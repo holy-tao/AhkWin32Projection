@@ -37,15 +37,12 @@ class IShellFolderViewDual2 extends IShellFolderViewDual{
 
     /**
      * 
-     * @param {Pointer<Integer>} pViewMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual2-get_currentviewmode
      */
-    get_CurrentViewMode(pViewMode) {
-        pViewModeMarshal := pViewMode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pViewModeMarshal, pViewMode, "HRESULT")
-        return result
+    get_CurrentViewMode() {
+        result := ComCall(16, this, "uint*", &pViewMode := 0, "HRESULT")
+        return pViewMode
     }
 
     /**

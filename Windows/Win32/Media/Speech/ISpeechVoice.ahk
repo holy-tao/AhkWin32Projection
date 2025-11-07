@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechVoiceStatus.ahk
+#Include .\ISpeechObjectToken.ahk
+#Include .\ISpeechBaseStream.ahk
+#Include .\ISpeechObjectTokens.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,22 +35,20 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechVoiceStatus>} Status 
-     * @returns {HRESULT} 
+     * @returns {ISpeechVoiceStatus} 
      */
-    get_Status(Status) {
-        result := ComCall(7, this, "ptr*", Status, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(7, this, "ptr*", &Status := 0, "HRESULT")
+        return ISpeechVoiceStatus(Status)
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechObjectToken>} Voice 
-     * @returns {HRESULT} 
+     * @returns {ISpeechObjectToken} 
      */
-    get_Voice(Voice) {
-        result := ComCall(8, this, "ptr*", Voice, "HRESULT")
-        return result
+    get_Voice() {
+        result := ComCall(8, this, "ptr*", &Voice := 0, "HRESULT")
+        return ISpeechObjectToken(Voice)
     }
 
     /**
@@ -61,12 +63,11 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechObjectToken>} AudioOutput 
-     * @returns {HRESULT} 
+     * @returns {ISpeechObjectToken} 
      */
-    get_AudioOutput(AudioOutput) {
-        result := ComCall(10, this, "ptr*", AudioOutput, "HRESULT")
-        return result
+    get_AudioOutput() {
+        result := ComCall(10, this, "ptr*", &AudioOutput := 0, "HRESULT")
+        return ISpeechObjectToken(AudioOutput)
     }
 
     /**
@@ -81,12 +82,11 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechBaseStream>} AudioOutputStream 
-     * @returns {HRESULT} 
+     * @returns {ISpeechBaseStream} 
      */
-    get_AudioOutputStream(AudioOutputStream) {
-        result := ComCall(12, this, "ptr*", AudioOutputStream, "HRESULT")
-        return result
+    get_AudioOutputStream() {
+        result := ComCall(12, this, "ptr*", &AudioOutputStream := 0, "HRESULT")
+        return ISpeechBaseStream(AudioOutputStream)
     }
 
     /**
@@ -101,14 +101,11 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Rate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Rate(Rate) {
-        RateMarshal := Rate is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, RateMarshal, Rate, "HRESULT")
-        return result
+    get_Rate() {
+        result := ComCall(14, this, "int*", &Rate := 0, "HRESULT")
+        return Rate
     }
 
     /**
@@ -123,14 +120,11 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Volume 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Volume(Volume) {
-        VolumeMarshal := Volume is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, VolumeMarshal, Volume, "HRESULT")
-        return result
+    get_Volume() {
+        result := ComCall(16, this, "int*", &Volume := 0, "HRESULT")
+        return Volume
     }
 
     /**
@@ -155,24 +149,20 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Allow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_AllowAudioOutputFormatChangesOnNextSet(Allow) {
-        result := ComCall(19, this, "ptr", Allow, "HRESULT")
-        return result
+    get_AllowAudioOutputFormatChangesOnNextSet() {
+        result := ComCall(19, this, "short*", &Allow := 0, "HRESULT")
+        return Allow
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} EventInterestFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EventInterests(EventInterestFlags) {
-        EventInterestFlagsMarshal := EventInterestFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, EventInterestFlagsMarshal, EventInterestFlags, "HRESULT")
-        return result
+    get_EventInterests() {
+        result := ComCall(20, this, "int*", &EventInterestFlags := 0, "HRESULT")
+        return EventInterestFlags
     }
 
     /**
@@ -197,14 +187,11 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Priority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Priority(Priority) {
-        PriorityMarshal := Priority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, PriorityMarshal, Priority, "HRESULT")
-        return result
+    get_Priority() {
+        result := ComCall(23, this, "int*", &Priority := 0, "HRESULT")
+        return Priority
     }
 
     /**
@@ -219,14 +206,11 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Boundary 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AlertBoundary(Boundary) {
-        BoundaryMarshal := Boundary is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, BoundaryMarshal, Boundary, "HRESULT")
-        return result
+    get_AlertBoundary() {
+        result := ComCall(25, this, "int*", &Boundary := 0, "HRESULT")
+        return Boundary
     }
 
     /**
@@ -241,44 +225,35 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} msTimeout 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SynchronousSpeakTimeout(msTimeout) {
-        msTimeoutMarshal := msTimeout is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, msTimeoutMarshal, msTimeout, "HRESULT")
-        return result
+    get_SynchronousSpeakTimeout() {
+        result := ComCall(27, this, "int*", &msTimeout := 0, "HRESULT")
+        return msTimeout
     }
 
     /**
      * 
      * @param {BSTR} Text 
      * @param {Integer} Flags 
-     * @param {Pointer<Integer>} StreamNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Speak(Text, Flags, StreamNumber) {
+    Speak(Text, Flags) {
         Text := Text is String ? BSTR.Alloc(Text).Value : Text
 
-        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, "ptr", Text, "int", Flags, StreamNumberMarshal, StreamNumber, "HRESULT")
-        return result
+        result := ComCall(28, this, "ptr", Text, "int", Flags, "int*", &StreamNumber := 0, "HRESULT")
+        return StreamNumber
     }
 
     /**
      * 
      * @param {ISpeechBaseStream} Stream 
      * @param {Integer} Flags 
-     * @param {Pointer<Integer>} StreamNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SpeakStream(Stream, Flags, StreamNumber) {
-        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, "ptr", Stream, "int", Flags, StreamNumberMarshal, StreamNumber, "HRESULT")
-        return result
+    SpeakStream(Stream, Flags) {
+        result := ComCall(29, this, "ptr", Stream, "int", Flags, "int*", &StreamNumber := 0, "HRESULT")
+        return StreamNumber
     }
 
     /**
@@ -303,83 +278,73 @@ class ISpeechVoice extends IDispatch{
      * 
      * @param {BSTR} Type 
      * @param {Integer} NumItems 
-     * @param {Pointer<Integer>} NumSkipped 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Skip(Type, NumItems, NumSkipped) {
+    Skip(Type, NumItems) {
         Type := Type is String ? BSTR.Alloc(Type).Value : Type
 
-        NumSkippedMarshal := NumSkipped is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, "ptr", Type, "int", NumItems, NumSkippedMarshal, NumSkipped, "HRESULT")
-        return result
+        result := ComCall(32, this, "ptr", Type, "int", NumItems, "int*", &NumSkipped := 0, "HRESULT")
+        return NumSkipped
     }
 
     /**
      * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
-     * @param {Pointer<ISpeechObjectTokens>} ObjectTokens 
-     * @returns {HRESULT} 
+     * @returns {ISpeechObjectTokens} 
      */
-    GetVoices(RequiredAttributes, OptionalAttributes, ObjectTokens) {
+    GetVoices(RequiredAttributes, OptionalAttributes) {
         RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
         OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
 
-        result := ComCall(33, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", ObjectTokens, "HRESULT")
-        return result
+        result := ComCall(33, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
+        return ISpeechObjectTokens(ObjectTokens)
     }
 
     /**
      * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
-     * @param {Pointer<ISpeechObjectTokens>} ObjectTokens 
-     * @returns {HRESULT} 
+     * @returns {ISpeechObjectTokens} 
      */
-    GetAudioOutputs(RequiredAttributes, OptionalAttributes, ObjectTokens) {
+    GetAudioOutputs(RequiredAttributes, OptionalAttributes) {
         RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
         OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
 
-        result := ComCall(34, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", ObjectTokens, "HRESULT")
-        return result
+        result := ComCall(34, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
+        return ISpeechObjectTokens(ObjectTokens)
     }
 
     /**
      * 
      * @param {Integer} msTimeout 
-     * @param {Pointer<VARIANT_BOOL>} Done 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    WaitUntilDone(msTimeout, Done) {
-        result := ComCall(35, this, "int", msTimeout, "ptr", Done, "HRESULT")
-        return result
+    WaitUntilDone(msTimeout) {
+        result := ComCall(35, this, "int", msTimeout, "short*", &Done := 0, "HRESULT")
+        return Done
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Handle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SpeakCompleteEvent(Handle) {
-        HandleMarshal := Handle is VarRef ? "int*" : "ptr"
-
-        result := ComCall(36, this, HandleMarshal, Handle, "HRESULT")
-        return result
+    SpeakCompleteEvent() {
+        result := ComCall(36, this, "int*", &Handle := 0, "HRESULT")
+        return Handle
     }
 
     /**
      * 
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
-     * @param {Pointer<VARIANT_BOOL>} Supported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    IsUISupported(TypeOfUI, ExtraData, Supported) {
+    IsUISupported(TypeOfUI, ExtraData) {
         TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
 
-        result := ComCall(37, this, "ptr", TypeOfUI, "ptr", ExtraData, "ptr", Supported, "HRESULT")
-        return result
+        result := ComCall(37, this, "ptr", TypeOfUI, "ptr", ExtraData, "short*", &Supported := 0, "HRESULT")
+        return Supported
     }
 
     /**

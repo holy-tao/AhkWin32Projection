@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IPrintDocumentPackageTarget.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,15 +43,14 @@ class IPrintDocumentPackageTargetFactory extends IUnknown{
      * @param {PWSTR} jobName 
      * @param {IStream} jobOutputStream 
      * @param {IStream} jobPrintTicketStream 
-     * @param {Pointer<IPrintDocumentPackageTarget>} docPackageTarget 
-     * @returns {HRESULT} 
+     * @returns {IPrintDocumentPackageTarget} 
      * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nf-documenttarget-iprintdocumentpackagetargetfactory-createdocumentpackagetargetforprintjob
      */
-    CreateDocumentPackageTargetForPrintJob(printerName, jobName, jobOutputStream, jobPrintTicketStream, docPackageTarget) {
+    CreateDocumentPackageTargetForPrintJob(printerName, jobName, jobOutputStream, jobPrintTicketStream) {
         printerName := printerName is String ? StrPtr(printerName) : printerName
         jobName := jobName is String ? StrPtr(jobName) : jobName
 
-        result := ComCall(3, this, "ptr", printerName, "ptr", jobName, "ptr", jobOutputStream, "ptr", jobPrintTicketStream, "ptr*", docPackageTarget, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", printerName, "ptr", jobName, "ptr", jobOutputStream, "ptr", jobPrintTicketStream, "ptr*", &docPackageTarget := 0, "HRESULT")
+        return IPrintDocumentPackageTarget(docPackageTarget)
     }
 }

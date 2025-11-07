@@ -38,14 +38,11 @@ class IObjectProvider extends IUnknown{
      * 
      * @param {Pointer<Guid>} guidObject 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvOut 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectprovider-queryobject
      */
-    QueryObject(guidObject, riid, ppvOut) {
-        ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", guidObject, "ptr", riid, ppvOutMarshal, ppvOut, "HRESULT")
-        return result
+    QueryObject(guidObject, riid) {
+        result := ComCall(3, this, "ptr", guidObject, "ptr", riid, "ptr*", &ppvOut := 0, "HRESULT")
+        return ppvOut
     }
 }

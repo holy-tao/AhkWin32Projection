@@ -88,16 +88,13 @@ class IDockingWindowFrame extends IOleWindow{
      * 
      * @param {PWSTR} pwszItem 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-idockingwindowframe-findtoolbar
      */
-    FindToolbar(pwszItem, riid, ppv) {
+    FindToolbar(pwszItem, riid) {
         pwszItem := pwszItem is String ? StrPtr(pwszItem) : pwszItem
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pwszItem, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pwszItem, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

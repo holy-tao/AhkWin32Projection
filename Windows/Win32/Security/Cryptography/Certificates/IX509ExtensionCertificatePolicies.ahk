@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ICertificatePolicies.ahk
 #Include .\IX509Extension.ahk
 
 /**
@@ -58,12 +59,11 @@ class IX509ExtensionCertificatePolicies extends IX509Extension{
 
     /**
      * 
-     * @param {Pointer<ICertificatePolicies>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICertificatePolicies} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensioncertificatepolicies-get_policies
      */
-    get_Policies(ppValue) {
-        result := ComCall(14, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_Policies() {
+        result := ComCall(14, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ICertificatePolicies(ppValue)
     }
 }

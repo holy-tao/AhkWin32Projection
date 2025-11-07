@@ -32,15 +32,12 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
 
     /**
      * 
-     * @param {Pointer<Integer>} capabilities 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_capabilities
      */
-    get_Capabilities(capabilities) {
-        capabilitiesMarshal := capabilities is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, capabilitiesMarshal, capabilities, "HRESULT")
-        return result
+    get_Capabilities() {
+        result := ComCall(31, this, "int*", &capabilities := 0, "HRESULT")
+        return capabilities
     }
 
     /**
@@ -56,15 +53,12 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
 
     /**
      * 
-     * @param {Pointer<Integer>} storageType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_storagetype
      */
-    get_StorageType(storageType) {
-        storageTypeMarshal := storageType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, storageTypeMarshal, storageType, "HRESULT")
-        return result
+    get_StorageType() {
+        result := ComCall(33, this, "int*", &storageType := 0, "HRESULT")
+        return storageType
     }
 
     /**
@@ -80,13 +74,12 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} updatesFileContent 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_updatesfilecontent
      */
-    get_UpdatesFileContent(updatesFileContent) {
-        result := ComCall(35, this, "ptr", updatesFileContent, "HRESULT")
-        return result
+    get_UpdatesFileContent() {
+        result := ComCall(35, this, "short*", &updatesFileContent := 0, "HRESULT")
+        return updatesFileContent
     }
 
     /**

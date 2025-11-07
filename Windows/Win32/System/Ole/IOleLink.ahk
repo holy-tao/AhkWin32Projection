@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IMoniker.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -43,15 +44,12 @@ class IOleLink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwUpdateOpt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolelink-getupdateoptions
      */
-    GetUpdateOptions(pdwUpdateOpt) {
-        pdwUpdateOptMarshal := pdwUpdateOpt is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwUpdateOptMarshal, pdwUpdateOpt, "HRESULT")
-        return result
+    GetUpdateOptions() {
+        result := ComCall(4, this, "uint*", &pdwUpdateOpt := 0, "HRESULT")
+        return pdwUpdateOpt
     }
 
     /**
@@ -68,13 +66,12 @@ class IOleLink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMoniker>} ppmk 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolelink-getsourcemoniker
      */
-    GetSourceMoniker(ppmk) {
-        result := ComCall(6, this, "ptr*", ppmk, "HRESULT")
-        return result
+    GetSourceMoniker() {
+        result := ComCall(6, this, "ptr*", &ppmk := 0, "HRESULT")
+        return IMoniker(ppmk)
     }
 
     /**
@@ -92,13 +89,12 @@ class IOleLink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszDisplayName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolelink-getsourcedisplayname
      */
-    GetSourceDisplayName(ppszDisplayName) {
-        result := ComCall(8, this, "ptr", ppszDisplayName, "HRESULT")
-        return result
+    GetSourceDisplayName() {
+        result := ComCall(8, this, "ptr*", &ppszDisplayName := 0, "HRESULT")
+        return ppszDisplayName
     }
 
     /**
@@ -125,13 +121,12 @@ class IOleLink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolelink-getboundsource
      */
-    GetBoundSource(ppunk) {
-        result := ComCall(11, this, "ptr*", ppunk, "HRESULT")
-        return result
+    GetBoundSource() {
+        result := ComCall(11, this, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**

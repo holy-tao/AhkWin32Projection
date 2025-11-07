@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSyncMgrEvents.ahk
+#Include .\ISyncMgrEvent.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,38 +43,33 @@ class ISyncMgrEventStore extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSyncMgrEvents>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSyncMgrEvents} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgreventstore-geteventenumerator
      */
-    GetEventEnumerator(ppenum) {
-        result := ComCall(3, this, "ptr*", ppenum, "HRESULT")
-        return result
+    GetEventEnumerator() {
+        result := ComCall(3, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumSyncMgrEvents(ppenum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcEvents 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgreventstore-geteventcount
      */
-    GetEventCount(pcEvents) {
-        pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pcEventsMarshal, pcEvents, "HRESULT")
-        return result
+    GetEventCount() {
+        result := ComCall(4, this, "uint*", &pcEvents := 0, "HRESULT")
+        return pcEvents
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rguidEventID 
-     * @param {Pointer<ISyncMgrEvent>} ppEvent 
-     * @returns {HRESULT} 
+     * @returns {ISyncMgrEvent} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgreventstore-getevent
      */
-    GetEvent(rguidEventID, ppEvent) {
-        result := ComCall(5, this, "ptr", rguidEventID, "ptr*", ppEvent, "HRESULT")
-        return result
+    GetEvent(rguidEventID) {
+        result := ComCall(5, this, "ptr", rguidEventID, "ptr*", &ppEvent := 0, "HRESULT")
+        return ISyncMgrEvent(ppEvent)
     }
 
     /**

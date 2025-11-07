@@ -2,6 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLCanvasElement.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ICanvasGradient.ahk
+#Include .\ICanvasPattern.ahk
+#Include .\ICanvasTextMetrics.ahk
+#Include .\ICanvasImageData.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,12 +43,11 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLCanvasElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLCanvasElement} 
      */
-    get_canvas(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_canvas() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLCanvasElement(p)
     }
 
     /**
@@ -137,14 +142,11 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_globalAlpha(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(16, this, pMarshal, p, "HRESULT")
-        return result
+    get_globalAlpha() {
+        result := ComCall(16, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -161,12 +163,12 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_globalCompositeOperation(p) {
+    get_globalCompositeOperation() {
+        p := BSTR()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -181,12 +183,12 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_fillStyle(p) {
+    get_fillStyle() {
+        p := VARIANT()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -201,12 +203,12 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_strokeStyle(p) {
+    get_strokeStyle() {
+        p := VARIANT()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -215,12 +217,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @param {Float} y0 
      * @param {Float} x1 
      * @param {Float} y1 
-     * @param {Pointer<ICanvasGradient>} ppCanvasGradient 
-     * @returns {HRESULT} 
+     * @returns {ICanvasGradient} 
      */
-    createLinearGradient(x0, y0, x1, y1, ppCanvasGradient) {
-        result := ComCall(23, this, "float", x0, "float", y0, "float", x1, "float", y1, "ptr*", ppCanvasGradient, "HRESULT")
-        return result
+    createLinearGradient(x0, y0, x1, y1) {
+        result := ComCall(23, this, "float", x0, "float", y0, "float", x1, "float", y1, "ptr*", &ppCanvasGradient := 0, "HRESULT")
+        return ICanvasGradient(ppCanvasGradient)
     }
 
     /**
@@ -231,24 +232,22 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @param {Float} x1 
      * @param {Float} y1 
      * @param {Float} r1 
-     * @param {Pointer<ICanvasGradient>} ppCanvasGradient 
-     * @returns {HRESULT} 
+     * @returns {ICanvasGradient} 
      */
-    createRadialGradient(x0, y0, r0, x1, y1, r1, ppCanvasGradient) {
-        result := ComCall(24, this, "float", x0, "float", y0, "float", r0, "float", x1, "float", y1, "float", r1, "ptr*", ppCanvasGradient, "HRESULT")
-        return result
+    createRadialGradient(x0, y0, r0, x1, y1, r1) {
+        result := ComCall(24, this, "float", x0, "float", y0, "float", r0, "float", x1, "float", y1, "float", r1, "ptr*", &ppCanvasGradient := 0, "HRESULT")
+        return ICanvasGradient(ppCanvasGradient)
     }
 
     /**
      * 
      * @param {IDispatch} image 
      * @param {VARIANT} repetition 
-     * @param {Pointer<ICanvasPattern>} ppCanvasPattern 
-     * @returns {HRESULT} 
+     * @returns {ICanvasPattern} 
      */
-    createPattern(image, repetition, ppCanvasPattern) {
-        result := ComCall(25, this, "ptr", image, "ptr", repetition, "ptr*", ppCanvasPattern, "HRESULT")
-        return result
+    createPattern(image, repetition) {
+        result := ComCall(25, this, "ptr", image, "ptr", repetition, "ptr*", &ppCanvasPattern := 0, "HRESULT")
+        return ICanvasPattern(ppCanvasPattern)
     }
 
     /**
@@ -265,12 +264,12 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_lineCap(p) {
+    get_lineCap() {
+        p := BSTR()
         result := ComCall(27, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -287,12 +286,12 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_lineJoin(p) {
+    get_lineJoin() {
+        p := BSTR()
         result := ComCall(29, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -307,14 +306,11 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_lineWidth(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(31, this, pMarshal, p, "HRESULT")
-        return result
+    get_lineWidth() {
+        result := ComCall(31, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -329,14 +325,11 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_miterLimit(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(33, this, pMarshal, p, "HRESULT")
-        return result
+    get_miterLimit() {
+        result := ComCall(33, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -351,14 +344,11 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_shadowBlur(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(35, this, pMarshal, p, "HRESULT")
-        return result
+    get_shadowBlur() {
+        result := ComCall(35, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -375,12 +365,12 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_shadowColor(p) {
+    get_shadowColor() {
+        p := BSTR()
         result := ComCall(37, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -395,14 +385,11 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_shadowOffsetX(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(39, this, pMarshal, p, "HRESULT")
-        return result
+    get_shadowOffsetX() {
+        result := ComCall(39, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -417,14 +404,11 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_shadowOffsetY(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(41, this, pMarshal, p, "HRESULT")
-        return result
+    get_shadowOffsetY() {
+        result := ComCall(41, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -607,12 +591,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * 
      * @param {Float} x 
      * @param {Float} y 
-     * @param {Pointer<VARIANT_BOOL>} pResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    isPointInPath(x, y, pResult) {
-        result := ComCall(57, this, "float", x, "float", y, "ptr", pResult, "HRESULT")
-        return result
+    isPointInPath(x, y) {
+        result := ComCall(57, this, "float", x, "float", y, "short*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**
@@ -629,12 +612,12 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_font(p) {
+    get_font() {
+        p := BSTR()
         result := ComCall(59, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -651,12 +634,12 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_textAlign(p) {
+    get_textAlign() {
+        p := BSTR()
         result := ComCall(61, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -673,12 +656,12 @@ class ICanvasRenderingContext2D extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_textBaseline(p) {
+    get_textBaseline() {
+        p := BSTR()
         result := ComCall(63, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -699,14 +682,13 @@ class ICanvasRenderingContext2D extends IDispatch{
     /**
      * 
      * @param {BSTR} text 
-     * @param {Pointer<ICanvasTextMetrics>} ppCanvasTextMetrics 
-     * @returns {HRESULT} 
+     * @returns {ICanvasTextMetrics} 
      */
-    measureText(text, ppCanvasTextMetrics) {
+    measureText(text) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(65, this, "ptr", text, "ptr*", ppCanvasTextMetrics, "HRESULT")
-        return result
+        result := ComCall(65, this, "ptr", text, "ptr*", &ppCanvasTextMetrics := 0, "HRESULT")
+        return ICanvasTextMetrics(ppCanvasTextMetrics)
     }
 
     /**
@@ -746,12 +728,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * 
      * @param {VARIANT} a1 
      * @param {VARIANT} a2 
-     * @param {Pointer<ICanvasImageData>} ppCanvasImageData 
-     * @returns {HRESULT} 
+     * @returns {ICanvasImageData} 
      */
-    createImageData(a1, a2, ppCanvasImageData) {
-        result := ComCall(68, this, "ptr", a1, "ptr", a2, "ptr*", ppCanvasImageData, "HRESULT")
-        return result
+    createImageData(a1, a2) {
+        result := ComCall(68, this, "ptr", a1, "ptr", a2, "ptr*", &ppCanvasImageData := 0, "HRESULT")
+        return ICanvasImageData(ppCanvasImageData)
     }
 
     /**
@@ -760,12 +741,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @param {Float} sy 
      * @param {Float} sw 
      * @param {Float} sh 
-     * @param {Pointer<ICanvasImageData>} ppCanvasImageData 
-     * @returns {HRESULT} 
+     * @returns {ICanvasImageData} 
      */
-    getImageData(sx, sy, sw, sh, ppCanvasImageData) {
-        result := ComCall(69, this, "float", sx, "float", sy, "float", sw, "float", sh, "ptr*", ppCanvasImageData, "HRESULT")
-        return result
+    getImageData(sx, sy, sw, sh) {
+        result := ComCall(69, this, "float", sx, "float", sy, "float", sw, "float", sh, "ptr*", &ppCanvasImageData := 0, "HRESULT")
+        return ICanvasImageData(ppCanvasImageData)
     }
 
     /**

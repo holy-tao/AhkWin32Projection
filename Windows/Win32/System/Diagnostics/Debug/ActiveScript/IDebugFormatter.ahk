@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Variant\VARIANT.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -32,36 +34,36 @@ class IDebugFormatter extends IUnknown{
      * 
      * @param {Pointer<VARIANT>} pvar 
      * @param {Integer} nRadix 
-     * @param {Pointer<BSTR>} pbstrValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetStringForVariant(pvar, nRadix, pbstrValue) {
+    GetStringForVariant(pvar, nRadix) {
+        pbstrValue := BSTR()
         result := ComCall(3, this, "ptr", pvar, "uint", nRadix, "ptr", pbstrValue, "HRESULT")
-        return result
+        return pbstrValue
     }
 
     /**
      * 
      * @param {PWSTR} pwstrValue 
-     * @param {Pointer<VARIANT>} pvar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetVariantForString(pwstrValue, pvar) {
+    GetVariantForString(pwstrValue) {
         pwstrValue := pwstrValue is String ? StrPtr(pwstrValue) : pwstrValue
 
+        pvar := VARIANT()
         result := ComCall(4, this, "ptr", pwstrValue, "ptr", pvar, "HRESULT")
-        return result
+        return pvar
     }
 
     /**
      * 
      * @param {Integer} vt 
      * @param {Pointer<TYPEDESC>} ptdescArrayType 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetStringForVarType(vt, ptdescArrayType, pbstr) {
+    GetStringForVarType(vt, ptdescArrayType) {
+        pbstr := BSTR()
         result := ComCall(5, this, "ushort", vt, "ptr", ptdescArrayType, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 }

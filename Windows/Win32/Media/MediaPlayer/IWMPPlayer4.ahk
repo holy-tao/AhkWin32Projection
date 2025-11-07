@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWMPPlayerApplication.ahk
 #Include .\IWMPCore3.ahk
 
 /**
@@ -37,7 +38,9 @@ class IWMPPlayer4 extends IWMPCore3{
      * @returns {HRESULT} 
      */
     get_enabled(pbEnabled) {
-        result := ComCall(31, this, "ptr", pbEnabled, "HRESULT")
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(31, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 
@@ -57,7 +60,9 @@ class IWMPPlayer4 extends IWMPCore3{
      * @returns {HRESULT} 
      */
     get_fullScreen(pbFullScreen) {
-        result := ComCall(33, this, "ptr", pbFullScreen, "HRESULT")
+        pbFullScreenMarshal := pbFullScreen is VarRef ? "short*" : "ptr"
+
+        result := ComCall(33, this, pbFullScreenMarshal, pbFullScreen, "HRESULT")
         return result
     }
 
@@ -77,7 +82,9 @@ class IWMPPlayer4 extends IWMPCore3{
      * @returns {HRESULT} 
      */
     get_enableContextMenu(pbEnableContextMenu) {
-        result := ComCall(35, this, "ptr", pbEnableContextMenu, "HRESULT")
+        pbEnableContextMenuMarshal := pbEnableContextMenu is VarRef ? "short*" : "ptr"
+
+        result := ComCall(35, this, pbEnableContextMenuMarshal, pbEnableContextMenu, "HRESULT")
         return result
     }
 
@@ -119,7 +126,9 @@ class IWMPPlayer4 extends IWMPCore3{
      * @returns {HRESULT} 
      */
     get_stretchToFit(pbEnabled) {
-        result := ComCall(39, this, "ptr", pbEnabled, "HRESULT")
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(39, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 
@@ -139,7 +148,9 @@ class IWMPPlayer4 extends IWMPCore3{
      * @returns {HRESULT} 
      */
     get_windowlessVideo(pbEnabled) {
-        result := ComCall(41, this, "ptr", pbEnabled, "HRESULT")
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(41, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 
@@ -160,19 +171,20 @@ class IWMPPlayer4 extends IWMPCore3{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer4-get_isremote
      */
     get_isRemote(pvarfIsRemote) {
-        result := ComCall(43, this, "ptr", pvarfIsRemote, "HRESULT")
+        pvarfIsRemoteMarshal := pvarfIsRemote is VarRef ? "short*" : "ptr"
+
+        result := ComCall(43, this, pvarfIsRemoteMarshal, pvarfIsRemote, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IWMPPlayerApplication>} ppIWMPPlayerApplication 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlayerApplication} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer4-get_playerapplication
      */
-    get_playerApplication(ppIWMPPlayerApplication) {
-        result := ComCall(44, this, "ptr*", ppIWMPPlayerApplication, "HRESULT")
-        return result
+    get_playerApplication() {
+        result := ComCall(44, this, "ptr*", &ppIWMPPlayerApplication := 0, "HRESULT")
+        return IWMPPlayerApplication(ppIWMPPlayerApplication)
     }
 
     /**

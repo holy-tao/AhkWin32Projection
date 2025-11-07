@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\D2D_POINT_2F.ahk
 #Include .\ID2D1SvgAttribute.ahk
 
 /**
@@ -56,15 +57,15 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute{
 
     /**
      * 
-     * @param {Pointer<D2D_POINT_2F>} points 
      * @param {Integer} pointsCount 
      * @param {Integer} startIndex 
-     * @returns {HRESULT} 
+     * @returns {D2D_POINT_2F} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpointcollection-getpoints
      */
-    GetPoints(points, pointsCount, startIndex) {
+    GetPoints(pointsCount, startIndex) {
+        points := D2D_POINT_2F()
         result := ComCall(8, this, "ptr", points, "uint", pointsCount, "uint", startIndex, "HRESULT")
-        return result
+        return points
     }
 
     /**

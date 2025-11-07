@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,72 +31,57 @@ class IPrintJob extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(3, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Id(pulID) {
-        pulIDMarshal := pulID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pulIDMarshal, pulID, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(4, this, "uint*", &pulID := 0, "HRESULT")
+        return pulID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulPages 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PrintedPages(pulPages) {
-        pulPagesMarshal := pulPages is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pulPagesMarshal, pulPages, "HRESULT")
-        return result
+    get_PrintedPages() {
+        result := ComCall(5, this, "uint*", &pulPages := 0, "HRESULT")
+        return pulPages
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulPages 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TotalPages(pulPages) {
-        pulPagesMarshal := pulPages is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pulPagesMarshal, pulPages, "HRESULT")
-        return result
+    get_TotalPages() {
+        result := ComCall(6, this, "uint*", &pulPages := 0, "HRESULT")
+        return pulPages
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Status(pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(7, this, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pSubmissionTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_SubmissionTime(pSubmissionTime) {
-        pSubmissionTimeMarshal := pSubmissionTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, pSubmissionTimeMarshal, pSubmissionTime, "HRESULT")
-        return result
+    get_SubmissionTime() {
+        result := ComCall(8, this, "double*", &pSubmissionTime := 0, "HRESULT")
+        return pSubmissionTime
     }
 
     /**

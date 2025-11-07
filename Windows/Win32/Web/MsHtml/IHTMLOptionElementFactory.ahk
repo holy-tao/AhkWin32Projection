@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLOptionElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -40,11 +41,10 @@ class IHTMLOptionElementFactory extends IDispatch{
      * @param {VARIANT} value 
      * @param {VARIANT} defaultselected 
      * @param {VARIANT} selected 
-     * @param {Pointer<IHTMLOptionElement>} __MIDL__IHTMLOptionElementFactory0000 
-     * @returns {HRESULT} 
+     * @returns {IHTMLOptionElement} 
      */
-    create(text, value, defaultselected, selected, __MIDL__IHTMLOptionElementFactory0000) {
-        result := ComCall(7, this, "ptr", text, "ptr", value, "ptr", defaultselected, "ptr", selected, "ptr*", __MIDL__IHTMLOptionElementFactory0000, "HRESULT")
-        return result
+    create(text, value, defaultselected, selected) {
+        result := ComCall(7, this, "ptr", text, "ptr", value, "ptr", defaultselected, "ptr", selected, "ptr*", &__MIDL__IHTMLOptionElementFactory0000 := 0, "HRESULT")
+        return IHTMLOptionElement(__MIDL__IHTMLOptionElementFactory0000)
     }
 }

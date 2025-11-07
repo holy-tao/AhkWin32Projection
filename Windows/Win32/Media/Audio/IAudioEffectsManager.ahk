@@ -54,17 +54,15 @@ class IAudioEffectsManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<AUDIO_EFFECT>>} effects 
      * @param {Pointer<Integer>} numEffects 
-     * @returns {HRESULT} 
+     * @returns {Pointer<AUDIO_EFFECT>} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioeffectsmanager-getaudioeffects
      */
-    GetAudioEffects(effects, numEffects) {
-        effectsMarshal := effects is VarRef ? "ptr*" : "ptr"
+    GetAudioEffects(numEffects) {
         numEffectsMarshal := numEffects is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, effectsMarshal, effects, numEffectsMarshal, numEffects, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr*", &effects := 0, numEffectsMarshal, numEffects, "HRESULT")
+        return effects
     }
 
     /**

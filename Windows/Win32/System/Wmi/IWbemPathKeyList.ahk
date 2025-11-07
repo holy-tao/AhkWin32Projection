@@ -32,15 +32,12 @@ class IWbemPathKeyList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puKeyCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempathkeylist-getcount
      */
-    GetCount(puKeyCount) {
-        puKeyCountMarshal := puKeyCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, puKeyCountMarshal, puKeyCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &puKeyCount := 0, "HRESULT")
+        return puKeyCount
     }
 
     /**
@@ -85,20 +82,18 @@ class IWbemPathKeyList extends IUnknown{
      * @param {PWSTR} pszKeyName 
      * @param {Pointer<Integer>} puKeyValBufSize 
      * @param {Pointer<Void>} pKeyVal 
-     * @param {Pointer<Integer>} puApparentCimType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempathkeylist-getkey
      */
-    GetKey(uKeyIx, uFlags, puNameBufSize, pszKeyName, puKeyValBufSize, pKeyVal, puApparentCimType) {
+    GetKey(uKeyIx, uFlags, puNameBufSize, pszKeyName, puKeyValBufSize, pKeyVal) {
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
         puNameBufSizeMarshal := puNameBufSize is VarRef ? "uint*" : "ptr"
         puKeyValBufSizeMarshal := puKeyValBufSize is VarRef ? "uint*" : "ptr"
         pKeyValMarshal := pKeyVal is VarRef ? "ptr" : "ptr"
-        puApparentCimTypeMarshal := puApparentCimType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", uKeyIx, "uint", uFlags, puNameBufSizeMarshal, puNameBufSize, "ptr", pszKeyName, puKeyValBufSizeMarshal, puKeyValBufSize, pKeyValMarshal, pKeyVal, puApparentCimTypeMarshal, puApparentCimType, "HRESULT")
-        return result
+        result := ComCall(6, this, "uint", uKeyIx, "uint", uFlags, puNameBufSizeMarshal, puNameBufSize, "ptr", pszKeyName, puKeyValBufSizeMarshal, puKeyValBufSize, pKeyValMarshal, pKeyVal, "uint*", &puApparentCimType := 0, "HRESULT")
+        return puApparentCimType
     }
 
     /**
@@ -108,18 +103,16 @@ class IWbemPathKeyList extends IUnknown{
      * @param {Pointer<Integer>} puNameBufSize 
      * @param {PWSTR} pszKeyName 
      * @param {Pointer<VARIANT>} pKeyValue 
-     * @param {Pointer<Integer>} puApparentCimType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempathkeylist-getkey2
      */
-    GetKey2(uKeyIx, uFlags, puNameBufSize, pszKeyName, pKeyValue, puApparentCimType) {
+    GetKey2(uKeyIx, uFlags, puNameBufSize, pszKeyName, pKeyValue) {
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
         puNameBufSizeMarshal := puNameBufSize is VarRef ? "uint*" : "ptr"
-        puApparentCimTypeMarshal := puApparentCimType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", uKeyIx, "uint", uFlags, puNameBufSizeMarshal, puNameBufSize, "ptr", pszKeyName, "ptr", pKeyValue, puApparentCimTypeMarshal, puApparentCimType, "HRESULT")
-        return result
+        result := ComCall(7, this, "uint", uKeyIx, "uint", uFlags, puNameBufSizeMarshal, puNameBufSize, "ptr", pszKeyName, "ptr", pKeyValue, "uint*", &puApparentCimType := 0, "HRESULT")
+        return puApparentCimType
     }
 
     /**
@@ -161,15 +154,12 @@ class IWbemPathKeyList extends IUnknown{
     /**
      * 
      * @param {Integer} uRequestedInfo 
-     * @param {Pointer<Integer>} puResponse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempathkeylist-getinfo
      */
-    GetInfo(uRequestedInfo, puResponse) {
-        puResponseMarshal := puResponse is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, "uint", uRequestedInfo, puResponseMarshal, puResponse, "HRESULT")
-        return result
+    GetInfo(uRequestedInfo) {
+        result := ComCall(11, this, "uint", uRequestedInfo, "uint*", &puResponse := 0, "HRESULT")
+        return puResponse
     }
 
     /**

@@ -34,15 +34,12 @@ class IFillLockBytes extends IUnknown{
      * 
      * @param {Pointer} pv 
      * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-fillappend
      */
-    FillAppend(pv, cb, pcbWritten) {
-        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pv, "uint", cb, pcbWrittenMarshal, pcbWritten, "HRESULT")
-        return result
+    FillAppend(pv, cb) {
+        result := ComCall(3, this, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
+        return pcbWritten
     }
 
     /**
@@ -50,15 +47,12 @@ class IFillLockBytes extends IUnknown{
      * @param {Integer} ulOffset 
      * @param {Pointer} pv 
      * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-fillat
      */
-    FillAt(ulOffset, pv, cb, pcbWritten) {
-        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", ulOffset, "ptr", pv, "uint", cb, pcbWrittenMarshal, pcbWritten, "HRESULT")
-        return result
+    FillAt(ulOffset, pv, cb) {
+        result := ComCall(4, this, "uint", ulOffset, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
+        return pcbWritten
     }
 
     /**

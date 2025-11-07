@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\IItemEnumerator.ahk
+#Include .\ISettingsItem.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,24 +36,24 @@ class ISettingsItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getname
      */
-    GetName(Name) {
+    GetName() {
+        Name := BSTR()
         result := ComCall(3, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getvalue
      */
-    GetValue(Value) {
+    GetValue() {
+        Value := VARIANT()
         result := ComCall(4, this, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**
@@ -65,43 +69,35 @@ class ISettingsItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Type 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getsettingtype
      */
-    GetSettingType(Type) {
-        TypeMarshal := Type is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, TypeMarshal, Type, "HRESULT")
-        return result
+    GetSettingType() {
+        result := ComCall(6, this, "int*", &Type := 0, "HRESULT")
+        return Type
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Type 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getdatatype
      */
-    GetDataType(Type) {
-        TypeMarshal := Type is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, TypeMarshal, Type, "HRESULT")
-        return result
+    GetDataType() {
+        result := ComCall(7, this, "int*", &Type := 0, "HRESULT")
+        return Type
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Integer>>} Data 
-     * @param {Pointer<Integer>} DataSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getvalueraw
      */
-    GetValueRaw(Data, DataSize) {
+    GetValueRaw(Data) {
         DataMarshal := Data is VarRef ? "ptr*" : "ptr"
-        DataSizeMarshal := DataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, DataMarshal, Data, DataSizeMarshal, DataSize, "HRESULT")
-        return result
+        result := ComCall(8, this, DataMarshal, Data, "uint*", &DataSize := 0, "HRESULT")
+        return DataSize
     }
 
     /**
@@ -121,66 +117,61 @@ class ISettingsItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} ItemHasChild 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-haschild
      */
-    HasChild(ItemHasChild) {
-        result := ComCall(10, this, "ptr", ItemHasChild, "HRESULT")
-        return result
+    HasChild() {
+        result := ComCall(10, this, "int*", &ItemHasChild := 0, "HRESULT")
+        return ItemHasChild
     }
 
     /**
      * 
-     * @param {Pointer<IItemEnumerator>} Children 
-     * @returns {HRESULT} 
+     * @returns {IItemEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-children
      */
-    Children(Children) {
-        result := ComCall(11, this, "ptr*", Children, "HRESULT")
-        return result
+    Children() {
+        result := ComCall(11, this, "ptr*", &Children := 0, "HRESULT")
+        return IItemEnumerator(Children)
     }
 
     /**
      * 
      * @param {PWSTR} Name 
-     * @param {Pointer<ISettingsItem>} Child 
-     * @returns {HRESULT} 
+     * @returns {ISettingsItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getchild
      */
-    GetChild(Name, Child) {
+    GetChild(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(12, this, "ptr", Name, "ptr*", Child, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", Name, "ptr*", &Child := 0, "HRESULT")
+        return ISettingsItem(Child)
     }
 
     /**
      * 
      * @param {PWSTR} Path 
-     * @param {Pointer<ISettingsItem>} Setting 
-     * @returns {HRESULT} 
+     * @returns {ISettingsItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getsettingbypath
      */
-    GetSettingByPath(Path, Setting) {
+    GetSettingByPath(Path) {
         Path := Path is String ? StrPtr(Path) : Path
 
-        result := ComCall(13, this, "ptr", Path, "ptr*", Setting, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", Path, "ptr*", &Setting := 0, "HRESULT")
+        return ISettingsItem(Setting)
     }
 
     /**
      * 
      * @param {PWSTR} Path 
-     * @param {Pointer<ISettingsItem>} Setting 
-     * @returns {HRESULT} 
+     * @returns {ISettingsItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-createsettingbypath
      */
-    CreateSettingByPath(Path, Setting) {
+    CreateSettingByPath(Path) {
         Path := Path is String ? StrPtr(Path) : Path
 
-        result := ComCall(14, this, "ptr", Path, "ptr*", Setting, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", Path, "ptr*", &Setting := 0, "HRESULT")
+        return ISettingsItem(Setting)
     }
 
     /**
@@ -199,27 +190,23 @@ class ISettingsItem extends IUnknown{
     /**
      * 
      * @param {Pointer<BSTR>} KeyName 
-     * @param {Pointer<Integer>} DataType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getlistkeyinformation
      */
-    GetListKeyInformation(KeyName, DataType) {
-        DataTypeMarshal := DataType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, "ptr", KeyName, DataTypeMarshal, DataType, "HRESULT")
-        return result
+    GetListKeyInformation(KeyName) {
+        result := ComCall(16, this, "ptr", KeyName, "int*", &DataType := 0, "HRESULT")
+        return DataType
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} KeyData 
-     * @param {Pointer<ISettingsItem>} Child 
-     * @returns {HRESULT} 
+     * @returns {ISettingsItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-createlistelement
      */
-    CreateListElement(KeyData, Child) {
-        result := ComCall(17, this, "ptr", KeyData, "ptr*", Child, "HRESULT")
-        return result
+    CreateListElement(KeyData) {
+        result := ComCall(17, this, "ptr", KeyData, "ptr*", &Child := 0, "HRESULT")
+        return ISettingsItem(Child)
     }
 
     /**
@@ -237,73 +224,69 @@ class ISettingsItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IItemEnumerator>} Attributes 
-     * @returns {HRESULT} 
+     * @returns {IItemEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-attributes
      */
-    Attributes(Attributes) {
-        result := ComCall(19, this, "ptr*", Attributes, "HRESULT")
-        return result
+    Attributes() {
+        result := ComCall(19, this, "ptr*", &Attributes := 0, "HRESULT")
+        return IItemEnumerator(Attributes)
     }
 
     /**
      * 
      * @param {PWSTR} Name 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getattribute
      */
-    GetAttribute(Name, Value) {
+    GetAttribute(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
+        Value := VARIANT()
         result := ComCall(20, this, "ptr", Name, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**
      * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
-     * @param {Pointer<BSTR>} Path 
-     * @returns {HRESULT} If the <i>nSize</i> parameter is nonzero, the return value is the number of points enumerated. If <i>nSize</i> is 0, the return value is the total number of points in the path (and <b>GetPath</b> writes nothing to the buffers). If <i>nSize</i> is nonzero and is less than the number of points in the path, the return value is 1.
+     * @returns {BSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
      */
-    GetPath(Path) {
+    GetPath() {
+        Path := BSTR()
         result := ComCall(21, this, "ptr", Path, "HRESULT")
-        return result
+        return Path
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} RestrictionFacets 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getrestrictionfacets
      */
-    GetRestrictionFacets(RestrictionFacets) {
-        RestrictionFacetsMarshal := RestrictionFacets is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, RestrictionFacetsMarshal, RestrictionFacets, "HRESULT")
-        return result
+    GetRestrictionFacets() {
+        result := ComCall(22, this, "int*", &RestrictionFacets := 0, "HRESULT")
+        return RestrictionFacets
     }
 
     /**
      * 
      * @param {Integer} RestrictionFacet 
-     * @param {Pointer<VARIANT>} FacetData 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getrestriction
      */
-    GetRestriction(RestrictionFacet, FacetData) {
+    GetRestriction(RestrictionFacet) {
+        FacetData := VARIANT()
         result := ComCall(23, this, "int", RestrictionFacet, "ptr", FacetData, "HRESULT")
-        return result
+        return FacetData
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getkeyvalue
      */
-    GetKeyValue(Value) {
+    GetKeyValue() {
+        Value := VARIANT()
         result := ComCall(24, this, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 }

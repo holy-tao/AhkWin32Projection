@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk
+#Include ..\Dxgi\Common\DXGI_JPEG_DC_HUFFMAN_TABLE.ahk
+#Include ..\Dxgi\Common\DXGI_JPEG_QUANTIZATION_TABLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,39 +51,39 @@ class IWICJpegFrameEncode extends IUnknown{
      * 
      * @param {Integer} scanIndex 
      * @param {Integer} tableIndex 
-     * @param {Pointer<DXGI_JPEG_AC_HUFFMAN_TABLE>} pAcHuffmanTable 
-     * @returns {HRESULT} 
+     * @returns {DXGI_JPEG_AC_HUFFMAN_TABLE} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframeencode-getachuffmantable
      */
-    GetAcHuffmanTable(scanIndex, tableIndex, pAcHuffmanTable) {
+    GetAcHuffmanTable(scanIndex, tableIndex) {
+        pAcHuffmanTable := DXGI_JPEG_AC_HUFFMAN_TABLE()
         result := ComCall(3, this, "uint", scanIndex, "uint", tableIndex, "ptr", pAcHuffmanTable, "HRESULT")
-        return result
+        return pAcHuffmanTable
     }
 
     /**
      * 
      * @param {Integer} scanIndex 
      * @param {Integer} tableIndex 
-     * @param {Pointer<DXGI_JPEG_DC_HUFFMAN_TABLE>} pDcHuffmanTable 
-     * @returns {HRESULT} 
+     * @returns {DXGI_JPEG_DC_HUFFMAN_TABLE} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframeencode-getdchuffmantable
      */
-    GetDcHuffmanTable(scanIndex, tableIndex, pDcHuffmanTable) {
+    GetDcHuffmanTable(scanIndex, tableIndex) {
+        pDcHuffmanTable := DXGI_JPEG_DC_HUFFMAN_TABLE()
         result := ComCall(4, this, "uint", scanIndex, "uint", tableIndex, "ptr", pDcHuffmanTable, "HRESULT")
-        return result
+        return pDcHuffmanTable
     }
 
     /**
      * 
      * @param {Integer} scanIndex 
      * @param {Integer} tableIndex 
-     * @param {Pointer<DXGI_JPEG_QUANTIZATION_TABLE>} pQuantizationTable 
-     * @returns {HRESULT} 
+     * @returns {DXGI_JPEG_QUANTIZATION_TABLE} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframeencode-getquantizationtable
      */
-    GetQuantizationTable(scanIndex, tableIndex, pQuantizationTable) {
+    GetQuantizationTable(scanIndex, tableIndex) {
+        pQuantizationTable := DXGI_JPEG_QUANTIZATION_TABLE()
         result := ComCall(5, this, "uint", scanIndex, "uint", tableIndex, "ptr", pQuantizationTable, "HRESULT")
-        return result
+        return pQuantizationTable
     }
 
     /**

@@ -34,18 +34,15 @@ class IFtpAuthorizationProvider extends IUnknown{
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszVirtualPath 
      * @param {PWSTR} pszUserName 
-     * @param {Pointer<Integer>} pFtpAccess 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetUserAccessPermission(pszSessionId, pszSiteName, pszVirtualPath, pszUserName, pFtpAccess) {
+    GetUserAccessPermission(pszSessionId, pszSiteName, pszVirtualPath, pszUserName) {
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
         pszSiteName := pszSiteName is String ? StrPtr(pszSiteName) : pszSiteName
         pszVirtualPath := pszVirtualPath is String ? StrPtr(pszVirtualPath) : pszVirtualPath
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
 
-        pFtpAccessMarshal := pFtpAccess is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszVirtualPath, "ptr", pszUserName, pFtpAccessMarshal, pFtpAccess, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszVirtualPath, "ptr", pszUserName, "int*", &pFtpAccess := 0, "HRESULT")
+        return pFtpAccess
     }
 }

@@ -58,44 +58,39 @@ class IMFNetCredential extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbData 
      * @param {Pointer<Integer>} pcbData 
      * @param {BOOL} fEncryptData 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-getuser
      */
-    GetUser(pbData, pcbData, fEncryptData) {
-        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+    GetUser(pcbData, fEncryptData) {
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pbDataMarshal, pbData, pcbDataMarshal, pcbData, "int", fEncryptData, "HRESULT")
-        return result
+        result := ComCall(5, this, "char*", &pbData := 0, pcbDataMarshal, pcbData, "int", fEncryptData, "HRESULT")
+        return pbData
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbData 
      * @param {Pointer<Integer>} pcbData 
      * @param {BOOL} fEncryptData 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-getpassword
      */
-    GetPassword(pbData, pcbData, fEncryptData) {
-        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+    GetPassword(pcbData, fEncryptData) {
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, pbDataMarshal, pbData, pcbDataMarshal, pcbData, "int", fEncryptData, "HRESULT")
-        return result
+        result := ComCall(6, this, "char*", &pbData := 0, pcbDataMarshal, pcbData, "int", fEncryptData, "HRESULT")
+        return pbData
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfLoggedOnUser 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-loggedonuser
      */
-    LoggedOnUser(pfLoggedOnUser) {
-        result := ComCall(7, this, "ptr", pfLoggedOnUser, "HRESULT")
-        return result
+    LoggedOnUser() {
+        result := ComCall(7, this, "int*", &pfLoggedOnUser := 0, "HRESULT")
+        return pfLoggedOnUser
     }
 }

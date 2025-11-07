@@ -37,25 +37,21 @@ class IHTMLNamespaceCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {VARIANT} index 
-     * @param {Pointer<IDispatch>} ppNamespace 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    item(index, ppNamespace) {
-        result := ComCall(8, this, "ptr", index, "ptr*", ppNamespace, "HRESULT")
-        return result
+    item(index) {
+        result := ComCall(8, this, "ptr", index, "ptr*", &ppNamespace := 0, "HRESULT")
+        return IDispatch(ppNamespace)
     }
 
     /**
@@ -63,14 +59,13 @@ class IHTMLNamespaceCollection extends IDispatch{
      * @param {BSTR} bstrNamespace 
      * @param {BSTR} bstrUrn 
      * @param {VARIANT} implementationUrl 
-     * @param {Pointer<IDispatch>} ppNamespace 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    add(bstrNamespace, bstrUrn, implementationUrl, ppNamespace) {
+    add(bstrNamespace, bstrUrn, implementationUrl) {
         bstrNamespace := bstrNamespace is String ? BSTR.Alloc(bstrNamespace).Value : bstrNamespace
         bstrUrn := bstrUrn is String ? BSTR.Alloc(bstrUrn).Value : bstrUrn
 
-        result := ComCall(9, this, "ptr", bstrNamespace, "ptr", bstrUrn, "ptr", implementationUrl, "ptr*", ppNamespace, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrNamespace, "ptr", bstrUrn, "ptr", implementationUrl, "ptr*", &ppNamespace := 0, "HRESULT")
+        return IDispatch(ppNamespace)
     }
 }

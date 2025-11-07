@@ -39,14 +39,11 @@ class IDXGIDeviceSubObject extends IDXGIObject{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevicesubobject-getdevice
      */
-    GetDevice(riid, ppDevice) {
-        ppDeviceMarshal := ppDevice is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", riid, ppDeviceMarshal, ppDevice, "HRESULT")
-        return result
+    GetDevice(riid) {
+        result := ComCall(7, this, "ptr", riid, "ptr*", &ppDevice := 0, "HRESULT")
+        return ppDevice
     }
 }

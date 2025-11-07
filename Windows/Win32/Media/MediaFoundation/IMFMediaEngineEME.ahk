@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaKeys.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IMFMediaEngineEME extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFMediaKeys>} keys 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaKeys} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineeme-get_keys
      */
-    get_Keys(keys) {
-        result := ComCall(3, this, "ptr*", keys, "HRESULT")
-        return result
+    get_Keys() {
+        result := ComCall(3, this, "ptr*", &keys := 0, "HRESULT")
+        return IMFMediaKeys(keys)
     }
 
     /**

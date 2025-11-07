@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMMDeviceCollection.ahk
+#Include .\IMMDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,40 +42,37 @@ class IMMDeviceEnumerator extends IUnknown{
      * 
      * @param {Integer} dataFlow 
      * @param {Integer} dwStateMask 
-     * @param {Pointer<IMMDeviceCollection>} ppDevices 
-     * @returns {HRESULT} 
+     * @returns {IMMDeviceCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-enumaudioendpoints
      */
-    EnumAudioEndpoints(dataFlow, dwStateMask, ppDevices) {
-        result := ComCall(3, this, "int", dataFlow, "uint", dwStateMask, "ptr*", ppDevices, "HRESULT")
-        return result
+    EnumAudioEndpoints(dataFlow, dwStateMask) {
+        result := ComCall(3, this, "int", dataFlow, "uint", dwStateMask, "ptr*", &ppDevices := 0, "HRESULT")
+        return IMMDeviceCollection(ppDevices)
     }
 
     /**
      * 
      * @param {Integer} dataFlow 
      * @param {Integer} role 
-     * @param {Pointer<IMMDevice>} ppEndpoint 
-     * @returns {HRESULT} 
+     * @returns {IMMDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-getdefaultaudioendpoint
      */
-    GetDefaultAudioEndpoint(dataFlow, role, ppEndpoint) {
-        result := ComCall(4, this, "int", dataFlow, "int", role, "ptr*", ppEndpoint, "HRESULT")
-        return result
+    GetDefaultAudioEndpoint(dataFlow, role) {
+        result := ComCall(4, this, "int", dataFlow, "int", role, "ptr*", &ppEndpoint := 0, "HRESULT")
+        return IMMDevice(ppEndpoint)
     }
 
     /**
      * 
      * @param {PWSTR} pwstrId 
-     * @param {Pointer<IMMDevice>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IMMDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-getdevice
      */
-    GetDevice(pwstrId, ppDevice) {
+    GetDevice(pwstrId) {
         pwstrId := pwstrId is String ? StrPtr(pwstrId) : pwstrId
 
-        result := ComCall(5, this, "ptr", pwstrId, "ptr*", ppDevice, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pwstrId, "ptr*", &ppDevice := 0, "HRESULT")
+        return IMMDevice(ppDevice)
     }
 
     /**

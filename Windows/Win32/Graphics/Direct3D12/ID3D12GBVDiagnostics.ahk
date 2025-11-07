@@ -44,27 +44,21 @@ class ID3D12GBVDiagnostics extends IUnknown{
      * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} Subresource 
-     * @param {Pointer<Integer>} pData 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetGBVSubresourceState(pResource, Subresource, pData) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pResource, "uint", Subresource, pDataMarshal, pData, "HRESULT")
-        return result
+    GetGBVSubresourceState(pResource, Subresource) {
+        result := ComCall(4, this, "ptr", pResource, "uint", Subresource, "int*", &pData := 0, "HRESULT")
+        return pData
     }
 
     /**
      * 
      * @param {ID3D12Resource} pResource 
-     * @param {Pointer<Integer>} pData 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetGBVResourceUniformState(pResource, pData) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pResource, pDataMarshal, pData, "HRESULT")
-        return result
+    GetGBVResourceUniformState(pResource) {
+        result := ComCall(5, this, "ptr", pResource, "int*", &pData := 0, "HRESULT")
+        return pData
     }
 
     /**

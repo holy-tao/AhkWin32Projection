@@ -1022,8 +1022,9 @@ class TpmBaseServices {
      */
     static GetDeviceID(pbWindowsAIK, cbWindowsAIK, pcbResult, pfProtectedByTPM) {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+        pfProtectedByTPMMarshal := pfProtectedByTPM is VarRef ? "int*" : "ptr"
 
-        result := DllCall("tbs.dll\GetDeviceID", "ptr", pbWindowsAIK, "uint", cbWindowsAIK, pcbResultMarshal, pcbResult, "ptr", pfProtectedByTPM, "int")
+        result := DllCall("tbs.dll\GetDeviceID", "ptr", pbWindowsAIK, "uint", cbWindowsAIK, pcbResultMarshal, pcbResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1042,8 +1043,9 @@ class TpmBaseServices {
         pszWindowsAIK := pszWindowsAIK is String ? StrPtr(pszWindowsAIK) : pszWindowsAIK
 
         pcchResultMarshal := pcchResult is VarRef ? "uint*" : "ptr"
+        pfProtectedByTPMMarshal := pfProtectedByTPM is VarRef ? "int*" : "ptr"
 
-        result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, pcchResultMarshal, pcchResult, "ptr", pfProtectedByTPM, "int")
+        result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, pcchResultMarshal, pcchResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "int")
         if(result != 0)
             throw OSError(result)
 

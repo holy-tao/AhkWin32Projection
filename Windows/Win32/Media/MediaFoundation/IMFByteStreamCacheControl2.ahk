@@ -63,12 +63,11 @@ class IMFByteStreamCacheControl2 extends IMFByteStreamCacheControl{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfActive 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamcachecontrol2-isbackgroundtransferactive
      */
-    IsBackgroundTransferActive(pfActive) {
-        result := ComCall(6, this, "ptr", pfActive, "HRESULT")
-        return result
+    IsBackgroundTransferActive() {
+        result := ComCall(6, this, "int*", &pfActive := 0, "HRESULT")
+        return pfActive
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1TessellationSink.ahk
 #Include .\ID2D1Resource.ahk
 
 /**
@@ -41,12 +42,11 @@ class ID2D1Mesh extends ID2D1Resource{
 
     /**
      * 
-     * @param {Pointer<ID2D1TessellationSink>} tessellationSink 
-     * @returns {HRESULT} 
+     * @returns {ID2D1TessellationSink} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1mesh-open
      */
-    Open(tessellationSink) {
-        result := ComCall(4, this, "ptr*", tessellationSink, "HRESULT")
-        return result
+    Open() {
+        result := ComCall(4, this, "ptr*", &tessellationSink := 0, "HRESULT")
+        return ID2D1TessellationSink(tessellationSink)
     }
 }

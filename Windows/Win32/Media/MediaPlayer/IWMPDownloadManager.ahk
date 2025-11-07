@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMPDownloadCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,21 +32,19 @@ class IWMPDownloadManager extends IDispatch{
     /**
      * 
      * @param {Integer} lCollectionId 
-     * @param {Pointer<IWMPDownloadCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IWMPDownloadCollection} 
      */
-    getDownloadCollection(lCollectionId, ppCollection) {
-        result := ComCall(7, this, "int", lCollectionId, "ptr*", ppCollection, "HRESULT")
-        return result
+    getDownloadCollection(lCollectionId) {
+        result := ComCall(7, this, "int", lCollectionId, "ptr*", &ppCollection := 0, "HRESULT")
+        return IWMPDownloadCollection(ppCollection)
     }
 
     /**
      * 
-     * @param {Pointer<IWMPDownloadCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IWMPDownloadCollection} 
      */
-    createDownloadCollection(ppCollection) {
-        result := ComCall(8, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    createDownloadCollection() {
+        result := ComCall(8, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IWMPDownloadCollection(ppCollection)
     }
 }

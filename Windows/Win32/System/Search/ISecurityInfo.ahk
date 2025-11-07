@@ -30,14 +30,11 @@ class ISecurityInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<TRUSTEE_W>>} ppTrustee 
-     * @returns {HRESULT} 
+     * @returns {Pointer<TRUSTEE_W>} 
      */
-    GetCurrentTrustee(ppTrustee) {
-        ppTrusteeMarshal := ppTrustee is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppTrusteeMarshal, ppTrustee, "HRESULT")
-        return result
+    GetCurrentTrustee() {
+        result := ComCall(3, this, "ptr*", &ppTrustee := 0, "HRESULT")
+        return ppTrustee
     }
 
     /**
@@ -57,13 +54,10 @@ class ISecurityInfo extends IUnknown{
     /**
      * 
      * @param {Guid} ObjectType 
-     * @param {Pointer<Integer>} pPermissions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPermissions(ObjectType, pPermissions) {
-        pPermissionsMarshal := pPermissions is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", ObjectType, pPermissionsMarshal, pPermissions, "HRESULT")
-        return result
+    GetPermissions(ObjectType) {
+        result := ComCall(5, this, "ptr", ObjectType, "uint*", &pPermissions := 0, "HRESULT")
+        return pPermissions
     }
 }

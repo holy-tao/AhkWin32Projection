@@ -38,24 +38,22 @@ class IWSDSignatureProperty extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbSigned 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-ismessagesigned
      */
-    IsMessageSigned(pbSigned) {
-        result := ComCall(3, this, "ptr", pbSigned, "HRESULT")
-        return result
+    IsMessageSigned() {
+        result := ComCall(3, this, "int*", &pbSigned := 0, "HRESULT")
+        return pbSigned
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbSignatureTrusted 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-ismessagesignaturetrusted
      */
-    IsMessageSignatureTrusted(pbSignatureTrusted) {
-        result := ComCall(4, this, "ptr", pbSignatureTrusted, "HRESULT")
-        return result
+    IsMessageSignatureTrusted() {
+        result := ComCall(4, this, "int*", &pbSignatureTrusted := 0, "HRESULT")
+        return pbSignatureTrusted
     }
 
     /**

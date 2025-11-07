@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpeechAudioStatus.ahk
+#Include .\ISpeechAudioBufferInfo.ahk
+#Include .\ISpeechAudioFormat.ahk
 #Include .\ISpeechBaseStream.ahk
 
 /**
@@ -30,44 +33,38 @@ class ISpeechAudio extends ISpeechBaseStream{
 
     /**
      * 
-     * @param {Pointer<ISpeechAudioStatus>} Status 
-     * @returns {HRESULT} 
+     * @returns {ISpeechAudioStatus} 
      */
-    get_Status(Status) {
-        result := ComCall(12, this, "ptr*", Status, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(12, this, "ptr*", &Status := 0, "HRESULT")
+        return ISpeechAudioStatus(Status)
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechAudioBufferInfo>} BufferInfo 
-     * @returns {HRESULT} 
+     * @returns {ISpeechAudioBufferInfo} 
      */
-    get_BufferInfo(BufferInfo) {
-        result := ComCall(13, this, "ptr*", BufferInfo, "HRESULT")
-        return result
+    get_BufferInfo() {
+        result := ComCall(13, this, "ptr*", &BufferInfo := 0, "HRESULT")
+        return ISpeechAudioBufferInfo(BufferInfo)
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechAudioFormat>} StreamFormat 
-     * @returns {HRESULT} 
+     * @returns {ISpeechAudioFormat} 
      */
-    get_DefaultFormat(StreamFormat) {
-        result := ComCall(14, this, "ptr*", StreamFormat, "HRESULT")
-        return result
+    get_DefaultFormat() {
+        result := ComCall(14, this, "ptr*", &StreamFormat := 0, "HRESULT")
+        return ISpeechAudioFormat(StreamFormat)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Volume 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Volume(Volume) {
-        VolumeMarshal := Volume is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, VolumeMarshal, Volume, "HRESULT")
-        return result
+    get_Volume() {
+        result := ComCall(15, this, "int*", &Volume := 0, "HRESULT")
+        return Volume
     }
 
     /**
@@ -82,14 +79,11 @@ class ISpeechAudio extends ISpeechBaseStream{
 
     /**
      * 
-     * @param {Pointer<Integer>} BufferNotifySize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BufferNotifySize(BufferNotifySize) {
-        BufferNotifySizeMarshal := BufferNotifySize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, BufferNotifySizeMarshal, BufferNotifySize, "HRESULT")
-        return result
+    get_BufferNotifySize() {
+        result := ComCall(17, this, "int*", &BufferNotifySize := 0, "HRESULT")
+        return BufferNotifySize
     }
 
     /**
@@ -104,14 +98,11 @@ class ISpeechAudio extends ISpeechBaseStream{
 
     /**
      * 
-     * @param {Pointer<Integer>} EventHandle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EventHandle(EventHandle) {
-        EventHandleMarshal := EventHandle is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, EventHandleMarshal, EventHandle, "HRESULT")
-        return result
+    get_EventHandle() {
+        result := ComCall(19, this, "int*", &EventHandle := 0, "HRESULT")
+        return EventHandle
     }
 
     /**

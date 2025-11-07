@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISelectionServices.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -51,12 +52,11 @@ class IHTMLEditServices extends IUnknown{
     /**
      * 
      * @param {IMarkupContainer} pIContainer 
-     * @param {Pointer<ISelectionServices>} ppSelSvc 
-     * @returns {HRESULT} 
+     * @returns {ISelectionServices} 
      */
-    GetSelectionServices(pIContainer, ppSelSvc) {
-        result := ComCall(5, this, "ptr", pIContainer, "ptr*", ppSelSvc, "HRESULT")
-        return result
+    GetSelectionServices(pIContainer) {
+        result := ComCall(5, this, "ptr", pIContainer, "ptr*", &ppSelSvc := 0, "HRESULT")
+        return ISelectionServices(ppSelSvc)
     }
 
     /**

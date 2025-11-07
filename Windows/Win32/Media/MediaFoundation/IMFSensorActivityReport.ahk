@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFSensorProcessActivity.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,58 +35,48 @@ class IMFSensorActivityReport extends IUnknown{
      * 
      * @param {PWSTR} FriendlyName 
      * @param {Integer} cchFriendlyName 
-     * @param {Pointer<Integer>} pcchWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivityreport-getfriendlyname
      */
-    GetFriendlyName(FriendlyName, cchFriendlyName, pcchWritten) {
+    GetFriendlyName(FriendlyName, cchFriendlyName) {
         FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
 
-        pcchWrittenMarshal := pcchWritten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", FriendlyName, "uint", cchFriendlyName, pcchWrittenMarshal, pcchWritten, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", FriendlyName, "uint", cchFriendlyName, "uint*", &pcchWritten := 0, "HRESULT")
+        return pcchWritten
     }
 
     /**
      * 
      * @param {PWSTR} SymbolicLink 
      * @param {Integer} cchSymbolicLink 
-     * @param {Pointer<Integer>} pcchWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivityreport-getsymboliclink
      */
-    GetSymbolicLink(SymbolicLink, cchSymbolicLink, pcchWritten) {
+    GetSymbolicLink(SymbolicLink, cchSymbolicLink) {
         SymbolicLink := SymbolicLink is String ? StrPtr(SymbolicLink) : SymbolicLink
 
-        pcchWrittenMarshal := pcchWritten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", SymbolicLink, "uint", cchSymbolicLink, pcchWrittenMarshal, pcchWritten, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", SymbolicLink, "uint", cchSymbolicLink, "uint*", &pcchWritten := 0, "HRESULT")
+        return pcchWritten
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivityreport-getprocesscount
      */
-    GetProcessCount(pcCount) {
-        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pcCountMarshal, pcCount, "HRESULT")
-        return result
+    GetProcessCount() {
+        result := ComCall(5, this, "uint*", &pcCount := 0, "HRESULT")
+        return pcCount
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<IMFSensorProcessActivity>} ppProcessActivity 
-     * @returns {HRESULT} 
+     * @returns {IMFSensorProcessActivity} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivityreport-getprocessactivity
      */
-    GetProcessActivity(Index, ppProcessActivity) {
-        result := ComCall(6, this, "uint", Index, "ptr*", ppProcessActivity, "HRESULT")
-        return result
+    GetProcessActivity(Index) {
+        result := ComCall(6, this, "uint", Index, "ptr*", &ppProcessActivity := 0, "HRESULT")
+        return IMFSensorProcessActivity(ppProcessActivity)
     }
 }

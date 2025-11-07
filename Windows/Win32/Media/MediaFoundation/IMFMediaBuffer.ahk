@@ -121,15 +121,12 @@ class IMFMediaBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbCurrentLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediabuffer-getcurrentlength
      */
-    GetCurrentLength(pcbCurrentLength) {
-        pcbCurrentLengthMarshal := pcbCurrentLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pcbCurrentLengthMarshal, pcbCurrentLength, "HRESULT")
-        return result
+    GetCurrentLength() {
+        result := ComCall(5, this, "uint*", &pcbCurrentLength := 0, "HRESULT")
+        return pcbCurrentLength
     }
 
     /**
@@ -145,14 +142,11 @@ class IMFMediaBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbMaxLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediabuffer-getmaxlength
      */
-    GetMaxLength(pcbMaxLength) {
-        pcbMaxLengthMarshal := pcbMaxLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pcbMaxLengthMarshal, pcbMaxLength, "HRESULT")
-        return result
+    GetMaxLength() {
+        result := ComCall(7, this, "uint*", &pcbMaxLength := 0, "HRESULT")
+        return pcbMaxLength
     }
 }

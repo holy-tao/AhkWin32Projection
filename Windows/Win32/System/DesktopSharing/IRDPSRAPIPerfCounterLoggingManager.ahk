@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRDPSRAPIPerfCounterLogger.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -34,14 +35,13 @@ class IRDPSRAPIPerfCounterLoggingManager extends IUnknown{
     /**
      * 
      * @param {BSTR} bstrCounterName 
-     * @param {Pointer<IRDPSRAPIPerfCounterLogger>} ppLogger 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIPerfCounterLogger} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiperfcounterloggingmanager-createlogger
      */
-    CreateLogger(bstrCounterName, ppLogger) {
+    CreateLogger(bstrCounterName) {
         bstrCounterName := bstrCounterName is String ? BSTR.Alloc(bstrCounterName).Value : bstrCounterName
 
-        result := ComCall(3, this, "ptr", bstrCounterName, "ptr*", ppLogger, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", bstrCounterName, "ptr*", &ppLogger := 0, "HRESULT")
+        return IRDPSRAPIPerfCounterLogger(ppLogger)
     }
 }

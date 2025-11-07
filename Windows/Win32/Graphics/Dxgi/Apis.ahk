@@ -226,22 +226,17 @@ class Dxgi {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The globally unique identifier (GUID) of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgifactory">IDXGIFactory</a> object referenced by the <i>ppFactory</i> parameter.
-     * @param {Pointer<Pointer<Void>>} ppFactory Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgifactory">IDXGIFactory</a> object.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * Returns <b>S_OK</b> if successful; otherwise, returns one of the following <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-createdxgifactory
      */
-    static CreateDXGIFactory(riid, ppFactory) {
-        ppFactoryMarshal := ppFactory is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dxgi.dll\CreateDXGIFactory", "ptr", riid, ppFactoryMarshal, ppFactory, "int")
+    static CreateDXGIFactory(riid) {
+        result := DllCall("dxgi.dll\CreateDXGIFactory", "ptr", riid, "ptr*", &ppFactory := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppFactory
     }
 
     /**
@@ -250,23 +245,18 @@ class Dxgi {
      * 
      * The globally unique identifier (GUID) of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgifactory1">IDXGIFactory1</a> object referenced by 
      *           the <i>ppFactory</i> parameter.
-     * @param {Pointer<Pointer<Void>>} ppFactory Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgifactory1">IDXGIFactory1</a> object.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-createdxgifactory1
      * @since windows6.1
      */
-    static CreateDXGIFactory1(riid, ppFactory) {
-        ppFactoryMarshal := ppFactory is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dxgi.dll\CreateDXGIFactory1", "ptr", riid, ppFactoryMarshal, ppFactory, "int")
+    static CreateDXGIFactory1(riid) {
+        result := DllCall("dxgi.dll\CreateDXGIFactory1", "ptr", riid, "ptr*", &ppFactory := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppFactory
     }
 
     /**
@@ -285,42 +275,34 @@ class Dxgi {
      * 
      * The globally unique identifier (GUID) of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgifactory2">IDXGIFactory2</a> object referenced by 
      *           the <i>ppFactory</i> parameter.
-     * @param {Pointer<Pointer<Void>>} ppFactory Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgifactory2">IDXGIFactory2</a> object.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nf-dxgi1_3-createdxgifactory2
      * @since windows8.1
      */
-    static CreateDXGIFactory2(Flags, riid, ppFactory) {
-        ppFactoryMarshal := ppFactory is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dxgi.dll\CreateDXGIFactory2", "uint", Flags, "ptr", riid, ppFactoryMarshal, ppFactory, "int")
+    static CreateDXGIFactory2(Flags, riid) {
+        result := DllCall("dxgi.dll\CreateDXGIFactory2", "uint", Flags, "ptr", riid, "ptr*", &ppFactory := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppFactory
     }
 
     /**
      * Retrieves an interface that Windows Store apps use for debugging the Microsoft DirectX Graphics Infrastructure (DXGI).
      * @param {Integer} Flags Not used.
      * @param {Pointer<Guid>} riid The globally unique identifier (GUID) of the requested interface type, which can be the identifier for the <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nn-dxgidebug-idxgidebug">IDXGIDebug</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nn-dxgidebug-idxgidebug1">IDXGIDebug1</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nn-dxgidebug-idxgiinfoqueue">IDXGIInfoQueue</a> interfaces.
-     * @param {Pointer<Pointer<Void>>} pDebug A pointer to a buffer that receives a pointer to the debugging interface.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Pointer<Void>} A pointer to a buffer that receives a pointer to the debugging interface.
      * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nf-dxgi1_3-dxgigetdebuginterface1
      * @since windows8.1
      */
-    static DXGIGetDebugInterface1(Flags, riid, pDebug) {
-        pDebugMarshal := pDebug is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dxgi.dll\DXGIGetDebugInterface1", "uint", Flags, "ptr", riid, pDebugMarshal, pDebug, "int")
+    static DXGIGetDebugInterface1(Flags, riid) {
+        result := DllCall("dxgi.dll\DXGIGetDebugInterface1", "uint", Flags, "ptr", riid, "ptr*", &pDebug := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pDebug
     }
 
     /**

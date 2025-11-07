@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFASFStreamConfig.ahk
+#Include .\IMFASFMutualExclusion.ahk
+#Include .\IMFASFStreamPrioritization.ahk
+#Include .\IMFASFProfile.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -32,15 +36,12 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcStreams 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getstreamcount
      */
-    GetStreamCount(pcStreams) {
-        pcStreamsMarshal := pcStreams is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, pcStreamsMarshal, pcStreams, "HRESULT")
-        return result
+    GetStreamCount() {
+        result := ComCall(33, this, "uint*", &pcStreams := 0, "HRESULT")
+        return pcStreams
     }
 
     /**
@@ -61,13 +62,12 @@ class IMFASFProfile extends IMFAttributes{
     /**
      * 
      * @param {Integer} wStreamNumber 
-     * @param {Pointer<IMFASFStreamConfig>} ppIStream 
-     * @returns {HRESULT} 
+     * @returns {IMFASFStreamConfig} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getstreambynumber
      */
-    GetStreamByNumber(wStreamNumber, ppIStream) {
-        result := ComCall(35, this, "ushort", wStreamNumber, "ptr*", ppIStream, "HRESULT")
-        return result
+    GetStreamByNumber(wStreamNumber) {
+        result := ComCall(35, this, "ushort", wStreamNumber, "ptr*", &ppIStream := 0, "HRESULT")
+        return IMFASFStreamConfig(ppIStream)
     }
 
     /**
@@ -95,38 +95,33 @@ class IMFASFProfile extends IMFAttributes{
     /**
      * 
      * @param {IMFMediaType} pIMediaType 
-     * @param {Pointer<IMFASFStreamConfig>} ppIStream 
-     * @returns {HRESULT} 
+     * @returns {IMFASFStreamConfig} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-createstream
      */
-    CreateStream(pIMediaType, ppIStream) {
-        result := ComCall(38, this, "ptr", pIMediaType, "ptr*", ppIStream, "HRESULT")
-        return result
+    CreateStream(pIMediaType) {
+        result := ComCall(38, this, "ptr", pIMediaType, "ptr*", &ppIStream := 0, "HRESULT")
+        return IMFASFStreamConfig(ppIStream)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcMutexs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getmutualexclusioncount
      */
-    GetMutualExclusionCount(pcMutexs) {
-        pcMutexsMarshal := pcMutexs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(39, this, pcMutexsMarshal, pcMutexs, "HRESULT")
-        return result
+    GetMutualExclusionCount() {
+        result := ComCall(39, this, "uint*", &pcMutexs := 0, "HRESULT")
+        return pcMutexs
     }
 
     /**
      * 
      * @param {Integer} dwMutexIndex 
-     * @param {Pointer<IMFASFMutualExclusion>} ppIMutex 
-     * @returns {HRESULT} 
+     * @returns {IMFASFMutualExclusion} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getmutualexclusion
      */
-    GetMutualExclusion(dwMutexIndex, ppIMutex) {
-        result := ComCall(40, this, "uint", dwMutexIndex, "ptr*", ppIMutex, "HRESULT")
-        return result
+    GetMutualExclusion(dwMutexIndex) {
+        result := ComCall(40, this, "uint", dwMutexIndex, "ptr*", &ppIMutex := 0, "HRESULT")
+        return IMFASFMutualExclusion(ppIMutex)
     }
 
     /**
@@ -153,24 +148,22 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<IMFASFMutualExclusion>} ppIMutex 
-     * @returns {HRESULT} 
+     * @returns {IMFASFMutualExclusion} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-createmutualexclusion
      */
-    CreateMutualExclusion(ppIMutex) {
-        result := ComCall(43, this, "ptr*", ppIMutex, "HRESULT")
-        return result
+    CreateMutualExclusion() {
+        result := ComCall(43, this, "ptr*", &ppIMutex := 0, "HRESULT")
+        return IMFASFMutualExclusion(ppIMutex)
     }
 
     /**
      * 
-     * @param {Pointer<IMFASFStreamPrioritization>} ppIStreamPrioritization 
-     * @returns {HRESULT} 
+     * @returns {IMFASFStreamPrioritization} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getstreamprioritization
      */
-    GetStreamPrioritization(ppIStreamPrioritization) {
-        result := ComCall(44, this, "ptr*", ppIStreamPrioritization, "HRESULT")
-        return result
+    GetStreamPrioritization() {
+        result := ComCall(44, this, "ptr*", &ppIStreamPrioritization := 0, "HRESULT")
+        return IMFASFStreamPrioritization(ppIStreamPrioritization)
     }
 
     /**
@@ -196,23 +189,21 @@ class IMFASFProfile extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<IMFASFStreamPrioritization>} ppIStreamPrioritization 
-     * @returns {HRESULT} 
+     * @returns {IMFASFStreamPrioritization} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-createstreamprioritization
      */
-    CreateStreamPrioritization(ppIStreamPrioritization) {
-        result := ComCall(47, this, "ptr*", ppIStreamPrioritization, "HRESULT")
-        return result
+    CreateStreamPrioritization() {
+        result := ComCall(47, this, "ptr*", &ppIStreamPrioritization := 0, "HRESULT")
+        return IMFASFStreamPrioritization(ppIStreamPrioritization)
     }
 
     /**
      * 
-     * @param {Pointer<IMFASFProfile>} ppIProfile 
-     * @returns {HRESULT} 
+     * @returns {IMFASFProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-clone
      */
-    Clone(ppIProfile) {
-        result := ComCall(48, this, "ptr*", ppIProfile, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(48, this, "ptr*", &ppIProfile := 0, "HRESULT")
+        return IMFASFProfile(ppIProfile)
     }
 }

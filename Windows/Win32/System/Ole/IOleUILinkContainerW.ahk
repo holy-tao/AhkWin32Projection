@@ -57,15 +57,12 @@ class IOleUILinkContainerW extends IUnknown{
     /**
      * 
      * @param {Integer} dwLink 
-     * @param {Pointer<Integer>} lpdwUpdateOpt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainerw-getlinkupdateoptions
      */
-    GetLinkUpdateOptions(dwLink, lpdwUpdateOpt) {
-        lpdwUpdateOptMarshal := lpdwUpdateOpt is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", dwLink, lpdwUpdateOptMarshal, lpdwUpdateOpt, "HRESULT")
-        return result
+    GetLinkUpdateOptions(dwLink) {
+        result := ComCall(5, this, "uint", dwLink, "uint*", &lpdwUpdateOpt := 0, "HRESULT")
+        return lpdwUpdateOpt
     }
 
     /**
@@ -73,18 +70,15 @@ class IOleUILinkContainerW extends IUnknown{
      * @param {Integer} dwLink 
      * @param {PWSTR} lpszDisplayName 
      * @param {Integer} lenFileName 
-     * @param {Pointer<Integer>} pchEaten 
      * @param {BOOL} fValidateSource 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainerw-setlinksource
      */
-    SetLinkSource(dwLink, lpszDisplayName, lenFileName, pchEaten, fValidateSource) {
+    SetLinkSource(dwLink, lpszDisplayName, lenFileName, fValidateSource) {
         lpszDisplayName := lpszDisplayName is String ? StrPtr(lpszDisplayName) : lpszDisplayName
 
-        pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", dwLink, "ptr", lpszDisplayName, "uint", lenFileName, pchEatenMarshal, pchEaten, "int", fValidateSource, "HRESULT")
-        return result
+        result := ComCall(6, this, "uint", dwLink, "ptr", lpszDisplayName, "uint", lenFileName, "uint*", &pchEaten := 0, "int", fValidateSource, "HRESULT")
+        return pchEaten
     }
 
     /**
@@ -100,9 +94,14 @@ class IOleUILinkContainerW extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainerw-getlinksource
      */
     GetLinkSource(dwLink, lplpszDisplayName, lplenFileName, lplpszFullLinkType, lplpszShortLinkType, lpfSourceAvailable, lpfIsSelected) {
+        lplpszDisplayNameMarshal := lplpszDisplayName is VarRef ? "ptr*" : "ptr"
         lplenFileNameMarshal := lplenFileName is VarRef ? "uint*" : "ptr"
+        lplpszFullLinkTypeMarshal := lplpszFullLinkType is VarRef ? "ptr*" : "ptr"
+        lplpszShortLinkTypeMarshal := lplpszShortLinkType is VarRef ? "ptr*" : "ptr"
+        lpfSourceAvailableMarshal := lpfSourceAvailable is VarRef ? "int*" : "ptr"
+        lpfIsSelectedMarshal := lpfIsSelected is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwLink, "ptr", lplpszDisplayName, lplenFileNameMarshal, lplenFileName, "ptr", lplpszFullLinkType, "ptr", lplpszShortLinkType, "ptr", lpfSourceAvailable, "ptr", lpfIsSelected, "HRESULT")
+        result := ComCall(7, this, "uint", dwLink, lplpszDisplayNameMarshal, lplpszDisplayName, lplenFileNameMarshal, lplenFileName, lplpszFullLinkTypeMarshal, lplpszFullLinkType, lplpszShortLinkTypeMarshal, lplpszShortLinkType, lpfSourceAvailableMarshal, lpfSourceAvailable, lpfIsSelectedMarshal, lpfIsSelected, "HRESULT")
         return result
     }
 

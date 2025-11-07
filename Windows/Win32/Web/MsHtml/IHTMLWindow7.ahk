@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLSelection.ahk
+#Include .\IHTMLCSSStyleDeclaration.ahk
+#Include .\IHTMLStyleMedia.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,36 +35,33 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLSelection>} ppIHTMLSelection 
-     * @returns {HRESULT} 
+     * @returns {IHTMLSelection} 
      */
-    getSelection(ppIHTMLSelection) {
-        result := ComCall(7, this, "ptr*", ppIHTMLSelection, "HRESULT")
-        return result
+    getSelection() {
+        result := ComCall(7, this, "ptr*", &ppIHTMLSelection := 0, "HRESULT")
+        return IHTMLSelection(ppIHTMLSelection)
     }
 
     /**
      * 
      * @param {IHTMLDOMNode} varArgIn 
      * @param {BSTR} bstrPseudoElt 
-     * @param {Pointer<IHTMLCSSStyleDeclaration>} ppComputedStyle 
-     * @returns {HRESULT} 
+     * @returns {IHTMLCSSStyleDeclaration} 
      */
-    getComputedStyle(varArgIn, bstrPseudoElt, ppComputedStyle) {
+    getComputedStyle(varArgIn, bstrPseudoElt) {
         bstrPseudoElt := bstrPseudoElt is String ? BSTR.Alloc(bstrPseudoElt).Value : bstrPseudoElt
 
-        result := ComCall(8, this, "ptr", varArgIn, "ptr", bstrPseudoElt, "ptr*", ppComputedStyle, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", varArgIn, "ptr", bstrPseudoElt, "ptr*", &ppComputedStyle := 0, "HRESULT")
+        return IHTMLCSSStyleDeclaration(ppComputedStyle)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStyleMedia>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleMedia} 
      */
-    get_styleMedia(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_styleMedia() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyleMedia(p)
     }
 
     /**
@@ -75,108 +76,84 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_performance(p) {
+    get_performance() {
+        p := VARIANT()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_innerWidth(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pMarshal, p, "HRESULT")
-        return result
+    get_innerWidth() {
+        result := ComCall(12, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_innerHeight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pMarshal, p, "HRESULT")
-        return result
+    get_innerHeight() {
+        result := ComCall(13, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_pageXOffset(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pMarshal, p, "HRESULT")
-        return result
+    get_pageXOffset() {
+        result := ComCall(14, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_pageYOffset(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pMarshal, p, "HRESULT")
-        return result
+    get_pageYOffset() {
+        result := ComCall(15, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_screenX(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pMarshal, p, "HRESULT")
-        return result
+    get_screenX() {
+        result := ComCall(16, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_screenY(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pMarshal, p, "HRESULT")
-        return result
+    get_screenY() {
+        result := ComCall(17, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_outerWidth(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, pMarshal, p, "HRESULT")
-        return result
+    get_outerWidth() {
+        result := ComCall(18, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_outerHeight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, pMarshal, p, "HRESULT")
-        return result
+    get_outerHeight() {
+        result := ComCall(19, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -191,12 +168,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onabort(p) {
+    get_onabort() {
+        p := VARIANT()
         result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -211,12 +188,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oncanplay(p) {
+    get_oncanplay() {
+        p := VARIANT()
         result := ComCall(23, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -231,12 +208,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oncanplaythrough(p) {
+    get_oncanplaythrough() {
+        p := VARIANT()
         result := ComCall(25, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -251,12 +228,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onchange(p) {
+    get_onchange() {
+        p := VARIANT()
         result := ComCall(27, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -271,12 +248,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onclick(p) {
+    get_onclick() {
+        p := VARIANT()
         result := ComCall(29, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -291,12 +268,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oncontextmenu(p) {
+    get_oncontextmenu() {
+        p := VARIANT()
         result := ComCall(31, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -311,12 +288,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondblclick(p) {
+    get_ondblclick() {
+        p := VARIANT()
         result := ComCall(33, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -331,12 +308,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondrag(p) {
+    get_ondrag() {
+        p := VARIANT()
         result := ComCall(35, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -351,12 +328,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondragend(p) {
+    get_ondragend() {
+        p := VARIANT()
         result := ComCall(37, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -371,12 +348,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondragenter(p) {
+    get_ondragenter() {
+        p := VARIANT()
         result := ComCall(39, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -391,12 +368,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondragleave(p) {
+    get_ondragleave() {
+        p := VARIANT()
         result := ComCall(41, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -411,12 +388,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondragover(p) {
+    get_ondragover() {
+        p := VARIANT()
         result := ComCall(43, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -431,12 +408,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondragstart(p) {
+    get_ondragstart() {
+        p := VARIANT()
         result := ComCall(45, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -451,12 +428,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondrop(p) {
+    get_ondrop() {
+        p := VARIANT()
         result := ComCall(47, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -471,12 +448,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ondurationchange(p) {
+    get_ondurationchange() {
+        p := VARIANT()
         result := ComCall(49, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -491,12 +468,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onfocusin(p) {
+    get_onfocusin() {
+        p := VARIANT()
         result := ComCall(51, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -511,12 +488,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onfocusout(p) {
+    get_onfocusout() {
+        p := VARIANT()
         result := ComCall(53, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -531,12 +508,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oninput(p) {
+    get_oninput() {
+        p := VARIANT()
         result := ComCall(55, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -551,12 +528,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onemptied(p) {
+    get_onemptied() {
+        p := VARIANT()
         result := ComCall(57, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -571,12 +548,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onended(p) {
+    get_onended() {
+        p := VARIANT()
         result := ComCall(59, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -591,12 +568,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onkeydown(p) {
+    get_onkeydown() {
+        p := VARIANT()
         result := ComCall(61, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -611,12 +588,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onkeypress(p) {
+    get_onkeypress() {
+        p := VARIANT()
         result := ComCall(63, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -631,12 +608,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onkeyup(p) {
+    get_onkeyup() {
+        p := VARIANT()
         result := ComCall(65, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -651,12 +628,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onloadeddata(p) {
+    get_onloadeddata() {
+        p := VARIANT()
         result := ComCall(67, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -671,12 +648,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onloadedmetadata(p) {
+    get_onloadedmetadata() {
+        p := VARIANT()
         result := ComCall(69, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -691,12 +668,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onloadstart(p) {
+    get_onloadstart() {
+        p := VARIANT()
         result := ComCall(71, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -711,12 +688,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmousedown(p) {
+    get_onmousedown() {
+        p := VARIANT()
         result := ComCall(73, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -731,12 +708,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmouseenter(p) {
+    get_onmouseenter() {
+        p := VARIANT()
         result := ComCall(75, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -751,12 +728,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmouseleave(p) {
+    get_onmouseleave() {
+        p := VARIANT()
         result := ComCall(77, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -771,12 +748,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmousemove(p) {
+    get_onmousemove() {
+        p := VARIANT()
         result := ComCall(79, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -791,12 +768,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmouseout(p) {
+    get_onmouseout() {
+        p := VARIANT()
         result := ComCall(81, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -811,12 +788,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmouseover(p) {
+    get_onmouseover() {
+        p := VARIANT()
         result := ComCall(83, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -831,12 +808,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmouseup(p) {
+    get_onmouseup() {
+        p := VARIANT()
         result := ComCall(85, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -851,12 +828,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmousewheel(p) {
+    get_onmousewheel() {
+        p := VARIANT()
         result := ComCall(87, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -871,12 +848,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onoffline(p) {
+    get_onoffline() {
+        p := VARIANT()
         result := ComCall(89, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -891,12 +868,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ononline(p) {
+    get_ononline() {
+        p := VARIANT()
         result := ComCall(91, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -911,12 +888,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onprogress(p) {
+    get_onprogress() {
+        p := VARIANT()
         result := ComCall(93, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -931,12 +908,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onratechange(p) {
+    get_onratechange() {
+        p := VARIANT()
         result := ComCall(95, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -951,12 +928,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onreadystatechange(p) {
+    get_onreadystatechange() {
+        p := VARIANT()
         result := ComCall(97, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -971,12 +948,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onreset(p) {
+    get_onreset() {
+        p := VARIANT()
         result := ComCall(99, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -991,12 +968,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onseeked(p) {
+    get_onseeked() {
+        p := VARIANT()
         result := ComCall(101, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1011,12 +988,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onseeking(p) {
+    get_onseeking() {
+        p := VARIANT()
         result := ComCall(103, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1031,12 +1008,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onselect(p) {
+    get_onselect() {
+        p := VARIANT()
         result := ComCall(105, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1051,12 +1028,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onstalled(p) {
+    get_onstalled() {
+        p := VARIANT()
         result := ComCall(107, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1071,12 +1048,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onstorage(p) {
+    get_onstorage() {
+        p := VARIANT()
         result := ComCall(109, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1091,12 +1068,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onsubmit(p) {
+    get_onsubmit() {
+        p := VARIANT()
         result := ComCall(111, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1111,12 +1088,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onsuspend(p) {
+    get_onsuspend() {
+        p := VARIANT()
         result := ComCall(113, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1131,12 +1108,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ontimeupdate(p) {
+    get_ontimeupdate() {
+        p := VARIANT()
         result := ComCall(115, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1151,12 +1128,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onpause(p) {
+    get_onpause() {
+        p := VARIANT()
         result := ComCall(117, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1171,12 +1148,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onplay(p) {
+    get_onplay() {
+        p := VARIANT()
         result := ComCall(119, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1191,12 +1168,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onplaying(p) {
+    get_onplaying() {
+        p := VARIANT()
         result := ComCall(121, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1211,12 +1188,12 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onvolumechange(p) {
+    get_onvolumechange() {
+        p := VARIANT()
         result := ComCall(123, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -1231,11 +1208,11 @@ class IHTMLWindow7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onwaiting(p) {
+    get_onwaiting() {
+        p := VARIANT()
         result := ComCall(125, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

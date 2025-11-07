@@ -43,13 +43,12 @@ class IDTFilter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HRESULT>} pHrCoCreateRetVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-get_evalratobjok
      */
-    get_EvalRatObjOK(pHrCoCreateRetVal) {
-        result := ComCall(3, this, "ptr", pHrCoCreateRetVal, "HRESULT")
-        return result
+    get_EvalRatObjOK() {
+        result := ComCall(3, this, "int*", &pHrCoCreateRetVal := 0, "HRESULT")
+        return pHrCoCreateRetVal
     }
 
     /**
@@ -73,15 +72,12 @@ class IDTFilter extends IUnknown{
      * 
      * @param {Integer} enSystem 
      * @param {Integer} enLevel 
-     * @param {Pointer<Integer>} plbfEnAttr 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-get_blockedratingattributes
      */
-    get_BlockedRatingAttributes(enSystem, enLevel, plbfEnAttr) {
-        plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, "int", enSystem, "int", enLevel, plbfEnAttrMarshal, plbfEnAttr, "HRESULT")
-        return result
+    get_BlockedRatingAttributes(enSystem, enLevel) {
+        result := ComCall(5, this, "int", enSystem, "int", enLevel, "int*", &plbfEnAttr := 0, "HRESULT")
+        return plbfEnAttr
     }
 
     /**
@@ -99,13 +95,12 @@ class IDTFilter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfBlockUnRatedShows 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-get_blockunrated
      */
-    get_BlockUnRated(pfBlockUnRatedShows) {
-        result := ComCall(7, this, "ptr", pfBlockUnRatedShows, "HRESULT")
-        return result
+    get_BlockUnRated() {
+        result := ComCall(7, this, "int*", &pfBlockUnRatedShows := 0, "HRESULT")
+        return pfBlockUnRatedShows
     }
 
     /**
@@ -121,15 +116,12 @@ class IDTFilter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pmsecsDelayBeforeBlock 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-get_blockunrateddelay
      */
-    get_BlockUnRatedDelay(pmsecsDelayBeforeBlock) {
-        pmsecsDelayBeforeBlockMarshal := pmsecsDelayBeforeBlock is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pmsecsDelayBeforeBlockMarshal, pmsecsDelayBeforeBlock, "HRESULT")
-        return result
+    get_BlockUnRatedDelay() {
+        result := ComCall(9, this, "int*", &pmsecsDelayBeforeBlock := 0, "HRESULT")
+        return pmsecsDelayBeforeBlock
     }
 
     /**

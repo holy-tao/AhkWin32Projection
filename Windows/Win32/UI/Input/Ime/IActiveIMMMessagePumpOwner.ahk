@@ -58,14 +58,11 @@ class IActiveIMMMessagePumpOwner extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Pause(pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Pause() {
+        result := ComCall(6, this, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

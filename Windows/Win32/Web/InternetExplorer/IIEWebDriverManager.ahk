@@ -31,13 +31,12 @@ class IIEWebDriverManager extends IDispatch{
     /**
      * 
      * @param {PWSTR} command 
-     * @param {Pointer<PWSTR>} response 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    ExecuteCommand(command, response) {
+    ExecuteCommand(command) {
         command := command is String ? StrPtr(command) : command
 
-        result := ComCall(7, this, "ptr", command, "ptr", response, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", command, "ptr*", &response := 0, "HRESULT")
+        return response
     }
 }

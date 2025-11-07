@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Device.ahk
+#Include .\ID2D1StrokeStyle1.ahk
+#Include .\ID2D1PathGeometry1.ahk
+#Include .\ID2D1DrawingStateBlock1.ahk
+#Include .\ID2D1GdiMetafile.ahk
+#Include .\ID2D1Properties.ahk
 #Include .\ID2D1Factory.ahk
 
 /**
@@ -38,13 +44,12 @@ class ID2D1Factory1 extends ID2D1Factory{
     /**
      * 
      * @param {IDXGIDevice} dxgiDevice 
-     * @param {Pointer<ID2D1Device>} d2dDevice 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Device} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-createdevice
      */
-    CreateDevice(dxgiDevice, d2dDevice) {
-        result := ComCall(17, this, "ptr", dxgiDevice, "ptr*", d2dDevice, "HRESULT")
-        return result
+    CreateDevice(dxgiDevice) {
+        result := ComCall(17, this, "ptr", dxgiDevice, "ptr*", &d2dDevice := 0, "HRESULT")
+        return ID2D1Device(d2dDevice)
     }
 
     /**
@@ -52,51 +57,47 @@ class ID2D1Factory1 extends ID2D1Factory{
      * @param {Pointer<D2D1_STROKE_STYLE_PROPERTIES1>} strokeStyleProperties 
      * @param {Pointer<Float>} dashes 
      * @param {Integer} dashesCount 
-     * @param {Pointer<ID2D1StrokeStyle1>} strokeStyle 
-     * @returns {HRESULT} 
+     * @returns {ID2D1StrokeStyle1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-createstrokestyle(constd2d1_stroke_style_properties1_constfloat_uint32_id2d1strokestyle1)
      */
-    CreateStrokeStyle(strokeStyleProperties, dashes, dashesCount, strokeStyle) {
+    CreateStrokeStyle(strokeStyleProperties, dashes, dashesCount) {
         dashesMarshal := dashes is VarRef ? "float*" : "ptr"
 
-        result := ComCall(18, this, "ptr", strokeStyleProperties, dashesMarshal, dashes, "uint", dashesCount, "ptr*", strokeStyle, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", strokeStyleProperties, dashesMarshal, dashes, "uint", dashesCount, "ptr*", &strokeStyle := 0, "HRESULT")
+        return ID2D1StrokeStyle1(strokeStyle)
     }
 
     /**
      * 
-     * @param {Pointer<ID2D1PathGeometry1>} pathGeometry 
-     * @returns {HRESULT} 
+     * @returns {ID2D1PathGeometry1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-createpathgeometry
      */
-    CreatePathGeometry(pathGeometry) {
-        result := ComCall(19, this, "ptr*", pathGeometry, "HRESULT")
-        return result
+    CreatePathGeometry() {
+        result := ComCall(19, this, "ptr*", &pathGeometry := 0, "HRESULT")
+        return ID2D1PathGeometry1(pathGeometry)
     }
 
     /**
      * 
      * @param {Pointer<D2D1_DRAWING_STATE_DESCRIPTION1>} drawingStateDescription 
      * @param {IDWriteRenderingParams} textRenderingParams 
-     * @param {Pointer<ID2D1DrawingStateBlock1>} drawingStateBlock 
-     * @returns {HRESULT} 
+     * @returns {ID2D1DrawingStateBlock1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-createdrawingstateblock(constd2d1_drawing_state_description1_idwriterenderingparams_id2d1drawingstateblock1)
      */
-    CreateDrawingStateBlock(drawingStateDescription, textRenderingParams, drawingStateBlock) {
-        result := ComCall(20, this, "ptr", drawingStateDescription, "ptr", textRenderingParams, "ptr*", drawingStateBlock, "HRESULT")
-        return result
+    CreateDrawingStateBlock(drawingStateDescription, textRenderingParams) {
+        result := ComCall(20, this, "ptr", drawingStateDescription, "ptr", textRenderingParams, "ptr*", &drawingStateBlock := 0, "HRESULT")
+        return ID2D1DrawingStateBlock1(drawingStateBlock)
     }
 
     /**
      * 
      * @param {IStream} metafileStream 
-     * @param {Pointer<ID2D1GdiMetafile>} metafile 
-     * @returns {HRESULT} 
+     * @returns {ID2D1GdiMetafile} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-creategdimetafile
      */
-    CreateGdiMetafile(metafileStream, metafile) {
-        result := ComCall(21, this, "ptr", metafileStream, "ptr*", metafile, "HRESULT")
-        return result
+    CreateGdiMetafile(metafileStream) {
+        result := ComCall(21, this, "ptr", metafileStream, "ptr*", &metafile := 0, "HRESULT")
+        return ID2D1GdiMetafile(metafile)
     }
 
     /**
@@ -162,12 +163,11 @@ class ID2D1Factory1 extends ID2D1Factory{
     /**
      * 
      * @param {Pointer<Guid>} effectId 
-     * @param {Pointer<ID2D1Properties>} properties 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Properties} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-geteffectproperties
      */
-    GetEffectProperties(effectId, properties) {
-        result := ComCall(26, this, "ptr", effectId, "ptr*", properties, "HRESULT")
-        return result
+    GetEffectProperties(effectId) {
+        result := ComCall(26, this, "ptr", effectId, "ptr*", &properties := 0, "HRESULT")
+        return ID2D1Properties(properties)
     }
 }

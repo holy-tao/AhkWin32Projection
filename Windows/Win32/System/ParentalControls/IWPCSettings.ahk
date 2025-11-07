@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,36 +33,32 @@ class IWPCSettings extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfRequired 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcsettings-isloggingrequired
      */
-    IsLoggingRequired(pfRequired) {
-        result := ComCall(3, this, "ptr", pfRequired, "HRESULT")
-        return result
+    IsLoggingRequired() {
+        result := ComCall(3, this, "int*", &pfRequired := 0, "HRESULT")
+        return pfRequired
     }
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} pTime 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcsettings-getlastsettingschangetime
      */
-    GetLastSettingsChangeTime(pTime) {
+    GetLastSettingsChangeTime() {
+        pTime := SYSTEMTIME()
         result := ComCall(4, this, "ptr", pTime, "HRESULT")
-        return result
+        return pTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwRestrictions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcsettings-getrestrictions
      */
-    GetRestrictions(pdwRestrictions) {
-        pdwRestrictionsMarshal := pdwRestrictions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pdwRestrictionsMarshal, pdwRestrictions, "HRESULT")
-        return result
+    GetRestrictions() {
+        result := ComCall(5, this, "int*", &pdwRestrictions := 0, "HRESULT")
+        return pdwRestrictions
     }
 }

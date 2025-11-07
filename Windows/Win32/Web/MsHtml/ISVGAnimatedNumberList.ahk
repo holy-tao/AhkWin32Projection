@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGNumberList.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,12 +47,11 @@ class ISVGAnimatedNumberList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGNumberList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGNumberList} 
      */
-    get_baseVal(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_baseVal() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGNumberList(p)
     }
 
     /**
@@ -66,11 +66,10 @@ class ISVGAnimatedNumberList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGNumberList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGNumberList} 
      */
-    get_animVal(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_animVal() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGNumberList(p)
     }
 }

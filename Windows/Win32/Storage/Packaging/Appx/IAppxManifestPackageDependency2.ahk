@@ -32,14 +32,11 @@ class IAppxManifestPackageDependency2 extends IAppxManifestPackageDependency{
 
     /**
      * 
-     * @param {Pointer<Integer>} maxMajorVersionTested 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency2-getmaxmajorversiontested
      */
-    GetMaxMajorVersionTested(maxMajorVersionTested) {
-        maxMajorVersionTestedMarshal := maxMajorVersionTested is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(6, this, maxMajorVersionTestedMarshal, maxMajorVersionTested, "HRESULT")
-        return result
+    GetMaxMajorVersionTested() {
+        result := ComCall(6, this, "ushort*", &maxMajorVersionTested := 0, "HRESULT")
+        return maxMajorVersionTested
     }
 }

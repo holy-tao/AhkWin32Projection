@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\IReferenceClock.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -72,8 +73,9 @@ class IDirectMusicSynth extends IUnknown{
      */
     Download(phDownload, pvData, pbFree) {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        pbFreeMarshal := pbFree is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", phDownload, pvDataMarshal, pvData, "ptr", pbFree, "HRESULT")
+        result := ComCall(6, this, "ptr", phDownload, pvDataMarshal, pvData, pbFreeMarshal, pbFree, "HRESULT")
         return result
     }
 
@@ -143,13 +145,12 @@ class IDirectMusicSynth extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IReferenceClock>} ppClock 
-     * @returns {HRESULT} 
+     * @returns {IReferenceClock} 
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-getlatencyclock
      */
-    GetLatencyClock(ppClock) {
-        result := ComCall(12, this, "ptr*", ppClock, "HRESULT")
-        return result
+    GetLatencyClock() {
+        result := ComCall(12, this, "ptr*", &ppClock := 0, "HRESULT")
+        return IReferenceClock(ppClock)
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\EXCEPINFO.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +32,12 @@ class IActiveScriptError extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<EXCEPINFO>} pexcepinfo 
-     * @returns {HRESULT} 
+     * @returns {EXCEPINFO} 
      */
-    GetExceptionInfo(pexcepinfo) {
+    GetExceptionInfo() {
+        pexcepinfo := EXCEPINFO()
         result := ComCall(3, this, "ptr", pexcepinfo, "HRESULT")
-        return result
+        return pexcepinfo
     }
 
     /**
@@ -56,11 +58,11 @@ class IActiveScriptError extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSourceLine 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetSourceLineText(pbstrSourceLine) {
+    GetSourceLineText() {
+        pbstrSourceLine := BSTR()
         result := ComCall(5, this, "ptr", pbstrSourceLine, "HRESULT")
-        return result
+        return pbstrSourceLine
     }
 }

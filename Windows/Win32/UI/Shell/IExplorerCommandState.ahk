@@ -43,14 +43,11 @@ class IExplorerCommandState extends IUnknown{
      * 
      * @param {IShellItemArray} psiItemArray 
      * @param {BOOL} fOkToBeSlow 
-     * @param {Pointer<Integer>} pCmdState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommandstate-getstate
      */
-    GetState(psiItemArray, fOkToBeSlow, pCmdState) {
-        pCmdStateMarshal := pCmdState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", psiItemArray, "int", fOkToBeSlow, pCmdStateMarshal, pCmdState, "HRESULT")
-        return result
+    GetState(psiItemArray, fOkToBeSlow) {
+        result := ComCall(3, this, "ptr", psiItemArray, "int", fOkToBeSlow, "uint*", &pCmdState := 0, "HRESULT")
+        return pCmdState
     }
 }

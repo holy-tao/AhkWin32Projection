@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IModelObject.ahk
+#Include .\IKeyStore.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -39,26 +41,24 @@ class IDataModelManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    CreateNoValue(object) {
-        result := ComCall(4, this, "ptr*", object, "HRESULT")
-        return result
+    CreateNoValue() {
+        result := ComCall(4, this, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 
     /**
      * 
      * @param {HRESULT} hrError 
      * @param {PWSTR} pwszMessage 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    CreateErrorObject(hrError, pwszMessage, object) {
+    CreateErrorObject(hrError, pwszMessage) {
         pwszMessage := pwszMessage is String ? StrPtr(pwszMessage) : pwszMessage
 
-        result := ComCall(5, this, "int", hrError, "ptr", pwszMessage, "ptr*", object, "HRESULT")
-        return result
+        result := ComCall(5, this, "int", hrError, "ptr", pwszMessage, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 
     /**
@@ -66,12 +66,11 @@ class IDataModelManager extends IUnknown{
      * @param {IDebugHostContext} context 
      * @param {Location} objectLocation 
      * @param {IDebugHostType} objectType 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    CreateTypedObject(context, objectLocation, objectType, object) {
-        result := ComCall(6, this, "ptr", context, "ptr", objectLocation, "ptr", objectType, "ptr*", object, "HRESULT")
-        return result
+    CreateTypedObject(context, objectLocation, objectType) {
+        result := ComCall(6, this, "ptr", context, "ptr", objectLocation, "ptr", objectType, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 
     /**
@@ -79,69 +78,63 @@ class IDataModelManager extends IUnknown{
      * @param {IDebugHostContext} context 
      * @param {Location} objectLocation 
      * @param {IDebugHostType} objectType 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    CreateTypedObjectReference(context, objectLocation, objectType, object) {
-        result := ComCall(7, this, "ptr", context, "ptr", objectLocation, "ptr", objectType, "ptr*", object, "HRESULT")
-        return result
+    CreateTypedObjectReference(context, objectLocation, objectType) {
+        result := ComCall(7, this, "ptr", context, "ptr", objectLocation, "ptr", objectType, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 
     /**
      * 
      * @param {IDebugHostContext} context 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    CreateSyntheticObject(context, object) {
-        result := ComCall(8, this, "ptr", context, "ptr*", object, "HRESULT")
-        return result
+    CreateSyntheticObject(context) {
+        result := ComCall(8, this, "ptr", context, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 
     /**
      * 
      * @param {IDataModelConcept} dataModel 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    CreateDataModelObject(dataModel, object) {
-        result := ComCall(9, this, "ptr", dataModel, "ptr*", object, "HRESULT")
-        return result
+    CreateDataModelObject(dataModel) {
+        result := ComCall(9, this, "ptr", dataModel, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 
     /**
      * 
      * @param {Integer} objectKind 
      * @param {Pointer<VARIANT>} intrinsicData 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    CreateIntrinsicObject(objectKind, intrinsicData, object) {
-        result := ComCall(10, this, "int", objectKind, "ptr", intrinsicData, "ptr*", object, "HRESULT")
-        return result
+    CreateIntrinsicObject(objectKind, intrinsicData) {
+        result := ComCall(10, this, "int", objectKind, "ptr", intrinsicData, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} intrinsicData 
      * @param {IDebugHostType} type 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    CreateTypedIntrinsicObject(intrinsicData, type, object) {
-        result := ComCall(11, this, "ptr", intrinsicData, "ptr", type, "ptr*", object, "HRESULT")
-        return result
+    CreateTypedIntrinsicObject(intrinsicData, type) {
+        result := ComCall(11, this, "ptr", intrinsicData, "ptr", type, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 
     /**
      * 
      * @param {IDebugHostTypeSignature} typeSignature 
-     * @param {Pointer<IModelObject>} dataModel 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    GetModelForTypeSignature(typeSignature, dataModel) {
-        result := ComCall(12, this, "ptr", typeSignature, "ptr*", dataModel, "HRESULT")
-        return result
+    GetModelForTypeSignature(typeSignature) {
+        result := ComCall(12, this, "ptr", typeSignature, "ptr*", &dataModel := 0, "HRESULT")
+        return IModelObject(dataModel)
     }
 
     /**
@@ -204,22 +197,20 @@ class IDataModelManager extends IUnknown{
     /**
      * 
      * @param {IKeyStore} parentStore 
-     * @param {Pointer<IKeyStore>} metadataStore 
-     * @returns {HRESULT} 
+     * @returns {IKeyStore} 
      */
-    CreateMetadataStore(parentStore, metadataStore) {
-        result := ComCall(18, this, "ptr", parentStore, "ptr*", metadataStore, "HRESULT")
-        return result
+    CreateMetadataStore(parentStore) {
+        result := ComCall(18, this, "ptr", parentStore, "ptr*", &metadataStore := 0, "HRESULT")
+        return IKeyStore(metadataStore)
     }
 
     /**
      * 
-     * @param {Pointer<IModelObject>} rootNamespace 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    GetRootNamespace(rootNamespace) {
-        result := ComCall(19, this, "ptr*", rootNamespace, "HRESULT")
-        return result
+    GetRootNamespace() {
+        result := ComCall(19, this, "ptr*", &rootNamespace := 0, "HRESULT")
+        return IModelObject(rootNamespace)
     }
 
     /**
@@ -250,13 +241,12 @@ class IDataModelManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} modelName 
-     * @param {Pointer<IModelObject>} modelObject 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    AcquireNamedModel(modelName, modelObject) {
+    AcquireNamedModel(modelName) {
         modelName := modelName is String ? StrPtr(modelName) : modelName
 
-        result := ComCall(22, this, "ptr", modelName, "ptr*", modelObject, "HRESULT")
-        return result
+        result := ComCall(22, this, "ptr", modelName, "ptr*", &modelObject := 0, "HRESULT")
+        return IModelObject(modelObject)
     }
 }

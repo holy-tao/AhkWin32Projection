@@ -36,11 +36,10 @@ class IMDRangeRowset extends IUnknown{
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
-     * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetRangeRowset(pUnkOuter, ulStartCell, ulEndCell, riid, cPropertySets, rgPropertySets, ppRowset) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", ulStartCell, "ptr", ulEndCell, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", ppRowset, "HRESULT")
-        return result
+    GetRangeRowset(pUnkOuter, ulStartCell, ulEndCell, riid, cPropertySets, rgPropertySets) {
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", ulStartCell, "ptr", ulEndCell, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        return IUnknown(ppRowset)
     }
 }

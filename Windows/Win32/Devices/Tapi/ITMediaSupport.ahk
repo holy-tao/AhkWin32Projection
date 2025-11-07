@@ -32,26 +32,22 @@ class ITMediaSupport extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plMediaTypes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediasupport-get_mediatypes
      */
-    get_MediaTypes(plMediaTypes) {
-        plMediaTypesMarshal := plMediaTypes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plMediaTypesMarshal, plMediaTypes, "HRESULT")
-        return result
+    get_MediaTypes() {
+        result := ComCall(7, this, "int*", &plMediaTypes := 0, "HRESULT")
+        return plMediaTypes
     }
 
     /**
      * 
      * @param {Integer} lMediaType 
-     * @param {Pointer<VARIANT_BOOL>} pfSupport 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediasupport-querymediatype
      */
-    QueryMediaType(lMediaType, pfSupport) {
-        result := ComCall(8, this, "int", lMediaType, "ptr", pfSupport, "HRESULT")
-        return result
+    QueryMediaType(lMediaType) {
+        result := ComCall(8, this, "int", lMediaType, "short*", &pfSupport := 0, "HRESULT")
+        return pfSupport
     }
 }

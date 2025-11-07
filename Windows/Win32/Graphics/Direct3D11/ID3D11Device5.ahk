@@ -34,17 +34,14 @@ class ID3D11Device5 extends ID3D11Device4{
      * 
      * @param {HANDLE} hFence 
      * @param {Pointer<Guid>} ReturnedInterface 
-     * @param {Pointer<Pointer<Void>>} ppFence 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11device5-opensharedfence
      */
-    OpenSharedFence(hFence, ReturnedInterface, ppFence) {
+    OpenSharedFence(hFence, ReturnedInterface) {
         hFence := hFence is Win32Handle ? NumGet(hFence, "ptr") : hFence
 
-        ppFenceMarshal := ppFence is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(67, this, "ptr", hFence, "ptr", ReturnedInterface, ppFenceMarshal, ppFence, "HRESULT")
-        return result
+        result := ComCall(67, this, "ptr", hFence, "ptr", ReturnedInterface, "ptr*", &ppFence := 0, "HRESULT")
+        return ppFence
     }
 
     /**
@@ -52,14 +49,11 @@ class ID3D11Device5 extends ID3D11Device4{
      * @param {Integer} InitialValue 
      * @param {Integer} Flags 
      * @param {Pointer<Guid>} ReturnedInterface 
-     * @param {Pointer<Pointer<Void>>} ppFence 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11device5-createfence
      */
-    CreateFence(InitialValue, Flags, ReturnedInterface, ppFence) {
-        ppFenceMarshal := ppFence is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(68, this, "uint", InitialValue, "int", Flags, "ptr", ReturnedInterface, ppFenceMarshal, ppFence, "HRESULT")
-        return result
+    CreateFence(InitialValue, Flags, ReturnedInterface) {
+        result := ComCall(68, this, "uint", InitialValue, "int", Flags, "ptr", ReturnedInterface, "ptr*", &ppFence := 0, "HRESULT")
+        return ppFence
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostType.ahk
+#Include .\ArrayDimension.ahk
 #Include .\IDebugHostSymbol.ahk
 
 /**
@@ -30,48 +32,38 @@ class IDebugHostType extends IDebugHostSymbol{
 
     /**
      * 
-     * @param {Pointer<Integer>} kind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetTypeKind(kind) {
-        kindMarshal := kind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, kindMarshal, kind, "HRESULT")
-        return result
+    GetTypeKind() {
+        result := ComCall(10, this, "int*", &kind := 0, "HRESULT")
+        return kind
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} size 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSize(size) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, sizeMarshal, size, "HRESULT")
-        return result
+    GetSize() {
+        result := ComCall(11, this, "uint*", &size := 0, "HRESULT")
+        return size
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostType>} baseType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    GetBaseType(baseType) {
-        result := ComCall(12, this, "ptr*", baseType, "HRESULT")
-        return result
+    GetBaseType() {
+        result := ComCall(12, this, "ptr*", &baseType := 0, "HRESULT")
+        return IDebugHostType(baseType)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} hashCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetHashCode(hashCode) {
-        hashCodeMarshal := hashCode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, hashCodeMarshal, hashCode, "HRESULT")
-        return result
+    GetHashCode() {
+        result := ComCall(13, this, "uint*", &hashCode := 0, "HRESULT")
+        return hashCode
     }
 
     /**
@@ -104,149 +96,125 @@ class IDebugHostType extends IDebugHostSymbol{
 
     /**
      * 
-     * @param {Pointer<Integer>} pointerKind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPointerKind(pointerKind) {
-        pointerKindMarshal := pointerKind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pointerKindMarshal, pointerKind, "HRESULT")
-        return result
+    GetPointerKind() {
+        result := ComCall(16, this, "int*", &pointerKind := 0, "HRESULT")
+        return pointerKind
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostType>} memberType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    GetMemberType(memberType) {
-        result := ComCall(17, this, "ptr*", memberType, "HRESULT")
-        return result
+    GetMemberType() {
+        result := ComCall(17, this, "ptr*", &memberType := 0, "HRESULT")
+        return IDebugHostType(memberType)
     }
 
     /**
      * 
      * @param {Integer} kind 
-     * @param {Pointer<IDebugHostType>} newType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    CreatePointerTo(kind, newType) {
-        result := ComCall(18, this, "int", kind, "ptr*", newType, "HRESULT")
-        return result
+    CreatePointerTo(kind) {
+        result := ComCall(18, this, "int", kind, "ptr*", &newType := 0, "HRESULT")
+        return IDebugHostType(newType)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} arrayDimensionality 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetArrayDimensionality(arrayDimensionality) {
-        arrayDimensionalityMarshal := arrayDimensionality is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, arrayDimensionalityMarshal, arrayDimensionality, "HRESULT")
-        return result
+    GetArrayDimensionality() {
+        result := ComCall(19, this, "uint*", &arrayDimensionality := 0, "HRESULT")
+        return arrayDimensionality
     }
 
     /**
      * 
      * @param {Integer} dimensions 
-     * @param {Pointer<ArrayDimension>} pDimensions 
-     * @returns {HRESULT} 
+     * @returns {ArrayDimension} 
      */
-    GetArrayDimensions(dimensions, pDimensions) {
+    GetArrayDimensions(dimensions) {
+        pDimensions := ArrayDimension()
         result := ComCall(20, this, "uint", dimensions, "ptr", pDimensions, "HRESULT")
-        return result
+        return pDimensions
     }
 
     /**
      * 
      * @param {Integer} dimensions 
      * @param {Pointer<ArrayDimension>} pDimensions 
-     * @param {Pointer<IDebugHostType>} newType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    CreateArrayOf(dimensions, pDimensions, newType) {
-        result := ComCall(21, this, "uint", dimensions, "ptr", pDimensions, "ptr*", newType, "HRESULT")
-        return result
+    CreateArrayOf(dimensions, pDimensions) {
+        result := ComCall(21, this, "uint", dimensions, "ptr", pDimensions, "ptr*", &newType := 0, "HRESULT")
+        return IDebugHostType(newType)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} conventionKind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFunctionCallingConvention(conventionKind) {
-        conventionKindMarshal := conventionKind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, conventionKindMarshal, conventionKind, "HRESULT")
-        return result
+    GetFunctionCallingConvention() {
+        result := ComCall(22, this, "int*", &conventionKind := 0, "HRESULT")
+        return conventionKind
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostType>} returnType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    GetFunctionReturnType(returnType) {
-        result := ComCall(23, this, "ptr*", returnType, "HRESULT")
-        return result
+    GetFunctionReturnType() {
+        result := ComCall(23, this, "ptr*", &returnType := 0, "HRESULT")
+        return IDebugHostType(returnType)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFunctionParameterTypeCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(24, this, countMarshal, count, "HRESULT")
-        return result
+    GetFunctionParameterTypeCount() {
+        result := ComCall(24, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} i 
-     * @param {Pointer<IDebugHostType>} parameterType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    GetFunctionParameterTypeAt(i, parameterType) {
-        result := ComCall(25, this, "uint", i, "ptr*", parameterType, "HRESULT")
-        return result
+    GetFunctionParameterTypeAt(i) {
+        result := ComCall(25, this, "uint", i, "ptr*", &parameterType := 0, "HRESULT")
+        return IDebugHostType(parameterType)
     }
 
     /**
      * 
-     * @param {Pointer<Boolean>} isGeneric 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    IsGeneric(isGeneric) {
-        isGenericMarshal := isGeneric is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, isGenericMarshal, isGeneric, "HRESULT")
-        return result
+    IsGeneric() {
+        result := ComCall(26, this, "int*", &isGeneric := 0, "HRESULT")
+        return isGeneric
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} argCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetGenericArgumentCount(argCount) {
-        argCountMarshal := argCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(27, this, argCountMarshal, argCount, "HRESULT")
-        return result
+    GetGenericArgumentCount() {
+        result := ComCall(27, this, "uint*", &argCount := 0, "HRESULT")
+        return argCount
     }
 
     /**
      * 
      * @param {Integer} i 
-     * @param {Pointer<IDebugHostSymbol>} argument 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostSymbol} 
      */
-    GetGenericArgumentAt(i, argument) {
-        result := ComCall(28, this, "uint", i, "ptr*", argument, "HRESULT")
-        return result
+    GetGenericArgumentAt(i) {
+        result := ComCall(28, this, "uint", i, "ptr*", &argument := 0, "HRESULT")
+        return IDebugHostSymbol(argument)
     }
 }

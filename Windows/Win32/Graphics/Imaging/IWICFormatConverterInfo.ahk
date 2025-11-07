@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICFormatConverter.ahk
 #Include .\IWICComponentInfo.ahk
 
 /**
@@ -34,25 +35,21 @@ class IWICFormatConverterInfo extends IWICComponentInfo{
      * 
      * @param {Integer} cFormats 
      * @param {Pointer<Guid>} pPixelFormatGUIDs 
-     * @param {Pointer<Integer>} pcActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicformatconverterinfo-getpixelformats
      */
-    GetPixelFormats(cFormats, pPixelFormatGUIDs, pcActual) {
-        pcActualMarshal := pcActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, "uint", cFormats, "ptr", pPixelFormatGUIDs, pcActualMarshal, pcActual, "HRESULT")
-        return result
+    GetPixelFormats(cFormats, pPixelFormatGUIDs) {
+        result := ComCall(11, this, "uint", cFormats, "ptr", pPixelFormatGUIDs, "uint*", &pcActual := 0, "HRESULT")
+        return pcActual
     }
 
     /**
      * 
-     * @param {Pointer<IWICFormatConverter>} ppIConverter 
-     * @returns {HRESULT} 
+     * @returns {IWICFormatConverter} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicformatconverterinfo-createinstance
      */
-    CreateInstance(ppIConverter) {
-        result := ComCall(12, this, "ptr*", ppIConverter, "HRESULT")
-        return result
+    CreateInstance() {
+        result := ComCall(12, this, "ptr*", &ppIConverter := 0, "HRESULT")
+        return IWICFormatConverter(ppIConverter)
     }
 }

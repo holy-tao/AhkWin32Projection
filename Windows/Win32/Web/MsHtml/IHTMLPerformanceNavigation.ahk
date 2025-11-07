@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,45 +38,39 @@ class IHTMLPerformanceNavigation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_type(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_type() {
+        result := ComCall(7, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_redirectCount(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_redirectCount() {
+        result := ComCall(8, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} string 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toString(string) {
+    toString() {
+        string := BSTR()
         result := ComCall(9, this, "ptr", string, "HRESULT")
-        return result
+        return string
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    toJSON(pVar) {
+    toJSON() {
+        pVar := VARIANT()
         result := ComCall(10, this, "ptr", pVar, "HRESULT")
-        return result
+        return pVar
     }
 }

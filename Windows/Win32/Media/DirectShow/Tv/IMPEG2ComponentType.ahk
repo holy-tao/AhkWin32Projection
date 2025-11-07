@@ -43,15 +43,12 @@ class IMPEG2ComponentType extends ILanguageComponentType{
 
     /**
      * 
-     * @param {Pointer<Integer>} MP2StreamType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2componenttype-get_streamtype
      */
-    get_StreamType(MP2StreamType) {
-        MP2StreamTypeMarshal := MP2StreamType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, MP2StreamTypeMarshal, MP2StreamType, "HRESULT")
-        return result
+    get_StreamType() {
+        result := ComCall(26, this, "int*", &MP2StreamType := 0, "HRESULT")
+        return MP2StreamType
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,12 +38,12 @@ class ISWbemQualifier extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} varValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Value(varValue) {
+    get_Value() {
+        varValue := VARIANT()
         result := ComCall(7, this, "ptr", varValue, "HRESULT")
-        return result
+        return varValue
     }
 
     /**
@@ -56,32 +58,30 @@ class ISWbemQualifier extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(strName) {
+    get_Name() {
+        strName := BSTR()
         result := ComCall(9, this, "ptr", strName, "HRESULT")
-        return result
+        return strName
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bIsLocal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsLocal(bIsLocal) {
-        result := ComCall(10, this, "ptr", bIsLocal, "HRESULT")
-        return result
+    get_IsLocal() {
+        result := ComCall(10, this, "short*", &bIsLocal := 0, "HRESULT")
+        return bIsLocal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bPropagatesToSubclass 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_PropagatesToSubclass(bPropagatesToSubclass) {
-        result := ComCall(11, this, "ptr", bPropagatesToSubclass, "HRESULT")
-        return result
+    get_PropagatesToSubclass() {
+        result := ComCall(11, this, "short*", &bPropagatesToSubclass := 0, "HRESULT")
+        return bPropagatesToSubclass
     }
 
     /**
@@ -96,12 +96,11 @@ class ISWbemQualifier extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bPropagatesToInstance 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_PropagatesToInstance(bPropagatesToInstance) {
-        result := ComCall(13, this, "ptr", bPropagatesToInstance, "HRESULT")
-        return result
+    get_PropagatesToInstance() {
+        result := ComCall(13, this, "short*", &bPropagatesToInstance := 0, "HRESULT")
+        return bPropagatesToInstance
     }
 
     /**
@@ -116,12 +115,11 @@ class ISWbemQualifier extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bIsOverridable 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsOverridable(bIsOverridable) {
-        result := ComCall(15, this, "ptr", bIsOverridable, "HRESULT")
-        return result
+    get_IsOverridable() {
+        result := ComCall(15, this, "short*", &bIsOverridable := 0, "HRESULT")
+        return bIsOverridable
     }
 
     /**
@@ -136,11 +134,10 @@ class ISWbemQualifier extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bIsAmended 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsAmended(bIsAmended) {
-        result := ComCall(17, this, "ptr", bIsAmended, "HRESULT")
-        return result
+    get_IsAmended() {
+        result := ComCall(17, this, "short*", &bIsAmended := 0, "HRESULT")
+        return bIsAmended
     }
 }

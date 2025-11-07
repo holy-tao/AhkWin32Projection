@@ -115,32 +115,29 @@ class IShellFavoritesNameSpace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pBool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_SubscriptionsEnabled(pBool) {
-        result := ComCall(16, this, "ptr", pBool, "HRESULT")
-        return result
+    get_SubscriptionsEnabled() {
+        result := ComCall(16, this, "short*", &pBool := 0, "HRESULT")
+        return pBool
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pBool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    CreateSubscriptionForSelection(pBool) {
-        result := ComCall(17, this, "ptr", pBool, "HRESULT")
-        return result
+    CreateSubscriptionForSelection() {
+        result := ComCall(17, this, "short*", &pBool := 0, "HRESULT")
+        return pBool
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pBool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    DeleteSubscriptionForSelection(pBool) {
-        result := ComCall(18, this, "ptr", pBool, "HRESULT")
-        return result
+    DeleteSubscriptionForSelection() {
+        result := ComCall(18, this, "short*", &pBool := 0, "HRESULT")
+        return pBool
     }
 
     /**

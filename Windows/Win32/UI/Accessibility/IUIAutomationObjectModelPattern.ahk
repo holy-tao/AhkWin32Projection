@@ -32,12 +32,11 @@ class IUIAutomationObjectModelPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationobjectmodelpattern-getunderlyingobjectmodel
      */
-    GetUnderlyingObjectModel(retVal) {
-        result := ComCall(3, this, "ptr*", retVal, "HRESULT")
-        return result
+    GetUnderlyingObjectModel() {
+        result := ComCall(3, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUnknown(retVal)
     }
 }

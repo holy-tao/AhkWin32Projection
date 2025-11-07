@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpPhraseAlt.ahk
+#Include .\ISpStreamFormat.ahk
+#Include .\ISpRecoContext.ahk
 #Include .\ISpPhrase.ahk
 
 /**
@@ -43,27 +46,25 @@ class ISpRecoResult extends ISpPhrase{
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @param {Integer} ulRequestCount 
-     * @param {Pointer<ISpPhraseAlt>} ppPhrases 
      * @param {Pointer<Integer>} pcPhrasesReturned 
-     * @returns {HRESULT} 
+     * @returns {ISpPhraseAlt} 
      */
-    GetAlternates(ulStartElement, cElements, ulRequestCount, ppPhrases, pcPhrasesReturned) {
+    GetAlternates(ulStartElement, cElements, ulRequestCount, pcPhrasesReturned) {
         pcPhrasesReturnedMarshal := pcPhrasesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", ulStartElement, "uint", cElements, "uint", ulRequestCount, "ptr*", ppPhrases, pcPhrasesReturnedMarshal, pcPhrasesReturned, "HRESULT")
-        return result
+        result := ComCall(8, this, "uint", ulStartElement, "uint", cElements, "uint", ulRequestCount, "ptr*", &ppPhrases := 0, pcPhrasesReturnedMarshal, pcPhrasesReturned, "HRESULT")
+        return ISpPhraseAlt(ppPhrases)
     }
 
     /**
      * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
-     * @param {Pointer<ISpStreamFormat>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {ISpStreamFormat} 
      */
-    GetAudio(ulStartElement, cElements, ppStream) {
-        result := ComCall(9, this, "uint", ulStartElement, "uint", cElements, "ptr*", ppStream, "HRESULT")
-        return result
+    GetAudio(ulStartElement, cElements) {
+        result := ComCall(9, this, "uint", ulStartElement, "uint", cElements, "ptr*", &ppStream := 0, "HRESULT")
+        return ISpStreamFormat(ppStream)
     }
 
     /**
@@ -106,11 +107,10 @@ class ISpRecoResult extends ISpPhrase{
 
     /**
      * 
-     * @param {Pointer<ISpRecoContext>} ppRecoContext 
-     * @returns {HRESULT} 
+     * @returns {ISpRecoContext} 
      */
-    GetRecoContext(ppRecoContext) {
-        result := ComCall(13, this, "ptr*", ppRecoContext, "HRESULT")
-        return result
+    GetRecoContext() {
+        result := ComCall(13, this, "ptr*", &ppRecoContext := 0, "HRESULT")
+        return ISpRecoContext(ppRecoContext)
     }
 }

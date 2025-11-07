@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCSession.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Media\DirectShow\IVideoWindow.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -85,14 +88,11 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plFilter 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EventFilter(plFilter) {
-        plFilterMarshal := plFilter is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plFilterMarshal, plFilter, "HRESULT")
-        return result
+    get_EventFilter() {
+        result := ComCall(7, this, "int*", &plFilter := 0, "HRESULT")
+        return plFilter
     }
 
     /**
@@ -108,26 +108,20 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plMediaTypes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PreferredMediaTypes(plMediaTypes) {
-        plMediaTypesMarshal := plMediaTypes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plMediaTypesMarshal, plMediaTypes, "HRESULT")
-        return result
+    get_PreferredMediaTypes() {
+        result := ComCall(9, this, "int*", &plMediaTypes := 0, "HRESULT")
+        return plMediaTypes
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMediaTypes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MediaCapabilities(plMediaTypes) {
-        plMediaTypesMarshal := plMediaTypes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plMediaTypesMarshal, plMediaTypes, "HRESULT")
-        return result
+    get_MediaCapabilities() {
+        result := ComCall(10, this, "int*", &plMediaTypes := 0, "HRESULT")
+        return plMediaTypes
     }
 
     /**
@@ -136,14 +130,13 @@ class IRTCClient extends IUnknown{
      * @param {BSTR} bstrLocalPhoneURI 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lFlags 
-     * @param {Pointer<IRTCSession>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {IRTCSession} 
      */
-    CreateSession(enType, bstrLocalPhoneURI, pProfile, lFlags, ppSession) {
+    CreateSession(enType, bstrLocalPhoneURI, pProfile, lFlags) {
         bstrLocalPhoneURI := bstrLocalPhoneURI is String ? BSTR.Alloc(bstrLocalPhoneURI).Value : bstrLocalPhoneURI
 
-        result := ComCall(11, this, "int", enType, "ptr", bstrLocalPhoneURI, "ptr", pProfile, "int", lFlags, "ptr*", ppSession, "HRESULT")
-        return result
+        result := ComCall(11, this, "int", enType, "ptr", bstrLocalPhoneURI, "ptr", pProfile, "int", lFlags, "ptr*", &ppSession := 0, "HRESULT")
+        return IRTCSession(ppSession)
     }
 
     /**
@@ -158,26 +151,23 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} penListen 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ListenForIncomingSessions(penListen) {
-        penListenMarshal := penListen is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, penListenMarshal, penListen, "HRESULT")
-        return result
+    get_ListenForIncomingSessions() {
+        result := ComCall(13, this, "int*", &penListen := 0, "HRESULT")
+        return penListen
     }
 
     /**
      * 
      * @param {VARIANT_BOOL} fTCP 
      * @param {VARIANT_BOOL} fExternal 
-     * @param {Pointer<VARIANT>} pvAddresses 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_NetworkAddresses(fTCP, fExternal, pvAddresses) {
+    get_NetworkAddresses(fTCP, fExternal) {
+        pvAddresses := VARIANT()
         result := ComCall(14, this, "short", fTCP, "short", fExternal, "ptr", pvAddresses, "HRESULT")
-        return result
+        return pvAddresses
     }
 
     /**
@@ -194,14 +184,11 @@ class IRTCClient extends IUnknown{
     /**
      * 
      * @param {Integer} enDevice 
-     * @param {Pointer<Integer>} plVolume 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Volume(enDevice, plVolume) {
-        plVolumeMarshal := plVolume is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, "int", enDevice, plVolumeMarshal, plVolume, "HRESULT")
-        return result
+    get_Volume(enDevice) {
+        result := ComCall(16, this, "int", enDevice, "int*", &plVolume := 0, "HRESULT")
+        return plVolume
     }
 
     /**
@@ -218,23 +205,21 @@ class IRTCClient extends IUnknown{
     /**
      * 
      * @param {Integer} enDevice 
-     * @param {Pointer<VARIANT_BOOL>} pfMuted 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_AudioMuted(enDevice, pfMuted) {
-        result := ComCall(18, this, "int", enDevice, "ptr", pfMuted, "HRESULT")
-        return result
+    get_AudioMuted(enDevice) {
+        result := ComCall(18, this, "int", enDevice, "short*", &pfMuted := 0, "HRESULT")
+        return pfMuted
     }
 
     /**
      * 
      * @param {Integer} enDevice 
-     * @param {Pointer<IVideoWindow>} ppIVideoWindow 
-     * @returns {HRESULT} 
+     * @returns {IVideoWindow} 
      */
-    get_IVideoWindow(enDevice, ppIVideoWindow) {
-        result := ComCall(19, this, "int", enDevice, "ptr*", ppIVideoWindow, "HRESULT")
-        return result
+    get_IVideoWindow(enDevice) {
+        result := ComCall(19, this, "int", enDevice, "ptr*", &ppIVideoWindow := 0, "HRESULT")
+        return IVideoWindow(ppIVideoWindow)
     }
 
     /**
@@ -253,12 +238,12 @@ class IRTCClient extends IUnknown{
     /**
      * 
      * @param {Integer} enDevice 
-     * @param {Pointer<BSTR>} pbstrDeviceName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PreferredAudioDevice(enDevice, pbstrDeviceName) {
+    get_PreferredAudioDevice(enDevice) {
+        pbstrDeviceName := BSTR()
         result := ComCall(21, this, "int", enDevice, "ptr", pbstrDeviceName, "HRESULT")
-        return result
+        return pbstrDeviceName
     }
 
     /**
@@ -275,14 +260,11 @@ class IRTCClient extends IUnknown{
     /**
      * 
      * @param {Integer} enDevice 
-     * @param {Pointer<Integer>} plVolume 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PreferredVolume(enDevice, plVolume) {
-        plVolumeMarshal := plVolume is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, "int", enDevice, plVolumeMarshal, plVolume, "HRESULT")
-        return result
+    get_PreferredVolume(enDevice) {
+        result := ComCall(23, this, "int", enDevice, "int*", &plVolume := 0, "HRESULT")
+        return plVolume
     }
 
     /**
@@ -297,12 +279,11 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_PreferredAEC(pbEnabled) {
-        result := ComCall(25, this, "ptr", pbEnabled, "HRESULT")
-        return result
+    get_PreferredAEC() {
+        result := ComCall(25, this, "short*", &pbEnabled := 0, "HRESULT")
+        return pbEnabled
     }
 
     /**
@@ -319,24 +300,21 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDeviceName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PreferredVideoDevice(pbstrDeviceName) {
+    get_PreferredVideoDevice() {
+        pbstrDeviceName := BSTR()
         result := ComCall(27, this, "ptr", pbstrDeviceName, "HRESULT")
-        return result
+        return pbstrDeviceName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMediaType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ActiveMedia(plMediaType) {
-        plMediaTypeMarshal := plMediaType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, plMediaTypeMarshal, plMediaType, "HRESULT")
-        return result
+    get_ActiveMedia() {
+        result := ComCall(28, this, "int*", &plMediaType := 0, "HRESULT")
+        return plMediaType
     }
 
     /**
@@ -351,14 +329,11 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plMaxBitrate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaxBitrate(plMaxBitrate) {
-        plMaxBitrateMarshal := plMaxBitrate is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, plMaxBitrateMarshal, plMaxBitrate, "HRESULT")
-        return result
+    get_MaxBitrate() {
+        result := ComCall(30, this, "int*", &plMaxBitrate := 0, "HRESULT")
+        return plMaxBitrate
     }
 
     /**
@@ -373,26 +348,20 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TemporalSpatialTradeOff(plValue) {
-        plValueMarshal := plValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, plValueMarshal, plValue, "HRESULT")
-        return result
+    get_TemporalSpatialTradeOff() {
+        result := ComCall(32, this, "int*", &plValue := 0, "HRESULT")
+        return plValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plNetworkQuality 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_NetworkQuality(plNetworkQuality) {
-        plNetworkQualityMarshal := plNetworkQuality is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, plNetworkQualityMarshal, plNetworkQuality, "HRESULT")
-        return result
+    get_NetworkQuality() {
+        result := ComCall(33, this, "int*", &plNetworkQuality := 0, "HRESULT")
+        return plNetworkQuality
     }
 
     /**
@@ -417,22 +386,21 @@ class IRTCClient extends IUnknown{
     /**
      * 
      * @param {Integer} enApplet 
-     * @param {Pointer<VARIANT_BOOL>} pfRunning 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsT120AppletRunning(enApplet, pfRunning) {
-        result := ComCall(36, this, "int", enApplet, "ptr", pfRunning, "HRESULT")
-        return result
+    get_IsT120AppletRunning(enApplet) {
+        result := ComCall(36, this, "int", enApplet, "short*", &pfRunning := 0, "HRESULT")
+        return pfRunning
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUserURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LocalUserURI(pbstrUserURI) {
+    get_LocalUserURI() {
+        pbstrUserURI := BSTR()
         result := ComCall(37, this, "ptr", pbstrUserURI, "HRESULT")
-        return result
+        return pbstrUserURI
     }
 
     /**
@@ -449,12 +417,12 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUserName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LocalUserName(pbstrUserName) {
+    get_LocalUserName() {
+        pbstrUserName := BSTR()
         result := ComCall(39, this, "ptr", pbstrUserName, "HRESULT")
-        return result
+        return pbstrUserName
     }
 
     /**
@@ -502,11 +470,10 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfTuned 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsTuned(pfTuned) {
-        result := ComCall(44, this, "ptr", pfTuned, "HRESULT")
-        return result
+    get_IsTuned() {
+        result := ComCall(44, this, "short*", &pfTuned := 0, "HRESULT")
+        return pfTuned
     }
 }

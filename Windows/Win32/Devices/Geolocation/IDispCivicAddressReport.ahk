@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,85 +37,79 @@ class IDispCivicAddressReport extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pAddress1 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_AddressLine1(pAddress1) {
+    get_AddressLine1() {
+        pAddress1 := BSTR()
         result := ComCall(7, this, "ptr", pAddress1, "HRESULT")
-        return result
+        return pAddress1
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pAddress2 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_AddressLine2(pAddress2) {
+    get_AddressLine2() {
+        pAddress2 := BSTR()
         result := ComCall(8, this, "ptr", pAddress2, "HRESULT")
-        return result
+        return pAddress2
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pCity 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_City(pCity) {
+    get_City() {
+        pCity := BSTR()
         result := ComCall(9, this, "ptr", pCity, "HRESULT")
-        return result
+        return pCity
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pStateProvince 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_StateProvince(pStateProvince) {
+    get_StateProvince() {
+        pStateProvince := BSTR()
         result := ComCall(10, this, "ptr", pStateProvince, "HRESULT")
-        return result
+        return pStateProvince
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pPostalCode 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PostalCode(pPostalCode) {
+    get_PostalCode() {
+        pPostalCode := BSTR()
         result := ComCall(11, this, "ptr", pPostalCode, "HRESULT")
-        return result
+        return pPostalCode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pCountryRegion 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_CountryRegion(pCountryRegion) {
+    get_CountryRegion() {
+        pCountryRegion := BSTR()
         result := ComCall(12, this, "ptr", pCountryRegion, "HRESULT")
-        return result
+        return pCountryRegion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDetailLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DetailLevel(pDetailLevel) {
-        pDetailLevelMarshal := pDetailLevel is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pDetailLevelMarshal, pDetailLevel, "HRESULT")
-        return result
+    get_DetailLevel() {
+        result := ComCall(13, this, "uint*", &pDetailLevel := 0, "HRESULT")
+        return pDetailLevel
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_Timestamp(pVal) {
-        pValMarshal := pVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(14, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Timestamp() {
+        result := ComCall(14, this, "double*", &pVal := 0, "HRESULT")
+        return pVal
     }
 }

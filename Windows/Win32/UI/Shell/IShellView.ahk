@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\FOLDERSETTINGS.ahk
 #Include ..\..\System\Ole\IOleWindow.ahk
 
 /**
@@ -91,13 +93,13 @@ class IShellView extends IOleWindow{
      * @param {Pointer<FOLDERSETTINGS>} pfs 
      * @param {IShellBrowser} psb 
      * @param {Pointer<RECT>} prcView 
-     * @param {Pointer<HWND>} phWnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-createviewwindow
      */
-    CreateViewWindow(psvPrevious, pfs, psb, prcView, phWnd) {
+    CreateViewWindow(psvPrevious, pfs, psb, prcView) {
+        phWnd := HWND()
         result := ComCall(9, this, "ptr", psvPrevious, "ptr", pfs, "ptr", psb, "ptr", prcView, "ptr", phWnd, "HRESULT")
-        return result
+        return phWnd
     }
 
     /**
@@ -112,13 +114,13 @@ class IShellView extends IOleWindow{
 
     /**
      * 
-     * @param {Pointer<FOLDERSETTINGS>} pfs 
-     * @returns {HRESULT} 
+     * @returns {FOLDERSETTINGS} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-getcurrentinfo
      */
-    GetCurrentInfo(pfs) {
+    GetCurrentInfo() {
+        pfs := FOLDERSETTINGS()
         result := ComCall(11, this, "ptr", pfs, "HRESULT")
-        return result
+        return pfs
     }
 
     /**
@@ -160,14 +162,11 @@ class IShellView extends IOleWindow{
      * 
      * @param {Integer} uItem 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-getitemobject
      */
-    GetItemObject(uItem, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(15, this, "uint", uItem, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetItemObject(uItem, riid) {
+        result := ComCall(15, this, "uint", uItem, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

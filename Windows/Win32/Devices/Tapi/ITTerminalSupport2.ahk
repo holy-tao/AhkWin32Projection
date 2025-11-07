@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumPluggableSuperclassInfo.ahk
+#Include .\IEnumPluggableTerminalClassInfo.ahk
 #Include .\ITTerminalSupport.ahk
 
 /**
@@ -33,51 +36,49 @@ class ITTerminalSupport2 extends ITTerminalSupport{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport2-get_pluggablesuperclasses
      */
-    get_PluggableSuperclasses(pVariant) {
+    get_PluggableSuperclasses() {
+        pVariant := VARIANT()
         result := ComCall(13, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumPluggableSuperclassInfo>} ppSuperclassEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IEnumPluggableSuperclassInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport2-enumeratepluggablesuperclasses
      */
-    EnumeratePluggableSuperclasses(ppSuperclassEnumerator) {
-        result := ComCall(14, this, "ptr*", ppSuperclassEnumerator, "HRESULT")
-        return result
+    EnumeratePluggableSuperclasses() {
+        result := ComCall(14, this, "ptr*", &ppSuperclassEnumerator := 0, "HRESULT")
+        return IEnumPluggableSuperclassInfo(ppSuperclassEnumerator)
     }
 
     /**
      * 
      * @param {BSTR} bstrTerminalSuperclass 
      * @param {Integer} lMediaType 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport2-get_pluggableterminalclasses
      */
-    get_PluggableTerminalClasses(bstrTerminalSuperclass, lMediaType, pVariant) {
+    get_PluggableTerminalClasses(bstrTerminalSuperclass, lMediaType) {
         bstrTerminalSuperclass := bstrTerminalSuperclass is String ? BSTR.Alloc(bstrTerminalSuperclass).Value : bstrTerminalSuperclass
 
+        pVariant := VARIANT()
         result := ComCall(15, this, "ptr", bstrTerminalSuperclass, "int", lMediaType, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
      * @param {Guid} iidTerminalSuperclass 
      * @param {Integer} lMediaType 
-     * @param {Pointer<IEnumPluggableTerminalClassInfo>} ppClassEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IEnumPluggableTerminalClassInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport2-enumeratepluggableterminalclasses
      */
-    EnumeratePluggableTerminalClasses(iidTerminalSuperclass, lMediaType, ppClassEnumerator) {
-        result := ComCall(16, this, "ptr", iidTerminalSuperclass, "int", lMediaType, "ptr*", ppClassEnumerator, "HRESULT")
-        return result
+    EnumeratePluggableTerminalClasses(iidTerminalSuperclass, lMediaType) {
+        result := ComCall(16, this, "ptr", iidTerminalSuperclass, "int", lMediaType, "ptr*", &ppClassEnumerator := 0, "HRESULT")
+        return IEnumPluggableTerminalClassInfo(ppClassEnumerator)
     }
 }

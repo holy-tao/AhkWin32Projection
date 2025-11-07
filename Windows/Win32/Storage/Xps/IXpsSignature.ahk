@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Packaging\Opc\IOpcCertificateEnumerator.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
+#Include ..\Packaging\Opc\IOpcSignatureCustomObjectEnumerator.ahk
+#Include ..\Packaging\Opc\IOpcSignatureReferenceEnumerator.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,13 +43,12 @@ class IXpsSignature extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} sigId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsignatureid
      */
-    GetSignatureId(sigId) {
-        result := ComCall(3, this, "ptr", sigId, "HRESULT")
-        return result
+    GetSignatureId() {
+        result := ComCall(3, this, "ptr*", &sigId := 0, "HRESULT")
+        return sigId
     }
 
     /**
@@ -65,97 +68,83 @@ class IXpsSignature extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcCertificateEnumerator>} certificateEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcCertificateEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getcertificateenumerator
      */
-    GetCertificateEnumerator(certificateEnumerator) {
-        result := ComCall(5, this, "ptr*", certificateEnumerator, "HRESULT")
-        return result
+    GetCertificateEnumerator() {
+        result := ComCall(5, this, "ptr*", &certificateEnumerator := 0, "HRESULT")
+        return IOpcCertificateEnumerator(certificateEnumerator)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} sigDateTimeString 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsigningtime
      */
-    GetSigningTime(sigDateTimeString) {
-        result := ComCall(6, this, "ptr", sigDateTimeString, "HRESULT")
-        return result
+    GetSigningTime() {
+        result := ComCall(6, this, "ptr*", &sigDateTimeString := 0, "HRESULT")
+        return sigDateTimeString
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} timeFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsigningtimeformat
      */
-    GetSigningTimeFormat(timeFormat) {
-        timeFormatMarshal := timeFormat is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, timeFormatMarshal, timeFormat, "HRESULT")
-        return result
+    GetSigningTimeFormat() {
+        result := ComCall(7, this, "int*", &timeFormat := 0, "HRESULT")
+        return timeFormat
     }
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} signaturePartName 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsignaturepartname
      */
-    GetSignaturePartName(signaturePartName) {
-        result := ComCall(8, this, "ptr*", signaturePartName, "HRESULT")
-        return result
+    GetSignaturePartName() {
+        result := ComCall(8, this, "ptr*", &signaturePartName := 0, "HRESULT")
+        return IOpcPartUri(signaturePartName)
     }
 
     /**
      * 
      * @param {Pointer<CERT_CONTEXT>} x509Certificate 
-     * @param {Pointer<Integer>} sigStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-verify
      */
-    Verify(x509Certificate, sigStatus) {
-        sigStatusMarshal := sigStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "ptr", x509Certificate, sigStatusMarshal, sigStatus, "HRESULT")
-        return result
+    Verify(x509Certificate) {
+        result := ComCall(9, this, "ptr", x509Certificate, "int*", &sigStatus := 0, "HRESULT")
+        return sigStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} policy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getpolicy
      */
-    GetPolicy(policy) {
-        policyMarshal := policy is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, policyMarshal, policy, "HRESULT")
-        return result
+    GetPolicy() {
+        result := ComCall(10, this, "int*", &policy := 0, "HRESULT")
+        return policy
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureCustomObjectEnumerator>} customObjectEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureCustomObjectEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getcustomobjectenumerator
      */
-    GetCustomObjectEnumerator(customObjectEnumerator) {
-        result := ComCall(11, this, "ptr*", customObjectEnumerator, "HRESULT")
-        return result
+    GetCustomObjectEnumerator() {
+        result := ComCall(11, this, "ptr*", &customObjectEnumerator := 0, "HRESULT")
+        return IOpcSignatureCustomObjectEnumerator(customObjectEnumerator)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureReferenceEnumerator>} customReferenceEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureReferenceEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getcustomreferenceenumerator
      */
-    GetCustomReferenceEnumerator(customReferenceEnumerator) {
-        result := ComCall(12, this, "ptr*", customReferenceEnumerator, "HRESULT")
-        return result
+    GetCustomReferenceEnumerator() {
+        result := ComCall(12, this, "ptr*", &customReferenceEnumerator := 0, "HRESULT")
+        return IOpcSignatureReferenceEnumerator(customReferenceEnumerator)
     }
 
     /**

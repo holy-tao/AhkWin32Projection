@@ -30,34 +30,29 @@ class IDebugApplicationThread11064 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puiThreadRequests 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetActiveThreadRequestCount(puiThreadRequests) {
-        puiThreadRequestsMarshal := puiThreadRequests is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, puiThreadRequestsMarshal, puiThreadRequests, "HRESULT")
-        return result
+    GetActiveThreadRequestCount() {
+        result := ComCall(3, this, "uint*", &puiThreadRequests := 0, "HRESULT")
+        return puiThreadRequests
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsSuspended 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsSuspendedForBreakPoint(pfIsSuspended) {
-        result := ComCall(4, this, "ptr", pfIsSuspended, "HRESULT")
-        return result
+    IsSuspendedForBreakPoint() {
+        result := ComCall(4, this, "int*", &pfIsSuspended := 0, "HRESULT")
+        return pfIsSuspended
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsCallable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsThreadCallable(pfIsCallable) {
-        result := ComCall(5, this, "ptr", pfIsCallable, "HRESULT")
-        return result
+    IsThreadCallable() {
+        result := ComCall(5, this, "int*", &pfIsCallable := 0, "HRESULT")
+        return pfIsCallable
     }
 
     /**

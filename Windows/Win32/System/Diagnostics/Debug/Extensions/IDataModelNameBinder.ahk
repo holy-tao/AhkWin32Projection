@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IKeyEnumerator.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -61,22 +62,20 @@ class IDataModelNameBinder extends IUnknown{
     /**
      * 
      * @param {IModelObject} contextObject 
-     * @param {Pointer<IKeyEnumerator>} enumerator 
-     * @returns {HRESULT} 
+     * @returns {IKeyEnumerator} 
      */
-    EnumerateValues(contextObject, enumerator) {
-        result := ComCall(5, this, "ptr", contextObject, "ptr*", enumerator, "HRESULT")
-        return result
+    EnumerateValues(contextObject) {
+        result := ComCall(5, this, "ptr", contextObject, "ptr*", &enumerator := 0, "HRESULT")
+        return IKeyEnumerator(enumerator)
     }
 
     /**
      * 
      * @param {IModelObject} contextObject 
-     * @param {Pointer<IKeyEnumerator>} enumerator 
-     * @returns {HRESULT} 
+     * @returns {IKeyEnumerator} 
      */
-    EnumerateReferences(contextObject, enumerator) {
-        result := ComCall(6, this, "ptr", contextObject, "ptr*", enumerator, "HRESULT")
-        return result
+    EnumerateReferences(contextObject) {
+        result := ComCall(6, this, "ptr", contextObject, "ptr*", &enumerator := 0, "HRESULT")
+        return IKeyEnumerator(enumerator)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMSMQQueueInfo.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -45,11 +46,10 @@ class IMSMQQueueInfos extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMSMQQueueInfo>} ppqinfoNext 
-     * @returns {HRESULT} 
+     * @returns {IMSMQQueueInfo} 
      */
-    Next(ppqinfoNext) {
-        result := ComCall(8, this, "ptr*", ppqinfoNext, "HRESULT")
-        return result
+    Next() {
+        result := ComCall(8, this, "ptr*", &ppqinfoNext := 0, "HRESULT")
+        return IMSMQQueueInfo(ppqinfoNext)
     }
 }

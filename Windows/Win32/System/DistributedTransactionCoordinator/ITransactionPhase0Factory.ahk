@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransactionPhase0EnlistmentAsync.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,11 +32,10 @@ class ITransactionPhase0Factory extends IUnknown{
     /**
      * 
      * @param {ITransactionPhase0NotifyAsync} pPhase0Notify 
-     * @param {Pointer<ITransactionPhase0EnlistmentAsync>} ppPhase0Enlistment 
-     * @returns {HRESULT} 
+     * @returns {ITransactionPhase0EnlistmentAsync} 
      */
-    Create(pPhase0Notify, ppPhase0Enlistment) {
-        result := ComCall(3, this, "ptr", pPhase0Notify, "ptr*", ppPhase0Enlistment, "HRESULT")
-        return result
+    Create(pPhase0Notify) {
+        result := ComCall(3, this, "ptr", pPhase0Notify, "ptr*", &ppPhase0Enlistment := 0, "HRESULT")
+        return ITransactionPhase0EnlistmentAsync(ppPhase0Enlistment)
     }
 }

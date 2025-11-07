@@ -30,14 +30,11 @@ class IDebugHostBaseClass2 extends IDebugHostBaseClass{
 
     /**
      * 
-     * @param {Pointer<Boolean>} pIsVirtual 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    IsVirtual(pIsVirtual) {
-        pIsVirtualMarshal := pIsVirtual is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pIsVirtualMarshal, pIsVirtual, "HRESULT")
-        return result
+    IsVirtual() {
+        result := ComCall(11, this, "int*", &pIsVirtual := 0, "HRESULT")
+        return pIsVirtual
     }
 
     /**

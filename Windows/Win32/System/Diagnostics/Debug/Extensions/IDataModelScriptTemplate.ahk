@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Com\IStream.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,31 +32,30 @@ class IDataModelScriptTemplate extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} templateName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(templateName) {
+    GetName() {
+        templateName := BSTR()
         result := ComCall(3, this, "ptr", templateName, "HRESULT")
-        return result
+        return templateName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} templateDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDescription(templateDescription) {
+    GetDescription() {
+        templateDescription := BSTR()
         result := ComCall(4, this, "ptr", templateDescription, "HRESULT")
-        return result
+        return templateDescription
     }
 
     /**
      * 
-     * @param {Pointer<IStream>} contentStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      */
-    GetContent(contentStream) {
-        result := ComCall(5, this, "ptr*", contentStream, "HRESULT")
-        return result
+    GetContent() {
+        result := ComCall(5, this, "ptr*", &contentStream := 0, "HRESULT")
+        return IStream(contentStream)
     }
 }

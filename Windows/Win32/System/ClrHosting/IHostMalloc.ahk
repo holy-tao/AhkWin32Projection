@@ -32,14 +32,11 @@ class IHostMalloc extends IUnknown{
      * 
      * @param {Pointer} cbSize 
      * @param {Integer} eCriticalLevel 
-     * @param {Pointer<Pointer<Void>>} ppMem 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    Alloc(cbSize, eCriticalLevel, ppMem) {
-        ppMemMarshal := ppMem is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", cbSize, "int", eCriticalLevel, ppMemMarshal, ppMem, "HRESULT")
-        return result
+    Alloc(cbSize, eCriticalLevel) {
+        result := ComCall(3, this, "ptr", cbSize, "int", eCriticalLevel, "ptr*", &ppMem := 0, "HRESULT")
+        return ppMem
     }
 
     /**
@@ -48,15 +45,13 @@ class IHostMalloc extends IUnknown{
      * @param {Integer} eCriticalLevel 
      * @param {Pointer<Integer>} pszFileName 
      * @param {Integer} iLineNo 
-     * @param {Pointer<Pointer<Void>>} ppMem 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    DebugAlloc(cbSize, eCriticalLevel, pszFileName, iLineNo, ppMem) {
+    DebugAlloc(cbSize, eCriticalLevel, pszFileName, iLineNo) {
         pszFileNameMarshal := pszFileName is VarRef ? "char*" : "ptr"
-        ppMemMarshal := ppMem is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cbSize, "int", eCriticalLevel, pszFileNameMarshal, pszFileName, "int", iLineNo, ppMemMarshal, ppMem, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", cbSize, "int", eCriticalLevel, pszFileNameMarshal, pszFileName, "int", iLineNo, "ptr*", &ppMem := 0, "HRESULT")
+        return ppMem
     }
 
     /**

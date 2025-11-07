@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include .\IMSMQManagement.ahk
 
 /**
@@ -36,33 +37,30 @@ class IMSMQQueueManagement extends IMSMQManagement{
 
     /**
      * 
-     * @param {Pointer<Integer>} plJournalMessageCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_JournalMessageCount(plJournalMessageCount) {
-        plJournalMessageCountMarshal := plJournalMessageCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, plJournalMessageCountMarshal, plJournalMessageCount, "HRESULT")
-        return result
+    get_JournalMessageCount() {
+        result := ComCall(16, this, "int*", &plJournalMessageCount := 0, "HRESULT")
+        return plJournalMessageCount
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvBytesInJournal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_BytesInJournal(pvBytesInJournal) {
+    get_BytesInJournal() {
+        pvBytesInJournal := VARIANT()
         result := ComCall(17, this, "ptr", pvBytesInJournal, "HRESULT")
-        return result
+        return pvBytesInJournal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvCollection 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    EodGetReceiveInfo(pvCollection) {
+    EodGetReceiveInfo() {
+        pvCollection := VARIANT()
         result := ComCall(18, this, "ptr", pvCollection, "HRESULT")
-        return result
+        return pvCollection
     }
 }

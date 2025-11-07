@@ -45,10 +45,11 @@ class ICallIndirect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-callindirect
      */
     CallIndirect(phrReturn, iMethod, pvArgs, cbArgs) {
+        phrReturnMarshal := phrReturn is VarRef ? "int*" : "ptr"
         pvArgsMarshal := pvArgs is VarRef ? "ptr" : "ptr"
         cbArgsMarshal := cbArgs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", phrReturn, "uint", iMethod, pvArgsMarshal, pvArgs, cbArgsMarshal, cbArgs, "HRESULT")
+        result := ComCall(3, this, phrReturnMarshal, phrReturn, "uint", iMethod, pvArgsMarshal, pvArgs, cbArgsMarshal, cbArgs, "HRESULT")
         return result
     }
 
@@ -61,22 +62,21 @@ class ICallIndirect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-getmethodinfo
      */
     GetMethodInfo(iMethod, pInfo, pwszMethod) {
-        result := ComCall(4, this, "uint", iMethod, "ptr", pInfo, "ptr", pwszMethod, "HRESULT")
+        pwszMethodMarshal := pwszMethod is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", iMethod, "ptr", pInfo, pwszMethodMarshal, pwszMethod, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Integer} iMethod 
-     * @param {Pointer<Integer>} cbArgs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-getstacksize
      */
-    GetStackSize(iMethod, cbArgs) {
-        cbArgsMarshal := cbArgs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", iMethod, cbArgsMarshal, cbArgs, "HRESULT")
-        return result
+    GetStackSize(iMethod) {
+        result := ComCall(5, this, "uint", iMethod, "uint*", &cbArgs := 0, "HRESULT")
+        return cbArgs
     }
 
     /**
@@ -89,9 +89,11 @@ class ICallIndirect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-getiid
      */
     GetIID(piid, pfDerivesFromIDispatch, pcMethod, pwszInterface) {
+        pfDerivesFromIDispatchMarshal := pfDerivesFromIDispatch is VarRef ? "int*" : "ptr"
         pcMethodMarshal := pcMethod is VarRef ? "uint*" : "ptr"
+        pwszInterfaceMarshal := pwszInterface is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", piid, "ptr", pfDerivesFromIDispatch, pcMethodMarshal, pcMethod, "ptr", pwszInterface, "HRESULT")
+        result := ComCall(6, this, "ptr", piid, pfDerivesFromIDispatchMarshal, pfDerivesFromIDispatch, pcMethodMarshal, pcMethod, pwszInterfaceMarshal, pwszInterface, "HRESULT")
         return result
     }
 }

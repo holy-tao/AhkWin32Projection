@@ -38,9 +38,10 @@ class IMDSPRevoked extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdsprevoked-getrevocationurl
      */
     GetRevocationURL(ppwszRevocationURL, pdwBufferLen) {
+        ppwszRevocationURLMarshal := ppwszRevocationURL is VarRef ? "ptr*" : "ptr"
         pdwBufferLenMarshal := pdwBufferLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", ppwszRevocationURL, pdwBufferLenMarshal, pdwBufferLen, "HRESULT")
+        result := ComCall(3, this, ppwszRevocationURLMarshal, ppwszRevocationURL, pdwBufferLenMarshal, pdwBufferLen, "HRESULT")
         return result
     }
 }

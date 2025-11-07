@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IGPMTrustee.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -305,53 +306,46 @@ class IGPMPermission extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Inherited(pVal) {
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+    get_Inherited() {
+        result := ComCall(7, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Inheritable(pVal) {
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+    get_Inheritable() {
+        result := ComCall(8, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Denied(pVal) {
-        result := ComCall(9, this, "ptr", pVal, "HRESULT")
-        return result
+    get_Denied() {
+        result := ComCall(9, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Permission(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Permission() {
+        result := ComCall(10, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<IGPMTrustee>} ppIGPMTrustee 
-     * @returns {HRESULT} 
+     * @returns {IGPMTrustee} 
      */
-    get_Trustee(ppIGPMTrustee) {
-        result := ComCall(11, this, "ptr*", ppIGPMTrustee, "HRESULT")
-        return result
+    get_Trustee() {
+        result := ComCall(11, this, "ptr*", &ppIGPMTrustee := 0, "HRESULT")
+        return IGPMTrustee(ppIGPMTrustee)
     }
 }

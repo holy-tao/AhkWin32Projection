@@ -51,13 +51,12 @@ class IDataObjectAsyncCapability extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsOpAsync 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-idataobjectasynccapability-getasyncmode
      */
-    GetAsyncMode(pfIsOpAsync) {
-        result := ComCall(4, this, "ptr", pfIsOpAsync, "HRESULT")
-        return result
+    GetAsyncMode() {
+        result := ComCall(4, this, "int*", &pfIsOpAsync := 0, "HRESULT")
+        return pfIsOpAsync
     }
 
     /**
@@ -73,13 +72,12 @@ class IDataObjectAsyncCapability extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfInAsyncOp 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-idataobjectasynccapability-inoperation
      */
-    InOperation(pfInAsyncOp) {
-        result := ComCall(6, this, "ptr", pfInAsyncOp, "HRESULT")
-        return result
+    InOperation() {
+        result := ComCall(6, this, "int*", &pfInAsyncOp := 0, "HRESULT")
+        return pfInAsyncOp
     }
 
     /**

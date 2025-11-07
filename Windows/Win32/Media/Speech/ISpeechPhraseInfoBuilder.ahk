@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpeechPhraseInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,11 +32,10 @@ class ISpeechPhraseInfoBuilder extends IDispatch{
     /**
      * 
      * @param {Pointer<VARIANT>} PhraseInMemory 
-     * @param {Pointer<ISpeechPhraseInfo>} PhraseInfo 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseInfo} 
      */
-    RestorePhraseFromMemory(PhraseInMemory, PhraseInfo) {
-        result := ComCall(7, this, "ptr", PhraseInMemory, "ptr*", PhraseInfo, "HRESULT")
-        return result
+    RestorePhraseFromMemory(PhraseInMemory) {
+        result := ComCall(7, this, "ptr", PhraseInMemory, "ptr*", &PhraseInfo := 0, "HRESULT")
+        return ISpeechPhraseInfo(PhraseInfo)
     }
 }

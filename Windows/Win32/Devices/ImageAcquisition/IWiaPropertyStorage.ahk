@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\System\Com\StructuredStorage\IEnumSTATPROPSTG.ahk
+#Include ..\..\System\Com\StructuredStorage\STATPROPSETSTG.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -149,12 +152,12 @@ class IWiaPropertyStorage extends IUnknown{
      * 
      * @param {Integer} cpspec 
      * @param {Pointer<PROPSPEC>} rgpspec 
-     * @param {Pointer<PROPVARIANT>} rgpropvar 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      */
-    ReadMultiple(cpspec, rgpspec, rgpropvar) {
+    ReadMultiple(cpspec, rgpspec) {
+        rgpropvar := PROPVARIANT()
         result := ComCall(3, this, "uint", cpspec, "ptr", rgpspec, "ptr", rgpropvar, "HRESULT")
-        return result
+        return rgpropvar
     }
 
     /**
@@ -185,14 +188,13 @@ class IWiaPropertyStorage extends IUnknown{
      * 
      * @param {Integer} cpropid 
      * @param {Pointer<Integer>} rgpropid 
-     * @param {Pointer<PWSTR>} rglpwstrName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    ReadPropertyNames(cpropid, rgpropid, rglpwstrName) {
+    ReadPropertyNames(cpropid, rgpropid) {
         rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", cpropid, rgpropidMarshal, rgpropid, "ptr", rglpwstrName, "HRESULT")
-        return result
+        result := ComCall(6, this, "uint", cpropid, rgpropidMarshal, rgpropid, "ptr*", &rglpwstrName := 0, "HRESULT")
+        return rglpwstrName
     }
 
     /**
@@ -204,8 +206,9 @@ class IWiaPropertyStorage extends IUnknown{
      */
     WritePropertyNames(cpropid, rgpropid, rglpwstrName) {
         rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
+        rglpwstrNameMarshal := rglpwstrName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", cpropid, rgpropidMarshal, rgpropid, "ptr", rglpwstrName, "HRESULT")
+        result := ComCall(7, this, "uint", cpropid, rgpropidMarshal, rgpropid, rglpwstrNameMarshal, rglpwstrName, "HRESULT")
         return result
     }
 
@@ -243,12 +246,11 @@ class IWiaPropertyStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSTATPROPSTG>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSTATPROPSTG} 
      */
-    Enum(ppenum) {
-        result := ComCall(11, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Enum() {
+        result := ComCall(11, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumSTATPROPSTG(ppenum)
     }
 
     /**
@@ -275,12 +277,12 @@ class IWiaPropertyStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<STATPROPSETSTG>} pstatpsstg 
-     * @returns {HRESULT} 
+     * @returns {STATPROPSETSTG} 
      */
-    Stat(pstatpsstg) {
+    Stat() {
+        pstatpsstg := STATPROPSETSTG()
         result := ComCall(14, this, "ptr", pstatpsstg, "HRESULT")
-        return result
+        return pstatpsstg
     }
 
     /**
@@ -301,15 +303,12 @@ class IWiaPropertyStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulNumProps 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiapropertystorage-getcount
      */
-    GetCount(pulNumProps) {
-        pulNumPropsMarshal := pulNumProps is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pulNumPropsMarshal, pulNumProps, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(16, this, "uint*", &pulNumProps := 0, "HRESULT")
+        return pulNumProps
     }
 
     /**

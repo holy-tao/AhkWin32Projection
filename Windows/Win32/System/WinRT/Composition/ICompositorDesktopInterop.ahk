@@ -32,13 +32,12 @@ class ICompositorDesktopInterop extends IUnknown{
      * 
      * @param {HWND} hwndTarget 
      * @param {BOOL} isTopmost 
-     * @param {Pointer<DesktopWindowTarget>} result 
-     * @returns {HRESULT} 
+     * @returns {Pointer<DesktopWindowTarget>} 
      */
-    CreateDesktopWindowTarget(hwndTarget, isTopmost, result) {
+    CreateDesktopWindowTarget(hwndTarget, isTopmost) {
         hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget
 
-        result := ComCall(3, this, "ptr", hwndTarget, "int", isTopmost, "ptr", result, "HRESULT")
+        result := ComCall(3, this, "ptr", hwndTarget, "int", isTopmost, "ptr*", &result := 0, "HRESULT")
         return result
     }
 

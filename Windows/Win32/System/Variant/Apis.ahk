@@ -96,7 +96,7 @@ class Variant {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\VARIANT_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLEAUT32.dll\VARIANT_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -179,7 +179,7 @@ class Variant {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\VARIANT_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLEAUT32.dll\VARIANT_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -283,7 +283,7 @@ class Variant {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\VARIANT_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLEAUT32.dll\VARIANT_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -367,7 +367,7 @@ class Variant {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\VARIANT_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLEAUT32.dll\VARIANT_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -1136,7 +1136,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static InitVariantFromBooleanArray(prgf, cElems, pvar) {
-        result := DllCall("PROPSYS.dll\InitVariantFromBooleanArray", "ptr", prgf, "uint", cElems, "ptr", pvar, "int")
+        prgfMarshal := prgf is VarRef ? "int*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitVariantFromBooleanArray", prgfMarshal, prgf, "uint", cElems, "ptr", pvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1352,7 +1354,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static InitVariantFromStringArray(prgsz, cElems, pvar) {
-        result := DllCall("PROPSYS.dll\InitVariantFromStringArray", "ptr", prgsz, "uint", cElems, "ptr", pvar, "int")
+        prgszMarshal := prgsz is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitVariantFromStringArray", prgszMarshal, prgsz, "uint", cElems, "ptr", pvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1528,7 +1532,7 @@ class Variant {
     static VariantToStringWithDefault(varIn, pszDefault) {
         pszDefault := pszDefault is String ? StrPtr(pszDefault) : pszDefault
 
-        result := DllCall("PROPSYS.dll\VariantToStringWithDefault", "ptr", varIn, "ptr", pszDefault, "char*")
+        result := DllCall("PROPSYS.dll\VariantToStringWithDefault", "ptr", varIn, "ptr", pszDefault, "ptr")
         return result
     }
 
@@ -1537,21 +1541,18 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
-     * @param {Pointer<BOOL>} pfRet Type: <b>BOOL*</b>
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * When this function returns, contains the extracted value if one exists; otherwise, <b>FALSE</b>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoboolean
      * @since windows5.1.2600
      */
-    static VariantToBoolean(varIn, pfRet) {
-        result := DllCall("PROPSYS.dll\VariantToBoolean", "ptr", varIn, "ptr", pfRet, "int")
+    static VariantToBoolean(varIn) {
+        result := DllCall("PROPSYS.dll\VariantToBoolean", "ptr", varIn, "int*", &pfRet := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfRet
     }
 
     /**
@@ -1559,23 +1560,18 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Integer>} piRet Type: <b>SHORT*</b>
+     * @returns {Integer} Type: <b>SHORT*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint16
      * @since windows5.1.2600
      */
-    static VariantToInt16(varIn, piRet) {
-        piRetMarshal := piRet is VarRef ? "short*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantToInt16", "ptr", varIn, piRetMarshal, piRet, "int")
+    static VariantToInt16(varIn) {
+        result := DllCall("PROPSYS.dll\VariantToInt16", "ptr", varIn, "short*", &piRet := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return piRet
     }
 
     /**
@@ -1583,23 +1579,18 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Integer>} puiRet Type: <b>USHORT*</b>
+     * @returns {Integer} Type: <b>USHORT*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint16
      * @since windows5.1.2600
      */
-    static VariantToUInt16(varIn, puiRet) {
-        puiRetMarshal := puiRet is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantToUInt16", "ptr", varIn, puiRetMarshal, puiRet, "int")
+    static VariantToUInt16(varIn) {
+        result := DllCall("PROPSYS.dll\VariantToUInt16", "ptr", varIn, "ushort*", &puiRet := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiRet
     }
 
     /**
@@ -1607,23 +1598,18 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Integer>} plRet Type: <b>LONG*</b>
+     * @returns {Integer} Type: <b>LONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint32
      * @since windows5.1.2600
      */
-    static VariantToInt32(varIn, plRet) {
-        plRetMarshal := plRet is VarRef ? "int*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantToInt32", "ptr", varIn, plRetMarshal, plRet, "int")
+    static VariantToInt32(varIn) {
+        result := DllCall("PROPSYS.dll\VariantToInt32", "ptr", varIn, "int*", &plRet := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plRet
     }
 
     /**
@@ -1631,23 +1617,18 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Integer>} pulRet Type: <b>ULONG*</b>
+     * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint32
      * @since windows5.1.2600
      */
-    static VariantToUInt32(varIn, pulRet) {
-        pulRetMarshal := pulRet is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantToUInt32", "ptr", varIn, pulRetMarshal, pulRet, "int")
+    static VariantToUInt32(varIn) {
+        result := DllCall("PROPSYS.dll\VariantToUInt32", "ptr", varIn, "uint*", &pulRet := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulRet
     }
 
     /**
@@ -1655,23 +1636,18 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Integer>} pllRet Type: <b>LONGLONG*</b>
+     * @returns {Integer} Type: <b>LONGLONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint64
      * @since windows5.1.2600
      */
-    static VariantToInt64(varIn, pllRet) {
-        pllRetMarshal := pllRet is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantToInt64", "ptr", varIn, pllRetMarshal, pllRet, "int")
+    static VariantToInt64(varIn) {
+        result := DllCall("PROPSYS.dll\VariantToInt64", "ptr", varIn, "int64*", &pllRet := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pllRet
     }
 
     /**
@@ -1679,23 +1655,18 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Integer>} pullRet Type: <b>ULONGLONG*</b>
+     * @returns {Integer} Type: <b>ULONGLONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint64
      * @since windows5.1.2600
      */
-    static VariantToUInt64(varIn, pullRet) {
-        pullRetMarshal := pullRet is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantToUInt64", "ptr", varIn, pullRetMarshal, pullRet, "int")
+    static VariantToUInt64(varIn) {
+        result := DllCall("PROPSYS.dll\VariantToUInt64", "ptr", varIn, "uint*", &pullRet := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pullRet
     }
 
     /**
@@ -1703,23 +1674,18 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
-     * @param {Pointer<Float>} pdblRet Type: <b>DOUBLE*</b>
+     * @returns {Float} Type: <b>DOUBLE*</b>
      * 
      * When this function returns, contains the extracted value if one exists; otherwise, 0.0.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttodouble
      * @since windows5.1.2600
      */
-    static VariantToDouble(varIn, pdblRet) {
-        pdblRetMarshal := pdblRet is VarRef ? "double*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantToDouble", "ptr", varIn, pdblRetMarshal, pdblRet, "int")
+    static VariantToDouble(varIn) {
+        result := DllCall("PROPSYS.dll\VariantToDouble", "ptr", varIn, "double*", &pdblRet := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblRet
     }
 
     /**
@@ -1841,21 +1807,18 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<PWSTR>} ppszBuf Type: <b>PWSTR</b>
+     * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, empty.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttostringalloc
      * @since windows5.1.2600
      */
-    static VariantToStringAlloc(varIn, ppszBuf) {
-        result := DllCall("PROPSYS.dll\VariantToStringAlloc", "ptr", varIn, "ptr", ppszBuf, "int")
+    static VariantToStringAlloc(varIn) {
+        result := DllCall("PROPSYS.dll\VariantToStringAlloc", "ptr", varIn, "ptr*", &ppszBuf := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszBuf
     }
 
     /**
@@ -1977,9 +1940,10 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToBooleanArray(var, prgf, crgn, pcElem) {
+        prgfMarshal := prgf is VarRef ? "int*" : "ptr"
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\VariantToBooleanArray", "ptr", var, "ptr", prgf, "uint", crgn, pcElemMarshal, pcElem, "int")
+        result := DllCall("PROPSYS.dll\VariantToBooleanArray", "ptr", var, prgfMarshal, prgf, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2253,9 +2217,10 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToStringArray(var, prgsz, crgsz, pcElem) {
+        prgszMarshal := prgsz is VarRef ? "ptr*" : "ptr"
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\VariantToStringArray", "ptr", var, "ptr", prgsz, "uint", crgsz, pcElemMarshal, pcElem, "int")
+        result := DllCall("PROPSYS.dll\VariantToStringArray", "ptr", var, prgszMarshal, prgsz, "uint", crgsz, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2522,21 +2487,18 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<BOOL>} pfVal Type: <b>BOOL*</b>
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * Pointer to the extracted element value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetbooleanelem
      * @since windows5.1.2600
      */
-    static VariantGetBooleanElem(var, iElem, pfVal) {
-        result := DllCall("PROPSYS.dll\VariantGetBooleanElem", "ptr", var, "uint", iElem, "ptr", pfVal, "int")
+    static VariantGetBooleanElem(var, iElem) {
+        result := DllCall("PROPSYS.dll\VariantGetBooleanElem", "ptr", var, "uint", iElem, "int*", &pfVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfVal
     }
 
     /**
@@ -2547,23 +2509,18 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<Integer>} pnVal Type: <b>SHORT*</b>
+     * @returns {Integer} Type: <b>SHORT*</b>
      * 
      * Pointer to the extracted element value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetint16elem
      * @since windows5.1.2600
      */
-    static VariantGetInt16Elem(var, iElem, pnVal) {
-        pnValMarshal := pnVal is VarRef ? "short*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantGetInt16Elem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
+    static VariantGetInt16Elem(var, iElem) {
+        result := DllCall("PROPSYS.dll\VariantGetInt16Elem", "ptr", var, "uint", iElem, "short*", &pnVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pnVal
     }
 
     /**
@@ -2574,23 +2531,18 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies a vector or array index; otherwise, value must be 0.
-     * @param {Pointer<Integer>} pnVal Type: <b>USHORT*</b>
+     * @returns {Integer} Type: <b>USHORT*</b>
      * 
      * Pointer to the extracted element value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetuint16elem
      * @since windows5.1.2600
      */
-    static VariantGetUInt16Elem(var, iElem, pnVal) {
-        pnValMarshal := pnVal is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantGetUInt16Elem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
+    static VariantGetUInt16Elem(var, iElem) {
+        result := DllCall("PROPSYS.dll\VariantGetUInt16Elem", "ptr", var, "uint", iElem, "ushort*", &pnVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pnVal
     }
 
     /**
@@ -2601,23 +2553,18 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<Integer>} pnVal Type: <b>LONG*</b>
+     * @returns {Integer} Type: <b>LONG*</b>
      * 
      * Pointer to the extracted element value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetint32elem
      * @since windows5.1.2600
      */
-    static VariantGetInt32Elem(var, iElem, pnVal) {
-        pnValMarshal := pnVal is VarRef ? "int*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantGetInt32Elem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
+    static VariantGetInt32Elem(var, iElem) {
+        result := DllCall("PROPSYS.dll\VariantGetInt32Elem", "ptr", var, "uint", iElem, "int*", &pnVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pnVal
     }
 
     /**
@@ -2628,23 +2575,18 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<Integer>} pnVal Type: <b>ULONG*</b>
+     * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * Pointer to the extracted element value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetuint32elem
      * @since windows5.1.2600
      */
-    static VariantGetUInt32Elem(var, iElem, pnVal) {
-        pnValMarshal := pnVal is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantGetUInt32Elem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
+    static VariantGetUInt32Elem(var, iElem) {
+        result := DllCall("PROPSYS.dll\VariantGetUInt32Elem", "ptr", var, "uint", iElem, "uint*", &pnVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pnVal
     }
 
     /**
@@ -2655,23 +2597,18 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<Integer>} pnVal Type: <b>LONGLONG*</b>
+     * @returns {Integer} Type: <b>LONGLONG*</b>
      * 
      * Pointer to the extracted element value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetint64elem
      * @since windows5.1.2600
      */
-    static VariantGetInt64Elem(var, iElem, pnVal) {
-        pnValMarshal := pnVal is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantGetInt64Elem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
+    static VariantGetInt64Elem(var, iElem) {
+        result := DllCall("PROPSYS.dll\VariantGetInt64Elem", "ptr", var, "uint", iElem, "int64*", &pnVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pnVal
     }
 
     /**
@@ -2682,23 +2619,18 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<Integer>} pnVal Type: <b>ULONGLONG*</b>
+     * @returns {Integer} Type: <b>ULONGLONG*</b>
      * 
      * Pointer to the extracted element value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetuint64elem
      * @since windows5.1.2600
      */
-    static VariantGetUInt64Elem(var, iElem, pnVal) {
-        pnValMarshal := pnVal is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantGetUInt64Elem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
+    static VariantGetUInt64Elem(var, iElem) {
+        result := DllCall("PROPSYS.dll\VariantGetUInt64Elem", "ptr", var, "uint", iElem, "uint*", &pnVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pnVal
     }
 
     /**
@@ -2709,23 +2641,18 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<Float>} pnVal Type: <b>DOUBLE*</b>
+     * @returns {Float} Type: <b>DOUBLE*</b>
      * 
      * Pointer to the extracted element value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetdoubleelem
      * @since windows5.1.2600
      */
-    static VariantGetDoubleElem(var, iElem, pnVal) {
-        pnValMarshal := pnVal is VarRef ? "double*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\VariantGetDoubleElem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
+    static VariantGetDoubleElem(var, iElem) {
+        result := DllCall("PROPSYS.dll\VariantGetDoubleElem", "ptr", var, "uint", iElem, "double*", &pnVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pnVal
     }
 
     /**
@@ -2736,21 +2663,18 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies a vector or array index; otherwise, value must be 0.
-     * @param {Pointer<PWSTR>} ppszVal Type: <b>PWSTR*</b>
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * The address of a pointer to the extracted element value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetstringelem
      * @since windows5.1.2600
      */
-    static VariantGetStringElem(var, iElem, ppszVal) {
-        result := DllCall("PROPSYS.dll\VariantGetStringElem", "ptr", var, "uint", iElem, "ptr", ppszVal, "int")
+    static VariantGetStringElem(var, iElem) {
+        result := DllCall("PROPSYS.dll\VariantGetStringElem", "ptr", var, "uint", iElem, "ptr*", &ppszVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszVal
     }
 
     /**

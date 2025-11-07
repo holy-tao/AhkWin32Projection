@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRDPSRAPIFrameBuffer.ahk
 #Include .\IRDPSRAPISharingSession.ahk
 
 /**
@@ -49,13 +50,12 @@ class IRDPSRAPISharingSession2 extends IRDPSRAPISharingSession{
 
     /**
      * 
-     * @param {Pointer<IRDPSRAPIFrameBuffer>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIFrameBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession2-get_framebuffer
      */
-    get_FrameBuffer(ppVal) {
-        result := ComCall(22, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get_FrameBuffer() {
+        result := ComCall(22, this, "ptr*", &ppVal := 0, "HRESULT")
+        return IRDPSRAPIFrameBuffer(ppVal)
     }
 
     /**

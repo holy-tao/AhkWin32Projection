@@ -34,16 +34,13 @@ class ICoreFrameworkInputViewInterop extends IInspectable{
      * 
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} coreFrameworkInputView 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.viewmanagement.core.coreframeworkinputviewinterop/nf-windows-ui-viewmanagement-core-coreframeworkinputviewinterop-icoreframeworkinputviewinterop-getforwindow
      */
-    GetForWindow(appWindow, riid, coreFrameworkInputView) {
+    GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        coreFrameworkInputViewMarshal := coreFrameworkInputView is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, coreFrameworkInputViewMarshal, coreFrameworkInputView, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", &coreFrameworkInputView := 0, "HRESULT")
+        return coreFrameworkInputView
     }
 }

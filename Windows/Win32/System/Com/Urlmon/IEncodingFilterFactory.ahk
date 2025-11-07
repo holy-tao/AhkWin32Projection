@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDataFilter.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -33,29 +34,27 @@ class IEncodingFilterFactory extends IUnknown{
      * @param {PWSTR} pwzCodeIn 
      * @param {PWSTR} pwzCodeOut 
      * @param {DATAINFO} info 
-     * @param {Pointer<IDataFilter>} ppDF 
-     * @returns {HRESULT} 
+     * @returns {IDataFilter} 
      */
-    FindBestFilter(pwzCodeIn, pwzCodeOut, info, ppDF) {
+    FindBestFilter(pwzCodeIn, pwzCodeOut, info) {
         pwzCodeIn := pwzCodeIn is String ? StrPtr(pwzCodeIn) : pwzCodeIn
         pwzCodeOut := pwzCodeOut is String ? StrPtr(pwzCodeOut) : pwzCodeOut
 
-        result := ComCall(3, this, "ptr", pwzCodeIn, "ptr", pwzCodeOut, "ptr", info, "ptr*", ppDF, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwzCodeIn, "ptr", pwzCodeOut, "ptr", info, "ptr*", &ppDF := 0, "HRESULT")
+        return IDataFilter(ppDF)
     }
 
     /**
      * 
      * @param {PWSTR} pwzCodeIn 
      * @param {PWSTR} pwzCodeOut 
-     * @param {Pointer<IDataFilter>} ppDF 
-     * @returns {HRESULT} 
+     * @returns {IDataFilter} 
      */
-    GetDefaultFilter(pwzCodeIn, pwzCodeOut, ppDF) {
+    GetDefaultFilter(pwzCodeIn, pwzCodeOut) {
         pwzCodeIn := pwzCodeIn is String ? StrPtr(pwzCodeIn) : pwzCodeIn
         pwzCodeOut := pwzCodeOut is String ? StrPtr(pwzCodeOut) : pwzCodeOut
 
-        result := ComCall(4, this, "ptr", pwzCodeIn, "ptr", pwzCodeOut, "ptr*", ppDF, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pwzCodeIn, "ptr", pwzCodeOut, "ptr*", &ppDF := 0, "HRESULT")
+        return IDataFilter(ppDF)
     }
 }

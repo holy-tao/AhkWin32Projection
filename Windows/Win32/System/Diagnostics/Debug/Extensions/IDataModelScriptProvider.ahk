@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IDataModelScript.ahk
+#Include .\IDataModelScriptTemplate.ahk
+#Include .\IDataModelScriptTemplateEnumerator.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,51 +34,48 @@ class IDataModelScriptProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(name) {
+    GetName() {
+        name := BSTR()
         result := ComCall(3, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} extension 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetExtension(extension) {
+    GetExtension() {
+        extension := BSTR()
         result := ComCall(4, this, "ptr", extension, "HRESULT")
-        return result
+        return extension
     }
 
     /**
      * 
-     * @param {Pointer<IDataModelScript>} script 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScript} 
      */
-    CreateScript(script) {
-        result := ComCall(5, this, "ptr*", script, "HRESULT")
-        return result
+    CreateScript() {
+        result := ComCall(5, this, "ptr*", &script := 0, "HRESULT")
+        return IDataModelScript(script)
     }
 
     /**
      * 
-     * @param {Pointer<IDataModelScriptTemplate>} templateContent 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptTemplate} 
      */
-    GetDefaultTemplateContent(templateContent) {
-        result := ComCall(6, this, "ptr*", templateContent, "HRESULT")
-        return result
+    GetDefaultTemplateContent() {
+        result := ComCall(6, this, "ptr*", &templateContent := 0, "HRESULT")
+        return IDataModelScriptTemplate(templateContent)
     }
 
     /**
      * 
-     * @param {Pointer<IDataModelScriptTemplateEnumerator>} enumerator 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptTemplateEnumerator} 
      */
-    EnumerateTemplates(enumerator) {
-        result := ComCall(7, this, "ptr*", enumerator, "HRESULT")
-        return result
+    EnumerateTemplates() {
+        result := ComCall(7, this, "ptr*", &enumerator := 0, "HRESULT")
+        return IDataModelScriptTemplateEnumerator(enumerator)
     }
 }

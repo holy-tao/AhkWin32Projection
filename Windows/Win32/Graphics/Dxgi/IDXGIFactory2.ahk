@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDXGISwapChain1.ahk
+#Include ..\..\Foundation\LUID.ahk
 #Include .\IDXGIFactory1.ahk
 
 /**
@@ -70,15 +72,14 @@ class IDXGIFactory2 extends IDXGIFactory1{
      * @param {Pointer<DXGI_SWAP_CHAIN_DESC1>} pDesc 
      * @param {Pointer<DXGI_SWAP_CHAIN_FULLSCREEN_DESC>} pFullscreenDesc 
      * @param {IDXGIOutput} pRestrictToOutput 
-     * @param {Pointer<IDXGISwapChain1>} ppSwapChain 
-     * @returns {HRESULT} 
+     * @returns {IDXGISwapChain1} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforhwnd
      */
-    CreateSwapChainForHwnd(pDevice, hWnd, pDesc, pFullscreenDesc, pRestrictToOutput, ppSwapChain) {
+    CreateSwapChainForHwnd(pDevice, hWnd, pDesc, pFullscreenDesc, pRestrictToOutput) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := ComCall(15, this, "ptr", pDevice, "ptr", hWnd, "ptr", pDesc, "ptr", pFullscreenDesc, "ptr", pRestrictToOutput, "ptr*", ppSwapChain, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", pDevice, "ptr", hWnd, "ptr", pDesc, "ptr", pFullscreenDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        return IDXGISwapChain1(ppSwapChain)
     }
 
     /**
@@ -87,60 +88,53 @@ class IDXGIFactory2 extends IDXGIFactory1{
      * @param {IUnknown} pWindow 
      * @param {Pointer<DXGI_SWAP_CHAIN_DESC1>} pDesc 
      * @param {IDXGIOutput} pRestrictToOutput 
-     * @param {Pointer<IDXGISwapChain1>} ppSwapChain 
-     * @returns {HRESULT} 
+     * @returns {IDXGISwapChain1} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcorewindow
      */
-    CreateSwapChainForCoreWindow(pDevice, pWindow, pDesc, pRestrictToOutput, ppSwapChain) {
-        result := ComCall(16, this, "ptr", pDevice, "ptr", pWindow, "ptr", pDesc, "ptr", pRestrictToOutput, "ptr*", ppSwapChain, "HRESULT")
-        return result
+    CreateSwapChainForCoreWindow(pDevice, pWindow, pDesc, pRestrictToOutput) {
+        result := ComCall(16, this, "ptr", pDevice, "ptr", pWindow, "ptr", pDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        return IDXGISwapChain1(ppSwapChain)
     }
 
     /**
      * 
      * @param {HANDLE} hResource 
-     * @param {Pointer<LUID>} pLuid 
-     * @returns {HRESULT} 
+     * @returns {LUID} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-getsharedresourceadapterluid
      */
-    GetSharedResourceAdapterLuid(hResource, pLuid) {
+    GetSharedResourceAdapterLuid(hResource) {
         hResource := hResource is Win32Handle ? NumGet(hResource, "ptr") : hResource
 
+        pLuid := LUID()
         result := ComCall(17, this, "ptr", hResource, "ptr", pLuid, "HRESULT")
-        return result
+        return pLuid
     }
 
     /**
      * 
      * @param {HWND} WindowHandle 
      * @param {Integer} wMsg 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-registerstereostatuswindow
      */
-    RegisterStereoStatusWindow(WindowHandle, wMsg, pdwCookie) {
+    RegisterStereoStatusWindow(WindowHandle, wMsg) {
         WindowHandle := WindowHandle is Win32Handle ? NumGet(WindowHandle, "ptr") : WindowHandle
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, "ptr", WindowHandle, "uint", wMsg, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", WindowHandle, "uint", wMsg, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
      * 
      * @param {HANDLE} hEvent 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-registerstereostatusevent
      */
-    RegisterStereoStatusEvent(hEvent, pdwCookie) {
+    RegisterStereoStatusEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, "ptr", hEvent, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -157,33 +151,27 @@ class IDXGIFactory2 extends IDXGIFactory1{
      * 
      * @param {HWND} WindowHandle 
      * @param {Integer} wMsg 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-registerocclusionstatuswindow
      */
-    RegisterOcclusionStatusWindow(WindowHandle, wMsg, pdwCookie) {
+    RegisterOcclusionStatusWindow(WindowHandle, wMsg) {
         WindowHandle := WindowHandle is Win32Handle ? NumGet(WindowHandle, "ptr") : WindowHandle
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, "ptr", WindowHandle, "uint", wMsg, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+        result := ComCall(21, this, "ptr", WindowHandle, "uint", wMsg, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
      * 
      * @param {HANDLE} hEvent 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-registerocclusionstatusevent
      */
-    RegisterOcclusionStatusEvent(hEvent, pdwCookie) {
+    RegisterOcclusionStatusEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, "ptr", hEvent, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+        result := ComCall(22, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -201,12 +189,11 @@ class IDXGIFactory2 extends IDXGIFactory1{
      * @param {IUnknown} pDevice 
      * @param {Pointer<DXGI_SWAP_CHAIN_DESC1>} pDesc 
      * @param {IDXGIOutput} pRestrictToOutput 
-     * @param {Pointer<IDXGISwapChain1>} ppSwapChain 
-     * @returns {HRESULT} 
+     * @returns {IDXGISwapChain1} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition
      */
-    CreateSwapChainForComposition(pDevice, pDesc, pRestrictToOutput, ppSwapChain) {
-        result := ComCall(24, this, "ptr", pDevice, "ptr", pDesc, "ptr", pRestrictToOutput, "ptr*", ppSwapChain, "HRESULT")
-        return result
+    CreateSwapChainForComposition(pDevice, pDesc, pRestrictToOutput) {
+        result := ComCall(24, this, "ptr", pDevice, "ptr", pDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        return IDXGISwapChain1(ppSwapChain)
     }
 }

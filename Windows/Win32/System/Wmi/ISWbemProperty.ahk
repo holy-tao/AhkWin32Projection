@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ISWbemQualifierSet.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,12 +39,12 @@ class ISWbemProperty extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} varValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Value(varValue) {
+    get_Value() {
+        varValue := VARIANT()
         result := ComCall(7, this, "ptr", varValue, "HRESULT")
-        return result
+        return varValue
     }
 
     /**
@@ -56,63 +59,57 @@ class ISWbemProperty extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(strName) {
+    get_Name() {
+        strName := BSTR()
         result := ComCall(9, this, "ptr", strName, "HRESULT")
-        return result
+        return strName
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bIsLocal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsLocal(bIsLocal) {
-        result := ComCall(10, this, "ptr", bIsLocal, "HRESULT")
-        return result
+    get_IsLocal() {
+        result := ComCall(10, this, "short*", &bIsLocal := 0, "HRESULT")
+        return bIsLocal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} strOrigin 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Origin(strOrigin) {
+    get_Origin() {
+        strOrigin := BSTR()
         result := ComCall(11, this, "ptr", strOrigin, "HRESULT")
-        return result
+        return strOrigin
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} iCimType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CIMType(iCimType) {
-        iCimTypeMarshal := iCimType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, iCimTypeMarshal, iCimType, "HRESULT")
-        return result
+    get_CIMType() {
+        result := ComCall(12, this, "int*", &iCimType := 0, "HRESULT")
+        return iCimType
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemQualifierSet>} objWbemQualifierSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemQualifierSet} 
      */
-    get_Qualifiers_(objWbemQualifierSet) {
-        result := ComCall(13, this, "ptr*", objWbemQualifierSet, "HRESULT")
-        return result
+    get_Qualifiers_() {
+        result := ComCall(13, this, "ptr*", &objWbemQualifierSet := 0, "HRESULT")
+        return ISWbemQualifierSet(objWbemQualifierSet)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bIsArray 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsArray(bIsArray) {
-        result := ComCall(14, this, "ptr", bIsArray, "HRESULT")
-        return result
+    get_IsArray() {
+        result := ComCall(14, this, "short*", &bIsArray := 0, "HRESULT")
+        return bIsArray
     }
 }

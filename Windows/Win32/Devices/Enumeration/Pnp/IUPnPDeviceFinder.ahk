@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IUPnPDevices.ahk
+#Include .\IUPnPDevice.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,15 +43,14 @@ class IUPnPDeviceFinder extends IDispatch{
      * 
      * @param {BSTR} bstrTypeURI 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IUPnPDevices>} pDevices 
-     * @returns {HRESULT} 
+     * @returns {IUPnPDevices} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicefinder-findbytype
      */
-    FindByType(bstrTypeURI, dwFlags, pDevices) {
+    FindByType(bstrTypeURI, dwFlags) {
         bstrTypeURI := bstrTypeURI is String ? BSTR.Alloc(bstrTypeURI).Value : bstrTypeURI
 
-        result := ComCall(7, this, "ptr", bstrTypeURI, "uint", dwFlags, "ptr*", pDevices, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bstrTypeURI, "uint", dwFlags, "ptr*", &pDevices := 0, "HRESULT")
+        return IUPnPDevices(pDevices)
     }
 
     /**
@@ -57,17 +58,14 @@ class IUPnPDeviceFinder extends IDispatch{
      * @param {BSTR} bstrTypeURI 
      * @param {Integer} dwFlags 
      * @param {IUnknown} punkDeviceFinderCallback 
-     * @param {Pointer<Integer>} plFindData 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicefinder-createasyncfind
      */
-    CreateAsyncFind(bstrTypeURI, dwFlags, punkDeviceFinderCallback, plFindData) {
+    CreateAsyncFind(bstrTypeURI, dwFlags, punkDeviceFinderCallback) {
         bstrTypeURI := bstrTypeURI is String ? BSTR.Alloc(bstrTypeURI).Value : bstrTypeURI
 
-        plFindDataMarshal := plFindData is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "ptr", bstrTypeURI, "uint", dwFlags, "ptr", punkDeviceFinderCallback, plFindDataMarshal, plFindData, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", bstrTypeURI, "uint", dwFlags, "ptr", punkDeviceFinderCallback, "int*", &plFindData := 0, "HRESULT")
+        return plFindData
     }
 
     /**
@@ -95,14 +93,13 @@ class IUPnPDeviceFinder extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrUDN 
-     * @param {Pointer<IUPnPDevice>} pDevice 
-     * @returns {HRESULT} 
+     * @returns {IUPnPDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicefinder-findbyudn
      */
-    FindByUDN(bstrUDN, pDevice) {
+    FindByUDN(bstrUDN) {
         bstrUDN := bstrUDN is String ? BSTR.Alloc(bstrUDN).Value : bstrUDN
 
-        result := ComCall(11, this, "ptr", bstrUDN, "ptr*", pDevice, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrUDN, "ptr*", &pDevice := 0, "HRESULT")
+        return IUPnPDevice(pDevice)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumCATEGORYINFO.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class IEnumCATEGORYINFO extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumCATEGORYINFO>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCATEGORYINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-ienumcategoryinfo-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumCATEGORYINFO(ppenum)
     }
 }

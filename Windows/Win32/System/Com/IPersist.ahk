@@ -32,12 +32,12 @@ class IPersist extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pClassID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ipersist-getclassid
      */
-    GetClassID(pClassID) {
+    GetClassID() {
+        pClassID := Guid()
         result := ComCall(3, this, "ptr", pClassID, "HRESULT")
-        return result
+        return pClassID
     }
 }

@@ -48,16 +48,14 @@ class INSSBuffer3 extends INSSBuffer2{
     /**
      * 
      * @param {Guid} guidBufferProperty 
-     * @param {Pointer<Void>} pvBufferProperty 
      * @param {Pointer<Integer>} pdwBufferPropertySize 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer3-getproperty
      */
-    GetProperty(guidBufferProperty, pvBufferProperty, pdwBufferPropertySize) {
-        pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : "ptr"
+    GetProperty(guidBufferProperty, pdwBufferPropertySize) {
         pdwBufferPropertySizeMarshal := pdwBufferPropertySize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", guidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", guidBufferProperty, "ptr", &pvBufferProperty := 0, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
+        return pvBufferProperty
     }
 }

@@ -76,43 +76,35 @@ class IWICColorContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-gettype
      */
-    GetType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(6, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
      * @param {Integer} cbBuffer 
      * @param {Pointer<Integer>} pbBuffer 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-getprofilebytes
      */
-    GetProfileBytes(cbBuffer, pbBuffer, pcbActual) {
+    GetProfileBytes(cbBuffer, pbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", cbBuffer, pbBufferMarshal, pbBuffer, pcbActualMarshal, pcbActual, "HRESULT")
-        return result
+        result := ComCall(7, this, "uint", cbBuffer, pbBufferMarshal, pbBuffer, "uint*", &pcbActual := 0, "HRESULT")
+        return pcbActual
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-getexifcolorspace
      */
-    GetExifColorSpace(pValue) {
-        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetExifColorSpace() {
+        result := ComCall(8, this, "uint*", &pValue := 0, "HRESULT")
+        return pValue
     }
 }

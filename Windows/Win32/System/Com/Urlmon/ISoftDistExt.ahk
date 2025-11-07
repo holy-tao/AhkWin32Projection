@@ -49,9 +49,10 @@ class ISoftDistExt extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFirstCodeBase(szCodeBase, dwMaxSize) {
+        szCodeBaseMarshal := szCodeBase is VarRef ? "ptr*" : "ptr"
         dwMaxSizeMarshal := dwMaxSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", szCodeBase, dwMaxSizeMarshal, dwMaxSize, "HRESULT")
+        result := ComCall(4, this, szCodeBaseMarshal, szCodeBase, dwMaxSizeMarshal, dwMaxSize, "HRESULT")
         return result
     }
 
@@ -62,9 +63,10 @@ class ISoftDistExt extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNextCodeBase(szCodeBase, dwMaxSize) {
+        szCodeBaseMarshal := szCodeBase is VarRef ? "ptr*" : "ptr"
         dwMaxSizeMarshal := dwMaxSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", szCodeBase, dwMaxSizeMarshal, dwMaxSize, "HRESULT")
+        result := ComCall(5, this, szCodeBaseMarshal, szCodeBase, dwMaxSizeMarshal, dwMaxSize, "HRESULT")
         return result
     }
 

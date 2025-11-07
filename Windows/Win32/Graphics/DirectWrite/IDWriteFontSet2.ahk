@@ -38,6 +38,6 @@ class IDWriteFontSet2 extends IDWriteFontSet1{
      */
     GetExpirationEvent() {
         result := ComCall(26, this, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 }

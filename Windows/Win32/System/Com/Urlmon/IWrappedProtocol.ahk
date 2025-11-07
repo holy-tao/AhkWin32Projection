@@ -30,14 +30,11 @@ class IWrappedProtocol extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnCode 
      * @param {Pointer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetWrapperCode(pnCode, dwReserved) {
-        pnCodeMarshal := pnCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pnCodeMarshal, pnCode, "ptr", dwReserved, "HRESULT")
-        return result
+    GetWrapperCode(dwReserved) {
+        result := ComCall(3, this, "int*", &pnCode := 0, "ptr", dwReserved, "HRESULT")
+        return pnCode
     }
 }

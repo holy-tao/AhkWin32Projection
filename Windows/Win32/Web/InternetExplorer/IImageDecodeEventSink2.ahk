@@ -30,11 +30,10 @@ class IImageDecodeEventSink2 extends IImageDecodeEventSink{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfPremultAlpha 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsAlphaPremultRequired(pfPremultAlpha) {
-        result := ComCall(9, this, "ptr", pfPremultAlpha, "HRESULT")
-        return result
+    IsAlphaPremultRequired() {
+        result := ComCall(9, this, "int*", &pfPremultAlpha := 0, "HRESULT")
+        return pfPremultAlpha
     }
 }

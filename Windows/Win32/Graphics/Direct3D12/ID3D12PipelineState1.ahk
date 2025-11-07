@@ -31,13 +31,10 @@ class ID3D12PipelineState1 extends ID3D12PipelineState{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvRootSignature 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetRootSignature(riid, ppvRootSignature) {
-        ppvRootSignatureMarshal := ppvRootSignature is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", riid, ppvRootSignatureMarshal, ppvRootSignature, "HRESULT")
-        return result
+    GetRootSignature(riid) {
+        result := ComCall(9, this, "ptr", riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
+        return ppvRootSignature
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IStream.ahk
+#Include .\IContactPropertyCollection.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -72,18 +74,17 @@ class IContactProperties extends IUnknown{
      * @param {PWSTR} pszContentType 
      * @param {Integer} cchContentType 
      * @param {Pointer<Integer>} pdwcchContentTypeRequired 
-     * @param {Pointer<IStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-getbinary
      */
-    GetBinary(pszPropertyName, dwFlags, pszContentType, cchContentType, pdwcchContentTypeRequired, ppStream) {
+    GetBinary(pszPropertyName, dwFlags, pszContentType, cchContentType, pdwcchContentTypeRequired) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
         pszContentType := pszContentType is String ? StrPtr(pszContentType) : pszContentType
 
         pdwcchContentTypeRequiredMarshal := pdwcchContentTypeRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszPropertyName, "uint", dwFlags, "ptr", pszContentType, "uint", cchContentType, pdwcchContentTypeRequiredMarshal, pdwcchContentTypeRequired, "ptr*", ppStream, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszPropertyName, "uint", dwFlags, "ptr", pszContentType, "uint", cchContentType, pdwcchContentTypeRequiredMarshal, pdwcchContentTypeRequired, "ptr*", &ppStream := 0, "HRESULT")
+        return IStream(ppStream)
     }
 
     /**
@@ -166,7 +167,9 @@ class IContactProperties extends IUnknown{
     SetLabels(pszArrayElementName, dwFlags, dwLabelCount, ppszLabels) {
         pszArrayElementName := pszArrayElementName is String ? StrPtr(pszArrayElementName) : pszArrayElementName
 
-        result := ComCall(10, this, "ptr", pszArrayElementName, "uint", dwFlags, "uint", dwLabelCount, "ptr", ppszLabels, "HRESULT")
+        ppszLabelsMarshal := ppszLabels is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pszArrayElementName, "uint", dwFlags, "uint", dwLabelCount, ppszLabelsMarshal, ppszLabels, "HRESULT")
         return result
     }
 
@@ -235,19 +238,20 @@ class IContactProperties extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IContactPropertyCollection>} ppPropertyCollection 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pszMultiValueName 
      * @param {Integer} dwLabelCount 
      * @param {Pointer<PWSTR>} ppszLabels 
      * @param {BOOL} fAnyLabelMatches 
-     * @returns {HRESULT} 
+     * @returns {IContactPropertyCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-getpropertycollection
      */
-    GetPropertyCollection(ppPropertyCollection, dwFlags, pszMultiValueName, dwLabelCount, ppszLabels, fAnyLabelMatches) {
+    GetPropertyCollection(dwFlags, pszMultiValueName, dwLabelCount, ppszLabels, fAnyLabelMatches) {
         pszMultiValueName := pszMultiValueName is String ? StrPtr(pszMultiValueName) : pszMultiValueName
 
-        result := ComCall(15, this, "ptr*", ppPropertyCollection, "uint", dwFlags, "ptr", pszMultiValueName, "uint", dwLabelCount, "ptr", ppszLabels, "int", fAnyLabelMatches, "HRESULT")
-        return result
+        ppszLabelsMarshal := ppszLabels is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, "ptr*", &ppPropertyCollection := 0, "uint", dwFlags, "ptr", pszMultiValueName, "uint", dwLabelCount, ppszLabelsMarshal, ppszLabels, "int", fAnyLabelMatches, "HRESULT")
+        return IContactPropertyCollection(ppPropertyCollection)
     }
 }

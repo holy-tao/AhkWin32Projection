@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAccessible.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,15 +40,12 @@ class IAccessibleWindowlessSite extends IUnknown{
      * 
      * @param {Integer} rangeSize 
      * @param {IAccessibleHandler} pRangeOwner 
-     * @param {Pointer<Integer>} pRangeBase 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblewindowlesssite-acquireobjectidrange
      */
-    AcquireObjectIdRange(rangeSize, pRangeOwner, pRangeBase) {
-        pRangeBaseMarshal := pRangeBase is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "int", rangeSize, "ptr", pRangeOwner, pRangeBaseMarshal, pRangeBase, "HRESULT")
-        return result
+    AcquireObjectIdRange(rangeSize, pRangeOwner) {
+        result := ComCall(3, this, "int", rangeSize, "ptr", pRangeOwner, "int*", &pRangeBase := 0, "HRESULT")
+        return pRangeBase
     }
 
     /**
@@ -65,25 +63,21 @@ class IAccessibleWindowlessSite extends IUnknown{
     /**
      * 
      * @param {IAccessibleHandler} pRangesOwner 
-     * @param {Pointer<Pointer<SAFEARRAY>>} psaRanges 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblewindowlesssite-queryobjectidranges
      */
-    QueryObjectIdRanges(pRangesOwner, psaRanges) {
-        psaRangesMarshal := psaRanges is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pRangesOwner, psaRangesMarshal, psaRanges, "HRESULT")
-        return result
+    QueryObjectIdRanges(pRangesOwner) {
+        result := ComCall(5, this, "ptr", pRangesOwner, "ptr*", &psaRanges := 0, "HRESULT")
+        return psaRanges
     }
 
     /**
      * 
-     * @param {Pointer<IAccessible>} ppParent 
-     * @returns {HRESULT} 
+     * @returns {IAccessible} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblewindowlesssite-getparentaccessible
      */
-    GetParentAccessible(ppParent) {
-        result := ComCall(6, this, "ptr*", ppParent, "HRESULT")
-        return result
+    GetParentAccessible() {
+        result := ComCall(6, this, "ptr*", &ppParent := 0, "HRESULT")
+        return IAccessible(ppParent)
     }
 }

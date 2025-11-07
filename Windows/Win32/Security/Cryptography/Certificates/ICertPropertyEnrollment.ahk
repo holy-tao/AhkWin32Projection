@@ -61,47 +61,44 @@ class ICertPropertyEnrollment extends ICertProperty{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollment-get_requestid
      */
-    get_RequestId(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_RequestId() {
+        result := ComCall(15, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollment-get_cadnsname
      */
-    get_CADnsName(pValue) {
+    get_CADnsName() {
+        pValue := BSTR()
         result := ComCall(16, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollment-get_caname
      */
-    get_CAName(pValue) {
+    get_CAName() {
+        pValue := BSTR()
         result := ComCall(17, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollment-get_friendlyname
      */
-    get_FriendlyName(pValue) {
+    get_FriendlyName() {
+        pValue := BSTR()
         result := ComCall(18, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

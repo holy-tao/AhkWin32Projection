@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMPPlaylist.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,13 +44,12 @@ class IWMPCdrom extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWMPPlaylist>} ppPlaylist 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdrom-get_playlist
      */
-    get_playlist(ppPlaylist) {
-        result := ComCall(8, this, "ptr*", ppPlaylist, "HRESULT")
-        return result
+    get_playlist() {
+        result := ComCall(8, this, "ptr*", &ppPlaylist := 0, "HRESULT")
+        return IWMPPlaylist(ppPlaylist)
     }
 
     /**

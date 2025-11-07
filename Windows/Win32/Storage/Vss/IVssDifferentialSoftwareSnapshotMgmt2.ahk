@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVssAsync.ahk
 #Include .\IVssDifferentialSoftwareSnapshotMgmt.ahk
 
 /**
@@ -68,16 +69,15 @@ class IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferentialSoftwareSnap
      * 
      * @param {Pointer<Integer>} pwszVolumeName 
      * @param {Pointer<Integer>} pwszDiffAreaVolumeName 
-     * @param {Pointer<IVssAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVssAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-querymigrationstatus
      */
-    QueryMigrationStatus(pwszVolumeName, pwszDiffAreaVolumeName, ppAsync) {
+    QueryMigrationStatus(pwszVolumeName, pwszDiffAreaVolumeName) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
         pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(11, this, pwszVolumeNameMarshal, pwszVolumeName, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, "ptr*", ppAsync, "HRESULT")
-        return result
+        result := ComCall(11, this, pwszVolumeNameMarshal, pwszVolumeName, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVssAsync(ppAsync)
     }
 
     /**

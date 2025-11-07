@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VMR9DeinterlaceCaps.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -50,40 +51,40 @@ class IVMRDeinterlaceControl9 extends IUnknown{
      * 
      * @param {Pointer<VMR9VideoDesc>} lpVideoDescription 
      * @param {Pointer<Integer>} lpdwNumDeinterlaceModes 
-     * @param {Pointer<Guid>} lpDeinterlaceModes 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrdeinterlacecontrol9-getnumberofdeinterlacemodes
      */
-    GetNumberOfDeinterlaceModes(lpVideoDescription, lpdwNumDeinterlaceModes, lpDeinterlaceModes) {
+    GetNumberOfDeinterlaceModes(lpVideoDescription, lpdwNumDeinterlaceModes) {
         lpdwNumDeinterlaceModesMarshal := lpdwNumDeinterlaceModes is VarRef ? "uint*" : "ptr"
 
+        lpDeinterlaceModes := Guid()
         result := ComCall(3, this, "ptr", lpVideoDescription, lpdwNumDeinterlaceModesMarshal, lpdwNumDeinterlaceModes, "ptr", lpDeinterlaceModes, "HRESULT")
-        return result
+        return lpDeinterlaceModes
     }
 
     /**
      * 
      * @param {Pointer<Guid>} lpDeinterlaceMode 
      * @param {Pointer<VMR9VideoDesc>} lpVideoDescription 
-     * @param {Pointer<VMR9DeinterlaceCaps>} lpDeinterlaceCaps 
-     * @returns {HRESULT} 
+     * @returns {VMR9DeinterlaceCaps} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrdeinterlacecontrol9-getdeinterlacemodecaps
      */
-    GetDeinterlaceModeCaps(lpDeinterlaceMode, lpVideoDescription, lpDeinterlaceCaps) {
+    GetDeinterlaceModeCaps(lpDeinterlaceMode, lpVideoDescription) {
+        lpDeinterlaceCaps := VMR9DeinterlaceCaps()
         result := ComCall(4, this, "ptr", lpDeinterlaceMode, "ptr", lpVideoDescription, "ptr", lpDeinterlaceCaps, "HRESULT")
-        return result
+        return lpDeinterlaceCaps
     }
 
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<Guid>} lpDeinterlaceMode 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrdeinterlacecontrol9-getdeinterlacemode
      */
-    GetDeinterlaceMode(dwStreamID, lpDeinterlaceMode) {
+    GetDeinterlaceMode(dwStreamID) {
+        lpDeinterlaceMode := Guid()
         result := ComCall(5, this, "uint", dwStreamID, "ptr", lpDeinterlaceMode, "HRESULT")
-        return result
+        return lpDeinterlaceMode
     }
 
     /**
@@ -100,15 +101,12 @@ class IVMRDeinterlaceControl9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} lpdwDeinterlacePrefs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrdeinterlacecontrol9-getdeinterlaceprefs
      */
-    GetDeinterlacePrefs(lpdwDeinterlacePrefs) {
-        lpdwDeinterlacePrefsMarshal := lpdwDeinterlacePrefs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, lpdwDeinterlacePrefsMarshal, lpdwDeinterlacePrefs, "HRESULT")
-        return result
+    GetDeinterlacePrefs() {
+        result := ComCall(7, this, "uint*", &lpdwDeinterlacePrefs := 0, "HRESULT")
+        return lpdwDeinterlacePrefs
     }
 
     /**
@@ -125,12 +123,12 @@ class IVMRDeinterlaceControl9 extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<Guid>} lpDeinterlaceMode 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrdeinterlacecontrol9-getactualdeinterlacemode
      */
-    GetActualDeinterlaceMode(dwStreamID, lpDeinterlaceMode) {
+    GetActualDeinterlaceMode(dwStreamID) {
+        lpDeinterlaceMode := Guid()
         result := ComCall(9, this, "uint", dwStreamID, "ptr", lpDeinterlaceMode, "HRESULT")
-        return result
+        return lpDeinterlaceMode
     }
 }

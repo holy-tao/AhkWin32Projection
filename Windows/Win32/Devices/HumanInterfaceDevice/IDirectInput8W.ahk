@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirectInputDevice8W.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IDirectInput8W extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} param0 
-     * @param {Pointer<IDirectInputDevice8W>} param1 
      * @param {IUnknown} param2 
-     * @returns {HRESULT} 
+     * @returns {IDirectInputDevice8W} 
      */
-    CreateDevice(param0, param1, param2) {
-        result := ComCall(3, this, "ptr", param0, "ptr*", param1, "ptr", param2, "HRESULT")
-        return result
+    CreateDevice(param0, param2) {
+        result := ComCall(3, this, "ptr", param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
+        return IDirectInputDevice8W(param1)
     }
 
     /**

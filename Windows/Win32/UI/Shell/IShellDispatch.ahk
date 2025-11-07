@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\Folder.ahk
 
 /**
  * 
@@ -33,34 +34,31 @@ class IShellDispatch extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Application(ppid) {
-        result := ComCall(7, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Application() {
+        result := ComCall(7, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Parent(ppid) {
-        result := ComCall(8, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(8, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
      * @param {VARIANT} vDir 
-     * @param {Pointer<Folder>} ppsdf 
-     * @returns {HRESULT} 
+     * @returns {Folder} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-namespace
      */
-    NameSpace(vDir, ppsdf) {
-        result := ComCall(9, this, "ptr", vDir, "ptr*", ppsdf, "HRESULT")
-        return result
+    NameSpace(vDir) {
+        result := ComCall(9, this, "ptr", vDir, "ptr*", &ppsdf := 0, "HRESULT")
+        return Folder(ppsdf)
     }
 
     /**
@@ -69,26 +67,24 @@ class IShellDispatch extends IDispatch{
      * @param {BSTR} Title 
      * @param {Integer} Options 
      * @param {VARIANT} RootFolder 
-     * @param {Pointer<Folder>} ppsdf 
-     * @returns {HRESULT} 
+     * @returns {Folder} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-browseforfolder
      */
-    BrowseForFolder(Hwnd, Title, Options, RootFolder, ppsdf) {
+    BrowseForFolder(Hwnd, Title, Options, RootFolder) {
         Title := Title is String ? BSTR.Alloc(Title).Value : Title
 
-        result := ComCall(10, this, "int", Hwnd, "ptr", Title, "int", Options, "ptr", RootFolder, "ptr*", ppsdf, "HRESULT")
-        return result
+        result := ComCall(10, this, "int", Hwnd, "ptr", Title, "int", Options, "ptr", RootFolder, "ptr*", &ppsdf := 0, "HRESULT")
+        return Folder(ppsdf)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-windows
      */
-    Windows(ppid) {
-        result := ComCall(11, this, "ptr*", ppid, "HRESULT")
-        return result
+    Windows() {
+        result := ComCall(11, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**

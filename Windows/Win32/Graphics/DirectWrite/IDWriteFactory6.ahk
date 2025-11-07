@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFaceReference1.ahk
+#Include .\IDWriteFontResource.ahk
+#Include .\IDWriteFontSet1.ahk
+#Include .\IDWriteFontCollection2.ahk
+#Include .\IDWriteFontSetBuilder2.ahk
+#Include .\IDWriteTextFormat3.ahk
 #Include .\IDWriteFactory5.ahk
 
 /**
@@ -37,75 +43,69 @@ class IDWriteFactory6 extends IDWriteFactory5{
      * @param {Integer} fontSimulations 
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
      * @param {Integer} fontAxisValueCount 
-     * @param {Pointer<IDWriteFontFaceReference1>} fontFaceReference 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFaceReference1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-createfontfacereference
      */
-    CreateFontFaceReference(fontFile, faceIndex, fontSimulations, fontAxisValues, fontAxisValueCount, fontFaceReference) {
-        result := ComCall(48, this, "ptr", fontFile, "uint", faceIndex, "int", fontSimulations, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", fontFaceReference, "HRESULT")
-        return result
+    CreateFontFaceReference(fontFile, faceIndex, fontSimulations, fontAxisValues, fontAxisValueCount) {
+        result := ComCall(48, this, "ptr", fontFile, "uint", faceIndex, "int", fontSimulations, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontFaceReference := 0, "HRESULT")
+        return IDWriteFontFaceReference1(fontFaceReference)
     }
 
     /**
      * 
      * @param {IDWriteFontFile} fontFile 
      * @param {Integer} faceIndex 
-     * @param {Pointer<IDWriteFontResource>} fontResource 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontResource} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-createfontresource
      */
-    CreateFontResource(fontFile, faceIndex, fontResource) {
-        result := ComCall(49, this, "ptr", fontFile, "uint", faceIndex, "ptr*", fontResource, "HRESULT")
-        return result
+    CreateFontResource(fontFile, faceIndex) {
+        result := ComCall(49, this, "ptr", fontFile, "uint", faceIndex, "ptr*", &fontResource := 0, "HRESULT")
+        return IDWriteFontResource(fontResource)
     }
 
     /**
      * 
      * @param {BOOL} includeDownloadableFonts 
-     * @param {Pointer<IDWriteFontSet1>} fontSet 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-getsystemfontset
      */
-    GetSystemFontSet(includeDownloadableFonts, fontSet) {
-        result := ComCall(50, this, "int", includeDownloadableFonts, "ptr*", fontSet, "HRESULT")
-        return result
+    GetSystemFontSet(includeDownloadableFonts) {
+        result := ComCall(50, this, "int", includeDownloadableFonts, "ptr*", &fontSet := 0, "HRESULT")
+        return IDWriteFontSet1(fontSet)
     }
 
     /**
      * 
      * @param {BOOL} includeDownloadableFonts 
      * @param {Integer} fontFamilyModel 
-     * @param {Pointer<IDWriteFontCollection2>} fontCollection 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontCollection2} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-getsystemfontcollection
      */
-    GetSystemFontCollection(includeDownloadableFonts, fontFamilyModel, fontCollection) {
-        result := ComCall(51, this, "int", includeDownloadableFonts, "int", fontFamilyModel, "ptr*", fontCollection, "HRESULT")
-        return result
+    GetSystemFontCollection(includeDownloadableFonts, fontFamilyModel) {
+        result := ComCall(51, this, "int", includeDownloadableFonts, "int", fontFamilyModel, "ptr*", &fontCollection := 0, "HRESULT")
+        return IDWriteFontCollection2(fontCollection)
     }
 
     /**
      * 
      * @param {IDWriteFontSet} fontSet 
      * @param {Integer} fontFamilyModel 
-     * @param {Pointer<IDWriteFontCollection2>} fontCollection 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontCollection2} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-createfontcollectionfromfontset
      */
-    CreateFontCollectionFromFontSet(fontSet, fontFamilyModel, fontCollection) {
-        result := ComCall(52, this, "ptr", fontSet, "int", fontFamilyModel, "ptr*", fontCollection, "HRESULT")
-        return result
+    CreateFontCollectionFromFontSet(fontSet, fontFamilyModel) {
+        result := ComCall(52, this, "ptr", fontSet, "int", fontFamilyModel, "ptr*", &fontCollection := 0, "HRESULT")
+        return IDWriteFontCollection2(fontCollection)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteFontSetBuilder2>} fontSetBuilder 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSetBuilder2} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-createfontsetbuilder
      */
-    CreateFontSetBuilder(fontSetBuilder) {
-        result := ComCall(53, this, "ptr*", fontSetBuilder, "HRESULT")
-        return result
+    CreateFontSetBuilder() {
+        result := ComCall(53, this, "ptr*", &fontSetBuilder := 0, "HRESULT")
+        return IDWriteFontSetBuilder2(fontSetBuilder)
     }
 
     /**
@@ -116,15 +116,14 @@ class IDWriteFactory6 extends IDWriteFactory5{
      * @param {Integer} fontAxisValueCount 
      * @param {Float} fontSize 
      * @param {PWSTR} localeName 
-     * @param {Pointer<IDWriteTextFormat3>} textFormat 
-     * @returns {HRESULT} 
+     * @returns {IDWriteTextFormat3} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-createtextformat
      */
-    CreateTextFormat(fontFamilyName, fontCollection, fontAxisValues, fontAxisValueCount, fontSize, localeName, textFormat) {
+    CreateTextFormat(fontFamilyName, fontCollection, fontAxisValues, fontAxisValueCount, fontSize, localeName) {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(54, this, "ptr", fontFamilyName, "ptr", fontCollection, "ptr", fontAxisValues, "uint", fontAxisValueCount, "float", fontSize, "ptr", localeName, "ptr*", textFormat, "HRESULT")
-        return result
+        result := ComCall(54, this, "ptr", fontFamilyName, "ptr", fontCollection, "ptr", fontAxisValues, "uint", fontAxisValueCount, "float", fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
+        return IDWriteTextFormat3(textFormat)
     }
 }

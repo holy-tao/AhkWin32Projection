@@ -34,15 +34,15 @@ class IWPCProviderConfig extends IUnknown{
     /**
      * 
      * @param {BSTR} bstrSID 
-     * @param {Pointer<BSTR>} pbstrUserSummary 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderconfig-getusersummary
      */
-    GetUserSummary(bstrSID, pbstrUserSummary) {
+    GetUserSummary(bstrSID) {
         bstrSID := bstrSID is String ? BSTR.Alloc(bstrSID).Value : bstrSID
 
+        pbstrUserSummary := BSTR()
         result := ComCall(3, this, "ptr", bstrSID, "ptr", pbstrUserSummary, "HRESULT")
-        return result
+        return pbstrUserSummary
     }
 
     /**

@@ -46,16 +46,13 @@ class IContentPrefetcherTaskTrigger extends IInspectable{
     /**
      * 
      * @param {PWSTR} packageFullName 
-     * @param {Pointer<Integer>} isRegistered 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/icontentprefetchertasktrigger/nf-icontentprefetchertasktrigger-icontentprefetchertasktrigger-isregisteredforcontentprefetch
      */
-    IsRegisteredForContentPrefetch(packageFullName, isRegistered) {
+    IsRegisteredForContentPrefetch(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        isRegisteredMarshal := isRegistered is VarRef ? "char*" : "ptr"
-
-        result := ComCall(7, this, "ptr", packageFullName, isRegisteredMarshal, isRegistered, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", packageFullName, "char*", &isRegistered := 0, "HRESULT")
+        return isRegistered
     }
 }

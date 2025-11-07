@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IStringCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -44,13 +46,13 @@ class IStringCollection extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-get_item
      */
-    get_Item(index, retval) {
+    get_Item(index) {
+        retval := BSTR()
         result := ComCall(7, this, "int", index, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -69,53 +71,45 @@ class IStringCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-get__newenum
      */
-    get__NewEnum(retval) {
-        result := ComCall(9, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-get_count
      */
-    get_Count(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(10, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-get_readonly
      */
-    get_ReadOnly(retval) {
-        result := ComCall(11, this, "ptr", retval, "HRESULT")
-        return result
+    get_ReadOnly() {
+        result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
      * @param {BSTR} value 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-add
      */
-    Add(value, retval) {
+    Add(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, "ptr", value, retvalMarshal, retval, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", value, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -130,13 +124,12 @@ class IStringCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IStringCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-copy
      */
-    Copy(retval) {
-        result := ComCall(14, this, "ptr*", retval, "HRESULT")
-        return result
+    Copy() {
+        result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
+        return IStringCollection(retval)
     }
 
     /**

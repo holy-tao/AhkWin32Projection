@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include .\IInkTablet.ahk
+#Include .\IInkCursorButtons.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -45,48 +49,43 @@ class IInkCursor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_name
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(7, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_id
      */
-    get_Id(Id) {
-        IdMarshal := Id is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, IdMarshal, Id, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(8, this, "int*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Status 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_inverted
      */
-    get_Inverted(Status) {
-        result := ComCall(9, this, "ptr", Status, "HRESULT")
-        return result
+    get_Inverted() {
+        result := ComCall(9, this, "short*", &Status := 0, "HRESULT")
+        return Status
     }
 
     /**
      * 
-     * @param {Pointer<IInkDrawingAttributes>} Attributes 
-     * @returns {HRESULT} 
+     * @returns {IInkDrawingAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes
      */
-    get_DrawingAttributes(Attributes) {
-        result := ComCall(10, this, "ptr*", Attributes, "HRESULT")
-        return result
+    get_DrawingAttributes() {
+        result := ComCall(10, this, "ptr*", &Attributes := 0, "HRESULT")
+        return IInkDrawingAttributes(Attributes)
     }
 
     /**
@@ -102,23 +101,21 @@ class IInkCursor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkTablet>} Tablet 
-     * @returns {HRESULT} 
+     * @returns {IInkTablet} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_tablet
      */
-    get_Tablet(Tablet) {
-        result := ComCall(12, this, "ptr*", Tablet, "HRESULT")
-        return result
+    get_Tablet() {
+        result := ComCall(12, this, "ptr*", &Tablet := 0, "HRESULT")
+        return IInkTablet(Tablet)
     }
 
     /**
      * 
-     * @param {Pointer<IInkCursorButtons>} Buttons 
-     * @returns {HRESULT} 
+     * @returns {IInkCursorButtons} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_buttons
      */
-    get_Buttons(Buttons) {
-        result := ComCall(13, this, "ptr*", Buttons, "HRESULT")
-        return result
+    get_Buttons() {
+        result := ComCall(13, this, "ptr*", &Buttons := 0, "HRESULT")
+        return IInkCursorButtons(Buttons)
     }
 }

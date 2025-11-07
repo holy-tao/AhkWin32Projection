@@ -74,17 +74,16 @@ class IMFSourceResolver extends IUnknown{
      * @param {PWSTR} pwszURL 
      * @param {Integer} dwFlags 
      * @param {IPropertyStore} pProps 
-     * @param {Pointer<IUnknown>} ppIUnknownCancelCookie 
      * @param {IMFAsyncCallback} pCallback 
      * @param {IUnknown} punkState 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsourceresolver-begincreateobjectfromurl
      */
-    BeginCreateObjectFromURL(pwszURL, dwFlags, pProps, ppIUnknownCancelCookie, pCallback, punkState) {
+    BeginCreateObjectFromURL(pwszURL, dwFlags, pProps, pCallback, punkState) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(5, this, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, "ptr*", ppIUnknownCancelCookie, "ptr", pCallback, "ptr", punkState, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        return IUnknown(ppIUnknownCancelCookie)
     }
 
     /**
@@ -108,17 +107,16 @@ class IMFSourceResolver extends IUnknown{
      * @param {PWSTR} pwszURL 
      * @param {Integer} dwFlags 
      * @param {IPropertyStore} pProps 
-     * @param {Pointer<IUnknown>} ppIUnknownCancelCookie 
      * @param {IMFAsyncCallback} pCallback 
      * @param {IUnknown} punkState 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsourceresolver-begincreateobjectfrombytestream
      */
-    BeginCreateObjectFromByteStream(pByteStream, pwszURL, dwFlags, pProps, ppIUnknownCancelCookie, pCallback, punkState) {
+    BeginCreateObjectFromByteStream(pByteStream, pwszURL, dwFlags, pProps, pCallback, punkState) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(7, this, "ptr", pByteStream, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, "ptr*", ppIUnknownCancelCookie, "ptr", pCallback, "ptr", punkState, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pByteStream, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        return IUnknown(ppIUnknownCancelCookie)
     }
 
     /**

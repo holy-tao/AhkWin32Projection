@@ -42,13 +42,12 @@ class IEditionUpgradeHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isAllowed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-canupgrade
      */
-    CanUpgrade(isAllowed) {
-        result := ComCall(3, this, "ptr", isAllowed, "HRESULT")
-        return result
+    CanUpgrade() {
+        result := ComCall(3, this, "int*", &isAllowed := 0, "HRESULT")
+        return isAllowed
     }
 
     /**
@@ -76,23 +75,21 @@ class IEditionUpgradeHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} contentId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-getosproductcontentid
      */
-    GetOsProductContentId(contentId) {
-        result := ComCall(6, this, "ptr", contentId, "HRESULT")
-        return result
+    GetOsProductContentId() {
+        result := ComCall(6, this, "ptr*", &contentId := 0, "HRESULT")
+        return contentId
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} isGenuine 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/editionupgradehelper/nf-editionupgradehelper-ieditionupgradehelper-getgenuinelocalstatus
      */
-    GetGenuineLocalStatus(isGenuine) {
-        result := ComCall(7, this, "ptr", isGenuine, "HRESULT")
-        return result
+    GetGenuineLocalStatus() {
+        result := ComCall(7, this, "int*", &isGenuine := 0, "HRESULT")
+        return isGenuine
     }
 }

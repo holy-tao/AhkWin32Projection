@@ -39,7 +39,9 @@ class IWMPStringCollection2 extends IWMPStringCollection{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpstringcollection2-isidentical
      */
     isIdentical(pIWMPStringCollection2, pvbool) {
-        result := ComCall(9, this, "ptr", pIWMPStringCollection2, "ptr", pvbool, "HRESULT")
+        pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pIWMPStringCollection2, pvboolMarshal, pvbool, "HRESULT")
         return result
     }
 

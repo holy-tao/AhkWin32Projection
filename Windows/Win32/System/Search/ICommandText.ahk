@@ -31,12 +31,11 @@ class ICommandText extends ICommand{
     /**
      * 
      * @param {Pointer<Guid>} pguidDialect 
-     * @param {Pointer<PWSTR>} ppwszCommand 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetCommandText(pguidDialect, ppwszCommand) {
-        result := ComCall(6, this, "ptr", pguidDialect, "ptr", ppwszCommand, "HRESULT")
-        return result
+    GetCommandText(pguidDialect) {
+        result := ComCall(6, this, "ptr", pguidDialect, "ptr*", &ppwszCommand := 0, "HRESULT")
+        return ppwszCommand
     }
 
     /**

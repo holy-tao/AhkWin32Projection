@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,13 @@ class IDWriteGlyphRunAnalysis extends IUnknown{
     /**
      * 
      * @param {Integer} textureType 
-     * @param {Pointer<RECT>} textureBounds 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteglyphrunanalysis-getalphatexturebounds
      */
-    GetAlphaTextureBounds(textureType, textureBounds) {
+    GetAlphaTextureBounds(textureType) {
+        textureBounds := RECT()
         result := ComCall(3, this, "int", textureType, "ptr", textureBounds, "HRESULT")
-        return result
+        return textureBounds
     }
 
     /**

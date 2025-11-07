@@ -56,7 +56,6 @@ class StationsAndDesktops {
         static lpszDevice := 0, pDevmode := 0 ;Reserved parameters must always be NULL
 
         lpszDesktop := lpszDesktop is String ? StrPtr(lpszDesktop) : lpszDesktop
-        lpszDevice := lpszDevice is String ? StrPtr(lpszDevice) : lpszDevice
 
         A_LastError := 0
 
@@ -110,7 +109,6 @@ class StationsAndDesktops {
         static lpszDevice := 0, pDevmode := 0 ;Reserved parameters must always be NULL
 
         lpszDesktop := lpszDesktop is String ? StrPtr(lpszDesktop) : lpszDesktop
-        lpszDevice := lpszDevice is String ? StrPtr(lpszDevice) : lpszDevice
 
         A_LastError := 0
 
@@ -171,7 +169,6 @@ class StationsAndDesktops {
         static lpszDevice := 0, pDevmode := 0, pvoid := 0 ;Reserved parameters must always be NULL
 
         lpszDesktop := lpszDesktop is String ? StrPtr(lpszDesktop) : lpszDesktop
-        lpszDevice := lpszDevice is String ? StrPtr(lpszDevice) : lpszDevice
 
         A_LastError := 0
 
@@ -232,7 +229,6 @@ class StationsAndDesktops {
         static lpszDevice := 0, pDevmode := 0, pvoid := 0 ;Reserved parameters must always be NULL
 
         lpszDesktop := lpszDesktop is String ? StrPtr(lpszDesktop) : lpszDesktop
-        lpszDevice := lpszDevice is String ? StrPtr(lpszDevice) : lpszDevice
 
         A_LastError := 0
 

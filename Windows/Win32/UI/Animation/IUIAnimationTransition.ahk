@@ -76,14 +76,11 @@ class IUIAnimationTransition extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} duration 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition-getduration
      */
-    GetDuration(duration) {
-        durationMarshal := duration is VarRef ? "double*" : "ptr"
-
-        result := ComCall(6, this, durationMarshal, duration, "HRESULT")
-        return result
+    GetDuration() {
+        result := ComCall(6, this, "double*", &duration := 0, "HRESULT")
+        return duration
     }
 }

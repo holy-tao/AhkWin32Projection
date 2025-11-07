@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,26 +38,23 @@ class IMFSAMIStyle extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamistyle-getstylecount
      */
-    GetStyleCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetStyleCount() {
+        result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
-     * @param {Pointer<PROPVARIANT>} pPropVarStyleArray 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamistyle-getstyles
      */
-    GetStyles(pPropVarStyleArray) {
+    GetStyles() {
+        pPropVarStyleArray := PROPVARIANT()
         result := ComCall(4, this, "ptr", pPropVarStyleArray, "HRESULT")
-        return result
+        return pPropVarStyleArray
     }
 
     /**
@@ -74,12 +72,11 @@ class IMFSAMIStyle extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszStyle 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamistyle-getselectedstyle
      */
-    GetSelectedStyle(ppwszStyle) {
-        result := ComCall(6, this, "ptr", ppwszStyle, "HRESULT")
-        return result
+    GetSelectedStyle() {
+        result := ComCall(6, this, "ptr*", &ppwszStyle := 0, "HRESULT")
+        return ppwszStyle
     }
 }

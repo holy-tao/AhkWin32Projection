@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Exposes methods and properties that make a user interface element and its children accessible to client applications.
@@ -33,171 +34,163 @@ class IAccessible extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppdispParent 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accparent
      */
-    get_accParent(ppdispParent) {
-        result := ComCall(7, this, "ptr*", ppdispParent, "HRESULT")
-        return result
+    get_accParent() {
+        result := ComCall(7, this, "ptr*", &ppdispParent := 0, "HRESULT")
+        return IDispatch(ppdispParent)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcountChildren 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accchildcount
      */
-    get_accChildCount(pcountChildren) {
-        pcountChildrenMarshal := pcountChildren is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pcountChildrenMarshal, pcountChildren, "HRESULT")
-        return result
+    get_accChildCount() {
+        result := ComCall(8, this, "int*", &pcountChildren := 0, "HRESULT")
+        return pcountChildren
     }
 
     /**
      * 
      * @param {VARIANT} varChild 
-     * @param {Pointer<IDispatch>} ppdispChild 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accchild
      */
-    get_accChild(varChild, ppdispChild) {
-        result := ComCall(9, this, "ptr", varChild, "ptr*", ppdispChild, "HRESULT")
-        return result
+    get_accChild(varChild) {
+        result := ComCall(9, this, "ptr", varChild, "ptr*", &ppdispChild := 0, "HRESULT")
+        return IDispatch(ppdispChild)
     }
 
     /**
      * 
      * @param {VARIANT} varChild 
-     * @param {Pointer<BSTR>} pszName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accname
      */
-    get_accName(varChild, pszName) {
+    get_accName(varChild) {
+        pszName := BSTR()
         result := ComCall(10, this, "ptr", varChild, "ptr", pszName, "HRESULT")
-        return result
+        return pszName
     }
 
     /**
      * 
      * @param {VARIANT} varChild 
-     * @param {Pointer<BSTR>} pszValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accvalue
      */
-    get_accValue(varChild, pszValue) {
+    get_accValue(varChild) {
+        pszValue := BSTR()
         result := ComCall(11, this, "ptr", varChild, "ptr", pszValue, "HRESULT")
-        return result
+        return pszValue
     }
 
     /**
      * 
      * @param {VARIANT} varChild 
-     * @param {Pointer<BSTR>} pszDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accdescription
      */
-    get_accDescription(varChild, pszDescription) {
+    get_accDescription(varChild) {
+        pszDescription := BSTR()
         result := ComCall(12, this, "ptr", varChild, "ptr", pszDescription, "HRESULT")
-        return result
+        return pszDescription
     }
 
     /**
      * 
      * @param {VARIANT} varChild 
-     * @param {Pointer<VARIANT>} pvarRole 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accrole
      */
-    get_accRole(varChild, pvarRole) {
+    get_accRole(varChild) {
+        pvarRole := VARIANT()
         result := ComCall(13, this, "ptr", varChild, "ptr", pvarRole, "HRESULT")
-        return result
+        return pvarRole
     }
 
     /**
      * 
      * @param {VARIANT} varChild 
-     * @param {Pointer<VARIANT>} pvarState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accstate
      */
-    get_accState(varChild, pvarState) {
+    get_accState(varChild) {
+        pvarState := VARIANT()
         result := ComCall(14, this, "ptr", varChild, "ptr", pvarState, "HRESULT")
-        return result
+        return pvarState
     }
 
     /**
      * 
      * @param {VARIANT} varChild 
-     * @param {Pointer<BSTR>} pszHelp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_acchelp
      */
-    get_accHelp(varChild, pszHelp) {
+    get_accHelp(varChild) {
+        pszHelp := BSTR()
         result := ComCall(15, this, "ptr", varChild, "ptr", pszHelp, "HRESULT")
-        return result
+        return pszHelp
     }
 
     /**
      * 
      * @param {Pointer<BSTR>} pszHelpFile 
      * @param {VARIANT} varChild 
-     * @param {Pointer<Integer>} pidTopic 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_acchelptopic
      */
-    get_accHelpTopic(pszHelpFile, varChild, pidTopic) {
-        pidTopicMarshal := pidTopic is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, "ptr", pszHelpFile, "ptr", varChild, pidTopicMarshal, pidTopic, "HRESULT")
-        return result
+    get_accHelpTopic(pszHelpFile, varChild) {
+        result := ComCall(16, this, "ptr", pszHelpFile, "ptr", varChild, "int*", &pidTopic := 0, "HRESULT")
+        return pidTopic
     }
 
     /**
      * 
      * @param {VARIANT} varChild 
-     * @param {Pointer<BSTR>} pszKeyboardShortcut 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_acckeyboardshortcut
      */
-    get_accKeyboardShortcut(varChild, pszKeyboardShortcut) {
+    get_accKeyboardShortcut(varChild) {
+        pszKeyboardShortcut := BSTR()
         result := ComCall(17, this, "ptr", varChild, "ptr", pszKeyboardShortcut, "HRESULT")
-        return result
+        return pszKeyboardShortcut
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarChild 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accfocus
      */
-    get_accFocus(pvarChild) {
+    get_accFocus() {
+        pvarChild := VARIANT()
         result := ComCall(18, this, "ptr", pvarChild, "HRESULT")
-        return result
+        return pvarChild
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarChildren 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accselection
      */
-    get_accSelection(pvarChildren) {
+    get_accSelection() {
+        pvarChildren := VARIANT()
         result := ComCall(19, this, "ptr", pvarChildren, "HRESULT")
-        return result
+        return pvarChildren
     }
 
     /**
      * 
      * @param {VARIANT} varChild 
-     * @param {Pointer<BSTR>} pszDefaultAction 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accdefaultaction
      */
-    get_accDefaultAction(varChild, pszDefaultAction) {
+    get_accDefaultAction(varChild) {
+        pszDefaultAction := BSTR()
         result := ComCall(20, this, "ptr", varChild, "ptr", pszDefaultAction, "HRESULT")
-        return result
+        return pszDefaultAction
     }
 
     /**
@@ -236,26 +229,26 @@ class IAccessible extends IDispatch{
      * 
      * @param {Integer} navDir 
      * @param {VARIANT} varStart 
-     * @param {Pointer<VARIANT>} pvarEndUpAt 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-accnavigate
      */
-    accNavigate(navDir, varStart, pvarEndUpAt) {
+    accNavigate(navDir, varStart) {
+        pvarEndUpAt := VARIANT()
         result := ComCall(23, this, "int", navDir, "ptr", varStart, "ptr", pvarEndUpAt, "HRESULT")
-        return result
+        return pvarEndUpAt
     }
 
     /**
      * 
      * @param {Integer} xLeft 
      * @param {Integer} yTop 
-     * @param {Pointer<VARIANT>} pvarChild 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-acchittest
      */
-    accHitTest(xLeft, yTop, pvarChild) {
+    accHitTest(xLeft, yTop) {
+        pvarChild := VARIANT()
         result := ComCall(24, this, "int", xLeft, "int", yTop, "ptr", pvarChild, "HRESULT")
-        return result
+        return pvarChild
     }
 
     /**

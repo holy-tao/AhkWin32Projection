@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugDocumentContext.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class IDebugCodeContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugDocumentContext>} ppsc 
-     * @returns {HRESULT} 
+     * @returns {IDebugDocumentContext} 
      */
-    GetDocumentContext(ppsc) {
-        result := ComCall(3, this, "ptr*", ppsc, "HRESULT")
-        return result
+    GetDocumentContext() {
+        result := ComCall(3, this, "ptr*", &ppsc := 0, "HRESULT")
+        return IDebugDocumentContext(ppsc)
     }
 
     /**

@@ -30,11 +30,10 @@ class IDebuggerInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbAttached 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsDebuggerAttached(pbAttached) {
-        result := ComCall(3, this, "ptr", pbAttached, "HRESULT")
-        return result
+    IsDebuggerAttached() {
+        result := ComCall(3, this, "int*", &pbAttached := 0, "HRESULT")
+        return pbAttached
     }
 }

@@ -32,15 +32,12 @@ class IProvideMultipleClassInfo extends IProvideClassInfo2{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcti 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iprovidemultipleclassinfo-getmultitypeinfocount
      */
-    GetMultiTypeInfoCount(pcti) {
-        pctiMarshal := pcti is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pctiMarshal, pcti, "HRESULT")
-        return result
+    GetMultiTypeInfoCount() {
+        result := ComCall(5, this, "uint*", &pcti := 0, "HRESULT")
+        return pcti
     }
 
     /**

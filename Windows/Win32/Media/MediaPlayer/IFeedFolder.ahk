@@ -31,102 +31,94 @@ class IFeedFolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Feeds(disp) {
-        result := ComCall(7, this, "ptr*", disp, "HRESULT")
-        return result
+    get_Feeds() {
+        result := ComCall(7, this, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Subfolders(disp) {
-        result := ComCall(8, this, "ptr*", disp, "HRESULT")
-        return result
+    get_Subfolders() {
+        result := ComCall(8, this, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
      * @param {BSTR} feedName 
      * @param {BSTR} feedUrl 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    CreateFeed(feedName, feedUrl, disp) {
+    CreateFeed(feedName, feedUrl) {
         feedName := feedName is String ? BSTR.Alloc(feedName).Value : feedName
         feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
 
-        result := ComCall(9, this, "ptr", feedName, "ptr", feedUrl, "ptr*", disp, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", feedName, "ptr", feedUrl, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
      * @param {BSTR} folderName 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    CreateSubfolder(folderName, disp) {
+    CreateSubfolder(folderName) {
         folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
 
-        result := ComCall(10, this, "ptr", folderName, "ptr*", disp, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", folderName, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
      * @param {BSTR} feedName 
-     * @param {Pointer<VARIANT_BOOL>} exists 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    ExistsFeed(feedName, exists) {
+    ExistsFeed(feedName) {
         feedName := feedName is String ? BSTR.Alloc(feedName).Value : feedName
 
-        result := ComCall(11, this, "ptr", feedName, "ptr", exists, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", feedName, "short*", &exists := 0, "HRESULT")
+        return exists
     }
 
     /**
      * 
      * @param {BSTR} feedName 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetFeed(feedName, disp) {
+    GetFeed(feedName) {
         feedName := feedName is String ? BSTR.Alloc(feedName).Value : feedName
 
-        result := ComCall(12, this, "ptr", feedName, "ptr*", disp, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", feedName, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
      * @param {BSTR} folderName 
-     * @param {Pointer<VARIANT_BOOL>} exists 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    ExistsSubfolder(folderName, exists) {
+    ExistsSubfolder(folderName) {
         folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
 
-        result := ComCall(13, this, "ptr", folderName, "ptr", exists, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", folderName, "short*", &exists := 0, "HRESULT")
+        return exists
     }
 
     /**
      * 
      * @param {BSTR} folderName 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetSubfolder(folderName, disp) {
+    GetSubfolder(folderName) {
         folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
 
-        result := ComCall(14, this, "ptr", folderName, "ptr*", disp, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", folderName, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
@@ -140,12 +132,12 @@ class IFeedFolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} folderName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(folderName) {
+    get_Name() {
+        folderName := BSTR()
         result := ComCall(16, this, "ptr", folderName, "HRESULT")
-        return result
+        return folderName
     }
 
     /**
@@ -162,12 +154,12 @@ class IFeedFolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} folderPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(folderPath) {
+    get_Path() {
+        folderPath := BSTR()
         result := ComCall(18, this, "ptr", folderPath, "HRESULT")
-        return result
+        return folderPath
     }
 
     /**
@@ -184,57 +176,48 @@ class IFeedFolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Parent(disp) {
-        result := ComCall(20, this, "ptr*", disp, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(20, this, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} isRoot 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsRoot(isRoot) {
-        result := ComCall(21, this, "ptr", isRoot, "HRESULT")
-        return result
+    get_IsRoot() {
+        result := ComCall(21, this, "short*", &isRoot := 0, "HRESULT")
+        return isRoot
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TotalUnreadItemCount(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, countMarshal, count, "HRESULT")
-        return result
+    get_TotalUnreadItemCount() {
+        result := ComCall(22, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TotalItemCount(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, countMarshal, count, "HRESULT")
-        return result
+    get_TotalItemCount() {
+        result := ComCall(23, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} scope 
      * @param {Integer} mask 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetWatcher(scope, mask, disp) {
-        result := ComCall(24, this, "int", scope, "int", mask, "ptr*", disp, "HRESULT")
-        return result
+    GetWatcher(scope, mask) {
+        result := ComCall(24, this, "int", scope, "int", mask, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 }

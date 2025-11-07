@@ -36,31 +36,27 @@ class ISCPSecureExchange3 extends ISCPSecureExchange2{
      * @param {Pointer<Integer>} pData 
      * @param {Integer} dwSize 
      * @param {IWMDMProgress3} pProgressCallback 
-     * @param {Pointer<Integer>} pfuReadyFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureexchange3-transfercontainerdataonclearchannel
      */
-    TransferContainerDataOnClearChannel(pDevice, pData, dwSize, pProgressCallback, pfuReadyFlags) {
+    TransferContainerDataOnClearChannel(pDevice, pData, dwSize, pProgressCallback) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        pfuReadyFlagsMarshal := pfuReadyFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pDevice, pDataMarshal, pData, "uint", dwSize, "ptr", pProgressCallback, pfuReadyFlagsMarshal, pfuReadyFlags, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pDevice, pDataMarshal, pData, "uint", dwSize, "ptr", pProgressCallback, "uint*", &pfuReadyFlags := 0, "HRESULT")
+        return pfuReadyFlags
     }
 
     /**
      * 
      * @param {IMDSPDevice} pDevice 
-     * @param {Pointer<Integer>} pData 
      * @param {Pointer<Integer>} pdwSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetObjectDataOnClearChannel(pDevice, pData, pdwSize) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+    GetObjectDataOnClearChannel(pDevice, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pDevice, pDataMarshal, pData, pdwSizeMarshal, pdwSize, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", pDevice, "char*", &pData := 0, pdwSizeMarshal, pdwSize, "HRESULT")
+        return pData
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECTL.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include .\IViewObject2.ahk
 
 /**
@@ -33,26 +35,23 @@ class IViewObjectEx extends IViewObject2{
     /**
      * 
      * @param {Integer} dwAspect 
-     * @param {Pointer<RECTL>} pRect 
-     * @returns {HRESULT} 
+     * @returns {RECTL} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-getrect
      */
-    GetRect(dwAspect, pRect) {
+    GetRect(dwAspect) {
+        pRect := RECTL()
         result := ComCall(10, this, "uint", dwAspect, "ptr", pRect, "HRESULT")
-        return result
+        return pRect
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-getviewstatus
      */
-    GetViewStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetViewStatus() {
+        result := ComCall(11, this, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**
@@ -61,15 +60,12 @@ class IViewObjectEx extends IViewObject2{
      * @param {Pointer<RECT>} pRectBounds 
      * @param {POINT} ptlLoc 
      * @param {Integer} lCloseHint 
-     * @param {Pointer<Integer>} pHitResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-queryhitpoint
      */
-    QueryHitPoint(dwAspect, pRectBounds, ptlLoc, lCloseHint, pHitResult) {
-        pHitResultMarshal := pHitResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "uint", dwAspect, "ptr", pRectBounds, "ptr", ptlLoc, "int", lCloseHint, pHitResultMarshal, pHitResult, "HRESULT")
-        return result
+    QueryHitPoint(dwAspect, pRectBounds, ptlLoc, lCloseHint) {
+        result := ComCall(12, this, "uint", dwAspect, "ptr", pRectBounds, "ptr", ptlLoc, "int", lCloseHint, "uint*", &pHitResult := 0, "HRESULT")
+        return pHitResult
     }
 
     /**
@@ -78,15 +74,12 @@ class IViewObjectEx extends IViewObject2{
      * @param {Pointer<RECT>} pRectBounds 
      * @param {Pointer<RECT>} pRectLoc 
      * @param {Integer} lCloseHint 
-     * @param {Pointer<Integer>} pHitResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-queryhitrect
      */
-    QueryHitRect(dwAspect, pRectBounds, pRectLoc, lCloseHint, pHitResult) {
-        pHitResultMarshal := pHitResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, "uint", dwAspect, "ptr", pRectBounds, "ptr", pRectLoc, "int", lCloseHint, pHitResultMarshal, pHitResult, "HRESULT")
-        return result
+    QueryHitRect(dwAspect, pRectBounds, pRectLoc, lCloseHint) {
+        result := ComCall(13, this, "uint", dwAspect, "ptr", pRectBounds, "ptr", pRectLoc, "int", lCloseHint, "uint*", &pHitResult := 0, "HRESULT")
+        return pHitResult
     }
 
     /**
@@ -96,14 +89,14 @@ class IViewObjectEx extends IViewObject2{
      * @param {Pointer<DVTARGETDEVICE>} ptd 
      * @param {HDC} hicTargetDev 
      * @param {Pointer<DVEXTENTINFO>} pExtentInfo 
-     * @param {Pointer<SIZE>} pSizel 
-     * @returns {HRESULT} 
+     * @returns {SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-getnaturalextent
      */
-    GetNaturalExtent(dwAspect, lindex, ptd, hicTargetDev, pExtentInfo, pSizel) {
+    GetNaturalExtent(dwAspect, lindex, ptd, hicTargetDev, pExtentInfo) {
         hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
 
+        pSizel := SIZE()
         result := ComCall(14, this, "uint", dwAspect, "int", lindex, "ptr", ptd, "ptr", hicTargetDev, "ptr", pExtentInfo, "ptr", pSizel, "HRESULT")
-        return result
+        return pSizel
     }
 }

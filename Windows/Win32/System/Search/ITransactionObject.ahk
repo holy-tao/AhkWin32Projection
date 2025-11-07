@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\DistributedTransactionCoordinator\ITransaction.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,11 +32,10 @@ class ITransactionObject extends IUnknown{
     /**
      * 
      * @param {Integer} ulTransactionLevel 
-     * @param {Pointer<ITransaction>} ppTransactionObject 
-     * @returns {HRESULT} 
+     * @returns {ITransaction} 
      */
-    GetTransactionObject(ulTransactionLevel, ppTransactionObject) {
-        result := ComCall(3, this, "uint", ulTransactionLevel, "ptr*", ppTransactionObject, "HRESULT")
-        return result
+    GetTransactionObject(ulTransactionLevel) {
+        result := ComCall(3, this, "uint", ulTransactionLevel, "ptr*", &ppTransactionObject := 0, "HRESULT")
+        return ITransaction(ppTransactionObject)
     }
 }

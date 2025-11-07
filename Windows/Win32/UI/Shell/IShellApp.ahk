@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SLOWAPPINFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,37 +44,34 @@ class IShellApp extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwActions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ishellapp-getpossibleactions
      */
-    GetPossibleActions(pdwActions) {
-        pdwActionsMarshal := pdwActions is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwActionsMarshal, pdwActions, "HRESULT")
-        return result
+    GetPossibleActions() {
+        result := ComCall(4, this, "uint*", &pdwActions := 0, "HRESULT")
+        return pdwActions
     }
 
     /**
      * 
-     * @param {Pointer<SLOWAPPINFO>} psaid 
-     * @returns {HRESULT} 
+     * @returns {SLOWAPPINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ishellapp-getslowappinfo
      */
-    GetSlowAppInfo(psaid) {
+    GetSlowAppInfo() {
+        psaid := SLOWAPPINFO()
         result := ComCall(5, this, "ptr", psaid, "HRESULT")
-        return result
+        return psaid
     }
 
     /**
      * 
-     * @param {Pointer<SLOWAPPINFO>} psaid 
-     * @returns {HRESULT} 
+     * @returns {SLOWAPPINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ishellapp-getcachedslowappinfo
      */
-    GetCachedSlowAppInfo(psaid) {
+    GetCachedSlowAppInfo() {
+        psaid := SLOWAPPINFO()
         result := ComCall(6, this, "ptr", psaid, "HRESULT")
-        return result
+        return psaid
     }
 
     /**

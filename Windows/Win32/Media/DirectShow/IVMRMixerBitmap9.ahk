@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VMR9AlphaBitmap.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -59,12 +60,12 @@ class IVMRMixerBitmap9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VMR9AlphaBitmap>} pBmpParms 
-     * @returns {HRESULT} 
+     * @returns {VMR9AlphaBitmap} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixerbitmap9-getalphabitmapparameters
      */
-    GetAlphaBitmapParameters(pBmpParms) {
+    GetAlphaBitmapParameters() {
+        pBmpParms := VMR9AlphaBitmap()
         result := ComCall(5, this, "ptr", pBmpParms, "HRESULT")
-        return result
+        return pBmpParms
     }
 }

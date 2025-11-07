@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxManifestTargetDeviceFamiliesEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IAppxBundleManifestPackageInfo3 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAppxManifestTargetDeviceFamiliesEnumerator>} targetDeviceFamilies 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestTargetDeviceFamiliesEnumerator} 
      */
-    GetTargetDeviceFamilies(targetDeviceFamilies) {
-        result := ComCall(3, this, "ptr*", targetDeviceFamilies, "HRESULT")
-        return result
+    GetTargetDeviceFamilies() {
+        result := ComCall(3, this, "ptr*", &targetDeviceFamilies := 0, "HRESULT")
+        return IAppxManifestTargetDeviceFamiliesEnumerator(targetDeviceFamilies)
     }
 }

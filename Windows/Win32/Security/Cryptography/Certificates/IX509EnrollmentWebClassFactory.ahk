@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,14 +35,13 @@ class IX509EnrollmentWebClassFactory extends IDispatch{
     /**
      * 
      * @param {BSTR} strProgID 
-     * @param {Pointer<IUnknown>} ppIUnknown 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentwebclassfactory-createobject
      */
-    CreateObject(strProgID, ppIUnknown) {
+    CreateObject(strProgID) {
         strProgID := strProgID is String ? BSTR.Alloc(strProgID).Value : strProgID
 
-        result := ComCall(7, this, "ptr", strProgID, "ptr*", ppIUnknown, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", strProgID, "ptr*", &ppIUnknown := 0, "HRESULT")
+        return IUnknown(ppIUnknown)
     }
 }

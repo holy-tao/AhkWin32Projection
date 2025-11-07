@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMSMQQueueInfo.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,26 +39,20 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plClass 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Class(plClass) {
-        plClassMarshal := plClass is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plClassMarshal, plClass, "HRESULT")
-        return result
+    get_Class() {
+        result := ComCall(7, this, "int*", &plClass := 0, "HRESULT")
+        return plClass
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plPrivLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PrivLevel(plPrivLevel) {
-        plPrivLevelMarshal := plPrivLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plPrivLevelMarshal, plPrivLevel, "HRESULT")
-        return result
+    get_PrivLevel() {
+        result := ComCall(8, this, "int*", &plPrivLevel := 0, "HRESULT")
+        return plPrivLevel
     }
 
     /**
@@ -71,14 +67,11 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plAuthLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AuthLevel(plAuthLevel) {
-        plAuthLevelMarshal := plAuthLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plAuthLevelMarshal, plAuthLevel, "HRESULT")
-        return result
+    get_AuthLevel() {
+        result := ComCall(10, this, "int*", &plAuthLevel := 0, "HRESULT")
+        return plAuthLevel
     }
 
     /**
@@ -93,26 +86,20 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pisAuthenticated 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_IsAuthenticated(pisAuthenticated) {
-        pisAuthenticatedMarshal := pisAuthenticated is VarRef ? "short*" : "ptr"
-
-        result := ComCall(12, this, pisAuthenticatedMarshal, pisAuthenticated, "HRESULT")
-        return result
+    get_IsAuthenticated() {
+        result := ComCall(12, this, "short*", &pisAuthenticated := 0, "HRESULT")
+        return pisAuthenticated
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plDelivery 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Delivery(plDelivery) {
-        plDeliveryMarshal := plDelivery is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, plDeliveryMarshal, plDelivery, "HRESULT")
-        return result
+    get_Delivery() {
+        result := ComCall(13, this, "int*", &plDelivery := 0, "HRESULT")
+        return plDelivery
     }
 
     /**
@@ -127,14 +114,11 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plTrace 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Trace(plTrace) {
-        plTraceMarshal := plTrace is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, plTraceMarshal, plTrace, "HRESULT")
-        return result
+    get_Trace() {
+        result := ComCall(15, this, "int*", &plTrace := 0, "HRESULT")
+        return plTrace
     }
 
     /**
@@ -149,14 +133,11 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Priority(plPriority) {
-        plPriorityMarshal := plPriority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, plPriorityMarshal, plPriority, "HRESULT")
-        return result
+    get_Priority() {
+        result := ComCall(17, this, "int*", &plPriority := 0, "HRESULT")
+        return plPriority
     }
 
     /**
@@ -171,14 +152,11 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plJournal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Journal(plJournal) {
-        plJournalMarshal := plJournal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, plJournalMarshal, plJournal, "HRESULT")
-        return result
+    get_Journal() {
+        result := ComCall(19, this, "int*", &plJournal := 0, "HRESULT")
+        return plJournal
     }
 
     /**
@@ -193,12 +171,11 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMSMQQueueInfo>} ppqinfoResponse 
-     * @returns {HRESULT} 
+     * @returns {IMSMQQueueInfo} 
      */
-    get_ResponseQueueInfo(ppqinfoResponse) {
-        result := ComCall(21, this, "ptr*", ppqinfoResponse, "HRESULT")
-        return result
+    get_ResponseQueueInfo() {
+        result := ComCall(21, this, "ptr*", &ppqinfoResponse := 0, "HRESULT")
+        return IMSMQQueueInfo(ppqinfoResponse)
     }
 
     /**
@@ -213,14 +190,11 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plAppSpecific 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AppSpecific(plAppSpecific) {
-        plAppSpecificMarshal := plAppSpecific is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, plAppSpecificMarshal, plAppSpecific, "HRESULT")
-        return result
+    get_AppSpecific() {
+        result := ComCall(23, this, "int*", &plAppSpecific := 0, "HRESULT")
+        return plAppSpecific
     }
 
     /**
@@ -235,34 +209,31 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrGuidSrcMachine 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SourceMachineGuid(pbstrGuidSrcMachine) {
+    get_SourceMachineGuid() {
+        pbstrGuidSrcMachine := BSTR()
         result := ComCall(25, this, "ptr", pbstrGuidSrcMachine, "HRESULT")
-        return result
+        return pbstrGuidSrcMachine
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbBody 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BodyLength(pcbBody) {
-        pcbBodyMarshal := pcbBody is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, pcbBodyMarshal, pcbBody, "HRESULT")
-        return result
+    get_BodyLength() {
+        result := ComCall(26, this, "int*", &pcbBody := 0, "HRESULT")
+        return pcbBody
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarBody 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Body(pvarBody) {
+    get_Body() {
+        pvarBody := VARIANT()
         result := ComCall(27, this, "ptr", pvarBody, "HRESULT")
-        return result
+        return pvarBody
     }
 
     /**
@@ -277,12 +248,11 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMSMQQueueInfo>} ppqinfoAdmin 
-     * @returns {HRESULT} 
+     * @returns {IMSMQQueueInfo} 
      */
-    get_AdminQueueInfo(ppqinfoAdmin) {
-        result := ComCall(29, this, "ptr*", ppqinfoAdmin, "HRESULT")
-        return result
+    get_AdminQueueInfo() {
+        result := ComCall(29, this, "ptr*", &ppqinfoAdmin := 0, "HRESULT")
+        return IMSMQQueueInfo(ppqinfoAdmin)
     }
 
     /**
@@ -297,22 +267,22 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarMsgId 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Id(pvarMsgId) {
+    get_Id() {
+        pvarMsgId := VARIANT()
         result := ComCall(31, this, "ptr", pvarMsgId, "HRESULT")
-        return result
+        return pvarMsgId
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarMsgId 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_CorrelationId(pvarMsgId) {
+    get_CorrelationId() {
+        pvarMsgId := VARIANT()
         result := ComCall(32, this, "ptr", pvarMsgId, "HRESULT")
-        return result
+        return pvarMsgId
     }
 
     /**
@@ -327,14 +297,11 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plAck 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Ack(plAck) {
-        plAckMarshal := plAck is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, plAckMarshal, plAck, "HRESULT")
-        return result
+    get_Ack() {
+        result := ComCall(34, this, "int*", &plAck := 0, "HRESULT")
+        return plAck
     }
 
     /**
@@ -349,12 +316,12 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrLabel 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Label(pbstrLabel) {
+    get_Label() {
+        pbstrLabel := BSTR()
         result := ComCall(36, this, "ptr", pbstrLabel, "HRESULT")
-        return result
+        return pbstrLabel
     }
 
     /**
@@ -371,14 +338,11 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plMaxTimeToReachQueue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaxTimeToReachQueue(plMaxTimeToReachQueue) {
-        plMaxTimeToReachQueueMarshal := plMaxTimeToReachQueue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(38, this, plMaxTimeToReachQueueMarshal, plMaxTimeToReachQueue, "HRESULT")
-        return result
+    get_MaxTimeToReachQueue() {
+        result := ComCall(38, this, "int*", &plMaxTimeToReachQueue := 0, "HRESULT")
+        return plMaxTimeToReachQueue
     }
 
     /**
@@ -393,14 +357,11 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plMaxTimeToReceive 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaxTimeToReceive(plMaxTimeToReceive) {
-        plMaxTimeToReceiveMarshal := plMaxTimeToReceive is VarRef ? "int*" : "ptr"
-
-        result := ComCall(40, this, plMaxTimeToReceiveMarshal, plMaxTimeToReceive, "HRESULT")
-        return result
+    get_MaxTimeToReceive() {
+        result := ComCall(40, this, "int*", &plMaxTimeToReceive := 0, "HRESULT")
+        return plMaxTimeToReceive
     }
 
     /**
@@ -415,14 +376,11 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plHashAlg 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_HashAlgorithm(plHashAlg) {
-        plHashAlgMarshal := plHashAlg is VarRef ? "int*" : "ptr"
-
-        result := ComCall(42, this, plHashAlgMarshal, plHashAlg, "HRESULT")
-        return result
+    get_HashAlgorithm() {
+        result := ComCall(42, this, "int*", &plHashAlg := 0, "HRESULT")
+        return plHashAlg
     }
 
     /**
@@ -437,14 +395,11 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plEncryptAlg 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EncryptAlgorithm(plEncryptAlg) {
-        plEncryptAlgMarshal := plEncryptAlg is VarRef ? "int*" : "ptr"
-
-        result := ComCall(44, this, plEncryptAlgMarshal, plEncryptAlg, "HRESULT")
-        return result
+    get_EncryptAlgorithm() {
+        result := ComCall(44, this, "int*", &plEncryptAlg := 0, "HRESULT")
+        return plEncryptAlg
     }
 
     /**
@@ -459,42 +414,41 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSentTime 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_SentTime(pvarSentTime) {
+    get_SentTime() {
+        pvarSentTime := VARIANT()
         result := ComCall(46, this, "ptr", pvarSentTime, "HRESULT")
-        return result
+        return pvarSentTime
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} plArrivedTime 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ArrivedTime(plArrivedTime) {
+    get_ArrivedTime() {
+        plArrivedTime := VARIANT()
         result := ComCall(47, this, "ptr", plArrivedTime, "HRESULT")
-        return result
+        return plArrivedTime
     }
 
     /**
      * 
-     * @param {Pointer<IMSMQQueueInfo>} ppqinfoDest 
-     * @returns {HRESULT} 
+     * @returns {IMSMQQueueInfo} 
      */
-    get_DestinationQueueInfo(ppqinfoDest) {
-        result := ComCall(48, this, "ptr*", ppqinfoDest, "HRESULT")
-        return result
+    get_DestinationQueueInfo() {
+        result := ComCall(48, this, "ptr*", &ppqinfoDest := 0, "HRESULT")
+        return IMSMQQueueInfo(ppqinfoDest)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSenderCert 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_SenderCertificate(pvarSenderCert) {
+    get_SenderCertificate() {
+        pvarSenderCert := VARIANT()
         result := ComCall(49, this, "ptr", pvarSenderCert, "HRESULT")
-        return result
+        return pvarSenderCert
     }
 
     /**
@@ -509,24 +463,21 @@ class IMSMQMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSenderId 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_SenderId(pvarSenderId) {
+    get_SenderId() {
+        pvarSenderId := VARIANT()
         result := ComCall(51, this, "ptr", pvarSenderId, "HRESULT")
-        return result
+        return pvarSenderId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plSenderIdType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SenderIdType(plSenderIdType) {
-        plSenderIdTypeMarshal := plSenderIdType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(52, this, plSenderIdTypeMarshal, plSenderIdType, "HRESULT")
-        return result
+    get_SenderIdType() {
+        result := ComCall(52, this, "int*", &plSenderIdType := 0, "HRESULT")
+        return plSenderIdType
     }
 
     /**

@@ -43,13 +43,12 @@ class IWMWriterFileSink3 extends IWMWriterFileSink2{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfAutoIndexing 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-getautoindexing
      */
-    GetAutoIndexing(pfAutoIndexing) {
-        result := ComCall(17, this, "ptr", pfAutoIndexing, "HRESULT")
-        return result
+    GetAutoIndexing() {
+        result := ComCall(17, this, "int*", &pfAutoIndexing := 0, "HRESULT")
+        return pfAutoIndexing
     }
 
     /**
@@ -66,15 +65,12 @@ class IWMWriterFileSink3 extends IWMWriterFileSink2{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFileSinkMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-getmode
      */
-    GetMode(pdwFileSinkMode) {
-        pdwFileSinkModeMarshal := pdwFileSinkMode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, pdwFileSinkModeMarshal, pdwFileSinkMode, "HRESULT")
-        return result
+    GetMode() {
+        result := ComCall(19, this, "uint*", &pdwFileSinkMode := 0, "HRESULT")
+        return pdwFileSinkMode
     }
 
     /**
@@ -102,13 +98,12 @@ class IWMWriterFileSink3 extends IWMWriterFileSink2{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfUnbufferedIO 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-getunbufferedio
      */
-    GetUnbufferedIO(pfUnbufferedIO) {
-        result := ComCall(22, this, "ptr", pfUnbufferedIO, "HRESULT")
-        return result
+    GetUnbufferedIO() {
+        result := ComCall(22, this, "int*", &pfUnbufferedIO := 0, "HRESULT")
+        return pfUnbufferedIO
     }
 
     /**

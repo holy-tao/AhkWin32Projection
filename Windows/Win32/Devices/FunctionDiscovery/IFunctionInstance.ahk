@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\System\Com\IServiceProvider.ahk
 
 /**
@@ -32,40 +33,33 @@ class IFunctionInstance extends IServiceProvider{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppszCoMemIdentity 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getid
      */
-    GetID(ppszCoMemIdentity) {
-        ppszCoMemIdentityMarshal := ppszCoMemIdentity is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppszCoMemIdentityMarshal, ppszCoMemIdentity, "HRESULT")
-        return result
+    GetID() {
+        result := ComCall(4, this, "ptr*", &ppszCoMemIdentity := 0, "HRESULT")
+        return ppszCoMemIdentity
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppszCoMemProviderInstanceIdentity 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getproviderinstanceid
      */
-    GetProviderInstanceID(ppszCoMemProviderInstanceIdentity) {
-        ppszCoMemProviderInstanceIdentityMarshal := ppszCoMemProviderInstanceIdentity is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, ppszCoMemProviderInstanceIdentityMarshal, ppszCoMemProviderInstanceIdentity, "HRESULT")
-        return result
+    GetProviderInstanceID() {
+        result := ComCall(5, this, "ptr*", &ppszCoMemProviderInstanceIdentity := 0, "HRESULT")
+        return ppszCoMemProviderInstanceIdentity
     }
 
     /**
      * 
      * @param {Integer} dwStgAccess 
-     * @param {Pointer<IPropertyStore>} ppIPropertyStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-openpropertystore
      */
-    OpenPropertyStore(dwStgAccess, ppIPropertyStore) {
-        result := ComCall(6, this, "uint", dwStgAccess, "ptr*", ppIPropertyStore, "HRESULT")
-        return result
+    OpenPropertyStore(dwStgAccess) {
+        result := ComCall(6, this, "uint", dwStgAccess, "ptr*", &ppIPropertyStore := 0, "HRESULT")
+        return IPropertyStore(ppIPropertyStore)
     }
 
     /**

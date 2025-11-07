@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IPropertyStorage.ahk
+#Include .\IEnumSTATPROPSETSTG.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -48,26 +50,24 @@ class IPropertySetStorage extends IUnknown{
      * @param {Pointer<Guid>} pclsid 
      * @param {Integer} grfFlags 
      * @param {Integer} grfMode 
-     * @param {Pointer<IPropertyStorage>} ppprstg 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-ipropertysetstorage-create
      */
-    Create(rfmtid, pclsid, grfFlags, grfMode, ppprstg) {
-        result := ComCall(3, this, "ptr", rfmtid, "ptr", pclsid, "uint", grfFlags, "uint", grfMode, "ptr*", ppprstg, "HRESULT")
-        return result
+    Create(rfmtid, pclsid, grfFlags, grfMode) {
+        result := ComCall(3, this, "ptr", rfmtid, "ptr", pclsid, "uint", grfFlags, "uint", grfMode, "ptr*", &ppprstg := 0, "HRESULT")
+        return IPropertyStorage(ppprstg)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rfmtid 
      * @param {Integer} grfMode 
-     * @param {Pointer<IPropertyStorage>} ppprstg 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-ipropertysetstorage-open
      */
-    Open(rfmtid, grfMode, ppprstg) {
-        result := ComCall(4, this, "ptr", rfmtid, "uint", grfMode, "ptr*", ppprstg, "HRESULT")
-        return result
+    Open(rfmtid, grfMode) {
+        result := ComCall(4, this, "ptr", rfmtid, "uint", grfMode, "ptr*", &ppprstg := 0, "HRESULT")
+        return IPropertyStorage(ppprstg)
     }
 
     /**
@@ -83,12 +83,11 @@ class IPropertySetStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSTATPROPSETSTG>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSTATPROPSETSTG} 
      * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-ipropertysetstorage-enum
      */
-    Enum(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Enum() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumSTATPROPSETSTG(ppenum)
     }
 }

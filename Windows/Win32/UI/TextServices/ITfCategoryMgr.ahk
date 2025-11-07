@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumGUID.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -59,41 +61,39 @@ class ITfCategoryMgr extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<IEnumGUID>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumGUID} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-enumcategoriesinitem
      */
-    EnumCategoriesInItem(rguid, ppEnum) {
-        result := ComCall(5, this, "ptr", rguid, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumCategoriesInItem(rguid) {
+        result := ComCall(5, this, "ptr", rguid, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumGUID(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rcatid 
-     * @param {Pointer<IEnumGUID>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumGUID} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-enumitemsincategory
      */
-    EnumItemsInCategory(rcatid, ppEnum) {
-        result := ComCall(6, this, "ptr", rcatid, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumItemsInCategory(rcatid) {
+        result := ComCall(6, this, "ptr", rcatid, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumGUID(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<Guid>} pcatid 
      * @param {Pointer<Pointer<Guid>>} ppcatidList 
      * @param {Integer} ulCount 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-findclosestcategory
      */
-    FindClosestCategory(rguid, pcatid, ppcatidList, ulCount) {
+    FindClosestCategory(rguid, ppcatidList, ulCount) {
         ppcatidListMarshal := ppcatidList is VarRef ? "ptr*" : "ptr"
 
+        pcatid := Guid()
         result := ComCall(7, this, "ptr", rguid, "ptr", pcatid, ppcatidListMarshal, ppcatidList, "uint", ulCount, "HRESULT")
-        return result
+        return pcatid
     }
 
     /**
@@ -127,13 +127,13 @@ class ITfCategoryMgr extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<BSTR>} pbstrDesc 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-getguiddescription
      */
-    GetGUIDDescription(rguid, pbstrDesc) {
+    GetGUIDDescription(rguid) {
+        pbstrDesc := BSTR()
         result := ComCall(10, this, "ptr", rguid, "ptr", pbstrDesc, "HRESULT")
-        return result
+        return pbstrDesc
     }
 
     /**
@@ -164,53 +164,46 @@ class ITfCategoryMgr extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<Integer>} pdw 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-getguiddword
      */
-    GetGUIDDWORD(rguid, pdw) {
-        pdwMarshal := pdw is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, "ptr", rguid, pdwMarshal, pdw, "HRESULT")
-        return result
+    GetGUIDDWORD(rguid) {
+        result := ComCall(13, this, "ptr", rguid, "uint*", &pdw := 0, "HRESULT")
+        return pdw
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<Integer>} pguidatom 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-registerguid
      */
-    RegisterGUID(rguid, pguidatom) {
-        pguidatomMarshal := pguidatom is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "ptr", rguid, pguidatomMarshal, pguidatom, "HRESULT")
-        return result
+    RegisterGUID(rguid) {
+        result := ComCall(14, this, "ptr", rguid, "uint*", &pguidatom := 0, "HRESULT")
+        return pguidatom
     }
 
     /**
      * 
      * @param {Integer} guidatom 
-     * @param {Pointer<Guid>} pguid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-getguid
      */
-    GetGUID(guidatom, pguid) {
+    GetGUID(guidatom) {
+        pguid := Guid()
         result := ComCall(15, this, "uint", guidatom, "ptr", pguid, "HRESULT")
-        return result
+        return pguid
     }
 
     /**
      * 
      * @param {Integer} guidatom 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<BOOL>} pfEqual 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-isequaltfguidatom
      */
-    IsEqualTfGuidAtom(guidatom, rguid, pfEqual) {
-        result := ComCall(16, this, "uint", guidatom, "ptr", rguid, "ptr", pfEqual, "HRESULT")
-        return result
+    IsEqualTfGuidAtom(guidatom, rguid) {
+        result := ComCall(16, this, "uint", guidatom, "ptr", rguid, "int*", &pfEqual := 0, "HRESULT")
+        return pfEqual
     }
 }

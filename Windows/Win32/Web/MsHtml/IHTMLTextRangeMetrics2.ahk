@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLRectCollection.ahk
+#Include .\IHTMLRect.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,21 +32,19 @@ class IHTMLTextRangeMetrics2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLRectCollection>} pRectCol 
-     * @returns {HRESULT} 
+     * @returns {IHTMLRectCollection} 
      */
-    getClientRects(pRectCol) {
-        result := ComCall(7, this, "ptr*", pRectCol, "HRESULT")
-        return result
+    getClientRects() {
+        result := ComCall(7, this, "ptr*", &pRectCol := 0, "HRESULT")
+        return IHTMLRectCollection(pRectCol)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLRect>} pRect 
-     * @returns {HRESULT} 
+     * @returns {IHTMLRect} 
      */
-    getBoundingClientRect(pRect) {
-        result := ComCall(8, this, "ptr*", pRect, "HRESULT")
-        return result
+    getBoundingClientRect() {
+        result := ComCall(8, this, "ptr*", &pRect := 0, "HRESULT")
+        return IHTMLRect(pRect)
     }
 }

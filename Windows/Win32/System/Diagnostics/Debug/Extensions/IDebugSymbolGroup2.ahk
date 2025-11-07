@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\DEBUG_SYMBOL_PARAMETERS.ahk
+#Include .\DEBUG_SYMBOL_ENTRY.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,14 +32,11 @@ class IDebugSymbolGroup2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Number 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNumberSymbols(Number) {
-        NumberMarshal := Number is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, NumberMarshal, Number, "HRESULT")
-        return result
+    GetNumberSymbols() {
+        result := ComCall(3, this, "uint*", &Number := 0, "HRESULT")
+        return Number
     }
 
     /**
@@ -82,28 +81,25 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @param {Integer} Index 
      * @param {PSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} NameSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSymbolName(Index, Buffer, BufferSize, NameSize) {
+    GetSymbolName(Index, Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
-        return result
+        result := ComCall(7, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        return NameSize
     }
 
     /**
      * 
      * @param {Integer} Start 
      * @param {Integer} Count 
-     * @param {Pointer<DEBUG_SYMBOL_PARAMETERS>} Params 
-     * @returns {HRESULT} 
+     * @returns {DEBUG_SYMBOL_PARAMETERS} 
      */
-    GetSymbolParameters(Start, Count, Params) {
+    GetSymbolParameters(Start, Count) {
+        Params := DEBUG_SYMBOL_PARAMETERS()
         result := ComCall(8, this, "uint", Start, "uint", Count, "ptr", Params, "HRESULT")
-        return result
+        return Params
     }
 
     /**
@@ -188,16 +184,13 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @param {Integer} Index 
      * @param {PWSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} NameSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSymbolNameWide(Index, Buffer, BufferSize, NameSize) {
+    GetSymbolNameWide(Index, Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
-        return result
+        result := ComCall(15, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        return NameSize
     }
 
     /**
@@ -231,16 +224,13 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @param {Integer} Index 
      * @param {PSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} NameSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSymbolTypeName(Index, Buffer, BufferSize, NameSize) {
+    GetSymbolTypeName(Index, Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
-        return result
+        result := ComCall(18, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        return NameSize
     }
 
     /**
@@ -248,55 +238,43 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @param {Integer} Index 
      * @param {PWSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} NameSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSymbolTypeNameWide(Index, Buffer, BufferSize, NameSize) {
+    GetSymbolTypeNameWide(Index, Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
-        return result
+        result := ComCall(19, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        return NameSize
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Integer>} Size 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSymbolSize(Index, Size) {
-        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, "uint", Index, SizeMarshal, Size, "HRESULT")
-        return result
+    GetSymbolSize(Index) {
+        result := ComCall(20, this, "uint", Index, "uint*", &Size := 0, "HRESULT")
+        return Size
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Integer>} Offset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSymbolOffset(Index, Offset) {
-        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, "uint", Index, OffsetMarshal, Offset, "HRESULT")
-        return result
+    GetSymbolOffset(Index) {
+        result := ComCall(21, this, "uint", Index, "uint*", &Offset := 0, "HRESULT")
+        return Offset
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Integer>} Register 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSymbolRegister(Index, Register) {
-        RegisterMarshal := Register is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, "uint", Index, RegisterMarshal, Register, "HRESULT")
-        return result
+    GetSymbolRegister(Index) {
+        result := ComCall(22, this, "uint", Index, "uint*", &Register := 0, "HRESULT")
+        return Register
     }
 
     /**
@@ -304,16 +282,13 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @param {Integer} Index 
      * @param {PSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} NameSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSymbolValueText(Index, Buffer, BufferSize, NameSize) {
+    GetSymbolValueText(Index, Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(23, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
-        return result
+        result := ComCall(23, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        return NameSize
     }
 
     /**
@@ -321,26 +296,23 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @param {Integer} Index 
      * @param {PWSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} NameSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSymbolValueTextWide(Index, Buffer, BufferSize, NameSize) {
+    GetSymbolValueTextWide(Index, Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(24, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
-        return result
+        result := ComCall(24, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        return NameSize
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<DEBUG_SYMBOL_ENTRY>} Entry 
-     * @returns {HRESULT} 
+     * @returns {DEBUG_SYMBOL_ENTRY} 
      */
-    GetSymbolEntryInformation(Index, Entry) {
+    GetSymbolEntryInformation(Index) {
+        Entry := DEBUG_SYMBOL_ENTRY()
         result := ComCall(25, this, "uint", Index, "ptr", Entry, "HRESULT")
-        return result
+        return Entry
     }
 }

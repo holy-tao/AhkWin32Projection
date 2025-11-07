@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IObjectId.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -58,36 +59,34 @@ class IX509Extension extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extension-get_objectid
      */
-    get_ObjectId(ppValue) {
-        result := ComCall(8, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_ObjectId() {
+        result := ComCall(8, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extension-get_rawdata
      */
-    get_RawData(Encoding, pValue) {
+    get_RawData(Encoding) {
+        pValue := BSTR()
         result := ComCall(9, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extension-get_critical
      */
-    get_Critical(pValue) {
-        result := ComCall(10, this, "ptr", pValue, "HRESULT")
-        return result
+    get_Critical() {
+        result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**

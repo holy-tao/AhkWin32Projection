@@ -38,36 +38,30 @@ class IWSDXMLContext extends IUnknown{
      * 
      * @param {PWSTR} pszUri 
      * @param {PWSTR} pszSuggestedPrefix 
-     * @param {Pointer<Pointer<WSDXML_NAMESPACE>>} ppNamespace 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSDXML_NAMESPACE>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdxml/nf-wsdxml-iwsdxmlcontext-addnamespace
      */
-    AddNamespace(pszUri, pszSuggestedPrefix, ppNamespace) {
+    AddNamespace(pszUri, pszSuggestedPrefix) {
         pszUri := pszUri is String ? StrPtr(pszUri) : pszUri
         pszSuggestedPrefix := pszSuggestedPrefix is String ? StrPtr(pszSuggestedPrefix) : pszSuggestedPrefix
 
-        ppNamespaceMarshal := ppNamespace is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pszUri, "ptr", pszSuggestedPrefix, ppNamespaceMarshal, ppNamespace, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszUri, "ptr", pszSuggestedPrefix, "ptr*", &ppNamespace := 0, "HRESULT")
+        return ppNamespace
     }
 
     /**
      * 
      * @param {PWSTR} pszUri 
      * @param {PWSTR} pszName 
-     * @param {Pointer<Pointer<WSDXML_NAME>>} ppName 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSDXML_NAME>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdxml/nf-wsdxml-iwsdxmlcontext-addnametonamespace
      */
-    AddNameToNamespace(pszUri, pszName, ppName) {
+    AddNameToNamespace(pszUri, pszName) {
         pszUri := pszUri is String ? StrPtr(pszUri) : pszUri
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        ppNameMarshal := ppName is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pszUri, "ptr", pszName, ppNameMarshal, ppName, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszUri, "ptr", pszName, "ptr*", &ppName := 0, "HRESULT")
+        return ppName
     }
 
     /**

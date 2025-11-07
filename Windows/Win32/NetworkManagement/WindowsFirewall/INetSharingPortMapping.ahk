@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INetSharingPortMappingProps.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -60,13 +61,12 @@ class INetSharingPortMapping extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<INetSharingPortMappingProps>} ppNSPMP 
-     * @returns {HRESULT} 
+     * @returns {INetSharingPortMappingProps} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmapping-get_properties
      */
-    get_Properties(ppNSPMP) {
-        result := ComCall(9, this, "ptr*", ppNSPMP, "HRESULT")
-        return result
+    get_Properties() {
+        result := ComCall(9, this, "ptr*", &ppNSPMP := 0, "HRESULT")
+        return INetSharingPortMappingProps(ppNSPMP)
     }
 
     /**

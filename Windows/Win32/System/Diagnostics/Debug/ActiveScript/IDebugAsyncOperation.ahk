@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugSyncOperation.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class IDebugAsyncOperation extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugSyncOperation>} ppsdo 
-     * @returns {HRESULT} 
+     * @returns {IDebugSyncOperation} 
      */
-    GetSyncDebugOperation(ppsdo) {
-        result := ComCall(3, this, "ptr*", ppsdo, "HRESULT")
-        return result
+    GetSyncDebugOperation() {
+        result := ComCall(3, this, "ptr*", &ppsdo := 0, "HRESULT")
+        return IDebugSyncOperation(ppsdo)
     }
 
     /**
@@ -73,7 +73,9 @@ class IDebugAsyncOperation extends IUnknown{
      * @returns {HRESULT} 
      */
     GetResult(phrResult, ppunkResult) {
-        result := ComCall(7, this, "ptr", phrResult, "ptr*", ppunkResult, "HRESULT")
+        phrResultMarshal := phrResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, phrResultMarshal, phrResult, "ptr*", ppunkResult, "HRESULT")
         return result
     }
 }

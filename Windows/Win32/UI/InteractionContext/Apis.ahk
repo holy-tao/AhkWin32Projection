@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\HINTERACTIONCONTEXT.ahk
 
 /**
  * @namespace Windows.Win32.UI.InteractionContext
@@ -13,19 +14,17 @@ class InteractionContext {
 ;@region Methods
     /**
      * Creates and initializes an Interaction Context object.
-     * @param {Pointer<HINTERACTIONCONTEXT>} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
+     * @returns {HINTERACTIONCONTEXT} Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-createinteractioncontext
      * @since windows8.0
      */
-    static CreateInteractionContext(interactionContext) {
+    static CreateInteractionContext() {
+        interactionContext := HINTERACTIONCONTEXT()
         result := DllCall("NInput.dll\CreateInteractionContext", "ptr", interactionContext, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return interactionContext
     }
 
     /**
@@ -156,7 +155,7 @@ class InteractionContext {
      * Gets Interaction Context object properties.
      * @param {HINTERACTIONCONTEXT} interactionContext Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object.
      * @param {Integer} contextProperty One of the constants identified by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_context_property">INTERACTION_CONTEXT_PROPERTY</a>.
-     * @param {Pointer<Integer>} value The value of the property.
+     * @returns {Integer} The value of the property.
      * 
      * Valid values for <i>contextProperty</i> are:
      * 
@@ -252,22 +251,17 @@ class InteractionContext {
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
      * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-getpropertyinteractioncontext
      * @since windows8.0
      */
-    static GetPropertyInteractionContext(interactionContext, contextProperty, value) {
+    static GetPropertyInteractionContext(interactionContext, contextProperty) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("NInput.dll\GetPropertyInteractionContext", "ptr", interactionContext, "int", contextProperty, valueMarshal, value, "int")
+        result := DllCall("NInput.dll\GetPropertyInteractionContext", "ptr", interactionContext, "int", contextProperty, "uint*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -302,7 +296,7 @@ class InteractionContext {
      * Gets the inertia behavior of a manipulation (translation, rotation, scaling).
      * @param {HINTERACTIONCONTEXT} interactionContext The handle of the interaction context.
      * @param {Integer} inertiaParameter One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-inertia_parameter">INERTIA_PARAMETER</a>.
-     * @param {Pointer<Float>} value The value of <i>inertiaParameter</i>. This value is one of the following:
+     * @returns {Float} The value of <i>inertiaParameter</i>. This value is one of the following:
      * 
      * <ul>
      * <li>The rate of deceleration, in radians/ms².</li>
@@ -310,22 +304,17 @@ class InteractionContext {
      * <li>For rotation, the relative change in angle of rotation, in radians</li>
      * <li>For scaling, the relative change in size, in HIMETRIC units.</li>
      * </ul>
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
      * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-getinertiaparameterinteractioncontext
      * @since windows8.0
      */
-    static GetInertiaParameterInteractionContext(interactionContext, inertiaParameter, value) {
+    static GetInertiaParameterInteractionContext(interactionContext, inertiaParameter) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        valueMarshal := value is VarRef ? "float*" : "ptr"
-
-        result := DllCall("NInput.dll\GetInertiaParameterInteractionContext", "ptr", interactionContext, "int", inertiaParameter, valueMarshal, value, "int")
+        result := DllCall("NInput.dll\GetInertiaParameterInteractionContext", "ptr", interactionContext, "int", inertiaParameter, "float*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -353,23 +342,18 @@ class InteractionContext {
      * Gets the cross-slide interaction behavior.
      * @param {HINTERACTIONCONTEXT} interactionContext The handle of the interaction context.
      * @param {Integer} threshold One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-cross_slide_threshold">CROSS_SLIDE_THRESHOLD</a>.
-     * @param {Pointer<Float>} distance The distance threshold of <i>threshold</i>.
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
+     * @returns {Float} The distance threshold of <i>threshold</i>.
      * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-getcrossslideparameterinteractioncontext
      * @since windows8.0
      */
-    static GetCrossSlideParameterInteractionContext(interactionContext, threshold, distance) {
+    static GetCrossSlideParameterInteractionContext(interactionContext, threshold) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        distanceMarshal := distance is VarRef ? "float*" : "ptr"
-
-        result := DllCall("NInput.dll\GetCrossSlideParameterInteractionContext", "ptr", interactionContext, "int", threshold, distanceMarshal, distance, "int")
+        result := DllCall("NInput.dll\GetCrossSlideParameterInteractionContext", "ptr", interactionContext, "int", threshold, "float*", &distance := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return distance
     }
 
     /**
@@ -393,19 +377,16 @@ class InteractionContext {
      * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {Integer} parameter 
-     * @param {Pointer<Float>} value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    static GetTapParameterInteractionContext(interactionContext, parameter, value) {
+    static GetTapParameterInteractionContext(interactionContext, parameter) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        valueMarshal := value is VarRef ? "float*" : "ptr"
-
-        result := DllCall("NInput.dll\GetTapParameterInteractionContext", "ptr", interactionContext, "int", parameter, valueMarshal, value, "int")
+        result := DllCall("NInput.dll\GetTapParameterInteractionContext", "ptr", interactionContext, "int", parameter, "float*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -429,19 +410,16 @@ class InteractionContext {
      * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {Integer} parameter 
-     * @param {Pointer<Float>} value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    static GetHoldParameterInteractionContext(interactionContext, parameter, value) {
+    static GetHoldParameterInteractionContext(interactionContext, parameter) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        valueMarshal := value is VarRef ? "float*" : "ptr"
-
-        result := DllCall("NInput.dll\GetHoldParameterInteractionContext", "ptr", interactionContext, "int", parameter, valueMarshal, value, "int")
+        result := DllCall("NInput.dll\GetHoldParameterInteractionContext", "ptr", interactionContext, "int", parameter, "float*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -465,19 +443,16 @@ class InteractionContext {
      * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {Integer} parameter 
-     * @param {Pointer<Float>} value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    static GetTranslationParameterInteractionContext(interactionContext, parameter, value) {
+    static GetTranslationParameterInteractionContext(interactionContext, parameter) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        valueMarshal := value is VarRef ? "float*" : "ptr"
-
-        result := DllCall("NInput.dll\GetTranslationParameterInteractionContext", "ptr", interactionContext, "int", parameter, valueMarshal, value, "int")
+        result := DllCall("NInput.dll\GetTranslationParameterInteractionContext", "ptr", interactionContext, "int", parameter, "float*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -505,23 +480,18 @@ class InteractionContext {
      * Gets the mouse wheel state for the Interaction Context object.
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @param {Integer} parameter One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-mouse_wheel_parameter">MOUSE_WHEEL_PARAMETER</a>.
-     * @param {Pointer<Float>} value The value of <i>parameter</i>.
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
+     * @returns {Float} The value of <i>parameter</i>.
      * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-getmousewheelparameterinteractioncontext
      * @since windows8.0
      */
-    static GetMouseWheelParameterInteractionContext(interactionContext, parameter, value) {
+    static GetMouseWheelParameterInteractionContext(interactionContext, parameter) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        valueMarshal := value is VarRef ? "float*" : "ptr"
-
-        result := DllCall("NInput.dll\GetMouseWheelParameterInteractionContext", "ptr", interactionContext, "int", parameter, valueMarshal, value, "int")
+        result := DllCall("NInput.dll\GetMouseWheelParameterInteractionContext", "ptr", interactionContext, "int", parameter, "float*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -547,23 +517,18 @@ class InteractionContext {
      * Gets current Interaction Context state and the time when the context will return to idle state.
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @param {Pointer<POINTER_INFO>} pointerInfo Basic pointer information common to all pointer types.
-     * @param {Pointer<Integer>} state One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_state">INTERACTION_STATE</a>.
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
+     * @returns {Integer} One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_state">INTERACTION_STATE</a>.
      * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-getstateinteractioncontext
      * @since windows8.0
      */
-    static GetStateInteractionContext(interactionContext, pointerInfo, state) {
+    static GetStateInteractionContext(interactionContext, pointerInfo) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        stateMarshal := state is VarRef ? "int*" : "ptr"
-
-        result := DllCall("NInput.dll\GetStateInteractionContext", "ptr", interactionContext, "ptr", pointerInfo, stateMarshal, state, "int")
+        result := DllCall("NInput.dll\GetStateInteractionContext", "ptr", interactionContext, "ptr", pointerInfo, "int*", &state := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return state
     }
 
     /**

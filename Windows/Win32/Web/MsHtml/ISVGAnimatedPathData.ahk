@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGPathSegList.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -40,12 +41,11 @@ class ISVGAnimatedPathData extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGPathSegList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGPathSegList} 
      */
-    get_pathSegList(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_pathSegList() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGPathSegList(p)
     }
 
     /**
@@ -60,12 +60,11 @@ class ISVGAnimatedPathData extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGPathSegList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGPathSegList} 
      */
-    get_normalizedPathSegList(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_normalizedPathSegList() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGPathSegList(p)
     }
 
     /**
@@ -80,12 +79,11 @@ class ISVGAnimatedPathData extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGPathSegList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGPathSegList} 
      */
-    get_animatedPathSegList(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_animatedPathSegList() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGPathSegList(p)
     }
 
     /**
@@ -100,11 +98,10 @@ class ISVGAnimatedPathData extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGPathSegList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGPathSegList} 
      */
-    get_animatedNormalizedPathSegList(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_animatedNormalizedPathSegList() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGPathSegList(p)
     }
 }

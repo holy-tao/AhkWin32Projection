@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IResourceManager.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,13 +34,12 @@ class IResourceManagerFactory extends IUnknown{
      * @param {Pointer<Guid>} pguidRM 
      * @param {PSTR} pszRMName 
      * @param {IResourceManagerSink} pIResMgrSink 
-     * @param {Pointer<IResourceManager>} ppResMgr 
-     * @returns {HRESULT} 
+     * @returns {IResourceManager} 
      */
-    Create(pguidRM, pszRMName, pIResMgrSink, ppResMgr) {
+    Create(pguidRM, pszRMName, pIResMgrSink) {
         pszRMName := pszRMName is String ? StrPtr(pszRMName) : pszRMName
 
-        result := ComCall(3, this, "ptr", pguidRM, "ptr", pszRMName, "ptr", pIResMgrSink, "ptr*", ppResMgr, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pguidRM, "ptr", pszRMName, "ptr", pIResMgrSink, "ptr*", &ppResMgr := 0, "HRESULT")
+        return IResourceManager(ppResMgr)
     }
 }

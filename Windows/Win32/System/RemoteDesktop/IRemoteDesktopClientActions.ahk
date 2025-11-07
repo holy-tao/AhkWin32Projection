@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -67,12 +68,12 @@ class IRemoteDesktopClientActions extends IDispatch{
      * @param {Integer} snapshotFormat 
      * @param {Integer} snapshotWidth 
      * @param {Integer} snapshotHeight 
-     * @param {Pointer<BSTR>} snapshotData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientactions-getsnapshot
      */
-    GetSnapshot(snapshotEncoding, snapshotFormat, snapshotWidth, snapshotHeight, snapshotData) {
+    GetSnapshot(snapshotEncoding, snapshotFormat, snapshotWidth, snapshotHeight) {
+        snapshotData := BSTR()
         result := ComCall(10, this, "int", snapshotEncoding, "int", snapshotFormat, "uint", snapshotWidth, "uint", snapshotHeight, "ptr", snapshotData, "HRESULT")
-        return result
+        return snapshotData
     }
 }

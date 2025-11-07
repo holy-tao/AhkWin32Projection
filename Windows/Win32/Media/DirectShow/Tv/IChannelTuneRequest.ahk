@@ -43,15 +43,12 @@ class IChannelTuneRequest extends ITuneRequest{
 
     /**
      * 
-     * @param {Pointer<Integer>} Channel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ichanneltunerequest-get_channel
      */
-    get_Channel(Channel) {
-        ChannelMarshal := Channel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, ChannelMarshal, Channel, "HRESULT")
-        return result
+    get_Channel() {
+        result := ComCall(12, this, "int*", &Channel := 0, "HRESULT")
+        return Channel
     }
 
     /**

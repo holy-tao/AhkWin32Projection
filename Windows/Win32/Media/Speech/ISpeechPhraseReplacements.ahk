@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpeechPhraseReplacement.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,34 +32,29 @@ class ISpeechPhraseReplacements extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ISpeechPhraseReplacement>} Reps 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseReplacement} 
      */
-    Item(Index, Reps) {
-        result := ComCall(8, this, "int", Index, "ptr*", Reps, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(8, this, "int", Index, "ptr*", &Reps := 0, "HRESULT")
+        return ISpeechPhraseReplacement(Reps)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} EnumVARIANT 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(EnumVARIANT) {
-        result := ComCall(9, this, "ptr*", EnumVARIANT, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &EnumVARIANT := 0, "HRESULT")
+        return IUnknown(EnumVARIANT)
     }
 }

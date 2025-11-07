@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_PARTITION_PROP.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,13 +50,13 @@ class IVdsAdvancedDisk extends IUnknown{
     /**
      * 
      * @param {Integer} ullOffset 
-     * @param {Pointer<VDS_PARTITION_PROP>} pPartitionProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_PARTITION_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-getpartitionproperties
      */
-    GetPartitionProperties(ullOffset, pPartitionProp) {
+    GetPartitionProperties(ullOffset) {
+        pPartitionProp := VDS_PARTITION_PROP()
         result := ComCall(3, this, "uint", ullOffset, "ptr", pPartitionProp, "HRESULT")
-        return result
+        return pPartitionProp
     }
 
     /**
@@ -77,13 +79,12 @@ class IVdsAdvancedDisk extends IUnknown{
      * @param {Integer} ullOffset 
      * @param {Integer} ullSize 
      * @param {Pointer<CREATE_PARTITION_PARAMETERS>} para 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-createpartition
      */
-    CreatePartition(ullOffset, ullSize, para, ppAsync) {
-        result := ComCall(5, this, "uint", ullOffset, "uint", ullSize, "ptr", para, "ptr*", ppAsync, "HRESULT")
-        return result
+    CreatePartition(ullOffset, ullSize, para) {
+        result := ComCall(5, this, "uint", ullOffset, "uint", ullSize, "ptr", para, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
@@ -158,15 +159,14 @@ class IVdsAdvancedDisk extends IUnknown{
      * @param {BOOL} bForce 
      * @param {BOOL} bQuickFormat 
      * @param {BOOL} bEnableCompression 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-formatpartition
      */
-    FormatPartition(ullOffset, type, pwszLabel, dwUnitAllocationSize, bForce, bQuickFormat, bEnableCompression, ppAsync) {
+    FormatPartition(ullOffset, type, pwszLabel, dwUnitAllocationSize, bForce, bQuickFormat, bEnableCompression) {
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(11, this, "uint", ullOffset, "int", type, "ptr", pwszLabel, "uint", dwUnitAllocationSize, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", ppAsync, "HRESULT")
-        return result
+        result := ComCall(11, this, "uint", ullOffset, "int", type, "ptr", pwszLabel, "uint", dwUnitAllocationSize, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
@@ -174,12 +174,11 @@ class IVdsAdvancedDisk extends IUnknown{
      * @param {BOOL} bForce 
      * @param {BOOL} bForceOEM 
      * @param {BOOL} bFullClean 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-clean
      */
-    Clean(bForce, bForceOEM, bFullClean, ppAsync) {
-        result := ComCall(12, this, "int", bForce, "int", bForceOEM, "int", bFullClean, "ptr*", ppAsync, "HRESULT")
-        return result
+    Clean(bForce, bForceOEM, bFullClean) {
+        result := ComCall(12, this, "int", bForce, "int", bForceOEM, "int", bFullClean, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 }

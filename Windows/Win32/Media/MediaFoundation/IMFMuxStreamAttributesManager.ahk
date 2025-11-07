@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,26 +33,22 @@ class IMFMuxStreamAttributesManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMuxStreamCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamattributesmanager-getstreamcount
      */
-    GetStreamCount(pdwMuxStreamCount) {
-        pdwMuxStreamCountMarshal := pdwMuxStreamCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwMuxStreamCountMarshal, pdwMuxStreamCount, "HRESULT")
-        return result
+    GetStreamCount() {
+        result := ComCall(3, this, "uint*", &pdwMuxStreamCount := 0, "HRESULT")
+        return pdwMuxStreamCount
     }
 
     /**
      * 
      * @param {Integer} dwMuxStreamIndex 
-     * @param {Pointer<IMFAttributes>} ppStreamAttributes 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamattributesmanager-getattributes
      */
-    GetAttributes(dwMuxStreamIndex, ppStreamAttributes) {
-        result := ComCall(4, this, "uint", dwMuxStreamIndex, "ptr*", ppStreamAttributes, "HRESULT")
-        return result
+    GetAttributes(dwMuxStreamIndex) {
+        result := ComCall(4, this, "uint", dwMuxStreamIndex, "ptr*", &ppStreamAttributes := 0, "HRESULT")
+        return IMFAttributes(ppStreamAttributes)
     }
 }

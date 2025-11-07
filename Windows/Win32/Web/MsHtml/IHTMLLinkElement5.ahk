@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLStyleSheet.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,11 +31,10 @@ class IHTMLLinkElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLStyleSheet>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheet} 
      */
-    get_sheet(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_sheet() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyleSheet(p)
     }
 }

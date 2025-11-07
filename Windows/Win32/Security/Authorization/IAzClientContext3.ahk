@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzOperations.ahk
+#Include .\IAzTasks.ahk
+#Include .\IAzBizRuleParameters.ahk
+#Include .\IAzBizRuleInterfaces.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IAzClientContext2.ahk
 
 /**
@@ -36,109 +41,101 @@ class IAzClientContext3 extends IAzClientContext2{
      * @param {BSTR} bstrObjectName 
      * @param {BSTR} bstrScopeName 
      * @param {Integer} lOperation 
-     * @param {Pointer<Integer>} plResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-accesscheck2
      */
-    AccessCheck2(bstrObjectName, bstrScopeName, lOperation, plResult) {
+    AccessCheck2(bstrObjectName, bstrScopeName, lOperation) {
         bstrObjectName := bstrObjectName is String ? BSTR.Alloc(bstrObjectName).Value : bstrObjectName
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        plResultMarshal := plResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(26, this, "ptr", bstrObjectName, "ptr", bstrScopeName, "int", lOperation, plResultMarshal, plResult, "HRESULT")
-        return result
+        result := ComCall(26, this, "ptr", bstrObjectName, "ptr", bstrScopeName, "int", lOperation, "uint*", &plResult := 0, "HRESULT")
+        return plResult
     }
 
     /**
      * 
      * @param {BSTR} bstrScopeName 
      * @param {BSTR} bstrRoleName 
-     * @param {Pointer<VARIANT_BOOL>} pbIsInRole 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-isinroleassignment
      */
-    IsInRoleAssignment(bstrScopeName, bstrRoleName, pbIsInRole) {
+    IsInRoleAssignment(bstrScopeName, bstrRoleName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
         bstrRoleName := bstrRoleName is String ? BSTR.Alloc(bstrRoleName).Value : bstrRoleName
 
-        result := ComCall(27, this, "ptr", bstrScopeName, "ptr", bstrRoleName, "ptr", pbIsInRole, "HRESULT")
-        return result
+        result := ComCall(27, this, "ptr", bstrScopeName, "ptr", bstrRoleName, "short*", &pbIsInRole := 0, "HRESULT")
+        return pbIsInRole
     }
 
     /**
      * 
      * @param {BSTR} bstrScopeName 
-     * @param {Pointer<IAzOperations>} ppOperationCollection 
-     * @returns {HRESULT} 
+     * @returns {IAzOperations} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-getoperations
      */
-    GetOperations(bstrScopeName, ppOperationCollection) {
+    GetOperations(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(28, this, "ptr", bstrScopeName, "ptr*", ppOperationCollection, "HRESULT")
-        return result
+        result := ComCall(28, this, "ptr", bstrScopeName, "ptr*", &ppOperationCollection := 0, "HRESULT")
+        return IAzOperations(ppOperationCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrScopeName 
-     * @param {Pointer<IAzTasks>} ppTaskCollection 
-     * @returns {HRESULT} 
+     * @returns {IAzTasks} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-gettasks
      */
-    GetTasks(bstrScopeName, ppTaskCollection) {
+    GetTasks(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(29, this, "ptr", bstrScopeName, "ptr*", ppTaskCollection, "HRESULT")
-        return result
+        result := ComCall(29, this, "ptr", bstrScopeName, "ptr*", &ppTaskCollection := 0, "HRESULT")
+        return IAzTasks(ppTaskCollection)
     }
 
     /**
      * 
-     * @param {Pointer<IAzBizRuleParameters>} ppBizRuleParam 
-     * @returns {HRESULT} 
+     * @returns {IAzBizRuleParameters} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-get_bizruleparameters
      */
-    get_BizRuleParameters(ppBizRuleParam) {
-        result := ComCall(30, this, "ptr*", ppBizRuleParam, "HRESULT")
-        return result
+    get_BizRuleParameters() {
+        result := ComCall(30, this, "ptr*", &ppBizRuleParam := 0, "HRESULT")
+        return IAzBizRuleParameters(ppBizRuleParam)
     }
 
     /**
      * 
-     * @param {Pointer<IAzBizRuleInterfaces>} ppBizRuleInterfaces 
-     * @returns {HRESULT} 
+     * @returns {IAzBizRuleInterfaces} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-get_bizruleinterfaces
      */
-    get_BizRuleInterfaces(ppBizRuleInterfaces) {
-        result := ComCall(31, this, "ptr*", ppBizRuleInterfaces, "HRESULT")
-        return result
+    get_BizRuleInterfaces() {
+        result := ComCall(31, this, "ptr*", &ppBizRuleInterfaces := 0, "HRESULT")
+        return IAzBizRuleInterfaces(ppBizRuleInterfaces)
     }
 
     /**
      * 
      * @param {BSTR} bstrScopeName 
      * @param {Integer} ulOptions 
-     * @param {Pointer<VARIANT>} pGroupArray 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-getgroups
      */
-    GetGroups(bstrScopeName, ulOptions, pGroupArray) {
+    GetGroups(bstrScopeName, ulOptions) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
+        pGroupArray := VARIANT()
         result := ComCall(32, this, "ptr", bstrScopeName, "uint", ulOptions, "ptr", pGroupArray, "HRESULT")
-        return result
+        return pGroupArray
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pStringSidArray 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-get_sids
      */
-    get_Sids(pStringSidArray) {
+    get_Sids() {
+        pStringSidArray := VARIANT()
         result := ComCall(33, this, "ptr", pStringSidArray, "HRESULT")
-        return result
+        return pStringSidArray
     }
 }

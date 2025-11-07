@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMemAllocator.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,13 +35,12 @@ class IAsyncReader extends IUnknown{
      * 
      * @param {IMemAllocator} pPreferred 
      * @param {Pointer<ALLOCATOR_PROPERTIES>} pProps 
-     * @param {Pointer<IMemAllocator>} ppActual 
-     * @returns {HRESULT} 
+     * @returns {IMemAllocator} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iasyncreader-requestallocator
      */
-    RequestAllocator(pPreferred, pProps, ppActual) {
-        result := ComCall(3, this, "ptr", pPreferred, "ptr", pProps, "ptr*", ppActual, "HRESULT")
-        return result
+    RequestAllocator(pPreferred, pProps) {
+        result := ComCall(3, this, "ptr", pPreferred, "ptr", pProps, "ptr*", &ppActual := 0, "HRESULT")
+        return IMemAllocator(ppActual)
     }
 
     /**

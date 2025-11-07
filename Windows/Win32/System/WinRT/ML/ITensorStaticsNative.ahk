@@ -33,13 +33,12 @@ class ITensorStaticsNative extends IUnknown{
      * @param {ID3D12Resource} value 
      * @param {Pointer<Integer>} shape 
      * @param {Integer} shapeCount 
-     * @param {Pointer<IUnknown>} result 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CreateFromD3D12Resource(value, shape, shapeCount, result) {
+    CreateFromD3D12Resource(value, shape, shapeCount) {
         shapeMarshal := shape is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(3, this, "ptr", value, shapeMarshal, shape, "int", shapeCount, "ptr*", result, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", value, shapeMarshal, shape, "int", shapeCount, "ptr*", &result := 0, "HRESULT")
+        return IUnknown(result)
     }
 }

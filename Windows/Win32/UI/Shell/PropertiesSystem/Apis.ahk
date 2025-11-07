@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IStream.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
@@ -101,61 +103,18 @@ class PropertiesSystem {
      * @param {Integer} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
      * 
      * One or more flags that specify the format to apply to the property string. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a> for possible values.
-     * @param {Pointer<PWSTR>} ppszDisplay Type: <b>PWSTR*</b>
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * When the function returns, contains a pointer to a null-terminated, Unicode string representation of the requested property value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The formatted string was successfully created. <b>S_OK</b> together with an empty return string indicates that there was an empty input string or a non-empty value that was formatted as an empty string.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The formatted string was not created. S_FALSE together with an empty return string indicates that the empty string resulted from a VT_EMPTY.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates allocation failed.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-psformatfordisplayalloc
      * @since windows6.0.6000
      */
-    static PSFormatForDisplayAlloc(key, propvar, pdff, ppszDisplay) {
-        result := DllCall("PROPSYS.dll\PSFormatForDisplayAlloc", "ptr", key, "ptr", propvar, "int", pdff, "ptr", ppszDisplay, "int")
+    static PSFormatForDisplayAlloc(key, propvar, pdff) {
+        result := DllCall("PROPSYS.dll\PSFormatForDisplayAlloc", "ptr", key, "ptr", propvar, "int", pdff, "ptr*", &ppszDisplay := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszDisplay
     }
 
     /**
@@ -169,21 +128,18 @@ class PropertiesSystem {
      * @param {Integer} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
      * 
      * One or more <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a> that specify the format to apply to the property string. See <b>PROPDESC_FORMAT_FLAGS</b> for possible values.
-     * @param {Pointer<PWSTR>} ppszDisplay Type: <b>LPWSTR*</b>
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * When the function returns, contains a pointer to the formatted value as a null-terminated, Unicode string.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-psformatpropertyvalue
      * @since windows6.0.6000
      */
-    static PSFormatPropertyValue(pps, ppd, pdff, ppszDisplay) {
-        result := DllCall("PROPSYS.dll\PSFormatPropertyValue", "ptr", pps, "ptr", ppd, "int", pdff, "ptr", ppszDisplay, "int")
+    static PSFormatPropertyValue(pps, ppd, pdff) {
+        result := DllCall("PROPSYS.dll\PSFormatPropertyValue", "ptr", pps, "ptr", ppd, "int", pdff, "ptr*", &ppszDisplay := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszDisplay
     }
 
     /**
@@ -194,36 +150,18 @@ class PropertiesSystem {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @param {Pointer<PWSTR>} ppszImageRes Type: <b>void**</b>
+     * @returns {PWSTR} Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the interface pointer requested in <i>riid</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns <b>S_OK</b> if successful, or an error value otherwise, including the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_ELEMENTNOTFOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-psgetimagereferenceforvalue
      * @since windows6.1
      */
-    static PSGetImageReferenceForValue(propkey, propvar, ppszImageRes) {
-        result := DllCall("PROPSYS.dll\PSGetImageReferenceForValue", "ptr", propkey, "ptr", propvar, "ptr", ppszImageRes, "int")
+    static PSGetImageReferenceForValue(propkey, propvar) {
+        result := DllCall("PROPSYS.dll\PSGetImageReferenceForValue", "ptr", propkey, "ptr", propvar, "ptr*", &ppszImageRes := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszImageRes
     }
 
     /**
@@ -282,23 +220,18 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the requested interface ID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains a pointer to the desired interface, typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipersistserializedpropstorage">IPersistSerializedPropStorage</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pscreatememorypropertystore
      * @since windows5.1.2600
      */
-    static PSCreateMemoryPropertyStore(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSCreateMemoryPropertyStore", "ptr", riid, ppvMarshal, ppv, "int")
+    static PSCreateMemoryPropertyStore(riid) {
+        result := DllCall("PROPSYS.dll\PSCreateMemoryPropertyStore", "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -318,24 +251,20 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the requested IID of the interface that will represent the created property store.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pscreatedelayedmultiplexpropertystore
      * @since windows5.1.2600
      */
-    static PSCreateDelayedMultiplexPropertyStore(flags, pdpsf, rgStoreIds, cStores, riid, ppv) {
+    static PSCreateDelayedMultiplexPropertyStore(flags, pdpsf, rgStoreIds, cStores, riid) {
         rgStoreIdsMarshal := rgStoreIds is VarRef ? "uint*" : "ptr"
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PSCreateDelayedMultiplexPropertyStore", "int", flags, "ptr", pdpsf, rgStoreIdsMarshal, rgStoreIds, "uint", cStores, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("PROPSYS.dll\PSCreateDelayedMultiplexPropertyStore", "int", flags, "ptr", pdpsf, rgStoreIdsMarshal, rgStoreIds, "uint", cStores, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -349,23 +278,18 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the requested IID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pscreatemultiplexpropertystore
      * @since windows5.1.2600
      */
-    static PSCreateMultiplexPropertyStore(prgpunkStores, cStores, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSCreateMultiplexPropertyStore", "ptr*", prgpunkStores, "uint", cStores, "ptr", riid, ppvMarshal, ppv, "int")
+    static PSCreateMultiplexPropertyStore(prgpunkStores, cStores, riid) {
+        result := DllCall("PROPSYS.dll\PSCreateMultiplexPropertyStore", "ptr*", prgpunkStores, "uint", cStores, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -385,24 +309,20 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the ID of the requested interface.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertychangearray">IPropertyChangeArray</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pscreatepropertychangearray
      * @since windows5.1.2600
      */
-    static PSCreatePropertyChangeArray(rgpropkey, rgflags, rgpropvar, cChanges, riid, ppv) {
+    static PSCreatePropertyChangeArray(rgpropkey, rgflags, rgpropvar, cChanges, riid) {
         rgflagsMarshal := rgflags is VarRef ? "int*" : "ptr"
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PSCreatePropertyChangeArray", "ptr", rgpropkey, rgflagsMarshal, rgflags, "ptr", rgpropvar, "uint", cChanges, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("PROPSYS.dll\PSCreatePropertyChangeArray", "ptr", rgpropkey, rgflagsMarshal, rgflags, "ptr", rgpropvar, "uint", cChanges, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -420,23 +340,18 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to a specified IID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertychange">IPropertyChange</a> interface pointer.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pscreatesimplepropertychange
      * @since windows5.1.2600
      */
-    static PSCreateSimplePropertyChange(flags, key, propvar, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSCreateSimplePropertyChange", "int", flags, "ptr", key, "ptr", propvar, "ptr", riid, ppvMarshal, ppv, "int")
+    static PSCreateSimplePropertyChange(flags, key, propvar, riid) {
+        result := DllCall("PROPSYS.dll\PSCreateSimplePropertyChange", "int", flags, "ptr", key, "ptr", propvar, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -447,63 +362,18 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the interface ID of the requested interface.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>, <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionaliasinfo">IPropertyDescriptionAliasInfo</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionsearchinfo">IPropertyDescriptionSearchInfo</a>.
-     * @returns {HRESULT} Type: <b>PSSTDAPI</b>
-     * 
-     * Returns one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The interface was obtained.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>ppv</i> parameter is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_ELEMENTNOTFOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <a href="/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> does not exist in the schema subsystem cache.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-psgetpropertydescription
      * @since windows5.1.2600
      */
-    static PSGetPropertyDescription(propkey, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSGetPropertyDescription", "ptr", propkey, "ptr", riid, ppvMarshal, ppv, "int")
+    static PSGetPropertyDescription(propkey, riid) {
+        result := DllCall("PROPSYS.dll\PSGetPropertyDescription", "ptr", propkey, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -514,65 +384,20 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the interface ID of the requested property.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>, <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionaliasinfo">IPropertyDescriptionAliasInfo</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionsearchinfo">IPropertyDescriptionSearchInfo</a>.
-     * @returns {HRESULT} Type: <b>PSSTDAPI</b>
-     * 
-     * Returns one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The interface was obtained.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>pszCanonicalName</i> parameter is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_ELEMENTNOTFOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The canonical name does not exist in the schema subsystem cache.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-psgetpropertydescriptionbyname
      * @since windows5.1.2600
      */
-    static PSGetPropertyDescriptionByName(pszCanonicalName, riid, ppv) {
+    static PSGetPropertyDescriptionByName(pszCanonicalName, riid) {
         pszCanonicalName := pszCanonicalName is String ? StrPtr(pszCanonicalName) : pszCanonicalName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionByName", "ptr", pszCanonicalName, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionByName", "ptr", pszCanonicalName, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -616,23 +441,18 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the IID of the interface the handler object should return. This should be <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or an interface derived from <b>IPropertyStore</b>.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>.
-     * @returns {HRESULT} Type: <b>PSSTDAPI</b>
-     * 
-     * Returns <b>S_OK</b> if successful, or an error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-psgetitempropertyhandler
      * @since windows5.1.2600
      */
-    static PSGetItemPropertyHandler(punkItem, fReadWrite, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandler", "ptr", punkItem, "int", fReadWrite, "ptr", riid, ppvMarshal, ppv, "int")
+    static PSGetItemPropertyHandler(punkItem, fReadWrite, riid) {
+        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandler", "ptr", punkItem, "int", fReadWrite, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -655,23 +475,18 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystorecapabilities">IPropertyStoreCapabilities</a>.
-     * @returns {HRESULT} Type: <b>PSSTDAPI</b>
-     * 
-     * Returns <b>S_OK</b> if successful, or an error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-psgetitempropertyhandlerwithcreateobject
      * @since windows5.1.2600
      */
-    static PSGetItemPropertyHandlerWithCreateObject(punkItem, fReadWrite, punkCreateObject, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandlerWithCreateObject", "ptr", punkItem, "int", fReadWrite, "ptr", punkCreateObject, "ptr", riid, ppvMarshal, ppv, "int")
+    static PSGetItemPropertyHandlerWithCreateObject(punkItem, fReadWrite, punkCreateObject, riid) {
+        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandlerWithCreateObject", "ptr", punkItem, "int", fReadWrite, "ptr", punkCreateObject, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -888,52 +703,18 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the  interface ID of the requested interface.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a> interface pointer.
-     * @returns {HRESULT} Type: <b>PSSTDAPI</b>
-     * 
-     * Returns one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates an interface is obtained.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates that <i>ppv</i> is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-psenumeratepropertydescriptions
      * @since windows5.1.2600
      */
-    static PSEnumeratePropertyDescriptions(filterOn, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSEnumeratePropertyDescriptions", "int", filterOn, "ptr", riid, ppvMarshal, ppv, "int")
+    static PSEnumeratePropertyDescriptions(filterOn, riid) {
+        result := DllCall("PROPSYS.dll\PSEnumeratePropertyDescriptions", "int", filterOn, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -1005,50 +786,18 @@ class PropertiesSystem {
      * @param {Pointer<PROPERTYKEY>} propkey Type: <b>REFPROPERTYKEY</b>
      * 
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure that identifies the requested property.
-     * @param {Pointer<PWSTR>} ppszCanonicalName Type: <b>PWSTR*</b>
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * When this function returns, contains a pointer to the property name as a null-terminated Unicode string.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The property's canonical name is obtained.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_ELEMENTNOTFOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates that the <a href="/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> does not exist in the schema subsystem cache.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-psgetnamefrompropertykey
      * @since windows5.1.2600
      */
-    static PSGetNameFromPropertyKey(propkey, ppszCanonicalName) {
-        result := DllCall("PROPSYS.dll\PSGetNameFromPropertyKey", "ptr", propkey, "ptr", ppszCanonicalName, "int")
+    static PSGetNameFromPropertyKey(propkey) {
+        result := DllCall("PROPSYS.dll\PSGetNameFromPropertyKey", "ptr", propkey, "ptr*", &ppszCanonicalName := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszCanonicalName
     }
 
     /**
@@ -1143,54 +892,20 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the interface ID of the requested interface.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a>.
-     * @returns {HRESULT} Type: <b>PSSTDAPI</b>
-     * 
-     * Returns one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The interface was obtained.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>ppv</i> parameter is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-psgetpropertydescriptionlistfromstring
      * @since windows5.1.2600
      */
-    static PSGetPropertyDescriptionListFromString(pszPropList, riid, ppv) {
+    static PSGetPropertyDescriptionListFromString(pszPropList, riid) {
         pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionListFromString", "ptr", pszPropList, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionListFromString", "ptr", pszPropList, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -1204,23 +919,18 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to an IID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer specified in <i>riid</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pscreatepropertystorefrompropertysetstorage
      * @since windows5.1.2600
      */
-    static PSCreatePropertyStoreFromPropertySetStorage(ppss, grfMode, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromPropertySetStorage", "ptr", ppss, "uint", grfMode, "ptr", riid, ppvMarshal, ppv, "int")
+    static PSCreatePropertyStoreFromPropertySetStorage(ppss, grfMode, riid) {
+        result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromPropertySetStorage", "ptr", ppss, "uint", grfMode, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -1234,23 +944,18 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the requested IID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the address of a pointer to an interface guaranteed to support <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pscreatepropertystorefromobject
      * @since windows5.1.2600
      */
-    static PSCreatePropertyStoreFromObject(punk, grfMode, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromObject", "ptr", punk, "uint", grfMode, "ptr", riid, ppvMarshal, ppv, "int")
+    static PSCreatePropertyStoreFromObject(punk, grfMode, riid) {
+        result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromObject", "ptr", punk, "uint", grfMode, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -1261,23 +966,18 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to an IID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pscreateadapterfrompropertystore
      * @since windows5.1.2600
      */
-    static PSCreateAdapterFromPropertyStore(pps, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSCreateAdapterFromPropertyStore", "ptr", pps, "ptr", riid, ppvMarshal, ppv, "int")
+    static PSCreateAdapterFromPropertyStore(pps, riid) {
+        result := DllCall("PROPSYS.dll\PSCreateAdapterFromPropertyStore", "ptr", pps, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -1285,52 +985,18 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the IID of the requested interface.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertysystem">IPropertySystem</a>.
-     * @returns {HRESULT} Type: <b>PSSTDAPI</b>
-     * 
-     * Returns one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The interface was obtained.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>ppv</i> parameter is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-psgetpropertysystem
      * @since windows5.1.2600
      */
-    static PSGetPropertySystem(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSGetPropertySystem", "ptr", riid, ppvMarshal, ppv, "int")
+    static PSGetPropertySystem(riid) {
+        result := DllCall("PROPSYS.dll\PSGetPropertySystem", "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -1460,23 +1126,20 @@ class PropertiesSystem {
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated property name string.
-     * @param {Pointer<PWSTR>} value Type: <b>PWSTR*</b>
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * When this function returns, contains a pointer to a string data value from a property in a property bag and allocates memory for the string that is read. The caller of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-pspropertybag_readstralloc">PSPropertyBag_ReadStrAlloc</a> function needs to call a <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function on this parameter.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pspropertybag_readstralloc
      * @since windows6.1
      */
-    static PSPropertyBag_ReadStrAlloc(propBag, propName, value) {
+    static PSPropertyBag_ReadStrAlloc(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStrAlloc", "ptr", propBag, "ptr", propName, "ptr", value, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStrAlloc", "ptr", propBag, "ptr", propName, "ptr*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -1487,23 +1150,21 @@ class PropertiesSystem {
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<BSTR>} value Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
+     * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * When this function returns, contains a pointer to a <b>BSTR</b> property value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pspropertybag_readbstr
      * @since windows6.1
      */
-    static PSPropertyBag_ReadBSTR(propBag, propName, value) {
+    static PSPropertyBag_ReadBSTR(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
+        value := BSTR()
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadBSTR", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -1570,25 +1231,20 @@ class PropertiesSystem {
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<Integer>} value Type: <b>int*</b>
+     * @returns {Integer} Type: <b>int*</b>
      * 
      * When this function returns, contains a pointer to an <b>int</b> property value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pspropertybag_readint
      * @since windows6.1
      */
-    static PSPropertyBag_ReadInt(propBag, propName, value) {
+    static PSPropertyBag_ReadInt(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadInt", "ptr", propBag, "ptr", propName, valueMarshal, value, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadInt", "ptr", propBag, "ptr", propName, "int*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -1626,25 +1282,20 @@ class PropertiesSystem {
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<Integer>} value Type: <b>SHORT*</b>
+     * @returns {Integer} Type: <b>SHORT*</b>
      * 
      * When this function returns, contains a pointer to a SHORT property value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pspropertybag_readshort
      * @since windows6.1
      */
-    static PSPropertyBag_ReadSHORT(propBag, propName, value) {
+    static PSPropertyBag_ReadSHORT(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        valueMarshal := value is VarRef ? "short*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadSHORT", "ptr", propBag, "ptr", propName, valueMarshal, value, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadSHORT", "ptr", propBag, "ptr", propName, "short*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -1682,25 +1333,20 @@ class PropertiesSystem {
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<Integer>} value Type: <b>LONG*</b>
+     * @returns {Integer} Type: <b>LONG*</b>
      * 
      * When this function returns, contains a pointer to a <b>LONG</b> property value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pspropertybag_readlong
      * @since windows6.1
      */
-    static PSPropertyBag_ReadLONG(propBag, propName, value) {
+    static PSPropertyBag_ReadLONG(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadLONG", "ptr", propBag, "ptr", propName, valueMarshal, value, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadLONG", "ptr", propBag, "ptr", propName, "int*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -1738,25 +1384,20 @@ class PropertiesSystem {
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated property name string.
-     * @param {Pointer<Integer>} value Type: <b>DWORD*</b>
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * When this function returns, contains a pointer to a <b>DWORD</b> property value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pspropertybag_readdword
      * @since windows6.1
      */
-    static PSPropertyBag_ReadDWORD(propBag, propName, value) {
+    static PSPropertyBag_ReadDWORD(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadDWORD", "ptr", propBag, "ptr", propName, valueMarshal, value, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadDWORD", "ptr", propBag, "ptr", propName, "uint*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -1794,23 +1435,20 @@ class PropertiesSystem {
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<BOOL>} value Type: <b>BOOL*</b>
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * When this function returns successfully, contains a pointer to the value read from the property.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pspropertybag_readbool
      * @since windows6.1
      */
-    static PSPropertyBag_ReadBOOL(propBag, propName, value) {
+    static PSPropertyBag_ReadBOOL(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadBOOL", "ptr", propBag, "ptr", propName, "ptr", value, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadBOOL", "ptr", propBag, "ptr", propName, "int*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -2010,23 +1648,20 @@ class PropertiesSystem {
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated property name string.
-     * @param {Pointer<IStream>} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
+     * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * The address of a pointer that, when this function returns successfully, receives the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> object.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pspropertybag_readstream
      * @since windows6.1
      */
-    static PSPropertyBag_ReadStream(propBag, propName, value) {
+    static PSPropertyBag_ReadStream(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStream", "ptr", propBag, "ptr", propName, "ptr*", value, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStream", "ptr", propBag, "ptr", propName, "ptr*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IStream(value)
     }
 
     /**
@@ -2088,25 +1723,20 @@ class PropertiesSystem {
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<Integer>} value Type: <b>ULONGLONG</b>
+     * @returns {Integer} Type: <b>ULONGLONG</b>
      * 
      * When this function returns, contains a pointer to a <b>ULONGLONG</b> property value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pspropertybag_readulonglong
      * @since windows6.1
      */
-    static PSPropertyBag_ReadULONGLONG(propBag, propName, value) {
+    static PSPropertyBag_ReadULONGLONG(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadULONGLONG", "ptr", propBag, "ptr", propName, valueMarshal, value, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadULONGLONG", "ptr", propBag, "ptr", propName, "uint*", &value := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return value
     }
 
     /**
@@ -2147,25 +1777,20 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>. This interface IID should be <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> or an interface derived from <b>IPropertyBag</b>.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <i>riid</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pspropertybag_readunknown
      * @since windows6.1
      */
-    static PSPropertyBag_ReadUnknown(propBag, propName, riid, ppv) {
+    static PSPropertyBag_ReadUnknown(propBag, propName, riid) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadUnknown", "ptr", propBag, "ptr", propName, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadUnknown", "ptr", propBag, "ptr", propName, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -2314,21 +1939,18 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the desired interface ID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or a related interface.
-     * @returns {HRESULT} 
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shgetpropertystorefromidlist
      * @since windows6.0.6000
      */
-    static SHGetPropertyStoreFromIDList(pidl, flags, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetPropertyStoreFromIDList", "ptr", pidl, "int", flags, "ptr", riid, ppvMarshal, ppv, "int")
+    static SHGetPropertyStoreFromIDList(pidl, flags, riid) {
+        result := DllCall("SHELL32.dll\SHGetPropertyStoreFromIDList", "ptr", pidl, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -2345,25 +1967,20 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the desired interface ID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or a related interface.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shgetpropertystorefromparsingname
      * @since windows6.0.6000
      */
-    static SHGetPropertyStoreFromParsingName(pszPath, pbc, flags, riid, ppv) {
+    static SHGetPropertyStoreFromParsingName(pszPath, pbc, flags, riid) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetPropertyStoreFromParsingName", "ptr", pszPath, "ptr", pbc, "int", flags, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SHELL32.dll\SHGetPropertyStoreFromParsingName", "ptr", pszPath, "ptr", pbc, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -2616,25 +2233,20 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the property store object to retrieve through <i>ppv</i>. This is typically IID_IPropertyStore.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shgetpropertystoreforwindow
      * @since windows6.1
      */
-    static SHGetPropertyStoreForWindow(hwnd, riid, ppv) {
+    static SHGetPropertyStoreForWindow(hwnd, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetPropertyStoreForWindow", "ptr", hwnd, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SHELL32.dll\SHGetPropertyStoreForWindow", "ptr", hwnd, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
 ;@endregion Methods

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWbemQualifierSet.ahk
+#Include .\IWbemClassObject.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -52,13 +55,12 @@ class IWbemClassObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWbemQualifierSet>} ppQualSet 
-     * @returns {HRESULT} 
+     * @returns {IWbemQualifierSet} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-getqualifierset
      */
-    GetQualifierSet(ppQualSet) {
-        result := ComCall(3, this, "ptr*", ppQualSet, "HRESULT")
-        return result
+    GetQualifierSet() {
+        result := ComCall(3, this, "ptr*", &ppQualSet := 0, "HRESULT")
+        return IWbemQualifierSet(ppQualSet)
     }
 
     /**
@@ -115,17 +117,14 @@ class IWbemClassObject extends IUnknown{
      * @param {PWSTR} wszQualifierName 
      * @param {Integer} lFlags 
      * @param {Pointer<VARIANT>} pQualifierVal 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pNames 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-getnames
      */
-    GetNames(wszQualifierName, lFlags, pQualifierVal, pNames) {
+    GetNames(wszQualifierName, lFlags, pQualifierVal) {
         wszQualifierName := wszQualifierName is String ? StrPtr(wszQualifierName) : wszQualifierName
 
-        pNamesMarshal := pNames is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", wszQualifierName, "int", lFlags, "ptr", pQualifierVal, pNamesMarshal, pNames, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", wszQualifierName, "int", lFlags, "ptr", pQualifierVal, "ptr*", &pNames := 0, "HRESULT")
+        return pNames
     }
 
     /**
@@ -170,62 +169,58 @@ class IWbemClassObject extends IUnknown{
     /**
      * 
      * @param {PWSTR} wszProperty 
-     * @param {Pointer<IWbemQualifierSet>} ppQualSet 
-     * @returns {HRESULT} 
+     * @returns {IWbemQualifierSet} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-getpropertyqualifierset
      */
-    GetPropertyQualifierSet(wszProperty, ppQualSet) {
+    GetPropertyQualifierSet(wszProperty) {
         wszProperty := wszProperty is String ? StrPtr(wszProperty) : wszProperty
 
-        result := ComCall(11, this, "ptr", wszProperty, "ptr*", ppQualSet, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", wszProperty, "ptr*", &ppQualSet := 0, "HRESULT")
+        return IWbemQualifierSet(ppQualSet)
     }
 
     /**
      * 
-     * @param {Pointer<IWbemClassObject>} ppCopy 
-     * @returns {HRESULT} 
+     * @returns {IWbemClassObject} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-clone
      */
-    Clone(ppCopy) {
-        result := ComCall(12, this, "ptr*", ppCopy, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(12, this, "ptr*", &ppCopy := 0, "HRESULT")
+        return IWbemClassObject(ppCopy)
     }
 
     /**
      * 
      * @param {Integer} lFlags 
-     * @param {Pointer<BSTR>} pstrObjectText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-getobjecttext
      */
-    GetObjectText(lFlags, pstrObjectText) {
+    GetObjectText(lFlags) {
+        pstrObjectText := BSTR()
         result := ComCall(13, this, "int", lFlags, "ptr", pstrObjectText, "HRESULT")
-        return result
+        return pstrObjectText
     }
 
     /**
      * 
      * @param {Integer} lFlags 
-     * @param {Pointer<IWbemClassObject>} ppNewClass 
-     * @returns {HRESULT} 
+     * @returns {IWbemClassObject} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-spawnderivedclass
      */
-    SpawnDerivedClass(lFlags, ppNewClass) {
-        result := ComCall(14, this, "int", lFlags, "ptr*", ppNewClass, "HRESULT")
-        return result
+    SpawnDerivedClass(lFlags) {
+        result := ComCall(14, this, "int", lFlags, "ptr*", &ppNewClass := 0, "HRESULT")
+        return IWbemClassObject(ppNewClass)
     }
 
     /**
      * 
      * @param {Integer} lFlags 
-     * @param {Pointer<IWbemClassObject>} ppNewInstance 
-     * @returns {HRESULT} 
+     * @returns {IWbemClassObject} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-spawninstance
      */
-    SpawnInstance(lFlags, ppNewInstance) {
-        result := ComCall(15, this, "int", lFlags, "ptr*", ppNewInstance, "HRESULT")
-        return result
+    SpawnInstance(lFlags) {
+        result := ComCall(15, this, "int", lFlags, "ptr*", &ppNewInstance := 0, "HRESULT")
+        return IWbemClassObject(ppNewInstance)
     }
 
     /**
@@ -243,15 +238,15 @@ class IWbemClassObject extends IUnknown{
     /**
      * 
      * @param {PWSTR} wszName 
-     * @param {Pointer<BSTR>} pstrClassName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-getpropertyorigin
      */
-    GetPropertyOrigin(wszName, pstrClassName) {
+    GetPropertyOrigin(wszName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
+        pstrClassName := BSTR()
         result := ComCall(17, this, "ptr", wszName, "ptr", pstrClassName, "HRESULT")
-        return result
+        return pstrClassName
     }
 
     /**
@@ -350,28 +345,27 @@ class IWbemClassObject extends IUnknown{
     /**
      * 
      * @param {PWSTR} wszMethod 
-     * @param {Pointer<IWbemQualifierSet>} ppQualSet 
-     * @returns {HRESULT} 
+     * @returns {IWbemQualifierSet} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-getmethodqualifierset
      */
-    GetMethodQualifierSet(wszMethod, ppQualSet) {
+    GetMethodQualifierSet(wszMethod) {
         wszMethod := wszMethod is String ? StrPtr(wszMethod) : wszMethod
 
-        result := ComCall(25, this, "ptr", wszMethod, "ptr*", ppQualSet, "HRESULT")
-        return result
+        result := ComCall(25, this, "ptr", wszMethod, "ptr*", &ppQualSet := 0, "HRESULT")
+        return IWbemQualifierSet(ppQualSet)
     }
 
     /**
      * 
      * @param {PWSTR} wszMethodName 
-     * @param {Pointer<BSTR>} pstrClassName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-getmethodorigin
      */
-    GetMethodOrigin(wszMethodName, pstrClassName) {
+    GetMethodOrigin(wszMethodName) {
         wszMethodName := wszMethodName is String ? StrPtr(wszMethodName) : wszMethodName
 
+        pstrClassName := BSTR()
         result := ComCall(26, this, "ptr", wszMethodName, "ptr", pstrClassName, "HRESULT")
-        return result
+        return pstrClassName
     }
 }

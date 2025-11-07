@@ -3724,7 +3724,9 @@ class Clustering {
      * @since windowsserver2003
      */
     static SetClusterNetworkPriorityOrder(hCluster, NetworkCount, NetworkList) {
-        result := DllCall("CLUSAPI.dll\SetClusterNetworkPriorityOrder", "ptr", hCluster, "uint", NetworkCount, "ptr", NetworkList, "uint")
+        NetworkListMarshal := NetworkList is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\SetClusterNetworkPriorityOrder", "ptr", hCluster, "uint", NetworkCount, NetworkListMarshal, NetworkList, "uint")
         return result
     }
 
@@ -6085,7 +6087,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static EvictClusterNodeEx(hNode, dwTimeOut, phrCleanupStatus) {
-        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx", "ptr", hNode, "uint", dwTimeOut, "ptr", phrCleanupStatus, "uint")
+        phrCleanupStatusMarshal := phrCleanupStatus is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx", "ptr", hNode, "uint", dwTimeOut, phrCleanupStatusMarshal, phrCleanupStatus, "uint")
         return result
     }
 
@@ -6100,7 +6104,9 @@ class Clustering {
     static EvictClusterNodeEx2(hNode, dwTimeout, phrCleanupStatus, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx2", "ptr", hNode, "uint", dwTimeout, "ptr", phrCleanupStatus, "ptr", lpszReason, "uint")
+        phrCleanupStatusMarshal := phrCleanupStatus is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx2", "ptr", hNode, "uint", dwTimeout, phrCleanupStatusMarshal, phrCleanupStatus, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -7053,7 +7059,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static SetClusterGroupNodeList(hGroup, NodeCount, NodeList) {
-        result := DllCall("CLUSAPI.dll\SetClusterGroupNodeList", "ptr", hGroup, "uint", NodeCount, "ptr", NodeList, "uint")
+        NodeListMarshal := NodeList is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\SetClusterGroupNodeList", "ptr", hGroup, "uint", NodeCount, NodeListMarshal, NodeList, "uint")
         return result
     }
 
@@ -7083,7 +7091,9 @@ class Clustering {
     static SetClusterGroupNodeListEx(hGroup, NodeCount, NodeList, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\SetClusterGroupNodeListEx", "ptr", hGroup, "uint", NodeCount, "ptr", NodeList, "ptr", lpszReason, "uint")
+        NodeListMarshal := NodeList is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\SetClusterGroupNodeListEx", "ptr", hGroup, "uint", NodeCount, NodeListMarshal, NodeList, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -8284,7 +8294,9 @@ class Clustering {
     static IsFileOnClusterSharedVolume(lpszPathName, pbFileIsOnSharedVolume) {
         lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
 
-        result := DllCall("CLUSAPI.dll\IsFileOnClusterSharedVolume", "ptr", lpszPathName, "ptr", pbFileIsOnSharedVolume, "uint")
+        pbFileIsOnSharedVolumeMarshal := pbFileIsOnSharedVolume is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\IsFileOnClusterSharedVolume", "ptr", lpszPathName, pbFileIsOnSharedVolumeMarshal, pbFileIsOnSharedVolume, "uint")
         return result
     }
 
@@ -11696,7 +11708,9 @@ class Clustering {
     static ClusterRegCreateBatch(hKey, pHREGBATCH) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateBatch", "ptr", hKey, "ptr", pHREGBATCH, "int")
+        pHREGBATCHMarshal := pHREGBATCH is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateBatch", "ptr", hKey, pHREGBATCHMarshal, pHREGBATCH, "int")
         return result
     }
 
@@ -11996,7 +12010,9 @@ class Clustering {
     static ClusterRegCreateBatchNotifyPort(hKey, phBatchNotifyPort) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateBatchNotifyPort", "ptr", hKey, "ptr", phBatchNotifyPort, "int")
+        phBatchNotifyPortMarshal := phBatchNotifyPort is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateBatchNotifyPort", "ptr", hKey, phBatchNotifyPortMarshal, phBatchNotifyPort, "int")
         return result
     }
 
@@ -12116,7 +12132,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegGetBatchNotification(hBatchNotify, phBatchNotification) {
-        result := DllCall("CLUSAPI.dll\ClusterRegGetBatchNotification", "ptr", hBatchNotify, "ptr", phBatchNotification, "int")
+        phBatchNotificationMarshal := phBatchNotification is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegGetBatchNotification", "ptr", hBatchNotify, phBatchNotificationMarshal, phBatchNotification, "int")
         return result
     }
 
@@ -12163,7 +12181,9 @@ class Clustering {
     static ClusterRegCreateReadBatch(hKey, phRegReadBatch) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateReadBatch", "ptr", hKey, "ptr", phRegReadBatch, "int")
+        phRegReadBatchMarshal := phRegReadBatch is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateReadBatch", "ptr", hKey, phRegReadBatchMarshal, phRegReadBatch, "int")
         return result
     }
 
@@ -12281,7 +12301,9 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterRegCloseReadBatch(hRegReadBatch, phRegReadBatchReply) {
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatch", "ptr", hRegReadBatch, "ptr", phRegReadBatchReply, "int")
+        phRegReadBatchReplyMarshal := phRegReadBatchReply is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatch", "ptr", hRegReadBatch, phRegReadBatchReplyMarshal, phRegReadBatchReply, "int")
         return result
     }
 
@@ -12339,7 +12361,9 @@ class Clustering {
      * @since windowsserver2016
      */
     static ClusterRegCloseReadBatchEx(hRegReadBatch, flags, phRegReadBatchReply) {
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatchEx", "ptr", hRegReadBatch, "uint", flags, "ptr", phRegReadBatchReply, "int")
+        phRegReadBatchReplyMarshal := phRegReadBatchReply is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatchEx", "ptr", hRegReadBatch, "uint", flags, phRegReadBatchReplyMarshal, phRegReadBatchReply, "int")
         return result
     }
 
@@ -12569,9 +12593,10 @@ class Clustering {
      * @returns {Integer} 
      */
     static DetermineCNOResTypeFromNodelist(cNodes, ppszNodeNames, pCNOResType) {
+        ppszNodeNamesMarshal := ppszNodeNames is VarRef ? "ptr*" : "ptr"
         pCNOResTypeMarshal := pCNOResType is VarRef ? "int*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromNodelist", "uint", cNodes, "ptr", ppszNodeNames, pCNOResTypeMarshal, pCNOResType, "uint")
+        result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromNodelist", "uint", cNodes, ppszNodeNamesMarshal, ppszNodeNames, pCNOResTypeMarshal, pCNOResType, "uint")
         return result
     }
 
@@ -12596,9 +12621,10 @@ class Clustering {
      * @returns {Integer} 
      */
     static DetermineClusterCloudTypeFromNodelist(cNodes, ppszNodeNames, pCloudType) {
+        ppszNodeNamesMarshal := ppszNodeNames is VarRef ? "ptr*" : "ptr"
         pCloudTypeMarshal := pCloudType is VarRef ? "int*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromNodelist", "uint", cNodes, "ptr", ppszNodeNames, pCloudTypeMarshal, pCloudType, "uint")
+        result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromNodelist", "uint", cNodes, ppszNodeNamesMarshal, ppszNodeNames, pCloudTypeMarshal, pCloudType, "uint")
         return result
     }
 
@@ -13878,8 +13904,9 @@ class Clustering {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
         pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+        pszNameOfPropInErrorMarshal := pszNameOfPropInError is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGetPropertiesToParameterBlock", "ptr", hkeyClusterKey, "ptr", pPropertyTable, pOutParamsMarshal, pOutParams, "int", bCheckForRequiredProperties, "ptr", pszNameOfPropInError, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetPropertiesToParameterBlock", "ptr", hkeyClusterKey, "ptr", pPropertyTable, pOutParamsMarshal, pOutParams, "int", bCheckForRequiredProperties, pszNameOfPropInErrorMarshal, pszNameOfPropInError, "uint")
         return result
     }
 
@@ -14141,7 +14168,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilDupString", "ptr", pszInString, "char*")
+        result := DllCall("RESUTILS.dll\ResUtilDupString", "ptr", pszInString, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14208,7 +14235,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilGetSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "char*")
+        result := DllCall("RESUTILS.dll\ResUtilGetSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14355,7 +14382,9 @@ class Clustering {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszNewValue := pszNewValue is String ? StrPtr(pszNewValue) : pszNewValue
 
-        result := DllCall("RESUTILS.dll\ResUtilSetSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "ptr", ppszOutString, "uint")
+        ppszOutStringMarshal := ppszOutString is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilSetSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, ppszOutStringMarshal, ppszOutString, "uint")
         return result
     }
 
@@ -14395,7 +14424,9 @@ class Clustering {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszNewValue := pszNewValue is String ? StrPtr(pszNewValue) : pszNewValue
 
-        result := DllCall("RESUTILS.dll\ResUtilSetExpandSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "ptr", ppszOutString, "uint")
+        ppszOutStringMarshal := ppszOutString is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilSetExpandSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, ppszOutStringMarshal, ppszOutString, "uint")
         return result
     }
 
@@ -14436,9 +14467,10 @@ class Clustering {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
+        ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : "ptr"
         pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilSetMultiSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "uint", cbNewValueSize, "ptr", ppszOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilSetMultiSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "uint", cbNewValueSize, ppszOutValueMarshal, ppszOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "uint")
         return result
     }
 
@@ -14591,9 +14623,10 @@ class Clustering {
     static ResUtilGetSzProperty(ppszOutValue, pValueStruct, pszOldValue, ppPropertyList, pcbPropertyListSize) {
         pszOldValue := pszOldValue is String ? StrPtr(pszOldValue) : pszOldValue
 
+        ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : "ptr"
         pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGetSzProperty", "ptr", ppszOutValue, "ptr", pValueStruct, "ptr", pszOldValue, "ptr", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetSzProperty", ppszOutValueMarshal, ppszOutValue, "ptr", pValueStruct, "ptr", pszOldValue, "ptr", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14636,10 +14669,11 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetMultiSzProperty(ppszOutValue, pcbOutValueSize, pValueStruct, pszOldValue, cbOldValueSize, ppPropertyList, pcbPropertyListSize) {
+        ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : "ptr"
         pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
         pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGetMultiSzProperty", "ptr", ppszOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "ptr", pValueStruct, "ptr", pszOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetMultiSzProperty", ppszOutValueMarshal, ppszOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "ptr", pValueStruct, "ptr", pszOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14783,7 +14817,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilExpandEnvironmentStrings", "ptr", pszSrc, "char*")
+        result := DllCall("RESUTILS.dll\ResUtilExpandEnvironmentStrings", "ptr", pszSrc, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14907,7 +14941,9 @@ class Clustering {
     static ResUtilFindSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pszPropertyValue, "uint")
+        pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilFindSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, pszPropertyValueMarshal, pszPropertyValue, "uint")
         return result
     }
 
@@ -14967,7 +15003,9 @@ class Clustering {
     static ResUtilFindExpandSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindExpandSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pszPropertyValue, "uint")
+        pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilFindExpandSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, pszPropertyValueMarshal, pszPropertyValue, "uint")
         return result
     }
 
@@ -15027,7 +15065,9 @@ class Clustering {
     static ResUtilFindExpandedSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindExpandedSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pszPropertyValue, "uint")
+        pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilFindExpandedSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, pszPropertyValueMarshal, pszPropertyValue, "uint")
         return result
     }
 
@@ -15203,9 +15243,10 @@ class Clustering {
     static ResUtilFindMultiSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue, pcbPropertyValueSize) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
+        pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : "ptr"
         pcbPropertyValueSizeMarshal := pcbPropertyValueSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilFindMultiSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pszPropertyValue, pcbPropertyValueSizeMarshal, pcbPropertyValueSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilFindMultiSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, pszPropertyValueMarshal, pszPropertyValue, pcbPropertyValueSizeMarshal, pcbPropertyValueSize, "uint")
         return result
     }
 
@@ -15960,7 +16001,11 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetCoreClusterResources(hCluster, phClusterNameResource, phClusterIPAddressResource, phClusterQuorumResource) {
-        result := DllCall("RESUTILS.dll\ResUtilGetCoreClusterResources", "ptr", hCluster, "ptr", phClusterNameResource, "ptr", phClusterIPAddressResource, "ptr", phClusterQuorumResource, "uint")
+        phClusterNameResourceMarshal := phClusterNameResource is VarRef ? "ptr*" : "ptr"
+        phClusterIPAddressResourceMarshal := phClusterIPAddressResource is VarRef ? "ptr*" : "ptr"
+        phClusterQuorumResourceMarshal := phClusterQuorumResource is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetCoreClusterResources", "ptr", hCluster, phClusterNameResourceMarshal, phClusterNameResource, phClusterIPAddressResourceMarshal, phClusterIPAddressResource, phClusterQuorumResourceMarshal, phClusterQuorumResource, "uint")
         return result
     }
 
@@ -16393,7 +16438,10 @@ class Clustering {
      * @since windowsserver2012
      */
     static ResUtilGetCoreClusterResourcesEx(hClusterIn, phClusterNameResourceOut, phClusterQuorumResourceOut, dwDesiredAccess) {
-        result := DllCall("RESUTILS.dll\ResUtilGetCoreClusterResourcesEx", "ptr", hClusterIn, "ptr", phClusterNameResourceOut, "ptr", phClusterQuorumResourceOut, "uint", dwDesiredAccess, "uint")
+        phClusterNameResourceOutMarshal := phClusterNameResourceOut is VarRef ? "ptr*" : "ptr"
+        phClusterQuorumResourceOutMarshal := phClusterQuorumResourceOut is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetCoreClusterResourcesEx", "ptr", hClusterIn, phClusterNameResourceOutMarshal, phClusterNameResourceOut, phClusterQuorumResourceOutMarshal, phClusterQuorumResourceOut, "uint", dwDesiredAccess, "uint")
         return result
     }
 
@@ -16564,7 +16612,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilGroupsEqual(hSelf, hGroup, pEqual) {
-        result := DllCall("RESUTILS.dll\ResUtilGroupsEqual", "ptr", hSelf, "ptr", hGroup, "ptr", pEqual, "uint")
+        pEqualMarshal := pEqual is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGroupsEqual", "ptr", hSelf, "ptr", hGroup, pEqualMarshal, pEqual, "uint")
         return result
     }
 
@@ -16606,7 +16656,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilDupGroup(group, copy) {
-        result := DllCall("RESUTILS.dll\ResUtilDupGroup", "ptr", group, "ptr", copy, "uint")
+        copyMarshal := copy is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilDupGroup", "ptr", group, copyMarshal, copy, "uint")
         return result
     }
 
@@ -16655,7 +16707,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilDupResource(group, copy) {
-        result := DllCall("RESUTILS.dll\ResUtilDupResource", "ptr", group, "ptr", copy, "uint")
+        copyMarshal := copy is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilDupResource", "ptr", group, copyMarshal, copy, "uint")
         return result
     }
 
@@ -16791,8 +16845,9 @@ class Clustering {
     static QueryAppInstanceVersion(AppInstanceId, InstanceVersionHigh, InstanceVersionLow, VersionStatus) {
         InstanceVersionHighMarshal := InstanceVersionHigh is VarRef ? "uint*" : "ptr"
         InstanceVersionLowMarshal := InstanceVersionLow is VarRef ? "uint*" : "ptr"
+        VersionStatusMarshal := VersionStatus is VarRef ? "int*" : "ptr"
 
-        result := DllCall("NTLANMAN.dll\QueryAppInstanceVersion", "ptr", AppInstanceId, InstanceVersionHighMarshal, InstanceVersionHigh, InstanceVersionLowMarshal, InstanceVersionLow, "ptr", VersionStatus, "uint")
+        result := DllCall("NTLANMAN.dll\QueryAppInstanceVersion", "ptr", AppInstanceId, InstanceVersionHighMarshal, InstanceVersionHigh, InstanceVersionLowMarshal, InstanceVersionLow, VersionStatusMarshal, VersionStatus, "uint")
         return result
     }
 

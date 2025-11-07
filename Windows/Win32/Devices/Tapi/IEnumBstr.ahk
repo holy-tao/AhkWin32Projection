@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IEnumBstr.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,16 @@ class IEnumBstr extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<BSTR>} ppStrings 
      * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumbstr-next
      */
-    Next(celt, ppStrings, pceltFetched) {
+    Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
+        ppStrings := BSTR()
         result := ComCall(3, this, "uint", celt, "ptr", ppStrings, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+        return ppStrings
     }
 
     /**
@@ -68,12 +70,11 @@ class IEnumBstr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumBstr>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumBstr} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumbstr-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumBstr(ppEnum)
     }
 }

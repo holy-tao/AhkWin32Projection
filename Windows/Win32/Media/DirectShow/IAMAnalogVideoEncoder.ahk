@@ -32,15 +32,12 @@ class IAMAnalogVideoEncoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} lAnalogVideoStandard 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_availabletvformats
      */
-    get_AvailableTVFormats(lAnalogVideoStandard) {
-        lAnalogVideoStandardMarshal := lAnalogVideoStandard is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, lAnalogVideoStandardMarshal, lAnalogVideoStandard, "HRESULT")
-        return result
+    get_AvailableTVFormats() {
+        result := ComCall(3, this, "int*", &lAnalogVideoStandard := 0, "HRESULT")
+        return lAnalogVideoStandard
     }
 
     /**
@@ -56,15 +53,12 @@ class IAMAnalogVideoEncoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plAnalogVideoStandard 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_tvformat
      */
-    get_TVFormat(plAnalogVideoStandard) {
-        plAnalogVideoStandardMarshal := plAnalogVideoStandard is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, plAnalogVideoStandardMarshal, plAnalogVideoStandard, "HRESULT")
-        return result
+    get_TVFormat() {
+        result := ComCall(5, this, "int*", &plAnalogVideoStandard := 0, "HRESULT")
+        return plAnalogVideoStandard
     }
 
     /**
@@ -80,15 +74,12 @@ class IAMAnalogVideoEncoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} lVideoCopyProtection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_copyprotection
      */
-    get_CopyProtection(lVideoCopyProtection) {
-        lVideoCopyProtectionMarshal := lVideoCopyProtection is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, lVideoCopyProtectionMarshal, lVideoCopyProtection, "HRESULT")
-        return result
+    get_CopyProtection() {
+        result := ComCall(7, this, "int*", &lVideoCopyProtection := 0, "HRESULT")
+        return lVideoCopyProtection
     }
 
     /**
@@ -104,14 +95,11 @@ class IAMAnalogVideoEncoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} lCCEnable 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_ccenable
      */
-    get_CCEnable(lCCEnable) {
-        lCCEnableMarshal := lCCEnable is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, lCCEnableMarshal, lCCEnable, "HRESULT")
-        return result
+    get_CCEnable() {
+        result := ComCall(9, this, "int*", &lCCEnable := 0, "HRESULT")
+        return lCCEnable
     }
 }

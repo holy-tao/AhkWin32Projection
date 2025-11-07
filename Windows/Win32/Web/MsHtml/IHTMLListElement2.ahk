@@ -40,11 +40,10 @@ class IHTMLListElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_compact(p) {
-        result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+    get_compact() {
+        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

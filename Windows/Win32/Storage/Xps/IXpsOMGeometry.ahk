@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMGeometryFigureCollection.ahk
+#Include .\IXpsOMMatrixTransform.ahk
+#Include .\IXpsOMGeometry.ahk
 #Include .\IXpsOMShareable.ahk
 
 /**
@@ -71,26 +74,22 @@ class IXpsOMGeometry extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<IXpsOMGeometryFigureCollection>} figures 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGeometryFigureCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometry-getfigures
      */
-    GetFigures(figures) {
-        result := ComCall(5, this, "ptr*", figures, "HRESULT")
-        return result
+    GetFigures() {
+        result := ComCall(5, this, "ptr*", &figures := 0, "HRESULT")
+        return IXpsOMGeometryFigureCollection(figures)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} fillRule 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometry-getfillrule
      */
-    GetFillRule(fillRule) {
-        fillRuleMarshal := fillRule is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, fillRuleMarshal, fillRule, "HRESULT")
-        return result
+    GetFillRule() {
+        result := ComCall(6, this, "int*", &fillRule := 0, "HRESULT")
+        return fillRule
     }
 
     /**
@@ -106,24 +105,22 @@ class IXpsOMGeometry extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<IXpsOMMatrixTransform>} transform 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMMatrixTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometry-gettransform
      */
-    GetTransform(transform) {
-        result := ComCall(8, this, "ptr*", transform, "HRESULT")
-        return result
+    GetTransform() {
+        result := ComCall(8, this, "ptr*", &transform := 0, "HRESULT")
+        return IXpsOMMatrixTransform(transform)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMMatrixTransform>} transform 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMMatrixTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometry-gettransformlocal
      */
-    GetTransformLocal(transform) {
-        result := ComCall(9, this, "ptr*", transform, "HRESULT")
-        return result
+    GetTransformLocal() {
+        result := ComCall(9, this, "ptr*", &transform := 0, "HRESULT")
+        return IXpsOMMatrixTransform(transform)
     }
 
     /**
@@ -139,13 +136,12 @@ class IXpsOMGeometry extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lookup 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometry-gettransformlookup
      */
-    GetTransformLookup(lookup) {
-        result := ComCall(11, this, "ptr", lookup, "HRESULT")
-        return result
+    GetTransformLookup() {
+        result := ComCall(11, this, "ptr*", &lookup := 0, "HRESULT")
+        return lookup
     }
 
     /**
@@ -163,12 +159,11 @@ class IXpsOMGeometry extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<IXpsOMGeometry>} geometry 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGeometry} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometry-clone
      */
-    Clone(geometry) {
-        result := ComCall(13, this, "ptr*", geometry, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(13, this, "ptr*", &geometry := 0, "HRESULT")
+        return IXpsOMGeometry(geometry)
     }
 }

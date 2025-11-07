@@ -49,15 +49,12 @@ class IQuerySolution extends IConditionFactory{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppParseErrors 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iquerysolution-geterrors
      */
-    GetErrors(riid, ppParseErrors) {
-        ppParseErrorsMarshal := ppParseErrors is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", riid, ppParseErrorsMarshal, ppParseErrors, "HRESULT")
-        return result
+    GetErrors(riid) {
+        result := ComCall(8, this, "ptr", riid, "ptr*", &ppParseErrors := 0, "HRESULT")
+        return ppParseErrors
     }
 
     /**
@@ -70,9 +67,10 @@ class IQuerySolution extends IConditionFactory{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iquerysolution-getlexicaldata
      */
     GetLexicalData(ppszInputString, ppTokens, plcid, ppWordBreaker) {
+        ppszInputStringMarshal := ppszInputString is VarRef ? "ptr*" : "ptr"
         plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", ppszInputString, "ptr*", ppTokens, plcidMarshal, plcid, "ptr*", ppWordBreaker, "HRESULT")
+        result := ComCall(9, this, ppszInputStringMarshal, ppszInputString, "ptr*", ppTokens, plcidMarshal, plcid, "ptr*", ppWordBreaker, "HRESULT")
         return result
     }
 }

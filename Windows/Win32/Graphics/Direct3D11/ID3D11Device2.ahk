@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11DeviceContext2.ahk
 #Include .\ID3D11Device1.ahk
 
 /**
@@ -43,13 +44,12 @@ class ID3D11Device2 extends ID3D11Device1{
     /**
      * 
      * @param {Integer} ContextFlags 
-     * @param {Pointer<ID3D11DeviceContext2>} ppDeferredContext 
-     * @returns {HRESULT} 
+     * @returns {ID3D11DeviceContext2} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11device2-createdeferredcontext2
      */
-    CreateDeferredContext2(ContextFlags, ppDeferredContext) {
-        result := ComCall(51, this, "uint", ContextFlags, "ptr*", ppDeferredContext, "HRESULT")
-        return result
+    CreateDeferredContext2(ContextFlags) {
+        result := ComCall(51, this, "uint", ContextFlags, "ptr*", &ppDeferredContext := 0, "HRESULT")
+        return ID3D11DeviceContext2(ppDeferredContext)
     }
 
     /**
@@ -76,14 +76,11 @@ class ID3D11Device2 extends ID3D11Device1{
      * @param {Integer} Format 
      * @param {Integer} SampleCount 
      * @param {Integer} Flags 
-     * @param {Pointer<Integer>} pNumQualityLevels 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11device2-checkmultisamplequalitylevels1
      */
-    CheckMultisampleQualityLevels1(Format, SampleCount, Flags, pNumQualityLevels) {
-        pNumQualityLevelsMarshal := pNumQualityLevels is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(53, this, "int", Format, "uint", SampleCount, "uint", Flags, pNumQualityLevelsMarshal, pNumQualityLevels, "HRESULT")
-        return result
+    CheckMultisampleQualityLevels1(Format, SampleCount, Flags) {
+        result := ComCall(53, this, "int", Format, "uint", SampleCount, "uint", Flags, "uint*", &pNumQualityLevels := 0, "HRESULT")
+        return pNumQualityLevels
     }
 }

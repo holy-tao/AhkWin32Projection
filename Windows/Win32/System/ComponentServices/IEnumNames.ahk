@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumNames.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class IEnumNames extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumNames>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumNames} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ienumnames-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumNames(ppenum)
     }
 }

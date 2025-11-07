@@ -50,12 +50,11 @@ class IHostCrst extends IUnknown{
     /**
      * 
      * @param {Integer} option 
-     * @param {Pointer<BOOL>} pbSucceeded 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    TryEnter(option, pbSucceeded) {
-        result := ComCall(5, this, "uint", option, "ptr", pbSucceeded, "HRESULT")
-        return result
+    TryEnter(option) {
+        result := ComCall(5, this, "uint", option, "int*", &pbSucceeded := 0, "HRESULT")
+        return pbSucceeded
     }
 
     /**

@@ -33,14 +33,11 @@ class IAudioFrameNative extends IInspectable{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/WinRT/iaudioframenative-getdata
      */
-    GetData(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetData(riid) {
+        result := ComCall(6, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

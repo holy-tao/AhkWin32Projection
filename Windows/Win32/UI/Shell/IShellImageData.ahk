@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertySetStorage.ahk
+#Include .\IShellImageDataAbort.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -252,13 +254,12 @@ class IShellImageData extends IUnknown{
     /**
      * 
      * @param {Integer} dwMode 
-     * @param {Pointer<IPropertySetStorage>} ppPropSet 
-     * @returns {HRESULT} 
+     * @returns {IPropertySetStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getproperties
      */
-    GetProperties(dwMode, ppPropSet) {
-        result := ComCall(22, this, "uint", dwMode, "ptr*", ppPropSet, "HRESULT")
-        return result
+    GetProperties(dwMode) {
+        result := ComCall(22, this, "uint", dwMode, "ptr*", &ppPropSet := 0, "HRESULT")
+        return IPropertySetStorage(ppPropSet)
     }
 
     /**
@@ -352,13 +353,12 @@ class IShellImageData extends IUnknown{
     /**
      * 
      * @param {IShellImageDataAbort} pAbort 
-     * @param {Pointer<IShellImageDataAbort>} ppAbortPrev 
-     * @returns {HRESULT} 
+     * @returns {IShellImageDataAbort} 
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-registerabort
      */
-    RegisterAbort(pAbort, ppAbortPrev) {
-        result := ComCall(30, this, "ptr", pAbort, "ptr*", ppAbortPrev, "HRESULT")
-        return result
+    RegisterAbort(pAbort) {
+        result := ComCall(30, this, "ptr", pAbort, "ptr*", &ppAbortPrev := 0, "HRESULT")
+        return IShellImageDataAbort(ppAbortPrev)
     }
 
     /**

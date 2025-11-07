@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -71,14 +72,14 @@ class IPrintManagerTemplatePrinter extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrKey 
-     * @param {Pointer<VARIANT>} pvarin 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getPrintTaskOptionValue(bstrKey, pvarin) {
+    getPrintTaskOptionValue(bstrKey) {
         bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
 
+        pvarin := VARIANT()
         result := ComCall(11, this, "ptr", bstrKey, "ptr", pvarin, "HRESULT")
-        return result
+        return pvarin
     }
 
     /**

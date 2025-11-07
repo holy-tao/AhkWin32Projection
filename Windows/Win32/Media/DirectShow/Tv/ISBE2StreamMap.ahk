@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISBE2EnumStream.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class ISBE2StreamMap extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISBE2EnumStream>} ppStreams 
-     * @returns {HRESULT} 
+     * @returns {ISBE2EnumStream} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2streammap-enummappedstreams
      */
-    EnumMappedStreams(ppStreams) {
-        result := ComCall(5, this, "ptr*", ppStreams, "HRESULT")
-        return result
+    EnumMappedStreams() {
+        result := ComCall(5, this, "ptr*", &ppStreams := 0, "HRESULT")
+        return ISBE2EnumStream(ppStreams)
     }
 }

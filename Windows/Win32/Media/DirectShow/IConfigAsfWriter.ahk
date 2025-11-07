@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\WindowsMediaFormat\IWMProfile.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,15 +44,12 @@ class IConfigAsfWriter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwProfileId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter-getcurrentprofileid
      */
-    GetCurrentProfileId(pdwProfileId) {
-        pdwProfileIdMarshal := pdwProfileId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwProfileIdMarshal, pdwProfileId, "HRESULT")
-        return result
+    GetCurrentProfileId() {
+        result := ComCall(4, this, "uint*", &pdwProfileId := 0, "HRESULT")
+        return pdwProfileId
     }
 
     /**
@@ -67,13 +65,13 @@ class IConfigAsfWriter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pProfileGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter-getcurrentprofileguid
      */
-    GetCurrentProfileGuid(pProfileGuid) {
+    GetCurrentProfileGuid() {
+        pProfileGuid := Guid()
         result := ComCall(6, this, "ptr", pProfileGuid, "HRESULT")
-        return result
+        return pProfileGuid
     }
 
     /**
@@ -89,13 +87,12 @@ class IConfigAsfWriter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWMProfile>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IWMProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter-getcurrentprofile
      */
-    GetCurrentProfile(ppProfile) {
-        result := ComCall(8, this, "ptr*", ppProfile, "HRESULT")
-        return result
+    GetCurrentProfile() {
+        result := ComCall(8, this, "ptr*", &ppProfile := 0, "HRESULT")
+        return IWMProfile(ppProfile)
     }
 
     /**
@@ -111,12 +108,11 @@ class IConfigAsfWriter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbIndexFile 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter-getindexmode
      */
-    GetIndexMode(pbIndexFile) {
-        result := ComCall(10, this, "ptr", pbIndexFile, "HRESULT")
-        return result
+    GetIndexMode() {
+        result := ComCall(10, this, "int*", &pbIndexFile := 0, "HRESULT")
+        return pbIndexFile
     }
 }

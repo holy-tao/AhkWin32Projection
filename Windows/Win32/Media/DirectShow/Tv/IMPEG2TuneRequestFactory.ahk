@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IMPEG2TuneRequest.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,12 +48,11 @@ class IMPEG2TuneRequestFactory extends IDispatch{
     /**
      * 
      * @param {ITuningSpace} TuningSpace 
-     * @param {Pointer<IMPEG2TuneRequest>} TuneRequest 
-     * @returns {HRESULT} 
+     * @returns {IMPEG2TuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2tunerequestfactory-createtunerequest
      */
-    CreateTuneRequest(TuningSpace, TuneRequest) {
-        result := ComCall(7, this, "ptr", TuningSpace, "ptr*", TuneRequest, "HRESULT")
-        return result
+    CreateTuneRequest(TuningSpace) {
+        result := ComCall(7, this, "ptr", TuningSpace, "ptr*", &TuneRequest := 0, "HRESULT")
+        return IMPEG2TuneRequest(TuneRequest)
     }
 }

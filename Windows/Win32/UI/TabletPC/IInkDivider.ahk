@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IInkStrokes.ahk
+#Include .\IInkRecognizerContext.ahk
+#Include .\IInkDivisionResult.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,13 +35,12 @@ class IInkDivider extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivider-get_strokes
      */
-    get_Strokes(Strokes) {
-        result := ComCall(7, this, "ptr*", Strokes, "HRESULT")
-        return result
+    get_Strokes() {
+        result := ComCall(7, this, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**
@@ -54,13 +56,12 @@ class IInkDivider extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkRecognizerContext>} RecognizerContext 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognizerContext} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivider-get_recognizercontext
      */
-    get_RecognizerContext(RecognizerContext) {
-        result := ComCall(9, this, "ptr*", RecognizerContext, "HRESULT")
-        return result
+    get_RecognizerContext() {
+        result := ComCall(9, this, "ptr*", &RecognizerContext := 0, "HRESULT")
+        return IInkRecognizerContext(RecognizerContext)
     }
 
     /**
@@ -76,15 +77,12 @@ class IInkDivider extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} LineHeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivider-get_lineheight
      */
-    get_LineHeight(LineHeight) {
-        LineHeightMarshal := LineHeight is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, LineHeightMarshal, LineHeight, "HRESULT")
-        return result
+    get_LineHeight() {
+        result := ComCall(11, this, "int*", &LineHeight := 0, "HRESULT")
+        return LineHeight
     }
 
     /**
@@ -100,12 +98,11 @@ class IInkDivider extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkDivisionResult>} InkDivisionResult 
-     * @returns {HRESULT} 
+     * @returns {IInkDivisionResult} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivider-divide
      */
-    Divide(InkDivisionResult) {
-        result := ComCall(13, this, "ptr*", InkDivisionResult, "HRESULT")
-        return result
+    Divide() {
+        result := ComCall(13, this, "ptr*", &InkDivisionResult := 0, "HRESULT")
+        return IInkDivisionResult(InkDivisionResult)
     }
 }

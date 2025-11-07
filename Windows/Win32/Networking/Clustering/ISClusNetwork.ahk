@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISClusProperties.ahk
+#Include .\ISClusNetworkNetInterfaces.ahk
+#Include .\ISCluster.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,64 +34,57 @@ class ISClusNetwork extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_CommonProperties(ppProperties) {
-        result := ComCall(7, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_CommonProperties() {
+        result := ComCall(7, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_PrivateProperties(ppProperties) {
-        result := ComCall(8, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_PrivateProperties() {
+        result := ComCall(8, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_CommonROProperties(ppProperties) {
-        result := ComCall(9, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_CommonROProperties() {
+        result := ComCall(9, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_PrivateROProperties(ppProperties) {
-        result := ComCall(10, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_PrivateROProperties() {
+        result := ComCall(10, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} phandle 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_Handle(phandle) {
-        phandleMarshal := phandle is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, phandleMarshal, phandle, "HRESULT")
-        return result
+    get_Handle() {
+        result := ComCall(11, this, "ptr*", &phandle := 0, "HRESULT")
+        return phandle
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(12, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -105,43 +101,38 @@ class ISClusNetwork extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrNetworkID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_NetworkID(pbstrNetworkID) {
+    get_NetworkID() {
+        pbstrNetworkID := BSTR()
         result := ComCall(14, this, "ptr", pbstrNetworkID, "HRESULT")
-        return result
+        return pbstrNetworkID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} dwState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(dwState) {
-        dwStateMarshal := dwState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, dwStateMarshal, dwState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(15, this, "int*", &dwState := 0, "HRESULT")
+        return dwState
     }
 
     /**
      * 
-     * @param {Pointer<ISClusNetworkNetInterfaces>} ppClusNetInterfaces 
-     * @returns {HRESULT} 
+     * @returns {ISClusNetworkNetInterfaces} 
      */
-    get_NetInterfaces(ppClusNetInterfaces) {
-        result := ComCall(16, this, "ptr*", ppClusNetInterfaces, "HRESULT")
-        return result
+    get_NetInterfaces() {
+        result := ComCall(16, this, "ptr*", &ppClusNetInterfaces := 0, "HRESULT")
+        return ISClusNetworkNetInterfaces(ppClusNetInterfaces)
     }
 
     /**
      * 
-     * @param {Pointer<ISCluster>} ppCluster 
-     * @returns {HRESULT} 
+     * @returns {ISCluster} 
      */
-    get_Cluster(ppCluster) {
-        result := ComCall(17, this, "ptr*", ppCluster, "HRESULT")
-        return result
+    get_Cluster() {
+        result := ComCall(17, this, "ptr*", &ppCluster := 0, "HRESULT")
+        return ISCluster(ppCluster)
     }
 }

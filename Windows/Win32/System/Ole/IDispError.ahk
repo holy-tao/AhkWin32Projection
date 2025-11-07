@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDispError.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,42 +33,39 @@ class IDispError extends IUnknown{
     /**
      * 
      * @param {Guid} guidErrorType 
-     * @param {Pointer<IDispError>} ppde 
-     * @returns {HRESULT} 
+     * @returns {IDispError} 
      */
-    QueryErrorInfo(guidErrorType, ppde) {
-        result := ComCall(3, this, "ptr", guidErrorType, "ptr*", ppde, "HRESULT")
-        return result
+    QueryErrorInfo(guidErrorType) {
+        result := ComCall(3, this, "ptr", guidErrorType, "ptr*", &ppde := 0, "HRESULT")
+        return IDispError(ppde)
     }
 
     /**
      * 
-     * @param {Pointer<IDispError>} ppde 
-     * @returns {HRESULT} 
+     * @returns {IDispError} 
      */
-    GetNext(ppde) {
-        result := ComCall(4, this, "ptr*", ppde, "HRESULT")
-        return result
+    GetNext() {
+        result := ComCall(4, this, "ptr*", &ppde := 0, "HRESULT")
+        return IDispError(ppde)
     }
 
     /**
      * 
-     * @param {Pointer<HRESULT>} phr 
      * @returns {HRESULT} 
      */
-    GetHresult(phr) {
-        result := ComCall(5, this, "ptr", phr, "HRESULT")
-        return result
+    GetHresult() {
+        result := ComCall(5, this, "int*", &phr := 0, "HRESULT")
+        return phr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSource 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetSource(pbstrSource) {
+    GetSource() {
+        pbstrSource := BSTR()
         result := ComCall(6, this, "ptr", pbstrSource, "HRESULT")
-        return result
+        return pbstrSource
     }
 
     /**
@@ -84,11 +83,11 @@ class IDispError extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDescription(pbstrDescription) {
+    GetDescription() {
+        pbstrDescription := BSTR()
         result := ComCall(8, this, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 }

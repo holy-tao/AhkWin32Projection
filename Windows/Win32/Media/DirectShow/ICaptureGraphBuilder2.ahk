@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IGraphBuilder.ahk
+#Include .\IPin.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,13 +45,12 @@ class ICaptureGraphBuilder2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IGraphBuilder>} ppfg 
-     * @returns {HRESULT} 
+     * @returns {IGraphBuilder} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder2-getfiltergraph
      */
-    GetFiltergraph(ppfg) {
-        result := ComCall(4, this, "ptr*", ppfg, "HRESULT")
-        return result
+    GetFiltergraph() {
+        result := ComCall(4, this, "ptr*", &ppfg := 0, "HRESULT")
+        return IGraphBuilder(ppfg)
     }
 
     /**
@@ -74,15 +75,12 @@ class ICaptureGraphBuilder2 extends IUnknown{
      * @param {Pointer<Guid>} pType 
      * @param {IBaseFilter} pf 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppint 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder2-findinterface
      */
-    FindInterface(pCategory, pType, pf, riid, ppint) {
-        ppintMarshal := ppint is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pCategory, "ptr", pType, "ptr", pf, "ptr", riid, ppintMarshal, ppint, "HRESULT")
-        return result
+    FindInterface(pCategory, pType, pf, riid) {
+        result := ComCall(6, this, "ptr", pCategory, "ptr", pType, "ptr", pf, "ptr", riid, "ptr*", &ppint := 0, "HRESULT")
+        return ppint
     }
 
     /**
@@ -159,12 +157,11 @@ class ICaptureGraphBuilder2 extends IUnknown{
      * @param {Pointer<Guid>} pType 
      * @param {BOOL} fUnconnected 
      * @param {Integer} num 
-     * @param {Pointer<IPin>} ppPin 
-     * @returns {HRESULT} 
+     * @returns {IPin} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder2-findpin
      */
-    FindPin(pSource, pindir, pCategory, pType, fUnconnected, num, ppPin) {
-        result := ComCall(11, this, "ptr", pSource, "int", pindir, "ptr", pCategory, "ptr", pType, "int", fUnconnected, "int", num, "ptr*", ppPin, "HRESULT")
-        return result
+    FindPin(pSource, pindir, pCategory, pType, fUnconnected, num) {
+        result := ComCall(11, this, "ptr", pSource, "int", pindir, "ptr", pCategory, "ptr", pType, "int", fUnconnected, "int", num, "ptr*", &ppPin := 0, "HRESULT")
+        return IPin(ppPin)
     }
 }

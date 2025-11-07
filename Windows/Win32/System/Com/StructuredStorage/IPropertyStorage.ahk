@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\PROPVARIANT.ahk
+#Include .\IEnumSTATPROPSTG.ahk
+#Include .\STATPROPSETSTG.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -34,13 +37,13 @@ class IPropertyStorage extends IUnknown{
      * 
      * @param {Integer} cpspec 
      * @param {Pointer<PROPSPEC>} rgpspec 
-     * @param {Pointer<PROPVARIANT>} rgpropvar 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-readmultiple
      */
-    ReadMultiple(cpspec, rgpspec, rgpropvar) {
+    ReadMultiple(cpspec, rgpspec) {
+        rgpropvar := PROPVARIANT()
         result := ComCall(3, this, "uint", cpspec, "ptr", rgpspec, "ptr", rgpropvar, "HRESULT")
-        return result
+        return rgpropvar
     }
 
     /**
@@ -73,15 +76,14 @@ class IPropertyStorage extends IUnknown{
      * 
      * @param {Integer} cpropid 
      * @param {Pointer<Integer>} rgpropid 
-     * @param {Pointer<PWSTR>} rglpwstrName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-readpropertynames
      */
-    ReadPropertyNames(cpropid, rgpropid, rglpwstrName) {
+    ReadPropertyNames(cpropid, rgpropid) {
         rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", cpropid, rgpropidMarshal, rgpropid, "ptr", rglpwstrName, "HRESULT")
-        return result
+        result := ComCall(6, this, "uint", cpropid, rgpropidMarshal, rgpropid, "ptr*", &rglpwstrName := 0, "HRESULT")
+        return rglpwstrName
     }
 
     /**
@@ -94,8 +96,9 @@ class IPropertyStorage extends IUnknown{
      */
     WritePropertyNames(cpropid, rgpropid, rglpwstrName) {
         rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
+        rglpwstrNameMarshal := rglpwstrName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", cpropid, rgpropidMarshal, rgpropid, "ptr", rglpwstrName, "HRESULT")
+        result := ComCall(7, this, "uint", cpropid, rgpropidMarshal, rgpropid, rglpwstrNameMarshal, rglpwstrName, "HRESULT")
         return result
     }
 
@@ -136,13 +139,12 @@ class IPropertyStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSTATPROPSTG>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSTATPROPSTG} 
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-enum
      */
-    Enum(ppenum) {
-        result := ComCall(11, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Enum() {
+        result := ComCall(11, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumSTATPROPSTG(ppenum)
     }
 
     /**
@@ -171,12 +173,12 @@ class IPropertyStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<STATPROPSETSTG>} pstatpsstg 
-     * @returns {HRESULT} 
+     * @returns {STATPROPSETSTG} 
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-stat
      */
-    Stat(pstatpsstg) {
+    Stat() {
+        pstatpsstg := STATPROPSETSTG()
         result := ComCall(14, this, "ptr", pstatpsstg, "HRESULT")
-        return result
+        return pstatpsstg
     }
 }

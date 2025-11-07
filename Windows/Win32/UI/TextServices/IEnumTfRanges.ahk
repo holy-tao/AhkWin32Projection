@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTfRanges.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IEnumTfRanges extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumTfRanges>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfRanges} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfranges-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfRanges(ppEnum)
     }
 
     /**

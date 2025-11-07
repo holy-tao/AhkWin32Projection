@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,41 +33,37 @@ class IOpenServiceActivityInput extends IUnknown{
      * 
      * @param {PWSTR} pwzVariableName 
      * @param {PWSTR} pwzVariableType 
-     * @param {Pointer<BSTR>} pbstrVariableContent 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetVariable(pwzVariableName, pwzVariableType, pbstrVariableContent) {
+    GetVariable(pwzVariableName, pwzVariableType) {
         pwzVariableName := pwzVariableName is String ? StrPtr(pwzVariableName) : pwzVariableName
         pwzVariableType := pwzVariableType is String ? StrPtr(pwzVariableType) : pwzVariableType
 
+        pbstrVariableContent := BSTR()
         result := ComCall(3, this, "ptr", pwzVariableName, "ptr", pwzVariableType, "ptr", pbstrVariableContent, "HRESULT")
-        return result
+        return pbstrVariableContent
     }
 
     /**
      * 
      * @param {PWSTR} pwzVariableName 
      * @param {PWSTR} pwzVariableType 
-     * @param {Pointer<BOOL>} pfHasVariable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    HasVariable(pwzVariableName, pwzVariableType, pfHasVariable) {
+    HasVariable(pwzVariableName, pwzVariableType) {
         pwzVariableName := pwzVariableName is String ? StrPtr(pwzVariableName) : pwzVariableName
         pwzVariableType := pwzVariableType is String ? StrPtr(pwzVariableType) : pwzVariableType
 
-        result := ComCall(4, this, "ptr", pwzVariableName, "ptr", pwzVariableType, "ptr", pfHasVariable, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pwzVariableName, "ptr", pwzVariableType, "int*", &pfHasVariable := 0, "HRESULT")
+        return pfHasVariable
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(5, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 }

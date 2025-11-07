@@ -40,14 +40,14 @@ class IStdMarshalInfo extends IUnknown{
     /**
      * 
      * @param {Integer} dwDestContext 
-     * @param {Pointer<Guid>} pClsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-istdmarshalinfo-getclassforhandler
      */
-    GetClassForHandler(dwDestContext, pClsid) {
+    GetClassForHandler(dwDestContext) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
 
+        pClsid := Guid()
         result := ComCall(3, this, "uint", dwDestContext, "ptr", pvDestContext, "ptr", pClsid, "HRESULT")
-        return result
+        return pClsid
     }
 }

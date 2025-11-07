@@ -30,13 +30,10 @@ class IAppxBlockMapFile2 extends IAppxBlockMapFile{
 
     /**
      * 
-     * @param {Pointer<Integer>} blockSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetBlockSize(blockSize) {
-        blockSizeMarshal := blockSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, blockSizeMarshal, blockSize, "HRESULT")
-        return result
+    GetBlockSize() {
+        result := ComCall(8, this, "uint*", &blockSize := 0, "HRESULT")
+        return blockSize
     }
 }

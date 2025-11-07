@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfReverseConversionList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,14 +38,13 @@ class ITfReverseConversion extends IUnknown{
     /**
      * 
      * @param {PWSTR} lpstr 
-     * @param {Pointer<ITfReverseConversionList>} ppList 
-     * @returns {HRESULT} 
+     * @returns {ITfReverseConversionList} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreverseconversion-doreverseconversion
      */
-    DoReverseConversion(lpstr, ppList) {
+    DoReverseConversion(lpstr) {
         lpstr := lpstr is String ? StrPtr(lpstr) : lpstr
 
-        result := ComCall(3, this, "ptr", lpstr, "ptr*", ppList, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", lpstr, "ptr*", &ppList := 0, "HRESULT")
+        return ITfReverseConversionList(ppList)
     }
 }

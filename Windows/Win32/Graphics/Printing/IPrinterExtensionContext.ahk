@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPrinterQueue.ahk
+#Include .\IPrintSchemaTicket.ahk
+#Include .\IPrinterPropertyBag.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,41 +33,37 @@ class IPrinterExtensionContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IPrinterQueue>} ppQueue 
-     * @returns {HRESULT} 
+     * @returns {IPrinterQueue} 
      */
-    get_PrinterQueue(ppQueue) {
-        result := ComCall(7, this, "ptr*", ppQueue, "HRESULT")
-        return result
+    get_PrinterQueue() {
+        result := ComCall(7, this, "ptr*", &ppQueue := 0, "HRESULT")
+        return IPrinterQueue(ppQueue)
     }
 
     /**
      * 
-     * @param {Pointer<IPrintSchemaTicket>} ppTicket 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaTicket} 
      */
-    get_PrintSchemaTicket(ppTicket) {
-        result := ComCall(8, this, "ptr*", ppTicket, "HRESULT")
-        return result
+    get_PrintSchemaTicket() {
+        result := ComCall(8, this, "ptr*", &ppTicket := 0, "HRESULT")
+        return IPrintSchemaTicket(ppTicket)
     }
 
     /**
      * 
-     * @param {Pointer<IPrinterPropertyBag>} ppPropertyBag 
-     * @returns {HRESULT} 
+     * @returns {IPrinterPropertyBag} 
      */
-    get_DriverProperties(ppPropertyBag) {
-        result := ComCall(9, this, "ptr*", ppPropertyBag, "HRESULT")
-        return result
+    get_DriverProperties() {
+        result := ComCall(9, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        return IPrinterPropertyBag(ppPropertyBag)
     }
 
     /**
      * 
-     * @param {Pointer<IPrinterPropertyBag>} ppPropertyBag 
-     * @returns {HRESULT} 
+     * @returns {IPrinterPropertyBag} 
      */
-    get_UserProperties(ppPropertyBag) {
-        result := ComCall(10, this, "ptr*", ppPropertyBag, "HRESULT")
-        return result
+    get_UserProperties() {
+        result := ComCall(10, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        return IPrinterPropertyBag(ppPropertyBag)
     }
 }

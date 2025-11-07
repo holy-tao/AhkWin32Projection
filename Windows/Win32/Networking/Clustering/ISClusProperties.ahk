@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISClusProperty.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,24 +34,20 @@ class ISClusProperties extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(8, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
@@ -63,26 +62,24 @@ class ISClusProperties extends IDispatch{
     /**
      * 
      * @param {VARIANT} varIndex 
-     * @param {Pointer<ISClusProperty>} ppClusProperty 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperty} 
      */
-    get_Item(varIndex, ppClusProperty) {
-        result := ComCall(10, this, "ptr", varIndex, "ptr*", ppClusProperty, "HRESULT")
-        return result
+    get_Item(varIndex) {
+        result := ComCall(10, this, "ptr", varIndex, "ptr*", &ppClusProperty := 0, "HRESULT")
+        return ISClusProperty(ppClusProperty)
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
      * @param {VARIANT} varValue 
-     * @param {Pointer<ISClusProperty>} pProperty 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperty} 
      */
-    CreateItem(bstrName, varValue, pProperty) {
+    CreateItem(bstrName, varValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(11, this, "ptr", bstrName, "ptr", varValue, "ptr*", pProperty, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrName, "ptr", varValue, "ptr*", &pProperty := 0, "HRESULT")
+        return ISClusProperty(pProperty)
     }
 
     /**
@@ -97,51 +94,51 @@ class ISClusProperties extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarStatusCode 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    SaveChanges(pvarStatusCode) {
+    SaveChanges() {
+        pvarStatusCode := VARIANT()
         result := ComCall(13, this, "ptr", pvarStatusCode, "HRESULT")
-        return result
+        return pvarStatusCode
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarReadOnly 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ReadOnly(pvarReadOnly) {
+    get_ReadOnly() {
+        pvarReadOnly := VARIANT()
         result := ComCall(14, this, "ptr", pvarReadOnly, "HRESULT")
-        return result
+        return pvarReadOnly
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarPrivate 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Private(pvarPrivate) {
+    get_Private() {
+        pvarPrivate := VARIANT()
         result := ComCall(15, this, "ptr", pvarPrivate, "HRESULT")
-        return result
+        return pvarPrivate
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarCommon 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Common(pvarCommon) {
+    get_Common() {
+        pvarCommon := VARIANT()
         result := ComCall(16, this, "ptr", pvarCommon, "HRESULT")
-        return result
+        return pvarCommon
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarModified 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Modified(pvarModified) {
+    get_Modified() {
+        pvarModified := VARIANT()
         result := ComCall(17, this, "ptr", pvarModified, "HRESULT")
-        return result
+        return pvarModified
     }
 }

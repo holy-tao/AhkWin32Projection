@@ -32,14 +32,13 @@ class ITargetFramePriv extends IUnknown{
      * 
      * @param {PWSTR} pszTargetName 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IUnknown>} ppunkTargetFrame 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    FindFrameDownwards(pszTargetName, dwFlags, ppunkTargetFrame) {
+    FindFrameDownwards(pszTargetName, dwFlags) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := ComCall(3, this, "ptr", pszTargetName, "uint", dwFlags, "ptr*", ppunkTargetFrame, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszTargetName, "uint", dwFlags, "ptr*", &ppunkTargetFrame := 0, "HRESULT")
+        return IUnknown(ppunkTargetFrame)
     }
 
     /**
@@ -47,14 +46,13 @@ class ITargetFramePriv extends IUnknown{
      * @param {PWSTR} pszTargetName 
      * @param {IUnknown} punkContextFrame 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IUnknown>} ppunkTargetFrame 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    FindFrameInContext(pszTargetName, punkContextFrame, dwFlags, ppunkTargetFrame) {
+    FindFrameInContext(pszTargetName, punkContextFrame, dwFlags) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := ComCall(4, this, "ptr", pszTargetName, "ptr", punkContextFrame, "uint", dwFlags, "ptr*", ppunkTargetFrame, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszTargetName, "ptr", punkContextFrame, "uint", dwFlags, "ptr*", &ppunkTargetFrame := 0, "HRESULT")
+        return IUnknown(ppunkTargetFrame)
     }
 
     /**
@@ -99,11 +97,10 @@ class ITargetFramePriv extends IUnknown{
     /**
      * 
      * @param {Integer} dwID 
-     * @param {Pointer<IUnknown>} ppunkBrowser 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    FindBrowserByIndex(dwID, ppunkBrowser) {
-        result := ComCall(8, this, "uint", dwID, "ptr*", ppunkBrowser, "HRESULT")
-        return result
+    FindBrowserByIndex(dwID) {
+        result := ComCall(8, this, "uint", dwID, "ptr*", &ppunkBrowser := 0, "HRESULT")
+        return IUnknown(ppunkBrowser)
     }
 }

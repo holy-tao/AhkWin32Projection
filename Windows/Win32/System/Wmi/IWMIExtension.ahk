@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ISWbemObject.ahk
+#Include .\ISWbemServices.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,31 +39,29 @@ class IWMIExtension extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strWMIObjectPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_WMIObjectPath(strWMIObjectPath) {
+    get_WMIObjectPath() {
+        strWMIObjectPath := BSTR()
         result := ComCall(7, this, "ptr", strWMIObjectPath, "HRESULT")
-        return result
+        return strWMIObjectPath
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemObject>} objWMIObject 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObject} 
      */
-    GetWMIObject(objWMIObject) {
-        result := ComCall(8, this, "ptr*", objWMIObject, "HRESULT")
-        return result
+    GetWMIObject() {
+        result := ComCall(8, this, "ptr*", &objWMIObject := 0, "HRESULT")
+        return ISWbemObject(objWMIObject)
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemServices>} objWMIServices 
-     * @returns {HRESULT} 
+     * @returns {ISWbemServices} 
      */
-    GetWMIServices(objWMIServices) {
-        result := ComCall(9, this, "ptr*", objWMIServices, "HRESULT")
-        return result
+    GetWMIServices() {
+        result := ComCall(9, this, "ptr*", &objWMIServices := 0, "HRESULT")
+        return ISWbemServices(objWMIServices)
     }
 }

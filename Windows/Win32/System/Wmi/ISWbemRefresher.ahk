@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ISWbemRefreshableItem.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,35 +39,30 @@ class ISWbemRefresher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(pUnk) {
-        result := ComCall(7, this, "ptr*", pUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")
+        return IUnknown(pUnk)
     }
 
     /**
      * 
      * @param {Integer} iIndex 
-     * @param {Pointer<ISWbemRefreshableItem>} objWbemRefreshableItem 
-     * @returns {HRESULT} 
+     * @returns {ISWbemRefreshableItem} 
      */
-    Item(iIndex, objWbemRefreshableItem) {
-        result := ComCall(8, this, "int", iIndex, "ptr*", objWbemRefreshableItem, "HRESULT")
-        return result
+    Item(iIndex) {
+        result := ComCall(8, this, "int", iIndex, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
+        return ISWbemRefreshableItem(objWbemRefreshableItem)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} iCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(iCount) {
-        iCountMarshal := iCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, iCountMarshal, iCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &iCount := 0, "HRESULT")
+        return iCount
     }
 
     /**
@@ -74,14 +71,13 @@ class ISWbemRefresher extends IDispatch{
      * @param {BSTR} bsInstancePath 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemRefreshableItem>} objWbemRefreshableItem 
-     * @returns {HRESULT} 
+     * @returns {ISWbemRefreshableItem} 
      */
-    Add(objWbemServices, bsInstancePath, iFlags, objWbemNamedValueSet, objWbemRefreshableItem) {
+    Add(objWbemServices, bsInstancePath, iFlags, objWbemNamedValueSet) {
         bsInstancePath := bsInstancePath is String ? BSTR.Alloc(bsInstancePath).Value : bsInstancePath
 
-        result := ComCall(10, this, "ptr", objWbemServices, "ptr", bsInstancePath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemRefreshableItem, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", objWbemServices, "ptr", bsInstancePath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
+        return ISWbemRefreshableItem(objWbemRefreshableItem)
     }
 
     /**
@@ -90,14 +86,13 @@ class ISWbemRefresher extends IDispatch{
      * @param {BSTR} bsClassName 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemRefreshableItem>} objWbemRefreshableItem 
-     * @returns {HRESULT} 
+     * @returns {ISWbemRefreshableItem} 
      */
-    AddEnum(objWbemServices, bsClassName, iFlags, objWbemNamedValueSet, objWbemRefreshableItem) {
+    AddEnum(objWbemServices, bsClassName, iFlags, objWbemNamedValueSet) {
         bsClassName := bsClassName is String ? BSTR.Alloc(bsClassName).Value : bsClassName
 
-        result := ComCall(11, this, "ptr", objWbemServices, "ptr", bsClassName, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemRefreshableItem, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", objWbemServices, "ptr", bsClassName, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
+        return ISWbemRefreshableItem(objWbemRefreshableItem)
     }
 
     /**
@@ -123,12 +118,11 @@ class ISWbemRefresher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bCount 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_AutoReconnect(bCount) {
-        result := ComCall(14, this, "ptr", bCount, "HRESULT")
-        return result
+    get_AutoReconnect() {
+        result := ComCall(14, this, "short*", &bCount := 0, "HRESULT")
+        return bCount
     }
 
     /**

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxBundleWriter.ahk
+#Include .\IAppxBundleReader.ahk
+#Include .\IAppxBundleManifestReader.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,36 +49,33 @@ class IAppxBundleFactory extends IUnknown{
      * 
      * @param {IStream} outputStream 
      * @param {Integer} bundleVersion 
-     * @param {Pointer<IAppxBundleWriter>} bundleWriter 
-     * @returns {HRESULT} 
+     * @returns {IAppxBundleWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlewriter
      */
-    CreateBundleWriter(outputStream, bundleVersion, bundleWriter) {
-        result := ComCall(3, this, "ptr", outputStream, "uint", bundleVersion, "ptr*", bundleWriter, "HRESULT")
-        return result
+    CreateBundleWriter(outputStream, bundleVersion) {
+        result := ComCall(3, this, "ptr", outputStream, "uint", bundleVersion, "ptr*", &bundleWriter := 0, "HRESULT")
+        return IAppxBundleWriter(bundleWriter)
     }
 
     /**
      * 
      * @param {IStream} inputStream 
-     * @param {Pointer<IAppxBundleReader>} bundleReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxBundleReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlereader
      */
-    CreateBundleReader(inputStream, bundleReader) {
-        result := ComCall(4, this, "ptr", inputStream, "ptr*", bundleReader, "HRESULT")
-        return result
+    CreateBundleReader(inputStream) {
+        result := ComCall(4, this, "ptr", inputStream, "ptr*", &bundleReader := 0, "HRESULT")
+        return IAppxBundleReader(bundleReader)
     }
 
     /**
      * 
      * @param {IStream} inputStream 
-     * @param {Pointer<IAppxBundleManifestReader>} manifestReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxBundleManifestReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlemanifestreader
      */
-    CreateBundleManifestReader(inputStream, manifestReader) {
-        result := ComCall(5, this, "ptr", inputStream, "ptr*", manifestReader, "HRESULT")
-        return result
+    CreateBundleManifestReader(inputStream) {
+        result := ComCall(5, this, "ptr", inputStream, "ptr*", &manifestReader := 0, "HRESULT")
+        return IAppxBundleManifestReader(manifestReader)
     }
 }

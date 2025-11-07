@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IUIAutomationElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,14 +35,13 @@ class IUIAutomationSpreadsheetPattern extends IUnknown{
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IUIAutomationElement>} element 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetpattern-getitembyname
      */
-    GetItemByName(name, element) {
+    GetItemByName(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(3, this, "ptr", name, "ptr*", element, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", name, "ptr*", &element := 0, "HRESULT")
+        return IUIAutomationElement(element)
     }
 }

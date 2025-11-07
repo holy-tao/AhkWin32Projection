@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,35 +34,31 @@ class IADsMembers extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsmembers-get__newenum
      */
-    get__NewEnum(ppEnumerator) {
-        result := ComCall(8, this, "ptr*", ppEnumerator, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &ppEnumerator := 0, "HRESULT")
+        return IUnknown(ppEnumerator)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvFilter 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Filter(pvFilter) {
+    get_Filter() {
+        pvFilter := VARIANT()
         result := ComCall(9, this, "ptr", pvFilter, "HRESULT")
-        return result
+        return pvFilter
     }
 
     /**

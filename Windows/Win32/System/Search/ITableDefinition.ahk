@@ -62,14 +62,11 @@ class ITableDefinition extends IUnknown{
      * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBCOLUMNDESC>} pColumnDesc 
-     * @param {Pointer<Pointer<DBID>>} ppColumnID 
-     * @returns {HRESULT} 
+     * @returns {Pointer<DBID>} 
      */
-    AddColumn(pTableID, pColumnDesc, ppColumnID) {
-        ppColumnIDMarshal := ppColumnID is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pTableID, "ptr", pColumnDesc, ppColumnIDMarshal, ppColumnID, "HRESULT")
-        return result
+    AddColumn(pTableID, pColumnDesc) {
+        result := ComCall(5, this, "ptr", pTableID, "ptr", pColumnDesc, "ptr*", &ppColumnID := 0, "HRESULT")
+        return ppColumnID
     }
 
     /**

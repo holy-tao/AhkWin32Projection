@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -33,61 +35,57 @@ class IMtsEventInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtseventinfo-get_names
      */
-    get_Names(pUnk) {
-        result := ComCall(7, this, "ptr*", pUnk, "HRESULT")
-        return result
+    get_Names() {
+        result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")
+        return IUnknown(pUnk)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} sDisplayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtseventinfo-get_displayname
      */
-    get_DisplayName(sDisplayName) {
+    get_DisplayName() {
+        sDisplayName := BSTR()
         result := ComCall(8, this, "ptr", sDisplayName, "HRESULT")
-        return result
+        return sDisplayName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} sGuidEventID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtseventinfo-get_eventid
      */
-    get_EventID(sGuidEventID) {
+    get_EventID() {
+        sGuidEventID := BSTR()
         result := ComCall(9, this, "ptr", sGuidEventID, "HRESULT")
-        return result
+        return sGuidEventID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtseventinfo-get_count
      */
-    get_Count(lCount) {
-        lCountMarshal := lCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, lCountMarshal, lCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(10, this, "int*", &lCount := 0, "HRESULT")
+        return lCount
     }
 
     /**
      * 
      * @param {BSTR} sKey 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtseventinfo-get_value
      */
-    get_Value(sKey, pVal) {
+    get_Value(sKey) {
         sKey := sKey is String ? BSTR.Alloc(sKey).Value : sKey
 
+        pVal := VARIANT()
         result := ComCall(11, this, "ptr", sKey, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 }

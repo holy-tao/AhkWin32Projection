@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -61,12 +62,12 @@ class IFileSystemBindData extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<WIN32_FIND_DATAW>} pfd 
-     * @returns {HRESULT} 
+     * @returns {WIN32_FIND_DATAW} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata-getfinddata
      */
-    GetFindData(pfd) {
+    GetFindData() {
+        pfd := WIN32_FIND_DATAW()
         result := ComCall(4, this, "ptr", pfd, "HRESULT")
-        return result
+        return pfd
     }
 }

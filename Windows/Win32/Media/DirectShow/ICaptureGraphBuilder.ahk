@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IGraphBuilder.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,12 @@ class ICaptureGraphBuilder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IGraphBuilder>} ppfg 
-     * @returns {HRESULT} 
+     * @returns {IGraphBuilder} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder-getfiltergraph
      */
-    GetFiltergraph(ppfg) {
-        result := ComCall(4, this, "ptr*", ppfg, "HRESULT")
-        return result
+    GetFiltergraph() {
+        result := ComCall(4, this, "ptr*", &ppfg := 0, "HRESULT")
+        return IGraphBuilder(ppfg)
     }
 
     /**
@@ -73,15 +73,12 @@ class ICaptureGraphBuilder extends IUnknown{
      * @param {Pointer<Guid>} pCategory 
      * @param {IBaseFilter} pf 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppint 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder-findinterface
      */
-    FindInterface(pCategory, pf, riid, ppint) {
-        ppintMarshal := ppint is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pCategory, "ptr", pf, "ptr", riid, ppintMarshal, ppint, "HRESULT")
-        return result
+    FindInterface(pCategory, pf, riid) {
+        result := ComCall(6, this, "ptr", pCategory, "ptr", pf, "ptr", riid, "ptr*", &ppint := 0, "HRESULT")
+        return ppint
     }
 
     /**

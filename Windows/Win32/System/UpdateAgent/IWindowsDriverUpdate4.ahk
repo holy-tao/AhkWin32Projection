@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWindowsDriverUpdateEntryCollection.ahk
 #Include .\IWindowsDriverUpdate3.ahk
 
 /**
@@ -32,23 +33,21 @@ class IWindowsDriverUpdate4 extends IWindowsDriverUpdate3{
 
     /**
      * 
-     * @param {Pointer<IWindowsDriverUpdateEntryCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IWindowsDriverUpdateEntryCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate4-get_windowsdriverupdateentries
      */
-    get_WindowsDriverUpdateEntries(retval) {
-        result := ComCall(65, this, "ptr*", retval, "HRESULT")
-        return result
+    get_WindowsDriverUpdateEntries() {
+        result := ComCall(65, this, "ptr*", &retval := 0, "HRESULT")
+        return IWindowsDriverUpdateEntryCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate4-get_peruser
      */
-    get_PerUser(retval) {
-        result := ComCall(66, this, "ptr", retval, "HRESULT")
-        return result
+    get_PerUser() {
+        result := ComCall(66, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 }

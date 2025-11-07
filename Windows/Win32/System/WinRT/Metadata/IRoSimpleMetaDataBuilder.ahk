@@ -69,7 +69,9 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface{
     SetInterfaceGroupParameterizedDefault(name, elementCount, defaultInterfaceNameElements) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(3, this, "ptr", name, "uint", elementCount, "ptr", defaultInterfaceNameElements, "HRESULT")
+        defaultInterfaceNameElementsMarshal := defaultInterfaceNameElements is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", name, "uint", elementCount, defaultInterfaceNameElementsMarshal, defaultInterfaceNameElements, "HRESULT")
         return result
     }
 
@@ -98,7 +100,9 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface{
     SetRuntimeClassParameterizedDefault(name, elementCount, defaultInterfaceNameElements) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(5, this, "ptr", name, "uint", elementCount, "ptr", defaultInterfaceNameElements, "HRESULT")
+        defaultInterfaceNameElementsMarshal := defaultInterfaceNameElements is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", name, "uint", elementCount, defaultInterfaceNameElementsMarshal, defaultInterfaceNameElements, "HRESULT")
         return result
     }
 
@@ -112,7 +116,9 @@ class IRoSimpleMetaDataBuilder extends Win32ComInterface{
     SetStruct(name, numFields, fieldTypeNames) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(6, this, "ptr", name, "uint", numFields, "ptr", fieldTypeNames, "HRESULT")
+        fieldTypeNamesMarshal := fieldTypeNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", name, "uint", numFields, fieldTypeNamesMarshal, fieldTypeNames, "HRESULT")
         return result
     }
 

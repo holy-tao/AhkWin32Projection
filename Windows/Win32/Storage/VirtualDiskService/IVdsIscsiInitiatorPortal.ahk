@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_ISCSI_INITIATOR_PORTAL_PROP.ahk
+#Include .\IVdsIscsiInitiatorAdapter.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,24 +34,23 @@ class IVdsIscsiInitiatorPortal extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_ISCSI_INITIATOR_PORTAL_PROP>} pInitiatorPortalProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_ISCSI_INITIATOR_PORTAL_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatorportal-getproperties
      */
-    GetProperties(pInitiatorPortalProp) {
+    GetProperties() {
+        pInitiatorPortalProp := VDS_ISCSI_INITIATOR_PORTAL_PROP()
         result := ComCall(3, this, "ptr", pInitiatorPortalProp, "HRESULT")
-        return result
+        return pInitiatorPortalProp
     }
 
     /**
      * 
-     * @param {Pointer<IVdsIscsiInitiatorAdapter>} ppInitiatorAdapter 
-     * @returns {HRESULT} 
+     * @returns {IVdsIscsiInitiatorAdapter} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatorportal-getinitiatoradapter
      */
-    GetInitiatorAdapter(ppInitiatorAdapter) {
-        result := ComCall(4, this, "ptr*", ppInitiatorAdapter, "HRESULT")
-        return result
+    GetInitiatorAdapter() {
+        result := ComCall(4, this, "ptr*", &ppInitiatorAdapter := 0, "HRESULT")
+        return IVdsIscsiInitiatorAdapter(ppInitiatorAdapter)
     }
 
     /**
@@ -67,15 +68,12 @@ class IVdsIscsiInitiatorPortal extends IUnknown{
     /**
      * 
      * @param {Guid} targetPortalId 
-     * @param {Pointer<Integer>} pullSecurityFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatorportal-getipsecsecurity
      */
-    GetIpsecSecurity(targetPortalId, pullSecurityFlags) {
-        pullSecurityFlagsMarshal := pullSecurityFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", targetPortalId, pullSecurityFlagsMarshal, pullSecurityFlags, "HRESULT")
-        return result
+    GetIpsecSecurity(targetPortalId) {
+        result := ComCall(6, this, "ptr", targetPortalId, "uint*", &pullSecurityFlags := 0, "HRESULT")
+        return pullSecurityFlags
     }
 
     /**

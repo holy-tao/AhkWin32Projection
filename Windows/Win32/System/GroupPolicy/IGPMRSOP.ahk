@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\IGPMResult.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -45,24 +47,21 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Mode(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Mode() {
+        result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Namespace(bstrVal) {
+    get_Namespace() {
+        bstrVal := BSTR()
         result := ComCall(8, this, "ptr", bstrVal, "HRESULT")
-        return result
+        return bstrVal
     }
 
     /**
@@ -79,12 +78,12 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LoggingComputer(bstrVal) {
+    get_LoggingComputer() {
+        bstrVal := BSTR()
         result := ComCall(10, this, "ptr", bstrVal, "HRESULT")
-        return result
+        return bstrVal
     }
 
     /**
@@ -101,12 +100,12 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LoggingUser(bstrVal) {
+    get_LoggingUser() {
+        bstrVal := BSTR()
         result := ComCall(12, this, "ptr", bstrVal, "HRESULT")
-        return result
+        return bstrVal
     }
 
     /**
@@ -121,14 +120,11 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} lVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LoggingFlags(lVal) {
-        lValMarshal := lVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, lValMarshal, lVal, "HRESULT")
-        return result
+    get_LoggingFlags() {
+        result := ComCall(14, this, "int*", &lVal := 0, "HRESULT")
+        return lVal
     }
 
     /**
@@ -143,14 +139,11 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} lVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PlanningFlags(lVal) {
-        lValMarshal := lVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, lValMarshal, lVal, "HRESULT")
-        return result
+    get_PlanningFlags() {
+        result := ComCall(16, this, "int*", &lVal := 0, "HRESULT")
+        return lVal
     }
 
     /**
@@ -167,12 +160,12 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PlanningDomainController(bstrVal) {
+    get_PlanningDomainController() {
+        bstrVal := BSTR()
         result := ComCall(18, this, "ptr", bstrVal, "HRESULT")
-        return result
+        return bstrVal
     }
 
     /**
@@ -189,12 +182,12 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PlanningSiteName(bstrVal) {
+    get_PlanningSiteName() {
+        bstrVal := BSTR()
         result := ComCall(20, this, "ptr", bstrVal, "HRESULT")
-        return result
+        return bstrVal
     }
 
     /**
@@ -211,12 +204,12 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PlanningUser(bstrVal) {
+    get_PlanningUser() {
+        bstrVal := BSTR()
         result := ComCall(22, this, "ptr", bstrVal, "HRESULT")
-        return result
+        return bstrVal
     }
 
     /**
@@ -233,12 +226,12 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PlanningUserSOM(bstrVal) {
+    get_PlanningUserSOM() {
+        bstrVal := BSTR()
         result := ComCall(24, this, "ptr", bstrVal, "HRESULT")
-        return result
+        return bstrVal
     }
 
     /**
@@ -253,12 +246,12 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} varVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_PlanningUserWMIFilters(varVal) {
+    get_PlanningUserWMIFilters() {
+        varVal := VARIANT()
         result := ComCall(26, this, "ptr", varVal, "HRESULT")
-        return result
+        return varVal
     }
 
     /**
@@ -273,12 +266,12 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} varVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_PlanningUserSecurityGroups(varVal) {
+    get_PlanningUserSecurityGroups() {
+        varVal := VARIANT()
         result := ComCall(28, this, "ptr", varVal, "HRESULT")
-        return result
+        return varVal
     }
 
     /**
@@ -295,12 +288,12 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PlanningComputer(bstrVal) {
+    get_PlanningComputer() {
+        bstrVal := BSTR()
         result := ComCall(30, this, "ptr", bstrVal, "HRESULT")
-        return result
+        return bstrVal
     }
 
     /**
@@ -317,12 +310,12 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PlanningComputerSOM(bstrVal) {
+    get_PlanningComputerSOM() {
+        bstrVal := BSTR()
         result := ComCall(32, this, "ptr", bstrVal, "HRESULT")
-        return result
+        return bstrVal
     }
 
     /**
@@ -337,12 +330,12 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} varVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_PlanningComputerWMIFilters(varVal) {
+    get_PlanningComputerWMIFilters() {
+        varVal := VARIANT()
         result := ComCall(34, this, "ptr", varVal, "HRESULT")
-        return result
+        return varVal
     }
 
     /**
@@ -357,23 +350,23 @@ class IGPMRSOP extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} varVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_PlanningComputerSecurityGroups(varVal) {
+    get_PlanningComputerSecurityGroups() {
+        varVal := VARIANT()
         result := ComCall(36, this, "ptr", varVal, "HRESULT")
-        return result
+        return varVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} varVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmrsop-loggingenumerateusers
      */
-    LoggingEnumerateUsers(varVal) {
+    LoggingEnumerateUsers() {
+        varVal := VARIANT()
         result := ComCall(37, this, "ptr", varVal, "HRESULT")
-        return result
+        return varVal
     }
 
     /**
@@ -401,27 +394,25 @@ class IGPMRSOP extends IDispatch{
      * @param {Integer} gpmReportType 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @param {Pointer<IGPMResult>} ppIGPMResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmrsop-generatereport
      */
-    GenerateReport(gpmReportType, pvarGPMProgress, pvarGPMCancel, ppIGPMResult) {
-        result := ComCall(40, this, "int", gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", ppIGPMResult, "HRESULT")
-        return result
+    GenerateReport(gpmReportType, pvarGPMProgress, pvarGPMCancel) {
+        result := ComCall(40, this, "int", gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        return IGPMResult(ppIGPMResult)
     }
 
     /**
      * 
      * @param {Integer} gpmReportType 
      * @param {BSTR} bstrTargetFilePath 
-     * @param {Pointer<IGPMResult>} ppIGPMResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmrsop-generatereporttofile
      */
-    GenerateReportToFile(gpmReportType, bstrTargetFilePath, ppIGPMResult) {
+    GenerateReportToFile(gpmReportType, bstrTargetFilePath) {
         bstrTargetFilePath := bstrTargetFilePath is String ? BSTR.Alloc(bstrTargetFilePath).Value : bstrTargetFilePath
 
-        result := ComCall(41, this, "int", gpmReportType, "ptr", bstrTargetFilePath, "ptr*", ppIGPMResult, "HRESULT")
-        return result
+        result := ComCall(41, this, "int", gpmReportType, "ptr", bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        return IGPMResult(ppIGPMResult)
     }
 }

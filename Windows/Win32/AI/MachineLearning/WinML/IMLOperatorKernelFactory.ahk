@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IMLOperatorKernel.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,11 +32,10 @@ class IMLOperatorKernelFactory extends IUnknown{
     /**
      * 
      * @param {IMLOperatorKernelCreationContext} context 
-     * @param {Pointer<IMLOperatorKernel>} kernel 
-     * @returns {HRESULT} 
+     * @returns {IMLOperatorKernel} 
      */
-    CreateKernel(context, kernel) {
-        result := ComCall(3, this, "ptr", context, "ptr*", kernel, "HRESULT")
-        return result
+    CreateKernel(context) {
+        result := ComCall(3, this, "ptr", context, "ptr*", &kernel := 0, "HRESULT")
+        return IMLOperatorKernel(kernel)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DDPIXELFORMAT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -66,30 +67,30 @@ class IDirectDrawVideoPort extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} lpNumFormats 
-     * @param {Pointer<DDPIXELFORMAT>} param1 
      * @param {Integer} param2 
-     * @returns {HRESULT} 
+     * @returns {DDPIXELFORMAT} 
      */
-    GetInputFormats(lpNumFormats, param1, param2) {
+    GetInputFormats(lpNumFormats, param2) {
         lpNumFormatsMarshal := lpNumFormats is VarRef ? "uint*" : "ptr"
 
+        param1 := DDPIXELFORMAT()
         result := ComCall(6, this, lpNumFormatsMarshal, lpNumFormats, "ptr", param1, "uint", param2, "HRESULT")
-        return result
+        return param1
     }
 
     /**
      * 
      * @param {Pointer<DDPIXELFORMAT>} param0 
      * @param {Pointer<Integer>} lpNumFormats 
-     * @param {Pointer<DDPIXELFORMAT>} param2 
      * @param {Integer} param3 
-     * @returns {HRESULT} 
+     * @returns {DDPIXELFORMAT} 
      */
-    GetOutputFormats(param0, lpNumFormats, param2, param3) {
+    GetOutputFormats(param0, lpNumFormats, param3) {
         lpNumFormatsMarshal := lpNumFormats is VarRef ? "uint*" : "ptr"
 
+        param2 := DDPIXELFORMAT()
         result := ComCall(7, this, "ptr", param0, lpNumFormatsMarshal, lpNumFormats, "ptr", param2, "uint", param3, "HRESULT")
-        return result
+        return param2
     }
 
     /**
@@ -98,7 +99,9 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFieldPolarity(param0) {
-        result := ComCall(8, this, "ptr", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, param0Marshal, param0, "HRESULT")
         return result
     }
 

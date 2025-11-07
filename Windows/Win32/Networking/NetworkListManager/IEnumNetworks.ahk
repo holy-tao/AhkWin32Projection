@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Ole\IEnumVARIANT.ahk
+#Include .\INetwork.ahk
+#Include .\IEnumNetworks.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,28 +40,26 @@ class IEnumNetworks extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumVARIANT>} ppEnumVar 
-     * @returns {HRESULT} 
+     * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-ienumnetworks-get__newenum
      */
-    get__NewEnum(ppEnumVar) {
-        result := ComCall(7, this, "ptr*", ppEnumVar, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppEnumVar := 0, "HRESULT")
+        return IEnumVARIANT(ppEnumVar)
     }
 
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<INetwork>} rgelt 
      * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {INetwork} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-ienumnetworks-next
      */
-    Next(celt, rgelt, pceltFetched) {
+    Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", celt, "ptr*", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+        result := ComCall(8, this, "uint", celt, "ptr*", &rgelt := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        return INetwork(rgelt)
     }
 
     /**
@@ -84,12 +85,11 @@ class IEnumNetworks extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumNetworks>} ppEnumNetwork 
-     * @returns {HRESULT} 
+     * @returns {IEnumNetworks} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-ienumnetworks-clone
      */
-    Clone(ppEnumNetwork) {
-        result := ComCall(11, this, "ptr*", ppEnumNetwork, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(11, this, "ptr*", &ppEnumNetwork := 0, "HRESULT")
+        return IEnumNetworks(ppEnumNetwork)
     }
 }

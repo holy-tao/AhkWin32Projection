@@ -43,15 +43,12 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} BandWidthVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_bandwidth
      */
-    get_Bandwidth(BandWidthVal) {
-        BandWidthValMarshal := BandWidthVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, BandWidthValMarshal, BandWidthVal, "HRESULT")
-        return result
+    get_Bandwidth() {
+        result := ComCall(22, this, "int*", &BandWidthVal := 0, "HRESULT")
+        return BandWidthVal
     }
 
     /**
@@ -67,15 +64,12 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} FEC 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_lpinnerfec
      */
-    get_LPInnerFEC(FEC) {
-        FECMarshal := FEC is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, FECMarshal, FEC, "HRESULT")
-        return result
+    get_LPInnerFEC() {
+        result := ComCall(24, this, "int*", &FEC := 0, "HRESULT")
+        return FEC
     }
 
     /**
@@ -91,15 +85,12 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} FEC 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_lpinnerfecrate
      */
-    get_LPInnerFECRate(FEC) {
-        FECMarshal := FEC is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, FECMarshal, FEC, "HRESULT")
-        return result
+    get_LPInnerFECRate() {
+        result := ComCall(26, this, "int*", &FEC := 0, "HRESULT")
+        return FEC
     }
 
     /**
@@ -115,15 +106,12 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} Alpha 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_halpha
      */
-    get_HAlpha(Alpha) {
-        AlphaMarshal := Alpha is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, AlphaMarshal, Alpha, "HRESULT")
-        return result
+    get_HAlpha() {
+        result := ComCall(28, this, "int*", &Alpha := 0, "HRESULT")
+        return Alpha
     }
 
     /**
@@ -139,15 +127,12 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} GI 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_guard
      */
-    get_Guard(GI) {
-        GIMarshal := GI is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, GIMarshal, GI, "HRESULT")
-        return result
+    get_Guard() {
+        result := ComCall(30, this, "int*", &GI := 0, "HRESULT")
+        return GI
     }
 
     /**
@@ -163,15 +148,12 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} mode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_mode
      */
-    get_Mode(mode) {
-        modeMarshal := mode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, modeMarshal, mode, "HRESULT")
-        return result
+    get_Mode() {
+        result := ComCall(32, this, "int*", &mode := 0, "HRESULT")
+        return mode
     }
 
     /**
@@ -187,13 +169,12 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} OtherFrequencyInUseVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_otherfrequencyinuse
      */
-    get_OtherFrequencyInUse(OtherFrequencyInUseVal) {
-        result := ComCall(34, this, "ptr", OtherFrequencyInUseVal, "HRESULT")
-        return result
+    get_OtherFrequencyInUse() {
+        result := ComCall(34, this, "short*", &OtherFrequencyInUseVal := 0, "HRESULT")
+        return OtherFrequencyInUseVal
     }
 
     /**

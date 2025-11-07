@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirect3DDevice9Ex.ahk
 #Include .\IDirect3D9.ahk
 
 /**
@@ -94,15 +95,14 @@ class IDirect3D9Ex extends IDirect3D9{
      * @param {Integer} BehaviorFlags 
      * @param {Pointer<D3DPRESENT_PARAMETERS>} pPresentationParameters 
      * @param {Pointer<D3DDISPLAYMODEEX>} pFullscreenDisplayMode 
-     * @param {Pointer<IDirect3DDevice9Ex>} ppReturnedDeviceInterface 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DDevice9Ex} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-createdeviceex
      */
-    CreateDeviceEx(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, pFullscreenDisplayMode, ppReturnedDeviceInterface) {
+    CreateDeviceEx(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, pFullscreenDisplayMode) {
         hFocusWindow := hFocusWindow is Win32Handle ? NumGet(hFocusWindow, "ptr") : hFocusWindow
 
-        result := ComCall(20, this, "uint", Adapter, "int", DeviceType, "ptr", hFocusWindow, "uint", BehaviorFlags, "ptr", pPresentationParameters, "ptr", pFullscreenDisplayMode, "ptr*", ppReturnedDeviceInterface, "HRESULT")
-        return result
+        result := ComCall(20, this, "uint", Adapter, "int", DeviceType, "ptr", hFocusWindow, "uint", BehaviorFlags, "ptr", pPresentationParameters, "ptr", pFullscreenDisplayMode, "ptr*", &ppReturnedDeviceInterface := 0, "HRESULT")
+        return IDirect3DDevice9Ex(ppReturnedDeviceInterface)
     }
 
     /**

@@ -39,13 +39,13 @@ class IMessageMover extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imessagemover-get_sourcepath
      */
-    get_SourcePath(pVal) {
+    get_SourcePath() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -63,13 +63,13 @@ class IMessageMover extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imessagemover-get_destpath
      */
-    get_DestPath(pVal) {
+    get_DestPath() {
+        pVal := BSTR()
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -87,15 +87,12 @@ class IMessageMover extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imessagemover-get_commitbatchsize
      */
-    get_CommitBatchSize(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CommitBatchSize() {
+        result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -111,14 +108,11 @@ class IMessageMover extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plMessagesMoved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imessagemover-movemessages
      */
-    MoveMessages(plMessagesMoved) {
-        plMessagesMovedMarshal := plMessagesMoved is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, plMessagesMovedMarshal, plMessagesMoved, "HRESULT")
-        return result
+    MoveMessages() {
+        result := ComCall(13, this, "int*", &plMessagesMoved := 0, "HRESULT")
+        return plMessagesMoved
     }
 }

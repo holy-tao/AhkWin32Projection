@@ -89,6 +89,6 @@ class ID2D1HwndRenderTarget extends ID2D1RenderTarget{
      */
     GetHwnd() {
         result := ComCall(59, this, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 }

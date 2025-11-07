@@ -24292,160 +24292,22 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Pointer<CERT_CONTEXT>>} ppcCertContext Returned signer certificate context
      * @param {Pointer} pbHashData Returned hash buffer. This parameter can be <b>NULL</b> if the hash data is not being requested.
      * @param {Pointer<Integer>} pcbHashData Pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pbHashData</i> parameter. This parameter cannot be <b>NULL</b> if <i>pbHashData</i> is non-<b>NULL</b>. If ERROR_MORE_DATA is returned, <i>pbHashData</i> gives the size of the buffer required to hold the hash data. If ERROR_SUCCESS is returned, it gives the number of bytes written to the hash buffer. The <i>pcbHashData</i> parameter is ignored if <i>pbHashData</i> is <b>NULL</b>.
-     * @returns {HRESULT} <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS/S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Successful completion.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Invalid parameter was specified.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_FUNCTION_FAILED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * 
-     * <a href="/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> is not available on the system. 
-     * <b>MsiGetFileSignatureInformation</b> requires the presence of the Wintrust.dll file on the system.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_MORE_DATA</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A buffer is too small to hold the requested data. If ERROR_MORE_DATA is returned, <i>pcbHashData</i> gives the size of the buffer required to hold the hash data.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUST_E_NOSIGNATURE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * File is not signed
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUST_E_BAD_DIGEST</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file's current hash is invalid according to the hash stored in the file's digital signature.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CERT_E_REVOKED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file's signer certificate has been revoked. The file's digital signature is compromised.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUST_E_SUBJECT_NOT_TRUSTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The subject failed the specified verification action. Most trust providers return a more detailed error code that describes the reason for the failure.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUST_E_PROVIDER_UNKNOWN</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The trust provider is not recognized on this system.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUST_E_ACTION_UNKNOWN</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The trust provider does not support the specified action.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUST_E_SUBJECT_FORM_UNKNOWN</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The trust provider does not support the form specified for the subject.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * 
-     * <div> </div>
-     * 
-     * 
-     * <b>MsiGetFileSignatureInformation</b> also returns all the Win32 error values mapped to their equivalent <b>HRESULT</b> data type by 
-     * <b>HRESULT_FROM_WIN32</b>.
+     * @returns {Pointer<CERT_CONTEXT>} Returned signer certificate context
      * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetfilesignatureinformationa
      * @since windows8.0
      */
-    static MsiGetFileSignatureInformationA(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
+    static MsiGetFileSignatureInformationA(szSignedObjectPath, dwFlags, pbHashData, pcbHashData) {
         szSignedObjectPath := szSignedObjectPath is String ? StrPtr(szSignedObjectPath) : szSignedObjectPath
 
-        ppcCertContextMarshal := ppcCertContext is VarRef ? "ptr*" : "ptr"
         pcbHashDataMarshal := pcbHashData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msi.dll\MsiGetFileSignatureInformationA", "ptr", szSignedObjectPath, "uint", dwFlags, ppcCertContextMarshal, ppcCertContext, "ptr", pbHashData, pcbHashDataMarshal, pcbHashData, "int")
+        result := DllCall("msi.dll\MsiGetFileSignatureInformationA", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr*", &ppcCertContext := 0, "ptr", pbHashData, pcbHashDataMarshal, pcbHashData, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppcCertContext
     }
 
     /**
@@ -24478,160 +24340,22 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Pointer<CERT_CONTEXT>>} ppcCertContext Returned signer certificate context
      * @param {Pointer} pbHashData Returned hash buffer. This parameter can be <b>NULL</b> if the hash data is not being requested.
      * @param {Pointer<Integer>} pcbHashData Pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pbHashData</i> parameter. This parameter cannot be <b>NULL</b> if <i>pbHashData</i> is non-<b>NULL</b>. If ERROR_MORE_DATA is returned, <i>pbHashData</i> gives the size of the buffer required to hold the hash data. If ERROR_SUCCESS is returned, it gives the number of bytes written to the hash buffer. The <i>pcbHashData</i> parameter is ignored if <i>pbHashData</i> is <b>NULL</b>.
-     * @returns {HRESULT} <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS/S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Successful completion.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Invalid parameter was specified.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_FUNCTION_FAILED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * 
-     * <a href="/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> is not available on the system. 
-     * <b>MsiGetFileSignatureInformation</b> requires the presence of the Wintrust.dll file on the system.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_MORE_DATA</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A buffer is too small to hold the requested data. If ERROR_MORE_DATA is returned, <i>pcbHashData</i> gives the size of the buffer required to hold the hash data.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUST_E_NOSIGNATURE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * File is not signed
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUST_E_BAD_DIGEST</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file's current hash is invalid according to the hash stored in the file's digital signature.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CERT_E_REVOKED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file's signer certificate has been revoked. The file's digital signature is compromised.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUST_E_SUBJECT_NOT_TRUSTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The subject failed the specified verification action. Most trust providers return a more detailed error code that describes the reason for the failure.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUST_E_PROVIDER_UNKNOWN</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The trust provider is not recognized on this system.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUST_E_ACTION_UNKNOWN</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The trust provider does not support the specified action.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUST_E_SUBJECT_FORM_UNKNOWN</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The trust provider does not support the form specified for the subject.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * 
-     * <div> </div>
-     * 
-     * 
-     * <b>MsiGetFileSignatureInformation</b> also returns all the Win32 error values mapped to their equivalent <b>HRESULT</b> data type by 
-     * <b>HRESULT_FROM_WIN32</b>.
+     * @returns {Pointer<CERT_CONTEXT>} Returned signer certificate context
      * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetfilesignatureinformationw
      * @since windows8.0
      */
-    static MsiGetFileSignatureInformationW(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
+    static MsiGetFileSignatureInformationW(szSignedObjectPath, dwFlags, pbHashData, pcbHashData) {
         szSignedObjectPath := szSignedObjectPath is String ? StrPtr(szSignedObjectPath) : szSignedObjectPath
 
-        ppcCertContextMarshal := ppcCertContext is VarRef ? "ptr*" : "ptr"
         pcbHashDataMarshal := pcbHashData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msi.dll\MsiGetFileSignatureInformationW", "ptr", szSignedObjectPath, "uint", dwFlags, ppcCertContextMarshal, ppcCertContext, "ptr", pbHashData, pcbHashDataMarshal, pcbHashData, "int")
+        result := DllCall("msi.dll\MsiGetFileSignatureInformationW", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr*", &ppcCertContext := 0, "ptr", pbHashData, pcbHashDataMarshal, pcbHashData, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppcCertContext
     }
 
     /**
@@ -24757,7 +24481,9 @@ class ApplicationInstallationAndServicing {
     static MsiIsProductElevatedA(szProduct, pfElevated) {
         szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
-        result := DllCall("msi.dll\MsiIsProductElevatedA", "ptr", szProduct, "ptr", pfElevated, "uint")
+        pfElevatedMarshal := pfElevated is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiIsProductElevatedA", "ptr", szProduct, pfElevatedMarshal, pfElevated, "uint")
         return result
     }
 
@@ -24840,7 +24566,9 @@ class ApplicationInstallationAndServicing {
     static MsiIsProductElevatedW(szProduct, pfElevated) {
         szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
-        result := DllCall("msi.dll\MsiIsProductElevatedW", "ptr", szProduct, "ptr", pfElevated, "uint")
+        pfElevatedMarshal := pfElevated is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiIsProductElevatedW", "ptr", szProduct, pfElevatedMarshal, pfElevated, "uint")
         return result
     }
 

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTerminal.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ITStream.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -84,34 +87,32 @@ class ITSubStream extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumTerminal>} ppEnumTerminal 
-     * @returns {HRESULT} 
+     * @returns {IEnumTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstream-enumerateterminals
      */
-    EnumerateTerminals(ppEnumTerminal) {
-        result := ComCall(12, this, "ptr*", ppEnumTerminal, "HRESULT")
-        return result
+    EnumerateTerminals() {
+        result := ComCall(12, this, "ptr*", &ppEnumTerminal := 0, "HRESULT")
+        return IEnumTerminal(ppEnumTerminal)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pTerminals 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstream-get_terminals
      */
-    get_Terminals(pTerminals) {
+    get_Terminals() {
+        pTerminals := VARIANT()
         result := ComCall(13, this, "ptr", pTerminals, "HRESULT")
-        return result
+        return pTerminals
     }
 
     /**
      * 
-     * @param {Pointer<ITStream>} ppITStream 
-     * @returns {HRESULT} 
+     * @returns {ITStream} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstream-get_stream
      */
-    get_Stream(ppITStream) {
-        result := ComCall(14, this, "ptr*", ppITStream, "HRESULT")
-        return result
+    get_Stream() {
+        result := ComCall(14, this, "ptr*", &ppITStream := 0, "HRESULT")
+        return ITStream(ppITStream)
     }
 }

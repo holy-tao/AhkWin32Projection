@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEntity.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,59 +33,52 @@ class IRelationship extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-name
      */
-    Name(ppszName) {
-        result := ComCall(3, this, "ptr", ppszName, "HRESULT")
-        return result
+    Name() {
+        result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsReal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-isreal
      */
-    IsReal(pIsReal) {
-        result := ComCall(4, this, "ptr", pIsReal, "HRESULT")
-        return result
+    IsReal() {
+        result := ComCall(4, this, "int*", &pIsReal := 0, "HRESULT")
+        return pIsReal
     }
 
     /**
      * 
-     * @param {Pointer<IEntity>} pDestinationEntity 
-     * @returns {HRESULT} 
+     * @returns {IEntity} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-destination
      */
-    Destination(pDestinationEntity) {
-        result := ComCall(5, this, "ptr*", pDestinationEntity, "HRESULT")
-        return result
+    Destination() {
+        result := ComCall(5, this, "ptr*", &pDestinationEntity := 0, "HRESULT")
+        return IEntity(pDestinationEntity)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pMetaData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-metadata
      */
-    MetaData(riid, pMetaData) {
-        pMetaDataMarshal := pMetaData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", riid, pMetaDataMarshal, pMetaData, "HRESULT")
-        return result
+    MetaData(riid) {
+        result := ComCall(6, this, "ptr", riid, "ptr*", &pMetaData := 0, "HRESULT")
+        return pMetaData
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszPhrase 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-defaultphrase
      */
-    DefaultPhrase(ppszPhrase) {
-        result := ComCall(7, this, "ptr", ppszPhrase, "HRESULT")
-        return result
+    DefaultPhrase() {
+        result := ComCall(7, this, "ptr*", &ppszPhrase := 0, "HRESULT")
+        return ppszPhrase
     }
 }

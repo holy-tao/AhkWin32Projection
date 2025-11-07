@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxManifestDriverConstraintsEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IAppxManifestDriverDependency extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAppxManifestDriverConstraintsEnumerator>} driverConstraints 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestDriverConstraintsEnumerator} 
      */
-    GetDriverConstraints(driverConstraints) {
-        result := ComCall(3, this, "ptr*", driverConstraints, "HRESULT")
-        return result
+    GetDriverConstraints() {
+        result := ComCall(3, this, "ptr*", &driverConstraints := 0, "HRESULT")
+        return IAppxManifestDriverConstraintsEnumerator(driverConstraints)
     }
 }

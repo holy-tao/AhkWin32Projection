@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Dxgi\IDXGISwapChain.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -97,13 +98,12 @@ class ID3D11Debug extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDXGISwapChain>} ppSwapChain 
-     * @returns {HRESULT} 
+     * @returns {IDXGISwapChain} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11debug-getswapchain
      */
-    GetSwapChain(ppSwapChain) {
-        result := ComCall(8, this, "ptr*", ppSwapChain, "HRESULT")
-        return result
+    GetSwapChain() {
+        result := ComCall(8, this, "ptr*", &ppSwapChain := 0, "HRESULT")
+        return IDXGISwapChain(ppSwapChain)
     }
 
     /**

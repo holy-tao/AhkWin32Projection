@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMPackageWriter3D.ahk
+#Include .\IXpsOMObjectFactory.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,23 +38,21 @@ class IXpsDocumentPackageTarget3D extends IUnknown{
      * @param {IOpcPartUri} discardControlPartName 
      * @param {IOpcPartUri} modelPartName 
      * @param {IStream} modelData 
-     * @param {Pointer<IXpsOMPackageWriter3D>} packageWriter 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackageWriter3D} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_2/nf-xpsobjectmodel_2-ixpsdocumentpackagetarget3d-getxpsompackagewriter3d
      */
-    GetXpsOMPackageWriter3D(documentSequencePartName, discardControlPartName, modelPartName, modelData, packageWriter) {
-        result := ComCall(3, this, "ptr", documentSequencePartName, "ptr", discardControlPartName, "ptr", modelPartName, "ptr", modelData, "ptr*", packageWriter, "HRESULT")
-        return result
+    GetXpsOMPackageWriter3D(documentSequencePartName, discardControlPartName, modelPartName, modelData) {
+        result := ComCall(3, this, "ptr", documentSequencePartName, "ptr", discardControlPartName, "ptr", modelPartName, "ptr", modelData, "ptr*", &packageWriter := 0, "HRESULT")
+        return IXpsOMPackageWriter3D(packageWriter)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMObjectFactory>} xpsFactory 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMObjectFactory} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_2/nf-xpsobjectmodel_2-ixpsdocumentpackagetarget3d-getxpsomfactory
      */
-    GetXpsOMFactory(xpsFactory) {
-        result := ComCall(4, this, "ptr*", xpsFactory, "HRESULT")
-        return result
+    GetXpsOMFactory() {
+        result := ComCall(4, this, "ptr*", &xpsFactory := 0, "HRESULT")
+        return IXpsOMObjectFactory(xpsFactory)
     }
 }

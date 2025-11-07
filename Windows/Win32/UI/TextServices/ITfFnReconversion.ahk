@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfCandidateList.ahk
 #Include .\ITfFunction.ahk
 
 /**
@@ -38,25 +39,23 @@ class ITfFnReconversion extends ITfFunction{
      * 
      * @param {ITfRange} pRange 
      * @param {Pointer<ITfRange>} ppNewRange 
-     * @param {Pointer<BOOL>} pfConvertable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnreconversion-queryrange
      */
-    QueryRange(pRange, ppNewRange, pfConvertable) {
-        result := ComCall(4, this, "ptr", pRange, "ptr*", ppNewRange, "ptr", pfConvertable, "HRESULT")
-        return result
+    QueryRange(pRange, ppNewRange) {
+        result := ComCall(4, this, "ptr", pRange, "ptr*", ppNewRange, "int*", &pfConvertable := 0, "HRESULT")
+        return pfConvertable
     }
 
     /**
      * 
      * @param {ITfRange} pRange 
-     * @param {Pointer<ITfCandidateList>} ppCandList 
-     * @returns {HRESULT} 
+     * @returns {ITfCandidateList} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnreconversion-getreconversion
      */
-    GetReconversion(pRange, ppCandList) {
-        result := ComCall(5, this, "ptr", pRange, "ptr*", ppCandList, "HRESULT")
-        return result
+    GetReconversion(pRange) {
+        result := ComCall(5, this, "ptr", pRange, "ptr*", &ppCandList := 0, "HRESULT")
+        return ITfCandidateList(ppCandList)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcOperationResult.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -61,11 +62,10 @@ class IDxcContainerBuilder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDxcOperationResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcOperationResult} 
      */
-    SerializeContainer(ppResult) {
-        result := ComCall(6, this, "ptr*", ppResult, "HRESULT")
-        return result
+    SerializeContainer() {
+        result := ComCall(6, this, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcOperationResult(ppResult)
     }
 }

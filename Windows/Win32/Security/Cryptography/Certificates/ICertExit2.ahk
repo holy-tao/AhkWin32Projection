@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICertManageModule.ahk
 #Include .\ICertExit.ahk
 
 /**
@@ -32,12 +33,11 @@ class ICertExit2 extends ICertExit{
 
     /**
      * 
-     * @param {Pointer<ICertManageModule>} ppManageModule 
-     * @returns {HRESULT} 
+     * @returns {ICertManageModule} 
      * @see https://learn.microsoft.com/windows/win32/api/certexit/nf-certexit-icertexit2-getmanagemodule
      */
-    GetManageModule(ppManageModule) {
-        result := ComCall(10, this, "ptr*", ppManageModule, "HRESULT")
-        return result
+    GetManageModule() {
+        result := ComCall(10, this, "ptr*", &ppManageModule := 0, "HRESULT")
+        return ICertManageModule(ppManageModule)
     }
 }

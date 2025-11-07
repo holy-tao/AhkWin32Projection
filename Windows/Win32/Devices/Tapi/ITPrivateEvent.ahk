@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITAddress.ahk
+#Include .\ITCallInfo.ahk
+#Include .\ITCallHub.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,58 +35,51 @@ class ITPrivateEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITAddress>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {ITAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itprivateevent-get_address
      */
-    get_Address(ppAddress) {
-        result := ComCall(7, this, "ptr*", ppAddress, "HRESULT")
-        return result
+    get_Address() {
+        result := ComCall(7, this, "ptr*", &ppAddress := 0, "HRESULT")
+        return ITAddress(ppAddress)
     }
 
     /**
      * 
-     * @param {Pointer<ITCallInfo>} ppCallInfo 
-     * @returns {HRESULT} 
+     * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itprivateevent-get_call
      */
-    get_Call(ppCallInfo) {
-        result := ComCall(8, this, "ptr*", ppCallInfo, "HRESULT")
-        return result
+    get_Call() {
+        result := ComCall(8, this, "ptr*", &ppCallInfo := 0, "HRESULT")
+        return ITCallInfo(ppCallInfo)
     }
 
     /**
      * 
-     * @param {Pointer<ITCallHub>} ppCallHub 
-     * @returns {HRESULT} 
+     * @returns {ITCallHub} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itprivateevent-get_callhub
      */
-    get_CallHub(ppCallHub) {
-        result := ComCall(9, this, "ptr*", ppCallHub, "HRESULT")
-        return result
+    get_CallHub() {
+        result := ComCall(9, this, "ptr*", &ppCallHub := 0, "HRESULT")
+        return ITCallHub(ppCallHub)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plEventCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itprivateevent-get_eventcode
      */
-    get_EventCode(plEventCode) {
-        plEventCodeMarshal := plEventCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plEventCodeMarshal, plEventCode, "HRESULT")
-        return result
+    get_EventCode() {
+        result := ComCall(10, this, "int*", &plEventCode := 0, "HRESULT")
+        return plEventCode
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} pEventInterface 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itprivateevent-get_eventinterface
      */
-    get_EventInterface(pEventInterface) {
-        result := ComCall(11, this, "ptr*", pEventInterface, "HRESULT")
-        return result
+    get_EventInterface() {
+        result := ComCall(11, this, "ptr*", &pEventInterface := 0, "HRESULT")
+        return IDispatch(pEventInterface)
     }
 }

@@ -90,14 +90,11 @@ class IBDA_EthernetFilter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulModeMask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ethernetfilter-getmulticastmode
      */
-    GetMulticastMode(pulModeMask) {
-        pulModeMaskMarshal := pulModeMask is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pulModeMaskMarshal, pulModeMask, "HRESULT")
-        return result
+    GetMulticastMode() {
+        result := ComCall(7, this, "uint*", &pulModeMask := 0, "HRESULT")
+        return pulModeMask
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
 #Include .\IMFMediaSource.ahk
 
 /**
@@ -37,25 +38,23 @@ class IMFMediaSourceEx extends IMFMediaSource{
 
     /**
      * 
-     * @param {Pointer<IMFAttributes>} ppAttributes 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasourceex-getsourceattributes
      */
-    GetSourceAttributes(ppAttributes) {
-        result := ComCall(13, this, "ptr*", ppAttributes, "HRESULT")
-        return result
+    GetSourceAttributes() {
+        result := ComCall(13, this, "ptr*", &ppAttributes := 0, "HRESULT")
+        return IMFAttributes(ppAttributes)
     }
 
     /**
      * 
      * @param {Integer} dwStreamIdentifier 
-     * @param {Pointer<IMFAttributes>} ppAttributes 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasourceex-getstreamattributes
      */
-    GetStreamAttributes(dwStreamIdentifier, ppAttributes) {
-        result := ComCall(14, this, "uint", dwStreamIdentifier, "ptr*", ppAttributes, "HRESULT")
-        return result
+    GetStreamAttributes(dwStreamIdentifier) {
+        result := ComCall(14, this, "uint", dwStreamIdentifier, "ptr*", &ppAttributes := 0, "HRESULT")
+        return IMFAttributes(ppAttributes)
     }
 
     /**

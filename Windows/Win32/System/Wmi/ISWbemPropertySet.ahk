@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ISWbemProperty.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,38 +39,33 @@ class ISWbemPropertySet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(pUnk) {
-        result := ComCall(7, this, "ptr*", pUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")
+        return IUnknown(pUnk)
     }
 
     /**
      * 
      * @param {BSTR} strName 
      * @param {Integer} iFlags 
-     * @param {Pointer<ISWbemProperty>} objWbemProperty 
-     * @returns {HRESULT} 
+     * @returns {ISWbemProperty} 
      */
-    Item(strName, iFlags, objWbemProperty) {
+    Item(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(8, this, "ptr", strName, "int", iFlags, "ptr*", objWbemProperty, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", strName, "int", iFlags, "ptr*", &objWbemProperty := 0, "HRESULT")
+        return ISWbemProperty(objWbemProperty)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} iCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(iCount) {
-        iCountMarshal := iCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, iCountMarshal, iCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &iCount := 0, "HRESULT")
+        return iCount
     }
 
     /**
@@ -77,14 +74,13 @@ class ISWbemPropertySet extends IDispatch{
      * @param {Integer} iCIMType 
      * @param {VARIANT_BOOL} bIsArray 
      * @param {Integer} iFlags 
-     * @param {Pointer<ISWbemProperty>} objWbemProperty 
-     * @returns {HRESULT} 
+     * @returns {ISWbemProperty} 
      */
-    Add(strName, iCIMType, bIsArray, iFlags, objWbemProperty) {
+    Add(strName, iCIMType, bIsArray, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(10, this, "ptr", strName, "int", iCIMType, "short", bIsArray, "int", iFlags, "ptr*", objWbemProperty, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", strName, "int", iCIMType, "short", bIsArray, "int", iFlags, "ptr*", &objWbemProperty := 0, "HRESULT")
+        return ISWbemProperty(objWbemProperty)
     }
 
     /**

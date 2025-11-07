@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPMLiveTileJobInfo.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IPMLiveTileJobInfoEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPMLiveTileJobInfo>} ppLiveTileJobInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMLiveTileJobInfo} 
      */
-    get_Next(ppLiveTileJobInfo) {
-        result := ComCall(3, this, "ptr*", ppLiveTileJobInfo, "HRESULT")
-        return result
+    get_Next() {
+        result := ComCall(3, this, "ptr*", &ppLiveTileJobInfo := 0, "HRESULT")
+        return IPMLiveTileJobInfo(ppLiveTileJobInfo)
     }
 }

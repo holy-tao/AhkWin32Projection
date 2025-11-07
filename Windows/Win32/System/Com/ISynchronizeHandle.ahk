@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -32,12 +33,12 @@ class ISynchronizeHandle extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} ph 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-isynchronizehandle-gethandle
      */
-    GetHandle(ph) {
+    GetHandle() {
+        ph := HANDLE()
         result := ComCall(3, this, "ptr", ph, "HRESULT")
-        return result
+        return ph
     }
 }

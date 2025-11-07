@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMVisual.ahk
+#Include .\IXpsOMVisualBrush.ahk
 #Include .\IXpsOMTileBrush.ahk
 
 /**
@@ -84,24 +86,22 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
 
     /**
      * 
-     * @param {Pointer<IXpsOMVisual>} visual 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMVisual} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisual
      */
-    GetVisual(visual) {
-        result := ComCall(18, this, "ptr*", visual, "HRESULT")
-        return result
+    GetVisual() {
+        result := ComCall(18, this, "ptr*", &visual := 0, "HRESULT")
+        return IXpsOMVisual(visual)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMVisual>} visual 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMVisual} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisuallocal
      */
-    GetVisualLocal(visual) {
-        result := ComCall(19, this, "ptr*", visual, "HRESULT")
-        return result
+    GetVisualLocal() {
+        result := ComCall(19, this, "ptr*", &visual := 0, "HRESULT")
+        return IXpsOMVisual(visual)
     }
 
     /**
@@ -117,13 +117,12 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lookup 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisuallookup
      */
-    GetVisualLookup(lookup) {
-        result := ComCall(21, this, "ptr", lookup, "HRESULT")
-        return result
+    GetVisualLookup() {
+        result := ComCall(21, this, "ptr*", &lookup := 0, "HRESULT")
+        return lookup
     }
 
     /**
@@ -141,12 +140,11 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
 
     /**
      * 
-     * @param {Pointer<IXpsOMVisualBrush>} visualBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMVisualBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-clone
      */
-    Clone(visualBrush) {
-        result := ComCall(23, this, "ptr*", visualBrush, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(23, this, "ptr*", &visualBrush := 0, "HRESULT")
+        return IXpsOMVisualBrush(visualBrush)
     }
 }

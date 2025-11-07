@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_GPU_VIRTUAL_ADDRESS_RANGE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,11 @@ class ID3D12PageableTools extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<D3D12_GPU_VIRTUAL_ADDRESS_RANGE>} pAllocation 
-     * @returns {HRESULT} 
+     * @returns {D3D12_GPU_VIRTUAL_ADDRESS_RANGE} 
      */
-    GetAllocation(pAllocation) {
+    GetAllocation() {
+        pAllocation := D3D12_GPU_VIRTUAL_ADDRESS_RANGE()
         result := ComCall(3, this, "ptr", pAllocation, "HRESULT")
-        return result
+        return pAllocation
     }
 }

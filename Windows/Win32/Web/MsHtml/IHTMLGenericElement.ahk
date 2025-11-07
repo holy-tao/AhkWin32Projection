@@ -37,25 +37,23 @@ class IHTMLGenericElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_recordset(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_recordset() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
      * @param {BSTR} dataMember 
      * @param {Pointer<VARIANT>} hierarchy 
-     * @param {Pointer<IDispatch>} ppRecordset 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    namedRecordset(dataMember, hierarchy, ppRecordset) {
+    namedRecordset(dataMember, hierarchy) {
         dataMember := dataMember is String ? BSTR.Alloc(dataMember).Value : dataMember
 
-        result := ComCall(8, this, "ptr", dataMember, "ptr", hierarchy, "ptr*", ppRecordset, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", dataMember, "ptr", hierarchy, "ptr*", &ppRecordset := 0, "HRESULT")
+        return IDispatch(ppRecordset)
     }
 }

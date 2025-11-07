@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumGUID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -56,24 +57,23 @@ class ICategoryProvider extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} pscid 
-     * @param {Pointer<Guid>} pguid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icategoryprovider-getcategoryforscid
      */
-    GetCategoryForSCID(pscid, pguid) {
+    GetCategoryForSCID(pscid) {
+        pguid := Guid()
         result := ComCall(5, this, "ptr", pscid, "ptr", pguid, "HRESULT")
-        return result
+        return pguid
     }
 
     /**
      * 
-     * @param {Pointer<IEnumGUID>} penum 
-     * @returns {HRESULT} 
+     * @returns {IEnumGUID} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icategoryprovider-enumcategories
      */
-    EnumCategories(penum) {
-        result := ComCall(6, this, "ptr*", penum, "HRESULT")
-        return result
+    EnumCategories() {
+        result := ComCall(6, this, "ptr*", &penum := 0, "HRESULT")
+        return IEnumGUID(penum)
     }
 
     /**
@@ -95,14 +95,11 @@ class ICategoryProvider extends IUnknown{
      * 
      * @param {Pointer<Guid>} pguid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icategoryprovider-createcategory
      */
-    CreateCategory(pguid, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pguid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateCategory(pguid, riid) {
+        result := ComCall(8, this, "ptr", pguid, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

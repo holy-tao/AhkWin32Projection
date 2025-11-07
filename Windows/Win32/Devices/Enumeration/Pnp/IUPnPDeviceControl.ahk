@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -62,15 +63,14 @@ class IUPnPDeviceControl extends IUnknown{
      * 
      * @param {BSTR} bstrUDN 
      * @param {BSTR} bstrServiceId 
-     * @param {Pointer<IDispatch>} ppdispService 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpdevicecontrol-getserviceobject
      */
-    GetServiceObject(bstrUDN, bstrServiceId, ppdispService) {
+    GetServiceObject(bstrUDN, bstrServiceId) {
         bstrUDN := bstrUDN is String ? BSTR.Alloc(bstrUDN).Value : bstrUDN
         bstrServiceId := bstrServiceId is String ? BSTR.Alloc(bstrServiceId).Value : bstrServiceId
 
-        result := ComCall(4, this, "ptr", bstrUDN, "ptr", bstrServiceId, "ptr*", ppdispService, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", bstrUDN, "ptr", bstrServiceId, "ptr*", &ppdispService := 0, "HRESULT")
+        return IDispatch(ppdispService)
     }
 }

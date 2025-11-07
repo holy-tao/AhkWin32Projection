@@ -32,14 +32,11 @@ class IMMEndpoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDataFlow 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immendpoint-getdataflow
      */
-    GetDataFlow(pDataFlow) {
-        pDataFlowMarshal := pDataFlow is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pDataFlowMarshal, pDataFlow, "HRESULT")
-        return result
+    GetDataFlow() {
+        result := ComCall(3, this, "int*", &pDataFlow := 0, "HRESULT")
+        return pDataFlow
     }
 }

@@ -49,15 +49,12 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} MinMajorChannelVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_minmajorchannel
      */
-    get_MinMajorChannel(MinMajorChannelVal) {
-        MinMajorChannelValMarshal := MinMajorChannelVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(42, this, MinMajorChannelValMarshal, MinMajorChannelVal, "HRESULT")
-        return result
+    get_MinMajorChannel() {
+        result := ComCall(42, this, "int*", &MinMajorChannelVal := 0, "HRESULT")
+        return MinMajorChannelVal
     }
 
     /**
@@ -73,15 +70,12 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} MaxMajorChannelVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_maxmajorchannel
      */
-    get_MaxMajorChannel(MaxMajorChannelVal) {
-        MaxMajorChannelValMarshal := MaxMajorChannelVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(44, this, MaxMajorChannelValMarshal, MaxMajorChannelVal, "HRESULT")
-        return result
+    get_MaxMajorChannel() {
+        result := ComCall(44, this, "int*", &MaxMajorChannelVal := 0, "HRESULT")
+        return MaxMajorChannelVal
     }
 
     /**
@@ -97,15 +91,12 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} MinSourceIDVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_minsourceid
      */
-    get_MinSourceID(MinSourceIDVal) {
-        MinSourceIDValMarshal := MinSourceIDVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(46, this, MinSourceIDValMarshal, MinSourceIDVal, "HRESULT")
-        return result
+    get_MinSourceID() {
+        result := ComCall(46, this, "int*", &MinSourceIDVal := 0, "HRESULT")
+        return MinSourceIDVal
     }
 
     /**
@@ -121,15 +112,12 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} MaxSourceIDVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_maxsourceid
      */
-    get_MaxSourceID(MaxSourceIDVal) {
-        MaxSourceIDValMarshal := MaxSourceIDVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(48, this, MaxSourceIDValMarshal, MaxSourceIDVal, "HRESULT")
-        return result
+    get_MaxSourceID() {
+        result := ComCall(48, this, "int*", &MaxSourceIDVal := 0, "HRESULT")
+        return MaxSourceIDVal
     }
 
     /**

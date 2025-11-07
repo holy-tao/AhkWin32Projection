@@ -9512,12 +9512,13 @@ class WindowsAndMessaging {
     static GetLayeredWindowAttributes(hwnd, pcrKey, pbAlpha, pdwFlags) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
+        pcrKeyMarshal := pcrKey is VarRef ? "uint*" : "ptr"
         pbAlphaMarshal := pbAlpha is VarRef ? "char*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetLayeredWindowAttributes", "ptr", hwnd, "ptr", pcrKey, pbAlphaMarshal, pbAlpha, pdwFlagsMarshal, pdwFlags, "int")
+        result := DllCall("USER32.dll\GetLayeredWindowAttributes", "ptr", hwnd, pcrKeyMarshal, pcrKey, pbAlphaMarshal, pbAlpha, pdwFlagsMarshal, pdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10538,9 +10539,11 @@ class WindowsAndMessaging {
     static GetDlgItemInt(hDlg, nIDDlgItem, lpTranslated, bSigned) {
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
+        lpTranslatedMarshal := lpTranslated is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetDlgItemInt", "ptr", hDlg, "int", nIDDlgItem, "ptr", lpTranslated, "int", bSigned, "uint")
+        result := DllCall("USER32.dll\GetDlgItemInt", "ptr", hDlg, "int", nIDDlgItem, lpTranslatedMarshal, lpTranslated, "int", bSigned, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -11233,7 +11236,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CharUpperA", "ptr", lpsz, "char*")
+        result := DllCall("USER32.dll\CharUpperA", "ptr", lpsz, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11262,7 +11265,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CharUpperW", "ptr", lpsz, "char*")
+        result := DllCall("USER32.dll\CharUpperW", "ptr", lpsz, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11345,7 +11348,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CharLowerA", "ptr", lpsz, "char*")
+        result := DllCall("USER32.dll\CharLowerA", "ptr", lpsz, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11374,7 +11377,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CharLowerW", "ptr", lpsz, "char*")
+        result := DllCall("USER32.dll\CharLowerW", "ptr", lpsz, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11451,7 +11454,7 @@ class WindowsAndMessaging {
     static CharNextA(lpsz) {
         lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-        result := DllCall("USER32.dll\CharNextA", "ptr", lpsz, "char*")
+        result := DllCall("USER32.dll\CharNextA", "ptr", lpsz, "ptr")
         return result
     }
 
@@ -11473,7 +11476,7 @@ class WindowsAndMessaging {
     static CharNextW(lpsz) {
         lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-        result := DllCall("USER32.dll\CharNextW", "ptr", lpsz, "char*")
+        result := DllCall("USER32.dll\CharNextW", "ptr", lpsz, "ptr")
         return result
     }
 
@@ -11497,7 +11500,7 @@ class WindowsAndMessaging {
         lpszStart := lpszStart is String ? StrPtr(lpszStart) : lpszStart
         lpszCurrent := lpszCurrent is String ? StrPtr(lpszCurrent) : lpszCurrent
 
-        result := DllCall("USER32.dll\CharPrevA", "ptr", lpszStart, "ptr", lpszCurrent, "char*")
+        result := DllCall("USER32.dll\CharPrevA", "ptr", lpszStart, "ptr", lpszCurrent, "ptr")
         return result
     }
 
@@ -11521,7 +11524,7 @@ class WindowsAndMessaging {
         lpszStart := lpszStart is String ? StrPtr(lpszStart) : lpszStart
         lpszCurrent := lpszCurrent is String ? StrPtr(lpszCurrent) : lpszCurrent
 
-        result := DllCall("USER32.dll\CharPrevW", "ptr", lpszStart, "ptr", lpszCurrent, "char*")
+        result := DllCall("USER32.dll\CharPrevW", "ptr", lpszStart, "ptr", lpszCurrent, "ptr")
         return result
     }
 
@@ -11589,7 +11592,7 @@ class WindowsAndMessaging {
     static CharNextExA(CodePage, lpCurrentChar, dwFlags) {
         lpCurrentChar := lpCurrentChar is String ? StrPtr(lpCurrentChar) : lpCurrentChar
 
-        result := DllCall("USER32.dll\CharNextExA", "ushort", CodePage, "ptr", lpCurrentChar, "uint", dwFlags, "char*")
+        result := DllCall("USER32.dll\CharNextExA", "ushort", CodePage, "ptr", lpCurrentChar, "uint", dwFlags, "ptr")
         return result
     }
 
@@ -11659,7 +11662,7 @@ class WindowsAndMessaging {
         lpStart := lpStart is String ? StrPtr(lpStart) : lpStart
         lpCurrentChar := lpCurrentChar is String ? StrPtr(lpCurrentChar) : lpCurrentChar
 
-        result := DllCall("USER32.dll\CharPrevExA", "ushort", CodePage, "ptr", lpStart, "ptr", lpCurrentChar, "uint", dwFlags, "char*")
+        result := DllCall("USER32.dll\CharPrevExA", "ushort", CodePage, "ptr", lpStart, "ptr", lpCurrentChar, "uint", dwFlags, "ptr")
         return result
     }
 
@@ -26798,22 +26801,19 @@ class WindowsAndMessaging {
      * Creates a new resource indexer for the specified paths of the root of the project files and the extension DLL.
      * @param {PWSTR} projectRoot The path of the root folder to use for the project for the files to be produced, in string form. This path is used to determine file paths relative to the package that contains them. This path must be an absolute path with the drive letter specified. Long file paths are not supported.
      * @param {PWSTR} extensionDllPath The full path to an extension dynamic-link library (DLL) that is Microsoft-signed and implements the ext-ms-win-mrmcorer-environment-l1 API set. This path determines the file path from where the extension DLL for the modern resource technology (MRT) environment is loaded. This path must be an absolute path with the drive letter specified. Long file paths are not supported.
-     * @param {Pointer<Pointer<Void>>} ppResourceIndexer The newly created resource indexer.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Pointer<Void>} The newly created resource indexer.
      * @see https://docs.microsoft.com/windows/win32/api//resourceindexer/nf-resourceindexer-createresourceindexer
      * @since windows10.0.10240
      */
-    static CreateResourceIndexer(projectRoot, extensionDllPath, ppResourceIndexer) {
+    static CreateResourceIndexer(projectRoot, extensionDllPath) {
         projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
         extensionDllPath := extensionDllPath is String ? StrPtr(extensionDllPath) : extensionDllPath
 
-        ppResourceIndexerMarshal := ppResourceIndexer is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("MrmSupport.dll\CreateResourceIndexer", "ptr", projectRoot, "ptr", extensionDllPath, ppResourceIndexerMarshal, ppResourceIndexer, "int")
+        result := DllCall("MrmSupport.dll\CreateResourceIndexer", "ptr", projectRoot, "ptr", extensionDllPath, "ptr*", &ppResourceIndexer := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppResourceIndexer
     }
 
     /**
@@ -26844,10 +26844,11 @@ class WindowsAndMessaging {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
         resourceIndexerMarshal := resourceIndexer is VarRef ? "ptr" : "ptr"
+        ppResourceUriMarshal := ppResourceUri is VarRef ? "ptr*" : "ptr"
         pQualifierCountMarshal := pQualifierCount is VarRef ? "uint*" : "ptr"
         ppQualifiersMarshal := ppQualifiers is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MrmSupport.dll\IndexFilePath", resourceIndexerMarshal, resourceIndexer, "ptr", filePath, "ptr", ppResourceUri, pQualifierCountMarshal, pQualifierCount, ppQualifiersMarshal, ppQualifiers, "int")
+        result := DllCall("MrmSupport.dll\IndexFilePath", resourceIndexerMarshal, resourceIndexer, "ptr", filePath, ppResourceUriMarshal, ppResourceUri, pQualifierCountMarshal, pQualifierCount, ppQualifiersMarshal, ppQualifiers, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27318,19 +27319,16 @@ class WindowsAndMessaging {
     /**
      * 
      * @param {PWSTR} priFile 
-     * @param {Pointer<Integer>} checksum 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static MrmGetPriFileContentChecksum(priFile, checksum) {
+    static MrmGetPriFileContentChecksum(priFile) {
         priFile := priFile is String ? StrPtr(priFile) : priFile
 
-        checksumMarshal := checksum is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("MrmSupport.dll\MrmGetPriFileContentChecksum", "ptr", priFile, checksumMarshal, checksum, "int")
+        result := DllCall("MrmSupport.dll\MrmGetPriFileContentChecksum", "ptr", priFile, "uint*", &checksum := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return checksum
     }
 
 ;@endregion Methods

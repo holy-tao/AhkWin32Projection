@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ISpeechDataKey.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -45,14 +47,14 @@ class ISpeechDataKey extends IDispatch{
     /**
      * 
      * @param {BSTR} ValueName 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetBinaryValue(ValueName, Value) {
+    GetBinaryValue(ValueName) {
         ValueName := ValueName is String ? BSTR.Alloc(ValueName).Value : ValueName
 
+        Value := VARIANT()
         result := ComCall(8, this, "ptr", ValueName, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**
@@ -72,14 +74,14 @@ class ISpeechDataKey extends IDispatch{
     /**
      * 
      * @param {BSTR} ValueName 
-     * @param {Pointer<BSTR>} Value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetStringValue(ValueName, Value) {
+    GetStringValue(ValueName) {
         ValueName := ValueName is String ? BSTR.Alloc(ValueName).Value : ValueName
 
+        Value := BSTR()
         result := ComCall(10, this, "ptr", ValueName, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**
@@ -98,42 +100,37 @@ class ISpeechDataKey extends IDispatch{
     /**
      * 
      * @param {BSTR} ValueName 
-     * @param {Pointer<Integer>} Value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLongValue(ValueName, Value) {
+    GetLongValue(ValueName) {
         ValueName := ValueName is String ? BSTR.Alloc(ValueName).Value : ValueName
 
-        ValueMarshal := Value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, "ptr", ValueName, ValueMarshal, Value, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", ValueName, "int*", &Value := 0, "HRESULT")
+        return Value
     }
 
     /**
      * 
      * @param {BSTR} SubKeyName 
-     * @param {Pointer<ISpeechDataKey>} SubKey 
-     * @returns {HRESULT} 
+     * @returns {ISpeechDataKey} 
      */
-    OpenKey(SubKeyName, SubKey) {
+    OpenKey(SubKeyName) {
         SubKeyName := SubKeyName is String ? BSTR.Alloc(SubKeyName).Value : SubKeyName
 
-        result := ComCall(13, this, "ptr", SubKeyName, "ptr*", SubKey, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", SubKeyName, "ptr*", &SubKey := 0, "HRESULT")
+        return ISpeechDataKey(SubKey)
     }
 
     /**
      * 
      * @param {BSTR} SubKeyName 
-     * @param {Pointer<ISpeechDataKey>} SubKey 
-     * @returns {HRESULT} 
+     * @returns {ISpeechDataKey} 
      */
-    CreateKey(SubKeyName, SubKey) {
+    CreateKey(SubKeyName) {
         SubKeyName := SubKeyName is String ? BSTR.Alloc(SubKeyName).Value : SubKeyName
 
-        result := ComCall(14, this, "ptr", SubKeyName, "ptr*", SubKey, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", SubKeyName, "ptr*", &SubKey := 0, "HRESULT")
+        return ISpeechDataKey(SubKey)
     }
 
     /**
@@ -163,22 +160,22 @@ class ISpeechDataKey extends IDispatch{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<BSTR>} SubKeyName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    EnumKeys(Index, SubKeyName) {
+    EnumKeys(Index) {
+        SubKeyName := BSTR()
         result := ComCall(17, this, "int", Index, "ptr", SubKeyName, "HRESULT")
-        return result
+        return SubKeyName
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<BSTR>} ValueName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    EnumValues(Index, ValueName) {
+    EnumValues(Index) {
+        ValueName := BSTR()
         result := ComCall(18, this, "int", Index, "ptr", ValueName, "HRESULT")
-        return result
+        return ValueName
     }
 }

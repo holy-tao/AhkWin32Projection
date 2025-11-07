@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\PERSIST_FOLDER_TARGET_INFO.ahk
 #Include .\IPersistFolder2.ahk
 
 /**
@@ -57,12 +58,12 @@ class IPersistFolder3 extends IPersistFolder2{
 
     /**
      * 
-     * @param {Pointer<PERSIST_FOLDER_TARGET_INFO>} ppfti 
-     * @returns {HRESULT} 
+     * @returns {PERSIST_FOLDER_TARGET_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipersistfolder3-getfoldertargetinfo
      */
-    GetFolderTargetInfo(ppfti) {
+    GetFolderTargetInfo() {
+        ppfti := PERSIST_FOLDER_TARGET_INFO()
         result := ComCall(7, this, "ptr", ppfti, "HRESULT")
-        return result
+        return ppfti
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumDot11AdHocSecuritySettings.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class IEnumDot11AdHocSecuritySettings extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumDot11AdHocSecuritySettings>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDot11AdHocSecuritySettings} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocsecuritysettings-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDot11AdHocSecuritySettings(ppEnum)
     }
 }

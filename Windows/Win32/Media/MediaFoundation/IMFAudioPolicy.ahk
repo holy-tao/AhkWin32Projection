@@ -43,13 +43,13 @@ class IMFAudioPolicy extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidClass 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiopolicy-getgroupingparam
      */
-    GetGroupingParam(pguidClass) {
+    GetGroupingParam() {
+        pguidClass := Guid()
         result := ComCall(4, this, "ptr", pguidClass, "HRESULT")
-        return result
+        return pguidClass
     }
 
     /**
@@ -67,13 +67,12 @@ class IMFAudioPolicy extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiopolicy-getdisplayname
      */
-    GetDisplayName(pszName) {
-        result := ComCall(6, this, "ptr", pszName, "HRESULT")
-        return result
+    GetDisplayName() {
+        result := ComCall(6, this, "ptr*", &pszName := 0, "HRESULT")
+        return pszName
     }
 
     /**
@@ -91,12 +90,11 @@ class IMFAudioPolicy extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszPath 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiopolicy-geticonpath
      */
-    GetIconPath(pszPath) {
-        result := ComCall(8, this, "ptr", pszPath, "HRESULT")
-        return result
+    GetIconPath() {
+        result := ComCall(8, this, "ptr*", &pszPath := 0, "HRESULT")
+        return pszPath
     }
 }

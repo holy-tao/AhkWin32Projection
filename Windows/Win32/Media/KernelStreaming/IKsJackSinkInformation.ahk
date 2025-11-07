@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\KSJACK_SINK_INFORMATION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,12 @@ class IKsJackSinkInformation extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<KSJACK_SINK_INFORMATION>} pJackSinkInformation 
-     * @returns {HRESULT} 
+     * @returns {KSJACK_SINK_INFORMATION} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksjacksinkinformation-getjacksinkinformation
      */
-    GetJackSinkInformation(pJackSinkInformation) {
+    GetJackSinkInformation() {
+        pJackSinkInformation := KSJACK_SINK_INFORMATION()
         result := ComCall(3, this, "ptr", pJackSinkInformation, "HRESULT")
-        return result
+        return pJackSinkInformation
     }
 }

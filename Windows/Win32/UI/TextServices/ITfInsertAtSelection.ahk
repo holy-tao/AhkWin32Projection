@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfRange.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,15 +37,14 @@ class ITfInsertAtSelection extends IUnknown{
      * @param {Integer} dwFlags 
      * @param {PWSTR} pchText 
      * @param {Integer} cch 
-     * @param {Pointer<ITfRange>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITfRange} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinsertatselection-inserttextatselection
      */
-    InsertTextAtSelection(ec, dwFlags, pchText, cch, ppRange) {
+    InsertTextAtSelection(ec, dwFlags, pchText, cch) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(3, this, "uint", ec, "uint", dwFlags, "ptr", pchText, "int", cch, "ptr*", ppRange, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", ec, "uint", dwFlags, "ptr", pchText, "int", cch, "ptr*", &ppRange := 0, "HRESULT")
+        return ITfRange(ppRange)
     }
 
     /**
@@ -52,12 +52,11 @@ class ITfInsertAtSelection extends IUnknown{
      * @param {Integer} ec 
      * @param {Integer} dwFlags 
      * @param {IDataObject} pDataObject 
-     * @param {Pointer<ITfRange>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITfRange} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinsertatselection-insertembeddedatselection
      */
-    InsertEmbeddedAtSelection(ec, dwFlags, pDataObject, ppRange) {
-        result := ComCall(4, this, "uint", ec, "uint", dwFlags, "ptr", pDataObject, "ptr*", ppRange, "HRESULT")
-        return result
+    InsertEmbeddedAtSelection(ec, dwFlags, pDataObject) {
+        result := ComCall(4, this, "uint", ec, "uint", dwFlags, "ptr", pDataObject, "ptr*", &ppRange := 0, "HRESULT")
+        return ITfRange(ppRange)
     }
 }

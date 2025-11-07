@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDOMXmlSerializer.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,11 +31,10 @@ class IDOMXmlSerializerFactory extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDOMXmlSerializer>} __MIDL__IDOMXmlSerializerFactory0000 
-     * @returns {HRESULT} 
+     * @returns {IDOMXmlSerializer} 
      */
-    create(__MIDL__IDOMXmlSerializerFactory0000) {
-        result := ComCall(7, this, "ptr*", __MIDL__IDOMXmlSerializerFactory0000, "HRESULT")
-        return result
+    create() {
+        result := ComCall(7, this, "ptr*", &__MIDL__IDOMXmlSerializerFactory0000 := 0, "HRESULT")
+        return IDOMXmlSerializer(__MIDL__IDOMXmlSerializerFactory0000)
     }
 }

@@ -33,15 +33,14 @@ class IXmlResolver extends IUnknown{
      * @param {PWSTR} pwszBaseUri 
      * @param {PWSTR} pwszPublicIdentifier 
      * @param {PWSTR} pwszSystemIdentifier 
-     * @param {Pointer<IUnknown>} ppResolvedInput 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    ResolveUri(pwszBaseUri, pwszPublicIdentifier, pwszSystemIdentifier, ppResolvedInput) {
+    ResolveUri(pwszBaseUri, pwszPublicIdentifier, pwszSystemIdentifier) {
         pwszBaseUri := pwszBaseUri is String ? StrPtr(pwszBaseUri) : pwszBaseUri
         pwszPublicIdentifier := pwszPublicIdentifier is String ? StrPtr(pwszPublicIdentifier) : pwszPublicIdentifier
         pwszSystemIdentifier := pwszSystemIdentifier is String ? StrPtr(pwszSystemIdentifier) : pwszSystemIdentifier
 
-        result := ComCall(3, this, "ptr", pwszBaseUri, "ptr", pwszPublicIdentifier, "ptr", pwszSystemIdentifier, "ptr*", ppResolvedInput, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwszBaseUri, "ptr", pwszPublicIdentifier, "ptr", pwszSystemIdentifier, "ptr*", &ppResolvedInput := 0, "HRESULT")
+        return IUnknown(ppResolvedInput)
     }
 }

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLElement2.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\IXMLElementCollection.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,12 +34,12 @@ class IXMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_tagName(p) {
+    get_tagName() {
+        p := BSTR()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -53,12 +56,11 @@ class IXMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IXMLElement2>} ppParent 
-     * @returns {HRESULT} 
+     * @returns {IXMLElement2} 
      */
-    get_parent(ppParent) {
-        result := ComCall(9, this, "ptr*", ppParent, "HRESULT")
-        return result
+    get_parent() {
+        result := ComCall(9, this, "ptr*", &ppParent := 0, "HRESULT")
+        return IXMLElement2(ppParent)
     }
 
     /**
@@ -77,14 +79,14 @@ class IXMLElement2 extends IDispatch{
     /**
      * 
      * @param {BSTR} strPropertyName 
-     * @param {Pointer<VARIANT>} PropertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getAttribute(strPropertyName, PropertyValue) {
+    getAttribute(strPropertyName) {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
+        PropertyValue := VARIANT()
         result := ComCall(11, this, "ptr", strPropertyName, "ptr", PropertyValue, "HRESULT")
-        return result
+        return PropertyValue
     }
 
     /**
@@ -101,34 +103,30 @@ class IXMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IXMLElementCollection>} pp 
-     * @returns {HRESULT} 
+     * @returns {IXMLElementCollection} 
      */
-    get_children(pp) {
-        result := ComCall(13, this, "ptr*", pp, "HRESULT")
-        return result
+    get_children() {
+        result := ComCall(13, this, "ptr*", &pp := 0, "HRESULT")
+        return IXMLElementCollection(pp)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_type(plType) {
-        plTypeMarshal := plType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, plTypeMarshal, plType, "HRESULT")
-        return result
+    get_type() {
+        result := ComCall(14, this, "int*", &plType := 0, "HRESULT")
+        return plType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_text(p) {
+    get_text() {
+        p := BSTR()
         result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -167,11 +165,10 @@ class IXMLElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IXMLElementCollection>} pp 
-     * @returns {HRESULT} 
+     * @returns {IXMLElementCollection} 
      */
-    get_attributes(pp) {
-        result := ComCall(19, this, "ptr*", pp, "HRESULT")
-        return result
+    get_attributes() {
+        result := ComCall(19, this, "ptr*", &pp := 0, "HRESULT")
+        return IXMLElementCollection(pp)
     }
 }

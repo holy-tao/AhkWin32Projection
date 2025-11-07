@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICondition.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -45,13 +46,12 @@ class IConditionFactory extends IUnknown{
      * 
      * @param {ICondition} pcSub 
      * @param {BOOL} fSimplify 
-     * @param {Pointer<ICondition>} ppcResult 
-     * @returns {HRESULT} 
+     * @returns {ICondition} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory-makenot
      */
-    MakeNot(pcSub, fSimplify, ppcResult) {
-        result := ComCall(3, this, "ptr", pcSub, "int", fSimplify, "ptr*", ppcResult, "HRESULT")
-        return result
+    MakeNot(pcSub, fSimplify) {
+        result := ComCall(3, this, "ptr", pcSub, "int", fSimplify, "ptr*", &ppcResult := 0, "HRESULT")
+        return ICondition(ppcResult)
     }
 
     /**
@@ -59,13 +59,12 @@ class IConditionFactory extends IUnknown{
      * @param {Integer} ct 
      * @param {IEnumUnknown} peuSubs 
      * @param {BOOL} fSimplify 
-     * @param {Pointer<ICondition>} ppcResult 
-     * @returns {HRESULT} 
+     * @returns {ICondition} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory-makeandor
      */
-    MakeAndOr(ct, peuSubs, fSimplify, ppcResult) {
-        result := ComCall(4, this, "int", ct, "ptr", peuSubs, "int", fSimplify, "ptr*", ppcResult, "HRESULT")
-        return result
+    MakeAndOr(ct, peuSubs, fSimplify) {
+        result := ComCall(4, this, "int", ct, "ptr", peuSubs, "int", fSimplify, "ptr*", &ppcResult := 0, "HRESULT")
+        return ICondition(ppcResult)
     }
 
     /**
@@ -78,16 +77,15 @@ class IConditionFactory extends IUnknown{
      * @param {IRichChunk} pOperationTerm 
      * @param {IRichChunk} pValueTerm 
      * @param {BOOL} fExpand 
-     * @param {Pointer<ICondition>} ppcResult 
-     * @returns {HRESULT} 
+     * @returns {ICondition} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory-makeleaf
      */
-    MakeLeaf(pszPropertyName, cop, pszValueType, ppropvar, pPropertyNameTerm, pOperationTerm, pValueTerm, fExpand, ppcResult) {
+    MakeLeaf(pszPropertyName, cop, pszValueType, ppropvar, pPropertyNameTerm, pOperationTerm, pValueTerm, fExpand) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
         pszValueType := pszValueType is String ? StrPtr(pszValueType) : pszValueType
 
-        result := ComCall(5, this, "ptr", pszPropertyName, "int", cop, "ptr", pszValueType, "ptr", ppropvar, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, "int", fExpand, "ptr*", ppcResult, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszPropertyName, "int", cop, "ptr", pszValueType, "ptr", ppropvar, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, "int", fExpand, "ptr*", &ppcResult := 0, "HRESULT")
+        return ICondition(ppcResult)
     }
 
     /**
@@ -95,12 +93,11 @@ class IConditionFactory extends IUnknown{
      * @param {ICondition} pc 
      * @param {Integer} sqro 
      * @param {Pointer<SYSTEMTIME>} pstReferenceTime 
-     * @param {Pointer<ICondition>} ppcResolved 
-     * @returns {HRESULT} 
+     * @returns {ICondition} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory-resolve
      */
-    Resolve(pc, sqro, pstReferenceTime, ppcResolved) {
-        result := ComCall(6, this, "ptr", pc, "int", sqro, "ptr", pstReferenceTime, "ptr*", ppcResolved, "HRESULT")
-        return result
+    Resolve(pc, sqro, pstReferenceTime) {
+        result := ComCall(6, this, "ptr", pc, "int", sqro, "ptr", pstReferenceTime, "ptr*", &ppcResolved := 0, "HRESULT")
+        return ICondition(ppcResolved)
     }
 }

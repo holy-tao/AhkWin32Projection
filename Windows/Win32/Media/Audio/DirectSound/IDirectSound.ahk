@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDirectSoundBuffer.ahk
+#Include .\DSCAPS.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,34 +33,32 @@ class IDirectSound extends IUnknown{
     /**
      * 
      * @param {Pointer<DSBUFFERDESC>} pcDSBufferDesc 
-     * @param {Pointer<IDirectSoundBuffer>} ppDSBuffer 
      * @param {IUnknown} pUnkOuter 
-     * @returns {HRESULT} 
+     * @returns {IDirectSoundBuffer} 
      */
-    CreateSoundBuffer(pcDSBufferDesc, ppDSBuffer, pUnkOuter) {
-        result := ComCall(3, this, "ptr", pcDSBufferDesc, "ptr*", ppDSBuffer, "ptr", pUnkOuter, "HRESULT")
-        return result
+    CreateSoundBuffer(pcDSBufferDesc, pUnkOuter) {
+        result := ComCall(3, this, "ptr", pcDSBufferDesc, "ptr*", &ppDSBuffer := 0, "ptr", pUnkOuter, "HRESULT")
+        return IDirectSoundBuffer(ppDSBuffer)
     }
 
     /**
      * 
-     * @param {Pointer<DSCAPS>} pDSCaps 
-     * @returns {HRESULT} 
+     * @returns {DSCAPS} 
      */
-    GetCaps(pDSCaps) {
+    GetCaps() {
+        pDSCaps := DSCAPS()
         result := ComCall(4, this, "ptr", pDSCaps, "HRESULT")
-        return result
+        return pDSCaps
     }
 
     /**
      * 
      * @param {IDirectSoundBuffer} pDSBufferOriginal 
-     * @param {Pointer<IDirectSoundBuffer>} ppDSBufferDuplicate 
-     * @returns {HRESULT} 
+     * @returns {IDirectSoundBuffer} 
      */
-    DuplicateSoundBuffer(pDSBufferOriginal, ppDSBufferDuplicate) {
-        result := ComCall(5, this, "ptr", pDSBufferOriginal, "ptr*", ppDSBufferDuplicate, "HRESULT")
-        return result
+    DuplicateSoundBuffer(pDSBufferOriginal) {
+        result := ComCall(5, this, "ptr", pDSBufferOriginal, "ptr*", &ppDSBufferDuplicate := 0, "HRESULT")
+        return IDirectSoundBuffer(ppDSBufferDuplicate)
     }
 
     /**
@@ -85,14 +85,11 @@ class IDirectSound extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwSpeakerConfig 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSpeakerConfig(pdwSpeakerConfig) {
-        pdwSpeakerConfigMarshal := pdwSpeakerConfig is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwSpeakerConfigMarshal, pdwSpeakerConfig, "HRESULT")
-        return result
+    GetSpeakerConfig() {
+        result := ComCall(8, this, "uint*", &pdwSpeakerConfig := 0, "HRESULT")
+        return pdwSpeakerConfig
     }
 
     /**

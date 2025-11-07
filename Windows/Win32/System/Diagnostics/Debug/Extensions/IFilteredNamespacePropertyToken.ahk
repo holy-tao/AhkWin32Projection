@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IModelMethod.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -39,12 +40,11 @@ class IFilteredNamespacePropertyToken extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IModelMethod>} ppFilter 
-     * @returns {HRESULT} 
+     * @returns {IModelMethod} 
      */
-    GetFilter(ppFilter) {
-        result := ComCall(4, this, "ptr*", ppFilter, "HRESULT")
-        return result
+    GetFilter() {
+        result := ComCall(4, this, "ptr*", &ppFilter := 0, "HRESULT")
+        return IModelMethod(ppFilter)
     }
 
     /**

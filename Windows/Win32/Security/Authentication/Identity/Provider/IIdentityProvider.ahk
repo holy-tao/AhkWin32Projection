@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\System\Com\IEnumUnknown.ahk
+#Include ..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,28 +37,26 @@ class IIdentityProvider extends IUnknown{
      * @param {Integer} eIdentityType 
      * @param {Pointer<PROPERTYKEY>} pFilterkey 
      * @param {Pointer<PROPVARIANT>} pFilterPropVarValue 
-     * @param {Pointer<IEnumUnknown>} ppIdentityEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iidentityprovider-getidentityenum
      */
-    GetIdentityEnum(eIdentityType, pFilterkey, pFilterPropVarValue, ppIdentityEnum) {
-        result := ComCall(3, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "ptr*", ppIdentityEnum, "HRESULT")
-        return result
+    GetIdentityEnum(eIdentityType, pFilterkey, pFilterPropVarValue) {
+        result := ComCall(3, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "ptr*", &ppIdentityEnum := 0, "HRESULT")
+        return IEnumUnknown(ppIdentityEnum)
     }
 
     /**
      * 
      * @param {PWSTR} lpszUserName 
-     * @param {Pointer<IPropertyStore>} ppPropertyStore 
      * @param {Pointer<PROPVARIANT>} pKeywordsToAdd 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iidentityprovider-create
      */
-    Create(lpszUserName, ppPropertyStore, pKeywordsToAdd) {
+    Create(lpszUserName, pKeywordsToAdd) {
         lpszUserName := lpszUserName is String ? StrPtr(lpszUserName) : lpszUserName
 
-        result := ComCall(4, this, "ptr", lpszUserName, "ptr*", ppPropertyStore, "ptr", pKeywordsToAdd, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", lpszUserName, "ptr*", &ppPropertyStore := 0, "ptr", pKeywordsToAdd, "HRESULT")
+        return IPropertyStore(ppPropertyStore)
     }
 
     /**
@@ -87,41 +87,36 @@ class IIdentityProvider extends IUnknown{
     /**
      * 
      * @param {PWSTR} lpszUniqueID 
-     * @param {Pointer<IPropertyStore>} ppPropertyStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iidentityprovider-findbyuniqueid
      */
-    FindByUniqueID(lpszUniqueID, ppPropertyStore) {
+    FindByUniqueID(lpszUniqueID) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(7, this, "ptr", lpszUniqueID, "ptr*", ppPropertyStore, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", lpszUniqueID, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        return IPropertyStore(ppPropertyStore)
     }
 
     /**
      * 
-     * @param {Pointer<IPropertyStore>} ppPropertyStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iidentityprovider-getproviderpropertystore
      */
-    GetProviderPropertyStore(ppPropertyStore) {
-        result := ComCall(8, this, "ptr*", ppPropertyStore, "HRESULT")
-        return result
+    GetProviderPropertyStore() {
+        result := ComCall(8, this, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        return IPropertyStore(ppPropertyStore)
     }
 
     /**
      * 
      * @param {IIdentityAdvise} pIdentityAdvise 
      * @param {Integer} dwIdentityUpdateEvents 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iidentityprovider-advise
      */
-    Advise(pIdentityAdvise, dwIdentityUpdateEvents, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pIdentityAdvise, "uint", dwIdentityUpdateEvents, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Advise(pIdentityAdvise, dwIdentityUpdateEvents) {
+        result := ComCall(9, this, "ptr", pIdentityAdvise, "uint", dwIdentityUpdateEvents, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

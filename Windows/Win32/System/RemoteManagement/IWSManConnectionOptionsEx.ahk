@@ -33,13 +33,13 @@ class IWSManConnectionOptionsEx extends IWSManConnectionOptions{
 
     /**
      * 
-     * @param {Pointer<BSTR>} thumbprint 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex-get_certificatethumbprint
      */
-    get_CertificateThumbprint(thumbprint) {
+    get_CertificateThumbprint() {
+        thumbprint := BSTR()
         result := ComCall(10, this, "ptr", thumbprint, "HRESULT")
-        return result
+        return thumbprint
     }
 
     /**

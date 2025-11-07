@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\IESEvent.ahk
 
 /**
@@ -36,136 +37,112 @@ class IESLicenseRenewalResultEvent extends IESEvent{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCallersId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getcallersid
      */
-    GetCallersId(pdwCallersId) {
-        pdwCallersIdMarshal := pdwCallersId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwCallersIdMarshal, pdwCallersId, "HRESULT")
-        return result
+    GetCallersId() {
+        result := ComCall(8, this, "uint*", &pdwCallersId := 0, "HRESULT")
+        return pdwCallersId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFilename 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getfilename
      */
-    GetFileName(pbstrFilename) {
+    GetFileName() {
+        pbstrFilename := BSTR()
         result := ComCall(9, this, "ptr", pbstrFilename, "HRESULT")
-        return result
+        return pbstrFilename
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfRenewalSuccessful 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-isrenewalsuccessful
      */
-    IsRenewalSuccessful(pfRenewalSuccessful) {
-        result := ComCall(10, this, "ptr", pfRenewalSuccessful, "HRESULT")
-        return result
+    IsRenewalSuccessful() {
+        result := ComCall(10, this, "int*", &pfRenewalSuccessful := 0, "HRESULT")
+        return pfRenewalSuccessful
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCheckEntTokenCallNeeded 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-ischeckentitlementcallrequired
      */
-    IsCheckEntitlementCallRequired(pfCheckEntTokenCallNeeded) {
-        result := ComCall(11, this, "ptr", pfCheckEntTokenCallNeeded, "HRESULT")
-        return result
+    IsCheckEntitlementCallRequired() {
+        result := ComCall(11, this, "int*", &pfCheckEntTokenCallNeeded := 0, "HRESULT")
+        return pfCheckEntTokenCallNeeded
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDescrambledStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getdescrambledstatus
      */
-    GetDescrambledStatus(pDescrambledStatus) {
-        pDescrambledStatusMarshal := pDescrambledStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pDescrambledStatusMarshal, pDescrambledStatus, "HRESULT")
-        return result
+    GetDescrambledStatus() {
+        result := ComCall(12, this, "uint*", &pDescrambledStatus := 0, "HRESULT")
+        return pDescrambledStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwRenewalResultCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getrenewalresultcode
      */
-    GetRenewalResultCode(pdwRenewalResultCode) {
-        pdwRenewalResultCodeMarshal := pdwRenewalResultCode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pdwRenewalResultCodeMarshal, pdwRenewalResultCode, "HRESULT")
-        return result
+    GetRenewalResultCode() {
+        result := ComCall(13, this, "uint*", &pdwRenewalResultCode := 0, "HRESULT")
+        return pdwRenewalResultCode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCASFailureCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getcasfailurecode
      */
-    GetCASFailureCode(pdwCASFailureCode) {
-        pdwCASFailureCodeMarshal := pdwCASFailureCode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pdwCASFailureCodeMarshal, pdwCASFailureCode, "HRESULT")
-        return result
+    GetCASFailureCode() {
+        result := ComCall(14, this, "uint*", &pdwCASFailureCode := 0, "HRESULT")
+        return pdwCASFailureCode
     }
 
     /**
      * 
-     * @param {Pointer<HRESULT>} phr 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getrenewalhresult
      */
-    GetRenewalHResult(phr) {
-        result := ComCall(15, this, "ptr", phr, "HRESULT")
-        return result
+    GetRenewalHResult() {
+        result := ComCall(15, this, "int*", &phr := 0, "HRESULT")
+        return phr
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getentitlementtokenlength
      */
-    GetEntitlementTokenLength(pdwLength) {
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pdwLengthMarshal, pdwLength, "HRESULT")
-        return result
+    GetEntitlementTokenLength() {
+        result := ComCall(16, this, "uint*", &pdwLength := 0, "HRESULT")
+        return pdwLength
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pbData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getentitlementtoken
      */
-    GetEntitlementToken(pbData) {
-        pbDataMarshal := pbData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(17, this, pbDataMarshal, pbData, "HRESULT")
-        return result
+    GetEntitlementToken() {
+        result := ComCall(17, this, "ptr*", &pbData := 0, "HRESULT")
+        return pbData
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pqwExpiryDate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getexpirydate
      */
-    GetExpiryDate(pqwExpiryDate) {
-        pqwExpiryDateMarshal := pqwExpiryDate is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, pqwExpiryDateMarshal, pqwExpiryDate, "HRESULT")
-        return result
+    GetExpiryDate() {
+        result := ComCall(18, this, "uint*", &pqwExpiryDate := 0, "HRESULT")
+        return pqwExpiryDate
     }
 }

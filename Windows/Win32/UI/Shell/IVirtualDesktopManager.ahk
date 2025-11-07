@@ -49,29 +49,28 @@ class IVirtualDesktopManager extends IUnknown{
     /**
      * 
      * @param {HWND} topLevelWindow 
-     * @param {Pointer<BOOL>} onCurrentDesktop 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ivirtualdesktopmanager-iswindowoncurrentvirtualdesktop
      */
-    IsWindowOnCurrentVirtualDesktop(topLevelWindow, onCurrentDesktop) {
+    IsWindowOnCurrentVirtualDesktop(topLevelWindow) {
         topLevelWindow := topLevelWindow is Win32Handle ? NumGet(topLevelWindow, "ptr") : topLevelWindow
 
-        result := ComCall(3, this, "ptr", topLevelWindow, "ptr", onCurrentDesktop, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", topLevelWindow, "int*", &onCurrentDesktop := 0, "HRESULT")
+        return onCurrentDesktop
     }
 
     /**
      * 
      * @param {HWND} topLevelWindow 
-     * @param {Pointer<Guid>} desktopId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ivirtualdesktopmanager-getwindowdesktopid
      */
-    GetWindowDesktopId(topLevelWindow, desktopId) {
+    GetWindowDesktopId(topLevelWindow) {
         topLevelWindow := topLevelWindow is Win32Handle ? NumGet(topLevelWindow, "ptr") : topLevelWindow
 
+        desktopId := Guid()
         result := ComCall(4, this, "ptr", topLevelWindow, "ptr", desktopId, "HRESULT")
-        return result
+        return desktopId
     }
 
     /**

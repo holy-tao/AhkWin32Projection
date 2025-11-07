@@ -33,12 +33,12 @@ class IADsAcl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ProtectedAttrName(retval) {
+    get_ProtectedAttrName() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -55,12 +55,12 @@ class IADsAcl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SubjectName(retval) {
+    get_SubjectName() {
+        retval := BSTR()
         result := ComCall(9, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -77,14 +77,11 @@ class IADsAcl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Privileges(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Privileges() {
+        result := ComCall(11, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -99,12 +96,11 @@ class IADsAcl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppAcl 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsacl-copyacl
      */
-    CopyAcl(ppAcl) {
-        result := ComCall(13, this, "ptr*", ppAcl, "HRESULT")
-        return result
+    CopyAcl() {
+        result := ComCall(13, this, "ptr*", &ppAcl := 0, "HRESULT")
+        return IDispatch(ppAcl)
     }
 }

@@ -44,12 +44,11 @@ class ISynchronousDataRetriever extends IUnknown{
     /**
      * 
      * @param {ILoadChangeContext} pLoadChangeContext 
-     * @param {Pointer<IUnknown>} ppUnkData 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynchronousdataretriever-loadchangedata
      */
-    LoadChangeData(pLoadChangeContext, ppUnkData) {
-        result := ComCall(4, this, "ptr", pLoadChangeContext, "ptr*", ppUnkData, "HRESULT")
-        return result
+    LoadChangeData(pLoadChangeContext) {
+        result := ComCall(4, this, "ptr", pLoadChangeContext, "ptr*", &ppUnkData := 0, "HRESULT")
+        return IUnknown(ppUnkData)
     }
 }

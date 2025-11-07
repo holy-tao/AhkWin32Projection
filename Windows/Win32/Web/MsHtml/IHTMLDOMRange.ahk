@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLDOMNode.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLDOMRange.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLRectCollection.ahk
+#Include .\IHTMLRect.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -36,66 +41,56 @@ class IHTMLDOMRange extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_startContainer(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_startContainer() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_startOffset(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_startOffset() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_endContainer(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_endContainer() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_endOffset(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_endOffset() {
+        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_collapsed(p) {
-        result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+    get_collapsed() {
+        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_commonAncestorContainer(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_commonAncestorContainer() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 
     /**
@@ -194,14 +189,11 @@ class IHTMLDOMRange extends IDispatch{
      * 
      * @param {Integer} how 
      * @param {IDispatch} sourceRange 
-     * @param {Pointer<Integer>} compareResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    compareBoundaryPoints(how, sourceRange, compareResult) {
-        compareResultMarshal := compareResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, "short", how, "ptr", sourceRange, compareResultMarshal, compareResult, "HRESULT")
-        return result
+    compareBoundaryPoints(how, sourceRange) {
+        result := ComCall(22, this, "short", how, "ptr", sourceRange, "int*", &compareResult := 0, "HRESULT")
+        return compareResult
     }
 
     /**
@@ -215,22 +207,20 @@ class IHTMLDOMRange extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppDocumentFragment 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    extractContents(ppDocumentFragment) {
-        result := ComCall(24, this, "ptr*", ppDocumentFragment, "HRESULT")
-        return result
+    extractContents() {
+        result := ComCall(24, this, "ptr*", &ppDocumentFragment := 0, "HRESULT")
+        return IDispatch(ppDocumentFragment)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppDocumentFragment 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    cloneContents(ppDocumentFragment) {
-        result := ComCall(25, this, "ptr*", ppDocumentFragment, "HRESULT")
-        return result
+    cloneContents() {
+        result := ComCall(25, this, "ptr*", &ppDocumentFragment := 0, "HRESULT")
+        return IDispatch(ppDocumentFragment)
     }
 
     /**
@@ -255,22 +245,21 @@ class IHTMLDOMRange extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMRange>} ppClonedRange 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMRange} 
      */
-    cloneRange(ppClonedRange) {
-        result := ComCall(28, this, "ptr*", ppClonedRange, "HRESULT")
-        return result
+    cloneRange() {
+        result := ComCall(28, this, "ptr*", &ppClonedRange := 0, "HRESULT")
+        return IHTMLDOMRange(ppClonedRange)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pRangeString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toString(pRangeString) {
+    toString() {
+        pRangeString := BSTR()
         result := ComCall(29, this, "ptr", pRangeString, "HRESULT")
-        return result
+        return pRangeString
     }
 
     /**
@@ -284,21 +273,19 @@ class IHTMLDOMRange extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLRectCollection>} ppRectCol 
-     * @returns {HRESULT} 
+     * @returns {IHTMLRectCollection} 
      */
-    getClientRects(ppRectCol) {
-        result := ComCall(31, this, "ptr*", ppRectCol, "HRESULT")
-        return result
+    getClientRects() {
+        result := ComCall(31, this, "ptr*", &ppRectCol := 0, "HRESULT")
+        return IHTMLRectCollection(ppRectCol)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLRect>} ppRect 
-     * @returns {HRESULT} 
+     * @returns {IHTMLRect} 
      */
-    getBoundingClientRect(ppRect) {
-        result := ComCall(32, this, "ptr*", ppRect, "HRESULT")
-        return result
+    getBoundingClientRect() {
+        result := ComCall(32, this, "ptr*", &ppRect := 0, "HRESULT")
+        return IHTMLRect(ppRect)
     }
 }

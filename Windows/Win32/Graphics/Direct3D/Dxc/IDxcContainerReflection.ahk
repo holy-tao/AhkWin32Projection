@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcBlob.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,51 +41,41 @@ class IDxcContainerReflection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPartCount(pResult) {
-        pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pResultMarshal, pResult, "HRESULT")
-        return result
+    GetPartCount() {
+        result := ComCall(4, this, "uint*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**
      * 
      * @param {Integer} idx 
-     * @param {Pointer<Integer>} pResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPartKind(idx, pResult) {
-        pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", idx, pResultMarshal, pResult, "HRESULT")
-        return result
+    GetPartKind(idx) {
+        result := ComCall(5, this, "uint", idx, "uint*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**
      * 
      * @param {Integer} idx 
-     * @param {Pointer<IDxcBlob>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlob} 
      */
-    GetPartContent(idx, ppResult) {
-        result := ComCall(6, this, "uint", idx, "ptr*", ppResult, "HRESULT")
-        return result
+    GetPartContent(idx) {
+        result := ComCall(6, this, "uint", idx, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcBlob(ppResult)
     }
 
     /**
      * 
      * @param {Integer} kind 
-     * @param {Pointer<Integer>} pResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    FindFirstPartKind(kind, pResult) {
-        pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "uint", kind, pResultMarshal, pResult, "HRESULT")
-        return result
+    FindFirstPartKind(kind) {
+        result := ComCall(7, this, "uint", kind, "uint*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**

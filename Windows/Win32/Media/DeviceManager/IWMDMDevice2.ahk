@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMDMStorage.ahk
 #Include .\IWMDMDevice.ahk
 
 /**
@@ -33,15 +34,14 @@ class IWMDMDevice2 extends IWMDMDevice{
     /**
      * 
      * @param {PWSTR} pszStorageName 
-     * @param {Pointer<IWMDMStorage>} ppStorage 
-     * @returns {HRESULT} 
+     * @returns {IWMDMStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice2-getstorage
      */
-    GetStorage(pszStorageName, ppStorage) {
+    GetStorage(pszStorageName) {
         pszStorageName := pszStorageName is String ? StrPtr(pszStorageName) : pszStorageName
 
-        result := ComCall(14, this, "ptr", pszStorageName, "ptr*", ppStorage, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", pszStorageName, "ptr*", &ppStorage := 0, "HRESULT")
+        return IWMDMStorage(ppStorage)
     }
 
     /**

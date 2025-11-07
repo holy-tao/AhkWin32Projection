@@ -2,6 +2,12 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ITuneRequest.ahk
+#Include ..\..\..\System\Com\IEnumGUID.ahk
+#Include ..\..\..\System\Com\IEnumMoniker.ahk
+#Include .\IComponentTypes.ahk
+#Include .\ILocator.ahk
+#Include .\ITuningSpace.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -44,13 +50,13 @@ class ITuningSpace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_uniquename
      */
-    get_UniqueName(Name) {
+    get_UniqueName() {
+        Name := BSTR()
         result := ComCall(7, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
@@ -68,13 +74,13 @@ class ITuningSpace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_friendlyname
      */
-    get_FriendlyName(Name) {
+    get_FriendlyName() {
+        Name := BSTR()
         result := ComCall(9, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
@@ -92,24 +98,24 @@ class ITuningSpace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} SpaceCLSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_clsid
      */
-    get_CLSID(SpaceCLSID) {
+    get_CLSID() {
+        SpaceCLSID := BSTR()
         result := ComCall(11, this, "ptr", SpaceCLSID, "HRESULT")
-        return result
+        return SpaceCLSID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} NetworkTypeGuid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_networktype
      */
-    get_NetworkType(NetworkTypeGuid) {
+    get_NetworkType() {
+        NetworkTypeGuid := BSTR()
         result := ComCall(12, this, "ptr", NetworkTypeGuid, "HRESULT")
-        return result
+        return NetworkTypeGuid
     }
 
     /**
@@ -127,13 +133,13 @@ class ITuningSpace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Guid>} NetworkTypeGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get__networktype
      */
-    get__NetworkType(NetworkTypeGuid) {
+    get__NetworkType() {
+        NetworkTypeGuid := Guid()
         result := ComCall(14, this, "ptr", NetworkTypeGuid, "HRESULT")
-        return result
+        return NetworkTypeGuid
     }
 
     /**
@@ -149,46 +155,42 @@ class ITuningSpace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITuneRequest>} TuneRequest 
-     * @returns {HRESULT} 
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-createtunerequest
      */
-    CreateTuneRequest(TuneRequest) {
-        result := ComCall(16, this, "ptr*", TuneRequest, "HRESULT")
-        return result
+    CreateTuneRequest() {
+        result := ComCall(16, this, "ptr*", &TuneRequest := 0, "HRESULT")
+        return ITuneRequest(TuneRequest)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumGUID>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumGUID} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-enumcategoryguids
      */
-    EnumCategoryGUIDs(ppEnum) {
-        result := ComCall(17, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumCategoryGUIDs() {
+        result := ComCall(17, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumGUID(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumMoniker>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-enumdevicemonikers
      */
-    EnumDeviceMonikers(ppEnum) {
-        result := ComCall(18, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumDeviceMonikers() {
+        result := ComCall(18, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumMoniker(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IComponentTypes>} ComponentTypes 
-     * @returns {HRESULT} 
+     * @returns {IComponentTypes} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_defaultpreferredcomponenttypes
      */
-    get_DefaultPreferredComponentTypes(ComponentTypes) {
-        result := ComCall(19, this, "ptr*", ComponentTypes, "HRESULT")
-        return result
+    get_DefaultPreferredComponentTypes() {
+        result := ComCall(19, this, "ptr*", &ComponentTypes := 0, "HRESULT")
+        return IComponentTypes(ComponentTypes)
     }
 
     /**
@@ -204,13 +206,13 @@ class ITuningSpace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pMapping 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_frequencymapping
      */
-    get_FrequencyMapping(pMapping) {
+    get_FrequencyMapping() {
+        pMapping := BSTR()
         result := ComCall(21, this, "ptr", pMapping, "HRESULT")
-        return result
+        return pMapping
     }
 
     /**
@@ -228,13 +230,12 @@ class ITuningSpace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ILocator>} LocatorVal 
-     * @returns {HRESULT} 
+     * @returns {ILocator} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_defaultlocator
      */
-    get_DefaultLocator(LocatorVal) {
-        result := ComCall(23, this, "ptr*", LocatorVal, "HRESULT")
-        return result
+    get_DefaultLocator() {
+        result := ComCall(23, this, "ptr*", &LocatorVal := 0, "HRESULT")
+        return ILocator(LocatorVal)
     }
 
     /**
@@ -250,12 +251,11 @@ class ITuningSpace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITuningSpace>} NewTS 
-     * @returns {HRESULT} 
+     * @returns {ITuningSpace} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-clone
      */
-    Clone(NewTS) {
-        result := ComCall(25, this, "ptr*", NewTS, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(25, this, "ptr*", &NewTS := 0, "HRESULT")
+        return ITuningSpace(NewTS)
     }
 }

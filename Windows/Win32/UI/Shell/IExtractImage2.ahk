@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\IExtractImage.ahk
 
 /**
@@ -41,12 +42,12 @@ class IExtractImage2 extends IExtractImage{
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pDateStamp 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iextractimage2-getdatestamp
      */
-    GetDateStamp(pDateStamp) {
+    GetDateStamp() {
+        pDateStamp := FILETIME()
         result := ComCall(5, this, "ptr", pDateStamp, "HRESULT")
-        return result
+        return pDateStamp
     }
 }

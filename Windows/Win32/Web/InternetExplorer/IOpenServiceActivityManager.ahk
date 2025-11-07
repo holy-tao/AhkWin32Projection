@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumOpenServiceActivityCategory.ahk
+#Include .\IOpenServiceActivity.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,51 +39,45 @@ class IOpenServiceActivityManager extends IUnknown{
     /**
      * 
      * @param {Integer} eType 
-     * @param {Pointer<IEnumOpenServiceActivityCategory>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumOpenServiceActivityCategory} 
      */
-    GetCategoryEnumerator(eType, ppEnum) {
-        result := ComCall(3, this, "int", eType, "ptr*", ppEnum, "HRESULT")
-        return result
+    GetCategoryEnumerator(eType) {
+        result := ComCall(3, this, "int", eType, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumOpenServiceActivityCategory(ppEnum)
     }
 
     /**
      * 
      * @param {PWSTR} pwzActivityID 
-     * @param {Pointer<IOpenServiceActivity>} ppActivity 
-     * @returns {HRESULT} 
+     * @returns {IOpenServiceActivity} 
      */
-    GetActivityByID(pwzActivityID, ppActivity) {
+    GetActivityByID(pwzActivityID) {
         pwzActivityID := pwzActivityID is String ? StrPtr(pwzActivityID) : pwzActivityID
 
-        result := ComCall(4, this, "ptr", pwzActivityID, "ptr*", ppActivity, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pwzActivityID, "ptr*", &ppActivity := 0, "HRESULT")
+        return IOpenServiceActivity(ppActivity)
     }
 
     /**
      * 
      * @param {PWSTR} pwzHomepage 
      * @param {PWSTR} pwzCategory 
-     * @param {Pointer<IOpenServiceActivity>} ppActivity 
-     * @returns {HRESULT} 
+     * @returns {IOpenServiceActivity} 
      */
-    GetActivityByHomepageAndCategory(pwzHomepage, pwzCategory, ppActivity) {
+    GetActivityByHomepageAndCategory(pwzHomepage, pwzCategory) {
         pwzHomepage := pwzHomepage is String ? StrPtr(pwzHomepage) : pwzHomepage
         pwzCategory := pwzCategory is String ? StrPtr(pwzCategory) : pwzCategory
 
-        result := ComCall(5, this, "ptr", pwzHomepage, "ptr", pwzCategory, "ptr*", ppActivity, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pwzHomepage, "ptr", pwzCategory, "ptr*", &ppActivity := 0, "HRESULT")
+        return IOpenServiceActivity(ppActivity)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVersionCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetVersionCookie(pdwVersionCookie) {
-        pdwVersionCookieMarshal := pdwVersionCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwVersionCookieMarshal, pdwVersionCookie, "HRESULT")
-        return result
+    GetVersionCookie() {
+        result := ComCall(6, this, "uint*", &pdwVersionCookie := 0, "HRESULT")
+        return pdwVersionCookie
     }
 }

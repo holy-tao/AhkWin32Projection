@@ -38,29 +38,23 @@ class IUIAutomationRegistrar extends IUnknown{
     /**
      * 
      * @param {Pointer<UIAutomationPropertyInfo>} property 
-     * @param {Pointer<Integer>} propertyId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerproperty
      */
-    RegisterProperty(property, propertyId) {
-        propertyIdMarshal := propertyId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", property, propertyIdMarshal, propertyId, "HRESULT")
-        return result
+    RegisterProperty(property) {
+        result := ComCall(3, this, "ptr", property, "int*", &propertyId := 0, "HRESULT")
+        return propertyId
     }
 
     /**
      * 
      * @param {Pointer<UIAutomationEventInfo>} event 
-     * @param {Pointer<Integer>} eventId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerevent
      */
-    RegisterEvent(event, eventId) {
-        eventIdMarshal := eventId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", event, eventIdMarshal, eventId, "HRESULT")
-        return result
+    RegisterEvent(event) {
+        result := ComCall(4, this, "ptr", event, "int*", &eventId := 0, "HRESULT")
+        return eventId
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,62 +34,62 @@ class IADs extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(retval) {
+    get_Name() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Class(retval) {
+    get_Class() {
+        retval := BSTR()
         result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_GUID(retval) {
+    get_GUID() {
+        retval := BSTR()
         result := ComCall(9, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ADsPath(retval) {
+    get_ADsPath() {
+        retval := BSTR()
         result := ComCall(10, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Parent(retval) {
+    get_Parent() {
+        retval := BSTR()
         result := ComCall(11, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Schema(retval) {
+    get_Schema() {
+        retval := BSTR()
         result := ComCall(12, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -114,15 +115,15 @@ class IADs extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<VARIANT>} pvProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iads-get
      */
-    Get(bstrName, pvProp) {
+    Get(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
+        pvProp := VARIANT()
         result := ComCall(15, this, "ptr", bstrName, "ptr", pvProp, "HRESULT")
-        return result
+        return pvProp
     }
 
     /**
@@ -142,15 +143,15 @@ class IADs extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<VARIANT>} pvProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iads-getex
      */
-    GetEx(bstrName, pvProp) {
+    GetEx(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
+        pvProp := VARIANT()
         result := ComCall(17, this, "ptr", bstrName, "ptr", pvProp, "HRESULT")
-        return result
+        return pvProp
     }
 
     /**

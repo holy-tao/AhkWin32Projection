@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ITfPropertyStore.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,110 +34,100 @@ class ITfPropertyStore extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-gettype
      */
-    GetType(pguid) {
+    GetType() {
+        pguid := Guid()
         result := ComCall(3, this, "ptr", pguid, "HRESULT")
-        return result
+        return pguid
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwReserved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-getdatatype
      */
-    GetDataType(pdwReserved) {
-        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwReservedMarshal, pdwReserved, "HRESULT")
-        return result
+    GetDataType() {
+        result := ComCall(4, this, "uint*", &pdwReserved := 0, "HRESULT")
+        return pdwReserved
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-getdata
      */
-    GetData(pvarValue) {
+    GetData() {
+        pvarValue := VARIANT()
         result := ComCall(5, this, "ptr", pvarValue, "HRESULT")
-        return result
+        return pvarValue
     }
 
     /**
      * 
      * @param {Integer} dwFlags 
      * @param {ITfRange} pRangeNew 
-     * @param {Pointer<BOOL>} pfAccept 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-ontextupdated
      */
-    OnTextUpdated(dwFlags, pRangeNew, pfAccept) {
-        result := ComCall(6, this, "uint", dwFlags, "ptr", pRangeNew, "ptr", pfAccept, "HRESULT")
-        return result
+    OnTextUpdated(dwFlags, pRangeNew) {
+        result := ComCall(6, this, "uint", dwFlags, "ptr", pRangeNew, "int*", &pfAccept := 0, "HRESULT")
+        return pfAccept
     }
 
     /**
      * 
      * @param {ITfRange} pRangeNew 
-     * @param {Pointer<BOOL>} pfFree 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-shrink
      */
-    Shrink(pRangeNew, pfFree) {
-        result := ComCall(7, this, "ptr", pRangeNew, "ptr", pfFree, "HRESULT")
-        return result
+    Shrink(pRangeNew) {
+        result := ComCall(7, this, "ptr", pRangeNew, "int*", &pfFree := 0, "HRESULT")
+        return pfFree
     }
 
     /**
      * 
      * @param {ITfRange} pRangeThis 
      * @param {ITfRange} pRangeNew 
-     * @param {Pointer<ITfPropertyStore>} ppPropStore 
-     * @returns {HRESULT} 
+     * @returns {ITfPropertyStore} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-divide
      */
-    Divide(pRangeThis, pRangeNew, ppPropStore) {
-        result := ComCall(8, this, "ptr", pRangeThis, "ptr", pRangeNew, "ptr*", ppPropStore, "HRESULT")
-        return result
+    Divide(pRangeThis, pRangeNew) {
+        result := ComCall(8, this, "ptr", pRangeThis, "ptr", pRangeNew, "ptr*", &ppPropStore := 0, "HRESULT")
+        return ITfPropertyStore(ppPropStore)
     }
 
     /**
      * 
-     * @param {Pointer<ITfPropertyStore>} pPropStore 
-     * @returns {HRESULT} 
+     * @returns {ITfPropertyStore} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-clone
      */
-    Clone(pPropStore) {
-        result := ComCall(9, this, "ptr*", pPropStore, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(9, this, "ptr*", &pPropStore := 0, "HRESULT")
+        return ITfPropertyStore(pPropStore)
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pclsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-getpropertyrangecreator
      */
-    GetPropertyRangeCreator(pclsid) {
+    GetPropertyRangeCreator() {
+        pclsid := Guid()
         result := ComCall(10, this, "ptr", pclsid, "HRESULT")
-        return result
+        return pclsid
     }
 
     /**
      * 
      * @param {IStream} pStream 
-     * @param {Pointer<Integer>} pcb 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-serialize
      */
-    Serialize(pStream, pcb) {
-        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, "ptr", pStream, pcbMarshal, pcb, "HRESULT")
-        return result
+    Serialize(pStream) {
+        result := ComCall(11, this, "ptr", pStream, "uint*", &pcb := 0, "HRESULT")
+        return pcb
     }
 }

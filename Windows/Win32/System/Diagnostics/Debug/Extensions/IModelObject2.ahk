@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IKeyEnumerator.ahk
 #Include .\IModelObject.ahk
 
 /**
@@ -30,31 +31,28 @@ class IModelObject2 extends IModelObject{
 
     /**
      * 
-     * @param {Pointer<IKeyEnumerator>} ppEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IKeyEnumerator} 
      */
-    EnumerateOwnKeyValues(ppEnumerator) {
-        result := ComCall(36, this, "ptr*", ppEnumerator, "HRESULT")
-        return result
+    EnumerateOwnKeyValues() {
+        result := ComCall(36, this, "ptr*", &ppEnumerator := 0, "HRESULT")
+        return IKeyEnumerator(ppEnumerator)
     }
 
     /**
      * 
-     * @param {Pointer<IKeyEnumerator>} ppEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IKeyEnumerator} 
      */
-    EnumerateOwnKeys(ppEnumerator) {
-        result := ComCall(37, this, "ptr*", ppEnumerator, "HRESULT")
-        return result
+    EnumerateOwnKeys() {
+        result := ComCall(37, this, "ptr*", &ppEnumerator := 0, "HRESULT")
+        return IKeyEnumerator(ppEnumerator)
     }
 
     /**
      * 
-     * @param {Pointer<IKeyEnumerator>} ppEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IKeyEnumerator} 
      */
-    EnumerateOwnKeyReferences(ppEnumerator) {
-        result := ComCall(38, this, "ptr*", ppEnumerator, "HRESULT")
-        return result
+    EnumerateOwnKeyReferences() {
+        result := ComCall(38, this, "ptr*", &ppEnumerator := 0, "HRESULT")
+        return IKeyEnumerator(ppEnumerator)
     }
 }

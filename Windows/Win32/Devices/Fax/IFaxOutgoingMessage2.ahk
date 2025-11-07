@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFaxOutgoingMessage.ahk
 
 /**
@@ -39,48 +40,43 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbHasCoverPage 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_hascoverpage
      */
-    get_HasCoverPage(pbHasCoverPage) {
-        result := ComCall(26, this, "ptr", pbHasCoverPage, "HRESULT")
-        return result
+    get_HasCoverPage() {
+        result := ComCall(26, this, "short*", &pbHasCoverPage := 0, "HRESULT")
+        return pbHasCoverPage
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pReceiptType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_receipttype
      */
-    get_ReceiptType(pReceiptType) {
-        pReceiptTypeMarshal := pReceiptType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, pReceiptTypeMarshal, pReceiptType, "HRESULT")
-        return result
+    get_ReceiptType() {
+        result := ComCall(27, this, "int*", &pReceiptType := 0, "HRESULT")
+        return pReceiptType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrReceiptAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_receiptaddress
      */
-    get_ReceiptAddress(pbstrReceiptAddress) {
+    get_ReceiptAddress() {
+        pbstrReceiptAddress := BSTR()
         result := ComCall(28, this, "ptr", pbstrReceiptAddress, "HRESULT")
-        return result
+        return pbstrReceiptAddress
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbRead 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_read
      */
-    get_Read(pbRead) {
-        result := ComCall(29, this, "ptr", pbRead, "HRESULT")
-        return result
+    get_Read() {
+        result := ComCall(29, this, "short*", &pbRead := 0, "HRESULT")
+        return pbRead
     }
 
     /**

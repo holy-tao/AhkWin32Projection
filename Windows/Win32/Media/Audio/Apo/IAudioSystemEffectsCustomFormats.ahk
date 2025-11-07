@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAudioMediaType.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,38 +33,33 @@ class IAudioSystemEffectsCustomFormats extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcFormats 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudiosystemeffectscustomformats-getformatcount
      */
-    GetFormatCount(pcFormats) {
-        pcFormatsMarshal := pcFormats is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcFormatsMarshal, pcFormats, "HRESULT")
-        return result
+    GetFormatCount() {
+        result := ComCall(3, this, "uint*", &pcFormats := 0, "HRESULT")
+        return pcFormats
     }
 
     /**
      * 
      * @param {Integer} nFormat 
-     * @param {Pointer<IAudioMediaType>} ppFormat 
-     * @returns {HRESULT} 
+     * @returns {IAudioMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudiosystemeffectscustomformats-getformat
      */
-    GetFormat(nFormat, ppFormat) {
-        result := ComCall(4, this, "uint", nFormat, "ptr*", ppFormat, "HRESULT")
-        return result
+    GetFormat(nFormat) {
+        result := ComCall(4, this, "uint", nFormat, "ptr*", &ppFormat := 0, "HRESULT")
+        return IAudioMediaType(ppFormat)
     }
 
     /**
      * 
      * @param {Integer} nFormat 
-     * @param {Pointer<PWSTR>} ppwstrFormatRep 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudiosystemeffectscustomformats-getformatrepresentation
      */
-    GetFormatRepresentation(nFormat, ppwstrFormatRep) {
-        result := ComCall(5, this, "uint", nFormat, "ptr", ppwstrFormatRep, "HRESULT")
-        return result
+    GetFormatRepresentation(nFormat) {
+        result := ComCall(5, this, "uint", nFormat, "ptr*", &ppwstrFormatRep := 0, "HRESULT")
+        return ppwstrFormatRep
     }
 }

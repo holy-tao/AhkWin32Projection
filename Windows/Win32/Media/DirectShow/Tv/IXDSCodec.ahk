@@ -43,13 +43,12 @@ class IXDSCodec extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HRESULT>} pHrCoCreateRetVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-get_xdstoratobjok
      */
-    get_XDSToRatObjOK(pHrCoCreateRetVal) {
-        result := ComCall(3, this, "ptr", pHrCoCreateRetVal, "HRESULT")
-        return result
+    get_XDSToRatObjOK() {
+        result := ComCall(3, this, "int*", &pHrCoCreateRetVal := 0, "HRESULT")
+        return pHrCoCreateRetVal
     }
 
     /**
@@ -65,15 +64,12 @@ class IXDSCodec extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSubstreamMask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-get_ccsubstreamservice
      */
-    get_CCSubstreamService(pSubstreamMask) {
-        pSubstreamMaskMarshal := pSubstreamMask is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pSubstreamMaskMarshal, pSubstreamMask, "HRESULT")
-        return result
+    get_CCSubstreamService() {
+        result := ComCall(5, this, "int*", &pSubstreamMask := 0, "HRESULT")
+        return pSubstreamMask
     }
 
     /**
@@ -124,16 +120,14 @@ class IXDSCodec extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} protType 
-     * @param {Pointer<Integer>} lpDateTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getcurrlicenseexpdate
      */
-    GetCurrLicenseExpDate(protType, lpDateTime) {
+    GetCurrLicenseExpDate(protType) {
         protTypeMarshal := protType is VarRef ? "int*" : "ptr"
-        lpDateTimeMarshal := lpDateTime is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, protTypeMarshal, protType, lpDateTimeMarshal, lpDateTime, "HRESULT")
-        return result
+        result := ComCall(8, this, protTypeMarshal, protType, "int*", &lpDateTime := 0, "HRESULT")
+        return lpDateTime
     }
 
     /**

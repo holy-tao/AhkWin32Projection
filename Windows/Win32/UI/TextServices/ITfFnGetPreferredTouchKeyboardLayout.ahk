@@ -46,18 +46,14 @@ class ITfFnGetPreferredTouchKeyboardLayout extends ITfFunction{
 
     /**
      * The GetLayout function returns the layout of a device context (DC).
-     * @param {Pointer<Integer>} pTKBLayoutType 
      * @param {Pointer<Integer>} pwPreferredLayoutId 
-     * @returns {HRESULT} If the function succeeds, it returns the layout flags for the current device context.
-     * 
-     * If the function fails, it returns GDI_ERROR. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getlayout
      */
-    GetLayout(pTKBLayoutType, pwPreferredLayoutId) {
-        pTKBLayoutTypeMarshal := pTKBLayoutType is VarRef ? "int*" : "ptr"
+    GetLayout(pwPreferredLayoutId) {
         pwPreferredLayoutIdMarshal := pwPreferredLayoutId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, pTKBLayoutTypeMarshal, pTKBLayoutType, pwPreferredLayoutIdMarshal, pwPreferredLayoutId, "HRESULT")
-        return result
+        result := ComCall(4, this, "int*", &pTKBLayoutType := 0, pwPreferredLayoutIdMarshal, pwPreferredLayoutId, "HRESULT")
+        return pTKBLayoutType
     }
 }

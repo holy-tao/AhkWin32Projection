@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\IBinaryConverter.ahk
 
 /**
@@ -31,22 +32,22 @@ class IBinaryConverter2 extends IBinaryConverter{
     /**
      * 
      * @param {Pointer<VARIANT>} pvarStringArray 
-     * @param {Pointer<VARIANT>} pvarVariantArray 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    StringArrayToVariantArray(pvarStringArray, pvarVariantArray) {
+    StringArrayToVariantArray(pvarStringArray) {
+        pvarVariantArray := VARIANT()
         result := ComCall(10, this, "ptr", pvarStringArray, "ptr", pvarVariantArray, "HRESULT")
-        return result
+        return pvarVariantArray
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} pvarVariantArray 
-     * @param {Pointer<VARIANT>} pvarStringArray 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    VariantArrayToStringArray(pvarVariantArray, pvarStringArray) {
+    VariantArrayToStringArray(pvarVariantArray) {
+        pvarStringArray := VARIANT()
         result := ComCall(11, this, "ptr", pvarVariantArray, "ptr", pvarStringArray, "HRESULT")
-        return result
+        return pvarStringArray
     }
 }

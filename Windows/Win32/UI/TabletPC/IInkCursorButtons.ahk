@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IInkCursorButton.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,36 +43,31 @@ class IInkCursorButtons extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbuttons-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} _NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(_NewEnum) {
-        result := ComCall(8, this, "ptr*", _NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "HRESULT")
+        return IUnknown(_NewEnum)
     }
 
     /**
      * 
      * @param {VARIANT} Identifier 
-     * @param {Pointer<IInkCursorButton>} Button 
-     * @returns {HRESULT} 
+     * @returns {IInkCursorButton} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbuttons-item
      */
-    Item(Identifier, Button) {
-        result := ComCall(9, this, "ptr", Identifier, "ptr*", Button, "HRESULT")
-        return result
+    Item(Identifier) {
+        result := ComCall(9, this, "ptr", Identifier, "ptr*", &Button := 0, "HRESULT")
+        return IInkCursorButton(Button)
     }
 }

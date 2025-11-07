@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -40,13 +41,13 @@ class ISchedule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} start 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-get_startdate
      */
-    get_StartDate(start) {
+    get_StartDate() {
+        start := VARIANT()
         result := ComCall(7, this, "ptr", start, "HRESULT")
-        return result
+        return start
     }
 
     /**
@@ -62,13 +63,13 @@ class ISchedule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} end 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-get_enddate
      */
-    get_EndDate(end) {
+    get_EndDate() {
+        end := VARIANT()
         result := ComCall(9, this, "ptr", end, "HRESULT")
-        return result
+        return end
     }
 
     /**
@@ -84,13 +85,13 @@ class ISchedule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} start 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-get_starttime
      */
-    get_StartTime(start) {
+    get_StartTime() {
+        start := VARIANT()
         result := ComCall(11, this, "ptr", start, "HRESULT")
-        return result
+        return start
     }
 
     /**
@@ -106,15 +107,12 @@ class ISchedule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} days 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-get_days
      */
-    get_Days(days) {
-        daysMarshal := days is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, daysMarshal, days, "HRESULT")
-        return result
+    get_Days() {
+        result := ComCall(13, this, "int*", &days := 0, "HRESULT")
+        return days
     }
 
     /**

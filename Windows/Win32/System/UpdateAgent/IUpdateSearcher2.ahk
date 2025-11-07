@@ -37,13 +37,12 @@ class IUpdateSearcher2 extends IUpdateSearcher{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher2-get_ignoredownloadpriority
      */
-    get_IgnoreDownloadPriority(retval) {
-        result := ComCall(25, this, "ptr", retval, "HRESULT")
-        return result
+    get_IgnoreDownloadPriority() {
+        result := ComCall(25, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

@@ -38,29 +38,23 @@ class ID3D12Device7 extends ID3D12Device6{
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pAddition 
      * @param {ID3D12StateObject} pStateObjectToGrowFrom 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppNewStateObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device7-addtostateobject
      */
-    AddToStateObject(pAddition, pStateObjectToGrowFrom, riid, ppNewStateObject) {
-        ppNewStateObjectMarshal := ppNewStateObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(66, this, "ptr", pAddition, "ptr", pStateObjectToGrowFrom, "ptr", riid, ppNewStateObjectMarshal, ppNewStateObject, "HRESULT")
-        return result
+    AddToStateObject(pAddition, pStateObjectToGrowFrom, riid) {
+        result := ComCall(66, this, "ptr", pAddition, "ptr", pStateObjectToGrowFrom, "ptr", riid, "ptr*", &ppNewStateObject := 0, "HRESULT")
+        return ppNewStateObject
     }
 
     /**
      * 
      * @param {Pointer<D3D12_PROTECTED_RESOURCE_SESSION_DESC1>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device7-createprotectedresourcesession1
      */
-    CreateProtectedResourceSession1(pDesc, riid, ppSession) {
-        ppSessionMarshal := ppSession is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(67, this, "ptr", pDesc, "ptr", riid, ppSessionMarshal, ppSession, "HRESULT")
-        return result
+    CreateProtectedResourceSession1(pDesc, riid) {
+        result := ComCall(67, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppSession := 0, "HRESULT")
+        return ppSession
     }
 }

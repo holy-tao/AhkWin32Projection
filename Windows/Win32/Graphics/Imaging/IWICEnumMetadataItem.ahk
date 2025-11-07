@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICEnumMetadataItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,15 +37,12 @@ class IWICEnumMetadataItem extends IUnknown{
      * @param {Pointer<PROPVARIANT>} rgeltSchema 
      * @param {Pointer<PROPVARIANT>} rgeltId 
      * @param {Pointer<PROPVARIANT>} rgeltValue 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-next
      */
-    Next(celt, rgeltSchema, rgeltId, rgeltValue, pceltFetched) {
-        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", celt, "ptr", rgeltSchema, "ptr", rgeltId, "ptr", rgeltValue, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+    Next(celt, rgeltSchema, rgeltId, rgeltValue) {
+        result := ComCall(3, this, "uint", celt, "ptr", rgeltSchema, "ptr", rgeltId, "ptr", rgeltValue, "uint*", &pceltFetched := 0, "HRESULT")
+        return pceltFetched
     }
 
     /**
@@ -70,12 +68,11 @@ class IWICEnumMetadataItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWICEnumMetadataItem>} ppIEnumMetadataItem 
-     * @returns {HRESULT} 
+     * @returns {IWICEnumMetadataItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-clone
      */
-    Clone(ppIEnumMetadataItem) {
-        result := ComCall(6, this, "ptr*", ppIEnumMetadataItem, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppIEnumMetadataItem := 0, "HRESULT")
+        return IWICEnumMetadataItem(ppIEnumMetadataItem)
     }
 }

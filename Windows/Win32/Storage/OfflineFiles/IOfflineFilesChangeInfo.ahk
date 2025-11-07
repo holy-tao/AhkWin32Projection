@@ -32,67 +32,61 @@ class IOfflineFilesChangeInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbDirty 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileschangeinfo-isdirty
      */
-    IsDirty(pbDirty) {
-        result := ComCall(3, this, "ptr", pbDirty, "int")
-        return result
+    IsDirty() {
+        result := ComCall(3, this, "int*", &pbDirty := 0, "int")
+        return pbDirty
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbDeletedOffline 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileschangeinfo-isdeletedoffline
      */
-    IsDeletedOffline(pbDeletedOffline) {
-        result := ComCall(4, this, "ptr", pbDeletedOffline, "HRESULT")
-        return result
+    IsDeletedOffline() {
+        result := ComCall(4, this, "int*", &pbDeletedOffline := 0, "HRESULT")
+        return pbDeletedOffline
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbCreatedOffline 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileschangeinfo-iscreatedoffline
      */
-    IsCreatedOffline(pbCreatedOffline) {
-        result := ComCall(5, this, "ptr", pbCreatedOffline, "HRESULT")
-        return result
+    IsCreatedOffline() {
+        result := ComCall(5, this, "int*", &pbCreatedOffline := 0, "HRESULT")
+        return pbCreatedOffline
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbLocallyModifiedData 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileschangeinfo-islocallymodifieddata
      */
-    IsLocallyModifiedData(pbLocallyModifiedData) {
-        result := ComCall(6, this, "ptr", pbLocallyModifiedData, "HRESULT")
-        return result
+    IsLocallyModifiedData() {
+        result := ComCall(6, this, "int*", &pbLocallyModifiedData := 0, "HRESULT")
+        return pbLocallyModifiedData
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbLocallyModifiedAttributes 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileschangeinfo-islocallymodifiedattributes
      */
-    IsLocallyModifiedAttributes(pbLocallyModifiedAttributes) {
-        result := ComCall(7, this, "ptr", pbLocallyModifiedAttributes, "HRESULT")
-        return result
+    IsLocallyModifiedAttributes() {
+        result := ComCall(7, this, "int*", &pbLocallyModifiedAttributes := 0, "HRESULT")
+        return pbLocallyModifiedAttributes
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbLocallyModifiedTime 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileschangeinfo-islocallymodifiedtime
      */
-    IsLocallyModifiedTime(pbLocallyModifiedTime) {
-        result := ComCall(8, this, "ptr", pbLocallyModifiedTime, "HRESULT")
-        return result
+    IsLocallyModifiedTime() {
+        result := ComCall(8, this, "int*", &pbLocallyModifiedTime := 0, "HRESULT")
+        return pbLocallyModifiedTime
     }
 }

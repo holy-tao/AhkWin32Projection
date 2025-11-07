@@ -31,13 +31,10 @@ class IGetDispenser extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} iid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetDispenser(iid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", iid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    GetDispenser(iid) {
+        result := ComCall(3, this, "ptr", iid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 }

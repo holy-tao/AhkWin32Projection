@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IContactAggregationAggregate.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,46 +31,40 @@ class IContactAggregationAggregateCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IContactAggregationAggregate>} ppAggregate 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationAggregate} 
      */
-    FindFirst(ppAggregate) {
-        result := ComCall(3, this, "ptr*", ppAggregate, "HRESULT")
-        return result
+    FindFirst() {
+        result := ComCall(3, this, "ptr*", &ppAggregate := 0, "HRESULT")
+        return IContactAggregationAggregate(ppAggregate)
     }
 
     /**
      * 
      * @param {PWSTR} pAntiLinkId 
-     * @param {Pointer<IContactAggregationAggregate>} ppAggregate 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationAggregate} 
      */
-    FindFirstByAntiLinkId(pAntiLinkId, ppAggregate) {
+    FindFirstByAntiLinkId(pAntiLinkId) {
         pAntiLinkId := pAntiLinkId is String ? StrPtr(pAntiLinkId) : pAntiLinkId
 
-        result := ComCall(4, this, "ptr", pAntiLinkId, "ptr*", ppAggregate, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pAntiLinkId, "ptr*", &ppAggregate := 0, "HRESULT")
+        return IContactAggregationAggregate(ppAggregate)
     }
 
     /**
      * 
-     * @param {Pointer<IContactAggregationAggregate>} ppAggregate 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationAggregate} 
      */
-    FindNext(ppAggregate) {
-        result := ComCall(5, this, "ptr*", ppAggregate, "HRESULT")
-        return result
+    FindNext() {
+        result := ComCall(5, this, "ptr*", &ppAggregate := 0, "HRESULT")
+        return IContactAggregationAggregate(ppAggregate)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(6, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 }

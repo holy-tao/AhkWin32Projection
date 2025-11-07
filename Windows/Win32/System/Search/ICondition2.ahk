@@ -37,13 +37,12 @@ class ICondition2 extends ICondition{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszLocaleName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition2-getlocale
      */
-    GetLocale(ppszLocaleName) {
-        result := ComCall(15, this, "ptr", ppszLocaleName, "HRESULT")
-        return result
+    GetLocale() {
+        result := ComCall(15, this, "ptr*", &ppszLocaleName := 0, "HRESULT")
+        return ppszLocaleName
     }
 
     /**

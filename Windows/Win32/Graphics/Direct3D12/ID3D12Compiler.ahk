@@ -46,14 +46,11 @@ class ID3D12Compiler extends ID3D12CompilerFactoryChild{
      * @param {Integer} GroupVersion 
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppCompilerStateObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CompileStateObject(pGroupKey, GroupVersion, pDesc, riid, ppCompilerStateObject) {
-        ppCompilerStateObjectMarshal := ppCompilerStateObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pDesc, "ptr", riid, ppCompilerStateObjectMarshal, ppCompilerStateObject, "HRESULT")
-        return result
+    CompileStateObject(pGroupKey, GroupVersion, pDesc, riid) {
+        result := ComCall(5, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pDesc, "ptr", riid, "ptr*", &ppCompilerStateObject := 0, "HRESULT")
+        return ppCompilerStateObject
     }
 
     /**
@@ -63,26 +60,20 @@ class ID3D12Compiler extends ID3D12CompilerFactoryChild{
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pAddition 
      * @param {ID3D12CompilerStateObject} pCompilerStateObjectToGrowFrom 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppNewCompilerStateObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CompileAddToStateObject(pGroupKey, GroupVersion, pAddition, pCompilerStateObjectToGrowFrom, riid, ppNewCompilerStateObject) {
-        ppNewCompilerStateObjectMarshal := ppNewCompilerStateObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pAddition, "ptr", pCompilerStateObjectToGrowFrom, "ptr", riid, ppNewCompilerStateObjectMarshal, ppNewCompilerStateObject, "HRESULT")
-        return result
+    CompileAddToStateObject(pGroupKey, GroupVersion, pAddition, pCompilerStateObjectToGrowFrom, riid) {
+        result := ComCall(6, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pAddition, "ptr", pCompilerStateObjectToGrowFrom, "ptr", riid, "ptr*", &ppNewCompilerStateObject := 0, "HRESULT")
+        return ppNewCompilerStateObject
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppCompilerCacheSession 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetCacheSession(riid, ppCompilerCacheSession) {
-        ppCompilerCacheSessionMarshal := ppCompilerCacheSession is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", riid, ppCompilerCacheSessionMarshal, ppCompilerCacheSession, "HRESULT")
-        return result
+    GetCacheSession(riid) {
+        result := ComCall(7, this, "ptr", riid, "ptr*", &ppCompilerCacheSession := 0, "HRESULT")
+        return ppCompilerCacheSession
     }
 }

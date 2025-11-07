@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,14 +41,11 @@ class IBanneredBar extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} piIcon 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetIconSize(piIcon) {
-        piIconMarshal := piIcon is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, piIconMarshal, piIcon, "HRESULT")
-        return result
+    GetIconSize() {
+        result := ComCall(4, this, "uint*", &piIcon := 0, "HRESULT")
+        return piIcon
     }
 
     /**
@@ -64,11 +62,11 @@ class IBanneredBar extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HBITMAP>} phBitmap 
-     * @returns {HRESULT} 
+     * @returns {HBITMAP} 
      */
-    GetBitmap(phBitmap) {
+    GetBitmap() {
+        phBitmap := HBITMAP()
         result := ComCall(6, this, "ptr", phBitmap, "HRESULT")
-        return result
+        return phBitmap
     }
 }

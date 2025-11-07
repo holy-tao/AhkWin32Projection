@@ -32,13 +32,12 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnableContentCaching 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getenablecontentcaching
      */
-    GetEnableContentCaching(pfEnableContentCaching) {
-        result := ComCall(36, this, "ptr", pfEnableContentCaching, "HRESULT")
-        return result
+    GetEnableContentCaching() {
+        result := ComCall(36, this, "int*", &pfEnableContentCaching := 0, "HRESULT")
+        return pfEnableContentCaching
     }
 
     /**
@@ -54,13 +53,12 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnableFastCache 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getenablefastcache
      */
-    GetEnableFastCache(pfEnableFastCache) {
-        result := ComCall(38, this, "ptr", pfEnableFastCache, "HRESULT")
-        return result
+    GetEnableFastCache() {
+        result := ComCall(38, this, "int*", &pfEnableFastCache := 0, "HRESULT")
+        return pfEnableFastCache
     }
 
     /**
@@ -76,15 +74,12 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcnsAccelDuration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getacceleratedstreamingduration
      */
-    GetAcceleratedStreamingDuration(pcnsAccelDuration) {
-        pcnsAccelDurationMarshal := pcnsAccelDuration is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(40, this, pcnsAccelDurationMarshal, pcnsAccelDuration, "HRESULT")
-        return result
+    GetAcceleratedStreamingDuration() {
+        result := ComCall(40, this, "uint*", &pcnsAccelDuration := 0, "HRESULT")
+        return pcnsAccelDuration
     }
 
     /**
@@ -100,15 +95,12 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwAutoReconnectLimit 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getautoreconnectlimit
      */
-    GetAutoReconnectLimit(pdwAutoReconnectLimit) {
-        pdwAutoReconnectLimitMarshal := pdwAutoReconnectLimit is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(42, this, pdwAutoReconnectLimitMarshal, pdwAutoReconnectLimit, "HRESULT")
-        return result
+    GetAutoReconnectLimit() {
+        result := ComCall(42, this, "uint*", &pdwAutoReconnectLimit := 0, "HRESULT")
+        return pdwAutoReconnectLimit
     }
 
     /**
@@ -124,13 +116,12 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnableResends 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getenableresends
      */
-    GetEnableResends(pfEnableResends) {
-        result := ComCall(44, this, "ptr", pfEnableResends, "HRESULT")
-        return result
+    GetEnableResends() {
+        result := ComCall(44, this, "int*", &pfEnableResends := 0, "HRESULT")
+        return pfEnableResends
     }
 
     /**
@@ -146,13 +137,12 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnableThinning 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getenablethinning
      */
-    GetEnableThinning(pfEnableThinning) {
-        result := ComCall(46, this, "ptr", pfEnableThinning, "HRESULT")
-        return result
+    GetEnableThinning() {
+        result := ComCall(46, this, "int*", &pfEnableThinning := 0, "HRESULT")
+        return pfEnableThinning
     }
 
     /**
@@ -168,14 +158,11 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMaxNetPacketSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getmaxnetpacketsize
      */
-    GetMaxNetPacketSize(pdwMaxNetPacketSize) {
-        pdwMaxNetPacketSizeMarshal := pdwMaxNetPacketSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(48, this, pdwMaxNetPacketSizeMarshal, pdwMaxNetPacketSize, "HRESULT")
-        return result
+    GetMaxNetPacketSize() {
+        result := ComCall(48, this, "uint*", &pdwMaxNetPacketSize := 0, "HRESULT")
+        return pdwMaxNetPacketSize
     }
 }

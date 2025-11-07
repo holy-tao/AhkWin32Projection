@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITsSbTarget.ahk
+#Include .\ITsSbSession.ahk
+#Include .\ITsSbEnvironment.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -35,31 +38,29 @@ class ITsSbResourcePluginStore extends IUnknown{
      * 
      * @param {BSTR} TargetName 
      * @param {BSTR} FarmName 
-     * @param {Pointer<ITsSbTarget>} ppTarget 
-     * @returns {HRESULT} 
+     * @returns {ITsSbTarget} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-querytarget
      */
-    QueryTarget(TargetName, FarmName, ppTarget) {
+    QueryTarget(TargetName, FarmName) {
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
         FarmName := FarmName is String ? BSTR.Alloc(FarmName).Value : FarmName
 
-        result := ComCall(3, this, "ptr", TargetName, "ptr", FarmName, "ptr*", ppTarget, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", TargetName, "ptr", FarmName, "ptr*", &ppTarget := 0, "HRESULT")
+        return ITsSbTarget(ppTarget)
     }
 
     /**
      * 
      * @param {Integer} dwSessionId 
      * @param {BSTR} TargetName 
-     * @param {Pointer<ITsSbSession>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {ITsSbSession} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-querysessionbysessionid
      */
-    QuerySessionBySessionId(dwSessionId, TargetName, ppSession) {
+    QuerySessionBySessionId(dwSessionId, TargetName) {
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
 
-        result := ComCall(4, this, "uint", dwSessionId, "ptr", TargetName, "ptr*", ppSession, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", dwSessionId, "ptr", TargetName, "ptr*", &ppSession := 0, "HRESULT")
+        return ITsSbSession(ppSession)
     }
 
     /**
@@ -127,30 +128,27 @@ class ITsSbResourcePluginStore extends IUnknown{
     /**
      * 
      * @param {BSTR} EnvironmentName 
-     * @param {Pointer<ITsSbEnvironment>} ppEnvironment 
-     * @returns {HRESULT} 
+     * @returns {ITsSbEnvironment} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-queryenvironment
      */
-    QueryEnvironment(EnvironmentName, ppEnvironment) {
+    QueryEnvironment(EnvironmentName) {
         EnvironmentName := EnvironmentName is String ? BSTR.Alloc(EnvironmentName).Value : EnvironmentName
 
-        result := ComCall(10, this, "ptr", EnvironmentName, "ptr*", ppEnvironment, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", EnvironmentName, "ptr*", &ppEnvironment := 0, "HRESULT")
+        return ITsSbEnvironment(ppEnvironment)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pdwCount 
-     * @param {Pointer<Pointer<ITsSbEnvironment>>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITsSbEnvironment>} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-enumerateenvironments
      */
-    EnumerateEnvironments(pdwCount, pVal) {
+    EnumerateEnvironments(pdwCount) {
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, pdwCountMarshal, pdwCount, pValMarshal, pVal, "HRESULT")
-        return result
+        result := ComCall(11, this, pdwCountMarshal, pdwCount, "ptr*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -224,17 +222,14 @@ class ITsSbResourcePluginStore extends IUnknown{
      * 
      * @param {BSTR} targetName 
      * @param {Integer} newState 
-     * @param {Pointer<Integer>} pOldState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-settargetstate
      */
-    SetTargetState(targetName, newState, pOldState) {
+    SetTargetState(targetName, newState) {
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
 
-        pOldStateMarshal := pOldState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, "ptr", targetName, "int", newState, pOldStateMarshal, pOldState, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", targetName, "int", newState, "int*", &pOldState := 0, "HRESULT")
+        return pOldState
     }
 
     /**
@@ -255,20 +250,18 @@ class ITsSbResourcePluginStore extends IUnknown{
      * @param {Integer} sortByFieldId 
      * @param {BSTR} sortyByPropName 
      * @param {Pointer<Integer>} pdwCount 
-     * @param {Pointer<Pointer<ITsSbTarget>>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITsSbTarget>} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-enumeratetargets
      */
-    EnumerateTargets(FarmName, EnvName, sortByFieldId, sortyByPropName, pdwCount, pVal) {
+    EnumerateTargets(FarmName, EnvName, sortByFieldId, sortyByPropName, pdwCount) {
         FarmName := FarmName is String ? BSTR.Alloc(FarmName).Value : FarmName
         EnvName := EnvName is String ? BSTR.Alloc(EnvName).Value : EnvName
         sortyByPropName := sortyByPropName is String ? BSTR.Alloc(sortyByPropName).Value : sortyByPropName
 
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, "ptr", FarmName, "ptr", EnvName, "int", sortByFieldId, "ptr", sortyByPropName, pdwCountMarshal, pdwCount, pValMarshal, pVal, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", FarmName, "ptr", EnvName, "int", sortByFieldId, "ptr", sortyByPropName, pdwCountMarshal, pdwCount, "ptr*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -280,11 +273,10 @@ class ITsSbResourcePluginStore extends IUnknown{
      * @param {BSTR} initialProgram 
      * @param {Pointer<Integer>} pSessionState 
      * @param {Pointer<Integer>} pdwCount 
-     * @param {Pointer<Pointer<ITsSbSession>>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITsSbSession>} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-enumeratesessions
      */
-    EnumerateSessions(targetName, userName, userDomain, poolName, initialProgram, pSessionState, pdwCount, ppVal) {
+    EnumerateSessions(targetName, userName, userDomain, poolName, initialProgram, pSessionState, pdwCount) {
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
         userName := userName is String ? BSTR.Alloc(userName).Value : userName
         userDomain := userDomain is String ? BSTR.Alloc(userDomain).Value : userDomain
@@ -293,10 +285,9 @@ class ITsSbResourcePluginStore extends IUnknown{
 
         pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-        ppValMarshal := ppVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(20, this, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, ppValMarshal, ppVal, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, "ptr*", &ppVal := 0, "HRESULT")
+        return ppVal
     }
 
     /**
@@ -364,15 +355,14 @@ class ITsSbResourcePluginStore extends IUnknown{
      * 
      * @param {BSTR} targetName 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<IUnknown>} ppContext 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-acquiretargetlock
      */
-    AcquireTargetLock(targetName, dwTimeout, ppContext) {
+    AcquireTargetLock(targetName, dwTimeout) {
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
 
-        result := ComCall(25, this, "ptr", targetName, "uint", dwTimeout, "ptr*", ppContext, "HRESULT")
-        return result
+        result := ComCall(25, this, "ptr", targetName, "uint", dwTimeout, "ptr*", &ppContext := 0, "HRESULT")
+        return IUnknown(ppContext)
     }
 
     /**
@@ -392,18 +382,15 @@ class ITsSbResourcePluginStore extends IUnknown{
      * @param {BSTR} ServerFQDN 
      * @param {Integer} NewState 
      * @param {Integer} TestState 
-     * @param {Pointer<Integer>} pInitState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-testandsetserverstate
      */
-    TestAndSetServerState(PoolName, ServerFQDN, NewState, TestState, pInitState) {
+    TestAndSetServerState(PoolName, ServerFQDN, NewState, TestState) {
         PoolName := PoolName is String ? BSTR.Alloc(PoolName).Value : PoolName
         ServerFQDN := ServerFQDN is String ? BSTR.Alloc(ServerFQDN).Value : ServerFQDN
 
-        pInitStateMarshal := pInitState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, "ptr", PoolName, "ptr", ServerFQDN, "int", NewState, "int", TestState, pInitStateMarshal, pInitState, "HRESULT")
-        return result
+        result := ComCall(27, this, "ptr", PoolName, "ptr", ServerFQDN, "int", NewState, "int", TestState, "int*", &pInitState := 0, "HRESULT")
+        return pInitState
     }
 
     /**
@@ -425,18 +412,15 @@ class ITsSbResourcePluginStore extends IUnknown{
      * 
      * @param {BSTR} PoolName 
      * @param {BSTR} ServerFQDN 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-getserverstate
      */
-    GetServerState(PoolName, ServerFQDN, pState) {
+    GetServerState(PoolName, ServerFQDN) {
         PoolName := PoolName is String ? BSTR.Alloc(PoolName).Value : PoolName
         ServerFQDN := ServerFQDN is String ? BSTR.Alloc(ServerFQDN).Value : ServerFQDN
 
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, "ptr", PoolName, "ptr", ServerFQDN, pStateMarshal, pState, "HRESULT")
-        return result
+        result := ComCall(29, this, "ptr", PoolName, "ptr", ServerFQDN, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**

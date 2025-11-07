@@ -31,13 +31,10 @@ class IDebugHostType5 extends IDebugHostType4{
     /**
      * 
      * @param {IDebugHostType} pOtherType 
-     * @param {Pointer<Boolean>} pIsBase 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    IsBaseTypeOf(pOtherType, pIsBase) {
-        pIsBaseMarshal := pIsBase is VarRef ? "int*" : "ptr"
-
-        result := ComCall(38, this, "ptr", pOtherType, pIsBaseMarshal, pIsBase, "HRESULT")
-        return result
+    IsBaseTypeOf(pOtherType) {
+        result := ComCall(38, this, "ptr", pOtherType, "int*", &pIsBase := 0, "HRESULT")
+        return pIsBase
     }
 }

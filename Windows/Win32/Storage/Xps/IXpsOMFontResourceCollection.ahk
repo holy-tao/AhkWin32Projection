@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMFontResource.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,27 +38,23 @@ class IXpsOMFontResourceCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-getcount
      */
-    GetCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, countMarshal, count, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IXpsOMFontResource>} value 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMFontResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-getat
      */
-    GetAt(index, value) {
-        result := ComCall(4, this, "uint", index, "ptr*", value, "HRESULT")
-        return result
+    GetAt(index) {
+        result := ComCall(4, this, "uint", index, "ptr*", &value := 0, "HRESULT")
+        return IXpsOMFontResource(value)
     }
 
     /**
@@ -109,12 +106,11 @@ class IXpsOMFontResourceCollection extends IUnknown{
     /**
      * 
      * @param {IOpcPartUri} partName 
-     * @param {Pointer<IXpsOMFontResource>} part 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMFontResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-getbypartname
      */
-    GetByPartName(partName, part) {
-        result := ComCall(9, this, "ptr", partName, "ptr*", part, "HRESULT")
-        return result
+    GetByPartName(partName) {
+        result := ComCall(9, this, "ptr", partName, "ptr*", &part := 0, "HRESULT")
+        return IXpsOMFontResource(part)
     }
 }

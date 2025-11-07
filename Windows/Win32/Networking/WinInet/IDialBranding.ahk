@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,11 +55,11 @@ class IDialBranding extends IUnknown{
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<HBITMAP>} phBitmap 
-     * @returns {HRESULT} 
+     * @returns {HBITMAP} 
      */
-    GetBitmap(dwIndex, phBitmap) {
+    GetBitmap(dwIndex) {
+        phBitmap := HBITMAP()
         result := ComCall(4, this, "uint", dwIndex, "ptr", phBitmap, "HRESULT")
-        return result
+        return phBitmap
     }
 }

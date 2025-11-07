@@ -53,12 +53,11 @@ class ICertPropertyArchived extends ICertProperty{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyarchived-get_archived
      */
-    get_Archived(pValue) {
-        result := ComCall(15, this, "ptr", pValue, "HRESULT")
-        return result
+    get_Archived() {
+        result := ComCall(15, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 }

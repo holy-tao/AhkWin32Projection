@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IXpsOMShareable.ahk
+#Include .\IXpsOMDictionary.ahk
 
 /**
  * The dictionary is used by an XPS package to share resources.
@@ -39,68 +41,61 @@ class IXpsOMDictionary extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} owner 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getowner
      */
-    GetOwner(owner) {
-        result := ComCall(3, this, "ptr*", owner, "HRESULT")
-        return result
+    GetOwner() {
+        result := ComCall(3, this, "ptr*", &owner := 0, "HRESULT")
+        return IUnknown(owner)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getcount
      */
-    GetCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, countMarshal, count, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(4, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} index 
      * @param {Pointer<PWSTR>} key 
-     * @param {Pointer<IXpsOMShareable>} entry 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMShareable} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getat
      */
-    GetAt(index, key, entry) {
-        result := ComCall(5, this, "uint", index, "ptr", key, "ptr*", entry, "HRESULT")
-        return result
+    GetAt(index, key) {
+        keyMarshal := key is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "uint", index, keyMarshal, key, "ptr*", &entry := 0, "HRESULT")
+        return IXpsOMShareable(entry)
     }
 
     /**
      * 
      * @param {PWSTR} key 
      * @param {IXpsOMShareable} beforeEntry 
-     * @param {Pointer<IXpsOMShareable>} entry 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMShareable} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getbykey
      */
-    GetByKey(key, beforeEntry, entry) {
+    GetByKey(key, beforeEntry) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(6, this, "ptr", key, "ptr", beforeEntry, "ptr*", entry, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", key, "ptr", beforeEntry, "ptr*", &entry := 0, "HRESULT")
+        return IXpsOMShareable(entry)
     }
 
     /**
      * 
      * @param {IXpsOMShareable} entry 
-     * @param {Pointer<Integer>} index 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getindex
      */
-    GetIndex(entry, index) {
-        indexMarshal := index is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", entry, indexMarshal, index, "HRESULT")
-        return result
+    GetIndex(entry) {
+        result := ComCall(7, this, "ptr", entry, "uint*", &index := 0, "HRESULT")
+        return index
     }
 
     /**
@@ -160,12 +155,11 @@ class IXpsOMDictionary extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMDictionary>} dictionary 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDictionary} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-clone
      */
-    Clone(dictionary) {
-        result := ComCall(12, this, "ptr*", dictionary, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(12, this, "ptr*", &dictionary := 0, "HRESULT")
+        return IXpsOMDictionary(dictionary)
     }
 }

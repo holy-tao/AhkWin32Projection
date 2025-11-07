@@ -53,7 +53,10 @@ class IBackgroundCopyJob2 extends IBackgroundCopyJob{
      * @see https://learn.microsoft.com/windows/win32/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-getnotifycmdline
      */
     GetNotifyCmdLine(pProgram, pParameters) {
-        result := ComCall(36, this, "ptr", pProgram, "ptr", pParameters, "HRESULT")
+        pProgramMarshal := pProgram is VarRef ? "ptr*" : "ptr"
+        pParametersMarshal := pParameters is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(36, this, pProgramMarshal, pProgram, pParametersMarshal, pParameters, "HRESULT")
         return result
     }
 
@@ -70,17 +73,15 @@ class IBackgroundCopyJob2 extends IBackgroundCopyJob{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppBuffer 
      * @param {Pointer<Integer>} pLength 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-getreplydata
      */
-    GetReplyData(ppBuffer, pLength) {
-        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
+    GetReplyData(pLength) {
         pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(38, this, ppBufferMarshal, ppBuffer, pLengthMarshal, pLength, "HRESULT")
-        return result
+        result := ComCall(38, this, "ptr*", &ppBuffer := 0, pLengthMarshal, pLength, "HRESULT")
+        return ppBuffer
     }
 
     /**
@@ -98,13 +99,12 @@ class IBackgroundCopyJob2 extends IBackgroundCopyJob{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pReplyFileName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-getreplyfilename
      */
-    GetReplyFileName(pReplyFileName) {
-        result := ComCall(40, this, "ptr", pReplyFileName, "HRESULT")
-        return result
+    GetReplyFileName() {
+        result := ComCall(40, this, "ptr*", &pReplyFileName := 0, "HRESULT")
+        return pReplyFileName
     }
 
     /**

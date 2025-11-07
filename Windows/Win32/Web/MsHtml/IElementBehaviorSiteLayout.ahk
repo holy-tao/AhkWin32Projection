@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,11 +49,11 @@ class IElementBehaviorSiteLayout extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SIZE>} psizeResolution 
-     * @returns {HRESULT} 
+     * @returns {SIZE} 
      */
-    GetMediaResolution(psizeResolution) {
+    GetMediaResolution() {
+        psizeResolution := SIZE()
         result := ComCall(5, this, "ptr", psizeResolution, "HRESULT")
-        return result
+        return psizeResolution
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Storage\IndexServer\IFilter.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -40,15 +41,14 @@ class IProtocolHandlerSite extends IUnknown{
      * @param {Pointer<Guid>} pclsidObj 
      * @param {PWSTR} pcwszContentType 
      * @param {PWSTR} pcwszExtension 
-     * @param {Pointer<IFilter>} ppFilter 
-     * @returns {HRESULT} 
+     * @returns {IFilter} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iprotocolhandlersite-getfilter
      */
-    GetFilter(pclsidObj, pcwszContentType, pcwszExtension, ppFilter) {
+    GetFilter(pclsidObj, pcwszContentType, pcwszExtension) {
         pcwszContentType := pcwszContentType is String ? StrPtr(pcwszContentType) : pcwszContentType
         pcwszExtension := pcwszExtension is String ? StrPtr(pcwszExtension) : pcwszExtension
 
-        result := ComCall(3, this, "ptr", pclsidObj, "ptr", pcwszContentType, "ptr", pcwszExtension, "ptr*", ppFilter, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pclsidObj, "ptr", pcwszContentType, "ptr", pcwszExtension, "ptr*", &ppFilter := 0, "HRESULT")
+        return IFilter(ppFilter)
     }
 }

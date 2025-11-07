@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\IObjectWithPropertyKey.ahk
 
 /**
@@ -33,12 +34,12 @@ class IPropertyChange extends IObjectWithPropertyKey{
     /**
      * 
      * @param {Pointer<PROPVARIANT>} propvarIn 
-     * @param {Pointer<PROPVARIANT>} ppropvarOut 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertychange-applytopropvariant
      */
-    ApplyToPropVariant(propvarIn, ppropvarOut) {
+    ApplyToPropVariant(propvarIn) {
+        ppropvarOut := PROPVARIANT()
         result := ComCall(5, this, "ptr", propvarIn, "ptr", ppropvarOut, "HRESULT")
-        return result
+        return ppropvarOut
     }
 }

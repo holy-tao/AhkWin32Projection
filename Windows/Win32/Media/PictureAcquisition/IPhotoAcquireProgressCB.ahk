@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IPhotoAcquireProgressCB extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCancelled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-cancelled
      */
-    Cancelled(pfCancelled) {
-        result := ComCall(3, this, "ptr", pfCancelled, "HRESULT")
-        return result
+    Cancelled() {
+        result := ComCall(3, this, "int*", &pfCancelled := 0, "HRESULT")
+        return pfCancelled
     }
 
     /**
@@ -217,13 +217,12 @@ class IPhotoAcquireProgressCB extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfDeleteAfterAcquire 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-getdeleteafteracquire
      */
-    GetDeleteAfterAcquire(pfDeleteAfterAcquire) {
-        result := ComCall(19, this, "ptr", pfDeleteAfterAcquire, "HRESULT")
-        return result
+    GetDeleteAfterAcquire() {
+        result := ComCall(19, this, "int*", &pfDeleteAfterAcquire := 0, "HRESULT")
+        return pfDeleteAfterAcquire
     }
 
     /**
@@ -231,30 +230,27 @@ class IPhotoAcquireProgressCB extends IUnknown{
      * @param {HRESULT} hr 
      * @param {PWSTR} pszErrorMessage 
      * @param {Integer} nMessageType 
-     * @param {Pointer<Integer>} pnErrorAdviseResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-erroradvise
      */
-    ErrorAdvise(hr, pszErrorMessage, nMessageType, pnErrorAdviseResult) {
+    ErrorAdvise(hr, pszErrorMessage, nMessageType) {
         pszErrorMessage := pszErrorMessage is String ? StrPtr(pszErrorMessage) : pszErrorMessage
 
-        pnErrorAdviseResultMarshal := pnErrorAdviseResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, "int", hr, "ptr", pszErrorMessage, "int", nMessageType, pnErrorAdviseResultMarshal, pnErrorAdviseResult, "HRESULT")
-        return result
+        result := ComCall(20, this, "int", hr, "ptr", pszErrorMessage, "int", nMessageType, "int*", &pnErrorAdviseResult := 0, "HRESULT")
+        return pnErrorAdviseResult
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riidType 
      * @param {IUnknown} pUnknown 
-     * @param {Pointer<PROPVARIANT>} pPropVarResult 
      * @param {Pointer<PROPVARIANT>} pPropVarDefault 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-getuserinput
      */
-    GetUserInput(riidType, pUnknown, pPropVarResult, pPropVarDefault) {
+    GetUserInput(riidType, pUnknown, pPropVarDefault) {
+        pPropVarResult := PROPVARIANT()
         result := ComCall(21, this, "ptr", riidType, "ptr", pUnknown, "ptr", pPropVarResult, "ptr", pPropVarDefault, "HRESULT")
-        return result
+        return pPropVarResult
     }
 }

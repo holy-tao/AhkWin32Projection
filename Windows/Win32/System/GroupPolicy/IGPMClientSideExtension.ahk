@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,43 +39,41 @@ class IGPMClientSideExtension extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ID(pVal) {
+    get_ID() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DisplayName(pVal) {
+    get_DisplayName() {
+        pVal := BSTR()
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pvbEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmclientsideextension-isuserenabled
      */
-    IsUserEnabled(pvbEnabled) {
-        result := ComCall(9, this, "ptr", pvbEnabled, "HRESULT")
-        return result
+    IsUserEnabled() {
+        result := ComCall(9, this, "short*", &pvbEnabled := 0, "HRESULT")
+        return pvbEnabled
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pvbEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmclientsideextension-iscomputerenabled
      */
-    IsComputerEnabled(pvbEnabled) {
-        result := ComCall(10, this, "ptr", pvbEnabled, "HRESULT")
-        return result
+    IsComputerEnabled() {
+        result := ComCall(10, this, "short*", &pvbEnabled := 0, "HRESULT")
+        return pvbEnabled
     }
 }

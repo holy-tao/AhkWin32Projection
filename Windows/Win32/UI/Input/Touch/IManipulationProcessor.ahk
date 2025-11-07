@@ -38,15 +38,12 @@ class IManipulationProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} manipulations 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-get_supportedmanipulations
      */
-    get_SupportedManipulations(manipulations) {
-        manipulationsMarshal := manipulations is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, manipulationsMarshal, manipulations, "HRESULT")
-        return result
+    get_SupportedManipulations() {
+        result := ComCall(3, this, "int*", &manipulations := 0, "HRESULT")
+        return manipulations
     }
 
     /**
@@ -62,15 +59,12 @@ class IManipulationProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pivotPointX 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-get_pivotpointx
      */
-    get_PivotPointX(pivotPointX) {
-        pivotPointXMarshal := pivotPointX is VarRef ? "float*" : "ptr"
-
-        result := ComCall(5, this, pivotPointXMarshal, pivotPointX, "HRESULT")
-        return result
+    get_PivotPointX() {
+        result := ComCall(5, this, "float*", &pivotPointX := 0, "HRESULT")
+        return pivotPointX
     }
 
     /**
@@ -86,15 +80,12 @@ class IManipulationProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pivotPointY 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-get_pivotpointy
      */
-    get_PivotPointY(pivotPointY) {
-        pivotPointYMarshal := pivotPointY is VarRef ? "float*" : "ptr"
-
-        result := ComCall(7, this, pivotPointYMarshal, pivotPointY, "HRESULT")
-        return result
+    get_PivotPointY() {
+        result := ComCall(7, this, "float*", &pivotPointY := 0, "HRESULT")
+        return pivotPointY
     }
 
     /**
@@ -110,15 +101,12 @@ class IManipulationProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pivotRadius 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-get_pivotradius
      */
-    get_PivotRadius(pivotRadius) {
-        pivotRadiusMarshal := pivotRadius is VarRef ? "float*" : "ptr"
-
-        result := ComCall(9, this, pivotRadiusMarshal, pivotRadius, "HRESULT")
-        return result
+    get_PivotRadius() {
+        result := ComCall(9, this, "float*", &pivotRadius := 0, "HRESULT")
+        return pivotRadius
     }
 
     /**
@@ -225,67 +213,52 @@ class IManipulationProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} velocityX 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-getvelocityx
      */
-    GetVelocityX(velocityX) {
-        velocityXMarshal := velocityX is VarRef ? "float*" : "ptr"
-
-        result := ComCall(18, this, velocityXMarshal, velocityX, "HRESULT")
-        return result
+    GetVelocityX() {
+        result := ComCall(18, this, "float*", &velocityX := 0, "HRESULT")
+        return velocityX
     }
 
     /**
      * 
-     * @param {Pointer<Float>} velocityY 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-getvelocityy
      */
-    GetVelocityY(velocityY) {
-        velocityYMarshal := velocityY is VarRef ? "float*" : "ptr"
-
-        result := ComCall(19, this, velocityYMarshal, velocityY, "HRESULT")
-        return result
+    GetVelocityY() {
+        result := ComCall(19, this, "float*", &velocityY := 0, "HRESULT")
+        return velocityY
     }
 
     /**
      * 
-     * @param {Pointer<Float>} expansionVelocity 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-getexpansionvelocity
      */
-    GetExpansionVelocity(expansionVelocity) {
-        expansionVelocityMarshal := expansionVelocity is VarRef ? "float*" : "ptr"
-
-        result := ComCall(20, this, expansionVelocityMarshal, expansionVelocity, "HRESULT")
-        return result
+    GetExpansionVelocity() {
+        result := ComCall(20, this, "float*", &expansionVelocity := 0, "HRESULT")
+        return expansionVelocity
     }
 
     /**
      * 
-     * @param {Pointer<Float>} angularVelocity 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-getangularvelocity
      */
-    GetAngularVelocity(angularVelocity) {
-        angularVelocityMarshal := angularVelocity is VarRef ? "float*" : "ptr"
-
-        result := ComCall(21, this, angularVelocityMarshal, angularVelocity, "HRESULT")
-        return result
+    GetAngularVelocity() {
+        result := ComCall(21, this, "float*", &angularVelocity := 0, "HRESULT")
+        return angularVelocity
     }
 
     /**
      * 
-     * @param {Pointer<Float>} minRadius 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-get_minimumscalerotateradius
      */
-    get_MinimumScaleRotateRadius(minRadius) {
-        minRadiusMarshal := minRadius is VarRef ? "float*" : "ptr"
-
-        result := ComCall(22, this, minRadiusMarshal, minRadius, "HRESULT")
-        return result
+    get_MinimumScaleRotateRadius() {
+        result := ComCall(22, this, "float*", &minRadius := 0, "HRESULT")
+        return minRadius
     }
 
     /**

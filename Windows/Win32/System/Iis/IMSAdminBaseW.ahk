@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\METADATA_HANDLE_INFO.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\IMSAdminBaseW.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -249,17 +252,14 @@ class IMSAdminBaseW extends IUnknown{
      * @param {Integer} dwMDDataType 
      * @param {Integer} dwMDBufferSize 
      * @param {PWSTR} pszBuffer 
-     * @param {Pointer<Integer>} pdwMDRequiredBufferSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDataPaths(hMDHandle, pszMDPath, dwMDIdentifier, dwMDDataType, dwMDBufferSize, pszBuffer, pdwMDRequiredBufferSize) {
+    GetDataPaths(hMDHandle, pszMDPath, dwMDIdentifier, dwMDDataType, dwMDBufferSize, pszBuffer) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        pdwMDRequiredBufferSizeMarshal := pdwMDRequiredBufferSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDIdentifier, "uint", dwMDDataType, "uint", dwMDBufferSize, "ptr", pszBuffer, pdwMDRequiredBufferSizeMarshal, pdwMDRequiredBufferSize, "HRESULT")
-        return result
+        result := ComCall(16, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDIdentifier, "uint", dwMDDataType, "uint", dwMDBufferSize, "ptr", pszBuffer, "uint*", &pdwMDRequiredBufferSize := 0, "HRESULT")
+        return pdwMDRequiredBufferSize
     }
 
     /**
@@ -268,16 +268,13 @@ class IMSAdminBaseW extends IUnknown{
      * @param {PWSTR} pszMDPath 
      * @param {Integer} dwMDAccessRequested 
      * @param {Integer} dwMDTimeOut 
-     * @param {Pointer<Integer>} phMDNewHandle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    OpenKey(hMDHandle, pszMDPath, dwMDAccessRequested, dwMDTimeOut, phMDNewHandle) {
+    OpenKey(hMDHandle, pszMDPath, dwMDAccessRequested, dwMDTimeOut) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        phMDNewHandleMarshal := phMDNewHandle is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDAccessRequested, "uint", dwMDTimeOut, phMDNewHandleMarshal, phMDNewHandle, "HRESULT")
-        return result
+        result := ComCall(17, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDAccessRequested, "uint", dwMDTimeOut, "uint*", &phMDNewHandle := 0, "HRESULT")
+        return phMDNewHandle
     }
 
     /**
@@ -314,40 +311,34 @@ class IMSAdminBaseW extends IUnknown{
     /**
      * 
      * @param {Integer} hMDHandle 
-     * @param {Pointer<METADATA_HANDLE_INFO>} pmdhiInfo 
-     * @returns {HRESULT} 
+     * @returns {METADATA_HANDLE_INFO} 
      */
-    GetHandleInfo(hMDHandle, pmdhiInfo) {
+    GetHandleInfo(hMDHandle) {
+        pmdhiInfo := METADATA_HANDLE_INFO()
         result := ComCall(21, this, "uint", hMDHandle, "ptr", pmdhiInfo, "HRESULT")
-        return result
+        return pmdhiInfo
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwSystemChangeNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSystemChangeNumber(pdwSystemChangeNumber) {
-        pdwSystemChangeNumberMarshal := pdwSystemChangeNumber is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, pdwSystemChangeNumberMarshal, pdwSystemChangeNumber, "HRESULT")
-        return result
+    GetSystemChangeNumber() {
+        result := ComCall(22, this, "uint*", &pdwSystemChangeNumber := 0, "HRESULT")
+        return pdwSystemChangeNumber
     }
 
     /**
      * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
-     * @param {Pointer<Integer>} pdwMDDataSetNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDataSetNumber(hMDHandle, pszMDPath, pdwMDDataSetNumber) {
+    GetDataSetNumber(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        pdwMDDataSetNumberMarshal := pdwMDDataSetNumber is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(23, this, "uint", hMDHandle, "ptr", pszMDPath, pdwMDDataSetNumberMarshal, pdwMDDataSetNumber, "HRESULT")
-        return result
+        result := ComCall(23, this, "uint", hMDHandle, "ptr", pszMDPath, "uint*", &pdwMDDataSetNumber := 0, "HRESULT")
+        return pdwMDDataSetNumber
     }
 
     /**
@@ -369,15 +360,15 @@ class IMSAdminBaseW extends IUnknown{
      * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
-     * @param {Pointer<FILETIME>} pftMDLastChangeTime 
      * @param {BOOL} bLocalTime 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      */
-    GetLastChangeTime(hMDHandle, pszMDPath, pftMDLastChangeTime, bLocalTime) {
+    GetLastChangeTime(hMDHandle, pszMDPath, bLocalTime) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
+        pftMDLastChangeTime := FILETIME()
         result := ComCall(25, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pftMDLastChangeTime, "int", bLocalTime, "HRESULT")
-        return result
+        return pftMDLastChangeTime
     }
 
     /**
@@ -458,12 +449,11 @@ class IMSAdminBaseW extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMSAdminBaseW>} piadmbwInterface 
-     * @returns {HRESULT} 
+     * @returns {IMSAdminBaseW} 
      */
-    UnmarshalInterface(piadmbwInterface) {
-        result := ComCall(32, this, "ptr*", piadmbwInterface, "HRESULT")
-        return result
+    UnmarshalInterface() {
+        result := ComCall(32, this, "ptr*", &piadmbwInterface := 0, "HRESULT")
+        return IMSAdminBaseW(piadmbwInterface)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\Variant\VARIANT.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -33,13 +34,15 @@ class IPropertyBag2 extends IUnknown{
      * @param {Integer} cProperties 
      * @param {Pointer<PROPBAG2>} pPropBag 
      * @param {IErrorLog} pErrLog 
-     * @param {Pointer<VARIANT>} pvarValue 
      * @param {Pointer<HRESULT>} phrError 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    Read(cProperties, pPropBag, pErrLog, pvarValue, phrError) {
-        result := ComCall(3, this, "uint", cProperties, "ptr", pPropBag, "ptr", pErrLog, "ptr", pvarValue, "ptr", phrError, "HRESULT")
-        return result
+    Read(cProperties, pPropBag, pErrLog, phrError) {
+        phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
+
+        pvarValue := VARIANT()
+        result := ComCall(3, this, "uint", cProperties, "ptr", pPropBag, "ptr", pErrLog, "ptr", pvarValue, phrErrorMarshal, phrError, "HRESULT")
+        return pvarValue
     }
 
     /**
@@ -56,14 +59,11 @@ class IPropertyBag2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcProperties 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    CountProperties(pcProperties) {
-        pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pcPropertiesMarshal, pcProperties, "HRESULT")
-        return result
+    CountProperties() {
+        result := ComCall(5, this, "uint*", &pcProperties := 0, "HRESULT")
+        return pcProperties
     }
 
     /**

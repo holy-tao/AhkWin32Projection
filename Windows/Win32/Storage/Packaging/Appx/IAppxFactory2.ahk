@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxContentGroupMapReader.ahk
+#Include .\IAppxSourceContentGroupMapReader.ahk
+#Include .\IAppxContentGroupMapWriter.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,36 +36,33 @@ class IAppxFactory2 extends IUnknown{
     /**
      * 
      * @param {IStream} inputStream 
-     * @param {Pointer<IAppxContentGroupMapReader>} contentGroupMapReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxContentGroupMapReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory2-createcontentgroupmapreader
      */
-    CreateContentGroupMapReader(inputStream, contentGroupMapReader) {
-        result := ComCall(3, this, "ptr", inputStream, "ptr*", contentGroupMapReader, "HRESULT")
-        return result
+    CreateContentGroupMapReader(inputStream) {
+        result := ComCall(3, this, "ptr", inputStream, "ptr*", &contentGroupMapReader := 0, "HRESULT")
+        return IAppxContentGroupMapReader(contentGroupMapReader)
     }
 
     /**
      * 
      * @param {IStream} inputStream 
-     * @param {Pointer<IAppxSourceContentGroupMapReader>} reader 
-     * @returns {HRESULT} 
+     * @returns {IAppxSourceContentGroupMapReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory2-createsourcecontentgroupmapreader
      */
-    CreateSourceContentGroupMapReader(inputStream, reader) {
-        result := ComCall(4, this, "ptr", inputStream, "ptr*", reader, "HRESULT")
-        return result
+    CreateSourceContentGroupMapReader(inputStream) {
+        result := ComCall(4, this, "ptr", inputStream, "ptr*", &reader := 0, "HRESULT")
+        return IAppxSourceContentGroupMapReader(reader)
     }
 
     /**
      * 
      * @param {IStream} stream 
-     * @param {Pointer<IAppxContentGroupMapWriter>} contentGroupMapWriter 
-     * @returns {HRESULT} 
+     * @returns {IAppxContentGroupMapWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory2-createcontentgroupmapwriter
      */
-    CreateContentGroupMapWriter(stream, contentGroupMapWriter) {
-        result := ComCall(5, this, "ptr", stream, "ptr*", contentGroupMapWriter, "HRESULT")
-        return result
+    CreateContentGroupMapWriter(stream) {
+        result := ComCall(5, this, "ptr", stream, "ptr*", &contentGroupMapWriter := 0, "HRESULT")
+        return IAppxContentGroupMapWriter(contentGroupMapWriter)
     }
 }

@@ -39,13 +39,12 @@ class IMFByteStreamTimeSeek extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfTimeSeekIsSupported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamtimeseek-istimeseeksupported
      */
-    IsTimeSeekSupported(pfTimeSeekIsSupported) {
-        result := ComCall(3, this, "ptr", pfTimeSeekIsSupported, "HRESULT")
-        return result
+    IsTimeSeekSupported() {
+        result := ComCall(3, this, "int*", &pfTimeSeekIsSupported := 0, "HRESULT")
+        return pfTimeSeekIsSupported
     }
 
     /**

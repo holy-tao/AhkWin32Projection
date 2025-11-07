@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWPCGamesSettings.ahk
 #Include .\IWindowsParentalControlsCore.ahk
 
 /**
@@ -39,14 +40,13 @@ class IWindowsParentalControls extends IWindowsParentalControlsCore{
     /**
      * 
      * @param {PWSTR} pcszSID 
-     * @param {Pointer<IWPCGamesSettings>} ppSettings 
-     * @returns {HRESULT} 
+     * @returns {IWPCGamesSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrols-getgamessettings
      */
-    GetGamesSettings(pcszSID, ppSettings) {
+    GetGamesSettings(pcszSID) {
         pcszSID := pcszSID is String ? StrPtr(pcszSID) : pcszSID
 
-        result := ComCall(7, this, "ptr", pcszSID, "ptr*", ppSettings, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pcszSID, "ptr*", &ppSettings := 0, "HRESULT")
+        return IWPCGamesSettings(ppSettings)
     }
 }

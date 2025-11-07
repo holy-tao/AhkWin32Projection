@@ -37,36 +37,31 @@ class IAppxManifestPackageDependency extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getname
      */
-    GetName(name) {
-        result := ComCall(3, this, "ptr", name, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} publisher 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getpublisher
      */
-    GetPublisher(publisher) {
-        result := ComCall(4, this, "ptr", publisher, "HRESULT")
-        return result
+    GetPublisher() {
+        result := ComCall(4, this, "ptr*", &publisher := 0, "HRESULT")
+        return publisher
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} minVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getminversion
      */
-    GetMinVersion(minVersion) {
-        minVersionMarshal := minVersion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, minVersionMarshal, minVersion, "HRESULT")
-        return result
+    GetMinVersion() {
+        result := ComCall(5, this, "uint*", &minVersion := 0, "HRESULT")
+        return minVersion
     }
 }

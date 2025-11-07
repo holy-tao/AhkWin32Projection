@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IItemEnumerator.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -47,16 +48,14 @@ class ISettingsContext extends IUnknown{
      * @param {IStream} pStream 
      * @param {ITargetInfo} pTarget 
      * @param {Pointer<Pointer<ISettingsResult>>} pppResults 
-     * @param {Pointer<Pointer>} pcResultCount 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingscontext-deserialize
      */
-    Deserialize(pStream, pTarget, pppResults, pcResultCount) {
+    Deserialize(pStream, pTarget, pppResults) {
         pppResultsMarshal := pppResults is VarRef ? "ptr*" : "ptr"
-        pcResultCountMarshal := pcResultCount is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pStream, "ptr", pTarget, pppResultsMarshal, pppResults, pcResultCountMarshal, pcResultCount, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pStream, "ptr", pTarget, pppResultsMarshal, pppResults, "ptr*", &pcResultCount := 0, "HRESULT")
+        return pcResultCount
     }
 
     /**
@@ -74,26 +73,22 @@ class ISettingsContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} pUserData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingscontext-getuserdata
      */
-    GetUserData(pUserData) {
-        pUserDataMarshal := pUserData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, pUserDataMarshal, pUserData, "HRESULT")
-        return result
+    GetUserData() {
+        result := ComCall(6, this, "ptr*", &pUserData := 0, "HRESULT")
+        return pUserData
     }
 
     /**
      * 
-     * @param {Pointer<IItemEnumerator>} ppNamespaceIds 
-     * @returns {HRESULT} 
+     * @returns {IItemEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingscontext-getnamespaces
      */
-    GetNamespaces(ppNamespaceIds) {
-        result := ComCall(7, this, "ptr*", ppNamespaceIds, "HRESULT")
-        return result
+    GetNamespaces() {
+        result := ComCall(7, this, "ptr*", &ppNamespaceIds := 0, "HRESULT")
+        return IItemEnumerator(ppNamespaceIds)
     }
 
     /**

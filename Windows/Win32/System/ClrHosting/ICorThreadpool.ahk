@@ -36,15 +36,14 @@ class ICorThreadpool extends IUnknown{
      * @param {Pointer<Void>} Context 
      * @param {Integer} timeout 
      * @param {BOOL} executeOnlyOnce 
-     * @param {Pointer<BOOL>} result 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CorRegisterWaitForSingleObject(phNewWaitObject, hWaitObject, Callback, Context, timeout, executeOnlyOnce, result) {
+    CorRegisterWaitForSingleObject(phNewWaitObject, hWaitObject, Callback, Context, timeout, executeOnlyOnce) {
         hWaitObject := hWaitObject is Win32Handle ? NumGet(hWaitObject, "ptr") : hWaitObject
 
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", phNewWaitObject, "ptr", hWaitObject, "ptr", Callback, ContextMarshal, Context, "uint", timeout, "int", executeOnlyOnce, "ptr", result, "HRESULT")
+        result := ComCall(3, this, "ptr", phNewWaitObject, "ptr", hWaitObject, "ptr", Callback, ContextMarshal, Context, "uint", timeout, "int", executeOnlyOnce, "int*", &result := 0, "HRESULT")
         return result
     }
 
@@ -52,14 +51,13 @@ class ICorThreadpool extends IUnknown{
      * 
      * @param {HANDLE} hWaitObject 
      * @param {HANDLE} CompletionEvent 
-     * @param {Pointer<BOOL>} result 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CorUnregisterWait(hWaitObject, CompletionEvent, result) {
+    CorUnregisterWait(hWaitObject, CompletionEvent) {
         hWaitObject := hWaitObject is Win32Handle ? NumGet(hWaitObject, "ptr") : hWaitObject
         CompletionEvent := CompletionEvent is Win32Handle ? NumGet(CompletionEvent, "ptr") : CompletionEvent
 
-        result := ComCall(4, this, "ptr", hWaitObject, "ptr", CompletionEvent, "ptr", result, "HRESULT")
+        result := ComCall(4, this, "ptr", hWaitObject, "ptr", CompletionEvent, "int*", &result := 0, "HRESULT")
         return result
     }
 
@@ -68,13 +66,12 @@ class ICorThreadpool extends IUnknown{
      * @param {Pointer<LPTHREAD_START_ROUTINE>} Function 
      * @param {Pointer<Void>} Context 
      * @param {BOOL} executeOnlyOnce 
-     * @param {Pointer<BOOL>} result 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CorQueueUserWorkItem(Function, Context, executeOnlyOnce, result) {
+    CorQueueUserWorkItem(Function, Context, executeOnlyOnce) {
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", Function, ContextMarshal, Context, "int", executeOnlyOnce, "ptr", result, "HRESULT")
+        result := ComCall(5, this, "ptr", Function, ContextMarshal, Context, "int", executeOnlyOnce, "int*", &result := 0, "HRESULT")
         return result
     }
 
@@ -85,13 +82,12 @@ class ICorThreadpool extends IUnknown{
      * @param {Pointer<Void>} Parameter 
      * @param {Integer} DueTime 
      * @param {Integer} Period 
-     * @param {Pointer<BOOL>} result 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CorCreateTimer(phNewTimer, Callback, Parameter, DueTime, Period, result) {
+    CorCreateTimer(phNewTimer, Callback, Parameter, DueTime, Period) {
         ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", phNewTimer, "ptr", Callback, ParameterMarshal, Parameter, "uint", DueTime, "uint", Period, "ptr", result, "HRESULT")
+        result := ComCall(6, this, "ptr", phNewTimer, "ptr", Callback, ParameterMarshal, Parameter, "uint", DueTime, "uint", Period, "int*", &result := 0, "HRESULT")
         return result
     }
 
@@ -100,13 +96,12 @@ class ICorThreadpool extends IUnknown{
      * @param {HANDLE} Timer 
      * @param {Integer} DueTime 
      * @param {Integer} Period 
-     * @param {Pointer<BOOL>} result 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CorChangeTimer(Timer, DueTime, Period, result) {
+    CorChangeTimer(Timer, DueTime, Period) {
         Timer := Timer is Win32Handle ? NumGet(Timer, "ptr") : Timer
 
-        result := ComCall(7, this, "ptr", Timer, "uint", DueTime, "uint", Period, "ptr", result, "HRESULT")
+        result := ComCall(7, this, "ptr", Timer, "uint", DueTime, "uint", Period, "int*", &result := 0, "HRESULT")
         return result
     }
 
@@ -114,14 +109,13 @@ class ICorThreadpool extends IUnknown{
      * 
      * @param {HANDLE} Timer 
      * @param {HANDLE} CompletionEvent 
-     * @param {Pointer<BOOL>} result 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CorDeleteTimer(Timer, CompletionEvent, result) {
+    CorDeleteTimer(Timer, CompletionEvent) {
         Timer := Timer is Win32Handle ? NumGet(Timer, "ptr") : Timer
         CompletionEvent := CompletionEvent is Win32Handle ? NumGet(CompletionEvent, "ptr") : CompletionEvent
 
-        result := ComCall(8, this, "ptr", Timer, "ptr", CompletionEvent, "ptr", result, "HRESULT")
+        result := ComCall(8, this, "ptr", Timer, "ptr", CompletionEvent, "int*", &result := 0, "HRESULT")
         return result
     }
 
@@ -142,13 +136,12 @@ class ICorThreadpool extends IUnknown{
      * 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} Function 
      * @param {Pointer<Void>} Context 
-     * @param {Pointer<BOOL>} result 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CorCallOrQueueUserWorkItem(Function, Context, result) {
+    CorCallOrQueueUserWorkItem(Function, Context) {
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", Function, ContextMarshal, Context, "ptr", result, "HRESULT")
+        result := ComCall(10, this, "ptr", Function, ContextMarshal, Context, "int*", &result := 0, "HRESULT")
         return result
     }
 

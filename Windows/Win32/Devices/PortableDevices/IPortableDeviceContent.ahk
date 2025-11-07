@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumPortableDeviceObjectIDs.ahk
+#Include .\IPortableDeviceProperties.ahk
+#Include .\IPortableDeviceResources.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include .\IPortableDevicePropVariantCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,39 +40,34 @@ class IPortableDeviceContent extends IUnknown{
      * @param {Integer} dwFlags 
      * @param {PWSTR} pszParentObjectID 
      * @param {IPortableDeviceValues} pFilter 
-     * @param {Pointer<IEnumPortableDeviceObjectIDs>} ppEnum 
-     * @returns {HRESULT} If the function succeeds, the return value is the last value returned by the callback function. Its meaning is user-defined.
-     * 
-     * If the objects cannot be enumerated (for example, there are too many objects), the function returns zero without calling the callback function.
+     * @returns {IEnumPortableDeviceObjectIDs} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumobjects
      */
-    EnumObjects(dwFlags, pszParentObjectID, pFilter, ppEnum) {
+    EnumObjects(dwFlags, pszParentObjectID, pFilter) {
         pszParentObjectID := pszParentObjectID is String ? StrPtr(pszParentObjectID) : pszParentObjectID
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pszParentObjectID, "ptr", pFilter, "ptr*", ppEnum, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pszParentObjectID, "ptr", pFilter, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumPortableDeviceObjectIDs(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IPortableDeviceProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-properties
      */
-    Properties(ppProperties) {
-        result := ComCall(4, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    Properties() {
+        result := ComCall(4, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return IPortableDeviceProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<IPortableDeviceResources>} ppResources 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceResources} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-transfer
      */
-    Transfer(ppResources) {
-        result := ComCall(5, this, "ptr*", ppResources, "HRESULT")
-        return result
+    Transfer() {
+        result := ComCall(5, this, "ptr*", &ppResources := 0, "HRESULT")
+        return IPortableDeviceResources(ppResources)
     }
 
     /**
@@ -78,24 +78,26 @@ class IPortableDeviceContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesonly
      */
     CreateObjectWithPropertiesOnly(pValues, ppszObjectID) {
-        result := ComCall(6, this, "ptr", pValues, "ptr", ppszObjectID, "HRESULT")
+        ppszObjectIDMarshal := ppszObjectID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pValues, ppszObjectIDMarshal, ppszObjectID, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {IPortableDeviceValues} pValues 
-     * @param {Pointer<IStream>} ppData 
      * @param {Pointer<Integer>} pdwOptimalWriteBufferSize 
      * @param {Pointer<PWSTR>} ppszCookie 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesanddata
      */
-    CreateObjectWithPropertiesAndData(pValues, ppData, pdwOptimalWriteBufferSize, ppszCookie) {
+    CreateObjectWithPropertiesAndData(pValues, pdwOptimalWriteBufferSize, ppszCookie) {
         pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : "ptr"
+        ppszCookieMarshal := ppszCookie is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pValues, "ptr*", ppData, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, "ptr", ppszCookie, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pValues, "ptr*", &ppData := 0, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, ppszCookieMarshal, ppszCookie, "HRESULT")
+        return IStream(ppData)
     }
 
     /**
@@ -114,13 +116,12 @@ class IPortableDeviceContent extends IUnknown{
     /**
      * 
      * @param {IPortableDevicePropVariantCollection} pPersistentUniqueIDs 
-     * @param {Pointer<IPortableDevicePropVariantCollection>} ppObjectIDs 
-     * @returns {HRESULT} 
+     * @returns {IPortableDevicePropVariantCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-getobjectidsfrompersistentuniqueids
      */
-    GetObjectIDsFromPersistentUniqueIDs(pPersistentUniqueIDs, ppObjectIDs) {
-        result := ComCall(9, this, "ptr", pPersistentUniqueIDs, "ptr*", ppObjectIDs, "HRESULT")
-        return result
+    GetObjectIDsFromPersistentUniqueIDs(pPersistentUniqueIDs) {
+        result := ComCall(9, this, "ptr", pPersistentUniqueIDs, "ptr*", &ppObjectIDs := 0, "HRESULT")
+        return IPortableDevicePropVariantCollection(ppObjectIDs)
     }
 
     /**

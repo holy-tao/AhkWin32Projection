@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_ADAPTER_DESC.ahk
 #Include .\IDXGIObject.ahk
 
 /**
@@ -62,26 +63,23 @@ class IDXGIAdapter extends IDXGIObject{
 
     /**
      * 
-     * @param {Pointer<DXGI_ADAPTER_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {DXGI_ADAPTER_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiadapter-getdesc
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := DXGI_ADAPTER_DESC()
         result := ComCall(8, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
      * @param {Pointer<Guid>} InterfaceName 
-     * @param {Pointer<Integer>} pUMDVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiadapter-checkinterfacesupport
      */
-    CheckInterfaceSupport(InterfaceName, pUMDVersion) {
-        pUMDVersionMarshal := pUMDVersion is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(9, this, "ptr", InterfaceName, pUMDVersionMarshal, pUMDVersion, "HRESULT")
-        return result
+    CheckInterfaceSupport(InterfaceName) {
+        result := ComCall(9, this, "ptr", InterfaceName, "int64*", &pUMDVersion := 0, "HRESULT")
+        return pUMDVersion
     }
 }

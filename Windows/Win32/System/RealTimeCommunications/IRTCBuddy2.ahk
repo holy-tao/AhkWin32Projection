@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCProfile2.ahk
+#Include .\IRTCEnumGroups.ahk
+#Include .\IRTCCollection.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCEnumPresenceDevices.ahk
 #Include .\IRTCBuddy.ahk
 
 /**
@@ -30,12 +35,11 @@ class IRTCBuddy2 extends IRTCBuddy{
 
     /**
      * 
-     * @param {Pointer<IRTCProfile2>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IRTCProfile2} 
      */
-    get_Profile(ppProfile) {
-        result := ComCall(13, this, "ptr*", ppProfile, "HRESULT")
-        return result
+    get_Profile() {
+        result := ComCall(13, this, "ptr*", &ppProfile := 0, "HRESULT")
+        return IRTCProfile2(ppProfile)
     }
 
     /**
@@ -49,64 +53,57 @@ class IRTCBuddy2 extends IRTCBuddy{
 
     /**
      * 
-     * @param {Pointer<IRTCEnumGroups>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IRTCEnumGroups} 
      */
-    EnumerateGroups(ppEnum) {
-        result := ComCall(15, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumerateGroups() {
+        result := ComCall(15, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IRTCEnumGroups(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IRTCCollection} 
      */
-    get_Groups(ppCollection) {
-        result := ComCall(16, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    get_Groups() {
+        result := ComCall(16, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IRTCCollection(ppCollection)
     }
 
     /**
      * 
      * @param {Integer} enProperty 
-     * @param {Pointer<BSTR>} pbstrProperty 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PresenceProperty(enProperty, pbstrProperty) {
+    get_PresenceProperty(enProperty) {
+        pbstrProperty := BSTR()
         result := ComCall(17, this, "int", enProperty, "ptr", pbstrProperty, "HRESULT")
-        return result
+        return pbstrProperty
     }
 
     /**
      * 
-     * @param {Pointer<IRTCEnumPresenceDevices>} ppEnumDevices 
-     * @returns {HRESULT} 
+     * @returns {IRTCEnumPresenceDevices} 
      */
-    EnumeratePresenceDevices(ppEnumDevices) {
-        result := ComCall(18, this, "ptr*", ppEnumDevices, "HRESULT")
-        return result
+    EnumeratePresenceDevices() {
+        result := ComCall(18, this, "ptr*", &ppEnumDevices := 0, "HRESULT")
+        return IRTCEnumPresenceDevices(ppEnumDevices)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCCollection>} ppDevicesCollection 
-     * @returns {HRESULT} 
+     * @returns {IRTCCollection} 
      */
-    get_PresenceDevices(ppDevicesCollection) {
-        result := ComCall(19, this, "ptr*", ppDevicesCollection, "HRESULT")
-        return result
+    get_PresenceDevices() {
+        result := ComCall(19, this, "ptr*", &ppDevicesCollection := 0, "HRESULT")
+        return IRTCCollection(ppDevicesCollection)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penSubscriptionType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SubscriptionType(penSubscriptionType) {
-        penSubscriptionTypeMarshal := penSubscriptionType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, penSubscriptionTypeMarshal, penSubscriptionType, "HRESULT")
-        return result
+    get_SubscriptionType() {
+        result := ComCall(20, this, "int*", &penSubscriptionType := 0, "HRESULT")
+        return penSubscriptionType
     }
 }

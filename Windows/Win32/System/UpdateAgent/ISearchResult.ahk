@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICategoryCollection.ahk
+#Include .\IUpdateCollection.ahk
+#Include .\IUpdateExceptionCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,47 +35,41 @@ class ISearchResult extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_resultcode
      */
-    get_ResultCode(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ResultCode() {
+        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<ICategoryCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {ICategoryCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_rootcategories
      */
-    get_RootCategories(retval) {
-        result := ComCall(8, this, "ptr*", retval, "HRESULT")
-        return result
+    get_RootCategories() {
+        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        return ICategoryCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IUpdateCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_updates
      */
-    get_Updates(retval) {
-        result := ComCall(9, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Updates() {
+        result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IUpdateExceptionCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateExceptionCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_warnings
      */
-    get_Warnings(retval) {
-        result := ComCall(10, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Warnings() {
+        result := ComCall(10, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateExceptionCollection(retval)
     }
 }

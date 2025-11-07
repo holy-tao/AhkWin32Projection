@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ISpeechRecoResult.ahk
 
 /**
@@ -31,12 +32,12 @@ class ISpeechXMLRecoResult extends ISpeechRecoResult{
     /**
      * 
      * @param {Integer} Options 
-     * @param {Pointer<BSTR>} pResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetXMLResult(Options, pResult) {
+    GetXMLResult(Options) {
+        pResult := BSTR()
         result := ComCall(17, this, "int", Options, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
@@ -52,8 +53,9 @@ class ISpeechXMLRecoResult extends ISpeechRecoResult{
     GetXMLErrorInfo(LineNumber, ScriptLine, Source, Description, ResultCode, IsError) {
         LineNumberMarshal := LineNumber is VarRef ? "int*" : "ptr"
         ResultCodeMarshal := ResultCode is VarRef ? "int*" : "ptr"
+        IsErrorMarshal := IsError is VarRef ? "short*" : "ptr"
 
-        result := ComCall(18, this, LineNumberMarshal, LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, ResultCodeMarshal, ResultCode, "ptr", IsError, "HRESULT")
+        result := ComCall(18, this, LineNumberMarshal, LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, ResultCodeMarshal, ResultCode, IsErrorMarshal, IsError, "HRESULT")
         return result
     }
 }

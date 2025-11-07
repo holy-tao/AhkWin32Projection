@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\D2D_RECT_F.ahk
 #Include .\ID2D1GdiMetafile.ahk
 
 /**
@@ -47,12 +48,12 @@ class ID2D1GdiMetafile1 extends ID2D1GdiMetafile{
 
     /**
      * 
-     * @param {Pointer<D2D_RECT_F>} bounds 
-     * @returns {HRESULT} 
+     * @returns {D2D_RECT_F} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1gdimetafile1-getsourcebounds
      */
-    GetSourceBounds(bounds) {
+    GetSourceBounds() {
+        bounds := D2D_RECT_F()
         result := ComCall(7, this, "ptr", bounds, "HRESULT")
-        return result
+        return bounds
     }
 }

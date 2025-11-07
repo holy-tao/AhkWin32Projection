@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_SWAP_CHAIN_DESC1.ahk
+#Include .\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IDXGIOutput.ahk
+#Include .\DXGI_RGBA.ahk
 #Include .\IDXGISwapChain.ahk
 
 /**
@@ -44,49 +49,46 @@ class IDXGISwapChain1 extends IDXGISwapChain{
 
     /**
      * 
-     * @param {Pointer<DXGI_SWAP_CHAIN_DESC1>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {DXGI_SWAP_CHAIN_DESC1} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getdesc1
      */
-    GetDesc1(pDesc) {
+    GetDesc1() {
+        pDesc := DXGI_SWAP_CHAIN_DESC1()
         result := ComCall(18, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
-     * @param {Pointer<DXGI_SWAP_CHAIN_FULLSCREEN_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {DXGI_SWAP_CHAIN_FULLSCREEN_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getfullscreendesc
      */
-    GetFullscreenDesc(pDesc) {
+    GetFullscreenDesc() {
+        pDesc := DXGI_SWAP_CHAIN_FULLSCREEN_DESC()
         result := ComCall(19, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} pHwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-gethwnd
      */
-    GetHwnd(pHwnd) {
+    GetHwnd() {
+        pHwnd := HWND()
         result := ComCall(20, this, "ptr", pHwnd, "HRESULT")
-        return result
+        return pHwnd
     }
 
     /**
      * 
      * @param {Pointer<Guid>} refiid 
-     * @param {Pointer<Pointer<Void>>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getcorewindow
      */
-    GetCoreWindow(refiid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(21, this, "ptr", refiid, ppUnkMarshal, ppUnk, "HRESULT")
-        return result
+    GetCoreWindow(refiid) {
+        result := ComCall(21, this, "ptr", refiid, "ptr*", &ppUnk := 0, "HRESULT")
+        return ppUnk
     }
 
     /**
@@ -114,13 +116,12 @@ class IDXGISwapChain1 extends IDXGISwapChain{
 
     /**
      * 
-     * @param {Pointer<IDXGIOutput>} ppRestrictToOutput 
-     * @returns {HRESULT} 
+     * @returns {IDXGIOutput} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getrestricttooutput
      */
-    GetRestrictToOutput(ppRestrictToOutput) {
-        result := ComCall(24, this, "ptr*", ppRestrictToOutput, "HRESULT")
-        return result
+    GetRestrictToOutput() {
+        result := ComCall(24, this, "ptr*", &ppRestrictToOutput := 0, "HRESULT")
+        return IDXGIOutput(ppRestrictToOutput)
     }
 
     /**
@@ -136,13 +137,13 @@ class IDXGISwapChain1 extends IDXGISwapChain{
 
     /**
      * 
-     * @param {Pointer<DXGI_RGBA>} pColor 
-     * @returns {HRESULT} 
+     * @returns {DXGI_RGBA} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getbackgroundcolor
      */
-    GetBackgroundColor(pColor) {
+    GetBackgroundColor() {
+        pColor := DXGI_RGBA()
         result := ComCall(26, this, "ptr", pColor, "HRESULT")
-        return result
+        return pColor
     }
 
     /**
@@ -158,14 +159,11 @@ class IDXGISwapChain1 extends IDXGISwapChain{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRotation 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getrotation
      */
-    GetRotation(pRotation) {
-        pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, pRotationMarshal, pRotation, "HRESULT")
-        return result
+    GetRotation() {
+        result := ComCall(28, this, "int*", &pRotation := 0, "HRESULT")
+        return pRotation
     }
 }

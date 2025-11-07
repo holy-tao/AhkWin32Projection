@@ -36,22 +36,22 @@ class IFeed extends IDispatch{
      * @param {Integer} sortOrder 
      * @param {Integer} filterFlags 
      * @param {Integer} includeFlags 
-     * @param {Pointer<BSTR>} xml 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    Xml(count, sortProperty, sortOrder, filterFlags, includeFlags, xml) {
+    Xml(count, sortProperty, sortOrder, filterFlags, includeFlags) {
+        xml := BSTR()
         result := ComCall(7, this, "int", count, "int", sortProperty, "int", sortOrder, "int", filterFlags, "int", includeFlags, "ptr", xml, "HRESULT")
-        return result
+        return xml
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(8, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -68,12 +68,12 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} feedUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Url(feedUrl) {
+    get_Url() {
+        feedUrl := BSTR()
         result := ComCall(10, this, "ptr", feedUrl, "HRESULT")
-        return result
+        return feedUrl
     }
 
     /**
@@ -90,22 +90,22 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} feedGuid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LocalId(feedGuid) {
+    get_LocalId() {
+        feedGuid := BSTR()
         result := ComCall(12, this, "ptr", feedGuid, "HRESULT")
-        return result
+        return feedGuid
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(path) {
+    get_Path() {
+        path := BSTR()
         result := ComCall(13, this, "ptr", path, "HRESULT")
-        return result
+        return path
     }
 
     /**
@@ -122,24 +122,20 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Parent(disp) {
-        result := ComCall(15, this, "ptr*", disp, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(15, this, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
-     * @param {Pointer<Float>} lastWrite 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_LastWriteTime(lastWrite) {
-        lastWriteMarshal := lastWrite is VarRef ? "double*" : "ptr"
-
-        result := ComCall(16, this, lastWriteMarshal, lastWrite, "HRESULT")
-        return result
+    get_LastWriteTime() {
+        result := ComCall(16, this, "double*", &lastWrite := 0, "HRESULT")
+        return lastWrite
     }
 
     /**
@@ -180,14 +176,11 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} syncSetting 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SyncSetting(syncSetting) {
-        syncSettingMarshal := syncSetting is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, syncSettingMarshal, syncSetting, "HRESULT")
-        return result
+    get_SyncSetting() {
+        result := ComCall(21, this, "int*", &syncSetting := 0, "HRESULT")
+        return syncSetting
     }
 
     /**
@@ -202,14 +195,11 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} minutes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Interval(minutes) {
-        minutesMarshal := minutes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, minutesMarshal, minutes, "HRESULT")
-        return result
+    get_Interval() {
+        result := ComCall(23, this, "int*", &minutes := 0, "HRESULT")
+        return minutes
     }
 
     /**
@@ -224,153 +214,136 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} lastDownload 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_LastDownloadTime(lastDownload) {
-        lastDownloadMarshal := lastDownload is VarRef ? "double*" : "ptr"
-
-        result := ComCall(25, this, lastDownloadMarshal, lastDownload, "HRESULT")
-        return result
+    get_LastDownloadTime() {
+        result := ComCall(25, this, "double*", &lastDownload := 0, "HRESULT")
+        return lastDownload
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LocalEnclosurePath(path) {
+    get_LocalEnclosurePath() {
+        path := BSTR()
         result := ComCall(26, this, "ptr", path, "HRESULT")
-        return result
+        return path
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Items(disp) {
-        result := ComCall(27, this, "ptr*", disp, "HRESULT")
-        return result
+    get_Items() {
+        result := ComCall(27, this, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
      * @param {Integer} itemId 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetItem(itemId, disp) {
-        result := ComCall(28, this, "int", itemId, "ptr*", disp, "HRESULT")
-        return result
+    GetItem(itemId) {
+        result := ComCall(28, this, "int", itemId, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} title 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Title(title) {
+    get_Title() {
+        title := BSTR()
         result := ComCall(29, this, "ptr", title, "HRESULT")
-        return result
+        return title
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} description 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(description) {
+    get_Description() {
+        description := BSTR()
         result := ComCall(30, this, "ptr", description, "HRESULT")
-        return result
+        return description
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} homePage 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Link(homePage) {
+    get_Link() {
+        homePage := BSTR()
         result := ComCall(31, this, "ptr", homePage, "HRESULT")
-        return result
+        return homePage
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} imageUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Image(imageUrl) {
+    get_Image() {
+        imageUrl := BSTR()
         result := ComCall(32, this, "ptr", imageUrl, "HRESULT")
-        return result
+        return imageUrl
     }
 
     /**
      * 
-     * @param {Pointer<Float>} lastBuildDate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_LastBuildDate(lastBuildDate) {
-        lastBuildDateMarshal := lastBuildDate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(33, this, lastBuildDateMarshal, lastBuildDate, "HRESULT")
-        return result
+    get_LastBuildDate() {
+        result := ComCall(33, this, "double*", &lastBuildDate := 0, "HRESULT")
+        return lastBuildDate
     }
 
     /**
      * 
-     * @param {Pointer<Float>} lastPopulateDate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_PubDate(lastPopulateDate) {
-        lastPopulateDateMarshal := lastPopulateDate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(34, this, lastPopulateDateMarshal, lastPopulateDate, "HRESULT")
-        return result
+    get_PubDate() {
+        result := ComCall(34, this, "double*", &lastPopulateDate := 0, "HRESULT")
+        return lastPopulateDate
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} ttl 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Ttl(ttl) {
-        ttlMarshal := ttl is VarRef ? "int*" : "ptr"
-
-        result := ComCall(35, this, ttlMarshal, ttl, "HRESULT")
-        return result
+    get_Ttl() {
+        result := ComCall(35, this, "int*", &ttl := 0, "HRESULT")
+        return ttl
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} language 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Language(language) {
+    get_Language() {
+        language := BSTR()
         result := ComCall(36, this, "ptr", language, "HRESULT")
-        return result
+        return language
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} copyright 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Copyright(copyright) {
+    get_Copyright() {
+        copyright := BSTR()
         result := ComCall(37, this, "ptr", copyright, "HRESULT")
-        return result
+        return copyright
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaxItemCount(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(38, this, countMarshal, count, "HRESULT")
-        return result
+    get_MaxItemCount() {
+        result := ComCall(38, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
@@ -385,12 +358,11 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} downloadEnclosuresAutomatically 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_DownloadEnclosuresAutomatically(downloadEnclosuresAutomatically) {
-        result := ComCall(40, this, "ptr", downloadEnclosuresAutomatically, "HRESULT")
-        return result
+    get_DownloadEnclosuresAutomatically() {
+        result := ComCall(40, this, "short*", &downloadEnclosuresAutomatically := 0, "HRESULT")
+        return downloadEnclosuresAutomatically
     }
 
     /**
@@ -405,26 +377,20 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DownloadStatus(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(42, this, statusMarshal, status, "HRESULT")
-        return result
+    get_DownloadStatus() {
+        result := ComCall(42, this, "int*", &status := 0, "HRESULT")
+        return status
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} error 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LastDownloadError(error) {
-        errorMarshal := error is VarRef ? "int*" : "ptr"
-
-        result := ComCall(43, this, errorMarshal, error, "HRESULT")
-        return result
+    get_LastDownloadError() {
+        result := ComCall(43, this, "int*", &error := 0, "HRESULT")
+        return error
     }
 
     /**
@@ -443,22 +409,21 @@ class IFeed extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} feedUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DownloadUrl(feedUrl) {
+    get_DownloadUrl() {
+        feedUrl := BSTR()
         result := ComCall(45, this, "ptr", feedUrl, "HRESULT")
-        return result
+        return feedUrl
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} isList 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsList(isList) {
-        result := ComCall(46, this, "ptr", isList, "HRESULT")
-        return result
+    get_IsList() {
+        result := ComCall(46, this, "short*", &isList := 0, "HRESULT")
+        return isList
     }
 
     /**
@@ -474,35 +439,28 @@ class IFeed extends IDispatch{
      * 
      * @param {Integer} scope 
      * @param {Integer} mask 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetWatcher(scope, mask, disp) {
-        result := ComCall(48, this, "int", scope, "int", mask, "ptr*", disp, "HRESULT")
-        return result
+    GetWatcher(scope, mask) {
+        result := ComCall(48, this, "int", scope, "int", mask, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_UnreadItemCount(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(49, this, countMarshal, count, "HRESULT")
-        return result
+    get_UnreadItemCount() {
+        result := ComCall(49, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ItemCount(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(50, this, countMarshal, count, "HRESULT")
-        return result
+    get_ItemCount() {
+        result := ComCall(50, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 }

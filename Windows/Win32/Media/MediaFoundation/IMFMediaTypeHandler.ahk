@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaType.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -51,38 +52,33 @@ class IMFMediaTypeHandler extends IUnknown{
     /**
      * 
      * @param {IMFMediaType} pMediaType 
-     * @param {Pointer<IMFMediaType>} ppMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediatypehandler-ismediatypesupported
      */
-    IsMediaTypeSupported(pMediaType, ppMediaType) {
-        result := ComCall(3, this, "ptr", pMediaType, "ptr*", ppMediaType, "HRESULT")
-        return result
+    IsMediaTypeSupported(pMediaType) {
+        result := ComCall(3, this, "ptr", pMediaType, "ptr*", &ppMediaType := 0, "HRESULT")
+        return IMFMediaType(ppMediaType)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwTypeCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediatypehandler-getmediatypecount
      */
-    GetMediaTypeCount(pdwTypeCount) {
-        pdwTypeCountMarshal := pdwTypeCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwTypeCountMarshal, pdwTypeCount, "HRESULT")
-        return result
+    GetMediaTypeCount() {
+        result := ComCall(4, this, "uint*", &pdwTypeCount := 0, "HRESULT")
+        return pdwTypeCount
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IMFMediaType>} ppType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediatypehandler-getmediatypebyindex
      */
-    GetMediaTypeByIndex(dwIndex, ppType) {
-        result := ComCall(5, this, "uint", dwIndex, "ptr*", ppType, "HRESULT")
-        return result
+    GetMediaTypeByIndex(dwIndex) {
+        result := ComCall(5, this, "uint", dwIndex, "ptr*", &ppType := 0, "HRESULT")
+        return IMFMediaType(ppType)
     }
 
     /**
@@ -98,23 +94,22 @@ class IMFMediaTypeHandler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFMediaType>} ppMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediatypehandler-getcurrentmediatype
      */
-    GetCurrentMediaType(ppMediaType) {
-        result := ComCall(7, this, "ptr*", ppMediaType, "HRESULT")
-        return result
+    GetCurrentMediaType() {
+        result := ComCall(7, this, "ptr*", &ppMediaType := 0, "HRESULT")
+        return IMFMediaType(ppMediaType)
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidMajorType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediatypehandler-getmajortype
      */
-    GetMajorType(pguidMajorType) {
+    GetMajorType() {
+        pguidMajorType := Guid()
         result := ComCall(8, this, "ptr", pguidMajorType, "HRESULT")
-        return result
+        return pguidMajorType
     }
 }

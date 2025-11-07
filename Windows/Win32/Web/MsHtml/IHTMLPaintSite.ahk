@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\HTML_PAINT_DRAW_INFO.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -65,45 +67,42 @@ class IHTMLPaintSite extends IUnknown{
     /**
      * 
      * @param {Integer} lFlags 
-     * @param {Pointer<HTML_PAINT_DRAW_INFO>} pDrawInfo 
-     * @returns {HRESULT} 
+     * @returns {HTML_PAINT_DRAW_INFO} 
      */
-    GetDrawInfo(lFlags, pDrawInfo) {
+    GetDrawInfo(lFlags) {
+        pDrawInfo := HTML_PAINT_DRAW_INFO()
         result := ComCall(6, this, "int", lFlags, "ptr", pDrawInfo, "HRESULT")
-        return result
+        return pDrawInfo
     }
 
     /**
      * 
      * @param {POINT} ptGlobal 
-     * @param {Pointer<POINT>} pptLocal 
-     * @returns {HRESULT} 
+     * @returns {POINT} 
      */
-    TransformGlobalToLocal(ptGlobal, pptLocal) {
+    TransformGlobalToLocal(ptGlobal) {
+        pptLocal := POINT()
         result := ComCall(7, this, "ptr", ptGlobal, "ptr", pptLocal, "HRESULT")
-        return result
+        return pptLocal
     }
 
     /**
      * 
      * @param {POINT} ptLocal 
-     * @param {Pointer<POINT>} pptGlobal 
-     * @returns {HRESULT} 
+     * @returns {POINT} 
      */
-    TransformLocalToGlobal(ptLocal, pptGlobal) {
+    TransformLocalToGlobal(ptLocal) {
+        pptGlobal := POINT()
         result := ComCall(8, this, "ptr", ptLocal, "ptr", pptGlobal, "HRESULT")
-        return result
+        return pptGlobal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetHitTestCookie(plCookie) {
-        plCookieMarshal := plCookie is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCookieMarshal, plCookie, "HRESULT")
-        return result
+    GetHitTestCookie() {
+        result := ComCall(9, this, "int*", &plCookie := 0, "HRESULT")
+        return plCookie
     }
 }

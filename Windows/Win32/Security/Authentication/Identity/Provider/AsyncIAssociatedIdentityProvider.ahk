@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,12 +49,11 @@ class AsyncIAssociatedIdentityProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPropertyStore>} ppPropertyStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      */
-    Finish_AssociateIdentity(ppPropertyStore) {
-        result := ComCall(4, this, "ptr*", ppPropertyStore, "HRESULT")
-        return result
+    Finish_AssociateIdentity() {
+        result := ComCall(4, this, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        return IPropertyStore(ppPropertyStore)
     }
 
     /**

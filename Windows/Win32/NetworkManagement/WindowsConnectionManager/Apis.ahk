@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
@@ -170,69 +171,37 @@ class WindowsConnectionManager {
     /**
      * The OnDemandGetRoutingHint function looks up a destination in the Route Request cache and, if a match is found, return the corresponding Interface ID.
      * @param {PWSTR} destinationHostName An PWSTR describing the target host name for a network communication.
-     * @param {Pointer<Integer>} interfaceIndex The interface index of the network adapter to be used for communicating with the target host.
-     * @returns {HRESULT} This function returns the following to indicate operation results:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A match was found in the dll cache. The <i>pdwInterfaceIndex</i> will contain the index of the interface to be used to communicate with the target host.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A match was not found in the dll cache for the specified host name.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The interface index of the network adapter to be used for communicating with the target host.
      * @see https://docs.microsoft.com/windows/win32/api//ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandgetroutinghint
      * @since windows8.1
      */
-    static OnDemandGetRoutingHint(destinationHostName, interfaceIndex) {
+    static OnDemandGetRoutingHint(destinationHostName) {
         destinationHostName := destinationHostName is String ? StrPtr(destinationHostName) : destinationHostName
 
-        interfaceIndexMarshal := interfaceIndex is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OnDemandConnRouteHelper.dll\OnDemandGetRoutingHint", "ptr", destinationHostName, interfaceIndexMarshal, interfaceIndex, "int")
+        result := DllCall("OnDemandConnRouteHelper.dll\OnDemandGetRoutingHint", "ptr", destinationHostName, "uint*", &interfaceIndex := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return interfaceIndex
     }
 
     /**
      * The OnDemandRegisterNotification function allows an application to register to be notified when the Route Requests cache is modified.
      * @param {Pointer<ONDEMAND_NOTIFICATION_CALLBACK>} callback A pointer to a function of type O<b>ONDEMAND_NOTIFICATION_CALLBACK</b> to receive the notifications.
      * @param {Pointer<Void>} callbackContext A pointer to a memory location containing optional context to be passed to the callback.
-     * @param {Pointer<HANDLE>} registrationHandle A pointer to a HANDLE to receive a handle to the registration in case of success.
-     * @returns {HRESULT} Returns S_OK on success.
+     * @returns {HANDLE} A pointer to a HANDLE to receive a handle to the registration in case of success.
      * @see https://docs.microsoft.com/windows/win32/api//ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandregisternotification
      * @since windows8.1
      */
-    static OnDemandRegisterNotification(callback, callbackContext, registrationHandle) {
+    static OnDemandRegisterNotification(callback, callbackContext) {
         callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
 
+        registrationHandle := HANDLE()
         result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", "ptr", callback, callbackContextMarshal, callbackContext, "ptr", registrationHandle, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return registrationHandle
     }
 
     /**
@@ -277,75 +246,19 @@ class WindowsConnectionManager {
      * </table>
      * @param {Pointer} ConnectionProfileFilterRawData The connection profile filter blog which is a byte cast of wcm_selection_filters.
      * @param {Integer} ConnectionProfileFilterRawDataSize The size of the <i>ConnectionProfileFilterRawData</i> in bytes.
-     * @param {Pointer<Pointer<NET_INTERFACE_CONTEXT_TABLE>>} InterfaceContextTable This is set to the list of <a href="https://docs.microsoft.com/windows/win32/api/ondemandconnroutehelper/ns-ondemandconnroutehelper-net_interface_context">NET_INTERFACE_CONTEXT</a> structures containing the interface indices and configuration names that can be used for the hostname and filter.
-     * @returns {HRESULT} This function returns the following <b>HRESULT</b> values depending on the status.
-     * 
-     * <table></table>
-     *  
-     * 
-     * <table>
-     * <tr>
-     * <td><b>HRESULT</b></td>
-     * <td><b>Description</b></td>
-     * </tr>
-     * <tr>
-     * <td><b>S_OK</b></td>
-     * <td>
-     * This is returned if connection that satify the parameters and internal policies exists. <a href="/windows/win32/api/ondemandconnroutehelper/ns-ondemandconnroutehelper-net_interface_context">NET_INTERFACE_CONTEXT_TABLE</a> will contain a list of interfaces indices and configuration names of those connections. When S_OK is returned, <a href="/windows/desktop/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-freeinterfacecontexttable">FreeInterfaceContextTable</a> should be called to release the context table.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td><b>S_FALSE</b></td>
-     * <td>
-     * This is returned to indicate that any connection or default interface can be used for this hostname and filter. The <a href="/windows/win32/api/ondemandconnroutehelper/ns-ondemandconnroutehelper-net_interface_context">NET_INTERFACE_CONTEXT_TABLE</a> will be null in this case because the caller can use the default route to satisfy the requirements.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td><b>E_NOTFOUND</b></td>
-     * <td>
-     * This is returned if no connection is currently available or existing connection don't meet the connection filter and the internal policy for the host. The exact return code would be <b>HRESULT(ERROR_NOT_FOUND)</b>
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td><b>E_INVALIDARG</b></td>
-     * <td>
-     * This is returned if the caller passes an invalid argument, uses an unsupported flag, has a bad connection filter data, incorrect size or null <a href="/windows/win32/api/ondemandconnroutehelper/ns-ondemandconnroutehelper-net_interface_context">NET_INTERFACE_CONTEXT_TABLE</a>
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td><b>E_OUTOFMEMORY</b></td>
-     * <td>
-     * This is returned if there is not enough memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td><b>FAILED(HRESULT)</b></td>
-     * <td>
-     * This is returned because of failures that are outside the control of this function.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<NET_INTERFACE_CONTEXT_TABLE>} This is set to the list of <a href="https://docs.microsoft.com/windows/win32/api/ondemandconnroutehelper/ns-ondemandconnroutehelper-net_interface_context">NET_INTERFACE_CONTEXT</a> structures containing the interface indices and configuration names that can be used for the hostname and filter.
      * @see https://docs.microsoft.com/windows/win32/api//ondemandconnroutehelper/nf-ondemandconnroutehelper-getinterfacecontexttableforhostname
      * @since windows10.0.10240
      */
-    static GetInterfaceContextTableForHostName(HostName, ProxyName, Flags, ConnectionProfileFilterRawData, ConnectionProfileFilterRawDataSize, InterfaceContextTable) {
+    static GetInterfaceContextTableForHostName(HostName, ProxyName, Flags, ConnectionProfileFilterRawData, ConnectionProfileFilterRawDataSize) {
         HostName := HostName is String ? StrPtr(HostName) : HostName
         ProxyName := ProxyName is String ? StrPtr(ProxyName) : ProxyName
 
-        InterfaceContextTableMarshal := InterfaceContextTable is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, InterfaceContextTableMarshal, InterfaceContextTable, "int")
+        result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, "ptr*", &InterfaceContextTable := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return InterfaceContextTable
     }
 
     /**

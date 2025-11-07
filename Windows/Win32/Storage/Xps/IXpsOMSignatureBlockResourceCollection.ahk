@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMSignatureBlockResource.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,27 +38,23 @@ class IXpsOMSignatureBlockResourceCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresourcecollection-getcount
      */
-    GetCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, countMarshal, count, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IXpsOMSignatureBlockResource>} signatureBlockResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMSignatureBlockResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresourcecollection-getat
      */
-    GetAt(index, signatureBlockResource) {
-        result := ComCall(4, this, "uint", index, "ptr*", signatureBlockResource, "HRESULT")
-        return result
+    GetAt(index) {
+        result := ComCall(4, this, "uint", index, "ptr*", &signatureBlockResource := 0, "HRESULT")
+        return IXpsOMSignatureBlockResource(signatureBlockResource)
     }
 
     /**
@@ -109,12 +106,11 @@ class IXpsOMSignatureBlockResourceCollection extends IUnknown{
     /**
      * 
      * @param {IOpcPartUri} partName 
-     * @param {Pointer<IXpsOMSignatureBlockResource>} signatureBlockResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMSignatureBlockResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresourcecollection-getbypartname
      */
-    GetByPartName(partName, signatureBlockResource) {
-        result := ComCall(9, this, "ptr", partName, "ptr*", signatureBlockResource, "HRESULT")
-        return result
+    GetByPartName(partName) {
+        result := ComCall(9, this, "ptr", partName, "ptr*", &signatureBlockResource := 0, "HRESULT")
+        return IXpsOMSignatureBlockResource(signatureBlockResource)
     }
 }

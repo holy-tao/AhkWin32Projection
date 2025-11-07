@@ -36,30 +36,24 @@ class ID3D12Device4 extends ID3D12Device3{
      * @param {Integer} type 
      * @param {Integer} flags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppCommandList 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createcommandlist1
      */
-    CreateCommandList1(nodeMask, type, flags, riid, ppCommandList) {
-        ppCommandListMarshal := ppCommandList is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(51, this, "uint", nodeMask, "int", type, "int", flags, "ptr", riid, ppCommandListMarshal, ppCommandList, "HRESULT")
-        return result
+    CreateCommandList1(nodeMask, type, flags, riid) {
+        result := ComCall(51, this, "uint", nodeMask, "int", type, "int", flags, "ptr", riid, "ptr*", &ppCommandList := 0, "HRESULT")
+        return ppCommandList
     }
 
     /**
      * 
      * @param {Pointer<D3D12_PROTECTED_RESOURCE_SESSION_DESC>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createprotectedresourcesession
      */
-    CreateProtectedResourceSession(pDesc, riid, ppSession) {
-        ppSessionMarshal := ppSession is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(52, this, "ptr", pDesc, "ptr", riid, ppSessionMarshal, ppSession, "HRESULT")
-        return result
+    CreateProtectedResourceSession(pDesc, riid) {
+        result := ComCall(52, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppSession := 0, "HRESULT")
+        return ppSession
     }
 
     /**
@@ -71,15 +65,12 @@ class ID3D12Device4 extends ID3D12Device3{
      * @param {Pointer<D3D12_CLEAR_VALUE>} pOptimizedClearValue 
      * @param {ID3D12ProtectedResourceSession} pProtectedSession 
      * @param {Pointer<Guid>} riidResource 
-     * @param {Pointer<Pointer<Void>>} ppvResource 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createcommittedresource1
      */
-    CreateCommittedResource1(pHeapProperties, HeapFlags, pDesc, InitialResourceState, pOptimizedClearValue, pProtectedSession, riidResource, ppvResource) {
-        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(53, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialResourceState, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "ptr", riidResource, ppvResourceMarshal, ppvResource, "HRESULT")
-        return result
+    CreateCommittedResource1(pHeapProperties, HeapFlags, pDesc, InitialResourceState, pOptimizedClearValue, pProtectedSession, riidResource) {
+        result := ComCall(53, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialResourceState, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "ptr", riidResource, "ptr*", &ppvResource := 0, "HRESULT")
+        return ppvResource
     }
 
     /**
@@ -87,15 +78,12 @@ class ID3D12Device4 extends ID3D12Device3{
      * @param {Pointer<D3D12_HEAP_DESC>} pDesc 
      * @param {ID3D12ProtectedResourceSession} pProtectedSession 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvHeap 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createheap1
      */
-    CreateHeap1(pDesc, pProtectedSession, riid, ppvHeap) {
-        ppvHeapMarshal := ppvHeap is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(54, this, "ptr", pDesc, "ptr", pProtectedSession, "ptr", riid, ppvHeapMarshal, ppvHeap, "HRESULT")
-        return result
+    CreateHeap1(pDesc, pProtectedSession, riid) {
+        result := ComCall(54, this, "ptr", pDesc, "ptr", pProtectedSession, "ptr", riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        return ppvHeap
     }
 
     /**
@@ -105,15 +93,12 @@ class ID3D12Device4 extends ID3D12Device3{
      * @param {Pointer<D3D12_CLEAR_VALUE>} pOptimizedClearValue 
      * @param {ID3D12ProtectedResourceSession} pProtectedSession 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvResource 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createreservedresource1
      */
-    CreateReservedResource1(pDesc, InitialState, pOptimizedClearValue, pProtectedSession, riid, ppvResource) {
-        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(55, this, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "ptr", riid, ppvResourceMarshal, ppvResource, "HRESULT")
-        return result
+    CreateReservedResource1(pDesc, InitialState, pOptimizedClearValue, pProtectedSession, riid) {
+        result := ComCall(55, this, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "ptr", riid, "ptr*", &ppvResource := 0, "HRESULT")
+        return ppvResource
     }
 
     /**

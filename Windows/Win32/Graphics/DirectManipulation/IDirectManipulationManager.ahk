@@ -81,27 +81,23 @@ class IDirectManipulationManager extends IUnknown{
     /**
      * 
      * @param {Pointer<MSG>} message 
-     * @param {Pointer<BOOL>} handled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-processinput
      */
-    ProcessInput(message, handled) {
-        result := ComCall(6, this, "ptr", message, "ptr", handled, "HRESULT")
-        return result
+    ProcessInput(message) {
+        result := ComCall(6, this, "ptr", message, "int*", &handled := 0, "HRESULT")
+        return handled
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} object 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-getupdatemanager
      */
-    GetUpdateManager(riid, object) {
-        objectMarshal := object is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", riid, objectMarshal, object, "HRESULT")
-        return result
+    GetUpdateManager(riid) {
+        result := ComCall(7, this, "ptr", riid, "ptr*", &object := 0, "HRESULT")
+        return object
     }
 
     /**
@@ -109,17 +105,14 @@ class IDirectManipulationManager extends IUnknown{
      * @param {IDirectManipulationFrameInfoProvider} frameInfo 
      * @param {HWND} window 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} object 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-createviewport
      */
-    CreateViewport(frameInfo, window, riid, object) {
+    CreateViewport(frameInfo, window, riid) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        objectMarshal := object is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", frameInfo, "ptr", window, "ptr", riid, objectMarshal, object, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", frameInfo, "ptr", window, "ptr", riid, "ptr*", &object := 0, "HRESULT")
+        return object
     }
 
     /**
@@ -127,14 +120,11 @@ class IDirectManipulationManager extends IUnknown{
      * @param {IDirectManipulationFrameInfoProvider} frameInfo 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} object 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-createcontent
      */
-    CreateContent(frameInfo, clsid, riid, object) {
-        objectMarshal := object is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", frameInfo, "ptr", clsid, "ptr", riid, objectMarshal, object, "HRESULT")
-        return result
+    CreateContent(frameInfo, clsid, riid) {
+        result := ComCall(9, this, "ptr", frameInfo, "ptr", clsid, "ptr", riid, "ptr*", &object := 0, "HRESULT")
+        return object
     }
 }

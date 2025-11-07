@@ -34,47 +34,38 @@ class IStreamAsync extends IStream{
      * 
      * @param {Pointer} pv 
      * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbRead 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istreamasync-readasync
      */
-    ReadAsync(pv, cb, pcbRead, lpOverlapped) {
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "ptr", pv, "uint", cb, pcbReadMarshal, pcbRead, "ptr", lpOverlapped, "HRESULT")
-        return result
+    ReadAsync(pv, cb, lpOverlapped) {
+        result := ComCall(14, this, "ptr", pv, "uint", cb, "uint*", &pcbRead := 0, "ptr", lpOverlapped, "HRESULT")
+        return pcbRead
     }
 
     /**
      * 
      * @param {Pointer} lpBuffer 
      * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbWritten 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istreamasync-writeasync
      */
-    WriteAsync(lpBuffer, cb, pcbWritten, lpOverlapped) {
-        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, "ptr", lpBuffer, "uint", cb, pcbWrittenMarshal, pcbWritten, "ptr", lpOverlapped, "HRESULT")
-        return result
+    WriteAsync(lpBuffer, cb, lpOverlapped) {
+        result := ComCall(15, this, "ptr", lpBuffer, "uint", cb, "uint*", &pcbWritten := 0, "ptr", lpOverlapped, "HRESULT")
+        return pcbWritten
     }
 
     /**
      * 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
-     * @param {Pointer<Integer>} lpNumberOfBytesTransferred 
      * @param {BOOL} bWait 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istreamasync-overlappedresult
      */
-    OverlappedResult(lpOverlapped, lpNumberOfBytesTransferred, bWait) {
-        lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, "ptr", lpOverlapped, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, "int", bWait, "HRESULT")
-        return result
+    OverlappedResult(lpOverlapped, bWait) {
+        result := ComCall(16, this, "ptr", lpOverlapped, "uint*", &lpNumberOfBytesTransferred := 0, "int", bWait, "HRESULT")
+        return lpNumberOfBytesTransferred
     }
 
     /**

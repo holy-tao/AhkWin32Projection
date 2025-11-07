@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DSFXCompressor.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,11 +41,11 @@ class IDirectSoundFXCompressor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DSFXCompressor>} pDsFxCompressor 
-     * @returns {HRESULT} 
+     * @returns {DSFXCompressor} 
      */
-    GetAllParameters(pDsFxCompressor) {
+    GetAllParameters() {
+        pDsFxCompressor := DSFXCompressor()
         result := ComCall(4, this, "ptr", pDsFxCompressor, "HRESULT")
-        return result
+        return pDsFxCompressor
     }
 }

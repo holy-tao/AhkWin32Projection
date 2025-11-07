@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SimilarityFileId.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,18 +43,16 @@ class ISimilarityFileIdTable extends IUnknown{
      * @param {BOOL} truncate 
      * @param {Pointer<Integer>} securityDescriptor 
      * @param {Integer} recordSize 
-     * @param {Pointer<Integer>} isNew 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-createtable
      */
-    CreateTable(path, truncate, securityDescriptor, recordSize, isNew) {
+    CreateTable(path, truncate, securityDescriptor, recordSize) {
         path := path is String ? StrPtr(path) : path
 
         securityDescriptorMarshal := securityDescriptor is VarRef ? "char*" : "ptr"
-        isNewMarshal := isNew is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", path, "int", truncate, securityDescriptorMarshal, securityDescriptor, "uint", recordSize, isNewMarshal, isNew, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", path, "int", truncate, securityDescriptorMarshal, securityDescriptor, "uint", recordSize, "int*", &isNew := 0, "HRESULT")
+        return isNew
     }
 
     /**
@@ -61,15 +60,12 @@ class ISimilarityFileIdTable extends IUnknown{
      * @param {IRdcFileWriter} fileIdFile 
      * @param {BOOL} truncate 
      * @param {Integer} recordSize 
-     * @param {Pointer<Integer>} isNew 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-createtableindirect
      */
-    CreateTableIndirect(fileIdFile, truncate, recordSize, isNew) {
-        isNewMarshal := isNew is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", fileIdFile, "int", truncate, "uint", recordSize, isNewMarshal, isNew, "HRESULT")
-        return result
+    CreateTableIndirect(fileIdFile, truncate, recordSize) {
+        result := ComCall(4, this, "ptr", fileIdFile, "int", truncate, "uint", recordSize, "int*", &isNew := 0, "HRESULT")
+        return isNew
     }
 
     /**
@@ -86,27 +82,24 @@ class ISimilarityFileIdTable extends IUnknown{
     /**
      * 
      * @param {Pointer<SimilarityFileId>} similarityFileId 
-     * @param {Pointer<Integer>} similarityFileIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-append
      */
-    Append(similarityFileId, similarityFileIndex) {
-        similarityFileIndexMarshal := similarityFileIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", similarityFileId, similarityFileIndexMarshal, similarityFileIndex, "HRESULT")
-        return result
+    Append(similarityFileId) {
+        result := ComCall(6, this, "ptr", similarityFileId, "uint*", &similarityFileIndex := 0, "HRESULT")
+        return similarityFileIndex
     }
 
     /**
      * 
      * @param {Integer} similarityFileIndex 
-     * @param {Pointer<SimilarityFileId>} similarityFileId 
-     * @returns {HRESULT} 
+     * @returns {SimilarityFileId} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-lookup
      */
-    Lookup(similarityFileIndex, similarityFileId) {
+    Lookup(similarityFileIndex) {
+        similarityFileId := SimilarityFileId()
         result := ComCall(7, this, "uint", similarityFileIndex, "ptr", similarityFileId, "HRESULT")
-        return result
+        return similarityFileId
     }
 
     /**
@@ -122,14 +115,11 @@ class ISimilarityFileIdTable extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} recordCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-getrecordcount
      */
-    GetRecordCount(recordCount) {
-        recordCountMarshal := recordCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, recordCountMarshal, recordCount, "HRESULT")
-        return result
+    GetRecordCount() {
+        result := ComCall(9, this, "uint*", &recordCount := 0, "HRESULT")
+        return recordCount
     }
 }

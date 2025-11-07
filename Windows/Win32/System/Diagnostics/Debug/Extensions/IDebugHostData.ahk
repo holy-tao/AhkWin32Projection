@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\Location.ahk
+#Include ..\..\..\Variant\VARIANT.ahk
 #Include .\IDebugHostSymbol.ahk
 
 /**
@@ -30,33 +32,30 @@ class IDebugHostData extends IDebugHostSymbol{
 
     /**
      * 
-     * @param {Pointer<Integer>} locationKind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLocationKind(locationKind) {
-        locationKindMarshal := locationKind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, locationKindMarshal, locationKind, "HRESULT")
-        return result
+    GetLocationKind() {
+        result := ComCall(10, this, "int*", &locationKind := 0, "HRESULT")
+        return locationKind
     }
 
     /**
      * 
-     * @param {Pointer<Location>} location 
-     * @returns {HRESULT} 
+     * @returns {Location} 
      */
-    GetLocation(location) {
+    GetLocation() {
+        location := Location()
         result := ComCall(11, this, "ptr", location, "HRESULT")
-        return result
+        return location
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetValue(value) {
+    GetValue() {
+        value := VARIANT()
         result := ComCall(12, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcOperationResult.ahk
 #Include .\IDxcValidator.ahk
 
 /**
@@ -33,11 +34,10 @@ class IDxcValidator2 extends IDxcValidator{
      * @param {IDxcBlob} pShader 
      * @param {Integer} Flags 
      * @param {Pointer<DxcBuffer>} pOptDebugBitcode 
-     * @param {Pointer<IDxcOperationResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcOperationResult} 
      */
-    ValidateWithDebug(pShader, Flags, pOptDebugBitcode, ppResult) {
-        result := ComCall(4, this, "ptr", pShader, "uint", Flags, "ptr", pOptDebugBitcode, "ptr*", ppResult, "HRESULT")
-        return result
+    ValidateWithDebug(pShader, Flags, pOptDebugBitcode) {
+        result := ComCall(4, this, "ptr", pShader, "uint", Flags, "ptr", pOptDebugBitcode, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcOperationResult(ppResult)
     }
 }

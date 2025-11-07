@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\Document.ahk
+#Include .\Frame.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -53,12 +55,11 @@ class _Application extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Document>} Document 
-     * @returns {HRESULT} 
+     * @returns {Document} 
      */
-    get_Document(Document) {
-        result := ComCall(9, this, "ptr*", Document, "HRESULT")
-        return result
+    get_Document() {
+        result := ComCall(9, this, "ptr*", &Document := 0, "HRESULT")
+        return Document(Document)
     }
 
     /**
@@ -75,22 +76,20 @@ class _Application extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Frame>} Frame 
-     * @returns {HRESULT} 
+     * @returns {Frame} 
      */
-    get_Frame(Frame) {
-        result := ComCall(11, this, "ptr*", Frame, "HRESULT")
-        return result
+    get_Frame() {
+        result := ComCall(11, this, "ptr*", &Frame := 0, "HRESULT")
+        return Frame(Frame)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} Visible 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_Visible(Visible) {
-        result := ComCall(12, this, "ptr", Visible, "HRESULT")
-        return result
+    get_Visible() {
+        result := ComCall(12, this, "int*", &Visible := 0, "HRESULT")
+        return Visible
     }
 
     /**
@@ -113,12 +112,11 @@ class _Application extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} UserControl 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_UserControl(UserControl) {
-        result := ComCall(15, this, "ptr", UserControl, "HRESULT")
-        return result
+    get_UserControl() {
+        result := ComCall(15, this, "int*", &UserControl := 0, "HRESULT")
+        return UserControl
     }
 
     /**
@@ -133,25 +131,19 @@ class _Application extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} VersionMajor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_VersionMajor(VersionMajor) {
-        VersionMajorMarshal := VersionMajor is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, VersionMajorMarshal, VersionMajor, "HRESULT")
-        return result
+    get_VersionMajor() {
+        result := ComCall(17, this, "int*", &VersionMajor := 0, "HRESULT")
+        return VersionMajor
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} VersionMinor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_VersionMinor(VersionMinor) {
-        VersionMinorMarshal := VersionMinor is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, VersionMinorMarshal, VersionMinor, "HRESULT")
-        return result
+    get_VersionMinor() {
+        result := ComCall(18, this, "int*", &VersionMinor := 0, "HRESULT")
+        return VersionMinor
     }
 }

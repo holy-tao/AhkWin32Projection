@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -166,12 +167,12 @@ class ICredentialProviderCredentialEvents extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HWND>} phwndOwner 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-oncreatingwindow
      */
-    OnCreatingWindow(phwndOwner) {
+    OnCreatingWindow() {
+        phwndOwner := HWND()
         result := ComCall(12, this, "ptr", phwndOwner, "HRESULT")
-        return result
+        return phwndOwner
     }
 }

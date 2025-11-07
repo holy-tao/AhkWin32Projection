@@ -58,12 +58,12 @@ class ICertPropertySHA1Hash extends ICertProperty{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertysha1hash-get_sha1hash
      */
-    get_SHA1Hash(Encoding, pValue) {
+    get_SHA1Hash(Encoding) {
+        pValue := BSTR()
         result := ComCall(15, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCProfile.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,35 +31,28 @@ class IRTCProfileEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRTCProfile>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IRTCProfile} 
      */
-    get_Profile(ppProfile) {
-        result := ComCall(7, this, "ptr*", ppProfile, "HRESULT")
-        return result
+    get_Profile() {
+        result := ComCall(7, this, "ptr*", &ppProfile := 0, "HRESULT")
+        return IRTCProfile(ppProfile)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} plCookie 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_Cookie(plCookie) {
-        plCookieMarshal := plCookie is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, plCookieMarshal, plCookie, "HRESULT")
-        return result
+    get_Cookie() {
+        result := ComCall(8, this, "ptr*", &plCookie := 0, "HRESULT")
+        return plCookie
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plStatusCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StatusCode(plStatusCode) {
-        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
-        return result
+    get_StatusCode() {
+        result := ComCall(9, this, "int*", &plStatusCode := 0, "HRESULT")
+        return plStatusCode
     }
 }

@@ -37,15 +37,12 @@ class IWMImageInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcImages 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmimageinfo-getimagecount
      */
-    GetImageCount(pcImages) {
-        pcImagesMarshal := pcImages is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcImagesMarshal, pcImages, "HRESULT")
-        return result
+    GetImageCount() {
+        result := ComCall(3, this, "uint*", &pcImages := 0, "HRESULT")
+        return pcImages
     }
 
     /**

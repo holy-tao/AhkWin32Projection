@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirectXVideoDecoderService.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,13 +38,12 @@ class IDirectXVideoDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirectXVideoDecoderService>} ppService 
-     * @returns {HRESULT} 
+     * @returns {IDirectXVideoDecoderService} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoder-getvideodecoderservice
      */
-    GetVideoDecoderService(ppService) {
-        result := ComCall(3, this, "ptr*", ppService, "HRESULT")
-        return result
+    GetVideoDecoderService() {
+        result := ComCall(3, this, "ptr*", &ppService := 0, "HRESULT")
+        return IDirectXVideoDecoderService(ppService)
     }
 
     /**

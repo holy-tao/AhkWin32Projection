@@ -35,14 +35,11 @@ class IDXGIOutput4 extends IDXGIOutput3{
      * @param {Integer} Format 
      * @param {Integer} ColorSpace 
      * @param {IUnknown} pConcernedDevice 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgioutput4-checkoverlaycolorspacesupport
      */
-    CheckOverlayColorSpaceSupport(Format, ColorSpace, pConcernedDevice, pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(25, this, "int", Format, "int", ColorSpace, "ptr", pConcernedDevice, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    CheckOverlayColorSpaceSupport(Format, ColorSpace, pConcernedDevice) {
+        result := ComCall(25, this, "int", Format, "int", ColorSpace, "ptr", pConcernedDevice, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 }

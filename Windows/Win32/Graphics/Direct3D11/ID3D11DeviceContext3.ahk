@@ -60,6 +60,8 @@ class ID3D11DeviceContext3 extends ID3D11DeviceContext2{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11devicecontext3-gethardwareprotectionstate
      */
     GetHardwareProtectionState(pHwProtectionEnable) {
-        ComCall(146, this, "ptr", pHwProtectionEnable)
+        pHwProtectionEnableMarshal := pHwProtectionEnable is VarRef ? "int*" : "ptr"
+
+        ComCall(146, this, pHwProtectionEnableMarshal, pHwProtectionEnable)
     }
 }

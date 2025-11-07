@@ -2,6 +2,12 @@
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
 #Include ..\Foundation\BSTR.ahk
+#Include .\MIMECPINFO.ahk
+#Include .\IEnumCodePage.ahk
+#Include .\MIMECSETINFO.ahk
+#Include .\IEnumRfc1766.ahk
+#Include .\RFC1766INFO.ahk
+#Include .\IMLangConvertCharset.ahk
 #Include ..\System\Com\IUnknown.ahk
 
 /**
@@ -31,62 +37,55 @@ class IMultiLanguage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcCodePage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNumberOfCodePageInfo(pcCodePage) {
-        pcCodePageMarshal := pcCodePage is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcCodePageMarshal, pcCodePage, "HRESULT")
-        return result
+    GetNumberOfCodePageInfo() {
+        result := ComCall(3, this, "uint*", &pcCodePage := 0, "HRESULT")
+        return pcCodePage
     }
 
     /**
      * 
      * @param {Integer} uiCodePage 
-     * @param {Pointer<MIMECPINFO>} pCodePageInfo 
-     * @returns {HRESULT} 
+     * @returns {MIMECPINFO} 
      */
-    GetCodePageInfo(uiCodePage, pCodePageInfo) {
+    GetCodePageInfo(uiCodePage) {
+        pCodePageInfo := MIMECPINFO()
         result := ComCall(4, this, "uint", uiCodePage, "ptr", pCodePageInfo, "HRESULT")
-        return result
+        return pCodePageInfo
     }
 
     /**
      * 
      * @param {Integer} uiCodePage 
-     * @param {Pointer<Integer>} puiFamilyCodePage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFamilyCodePage(uiCodePage, puiFamilyCodePage) {
-        puiFamilyCodePageMarshal := puiFamilyCodePage is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", uiCodePage, puiFamilyCodePageMarshal, puiFamilyCodePage, "HRESULT")
-        return result
+    GetFamilyCodePage(uiCodePage) {
+        result := ComCall(5, this, "uint", uiCodePage, "uint*", &puiFamilyCodePage := 0, "HRESULT")
+        return puiFamilyCodePage
     }
 
     /**
      * 
      * @param {Integer} grfFlags 
-     * @param {Pointer<IEnumCodePage>} ppEnumCodePage 
-     * @returns {HRESULT} 
+     * @returns {IEnumCodePage} 
      */
-    EnumCodePages(grfFlags, ppEnumCodePage) {
-        result := ComCall(6, this, "uint", grfFlags, "ptr*", ppEnumCodePage, "HRESULT")
-        return result
+    EnumCodePages(grfFlags) {
+        result := ComCall(6, this, "uint", grfFlags, "ptr*", &ppEnumCodePage := 0, "HRESULT")
+        return IEnumCodePage(ppEnumCodePage)
     }
 
     /**
      * 
      * @param {BSTR} Charset 
-     * @param {Pointer<MIMECSETINFO>} pCharsetInfo 
-     * @returns {HRESULT} 
+     * @returns {MIMECSETINFO} 
      */
-    GetCharsetInfo(Charset, pCharsetInfo) {
+    GetCharsetInfo(Charset) {
         Charset := Charset is String ? BSTR.Alloc(Charset).Value : Charset
 
+        pCharsetInfo := MIMECSETINFO()
         result := ComCall(7, this, "ptr", Charset, "ptr", pCharsetInfo, "HRESULT")
-        return result
+        return pCharsetInfo
     }
 
     /**
@@ -174,48 +173,44 @@ class IMultiLanguage extends IUnknown{
     /**
      * 
      * @param {Integer} Locale 
-     * @param {Pointer<BSTR>} pbstrRfc1766 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetRfc1766FromLcid(Locale, pbstrRfc1766) {
+    GetRfc1766FromLcid(Locale) {
+        pbstrRfc1766 := BSTR()
         result := ComCall(13, this, "uint", Locale, "ptr", pbstrRfc1766, "HRESULT")
-        return result
+        return pbstrRfc1766
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pLocale 
      * @param {BSTR} bstrRfc1766 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLcidFromRfc1766(pLocale, bstrRfc1766) {
+    GetLcidFromRfc1766(bstrRfc1766) {
         bstrRfc1766 := bstrRfc1766 is String ? BSTR.Alloc(bstrRfc1766).Value : bstrRfc1766
 
-        pLocaleMarshal := pLocale is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pLocaleMarshal, pLocale, "ptr", bstrRfc1766, "HRESULT")
-        return result
+        result := ComCall(14, this, "uint*", &pLocale := 0, "ptr", bstrRfc1766, "HRESULT")
+        return pLocale
     }
 
     /**
      * 
-     * @param {Pointer<IEnumRfc1766>} ppEnumRfc1766 
-     * @returns {HRESULT} 
+     * @returns {IEnumRfc1766} 
      */
-    EnumRfc1766(ppEnumRfc1766) {
-        result := ComCall(15, this, "ptr*", ppEnumRfc1766, "HRESULT")
-        return result
+    EnumRfc1766() {
+        result := ComCall(15, this, "ptr*", &ppEnumRfc1766 := 0, "HRESULT")
+        return IEnumRfc1766(ppEnumRfc1766)
     }
 
     /**
      * 
      * @param {Integer} Locale 
-     * @param {Pointer<RFC1766INFO>} pRfc1766Info 
-     * @returns {HRESULT} 
+     * @returns {RFC1766INFO} 
      */
-    GetRfc1766Info(Locale, pRfc1766Info) {
+    GetRfc1766Info(Locale) {
+        pRfc1766Info := RFC1766INFO()
         result := ComCall(16, this, "uint", Locale, "ptr", pRfc1766Info, "HRESULT")
-        return result
+        return pRfc1766Info
     }
 
     /**
@@ -223,11 +218,10 @@ class IMultiLanguage extends IUnknown{
      * @param {Integer} uiSrcCodePage 
      * @param {Integer} uiDstCodePage 
      * @param {Integer} dwProperty 
-     * @param {Pointer<IMLangConvertCharset>} ppMLangConvertCharset 
-     * @returns {HRESULT} 
+     * @returns {IMLangConvertCharset} 
      */
-    CreateConvertCharset(uiSrcCodePage, uiDstCodePage, dwProperty, ppMLangConvertCharset) {
-        result := ComCall(17, this, "uint", uiSrcCodePage, "uint", uiDstCodePage, "uint", dwProperty, "ptr*", ppMLangConvertCharset, "HRESULT")
-        return result
+    CreateConvertCharset(uiSrcCodePage, uiDstCodePage, dwProperty) {
+        result := ComCall(17, this, "uint", uiSrcCodePage, "uint", uiDstCodePage, "uint", dwProperty, "ptr*", &ppMLangConvertCharset := 0, "HRESULT")
+        return IMLangConvertCharset(ppMLangConvertCharset)
     }
 }

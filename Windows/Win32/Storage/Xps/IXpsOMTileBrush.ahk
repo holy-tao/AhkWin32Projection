@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMMatrixTransform.ahk
+#Include .\XPS_RECT.ahk
 #Include .\IXpsOMBrush.ahk
 
 /**
@@ -49,24 +51,22 @@ class IXpsOMTileBrush extends IXpsOMBrush{
 
     /**
      * 
-     * @param {Pointer<IXpsOMMatrixTransform>} transform 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMMatrixTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransform
      */
-    GetTransform(transform) {
-        result := ComCall(7, this, "ptr*", transform, "HRESULT")
-        return result
+    GetTransform() {
+        result := ComCall(7, this, "ptr*", &transform := 0, "HRESULT")
+        return IXpsOMMatrixTransform(transform)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMMatrixTransform>} transform 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMMatrixTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlocal
      */
-    GetTransformLocal(transform) {
-        result := ComCall(8, this, "ptr*", transform, "HRESULT")
-        return result
+    GetTransformLocal() {
+        result := ComCall(8, this, "ptr*", &transform := 0, "HRESULT")
+        return IXpsOMMatrixTransform(transform)
     }
 
     /**
@@ -82,13 +82,12 @@ class IXpsOMTileBrush extends IXpsOMBrush{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} key 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlookup
      */
-    GetTransformLookup(key) {
-        result := ComCall(10, this, "ptr", key, "HRESULT")
-        return result
+    GetTransformLookup() {
+        result := ComCall(10, this, "ptr*", &key := 0, "HRESULT")
+        return key
     }
 
     /**
@@ -106,13 +105,13 @@ class IXpsOMTileBrush extends IXpsOMBrush{
 
     /**
      * 
-     * @param {Pointer<XPS_RECT>} viewbox 
-     * @returns {HRESULT} 
+     * @returns {XPS_RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-getviewbox
      */
-    GetViewbox(viewbox) {
+    GetViewbox() {
+        viewbox := XPS_RECT()
         result := ComCall(12, this, "ptr", viewbox, "HRESULT")
-        return result
+        return viewbox
     }
 
     /**
@@ -128,13 +127,13 @@ class IXpsOMTileBrush extends IXpsOMBrush{
 
     /**
      * 
-     * @param {Pointer<XPS_RECT>} viewport 
-     * @returns {HRESULT} 
+     * @returns {XPS_RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-getviewport
      */
-    GetViewport(viewport) {
+    GetViewport() {
+        viewport := XPS_RECT()
         result := ComCall(14, this, "ptr", viewport, "HRESULT")
-        return result
+        return viewport
     }
 
     /**
@@ -150,15 +149,12 @@ class IXpsOMTileBrush extends IXpsOMBrush{
 
     /**
      * 
-     * @param {Pointer<Integer>} tileMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettilemode
      */
-    GetTileMode(tileMode) {
-        tileModeMarshal := tileMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, tileModeMarshal, tileMode, "HRESULT")
-        return result
+    GetTileMode() {
+        result := ComCall(16, this, "int*", &tileMode := 0, "HRESULT")
+        return tileMode
     }
 
     /**

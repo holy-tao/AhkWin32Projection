@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IShellItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,78 +48,55 @@ class IShellItem extends IUnknown{
      * @param {IBindCtx} pbc 
      * @param {Pointer<Guid>} bhid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-bindtohandler
      */
-    BindToHandler(pbc, bhid, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pbc, "ptr", bhid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    BindToHandler(pbc, bhid, riid) {
+        result := ComCall(3, this, "ptr", pbc, "ptr", bhid, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * Retrieves a handle to the specified window's parent or owner.
-     * @param {Pointer<IShellItem>} ppsi 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * If the window is a child window, the return value is a handle to the parent window. If the window is a top-level window with the <b>WS_POPUP</b> style, the return value is a handle to the owner window. 
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     * This function typically fails for one of the following reasons:
-     * 
-     * 
-     * <ul>
-     * <li>The window is a top-level window that is unowned or does not have the <b>WS_POPUP</b> style. </li>
-     * <li>The owner window has <b>WS_POPUP</b> style.</li>
-     * </ul>
+     * @returns {IShellItem} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
      */
-    GetParent(ppsi) {
-        result := ComCall(4, this, "ptr*", ppsi, "HRESULT")
-        return result
+    GetParent() {
+        result := ComCall(4, this, "ptr*", &ppsi := 0, "HRESULT")
+        return IShellItem(ppsi)
     }
 
     /**
      * 
      * @param {Integer} sigdnName 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-getdisplayname
      */
-    GetDisplayName(sigdnName, ppszName) {
-        result := ComCall(5, this, "int", sigdnName, "ptr", ppszName, "HRESULT")
-        return result
+    GetDisplayName(sigdnName) {
+        result := ComCall(5, this, "int", sigdnName, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
      * 
      * @param {Integer} sfgaoMask 
-     * @param {Pointer<Integer>} psfgaoAttribs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-getattributes
      */
-    GetAttributes(sfgaoMask, psfgaoAttribs) {
-        psfgaoAttribsMarshal := psfgaoAttribs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", sfgaoMask, psfgaoAttribsMarshal, psfgaoAttribs, "HRESULT")
-        return result
+    GetAttributes(sfgaoMask) {
+        result := ComCall(6, this, "uint", sfgaoMask, "uint*", &psfgaoAttribs := 0, "HRESULT")
+        return psfgaoAttribs
     }
 
     /**
      * 
      * @param {IShellItem} psi 
      * @param {Integer} hint 
-     * @param {Pointer<Integer>} piOrder 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-compare
      */
-    Compare(psi, hint, piOrder) {
-        piOrderMarshal := piOrder is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "ptr", psi, "uint", hint, piOrderMarshal, piOrder, "HRESULT")
-        return result
+    Compare(psi, hint) {
+        result := ComCall(7, this, "ptr", psi, "uint", hint, "int*", &piOrder := 0, "HRESULT")
+        return piOrder
     }
 }

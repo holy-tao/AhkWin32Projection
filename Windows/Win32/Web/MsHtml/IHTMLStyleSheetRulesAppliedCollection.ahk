@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLStyleSheetRule.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,65 +39,56 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IHTMLStyleSheetRule>} ppHTMLStyleSheetRule 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheetRule} 
      */
-    item(index, ppHTMLStyleSheetRule) {
-        result := ComCall(7, this, "int", index, "ptr*", ppHTMLStyleSheetRule, "HRESULT")
-        return result
+    item(index) {
+        result := ComCall(7, this, "int", index, "ptr*", &ppHTMLStyleSheetRule := 0, "HRESULT")
+        return IHTMLStyleSheetRule(ppHTMLStyleSheetRule)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IHTMLStyleSheetRule>} ppRule 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheetRule} 
      */
-    propertyAppliedBy(name, ppRule) {
+    propertyAppliedBy(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(9, this, "ptr", name, "ptr*", ppRule, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", name, "ptr*", &ppRule := 0, "HRESULT")
+        return IHTMLStyleSheetRule(ppRule)
     }
 
     /**
      * 
      * @param {BSTR} name 
      * @param {Integer} index 
-     * @param {Pointer<IHTMLStyleSheetRule>} ppRule 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheetRule} 
      */
-    propertyAppliedTrace(name, index, ppRule) {
+    propertyAppliedTrace(name, index) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(10, this, "ptr", name, "int", index, "ptr*", ppRule, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", name, "int", index, "ptr*", &ppRule := 0, "HRESULT")
+        return IHTMLStyleSheetRule(ppRule)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<Integer>} pLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    propertyAppliedTraceLength(name, pLength) {
+    propertyAppliedTraceLength(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "ptr", name, pLengthMarshal, pLength, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", name, "int*", &pLength := 0, "HRESULT")
+        return pLength
     }
 }

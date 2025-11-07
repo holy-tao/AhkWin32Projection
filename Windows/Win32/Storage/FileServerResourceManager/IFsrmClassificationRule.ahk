@@ -40,15 +40,12 @@ class IFsrmClassificationRule extends IFsrmRule{
 
     /**
      * 
-     * @param {Pointer<Integer>} executionOption 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_executionoption
      */
-    get_ExecutionOption(executionOption) {
-        executionOptionMarshal := executionOption is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, executionOptionMarshal, executionOption, "HRESULT")
-        return result
+    get_ExecutionOption() {
+        result := ComCall(24, this, "int*", &executionOption := 0, "HRESULT")
+        return executionOption
     }
 
     /**
@@ -64,13 +61,13 @@ class IFsrmClassificationRule extends IFsrmRule{
 
     /**
      * 
-     * @param {Pointer<BSTR>} property 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_propertyaffected
      */
-    get_PropertyAffected(property) {
+    get_PropertyAffected() {
+        property := BSTR()
         result := ComCall(26, this, "ptr", property, "HRESULT")
-        return result
+        return property
     }
 
     /**
@@ -88,13 +85,13 @@ class IFsrmClassificationRule extends IFsrmRule{
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_value
      */
-    get_Value(value) {
+    get_Value() {
+        value := BSTR()
         result := ComCall(28, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**

@@ -99,15 +99,12 @@ class IShellLinkDataList extends IUnknown{
     /**
      * 
      * @param {Integer} dwSig 
-     * @param {Pointer<Pointer<Void>>} ppDataBlock 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-copydatablock
      */
-    CopyDataBlock(dwSig, ppDataBlock) {
-        ppDataBlockMarshal := ppDataBlock is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", dwSig, ppDataBlockMarshal, ppDataBlock, "HRESULT")
-        return result
+    CopyDataBlock(dwSig) {
+        result := ComCall(4, this, "uint", dwSig, "ptr*", &ppDataBlock := 0, "HRESULT")
+        return ppDataBlock
     }
 
     /**
@@ -123,15 +120,12 @@ class IShellLinkDataList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-getflags
      */
-    GetFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(6, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**

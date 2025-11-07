@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFaxOutgoingQueue.ahk
+#Include .\IFaxIncomingQueue.ahk
+#Include .\IFaxIncomingArchive.ahk
+#Include .\IFaxOutgoingArchive.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,45 +46,41 @@ class IFaxFolders extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFaxOutgoingQueue>} pFaxOutgoingQueue 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutgoingQueue} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_outgoingqueue
      */
-    get_OutgoingQueue(pFaxOutgoingQueue) {
-        result := ComCall(7, this, "ptr*", pFaxOutgoingQueue, "HRESULT")
-        return result
+    get_OutgoingQueue() {
+        result := ComCall(7, this, "ptr*", &pFaxOutgoingQueue := 0, "HRESULT")
+        return IFaxOutgoingQueue(pFaxOutgoingQueue)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxIncomingQueue>} pFaxIncomingQueue 
-     * @returns {HRESULT} 
+     * @returns {IFaxIncomingQueue} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_incomingqueue
      */
-    get_IncomingQueue(pFaxIncomingQueue) {
-        result := ComCall(8, this, "ptr*", pFaxIncomingQueue, "HRESULT")
-        return result
+    get_IncomingQueue() {
+        result := ComCall(8, this, "ptr*", &pFaxIncomingQueue := 0, "HRESULT")
+        return IFaxIncomingQueue(pFaxIncomingQueue)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxIncomingArchive>} pFaxIncomingArchive 
-     * @returns {HRESULT} 
+     * @returns {IFaxIncomingArchive} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_incomingarchive
      */
-    get_IncomingArchive(pFaxIncomingArchive) {
-        result := ComCall(9, this, "ptr*", pFaxIncomingArchive, "HRESULT")
-        return result
+    get_IncomingArchive() {
+        result := ComCall(9, this, "ptr*", &pFaxIncomingArchive := 0, "HRESULT")
+        return IFaxIncomingArchive(pFaxIncomingArchive)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxOutgoingArchive>} pFaxOutgoingArchive 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutgoingArchive} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxfolders-get_outgoingarchive
      */
-    get_OutgoingArchive(pFaxOutgoingArchive) {
-        result := ComCall(10, this, "ptr*", pFaxOutgoingArchive, "HRESULT")
-        return result
+    get_OutgoingArchive() {
+        result := ComCall(10, this, "ptr*", &pFaxOutgoingArchive := 0, "HRESULT")
+        return IFaxOutgoingArchive(pFaxOutgoingArchive)
     }
 }

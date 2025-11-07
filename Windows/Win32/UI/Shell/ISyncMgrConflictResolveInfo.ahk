@@ -49,15 +49,12 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnPresenterNextStep 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getpresenternextstep
      */
-    GetPresenterNextStep(pnPresenterNextStep) {
-        pnPresenterNextStepMarshal := pnPresenterNextStep is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pnPresenterNextStepMarshal, pnPresenterNextStep, "HRESULT")
-        return result
+    GetPresenterNextStep() {
+        result := ComCall(4, this, "int*", &pnPresenterNextStep := 0, "HRESULT")
+        return pnPresenterNextStep
     }
 
     /**
@@ -69,36 +66,31 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      */
     GetPresenterChoice(pnPresenterChoice, pfApplyToAll) {
         pnPresenterChoiceMarshal := pnPresenterChoice is VarRef ? "int*" : "ptr"
+        pfApplyToAllMarshal := pfApplyToAll is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, pnPresenterChoiceMarshal, pnPresenterChoice, "ptr", pfApplyToAll, "HRESULT")
+        result := ComCall(5, this, pnPresenterChoiceMarshal, pnPresenterChoice, pfApplyToAllMarshal, pfApplyToAll, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcChoices 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getitemchoicecount
      */
-    GetItemChoiceCount(pcChoices) {
-        pcChoicesMarshal := pcChoices is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pcChoicesMarshal, pcChoices, "HRESULT")
-        return result
+    GetItemChoiceCount() {
+        result := ComCall(6, this, "uint*", &pcChoices := 0, "HRESULT")
+        return pcChoices
     }
 
     /**
      * 
      * @param {Integer} iChoice 
-     * @param {Pointer<Integer>} piChoiceIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getitemchoice
      */
-    GetItemChoice(iChoice, piChoiceIndex) {
-        piChoiceIndexMarshal := piChoiceIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "uint", iChoice, piChoiceIndexMarshal, piChoiceIndex, "HRESULT")
-        return result
+    GetItemChoice(iChoice) {
+        result := ComCall(7, this, "uint", iChoice, "uint*", &piChoiceIndex := 0, "HRESULT")
+        return piChoiceIndex
     }
 
     /**

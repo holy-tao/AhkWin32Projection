@@ -32,15 +32,13 @@ class IDCInfo extends IUnknown{
      * 
      * @param {Integer} cInfo 
      * @param {Pointer<Integer>} rgeInfoType 
-     * @param {Pointer<Pointer<DCINFO>>} prgInfo 
-     * @returns {HRESULT} 
+     * @returns {Pointer<DCINFO>} 
      */
-    GetInfo(cInfo, rgeInfoType, prgInfo) {
+    GetInfo(cInfo, rgeInfoType) {
         rgeInfoTypeMarshal := rgeInfoType is VarRef ? "uint*" : "ptr"
-        prgInfoMarshal := prgInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", cInfo, rgeInfoTypeMarshal, rgeInfoType, prgInfoMarshal, prgInfo, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cInfo, rgeInfoTypeMarshal, rgeInfoType, "ptr*", &prgInfo := 0, "HRESULT")
+        return prgInfo
     }
 
     /**

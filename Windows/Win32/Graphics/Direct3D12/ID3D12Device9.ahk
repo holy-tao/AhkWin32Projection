@@ -34,15 +34,12 @@ class ID3D12Device9 extends ID3D12Device8{
      * 
      * @param {Pointer<D3D12_SHADER_CACHE_SESSION_DESC>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvSession 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device9-createshadercachesession
      */
-    CreateShaderCacheSession(pDesc, riid, ppvSession) {
-        ppvSessionMarshal := ppvSession is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(73, this, "ptr", pDesc, "ptr", riid, ppvSessionMarshal, ppvSession, "HRESULT")
-        return result
+    CreateShaderCacheSession(pDesc, riid) {
+        result := ComCall(73, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppvSession := 0, "HRESULT")
+        return ppvSession
     }
 
     /**
@@ -62,14 +59,11 @@ class ID3D12Device9 extends ID3D12Device8{
      * @param {Pointer<D3D12_COMMAND_QUEUE_DESC>} pDesc 
      * @param {Pointer<Guid>} CreatorID 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppCommandQueue 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device9-createcommandqueue1
      */
-    CreateCommandQueue1(pDesc, CreatorID, riid, ppCommandQueue) {
-        ppCommandQueueMarshal := ppCommandQueue is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(75, this, "ptr", pDesc, "ptr", CreatorID, "ptr", riid, ppCommandQueueMarshal, ppCommandQueue, "HRESULT")
-        return result
+    CreateCommandQueue1(pDesc, CreatorID, riid) {
+        result := ComCall(75, this, "ptr", pDesc, "ptr", CreatorID, "ptr", riid, "ptr*", &ppCommandQueue := 0, "HRESULT")
+        return ppCommandQueue
     }
 }

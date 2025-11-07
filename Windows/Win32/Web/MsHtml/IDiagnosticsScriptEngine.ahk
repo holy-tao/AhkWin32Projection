@@ -50,7 +50,10 @@ class IDiagnosticsScriptEngine extends IUnknown{
      * @returns {HRESULT} 
      */
     FireScriptMessageEvent(pszNames, pszValues, ulPropertyCount) {
-        result := ComCall(4, this, "ptr", pszNames, "ptr", pszValues, "uint", ulPropertyCount, "HRESULT")
+        pszNamesMarshal := pszNames is VarRef ? "ptr*" : "ptr"
+        pszValuesMarshal := pszValues is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, pszNamesMarshal, pszNames, pszValuesMarshal, pszValues, "uint", ulPropertyCount, "HRESULT")
         return result
     }
 

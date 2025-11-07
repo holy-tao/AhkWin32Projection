@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWbemObjectSink.ahk
+#Include .\IWbemServices.ahk
 #Include .\IWbemDecoupledRegistrar.ahk
 
 /**
@@ -40,25 +42,23 @@ class IWbemDecoupledBasicEventProvider extends IWbemDecoupledRegistrar{
      * 
      * @param {Integer} a_Flags 
      * @param {IWbemContext} a_Context 
-     * @param {Pointer<IWbemObjectSink>} a_Sink 
-     * @returns {HRESULT} 
+     * @returns {IWbemObjectSink} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getsink
      */
-    GetSink(a_Flags, a_Context, a_Sink) {
-        result := ComCall(5, this, "int", a_Flags, "ptr", a_Context, "ptr*", a_Sink, "HRESULT")
-        return result
+    GetSink(a_Flags, a_Context) {
+        result := ComCall(5, this, "int", a_Flags, "ptr", a_Context, "ptr*", &a_Sink := 0, "HRESULT")
+        return IWbemObjectSink(a_Sink)
     }
 
     /**
      * 
      * @param {Integer} a_Flags 
      * @param {IWbemContext} a_Context 
-     * @param {Pointer<IWbemServices>} a_Service 
-     * @returns {HRESULT} 
+     * @returns {IWbemServices} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getservice
      */
-    GetService(a_Flags, a_Context, a_Service) {
-        result := ComCall(6, this, "int", a_Flags, "ptr", a_Context, "ptr*", a_Service, "HRESULT")
-        return result
+    GetService(a_Flags, a_Context) {
+        result := ComCall(6, this, "int", a_Flags, "ptr", a_Context, "ptr*", &a_Service := 0, "HRESULT")
+        return IWbemServices(a_Service)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransactionEnlistmentAsync.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -64,12 +65,11 @@ class IDtcToXaHelperSinglePipe extends IUnknown{
      * @param {Integer} dwRMCookie 
      * @param {ITransaction} i_pITransaction 
      * @param {ITransactionResourceAsync} i_pITransRes 
-     * @param {Pointer<ITransactionEnlistmentAsync>} o_ppITransEnslitment 
-     * @returns {HRESULT} 
+     * @returns {ITransactionEnlistmentAsync} 
      */
-    EnlistWithRM(dwRMCookie, i_pITransaction, i_pITransRes, o_ppITransEnslitment) {
-        result := ComCall(5, this, "uint", dwRMCookie, "ptr", i_pITransaction, "ptr", i_pITransRes, "ptr*", o_ppITransEnslitment, "HRESULT")
-        return result
+    EnlistWithRM(dwRMCookie, i_pITransaction, i_pITransRes) {
+        result := ComCall(5, this, "uint", dwRMCookie, "ptr", i_pITransaction, "ptr", i_pITransRes, "ptr*", &o_ppITransEnslitment := 0, "HRESULT")
+        return ITransactionEnlistmentAsync(o_ppITransEnslitment)
     }
 
     /**

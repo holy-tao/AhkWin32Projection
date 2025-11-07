@@ -32,15 +32,12 @@ class ITCustomTone extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plFrequency 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_frequency
      */
-    get_Frequency(plFrequency) {
-        plFrequencyMarshal := plFrequency is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plFrequencyMarshal, plFrequency, "HRESULT")
-        return result
+    get_Frequency() {
+        result := ComCall(7, this, "int*", &plFrequency := 0, "HRESULT")
+        return plFrequency
     }
 
     /**
@@ -56,15 +53,12 @@ class ITCustomTone extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCadenceOn 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_cadenceon
      */
-    get_CadenceOn(plCadenceOn) {
-        plCadenceOnMarshal := plCadenceOn is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCadenceOnMarshal, plCadenceOn, "HRESULT")
-        return result
+    get_CadenceOn() {
+        result := ComCall(9, this, "int*", &plCadenceOn := 0, "HRESULT")
+        return plCadenceOn
     }
 
     /**
@@ -80,15 +74,12 @@ class ITCustomTone extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCadenceOff 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_cadenceoff
      */
-    get_CadenceOff(plCadenceOff) {
-        plCadenceOffMarshal := plCadenceOff is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plCadenceOffMarshal, plCadenceOff, "HRESULT")
-        return result
+    get_CadenceOff() {
+        result := ComCall(11, this, "int*", &plCadenceOff := 0, "HRESULT")
+        return plCadenceOff
     }
 
     /**
@@ -104,15 +95,12 @@ class ITCustomTone extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plVolume 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_volume
      */
-    get_Volume(plVolume) {
-        plVolumeMarshal := plVolume is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, plVolumeMarshal, plVolume, "HRESULT")
-        return result
+    get_Volume() {
+        result := ComCall(13, this, "int*", &plVolume := 0, "HRESULT")
+        return plVolume
     }
 
     /**

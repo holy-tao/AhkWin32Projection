@@ -47,14 +47,11 @@ class IShellIcon extends IUnknown{
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {Integer} flags 
-     * @param {Pointer<Integer>} pIconIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellicon-geticonof
      */
-    GetIconOf(pidl, flags, pIconIndex) {
-        pIconIndexMarshal := pIconIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pidl, "uint", flags, pIconIndexMarshal, pIconIndex, "HRESULT")
-        return result
+    GetIconOf(pidl, flags) {
+        result := ComCall(3, this, "ptr", pidl, "uint", flags, "int*", &pIconIndex := 0, "HRESULT")
+        return pIconIndex
     }
 }

@@ -32,38 +32,29 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppbStorage 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    get_Storage(ppbStorage) {
-        ppbStorageMarshal := ppbStorage is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppbStorageMarshal, ppbStorage, "HRESULT")
-        return result
+    get_Storage() {
+        result := ComCall(3, this, "ptr*", &ppbStorage := 0, "HRESULT")
+        return ppbStorage
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMaxStore 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StorageSize(plMaxStore) {
-        plMaxStoreMarshal := plMaxStore is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, plMaxStoreMarshal, plMaxStore, "HRESULT")
-        return result
+    get_StorageSize() {
+        result := ComCall(4, this, "int*", &plMaxStore := 0, "HRESULT")
+        return plMaxStore
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PayloadSize(plRetVal) {
-        plRetValMarshal := plRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, plRetValMarshal, plRetVal, "HRESULT")
-        return result
+    get_PayloadSize() {
+        result := ComCall(5, this, "int*", &plRetVal := 0, "HRESULT")
+        return plRetVal
     }
 
     /**
@@ -78,14 +69,11 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PayloadOffset(plRetVal) {
-        plRetValMarshal := plRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plRetValMarshal, plRetVal, "HRESULT")
-        return result
+    get_PayloadOffset() {
+        result := ComCall(7, this, "int*", &plRetVal := 0, "HRESULT")
+        return plRetVal
     }
 
     /**
@@ -100,14 +88,11 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Flags(plFlags) {
-        plFlagsMarshal := plFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plFlagsMarshal, plFlags, "HRESULT")
-        return result
+    get_Flags() {
+        result := ComCall(9, this, "int*", &plFlags := 0, "HRESULT")
+        return plFlags
     }
 
     /**
@@ -122,13 +107,12 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppContext 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-get_context
      */
-    get_Context(ppContext) {
-        result := ComCall(11, this, "ptr*", ppContext, "HRESULT")
-        return result
+    get_Context() {
+        result := ComCall(11, this, "ptr*", &ppContext := 0, "HRESULT")
+        return IUnknown(ppContext)
     }
 
     /**

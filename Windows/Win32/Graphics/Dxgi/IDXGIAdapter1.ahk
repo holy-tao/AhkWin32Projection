@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_ADAPTER_DESC1.ahk
 #Include .\IDXGIAdapter.ahk
 
 /**
@@ -48,12 +49,12 @@ class IDXGIAdapter1 extends IDXGIAdapter{
 
     /**
      * 
-     * @param {Pointer<DXGI_ADAPTER_DESC1>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {DXGI_ADAPTER_DESC1} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiadapter1-getdesc1
      */
-    GetDesc1(pDesc) {
+    GetDesc1() {
+        pDesc := DXGI_ADAPTER_DESC1()
         result := ComCall(10, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 }

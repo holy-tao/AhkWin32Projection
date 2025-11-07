@@ -126,7 +126,9 @@ class IDirectDrawClipper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-iscliplistchanged
      */
     IsClipListChanged(param0) {
-        result := ComCall(6, this, "ptr", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, param0Marshal, param0, "HRESULT")
         return result
     }
 

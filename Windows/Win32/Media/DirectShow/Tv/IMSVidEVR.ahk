@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\MediaFoundation\IMFVideoPresenter.ahk
 #Include .\IMSVidVideoRenderer.ahk
 
 /**
@@ -43,13 +44,12 @@ class IMSVidEVR extends IMSVidVideoRenderer{
 
     /**
      * 
-     * @param {Pointer<IMFVideoPresenter>} ppAllocPresent 
-     * @returns {HRESULT} 
+     * @returns {IMFVideoPresenter} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidevr-get_presenter
      */
-    get_Presenter(ppAllocPresent) {
-        result := ComCall(46, this, "ptr*", ppAllocPresent, "HRESULT")
-        return result
+    get_Presenter() {
+        result := ComCall(46, this, "ptr*", &ppAllocPresent := 0, "HRESULT")
+        return IMFVideoPresenter(ppAllocPresent)
     }
 
     /**
@@ -76,12 +76,11 @@ class IMSVidEVR extends IMSVidVideoRenderer{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bSuppress 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidevr-get_suppresseffects
      */
-    get_SuppressEffects(bSuppress) {
-        result := ComCall(49, this, "ptr", bSuppress, "HRESULT")
-        return result
+    get_SuppressEffects() {
+        result := ComCall(49, this, "short*", &bSuppress := 0, "HRESULT")
+        return bSuppress
     }
 }

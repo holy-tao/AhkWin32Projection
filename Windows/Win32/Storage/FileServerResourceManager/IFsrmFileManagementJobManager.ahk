@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\IFsrmFileManagementJob.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -49,64 +51,55 @@ class IFsrmFileManagementJobManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} variables 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariables
      */
-    get_ActionVariables(variables) {
-        variablesMarshal := variables is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, variablesMarshal, variables, "HRESULT")
-        return result
+    get_ActionVariables() {
+        result := ComCall(7, this, "ptr*", &variables := 0, "HRESULT")
+        return variables
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} descriptions 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariabledescriptions
      */
-    get_ActionVariableDescriptions(descriptions) {
-        descriptionsMarshal := descriptions is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, descriptionsMarshal, descriptions, "HRESULT")
-        return result
+    get_ActionVariableDescriptions() {
+        result := ComCall(8, this, "ptr*", &descriptions := 0, "HRESULT")
+        return descriptions
     }
 
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCollection>} fileManagementJobs 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-enumfilemanagementjobs
      */
-    EnumFileManagementJobs(options, fileManagementJobs) {
-        result := ComCall(9, this, "int", options, "ptr*", fileManagementJobs, "HRESULT")
-        return result
+    EnumFileManagementJobs(options) {
+        result := ComCall(9, this, "int", options, "ptr*", &fileManagementJobs := 0, "HRESULT")
+        return IFsrmCollection(fileManagementJobs)
     }
 
     /**
      * 
-     * @param {Pointer<IFsrmFileManagementJob>} fileManagementJob 
-     * @returns {HRESULT} 
+     * @returns {IFsrmFileManagementJob} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-createfilemanagementjob
      */
-    CreateFileManagementJob(fileManagementJob) {
-        result := ComCall(10, this, "ptr*", fileManagementJob, "HRESULT")
-        return result
+    CreateFileManagementJob() {
+        result := ComCall(10, this, "ptr*", &fileManagementJob := 0, "HRESULT")
+        return IFsrmFileManagementJob(fileManagementJob)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IFsrmFileManagementJob>} fileManagementJob 
-     * @returns {HRESULT} 
+     * @returns {IFsrmFileManagementJob} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-getfilemanagementjob
      */
-    GetFileManagementJob(name, fileManagementJob) {
+    GetFileManagementJob(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(11, this, "ptr", name, "ptr*", fileManagementJob, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", name, "ptr*", &fileManagementJob := 0, "HRESULT")
+        return IFsrmFileManagementJob(fileManagementJob)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncMgrSyncItemInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,80 +39,64 @@ class ISyncMgrSyncItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszItemID 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getitemid
      */
-    GetItemID(ppszItemID) {
-        result := ComCall(3, this, "ptr", ppszItemID, "HRESULT")
-        return result
+    GetItemID() {
+        result := ComCall(3, this, "ptr*", &ppszItemID := 0, "HRESULT")
+        return ppszItemID
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getname
      */
-    GetName(ppszName) {
-        result := ComCall(4, this, "ptr", ppszName, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(4, this, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
      * 
-     * @param {Pointer<ISyncMgrSyncItemInfo>} ppItemInfo 
-     * @returns {HRESULT} 
+     * @returns {ISyncMgrSyncItemInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getiteminfo
      */
-    GetItemInfo(ppItemInfo) {
-        result := ComCall(5, this, "ptr*", ppItemInfo, "HRESULT")
-        return result
+    GetItemInfo() {
+        result := ComCall(5, this, "ptr*", &ppItemInfo := 0, "HRESULT")
+        return ISyncMgrSyncItemInfo(ppItemInfo)
     }
 
     /**
      * The GetObject function retrieves information for the specified graphics object.
      * @param {Pointer<Guid>} rguidObjectID 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {Pointer<Void>} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(rguidObjectID, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", rguidObjectID, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetObject(rguidObjectID, riid) {
+        result := ComCall(6, this, "ptr", rguidObjectID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pmCapabilities 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getcapabilities
      */
-    GetCapabilities(pmCapabilities) {
-        pmCapabilitiesMarshal := pmCapabilities is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pmCapabilitiesMarshal, pmCapabilities, "HRESULT")
-        return result
+    GetCapabilities() {
+        result := ComCall(7, this, "int*", &pmCapabilities := 0, "HRESULT")
+        return pmCapabilities
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pmPolicies 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getpolicies
      */
-    GetPolicies(pmPolicies) {
-        pmPoliciesMarshal := pmPolicies is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pmPoliciesMarshal, pmPolicies, "HRESULT")
-        return result
+    GetPolicies() {
+        result := ComCall(8, this, "int*", &pmPolicies := 0, "HRESULT")
+        return pmPolicies
     }
 
     /**

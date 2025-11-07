@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFSourceBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -93,15 +94,14 @@ class IMFMediaSourceExtension extends IUnknown{
      * 
      * @param {BSTR} type 
      * @param {IMFSourceBufferNotify} pNotify 
-     * @param {Pointer<IMFSourceBuffer>} ppSourceBuffer 
-     * @returns {HRESULT} 
+     * @returns {IMFSourceBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-addsourcebuffer
      */
-    AddSourceBuffer(type, pNotify, ppSourceBuffer) {
+    AddSourceBuffer(type, pNotify) {
         type := type is String ? BSTR.Alloc(type).Value : type
 
-        result := ComCall(8, this, "ptr", type, "ptr", pNotify, "ptr*", ppSourceBuffer, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", type, "ptr", pNotify, "ptr*", &ppSourceBuffer := 0, "HRESULT")
+        return IMFSourceBuffer(ppSourceBuffer)
     }
 
     /**

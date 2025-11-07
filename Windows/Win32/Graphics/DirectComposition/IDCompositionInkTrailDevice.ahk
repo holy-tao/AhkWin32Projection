@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDCompositionDelegatedInkTrail.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,22 +31,20 @@ class IDCompositionInkTrailDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDCompositionDelegatedInkTrail>} inkTrail 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionDelegatedInkTrail} 
      */
-    CreateDelegatedInkTrail(inkTrail) {
-        result := ComCall(3, this, "ptr*", inkTrail, "HRESULT")
-        return result
+    CreateDelegatedInkTrail() {
+        result := ComCall(3, this, "ptr*", &inkTrail := 0, "HRESULT")
+        return IDCompositionDelegatedInkTrail(inkTrail)
     }
 
     /**
      * 
      * @param {IUnknown} swapChain 
-     * @param {Pointer<IDCompositionDelegatedInkTrail>} inkTrail 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionDelegatedInkTrail} 
      */
-    CreateDelegatedInkTrailForSwapChain(swapChain, inkTrail) {
-        result := ComCall(4, this, "ptr", swapChain, "ptr*", inkTrail, "HRESULT")
-        return result
+    CreateDelegatedInkTrailForSwapChain(swapChain) {
+        result := ComCall(4, this, "ptr", swapChain, "ptr*", &inkTrail := 0, "HRESULT")
+        return IDCompositionDelegatedInkTrail(inkTrail)
     }
 }

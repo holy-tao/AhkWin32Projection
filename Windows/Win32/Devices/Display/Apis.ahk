@@ -3731,19 +3731,16 @@ class Display {
     /**
      * Retrieves the number of physical monitors associated with a Direct3D device.
      * @param {IDirect3DDevice9} pDirect3DDevice9 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface of the Direct3D device.
-     * @param {Pointer<Integer>} pdwNumberOfPhysicalMonitors Receives the number of physical monitors associated with the Direct3D device.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} Receives the number of physical monitors associated with the Direct3D device.
      * @see https://docs.microsoft.com/windows/win32/api//physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getnumberofphysicalmonitorsfromidirect3ddevice9
      * @since windows6.0.6000
      */
-    static GetNumberOfPhysicalMonitorsFromIDirect3DDevice9(pDirect3DDevice9, pdwNumberOfPhysicalMonitors) {
-        pdwNumberOfPhysicalMonitorsMarshal := pdwNumberOfPhysicalMonitors is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromIDirect3DDevice9", "ptr", pDirect3DDevice9, pdwNumberOfPhysicalMonitorsMarshal, pdwNumberOfPhysicalMonitors, "int")
+    static GetNumberOfPhysicalMonitorsFromIDirect3DDevice9(pDirect3DDevice9) {
+        result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromIDirect3DDevice9", "ptr", pDirect3DDevice9, "uint*", &pdwNumberOfPhysicalMonitors := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwNumberOfPhysicalMonitors
     }
 
     /**
@@ -4959,7 +4956,7 @@ class Display {
      * @since windows5.0
      */
     static XLATEOBJ_piVector(pxlo) {
-        result := DllCall("GDI32.dll\XLATEOBJ_piVector", "ptr", pxlo, "uint*")
+        result := DllCall("GDI32.dll\XLATEOBJ_piVector", "ptr", pxlo, "ptr")
         return result
     }
 
@@ -5681,7 +5678,7 @@ class Display {
     static EngGetPrinterDataFileName(hdev) {
         hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
 
-        result := DllCall("GDI32.dll\EngGetPrinterDataFileName", "ptr", hdev, "char*")
+        result := DllCall("GDI32.dll\EngGetPrinterDataFileName", "ptr", hdev, "ptr")
         return result
     }
 
@@ -5695,7 +5692,7 @@ class Display {
     static EngGetDriverName(hdev) {
         hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
 
-        result := DllCall("GDI32.dll\EngGetDriverName", "ptr", hdev, "char*")
+        result := DllCall("GDI32.dll\EngGetDriverName", "ptr", hdev, "ptr")
         return result
     }
 

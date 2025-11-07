@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\Variant\VARIANT.ahk
 #Include ..\IDispatch.ahk
 
 /**
@@ -33,13 +34,13 @@ class IEventProperty extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} propertyName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventproperty-get_name
      */
-    get_Name(propertyName) {
+    get_Name() {
+        propertyName := BSTR()
         result := ComCall(7, this, "ptr", propertyName, "HRESULT")
-        return result
+        return propertyName
     }
 
     /**
@@ -57,13 +58,13 @@ class IEventProperty extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} propertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventproperty-get_value
      */
-    get_Value(propertyValue) {
+    get_Value() {
+        propertyValue := VARIANT()
         result := ComCall(9, this, "ptr", propertyValue, "HRESULT")
-        return result
+        return propertyValue
     }
 
     /**

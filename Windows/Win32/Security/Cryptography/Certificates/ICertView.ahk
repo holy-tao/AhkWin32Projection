@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IEnumCERTVIEWCOLUMN.ahk
+#Include .\IEnumCERTVIEWROW.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,13 +49,12 @@ class ICertView extends IDispatch{
     /**
      * 
      * @param {Integer} fResultColumn 
-     * @param {Pointer<IEnumCERTVIEWCOLUMN>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCERTVIEWCOLUMN} 
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview-enumcertviewcolumn
      */
-    EnumCertViewColumn(fResultColumn, ppenum) {
-        result := ComCall(8, this, "int", fResultColumn, "ptr*", ppenum, "HRESULT")
-        return result
+    EnumCertViewColumn(fResultColumn) {
+        result := ComCall(8, this, "int", fResultColumn, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumCERTVIEWCOLUMN(ppenum)
     }
 
     /**
@@ -125,12 +126,11 @@ class ICertView extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumCERTVIEWROW>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCERTVIEWROW} 
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview-openview
      */
-    OpenView(ppenum) {
-        result := ComCall(14, this, "ptr*", ppenum, "HRESULT")
-        return result
+    OpenView() {
+        result := ComCall(14, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumCERTVIEWROW(ppenum)
     }
 }

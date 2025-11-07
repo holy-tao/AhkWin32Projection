@@ -55,8 +55,9 @@ class ITokenCollection extends IUnknown{
     GetToken(i, pBegin, pLength, ppsz) {
         pBeginMarshal := pBegin is VarRef ? "uint*" : "ptr"
         pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
+        ppszMarshal := ppsz is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", i, pBeginMarshal, pBegin, pLengthMarshal, pLength, "ptr", ppsz, "HRESULT")
+        result := ComCall(4, this, "uint", i, pBeginMarshal, pBegin, pLengthMarshal, pLength, ppszMarshal, ppsz, "HRESULT")
         return result
     }
 }

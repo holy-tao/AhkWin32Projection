@@ -48,24 +48,22 @@ class IAudioDeviceEndpoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbIsRTCapable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-getrtcaps
      */
-    GetRTCaps(pbIsRTCapable) {
-        result := ComCall(4, this, "ptr", pbIsRTCapable, "HRESULT")
-        return result
+    GetRTCaps() {
+        result := ComCall(4, this, "int*", &pbIsRTCapable := 0, "HRESULT")
+        return pbIsRTCapable
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbisEventCapable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-geteventdrivencapable
      */
-    GetEventDrivenCapable(pbisEventCapable) {
-        result := ComCall(5, this, "ptr", pbisEventCapable, "HRESULT")
-        return result
+    GetEventDrivenCapable() {
+        result := ComCall(5, this, "int*", &pbisEventCapable := 0, "HRESULT")
+        return pbisEventCapable
     }
 
     /**

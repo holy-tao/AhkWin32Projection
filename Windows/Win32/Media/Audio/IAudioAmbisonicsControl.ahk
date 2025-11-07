@@ -51,12 +51,11 @@ class IAudioAmbisonicsControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbEnableHeadTracking 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetHeadTracking(pbEnableHeadTracking) {
-        result := ComCall(5, this, "ptr", pbEnableHeadTracking, "HRESULT")
-        return result
+    GetHeadTracking() {
+        result := ComCall(5, this, "int*", &pbEnableHeadTracking := 0, "HRESULT")
+        return pbEnableHeadTracking
     }
 
     /**

@@ -33,12 +33,12 @@ class IProvideClassInfo2 extends IProvideClassInfo{
     /**
      * 
      * @param {Integer} dwGuidKind 
-     * @param {Pointer<Guid>} pGUID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iprovideclassinfo2-getguid
      */
-    GetGUID(dwGuidKind, pGUID) {
+    GetGUID(dwGuidKind) {
+        pGUID := Guid()
         result := ComCall(4, this, "uint", dwGuidKind, "ptr", pGUID, "HRESULT")
-        return result
+        return pGUID
     }
 }

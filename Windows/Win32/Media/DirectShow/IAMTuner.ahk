@@ -88,15 +88,12 @@ class IAMTuner extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCountryCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-get_countrycode
      */
-    get_CountryCode(plCountryCode) {
-        plCountryCodeMarshal := plCountryCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountryCodeMarshal, plCountryCode, "HRESULT")
-        return result
+    get_CountryCode() {
+        result := ComCall(7, this, "int*", &plCountryCode := 0, "HRESULT")
+        return plCountryCode
     }
 
     /**
@@ -112,15 +109,12 @@ class IAMTuner extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plTuningSpace 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-get_tuningspace
      */
-    get_TuningSpace(plTuningSpace) {
-        plTuningSpaceMarshal := plTuningSpace is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plTuningSpaceMarshal, plTuningSpace, "HRESULT")
-        return result
+    get_TuningSpace() {
+        result := ComCall(9, this, "int*", &plTuningSpace := 0, "HRESULT")
+        return plTuningSpace
     }
 
     /**
@@ -148,15 +142,12 @@ class IAMTuner extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plSignalStrength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-signalpresent
      */
-    SignalPresent(plSignalStrength) {
-        plSignalStrengthMarshal := plSignalStrength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plSignalStrengthMarshal, plSignalStrength, "HRESULT")
-        return result
+    SignalPresent() {
+        result := ComCall(12, this, "int*", &plSignalStrength := 0, "HRESULT")
+        return plSignalStrength
     }
 
     /**
@@ -172,28 +163,22 @@ class IAMTuner extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-get_mode
      */
-    get_Mode(plMode) {
-        plModeMarshal := plMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, plModeMarshal, plMode, "HRESULT")
-        return result
+    get_Mode() {
+        result := ComCall(14, this, "int*", &plMode := 0, "HRESULT")
+        return plMode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plModes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-getavailablemodes
      */
-    GetAvailableModes(plModes) {
-        plModesMarshal := plModes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, plModesMarshal, plModes, "HRESULT")
-        return result
+    GetAvailableModes() {
+        result := ComCall(15, this, "int*", &plModes := 0, "HRESULT")
+        return plModes
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Controls\HPROPSHEETPAGE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,34 +37,34 @@ class IWizardSite extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HPROPSHEETPAGE>} phpage 
-     * @returns {HRESULT} 
+     * @returns {HPROPSHEETPAGE} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardsite-getpreviouspage
      */
-    GetPreviousPage(phpage) {
+    GetPreviousPage() {
+        phpage := HPROPSHEETPAGE()
         result := ComCall(3, this, "ptr", phpage, "HRESULT")
-        return result
+        return phpage
     }
 
     /**
      * 
-     * @param {Pointer<HPROPSHEETPAGE>} phpage 
-     * @returns {HRESULT} 
+     * @returns {HPROPSHEETPAGE} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardsite-getnextpage
      */
-    GetNextPage(phpage) {
+    GetNextPage() {
+        phpage := HPROPSHEETPAGE()
         result := ComCall(4, this, "ptr", phpage, "HRESULT")
-        return result
+        return phpage
     }
 
     /**
      * 
-     * @param {Pointer<HPROPSHEETPAGE>} phpage 
-     * @returns {HRESULT} 
+     * @returns {HPROPSHEETPAGE} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardsite-getcancelledpage
      */
-    GetCancelledPage(phpage) {
+    GetCancelledPage() {
+        phpage := HPROPSHEETPAGE()
         result := ComCall(5, this, "ptr", phpage, "HRESULT")
-        return result
+        return phpage
     }
 }

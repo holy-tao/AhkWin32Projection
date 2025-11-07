@@ -31,13 +31,10 @@ class IFtpPreprocessProvider extends IUnknown{
     /**
      * 
      * @param {Pointer<PRE_PROCESS_PARAMETERS>} pPreProcessParameters 
-     * @param {Pointer<Integer>} pFtpProcessStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    HandlePreprocess(pPreProcessParameters, pFtpProcessStatus) {
-        pFtpProcessStatusMarshal := pFtpProcessStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pPreProcessParameters, pFtpProcessStatusMarshal, pFtpProcessStatus, "HRESULT")
-        return result
+    HandlePreprocess(pPreProcessParameters) {
+        result := ComCall(3, this, "ptr", pPreProcessParameters, "int*", &pFtpProcessStatus := 0, "HRESULT")
+        return pFtpProcessStatus
     }
 }

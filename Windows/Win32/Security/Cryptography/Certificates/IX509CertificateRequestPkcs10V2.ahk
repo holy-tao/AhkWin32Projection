@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IX509EnrollmentPolicyServer.ahk
+#Include .\IX509CertificateTemplate.ahk
 #Include .\IX509CertificateRequestPkcs10.ahk
 
 /**
@@ -73,23 +75,21 @@ class IX509CertificateRequestPkcs10V2 extends IX509CertificateRequestPkcs10{
 
     /**
      * 
-     * @param {Pointer<IX509EnrollmentPolicyServer>} ppPolicyServer 
-     * @returns {HRESULT} 
+     * @returns {IX509EnrollmentPolicyServer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v2-get_policyserver
      */
-    get_PolicyServer(ppPolicyServer) {
-        result := ComCall(63, this, "ptr*", ppPolicyServer, "HRESULT")
-        return result
+    get_PolicyServer() {
+        result := ComCall(63, this, "ptr*", &ppPolicyServer := 0, "HRESULT")
+        return IX509EnrollmentPolicyServer(ppPolicyServer)
     }
 
     /**
      * 
-     * @param {Pointer<IX509CertificateTemplate>} ppTemplate 
-     * @returns {HRESULT} 
+     * @returns {IX509CertificateTemplate} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v2-get_template
      */
-    get_Template(ppTemplate) {
-        result := ComCall(64, this, "ptr*", ppTemplate, "HRESULT")
-        return result
+    get_Template() {
+        result := ComCall(64, this, "ptr*", &ppTemplate := 0, "HRESULT")
+        return IX509CertificateTemplate(ppTemplate)
     }
 }

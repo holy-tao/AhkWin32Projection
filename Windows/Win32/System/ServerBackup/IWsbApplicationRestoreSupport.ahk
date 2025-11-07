@@ -77,23 +77,22 @@ class IWsbApplicationRestoreSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-ordercomponents
      */
     OrderComponents(cComponents, rgComponentName, rgComponentLogicalPaths, prgComponentName, prgComponentLogicalPath) {
+        rgComponentNameMarshal := rgComponentName is VarRef ? "ptr*" : "ptr"
+        rgComponentLogicalPathsMarshal := rgComponentLogicalPaths is VarRef ? "ptr*" : "ptr"
         prgComponentNameMarshal := prgComponentName is VarRef ? "ptr*" : "ptr"
         prgComponentLogicalPathMarshal := prgComponentLogicalPath is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", cComponents, "ptr", rgComponentName, "ptr", rgComponentLogicalPaths, prgComponentNameMarshal, prgComponentName, prgComponentLogicalPathMarshal, prgComponentLogicalPath, "HRESULT")
+        result := ComCall(5, this, "uint", cComponents, rgComponentNameMarshal, rgComponentName, rgComponentLogicalPathsMarshal, rgComponentLogicalPaths, prgComponentNameMarshal, prgComponentName, prgComponentLogicalPathMarshal, prgComponentLogicalPath, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbRollForwardSupported 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-isrollforwardsupported
      */
-    IsRollForwardSupported(pbRollForwardSupported) {
-        pbRollForwardSupportedMarshal := pbRollForwardSupported is VarRef ? "char*" : "ptr"
-
-        result := ComCall(6, this, pbRollForwardSupportedMarshal, pbRollForwardSupported, "HRESULT")
-        return result
+    IsRollForwardSupported() {
+        result := ComCall(6, this, "char*", &pbRollForwardSupported := 0, "HRESULT")
+        return pbRollForwardSupported
     }
 }

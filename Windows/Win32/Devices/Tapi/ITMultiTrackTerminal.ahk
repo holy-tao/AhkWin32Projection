@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumTerminal.ahk
+#Include .\ITTerminal.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,63 +35,55 @@ class ITMultiTrackTerminal extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-get_trackterminals
      */
-    get_TrackTerminals(pVariant) {
+    get_TrackTerminals() {
+        pVariant := VARIANT()
         result := ComCall(7, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumTerminal>} ppEnumTerminal 
-     * @returns {HRESULT} 
+     * @returns {IEnumTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-enumeratetrackterminals
      */
-    EnumerateTrackTerminals(ppEnumTerminal) {
-        result := ComCall(8, this, "ptr*", ppEnumTerminal, "HRESULT")
-        return result
+    EnumerateTrackTerminals() {
+        result := ComCall(8, this, "ptr*", &ppEnumTerminal := 0, "HRESULT")
+        return IEnumTerminal(ppEnumTerminal)
     }
 
     /**
      * 
      * @param {Integer} MediaType 
      * @param {Integer} TerminalDirection 
-     * @param {Pointer<ITTerminal>} ppTerminal 
-     * @returns {HRESULT} 
+     * @returns {ITTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-createtrackterminal
      */
-    CreateTrackTerminal(MediaType, TerminalDirection, ppTerminal) {
-        result := ComCall(9, this, "int", MediaType, "int", TerminalDirection, "ptr*", ppTerminal, "HRESULT")
-        return result
+    CreateTrackTerminal(MediaType, TerminalDirection) {
+        result := ComCall(9, this, "int", MediaType, "int", TerminalDirection, "ptr*", &ppTerminal := 0, "HRESULT")
+        return ITTerminal(ppTerminal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMediaTypesInUse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-get_mediatypesinuse
      */
-    get_MediaTypesInUse(plMediaTypesInUse) {
-        plMediaTypesInUseMarshal := plMediaTypesInUse is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plMediaTypesInUseMarshal, plMediaTypesInUse, "HRESULT")
-        return result
+    get_MediaTypesInUse() {
+        result := ComCall(10, this, "int*", &plMediaTypesInUse := 0, "HRESULT")
+        return plMediaTypesInUse
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plDirectionsInUsed 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-get_directionsinuse
      */
-    get_DirectionsInUse(plDirectionsInUsed) {
-        plDirectionsInUsedMarshal := plDirectionsInUsed is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plDirectionsInUsedMarshal, plDirectionsInUsed, "HRESULT")
-        return result
+    get_DirectionsInUse() {
+        result := ComCall(11, this, "int*", &plDirectionsInUsed := 0, "HRESULT")
+        return plDirectionsInUsed
     }
 
     /**

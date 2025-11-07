@@ -52,17 +52,14 @@ class IWebAuthenticationCoreManagerInterop extends IInspectable{
      * @param {HWND} appWindow 
      * @param {IInspectable} request 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncInfo 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/webauthenticationcoremanagerinterop/nf-webauthenticationcoremanagerinterop-iwebauthenticationcoremanagerinterop-requesttokenforwindowasync
      */
-    RequestTokenForWindowAsync(appWindow, request, riid, asyncInfo) {
+    RequestTokenForWindowAsync(appWindow, request, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        asyncInfoMarshal := asyncInfo is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", request, "ptr", riid, asyncInfoMarshal, asyncInfo, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", appWindow, "ptr", request, "ptr", riid, "ptr*", &asyncInfo := 0, "HRESULT")
+        return asyncInfo
     }
 
     /**
@@ -71,16 +68,13 @@ class IWebAuthenticationCoreManagerInterop extends IInspectable{
      * @param {IInspectable} request 
      * @param {IInspectable} webAccount 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncInfo 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/webauthenticationcoremanagerinterop/nf-webauthenticationcoremanagerinterop-iwebauthenticationcoremanagerinterop-requesttokenwithwebaccountforwindowasync
      */
-    RequestTokenWithWebAccountForWindowAsync(appWindow, request, webAccount, riid, asyncInfo) {
+    RequestTokenWithWebAccountForWindowAsync(appWindow, request, webAccount, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        asyncInfoMarshal := asyncInfo is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", appWindow, "ptr", request, "ptr", webAccount, "ptr", riid, asyncInfoMarshal, asyncInfo, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", appWindow, "ptr", request, "ptr", webAccount, "ptr", riid, "ptr*", &asyncInfo := 0, "HRESULT")
+        return asyncInfo
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WICDdsParameters.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,13 +48,13 @@ class IWICDdsEncoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<WICDdsParameters>} pParameters 
-     * @returns {HRESULT} 
+     * @returns {WICDdsParameters} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsencoder-getparameters
      */
-    GetParameters(pParameters) {
+    GetParameters() {
+        pParameters := WICDdsParameters()
         result := ComCall(4, this, "ptr", pParameters, "HRESULT")
-        return result
+        return pParameters
     }
 
     /**

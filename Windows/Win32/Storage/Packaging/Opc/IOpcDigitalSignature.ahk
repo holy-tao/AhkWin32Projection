@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcPartUri.ahk
+#Include .\IOpcSignaturePartReferenceEnumerator.ahk
+#Include .\IOpcSignatureRelationshipReferenceEnumerator.ahk
+#Include .\IOpcSignatureReference.ahk
+#Include .\IOpcCertificateEnumerator.ahk
+#Include .\IOpcSignatureReferenceEnumerator.ahk
+#Include .\IOpcSignatureCustomObjectEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -59,48 +66,42 @@ class IOpcDigitalSignature extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} signatureId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsignatureid
      */
-    GetSignatureId(signatureId) {
-        result := ComCall(4, this, "ptr", signatureId, "HRESULT")
-        return result
+    GetSignatureId() {
+        result := ComCall(4, this, "ptr*", &signatureId := 0, "HRESULT")
+        return signatureId
     }
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} signaturePartName 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsignaturepartname
      */
-    GetSignaturePartName(signaturePartName) {
-        result := ComCall(5, this, "ptr*", signaturePartName, "HRESULT")
-        return result
+    GetSignaturePartName() {
+        result := ComCall(5, this, "ptr*", &signaturePartName := 0, "HRESULT")
+        return IOpcPartUri(signaturePartName)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} signatureMethod 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsignaturemethod
      */
-    GetSignatureMethod(signatureMethod) {
-        result := ComCall(6, this, "ptr", signatureMethod, "HRESULT")
-        return result
+    GetSignatureMethod() {
+        result := ComCall(6, this, "ptr*", &signatureMethod := 0, "HRESULT")
+        return signatureMethod
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} canonicalizationMethod 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getcanonicalizationmethod
      */
-    GetCanonicalizationMethod(canonicalizationMethod) {
-        canonicalizationMethodMarshal := canonicalizationMethod is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, canonicalizationMethodMarshal, canonicalizationMethod, "HRESULT")
-        return result
+    GetCanonicalizationMethod() {
+        result := ComCall(7, this, "int*", &canonicalizationMethod := 0, "HRESULT")
+        return canonicalizationMethod
     }
 
     /**
@@ -120,92 +121,82 @@ class IOpcDigitalSignature extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcSignaturePartReferenceEnumerator>} partReferenceEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignaturePartReferenceEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsignaturepartreferenceenumerator
      */
-    GetSignaturePartReferenceEnumerator(partReferenceEnumerator) {
-        result := ComCall(9, this, "ptr*", partReferenceEnumerator, "HRESULT")
-        return result
+    GetSignaturePartReferenceEnumerator() {
+        result := ComCall(9, this, "ptr*", &partReferenceEnumerator := 0, "HRESULT")
+        return IOpcSignaturePartReferenceEnumerator(partReferenceEnumerator)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureRelationshipReferenceEnumerator>} relationshipReferenceEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureRelationshipReferenceEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsignaturerelationshipreferenceenumerator
      */
-    GetSignatureRelationshipReferenceEnumerator(relationshipReferenceEnumerator) {
-        result := ComCall(10, this, "ptr*", relationshipReferenceEnumerator, "HRESULT")
-        return result
+    GetSignatureRelationshipReferenceEnumerator() {
+        result := ComCall(10, this, "ptr*", &relationshipReferenceEnumerator := 0, "HRESULT")
+        return IOpcSignatureRelationshipReferenceEnumerator(relationshipReferenceEnumerator)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} signingTime 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsigningtime
      */
-    GetSigningTime(signingTime) {
-        result := ComCall(11, this, "ptr", signingTime, "HRESULT")
-        return result
+    GetSigningTime() {
+        result := ComCall(11, this, "ptr*", &signingTime := 0, "HRESULT")
+        return signingTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} timeFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-gettimeformat
      */
-    GetTimeFormat(timeFormat) {
-        timeFormatMarshal := timeFormat is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, timeFormatMarshal, timeFormat, "HRESULT")
-        return result
+    GetTimeFormat() {
+        result := ComCall(12, this, "int*", &timeFormat := 0, "HRESULT")
+        return timeFormat
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureReference>} packageObjectReference 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureReference} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getpackageobjectreference
      */
-    GetPackageObjectReference(packageObjectReference) {
-        result := ComCall(13, this, "ptr*", packageObjectReference, "HRESULT")
-        return result
+    GetPackageObjectReference() {
+        result := ComCall(13, this, "ptr*", &packageObjectReference := 0, "HRESULT")
+        return IOpcSignatureReference(packageObjectReference)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcCertificateEnumerator>} certificateEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcCertificateEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getcertificateenumerator
      */
-    GetCertificateEnumerator(certificateEnumerator) {
-        result := ComCall(14, this, "ptr*", certificateEnumerator, "HRESULT")
-        return result
+    GetCertificateEnumerator() {
+        result := ComCall(14, this, "ptr*", &certificateEnumerator := 0, "HRESULT")
+        return IOpcCertificateEnumerator(certificateEnumerator)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureReferenceEnumerator>} customReferenceEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureReferenceEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getcustomreferenceenumerator
      */
-    GetCustomReferenceEnumerator(customReferenceEnumerator) {
-        result := ComCall(15, this, "ptr*", customReferenceEnumerator, "HRESULT")
-        return result
+    GetCustomReferenceEnumerator() {
+        result := ComCall(15, this, "ptr*", &customReferenceEnumerator := 0, "HRESULT")
+        return IOpcSignatureReferenceEnumerator(customReferenceEnumerator)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureCustomObjectEnumerator>} customObjectEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureCustomObjectEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getcustomobjectenumerator
      */
-    GetCustomObjectEnumerator(customObjectEnumerator) {
-        result := ComCall(16, this, "ptr*", customObjectEnumerator, "HRESULT")
-        return result
+    GetCustomObjectEnumerator() {
+        result := ComCall(16, this, "ptr*", &customObjectEnumerator := 0, "HRESULT")
+        return IOpcSignatureCustomObjectEnumerator(customObjectEnumerator)
     }
 
     /**

@@ -37,50 +37,41 @@ class IAccountsSettingsPaneInterop extends IInspectable{
      * 
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} accountsSettingsPane 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/accountssettingspaneinterop/nf-accountssettingspaneinterop-iaccountssettingspaneinterop-getforwindow
      */
-    GetForWindow(appWindow, riid, accountsSettingsPane) {
+    GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        accountsSettingsPaneMarshal := accountsSettingsPane is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, accountsSettingsPaneMarshal, accountsSettingsPane, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", &accountsSettingsPane := 0, "HRESULT")
+        return accountsSettingsPane
     }
 
     /**
      * 
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncAction 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/accountssettingspaneinterop/nf-accountssettingspaneinterop-iaccountssettingspaneinterop-showmanageaccountsforwindowasync
      */
-    ShowManageAccountsForWindowAsync(appWindow, riid, asyncAction) {
+    ShowManageAccountsForWindowAsync(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        asyncActionMarshal := asyncAction is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, asyncActionMarshal, asyncAction, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, "ptr*", &asyncAction := 0, "HRESULT")
+        return asyncAction
     }
 
     /**
      * 
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncAction 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/accountssettingspaneinterop/nf-accountssettingspaneinterop-iaccountssettingspaneinterop-showaddaccountforwindowasync
      */
-    ShowAddAccountForWindowAsync(appWindow, riid, asyncAction) {
+    ShowAddAccountForWindowAsync(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        asyncActionMarshal := asyncAction is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", appWindow, "ptr", riid, asyncActionMarshal, asyncAction, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", appWindow, "ptr", riid, "ptr*", &asyncAction := 0, "HRESULT")
+        return asyncAction
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedNumber.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,11 +47,10 @@ class ISVGStopElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedNumber>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedNumber} 
      */
-    get_offset(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_offset() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedNumber(p)
     }
 }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\System\Com\IEnumUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
@@ -45,14 +46,11 @@ class AsyncIIdentityStore extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwProviders 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Finish_GetCount(pdwProviders) {
-        pdwProvidersMarshal := pdwProviders is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwProvidersMarshal, pdwProviders, "HRESULT")
-        return result
+    Finish_GetCount() {
+        result := ComCall(4, this, "uint*", &pdwProviders := 0, "HRESULT")
+        return pdwProviders
     }
 
     /**
@@ -69,12 +67,11 @@ class AsyncIIdentityStore extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} pProvGuid 
-     * @param {Pointer<IUnknown>} ppIdentityProvider 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    Finish_GetAt(pProvGuid, ppIdentityProvider) {
-        result := ComCall(6, this, "ptr", pProvGuid, "ptr*", ppIdentityProvider, "HRESULT")
-        return result
+    Finish_GetAt(pProvGuid) {
+        result := ComCall(6, this, "ptr", pProvGuid, "ptr*", &ppIdentityProvider := 0, "HRESULT")
+        return IUnknown(ppIdentityProvider)
     }
 
     /**
@@ -119,15 +116,13 @@ class AsyncIIdentityStore extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pSid 
-     * @param {Pointer<Integer>} pcbRequiredSid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Finish_ConvertToSid(pSid, pcbRequiredSid) {
+    Finish_ConvertToSid(pSid) {
         pSidMarshal := pSid is VarRef ? "char*" : "ptr"
-        pcbRequiredSidMarshal := pcbRequiredSid is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(10, this, pSidMarshal, pSid, pcbRequiredSidMarshal, pcbRequiredSid, "HRESULT")
-        return result
+        result := ComCall(10, this, pSidMarshal, pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
+        return pcbRequiredSid
     }
 
     /**
@@ -144,12 +139,11 @@ class AsyncIIdentityStore extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumUnknown>} ppIdentityEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      */
-    Finish_EnumerateIdentities(ppIdentityEnum) {
-        result := ComCall(12, this, "ptr*", ppIdentityEnum, "HRESULT")
-        return result
+    Finish_EnumerateIdentities() {
+        result := ComCall(12, this, "ptr*", &ppIdentityEnum := 0, "HRESULT")
+        return IEnumUnknown(ppIdentityEnum)
     }
 
     /**

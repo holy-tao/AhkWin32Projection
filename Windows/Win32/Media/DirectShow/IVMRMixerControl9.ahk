@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VMR9NormalizedRect.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -52,15 +53,12 @@ class IVMRMixerControl9 extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<Float>} pAlpha 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-getalpha
      */
-    GetAlpha(dwStreamID, pAlpha) {
-        pAlphaMarshal := pAlpha is VarRef ? "float*" : "ptr"
-
-        result := ComCall(4, this, "uint", dwStreamID, pAlphaMarshal, pAlpha, "HRESULT")
-        return result
+    GetAlpha(dwStreamID) {
+        result := ComCall(4, this, "uint", dwStreamID, "float*", &pAlpha := 0, "HRESULT")
+        return pAlpha
     }
 
     /**
@@ -78,15 +76,12 @@ class IVMRMixerControl9 extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<Integer>} pZ 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-getzorder
      */
-    GetZOrder(dwStreamID, pZ) {
-        pZMarshal := pZ is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", dwStreamID, pZMarshal, pZ, "HRESULT")
-        return result
+    GetZOrder(dwStreamID) {
+        result := ComCall(6, this, "uint", dwStreamID, "uint*", &pZ := 0, "HRESULT")
+        return pZ
     }
 
     /**
@@ -104,13 +99,13 @@ class IVMRMixerControl9 extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<VMR9NormalizedRect>} pRect 
-     * @returns {HRESULT} 
+     * @returns {VMR9NormalizedRect} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-getoutputrect
      */
-    GetOutputRect(dwStreamID, pRect) {
+    GetOutputRect(dwStreamID) {
+        pRect := VMR9NormalizedRect()
         result := ComCall(8, this, "uint", dwStreamID, "ptr", pRect, "HRESULT")
-        return result
+        return pRect
     }
 
     /**
@@ -131,7 +126,9 @@ class IVMRMixerControl9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-getbackgroundclr
      */
     GetBackgroundClr(lpClrBkg) {
-        result := ComCall(10, this, "ptr", lpClrBkg, "HRESULT")
+        lpClrBkgMarshal := lpClrBkg is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, lpClrBkgMarshal, lpClrBkg, "HRESULT")
         return result
     }
 
@@ -148,15 +145,12 @@ class IVMRMixerControl9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMixerPrefs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-getmixingprefs
      */
-    GetMixingPrefs(pdwMixerPrefs) {
-        pdwMixerPrefsMarshal := pdwMixerPrefs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pdwMixerPrefsMarshal, pdwMixerPrefs, "HRESULT")
-        return result
+    GetMixingPrefs() {
+        result := ComCall(12, this, "uint*", &pdwMixerPrefs := 0, "HRESULT")
+        return pdwMixerPrefs
     }
 
     /**

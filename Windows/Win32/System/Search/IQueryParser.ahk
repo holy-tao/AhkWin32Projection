@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IQuerySolution.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\ISchemaProvider.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -45,15 +48,14 @@ class IQueryParser extends IUnknown{
      * 
      * @param {PWSTR} pszInputString 
      * @param {IEnumUnknown} pCustomProperties 
-     * @param {Pointer<IQuerySolution>} ppSolution 
-     * @returns {HRESULT} 
+     * @returns {IQuerySolution} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparser-parse
      */
-    Parse(pszInputString, pCustomProperties, ppSolution) {
+    Parse(pszInputString, pCustomProperties) {
         pszInputString := pszInputString is String ? StrPtr(pszInputString) : pszInputString
 
-        result := ComCall(3, this, "ptr", pszInputString, "ptr", pCustomProperties, "ptr*", ppSolution, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszInputString, "ptr", pCustomProperties, "ptr*", &ppSolution := 0, "HRESULT")
+        return IQuerySolution(ppSolution)
     }
 
     /**
@@ -71,13 +73,13 @@ class IQueryParser extends IUnknown{
     /**
      * 
      * @param {Integer} option 
-     * @param {Pointer<PROPVARIANT>} pOptionValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparser-getoption
      */
-    GetOption(option, pOptionValue) {
+    GetOption(option) {
+        pOptionValue := PROPVARIANT()
         result := ComCall(5, this, "int", option, "ptr", pOptionValue, "HRESULT")
-        return result
+        return pOptionValue
     }
 
     /**
@@ -97,42 +99,39 @@ class IQueryParser extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISchemaProvider>} ppSchemaProvider 
-     * @returns {HRESULT} 
+     * @returns {ISchemaProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparser-getschemaprovider
      */
-    GetSchemaProvider(ppSchemaProvider) {
-        result := ComCall(7, this, "ptr*", ppSchemaProvider, "HRESULT")
-        return result
+    GetSchemaProvider() {
+        result := ComCall(7, this, "ptr*", &ppSchemaProvider := 0, "HRESULT")
+        return ISchemaProvider(ppSchemaProvider)
     }
 
     /**
      * 
      * @param {ICondition} pCondition 
      * @param {BOOL} fUseEnglish 
-     * @param {Pointer<PWSTR>} ppszQueryString 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparser-restatetostring
      */
-    RestateToString(pCondition, fUseEnglish, ppszQueryString) {
-        result := ComCall(8, this, "ptr", pCondition, "int", fUseEnglish, "ptr", ppszQueryString, "HRESULT")
-        return result
+    RestateToString(pCondition, fUseEnglish) {
+        result := ComCall(8, this, "ptr", pCondition, "int", fUseEnglish, "ptr*", &ppszQueryString := 0, "HRESULT")
+        return ppszQueryString
     }
 
     /**
      * 
      * @param {PWSTR} pszPropertyName 
      * @param {PWSTR} pszInputString 
-     * @param {Pointer<IQuerySolution>} ppSolution 
-     * @returns {HRESULT} 
+     * @returns {IQuerySolution} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparser-parsepropertyvalue
      */
-    ParsePropertyValue(pszPropertyName, pszInputString, ppSolution) {
+    ParsePropertyValue(pszPropertyName, pszInputString) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
         pszInputString := pszInputString is String ? StrPtr(pszInputString) : pszInputString
 
-        result := ComCall(9, this, "ptr", pszPropertyName, "ptr", pszInputString, "ptr*", ppSolution, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pszPropertyName, "ptr", pszInputString, "ptr*", &ppSolution := 0, "HRESULT")
+        return IQuerySolution(ppSolution)
     }
 
     /**
@@ -145,7 +144,10 @@ class IQueryParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparser-restatepropertyvaluetostring
      */
     RestatePropertyValueToString(pCondition, fUseEnglish, ppszPropertyName, ppszQueryString) {
-        result := ComCall(10, this, "ptr", pCondition, "int", fUseEnglish, "ptr", ppszPropertyName, "ptr", ppszQueryString, "HRESULT")
+        ppszPropertyNameMarshal := ppszPropertyName is VarRef ? "ptr*" : "ptr"
+        ppszQueryStringMarshal := ppszQueryString is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pCondition, "int", fUseEnglish, ppszPropertyNameMarshal, ppszPropertyName, ppszQueryStringMarshal, ppszQueryString, "HRESULT")
         return result
     }
 }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWMPMedia.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -96,13 +97,12 @@ class IWMPPlaylist extends IDispatch{
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<IWMPMedia>} ppIWMPMedia 
-     * @returns {HRESULT} 
+     * @returns {IWMPMedia} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_item
      */
-    get_item(lIndex, ppIWMPMedia) {
-        result := ComCall(12, this, "int", lIndex, "ptr*", ppIWMPMedia, "HRESULT")
-        return result
+    get_item(lIndex) {
+        result := ComCall(12, this, "int", lIndex, "ptr*", &ppIWMPMedia := 0, "HRESULT")
+        return IWMPMedia(ppIWMPMedia)
     }
 
     /**
@@ -142,7 +142,9 @@ class IWMPPlaylist extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_isidentical
      */
     get_isIdentical(pIWMPPlaylist, pvbool) {
-        result := ComCall(15, this, "ptr", pIWMPPlaylist, "ptr", pvbool, "HRESULT")
+        pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"
+
+        result := ComCall(15, this, "ptr", pIWMPPlaylist, pvboolMarshal, pvbool, "HRESULT")
         return result
     }
 

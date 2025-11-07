@@ -45,24 +45,24 @@ class ICertEncodeAltName2 extends ICertEncodeAltName{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pstrEncodedData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    EncodeBlob(Encoding, pstrEncodedData) {
+    EncodeBlob(Encoding) {
+        pstrEncodedData := BSTR()
         result := ComCall(15, this, "int", Encoding, "ptr", pstrEncodedData, "HRESULT")
-        return result
+        return pstrEncodedData
     }
 
     /**
      * 
      * @param {Integer} NameIndex 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetNameBlob(NameIndex, Encoding, pstrName) {
+    GetNameBlob(NameIndex, Encoding) {
+        pstrName := BSTR()
         result := ComCall(16, this, "int", NameIndex, "int", Encoding, "ptr", pstrName, "HRESULT")
-        return result
+        return pstrName
     }
 
     /**

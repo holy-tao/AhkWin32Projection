@@ -66,15 +66,12 @@ class IFrequencyMap extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulCountryCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-get_countrycode
      */
-    get_CountryCode(pulCountryCode) {
-        pulCountryCodeMarshal := pulCountryCode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pulCountryCodeMarshal, pulCountryCode, "HRESULT")
-        return result
+    get_CountryCode() {
+        result := ComCall(5, this, "uint*", &pulCountryCode := 0, "HRESULT")
+        return pulCountryCode
     }
 
     /**

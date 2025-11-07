@@ -414,7 +414,10 @@ class RestartManager {
      * @since windows6.0.6000
      */
     static RmRegisterResources(dwSessionHandle, nFiles, rgsFileNames, nApplications, rgApplications, nServices, rgsServiceNames) {
-        result := DllCall("rstrtmgr.dll\RmRegisterResources", "uint", dwSessionHandle, "uint", nFiles, "ptr", rgsFileNames, "uint", nApplications, "ptr", rgApplications, "uint", nServices, "ptr", rgsServiceNames, "uint")
+        rgsFileNamesMarshal := rgsFileNames is VarRef ? "ptr*" : "ptr"
+        rgsServiceNamesMarshal := rgsServiceNames is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("rstrtmgr.dll\RmRegisterResources", "uint", dwSessionHandle, "uint", nFiles, rgsFileNamesMarshal, rgsFileNames, "uint", nApplications, "ptr", rgApplications, "uint", nServices, rgsServiceNamesMarshal, rgsServiceNames, "uint")
         return result
     }
 

@@ -108,6 +108,6 @@ class ISpNotifySource extends IUnknown{
      */
     GetNotifyEventHandle() {
         result := ComCall(9, this, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransactionTransmitter.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class ITransactionTransmitterFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITransactionTransmitter>} ppTransmitter 
-     * @returns {HRESULT} 
+     * @returns {ITransactionTransmitter} 
      */
-    Create(ppTransmitter) {
-        result := ComCall(3, this, "ptr*", ppTransmitter, "HRESULT")
-        return result
+    Create() {
+        result := ComCall(3, this, "ptr*", &ppTransmitter := 0, "HRESULT")
+        return ITransactionTransmitter(ppTransmitter)
     }
 }

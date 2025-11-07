@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDisplayPointer.ahk
+#Include .\IHTMLCaret.ahk
+#Include .\IHTMLComputedStyle.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +33,11 @@ class IDisplayServices extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDisplayPointer>} ppDispPointer 
-     * @returns {HRESULT} 
+     * @returns {IDisplayPointer} 
      */
-    CreateDisplayPointer(ppDispPointer) {
-        result := ComCall(3, this, "ptr*", ppDispPointer, "HRESULT")
-        return result
+    CreateDisplayPointer() {
+        result := ComCall(3, this, "ptr*", &ppDispPointer := 0, "HRESULT")
+        return IDisplayPointer(ppDispPointer)
     }
 
     /**
@@ -66,23 +68,21 @@ class IDisplayServices extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHTMLCaret>} ppCaret 
-     * @returns {HRESULT} 
+     * @returns {IHTMLCaret} 
      */
-    GetCaret(ppCaret) {
-        result := ComCall(6, this, "ptr*", ppCaret, "HRESULT")
-        return result
+    GetCaret() {
+        result := ComCall(6, this, "ptr*", &ppCaret := 0, "HRESULT")
+        return IHTMLCaret(ppCaret)
     }
 
     /**
      * 
      * @param {IMarkupPointer} pPointer 
-     * @param {Pointer<IHTMLComputedStyle>} ppComputedStyle 
-     * @returns {HRESULT} 
+     * @returns {IHTMLComputedStyle} 
      */
-    GetComputedStyle(pPointer, ppComputedStyle) {
-        result := ComCall(7, this, "ptr", pPointer, "ptr*", ppComputedStyle, "HRESULT")
-        return result
+    GetComputedStyle(pPointer) {
+        result := ComCall(7, this, "ptr", pPointer, "ptr*", &ppComputedStyle := 0, "HRESULT")
+        return IHTMLComputedStyle(ppComputedStyle)
     }
 
     /**
@@ -99,11 +99,10 @@ class IDisplayServices extends IUnknown{
     /**
      * 
      * @param {IHTMLElement} pIElement 
-     * @param {Pointer<BOOL>} pfHasFlowLayout 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    HasFlowLayout(pIElement, pfHasFlowLayout) {
-        result := ComCall(9, this, "ptr", pIElement, "ptr", pfHasFlowLayout, "HRESULT")
-        return result
+    HasFlowLayout(pIElement) {
+        result := ComCall(9, this, "ptr", pIElement, "int*", &pfHasFlowLayout := 0, "HRESULT")
+        return pfHasFlowLayout
     }
 }

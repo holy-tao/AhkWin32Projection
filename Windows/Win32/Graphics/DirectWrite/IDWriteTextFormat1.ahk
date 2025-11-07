@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFallback.ahk
 #Include .\IDWriteTextFormat.ahk
 
 /**
@@ -106,12 +107,11 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFallback>} fontFallback 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFallback} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-getfontfallback
      */
-    GetFontFallback(fontFallback) {
-        result := ComCall(35, this, "ptr*", fontFallback, "HRESULT")
-        return result
+    GetFontFallback() {
+        result := ComCall(35, this, "ptr*", &fontFallback := 0, "HRESULT")
+        return IDWriteFontFallback(fontFallback)
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\IDispenserManager.ahk
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
@@ -70,70 +71,16 @@ class ComponentServices {
      * Retrieves a reference to the default context of the specified apartment.
      * @param {Integer} aptType 
      * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface that is being requested on the default context. Typically, the caller requests IID_IObjectContext. The default context does not support all of the normal object context interfaces.
-     * @param {Pointer<Pointer<Void>>} ppv A reference to the interface specified by riid on the default context. If the object's component is non-configured, (that is, the object's component has not been imported into a COM+ application), or if the <b>CoGetDefaultContext</b> function is called from a constructor or an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> method, this parameter is set to a <b>NULL</b> pointer.
-     * @returns {HRESULT} This method can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_NOTINITIALIZED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller is not in an initialized apartment.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object context does not support the interface specified by <i>riid</i>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} A reference to the interface specified by riid on the default context. If the object's component is non-configured, (that is, the object's component has not been imported into a COM+ application), or if the <b>CoGetDefaultContext</b> function is called from a constructor or an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> method, this parameter is set to a <b>NULL</b> pointer.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cogetdefaultcontext
      * @since windows5.1.2600
      */
-    static CoGetDefaultContext(aptType, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoGetDefaultContext", "int", aptType, "ptr", riid, ppvMarshal, ppv, "int")
+    static CoGetDefaultContext(aptType, riid) {
+        result := DllCall("OLE32.dll\CoGetDefaultContext", "int", aptType, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -459,17 +406,16 @@ class ComponentServices {
 
     /**
      * Retrieves the dispenser manager's IDispenserManager interface.
-     * @param {Pointer<IDispenserManager>} param0 
-     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, it is E_FAIL.
+     * @returns {IDispenserManager} 
      * @see https://docs.microsoft.com/windows/win32/api//mtxdm/nf-mtxdm-getdispensermanager
      * @since windows5.0
      */
-    static GetDispenserManager(param0) {
-        result := DllCall("MTxDM.dll\GetDispenserManager", "ptr*", param0, "CDecl int")
+    static GetDispenserManager() {
+        result := DllCall("MTxDM.dll\GetDispenserManager", "ptr*", &param0 := 0, "CDecl int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDispenserManager(param0)
     }
 
 ;@endregion Methods

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFTimedTextCueList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,13 +43,12 @@ class IMFTimedTextTrack extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} label 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getlabel
      */
-    GetLabel(label) {
-        result := ComCall(4, this, "ptr", label, "HRESULT")
-        return result
+    GetLabel() {
+        result := ComCall(4, this, "ptr*", &label := 0, "HRESULT")
+        return label
     }
 
     /**
@@ -66,13 +66,12 @@ class IMFTimedTextTrack extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} language 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getlanguage
      */
-    GetLanguage(language) {
-        result := ComCall(6, this, "ptr", language, "HRESULT")
-        return result
+    GetLanguage() {
+        result := ComCall(6, this, "ptr*", &language := 0, "HRESULT")
+        return language
     }
 
     /**
@@ -97,13 +96,12 @@ class IMFTimedTextTrack extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} dispatchType 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getinbandmetadatatrackdispatchtype
      */
-    GetInBandMetadataTrackDispatchType(dispatchType) {
-        result := ComCall(9, this, "ptr", dispatchType, "HRESULT")
-        return result
+    GetInBandMetadataTrackDispatchType() {
+        result := ComCall(9, this, "ptr*", &dispatchType := 0, "HRESULT")
+        return dispatchType
     }
 
     /**
@@ -138,13 +136,13 @@ class IMFTimedTextTrack extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} format 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getdataformat
      */
-    GetDataFormat(format) {
+    GetDataFormat() {
+        format := Guid()
         result := ComCall(13, this, "ptr", format, "HRESULT")
-        return result
+        return format
     }
 
     /**
@@ -158,11 +156,10 @@ class IMFTimedTextTrack extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFTimedTextCueList>} cues 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextCueList} 
      */
-    GetCueList(cues) {
-        result := ComCall(15, this, "ptr*", cues, "HRESULT")
-        return result
+    GetCueList() {
+        result := ComCall(15, this, "ptr*", &cues := 0, "HRESULT")
+        return IMFTimedTextCueList(cues)
     }
 }

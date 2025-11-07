@@ -101,15 +101,12 @@ class IUIAnimationTimer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} seconds 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-gettime
      */
-    GetTime(seconds) {
-        secondsMarshal := seconds is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, secondsMarshal, seconds, "HRESULT")
-        return result
+    GetTime() {
+        result := ComCall(8, this, "double*", &seconds := 0, "HRESULT")
+        return seconds
     }
 
     /**

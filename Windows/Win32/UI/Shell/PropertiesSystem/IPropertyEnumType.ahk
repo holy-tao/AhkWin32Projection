@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,58 +37,54 @@ class IPropertyEnumType extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} penumtype 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getenumtype
      */
-    GetEnumType(penumtype) {
-        penumtypeMarshal := penumtype is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, penumtypeMarshal, penumtype, "HRESULT")
-        return result
+    GetEnumType() {
+        result := ComCall(3, this, "int*", &penumtype := 0, "HRESULT")
+        return penumtype
     }
 
     /**
      * 
-     * @param {Pointer<PROPVARIANT>} ppropvar 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getvalue
      */
-    GetValue(ppropvar) {
+    GetValue() {
+        ppropvar := PROPVARIANT()
         result := ComCall(4, this, "ptr", ppropvar, "HRESULT")
-        return result
+        return ppropvar
     }
 
     /**
      * 
-     * @param {Pointer<PROPVARIANT>} ppropvarMin 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getrangeminvalue
      */
-    GetRangeMinValue(ppropvarMin) {
+    GetRangeMinValue() {
+        ppropvarMin := PROPVARIANT()
         result := ComCall(5, this, "ptr", ppropvarMin, "HRESULT")
-        return result
+        return ppropvarMin
     }
 
     /**
      * 
-     * @param {Pointer<PROPVARIANT>} ppropvarSet 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getrangesetvalue
      */
-    GetRangeSetValue(ppropvarSet) {
+    GetRangeSetValue() {
+        ppropvarSet := PROPVARIANT()
         result := ComCall(6, this, "ptr", ppropvarSet, "HRESULT")
-        return result
+        return ppropvarSet
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszDisplay 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getdisplaytext
      */
-    GetDisplayText(ppszDisplay) {
-        result := ComCall(7, this, "ptr", ppszDisplay, "HRESULT")
-        return result
+    GetDisplayText() {
+        result := ComCall(7, this, "ptr*", &ppszDisplay := 0, "HRESULT")
+        return ppszDisplay
     }
 }

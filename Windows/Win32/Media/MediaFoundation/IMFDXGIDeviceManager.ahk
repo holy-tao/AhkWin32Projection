@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -58,46 +59,40 @@ class IMFDXGIDeviceManager extends IUnknown{
      * 
      * @param {HANDLE} hDevice 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppService 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-getvideoservice
      */
-    GetVideoService(hDevice, riid, ppService) {
+    GetVideoService(hDevice, riid) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        ppServiceMarshal := ppService is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", hDevice, "ptr", riid, ppServiceMarshal, ppService, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", hDevice, "ptr", riid, "ptr*", &ppService := 0, "HRESULT")
+        return ppService
     }
 
     /**
      * 
      * @param {HANDLE} hDevice 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppUnkDevice 
      * @param {BOOL} fBlock 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-lockdevice
      */
-    LockDevice(hDevice, riid, ppUnkDevice, fBlock) {
+    LockDevice(hDevice, riid, fBlock) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        ppUnkDeviceMarshal := ppUnkDevice is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", hDevice, "ptr", riid, ppUnkDeviceMarshal, ppUnkDevice, "int", fBlock, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", hDevice, "ptr", riid, "ptr*", &ppUnkDevice := 0, "int", fBlock, "HRESULT")
+        return ppUnkDevice
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} phDevice 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-opendevicehandle
      */
-    OpenDeviceHandle(phDevice) {
+    OpenDeviceHandle() {
+        phDevice := HANDLE()
         result := ComCall(6, this, "ptr", phDevice, "HRESULT")
-        return result
+        return phDevice
     }
 
     /**

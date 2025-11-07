@@ -37,12 +37,12 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Value(strValue) {
+    get_Value() {
+        strValue := BSTR()
         result := ComCall(7, this, "ptr", strValue, "HRESULT")
-        return result
+        return strValue
     }
 
     /**
@@ -59,14 +59,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} iYear 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Year(iYear) {
-        iYearMarshal := iYear is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, iYearMarshal, iYear, "HRESULT")
-        return result
+    get_Year() {
+        result := ComCall(9, this, "int*", &iYear := 0, "HRESULT")
+        return iYear
     }
 
     /**
@@ -81,12 +78,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bYearSpecified 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_YearSpecified(bYearSpecified) {
-        result := ComCall(11, this, "ptr", bYearSpecified, "HRESULT")
-        return result
+    get_YearSpecified() {
+        result := ComCall(11, this, "short*", &bYearSpecified := 0, "HRESULT")
+        return bYearSpecified
     }
 
     /**
@@ -101,14 +97,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} iMonth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Month(iMonth) {
-        iMonthMarshal := iMonth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, iMonthMarshal, iMonth, "HRESULT")
-        return result
+    get_Month() {
+        result := ComCall(13, this, "int*", &iMonth := 0, "HRESULT")
+        return iMonth
     }
 
     /**
@@ -123,12 +116,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bMonthSpecified 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_MonthSpecified(bMonthSpecified) {
-        result := ComCall(15, this, "ptr", bMonthSpecified, "HRESULT")
-        return result
+    get_MonthSpecified() {
+        result := ComCall(15, this, "short*", &bMonthSpecified := 0, "HRESULT")
+        return bMonthSpecified
     }
 
     /**
@@ -143,14 +135,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} iDay 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Day(iDay) {
-        iDayMarshal := iDay is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, iDayMarshal, iDay, "HRESULT")
-        return result
+    get_Day() {
+        result := ComCall(17, this, "int*", &iDay := 0, "HRESULT")
+        return iDay
     }
 
     /**
@@ -165,12 +154,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bDaySpecified 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_DaySpecified(bDaySpecified) {
-        result := ComCall(19, this, "ptr", bDaySpecified, "HRESULT")
-        return result
+    get_DaySpecified() {
+        result := ComCall(19, this, "short*", &bDaySpecified := 0, "HRESULT")
+        return bDaySpecified
     }
 
     /**
@@ -185,14 +173,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} iHours 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Hours(iHours) {
-        iHoursMarshal := iHours is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, iHoursMarshal, iHours, "HRESULT")
-        return result
+    get_Hours() {
+        result := ComCall(21, this, "int*", &iHours := 0, "HRESULT")
+        return iHours
     }
 
     /**
@@ -207,12 +192,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bHoursSpecified 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_HoursSpecified(bHoursSpecified) {
-        result := ComCall(23, this, "ptr", bHoursSpecified, "HRESULT")
-        return result
+    get_HoursSpecified() {
+        result := ComCall(23, this, "short*", &bHoursSpecified := 0, "HRESULT")
+        return bHoursSpecified
     }
 
     /**
@@ -227,14 +211,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} iMinutes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Minutes(iMinutes) {
-        iMinutesMarshal := iMinutes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, iMinutesMarshal, iMinutes, "HRESULT")
-        return result
+    get_Minutes() {
+        result := ComCall(25, this, "int*", &iMinutes := 0, "HRESULT")
+        return iMinutes
     }
 
     /**
@@ -249,12 +230,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bMinutesSpecified 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_MinutesSpecified(bMinutesSpecified) {
-        result := ComCall(27, this, "ptr", bMinutesSpecified, "HRESULT")
-        return result
+    get_MinutesSpecified() {
+        result := ComCall(27, this, "short*", &bMinutesSpecified := 0, "HRESULT")
+        return bMinutesSpecified
     }
 
     /**
@@ -269,14 +249,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} iSeconds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Seconds(iSeconds) {
-        iSecondsMarshal := iSeconds is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, iSecondsMarshal, iSeconds, "HRESULT")
-        return result
+    get_Seconds() {
+        result := ComCall(29, this, "int*", &iSeconds := 0, "HRESULT")
+        return iSeconds
     }
 
     /**
@@ -291,12 +268,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bSecondsSpecified 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_SecondsSpecified(bSecondsSpecified) {
-        result := ComCall(31, this, "ptr", bSecondsSpecified, "HRESULT")
-        return result
+    get_SecondsSpecified() {
+        result := ComCall(31, this, "short*", &bSecondsSpecified := 0, "HRESULT")
+        return bSecondsSpecified
     }
 
     /**
@@ -311,14 +287,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} iMicroseconds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Microseconds(iMicroseconds) {
-        iMicrosecondsMarshal := iMicroseconds is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, iMicrosecondsMarshal, iMicroseconds, "HRESULT")
-        return result
+    get_Microseconds() {
+        result := ComCall(33, this, "int*", &iMicroseconds := 0, "HRESULT")
+        return iMicroseconds
     }
 
     /**
@@ -333,12 +306,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bMicrosecondsSpecified 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_MicrosecondsSpecified(bMicrosecondsSpecified) {
-        result := ComCall(35, this, "ptr", bMicrosecondsSpecified, "HRESULT")
-        return result
+    get_MicrosecondsSpecified() {
+        result := ComCall(35, this, "short*", &bMicrosecondsSpecified := 0, "HRESULT")
+        return bMicrosecondsSpecified
     }
 
     /**
@@ -353,14 +325,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} iUTC 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_UTC(iUTC) {
-        iUTCMarshal := iUTC is VarRef ? "int*" : "ptr"
-
-        result := ComCall(37, this, iUTCMarshal, iUTC, "HRESULT")
-        return result
+    get_UTC() {
+        result := ComCall(37, this, "int*", &iUTC := 0, "HRESULT")
+        return iUTC
     }
 
     /**
@@ -375,12 +344,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bUTCSpecified 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_UTCSpecified(bUTCSpecified) {
-        result := ComCall(39, this, "ptr", bUTCSpecified, "HRESULT")
-        return result
+    get_UTCSpecified() {
+        result := ComCall(39, this, "short*", &bUTCSpecified := 0, "HRESULT")
+        return bUTCSpecified
     }
 
     /**
@@ -395,12 +363,11 @@ class ISWbemDateTime extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bIsInterval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsInterval(bIsInterval) {
-        result := ComCall(41, this, "ptr", bIsInterval, "HRESULT")
-        return result
+    get_IsInterval() {
+        result := ComCall(41, this, "short*", &bIsInterval := 0, "HRESULT")
+        return bIsInterval
     }
 
     /**
@@ -416,14 +383,11 @@ class ISWbemDateTime extends IDispatch{
     /**
      * 
      * @param {VARIANT_BOOL} bIsLocal 
-     * @param {Pointer<Float>} dVarDate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    GetVarDate(bIsLocal, dVarDate) {
-        dVarDateMarshal := dVarDate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(43, this, "short", bIsLocal, dVarDateMarshal, dVarDate, "HRESULT")
-        return result
+    GetVarDate(bIsLocal) {
+        result := ComCall(43, this, "short", bIsLocal, "double*", &dVarDate := 0, "HRESULT")
+        return dVarDate
     }
 
     /**
@@ -440,16 +404,13 @@ class ISWbemDateTime extends IDispatch{
     /**
      * Retrieves the date and time that a file or directory was created, last accessed, and last modified.
      * @param {VARIANT_BOOL} bIsLocal 
-     * @param {Pointer<BSTR>} strFileTime 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfiletime
      */
-    GetFileTime(bIsLocal, strFileTime) {
+    GetFileTime(bIsLocal) {
+        strFileTime := BSTR()
         result := ComCall(45, this, "short", bIsLocal, "ptr", strFileTime, "HRESULT")
-        return result
+        return strFileTime
     }
 
     /**

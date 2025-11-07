@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWsbApplicationAsync.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -38,16 +39,18 @@ class IWsbApplicationBackupSupport extends IUnknown{
      * @param {Integer} cVolumes 
      * @param {Pointer<PWSTR>} rgwszSourceVolumePath 
      * @param {Pointer<PWSTR>} rgwszSnapshotVolumePath 
-     * @param {Pointer<IWsbApplicationAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IWsbApplicationAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationbackupsupport-checkconsistency
      */
-    CheckConsistency(wszWriterMetadata, wszComponentName, wszComponentLogicalPath, cVolumes, rgwszSourceVolumePath, rgwszSnapshotVolumePath, ppAsync) {
+    CheckConsistency(wszWriterMetadata, wszComponentName, wszComponentLogicalPath, cVolumes, rgwszSourceVolumePath, rgwszSnapshotVolumePath) {
         wszWriterMetadata := wszWriterMetadata is String ? StrPtr(wszWriterMetadata) : wszWriterMetadata
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
         wszComponentLogicalPath := wszComponentLogicalPath is String ? StrPtr(wszComponentLogicalPath) : wszComponentLogicalPath
 
-        result := ComCall(3, this, "ptr", wszWriterMetadata, "ptr", wszComponentName, "ptr", wszComponentLogicalPath, "uint", cVolumes, "ptr", rgwszSourceVolumePath, "ptr", rgwszSnapshotVolumePath, "ptr*", ppAsync, "HRESULT")
-        return result
+        rgwszSourceVolumePathMarshal := rgwszSourceVolumePath is VarRef ? "ptr*" : "ptr"
+        rgwszSnapshotVolumePathMarshal := rgwszSnapshotVolumePath is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", wszWriterMetadata, "ptr", wszComponentName, "ptr", wszComponentLogicalPath, "uint", cVolumes, rgwszSourceVolumePathMarshal, rgwszSourceVolumePath, rgwszSnapshotVolumePathMarshal, rgwszSnapshotVolumePath, "ptr*", &ppAsync := 0, "HRESULT")
+        return IWsbApplicationAsync(ppAsync)
     }
 }

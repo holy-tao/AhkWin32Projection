@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_ISCSI_INITIATOR_ADAPTER_PROP.ahk
+#Include .\IEnumVdsObject.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,24 +35,23 @@ class IVdsIscsiInitiatorAdapter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_ISCSI_INITIATOR_ADAPTER_PROP>} pInitiatorAdapterProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_ISCSI_INITIATOR_ADAPTER_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatoradapter-getproperties
      */
-    GetProperties(pInitiatorAdapterProp) {
+    GetProperties() {
+        pInitiatorAdapterProp := VDS_ISCSI_INITIATOR_ADAPTER_PROP()
         result := ComCall(3, this, "ptr", pInitiatorAdapterProp, "HRESULT")
-        return result
+        return pInitiatorAdapterProp
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatoradapter-queryinitiatorportals
      */
-    QueryInitiatorPortals(ppEnum) {
-        result := ComCall(4, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryInitiatorPortals() {
+        result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
@@ -62,24 +64,22 @@ class IVdsIscsiInitiatorAdapter extends IUnknown{
      * @param {BOOL} bHeaderDigest 
      * @param {BOOL} bDataDigest 
      * @param {Integer} authType 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatoradapter-logintotarget
      */
-    LoginToTarget(loginType, targetId, targetPortalId, initiatorPortalId, ulLoginFlags, bHeaderDigest, bDataDigest, authType, ppAsync) {
-        result := ComCall(5, this, "int", loginType, "ptr", targetId, "ptr", targetPortalId, "ptr", initiatorPortalId, "uint", ulLoginFlags, "int", bHeaderDigest, "int", bDataDigest, "int", authType, "ptr*", ppAsync, "HRESULT")
-        return result
+    LoginToTarget(loginType, targetId, targetPortalId, initiatorPortalId, ulLoginFlags, bHeaderDigest, bDataDigest, authType) {
+        result := ComCall(5, this, "int", loginType, "ptr", targetId, "ptr", targetPortalId, "ptr", initiatorPortalId, "uint", ulLoginFlags, "int", bHeaderDigest, "int", bDataDigest, "int", authType, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
      * 
      * @param {Guid} targetId 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatoradapter-logoutfromtarget
      */
-    LogoutFromTarget(targetId, ppAsync) {
-        result := ComCall(6, this, "ptr", targetId, "ptr*", ppAsync, "HRESULT")
-        return result
+    LogoutFromTarget(targetId) {
+        result := ComCall(6, this, "ptr", targetId, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 }

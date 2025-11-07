@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITDetectTone.ahk
+#Include .\ITCustomTone.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ITLegacyCallMediaControl.ahk
 
 /**
@@ -125,37 +128,35 @@ class ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl{
 
     /**
      * 
-     * @param {Pointer<ITDetectTone>} ppDetectTone 
-     * @returns {HRESULT} 
+     * @returns {ITDetectTone} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol2-createdetecttoneobject
      */
-    CreateDetectToneObject(ppDetectTone) {
-        result := ComCall(19, this, "ptr*", ppDetectTone, "HRESULT")
-        return result
+    CreateDetectToneObject() {
+        result := ComCall(19, this, "ptr*", &ppDetectTone := 0, "HRESULT")
+        return ITDetectTone(ppDetectTone)
     }
 
     /**
      * 
-     * @param {Pointer<ITCustomTone>} ppCustomTone 
-     * @returns {HRESULT} 
+     * @returns {ITCustomTone} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol2-createcustomtoneobject
      */
-    CreateCustomToneObject(ppCustomTone) {
-        result := ComCall(20, this, "ptr*", ppCustomTone, "HRESULT")
-        return result
+    CreateCustomToneObject() {
+        result := ComCall(20, this, "ptr*", &ppCustomTone := 0, "HRESULT")
+        return ITCustomTone(ppCustomTone)
     }
 
     /**
      * 
      * @param {BSTR} bstrDeviceClass 
-     * @param {Pointer<VARIANT>} pVarDeviceID 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol2-getidasvariant
      */
-    GetIDAsVariant(bstrDeviceClass, pVarDeviceID) {
+    GetIDAsVariant(bstrDeviceClass) {
         bstrDeviceClass := bstrDeviceClass is String ? BSTR.Alloc(bstrDeviceClass).Value : bstrDeviceClass
 
+        pVarDeviceID := VARIANT()
         result := ComCall(21, this, "ptr", bstrDeviceClass, "ptr", pVarDeviceID, "HRESULT")
-        return result
+        return pVarDeviceID
     }
 }

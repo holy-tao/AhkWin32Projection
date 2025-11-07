@@ -32,15 +32,12 @@ class IMediaSeeking extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCapabilities 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-getcapabilities
      */
-    GetCapabilities(pCapabilities) {
-        pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pCapabilitiesMarshal, pCapabilities, "HRESULT")
-        return result
+    GetCapabilities() {
+        result := ComCall(3, this, "uint*", &pCapabilities := 0, "HRESULT")
+        return pCapabilities
     }
 
     /**
@@ -69,24 +66,24 @@ class IMediaSeeking extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-querypreferredformat
      */
-    QueryPreferredFormat(pFormat) {
+    QueryPreferredFormat() {
+        pFormat := Guid()
         result := ComCall(6, this, "ptr", pFormat, "HRESULT")
-        return result
+        return pFormat
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-gettimeformat
      */
-    GetTimeFormat(pFormat) {
+    GetTimeFormat() {
+        pFormat := Guid()
         result := ComCall(7, this, "ptr", pFormat, "HRESULT")
-        return result
+        return pFormat
     }
 
     /**
@@ -113,57 +110,45 @@ class IMediaSeeking extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDuration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-getduration
      */
-    GetDuration(pDuration) {
-        pDurationMarshal := pDuration is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(10, this, pDurationMarshal, pDuration, "HRESULT")
-        return result
+    GetDuration() {
+        result := ComCall(10, this, "int64*", &pDuration := 0, "HRESULT")
+        return pDuration
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pStop 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-getstopposition
      */
-    GetStopPosition(pStop) {
-        pStopMarshal := pStop is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(11, this, pStopMarshal, pStop, "HRESULT")
-        return result
+    GetStopPosition() {
+        result := ComCall(11, this, "int64*", &pStop := 0, "HRESULT")
+        return pStop
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCurrent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-getcurrentposition
      */
-    GetCurrentPosition(pCurrent) {
-        pCurrentMarshal := pCurrent is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(12, this, pCurrentMarshal, pCurrent, "HRESULT")
-        return result
+    GetCurrentPosition() {
+        result := ComCall(12, this, "int64*", &pCurrent := 0, "HRESULT")
+        return pCurrent
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pTarget 
      * @param {Pointer<Guid>} pTargetFormat 
      * @param {Integer} Source 
      * @param {Pointer<Guid>} pSourceFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-converttimeformat
      */
-    ConvertTimeFormat(pTarget, pTargetFormat, Source, pSourceFormat) {
-        pTargetMarshal := pTarget is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(13, this, pTargetMarshal, pTarget, "ptr", pTargetFormat, "int64", Source, "ptr", pSourceFormat, "HRESULT")
-        return result
+    ConvertTimeFormat(pTargetFormat, Source, pSourceFormat) {
+        result := ComCall(13, this, "int64*", &pTarget := 0, "ptr", pTargetFormat, "int64", Source, "ptr", pSourceFormat, "HRESULT")
+        return pTarget
     }
 
     /**
@@ -226,27 +211,21 @@ class IMediaSeeking extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pdRate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-getrate
      */
-    GetRate(pdRate) {
-        pdRateMarshal := pdRate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(18, this, pdRateMarshal, pdRate, "HRESULT")
-        return result
+    GetRate() {
+        result := ComCall(18, this, "double*", &pdRate := 0, "HRESULT")
+        return pdRate
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pllPreroll 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-getpreroll
      */
-    GetPreroll(pllPreroll) {
-        pllPrerollMarshal := pllPreroll is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(19, this, pllPrerollMarshal, pllPreroll, "HRESULT")
-        return result
+    GetPreroll() {
+        result := ComCall(19, this, "int64*", &pllPreroll := 0, "HRESULT")
+        return pllPreroll
     }
 }

@@ -79,14 +79,13 @@ class IOfflineFilesConnectionInfo extends IUnknown{
      * @param {HWND} hwndParent 
      * @param {Integer} dwFlags 
      * @param {BOOL} bForceOpenFilesClosed 
-     * @param {Pointer<BOOL>} pbOpenFilesPreventedTransition 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-transitionoffline
      */
-    TransitionOffline(hwndParent, dwFlags, bForceOpenFilesClosed, pbOpenFilesPreventedTransition) {
+    TransitionOffline(hwndParent, dwFlags, bForceOpenFilesClosed) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(6, this, "ptr", hwndParent, "uint", dwFlags, "int", bForceOpenFilesClosed, "ptr", pbOpenFilesPreventedTransition, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", hwndParent, "uint", dwFlags, "int", bForceOpenFilesClosed, "int*", &pbOpenFilesPreventedTransition := 0, "HRESULT")
+        return pbOpenFilesPreventedTransition
     }
 }

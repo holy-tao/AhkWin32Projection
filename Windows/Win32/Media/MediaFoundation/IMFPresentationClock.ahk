@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFPresentationTimeSource.ahk
 #Include .\IMFClock.ahk
 
 /**
@@ -50,26 +51,22 @@ class IMFPresentationClock extends IMFClock{
 
     /**
      * 
-     * @param {Pointer<IMFPresentationTimeSource>} ppTimeSource 
-     * @returns {HRESULT} 
+     * @returns {IMFPresentationTimeSource} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationclock-gettimesource
      */
-    GetTimeSource(ppTimeSource) {
-        result := ComCall(9, this, "ptr*", ppTimeSource, "HRESULT")
-        return result
+    GetTimeSource() {
+        result := ComCall(9, this, "ptr*", &ppTimeSource := 0, "HRESULT")
+        return IMFPresentationTimeSource(ppTimeSource)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} phnsClockTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationclock-gettime
      */
-    GetTime(phnsClockTime) {
-        phnsClockTimeMarshal := phnsClockTime is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(10, this, phnsClockTimeMarshal, phnsClockTime, "HRESULT")
-        return result
+    GetTime() {
+        result := ComCall(10, this, "int64*", &phnsClockTime := 0, "HRESULT")
+        return phnsClockTime
     }
 
     /**

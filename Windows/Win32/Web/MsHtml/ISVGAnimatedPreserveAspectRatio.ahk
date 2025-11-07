@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGPreserveAspectRatio.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,12 +47,11 @@ class ISVGAnimatedPreserveAspectRatio extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGPreserveAspectRatio>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGPreserveAspectRatio} 
      */
-    get_baseVal(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_baseVal() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGPreserveAspectRatio(p)
     }
 
     /**
@@ -66,11 +66,10 @@ class ISVGAnimatedPreserveAspectRatio extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGPreserveAspectRatio>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGPreserveAspectRatio} 
      */
-    get_animVal(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_animVal() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGPreserveAspectRatio(p)
     }
 }

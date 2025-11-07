@@ -34,16 +34,13 @@ class IHolographicSpaceInterop extends IInspectable{
      * 
      * @param {HWND} window 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} holographicSpace 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/holographicspaceinterop/nf-holographicspaceinterop-iholographicspaceinterop-createforwindow
      */
-    CreateForWindow(window, riid, holographicSpace) {
+    CreateForWindow(window, riid) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        holographicSpaceMarshal := holographicSpace is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", window, "ptr", riid, holographicSpaceMarshal, holographicSpace, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", window, "ptr", riid, "ptr*", &holographicSpace := 0, "HRESULT")
+        return holographicSpace
     }
 }

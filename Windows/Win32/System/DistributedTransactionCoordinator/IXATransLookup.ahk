@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransaction.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IXATransLookup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITransaction>} ppTransaction 
-     * @returns {HRESULT} 
+     * @returns {ITransaction} 
      */
-    Lookup(ppTransaction) {
-        result := ComCall(3, this, "ptr*", ppTransaction, "HRESULT")
-        return result
+    Lookup() {
+        result := ComCall(3, this, "ptr*", &ppTransaction := 0, "HRESULT")
+        return ITransaction(ppTransaction)
     }
 }

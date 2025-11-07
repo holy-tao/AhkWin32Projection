@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCUserSearchQuery.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class IRTCUserSearch extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IRTCUserSearchQuery>} ppQuery 
-     * @returns {HRESULT} 
+     * @returns {IRTCUserSearchQuery} 
      */
-    CreateQuery(ppQuery) {
-        result := ComCall(3, this, "ptr*", ppQuery, "HRESULT")
-        return result
+    CreateQuery() {
+        result := ComCall(3, this, "ptr*", &ppQuery := 0, "HRESULT")
+        return IRTCUserSearchQuery(ppQuery)
     }
 
     /**

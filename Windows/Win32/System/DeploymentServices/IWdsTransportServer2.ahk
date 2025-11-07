@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWdsTransportTftpManager.ahk
 #Include .\IWdsTransportServer.ahk
 
 /**
@@ -32,12 +33,11 @@ class IWdsTransportServer2 extends IWdsTransportServer{
 
     /**
      * 
-     * @param {Pointer<IWdsTransportTftpManager>} ppWdsTransportTftpManager 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportTftpManager} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver2-get_tftpmanager
      */
-    get_TftpManager(ppWdsTransportTftpManager) {
-        result := ComCall(12, this, "ptr*", ppWdsTransportTftpManager, "HRESULT")
-        return result
+    get_TftpManager() {
+        result := ComCall(12, this, "ptr*", &ppWdsTransportTftpManager := 0, "HRESULT")
+        return IWdsTransportTftpManager(ppWdsTransportTftpManager)
     }
 }

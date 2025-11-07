@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,75 +33,66 @@ class IWMPContentContainer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pContentID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getid
      */
-    GetID(pContentID) {
-        pContentIDMarshal := pContentID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pContentIDMarshal, pContentID, "HRESULT")
-        return result
+    GetID() {
+        result := ComCall(3, this, "uint*", &pContentID := 0, "HRESULT")
+        return pContentID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPrice 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getprice
      */
-    GetPrice(pbstrPrice) {
+    GetPrice() {
+        pbstrPrice := BSTR()
         result := ComCall(4, this, "ptr", pbstrPrice, "HRESULT")
-        return result
+        return pbstrPrice
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-gettype
      */
-    GetType(pbstrType) {
+    GetType() {
+        pbstrType := BSTR()
         result := ComCall(5, this, "ptr", pbstrType, "HRESULT")
-        return result
+        return pbstrType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcContent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentcount
      */
-    GetContentCount(pcContent) {
-        pcContentMarshal := pcContent is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pcContentMarshal, pcContent, "HRESULT")
-        return result
+    GetContentCount() {
+        result := ComCall(6, this, "uint*", &pcContent := 0, "HRESULT")
+        return pcContent
     }
 
     /**
      * 
      * @param {Integer} idxContent 
-     * @param {Pointer<BSTR>} pbstrPrice 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentprice
      */
-    GetContentPrice(idxContent, pbstrPrice) {
+    GetContentPrice(idxContent) {
+        pbstrPrice := BSTR()
         result := ComCall(7, this, "uint", idxContent, "ptr", pbstrPrice, "HRESULT")
-        return result
+        return pbstrPrice
     }
 
     /**
      * 
      * @param {Integer} idxContent 
-     * @param {Pointer<Integer>} pContentID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentid
      */
-    GetContentID(idxContent, pContentID) {
-        pContentIDMarshal := pContentID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "uint", idxContent, pContentIDMarshal, pContentID, "HRESULT")
-        return result
+    GetContentID(idxContent) {
+        result := ComCall(8, this, "uint", idxContent, "uint*", &pContentID := 0, "HRESULT")
+        return pContentID
     }
 }

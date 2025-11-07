@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLPerformanceNavigation.ahk
+#Include .\IHTMLPerformanceTiming.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,41 +40,39 @@ class IHTMLPerformance extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLPerformanceNavigation>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLPerformanceNavigation} 
      */
-    get_navigation(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_navigation() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLPerformanceNavigation(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLPerformanceTiming>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLPerformanceTiming} 
      */
-    get_timing(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_timing() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLPerformanceTiming(p)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} string 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toString(string) {
+    toString() {
+        string := BSTR()
         result := ComCall(9, this, "ptr", string, "HRESULT")
-        return result
+        return string
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    toJSON(pVar) {
+    toJSON() {
+        pVar := VARIANT()
         result := ComCall(10, this, "ptr", pVar, "HRESULT")
-        return result
+        return pVar
     }
 }

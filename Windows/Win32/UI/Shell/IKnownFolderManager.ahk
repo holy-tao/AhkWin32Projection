@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IKnownFolder.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,68 +40,61 @@ class IKnownFolderManager extends IUnknown{
     /**
      * 
      * @param {Integer} nCsidl 
-     * @param {Pointer<Guid>} pfid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-folderidfromcsidl
      */
-    FolderIdFromCsidl(nCsidl, pfid) {
+    FolderIdFromCsidl(nCsidl) {
+        pfid := Guid()
         result := ComCall(3, this, "int", nCsidl, "ptr", pfid, "HRESULT")
-        return result
+        return pfid
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rfid 
-     * @param {Pointer<Integer>} pnCsidl 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-folderidtocsidl
      */
-    FolderIdToCsidl(rfid, pnCsidl) {
-        pnCsidlMarshal := pnCsidl is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", rfid, pnCsidlMarshal, pnCsidl, "HRESULT")
-        return result
+    FolderIdToCsidl(rfid) {
+        result := ComCall(4, this, "ptr", rfid, "int*", &pnCsidl := 0, "HRESULT")
+        return pnCsidl
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Guid>>} ppKFId 
      * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Guid>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-getfolderids
      */
-    GetFolderIds(ppKFId, pCount) {
-        ppKFIdMarshal := ppKFId is VarRef ? "ptr*" : "ptr"
+    GetFolderIds(pCount) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, ppKFIdMarshal, ppKFId, pCountMarshal, pCount, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr*", &ppKFId := 0, pCountMarshal, pCount, "HRESULT")
+        return ppKFId
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rfid 
-     * @param {Pointer<IKnownFolder>} ppkf 
-     * @returns {HRESULT} 
+     * @returns {IKnownFolder} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-getfolder
      */
-    GetFolder(rfid, ppkf) {
-        result := ComCall(6, this, "ptr", rfid, "ptr*", ppkf, "HRESULT")
-        return result
+    GetFolder(rfid) {
+        result := ComCall(6, this, "ptr", rfid, "ptr*", &ppkf := 0, "HRESULT")
+        return IKnownFolder(ppkf)
     }
 
     /**
      * 
      * @param {PWSTR} pszCanonicalName 
-     * @param {Pointer<IKnownFolder>} ppkf 
-     * @returns {HRESULT} 
+     * @returns {IKnownFolder} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-getfolderbyname
      */
-    GetFolderByName(pszCanonicalName, ppkf) {
+    GetFolderByName(pszCanonicalName) {
         pszCanonicalName := pszCanonicalName is String ? StrPtr(pszCanonicalName) : pszCanonicalName
 
-        result := ComCall(7, this, "ptr", pszCanonicalName, "ptr*", ppkf, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pszCanonicalName, "ptr*", &ppkf := 0, "HRESULT")
+        return IKnownFolder(ppkf)
     }
 
     /**
@@ -130,27 +124,25 @@ class IKnownFolderManager extends IUnknown{
      * 
      * @param {PWSTR} pszPath 
      * @param {Integer} mode 
-     * @param {Pointer<IKnownFolder>} ppkf 
-     * @returns {HRESULT} 
+     * @returns {IKnownFolder} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-findfolderfrompath
      */
-    FindFolderFromPath(pszPath, mode, ppkf) {
+    FindFolderFromPath(pszPath, mode) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(10, this, "ptr", pszPath, "int", mode, "ptr*", ppkf, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pszPath, "int", mode, "ptr*", &ppkf := 0, "HRESULT")
+        return IKnownFolder(ppkf)
     }
 
     /**
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<IKnownFolder>} ppkf 
-     * @returns {HRESULT} 
+     * @returns {IKnownFolder} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-findfolderfromidlist
      */
-    FindFolderFromIDList(pidl, ppkf) {
-        result := ComCall(11, this, "ptr", pidl, "ptr*", ppkf, "HRESULT")
-        return result
+    FindFolderFromIDList(pidl) {
+        result := ComCall(11, this, "ptr", pidl, "ptr*", &ppkf := 0, "HRESULT")
+        return IKnownFolder(ppkf)
     }
 
     /**
@@ -161,15 +153,14 @@ class IKnownFolderManager extends IUnknown{
      * @param {PWSTR} pszTargetPath 
      * @param {Integer} cFolders 
      * @param {Pointer<Guid>} pExclusion 
-     * @param {Pointer<PWSTR>} ppszError 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-redirect
      */
-    Redirect(rfid, hwnd, flags, pszTargetPath, cFolders, pExclusion, ppszError) {
+    Redirect(rfid, hwnd, flags, pszTargetPath, cFolders, pExclusion) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszTargetPath := pszTargetPath is String ? StrPtr(pszTargetPath) : pszTargetPath
 
-        result := ComCall(12, this, "ptr", rfid, "ptr", hwnd, "uint", flags, "ptr", pszTargetPath, "uint", cFolders, "ptr", pExclusion, "ptr", ppszError, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", rfid, "ptr", hwnd, "uint", flags, "ptr", pszTargetPath, "uint", cFolders, "ptr", pExclusion, "ptr*", &ppszError := 0, "HRESULT")
+        return ppszError
     }
 }

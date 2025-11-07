@@ -30,12 +30,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbAnyNetworkAccess 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetAnyNetworkAccess(pbAnyNetworkAccess) {
-        result := ComCall(3, this, "ptr", pbAnyNetworkAccess, "HRESULT")
-        return result
+    GetAnyNetworkAccess() {
+        result := ComCall(3, this, "int*", &pbAnyNetworkAccess := 0, "HRESULT")
+        return pbAnyNetworkAccess
     }
 
     /**
@@ -50,12 +49,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbNetworkAdministrationAccess 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetNetworkAdministrationAccess(pbNetworkAdministrationAccess) {
-        result := ComCall(5, this, "ptr", pbNetworkAdministrationAccess, "HRESULT")
-        return result
+    GetNetworkAdministrationAccess() {
+        result := ComCall(5, this, "int*", &pbNetworkAdministrationAccess := 0, "HRESULT")
+        return pbNetworkAdministrationAccess
     }
 
     /**
@@ -70,12 +68,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbNetworkTransactionAccess 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetNetworkTransactionAccess(pbNetworkTransactionAccess) {
-        result := ComCall(7, this, "ptr", pbNetworkTransactionAccess, "HRESULT")
-        return result
+    GetNetworkTransactionAccess() {
+        result := ComCall(7, this, "int*", &pbNetworkTransactionAccess := 0, "HRESULT")
+        return pbNetworkTransactionAccess
     }
 
     /**
@@ -90,12 +87,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbNetworkClientAccess 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetNetworkClientAccess(pbNetworkClientAccess) {
-        result := ComCall(9, this, "ptr", pbNetworkClientAccess, "HRESULT")
-        return result
+    GetNetworkClientAccess() {
+        result := ComCall(9, this, "int*", &pbNetworkClientAccess := 0, "HRESULT")
+        return pbNetworkClientAccess
     }
 
     /**
@@ -110,12 +106,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbNetworkTIPAccess 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetNetworkTIPAccess(pbNetworkTIPAccess) {
-        result := ComCall(11, this, "ptr", pbNetworkTIPAccess, "HRESULT")
-        return result
+    GetNetworkTIPAccess() {
+        result := ComCall(11, this, "int*", &pbNetworkTIPAccess := 0, "HRESULT")
+        return pbNetworkTIPAccess
     }
 
     /**
@@ -130,12 +125,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbXAAccess 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetXAAccess(pbXAAccess) {
-        result := ComCall(13, this, "ptr", pbXAAccess, "HRESULT")
-        return result
+    GetXAAccess() {
+        result := ComCall(13, this, "int*", &pbXAAccess := 0, "HRESULT")
+        return pbXAAccess
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMDictionary.ahk
 #Include .\IXpsOMResource.ahk
 
 /**
@@ -32,13 +33,12 @@ class IXpsOMRemoteDictionaryResource extends IXpsOMResource{
 
     /**
      * 
-     * @param {Pointer<IXpsOMDictionary>} dictionary 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDictionary} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresource-getdictionary
      */
-    GetDictionary(dictionary) {
-        result := ComCall(5, this, "ptr*", dictionary, "HRESULT")
-        return result
+    GetDictionary() {
+        result := ComCall(5, this, "ptr*", &dictionary := 0, "HRESULT")
+        return IXpsOMDictionary(dictionary)
     }
 
     /**

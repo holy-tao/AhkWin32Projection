@@ -33,16 +33,13 @@ class ID3D12SDKConfiguration1 extends ID3D12SDKConfiguration{
      * @param {Integer} SDKVersion 
      * @param {PSTR} SDKPath 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvFactory 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateDeviceFactory(SDKVersion, SDKPath, riid, ppvFactory) {
+    CreateDeviceFactory(SDKVersion, SDKPath, riid) {
         SDKPath := SDKPath is String ? StrPtr(SDKPath) : SDKPath
 
-        ppvFactoryMarshal := ppvFactory is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", SDKVersion, "ptr", SDKPath, "ptr", riid, ppvFactoryMarshal, ppvFactory, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", SDKVersion, "ptr", SDKPath, "ptr", riid, "ptr*", &ppvFactory := 0, "HRESULT")
+        return ppvFactory
     }
 
     /**

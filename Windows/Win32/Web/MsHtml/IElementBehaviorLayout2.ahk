@@ -30,13 +30,10 @@ class IElementBehaviorLayout2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plDescent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetTextDescent(plDescent) {
-        plDescentMarshal := plDescent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, plDescentMarshal, plDescent, "HRESULT")
-        return result
+    GetTextDescent() {
+        result := ComCall(3, this, "int*", &plDescent := 0, "HRESULT")
+        return plDescent
     }
 }

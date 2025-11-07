@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -58,29 +59,29 @@ class IWMPContentPartner extends IUnknown{
      * 
      * @param {BSTR} bstrInfoName 
      * @param {Pointer<VARIANT>} pContext 
-     * @param {Pointer<VARIANT>} pData 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getiteminfo
      */
-    GetItemInfo(bstrInfoName, pContext, pData) {
+    GetItemInfo(bstrInfoName, pContext) {
         bstrInfoName := bstrInfoName is String ? BSTR.Alloc(bstrInfoName).Value : bstrInfoName
 
+        pData := VARIANT()
         result := ComCall(5, this, "ptr", bstrInfoName, "ptr", pContext, "ptr", pData, "HRESULT")
-        return result
+        return pData
     }
 
     /**
      * 
      * @param {BSTR} bstrInfoName 
-     * @param {Pointer<VARIANT>} pData 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getcontentpartnerinfo
      */
-    GetContentPartnerInfo(bstrInfoName, pData) {
+    GetContentPartnerInfo(bstrInfoName) {
         bstrInfoName := bstrInfoName is String ? BSTR.Alloc(bstrInfoName).Value : bstrInfoName
 
+        pData := VARIANT()
         result := ComCall(6, this, "ptr", bstrInfoName, "ptr", pData, "HRESULT")
-        return result
+        return pData
     }
 
     /**
@@ -137,7 +138,9 @@ class IWMPContentPartner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-canbuysilent
      */
     CanBuySilent(pInfo, pbstrTotalPrice, pSilentOK) {
-        result := ComCall(9, this, "ptr", pInfo, "ptr", pbstrTotalPrice, "ptr", pSilentOK, "HRESULT")
+        pSilentOKMarshal := pSilentOK is VarRef ? "short*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pInfo, "ptr", pbstrTotalPrice, pSilentOKMarshal, pSilentOK, "HRESULT")
         return result
     }
 
@@ -157,13 +160,13 @@ class IWMPContentPartner extends IUnknown{
      * 
      * @param {Integer} st 
      * @param {Pointer<VARIANT>} pStreamContext 
-     * @param {Pointer<BSTR>} pbstrURL 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getstreamingurl
      */
-    GetStreamingURL(st, pStreamContext, pbstrURL) {
+    GetStreamingURL(st, pStreamContext) {
+        pbstrURL := BSTR()
         result := ComCall(11, this, "int", st, "ptr", pStreamContext, "ptr", pbstrURL, "HRESULT")
-        return result
+        return pbstrURL
     }
 
     /**
@@ -365,15 +368,12 @@ class IWMPContentPartner extends IUnknown{
      * 
      * @param {IWMPContentContainerList} pListBase 
      * @param {IWMPContentContainerList} pListCompare 
-     * @param {Pointer<Integer>} pResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-comparecontainerlistprices
      */
-    CompareContainerListPrices(pListBase, pListCompare, pResult) {
-        pResultMarshal := pResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, "ptr", pListBase, "ptr", pListCompare, pResultMarshal, pResult, "HRESULT")
-        return result
+    CompareContainerListPrices(pListBase, pListCompare) {
+        result := ComCall(24, this, "ptr", pListBase, "ptr", pListCompare, "int*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**

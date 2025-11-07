@@ -54,11 +54,10 @@ class AsyncIFtpRoleProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsInRole 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    Finish_IsUserInRole(pfIsInRole) {
-        result := ComCall(4, this, "ptr", pfIsInRole, "HRESULT")
-        return result
+    Finish_IsUserInRole() {
+        result := ComCall(4, this, "int*", &pfIsInRole := 0, "HRESULT")
+        return pfIsInRole
     }
 }

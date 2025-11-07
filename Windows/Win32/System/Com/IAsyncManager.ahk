@@ -41,25 +41,19 @@ class IAsyncManager extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pInterface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetCallContext(riid, pInterface) {
-        pInterfaceMarshal := pInterface is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", riid, pInterfaceMarshal, pInterface, "HRESULT")
-        return result
+    GetCallContext(riid) {
+        result := ComCall(4, this, "ptr", riid, "ptr*", &pInterface := 0, "HRESULT")
+        return pInterface
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulStateFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetState(pulStateFlags) {
-        pulStateFlagsMarshal := pulStateFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pulStateFlagsMarshal, pulStateFlags, "HRESULT")
-        return result
+    GetState() {
+        result := ComCall(5, this, "uint*", &pulStateFlags := 0, "HRESULT")
+        return pulStateFlags
     }
 }

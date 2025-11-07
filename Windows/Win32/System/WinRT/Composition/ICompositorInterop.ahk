@@ -33,38 +33,35 @@ class ICompositorInterop extends IUnknown{
     /**
      * 
      * @param {HANDLE} swapChain 
-     * @param {Pointer<ICompositionSurface>} result 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ICompositionSurface>} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-createcompositionsurfaceforhandle
      */
-    CreateCompositionSurfaceForHandle(swapChain, result) {
+    CreateCompositionSurfaceForHandle(swapChain) {
         swapChain := swapChain is Win32Handle ? NumGet(swapChain, "ptr") : swapChain
 
-        result := ComCall(3, this, "ptr", swapChain, "ptr*", result, "HRESULT")
+        result := ComCall(3, this, "ptr", swapChain, "ptr*", &result := 0, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {IUnknown} swapChain 
-     * @param {Pointer<ICompositionSurface>} result 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ICompositionSurface>} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-createcompositionsurfaceforswapchain
      */
-    CreateCompositionSurfaceForSwapChain(swapChain, result) {
-        result := ComCall(4, this, "ptr", swapChain, "ptr*", result, "HRESULT")
+    CreateCompositionSurfaceForSwapChain(swapChain) {
+        result := ComCall(4, this, "ptr", swapChain, "ptr*", &result := 0, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {IUnknown} renderingDevice 
-     * @param {Pointer<CompositionGraphicsDevice>} result 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CompositionGraphicsDevice>} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-creategraphicsdevice
      */
-    CreateGraphicsDevice(renderingDevice, result) {
-        result := ComCall(5, this, "ptr", renderingDevice, "ptr", result, "HRESULT")
+    CreateGraphicsDevice(renderingDevice) {
+        result := ComCall(5, this, "ptr", renderingDevice, "ptr*", &result := 0, "HRESULT")
         return result
     }
 }

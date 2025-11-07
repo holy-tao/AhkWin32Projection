@@ -33,14 +33,12 @@ class ITransactionImport extends IUnknown{
      * @param {Integer} cbTransactionCookie 
      * @param {Pointer<Integer>} rgbTransactionCookie 
      * @param {Pointer<Guid>} piid 
-     * @param {Pointer<Pointer<Void>>} ppvTransaction 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    Import(cbTransactionCookie, rgbTransactionCookie, piid, ppvTransaction) {
+    Import(cbTransactionCookie, rgbTransactionCookie, piid) {
         rgbTransactionCookieMarshal := rgbTransactionCookie is VarRef ? "char*" : "ptr"
-        ppvTransactionMarshal := ppvTransaction is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", cbTransactionCookie, rgbTransactionCookieMarshal, rgbTransactionCookie, "ptr", piid, ppvTransactionMarshal, ppvTransaction, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cbTransactionCookie, rgbTransactionCookieMarshal, rgbTransactionCookie, "ptr", piid, "ptr*", &ppvTransaction := 0, "HRESULT")
+        return ppvTransaction
     }
 }

@@ -41,7 +41,9 @@ class IInternetSession extends IUnknown{
     RegisterNameSpace(pCF, rclsid, pwzProtocol, cPatterns, ppwzPatterns, dwReserved) {
         pwzProtocol := pwzProtocol is String ? StrPtr(pwzProtocol) : pwzProtocol
 
-        result := ComCall(3, this, "ptr", pCF, "ptr", rclsid, "ptr", pwzProtocol, "uint", cPatterns, "ptr", ppwzPatterns, "uint", dwReserved, "HRESULT")
+        ppwzPatternsMarshal := ppwzPatterns is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pCF, "ptr", rclsid, "ptr", pwzProtocol, "uint", cPatterns, ppwzPatternsMarshal, ppwzPatterns, "uint", dwReserved, "HRESULT")
         return result
     }
 

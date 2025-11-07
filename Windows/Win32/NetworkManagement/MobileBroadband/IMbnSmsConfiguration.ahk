@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,13 +37,13 @@ class IMbnSmsConfiguration extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} scAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_servicecenteraddress
      */
-    get_ServiceCenterAddress(scAddress) {
+    get_ServiceCenterAddress() {
+        scAddress := BSTR()
         result := ComCall(3, this, "ptr", scAddress, "HRESULT")
-        return result
+        return scAddress
     }
 
     /**
@@ -60,41 +61,32 @@ class IMbnSmsConfiguration extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} index 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_maxmessageindex
      */
-    get_MaxMessageIndex(index) {
-        indexMarshal := index is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, indexMarshal, index, "HRESULT")
-        return result
+    get_MaxMessageIndex() {
+        result := ComCall(5, this, "uint*", &index := 0, "HRESULT")
+        return index
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} shortMsgSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_cdmashortmsgsize
      */
-    get_CdmaShortMsgSize(shortMsgSize) {
-        shortMsgSizeMarshal := shortMsgSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, shortMsgSizeMarshal, shortMsgSize, "HRESULT")
-        return result
+    get_CdmaShortMsgSize() {
+        result := ComCall(6, this, "uint*", &shortMsgSize := 0, "HRESULT")
+        return shortMsgSize
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} smsFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_smsformat
      */
-    get_SmsFormat(smsFormat) {
-        smsFormatMarshal := smsFormat is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, smsFormatMarshal, smsFormat, "HRESULT")
-        return result
+    get_SmsFormat() {
+        result := ComCall(7, this, "int*", &smsFormat := 0, "HRESULT")
+        return smsFormat
     }
 
     /**

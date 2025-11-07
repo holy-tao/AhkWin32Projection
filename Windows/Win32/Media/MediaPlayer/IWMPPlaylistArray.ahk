@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMPPlaylist.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,12 +47,11 @@ class IWMPPlaylistArray extends IDispatch{
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<IWMPPlaylist>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistarray-item
      */
-    item(lIndex, ppItem) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", ppItem, "HRESULT")
-        return result
+    item(lIndex) {
+        result := ComCall(8, this, "int", lIndex, "ptr*", &ppItem := 0, "HRESULT")
+        return IWMPPlaylist(ppItem)
     }
 }

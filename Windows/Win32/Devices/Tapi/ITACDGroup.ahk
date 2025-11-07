@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IEnumQueue.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,34 +35,33 @@ class ITACDGroup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itacdgroup-get_name
      */
-    get_Name(ppName) {
+    get_Name() {
+        ppName := BSTR()
         result := ComCall(7, this, "ptr", ppName, "HRESULT")
-        return result
+        return ppName
     }
 
     /**
      * 
-     * @param {Pointer<IEnumQueue>} ppEnumQueue 
-     * @returns {HRESULT} 
+     * @returns {IEnumQueue} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itacdgroup-enumeratequeues
      */
-    EnumerateQueues(ppEnumQueue) {
-        result := ComCall(8, this, "ptr*", ppEnumQueue, "HRESULT")
-        return result
+    EnumerateQueues() {
+        result := ComCall(8, this, "ptr*", &ppEnumQueue := 0, "HRESULT")
+        return IEnumQueue(ppEnumQueue)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itacdgroup-get_queues
      */
-    get_Queues(pVariant) {
+    get_Queues() {
+        pVariant := VARIANT()
         result := ComCall(9, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 }

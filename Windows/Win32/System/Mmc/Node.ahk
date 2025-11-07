@@ -37,54 +37,53 @@ class Node extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(7, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
      * @param {BSTR} PropertyName 
-     * @param {Pointer<BSTR>} PropertyValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Property(PropertyName, PropertyValue) {
+    get_Property(PropertyName) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
+        PropertyValue := BSTR()
         result := ComCall(8, this, "ptr", PropertyName, "ptr", PropertyValue, "HRESULT")
-        return result
+        return PropertyValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Bookmark 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Bookmark(Bookmark) {
+    get_Bookmark() {
+        Bookmark := BSTR()
         result := ComCall(9, this, "ptr", Bookmark, "HRESULT")
-        return result
+        return Bookmark
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} IsScopeNode 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsScopeNode(IsScopeNode) {
-        result := ComCall(10, this, "ptr", IsScopeNode, "HRESULT")
-        return result
+    IsScopeNode() {
+        result := ComCall(10, this, "int*", &IsScopeNode := 0, "HRESULT")
+        return IsScopeNode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Nodetype 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Nodetype(Nodetype) {
+    get_Nodetype() {
+        Nodetype := BSTR()
         result := ComCall(11, this, "ptr", Nodetype, "HRESULT")
-        return result
+        return Nodetype
     }
 }

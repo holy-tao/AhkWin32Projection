@@ -45,19 +45,19 @@ class IUPnPRegistrar extends IUnknown{
      * @param {BSTR} bstrContainerId 
      * @param {BSTR} bstrResourcePath 
      * @param {Integer} nLifeTime 
-     * @param {Pointer<BSTR>} pbstrDeviceIdentifier 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpregistrar-registerdevice
      */
-    RegisterDevice(bstrXMLDesc, bstrProgIDDeviceControlClass, bstrInitString, bstrContainerId, bstrResourcePath, nLifeTime, pbstrDeviceIdentifier) {
+    RegisterDevice(bstrXMLDesc, bstrProgIDDeviceControlClass, bstrInitString, bstrContainerId, bstrResourcePath, nLifeTime) {
         bstrXMLDesc := bstrXMLDesc is String ? BSTR.Alloc(bstrXMLDesc).Value : bstrXMLDesc
         bstrProgIDDeviceControlClass := bstrProgIDDeviceControlClass is String ? BSTR.Alloc(bstrProgIDDeviceControlClass).Value : bstrProgIDDeviceControlClass
         bstrInitString := bstrInitString is String ? BSTR.Alloc(bstrInitString).Value : bstrInitString
         bstrContainerId := bstrContainerId is String ? BSTR.Alloc(bstrContainerId).Value : bstrContainerId
         bstrResourcePath := bstrResourcePath is String ? BSTR.Alloc(bstrResourcePath).Value : bstrResourcePath
 
+        pbstrDeviceIdentifier := BSTR()
         result := ComCall(3, this, "ptr", bstrXMLDesc, "ptr", bstrProgIDDeviceControlClass, "ptr", bstrInitString, "ptr", bstrContainerId, "ptr", bstrResourcePath, "int", nLifeTime, "ptr", pbstrDeviceIdentifier, "HRESULT")
-        return result
+        return pbstrDeviceIdentifier
     }
 
     /**
@@ -67,17 +67,17 @@ class IUPnPRegistrar extends IUnknown{
      * @param {BSTR} bstrInitString 
      * @param {BSTR} bstrResourcePath 
      * @param {Integer} nLifeTime 
-     * @param {Pointer<BSTR>} pbstrDeviceIdentifier 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpregistrar-registerrunningdevice
      */
-    RegisterRunningDevice(bstrXMLDesc, punkDeviceControl, bstrInitString, bstrResourcePath, nLifeTime, pbstrDeviceIdentifier) {
+    RegisterRunningDevice(bstrXMLDesc, punkDeviceControl, bstrInitString, bstrResourcePath, nLifeTime) {
         bstrXMLDesc := bstrXMLDesc is String ? BSTR.Alloc(bstrXMLDesc).Value : bstrXMLDesc
         bstrInitString := bstrInitString is String ? BSTR.Alloc(bstrInitString).Value : bstrInitString
         bstrResourcePath := bstrResourcePath is String ? BSTR.Alloc(bstrResourcePath).Value : bstrResourcePath
 
+        pbstrDeviceIdentifier := BSTR()
         result := ComCall(4, this, "ptr", bstrXMLDesc, "ptr", punkDeviceControl, "ptr", bstrInitString, "ptr", bstrResourcePath, "int", nLifeTime, "ptr", pbstrDeviceIdentifier, "HRESULT")
-        return result
+        return pbstrDeviceIdentifier
     }
 
     /**
@@ -103,16 +103,16 @@ class IUPnPRegistrar extends IUnknown{
      * 
      * @param {BSTR} bstrDeviceIdentifier 
      * @param {BSTR} bstrTemplateUDN 
-     * @param {Pointer<BSTR>} pbstrUDN 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpregistrar-getuniquedevicename
      */
-    GetUniqueDeviceName(bstrDeviceIdentifier, bstrTemplateUDN, pbstrUDN) {
+    GetUniqueDeviceName(bstrDeviceIdentifier, bstrTemplateUDN) {
         bstrDeviceIdentifier := bstrDeviceIdentifier is String ? BSTR.Alloc(bstrDeviceIdentifier).Value : bstrDeviceIdentifier
         bstrTemplateUDN := bstrTemplateUDN is String ? BSTR.Alloc(bstrTemplateUDN).Value : bstrTemplateUDN
 
+        pbstrUDN := BSTR()
         result := ComCall(6, this, "ptr", bstrDeviceIdentifier, "ptr", bstrTemplateUDN, "ptr", pbstrUDN, "HRESULT")
-        return result
+        return pbstrUDN
     }
 
     /**

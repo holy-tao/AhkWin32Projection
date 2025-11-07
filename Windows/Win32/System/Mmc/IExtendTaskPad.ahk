@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTASK.ahk
+#Include .\MMC_TASK_DISPLAY_OBJECT.ahk
+#Include .\MMC_LISTPAD_INFO.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -47,70 +50,67 @@ class IExtendTaskPad extends IUnknown{
      * 
      * @param {IDataObject} pdo 
      * @param {PWSTR} szTaskGroup 
-     * @param {Pointer<IEnumTASK>} ppEnumTASK 
-     * @returns {HRESULT} 
+     * @returns {IEnumTASK} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendtaskpad-enumtasks
      */
-    EnumTasks(pdo, szTaskGroup, ppEnumTASK) {
+    EnumTasks(pdo, szTaskGroup) {
         szTaskGroup := szTaskGroup is String ? StrPtr(szTaskGroup) : szTaskGroup
 
-        result := ComCall(4, this, "ptr", pdo, "ptr", szTaskGroup, "ptr*", ppEnumTASK, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pdo, "ptr", szTaskGroup, "ptr*", &ppEnumTASK := 0, "HRESULT")
+        return IEnumTASK(ppEnumTASK)
     }
 
     /**
      * 
      * @param {PWSTR} pszGroup 
-     * @param {Pointer<PWSTR>} pszTitle 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendtaskpad-gettitle
      */
-    GetTitle(pszGroup, pszTitle) {
+    GetTitle(pszGroup) {
         pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
-        result := ComCall(5, this, "ptr", pszGroup, "ptr", pszTitle, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszGroup, "ptr*", &pszTitle := 0, "HRESULT")
+        return pszTitle
     }
 
     /**
      * 
      * @param {PWSTR} pszGroup 
-     * @param {Pointer<PWSTR>} pszDescriptiveText 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendtaskpad-getdescriptivetext
      */
-    GetDescriptiveText(pszGroup, pszDescriptiveText) {
+    GetDescriptiveText(pszGroup) {
         pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
-        result := ComCall(6, this, "ptr", pszGroup, "ptr", pszDescriptiveText, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszGroup, "ptr*", &pszDescriptiveText := 0, "HRESULT")
+        return pszDescriptiveText
     }
 
     /**
      * 
      * @param {PWSTR} pszGroup 
-     * @param {Pointer<MMC_TASK_DISPLAY_OBJECT>} pTDO 
-     * @returns {HRESULT} 
+     * @returns {MMC_TASK_DISPLAY_OBJECT} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendtaskpad-getbackground
      */
-    GetBackground(pszGroup, pTDO) {
+    GetBackground(pszGroup) {
         pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
+        pTDO := MMC_TASK_DISPLAY_OBJECT()
         result := ComCall(7, this, "ptr", pszGroup, "ptr", pTDO, "HRESULT")
-        return result
+        return pTDO
     }
 
     /**
      * 
      * @param {PWSTR} pszGroup 
-     * @param {Pointer<MMC_LISTPAD_INFO>} lpListPadInfo 
-     * @returns {HRESULT} 
+     * @returns {MMC_LISTPAD_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendtaskpad-getlistpadinfo
      */
-    GetListPadInfo(pszGroup, lpListPadInfo) {
+    GetListPadInfo(pszGroup) {
         pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
+        lpListPadInfo := MMC_LISTPAD_INFO()
         result := ComCall(8, this, "ptr", pszGroup, "ptr", lpListPadInfo, "HRESULT")
-        return result
+        return lpListPadInfo
     }
 }

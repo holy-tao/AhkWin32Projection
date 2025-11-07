@@ -64,14 +64,11 @@ class IAudioCaptureClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pNumFramesInNextPacket 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiocaptureclient-getnextpacketsize
      */
-    GetNextPacketSize(pNumFramesInNextPacket) {
-        pNumFramesInNextPacketMarshal := pNumFramesInNextPacket is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pNumFramesInNextPacketMarshal, pNumFramesInNextPacket, "HRESULT")
-        return result
+    GetNextPacketSize() {
+        result := ComCall(5, this, "uint*", &pNumFramesInNextPacket := 0, "HRESULT")
+        return pNumFramesInNextPacket
     }
 }

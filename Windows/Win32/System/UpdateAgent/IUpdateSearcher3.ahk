@@ -32,14 +32,11 @@ class IUpdateSearcher3 extends IUpdateSearcher2{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SearchScope(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_SearchScope() {
+        result := ComCall(27, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

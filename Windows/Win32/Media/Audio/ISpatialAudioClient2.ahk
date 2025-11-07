@@ -33,13 +33,12 @@ class ISpatialAudioClient2 extends ISpatialAudioClient{
     /**
      * 
      * @param {Integer} category 
-     * @param {Pointer<BOOL>} isOffloadCapable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient2-isoffloadcapable
      */
-    IsOffloadCapable(category, isOffloadCapable) {
-        result := ComCall(11, this, "int", category, "ptr", isOffloadCapable, "HRESULT")
-        return result
+    IsOffloadCapable(category) {
+        result := ComCall(11, this, "int", category, "int*", &isOffloadCapable := 0, "HRESULT")
+        return isOffloadCapable
     }
 
     /**
@@ -47,14 +46,11 @@ class ISpatialAudioClient2 extends ISpatialAudioClient{
      * @param {Integer} category 
      * @param {BOOL} offloadEnabled 
      * @param {Pointer<WAVEFORMATEX>} objectFormat 
-     * @param {Pointer<Integer>} frameCountPerBuffer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient2-getmaxframecountforcategory
      */
-    GetMaxFrameCountForCategory(category, offloadEnabled, objectFormat, frameCountPerBuffer) {
-        frameCountPerBufferMarshal := frameCountPerBuffer is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "int", category, "int", offloadEnabled, "ptr", objectFormat, frameCountPerBufferMarshal, frameCountPerBuffer, "HRESULT")
-        return result
+    GetMaxFrameCountForCategory(category, offloadEnabled, objectFormat) {
+        result := ComCall(12, this, "int", category, "int", offloadEnabled, "ptr", objectFormat, "uint*", &frameCountPerBuffer := 0, "HRESULT")
+        return frameCountPerBuffer
     }
 }

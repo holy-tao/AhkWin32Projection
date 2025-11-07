@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,57 +31,48 @@ class ISpeechAudioStatus extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} FreeBufferSpace 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FreeBufferSpace(FreeBufferSpace) {
-        FreeBufferSpaceMarshal := FreeBufferSpace is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, FreeBufferSpaceMarshal, FreeBufferSpace, "HRESULT")
-        return result
+    get_FreeBufferSpace() {
+        result := ComCall(7, this, "int*", &FreeBufferSpace := 0, "HRESULT")
+        return FreeBufferSpace
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} NonBlockingIO 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_NonBlockingIO(NonBlockingIO) {
-        NonBlockingIOMarshal := NonBlockingIO is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, NonBlockingIOMarshal, NonBlockingIO, "HRESULT")
-        return result
+    get_NonBlockingIO() {
+        result := ComCall(8, this, "int*", &NonBlockingIO := 0, "HRESULT")
+        return NonBlockingIO
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} State 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(State) {
-        StateMarshal := State is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, StateMarshal, State, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(9, this, "int*", &State := 0, "HRESULT")
+        return State
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} CurrentSeekPosition 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_CurrentSeekPosition(CurrentSeekPosition) {
+    get_CurrentSeekPosition() {
+        CurrentSeekPosition := VARIANT()
         result := ComCall(10, this, "ptr", CurrentSeekPosition, "HRESULT")
-        return result
+        return CurrentSeekPosition
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} CurrentDevicePosition 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_CurrentDevicePosition(CurrentDevicePosition) {
+    get_CurrentDevicePosition() {
+        CurrentDevicePosition := VARIANT()
         result := ComCall(11, this, "ptr", CurrentDevicePosition, "HRESULT")
-        return result
+        return CurrentDevicePosition
     }
 }

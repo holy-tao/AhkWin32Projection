@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D2D1_SIMPLE_COLOR_PROFILE.ahk
 #Include .\ID2D1ColorContext.ahk
 
 /**
@@ -52,12 +53,12 @@ class ID2D1ColorContext1 extends ID2D1ColorContext{
 
     /**
      * 
-     * @param {Pointer<D2D1_SIMPLE_COLOR_PROFILE>} simpleProfile 
-     * @returns {HRESULT} 
+     * @returns {D2D1_SIMPLE_COLOR_PROFILE} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1colorcontext1-getsimplecolorprofile
      */
-    GetSimpleColorProfile(simpleProfile) {
+    GetSimpleColorProfile() {
+        simpleProfile := D2D1_SIMPLE_COLOR_PROFILE()
         result := ComCall(9, this, "ptr", simpleProfile, "HRESULT")
-        return result
+        return simpleProfile
     }
 }

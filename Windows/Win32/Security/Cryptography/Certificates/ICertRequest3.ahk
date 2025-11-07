@@ -50,13 +50,13 @@ class ICertRequest3 extends ICertRequest2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrRequestId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest3-getrequestidstring
      */
-    GetRequestIdString(pstrRequestId) {
+    GetRequestIdString() {
+        pstrRequestId := BSTR()
         result := ComCall(21, this, "ptr", pstrRequestId, "HRESULT")
-        return result
+        return pstrRequestId
     }
 
     /**
@@ -64,29 +64,25 @@ class ICertRequest3 extends ICertRequest2{
      * @param {BSTR} strConfig 
      * @param {BSTR} strRequestId 
      * @param {BSTR} strSerialNumber 
-     * @param {Pointer<Integer>} pDisposition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest3-getissuedcertificate2
      */
-    GetIssuedCertificate2(strConfig, strRequestId, strSerialNumber, pDisposition) {
+    GetIssuedCertificate2(strConfig, strRequestId, strSerialNumber) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strRequestId := strRequestId is String ? BSTR.Alloc(strRequestId).Value : strRequestId
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        pDispositionMarshal := pDisposition is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, "ptr", strConfig, "ptr", strRequestId, "ptr", strSerialNumber, pDispositionMarshal, pDisposition, "HRESULT")
-        return result
+        result := ComCall(22, this, "ptr", strConfig, "ptr", strRequestId, "ptr", strSerialNumber, "uint*", &pDisposition := 0, "HRESULT")
+        return pDisposition
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest3-getrefreshpolicy
      */
-    GetRefreshPolicy(pValue) {
-        result := ComCall(23, this, "ptr", pValue, "HRESULT")
-        return result
+    GetRefreshPolicy() {
+        result := ComCall(23, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 }

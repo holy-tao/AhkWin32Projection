@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcPartUri.ahk
+#Include .\IOpcDigitalSignatureEnumerator.ahk
+#Include .\IOpcSigningOptions.ahk
+#Include .\IOpcDigitalSignature.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,13 +50,12 @@ class IOpcDigitalSignatureManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} signatureOriginPartName 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignaturemanager-getsignatureoriginpartname
      */
-    GetSignatureOriginPartName(signatureOriginPartName) {
-        result := ComCall(3, this, "ptr*", signatureOriginPartName, "HRESULT")
-        return result
+    GetSignatureOriginPartName() {
+        result := ComCall(3, this, "ptr*", &signatureOriginPartName := 0, "HRESULT")
+        return IOpcPartUri(signatureOriginPartName)
     }
 
     /**
@@ -68,13 +71,12 @@ class IOpcDigitalSignatureManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcDigitalSignatureEnumerator>} signatureEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcDigitalSignatureEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignaturemanager-getsignatureenumerator
      */
-    GetSignatureEnumerator(signatureEnumerator) {
-        result := ComCall(5, this, "ptr*", signatureEnumerator, "HRESULT")
-        return result
+    GetSignatureEnumerator() {
+        result := ComCall(5, this, "ptr*", &signatureEnumerator := 0, "HRESULT")
+        return IOpcDigitalSignatureEnumerator(signatureEnumerator)
     }
 
     /**
@@ -90,41 +92,36 @@ class IOpcDigitalSignatureManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcSigningOptions>} signingOptions 
-     * @returns {HRESULT} 
+     * @returns {IOpcSigningOptions} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignaturemanager-createsigningoptions
      */
-    CreateSigningOptions(signingOptions) {
-        result := ComCall(7, this, "ptr*", signingOptions, "HRESULT")
-        return result
+    CreateSigningOptions() {
+        result := ComCall(7, this, "ptr*", &signingOptions := 0, "HRESULT")
+        return IOpcSigningOptions(signingOptions)
     }
 
     /**
      * 
      * @param {IOpcDigitalSignature} signature 
      * @param {Pointer<CERT_CONTEXT>} certificate 
-     * @param {Pointer<Integer>} validationResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignaturemanager-validate
      */
-    Validate(signature, certificate, validationResult) {
-        validationResultMarshal := validationResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "ptr", signature, "ptr", certificate, validationResultMarshal, validationResult, "HRESULT")
-        return result
+    Validate(signature, certificate) {
+        result := ComCall(8, this, "ptr", signature, "ptr", certificate, "int*", &validationResult := 0, "HRESULT")
+        return validationResult
     }
 
     /**
      * 
      * @param {Pointer<CERT_CONTEXT>} certificate 
      * @param {IOpcSigningOptions} signingOptions 
-     * @param {Pointer<IOpcDigitalSignature>} digitalSignature 
-     * @returns {HRESULT} 
+     * @returns {IOpcDigitalSignature} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignaturemanager-sign
      */
-    Sign(certificate, signingOptions, digitalSignature) {
-        result := ComCall(9, this, "ptr", certificate, "ptr", signingOptions, "ptr*", digitalSignature, "HRESULT")
-        return result
+    Sign(certificate, signingOptions) {
+        result := ComCall(9, this, "ptr", certificate, "ptr", signingOptions, "ptr*", &digitalSignature := 0, "HRESULT")
+        return IOpcDigitalSignature(digitalSignature)
     }
 
     /**
@@ -132,14 +129,13 @@ class IOpcDigitalSignatureManager extends IUnknown{
      * @param {IOpcPartUri} signaturePartName 
      * @param {Pointer<Integer>} newSignatureXml 
      * @param {Integer} count 
-     * @param {Pointer<IOpcDigitalSignature>} digitalSignature 
-     * @returns {HRESULT} 
+     * @returns {IOpcDigitalSignature} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignaturemanager-replacesignaturexml
      */
-    ReplaceSignatureXml(signaturePartName, newSignatureXml, count, digitalSignature) {
+    ReplaceSignatureXml(signaturePartName, newSignatureXml, count) {
         newSignatureXmlMarshal := newSignatureXml is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, "ptr", signaturePartName, newSignatureXmlMarshal, newSignatureXml, "uint", count, "ptr*", digitalSignature, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", signaturePartName, newSignatureXmlMarshal, newSignatureXml, "uint", count, "ptr*", &digitalSignature := 0, "HRESULT")
+        return IOpcDigitalSignature(digitalSignature)
     }
 }

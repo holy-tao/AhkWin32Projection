@@ -61,15 +61,12 @@ class IShellLinkA extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getidlist
      */
-    GetIDList(ppidl) {
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppidlMarshal, ppidl, "HRESULT")
-        return result
+    GetIDList() {
+        result := ComCall(4, this, "ptr*", &ppidl := 0, "HRESULT")
+        return ppidl
     }
 
     /**
@@ -166,15 +163,12 @@ class IShellLinkA extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwHotkey 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-gethotkey
      */
-    GetHotkey(pwHotkey) {
-        pwHotkeyMarshal := pwHotkey is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(12, this, pwHotkeyMarshal, pwHotkey, "HRESULT")
-        return result
+    GetHotkey() {
+        result := ComCall(12, this, "ushort*", &pwHotkey := 0, "HRESULT")
+        return pwHotkey
     }
 
     /**
@@ -190,15 +184,12 @@ class IShellLinkA extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} piShowCmd 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getshowcmd
      */
-    GetShowCmd(piShowCmd) {
-        piShowCmdMarshal := piShowCmd is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, piShowCmdMarshal, piShowCmd, "HRESULT")
-        return result
+    GetShowCmd() {
+        result := ComCall(14, this, "int*", &piShowCmd := 0, "HRESULT")
+        return piShowCmd
     }
 
     /**
@@ -216,17 +207,14 @@ class IShellLinkA extends IUnknown{
      * 
      * @param {PSTR} pszIconPath 
      * @param {Integer} cch 
-     * @param {Pointer<Integer>} piIcon 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-geticonlocation
      */
-    GetIconLocation(pszIconPath, cch, piIcon) {
+    GetIconLocation(pszIconPath, cch) {
         pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
-        piIconMarshal := piIcon is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, "ptr", pszIconPath, "int", cch, piIconMarshal, piIcon, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", pszIconPath, "int", cch, "int*", &piIcon := 0, "HRESULT")
+        return piIcon
     }
 
     /**

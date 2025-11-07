@@ -39,37 +39,33 @@ class IDiscRecorder2Ex extends IUnknown{
      * 
      * @param {Pointer<Integer>} Cdb 
      * @param {Integer} CdbSize 
-     * @param {Pointer<Integer>} SenseBuffer 
      * @param {Integer} Timeout 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandnodata
      */
-    SendCommandNoData(Cdb, CdbSize, SenseBuffer, Timeout) {
+    SendCommandNoData(Cdb, CdbSize, Timeout) {
         CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
-        SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, CdbMarshal, Cdb, "uint", CdbSize, SenseBufferMarshal, SenseBuffer, "uint", Timeout, "HRESULT")
-        return result
+        result := ComCall(3, this, CdbMarshal, Cdb, "uint", CdbSize, "char*", &SenseBuffer := 0, "uint", Timeout, "HRESULT")
+        return SenseBuffer
     }
 
     /**
      * 
      * @param {Pointer<Integer>} Cdb 
      * @param {Integer} CdbSize 
-     * @param {Pointer<Integer>} SenseBuffer 
      * @param {Integer} Timeout 
      * @param {Pointer<Integer>} Buffer 
      * @param {Integer} BufferSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandsenddatatodevice
      */
-    SendCommandSendDataToDevice(Cdb, CdbSize, SenseBuffer, Timeout, Buffer, BufferSize) {
+    SendCommandSendDataToDevice(Cdb, CdbSize, Timeout, Buffer, BufferSize) {
         CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
-        SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
         BufferMarshal := Buffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, CdbMarshal, Cdb, "uint", CdbSize, SenseBufferMarshal, SenseBuffer, "uint", Timeout, BufferMarshal, Buffer, "uint", BufferSize, "HRESULT")
-        return result
+        result := ComCall(4, this, CdbMarshal, Cdb, "uint", CdbSize, "char*", &SenseBuffer := 0, "uint", Timeout, BufferMarshal, Buffer, "uint", BufferSize, "HRESULT")
+        return SenseBuffer
     }
 
     /**
@@ -289,40 +285,31 @@ class IDiscRecorder2Ex extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getbytealignmentmask
      */
-    GetByteAlignmentMask(value) {
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, valueMarshal, value, "HRESULT")
-        return result
+    GetByteAlignmentMask() {
+        result := ComCall(18, this, "uint*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getmaximumnonpagealignedtransfersize
      */
-    GetMaximumNonPageAlignedTransferSize(value) {
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, valueMarshal, value, "HRESULT")
-        return result
+    GetMaximumNonPageAlignedTransferSize() {
+        result := ComCall(19, this, "uint*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getmaximumpagealignedtransfersize
      */
-    GetMaximumPageAlignedTransferSize(value) {
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, valueMarshal, value, "HRESULT")
-        return result
+    GetMaximumPageAlignedTransferSize() {
+        result := ComCall(20, this, "uint*", &value := 0, "HRESULT")
+        return value
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\TASK_TRIGGER.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -43,23 +44,22 @@ class ITaskTrigger extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<TASK_TRIGGER>} pTrigger 
-     * @returns {HRESULT} 
+     * @returns {TASK_TRIGGER} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itasktrigger-gettrigger
      */
-    GetTrigger(pTrigger) {
+    GetTrigger() {
+        pTrigger := TASK_TRIGGER()
         result := ComCall(4, this, "ptr", pTrigger, "HRESULT")
-        return result
+        return pTrigger
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszTrigger 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itasktrigger-gettriggerstring
      */
-    GetTriggerString(ppwszTrigger) {
-        result := ComCall(5, this, "ptr", ppwszTrigger, "HRESULT")
-        return result
+    GetTriggerString() {
+        result := ComCall(5, this, "ptr*", &ppwszTrigger := 0, "HRESULT")
+        return ppwszTrigger
     }
 }

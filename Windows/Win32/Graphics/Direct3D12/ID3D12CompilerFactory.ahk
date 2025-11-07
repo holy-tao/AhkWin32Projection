@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_ADAPTER_FAMILY.ahk
+#Include .\D3D12_VERSION_NUMBER.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,50 +33,48 @@ class ID3D12CompilerFactory extends IUnknown{
     /**
      * 
      * @param {Integer} AdapterFamilyIndex 
-     * @param {Pointer<D3D12_ADAPTER_FAMILY>} pAdapterFamily 
-     * @returns {HRESULT} 
+     * @returns {D3D12_ADAPTER_FAMILY} 
      */
-    EnumerateAdapterFamilies(AdapterFamilyIndex, pAdapterFamily) {
+    EnumerateAdapterFamilies(AdapterFamilyIndex) {
+        pAdapterFamily := D3D12_ADAPTER_FAMILY()
         result := ComCall(3, this, "uint", AdapterFamilyIndex, "ptr", pAdapterFamily, "HRESULT")
-        return result
+        return pAdapterFamily
     }
 
     /**
      * 
      * @param {Integer} AdapterFamilyIndex 
      * @param {Pointer<Integer>} pNumABIVersions 
-     * @param {Pointer<Integer>} pABIVersions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    EnumerateAdapterFamilyABIVersions(AdapterFamilyIndex, pNumABIVersions, pABIVersions) {
+    EnumerateAdapterFamilyABIVersions(AdapterFamilyIndex, pNumABIVersions) {
         pNumABIVersionsMarshal := pNumABIVersions is VarRef ? "uint*" : "ptr"
-        pABIVersionsMarshal := pABIVersions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", AdapterFamilyIndex, pNumABIVersionsMarshal, pNumABIVersions, pABIVersionsMarshal, pABIVersions, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", AdapterFamilyIndex, pNumABIVersionsMarshal, pNumABIVersions, "uint*", &pABIVersions := 0, "HRESULT")
+        return pABIVersions
     }
 
     /**
      * 
      * @param {Integer} AdapterFamilyIndex 
-     * @param {Pointer<D3D12_VERSION_NUMBER>} pCompilerVersion 
-     * @returns {HRESULT} 
+     * @returns {D3D12_VERSION_NUMBER} 
      */
-    EnumerateAdapterFamilyCompilerVersion(AdapterFamilyIndex, pCompilerVersion) {
+    EnumerateAdapterFamilyCompilerVersion(AdapterFamilyIndex) {
+        pCompilerVersion := D3D12_VERSION_NUMBER()
         result := ComCall(5, this, "uint", AdapterFamilyIndex, "ptr", pCompilerVersion, "HRESULT")
-        return result
+        return pCompilerVersion
     }
 
     /**
      * 
      * @param {Pointer<D3D12_COMPILER_TARGET>} pTarget 
      * @param {Pointer<D3D12_APPLICATION_DESC>} pApplicationDesc 
-     * @param {Pointer<D3D12_VERSION_NUMBER>} pApplicationProfileVersion 
-     * @returns {HRESULT} 
+     * @returns {D3D12_VERSION_NUMBER} 
      */
-    GetApplicationProfileVersion(pTarget, pApplicationDesc, pApplicationProfileVersion) {
+    GetApplicationProfileVersion(pTarget, pApplicationDesc) {
+        pApplicationProfileVersion := D3D12_VERSION_NUMBER()
         result := ComCall(6, this, "ptr", pTarget, "ptr", pApplicationDesc, "ptr", pApplicationProfileVersion, "HRESULT")
-        return result
+        return pApplicationProfileVersion
     }
 
     /**
@@ -84,27 +84,21 @@ class ID3D12CompilerFactory extends IUnknown{
      * @param {Pointer<D3D12_COMPILER_TARGET>} pTarget 
      * @param {Pointer<D3D12_APPLICATION_DESC>} pApplicationDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppCompilerCacheSession 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateCompilerCacheSession(pPaths, NumPaths, pTarget, pApplicationDesc, riid, ppCompilerCacheSession) {
-        ppCompilerCacheSessionMarshal := ppCompilerCacheSession is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pPaths, "uint", NumPaths, "ptr", pTarget, "ptr", pApplicationDesc, "ptr", riid, ppCompilerCacheSessionMarshal, ppCompilerCacheSession, "HRESULT")
-        return result
+    CreateCompilerCacheSession(pPaths, NumPaths, pTarget, pApplicationDesc, riid) {
+        result := ComCall(7, this, "ptr", pPaths, "uint", NumPaths, "ptr", pTarget, "ptr", pApplicationDesc, "ptr", riid, "ptr*", &ppCompilerCacheSession := 0, "HRESULT")
+        return ppCompilerCacheSession
     }
 
     /**
      * 
      * @param {ID3D12CompilerCacheSession} pCompilerCacheSession 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppCompiler 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateCompiler(pCompilerCacheSession, riid, ppCompiler) {
-        ppCompilerMarshal := ppCompiler is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pCompilerCacheSession, "ptr", riid, ppCompilerMarshal, ppCompiler, "HRESULT")
-        return result
+    CreateCompiler(pCompilerCacheSession, riid) {
+        result := ComCall(8, this, "ptr", pCompilerCacheSession, "ptr", riid, "ptr*", &ppCompiler := 0, "HRESULT")
+        return ppCompiler
     }
 }

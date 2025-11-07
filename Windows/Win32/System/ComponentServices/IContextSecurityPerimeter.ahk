@@ -34,7 +34,9 @@ class IContextSecurityPerimeter extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPerimeterFlag(pFlag) {
-        result := ComCall(3, this, "ptr", pFlag, "HRESULT")
+        pFlagMarshal := pFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pFlagMarshal, pFlag, "HRESULT")
         return result
     }
 

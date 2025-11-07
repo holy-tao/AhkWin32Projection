@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IOfflineFilesSyncErrorItemInfo.ahk
 #Include .\IOfflineFilesErrorInfo.ahk
 
 /**
@@ -32,28 +33,22 @@ class IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSyncOp 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerrorinfo-getsyncoperation
      */
-    GetSyncOperation(pSyncOp) {
-        pSyncOpMarshal := pSyncOp is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pSyncOpMarshal, pSyncOp, "HRESULT")
-        return result
+    GetSyncOperation() {
+        result := ComCall(5, this, "int*", &pSyncOp := 0, "HRESULT")
+        return pSyncOp
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwItemChangeFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerrorinfo-getitemchangeflags
      */
-    GetItemChangeFlags(pdwItemChangeFlags) {
-        pdwItemChangeFlagsMarshal := pdwItemChangeFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwItemChangeFlagsMarshal, pdwItemChangeFlags, "HRESULT")
-        return result
+    GetItemChangeFlags() {
+        result := ComCall(6, this, "uint*", &pdwItemChangeFlags := 0, "HRESULT")
+        return pdwItemChangeFlags
     }
 
     /**
@@ -65,7 +60,11 @@ class IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerrorinfo-infoenumerated
      */
     InfoEnumerated(pbLocalEnumerated, pbRemoteEnumerated, pbOriginalEnumerated) {
-        result := ComCall(7, this, "ptr", pbLocalEnumerated, "ptr", pbRemoteEnumerated, "ptr", pbOriginalEnumerated, "HRESULT")
+        pbLocalEnumeratedMarshal := pbLocalEnumerated is VarRef ? "int*" : "ptr"
+        pbRemoteEnumeratedMarshal := pbRemoteEnumerated is VarRef ? "int*" : "ptr"
+        pbOriginalEnumeratedMarshal := pbOriginalEnumerated is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pbLocalEnumeratedMarshal, pbLocalEnumerated, pbRemoteEnumeratedMarshal, pbRemoteEnumerated, pbOriginalEnumeratedMarshal, pbOriginalEnumerated, "HRESULT")
         return result
     }
 
@@ -78,40 +77,41 @@ class IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerrorinfo-infoavailable
      */
     InfoAvailable(pbLocalInfo, pbRemoteInfo, pbOriginalInfo) {
-        result := ComCall(8, this, "ptr", pbLocalInfo, "ptr", pbRemoteInfo, "ptr", pbOriginalInfo, "HRESULT")
+        pbLocalInfoMarshal := pbLocalInfo is VarRef ? "int*" : "ptr"
+        pbRemoteInfoMarshal := pbRemoteInfo is VarRef ? "int*" : "ptr"
+        pbOriginalInfoMarshal := pbOriginalInfo is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pbLocalInfoMarshal, pbLocalInfo, pbRemoteInfoMarshal, pbRemoteInfo, pbOriginalInfoMarshal, pbOriginalInfo, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IOfflineFilesSyncErrorItemInfo>} ppInfo 
-     * @returns {HRESULT} 
+     * @returns {IOfflineFilesSyncErrorItemInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerrorinfo-getlocalinfo
      */
-    GetLocalInfo(ppInfo) {
-        result := ComCall(9, this, "ptr*", ppInfo, "HRESULT")
-        return result
+    GetLocalInfo() {
+        result := ComCall(9, this, "ptr*", &ppInfo := 0, "HRESULT")
+        return IOfflineFilesSyncErrorItemInfo(ppInfo)
     }
 
     /**
      * 
-     * @param {Pointer<IOfflineFilesSyncErrorItemInfo>} ppInfo 
-     * @returns {HRESULT} 
+     * @returns {IOfflineFilesSyncErrorItemInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerrorinfo-getremoteinfo
      */
-    GetRemoteInfo(ppInfo) {
-        result := ComCall(10, this, "ptr*", ppInfo, "HRESULT")
-        return result
+    GetRemoteInfo() {
+        result := ComCall(10, this, "ptr*", &ppInfo := 0, "HRESULT")
+        return IOfflineFilesSyncErrorItemInfo(ppInfo)
     }
 
     /**
      * 
-     * @param {Pointer<IOfflineFilesSyncErrorItemInfo>} ppInfo 
-     * @returns {HRESULT} 
+     * @returns {IOfflineFilesSyncErrorItemInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerrorinfo-getoriginalinfo
      */
-    GetOriginalInfo(ppInfo) {
-        result := ComCall(11, this, "ptr*", ppInfo, "HRESULT")
-        return result
+    GetOriginalInfo() {
+        result := ComCall(11, this, "ptr*", &ppInfo := 0, "HRESULT")
+        return IOfflineFilesSyncErrorItemInfo(ppInfo)
     }
 }

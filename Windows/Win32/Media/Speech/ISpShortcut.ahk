@@ -79,14 +79,11 @@ class ISpShortcut extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwGeneration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetGeneration(pdwGeneration) {
-        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwGenerationMarshal, pdwGeneration, "HRESULT")
-        return result
+    GetGeneration() {
+        result := ComCall(6, this, "uint*", &pdwGeneration := 0, "HRESULT")
+        return pdwGeneration
     }
 
     /**

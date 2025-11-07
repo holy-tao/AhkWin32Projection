@@ -32,13 +32,10 @@ class IEquatableConcept extends IUnknown{
      * 
      * @param {IModelObject} contextObject 
      * @param {IModelObject} otherObject 
-     * @param {Pointer<Boolean>} isEqual 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    AreObjectsEqual(contextObject, otherObject, isEqual) {
-        isEqualMarshal := isEqual is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, isEqualMarshal, isEqual, "HRESULT")
-        return result
+    AreObjectsEqual(contextObject, otherObject) {
+        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, "int*", &isEqual := 0, "HRESULT")
+        return isEqual
     }
 }

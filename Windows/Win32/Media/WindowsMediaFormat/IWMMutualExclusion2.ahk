@@ -61,15 +61,12 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwRecordCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getrecordcount
      */
-    GetRecordCount(pwRecordCount) {
-        pwRecordCountMarshal := pwRecordCount is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(10, this, pwRecordCountMarshal, pwRecordCount, "HRESULT")
-        return result
+    GetRecordCount() {
+        result := ComCall(10, this, "ushort*", &pwRecordCount := 0, "HRESULT")
+        return pwRecordCount
     }
 
     /**
@@ -127,17 +124,15 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
     /**
      * 
      * @param {Integer} wRecordNumber 
-     * @param {Pointer<Integer>} pwStreamNumArray 
      * @param {Pointer<Integer>} pcStreams 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getstreamsforrecord
      */
-    GetStreamsForRecord(wRecordNumber, pwStreamNumArray, pcStreams) {
-        pwStreamNumArrayMarshal := pwStreamNumArray is VarRef ? "ushort*" : "ptr"
+    GetStreamsForRecord(wRecordNumber, pcStreams) {
         pcStreamsMarshal := pcStreams is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(15, this, "ushort", wRecordNumber, pwStreamNumArrayMarshal, pwStreamNumArray, pcStreamsMarshal, pcStreams, "HRESULT")
-        return result
+        result := ComCall(15, this, "ushort", wRecordNumber, "ushort*", &pwStreamNumArray := 0, pcStreamsMarshal, pcStreams, "HRESULT")
+        return pwStreamNumArray
     }
 
     /**

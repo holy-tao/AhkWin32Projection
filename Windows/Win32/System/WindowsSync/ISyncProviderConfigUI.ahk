@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include .\ISyncProviderInfo.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -52,28 +54,26 @@ class ISyncProviderConfigUI extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPropertyStore>} ppConfigUIProperties 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfigui-getregisteredproperties
      */
-    GetRegisteredProperties(ppConfigUIProperties) {
-        result := ComCall(4, this, "ptr*", ppConfigUIProperties, "HRESULT")
-        return result
+    GetRegisteredProperties() {
+        result := ComCall(4, this, "ptr*", &ppConfigUIProperties := 0, "HRESULT")
+        return IPropertyStore(ppConfigUIProperties)
     }
 
     /**
      * 
      * @param {HWND} hwndParent 
      * @param {IUnknown} pUnkContext 
-     * @param {Pointer<ISyncProviderInfo>} ppProviderInfo 
-     * @returns {HRESULT} 
+     * @returns {ISyncProviderInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfigui-createandregisternewsyncprovider
      */
-    CreateAndRegisterNewSyncProvider(hwndParent, pUnkContext, ppProviderInfo) {
+    CreateAndRegisterNewSyncProvider(hwndParent, pUnkContext) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(5, this, "ptr", hwndParent, "ptr", pUnkContext, "ptr*", ppProviderInfo, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", hwndParent, "ptr", pUnkContext, "ptr*", &ppProviderInfo := 0, "HRESULT")
+        return ISyncProviderInfo(ppProviderInfo)
     }
 
     /**

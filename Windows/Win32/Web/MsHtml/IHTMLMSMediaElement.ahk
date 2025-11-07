@@ -40,12 +40,11 @@ class IHTMLMSMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_msPlayToDisabled(p) {
-        result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+    get_msPlayToDisabled() {
+        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -60,11 +59,10 @@ class IHTMLMSMediaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_msPlayToPrimary(p) {
-        result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+    get_msPlayToPrimary() {
+        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

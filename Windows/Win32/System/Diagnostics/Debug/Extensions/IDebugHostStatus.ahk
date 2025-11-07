@@ -30,13 +30,10 @@ class IDebugHostStatus extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Boolean>} interruptRequested 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    PollUserInterrupt(interruptRequested) {
-        interruptRequestedMarshal := interruptRequested is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, interruptRequestedMarshal, interruptRequested, "HRESULT")
-        return result
+    PollUserInterrupt() {
+        result := ComCall(3, this, "int*", &interruptRequested := 0, "HRESULT")
+        return interruptRequested
     }
 }

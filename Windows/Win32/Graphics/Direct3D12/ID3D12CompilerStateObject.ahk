@@ -31,13 +31,10 @@ class ID3D12CompilerStateObject extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppCompiler 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetCompiler(riid, ppCompiler) {
-        ppCompilerMarshal := ppCompiler is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, ppCompilerMarshal, ppCompiler, "HRESULT")
-        return result
+    GetCompiler(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppCompiler := 0, "HRESULT")
+        return ppCompiler
     }
 }

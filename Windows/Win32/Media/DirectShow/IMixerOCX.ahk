@@ -75,15 +75,12 @@ class IMixerOCX extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-getstatus
      */
-    GetStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(6, this, "ptr*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**

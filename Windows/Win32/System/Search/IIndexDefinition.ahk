@@ -36,14 +36,11 @@ class IIndexDefinition extends IUnknown{
      * @param {Pointer<DBINDEXCOLUMNDESC>} rgIndexColumnDescs 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
-     * @param {Pointer<Pointer<DBID>>} ppIndexID 
-     * @returns {HRESULT} 
+     * @returns {Pointer<DBID>} 
      */
-    CreateIndex(pTableID, pIndexID, cIndexColumnDescs, rgIndexColumnDescs, cPropertySets, rgPropertySets, ppIndexID) {
-        ppIndexIDMarshal := ppIndexID is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pTableID, "ptr", pIndexID, "ptr", cIndexColumnDescs, "ptr", rgIndexColumnDescs, "uint", cPropertySets, "ptr", rgPropertySets, ppIndexIDMarshal, ppIndexID, "HRESULT")
-        return result
+    CreateIndex(pTableID, pIndexID, cIndexColumnDescs, rgIndexColumnDescs, cPropertySets, rgPropertySets) {
+        result := ComCall(3, this, "ptr", pTableID, "ptr", pIndexID, "ptr", cIndexColumnDescs, "ptr", rgIndexColumnDescs, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppIndexID := 0, "HRESULT")
+        return ppIndexID
     }
 
     /**

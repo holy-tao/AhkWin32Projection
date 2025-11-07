@@ -33,14 +33,11 @@ class IExplorerPaneVisibility extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} ep 
-     * @param {Pointer<Integer>} peps 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerpanevisibility-getpanestate
      */
-    GetPaneState(ep, peps) {
-        pepsMarshal := peps is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", ep, pepsMarshal, peps, "HRESULT")
-        return result
+    GetPaneState(ep) {
+        result := ComCall(3, this, "ptr", ep, "uint*", &peps := 0, "HRESULT")
+        return peps
     }
 }

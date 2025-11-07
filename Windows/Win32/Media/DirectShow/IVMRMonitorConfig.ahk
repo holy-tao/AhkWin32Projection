@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VMRGUID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,13 @@ class IVMRMonitorConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VMRGUID>} pGUID 
-     * @returns {HRESULT} 
+     * @returns {VMRGUID} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmonitorconfig-getmonitor
      */
-    GetMonitor(pGUID) {
+    GetMonitor() {
+        pGUID := VMRGUID()
         result := ComCall(4, this, "ptr", pGUID, "HRESULT")
-        return result
+        return pGUID
     }
 
     /**
@@ -65,13 +66,13 @@ class IVMRMonitorConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VMRGUID>} pGUID 
-     * @returns {HRESULT} 
+     * @returns {VMRGUID} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmonitorconfig-getdefaultmonitor
      */
-    GetDefaultMonitor(pGUID) {
+    GetDefaultMonitor() {
+        pGUID := VMRGUID()
         result := ComCall(6, this, "ptr", pGUID, "HRESULT")
-        return result
+        return pGUID
     }
 
     /**

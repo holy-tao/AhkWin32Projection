@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmCollection.ahk
 #Include .\IFsrmMutableCollection.ahk
 
 /**
@@ -33,12 +34,11 @@ class IFsrmCommittableCollection extends IFsrmMutableCollection{
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCollection>} results 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcommittablecollection-commit
      */
-    Commit(options, results) {
-        result := ComCall(18, this, "int", options, "ptr*", results, "HRESULT")
-        return result
+    Commit(options) {
+        result := ComCall(18, this, "int", options, "ptr*", &results := 0, "HRESULT")
+        return IFsrmCollection(results)
     }
 }

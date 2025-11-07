@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFaxSender.ahk
+#Include .\IFaxRecipient.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,205 +45,179 @@ class IFaxOutgoingMessage extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSubmissionId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_submissionid
      */
-    get_SubmissionId(pbstrSubmissionId) {
+    get_SubmissionId() {
+        pbstrSubmissionId := BSTR()
         result := ComCall(7, this, "ptr", pbstrSubmissionId, "HRESULT")
-        return result
+        return pbstrSubmissionId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_id
      */
-    get_Id(pbstrId) {
+    get_Id() {
+        pbstrId := BSTR()
         result := ComCall(8, this, "ptr", pbstrId, "HRESULT")
-        return result
+        return pbstrId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSubject 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_subject
      */
-    get_Subject(pbstrSubject) {
+    get_Subject() {
+        pbstrSubject := BSTR()
         result := ComCall(9, this, "ptr", pbstrSubject, "HRESULT")
-        return result
+        return pbstrSubject
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDocumentName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_documentname
      */
-    get_DocumentName(pbstrDocumentName) {
+    get_DocumentName() {
+        pbstrDocumentName := BSTR()
         result := ComCall(10, this, "ptr", pbstrDocumentName, "HRESULT")
-        return result
+        return pbstrDocumentName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plRetries 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_retries
      */
-    get_Retries(plRetries) {
-        plRetriesMarshal := plRetries is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plRetriesMarshal, plRetries, "HRESULT")
-        return result
+    get_Retries() {
+        result := ComCall(11, this, "int*", &plRetries := 0, "HRESULT")
+        return plRetries
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plPages 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_pages
      */
-    get_Pages(plPages) {
-        plPagesMarshal := plPages is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plPagesMarshal, plPages, "HRESULT")
-        return result
+    get_Pages() {
+        result := ComCall(12, this, "int*", &plPages := 0, "HRESULT")
+        return plPages
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_size
      */
-    get_Size(plSize) {
-        plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, plSizeMarshal, plSize, "HRESULT")
-        return result
+    get_Size() {
+        result := ComCall(13, this, "int*", &plSize := 0, "HRESULT")
+        return plSize
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pdateOriginalScheduledTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_originalscheduledtime
      */
-    get_OriginalScheduledTime(pdateOriginalScheduledTime) {
-        pdateOriginalScheduledTimeMarshal := pdateOriginalScheduledTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(14, this, pdateOriginalScheduledTimeMarshal, pdateOriginalScheduledTime, "HRESULT")
-        return result
+    get_OriginalScheduledTime() {
+        result := ComCall(14, this, "double*", &pdateOriginalScheduledTime := 0, "HRESULT")
+        return pdateOriginalScheduledTime
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pdateSubmissionTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_submissiontime
      */
-    get_SubmissionTime(pdateSubmissionTime) {
-        pdateSubmissionTimeMarshal := pdateSubmissionTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(15, this, pdateSubmissionTimeMarshal, pdateSubmissionTime, "HRESULT")
-        return result
+    get_SubmissionTime() {
+        result := ComCall(15, this, "double*", &pdateSubmissionTime := 0, "HRESULT")
+        return pdateSubmissionTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_priority
      */
-    get_Priority(pPriority) {
-        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pPriorityMarshal, pPriority, "HRESULT")
-        return result
+    get_Priority() {
+        result := ComCall(16, this, "int*", &pPriority := 0, "HRESULT")
+        return pPriority
     }
 
     /**
      * 
-     * @param {Pointer<IFaxSender>} ppFaxSender 
-     * @returns {HRESULT} 
+     * @returns {IFaxSender} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_sender
      */
-    get_Sender(ppFaxSender) {
-        result := ComCall(17, this, "ptr*", ppFaxSender, "HRESULT")
-        return result
+    get_Sender() {
+        result := ComCall(17, this, "ptr*", &ppFaxSender := 0, "HRESULT")
+        return IFaxSender(ppFaxSender)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxRecipient>} ppFaxRecipient 
-     * @returns {HRESULT} 
+     * @returns {IFaxRecipient} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_recipient
      */
-    get_Recipient(ppFaxRecipient) {
-        result := ComCall(18, this, "ptr*", ppFaxRecipient, "HRESULT")
-        return result
+    get_Recipient() {
+        result := ComCall(18, this, "ptr*", &ppFaxRecipient := 0, "HRESULT")
+        return IFaxRecipient(ppFaxRecipient)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDeviceName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_devicename
      */
-    get_DeviceName(pbstrDeviceName) {
+    get_DeviceName() {
+        pbstrDeviceName := BSTR()
         result := ComCall(19, this, "ptr", pbstrDeviceName, "HRESULT")
-        return result
+        return pbstrDeviceName
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pdateTransmissionStart 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_transmissionstart
      */
-    get_TransmissionStart(pdateTransmissionStart) {
-        pdateTransmissionStartMarshal := pdateTransmissionStart is VarRef ? "double*" : "ptr"
-
-        result := ComCall(20, this, pdateTransmissionStartMarshal, pdateTransmissionStart, "HRESULT")
-        return result
+    get_TransmissionStart() {
+        result := ComCall(20, this, "double*", &pdateTransmissionStart := 0, "HRESULT")
+        return pdateTransmissionStart
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pdateTransmissionEnd 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_transmissionend
      */
-    get_TransmissionEnd(pdateTransmissionEnd) {
-        pdateTransmissionEndMarshal := pdateTransmissionEnd is VarRef ? "double*" : "ptr"
-
-        result := ComCall(21, this, pdateTransmissionEndMarshal, pdateTransmissionEnd, "HRESULT")
-        return result
+    get_TransmissionEnd() {
+        result := ComCall(21, this, "double*", &pdateTransmissionEnd := 0, "HRESULT")
+        return pdateTransmissionEnd
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_csid
      */
-    get_CSID(pbstrCSID) {
+    get_CSID() {
+        pbstrCSID := BSTR()
         result := ComCall(22, this, "ptr", pbstrCSID, "HRESULT")
-        return result
+        return pbstrCSID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_tsid
      */
-    get_TSID(pbstrTSID) {
+    get_TSID() {
+        pbstrTSID := BSTR()
         result := ComCall(23, this, "ptr", pbstrTSID, "HRESULT")
-        return result
+        return pbstrTSID
     }
 
     /**

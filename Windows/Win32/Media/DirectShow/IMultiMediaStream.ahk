@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMediaStream.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,38 +50,33 @@ class IMultiMediaStream extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} idPurpose 
-     * @param {Pointer<IMediaStream>} ppMediaStream 
-     * @returns {HRESULT} 
+     * @returns {IMediaStream} 
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-getmediastream
      */
-    GetMediaStream(idPurpose, ppMediaStream) {
-        result := ComCall(4, this, "ptr", idPurpose, "ptr*", ppMediaStream, "HRESULT")
-        return result
+    GetMediaStream(idPurpose) {
+        result := ComCall(4, this, "ptr", idPurpose, "ptr*", &ppMediaStream := 0, "HRESULT")
+        return IMediaStream(ppMediaStream)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<IMediaStream>} ppMediaStream 
-     * @returns {HRESULT} 
+     * @returns {IMediaStream} 
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-enummediastreams
      */
-    EnumMediaStreams(Index, ppMediaStream) {
-        result := ComCall(5, this, "int", Index, "ptr*", ppMediaStream, "HRESULT")
-        return result
+    EnumMediaStreams(Index) {
+        result := ComCall(5, this, "int", Index, "ptr*", &ppMediaStream := 0, "HRESULT")
+        return IMediaStream(ppMediaStream)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCurrentState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-getstate
      */
-    GetState(pCurrentState) {
-        pCurrentStateMarshal := pCurrentState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pCurrentStateMarshal, pCurrentState, "HRESULT")
-        return result
+    GetState() {
+        result := ComCall(6, this, "int*", &pCurrentState := 0, "HRESULT")
+        return pCurrentState
     }
 
     /**
@@ -95,28 +92,22 @@ class IMultiMediaStream extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCurrentTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-gettime
      */
-    GetTime(pCurrentTime) {
-        pCurrentTimeMarshal := pCurrentTime is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(8, this, pCurrentTimeMarshal, pCurrentTime, "HRESULT")
-        return result
+    GetTime() {
+        result := ComCall(8, this, "int64*", &pCurrentTime := 0, "HRESULT")
+        return pCurrentTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDuration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-getduration
      */
-    GetDuration(pDuration) {
-        pDurationMarshal := pDuration is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(9, this, pDurationMarshal, pDuration, "HRESULT")
-        return result
+    GetDuration() {
+        result := ComCall(9, this, "int64*", &pDuration := 0, "HRESULT")
+        return pDuration
     }
 
     /**
@@ -132,12 +123,12 @@ class IMultiMediaStream extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} phEOS 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-getendofstreameventhandle
      */
-    GetEndOfStreamEventHandle(phEOS) {
+    GetEndOfStreamEventHandle() {
+        phEOS := HANDLE()
         result := ComCall(11, this, "ptr", phEOS, "HRESULT")
-        return result
+        return phEOS
     }
 }

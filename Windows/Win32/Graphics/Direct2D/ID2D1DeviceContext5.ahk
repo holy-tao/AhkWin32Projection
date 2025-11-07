@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1SvgDocument.ahk
+#Include .\ID2D1ColorContext1.ahk
 #Include .\ID2D1DeviceContext4.ahk
 
 /**
@@ -34,13 +36,12 @@ class ID2D1DeviceContext5 extends ID2D1DeviceContext4{
      * 
      * @param {IStream} inputXmlStream 
      * @param {D2D_SIZE_F} viewportSize 
-     * @param {Pointer<ID2D1SvgDocument>} svgDocument 
-     * @returns {HRESULT} 
+     * @returns {ID2D1SvgDocument} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext5-createsvgdocument
      */
-    CreateSvgDocument(inputXmlStream, viewportSize, svgDocument) {
-        result := ComCall(115, this, "ptr", inputXmlStream, "ptr", viewportSize, "ptr*", svgDocument, "HRESULT")
-        return result
+    CreateSvgDocument(inputXmlStream, viewportSize) {
+        result := ComCall(115, this, "ptr", inputXmlStream, "ptr", viewportSize, "ptr*", &svgDocument := 0, "HRESULT")
+        return ID2D1SvgDocument(svgDocument)
     }
 
     /**
@@ -56,24 +57,22 @@ class ID2D1DeviceContext5 extends ID2D1DeviceContext4{
     /**
      * 
      * @param {Integer} colorSpace 
-     * @param {Pointer<ID2D1ColorContext1>} colorContext 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ColorContext1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext5-createcolorcontextfromdxgicolorspace
      */
-    CreateColorContextFromDxgiColorSpace(colorSpace, colorContext) {
-        result := ComCall(117, this, "int", colorSpace, "ptr*", colorContext, "HRESULT")
-        return result
+    CreateColorContextFromDxgiColorSpace(colorSpace) {
+        result := ComCall(117, this, "int", colorSpace, "ptr*", &colorContext := 0, "HRESULT")
+        return ID2D1ColorContext1(colorContext)
     }
 
     /**
      * 
      * @param {Pointer<D2D1_SIMPLE_COLOR_PROFILE>} simpleProfile 
-     * @param {Pointer<ID2D1ColorContext1>} colorContext 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ColorContext1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext5-createcolorcontextfromsimplecolorprofile(constd2d1_simple_color_profile__id2d1colorcontext1)
      */
-    CreateColorContextFromSimpleColorProfile(simpleProfile, colorContext) {
-        result := ComCall(118, this, "ptr", simpleProfile, "ptr*", colorContext, "HRESULT")
-        return result
+    CreateColorContextFromSimpleColorProfile(simpleProfile) {
+        result := ComCall(118, this, "ptr", simpleProfile, "ptr*", &colorContext := 0, "HRESULT")
+        return ID2D1ColorContext1(colorContext)
     }
 }

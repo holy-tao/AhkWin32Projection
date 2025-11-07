@@ -7,6 +7,7 @@
 #Include .\PTP_TIMER.ahk
 #Include .\PTP_WAIT.ahk
 #Include .\PTP_IO.ahk
+#Include .\IRtwqAsyncResult.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading
@@ -1757,11 +1758,12 @@ class Threading {
      * @since windows6.0.6000
      */
     static InitOnceBeginInitialize(lpInitOnce, dwFlags, fPending, lpContext) {
+        fPendingMarshal := fPending is VarRef ? "int*" : "ptr"
         lpContextMarshal := lpContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitOnceBeginInitialize", "ptr", lpInitOnce, "uint", dwFlags, "ptr", fPending, lpContextMarshal, lpContext, "int")
+        result := DllCall("KERNEL32.dll\InitOnceBeginInitialize", "ptr", lpInitOnce, "uint", dwFlags, fPendingMarshal, fPending, lpContextMarshal, lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4188,9 +4190,11 @@ class Threading {
     static GetThreadPriorityBoost(hThread, pDisablePriorityBoost) {
         hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
 
+        pDisablePriorityBoostMarshal := pDisablePriorityBoost is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadPriorityBoost", "ptr", hThread, "ptr", pDisablePriorityBoost, "int")
+        result := DllCall("KERNEL32.dll\GetThreadPriorityBoost", "ptr", hThread, pDisablePriorityBoostMarshal, pDisablePriorityBoost, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6042,9 +6046,11 @@ class Threading {
     static GetProcessPriorityBoost(hProcess, pDisablePriorityBoost) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
+        pDisablePriorityBoostMarshal := pDisablePriorityBoost is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessPriorityBoost", "ptr", hProcess, "ptr", pDisablePriorityBoost, "int")
+        result := DllCall("KERNEL32.dll\GetProcessPriorityBoost", "ptr", hProcess, pDisablePriorityBoostMarshal, pDisablePriorityBoost, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6088,9 +6094,11 @@ class Threading {
     static GetThreadIOPendingFlag(hThread, lpIOIsPending) {
         hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
 
+        lpIOIsPendingMarshal := lpIOIsPending is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadIOPendingFlag", "ptr", hThread, "ptr", lpIOIsPending, "int")
+        result := DllCall("KERNEL32.dll\GetThreadIOPendingFlag", "ptr", hThread, lpIOIsPendingMarshal, lpIOIsPending, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6195,9 +6203,11 @@ class Threading {
     static IsProcessCritical(hProcess, Critical) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
+        CriticalMarshal := Critical is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsProcessCritical", "ptr", hProcess, "ptr", Critical, "int")
+        result := DllCall("KERNEL32.dll\IsProcessCritical", "ptr", hProcess, CriticalMarshal, Critical, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6795,18 +6805,15 @@ class Threading {
     /**
      * 
      * @param {Integer} Machine 
-     * @param {Pointer<Integer>} MachineTypeAttributes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getmachinetypeattributes
      */
-    static GetMachineTypeAttributes(Machine, MachineTypeAttributes) {
-        MachineTypeAttributesMarshal := MachineTypeAttributes is VarRef ? "int*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\GetMachineTypeAttributes", "ushort", Machine, MachineTypeAttributesMarshal, MachineTypeAttributes, "int")
+    static GetMachineTypeAttributes(Machine) {
+        result := DllCall("KERNEL32.dll\GetMachineTypeAttributes", "ushort", Machine, "int*", &MachineTypeAttributes := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return MachineTypeAttributes
     }
 
     /**
@@ -6832,20 +6839,18 @@ class Threading {
     /**
      * Retrieves the description that was assigned to a thread by calling SetThreadDescription.
      * @param {HANDLE} hThread A handle to the thread for which to retrieve the description. The handle must have THREAD_QUERY_LIMITED_INFORMATION access.
-     * @param {Pointer<PWSTR>} ppszThreadDescription A Unicode string that contains the description of the thread.
-     * @returns {HRESULT} If the function succeeds, the return value is the <b>HRESULT</b> that denotes a successful operation.
-     * If the function fails, the return value is an <b>HRESULT</b> that denotes the error.
+     * @returns {PWSTR} A Unicode string that contains the description of the thread.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreaddescription
      * @since windows10.0.14393
      */
-    static GetThreadDescription(hThread, ppszThreadDescription) {
+    static GetThreadDescription(hThread) {
         hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
 
-        result := DllCall("KERNEL32.dll\GetThreadDescription", "ptr", hThread, "ptr", ppszThreadDescription, "int")
+        result := DllCall("KERNEL32.dll\GetThreadDescription", "ptr", hThread, "ptr*", &ppszThreadDescription := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszThreadDescription
     }
 
     /**
@@ -7991,9 +7996,11 @@ class Threading {
     static IsWow64Process(hProcess, Wow64Process) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
+        Wow64ProcessMarshal := Wow64Process is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsWow64Process", "ptr", hProcess, "ptr", Wow64Process, "int")
+        result := DllCall("KERNEL32.dll\IsWow64Process", "ptr", hProcess, Wow64ProcessMarshal, Wow64Process, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8957,41 +8964,39 @@ class Threading {
      * @param {PWSTR} usageClass The name of the Multimedia Class Scheduler Service (MMCSS) task.
      * @param {Integer} basePriority The base priority of the work-queue threads. If the regular-priority queue is being used (<c>usageClass=""</c>), then the value 0 must be passed in.
      * @param {Pointer<Integer>} taskId The MMCSS task identifier. On input, specify an existing MCCSS task group ID, or use the value zero to create a new task group. If the regular priority queue is being used (<c>usageClass=""</c>), then <b>NULL</b> must be passed in. On output, receives the actual task group ID.
-     * @param {Pointer<Integer>} id Receives an identifier for the new work queue. Use this identifier when queuing work items.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} Receives an identifier for the new work queue. Use this identifier when queuing work items.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqlocksharedworkqueue
      * @since windows8.1
      */
-    static RtwqLockSharedWorkQueue(usageClass, basePriority, taskId, id) {
+    static RtwqLockSharedWorkQueue(usageClass, basePriority, taskId) {
         usageClass := usageClass is String ? StrPtr(usageClass) : usageClass
 
         taskIdMarshal := taskId is VarRef ? "uint*" : "ptr"
-        idMarshal := id is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RTWorkQ.dll\RtwqLockSharedWorkQueue", "ptr", usageClass, "int", basePriority, taskIdMarshal, taskId, idMarshal, id, "int")
+        result := DllCall("RTWorkQ.dll\RtwqLockSharedWorkQueue", "ptr", usageClass, "int", basePriority, taskIdMarshal, taskId, "uint*", &id := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return id
     }
 
     /**
      * Associates a work queue with an input/output (I/O) handle.
      * @param {Integer} workQueueId The ID of the work queue to redirect the I/O handle into.
      * @param {HANDLE} hFile The network I/O handle.
-     * @param {Pointer<HANDLE>} out A cookie that represents the association between the network and I/O handles.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {HANDLE} A cookie that represents the association between the network and I/O handles.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqjoinworkqueue
      * @since windows8.1
      */
-    static RtwqJoinWorkQueue(workQueueId, hFile, out) {
+    static RtwqJoinWorkQueue(workQueueId, hFile) {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
+        out := HANDLE()
         result := DllCall("RTWorkQ.dll\RtwqJoinWorkQueue", "uint", workQueueId, "ptr", hFile, "ptr", out, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return out
     }
 
     /**
@@ -9017,17 +9022,16 @@ class Threading {
      * @param {IUnknown} appObject Pointer to the object stored in the asynchronous result. This pointer is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-irtwqasyncresult-getobject">IRtwqAsyncResult::GetObject</a> method. This parameter can be <b>NULL</b>.
      * @param {IRtwqAsyncCallback} callback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface. This interface is implemented by the caller of the asynchronous method.
      * @param {IUnknown} appState Pointer to the <b>IUnknown</b> interface of a state object. This value is provided by the caller of the asynchronous method. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IRtwqAsyncResult>} asyncResult Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasyncresult">IRtwqAsyncResult</a> interface. The caller must release the interface.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {IRtwqAsyncResult} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasyncresult">IRtwqAsyncResult</a> interface. The caller must release the interface.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqcreateasyncresult
      * @since windows8.1
      */
-    static RtwqCreateAsyncResult(appObject, callback, appState, asyncResult) {
-        result := DllCall("RTWorkQ.dll\RtwqCreateAsyncResult", "ptr", appObject, "ptr", callback, "ptr", appState, "ptr*", asyncResult, "int")
+    static RtwqCreateAsyncResult(appObject, callback, appState) {
+        result := DllCall("RTWorkQ.dll\RtwqCreateAsyncResult", "ptr", appObject, "ptr", callback, "ptr", appState, "ptr*", &asyncResult := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IRtwqAsyncResult(asyncResult)
     }
 
     /**
@@ -9130,21 +9134,18 @@ class Threading {
      * @param {HANDLE} hEvent A handle to an event object, such as an event or timer. To create an event object, call <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventexa">CreateEventEx</a>.
      * @param {Integer} lPriority The priority of the work item. Work items are performed in order of priority.
      * @param {IRtwqAsyncResult} result A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasyncresult">IRtwqAsyncResult</a> interface of an asynchronous result object. To create the result object, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcreateasyncresult">RtwqCreateAsyncResult</a>.
-     * @param {Pointer<Integer>} key Receives a key that can be used to cancel the wait. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcancelworkitem">RtwqCancelWorkItem</a> and pass this key in the <i>Key</i> parameter. This parameter can be <b>NULL</b>.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} Receives a key that can be used to cancel the wait. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcancelworkitem">RtwqCancelWorkItem</a> and pass this key in the <i>Key</i> parameter. This parameter can be <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqputwaitingworkitem
      * @since windows8.1
      */
-    static RtwqPutWaitingWorkItem(hEvent, lPriority, result, key) {
+    static RtwqPutWaitingWorkItem(hEvent, lPriority, result) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        keyMarshal := key is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("RTWorkQ.dll\RtwqPutWaitingWorkItem", "ptr", hEvent, "int", lPriority, "ptr", result, keyMarshal, key, "int")
+        result := DllCall("RTWorkQ.dll\RtwqPutWaitingWorkItem", "ptr", hEvent, "int", lPriority, "ptr", result, "uint*", &key := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return key
     }
 
     /**
@@ -9157,100 +9158,48 @@ class Threading {
      * <li>A multithreaded queue returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqlocksharedworkqueue">RtwqLockSharedWorkQueue</a>  function.</li>
      * <li>A serial queue created by the <b>RtwqAllocateSerialWorkQueue</b> function.</li>
      * </ul>
-     * @param {Pointer<Integer>} workQueueIdOut Receives an identifier for the new serial work queue. Use this identifier when queuing work items.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function succeeded.
-     *               
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The application exceeded the maximum number of work queues.
-     *               
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>RTWQ_E_SHUTDOWN</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The application did not call <a href="/windows/desktop/api/rtworkq/nf-rtworkq-rtwqstartup">RtwqStartup</a>, or the application has already called <a href="/windows/desktop/api/rtworkq/nf-rtworkq-rtwqshutdown">RtwqShutdown</a>.
-     *               
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Receives an identifier for the new serial work queue. Use this identifier when queuing work items.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqallocateserialworkqueue
      * @since windows8.1
      */
-    static RtwqAllocateSerialWorkQueue(workQueueIdIn, workQueueIdOut) {
-        workQueueIdOutMarshal := workQueueIdOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("RTWorkQ.dll\RtwqAllocateSerialWorkQueue", "uint", workQueueIdIn, workQueueIdOutMarshal, workQueueIdOut, "int")
+    static RtwqAllocateSerialWorkQueue(workQueueIdIn) {
+        result := DllCall("RTWorkQ.dll\RtwqAllocateSerialWorkQueue", "uint", workQueueIdIn, "uint*", &workQueueIdOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return workQueueIdOut
     }
 
     /**
      * Schedules an asynchronous operation to be completed after a specified interval.
      * @param {IRtwqAsyncResult} result A pointer to the callback. The caller must implement this interface.
      * @param {Integer} Timeout Time-out interval, in milliseconds. Set this parameter to a negative value. The callback is invoked after <i>−Timeout</i> milliseconds. For example, if <i>Timeout</i> is −5000, the callback is invoked after 5000 milliseconds.
-     * @param {Pointer<Integer>} key Receives a key that can be used to cancel the timer. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcancelworkitem">RtwqCancelWorkItem</a> and pass this key in the <i>Key</i> parameter.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} Receives a key that can be used to cancel the timer. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcancelworkitem">RtwqCancelWorkItem</a> and pass this key in the <i>Key</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqscheduleworkitem
      * @since windows8.1
      */
-    static RtwqScheduleWorkItem(result, Timeout, key) {
-        keyMarshal := key is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("RTWorkQ.dll\RtwqScheduleWorkItem", "ptr", result, "int64", Timeout, keyMarshal, key, "int")
+    static RtwqScheduleWorkItem(result, Timeout) {
+        result := DllCall("RTWorkQ.dll\RtwqScheduleWorkItem", "ptr", result, "int64", Timeout, "uint*", &key := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return key
     }
 
     /**
      * Sets a callback function to be called at a fixed interval.
      * @param {Pointer<RTWQPERIODICCALLBACK>} Callback Pointer to the callback function.
      * @param {IUnknown} context Pointer to a caller-provided object that implements <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>, or <b>NULL</b>. This parameter is passed to the callback function.
-     * @param {Pointer<Integer>} key Receives a key that can be used to cancel the callback. To cancel the callback, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqremoveperiodiccallback">RtwqRemovePeriodicCallback</a> and pass this key as the <i>dwKey</i> parameter.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} Receives a key that can be used to cancel the callback. To cancel the callback, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqremoveperiodiccallback">RtwqRemovePeriodicCallback</a> and pass this key as the <i>dwKey</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqaddperiodiccallback
      * @since windows8.1
      */
-    static RtwqAddPeriodicCallback(Callback, context, key) {
-        keyMarshal := key is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("RTWorkQ.dll\RtwqAddPeriodicCallback", "ptr", Callback, "ptr", context, keyMarshal, key, "int")
+    static RtwqAddPeriodicCallback(Callback, context) {
+        result := DllCall("RTWorkQ.dll\RtwqAddPeriodicCallback", "ptr", Callback, "ptr", context, "uint*", &key := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return key
     }
 
     /**
@@ -9323,19 +9272,16 @@ class Threading {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} workQueueId Receives an identifier for the work queue that was created.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} Receives an identifier for the work queue that was created.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqallocateworkqueue
      * @since windows8.1
      */
-    static RtwqAllocateWorkQueue(WorkQueueType, workQueueId) {
-        workQueueIdMarshal := workQueueId is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("RTWorkQ.dll\RtwqAllocateWorkQueue", "int", WorkQueueType, workQueueIdMarshal, workQueueId, "int")
+    static RtwqAllocateWorkQueue(WorkQueueType) {
+        result := DllCall("RTWorkQ.dll\RtwqAllocateWorkQueue", "int", WorkQueueType, "uint*", &workQueueId := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return workQueueId
     }
 
     /**
@@ -9380,19 +9326,16 @@ class Threading {
     /**
      * Completes an asynchronous request to associate a work queue with a Multimedia Class Scheduler Service (MMCSS) task.
      * @param {IRtwqAsyncResult} result Pointer to the asynchronous result. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-irtwqasynccallback-invoke">IRtwqAsyncCallback::Invoke</a> method.
-     * @param {Pointer<Integer>} taskId The unique task identifier.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} The unique task identifier.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqendregisterworkqueuewithmmcss
      * @since windows8.1
      */
-    static RtwqEndRegisterWorkQueueWithMMCSS(result, taskId) {
-        taskIdMarshal := taskId is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("RTWorkQ.dll\RtwqEndRegisterWorkQueueWithMMCSS", "ptr", result, taskIdMarshal, taskId, "int")
+    static RtwqEndRegisterWorkQueueWithMMCSS(result) {
+        result := DllCall("RTWorkQ.dll\RtwqEndRegisterWorkQueueWithMMCSS", "ptr", result, "uint*", &taskId := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return taskId
     }
 
     /**
@@ -9419,37 +9362,31 @@ class Threading {
     /**
      * Retrieves the Multimedia Class Scheduler Service (MMCSS) task identifier currently associated with this work queue.
      * @param {Integer} workQueueId Identifier for the work queue. The identifier is retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
-     * @param {Pointer<Integer>} taskId Receives the task identifier.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} Receives the task identifier.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqgetworkqueuemmcsstaskid
      * @since windows8.1
      */
-    static RtwqGetWorkQueueMMCSSTaskId(workQueueId, taskId) {
-        taskIdMarshal := taskId is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSTaskId", "uint", workQueueId, taskIdMarshal, taskId, "int")
+    static RtwqGetWorkQueueMMCSSTaskId(workQueueId) {
+        result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSTaskId", "uint", workQueueId, "uint*", &taskId := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return taskId
     }
 
     /**
      * Gets the relative thread priority of a work queue.
      * @param {Integer} workQueueId The identifier of the work queue. For private work queues, the identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
-     * @param {Pointer<Integer>} priority Receives the relative thread priority.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} Receives the relative thread priority.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqgetworkqueuemmcsspriority
      * @since windows8.1
      */
-    static RtwqGetWorkQueueMMCSSPriority(workQueueId, priority) {
-        priorityMarshal := priority is VarRef ? "int*" : "ptr"
-
-        result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSPriority", "uint", workQueueId, priorityMarshal, priority, "int")
+    static RtwqGetWorkQueueMMCSSPriority(workQueueId) {
+        result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSPriority", "uint", workQueueId, "int*", &priority := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return priority
     }
 
     /**
@@ -9502,17 +9439,17 @@ class Threading {
      * Sets a deadline by which the work in a work queue must be completed.
      * @param {Integer} workQueueId The identifier for the work queue. The identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
      * @param {Integer} deadlineInHNS The deadline for the work in the queue to be completed, in milliseconds.
-     * @param {Pointer<HANDLE>} pRequest Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {HANDLE} Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqsetdeadline
      * @since windows10.0.10240
      */
-    static RtwqSetDeadline(workQueueId, deadlineInHNS, pRequest) {
+    static RtwqSetDeadline(workQueueId, deadlineInHNS) {
+        pRequest := HANDLE()
         result := DllCall("RTWorkQ.dll\RtwqSetDeadline", "uint", workQueueId, "int64", deadlineInHNS, "ptr", pRequest, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pRequest
     }
 
     /**
@@ -9520,17 +9457,17 @@ class Threading {
      * @param {Integer} workQueueId The identifier for the work queue. The identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
      * @param {Integer} deadlineInHNS The deadline for the work in the queue to be completed, in milliseconds.
      * @param {Integer} preDeadlineInHNS The pre-deadline for the work in the queue to be completed, in milliseconds.
-     * @param {Pointer<HANDLE>} pRequest Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {HANDLE} Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqsetdeadline2
      * @since windows10.0.10240
      */
-    static RtwqSetDeadline2(workQueueId, deadlineInHNS, preDeadlineInHNS, pRequest) {
+    static RtwqSetDeadline2(workQueueId, deadlineInHNS, preDeadlineInHNS) {
+        pRequest := HANDLE()
         result := DllCall("RTWorkQ.dll\RtwqSetDeadline2", "uint", workQueueId, "int64", deadlineInHNS, "int64", preDeadlineInHNS, "ptr", pRequest, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pRequest
     }
 
     /**
@@ -10531,10 +10468,11 @@ class Threading {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         lpFlagsMarshal := lpFlags is VarRef ? "uint*" : "ptr"
+        lpPermanentMarshal := lpPermanent is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessDEPPolicy", "ptr", hProcess, lpFlagsMarshal, lpFlags, "ptr", lpPermanent, "int")
+        result := DllCall("KERNEL32.dll\GetProcessDEPPolicy", "ptr", hProcess, lpFlagsMarshal, lpFlags, lpPermanentMarshal, lpPermanent, "int")
         if(A_LastError)
             throw OSError()
 

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IShellItem.ahk
 #Include .\IModalWindow.ahk
 
 /**
@@ -62,29 +63,23 @@ class IFileDialog extends IModalWindow{
 
     /**
      * 
-     * @param {Pointer<Integer>} piFileType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-getfiletypeindex
      */
-    GetFileTypeIndex(piFileType) {
-        piFileTypeMarshal := piFileType is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, piFileTypeMarshal, piFileType, "HRESULT")
-        return result
+    GetFileTypeIndex() {
+        result := ComCall(6, this, "uint*", &piFileType := 0, "HRESULT")
+        return piFileType
     }
 
     /**
      * 
      * @param {IFileDialogEvents} pfde 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-advise
      */
-    Advise(pfde, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pfde, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Advise(pfde) {
+        result := ComCall(7, this, "ptr", pfde, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -111,15 +106,12 @@ class IFileDialog extends IModalWindow{
 
     /**
      * 
-     * @param {Pointer<Integer>} pfos 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-getoptions
      */
-    GetOptions(pfos) {
-        pfosMarshal := pfos is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pfosMarshal, pfos, "HRESULT")
-        return result
+    GetOptions() {
+        result := ComCall(10, this, "uint*", &pfos := 0, "HRESULT")
+        return pfos
     }
 
     /**
@@ -146,24 +138,22 @@ class IFileDialog extends IModalWindow{
 
     /**
      * 
-     * @param {Pointer<IShellItem>} ppsi 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-getfolder
      */
-    GetFolder(ppsi) {
-        result := ComCall(13, this, "ptr*", ppsi, "HRESULT")
-        return result
+    GetFolder() {
+        result := ComCall(13, this, "ptr*", &ppsi := 0, "HRESULT")
+        return IShellItem(ppsi)
     }
 
     /**
      * 
-     * @param {Pointer<IShellItem>} ppsi 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-getcurrentselection
      */
-    GetCurrentSelection(ppsi) {
-        result := ComCall(14, this, "ptr*", ppsi, "HRESULT")
-        return result
+    GetCurrentSelection() {
+        result := ComCall(14, this, "ptr*", &ppsi := 0, "HRESULT")
+        return IShellItem(ppsi)
     }
 
     /**
@@ -181,13 +171,12 @@ class IFileDialog extends IModalWindow{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-getfilename
      */
-    GetFileName(pszName) {
-        result := ComCall(16, this, "ptr", pszName, "HRESULT")
-        return result
+    GetFileName() {
+        result := ComCall(16, this, "ptr*", &pszName := 0, "HRESULT")
+        return pszName
     }
 
     /**
@@ -231,13 +220,12 @@ class IFileDialog extends IModalWindow{
 
     /**
      * 
-     * @param {Pointer<IShellItem>} ppsi 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-getresult
      */
-    GetResult(ppsi) {
-        result := ComCall(20, this, "ptr*", ppsi, "HRESULT")
-        return result
+    GetResult() {
+        result := ComCall(20, this, "ptr*", &ppsi := 0, "HRESULT")
+        return IShellItem(ppsi)
     }
 
     /**

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITAddress.ahk
+#Include .\ITCallHub.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,64 +36,53 @@ class ITCallInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITAddress>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {ITAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_address
      */
-    get_Address(ppAddress) {
-        result := ComCall(7, this, "ptr*", ppAddress, "HRESULT")
-        return result
+    get_Address() {
+        result := ComCall(7, this, "ptr*", &ppAddress := 0, "HRESULT")
+        return ITAddress(ppAddress)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCallState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callstate
      */
-    get_CallState(pCallState) {
-        pCallStateMarshal := pCallState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pCallStateMarshal, pCallState, "HRESULT")
-        return result
+    get_CallState() {
+        result := ComCall(8, this, "int*", &pCallState := 0, "HRESULT")
+        return pCallState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pPrivilege 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_privilege
      */
-    get_Privilege(pPrivilege) {
-        pPrivilegeMarshal := pPrivilege is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pPrivilegeMarshal, pPrivilege, "HRESULT")
-        return result
+    get_Privilege() {
+        result := ComCall(9, this, "int*", &pPrivilege := 0, "HRESULT")
+        return pPrivilege
     }
 
     /**
      * 
-     * @param {Pointer<ITCallHub>} ppCallHub 
-     * @returns {HRESULT} 
+     * @returns {ITCallHub} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callhub
      */
-    get_CallHub(ppCallHub) {
-        result := ComCall(10, this, "ptr*", ppCallHub, "HRESULT")
-        return result
+    get_CallHub() {
+        result := ComCall(10, this, "ptr*", &ppCallHub := 0, "HRESULT")
+        return ITCallHub(ppCallHub)
     }
 
     /**
      * 
      * @param {Integer} CallInfoLong 
-     * @param {Pointer<Integer>} plCallInfoLongVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callinfolong
      */
-    get_CallInfoLong(CallInfoLong, plCallInfoLongVal) {
-        plCallInfoLongValMarshal := plCallInfoLongVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "int", CallInfoLong, plCallInfoLongValMarshal, plCallInfoLongVal, "HRESULT")
-        return result
+    get_CallInfoLong(CallInfoLong) {
+        result := ComCall(11, this, "int", CallInfoLong, "int*", &plCallInfoLongVal := 0, "HRESULT")
+        return plCallInfoLongVal
     }
 
     /**
@@ -108,13 +100,13 @@ class ITCallInfo extends IDispatch{
     /**
      * 
      * @param {Integer} CallInfoString 
-     * @param {Pointer<BSTR>} ppCallInfoString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callinfostring
      */
-    get_CallInfoString(CallInfoString, ppCallInfoString) {
+    get_CallInfoString(CallInfoString) {
+        ppCallInfoString := BSTR()
         result := ComCall(13, this, "int", CallInfoString, "ptr", ppCallInfoString, "HRESULT")
-        return result
+        return ppCallInfoString
     }
 
     /**
@@ -134,13 +126,13 @@ class ITCallInfo extends IDispatch{
     /**
      * 
      * @param {Integer} CallInfoBuffer 
-     * @param {Pointer<VARIANT>} ppCallInfoBuffer 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callinfobuffer
      */
-    get_CallInfoBuffer(CallInfoBuffer, ppCallInfoBuffer) {
+    get_CallInfoBuffer(CallInfoBuffer) {
+        ppCallInfoBuffer := VARIANT()
         result := ComCall(15, this, "int", CallInfoBuffer, "ptr", ppCallInfoBuffer, "HRESULT")
-        return result
+        return ppCallInfoBuffer
     }
 
     /**

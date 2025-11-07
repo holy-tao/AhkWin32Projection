@@ -35,15 +35,12 @@ class ISoftwareBitmapNativeFactory extends IInspectable{
      * @param {IWICBitmap} data 
      * @param {BOOL} forceReadOnly 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.imaging.interop/nf-windows-graphics-imaging-interop-isoftwarebitmapnativefactory-createfromwicbitmap
      */
-    CreateFromWICBitmap(data, forceReadOnly, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", data, "int", forceReadOnly, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateFromWICBitmap(data, forceReadOnly, riid) {
+        result := ComCall(6, this, "ptr", data, "int", forceReadOnly, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -55,14 +52,11 @@ class ISoftwareBitmapNativeFactory extends IInspectable{
      * @param {BOOL} forceReadOnly 
      * @param {Pointer<MFVideoArea>} minDisplayAperture 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.imaging.interop/nf-windows-graphics-imaging-interop-isoftwarebitmapnativefactory-createfrommf2dbuffer2
      */
-    CreateFromMF2DBuffer2(data, subtype, width, height, forceReadOnly, minDisplayAperture, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", data, "ptr", subtype, "uint", width, "uint", height, "int", forceReadOnly, "ptr", minDisplayAperture, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateFromMF2DBuffer2(data, subtype, width, height, forceReadOnly, minDisplayAperture, riid) {
+        result := ComCall(7, this, "ptr", data, "ptr", subtype, "uint", width, "uint", height, "int", forceReadOnly, "ptr", minDisplayAperture, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

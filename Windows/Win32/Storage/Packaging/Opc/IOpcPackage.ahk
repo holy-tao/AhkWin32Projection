@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcPartSet.ahk
+#Include .\IOpcRelationshipSet.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,23 +48,21 @@ class IOpcPackage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcPartSet>} partSet 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartSet} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpackage-getpartset
      */
-    GetPartSet(partSet) {
-        result := ComCall(3, this, "ptr*", partSet, "HRESULT")
-        return result
+    GetPartSet() {
+        result := ComCall(3, this, "ptr*", &partSet := 0, "HRESULT")
+        return IOpcPartSet(partSet)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcRelationshipSet>} relationshipSet 
-     * @returns {HRESULT} 
+     * @returns {IOpcRelationshipSet} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpackage-getrelationshipset
      */
-    GetRelationshipSet(relationshipSet) {
-        result := ComCall(4, this, "ptr*", relationshipSet, "HRESULT")
-        return result
+    GetRelationshipSet() {
+        result := ComCall(4, this, "ptr*", &relationshipSet := 0, "HRESULT")
+        return IOpcRelationshipSet(relationshipSet)
     }
 }

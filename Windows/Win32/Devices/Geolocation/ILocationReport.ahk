@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,35 +34,35 @@ class ILocationReport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pSensorID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocationreport-getsensorid
      */
-    GetSensorID(pSensorID) {
+    GetSensorID() {
+        pSensorID := Guid()
         result := ComCall(3, this, "ptr", pSensorID, "HRESULT")
-        return result
+        return pSensorID
     }
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} pCreationTime 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocationreport-gettimestamp
      */
-    GetTimestamp(pCreationTime) {
+    GetTimestamp() {
+        pCreationTime := SYSTEMTIME()
         result := ComCall(4, this, "ptr", pCreationTime, "HRESULT")
-        return result
+        return pCreationTime
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @param {Pointer<PROPVARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocationreport-getvalue
      */
-    GetValue(pKey, pValue) {
+    GetValue(pKey) {
+        pValue := PROPVARIANT()
         result := ComCall(5, this, "ptr", pKey, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

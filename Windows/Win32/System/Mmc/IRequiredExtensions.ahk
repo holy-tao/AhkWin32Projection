@@ -42,23 +42,23 @@ class IRequiredExtensions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pExtCLSID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-irequiredextensions-getfirstextension
      */
-    GetFirstExtension(pExtCLSID) {
+    GetFirstExtension() {
+        pExtCLSID := Guid()
         result := ComCall(4, this, "ptr", pExtCLSID, "HRESULT")
-        return result
+        return pExtCLSID
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pExtCLSID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-irequiredextensions-getnextextension
      */
-    GetNextExtension(pExtCLSID) {
+    GetNextExtension() {
+        pExtCLSID := Guid()
         result := ComCall(5, this, "ptr", pExtCLSID, "HRESULT")
-        return result
+        return pExtCLSID
     }
 }

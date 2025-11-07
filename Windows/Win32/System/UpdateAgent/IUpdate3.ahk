@@ -32,12 +32,11 @@ class IUpdate3 extends IUpdate2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate3-get_browseonly
      */
-    get_BrowseOnly(retval) {
-        result := ComCall(56, this, "ptr", retval, "HRESULT")
-        return result
+    get_BrowseOnly() {
+        result := ComCall(56, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 }

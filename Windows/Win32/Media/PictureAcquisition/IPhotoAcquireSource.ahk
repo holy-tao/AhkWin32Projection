@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IPhotoAcquireItem.ahk
+#Include .\IPhotoAcquireSettings.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +35,13 @@ class IPhotoAcquireSource extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFriendlyName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getfriendlyname
      */
-    GetFriendlyName(pbstrFriendlyName) {
+    GetFriendlyName() {
+        pbstrFriendlyName := BSTR()
         result := ComCall(3, this, "ptr", pbstrFriendlyName, "HRESULT")
-        return result
+        return pbstrFriendlyName
     }
 
     /**
@@ -71,61 +74,53 @@ class IPhotoAcquireSource extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnItemCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getitemcount
      */
-    GetItemCount(pnItemCount) {
-        pnItemCountMarshal := pnItemCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pnItemCountMarshal, pnItemCount, "HRESULT")
-        return result
+    GetItemCount() {
+        result := ComCall(6, this, "uint*", &pnItemCount := 0, "HRESULT")
+        return pnItemCount
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<IPhotoAcquireItem>} ppPhotoAcquireItem 
-     * @returns {HRESULT} 
+     * @returns {IPhotoAcquireItem} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getitemat
      */
-    GetItemAt(nIndex, ppPhotoAcquireItem) {
-        result := ComCall(7, this, "uint", nIndex, "ptr*", ppPhotoAcquireItem, "HRESULT")
-        return result
+    GetItemAt(nIndex) {
+        result := ComCall(7, this, "uint", nIndex, "ptr*", &ppPhotoAcquireItem := 0, "HRESULT")
+        return IPhotoAcquireItem(ppPhotoAcquireItem)
     }
 
     /**
      * 
-     * @param {Pointer<IPhotoAcquireSettings>} ppPhotoAcquireSettings 
-     * @returns {HRESULT} 
+     * @returns {IPhotoAcquireSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getphotoacquiresettings
      */
-    GetPhotoAcquireSettings(ppPhotoAcquireSettings) {
-        result := ComCall(8, this, "ptr*", ppPhotoAcquireSettings, "HRESULT")
-        return result
+    GetPhotoAcquireSettings() {
+        result := ComCall(8, this, "ptr*", &ppPhotoAcquireSettings := 0, "HRESULT")
+        return IPhotoAcquireSettings(ppPhotoAcquireSettings)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDeviceId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getdeviceid
      */
-    GetDeviceId(pbstrDeviceId) {
+    GetDeviceId() {
+        pbstrDeviceId := BSTR()
         result := ComCall(9, this, "ptr", pbstrDeviceId, "HRESULT")
-        return result
+        return pbstrDeviceId
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    BindToObject(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    BindToObject(riid) {
+        result := ComCall(10, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

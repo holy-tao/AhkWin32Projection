@@ -30,13 +30,10 @@ class IBindHttpSecurity extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwIgnoreCertMask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetIgnoreCertMask(pdwIgnoreCertMask) {
-        pdwIgnoreCertMaskMarshal := pdwIgnoreCertMask is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwIgnoreCertMaskMarshal, pdwIgnoreCertMask, "HRESULT")
-        return result
+    GetIgnoreCertMask() {
+        result := ComCall(3, this, "uint*", &pdwIgnoreCertMask := 0, "HRESULT")
+        return pdwIgnoreCertMask
     }
 }

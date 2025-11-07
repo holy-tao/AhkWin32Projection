@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.XmlLite
@@ -14,18 +15,15 @@ class XmlLite {
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
      * @param {IMalloc} pMalloc 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static CreateXmlReader(riid, ppvObject, pMalloc) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("XmlLite.dll\CreateXmlReader", "ptr", riid, ppvObjectMarshal, ppvObject, "ptr", pMalloc, "int")
+    static CreateXmlReader(riid, pMalloc) {
+        result := DllCall("XmlLite.dll\CreateXmlReader", "ptr", riid, "ptr*", &ppvObject := 0, "ptr", pMalloc, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObject
     }
 
     /**
@@ -35,17 +33,16 @@ class XmlLite {
      * @param {Integer} nEncodingCodePage 
      * @param {BOOL} fEncodingHint 
      * @param {PWSTR} pwszBaseUri 
-     * @param {Pointer<IUnknown>} ppInput 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    static CreateXmlReaderInputWithEncodingCodePage(pInputStream, pMalloc, nEncodingCodePage, fEncodingHint, pwszBaseUri, ppInput) {
+    static CreateXmlReaderInputWithEncodingCodePage(pInputStream, pMalloc, nEncodingCodePage, fEncodingHint, pwszBaseUri) {
         pwszBaseUri := pwszBaseUri is String ? StrPtr(pwszBaseUri) : pwszBaseUri
 
-        result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingCodePage", "ptr", pInputStream, "ptr", pMalloc, "uint", nEncodingCodePage, "int", fEncodingHint, "ptr", pwszBaseUri, "ptr*", ppInput, "int")
+        result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingCodePage", "ptr", pInputStream, "ptr", pMalloc, "uint", nEncodingCodePage, "int", fEncodingHint, "ptr", pwszBaseUri, "ptr*", &ppInput := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppInput)
     }
 
     /**
@@ -55,35 +52,31 @@ class XmlLite {
      * @param {PWSTR} pwszEncodingName 
      * @param {BOOL} fEncodingHint 
      * @param {PWSTR} pwszBaseUri 
-     * @param {Pointer<IUnknown>} ppInput 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    static CreateXmlReaderInputWithEncodingName(pInputStream, pMalloc, pwszEncodingName, fEncodingHint, pwszBaseUri, ppInput) {
+    static CreateXmlReaderInputWithEncodingName(pInputStream, pMalloc, pwszEncodingName, fEncodingHint, pwszBaseUri) {
         pwszEncodingName := pwszEncodingName is String ? StrPtr(pwszEncodingName) : pwszEncodingName
         pwszBaseUri := pwszBaseUri is String ? StrPtr(pwszBaseUri) : pwszBaseUri
 
-        result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingName", "ptr", pInputStream, "ptr", pMalloc, "ptr", pwszEncodingName, "int", fEncodingHint, "ptr", pwszBaseUri, "ptr*", ppInput, "int")
+        result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingName", "ptr", pInputStream, "ptr", pMalloc, "ptr", pwszEncodingName, "int", fEncodingHint, "ptr", pwszBaseUri, "ptr*", &ppInput := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppInput)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
      * @param {IMalloc} pMalloc 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static CreateXmlWriter(riid, ppvObject, pMalloc) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("XmlLite.dll\CreateXmlWriter", "ptr", riid, ppvObjectMarshal, ppvObject, "ptr", pMalloc, "int")
+    static CreateXmlWriter(riid, pMalloc) {
+        result := DllCall("XmlLite.dll\CreateXmlWriter", "ptr", riid, "ptr*", &ppvObject := 0, "ptr", pMalloc, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObject
     }
 
     /**
@@ -91,15 +84,14 @@ class XmlLite {
      * @param {IUnknown} pOutputStream 
      * @param {IMalloc} pMalloc 
      * @param {Integer} nEncodingCodePage 
-     * @param {Pointer<IUnknown>} ppOutput 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    static CreateXmlWriterOutputWithEncodingCodePage(pOutputStream, pMalloc, nEncodingCodePage, ppOutput) {
-        result := DllCall("XmlLite.dll\CreateXmlWriterOutputWithEncodingCodePage", "ptr", pOutputStream, "ptr", pMalloc, "uint", nEncodingCodePage, "ptr*", ppOutput, "int")
+    static CreateXmlWriterOutputWithEncodingCodePage(pOutputStream, pMalloc, nEncodingCodePage) {
+        result := DllCall("XmlLite.dll\CreateXmlWriterOutputWithEncodingCodePage", "ptr", pOutputStream, "ptr", pMalloc, "uint", nEncodingCodePage, "ptr*", &ppOutput := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppOutput)
     }
 
     /**
@@ -107,17 +99,16 @@ class XmlLite {
      * @param {IUnknown} pOutputStream 
      * @param {IMalloc} pMalloc 
      * @param {PWSTR} pwszEncodingName 
-     * @param {Pointer<IUnknown>} ppOutput 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    static CreateXmlWriterOutputWithEncodingName(pOutputStream, pMalloc, pwszEncodingName, ppOutput) {
+    static CreateXmlWriterOutputWithEncodingName(pOutputStream, pMalloc, pwszEncodingName) {
         pwszEncodingName := pwszEncodingName is String ? StrPtr(pwszEncodingName) : pwszEncodingName
 
-        result := DllCall("XmlLite.dll\CreateXmlWriterOutputWithEncodingName", "ptr", pOutputStream, "ptr", pMalloc, "ptr", pwszEncodingName, "ptr*", ppOutput, "int")
+        result := DllCall("XmlLite.dll\CreateXmlWriterOutputWithEncodingName", "ptr", pOutputStream, "ptr", pMalloc, "ptr", pwszEncodingName, "ptr*", &ppOutput := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppOutput)
     }
 
 ;@endregion Methods

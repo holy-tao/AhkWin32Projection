@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumDebugPropertyInfo.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -63,23 +64,19 @@ class IEnumDebugPropertyInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumDebugPropertyInfo>} ppepi 
-     * @returns {HRESULT} 
+     * @returns {IEnumDebugPropertyInfo} 
      */
-    Clone(ppepi) {
-        result := ComCall(6, this, "ptr*", ppepi, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppepi := 0, "HRESULT")
+        return IEnumDebugPropertyInfo(ppepi)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCount(pcelt) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pceltMarshal, pcelt, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(7, this, "uint*", &pcelt := 0, "HRESULT")
+        return pcelt
     }
 }

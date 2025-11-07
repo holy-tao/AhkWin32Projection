@@ -97,15 +97,12 @@ class IViewHelper extends IUnknown{
     /**
      * 
      * @param {IStream} pIStream 
-     * @param {Pointer<Integer>} pulStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cloneviewhelper/nf-cloneviewhelper-iviewhelper-setconfiguration
      */
-    SetConfiguration(pIStream, pulStatus) {
-        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pIStream, pulStatusMarshal, pulStatus, "HRESULT")
-        return result
+    SetConfiguration(pIStream) {
+        result := ComCall(7, this, "ptr", pIStream, "uint*", &pulStatus := 0, "HRESULT")
+        return pulStatus
     }
 
     /**

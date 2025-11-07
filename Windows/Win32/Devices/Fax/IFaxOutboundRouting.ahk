@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFaxOutboundRoutingGroups.ahk
+#Include .\IFaxOutboundRoutingRules.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,23 +44,21 @@ class IFaxOutboundRouting extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFaxOutboundRoutingGroups>} pFaxOutboundRoutingGroups 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutboundRoutingGroups} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundrouting-getgroups
      */
-    GetGroups(pFaxOutboundRoutingGroups) {
-        result := ComCall(7, this, "ptr*", pFaxOutboundRoutingGroups, "HRESULT")
-        return result
+    GetGroups() {
+        result := ComCall(7, this, "ptr*", &pFaxOutboundRoutingGroups := 0, "HRESULT")
+        return IFaxOutboundRoutingGroups(pFaxOutboundRoutingGroups)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxOutboundRoutingRules>} pFaxOutboundRoutingRules 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutboundRoutingRules} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundrouting-getrules
      */
-    GetRules(pFaxOutboundRoutingRules) {
-        result := ComCall(8, this, "ptr*", pFaxOutboundRoutingRules, "HRESULT")
-        return result
+    GetRules() {
+        result := ComCall(8, this, "ptr*", &pFaxOutboundRoutingRules := 0, "HRESULT")
+        return IFaxOutboundRoutingRules(pFaxOutboundRoutingRules)
     }
 }

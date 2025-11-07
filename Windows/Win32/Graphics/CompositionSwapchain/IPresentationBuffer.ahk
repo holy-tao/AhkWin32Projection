@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,25 +33,22 @@ class IPresentationBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} availableEventHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationbuffer-getavailableevent
      */
-    GetAvailableEvent(availableEventHandle) {
+    GetAvailableEvent() {
+        availableEventHandle := HANDLE()
         result := ComCall(3, this, "ptr", availableEventHandle, "HRESULT")
-        return result
+        return availableEventHandle
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} isAvailable 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationbuffer-isavailable
      */
-    IsAvailable(isAvailable) {
-        isAvailableMarshal := isAvailable is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, isAvailableMarshal, isAvailable, "HRESULT")
-        return result
+    IsAvailable() {
+        result := ComCall(4, this, "char*", &isAvailable := 0, "HRESULT")
+        return isAvailable
     }
 }

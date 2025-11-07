@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGPointList.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -40,12 +41,11 @@ class ISVGAnimatedPoints extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGPointList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGPointList} 
      */
-    get_points(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_points() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGPointList(p)
     }
 
     /**
@@ -60,11 +60,10 @@ class ISVGAnimatedPoints extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGPointList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGPointList} 
      */
-    get_animatedPoints(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_animatedPoints() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGPointList(p)
     }
 }

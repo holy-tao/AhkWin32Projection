@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\IUpdateCollection.ahk
+#Include .\IInstallationProgress.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,35 +35,33 @@ class IInstallationJob extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationjob-get_asyncstate
      */
-    get_AsyncState(retval) {
+    get_AsyncState() {
+        retval := VARIANT()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationjob-get_iscompleted
      */
-    get_IsCompleted(retval) {
-        result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsCompleted() {
+        result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IUpdateCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationjob-get_updates
      */
-    get_Updates(retval) {
-        result := ComCall(9, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Updates() {
+        result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateCollection(retval)
     }
 
     /**
@@ -75,13 +76,12 @@ class IInstallationJob extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInstallationProgress>} retval 
-     * @returns {HRESULT} 
+     * @returns {IInstallationProgress} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationjob-getprogress
      */
-    GetProgress(retval) {
-        result := ComCall(11, this, "ptr*", retval, "HRESULT")
-        return result
+    GetProgress() {
+        result := ComCall(11, this, "ptr*", &retval := 0, "HRESULT")
+        return IInstallationProgress(retval)
     }
 
     /**

@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_OUTPUT_DESC.ahk
+#Include Common\DXGI_MODE_DESC.ahk
+#Include Common\DXGI_GAMMA_CONTROL_CAPABILITIES.ahk
+#Include Common\DXGI_GAMMA_CONTROL.ahk
+#Include .\DXGI_FRAME_STATISTICS.ahk
 #Include .\IDXGIObject.ahk
 
 /**
@@ -37,13 +42,13 @@ class IDXGIOutput extends IDXGIObject{
 
     /**
      * 
-     * @param {Pointer<DXGI_OUTPUT_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {DXGI_OUTPUT_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgioutput-getdesc
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := DXGI_OUTPUT_DESC()
         result := ComCall(7, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
@@ -51,28 +56,28 @@ class IDXGIOutput extends IDXGIObject{
      * @param {Integer} EnumFormat 
      * @param {Integer} Flags 
      * @param {Pointer<Integer>} pNumModes 
-     * @param {Pointer<DXGI_MODE_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {DXGI_MODE_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgioutput-getdisplaymodelist
      */
-    GetDisplayModeList(EnumFormat, Flags, pNumModes, pDesc) {
+    GetDisplayModeList(EnumFormat, Flags, pNumModes) {
         pNumModesMarshal := pNumModes is VarRef ? "uint*" : "ptr"
 
+        pDesc := DXGI_MODE_DESC()
         result := ComCall(8, this, "int", EnumFormat, "uint", Flags, pNumModesMarshal, pNumModes, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
      * @param {Pointer<DXGI_MODE_DESC>} pModeToMatch 
-     * @param {Pointer<DXGI_MODE_DESC>} pClosestMatch 
      * @param {IUnknown} pConcernedDevice 
-     * @returns {HRESULT} 
+     * @returns {DXGI_MODE_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgioutput-findclosestmatchingmode
      */
-    FindClosestMatchingMode(pModeToMatch, pClosestMatch, pConcernedDevice) {
+    FindClosestMatchingMode(pModeToMatch, pConcernedDevice) {
+        pClosestMatch := DXGI_MODE_DESC()
         result := ComCall(9, this, "ptr", pModeToMatch, "ptr", pClosestMatch, "ptr", pConcernedDevice, "HRESULT")
-        return result
+        return pClosestMatch
     }
 
     /**
@@ -108,13 +113,13 @@ class IDXGIOutput extends IDXGIObject{
 
     /**
      * 
-     * @param {Pointer<DXGI_GAMMA_CONTROL_CAPABILITIES>} pGammaCaps 
-     * @returns {HRESULT} 
+     * @returns {DXGI_GAMMA_CONTROL_CAPABILITIES} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgioutput-getgammacontrolcapabilities
      */
-    GetGammaControlCapabilities(pGammaCaps) {
+    GetGammaControlCapabilities() {
+        pGammaCaps := DXGI_GAMMA_CONTROL_CAPABILITIES()
         result := ComCall(13, this, "ptr", pGammaCaps, "HRESULT")
-        return result
+        return pGammaCaps
     }
 
     /**
@@ -130,13 +135,13 @@ class IDXGIOutput extends IDXGIObject{
 
     /**
      * 
-     * @param {Pointer<DXGI_GAMMA_CONTROL>} pArray 
-     * @returns {HRESULT} 
+     * @returns {DXGI_GAMMA_CONTROL} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgioutput-getgammacontrol
      */
-    GetGammaControl(pArray) {
+    GetGammaControl() {
+        pArray := DXGI_GAMMA_CONTROL()
         result := ComCall(15, this, "ptr", pArray, "HRESULT")
-        return result
+        return pArray
     }
 
     /**
@@ -163,12 +168,12 @@ class IDXGIOutput extends IDXGIObject{
 
     /**
      * 
-     * @param {Pointer<DXGI_FRAME_STATISTICS>} pStats 
-     * @returns {HRESULT} 
+     * @returns {DXGI_FRAME_STATISTICS} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgioutput-getframestatistics
      */
-    GetFrameStatistics(pStats) {
+    GetFrameStatistics() {
+        pStats := DXGI_FRAME_STATISTICS()
         result := ComCall(18, this, "ptr", pStats, "HRESULT")
-        return result
+        return pStats
     }
 }

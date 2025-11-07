@@ -48,11 +48,10 @@ class ISIInbandEPG extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} bRunning 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsSIEPGScanRunning(bRunning) {
-        result := ComCall(5, this, "ptr", bRunning, "HRESULT")
-        return result
+    IsSIEPGScanRunning() {
+        result := ComCall(5, this, "int*", &bRunning := 0, "HRESULT")
+        return bRunning
     }
 }

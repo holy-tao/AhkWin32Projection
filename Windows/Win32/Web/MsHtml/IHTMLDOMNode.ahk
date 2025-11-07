@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLDOMNode.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -30,154 +33,139 @@ class IHTMLDOMNode extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_nodeType(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_nodeType() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_parentNode(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_parentNode() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} fChildren 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    hasChildNodes(fChildren) {
-        result := ComCall(9, this, "ptr", fChildren, "HRESULT")
-        return result
+    hasChildNodes() {
+        result := ComCall(9, this, "short*", &fChildren := 0, "HRESULT")
+        return fChildren
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_childNodes(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_childNodes() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_attributes(p) {
-        result := ComCall(11, this, "ptr*", p, "HRESULT")
-        return result
+    get_attributes() {
+        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
      * @param {IHTMLDOMNode} newChild 
      * @param {VARIANT} refChild 
-     * @param {Pointer<IHTMLDOMNode>} node 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    insertBefore(newChild, refChild, node) {
-        result := ComCall(12, this, "ptr", newChild, "ptr", refChild, "ptr*", node, "HRESULT")
-        return result
+    insertBefore(newChild, refChild) {
+        result := ComCall(12, this, "ptr", newChild, "ptr", refChild, "ptr*", &node := 0, "HRESULT")
+        return IHTMLDOMNode(node)
     }
 
     /**
      * 
      * @param {IHTMLDOMNode} oldChild 
-     * @param {Pointer<IHTMLDOMNode>} node 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    removeChild(oldChild, node) {
-        result := ComCall(13, this, "ptr", oldChild, "ptr*", node, "HRESULT")
-        return result
+    removeChild(oldChild) {
+        result := ComCall(13, this, "ptr", oldChild, "ptr*", &node := 0, "HRESULT")
+        return IHTMLDOMNode(node)
     }
 
     /**
      * 
      * @param {IHTMLDOMNode} newChild 
      * @param {IHTMLDOMNode} oldChild 
-     * @param {Pointer<IHTMLDOMNode>} node 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    replaceChild(newChild, oldChild, node) {
-        result := ComCall(14, this, "ptr", newChild, "ptr", oldChild, "ptr*", node, "HRESULT")
-        return result
+    replaceChild(newChild, oldChild) {
+        result := ComCall(14, this, "ptr", newChild, "ptr", oldChild, "ptr*", &node := 0, "HRESULT")
+        return IHTMLDOMNode(node)
     }
 
     /**
      * 
      * @param {VARIANT_BOOL} fDeep 
-     * @param {Pointer<IHTMLDOMNode>} clonedNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    cloneNode(fDeep, clonedNode) {
-        result := ComCall(15, this, "short", fDeep, "ptr*", clonedNode, "HRESULT")
-        return result
+    cloneNode(fDeep) {
+        result := ComCall(15, this, "short", fDeep, "ptr*", &clonedNode := 0, "HRESULT")
+        return IHTMLDOMNode(clonedNode)
     }
 
     /**
      * 
      * @param {VARIANT_BOOL} fDeep 
-     * @param {Pointer<IHTMLDOMNode>} removed 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    removeNode(fDeep, removed) {
-        result := ComCall(16, this, "short", fDeep, "ptr*", removed, "HRESULT")
-        return result
+    removeNode(fDeep) {
+        result := ComCall(16, this, "short", fDeep, "ptr*", &removed := 0, "HRESULT")
+        return IHTMLDOMNode(removed)
     }
 
     /**
      * 
      * @param {IHTMLDOMNode} otherNode 
-     * @param {Pointer<IHTMLDOMNode>} swappedNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    swapNode(otherNode, swappedNode) {
-        result := ComCall(17, this, "ptr", otherNode, "ptr*", swappedNode, "HRESULT")
-        return result
+    swapNode(otherNode) {
+        result := ComCall(17, this, "ptr", otherNode, "ptr*", &swappedNode := 0, "HRESULT")
+        return IHTMLDOMNode(swappedNode)
     }
 
     /**
      * 
      * @param {IHTMLDOMNode} replacement 
-     * @param {Pointer<IHTMLDOMNode>} replaced 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    replaceNode(replacement, replaced) {
-        result := ComCall(18, this, "ptr", replacement, "ptr*", replaced, "HRESULT")
-        return result
+    replaceNode(replacement) {
+        result := ComCall(18, this, "ptr", replacement, "ptr*", &replaced := 0, "HRESULT")
+        return IHTMLDOMNode(replaced)
     }
 
     /**
      * 
      * @param {IHTMLDOMNode} newChild 
-     * @param {Pointer<IHTMLDOMNode>} node 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    appendChild(newChild, node) {
-        result := ComCall(19, this, "ptr", newChild, "ptr*", node, "HRESULT")
-        return result
+    appendChild(newChild) {
+        result := ComCall(19, this, "ptr", newChild, "ptr*", &node := 0, "HRESULT")
+        return IHTMLDOMNode(node)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_nodeName(p) {
+    get_nodeName() {
+        p := BSTR()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -192,51 +180,47 @@ class IHTMLDOMNode extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_nodeValue(p) {
+    get_nodeValue() {
+        p := VARIANT()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_firstChild(p) {
-        result := ComCall(23, this, "ptr*", p, "HRESULT")
-        return result
+    get_firstChild() {
+        result := ComCall(23, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_lastChild(p) {
-        result := ComCall(24, this, "ptr*", p, "HRESULT")
-        return result
+    get_lastChild() {
+        result := ComCall(24, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_previousSibling(p) {
-        result := ComCall(25, this, "ptr*", p, "HRESULT")
-        return result
+    get_previousSibling() {
+        result := ComCall(25, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_nextSibling(p) {
-        result := ComCall(26, this, "ptr*", p, "HRESULT")
-        return result
+    get_nextSibling() {
+        result := ComCall(26, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 }

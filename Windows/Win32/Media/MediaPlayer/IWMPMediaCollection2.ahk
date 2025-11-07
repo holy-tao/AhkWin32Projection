@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWMPQuery.ahk
+#Include .\IWMPPlaylist.ahk
+#Include .\IWMPStringCollection.ahk
 #Include .\IWMPMediaCollection.ahk
 
 /**
@@ -33,13 +36,12 @@ class IWMPMediaCollection2 extends IWMPMediaCollection{
 
     /**
      * 
-     * @param {Pointer<IWMPQuery>} ppQuery 
-     * @returns {HRESULT} 
+     * @returns {IWMPQuery} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection2-createquery
      */
-    createQuery(ppQuery) {
-        result := ComCall(19, this, "ptr*", ppQuery, "HRESULT")
-        return result
+    createQuery() {
+        result := ComCall(19, this, "ptr*", &ppQuery := 0, "HRESULT")
+        return IWMPQuery(ppQuery)
     }
 
     /**
@@ -48,16 +50,15 @@ class IWMPMediaCollection2 extends IWMPMediaCollection{
      * @param {BSTR} bstrMediaType 
      * @param {BSTR} bstrSortAttribute 
      * @param {VARIANT_BOOL} fSortAscending 
-     * @param {Pointer<IWMPPlaylist>} ppPlaylist 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection2-getplaylistbyquery
      */
-    getPlaylistByQuery(pQuery, bstrMediaType, bstrSortAttribute, fSortAscending, ppPlaylist) {
+    getPlaylistByQuery(pQuery, bstrMediaType, bstrSortAttribute, fSortAscending) {
         bstrMediaType := bstrMediaType is String ? BSTR.Alloc(bstrMediaType).Value : bstrMediaType
         bstrSortAttribute := bstrSortAttribute is String ? BSTR.Alloc(bstrSortAttribute).Value : bstrSortAttribute
 
-        result := ComCall(20, this, "ptr", pQuery, "ptr", bstrMediaType, "ptr", bstrSortAttribute, "short", fSortAscending, "ptr*", ppPlaylist, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", pQuery, "ptr", bstrMediaType, "ptr", bstrSortAttribute, "short", fSortAscending, "ptr*", &ppPlaylist := 0, "HRESULT")
+        return IWMPPlaylist(ppPlaylist)
     }
 
     /**
@@ -67,17 +68,16 @@ class IWMPMediaCollection2 extends IWMPMediaCollection{
      * @param {BSTR} bstrMediaType 
      * @param {BSTR} bstrSortAttribute 
      * @param {VARIANT_BOOL} fSortAscending 
-     * @param {Pointer<IWMPStringCollection>} ppStringCollection 
-     * @returns {HRESULT} 
+     * @returns {IWMPStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection2-getstringcollectionbyquery
      */
-    getStringCollectionByQuery(bstrAttribute, pQuery, bstrMediaType, bstrSortAttribute, fSortAscending, ppStringCollection) {
+    getStringCollectionByQuery(bstrAttribute, pQuery, bstrMediaType, bstrSortAttribute, fSortAscending) {
         bstrAttribute := bstrAttribute is String ? BSTR.Alloc(bstrAttribute).Value : bstrAttribute
         bstrMediaType := bstrMediaType is String ? BSTR.Alloc(bstrMediaType).Value : bstrMediaType
         bstrSortAttribute := bstrSortAttribute is String ? BSTR.Alloc(bstrSortAttribute).Value : bstrSortAttribute
 
-        result := ComCall(21, this, "ptr", bstrAttribute, "ptr", pQuery, "ptr", bstrMediaType, "ptr", bstrSortAttribute, "short", fSortAscending, "ptr*", ppStringCollection, "HRESULT")
-        return result
+        result := ComCall(21, this, "ptr", bstrAttribute, "ptr", pQuery, "ptr", bstrMediaType, "ptr", bstrSortAttribute, "short", fSortAscending, "ptr*", &ppStringCollection := 0, "HRESULT")
+        return IWMPStringCollection(ppStringCollection)
     }
 
     /**
@@ -85,16 +85,15 @@ class IWMPMediaCollection2 extends IWMPMediaCollection{
      * @param {BSTR} bstrAttribute 
      * @param {BSTR} bstrValue 
      * @param {BSTR} bstrMediaType 
-     * @param {Pointer<IWMPPlaylist>} ppMediaItems 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmediacollection2-getbyattributeandmediatype
      */
-    getByAttributeAndMediaType(bstrAttribute, bstrValue, bstrMediaType, ppMediaItems) {
+    getByAttributeAndMediaType(bstrAttribute, bstrValue, bstrMediaType) {
         bstrAttribute := bstrAttribute is String ? BSTR.Alloc(bstrAttribute).Value : bstrAttribute
         bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
         bstrMediaType := bstrMediaType is String ? BSTR.Alloc(bstrMediaType).Value : bstrMediaType
 
-        result := ComCall(22, this, "ptr", bstrAttribute, "ptr", bstrValue, "ptr", bstrMediaType, "ptr*", ppMediaItems, "HRESULT")
-        return result
+        result := ComCall(22, this, "ptr", bstrAttribute, "ptr", bstrValue, "ptr", bstrMediaType, "ptr*", &ppMediaItems := 0, "HRESULT")
+        return IWMPPlaylist(ppMediaItems)
     }
 }

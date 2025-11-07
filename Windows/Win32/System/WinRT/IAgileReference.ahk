@@ -38,14 +38,11 @@ class IAgileReference extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObjectReference 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/WinRT/iagilereference-resolve
      */
-    Resolve(riid, ppvObjectReference) {
-        ppvObjectReferenceMarshal := ppvObjectReference is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, ppvObjectReferenceMarshal, ppvObjectReference, "HRESULT")
-        return result
+    Resolve(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppvObjectReference := 0, "HRESULT")
+        return ppvObjectReference
     }
 }

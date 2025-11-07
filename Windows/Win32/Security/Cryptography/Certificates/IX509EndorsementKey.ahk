@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509PublicKey.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,13 +34,13 @@ class IX509EndorsementKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-get_providername
      */
-    get_ProviderName(pValue) {
+    get_ProviderName() {
+        pValue := BSTR()
         result := ComCall(7, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -57,26 +58,22 @@ class IX509EndorsementKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-get_length
      */
-    get_Length(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Length() {
+        result := ComCall(9, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-get_opened
      */
-    get_Opened(pValue) {
-        result := ComCall(10, this, "ptr", pValue, "HRESULT")
-        return result
+    get_Opened() {
+        result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -112,38 +109,34 @@ class IX509EndorsementKey extends IDispatch{
      * @param {VARIANT_BOOL} ManufacturerOnly 
      * @param {Integer} dwIndex 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-getcertificatebyindex
      */
-    GetCertificateByIndex(ManufacturerOnly, dwIndex, Encoding, pValue) {
+    GetCertificateByIndex(ManufacturerOnly, dwIndex, Encoding) {
+        pValue := BSTR()
         result := ComCall(13, this, "short", ManufacturerOnly, "int", dwIndex, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {VARIANT_BOOL} ManufacturerOnly 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-getcertificatecount
      */
-    GetCertificateCount(ManufacturerOnly, pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, "short", ManufacturerOnly, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetCertificateCount(ManufacturerOnly) {
+        result := ComCall(14, this, "short", ManufacturerOnly, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<IX509PublicKey>} ppPublicKey 
-     * @returns {HRESULT} 
+     * @returns {IX509PublicKey} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-exportpublickey
      */
-    ExportPublicKey(ppPublicKey) {
-        result := ComCall(15, this, "ptr*", ppPublicKey, "HRESULT")
-        return result
+    ExportPublicKey() {
+        result := ComCall(15, this, "ptr*", &ppPublicKey := 0, "HRESULT")
+        return IX509PublicKey(ppPublicKey)
     }
 
     /**

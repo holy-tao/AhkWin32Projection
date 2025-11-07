@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXFeedsEnum.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,22 +31,20 @@ class IXFeedFolder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXFeedsEnum>} ppfe 
-     * @returns {HRESULT} 
+     * @returns {IXFeedsEnum} 
      */
-    Feeds(ppfe) {
-        result := ComCall(3, this, "ptr*", ppfe, "HRESULT")
-        return result
+    Feeds() {
+        result := ComCall(3, this, "ptr*", &ppfe := 0, "HRESULT")
+        return IXFeedsEnum(ppfe)
     }
 
     /**
      * 
-     * @param {Pointer<IXFeedsEnum>} ppfe 
-     * @returns {HRESULT} 
+     * @returns {IXFeedsEnum} 
      */
-    Subfolders(ppfe) {
-        result := ComCall(4, this, "ptr*", ppfe, "HRESULT")
-        return result
+    Subfolders() {
+        result := ComCall(4, this, "ptr*", &ppfe := 0, "HRESULT")
+        return IXFeedsEnum(ppfe)
     }
 
     /**
@@ -53,33 +52,27 @@ class IXFeedFolder extends IUnknown{
      * @param {PWSTR} pszName 
      * @param {PWSTR} pszUrl 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateFeed(pszName, pszUrl, riid, ppv) {
+    CreateFeed(pszName, pszUrl, riid) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pszName, "ptr", pszUrl, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszName, "ptr", pszUrl, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {PWSTR} pszName 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateSubfolder(pszName, riid, ppv) {
+    CreateSubfolder(pszName, riid) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pszName, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -91,7 +84,9 @@ class IXFeedFolder extends IUnknown{
     ExistsFeed(pszName, pbFeedExists) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(7, this, "ptr", pszName, "ptr", pbFeedExists, "HRESULT")
+        pbFeedExistsMarshal := pbFeedExists is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pszName, pbFeedExistsMarshal, pbFeedExists, "HRESULT")
         return result
     }
 
@@ -104,7 +99,9 @@ class IXFeedFolder extends IUnknown{
     ExistsSubfolder(pszName, pbSubfolderExists) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(8, this, "ptr", pszName, "ptr", pbSubfolderExists, "HRESULT")
+        pbSubfolderExistsMarshal := pbSubfolderExists is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pszName, pbSubfolderExistsMarshal, pbSubfolderExists, "HRESULT")
         return result
     }
 
@@ -112,32 +109,26 @@ class IXFeedFolder extends IUnknown{
      * 
      * @param {PWSTR} pszName 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetFeed(pszName, riid, ppv) {
+    GetFeed(pszName, riid) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pszName, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pszName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {PWSTR} pszName 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetSubfolder(pszName, riid, ppv) {
+    GetSubfolder(pszName, riid) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "ptr", pszName, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pszName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -151,12 +142,11 @@ class IXFeedFolder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Name(ppszName) {
-        result := ComCall(12, this, "ptr", ppszName, "HRESULT")
-        return result
+    Name() {
+        result := ComCall(12, this, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
@@ -173,12 +163,11 @@ class IXFeedFolder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszPath 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Path(ppszPath) {
-        result := ComCall(14, this, "ptr", ppszPath, "HRESULT")
-        return result
+    Path() {
+        result := ComCall(14, this, "ptr*", &ppszPath := 0, "HRESULT")
+        return ppszPath
     }
 
     /**
@@ -196,24 +185,20 @@ class IXFeedFolder extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    Parent(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(16, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    Parent(riid) {
+        result := ComCall(16, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbIsRootFeedFolder 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsRoot(pbIsRootFeedFolder) {
-        result := ComCall(17, this, "ptr", pbIsRootFeedFolder, "HRESULT")
-        return result
+    IsRoot() {
+        result := ComCall(17, this, "int*", &pbIsRootFeedFolder := 0, "HRESULT")
+        return pbIsRootFeedFolder
     }
 
     /**
@@ -221,37 +206,28 @@ class IXFeedFolder extends IUnknown{
      * @param {Integer} scope 
      * @param {Integer} mask 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetWatcher(scope, mask, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(18, this, "int", scope, "int", mask, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetWatcher(scope, mask, riid) {
+        result := ComCall(18, this, "int", scope, "int", mask, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiTotalUnreadItemCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    TotalUnreadItemCount(puiTotalUnreadItemCount) {
-        puiTotalUnreadItemCountMarshal := puiTotalUnreadItemCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, puiTotalUnreadItemCountMarshal, puiTotalUnreadItemCount, "HRESULT")
-        return result
+    TotalUnreadItemCount() {
+        result := ComCall(19, this, "uint*", &puiTotalUnreadItemCount := 0, "HRESULT")
+        return puiTotalUnreadItemCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiTotalItemCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    TotalItemCount(puiTotalItemCount) {
-        puiTotalItemCountMarshal := puiTotalItemCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, puiTotalItemCountMarshal, puiTotalItemCount, "HRESULT")
-        return result
+    TotalItemCount() {
+        result := ComCall(20, this, "uint*", &puiTotalItemCount := 0, "HRESULT")
+        return puiTotalItemCount
     }
 }

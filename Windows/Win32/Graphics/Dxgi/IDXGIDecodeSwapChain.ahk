@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -90,24 +91,24 @@ class IDXGIDecodeSwapChain extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<RECT>} pRect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-getsourcerect
      */
-    GetSourceRect(pRect) {
+    GetSourceRect() {
+        pRect := RECT()
         result := ComCall(7, this, "ptr", pRect, "HRESULT")
-        return result
+        return pRect
     }
 
     /**
      * 
-     * @param {Pointer<RECT>} pRect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-gettargetrect
      */
-    GetTargetRect(pRect) {
+    GetTargetRect() {
+        pRect := RECT()
         result := ComCall(8, this, "ptr", pRect, "HRESULT")
-        return result
+        return pRect
     }
 
     /**

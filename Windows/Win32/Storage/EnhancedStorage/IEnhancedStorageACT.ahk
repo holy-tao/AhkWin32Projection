@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ACT_AUTHORIZATION_STATE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -60,35 +61,33 @@ class IEnhancedStorageACT extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ACT_AUTHORIZATION_STATE>} pState 
-     * @returns {HRESULT} 
+     * @returns {ACT_AUTHORIZATION_STATE} 
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-getauthorizationstate
      */
-    GetAuthorizationState(pState) {
+    GetAuthorizationState() {
+        pState := ACT_AUTHORIZATION_STATE()
         result := ComCall(5, this, "ptr", pState, "HRESULT")
-        return result
+        return pState
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszVolume 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-getmatchingvolume
      */
-    GetMatchingVolume(ppwszVolume) {
-        result := ComCall(6, this, "ptr", ppwszVolume, "HRESULT")
-        return result
+    GetMatchingVolume() {
+        result := ComCall(6, this, "ptr*", &ppwszVolume := 0, "HRESULT")
+        return ppwszVolume
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszIdentity 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-getuniqueidentity
      */
-    GetUniqueIdentity(ppwszIdentity) {
-        result := ComCall(7, this, "ptr", ppwszIdentity, "HRESULT")
-        return result
+    GetUniqueIdentity() {
+        result := ComCall(7, this, "ptr*", &ppwszIdentity := 0, "HRESULT")
+        return ppwszIdentity
     }
 
     /**

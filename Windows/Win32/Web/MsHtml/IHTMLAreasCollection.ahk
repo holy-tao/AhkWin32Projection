@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,47 +47,41 @@ class IHTMLAreasCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} p 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__newEnum(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get__newEnum() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IUnknown(p)
     }
 
     /**
      * 
      * @param {VARIANT} name 
      * @param {VARIANT} index 
-     * @param {Pointer<IDispatch>} pdisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    item(name, index, pdisp) {
-        result := ComCall(10, this, "ptr", name, "ptr", index, "ptr*", pdisp, "HRESULT")
-        return result
+    item(name, index) {
+        result := ComCall(10, this, "ptr", name, "ptr", index, "ptr*", &pdisp := 0, "HRESULT")
+        return IDispatch(pdisp)
     }
 
     /**
      * 
      * @param {VARIANT} tagName 
-     * @param {Pointer<IDispatch>} pdisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    tags(tagName, pdisp) {
-        result := ComCall(11, this, "ptr", tagName, "ptr*", pdisp, "HRESULT")
-        return result
+    tags(tagName) {
+        result := ComCall(11, this, "ptr", tagName, "ptr*", &pdisp := 0, "HRESULT")
+        return IDispatch(pdisp)
     }
 
     /**

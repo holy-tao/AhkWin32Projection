@@ -45,15 +45,12 @@ class IColumnData extends IUnknown{
     /**
      * 
      * @param {Pointer<SColumnSetID>} pColID 
-     * @param {Pointer<Pointer<MMC_COLUMN_SET_DATA>>} ppColSetData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<MMC_COLUMN_SET_DATA>} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icolumndata-getcolumnconfigdata
      */
-    GetColumnConfigData(pColID, ppColSetData) {
-        ppColSetDataMarshal := ppColSetData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pColID, ppColSetDataMarshal, ppColSetData, "HRESULT")
-        return result
+    GetColumnConfigData(pColID) {
+        result := ComCall(4, this, "ptr", pColID, "ptr*", &ppColSetData := 0, "HRESULT")
+        return ppColSetData
     }
 
     /**
@@ -71,14 +68,11 @@ class IColumnData extends IUnknown{
     /**
      * 
      * @param {Pointer<SColumnSetID>} pColID 
-     * @param {Pointer<Pointer<MMC_SORT_SET_DATA>>} ppColSortData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<MMC_SORT_SET_DATA>} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icolumndata-getcolumnsortdata
      */
-    GetColumnSortData(pColID, ppColSortData) {
-        ppColSortDataMarshal := ppColSortData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pColID, ppColSortDataMarshal, ppColSortData, "HRESULT")
-        return result
+    GetColumnSortData(pColID) {
+        result := ComCall(6, this, "ptr", pColID, "ptr*", &ppColSortData := 0, "HRESULT")
+        return ppColSortData
     }
 }

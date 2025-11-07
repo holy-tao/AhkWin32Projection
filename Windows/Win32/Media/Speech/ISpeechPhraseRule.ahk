@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechPhraseRule.ahk
+#Include .\ISpeechPhraseRules.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,91 +33,74 @@ class ISpeechPhraseRule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(7, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Id(Id) {
-        IdMarshal := Id is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, IdMarshal, Id, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(8, this, "int*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} FirstElement 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FirstElement(FirstElement) {
-        FirstElementMarshal := FirstElement is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, FirstElementMarshal, FirstElement, "HRESULT")
-        return result
+    get_FirstElement() {
+        result := ComCall(9, this, "int*", &FirstElement := 0, "HRESULT")
+        return FirstElement
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} NumberOfElements 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_NumberOfElements(NumberOfElements) {
-        NumberOfElementsMarshal := NumberOfElements is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, NumberOfElementsMarshal, NumberOfElements, "HRESULT")
-        return result
+    get_NumberOfElements() {
+        result := ComCall(10, this, "int*", &NumberOfElements := 0, "HRESULT")
+        return NumberOfElements
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechPhraseRule>} Parent 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseRule} 
      */
-    get_Parent(Parent) {
-        result := ComCall(11, this, "ptr*", Parent, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(11, this, "ptr*", &Parent := 0, "HRESULT")
+        return ISpeechPhraseRule(Parent)
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechPhraseRules>} Children 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseRules} 
      */
-    get_Children(Children) {
-        result := ComCall(12, this, "ptr*", Children, "HRESULT")
-        return result
+    get_Children() {
+        result := ComCall(12, this, "ptr*", &Children := 0, "HRESULT")
+        return ISpeechPhraseRules(Children)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} ActualConfidence 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Confidence(ActualConfidence) {
-        ActualConfidenceMarshal := ActualConfidence is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, ActualConfidenceMarshal, ActualConfidence, "HRESULT")
-        return result
+    get_Confidence() {
+        result := ComCall(13, this, "int*", &ActualConfidence := 0, "HRESULT")
+        return ActualConfidence
     }
 
     /**
      * 
-     * @param {Pointer<Float>} EngineConfidence 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_EngineConfidence(EngineConfidence) {
-        EngineConfidenceMarshal := EngineConfidence is VarRef ? "float*" : "ptr"
-
-        result := ComCall(14, this, EngineConfidenceMarshal, EngineConfidence, "HRESULT")
-        return result
+    get_EngineConfidence() {
+        result := ComCall(14, this, "float*", &EngineConfidence := 0, "HRESULT")
+        return EngineConfidence
     }
 }

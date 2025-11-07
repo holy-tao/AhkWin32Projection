@@ -44,15 +44,13 @@ class IKsInterfaceHandler extends IUnknown{
      * @param {Pointer<IMediaSample>} SampleList 
      * @param {Pointer<Integer>} SampleCount 
      * @param {Integer} IoOperation 
-     * @param {Pointer<Pointer<KSSTREAM_SEGMENT>>} StreamSegment 
-     * @returns {HRESULT} 
+     * @returns {Pointer<KSSTREAM_SEGMENT>} 
      */
-    KsProcessMediaSamples(KsDataTypeHandler, SampleList, SampleCount, IoOperation, StreamSegment) {
+    KsProcessMediaSamples(KsDataTypeHandler, SampleList, SampleCount, IoOperation) {
         SampleCountMarshal := SampleCount is VarRef ? "int*" : "ptr"
-        StreamSegmentMarshal := StreamSegment is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", KsDataTypeHandler, "ptr*", SampleList, SampleCountMarshal, SampleCount, "int", IoOperation, StreamSegmentMarshal, StreamSegment, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", KsDataTypeHandler, "ptr*", SampleList, SampleCountMarshal, SampleCount, "int", IoOperation, "ptr*", &StreamSegment := 0, "HRESULT")
+        return StreamSegment
     }
 
     /**

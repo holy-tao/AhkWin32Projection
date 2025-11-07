@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IMSMQApplication.ahk
 
 /**
@@ -43,69 +44,58 @@ class IMSMQApplication2 extends IMSMQApplication{
     /**
      * 
      * @param {BSTR} bstrGuid 
-     * @param {Pointer<BSTR>} pbstrMachineName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    MachineNameOfMachineId(bstrGuid, pbstrMachineName) {
+    MachineNameOfMachineId(bstrGuid) {
         bstrGuid := bstrGuid is String ? BSTR.Alloc(bstrGuid).Value : bstrGuid
 
+        pbstrMachineName := BSTR()
         result := ComCall(9, this, "ptr", bstrGuid, "ptr", pbstrMachineName, "HRESULT")
-        return result
+        return pbstrMachineName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} psMSMQVersionMajor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MSMQVersionMajor(psMSMQVersionMajor) {
-        psMSMQVersionMajorMarshal := psMSMQVersionMajor is VarRef ? "short*" : "ptr"
-
-        result := ComCall(10, this, psMSMQVersionMajorMarshal, psMSMQVersionMajor, "HRESULT")
-        return result
+    get_MSMQVersionMajor() {
+        result := ComCall(10, this, "short*", &psMSMQVersionMajor := 0, "HRESULT")
+        return psMSMQVersionMajor
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} psMSMQVersionMinor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MSMQVersionMinor(psMSMQVersionMinor) {
-        psMSMQVersionMinorMarshal := psMSMQVersionMinor is VarRef ? "short*" : "ptr"
-
-        result := ComCall(11, this, psMSMQVersionMinorMarshal, psMSMQVersionMinor, "HRESULT")
-        return result
+    get_MSMQVersionMinor() {
+        result := ComCall(11, this, "short*", &psMSMQVersionMinor := 0, "HRESULT")
+        return psMSMQVersionMinor
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} psMSMQVersionBuild 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MSMQVersionBuild(psMSMQVersionBuild) {
-        psMSMQVersionBuildMarshal := psMSMQVersionBuild is VarRef ? "short*" : "ptr"
-
-        result := ComCall(12, this, psMSMQVersionBuildMarshal, psMSMQVersionBuild, "HRESULT")
-        return result
+    get_MSMQVersionBuild() {
+        result := ComCall(12, this, "short*", &psMSMQVersionBuild := 0, "HRESULT")
+        return psMSMQVersionBuild
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfIsDsEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsDsEnabled(pfIsDsEnabled) {
-        result := ComCall(13, this, "ptr", pfIsDsEnabled, "HRESULT")
-        return result
+    get_IsDsEnabled() {
+        result := ComCall(13, this, "short*", &pfIsDsEnabled := 0, "HRESULT")
+        return pfIsDsEnabled
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppcolProperties 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Properties(ppcolProperties) {
-        result := ComCall(14, this, "ptr*", ppcolProperties, "HRESULT")
-        return result
+    get_Properties() {
+        result := ComCall(14, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        return IDispatch(ppcolProperties)
     }
 }

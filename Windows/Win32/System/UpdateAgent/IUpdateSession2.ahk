@@ -37,15 +37,12 @@ class IUpdateSession2 extends IUpdateSession{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession2-get_userlocale
      */
-    get_UserLocale(retval) {
-        retvalMarshal := retval is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_UserLocale() {
+        result := ComCall(15, this, "uint*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

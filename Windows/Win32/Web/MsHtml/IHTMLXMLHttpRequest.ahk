@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,66 +38,59 @@ class IHTMLXMLHttpRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_readyState(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_readyState() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_responseBody(p) {
+    get_responseBody() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_responseText(p) {
+    get_responseText() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_responseXML(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_responseXML() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_status(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pMarshal, p, "HRESULT")
-        return result
+    get_status() {
+        result := ComCall(11, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_statusText(p) {
+    get_statusText() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -111,12 +105,12 @@ class IHTMLXMLHttpRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onreadystatechange(p) {
+    get_onreadystatechange() {
+        p := VARIANT()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -381,25 +375,25 @@ class IHTMLXMLHttpRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} __MIDL__IHTMLXMLHttpRequest0000 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getAllResponseHeaders(__MIDL__IHTMLXMLHttpRequest0000) {
+    getAllResponseHeaders() {
+        __MIDL__IHTMLXMLHttpRequest0000 := BSTR()
         result := ComCall(18, this, "ptr", __MIDL__IHTMLXMLHttpRequest0000, "HRESULT")
-        return result
+        return __MIDL__IHTMLXMLHttpRequest0000
     }
 
     /**
      * 
      * @param {BSTR} bstrHeader 
-     * @param {Pointer<BSTR>} __MIDL__IHTMLXMLHttpRequest0001 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getResponseHeader(bstrHeader, __MIDL__IHTMLXMLHttpRequest0001) {
+    getResponseHeader(bstrHeader) {
         bstrHeader := bstrHeader is String ? BSTR.Alloc(bstrHeader).Value : bstrHeader
 
+        __MIDL__IHTMLXMLHttpRequest0001 := BSTR()
         result := ComCall(19, this, "ptr", bstrHeader, "ptr", __MIDL__IHTMLXMLHttpRequest0001, "HRESULT")
-        return result
+        return __MIDL__IHTMLXMLHttpRequest0001
     }
 
     /**

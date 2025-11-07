@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FILESETINFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,15 +44,12 @@ class IBackgroundCopyJob1 extends IUnknown{
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} pdwProgress 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyjob1-getprogress
      */
-    GetProgress(dwFlags, pdwProgress) {
-        pdwProgressMarshal := pdwProgress is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", dwFlags, pdwProgressMarshal, pdwProgress, "HRESULT")
-        return result
+    GetProgress(dwFlags) {
+        result := ComCall(4, this, "uint", dwFlags, "uint*", &pdwProgress := 0, "HRESULT")
+        return pdwProgress
     }
 
     /**
@@ -90,26 +88,23 @@ class IBackgroundCopyJob1 extends IUnknown{
     /**
      * 
      * @param {Integer} cFileIndex 
-     * @param {Pointer<FILESETINFO>} pFileInfo 
-     * @returns {HRESULT} 
+     * @returns {FILESETINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyjob1-getfile
      */
-    GetFile(cFileIndex, pFileInfo) {
+    GetFile(cFileIndex) {
+        pFileInfo := FILESETINFO()
         result := ComCall(7, this, "uint", cFileIndex, "ptr", pFileInfo, "HRESULT")
-        return result
+        return pFileInfo
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFileCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyjob1-getfilecount
      */
-    GetFileCount(pdwFileCount) {
-        pdwFileCountMarshal := pdwFileCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwFileCountMarshal, pdwFileCount, "HRESULT")
-        return result
+    GetFileCount() {
+        result := ComCall(8, this, "uint*", &pdwFileCount := 0, "HRESULT")
+        return pdwFileCount
     }
 
     /**
@@ -124,12 +119,12 @@ class IBackgroundCopyJob1 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidJobID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyjob1-get_jobid
      */
-    get_JobID(pguidJobID) {
+    get_JobID() {
+        pguidJobID := Guid()
         result := ComCall(10, this, "ptr", pguidJobID, "HRESULT")
-        return result
+        return pguidJobID
     }
 }

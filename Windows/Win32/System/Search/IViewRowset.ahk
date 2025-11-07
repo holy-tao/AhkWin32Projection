@@ -31,23 +31,21 @@ class IViewRowset extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetSpecification(riid, ppObject) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppObject, "HRESULT")
-        return result
+    GetSpecification(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppObject := 0, "HRESULT")
+        return IUnknown(ppObject)
     }
 
     /**
      * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    OpenViewRowset(pUnkOuter, riid, ppRowset) {
-        result := ComCall(4, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", ppRowset, "HRESULT")
-        return result
+    OpenViewRowset(pUnkOuter, riid) {
+        result := ComCall(4, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppRowset := 0, "HRESULT")
+        return IUnknown(ppRowset)
     }
 }

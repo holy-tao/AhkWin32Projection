@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumNetConnection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,11 +32,10 @@ class INetConnectionManager extends IUnknown{
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<IEnumNetConnection>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumNetConnection} 
      */
-    EnumConnections(Flags, ppEnum) {
-        result := ComCall(3, this, "int", Flags, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumConnections(Flags) {
+        result := ComCall(3, this, "int", Flags, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumNetConnection(ppEnum)
     }
 }

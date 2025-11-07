@@ -30,39 +30,30 @@ class IDebugSystemObjects4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetEventThread(Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, IdMarshal, Id, "HRESULT")
-        return result
+    GetEventThread() {
+        result := ComCall(3, this, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetEventProcess(Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, IdMarshal, Id, "HRESULT")
-        return result
+    GetEventProcess() {
+        result := ComCall(4, this, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * Retrieves the thread identifier of the calling thread.
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} The return value is the thread identifier of the calling thread.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentthreadid
      */
-    GetCurrentThreadId(Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, IdMarshal, Id, "HRESULT")
-        return result
+    GetCurrentThreadId() {
+        result := ComCall(5, this, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
@@ -77,15 +68,12 @@ class IDebugSystemObjects4 extends IUnknown{
 
     /**
      * Retrieves the process identifier of the calling process.
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} The return value is the process identifier of the calling process.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentprocessid
      */
-    GetCurrentProcessId(Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, IdMarshal, Id, "HRESULT")
-        return result
+    GetCurrentProcessId() {
+        result := ComCall(7, this, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
@@ -100,14 +88,11 @@ class IDebugSystemObjects4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Number 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNumberThreads(Number) {
-        NumberMarshal := Number is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, NumberMarshal, Number, "HRESULT")
-        return result
+    GetNumberThreads() {
+        result := ComCall(9, this, "uint*", &Number := 0, "HRESULT")
+        return Number
     }
 
     /**
@@ -143,126 +128,96 @@ class IDebugSystemObjects4 extends IUnknown{
     /**
      * 
      * @param {Integer} Processor 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetThreadIdByProcessor(Processor, Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "uint", Processor, IdMarshal, Id, "HRESULT")
-        return result
+    GetThreadIdByProcessor(Processor) {
+        result := ComCall(12, this, "uint", Processor, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Offset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentThreadDataOffset(Offset) {
-        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, OffsetMarshal, Offset, "HRESULT")
-        return result
+    GetCurrentThreadDataOffset() {
+        result := ComCall(13, this, "uint*", &Offset := 0, "HRESULT")
+        return Offset
     }
 
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetThreadIdByDataOffset(Offset, Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "uint", Offset, IdMarshal, Id, "HRESULT")
-        return result
+    GetThreadIdByDataOffset(Offset) {
+        result := ComCall(14, this, "uint", Offset, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Offset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentThreadTeb(Offset) {
-        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, OffsetMarshal, Offset, "HRESULT")
-        return result
+    GetCurrentThreadTeb() {
+        result := ComCall(15, this, "uint*", &Offset := 0, "HRESULT")
+        return Offset
     }
 
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetThreadIdByTeb(Offset, Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, "uint", Offset, IdMarshal, Id, "HRESULT")
-        return result
+    GetThreadIdByTeb(Offset) {
+        result := ComCall(16, this, "uint", Offset, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} SysId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentThreadSystemId(SysId) {
-        SysIdMarshal := SysId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, SysIdMarshal, SysId, "HRESULT")
-        return result
+    GetCurrentThreadSystemId() {
+        result := ComCall(17, this, "uint*", &SysId := 0, "HRESULT")
+        return SysId
     }
 
     /**
      * 
      * @param {Integer} SysId 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetThreadIdBySystemId(SysId, Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, "uint", SysId, IdMarshal, Id, "HRESULT")
-        return result
+    GetThreadIdBySystemId(SysId) {
+        result := ComCall(18, this, "uint", SysId, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Handle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentThreadHandle(Handle) {
-        HandleMarshal := Handle is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, HandleMarshal, Handle, "HRESULT")
-        return result
+    GetCurrentThreadHandle() {
+        result := ComCall(19, this, "uint*", &Handle := 0, "HRESULT")
+        return Handle
     }
 
     /**
      * 
      * @param {Integer} Handle 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetThreadIdByHandle(Handle, Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, "uint", Handle, IdMarshal, Id, "HRESULT")
-        return result
+    GetThreadIdByHandle(Handle) {
+        result := ComCall(20, this, "uint", Handle, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Number 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNumberProcesses(Number) {
-        NumberMarshal := Number is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, NumberMarshal, Number, "HRESULT")
-        return result
+    GetNumberProcesses() {
+        result := ComCall(21, this, "uint*", &Number := 0, "HRESULT")
+        return Number
     }
 
     /**
@@ -283,142 +238,109 @@ class IDebugSystemObjects4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Offset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentProcessDataOffset(Offset) {
-        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(23, this, OffsetMarshal, Offset, "HRESULT")
-        return result
+    GetCurrentProcessDataOffset() {
+        result := ComCall(23, this, "uint*", &Offset := 0, "HRESULT")
+        return Offset
     }
 
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetProcessIdByDataOffset(Offset, Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(24, this, "uint", Offset, IdMarshal, Id, "HRESULT")
-        return result
+    GetProcessIdByDataOffset(Offset) {
+        result := ComCall(24, this, "uint", Offset, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Offset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentProcessPeb(Offset) {
-        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(25, this, OffsetMarshal, Offset, "HRESULT")
-        return result
+    GetCurrentProcessPeb() {
+        result := ComCall(25, this, "uint*", &Offset := 0, "HRESULT")
+        return Offset
     }
 
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetProcessIdByPeb(Offset, Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(26, this, "uint", Offset, IdMarshal, Id, "HRESULT")
-        return result
+    GetProcessIdByPeb(Offset) {
+        result := ComCall(26, this, "uint", Offset, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} SysId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentProcessSystemId(SysId) {
-        SysIdMarshal := SysId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(27, this, SysIdMarshal, SysId, "HRESULT")
-        return result
+    GetCurrentProcessSystemId() {
+        result := ComCall(27, this, "uint*", &SysId := 0, "HRESULT")
+        return SysId
     }
 
     /**
      * 
      * @param {Integer} SysId 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetProcessIdBySystemId(SysId, Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(28, this, "uint", SysId, IdMarshal, Id, "HRESULT")
-        return result
+    GetProcessIdBySystemId(SysId) {
+        result := ComCall(28, this, "uint", SysId, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Handle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentProcessHandle(Handle) {
-        HandleMarshal := Handle is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(29, this, HandleMarshal, Handle, "HRESULT")
-        return result
+    GetCurrentProcessHandle() {
+        result := ComCall(29, this, "uint*", &Handle := 0, "HRESULT")
+        return Handle
     }
 
     /**
      * 
      * @param {Integer} Handle 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetProcessIdByHandle(Handle, Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(30, this, "uint", Handle, IdMarshal, Id, "HRESULT")
-        return result
+    GetProcessIdByHandle(Handle) {
+        result := ComCall(30, this, "uint", Handle, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
      * @param {PSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} ExeSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentProcessExecutableName(Buffer, BufferSize, ExeSize) {
+    GetCurrentProcessExecutableName(Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        ExeSizeMarshal := ExeSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(31, this, "ptr", Buffer, "uint", BufferSize, ExeSizeMarshal, ExeSize, "HRESULT")
-        return result
+        result := ComCall(31, this, "ptr", Buffer, "uint", BufferSize, "uint*", &ExeSize := 0, "HRESULT")
+        return ExeSize
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} UpTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentProcessUpTime(UpTime) {
-        UpTimeMarshal := UpTime is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(32, this, UpTimeMarshal, UpTime, "HRESULT")
-        return result
+    GetCurrentProcessUpTime() {
+        result := ComCall(32, this, "uint*", &UpTime := 0, "HRESULT")
+        return UpTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Offset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetImplicitThreadDataOffset(Offset) {
-        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, OffsetMarshal, Offset, "HRESULT")
-        return result
+    GetImplicitThreadDataOffset() {
+        result := ComCall(33, this, "uint*", &Offset := 0, "HRESULT")
+        return Offset
     }
 
     /**
@@ -433,14 +355,11 @@ class IDebugSystemObjects4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Offset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetImplicitProcessDataOffset(Offset) {
-        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(35, this, OffsetMarshal, Offset, "HRESULT")
-        return result
+    GetImplicitProcessDataOffset() {
+        result := ComCall(35, this, "uint*", &Offset := 0, "HRESULT")
+        return Offset
     }
 
     /**
@@ -455,26 +374,20 @@ class IDebugSystemObjects4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetEventSystem(Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(37, this, IdMarshal, Id, "HRESULT")
-        return result
+    GetEventSystem() {
+        result := ComCall(37, this, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentSystemId(Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(38, this, IdMarshal, Id, "HRESULT")
-        return result
+    GetCurrentSystemId() {
+        result := ComCall(38, this, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
@@ -489,28 +402,22 @@ class IDebugSystemObjects4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Number 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNumberSystems(Number) {
-        NumberMarshal := Number is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(40, this, NumberMarshal, Number, "HRESULT")
-        return result
+    GetNumberSystems() {
+        result := ComCall(40, this, "uint*", &Number := 0, "HRESULT")
+        return Number
     }
 
     /**
      * 
      * @param {Integer} Start 
      * @param {Integer} Count 
-     * @param {Pointer<Integer>} Ids 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSystemIdsByIndex(Start, Count, Ids) {
-        IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(41, this, "uint", Start, "uint", Count, IdsMarshal, Ids, "HRESULT")
-        return result
+    GetSystemIdsByIndex(Start, Count) {
+        result := ComCall(41, this, "uint", Start, "uint", Count, "uint*", &Ids := 0, "HRESULT")
+        return Ids
     }
 
     /**
@@ -535,74 +442,59 @@ class IDebugSystemObjects4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Server 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentSystemServer(Server) {
-        ServerMarshal := Server is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(43, this, ServerMarshal, Server, "HRESULT")
-        return result
+    GetCurrentSystemServer() {
+        result := ComCall(43, this, "uint*", &Server := 0, "HRESULT")
+        return Server
     }
 
     /**
      * 
      * @param {Integer} Server 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSystemByServer(Server, Id) {
-        IdMarshal := Id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(44, this, "uint", Server, IdMarshal, Id, "HRESULT")
-        return result
+    GetSystemByServer(Server) {
+        result := ComCall(44, this, "uint", Server, "uint*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
      * @param {PSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} NameSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentSystemServerName(Buffer, BufferSize, NameSize) {
+    GetCurrentSystemServerName(Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(45, this, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
-        return result
+        result := ComCall(45, this, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        return NameSize
     }
 
     /**
      * 
      * @param {PWSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} ExeSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentProcessExecutableNameWide(Buffer, BufferSize, ExeSize) {
+    GetCurrentProcessExecutableNameWide(Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        ExeSizeMarshal := ExeSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(46, this, "ptr", Buffer, "uint", BufferSize, ExeSizeMarshal, ExeSize, "HRESULT")
-        return result
+        result := ComCall(46, this, "ptr", Buffer, "uint", BufferSize, "uint*", &ExeSize := 0, "HRESULT")
+        return ExeSize
     }
 
     /**
      * 
      * @param {PWSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} NameSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentSystemServerNameWide(Buffer, BufferSize, NameSize) {
+    GetCurrentSystemServerNameWide(Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(47, this, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
-        return result
+        result := ComCall(47, this, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        return NameSize
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMetadata.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,12 +36,11 @@ class IMFMetadataProvider extends IUnknown{
      * @param {IMFPresentationDescriptor} pPresentationDescriptor 
      * @param {Integer} dwStreamIdentifier 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IMFMetadata>} ppMFMetadata 
-     * @returns {HRESULT} 
+     * @returns {IMFMetadata} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmetadataprovider-getmfmetadata
      */
-    GetMFMetadata(pPresentationDescriptor, dwStreamIdentifier, dwFlags, ppMFMetadata) {
-        result := ComCall(3, this, "ptr", pPresentationDescriptor, "uint", dwStreamIdentifier, "uint", dwFlags, "ptr*", ppMFMetadata, "HRESULT")
-        return result
+    GetMFMetadata(pPresentationDescriptor, dwStreamIdentifier, dwFlags) {
+        result := ComCall(3, this, "ptr", pPresentationDescriptor, "uint", dwStreamIdentifier, "uint", dwFlags, "ptr*", &ppMFMetadata := 0, "HRESULT")
+        return IMFMetadata(ppMFMetadata)
     }
 }

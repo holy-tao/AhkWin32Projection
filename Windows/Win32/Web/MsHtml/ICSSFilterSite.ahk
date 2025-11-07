@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class ICSSFilterSite extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} Element 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    GetElement(Element) {
-        result := ComCall(3, this, "ptr*", Element, "HRESULT")
-        return result
+    GetElement() {
+        result := ComCall(3, this, "ptr*", &Element := 0, "HRESULT")
+        return IHTMLElement(Element)
     }
 
     /**

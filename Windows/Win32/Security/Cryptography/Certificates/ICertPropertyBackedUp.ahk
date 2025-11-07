@@ -65,25 +65,21 @@ class ICertPropertyBackedUp extends ICertProperty{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertybackedup-get_backedupvalue
      */
-    get_BackedUpValue(pValue) {
-        result := ComCall(16, this, "ptr", pValue, "HRESULT")
-        return result
+    get_BackedUpValue() {
+        result := ComCall(16, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pDate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertybackedup-get_backeduptime
      */
-    get_BackedUpTime(pDate) {
-        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(17, this, pDateMarshal, pDate, "HRESULT")
-        return result
+    get_BackedUpTime() {
+        result := ComCall(17, this, "double*", &pDate := 0, "HRESULT")
+        return pDate
     }
 }

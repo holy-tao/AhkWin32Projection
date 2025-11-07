@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,37 +33,33 @@ class IWICStreamProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IStream>} ppIStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicstreamprovider-getstream
      */
-    GetStream(ppIStream) {
-        result := ComCall(3, this, "ptr*", ppIStream, "HRESULT")
-        return result
+    GetStream() {
+        result := ComCall(3, this, "ptr*", &ppIStream := 0, "HRESULT")
+        return IStream(ppIStream)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwPersistOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicstreamprovider-getpersistoptions
      */
-    GetPersistOptions(pdwPersistOptions) {
-        pdwPersistOptionsMarshal := pdwPersistOptions is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwPersistOptionsMarshal, pdwPersistOptions, "HRESULT")
-        return result
+    GetPersistOptions() {
+        result := ComCall(4, this, "uint*", &pdwPersistOptions := 0, "HRESULT")
+        return pdwPersistOptions
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidPreferredVendor 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicstreamprovider-getpreferredvendorguid
      */
-    GetPreferredVendorGUID(pguidPreferredVendor) {
+    GetPreferredVendorGUID() {
+        pguidPreferredVendor := Guid()
         result := ComCall(5, this, "ptr", pguidPreferredVendor, "HRESULT")
-        return result
+        return pguidPreferredVendor
     }
 
     /**

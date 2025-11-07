@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncFilter.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -56,12 +57,11 @@ class IFilterKeyMap extends IUnknown{
     /**
      * 
      * @param {Integer} dwFilterKey 
-     * @param {Pointer<ISyncFilter>} ppISyncFilter 
-     * @returns {HRESULT} 
+     * @returns {ISyncFilter} 
      */
-    GetFilter(dwFilterKey, ppISyncFilter) {
-        result := ComCall(5, this, "uint", dwFilterKey, "ptr*", ppISyncFilter, "HRESULT")
-        return result
+    GetFilter(dwFilterKey) {
+        result := ComCall(5, this, "uint", dwFilterKey, "ptr*", &ppISyncFilter := 0, "HRESULT")
+        return ISyncFilter(ppISyncFilter)
     }
 
     /**

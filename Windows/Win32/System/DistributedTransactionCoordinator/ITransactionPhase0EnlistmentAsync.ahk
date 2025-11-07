@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransaction.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -66,11 +67,10 @@ class ITransactionPhase0EnlistmentAsync extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITransaction>} ppITransaction 
-     * @returns {HRESULT} 
+     * @returns {ITransaction} 
      */
-    GetTransaction(ppITransaction) {
-        result := ComCall(7, this, "ptr*", ppITransaction, "HRESULT")
-        return result
+    GetTransaction() {
+        result := ComCall(7, this, "ptr*", &ppITransaction := 0, "HRESULT")
+        return ITransaction(ppITransaction)
     }
 }

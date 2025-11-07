@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICMetadataWriter.ahk
 #Include .\IWICMetadataBlockReader.ahk
 
 /**
@@ -50,13 +51,12 @@ class IWICMetadataBlockWriter extends IWICMetadataBlockReader{
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<IWICMetadataWriter>} ppIMetadataWriter 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-getwriterbyindex
      */
-    GetWriterByIndex(nIndex, ppIMetadataWriter) {
-        result := ComCall(8, this, "uint", nIndex, "ptr*", ppIMetadataWriter, "HRESULT")
-        return result
+    GetWriterByIndex(nIndex) {
+        result := ComCall(8, this, "uint", nIndex, "ptr*", &ppIMetadataWriter := 0, "HRESULT")
+        return IWICMetadataWriter(ppIMetadataWriter)
     }
 
     /**

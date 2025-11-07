@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFASFMutualExclusion.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,13 +38,13 @@ class IMFASFMutualExclusion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-gettype
      */
-    GetType(pguidType) {
+    GetType() {
+        pguidType := Guid()
         result := ComCall(3, this, "ptr", pguidType, "HRESULT")
-        return result
+        return pguidType
     }
 
     /**
@@ -59,31 +60,26 @@ class IMFASFMutualExclusion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwRecordCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-getrecordcount
      */
-    GetRecordCount(pdwRecordCount) {
-        pdwRecordCountMarshal := pdwRecordCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwRecordCountMarshal, pdwRecordCount, "HRESULT")
-        return result
+    GetRecordCount() {
+        result := ComCall(5, this, "uint*", &pdwRecordCount := 0, "HRESULT")
+        return pdwRecordCount
     }
 
     /**
      * 
      * @param {Integer} dwRecordNumber 
-     * @param {Pointer<Integer>} pwStreamNumArray 
      * @param {Pointer<Integer>} pcStreams 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-getstreamsforrecord
      */
-    GetStreamsForRecord(dwRecordNumber, pwStreamNumArray, pcStreams) {
-        pwStreamNumArrayMarshal := pwStreamNumArray is VarRef ? "ushort*" : "ptr"
+    GetStreamsForRecord(dwRecordNumber, pcStreams) {
         pcStreamsMarshal := pcStreams is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwRecordNumber, pwStreamNumArrayMarshal, pwStreamNumArray, pcStreamsMarshal, pcStreams, "HRESULT")
-        return result
+        result := ComCall(6, this, "uint", dwRecordNumber, "ushort*", &pwStreamNumArray := 0, pcStreamsMarshal, pcStreams, "HRESULT")
+        return pwStreamNumArray
     }
 
     /**
@@ -123,25 +119,21 @@ class IMFASFMutualExclusion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwRecordNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-addrecord
      */
-    AddRecord(pdwRecordNumber) {
-        pdwRecordNumberMarshal := pdwRecordNumber is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pdwRecordNumberMarshal, pdwRecordNumber, "HRESULT")
-        return result
+    AddRecord() {
+        result := ComCall(10, this, "uint*", &pdwRecordNumber := 0, "HRESULT")
+        return pdwRecordNumber
     }
 
     /**
      * 
-     * @param {Pointer<IMFASFMutualExclusion>} ppIMutex 
-     * @returns {HRESULT} 
+     * @returns {IMFASFMutualExclusion} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-clone
      */
-    Clone(ppIMutex) {
-        result := ComCall(11, this, "ptr*", ppIMutex, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(11, this, "ptr*", &ppIMutex := 0, "HRESULT")
+        return IMFASFMutualExclusion(ppIMutex)
     }
 }

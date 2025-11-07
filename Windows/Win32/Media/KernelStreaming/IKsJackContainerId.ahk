@@ -30,11 +30,11 @@ class IKsJackContainerId extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pJackContainerId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetJackContainerId(pJackContainerId) {
+    GetJackContainerId() {
+        pJackContainerId := Guid()
         result := ComCall(3, this, "ptr", pJackContainerId, "HRESULT")
-        return result
+        return pJackContainerId
     }
 }

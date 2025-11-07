@@ -40,15 +40,12 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {BOOL} fVal 
      * @param {Integer} cco 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createtruefalse
      */
-    CreateTrueFalse(fVal, cco, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "int", fVal, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateTrueFalse(fVal, cco, riid) {
+        result := ComCall(7, this, "int", fVal, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -56,15 +53,12 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {ICondition} pcSub 
      * @param {Integer} cco 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createnegation
      */
-    CreateNegation(pcSub, cco, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pcSub, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateNegation(pcSub, cco, riid) {
+        result := ComCall(8, this, "ptr", pcSub, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -73,15 +67,12 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {IObjectArray} poaSubs 
      * @param {Integer} cco 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createcompoundfromobjectarray
      */
-    CreateCompoundFromObjectArray(ct, poaSubs, cco, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "int", ct, "ptr", poaSubs, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateCompoundFromObjectArray(ct, poaSubs, cco, riid) {
+        result := ComCall(9, this, "int", ct, "ptr", poaSubs, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -91,15 +82,12 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {Integer} cSubs 
      * @param {Integer} cco 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createcompoundfromarray
      */
-    CreateCompoundFromArray(ct, ppcondSubs, cSubs, cco, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "int", ct, "ptr*", ppcondSubs, "uint", cSubs, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateCompoundFromArray(ct, ppcondSubs, cSubs, cco, riid) {
+        result := ComCall(10, this, "int", ct, "ptr*", ppcondSubs, "uint", cSubs, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -110,18 +98,15 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {PWSTR} pszLocaleName 
      * @param {Integer} cco 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createstringleaf
      */
-    CreateStringLeaf(propkey, cop, pszValue, pszLocaleName, cco, riid, ppv) {
+    CreateStringLeaf(propkey, cop, pszValue, pszLocaleName, cco, riid) {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "ptr", propkey, "int", cop, "ptr", pszValue, "ptr", pszLocaleName, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", propkey, "int", cop, "ptr", pszValue, "ptr", pszLocaleName, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -131,15 +116,12 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {Integer} lValue 
      * @param {Integer} cco 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createintegerleaf
      */
-    CreateIntegerLeaf(propkey, cop, lValue, cco, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, "ptr", propkey, "int", cop, "int", lValue, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateIntegerLeaf(propkey, cop, lValue, cco, riid) {
+        result := ComCall(12, this, "ptr", propkey, "int", cop, "int", lValue, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -149,15 +131,12 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {BOOL} fValue 
      * @param {Integer} cco 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createbooleanleaf
      */
-    CreateBooleanLeaf(propkey, cop, fValue, cco, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(13, this, "ptr", propkey, "int", cop, "int", fValue, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateBooleanLeaf(propkey, cop, fValue, cco, riid) {
+        result := ComCall(13, this, "ptr", propkey, "int", cop, "int", fValue, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -172,18 +151,15 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {IRichChunk} pValueTerm 
      * @param {Integer} cco 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createleaf
      */
-    CreateLeaf(propkey, cop, propvar, pszSemanticType, pszLocaleName, pPropertyNameTerm, pOperationTerm, pValueTerm, cco, riid, ppv) {
+    CreateLeaf(propkey, cop, propvar, pszSemanticType, pszLocaleName, pPropertyNameTerm, pOperationTerm, pValueTerm, cco, riid) {
         pszSemanticType := pszSemanticType is String ? StrPtr(pszSemanticType) : pszSemanticType
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(14, this, "ptr", propkey, "int", cop, "ptr", propvar, "ptr", pszSemanticType, "ptr", pszLocaleName, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", propkey, "int", cop, "ptr", propvar, "ptr", pszSemanticType, "ptr", pszLocaleName, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -192,14 +168,11 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {Integer} sqro 
      * @param {Pointer<SYSTEMTIME>} pstReferenceTime 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-resolvecondition
      */
-    ResolveCondition(pc, sqro, pstReferenceTime, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(15, this, "ptr", pc, "int", sqro, "ptr", pstReferenceTime, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    ResolveCondition(pc, sqro, pstReferenceTime, riid) {
+        result := ComCall(15, this, "ptr", pc, "int", sqro, "ptr", pstReferenceTime, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSTATURL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -74,25 +75,21 @@ class IUrlHistoryStg extends IUnknown{
      * 
      * @param {PWSTR} pocsUrl 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvOut 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    BindToObject(pocsUrl, riid, ppvOut) {
+    BindToObject(pocsUrl, riid) {
         pocsUrl := pocsUrl is String ? StrPtr(pocsUrl) : pocsUrl
 
-        ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pocsUrl, "ptr", riid, ppvOutMarshal, ppvOut, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pocsUrl, "ptr", riid, "ptr*", &ppvOut := 0, "HRESULT")
+        return ppvOut
     }
 
     /**
      * 
-     * @param {Pointer<IEnumSTATURL>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSTATURL} 
      */
-    EnumUrls(ppEnum) {
-        result := ComCall(7, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumUrls() {
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumSTATURL(ppEnum)
     }
 }

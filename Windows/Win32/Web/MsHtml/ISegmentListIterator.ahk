@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISegment.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class ISegmentListIterator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISegment>} ppISegment 
-     * @returns {HRESULT} 
+     * @returns {ISegment} 
      */
-    Current(ppISegment) {
-        result := ComCall(3, this, "ptr*", ppISegment, "HRESULT")
-        return result
+    Current() {
+        result := ComCall(3, this, "ptr*", &ppISegment := 0, "HRESULT")
+        return ISegment(ppISegment)
     }
 
     /**

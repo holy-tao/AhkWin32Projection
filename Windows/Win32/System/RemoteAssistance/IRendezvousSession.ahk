@@ -41,39 +41,33 @@ class IRendezvousSession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSessionState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-get_state
      */
-    get_State(pSessionState) {
-        pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pSessionStateMarshal, pSessionState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(3, this, "int*", &pSessionState := 0, "HRESULT")
+        return pSessionState
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrUserName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-get_remoteuser
      */
-    get_RemoteUser(bstrUserName) {
+    get_RemoteUser() {
+        bstrUserName := BSTR()
         result := ComCall(4, this, "ptr", bstrUserName, "HRESULT")
-        return result
+        return bstrUserName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-get_flags
      */
-    get_Flags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    get_Flags() {
+        result := ComCall(5, this, "int*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**

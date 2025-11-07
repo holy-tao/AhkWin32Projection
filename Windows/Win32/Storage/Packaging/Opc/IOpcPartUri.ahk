@@ -40,36 +40,31 @@ class IOpcPartUri extends IOpcUri{
     /**
      * 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<Integer>} comparisonResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcparturi-compareparturi
      */
-    ComparePartUri(partUri, comparisonResult) {
-        comparisonResultMarshal := comparisonResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, "ptr", partUri, comparisonResultMarshal, comparisonResult, "HRESULT")
-        return result
+    ComparePartUri(partUri) {
+        result := ComCall(31, this, "ptr", partUri, "int*", &comparisonResult := 0, "HRESULT")
+        return comparisonResult
     }
 
     /**
      * 
-     * @param {Pointer<IOpcUri>} sourceUri 
-     * @returns {HRESULT} 
+     * @returns {IOpcUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcparturi-getsourceuri
      */
-    GetSourceUri(sourceUri) {
-        result := ComCall(32, this, "ptr*", sourceUri, "HRESULT")
-        return result
+    GetSourceUri() {
+        result := ComCall(32, this, "ptr*", &sourceUri := 0, "HRESULT")
+        return IOpcUri(sourceUri)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} isRelationshipUri 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcparturi-isrelationshipsparturi
      */
-    IsRelationshipsPartUri(isRelationshipUri) {
-        result := ComCall(33, this, "ptr", isRelationshipUri, "HRESULT")
-        return result
+    IsRelationshipsPartUri() {
+        result := ComCall(33, this, "int*", &isRelationshipUri := 0, "HRESULT")
+        return isRelationshipUri
     }
 }

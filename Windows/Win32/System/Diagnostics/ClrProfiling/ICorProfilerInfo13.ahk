@@ -32,14 +32,11 @@ class ICorProfilerInfo13 extends ICorProfilerInfo12{
      * 
      * @param {Pointer} object 
      * @param {Integer} type 
-     * @param {Pointer<Pointer<Pointer<Void>>>} pHandle 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
-    CreateHandle(object, type, pHandle) {
-        pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(108, this, "ptr", object, "int", type, pHandleMarshal, pHandle, "HRESULT")
-        return result
+    CreateHandle(object, type) {
+        result := ComCall(108, this, "ptr", object, "int", type, "ptr*", &pHandle := 0, "HRESULT")
+        return pHandle
     }
 
     /**
@@ -57,14 +54,12 @@ class ICorProfilerInfo13 extends ICorProfilerInfo12{
     /**
      * 
      * @param {Pointer<Pointer<Void>>} handle 
-     * @param {Pointer<Pointer>} pObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetObjectIDFromHandle(handle, pObject) {
+    GetObjectIDFromHandle(handle) {
         handleMarshal := handle is VarRef ? "ptr*" : "ptr"
-        pObjectMarshal := pObject is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(110, this, handleMarshal, handle, pObjectMarshal, pObject, "HRESULT")
-        return result
+        result := ComCall(110, this, handleMarshal, handle, "ptr*", &pObject := 0, "HRESULT")
+        return pObject
     }
 }

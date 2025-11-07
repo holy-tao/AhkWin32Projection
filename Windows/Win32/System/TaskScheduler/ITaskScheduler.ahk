@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumWorkItems.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -51,39 +52,36 @@ class ITaskScheduler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszComputer 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-gettargetcomputer
      */
-    GetTargetComputer(ppwszComputer) {
-        result := ComCall(4, this, "ptr", ppwszComputer, "HRESULT")
-        return result
+    GetTargetComputer() {
+        result := ComCall(4, this, "ptr*", &ppwszComputer := 0, "HRESULT")
+        return ppwszComputer
     }
 
     /**
      * 
-     * @param {Pointer<IEnumWorkItems>} ppEnumWorkItems 
-     * @returns {HRESULT} 
+     * @returns {IEnumWorkItems} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-enum
      */
-    Enum(ppEnumWorkItems) {
-        result := ComCall(5, this, "ptr*", ppEnumWorkItems, "HRESULT")
-        return result
+    Enum() {
+        result := ComCall(5, this, "ptr*", &ppEnumWorkItems := 0, "HRESULT")
+        return IEnumWorkItems(ppEnumWorkItems)
     }
 
     /**
      * 
      * @param {PWSTR} pwszName 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-activate
      */
-    Activate(pwszName, riid, ppUnk) {
+    Activate(pwszName, riid) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(6, this, "ptr", pwszName, "ptr", riid, "ptr*", ppUnk, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pwszName, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
@@ -104,15 +102,14 @@ class ITaskScheduler extends IUnknown{
      * @param {PWSTR} pwszTaskName 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-newworkitem
      */
-    NewWorkItem(pwszTaskName, rclsid, riid, ppUnk) {
+    NewWorkItem(pwszTaskName, rclsid, riid) {
         pwszTaskName := pwszTaskName is String ? StrPtr(pwszTaskName) : pwszTaskName
 
-        result := ComCall(8, this, "ptr", pwszTaskName, "ptr", rclsid, "ptr", riid, "ptr*", ppUnk, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", pwszTaskName, "ptr", rclsid, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**

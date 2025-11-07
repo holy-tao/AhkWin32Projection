@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,45 +39,45 @@ class IWdsTransportContentProvider extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_name
      */
-    get_Name(pbszName) {
+    get_Name() {
+        pbszName := BSTR()
         result := ComCall(7, this, "ptr", pbszName, "HRESULT")
-        return result
+        return pbszName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_description
      */
-    get_Description(pbszDescription) {
+    get_Description() {
+        pbszDescription := BSTR()
         result := ComCall(8, this, "ptr", pbszDescription, "HRESULT")
-        return result
+        return pbszDescription
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszFilePath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_filepath
      */
-    get_FilePath(pbszFilePath) {
+    get_FilePath() {
+        pbszFilePath := BSTR()
         result := ComCall(9, this, "ptr", pbszFilePath, "HRESULT")
-        return result
+        return pbszFilePath
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszInitializationRoutine 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_initializationroutine
      */
-    get_InitializationRoutine(pbszInitializationRoutine) {
+    get_InitializationRoutine() {
+        pbszInitializationRoutine := BSTR()
         result := ComCall(10, this, "ptr", pbszInitializationRoutine, "HRESULT")
-        return result
+        return pbszInitializationRoutine
     }
 }

@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechRecognizer.ahk
+#Include .\ISpeechVoice.ahk
+#Include .\ISpeechAudioFormat.ahk
+#Include .\ISpeechRecoGrammar.ahk
+#Include .\ISpeechRecoResult.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,34 +36,30 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechRecognizer>} Recognizer 
-     * @returns {HRESULT} 
+     * @returns {ISpeechRecognizer} 
      */
-    get_Recognizer(Recognizer) {
-        result := ComCall(7, this, "ptr*", Recognizer, "HRESULT")
-        return result
+    get_Recognizer() {
+        result := ComCall(7, this, "ptr*", &Recognizer := 0, "HRESULT")
+        return ISpeechRecognizer(Recognizer)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Interference 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AudioInputInterferenceStatus(Interference) {
-        InterferenceMarshal := Interference is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, InterferenceMarshal, Interference, "HRESULT")
-        return result
+    get_AudioInputInterferenceStatus() {
+        result := ComCall(8, this, "int*", &Interference := 0, "HRESULT")
+        return Interference
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} UIType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_RequestedUIType(UIType) {
+    get_RequestedUIType() {
+        UIType := BSTR()
         result := ComCall(9, this, "ptr", UIType, "HRESULT")
-        return result
+        return UIType
     }
 
     /**
@@ -73,12 +74,11 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechVoice>} Voice 
-     * @returns {HRESULT} 
+     * @returns {ISpeechVoice} 
      */
-    get_Voice(Voice) {
-        result := ComCall(11, this, "ptr*", Voice, "HRESULT")
-        return result
+    get_Voice() {
+        result := ComCall(11, this, "ptr*", &Voice := 0, "HRESULT")
+        return ISpeechVoice(Voice)
     }
 
     /**
@@ -93,12 +93,11 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pAllow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_AllowVoiceFormatMatchingOnNextSet(pAllow) {
-        result := ComCall(13, this, "ptr", pAllow, "HRESULT")
-        return result
+    get_AllowVoiceFormatMatchingOnNextSet() {
+        result := ComCall(13, this, "short*", &pAllow := 0, "HRESULT")
+        return pAllow
     }
 
     /**
@@ -113,14 +112,11 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} EventInterest 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_VoicePurgeEvent(EventInterest) {
-        EventInterestMarshal := EventInterest is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, EventInterestMarshal, EventInterest, "HRESULT")
-        return result
+    get_VoicePurgeEvent() {
+        result := ComCall(15, this, "int*", &EventInterest := 0, "HRESULT")
+        return EventInterest
     }
 
     /**
@@ -135,14 +131,11 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} EventInterest 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EventInterests(EventInterest) {
-        EventInterestMarshal := EventInterest is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, EventInterestMarshal, EventInterest, "HRESULT")
-        return result
+    get_EventInterests() {
+        result := ComCall(17, this, "int*", &EventInterest := 0, "HRESULT")
+        return EventInterest
     }
 
     /**
@@ -157,14 +150,11 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} MaxAlternates 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CmdMaxAlternates(MaxAlternates) {
-        MaxAlternatesMarshal := MaxAlternates is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, MaxAlternatesMarshal, MaxAlternates, "HRESULT")
-        return result
+    get_CmdMaxAlternates() {
+        result := ComCall(19, this, "int*", &MaxAlternates := 0, "HRESULT")
+        return MaxAlternates
     }
 
     /**
@@ -179,14 +169,11 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} State 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(State) {
-        StateMarshal := State is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, StateMarshal, State, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(21, this, "int*", &State := 0, "HRESULT")
+        return State
     }
 
     /**
@@ -201,14 +188,11 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Option 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RetainedAudio(Option) {
-        OptionMarshal := Option is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, OptionMarshal, Option, "HRESULT")
-        return result
+    get_RetainedAudio() {
+        result := ComCall(23, this, "int*", &Option := 0, "HRESULT")
+        return Option
     }
 
     /**
@@ -223,12 +207,11 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechAudioFormat>} Format 
-     * @returns {HRESULT} 
+     * @returns {ISpeechAudioFormat} 
      */
-    get_RetainedAudioFormat(Format) {
-        result := ComCall(25, this, "ptr*", Format, "HRESULT")
-        return result
+    get_RetainedAudioFormat() {
+        result := ComCall(25, this, "ptr*", &Format := 0, "HRESULT")
+        return ISpeechAudioFormat(Format)
     }
 
     /**
@@ -252,23 +235,21 @@ class ISpeechRecoContext extends IDispatch{
     /**
      * 
      * @param {VARIANT} GrammarId 
-     * @param {Pointer<ISpeechRecoGrammar>} Grammar 
-     * @returns {HRESULT} 
+     * @returns {ISpeechRecoGrammar} 
      */
-    CreateGrammar(GrammarId, Grammar) {
-        result := ComCall(28, this, "ptr", GrammarId, "ptr*", Grammar, "HRESULT")
-        return result
+    CreateGrammar(GrammarId) {
+        result := ComCall(28, this, "ptr", GrammarId, "ptr*", &Grammar := 0, "HRESULT")
+        return ISpeechRecoGrammar(Grammar)
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} ResultBlock 
-     * @param {Pointer<ISpeechRecoResult>} Result 
-     * @returns {HRESULT} 
+     * @returns {ISpeechRecoResult} 
      */
-    CreateResultFromMemory(ResultBlock, Result) {
-        result := ComCall(29, this, "ptr", ResultBlock, "ptr*", Result, "HRESULT")
-        return result
+    CreateResultFromMemory(ResultBlock) {
+        result := ComCall(29, this, "ptr", ResultBlock, "ptr*", &Result := 0, "HRESULT")
+        return ISpeechRecoResult(Result)
     }
 
     /**

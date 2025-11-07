@@ -32,27 +32,21 @@ class IOfflineFilesDirtyInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDirtyByteCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesdirtyinfo-localdirtybytecount
      */
-    LocalDirtyByteCount(pDirtyByteCount) {
-        pDirtyByteCountMarshal := pDirtyByteCount is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(3, this, pDirtyByteCountMarshal, pDirtyByteCount, "HRESULT")
-        return result
+    LocalDirtyByteCount() {
+        result := ComCall(3, this, "int64*", &pDirtyByteCount := 0, "HRESULT")
+        return pDirtyByteCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDirtyByteCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesdirtyinfo-remotedirtybytecount
      */
-    RemoteDirtyByteCount(pDirtyByteCount) {
-        pDirtyByteCountMarshal := pDirtyByteCount is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(4, this, pDirtyByteCountMarshal, pDirtyByteCount, "HRESULT")
-        return result
+    RemoteDirtyByteCount() {
+        result := ComCall(4, this, "int64*", &pDirtyByteCount := 0, "HRESULT")
+        return pDirtyByteCount
     }
 }

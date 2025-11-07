@@ -41,7 +41,9 @@ class IWMPSettings extends IDispatch{
     get_isAvailable(bstrItem, pIsAvailable) {
         bstrItem := bstrItem is String ? BSTR.Alloc(bstrItem).Value : bstrItem
 
-        result := ComCall(7, this, "ptr", bstrItem, "ptr", pIsAvailable, "HRESULT")
+        pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, "ptr", bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IWMPSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_autostart
      */
     get_autoStart(pfAutoStart) {
-        result := ComCall(8, this, "ptr", pfAutoStart, "HRESULT")
+        pfAutoStartMarshal := pfAutoStart is VarRef ? "short*" : "ptr"
+
+        result := ComCall(8, this, pfAutoStartMarshal, pfAutoStart, "HRESULT")
         return result
     }
 
@@ -122,7 +126,9 @@ class IWMPSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_invokeurls
      */
     get_invokeURLs(pfInvokeURLs) {
-        result := ComCall(14, this, "ptr", pfInvokeURLs, "HRESULT")
+        pfInvokeURLsMarshal := pfInvokeURLs is VarRef ? "short*" : "ptr"
+
+        result := ComCall(14, this, pfInvokeURLsMarshal, pfInvokeURLs, "HRESULT")
         return result
     }
 
@@ -144,7 +150,9 @@ class IWMPSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_mute
      */
     get_mute(pfMute) {
-        result := ComCall(16, this, "ptr", pfMute, "HRESULT")
+        pfMuteMarshal := pfMute is VarRef ? "short*" : "ptr"
+
+        result := ComCall(16, this, pfMuteMarshal, pfMute, "HRESULT")
         return result
     }
 
@@ -265,7 +273,9 @@ class IWMPSettings extends IDispatch{
     getMode(bstrMode, pvarfMode) {
         bstrMode := bstrMode is String ? BSTR.Alloc(bstrMode).Value : bstrMode
 
-        result := ComCall(26, this, "ptr", bstrMode, "ptr", pvarfMode, "HRESULT")
+        pvarfModeMarshal := pvarfMode is VarRef ? "short*" : "ptr"
+
+        result := ComCall(26, this, "ptr", bstrMode, pvarfModeMarshal, pvarfMode, "HRESULT")
         return result
     }
 
@@ -290,7 +300,9 @@ class IWMPSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_enableerrordialogs
      */
     get_enableErrorDialogs(pfEnableErrorDialogs) {
-        result := ComCall(28, this, "ptr", pfEnableErrorDialogs, "HRESULT")
+        pfEnableErrorDialogsMarshal := pfEnableErrorDialogs is VarRef ? "short*" : "ptr"
+
+        result := ComCall(28, this, pfEnableErrorDialogsMarshal, pfEnableErrorDialogs, "HRESULT")
         return result
     }
 

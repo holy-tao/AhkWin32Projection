@@ -57,15 +57,12 @@ class IMSVidGenericSink extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<Integer>} pStreams 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgenericsink-get_sinkstreams
      */
-    get_SinkStreams(pStreams) {
-        pStreamsMarshal := pStreams is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pStreamsMarshal, pStreams, "HRESULT")
-        return result
+    get_SinkStreams() {
+        result := ComCall(17, this, "int*", &pStreams := 0, "HRESULT")
+        return pStreams
     }
 
     /**

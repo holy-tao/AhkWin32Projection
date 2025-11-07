@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMBackup.ahk
+#Include .\IGPMBackupCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,37 +41,35 @@ class IGPMBackupDir extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_BackupDirectory(pVal) {
+    get_BackupDirectory() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} bstrID 
-     * @param {Pointer<IGPMBackup>} ppBackup 
-     * @returns {HRESULT} 
+     * @returns {IGPMBackup} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmbackupdir-getbackup
      */
-    GetBackup(bstrID, ppBackup) {
+    GetBackup(bstrID) {
         bstrID := bstrID is String ? BSTR.Alloc(bstrID).Value : bstrID
 
-        result := ComCall(8, this, "ptr", bstrID, "ptr*", ppBackup, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", bstrID, "ptr*", &ppBackup := 0, "HRESULT")
+        return IGPMBackup(ppBackup)
     }
 
     /**
      * 
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria 
-     * @param {Pointer<IGPMBackupCollection>} ppIGPMBackupCollection 
-     * @returns {HRESULT} 
+     * @returns {IGPMBackupCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmbackupdir-searchbackups
      */
-    SearchBackups(pIGPMSearchCriteria, ppIGPMBackupCollection) {
-        result := ComCall(9, this, "ptr", pIGPMSearchCriteria, "ptr*", ppIGPMBackupCollection, "HRESULT")
-        return result
+    SearchBackups(pIGPMSearchCriteria) {
+        result := ComCall(9, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMBackupCollection := 0, "HRESULT")
+        return IGPMBackupCollection(ppIGPMBackupCollection)
     }
 }

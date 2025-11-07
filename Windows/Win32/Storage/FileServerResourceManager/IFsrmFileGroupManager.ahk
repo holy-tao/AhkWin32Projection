@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmFileGroup.ahk
+#Include .\IFsrmCommittableCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -60,65 +62,61 @@ class IFsrmFileGroupManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFsrmFileGroup>} fileGroup 
-     * @returns {HRESULT} 
+     * @returns {IFsrmFileGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-createfilegroup
      */
-    CreateFileGroup(fileGroup) {
-        result := ComCall(7, this, "ptr*", fileGroup, "HRESULT")
-        return result
+    CreateFileGroup() {
+        result := ComCall(7, this, "ptr*", &fileGroup := 0, "HRESULT")
+        return IFsrmFileGroup(fileGroup)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IFsrmFileGroup>} fileGroup 
-     * @returns {HRESULT} 
+     * @returns {IFsrmFileGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-getfilegroup
      */
-    GetFileGroup(name, fileGroup) {
+    GetFileGroup(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, "ptr", name, "ptr*", fileGroup, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", name, "ptr*", &fileGroup := 0, "HRESULT")
+        return IFsrmFileGroup(fileGroup)
     }
 
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCommittableCollection>} fileGroups 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-enumfilegroups
      */
-    EnumFileGroups(options, fileGroups) {
-        result := ComCall(9, this, "int", options, "ptr*", fileGroups, "HRESULT")
-        return result
+    EnumFileGroups(options) {
+        result := ComCall(9, this, "int", options, "ptr*", &fileGroups := 0, "HRESULT")
+        return IFsrmCommittableCollection(fileGroups)
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} fileGroupNamesArray 
-     * @param {Pointer<BSTR>} serializedFileGroups 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-exportfilegroups
      */
-    ExportFileGroups(fileGroupNamesArray, serializedFileGroups) {
+    ExportFileGroups(fileGroupNamesArray) {
+        serializedFileGroups := BSTR()
         result := ComCall(10, this, "ptr", fileGroupNamesArray, "ptr", serializedFileGroups, "HRESULT")
-        return result
+        return serializedFileGroups
     }
 
     /**
      * 
      * @param {BSTR} serializedFileGroups 
      * @param {Pointer<VARIANT>} fileGroupNamesArray 
-     * @param {Pointer<IFsrmCommittableCollection>} fileGroups 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-importfilegroups
      */
-    ImportFileGroups(serializedFileGroups, fileGroupNamesArray, fileGroups) {
+    ImportFileGroups(serializedFileGroups, fileGroupNamesArray) {
         serializedFileGroups := serializedFileGroups is String ? BSTR.Alloc(serializedFileGroups).Value : serializedFileGroups
 
-        result := ComCall(11, this, "ptr", serializedFileGroups, "ptr", fileGroupNamesArray, "ptr*", fileGroups, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", serializedFileGroups, "ptr", fileGroupNamesArray, "ptr*", &fileGroups := 0, "HRESULT")
+        return IFsrmCommittableCollection(fileGroups)
     }
 }

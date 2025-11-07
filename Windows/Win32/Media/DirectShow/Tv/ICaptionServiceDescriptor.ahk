@@ -43,84 +43,66 @@ class ICaptionServiceDescriptor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getnumberofservices
      */
-    GetNumberOfServices(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetNumberOfServices() {
+        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bIndex 
-     * @param {Pointer<Integer>} LangCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getlanguagecode
      */
-    GetLanguageCode(bIndex, LangCode) {
-        LangCodeMarshal := LangCode is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, "char", bIndex, LangCodeMarshal, LangCode, "HRESULT")
-        return result
+    GetLanguageCode(bIndex) {
+        result := ComCall(4, this, "char", bIndex, "char*", &LangCode := 0, "HRESULT")
+        return LangCode
     }
 
     /**
      * 
      * @param {Integer} bIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getcaptionservicenumber
      */
-    GetCaptionServiceNumber(bIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(5, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetCaptionServiceNumber(bIndex) {
+        result := ComCall(5, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getcctype
      */
-    GetCCType(bIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(6, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetCCType(bIndex) {
+        result := ComCall(6, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-geteasyreader
      */
-    GetEasyReader(bIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(7, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetEasyReader(bIndex) {
+        result := ComCall(7, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getwideaspectratio
      */
-    GetWideAspectRatio(bIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(8, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetWideAspectRatio(bIndex) {
+        result := ComCall(8, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 }

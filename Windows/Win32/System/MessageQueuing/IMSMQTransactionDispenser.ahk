@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMSMQTransaction.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,11 +37,10 @@ class IMSMQTransactionDispenser extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMSMQTransaction>} ptransaction 
-     * @returns {HRESULT} 
+     * @returns {IMSMQTransaction} 
      */
-    BeginTransaction(ptransaction) {
-        result := ComCall(7, this, "ptr*", ptransaction, "HRESULT")
-        return result
+    BeginTransaction() {
+        result := ComCall(7, this, "ptr*", &ptransaction := 0, "HRESULT")
+        return IMSMQTransaction(ptransaction)
     }
 }

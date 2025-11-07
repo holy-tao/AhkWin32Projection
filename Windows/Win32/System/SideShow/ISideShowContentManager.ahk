@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISideShowCapabilitiesCollection.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -69,11 +70,10 @@ class ISideShowContentManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISideShowCapabilitiesCollection>} out_ppCollection 
-     * @returns {HRESULT} 
+     * @returns {ISideShowCapabilitiesCollection} 
      */
-    GetDeviceCapabilities(out_ppCollection) {
-        result := ComCall(7, this, "ptr*", out_ppCollection, "HRESULT")
-        return result
+    GetDeviceCapabilities() {
+        result := ComCall(7, this, "ptr*", &out_ppCollection := 0, "HRESULT")
+        return ISideShowCapabilitiesCollection(out_ppCollection)
     }
 }

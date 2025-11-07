@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDataModelScriptDebugStack.ahk
+#Include .\IDataModelScriptDebugBreakpoint.ahk
+#Include .\IDataModelScriptDebugBreakpointEnumerator.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -51,58 +54,51 @@ class IDataModelScriptDebug extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDataModelScriptDebugStack>} stack 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptDebugStack} 
      */
-    GetStack(stack) {
-        result := ComCall(5, this, "ptr*", stack, "HRESULT")
-        return result
+    GetStack() {
+        result := ComCall(5, this, "ptr*", &stack := 0, "HRESULT")
+        return IDataModelScriptDebugStack(stack)
     }
 
     /**
      * 
      * @param {Integer} linePosition 
      * @param {Integer} columnPosition 
-     * @param {Pointer<IDataModelScriptDebugBreakpoint>} breakpoint 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptDebugBreakpoint} 
      */
-    SetBreakpoint(linePosition, columnPosition, breakpoint) {
-        result := ComCall(6, this, "uint", linePosition, "uint", columnPosition, "ptr*", breakpoint, "HRESULT")
-        return result
+    SetBreakpoint(linePosition, columnPosition) {
+        result := ComCall(6, this, "uint", linePosition, "uint", columnPosition, "ptr*", &breakpoint := 0, "HRESULT")
+        return IDataModelScriptDebugBreakpoint(breakpoint)
     }
 
     /**
      * 
      * @param {Integer} breakpointId 
-     * @param {Pointer<IDataModelScriptDebugBreakpoint>} breakpoint 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptDebugBreakpoint} 
      */
-    FindBreakpointById(breakpointId, breakpoint) {
-        result := ComCall(7, this, "uint", breakpointId, "ptr*", breakpoint, "HRESULT")
-        return result
+    FindBreakpointById(breakpointId) {
+        result := ComCall(7, this, "uint", breakpointId, "ptr*", &breakpoint := 0, "HRESULT")
+        return IDataModelScriptDebugBreakpoint(breakpoint)
     }
 
     /**
      * 
-     * @param {Pointer<IDataModelScriptDebugBreakpointEnumerator>} breakpointEnum 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptDebugBreakpointEnumerator} 
      */
-    EnumerateBreakpoints(breakpointEnum) {
-        result := ComCall(8, this, "ptr*", breakpointEnum, "HRESULT")
-        return result
+    EnumerateBreakpoints() {
+        result := ComCall(8, this, "ptr*", &breakpointEnum := 0, "HRESULT")
+        return IDataModelScriptDebugBreakpointEnumerator(breakpointEnum)
     }
 
     /**
      * 
      * @param {Integer} eventFilter 
-     * @param {Pointer<Boolean>} isBreakEnabled 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    GetEventFilter(eventFilter, isBreakEnabled) {
-        isBreakEnabledMarshal := isBreakEnabled is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "int", eventFilter, isBreakEnabledMarshal, isBreakEnabled, "HRESULT")
-        return result
+    GetEventFilter(eventFilter) {
+        result := ComCall(9, this, "int", eventFilter, "int*", &isBreakEnabled := 0, "HRESULT")
+        return isBreakEnabled
     }
 
     /**

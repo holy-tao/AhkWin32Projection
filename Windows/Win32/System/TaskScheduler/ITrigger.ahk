@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRepetitionPattern.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -115,13 +116,12 @@ class ITrigger extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRepetitionPattern>} ppRepeat 
-     * @returns {HRESULT} 
+     * @returns {IRepetitionPattern} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itrigger-get_repetition
      */
-    get_Repetition(ppRepeat) {
-        result := ComCall(10, this, "ptr*", ppRepeat, "HRESULT")
-        return result
+    get_Repetition() {
+        result := ComCall(10, this, "ptr*", &ppRepeat := 0, "HRESULT")
+        return IRepetitionPattern(ppRepeat)
     }
 
     /**
@@ -214,7 +214,9 @@ class ITrigger extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itrigger-get_enabled
      */
     get_Enabled(pEnabled) {
-        result := ComCall(18, this, "ptr", pEnabled, "HRESULT")
+        pEnabledMarshal := pEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(18, this, pEnabledMarshal, pEnabled, "HRESULT")
         return result
     }
 

@@ -37,15 +37,13 @@ class IWRdsEnhancedFastReconnectArbitrator extends IUnknown{
      * 
      * @param {Pointer<Integer>} pSessionIdArray 
      * @param {Integer} dwSessionCount 
-     * @param {Pointer<Integer>} pResultSessionId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsenhancedfastreconnectarbitrator-getsessionforenhancedfastreconnect
      */
-    GetSessionForEnhancedFastReconnect(pSessionIdArray, dwSessionCount, pResultSessionId) {
+    GetSessionForEnhancedFastReconnect(pSessionIdArray, dwSessionCount) {
         pSessionIdArrayMarshal := pSessionIdArray is VarRef ? "int*" : "ptr"
-        pResultSessionIdMarshal := pResultSessionId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pSessionIdArrayMarshal, pSessionIdArray, "uint", dwSessionCount, pResultSessionIdMarshal, pResultSessionId, "HRESULT")
-        return result
+        result := ComCall(3, this, pSessionIdArrayMarshal, pSessionIdArray, "uint", dwSessionCount, "int*", &pResultSessionId := 0, "HRESULT")
+        return pResultSessionId
     }
 }

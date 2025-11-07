@@ -37,14 +37,11 @@ class IMFRelativePanelReport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} panel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrelativepanelreport-getrelativepanel
      */
-    GetRelativePanel(panel) {
-        panelMarshal := panel is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, panelMarshal, panel, "HRESULT")
-        return result
+    GetRelativePanel() {
+        result := ComCall(3, this, "uint*", &panel := 0, "HRESULT")
+        return panel
     }
 }

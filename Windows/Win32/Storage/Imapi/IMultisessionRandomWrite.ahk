@@ -40,40 +40,31 @@ class IMultisessionRandomWrite extends IMultisession{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionrandomwrite-get_writeunitsize
      */
-    get_WriteUnitSize(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, valueMarshal, value, "HRESULT")
-        return result
+    get_WriteUnitSize() {
+        result := ComCall(11, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionrandomwrite-get_lastwrittenaddress
      */
-    get_LastWrittenAddress(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, valueMarshal, value, "HRESULT")
-        return result
+    get_LastWrittenAddress() {
+        result := ComCall(12, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionrandomwrite-get_totalsectorsonmedia
      */
-    get_TotalSectorsOnMedia(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, valueMarshal, value, "HRESULT")
-        return result
+    get_TotalSectorsOnMedia() {
+        result := ComCall(13, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 }

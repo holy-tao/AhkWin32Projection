@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\IXSLTemplate.ahk
+#Include .\IXMLDOMNode.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,22 +44,21 @@ class IXSLProcessor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_input(pVar) {
+    get_input() {
+        pVar := VARIANT()
         result := ComCall(8, this, "ptr", pVar, "HRESULT")
-        return result
+        return pVar
     }
 
     /**
      * 
-     * @param {Pointer<IXSLTemplate>} ppTemplate 
-     * @returns {HRESULT} 
+     * @returns {IXSLTemplate} 
      */
-    get_ownerTemplate(ppTemplate) {
-        result := ComCall(9, this, "ptr*", ppTemplate, "HRESULT")
-        return result
+    get_ownerTemplate() {
+        result := ComCall(9, this, "ptr*", &ppTemplate := 0, "HRESULT")
+        return IXSLTemplate(ppTemplate)
     }
 
     /**
@@ -75,22 +77,22 @@ class IXSLProcessor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} mode 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_startMode(mode) {
+    get_startMode() {
+        mode := BSTR()
         result := ComCall(11, this, "ptr", mode, "HRESULT")
-        return result
+        return mode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} namespaceURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_startModeURI(namespaceURI) {
+    get_startModeURI() {
+        namespaceURI := BSTR()
         result := ComCall(12, this, "ptr", namespaceURI, "HRESULT")
-        return result
+        return namespaceURI
     }
 
     /**
@@ -105,22 +107,21 @@ class IXSLProcessor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pOutput 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_output(pOutput) {
+    get_output() {
+        pOutput := VARIANT()
         result := ComCall(14, this, "ptr", pOutput, "HRESULT")
-        return result
+        return pOutput
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pDone 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    transform(pDone) {
-        result := ComCall(15, this, "ptr", pDone, "HRESULT")
-        return result
+    transform() {
+        result := ComCall(15, this, "short*", &pDone := 0, "HRESULT")
+        return pDone
     }
 
     /**
@@ -134,14 +135,11 @@ class IXSLProcessor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pReadyState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_readyState(pReadyState) {
-        pReadyStateMarshal := pReadyState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pReadyStateMarshal, pReadyState, "HRESULT")
-        return result
+    get_readyState() {
+        result := ComCall(17, this, "int*", &pReadyState := 0, "HRESULT")
+        return pReadyState
     }
 
     /**
@@ -174,11 +172,10 @@ class IXSLProcessor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} stylesheet 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    get_stylesheet(stylesheet) {
-        result := ComCall(20, this, "ptr*", stylesheet, "HRESULT")
-        return result
+    get_stylesheet() {
+        result := ComCall(20, this, "ptr*", &stylesheet := 0, "HRESULT")
+        return IXMLDOMNode(stylesheet)
     }
 }

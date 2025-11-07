@@ -40,15 +40,12 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     /**
      * 
      * @param {Integer} AddressType 
-     * @param {Pointer<Integer>} pSourceType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_ipaddresssource
      */
-    get_IpAddressSource(AddressType, pSourceType) {
-        pSourceTypeMarshal := pSourceType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "int", AddressType, pSourceTypeMarshal, pSourceType, "HRESULT")
-        return result
+    get_IpAddressSource(AddressType) {
+        result := ComCall(11, this, "int", AddressType, "int*", &pSourceType := 0, "HRESULT")
+        return pSourceType
     }
 
     /**
@@ -66,13 +63,13 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     /**
      * 
      * @param {Integer} AddressType 
-     * @param {Pointer<BSTR>} pbszStartIpAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startipaddress
      */
-    get_StartIpAddress(AddressType, pbszStartIpAddress) {
+    get_StartIpAddress(AddressType) {
+        pbszStartIpAddress := BSTR()
         result := ComCall(13, this, "int", AddressType, "ptr", pbszStartIpAddress, "HRESULT")
-        return result
+        return pbszStartIpAddress
     }
 
     /**
@@ -92,13 +89,13 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     /**
      * 
      * @param {Integer} AddressType 
-     * @param {Pointer<BSTR>} pbszEndIpAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endipaddress
      */
-    get_EndIpAddress(AddressType, pbszEndIpAddress) {
+    get_EndIpAddress(AddressType) {
+        pbszEndIpAddress := BSTR()
         result := ComCall(15, this, "int", AddressType, "ptr", pbszEndIpAddress, "HRESULT")
-        return result
+        return pbszEndIpAddress
     }
 
     /**
@@ -117,15 +114,12 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulStartPort 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startport
      */
-    get_StartPort(pulStartPort) {
-        pulStartPortMarshal := pulStartPort is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, pulStartPortMarshal, pulStartPort, "HRESULT")
-        return result
+    get_StartPort() {
+        result := ComCall(17, this, "uint*", &pulStartPort := 0, "HRESULT")
+        return pulStartPort
     }
 
     /**
@@ -141,15 +135,12 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulEndPort 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endport
      */
-    get_EndPort(pulEndPort) {
-        pulEndPortMarshal := pulEndPort is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, pulEndPortMarshal, pulEndPort, "HRESULT")
-        return result
+    get_EndPort() {
+        result := ComCall(19, this, "uint*", &pulEndPort := 0, "HRESULT")
+        return pulEndPort
     }
 
     /**
@@ -165,15 +156,12 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
 
     /**
      * 
-     * @param {Pointer<Integer>} pProfileType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_networkprofile
      */
-    get_NetworkProfile(pProfileType) {
-        pProfileTypeMarshal := pProfileType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, pProfileTypeMarshal, pProfileType, "HRESULT")
-        return result
+    get_NetworkProfile() {
+        result := ComCall(21, this, "int*", &pProfileType := 0, "HRESULT")
+        return pProfileType
     }
 
     /**

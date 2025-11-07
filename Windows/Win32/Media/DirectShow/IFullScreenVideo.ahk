@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,14 +32,11 @@ class IFullScreenVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pModes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    CountModes(pModes) {
-        pModesMarshal := pModes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pModesMarshal, pModes, "HRESULT")
-        return result
+    CountModes() {
+        result := ComCall(3, this, "int*", &pModes := 0, "HRESULT")
+        return pModes
     }
 
     /**
@@ -60,14 +58,11 @@ class IFullScreenVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentMode(pMode) {
-        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pModeMarshal, pMode, "HRESULT")
-        return result
+    GetCurrentMode() {
+        result := ComCall(5, this, "int*", &pMode := 0, "HRESULT")
+        return pMode
     }
 
     /**
@@ -103,14 +98,11 @@ class IFullScreenVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pClipFactor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetClipFactor(pClipFactor) {
-        pClipFactorMarshal := pClipFactor is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pClipFactorMarshal, pClipFactor, "HRESULT")
-        return result
+    GetClipFactor() {
+        result := ComCall(9, this, "int*", &pClipFactor := 0, "HRESULT")
+        return pClipFactor
     }
 
     /**
@@ -137,12 +129,12 @@ class IFullScreenVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      */
-    GetMessageDrain(hwnd) {
+    GetMessageDrain() {
+        hwnd := HWND()
         result := ComCall(12, this, "ptr", hwnd, "HRESULT")
-        return result
+        return hwnd
     }
 
     /**
@@ -157,14 +149,11 @@ class IFullScreenVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Monitor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMonitor(Monitor) {
-        MonitorMarshal := Monitor is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, MonitorMarshal, Monitor, "HRESULT")
-        return result
+    GetMonitor() {
+        result := ComCall(14, this, "int*", &Monitor := 0, "HRESULT")
+        return Monitor
     }
 
     /**
@@ -200,12 +189,12 @@ class IFullScreenVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrCaption 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetCaption(pstrCaption) {
+    GetCaption() {
+        pstrCaption := BSTR()
         result := ComCall(18, this, "ptr", pstrCaption, "HRESULT")
-        return result
+        return pstrCaption
     }
 
     /**

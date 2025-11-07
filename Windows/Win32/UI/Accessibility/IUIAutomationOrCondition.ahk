@@ -32,15 +32,12 @@ class IUIAutomationOrCondition extends IUIAutomationCondition{
 
     /**
      * 
-     * @param {Pointer<Integer>} childCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationorcondition-get_childcount
      */
-    get_ChildCount(childCount) {
-        childCountMarshal := childCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, childCountMarshal, childCount, "HRESULT")
-        return result
+    get_ChildCount() {
+        result := ComCall(3, this, "int*", &childCount := 0, "HRESULT")
+        return childCount
     }
 
     /**
@@ -60,14 +57,11 @@ class IUIAutomationOrCondition extends IUIAutomationCondition{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} childArray 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationorcondition-getchildren
      */
-    GetChildren(childArray) {
-        childArrayMarshal := childArray is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, childArrayMarshal, childArray, "HRESULT")
-        return result
+    GetChildren() {
+        result := ComCall(5, this, "ptr*", &childArray := 0, "HRESULT")
+        return childArray
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUri.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class IUriBuilder extends IUnknown{
      * 
      * @param {Integer} dwAllowEncodingPropertyMask 
      * @param {Pointer} dwReserved 
-     * @param {Pointer<IUri>} ppIUri 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      */
-    CreateUriSimple(dwAllowEncodingPropertyMask, dwReserved, ppIUri) {
-        result := ComCall(3, this, "uint", dwAllowEncodingPropertyMask, "ptr", dwReserved, "ptr*", ppIUri, "HRESULT")
-        return result
+    CreateUriSimple(dwAllowEncodingPropertyMask, dwReserved) {
+        result := ComCall(3, this, "uint", dwAllowEncodingPropertyMask, "ptr", dwReserved, "ptr*", &ppIUri := 0, "HRESULT")
+        return IUri(ppIUri)
     }
 
     /**
@@ -45,12 +45,11 @@ class IUriBuilder extends IUnknown{
      * @param {Integer} dwCreateFlags 
      * @param {Integer} dwAllowEncodingPropertyMask 
      * @param {Pointer} dwReserved 
-     * @param {Pointer<IUri>} ppIUri 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      */
-    CreateUri(dwCreateFlags, dwAllowEncodingPropertyMask, dwReserved, ppIUri) {
-        result := ComCall(4, this, "uint", dwCreateFlags, "uint", dwAllowEncodingPropertyMask, "ptr", dwReserved, "ptr*", ppIUri, "HRESULT")
-        return result
+    CreateUri(dwCreateFlags, dwAllowEncodingPropertyMask, dwReserved) {
+        result := ComCall(4, this, "uint", dwCreateFlags, "uint", dwAllowEncodingPropertyMask, "ptr", dwReserved, "ptr*", &ppIUri := 0, "HRESULT")
+        return IUri(ppIUri)
     }
 
     /**
@@ -59,22 +58,20 @@ class IUriBuilder extends IUnknown{
      * @param {Integer} dwUriBuilderFlags 
      * @param {Integer} dwAllowEncodingPropertyMask 
      * @param {Pointer} dwReserved 
-     * @param {Pointer<IUri>} ppIUri 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      */
-    CreateUriWithFlags(dwCreateFlags, dwUriBuilderFlags, dwAllowEncodingPropertyMask, dwReserved, ppIUri) {
-        result := ComCall(5, this, "uint", dwCreateFlags, "uint", dwUriBuilderFlags, "uint", dwAllowEncodingPropertyMask, "ptr", dwReserved, "ptr*", ppIUri, "HRESULT")
-        return result
+    CreateUriWithFlags(dwCreateFlags, dwUriBuilderFlags, dwAllowEncodingPropertyMask, dwReserved) {
+        result := ComCall(5, this, "uint", dwCreateFlags, "uint", dwUriBuilderFlags, "uint", dwAllowEncodingPropertyMask, "ptr", dwReserved, "ptr*", &ppIUri := 0, "HRESULT")
+        return IUri(ppIUri)
     }
 
     /**
      * 
-     * @param {Pointer<IUri>} ppIUri 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      */
-    GetIUri(ppIUri) {
-        result := ComCall(6, this, "ptr*", ppIUri, "HRESULT")
-        return result
+    GetIUri() {
+        result := ComCall(6, this, "ptr*", &ppIUri := 0, "HRESULT")
+        return IUri(ppIUri)
     }
 
     /**
@@ -95,8 +92,9 @@ class IUriBuilder extends IUnknown{
      */
     GetFragment(pcchFragment, ppwzFragment) {
         pcchFragmentMarshal := pcchFragment is VarRef ? "uint*" : "ptr"
+        ppwzFragmentMarshal := ppwzFragment is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, pcchFragmentMarshal, pcchFragment, "ptr", ppwzFragment, "HRESULT")
+        result := ComCall(8, this, pcchFragmentMarshal, pcchFragment, ppwzFragmentMarshal, ppwzFragment, "HRESULT")
         return result
     }
 
@@ -108,8 +106,9 @@ class IUriBuilder extends IUnknown{
      */
     GetHost(pcchHost, ppwzHost) {
         pcchHostMarshal := pcchHost is VarRef ? "uint*" : "ptr"
+        ppwzHostMarshal := ppwzHost is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, pcchHostMarshal, pcchHost, "ptr", ppwzHost, "HRESULT")
+        result := ComCall(9, this, pcchHostMarshal, pcchHost, ppwzHostMarshal, ppwzHost, "HRESULT")
         return result
     }
 
@@ -121,8 +120,9 @@ class IUriBuilder extends IUnknown{
      */
     GetPassword(pcchPassword, ppwzPassword) {
         pcchPasswordMarshal := pcchPassword is VarRef ? "uint*" : "ptr"
+        ppwzPasswordMarshal := ppwzPassword is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, pcchPasswordMarshal, pcchPassword, "ptr", ppwzPassword, "HRESULT")
+        result := ComCall(10, this, pcchPasswordMarshal, pcchPassword, ppwzPasswordMarshal, ppwzPassword, "HRESULT")
         return result
     }
 
@@ -135,8 +135,9 @@ class IUriBuilder extends IUnknown{
      */
     GetPath(pcchPath, ppwzPath) {
         pcchPathMarshal := pcchPath is VarRef ? "uint*" : "ptr"
+        ppwzPathMarshal := ppwzPath is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, pcchPathMarshal, pcchPath, "ptr", ppwzPath, "HRESULT")
+        result := ComCall(11, this, pcchPathMarshal, pcchPath, ppwzPathMarshal, ppwzPath, "HRESULT")
         return result
     }
 
@@ -147,9 +148,10 @@ class IUriBuilder extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPort(pfHasPort, pdwPort) {
+        pfHasPortMarshal := pfHasPort is VarRef ? "int*" : "ptr"
         pdwPortMarshal := pdwPort is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pfHasPort, pdwPortMarshal, pdwPort, "HRESULT")
+        result := ComCall(12, this, pfHasPortMarshal, pfHasPort, pdwPortMarshal, pdwPort, "HRESULT")
         return result
     }
 
@@ -161,8 +163,9 @@ class IUriBuilder extends IUnknown{
      */
     GetQuery(pcchQuery, ppwzQuery) {
         pcchQueryMarshal := pcchQuery is VarRef ? "uint*" : "ptr"
+        ppwzQueryMarshal := ppwzQuery is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, pcchQueryMarshal, pcchQuery, "ptr", ppwzQuery, "HRESULT")
+        result := ComCall(13, this, pcchQueryMarshal, pcchQuery, ppwzQueryMarshal, ppwzQuery, "HRESULT")
         return result
     }
 
@@ -174,8 +177,9 @@ class IUriBuilder extends IUnknown{
      */
     GetSchemeName(pcchSchemeName, ppwzSchemeName) {
         pcchSchemeNameMarshal := pcchSchemeName is VarRef ? "uint*" : "ptr"
+        ppwzSchemeNameMarshal := ppwzSchemeName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, pcchSchemeNameMarshal, pcchSchemeName, "ptr", ppwzSchemeName, "HRESULT")
+        result := ComCall(14, this, pcchSchemeNameMarshal, pcchSchemeName, ppwzSchemeNameMarshal, ppwzSchemeName, "HRESULT")
         return result
     }
 
@@ -187,8 +191,9 @@ class IUriBuilder extends IUnknown{
      */
     GetUserName(pcchUserName, ppwzUserName) {
         pcchUserNameMarshal := pcchUserName is VarRef ? "uint*" : "ptr"
+        ppwzUserNameMarshal := ppwzUserName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(15, this, pcchUserNameMarshal, pcchUserName, "ptr", ppwzUserName, "HRESULT")
+        result := ComCall(15, this, pcchUserNameMarshal, pcchUserName, ppwzUserNameMarshal, ppwzUserName, "HRESULT")
         return result
     }
 
@@ -299,11 +304,10 @@ class IUriBuilder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfModified 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    HasBeenModified(pfModified) {
-        result := ComCall(25, this, "ptr", pfModified, "HRESULT")
-        return result
+    HasBeenModified() {
+        result := ComCall(25, this, "int*", &pfModified := 0, "HRESULT")
+        return pfModified
     }
 }

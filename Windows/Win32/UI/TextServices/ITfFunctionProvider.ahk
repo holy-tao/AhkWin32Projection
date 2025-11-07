@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,36 +38,35 @@ class ITfFunctionProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itffunctionprovider-gettype
      */
-    GetType(pguid) {
+    GetType() {
+        pguid := Guid()
         result := ComCall(3, this, "ptr", pguid, "HRESULT")
-        return result
+        return pguid
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDesc 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itffunctionprovider-getdescription
      */
-    GetDescription(pbstrDesc) {
+    GetDescription() {
+        pbstrDesc := BSTR()
         result := ComCall(4, this, "ptr", pbstrDesc, "HRESULT")
-        return result
+        return pbstrDesc
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rguid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itffunctionprovider-getfunction
      */
-    GetFunction(rguid, riid, ppunk) {
-        result := ComCall(5, this, "ptr", rguid, "ptr", riid, "ptr*", ppunk, "HRESULT")
-        return result
+    GetFunction(rguid, riid) {
+        result := ComCall(5, this, "ptr", rguid, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 }

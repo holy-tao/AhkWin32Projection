@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,79 +31,67 @@ class ISClusPartition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Flags(plFlags) {
-        plFlagsMarshal := plFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plFlagsMarshal, plFlags, "HRESULT")
-        return result
+    get_Flags() {
+        result := ComCall(7, this, "int*", &plFlags := 0, "HRESULT")
+        return plFlags
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDeviceName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DeviceName(pbstrDeviceName) {
+    get_DeviceName() {
+        pbstrDeviceName := BSTR()
         result := ComCall(8, this, "ptr", pbstrDeviceName, "HRESULT")
-        return result
+        return pbstrDeviceName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrVolumeLabel 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_VolumeLabel(pbstrVolumeLabel) {
+    get_VolumeLabel() {
+        pbstrVolumeLabel := BSTR()
         result := ComCall(9, this, "ptr", pbstrVolumeLabel, "HRESULT")
-        return result
+        return pbstrVolumeLabel
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plSerialNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SerialNumber(plSerialNumber) {
-        plSerialNumberMarshal := plSerialNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plSerialNumberMarshal, plSerialNumber, "HRESULT")
-        return result
+    get_SerialNumber() {
+        result := ComCall(10, this, "int*", &plSerialNumber := 0, "HRESULT")
+        return plSerialNumber
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMaximumComponentLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaximumComponentLength(plMaximumComponentLength) {
-        plMaximumComponentLengthMarshal := plMaximumComponentLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plMaximumComponentLengthMarshal, plMaximumComponentLength, "HRESULT")
-        return result
+    get_MaximumComponentLength() {
+        result := ComCall(11, this, "int*", &plMaximumComponentLength := 0, "HRESULT")
+        return plMaximumComponentLength
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plFileSystemFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FileSystemFlags(plFileSystemFlags) {
-        plFileSystemFlagsMarshal := plFileSystemFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plFileSystemFlagsMarshal, plFileSystemFlags, "HRESULT")
-        return result
+    get_FileSystemFlags() {
+        result := ComCall(12, this, "int*", &plFileSystemFlags := 0, "HRESULT")
+        return plFileSystemFlags
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFileSystem 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_FileSystem(pbstrFileSystem) {
+    get_FileSystem() {
+        pbstrFileSystem := BSTR()
         result := ComCall(13, this, "ptr", pbstrFileSystem, "HRESULT")
-        return result
+        return pbstrFileSystem
     }
 }

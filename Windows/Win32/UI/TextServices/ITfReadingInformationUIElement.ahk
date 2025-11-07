@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfContext.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITfUIElement.ahk
 
 /**
@@ -32,73 +34,62 @@ class ITfReadingInformationUIElement extends ITfUIElement{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-getupdatedflags
      */
-    GetUpdatedFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetUpdatedFlags() {
+        result := ComCall(7, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
      * 
-     * @param {Pointer<ITfContext>} ppic 
-     * @returns {HRESULT} 
+     * @returns {ITfContext} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-getcontext
      */
-    GetContext(ppic) {
-        result := ComCall(8, this, "ptr*", ppic, "HRESULT")
-        return result
+    GetContext() {
+        result := ComCall(8, this, "ptr*", &ppic := 0, "HRESULT")
+        return ITfContext(ppic)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-getstring
      */
-    GetString(pstr) {
+    GetString() {
+        pstr := BSTR()
         result := ComCall(9, this, "ptr", pstr, "HRESULT")
-        return result
+        return pstr
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcchMax 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-getmaxreadingstringlength
      */
-    GetMaxReadingStringLength(pcchMax) {
-        pcchMaxMarshal := pcchMax is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pcchMaxMarshal, pcchMax, "HRESULT")
-        return result
+    GetMaxReadingStringLength() {
+        result := ComCall(10, this, "uint*", &pcchMax := 0, "HRESULT")
+        return pcchMax
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pErrorIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-geterrorindex
      */
-    GetErrorIndex(pErrorIndex) {
-        pErrorIndexMarshal := pErrorIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pErrorIndexMarshal, pErrorIndex, "HRESULT")
-        return result
+    GetErrorIndex() {
+        result := ComCall(11, this, "uint*", &pErrorIndex := 0, "HRESULT")
+        return pErrorIndex
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfVertical 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-isverticalorderpreferred
      */
-    IsVerticalOrderPreferred(pfVertical) {
-        result := ComCall(12, this, "ptr", pfVertical, "HRESULT")
-        return result
+    IsVerticalOrderPreferred() {
+        result := ComCall(12, this, "int*", &pfVertical := 0, "HRESULT")
+        return pfVertical
     }
 }

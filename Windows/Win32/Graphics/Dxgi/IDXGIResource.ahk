@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\IDXGIDeviceSubObject.ahk
 
 /**
@@ -51,26 +52,23 @@ class IDXGIResource extends IDXGIDeviceSubObject{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} pSharedHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-getsharedhandle
      */
-    GetSharedHandle(pSharedHandle) {
+    GetSharedHandle() {
+        pSharedHandle := HANDLE()
         result := ComCall(8, this, "ptr", pSharedHandle, "HRESULT")
-        return result
+        return pSharedHandle
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pUsage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-getusage
      */
-    GetUsage(pUsage) {
-        pUsageMarshal := pUsage is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pUsageMarshal, pUsage, "HRESULT")
-        return result
+    GetUsage() {
+        result := ComCall(9, this, "uint*", &pUsage := 0, "HRESULT")
+        return pUsage
     }
 
     /**
@@ -86,14 +84,11 @@ class IDXGIResource extends IDXGIDeviceSubObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} pEvictionPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-getevictionpriority
      */
-    GetEvictionPriority(pEvictionPriority) {
-        pEvictionPriorityMarshal := pEvictionPriority is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pEvictionPriorityMarshal, pEvictionPriority, "HRESULT")
-        return result
+    GetEvictionPriority() {
+        result := ComCall(11, this, "uint*", &pEvictionPriority := 0, "HRESULT")
+        return pEvictionPriority
     }
 }

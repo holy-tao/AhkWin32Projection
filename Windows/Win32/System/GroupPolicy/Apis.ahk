@@ -896,10 +896,11 @@ class GroupPolicy {
         pRsopTokenMarshal := pRsopToken is VarRef ? "ptr" : "ptr"
         pdwPrivilegeSetLengthMarshal := pdwPrivilegeSetLength is VarRef ? "uint*" : "ptr"
         pdwGrantedAccessMaskMarshal := pdwGrantedAccessMask is VarRef ? "uint*" : "ptr"
+        pbAccessStatusMarshal := pbAccessStatus is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\RsopAccessCheckByType", "ptr", pSecurityDescriptor, "ptr", pPrincipalSelfSid, pRsopTokenMarshal, pRsopToken, "uint", dwDesiredAccessMask, "ptr", pObjectTypeList, "uint", ObjectTypeListLength, "ptr", pGenericMapping, "ptr", pPrivilegeSet, pdwPrivilegeSetLengthMarshal, pdwPrivilegeSetLength, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, "ptr", pbAccessStatus, "int")
+        result := DllCall("USERENV.dll\RsopAccessCheckByType", "ptr", pSecurityDescriptor, "ptr", pPrincipalSelfSid, pRsopTokenMarshal, pRsopToken, "uint", dwDesiredAccessMask, "ptr", pObjectTypeList, "uint", ObjectTypeListLength, "ptr", pGenericMapping, "ptr", pPrivilegeSet, pdwPrivilegeSetLengthMarshal, pdwPrivilegeSetLength, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, pbAccessStatusMarshal, pbAccessStatus, "int")
         if(A_LastError)
             throw OSError()
 
@@ -925,8 +926,9 @@ class GroupPolicy {
 
         pRsopTokenMarshal := pRsopToken is VarRef ? "ptr" : "ptr"
         pdwGrantedAccessMaskMarshal := pdwGrantedAccessMask is VarRef ? "uint*" : "ptr"
+        pbAccessStatusMarshal := pbAccessStatus is VarRef ? "int*" : "ptr"
 
-        result := DllCall("USERENV.dll\RsopFileAccessCheck", "ptr", pszFileName, pRsopTokenMarshal, pRsopToken, "uint", dwDesiredAccessMask, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, "ptr", pbAccessStatus, "int")
+        result := DllCall("USERENV.dll\RsopFileAccessCheck", "ptr", pszFileName, pRsopTokenMarshal, pRsopToken, "uint", dwDesiredAccessMask, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, pbAccessStatusMarshal, pbAccessStatus, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1079,7 +1081,10 @@ class GroupPolicy {
     static GetLocalManagedApplicationData(ProductCode, DisplayName, SupportUrl) {
         ProductCode := ProductCode is String ? StrPtr(ProductCode) : ProductCode
 
-        DllCall("ADVAPI32.dll\GetLocalManagedApplicationData", "ptr", ProductCode, "ptr", DisplayName, "ptr", SupportUrl)
+        DisplayNameMarshal := DisplayName is VarRef ? "ptr*" : "ptr"
+        SupportUrlMarshal := SupportUrl is VarRef ? "ptr*" : "ptr"
+
+        DllCall("ADVAPI32.dll\GetLocalManagedApplicationData", "ptr", ProductCode, DisplayNameMarshal, DisplayName, SupportUrlMarshal, SupportUrl)
     }
 
     /**

@@ -51,18 +51,11 @@ class ISpResourceManager extends IServiceProvider{
      * @param {Pointer<Guid>} ObjectCLSID 
      * @param {Pointer<Guid>} ObjectIID 
      * @param {BOOL} fReleaseWhenLastExternalRefReleased 
-     * @param {Pointer<Pointer<Void>>} ppObject 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {Pointer<Void>} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(guidServiceId, ObjectCLSID, ObjectIID, fReleaseWhenLastExternalRefReleased, ppObject) {
-        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", guidServiceId, "ptr", ObjectCLSID, "ptr", ObjectIID, "int", fReleaseWhenLastExternalRefReleased, ppObjectMarshal, ppObject, "HRESULT")
-        return result
+    GetObject(guidServiceId, ObjectCLSID, ObjectIID, fReleaseWhenLastExternalRefReleased) {
+        result := ComCall(5, this, "ptr", guidServiceId, "ptr", ObjectCLSID, "ptr", ObjectIID, "int", fReleaseWhenLastExternalRefReleased, "ptr*", &ppObject := 0, "HRESULT")
+        return ppObject
     }
 }

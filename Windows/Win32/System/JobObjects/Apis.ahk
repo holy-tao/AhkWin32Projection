@@ -32,9 +32,11 @@ class JobObjects {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
         JobHandle := JobHandle is Win32Handle ? NumGet(JobHandle, "ptr") : JobHandle
 
+        ResultMarshal := Result is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsProcessInJob", "ptr", ProcessHandle, "ptr", JobHandle, "ptr", Result, "int")
+        result := DllCall("KERNEL32.dll\IsProcessInJob", "ptr", ProcessHandle, "ptr", JobHandle, ResultMarshal, Result, "int")
         if(A_LastError)
             throw OSError()
 

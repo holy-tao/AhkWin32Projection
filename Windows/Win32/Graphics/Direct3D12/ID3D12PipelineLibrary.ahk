@@ -54,17 +54,14 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild{
      * @param {PWSTR} pName 
      * @param {Pointer<D3D12_GRAPHICS_PIPELINE_STATE_DESC>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppPipelineState 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary-loadgraphicspipeline
      */
-    LoadGraphicsPipeline(pName, pDesc, riid, ppPipelineState) {
+    LoadGraphicsPipeline(pName, pDesc, riid) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        ppPipelineStateMarshal := ppPipelineState is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pName, "ptr", pDesc, "ptr", riid, ppPipelineStateMarshal, ppPipelineState, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pName, "ptr", pDesc, "ptr", riid, "ptr*", &ppPipelineState := 0, "HRESULT")
+        return ppPipelineState
     }
 
     /**
@@ -72,17 +69,14 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild{
      * @param {PWSTR} pName 
      * @param {Pointer<D3D12_COMPUTE_PIPELINE_STATE_DESC>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppPipelineState 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary-loadcomputepipeline
      */
-    LoadComputePipeline(pName, pDesc, riid, ppPipelineState) {
+    LoadComputePipeline(pName, pDesc, riid) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        ppPipelineStateMarshal := ppPipelineState is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "ptr", pName, "ptr", pDesc, "ptr", riid, ppPipelineStateMarshal, ppPipelineState, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pName, "ptr", pDesc, "ptr", riid, "ptr*", &ppPipelineState := 0, "HRESULT")
+        return ppPipelineState
     }
 
     /**
@@ -97,15 +91,12 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild{
 
     /**
      * 
-     * @param {Pointer<Void>} pData 
      * @param {Pointer} DataSizeInBytes 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary-serialize
      */
-    Serialize(pData, DataSizeInBytes) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
-
-        result := ComCall(12, this, pDataMarshal, pData, "ptr", DataSizeInBytes, "HRESULT")
-        return result
+    Serialize(DataSizeInBytes) {
+        result := ComCall(12, this, "ptr", &pData := 0, "ptr", DataSizeInBytes, "HRESULT")
+        return pData
     }
 }

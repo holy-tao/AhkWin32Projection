@@ -18,9 +18,11 @@ class SetupAndMigration {
      * @see https://learn.microsoft.com/windows/win32/api/oobenotification/nf-oobenotification-oobecomplete
      */
     static OOBEComplete(isOOBEComplete) {
+        isOOBECompleteMarshal := isOOBEComplete is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OOBEComplete", "ptr", isOOBEComplete, "int")
+        result := DllCall("KERNEL32.dll\OOBEComplete", isOOBECompleteMarshal, isOOBEComplete, "int")
         if(A_LastError)
             throw OSError()
 

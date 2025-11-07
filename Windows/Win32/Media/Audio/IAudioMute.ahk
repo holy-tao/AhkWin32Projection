@@ -44,12 +44,11 @@ class IAudioMute extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbMuted 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiomute-getmute
      */
-    GetMute(pbMuted) {
-        result := ComCall(4, this, "ptr", pbMuted, "HRESULT")
-        return result
+    GetMute() {
+        result := ComCall(4, this, "int*", &pbMuted := 0, "HRESULT")
+        return pbMuted
     }
 }

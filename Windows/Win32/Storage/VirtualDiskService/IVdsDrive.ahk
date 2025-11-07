@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_DRIVE_PROP.ahk
+#Include .\IVdsSubSystem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,24 +34,23 @@ class IVdsDrive extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_DRIVE_PROP>} pDriveProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_DRIVE_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive-getproperties
      */
-    GetProperties(pDriveProp) {
+    GetProperties() {
+        pDriveProp := VDS_DRIVE_PROP()
         result := ComCall(3, this, "ptr", pDriveProp, "HRESULT")
-        return result
+        return pDriveProp
     }
 
     /**
      * 
-     * @param {Pointer<IVdsSubSystem>} ppSubSystem 
-     * @returns {HRESULT} 
+     * @returns {IVdsSubSystem} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive-getsubsystem
      */
-    GetSubSystem(ppSubSystem) {
-        result := ComCall(4, this, "ptr*", ppSubSystem, "HRESULT")
-        return result
+    GetSubSystem() {
+        result := ComCall(4, this, "ptr*", &ppSubSystem := 0, "HRESULT")
+        return IVdsSubSystem(ppSubSystem)
     }
 
     /**

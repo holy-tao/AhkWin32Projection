@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMWriterSink.ahk
+#Include .\WM_WRITER_STATISTICS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,27 +34,23 @@ class IWMWriterAdvanced extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcSinks 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-getsinkcount
      */
-    GetSinkCount(pcSinks) {
-        pcSinksMarshal := pcSinks is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcSinksMarshal, pcSinks, "HRESULT")
-        return result
+    GetSinkCount() {
+        result := ComCall(3, this, "uint*", &pcSinks := 0, "HRESULT")
+        return pcSinks
     }
 
     /**
      * 
      * @param {Integer} dwSinkNum 
-     * @param {Pointer<IWMWriterSink>} ppSink 
-     * @returns {HRESULT} 
+     * @returns {IWMWriterSink} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-getsink
      */
-    GetSink(dwSinkNum, ppSink) {
-        result := ComCall(4, this, "uint", dwSinkNum, "ptr*", ppSink, "HRESULT")
-        return result
+    GetSink(dwSinkNum) {
+        result := ComCall(4, this, "uint", dwSinkNum, "ptr*", &ppSink := 0, "HRESULT")
+        return IWMWriterSink(ppSink)
     }
 
     /**
@@ -106,38 +104,34 @@ class IWMWriterAdvanced extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfRealTime 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-isrealtime
      */
-    IsRealTime(pfRealTime) {
-        result := ComCall(9, this, "ptr", pfRealTime, "HRESULT")
-        return result
+    IsRealTime() {
+        result := ComCall(9, this, "int*", &pfRealTime := 0, "HRESULT")
+        return pfRealTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcnsCurrentTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-getwritertime
      */
-    GetWriterTime(pcnsCurrentTime) {
-        pcnsCurrentTimeMarshal := pcnsCurrentTime is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pcnsCurrentTimeMarshal, pcnsCurrentTime, "HRESULT")
-        return result
+    GetWriterTime() {
+        result := ComCall(10, this, "uint*", &pcnsCurrentTime := 0, "HRESULT")
+        return pcnsCurrentTime
     }
 
     /**
      * 
      * @param {Integer} wStreamNum 
-     * @param {Pointer<WM_WRITER_STATISTICS>} pStats 
-     * @returns {HRESULT} 
+     * @returns {WM_WRITER_STATISTICS} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-getstatistics
      */
-    GetStatistics(wStreamNum, pStats) {
+    GetStatistics(wStreamNum) {
+        pStats := WM_WRITER_STATISTICS()
         result := ComCall(11, this, "ushort", wStreamNum, "ptr", pStats, "HRESULT")
-        return result
+        return pStats
     }
 
     /**
@@ -153,14 +147,11 @@ class IWMWriterAdvanced extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pmsWindow 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-getsynctolerance
      */
-    GetSyncTolerance(pmsWindow) {
-        pmsWindowMarshal := pmsWindow is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pmsWindowMarshal, pmsWindow, "HRESULT")
-        return result
+    GetSyncTolerance() {
+        result := ComCall(13, this, "uint*", &pmsWindow := 0, "HRESULT")
+        return pmsWindow
     }
 }

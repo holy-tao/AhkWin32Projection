@@ -133,7 +133,9 @@ class IAMWstDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-getredrawalways
      */
     GetRedrawAlways(lpbOption) {
-        result := ComCall(11, this, "ptr", lpbOption, "HRESULT")
+        lpbOptionMarshal := lpbOption is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, lpbOptionMarshal, lpbOption, "HRESULT")
         return result
     }
 
@@ -190,7 +192,9 @@ class IAMWstDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-getanswermode
      */
     GetAnswerMode(pbAnswer) {
-        result := ComCall(16, this, "ptr", pbAnswer, "HRESULT")
+        pbAnswerMarshal := pbAnswer is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pbAnswerMarshal, pbAnswer, "HRESULT")
         return result
     }
 
@@ -212,7 +216,9 @@ class IAMWstDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-getholdpage
      */
     GetHoldPage(pbHoldPage) {
-        result := ComCall(18, this, "ptr", pbHoldPage, "HRESULT")
+        pbHoldPageMarshal := pbHoldPage is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pbHoldPageMarshal, pbHoldPage, "HRESULT")
         return result
     }
 

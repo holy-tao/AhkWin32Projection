@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxContentGroupFilesEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,23 +33,21 @@ class IAppxContentGroup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} groupName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroup-getname
      */
-    GetName(groupName) {
-        result := ComCall(3, this, "ptr", groupName, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &groupName := 0, "HRESULT")
+        return groupName
     }
 
     /**
      * 
-     * @param {Pointer<IAppxContentGroupFilesEnumerator>} enumerator 
-     * @returns {HRESULT} 
+     * @returns {IAppxContentGroupFilesEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroup-getfiles
      */
-    GetFiles(enumerator) {
-        result := ComCall(4, this, "ptr*", enumerator, "HRESULT")
-        return result
+    GetFiles() {
+        result := ComCall(4, this, "ptr*", &enumerator := 0, "HRESULT")
+        return IAppxContentGroupFilesEnumerator(enumerator)
     }
 }

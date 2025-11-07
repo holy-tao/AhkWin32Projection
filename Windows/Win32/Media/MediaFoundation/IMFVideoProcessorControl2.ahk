@@ -59,14 +59,11 @@ class IMFVideoProcessorControl2 extends IMFVideoProcessorControl{
 
     /**
      * 
-     * @param {Pointer<Integer>} puiSupport 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideoprocessorcontrol2-getsupportedhardwareeffects
      */
-    GetSupportedHardwareEffects(puiSupport) {
-        puiSupportMarshal := puiSupport is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, puiSupportMarshal, puiSupport, "HRESULT")
-        return result
+    GetSupportedHardwareEffects() {
+        result := ComCall(11, this, "uint*", &puiSupport := 0, "HRESULT")
+        return puiSupport
     }
 }

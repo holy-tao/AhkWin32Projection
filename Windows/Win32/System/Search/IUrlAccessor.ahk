@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\Com\IStream.ahk
+#Include ..\..\Storage\IndexServer\IFilter.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -55,45 +58,39 @@ class IUrlAccessor extends IUnknown{
      * 
      * @param {PWSTR} wszDocFormat 
      * @param {Integer} dwSize 
-     * @param {Pointer<Integer>} pdwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getdocformat
      */
-    GetDocFormat(wszDocFormat, dwSize, pdwLength) {
+    GetDocFormat(wszDocFormat, dwSize) {
         wszDocFormat := wszDocFormat is String ? StrPtr(wszDocFormat) : wszDocFormat
 
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", wszDocFormat, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", wszDocFormat, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
+        return pdwLength
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pClsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getclsid
      */
-    GetCLSID(pClsid) {
+    GetCLSID() {
+        pClsid := Guid()
         result := ComCall(5, this, "ptr", pClsid, "HRESULT")
-        return result
+        return pClsid
     }
 
     /**
      * 
      * @param {PWSTR} wszHost 
      * @param {Integer} dwSize 
-     * @param {Pointer<Integer>} pdwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-gethost
      */
-    GetHost(wszHost, dwSize, pdwLength) {
+    GetHost(wszHost, dwSize) {
         wszHost := wszHost is String ? StrPtr(wszHost) : wszHost
 
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", wszHost, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", wszHost, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
+        return pdwLength
     }
 
     /**
@@ -108,43 +105,37 @@ class IUrlAccessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pllSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getsize
      */
-    GetSize(pllSize) {
-        pllSizeMarshal := pllSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pllSizeMarshal, pllSize, "HRESULT")
-        return result
+    GetSize() {
+        result := ComCall(8, this, "uint*", &pllSize := 0, "HRESULT")
+        return pllSize
     }
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pftLastModified 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getlastmodified
      */
-    GetLastModified(pftLastModified) {
+    GetLastModified() {
+        pftLastModified := FILETIME()
         result := ComCall(9, this, "ptr", pftLastModified, "HRESULT")
-        return result
+        return pftLastModified
     }
 
     /**
      * 
      * @param {PWSTR} wszFileName 
      * @param {Integer} dwSize 
-     * @param {Pointer<Integer>} pdwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getfilename
      */
-    GetFileName(wszFileName, dwSize, pdwLength) {
+    GetFileName(wszFileName, dwSize) {
         wszFileName := wszFileName is String ? StrPtr(wszFileName) : wszFileName
 
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "ptr", wszFileName, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", wszFileName, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
+        return pdwLength
     }
 
     /**
@@ -167,49 +158,44 @@ class IUrlAccessor extends IUnknown{
      * 
      * @param {PWSTR} wszRedirectedURL 
      * @param {Integer} dwSize 
-     * @param {Pointer<Integer>} pdwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getredirectedurl
      */
-    GetRedirectedURL(wszRedirectedURL, dwSize, pdwLength) {
+    GetRedirectedURL(wszRedirectedURL, dwSize) {
         wszRedirectedURL := wszRedirectedURL is String ? StrPtr(wszRedirectedURL) : wszRedirectedURL
 
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "ptr", wszRedirectedURL, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", wszRedirectedURL, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
+        return pdwLength
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pSPClsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getsecurityprovider
      */
-    GetSecurityProvider(pSPClsid) {
+    GetSecurityProvider() {
+        pSPClsid := Guid()
         result := ComCall(13, this, "ptr", pSPClsid, "HRESULT")
-        return result
+        return pSPClsid
     }
 
     /**
      * 
-     * @param {Pointer<IStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-bindtostream
      */
-    BindToStream(ppStream) {
-        result := ComCall(14, this, "ptr*", ppStream, "HRESULT")
-        return result
+    BindToStream() {
+        result := ComCall(14, this, "ptr*", &ppStream := 0, "HRESULT")
+        return IStream(ppStream)
     }
 
     /**
      * 
-     * @param {Pointer<IFilter>} ppFilter 
-     * @returns {HRESULT} 
+     * @returns {IFilter} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-bindtofilter
      */
-    BindToFilter(ppFilter) {
-        result := ComCall(15, this, "ptr*", ppFilter, "HRESULT")
-        return result
+    BindToFilter() {
+        result := ComCall(15, this, "ptr*", &ppFilter := 0, "HRESULT")
+        return IFilter(ppFilter)
     }
 }

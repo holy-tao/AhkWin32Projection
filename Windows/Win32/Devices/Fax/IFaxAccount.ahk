@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IFaxAccountFolders.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,24 +44,23 @@ class IFaxAccount extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrAccountName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccount-get_accountname
      */
-    get_AccountName(pbstrAccountName) {
+    get_AccountName() {
+        pbstrAccountName := BSTR()
         result := ComCall(7, this, "ptr", pbstrAccountName, "HRESULT")
-        return result
+        return pbstrAccountName
     }
 
     /**
      * 
-     * @param {Pointer<IFaxAccountFolders>} ppFolders 
-     * @returns {HRESULT} 
+     * @returns {IFaxAccountFolders} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccount-get_folders
      */
-    get_Folders(ppFolders) {
-        result := ComCall(8, this, "ptr*", ppFolders, "HRESULT")
-        return result
+    get_Folders() {
+        result := ComCall(8, this, "ptr*", &ppFolders := 0, "HRESULT")
+        return IFaxAccountFolders(ppFolders)
     }
 
     /**
@@ -75,14 +76,11 @@ class IFaxAccount extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRegisteredEvents 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccount-get_registeredevents
      */
-    get_RegisteredEvents(pRegisteredEvents) {
-        pRegisteredEventsMarshal := pRegisteredEvents is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pRegisteredEventsMarshal, pRegisteredEvents, "HRESULT")
-        return result
+    get_RegisteredEvents() {
+        result := ComCall(10, this, "int*", &pRegisteredEvents := 0, "HRESULT")
+        return pRegisteredEvents
     }
 }

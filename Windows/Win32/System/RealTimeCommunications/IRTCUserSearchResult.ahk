@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,11 +32,11 @@ class IRTCUserSearchResult extends IUnknown{
     /**
      * 
      * @param {Integer} enColumn 
-     * @param {Pointer<BSTR>} pbstrValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Value(enColumn, pbstrValue) {
+    get_Value(enColumn) {
+        pbstrValue := BSTR()
         result := ComCall(3, this, "int", enColumn, "ptr", pbstrValue, "HRESULT")
-        return result
+        return pbstrValue
     }
 }

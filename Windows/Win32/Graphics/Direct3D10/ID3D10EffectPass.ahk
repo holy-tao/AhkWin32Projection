@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D10_STATE_BLOCK_MASK.ahk
 
 /**
  * A pass interface encapsulates state assignments within a technique.
@@ -127,12 +128,12 @@ class ID3D10EffectPass extends Win32ComInterface{
 
     /**
      * 
-     * @param {Pointer<D3D10_STATE_BLOCK_MASK>} pStateBlockMask 
-     * @returns {HRESULT} 
+     * @returns {D3D10_STATE_BLOCK_MASK} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectpass-computestateblockmask
      */
-    ComputeStateBlockMask(pStateBlockMask) {
+    ComputeStateBlockMask() {
+        pStateBlockMask := D3D10_STATE_BLOCK_MASK()
         result := ComCall(8, this, "ptr", pStateBlockMask, "HRESULT")
-        return result
+        return pStateBlockMask
     }
 }

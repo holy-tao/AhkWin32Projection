@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -94,13 +95,13 @@ class IApplicationDesignModeSettings extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SIZE>} applicationSizePixels 
-     * @returns {HRESULT} 
+     * @returns {SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-computeapplicationsize
      */
-    ComputeApplicationSize(applicationSizePixels) {
+    ComputeApplicationSize() {
+        applicationSizePixels := SIZE()
         result := ComCall(6, this, "ptr", applicationSizePixels, "HRESULT")
-        return result
+        return applicationSizePixels
     }
 
     /**
@@ -108,13 +109,12 @@ class IApplicationDesignModeSettings extends IUnknown{
      * @param {Integer} viewState 
      * @param {SIZE} nativeDisplaySizePixels 
      * @param {Integer} scaleFactor 
-     * @param {Pointer<BOOL>} supported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-isapplicationviewstatesupported
      */
-    IsApplicationViewStateSupported(viewState, nativeDisplaySizePixels, scaleFactor, supported) {
-        result := ComCall(7, this, "int", viewState, "ptr", nativeDisplaySizePixels, "int", scaleFactor, "ptr", supported, "HRESULT")
-        return result
+    IsApplicationViewStateSupported(viewState, nativeDisplaySizePixels, scaleFactor) {
+        result := ComCall(7, this, "int", viewState, "ptr", nativeDisplaySizePixels, "int", scaleFactor, "int*", &supported := 0, "HRESULT")
+        return supported
     }
 
     /**

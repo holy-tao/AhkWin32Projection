@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -30,88 +31,80 @@ class ITypeLibRegistration extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetGuid(pGuid) {
+    GetGuid() {
+        pGuid := Guid()
         result := ComCall(3, this, "ptr", pGuid, "HRESULT")
-        return result
+        return pGuid
     }
 
     /**
      * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
-     * @param {Pointer<BSTR>} pVersion 
-     * @returns {HRESULT} If the function succeeds, the return value includes the major and minor version numbers of the operating system in the low-order word, and information about the operating system platform in the high-order word.
-     * 
-     * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
+     * @returns {BSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
-    GetVersion(pVersion) {
+    GetVersion() {
+        pVersion := BSTR()
         result := ComCall(4, this, "ptr", pVersion, "HRESULT")
-        return result
+        return pVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pLcid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLcid(pLcid) {
-        pLcidMarshal := pLcid is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pLcidMarshal, pLcid, "HRESULT")
-        return result
+    GetLcid() {
+        result := ComCall(5, this, "uint*", &pLcid := 0, "HRESULT")
+        return pLcid
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pWin32Path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetWin32Path(pWin32Path) {
+    GetWin32Path() {
+        pWin32Path := BSTR()
         result := ComCall(6, this, "ptr", pWin32Path, "HRESULT")
-        return result
+        return pWin32Path
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pWin64Path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetWin64Path(pWin64Path) {
+    GetWin64Path() {
+        pWin64Path := BSTR()
         result := ComCall(7, this, "ptr", pWin64Path, "HRESULT")
-        return result
+        return pWin64Path
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pDisplayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDisplayName(pDisplayName) {
+    GetDisplayName() {
+        pDisplayName := BSTR()
         result := ComCall(8, this, "ptr", pDisplayName, "HRESULT")
-        return result
+        return pDisplayName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(9, this, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pHelpDir 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetHelpDir(pHelpDir) {
+    GetHelpDir() {
+        pHelpDir := BSTR()
         result := ComCall(10, this, "ptr", pHelpDir, "HRESULT")
-        return result
+        return pHelpDir
     }
 }

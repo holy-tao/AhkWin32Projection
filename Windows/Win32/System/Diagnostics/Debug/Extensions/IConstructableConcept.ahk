@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IModelObject.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -32,11 +33,10 @@ class IConstructableConcept extends IUnknown{
      * 
      * @param {Integer} argCount 
      * @param {Pointer<IModelObject>} ppArguments 
-     * @param {Pointer<IModelObject>} ppInstance 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    CreateInstance(argCount, ppArguments, ppInstance) {
-        result := ComCall(3, this, "uint", argCount, "ptr*", ppArguments, "ptr*", ppInstance, "HRESULT")
-        return result
+    CreateInstance(argCount, ppArguments) {
+        result := ComCall(3, this, "uint", argCount, "ptr*", ppArguments, "ptr*", &ppInstance := 0, "HRESULT")
+        return IModelObject(ppInstance)
     }
 }

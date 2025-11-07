@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\ID3D11DeviceChild.ahk
 
 /**
@@ -35,15 +36,15 @@ class ID3D11Fence extends ID3D11DeviceChild{
      * @param {Pointer<SECURITY_ATTRIBUTES>} pAttributes 
      * @param {Integer} dwAccess 
      * @param {PWSTR} lpName 
-     * @param {Pointer<HANDLE>} pHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11fence-createsharedhandle
      */
-    CreateSharedHandle(pAttributes, dwAccess, lpName, pHandle) {
+    CreateSharedHandle(pAttributes, dwAccess, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
+        pHandle := HANDLE()
         result := ComCall(7, this, "ptr", pAttributes, "uint", dwAccess, "ptr", lpName, "ptr", pHandle, "HRESULT")
-        return result
+        return pHandle
     }
 
     /**

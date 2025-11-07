@@ -23,32 +23,28 @@ class Gaming {
 ;@region Methods
     /**
      * Gets the current resource state (that is, whether the app is running in Game Mode or shared mode).
-     * @param {Pointer<BOOL>} hasExpandedResources True if  the app is running in Game Mode; otherwise, false.
-     * @returns {HRESULT} The result of the operation.
+     * @returns {BOOL} True if  the app is running in Game Mode; otherwise, false.
      * @see https://docs.microsoft.com/windows/win32/api//expandedresources/nf-expandedresources-hasexpandedresources
      */
-    static HasExpandedResources(hasExpandedResources) {
-        result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\HasExpandedResources", "ptr", hasExpandedResources, "int")
+    static HasExpandedResources() {
+        result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\HasExpandedResources", "int*", &hasExpandedResources := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return hasExpandedResources
     }
 
     /**
      * Gets the expected number of exclusive CPU sets that are available to the app when in Game Mode.
-     * @param {Pointer<Integer>} exclusiveCpuCount The expected number of exclusive CPU sets that are available to the app when in Game Mode.
-     * @returns {HRESULT} The result of the operation.
+     * @returns {Integer} The expected number of exclusive CPU sets that are available to the app when in Game Mode.
      * @see https://docs.microsoft.com/windows/win32/api//expandedresources/nf-expandedresources-getexpandedresourceexclusivecpucount
      */
-    static GetExpandedResourceExclusiveCpuCount(exclusiveCpuCount) {
-        exclusiveCpuCountMarshal := exclusiveCpuCount is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\GetExpandedResourceExclusiveCpuCount", exclusiveCpuCountMarshal, exclusiveCpuCount, "int")
+    static GetExpandedResourceExclusiveCpuCount() {
+        result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\GetExpandedResourceExclusiveCpuCount", "uint*", &exclusiveCpuCount := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return exclusiveCpuCount
     }
 
     /**
@@ -326,23 +322,20 @@ class Gaming {
      * @param {HSTRING} policy Type: <b>HSTRING</b>
      * 
      * Specifies a HSTRING that ... TBD
-     * @param {Pointer<BOOL>} hasPrivilege Type: <b>BOOL*</b>
-     * 
-     * Do not use. This API is only supported for Xbox developers.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @see https://docs.microsoft.com/windows/win32/api//gamingtcui/nf-gamingtcui-checkgamingprivilegesilently
      */
-    static CheckGamingPrivilegeSilently(privilegeId, scope, policy, hasPrivilege) {
+    static CheckGamingPrivilegeSilently(privilegeId, scope, policy) {
         scope := scope is Win32Handle ? NumGet(scope, "ptr") : scope
         policy := policy is Win32Handle ? NumGet(policy, "ptr") : policy
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeSilently", "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", hasPrivilege, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeSilently", "uint", privilegeId, "ptr", scope, "ptr", policy, "int*", &hasPrivilege := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return hasPrivilege
     }
 
     /**
@@ -486,18 +479,17 @@ class Gaming {
      * @param {Integer} privilegeId 
      * @param {HSTRING} scope 
      * @param {HSTRING} policy 
-     * @param {Pointer<BOOL>} hasPrivilege 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    static CheckGamingPrivilegeSilentlyForUser(user, privilegeId, scope, policy, hasPrivilege) {
+    static CheckGamingPrivilegeSilentlyForUser(user, privilegeId, scope, policy) {
         scope := scope is Win32Handle ? NumGet(scope, "ptr") : scope
         policy := policy is Win32Handle ? NumGet(policy, "ptr") : policy
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeSilentlyForUser", "ptr", user, "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", hasPrivilege, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeSilentlyForUser", "ptr", user, "uint", privilegeId, "ptr", scope, "ptr", policy, "int*", &hasPrivilege := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return hasPrivilege
     }
 
     /**

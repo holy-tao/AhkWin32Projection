@@ -51,15 +51,12 @@ class IAMStreamConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<AM_MEDIA_TYPE>>} ppmt 
-     * @returns {HRESULT} 
+     * @returns {Pointer<AM_MEDIA_TYPE>} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamconfig-getformat
      */
-    GetFormat(ppmt) {
-        ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppmtMarshal, ppmt, "HRESULT")
-        return result
+    GetFormat() {
+        result := ComCall(4, this, "ptr*", &ppmt := 0, "HRESULT")
+        return ppmt
     }
 
     /**

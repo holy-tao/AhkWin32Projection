@@ -32,27 +32,23 @@ class IUICollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-getcount
      */
-    GetCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, countMarshal, count, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IUnknown>} item 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-getitem
      */
-    GetItem(index, item) {
-        result := ComCall(4, this, "uint", index, "ptr*", item, "HRESULT")
-        return result
+    GetItem(index) {
+        result := ComCall(4, this, "uint", index, "ptr*", &item := 0, "HRESULT")
+        return IUnknown(item)
     }
 
     /**

@@ -44,11 +44,10 @@ class IPMExtensionFileSavePickerInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pSupportsAllTypes 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_SupportsAllFileTypes(pSupportsAllTypes) {
-        result := ComCall(4, this, "ptr", pSupportsAllTypes, "HRESULT")
-        return result
+    get_SupportsAllFileTypes() {
+        result := ComCall(4, this, "int*", &pSupportsAllTypes := 0, "HRESULT")
+        return pSupportsAllTypes
     }
 }

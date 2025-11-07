@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ILocationReport.ahk
 
 /**
@@ -42,80 +43,77 @@ class ICivicAddressReport extends ILocationReport{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrAddress1 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getaddressline1
      */
-    GetAddressLine1(pbstrAddress1) {
+    GetAddressLine1() {
+        pbstrAddress1 := BSTR()
         result := ComCall(6, this, "ptr", pbstrAddress1, "HRESULT")
-        return result
+        return pbstrAddress1
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrAddress2 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getaddressline2
      */
-    GetAddressLine2(pbstrAddress2) {
+    GetAddressLine2() {
+        pbstrAddress2 := BSTR()
         result := ComCall(7, this, "ptr", pbstrAddress2, "HRESULT")
-        return result
+        return pbstrAddress2
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCity 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getcity
      */
-    GetCity(pbstrCity) {
+    GetCity() {
+        pbstrCity := BSTR()
         result := ComCall(8, this, "ptr", pbstrCity, "HRESULT")
-        return result
+        return pbstrCity
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrStateProvince 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getstateprovince
      */
-    GetStateProvince(pbstrStateProvince) {
+    GetStateProvince() {
+        pbstrStateProvince := BSTR()
         result := ComCall(9, this, "ptr", pbstrStateProvince, "HRESULT")
-        return result
+        return pbstrStateProvince
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPostalCode 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getpostalcode
      */
-    GetPostalCode(pbstrPostalCode) {
+    GetPostalCode() {
+        pbstrPostalCode := BSTR()
         result := ComCall(10, this, "ptr", pbstrPostalCode, "HRESULT")
-        return result
+        return pbstrPostalCode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCountryRegion 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getcountryregion
      */
-    GetCountryRegion(pbstrCountryRegion) {
+    GetCountryRegion() {
+        pbstrCountryRegion := BSTR()
         result := ComCall(11, this, "ptr", pbstrCountryRegion, "HRESULT")
-        return result
+        return pbstrCountryRegion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDetailLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getdetaillevel
      */
-    GetDetailLevel(pDetailLevel) {
-        pDetailLevelMarshal := pDetailLevel is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pDetailLevelMarshal, pDetailLevel, "HRESULT")
-        return result
+    GetDetailLevel() {
+        result := ComCall(12, this, "uint*", &pDetailLevel := 0, "HRESULT")
+        return pDetailLevel
     }
 }

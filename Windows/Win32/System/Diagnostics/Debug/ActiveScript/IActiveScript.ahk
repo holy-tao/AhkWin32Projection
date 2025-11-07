@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IDispatch.ahk
+#Include .\IActiveScript.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -41,14 +43,11 @@ class IActiveScript extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetScriptSite(riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    GetScriptSite(riid) {
+        result := ComCall(4, this, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**
@@ -63,14 +62,11 @@ class IActiveScript extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pssState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetScriptState(pssState) {
-        pssStateMarshal := pssState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pssStateMarshal, pssState, "HRESULT")
-        return result
+    GetScriptState() {
+        result := ComCall(6, this, "int*", &pssState := 0, "HRESULT")
+        return pssState
     }
 
     /**
@@ -111,52 +107,42 @@ class IActiveScript extends IUnknown{
     /**
      * 
      * @param {PWSTR} pstrItemName 
-     * @param {Pointer<IDispatch>} ppdisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetScriptDispatch(pstrItemName, ppdisp) {
+    GetScriptDispatch(pstrItemName) {
         pstrItemName := pstrItemName is String ? StrPtr(pstrItemName) : pstrItemName
 
-        result := ComCall(10, this, "ptr", pstrItemName, "ptr*", ppdisp, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pstrItemName, "ptr*", &ppdisp := 0, "HRESULT")
+        return IDispatch(ppdisp)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pstidThread 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentScriptThreadID(pstidThread) {
-        pstidThreadMarshal := pstidThread is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pstidThreadMarshal, pstidThread, "HRESULT")
-        return result
+    GetCurrentScriptThreadID() {
+        result := ComCall(11, this, "uint*", &pstidThread := 0, "HRESULT")
+        return pstidThread
     }
 
     /**
      * 
      * @param {Integer} dwWin32ThreadId 
-     * @param {Pointer<Integer>} pstidThread 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetScriptThreadID(dwWin32ThreadId, pstidThread) {
-        pstidThreadMarshal := pstidThread is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "uint", dwWin32ThreadId, pstidThreadMarshal, pstidThread, "HRESULT")
-        return result
+    GetScriptThreadID(dwWin32ThreadId) {
+        result := ComCall(12, this, "uint", dwWin32ThreadId, "uint*", &pstidThread := 0, "HRESULT")
+        return pstidThread
     }
 
     /**
      * 
      * @param {Integer} stidThread 
-     * @param {Pointer<Integer>} pstsState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetScriptThreadState(stidThread, pstsState) {
-        pstsStateMarshal := pstsState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, "uint", stidThread, pstsStateMarshal, pstsState, "HRESULT")
-        return result
+    GetScriptThreadState(stidThread) {
+        result := ComCall(13, this, "uint", stidThread, "int*", &pstsState := 0, "HRESULT")
+        return pstsState
     }
 
     /**
@@ -173,11 +159,10 @@ class IActiveScript extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IActiveScript>} ppscript 
-     * @returns {HRESULT} 
+     * @returns {IActiveScript} 
      */
-    Clone(ppscript) {
-        result := ComCall(15, this, "ptr*", ppscript, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(15, this, "ptr*", &ppscript := 0, "HRESULT")
+        return IActiveScript(ppscript)
     }
 }

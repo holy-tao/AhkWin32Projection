@@ -33,12 +33,11 @@ class INetworkConnection2 extends INetworkConnection{
     /**
      * 
      * @param {Integer} domainAuthenticationKind 
-     * @param {Pointer<BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection2-isdomainauthenticatedby
      */
-    IsDomainAuthenticatedBy(domainAuthenticationKind, pValue) {
-        result := ComCall(14, this, "int", domainAuthenticationKind, "ptr", pValue, "HRESULT")
-        return result
+    IsDomainAuthenticatedBy(domainAuthenticationKind) {
+        result := ComCall(14, this, "int", domainAuthenticationKind, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFolderActionCollection.ahk
+#Include .\IValueMap.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,13 +39,12 @@ class IDataManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_enabled
      */
-    get_Enabled(pfEnabled) {
-        result := ComCall(7, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(7, this, "short*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
@@ -59,13 +60,12 @@ class IDataManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfCheck 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_checkbeforerunning
      */
-    get_CheckBeforeRunning(pfCheck) {
-        result := ComCall(9, this, "ptr", pfCheck, "HRESULT")
-        return result
+    get_CheckBeforeRunning() {
+        result := ComCall(9, this, "short*", &pfCheck := 0, "HRESULT")
+        return pfCheck
     }
 
     /**
@@ -81,15 +81,12 @@ class IDataManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} MinFreeDisk 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_minfreedisk
      */
-    get_MinFreeDisk(MinFreeDisk) {
-        MinFreeDiskMarshal := MinFreeDisk is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, MinFreeDiskMarshal, MinFreeDisk, "HRESULT")
-        return result
+    get_MinFreeDisk() {
+        result := ComCall(11, this, "uint*", &MinFreeDisk := 0, "HRESULT")
+        return MinFreeDisk
     }
 
     /**
@@ -105,15 +102,12 @@ class IDataManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulMaxSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_maxsize
      */
-    get_MaxSize(pulMaxSize) {
-        pulMaxSizeMarshal := pulMaxSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pulMaxSizeMarshal, pulMaxSize, "HRESULT")
-        return result
+    get_MaxSize() {
+        result := ComCall(13, this, "uint*", &pulMaxSize := 0, "HRESULT")
+        return pulMaxSize
     }
 
     /**
@@ -129,15 +123,12 @@ class IDataManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulMaxFolderCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_maxfoldercount
      */
-    get_MaxFolderCount(pulMaxFolderCount) {
-        pulMaxFolderCountMarshal := pulMaxFolderCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pulMaxFolderCountMarshal, pulMaxFolderCount, "HRESULT")
-        return result
+    get_MaxFolderCount() {
+        result := ComCall(15, this, "uint*", &pulMaxFolderCount := 0, "HRESULT")
+        return pulMaxFolderCount
     }
 
     /**
@@ -153,15 +144,12 @@ class IDataManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pPolicy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_resourcepolicy
      */
-    get_ResourcePolicy(pPolicy) {
-        pPolicyMarshal := pPolicy is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pPolicyMarshal, pPolicy, "HRESULT")
-        return result
+    get_ResourcePolicy() {
+        result := ComCall(17, this, "int*", &pPolicy := 0, "HRESULT")
+        return pPolicy
     }
 
     /**
@@ -177,24 +165,23 @@ class IDataManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFolderActionCollection>} Actions 
-     * @returns {HRESULT} 
+     * @returns {IFolderActionCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_folderactions
      */
-    get_FolderActions(Actions) {
-        result := ComCall(19, this, "ptr*", Actions, "HRESULT")
-        return result
+    get_FolderActions() {
+        result := ComCall(19, this, "ptr*", &Actions := 0, "HRESULT")
+        return IFolderActionCollection(Actions)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ReportSchema 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_reportschema
      */
-    get_ReportSchema(ReportSchema) {
+    get_ReportSchema() {
+        ReportSchema := BSTR()
         result := ComCall(20, this, "ptr", ReportSchema, "HRESULT")
-        return result
+        return ReportSchema
     }
 
     /**
@@ -212,13 +199,13 @@ class IDataManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFilename 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_reportfilename
      */
-    get_ReportFileName(pbstrFilename) {
+    get_ReportFileName() {
+        pbstrFilename := BSTR()
         result := ComCall(22, this, "ptr", pbstrFilename, "HRESULT")
-        return result
+        return pbstrFilename
     }
 
     /**
@@ -236,13 +223,13 @@ class IDataManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Filename 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_ruletargetfilename
      */
-    get_RuleTargetFileName(Filename) {
+    get_RuleTargetFileName() {
+        Filename := BSTR()
         result := ComCall(24, this, "ptr", Filename, "HRESULT")
-        return result
+        return Filename
     }
 
     /**
@@ -260,13 +247,13 @@ class IDataManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFilename 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_eventsfilename
      */
-    get_EventsFileName(pbstrFilename) {
+    get_EventsFileName() {
+        pbstrFilename := BSTR()
         result := ComCall(26, this, "ptr", pbstrFilename, "HRESULT")
-        return result
+        return pbstrFilename
     }
 
     /**
@@ -284,13 +271,13 @@ class IDataManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrXml 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_rules
      */
-    get_Rules(pbstrXml) {
+    get_Rules() {
+        pbstrXml := BSTR()
         result := ComCall(28, this, "ptr", pbstrXml, "HRESULT")
-        return result
+        return pbstrXml
     }
 
     /**
@@ -310,15 +297,14 @@ class IDataManager extends IDispatch{
      * 
      * @param {Integer} Steps 
      * @param {BSTR} bstrFolder 
-     * @param {Pointer<IValueMap>} Errors 
-     * @returns {HRESULT} 
+     * @returns {IValueMap} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-run
      */
-    Run(Steps, bstrFolder, Errors) {
+    Run(Steps, bstrFolder) {
         bstrFolder := bstrFolder is String ? BSTR.Alloc(bstrFolder).Value : bstrFolder
 
-        result := ComCall(30, this, "int", Steps, "ptr", bstrFolder, "ptr*", Errors, "HRESULT")
-        return result
+        result := ComCall(30, this, "int", Steps, "ptr", bstrFolder, "ptr*", &Errors := 0, "HRESULT")
+        return IValueMap(Errors)
     }
 
     /**

@@ -71,14 +71,11 @@ class IKsDataTypeHandler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} ExtendedSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    KsQueryExtendedSize(ExtendedSize) {
-        ExtendedSizeMarshal := ExtendedSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, ExtendedSizeMarshal, ExtendedSize, "HRESULT")
-        return result
+    KsQueryExtendedSize() {
+        result := ComCall(6, this, "uint*", &ExtendedSize := 0, "HRESULT")
+        return ExtendedSize
     }
 
     /**

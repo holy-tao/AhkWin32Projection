@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLAudioElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,11 +38,10 @@ class IHTMLAudioElementFactory extends IDispatch{
     /**
      * 
      * @param {VARIANT} src 
-     * @param {Pointer<IHTMLAudioElement>} __MIDL__IHTMLAudioElementFactory0000 
-     * @returns {HRESULT} 
+     * @returns {IHTMLAudioElement} 
      */
-    create(src, __MIDL__IHTMLAudioElementFactory0000) {
-        result := ComCall(7, this, "ptr", src, "ptr*", __MIDL__IHTMLAudioElementFactory0000, "HRESULT")
-        return result
+    create(src) {
+        result := ComCall(7, this, "ptr", src, "ptr*", &__MIDL__IHTMLAudioElementFactory0000 := 0, "HRESULT")
+        return IHTMLAudioElement(__MIDL__IHTMLAudioElementFactory0000)
     }
 }

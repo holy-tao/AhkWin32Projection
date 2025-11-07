@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfDocumentMgr.ahk
 #Include .\ITfUIElement.ahk
 
 /**
@@ -32,12 +33,11 @@ class ITfTransitoryExtensionUIElement extends ITfUIElement{
 
     /**
      * 
-     * @param {Pointer<ITfDocumentMgr>} ppdim 
-     * @returns {HRESULT} 
+     * @returns {ITfDocumentMgr} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftransitoryextensionuielement-getdocumentmgr
      */
-    GetDocumentMgr(ppdim) {
-        result := ComCall(7, this, "ptr*", ppdim, "HRESULT")
-        return result
+    GetDocumentMgr() {
+        result := ComCall(7, this, "ptr*", &ppdim := 0, "HRESULT")
+        return ITfDocumentMgr(ppdim)
     }
 }

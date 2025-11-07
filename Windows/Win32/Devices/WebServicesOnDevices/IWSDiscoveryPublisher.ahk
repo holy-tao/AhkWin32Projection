@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWSDXMLContext.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -259,12 +260,11 @@ class IWSDiscoveryPublisher extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWSDXMLContext>} ppContext 
-     * @returns {HRESULT} 
+     * @returns {IWSDXMLContext} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-getxmlcontext
      */
-    GetXMLContext(ppContext) {
-        result := ComCall(15, this, "ptr*", ppContext, "HRESULT")
-        return result
+    GetXMLContext() {
+        result := ComCall(15, this, "ptr*", &ppContext := 0, "HRESULT")
+        return IWSDXMLContext(ppContext)
     }
 }

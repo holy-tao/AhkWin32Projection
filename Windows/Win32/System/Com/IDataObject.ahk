@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\STGMEDIUM.ahk
+#Include .\FORMATETC.ahk
+#Include .\IEnumFORMATETC.ahk
+#Include .\IEnumSTATDATA.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -33,13 +37,13 @@ class IDataObject extends IUnknown{
     /**
      * 
      * @param {Pointer<FORMATETC>} pformatetcIn 
-     * @param {Pointer<STGMEDIUM>} pmedium 
-     * @returns {HRESULT} 
+     * @returns {STGMEDIUM} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-getdata
      */
-    GetData(pformatetcIn, pmedium) {
+    GetData(pformatetcIn) {
+        pmedium := STGMEDIUM()
         result := ComCall(3, this, "ptr", pformatetcIn, "ptr", pmedium, "HRESULT")
-        return result
+        return pmedium
     }
 
     /**
@@ -68,13 +72,13 @@ class IDataObject extends IUnknown{
     /**
      * 
      * @param {Pointer<FORMATETC>} pformatectIn 
-     * @param {Pointer<FORMATETC>} pformatetcOut 
-     * @returns {HRESULT} 
+     * @returns {FORMATETC} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-getcanonicalformatetc
      */
-    GetCanonicalFormatEtc(pformatectIn, pformatetcOut) {
+    GetCanonicalFormatEtc(pformatectIn) {
+        pformatetcOut := FORMATETC()
         result := ComCall(6, this, "ptr", pformatectIn, "ptr", pformatetcOut, "int")
-        return result
+        return pformatetcOut
     }
 
     /**
@@ -93,13 +97,12 @@ class IDataObject extends IUnknown{
     /**
      * 
      * @param {Integer} dwDirection 
-     * @param {Pointer<IEnumFORMATETC>} ppenumFormatEtc 
-     * @returns {HRESULT} 
+     * @returns {IEnumFORMATETC} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-enumformatetc
      */
-    EnumFormatEtc(dwDirection, ppenumFormatEtc) {
-        result := ComCall(8, this, "uint", dwDirection, "ptr*", ppenumFormatEtc, "HRESULT")
-        return result
+    EnumFormatEtc(dwDirection) {
+        result := ComCall(8, this, "uint", dwDirection, "ptr*", &ppenumFormatEtc := 0, "HRESULT")
+        return IEnumFORMATETC(ppenumFormatEtc)
     }
 
     /**
@@ -107,15 +110,12 @@ class IDataObject extends IUnknown{
      * @param {Pointer<FORMATETC>} pformatetc 
      * @param {Integer} advf 
      * @param {IAdviseSink} pAdvSink 
-     * @param {Pointer<Integer>} pdwConnection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-dadvise
      */
-    DAdvise(pformatetc, advf, pAdvSink, pdwConnection) {
-        pdwConnectionMarshal := pdwConnection is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pformatetc, "uint", advf, "ptr", pAdvSink, pdwConnectionMarshal, pdwConnection, "HRESULT")
-        return result
+    DAdvise(pformatetc, advf, pAdvSink) {
+        result := ComCall(9, this, "ptr", pformatetc, "uint", advf, "ptr", pAdvSink, "uint*", &pdwConnection := 0, "HRESULT")
+        return pdwConnection
     }
 
     /**
@@ -131,12 +131,11 @@ class IDataObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSTATDATA>} ppenumAdvise 
-     * @returns {HRESULT} 
+     * @returns {IEnumSTATDATA} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-enumdadvise
      */
-    EnumDAdvise(ppenumAdvise) {
-        result := ComCall(11, this, "ptr*", ppenumAdvise, "HRESULT")
-        return result
+    EnumDAdvise() {
+        result := ComCall(11, this, "ptr*", &ppenumAdvise := 0, "HRESULT")
+        return IEnumSTATDATA(ppenumAdvise)
     }
 }

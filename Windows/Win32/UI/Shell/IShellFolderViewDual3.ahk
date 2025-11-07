@@ -38,13 +38,13 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrGroupBy 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_groupby
      */
-    get_GroupBy(pbstrGroupBy) {
+    get_GroupBy() {
+        pbstrGroupBy := BSTR()
         result := ComCall(19, this, "ptr", pbstrGroupBy, "HRESULT")
-        return result
+        return pbstrGroupBy
     }
 
     /**
@@ -62,15 +62,12 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_folderflags
      */
-    get_FolderFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    get_FolderFlags() {
+        result := ComCall(21, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -86,13 +83,13 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSortColumns 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_sortcolumns
      */
-    get_SortColumns(pbstrSortColumns) {
+    get_SortColumns() {
+        pbstrSortColumns := BSTR()
         result := ComCall(23, this, "ptr", pbstrSortColumns, "HRESULT")
-        return result
+        return pbstrSortColumns
     }
 
     /**
@@ -121,15 +118,12 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
 
     /**
      * 
-     * @param {Pointer<Integer>} piIconSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_iconsize
      */
-    get_IconSize(piIconSize) {
-        piIconSizeMarshal := piIconSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, piIconSizeMarshal, piIconSize, "HRESULT")
-        return result
+    get_IconSize() {
+        result := ComCall(26, this, "int*", &piIconSize := 0, "HRESULT")
+        return piIconSize
     }
 
     /**

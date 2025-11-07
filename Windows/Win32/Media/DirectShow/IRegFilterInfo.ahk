@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,21 +31,20 @@ class IRegFilterInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(strName) {
+    get_Name() {
+        strName := BSTR()
         result := ComCall(7, this, "ptr", strName, "HRESULT")
-        return result
+        return strName
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    Filter(ppUnk) {
-        result := ComCall(8, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    Filter() {
+        result := ComCall(8, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IDispatch(ppUnk)
     }
 }

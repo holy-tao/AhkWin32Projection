@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_CAPS.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_CUSTOM_RATE.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_FILTER_RANGE.ahk
 #Include .\ID3D11DeviceChild.ahk
 
 /**
@@ -39,74 +44,71 @@ class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild{
 
     /**
      * 
-     * @param {Pointer<D3D11_VIDEO_PROCESSOR_CONTENT_DESC>} pContentDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D11_VIDEO_PROCESSOR_CONTENT_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcontentdesc
      */
-    GetVideoProcessorContentDesc(pContentDesc) {
+    GetVideoProcessorContentDesc() {
+        pContentDesc := D3D11_VIDEO_PROCESSOR_CONTENT_DESC()
         result := ComCall(7, this, "ptr", pContentDesc, "HRESULT")
-        return result
+        return pContentDesc
     }
 
     /**
      * 
      * @param {Integer} Format 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-checkvideoprocessorformat
      */
-    CheckVideoProcessorFormat(Format, pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "int", Format, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    CheckVideoProcessorFormat(Format) {
+        result := ComCall(8, this, "int", Format, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
      * 
-     * @param {Pointer<D3D11_VIDEO_PROCESSOR_CAPS>} pCaps 
-     * @returns {HRESULT} 
+     * @returns {D3D11_VIDEO_PROCESSOR_CAPS} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps
      */
-    GetVideoProcessorCaps(pCaps) {
+    GetVideoProcessorCaps() {
+        pCaps := D3D11_VIDEO_PROCESSOR_CAPS()
         result := ComCall(9, this, "ptr", pCaps, "HRESULT")
-        return result
+        return pCaps
     }
 
     /**
      * 
      * @param {Integer} TypeIndex 
-     * @param {Pointer<D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS>} pCaps 
-     * @returns {HRESULT} 
+     * @returns {D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorrateconversioncaps
      */
-    GetVideoProcessorRateConversionCaps(TypeIndex, pCaps) {
+    GetVideoProcessorRateConversionCaps(TypeIndex) {
+        pCaps := D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS()
         result := ComCall(10, this, "uint", TypeIndex, "ptr", pCaps, "HRESULT")
-        return result
+        return pCaps
     }
 
     /**
      * 
      * @param {Integer} TypeIndex 
      * @param {Integer} CustomRateIndex 
-     * @param {Pointer<D3D11_VIDEO_PROCESSOR_CUSTOM_RATE>} pRate 
-     * @returns {HRESULT} 
+     * @returns {D3D11_VIDEO_PROCESSOR_CUSTOM_RATE} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcustomrate
      */
-    GetVideoProcessorCustomRate(TypeIndex, CustomRateIndex, pRate) {
+    GetVideoProcessorCustomRate(TypeIndex, CustomRateIndex) {
+        pRate := D3D11_VIDEO_PROCESSOR_CUSTOM_RATE()
         result := ComCall(11, this, "uint", TypeIndex, "uint", CustomRateIndex, "ptr", pRate, "HRESULT")
-        return result
+        return pRate
     }
 
     /**
      * 
      * @param {Integer} Filter 
-     * @param {Pointer<D3D11_VIDEO_PROCESSOR_FILTER_RANGE>} pRange 
-     * @returns {HRESULT} 
+     * @returns {D3D11_VIDEO_PROCESSOR_FILTER_RANGE} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorfilterrange
      */
-    GetVideoProcessorFilterRange(Filter, pRange) {
+    GetVideoProcessorFilterRange(Filter) {
+        pRange := D3D11_VIDEO_PROCESSOR_FILTER_RANGE()
         result := ComCall(12, this, "int", Filter, "ptr", pRange, "HRESULT")
-        return result
+        return pRange
     }
 }

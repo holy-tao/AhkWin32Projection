@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IBitmapData.ahk
 #Include .\IVisualTreeService.ahk
 
 /**
@@ -34,32 +35,26 @@ class IVisualTreeService2 extends IVisualTreeService{
      * 
      * @param {Integer} object 
      * @param {PWSTR} propertyName 
-     * @param {Pointer<Integer>} pPropertyIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice2-getpropertyindex
      */
-    GetPropertyIndex(object, propertyName, pPropertyIndex) {
+    GetPropertyIndex(object, propertyName) {
         propertyName := propertyName is String ? StrPtr(propertyName) : propertyName
 
-        pPropertyIndexMarshal := pPropertyIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, "uint", object, "ptr", propertyName, pPropertyIndexMarshal, pPropertyIndex, "HRESULT")
-        return result
+        result := ComCall(15, this, "uint", object, "ptr", propertyName, "uint*", &pPropertyIndex := 0, "HRESULT")
+        return pPropertyIndex
     }
 
     /**
      * 
      * @param {Integer} object 
      * @param {Integer} propertyIndex 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice2-getproperty
      */
-    GetProperty(object, propertyIndex, pValue) {
-        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, "uint", object, "uint", propertyIndex, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetProperty(object, propertyIndex) {
+        result := ComCall(16, this, "uint", object, "uint", propertyIndex, "uint*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -81,12 +76,11 @@ class IVisualTreeService2 extends IVisualTreeService{
      * @param {Integer} options 
      * @param {Integer} maxPixelWidth 
      * @param {Integer} maxPixelHeight 
-     * @param {Pointer<IBitmapData>} ppBitmapData 
-     * @returns {HRESULT} 
+     * @returns {IBitmapData} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice2-rendertargetbitmap
      */
-    RenderTargetBitmap(handle, options, maxPixelWidth, maxPixelHeight, ppBitmapData) {
-        result := ComCall(18, this, "uint", handle, "int", options, "uint", maxPixelWidth, "uint", maxPixelHeight, "ptr*", ppBitmapData, "HRESULT")
-        return result
+    RenderTargetBitmap(handle, options, maxPixelWidth, maxPixelHeight) {
+        result := ComCall(18, this, "uint", handle, "int", options, "uint", maxPixelWidth, "uint", maxPixelHeight, "ptr*", &ppBitmapData := 0, "HRESULT")
+        return IBitmapData(ppBitmapData)
     }
 }

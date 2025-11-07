@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\HSTRING.ahk
 #Include .\IInspectable.ahk
 
 /**
@@ -30,22 +31,22 @@ class ICorrelationVectorInformation extends IInspectable{
 
     /**
      * 
-     * @param {Pointer<HSTRING>} cv 
-     * @returns {HRESULT} 
+     * @returns {HSTRING} 
      */
-    get_LastCorrelationVectorForThread(cv) {
+    get_LastCorrelationVectorForThread() {
+        cv := HSTRING()
         result := ComCall(6, this, "ptr", cv, "HRESULT")
-        return result
+        return cv
     }
 
     /**
      * 
-     * @param {Pointer<HSTRING>} cv 
-     * @returns {HRESULT} 
+     * @returns {HSTRING} 
      */
-    get_NextCorrelationVectorForThread(cv) {
+    get_NextCorrelationVectorForThread() {
+        cv := HSTRING()
         result := ComCall(7, this, "ptr", cv, "HRESULT")
-        return result
+        return cv
     }
 
     /**

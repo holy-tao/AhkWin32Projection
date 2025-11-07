@@ -31,12 +31,12 @@ class IXMLDOMCharacterData extends IXMLDOMNode{
 
     /**
      * 
-     * @param {Pointer<BSTR>} data 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_data(data) {
+    get_data() {
+        data := BSTR()
         result := ComCall(43, this, "ptr", data, "HRESULT")
-        return result
+        return data
     }
 
     /**
@@ -53,26 +53,23 @@ class IXMLDOMCharacterData extends IXMLDOMNode{
 
     /**
      * 
-     * @param {Pointer<Integer>} dataLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(dataLength) {
-        dataLengthMarshal := dataLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(45, this, dataLengthMarshal, dataLength, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(45, this, "int*", &dataLength := 0, "HRESULT")
+        return dataLength
     }
 
     /**
      * 
      * @param {Integer} offset 
      * @param {Integer} count 
-     * @param {Pointer<BSTR>} data 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    substringData(offset, count, data) {
+    substringData(offset, count) {
+        data := BSTR()
         result := ComCall(46, this, "int", offset, "int", count, "ptr", data, "HRESULT")
-        return result
+        return data
     }
 
     /**

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\INetFwRules.ahk
+#Include .\INetFwServiceRestriction.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,27 +49,23 @@ class INetFwPolicy2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} profileTypesBitmask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes
      */
-    get_CurrentProfileTypes(profileTypesBitmask) {
-        profileTypesBitmaskMarshal := profileTypesBitmask is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, profileTypesBitmaskMarshal, profileTypesBitmask, "HRESULT")
-        return result
+    get_CurrentProfileTypes() {
+        result := ComCall(7, this, "int*", &profileTypesBitmask := 0, "HRESULT")
+        return profileTypesBitmask
     }
 
     /**
      * 
      * @param {Integer} profileType 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_firewallenabled
      */
-    get_FirewallEnabled(profileType, enabled) {
-        result := ComCall(8, this, "int", profileType, "ptr", enabled, "HRESULT")
-        return result
+    get_FirewallEnabled(profileType) {
+        result := ComCall(8, this, "int", profileType, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**
@@ -84,13 +83,13 @@ class INetFwPolicy2 extends IDispatch{
     /**
      * 
      * @param {Integer} profileType 
-     * @param {Pointer<VARIANT>} interfaces 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_excludedinterfaces
      */
-    get_ExcludedInterfaces(profileType, interfaces) {
+    get_ExcludedInterfaces(profileType) {
+        interfaces := VARIANT()
         result := ComCall(10, this, "int", profileType, "ptr", interfaces, "HRESULT")
-        return result
+        return interfaces
     }
 
     /**
@@ -108,13 +107,12 @@ class INetFwPolicy2 extends IDispatch{
     /**
      * 
      * @param {Integer} profileType 
-     * @param {Pointer<VARIANT_BOOL>} Block 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_blockallinboundtraffic
      */
-    get_BlockAllInboundTraffic(profileType, Block) {
-        result := ComCall(12, this, "int", profileType, "ptr", Block, "HRESULT")
-        return result
+    get_BlockAllInboundTraffic(profileType) {
+        result := ComCall(12, this, "int", profileType, "short*", &Block := 0, "HRESULT")
+        return Block
     }
 
     /**
@@ -132,13 +130,12 @@ class INetFwPolicy2 extends IDispatch{
     /**
      * 
      * @param {Integer} profileType 
-     * @param {Pointer<VARIANT_BOOL>} disabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_notificationsdisabled
      */
-    get_NotificationsDisabled(profileType, disabled) {
-        result := ComCall(14, this, "int", profileType, "ptr", disabled, "HRESULT")
-        return result
+    get_NotificationsDisabled(profileType) {
+        result := ComCall(14, this, "int", profileType, "short*", &disabled := 0, "HRESULT")
+        return disabled
     }
 
     /**
@@ -156,13 +153,12 @@ class INetFwPolicy2 extends IDispatch{
     /**
      * 
      * @param {Integer} profileType 
-     * @param {Pointer<VARIANT_BOOL>} disabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_unicastresponsestomulticastbroadcastdisabled
      */
-    get_UnicastResponsesToMulticastBroadcastDisabled(profileType, disabled) {
-        result := ComCall(16, this, "int", profileType, "ptr", disabled, "HRESULT")
-        return result
+    get_UnicastResponsesToMulticastBroadcastDisabled(profileType) {
+        result := ComCall(16, this, "int", profileType, "short*", &disabled := 0, "HRESULT")
+        return disabled
     }
 
     /**
@@ -179,24 +175,22 @@ class INetFwPolicy2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<INetFwRules>} rules 
-     * @returns {HRESULT} 
+     * @returns {INetFwRules} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_rules
      */
-    get_Rules(rules) {
-        result := ComCall(18, this, "ptr*", rules, "HRESULT")
-        return result
+    get_Rules() {
+        result := ComCall(18, this, "ptr*", &rules := 0, "HRESULT")
+        return INetFwRules(rules)
     }
 
     /**
      * 
-     * @param {Pointer<INetFwServiceRestriction>} ServiceRestriction 
-     * @returns {HRESULT} 
+     * @returns {INetFwServiceRestriction} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_servicerestriction
      */
-    get_ServiceRestriction(ServiceRestriction) {
-        result := ComCall(19, this, "ptr*", ServiceRestriction, "HRESULT")
-        return result
+    get_ServiceRestriction() {
+        result := ComCall(19, this, "ptr*", &ServiceRestriction := 0, "HRESULT")
+        return INetFwServiceRestriction(ServiceRestriction)
     }
 
     /**
@@ -218,15 +212,14 @@ class INetFwPolicy2 extends IDispatch{
      * 
      * @param {Integer} profileTypesBitmask 
      * @param {BSTR} group 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-isrulegroupenabled
      */
-    IsRuleGroupEnabled(profileTypesBitmask, group, enabled) {
+    IsRuleGroupEnabled(profileTypesBitmask, group) {
         group := group is String ? BSTR.Alloc(group).Value : group
 
-        result := ComCall(21, this, "int", profileTypesBitmask, "ptr", group, "ptr", enabled, "HRESULT")
-        return result
+        result := ComCall(21, this, "int", profileTypesBitmask, "ptr", group, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**
@@ -242,15 +235,12 @@ class INetFwPolicy2 extends IDispatch{
     /**
      * 
      * @param {Integer} profileType 
-     * @param {Pointer<Integer>} action 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_defaultinboundaction
      */
-    get_DefaultInboundAction(profileType, action) {
-        actionMarshal := action is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, "int", profileType, actionMarshal, action, "HRESULT")
-        return result
+    get_DefaultInboundAction(profileType) {
+        result := ComCall(23, this, "int", profileType, "int*", &action := 0, "HRESULT")
+        return action
     }
 
     /**
@@ -268,15 +258,12 @@ class INetFwPolicy2 extends IDispatch{
     /**
      * 
      * @param {Integer} profileType 
-     * @param {Pointer<Integer>} action 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_defaultoutboundaction
      */
-    get_DefaultOutboundAction(profileType, action) {
-        actionMarshal := action is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, "int", profileType, actionMarshal, action, "HRESULT")
-        return result
+    get_DefaultOutboundAction(profileType) {
+        result := ComCall(25, this, "int", profileType, "int*", &action := 0, "HRESULT")
+        return action
     }
 
     /**
@@ -294,27 +281,23 @@ class INetFwPolicy2 extends IDispatch{
     /**
      * 
      * @param {BSTR} group 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_isrulegroupcurrentlyenabled
      */
-    get_IsRuleGroupCurrentlyEnabled(group, enabled) {
+    get_IsRuleGroupCurrentlyEnabled(group) {
         group := group is String ? BSTR.Alloc(group).Value : group
 
-        result := ComCall(27, this, "ptr", group, "ptr", enabled, "HRESULT")
-        return result
+        result := ComCall(27, this, "ptr", group, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} modifyState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_localpolicymodifystate
      */
-    get_LocalPolicyModifyState(modifyState) {
-        modifyStateMarshal := modifyState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, modifyStateMarshal, modifyState, "HRESULT")
-        return result
+    get_LocalPolicyModifyState() {
+        result := ComCall(28, this, "int*", &modifyState := 0, "HRESULT")
+        return modifyState
     }
 }

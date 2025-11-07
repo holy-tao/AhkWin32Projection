@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISignerCertificate.ahk
 #Include .\IX509CertificateRequest.ahk
 
 /**
@@ -89,13 +90,13 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-get_requestername
      */
-    get_RequesterName(pValue) {
+    get_RequesterName() {
+        pValue := BSTR()
         result := ComCall(36, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -113,13 +114,12 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest{
 
     /**
      * 
-     * @param {Pointer<ISignerCertificate>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ISignerCertificate} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-get_signercertificate
      */
-    get_SignerCertificate(ppValue) {
-        result := ComCall(38, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_SignerCertificate() {
+        result := ComCall(38, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ISignerCertificate(ppValue)
     }
 
     /**

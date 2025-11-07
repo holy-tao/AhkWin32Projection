@@ -43,15 +43,12 @@ class IConfigAviMux extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pStream 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfigavimux-getmasterstream
      */
-    GetMasterStream(pStream) {
-        pStreamMarshal := pStream is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pStreamMarshal, pStream, "HRESULT")
-        return result
+    GetMasterStream() {
+        result := ComCall(4, this, "int*", &pStream := 0, "HRESULT")
+        return pStream
     }
 
     /**
@@ -67,12 +64,11 @@ class IConfigAviMux extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfOldIndex 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfigavimux-getoutputcompatibilityindex
      */
-    GetOutputCompatibilityIndex(pfOldIndex) {
-        result := ComCall(6, this, "ptr", pfOldIndex, "HRESULT")
-        return result
+    GetOutputCompatibilityIndex() {
+        result := ComCall(6, this, "int*", &pfOldIndex := 0, "HRESULT")
+        return pfOldIndex
     }
 }

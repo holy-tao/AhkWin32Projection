@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_HBAPORT_PROP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,13 @@ class IVdsHbaPort extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_HBAPORT_PROP>} pHbaPortProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_HBAPORT_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdshbaport-getproperties
      */
-    GetProperties(pHbaPortProp) {
+    GetProperties() {
+        pHbaPortProp := VDS_HBAPORT_PROP()
         result := ComCall(3, this, "ptr", pHbaPortProp, "HRESULT")
-        return result
+        return pHbaPortProp
     }
 
     /**

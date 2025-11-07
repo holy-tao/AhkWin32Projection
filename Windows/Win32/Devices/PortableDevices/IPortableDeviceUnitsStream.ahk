@@ -35,15 +35,12 @@ class IPortableDeviceUnitsStream extends IUnknown{
      * @param {Integer} dlibMove 
      * @param {Integer} units 
      * @param {Integer} dwOrigin 
-     * @param {Pointer<Integer>} plibNewPosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceunitsstream-seekinunits
      */
-    SeekInUnits(dlibMove, units, dwOrigin, plibNewPosition) {
-        plibNewPositionMarshal := plibNewPosition is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "int64", dlibMove, "int", units, "uint", dwOrigin, plibNewPositionMarshal, plibNewPosition, "HRESULT")
-        return result
+    SeekInUnits(dlibMove, units, dwOrigin) {
+        result := ComCall(3, this, "int64", dlibMove, "int", units, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
+        return plibNewPosition
     }
 
     /**

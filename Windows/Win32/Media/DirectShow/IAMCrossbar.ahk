@@ -72,15 +72,12 @@ class IAMCrossbar extends IUnknown{
     /**
      * 
      * @param {Integer} OutputPinIndex 
-     * @param {Pointer<Integer>} InputPinIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcrossbar-get_isroutedto
      */
-    get_IsRoutedTo(OutputPinIndex, InputPinIndex) {
-        InputPinIndexMarshal := InputPinIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, "int", OutputPinIndex, InputPinIndexMarshal, InputPinIndex, "HRESULT")
-        return result
+    get_IsRoutedTo(OutputPinIndex) {
+        result := ComCall(6, this, "int", OutputPinIndex, "int*", &InputPinIndex := 0, "HRESULT")
+        return InputPinIndex
     }
 
     /**

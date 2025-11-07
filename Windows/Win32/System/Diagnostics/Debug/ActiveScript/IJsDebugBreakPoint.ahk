@@ -30,12 +30,11 @@ class IJsDebugBreakPoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsEnabled(pIsEnabled) {
-        result := ComCall(3, this, "ptr", pIsEnabled, "HRESULT")
-        return result
+    IsEnabled() {
+        result := ComCall(3, this, "int*", &pIsEnabled := 0, "HRESULT")
+        return pIsEnabled
     }
 
     /**

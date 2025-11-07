@@ -43,13 +43,12 @@ class IFileSystemImage3 extends IFileSystemImage2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage3-get_createredundantudfmetadatafiles
      */
-    get_CreateRedundantUdfMetadataFiles(pVal) {
-        result := ComCall(59, this, "ptr", pVal, "HRESULT")
-        return result
+    get_CreateRedundantUdfMetadataFiles() {
+        result := ComCall(59, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -66,12 +65,11 @@ class IFileSystemImage3 extends IFileSystemImage2{
     /**
      * 
      * @param {Integer} fileSystemToProbe 
-     * @param {Pointer<VARIANT_BOOL>} isAppendable 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage3-probespecificfilesystem
      */
-    ProbeSpecificFileSystem(fileSystemToProbe, isAppendable) {
-        result := ComCall(61, this, "int", fileSystemToProbe, "ptr", isAppendable, "HRESULT")
-        return result
+    ProbeSpecificFileSystem(fileSystemToProbe) {
+        result := ComCall(61, this, "int", fileSystemToProbe, "short*", &isAppendable := 0, "HRESULT")
+        return isAppendable
     }
 }
