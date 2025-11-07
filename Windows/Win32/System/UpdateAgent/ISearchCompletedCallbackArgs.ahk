@@ -7,8 +7,8 @@
  * Contains information about the completion of an asynchronous search. It also acts as a parameter to the SearchCompletedCallback delegate.
  * @remarks
  * 
-  * The <b>ISearchCompletedCallbackArgs</b> interface is reserved for future use and has no properties or methods.
-  * 
+ * The <b>ISearchCompletedCallbackArgs</b> interface is reserved for future use and has no properties or methods.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-isearchcompletedcallbackargs
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

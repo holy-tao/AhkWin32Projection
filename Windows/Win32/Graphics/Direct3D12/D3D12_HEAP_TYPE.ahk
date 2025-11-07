@@ -4,49 +4,49 @@
  * Specifies the type of heap. When resident, heaps reside in a particular physical memory pool with certain CPU cache properties.
  * @remarks
  * 
-  * This enum is used by the following API items:
-  *         
-  * 
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_desc">D3D12_HEAP_DESC</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_properties">D3D12_HEAP_PROPERTIES</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getcustomheapproperties">GetCustomHeapProperties</a>
-  * </li>
-  * </ul>
-  * The heap types fall into two categories: abstracted heap types, and custom heap types.
-  *         
-  * 
-  * The following are abstracted heap types:
-  *         
-  * 
-  * <ul>
-  * <li>D3D12_HEAP_TYPE_DEFAULT</li>
-  * <li>D3D12_HEAP_TYPE_UPLOAD</li>
-  * <li>D3D12_HEAP_TYPE_READBACK</li>
-  * </ul>
-  * The following is a custom heap type:
-  *         
-  * 
-  * <ul>
-  * <li>D3D12_HEAP_TYPE_CUSTOM</li>
-  * </ul>
-  * The abstracted heap types (_DEFAULT, _UPLOAD, and _READBACK) are useful to simplify writing adapter-neutral applications, because such applications don't need to be aware of the adapter memory architecture.
-  *           To use an abstracted heap type to simplify writing adapter-neutral applications, the application essentially treats the adapter as if it were a discrete or NUMA adapter.
-  *           But, using the heap types enables efficient translation for UMA adapters.
-  *           Adapter architecture neutral applications should assume there are two memory pools available, where the pool with the most GPU bandwidth cannot provide CPU access.
-  *           The pool with the least GPU bandwidth can have CPU access; but must be either optimized for upload to GPU or readback from GPU.
-  *         
-  * 
-  * 
-  * 
-  * Note that textures (unlike buffers) can't be heap type UPLOAD or READBACK.
-  * 
-  * 
+ * This enum is used by the following API items:
+ *         
+ * 
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_desc">D3D12_HEAP_DESC</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_properties">D3D12_HEAP_PROPERTIES</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getcustomheapproperties">GetCustomHeapProperties</a>
+ * </li>
+ * </ul>
+ * The heap types fall into two categories: abstracted heap types, and custom heap types.
+ *         
+ * 
+ * The following are abstracted heap types:
+ *         
+ * 
+ * <ul>
+ * <li>D3D12_HEAP_TYPE_DEFAULT</li>
+ * <li>D3D12_HEAP_TYPE_UPLOAD</li>
+ * <li>D3D12_HEAP_TYPE_READBACK</li>
+ * </ul>
+ * The following is a custom heap type:
+ *         
+ * 
+ * <ul>
+ * <li>D3D12_HEAP_TYPE_CUSTOM</li>
+ * </ul>
+ * The abstracted heap types (_DEFAULT, _UPLOAD, and _READBACK) are useful to simplify writing adapter-neutral applications, because such applications don't need to be aware of the adapter memory architecture.
+ *           To use an abstracted heap type to simplify writing adapter-neutral applications, the application essentially treats the adapter as if it were a discrete or NUMA adapter.
+ *           But, using the heap types enables efficient translation for UMA adapters.
+ *           Adapter architecture neutral applications should assume there are two memory pools available, where the pool with the most GPU bandwidth cannot provide CPU access.
+ *           The pool with the least GPU bandwidth can have CPU access; but must be either optimized for upload to GPU or readback from GPU.
+ *         
+ * 
+ * 
+ * 
+ * Note that textures (unlike buffers) can't be heap type UPLOAD or READBACK.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_heap_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

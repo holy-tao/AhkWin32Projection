@@ -5,21 +5,21 @@
  * Represents an entry in the function table.
  * @remarks
  * 
-  * The following definition exists for 64-bit support.
-  * 
-  * 
-  * ```cpp
-  * typedef struct _IMAGE_FUNCTION_ENTRY64 {
-  *     ULONGLONG   StartingAddress;
-  *     ULONGLONG   EndingAddress;
-  *     union {
-  *         ULONGLONG   EndOfPrologue;
-  *         ULONGLONG   UnwindInfoAddress;
-  *     };
-  * } IMAGE_FUNCTION_ENTRY64, *PIMAGE_FUNCTION_ENTRY64;
-  * ```
-  * 
-  * 
+ * The following definition exists for 64-bit support.
+ * 
+ * 
+ * ```cpp
+ * typedef struct _IMAGE_FUNCTION_ENTRY64 {
+ *     ULONGLONG   StartingAddress;
+ *     ULONGLONG   EndingAddress;
+ *     union {
+ *         ULONGLONG   EndOfPrologue;
+ *         ULONGLONG   UnwindInfoAddress;
+ *     };
+ * } IMAGE_FUNCTION_ENTRY64, *PIMAGE_FUNCTION_ENTRY64;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_function_entry64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319

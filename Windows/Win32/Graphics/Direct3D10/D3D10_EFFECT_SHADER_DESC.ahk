@@ -5,9 +5,9 @@
  * Describes an effect shader.
  * @remarks
  * 
-  * To get an effect-shader description, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getshaderdesc">ID3D10EffectShaderVariable::GetShaderDesc</a>.
-  * 
-  * 
+ * To get an effect-shader description, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getshaderdesc">ID3D10EffectShaderVariable::GetShaderDesc</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/ns-d3d10effect-d3d10_effect_shader_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

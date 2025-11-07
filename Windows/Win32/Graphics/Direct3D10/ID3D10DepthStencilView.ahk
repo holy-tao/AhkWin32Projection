@@ -7,11 +7,11 @@
  * A depth-stencil-view interface accesses a texture resource during depth-stencil testing.
  * @remarks
  * 
-  * To create a depth-stencil view, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createdepthstencilview">ID3D10Device::CreateDepthStencilView</a>.
-  * 
-  * To bind a depth-stencil view to the pipeline, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-omsetrendertargets">ID3D10Device::OMSetRenderTargets</a>.
-  * 
-  * 
+ * To create a depth-stencil view, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createdepthstencilview">ID3D10Device::CreateDepthStencilView</a>.
+ * 
+ * To bind a depth-stencil view to the pipeline, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-omsetrendertargets">ID3D10Device::OMSetRenderTargets</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/nn-d3d10-id3d10depthstencilview
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

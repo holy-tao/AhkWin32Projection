@@ -5,11 +5,11 @@
  * The MMC_COLUMN_DATA structure is introduced in MMC 1.2.
  * @remarks
  * 
-  * By setting the dwFlags member of the 
-  * MMC_COLUMN_DATA structure, a snap-in can hide or show columns in a column set in calls to 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icolumndata-setcolumnconfigdata">IColumnData::SetColumnConfigData</a>. However, column "0" of a column set cannot be hidden. This is to ensure that result pane icons are properly inserted in the first column and that the MMC_VERB_RENAME console verb functions properly.
-  * 
-  * 
+ * By setting the dwFlags member of the 
+ * MMC_COLUMN_DATA structure, a snap-in can hide or show columns in a column set in calls to 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icolumndata-setcolumnconfigdata">IColumnData::SetColumnConfigData</a>. However, column "0" of a column set cannot be hidden. This is to ensure that result pane icons are properly inserted in the first column and that the MMC_VERB_RENAME console verb functions properly.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-mmc_column_data
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319

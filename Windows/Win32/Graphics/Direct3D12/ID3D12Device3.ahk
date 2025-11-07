@@ -7,9 +7,9 @@
  * Represents a virtual adapter. This interface extends ID3D12Device2 to support the creation of special-purpose diagnostic heaps in system memory that persist even in the event of a GPU-fault or device-removed scenario.
  * @remarks
  * 
-  * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-d3d12createdevice">D3D12CreateDevice</a> to create a device.
-  * 
-  * 
+ * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-d3d12createdevice">D3D12CreateDevice</a> to create a device.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12device3
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

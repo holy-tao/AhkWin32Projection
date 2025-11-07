@@ -10,156 +10,156 @@
  * The IADsUser interface is a dual interface that inherits from IADs.
  * @remarks
  * 
-  * As with any other ADSI object, the container object creates a Windows user account object. First, bind to a container object. Then, call the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadscontainer-create">IADsContainer::Create</a> method and specify mandatory or optional attributes.
-  * 
-  * With WinNT, you do not have to specify any additional attributes when creating a user. You may call the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadscontainer-create">IADsContainer::Create</a> method to create the user object directly.
-  * 
-  * 
-  * ```vb
-  * Dim dom As IADsContainer
-  * Dim usr As IADsUser
-  * 
-  * On Error GoTo Cleanup
-  * 
-  * Set dom = GetObject("WinNT://MyDomain")
-  * Set usr = dom.Create("user","jeffsmith")
-  * usr.SetInfo
-  * 
-  * Cleanup:
-  *     If(Err.Number<>0) Then
-  *         MsgBox("An error has occurred. " & Err.Number)
-  *     End If
-  *     Set mach = Nothing
-  *     Set usr = Nothing
-  * 
-  * ```
-  * 
-  * 
-  * In this case, a domain user is created with the following default values.
-  * 
-  * <table>
-  * <tr>
-  * <th>Property</th>
-  * <th>Value</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>Full Name</b>
-  * 
-  * </td>
-  * <td>
-  * SAM Account Name (such as jeffsmith)
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>Password</b>
-  * 
-  * </td>
-  * <td>
-  * Empty
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>User Must Change Password</b>
-  * 
-  * </td>
-  * <td>
-  * <b>TRUE</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>User Cannot Change Password</b>
-  * 
-  * </td>
-  * <td>
-  * <b>FALSE</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>Password Never Expires</b>
-  * 
-  * </td>
-  * <td>
-  * <b>FALSE</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>Account Disabled</b>
-  * 
-  * </td>
-  * <td>
-  * <b>FALSE</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>Group</b>
-  * 
-  * </td>
-  * <td>
-  * Domain User
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>Profile</b>
-  * 
-  * </td>
-  * <td>
-  * Empty
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>Account Never Expires</b>
-  * 
-  * </td>
-  * <td>
-  * <b>TRUE</b>
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * To create a local user, bind to a target computer, as shown in the following code example.
-  * 
-  * 
-  * ```vb
-  * Dim mach As IADsContainer
-  * Dim usr as IADsUser
-  * 
-  * On Error GoTo Cleanup
-  * Set mach = GetObject("WinNT://MyMachine,Computer")
-  * Set usr = mach.Create("user","jeffsmith")
-  * usr.SetInfo
-  * 
-  * Cleanup:
-  *     If(Err.Number<>0) Then
-  *         MsgBox("An error has occurred. " & Err.Number)
-  *     End If
-  *     Set mach = Nothing
-  *     Set usr = Nothing
-  * 
-  * ```
-  * 
-  * 
-  * The newly created local user will have the same default properties as the domain user. The group membership, however, will be "users", instead of "domain user".
-  * 
-  * 
+ * As with any other ADSI object, the container object creates a Windows user account object. First, bind to a container object. Then, call the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadscontainer-create">IADsContainer::Create</a> method and specify mandatory or optional attributes.
+ * 
+ * With WinNT, you do not have to specify any additional attributes when creating a user. You may call the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadscontainer-create">IADsContainer::Create</a> method to create the user object directly.
+ * 
+ * 
+ * ```vb
+ * Dim dom As IADsContainer
+ * Dim usr As IADsUser
+ * 
+ * On Error GoTo Cleanup
+ * 
+ * Set dom = GetObject("WinNT://MyDomain")
+ * Set usr = dom.Create("user","jeffsmith")
+ * usr.SetInfo
+ * 
+ * Cleanup:
+ *     If(Err.Number<>0) Then
+ *         MsgBox("An error has occurred. " & Err.Number)
+ *     End If
+ *     Set mach = Nothing
+ *     Set usr = Nothing
+ * 
+ * ```
+ * 
+ * 
+ * In this case, a domain user is created with the following default values.
+ * 
+ * <table>
+ * <tr>
+ * <th>Property</th>
+ * <th>Value</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>Full Name</b>
+ * 
+ * </td>
+ * <td>
+ * SAM Account Name (such as jeffsmith)
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>Password</b>
+ * 
+ * </td>
+ * <td>
+ * Empty
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>User Must Change Password</b>
+ * 
+ * </td>
+ * <td>
+ * <b>TRUE</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>User Cannot Change Password</b>
+ * 
+ * </td>
+ * <td>
+ * <b>FALSE</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>Password Never Expires</b>
+ * 
+ * </td>
+ * <td>
+ * <b>FALSE</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>Account Disabled</b>
+ * 
+ * </td>
+ * <td>
+ * <b>FALSE</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>Group</b>
+ * 
+ * </td>
+ * <td>
+ * Domain User
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>Profile</b>
+ * 
+ * </td>
+ * <td>
+ * Empty
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>Account Never Expires</b>
+ * 
+ * </td>
+ * <td>
+ * <b>TRUE</b>
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * To create a local user, bind to a target computer, as shown in the following code example.
+ * 
+ * 
+ * ```vb
+ * Dim mach As IADsContainer
+ * Dim usr as IADsUser
+ * 
+ * On Error GoTo Cleanup
+ * Set mach = GetObject("WinNT://MyMachine,Computer")
+ * Set usr = mach.Create("user","jeffsmith")
+ * usr.SetInfo
+ * 
+ * Cleanup:
+ *     If(Err.Number<>0) Then
+ *         MsgBox("An error has occurred. " & Err.Number)
+ *     End If
+ *     Set mach = Nothing
+ *     Set usr = Nothing
+ * 
+ * ```
+ * 
+ * 
+ * The newly created local user will have the same default properties as the domain user. The group membership, however, will be "users", instead of "domain user".
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsuser
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

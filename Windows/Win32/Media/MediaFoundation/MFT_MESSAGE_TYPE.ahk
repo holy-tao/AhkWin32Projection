@@ -4,9 +4,9 @@
  * Defines messages for a Media Foundation transform (MFT).
  * @remarks
  * 
-  * Some messages require specific actions from the MFT. These events have "MESSAGE" in the message name. Other messages are informational; they notify the MFT of some action by the client, and do not require any particular response from the MFT. These messages have "NOTIFY" in the messages name. Except where noted, an MFT should not rely on the client sending notification messages.
-  * 
-  * 
+ * Some messages require specific actions from the MFT. These events have "MESSAGE" in the message name. Other messages are informational; they notify the MFT of some action by the client, and do not require any particular response from the MFT. These messages have "NOTIFY" in the messages name. Except where noted, an MFT should not rely on the client sending notification messages.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mftransform/ne-mftransform-mft_message_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

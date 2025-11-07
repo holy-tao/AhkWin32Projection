@@ -7,9 +7,9 @@
  * Is the base interface for all other attachment types.
  * @remarks
  * 
-  * This interface is used strictly as a common ancestor for the various attachment types and has no members of its own.
-  * 
-  * 
+ * This interface is used strictly as a common ancestor for the various attachment types and has no members of its own.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wsdattachment/nn-wsdattachment-iwsdattachment
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319

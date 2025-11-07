@@ -4,10 +4,10 @@
  * Enumeration type is used to specify the information class of a layered service protocol (LSP) in Windows Sockets 2.
  * @remarks
  * 
-  * The 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/ns-ws2spi-wsc_provider_audit_info">WSC_PROVIDER_AUDIT_INFO</a> structure is not currently used.
-  * 
-  * 
+ * The 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/ns-ws2spi-wsc_provider_audit_info">WSC_PROVIDER_AUDIT_INFO</a> structure is not currently used.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ws2spi/ne-ws2spi-wsc_provider_info_type
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

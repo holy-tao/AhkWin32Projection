@@ -11,25 +11,25 @@
  * Used to manage file screen objects.
  * @remarks
  * 
-  * file screen restricts the types of files that can be stored in a specific directory and its subdirectories. 
-  *     For each file screen, there is a configurable list of blocked file groups that define a set of patterns (that are 
-  *     based on file name) that will be restricted. When a file is created or renamed, the server evaluates whether the 
-  *     file name matches a pattern in any file group configured on a parent portion of the path. If a match is found, the 
-  *     file is blocked and a set of actions are initiated.
-  * 
-  * In addition to configuring file screens, you can create a file screen exception that defines a list of file 
-  *     groups that are specifically allowed in a specific directory and its subdirectories. Typically, you will configure 
-  *     a file screen exception on a directory that is in the subtree of a directory with a file screen. In this case, the 
-  *     file screen exception list takes precedence when evaluating screening rules; files with names that match the name 
-  *     patterns in the allowed file groups will not be blocked.
-  * 
-  * You can create a file screen or a file screen template. The template is used to modify properties in bulk by 
-  *     applying the changes to file screens that derive from the file screen template.
-  * 
-  * To create this object from a script, use the "Fsrm.FsrmFileScreenManager" program 
-  *     identifier.
-  * 
-  * 
+ * file screen restricts the types of files that can be stored in a specific directory and its subdirectories. 
+ *     For each file screen, there is a configurable list of blocked file groups that define a set of patterns (that are 
+ *     based on file name) that will be restricted. When a file is created or renamed, the server evaluates whether the 
+ *     file name matches a pattern in any file group configured on a parent portion of the path. If a match is found, the 
+ *     file is blocked and a set of actions are initiated.
+ * 
+ * In addition to configuring file screens, you can create a file screen exception that defines a list of file 
+ *     groups that are specifically allowed in a specific directory and its subdirectories. Typically, you will configure 
+ *     a file screen exception on a directory that is in the subtree of a directory with a file screen. In this case, the 
+ *     file screen exception list takes precedence when evaluating screening rules; files with names that match the name 
+ *     patterns in the allowed file groups will not be blocked.
+ * 
+ * You can create a file screen or a file screen template. The template is used to modify properties in bulk by 
+ *     applying the changes to file screens that derive from the file screen template.
+ * 
+ * To create this object from a script, use the "Fsrm.FsrmFileScreenManager" program 
+ *     identifier.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nn-fsrmscreen-ifsrmfilescreenmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

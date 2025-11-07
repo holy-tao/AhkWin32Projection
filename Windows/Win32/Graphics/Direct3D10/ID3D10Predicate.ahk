@@ -7,13 +7,13 @@
  * A predicate interface determines whether geometry should be processed depending on the results of a previous draw call.
  * @remarks
  * 
-  * A predicate can be created with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createpredicate">ID3D10Device::CreatePredicate</a>, and used with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-setpredication">ID3D10Device::SetPredication</a>.
-  * 
-  * There are two types of predicates in Direct3D 10: stream-output-overflow predicates and occlusion predicates. Stream-output-overflow predicates will cause any geometry residing in stream-output buffers that were overflowed to not be processed. Occlusion predicates will cause any geometry that did not have a single sample pass the depth/stencil tests to not be processed.
-  * 
-  * For an example of occlusion-predicated rendering, see <a href="https://msdn.microsoft.com/library/Ee416402(v=VS.85).aspx">Draw Predicated Sample</a>.
-  * 
-  * 
+ * A predicate can be created with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createpredicate">ID3D10Device::CreatePredicate</a>, and used with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-setpredication">ID3D10Device::SetPredication</a>.
+ * 
+ * There are two types of predicates in Direct3D 10: stream-output-overflow predicates and occlusion predicates. Stream-output-overflow predicates will cause any geometry residing in stream-output buffers that were overflowed to not be processed. Occlusion predicates will cause any geometry that did not have a single sample pass the depth/stencil tests to not be processed.
+ * 
+ * For an example of occlusion-predicated rendering, see <a href="https://msdn.microsoft.com/library/Ee416402(v=VS.85).aspx">Draw Predicated Sample</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/nn-d3d10-id3d10predicate
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

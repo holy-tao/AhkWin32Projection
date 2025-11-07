@@ -5,7 +5,7 @@
  * Contains the query parameters used in a call to [DnsServiceResolve](../windns/nf-windns-dnsserviceresolve.md).
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_service_resolve_request
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319

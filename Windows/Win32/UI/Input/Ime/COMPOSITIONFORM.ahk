@@ -7,9 +7,9 @@
  * Contains style and position information for a composition window.
  * @remarks
  * 
-  * Some IME windows adjust the composition window position specified by the system or the application. The CFS_FORCE_POSITION directs the IME window to skip this adjustment.
-  * 
-  * 
+ * Some IME windows adjust the composition window position specified by the system or the application. The CFS_FORCE_POSITION directs the IME window to skip this adjustment.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imm/ns-imm-compositionform
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319

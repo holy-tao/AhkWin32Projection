@@ -8,9 +8,9 @@
  * This interface represents a display subsystem, and extends this family of interfaces to expose a method to check for an adapter's compatibility with Arbitrary Code Guard (ACG).
  * @remarks
  * 
-  * For more details, refer to the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/residency">Residency</a> section of the D3D12 documentation.
-  * 
-  * 
+ * For more details, refer to the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/residency">Residency</a> section of the D3D12 documentation.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi1_6/nn-dxgi1_6-idxgiadapter4
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

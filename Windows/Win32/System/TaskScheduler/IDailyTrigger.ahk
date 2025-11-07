@@ -8,14 +8,14 @@
  * Represents a trigger that starts a task based on a daily schedule.
  * @remarks
  * 
-  * The time of day that the task is started is set by the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itrigger-get_startboundary">StartBoundary</a> property.
-  * 
-  * An interval of 1 produces a daily schedule. An interval of 2 produces an every other day schedule and so on.
-  * 
-  * When reading or writing your own XML for a task, a daily trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-schedulebyday-calendartriggertype-element">ScheduleByDay</a> element of the Task Scheduler schema.
-  * 
-  * 
-  * 
+ * The time of day that the task is started is set by the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itrigger-get_startboundary">StartBoundary</a> property.
+ * 
+ * An interval of 1 produces a daily schedule. An interval of 2 produces an every other day schedule and so on.
+ * 
+ * When reading or writing your own XML for a task, a daily trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-schedulebyday-calendartriggertype-element">ScheduleByDay</a> element of the Task Scheduler schema.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-idailytrigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

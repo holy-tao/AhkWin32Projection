@@ -4,21 +4,21 @@
  * Different match types allowed in filter conditions.
  * @remarks
  * 
-  * In general, the value data type and the filter condition data type must be the same. The Base Filtering Engine (BFE) does not perform any data conversion. For example, an FWP_UINT32 value cannot be compared with an FWP_UINT16 value.
-  * 
-  * 
-  * Exceptions to this rule are as follows.
-  * 
-  * <ul>
-  * <li>An FWP_UINT32 field that contains an IPv4 address can be compared with an FWP_V4_ADDR_MASK value.</li>
-  * <li>An FWP_BYTE_ARRAY16_TYPE field that contains an IPv6 address can be compared with an FWP_V6_ADDR_MASK value.</li>
-  * <li>An FWP_TOKEN_INFORMATION_TYPE field can be compared with an FWP_SECURITY_DESCRIPTOR_TYPE value when adding filters.</li>
-  * <li>An FWP_TOKEN_ACCESS_INFORMATION_TYPE field can be compared with an FWP_SECURITY_DESCRIPTOR_TYPE value when adding filters.</li>
-  * <li>An FWP_TOKEN_INFORMATION_TYPE field can be compared with an FWP_SID value when enumerating.</li>
-  * <li>An FWP_TOKEN_ACCESS_INFORMATION_TYPE field can be compared with an FWP_SID value when enumerating.</li>
-  * </ul>
-  * 
-  * 
+ * In general, the value data type and the filter condition data type must be the same. The Base Filtering Engine (BFE) does not perform any data conversion. For example, an FWP_UINT32 value cannot be compared with an FWP_UINT16 value.
+ * 
+ * 
+ * Exceptions to this rule are as follows.
+ * 
+ * <ul>
+ * <li>An FWP_UINT32 field that contains an IPv4 address can be compared with an FWP_V4_ADDR_MASK value.</li>
+ * <li>An FWP_BYTE_ARRAY16_TYPE field that contains an IPv6 address can be compared with an FWP_V6_ADDR_MASK value.</li>
+ * <li>An FWP_TOKEN_INFORMATION_TYPE field can be compared with an FWP_SECURITY_DESCRIPTOR_TYPE value when adding filters.</li>
+ * <li>An FWP_TOKEN_ACCESS_INFORMATION_TYPE field can be compared with an FWP_SECURITY_DESCRIPTOR_TYPE value when adding filters.</li>
+ * <li>An FWP_TOKEN_INFORMATION_TYPE field can be compared with an FWP_SID value when enumerating.</li>
+ * <li>An FWP_TOKEN_ACCESS_INFORMATION_TYPE field can be compared with an FWP_SID value when enumerating.</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ne-fwptypes-fwp_match_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319

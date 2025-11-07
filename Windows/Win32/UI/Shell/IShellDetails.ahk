@@ -8,8 +8,8 @@
  * Exposed by Shell folders to provide detailed information about the items in a folder.
  * @remarks
  * 
-  * For Windows 2000 and later systems, folder objects should implement <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder2">IShellFolder2</a> instead of this interface. However, if your application needs to function on earlier systems, <b>IShellDetails</b> should also be exposed.
-  * 
+ * For Windows 2000 and later systems, folder objects should implement <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder2">IShellFolder2</a> instead of this interface. However, if your application needs to function on earlier systems, <b>IShellDetails</b> should also be exposed.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-ishelldetails
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

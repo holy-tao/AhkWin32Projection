@@ -4,8 +4,8 @@
  * Defines the type of a Local Security Authority forest trust record.
  * @remarks
  * 
-  * This enumeration is used by the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_record">LSA_FOREST_TRUST_RECORD</a> structure.
-  * 
+ * This enumeration is used by the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_record">LSA_FOREST_TRUST_RECORD</a> structure.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-lsa_forest_trust_record_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319

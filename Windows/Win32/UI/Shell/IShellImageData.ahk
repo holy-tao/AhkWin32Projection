@@ -9,8 +9,8 @@
  * Exposes methods and properties that display, manipulate, and describe image data.
  * @remarks
  * 
-  * This interface was not included in a public header file prior to Windows Vista.
-  * 
+ * This interface was not included in a public header file prior to Windows Vista.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nn-shimgdata-ishellimagedata
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

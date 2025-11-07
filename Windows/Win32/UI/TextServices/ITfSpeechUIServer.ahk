@@ -7,28 +7,28 @@
  * The ITfSpeechUIServer interface manages the speech-related user interface on the TSF language bar.
  * @remarks
  * 
-  * The user interface elements on the TSF language bar managed by this interface include the microphone button, the speech configuration menu button, the dictation button, the command button, and the speech balloon. The standard speech text service usually manages these user interface elements in an application, including initialization. This type of application does not require the <b>ITfSpeechUIServer</b> interface.
-  * 
-  * An application that does not use the speech text service might require use of the features provided by the speech-related interface elements. In that case, the following code example shows how an application can obtain a pointer to the <b>ITfSpeechUIServer</b> interface by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> function with the CLSID_SpeechUIServer <b>CLSID</b>.
-  * 
-  * 
-  * ```cpp
-  * 
-  * HRESULT hr;
-  * ITfSpeechUIServer* piSpeechUIServer;
-  * 
-  * hr = CoCreateInstance(CLSID_SpeechUIServer,
-  *                       NULL,
-  *                       CLSCTX_INPROC_SERVER,
-  *                       IID_ITfSpeechUIServer,
-  *                       (void**)&piSpeechUIServer);
-  * 
-  * ```
-  * 
-  * 
-  * Subsequently, the application can use the <a href="https://docs.microsoft.com/windows/desktop/api/ctfspui/nf-ctfspui-itfspeechuiserver-initialize">ITfSpeechUIServer::Initialize</a> method to initialize the user interface and the other methods of the <b>ITfSpeechUIServer</b> interface to manage the user interface.
-  * 
-  * 
+ * The user interface elements on the TSF language bar managed by this interface include the microphone button, the speech configuration menu button, the dictation button, the command button, and the speech balloon. The standard speech text service usually manages these user interface elements in an application, including initialization. This type of application does not require the <b>ITfSpeechUIServer</b> interface.
+ * 
+ * An application that does not use the speech text service might require use of the features provided by the speech-related interface elements. In that case, the following code example shows how an application can obtain a pointer to the <b>ITfSpeechUIServer</b> interface by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> function with the CLSID_SpeechUIServer <b>CLSID</b>.
+ * 
+ * 
+ * ```cpp
+ * 
+ * HRESULT hr;
+ * ITfSpeechUIServer* piSpeechUIServer;
+ * 
+ * hr = CoCreateInstance(CLSID_SpeechUIServer,
+ *                       NULL,
+ *                       CLSCTX_INPROC_SERVER,
+ *                       IID_ITfSpeechUIServer,
+ *                       (void**)&piSpeechUIServer);
+ * 
+ * ```
+ * 
+ * 
+ * Subsequently, the application can use the <a href="https://docs.microsoft.com/windows/desktop/api/ctfspui/nf-ctfspui-itfspeechuiserver-initialize">ITfSpeechUIServer::Initialize</a> method to initialize the user interface and the other methods of the <b>ITfSpeechUIServer</b> interface to manage the user interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ctfspui/nn-ctfspui-itfspeechuiserver
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

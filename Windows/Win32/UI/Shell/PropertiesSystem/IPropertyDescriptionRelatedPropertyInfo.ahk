@@ -7,12 +7,12 @@
  * Provides a method that retrives an IPropertyDescription interface.
  * @remarks
  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * Do not implement this interface. There is only one implementation of <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionrelatedpropertyinfo">IPropertyDescriptionRelatedPropertyInfo</a> in the system; it is provided by the Shell. 
-  * 
-  * Only one property description exists for each property in the system.
-  * 
-  * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * Do not implement this interface. There is only one implementation of <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionrelatedpropertyinfo">IPropertyDescriptionRelatedPropertyInfo</a> in the system; it is provided by the Shell. 
+ * 
+ * Only one property description exists for each property in the system.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-ipropertydescriptionrelatedpropertyinfo
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319

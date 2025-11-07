@@ -7,8 +7,8 @@
  * Used as a site object by the IShellView interface.
  * @remarks
  * 
-  * You can call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method on <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> to get a pointer to the <b>IDocViewSite</b> interface.
-  * 
+ * You can call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method on <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> to get a pointer to the <b>IDocViewSite</b> interface.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-idocviewsite
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

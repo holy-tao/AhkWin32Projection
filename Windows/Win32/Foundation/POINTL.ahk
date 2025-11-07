@@ -5,9 +5,9 @@
  * The POINTL structure defines the x- and y-coordinates of a point.
  * @remarks
  * 
-  * The POINTL structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-point">POINT</a> structure.
-  * 
-  * 
+ * The POINTL structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-point">POINT</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//windef/ns-windef-pointl
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319

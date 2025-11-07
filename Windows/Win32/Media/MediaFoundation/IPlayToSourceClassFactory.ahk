@@ -8,9 +8,9 @@
  * Creates an instance of the PlayToSource object.
  * @remarks
  * 
-  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a>. The CLSID is <b>CLSID_PlayToSourceClassFactory</b>.
-  * 
-  * 
+ * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a>. The CLSID is <b>CLSID_PlayToSourceClassFactory</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nn-mfsharingengine-iplaytosourceclassfactory
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

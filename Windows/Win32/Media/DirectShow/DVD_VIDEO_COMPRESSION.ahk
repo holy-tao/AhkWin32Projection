@@ -4,9 +4,9 @@
  * Defines the possible DVD video compression types.
  * @remarks
  * 
-  * This enumeration is a member of the [DVD_VideoAttributes](/windows/desktop/api/strmif/ns-strmif-dvd_videoattributes) structure, which is filled by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-getcurrentvideoattributes">IDvdInfo2::GetCurrentVideoAttributes</a> method.
-  * 
-  * 
+ * This enumeration is a member of the [DVD_VideoAttributes](/windows/desktop/api/strmif/ns-strmif-dvd_videoattributes) structure, which is filled by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-getcurrentvideoattributes">IDvdInfo2::GetCurrentVideoAttributes</a> method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_video_compression
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

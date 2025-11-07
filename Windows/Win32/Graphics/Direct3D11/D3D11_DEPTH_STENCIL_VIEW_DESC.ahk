@@ -11,20 +11,20 @@
  * Specifies the subresources of a texture that are accessible from a depth-stencil view.
  * @remarks
  * 
-  * These are valid formats for a depth-stencil view:
-  * 
-  * <ul>
-  * <li>DXGI_FORMAT_D16_UNORM</li>
-  * <li>DXGI_FORMAT_D24_UNORM_S8_UINT</li>
-  * <li>DXGI_FORMAT_D32_FLOAT</li>
-  * <li>DXGI_FORMAT_D32_FLOAT_S8X24_UINT</li>
-  * <li>DXGI_FORMAT_UNKNOWN</li>
-  * </ul>
-  * A depth-stencil view cannot use a typeless format.  If the format chosen is DXGI_FORMAT_UNKNOWN, then the format of the parent resource is used.
-  * 
-  * A depth-stencil-view description is needed when calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createdepthstencilview">ID3D11Device::CreateDepthStencilView</a>.
-  * 
-  * 
+ * These are valid formats for a depth-stencil view:
+ * 
+ * <ul>
+ * <li>DXGI_FORMAT_D16_UNORM</li>
+ * <li>DXGI_FORMAT_D24_UNORM_S8_UINT</li>
+ * <li>DXGI_FORMAT_D32_FLOAT</li>
+ * <li>DXGI_FORMAT_D32_FLOAT_S8X24_UINT</li>
+ * <li>DXGI_FORMAT_UNKNOWN</li>
+ * </ul>
+ * A depth-stencil view cannot use a typeless format.  If the format chosen is DXGI_FORMAT_UNKNOWN, then the format of the parent resource is used.
+ * 
+ * A depth-stencil-view description is needed when calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createdepthstencilview">ID3D11Device::CreateDepthStencilView</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_depth_stencil_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

@@ -7,8 +7,8 @@
  * Exposes methods so that an application can register with the synchronization manager. This can be achieved either through the ISyncMgrRegister interface or by registering directly in the registry.
  * @remarks
  * 
-  * The handler must be a standard OLE server. It must register the standard OLE keys for an InProc OLE server in addition to the SyncMgr key.
-  * 
+ * The handler must be a standard OLE server. It must register the standard OLE keys for an InProc OLE server in addition to the SyncMgr key.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mobsync/nn-mobsync-isyncmgrregister
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

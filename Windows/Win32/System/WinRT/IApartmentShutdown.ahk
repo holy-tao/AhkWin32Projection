@@ -7,9 +7,9 @@
  * Enables registration of an apartment shutdown notification handler.
  * @remarks
  * 
-  * Implement the <b>IApartmentShutdown</b> interface to use the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roregisterforapartmentshutdown">RoRegisterForApartmentShutdown</a> function.
-  * 
-  * 
+ * Implement the <b>IApartmentShutdown</b> interface to use the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roregisterforapartmentshutdown">RoRegisterForApartmentShutdown</a> function.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iapartmentshutdown
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

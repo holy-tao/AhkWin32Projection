@@ -7,11 +7,11 @@
  * Deprecated. Exposes methods to identify, invoke, and update an individual item in the browser's travel history.
  * @remarks
  * 
-  * Travel entries represented by <b>ITravelEntry</b> are created and maintained internally by the travel log (<a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravellog">ITravelLog</a>). Calling applications rarely use <b>ITravelEntry</b> directly.
-  * 
-  * <div class="alert"><b>Note</b>  <b>ITravelEntry</b> may not be supported in versions of Windows later than Windows XP.</div>
-  * <div> </div>
-  * 
+ * Travel entries represented by <b>ITravelEntry</b> are created and maintained internally by the travel log (<a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravellog">ITravelLog</a>). Calling applications rarely use <b>ITravelEntry</b> directly.
+ * 
+ * <div class="alert"><b>Note</b>  <b>ITravelEntry</b> may not be supported in versions of Windows later than Windows XP.</div>
+ * <div> </div>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nn-shdeprecated-itravelentry
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

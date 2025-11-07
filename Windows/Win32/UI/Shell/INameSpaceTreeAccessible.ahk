@@ -9,9 +9,9 @@
  * Exposes methods that perform accessibility actions on a Shell item from a namespace tree control.
  * @remarks
  * 
-  * This interface is used only by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-inamespacetreecontrol">INameSpaceTreeControl</a> (CLSID_NameSpaceTreeControl).
-  * 
-  * 
+ * This interface is used only by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-inamespacetreecontrol">INameSpaceTreeControl</a> (CLSID_NameSpaceTreeControl).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-inamespacetreeaccessible
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

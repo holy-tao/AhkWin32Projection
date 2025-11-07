@@ -5,8 +5,8 @@
  * A state subobject that represents a raytracing pipeline configuration.
  * @remarks
  * 
-  * A raytracing pipeline needs one raytracing pipeline configuration.  If multiple pipeline configurations are present they must all match in content.  There is no benefit to such duplication.  For example defining it once per collection doesn’t help drivers do early shader compilation before a raytracing pipeline is created.  This is unlike <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_raytracing_shader_config">D3D12_RAYTRACING_SHADER_CONFIG</a> which does benefit from duplication per collection.
-  * 
+ * A raytracing pipeline needs one raytracing pipeline configuration.  If multiple pipeline configurations are present they must all match in content.  There is no benefit to such duplication.  For example defining it once per collection doesn’t help drivers do early shader compilation before a raytracing pipeline is created.  This is unlike <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_raytracing_shader_config">D3D12_RAYTRACING_SHADER_CONFIG</a> which does benefit from duplication per collection.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_raytracing_pipeline_config
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

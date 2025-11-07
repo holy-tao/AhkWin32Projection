@@ -4,9 +4,9 @@
  * Defines the context type.
  * @remarks
  * 
-  * If you are specifying context information for a legacy ETW event, you only need to specify the TDH_CONTEXT_POINTERSIZE type—the other types are used for WPP events and are ignored for legacy ETW events.
-  * 
-  * 
+ * If you are specifying context information for a legacy ETW event, you only need to specify the TDH_CONTEXT_POINTERSIZE type—the other types are used for WPP events and are ignored for legacy ETW events.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tdh/ne-tdh-tdh_context_type
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

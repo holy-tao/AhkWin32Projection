@@ -7,9 +7,9 @@
  * This interface is used to retrieve the current relative panel location for a display region.
  * @remarks
  * 
-  * Use the methods of the [IMFRelativePanelWatcher](nn-mfidl-imfrelativepanelwatcher.md) interface to get an instance of this interface.
-  * 
-  * 
+ * Use the methods of the [IMFRelativePanelWatcher](nn-mfidl-imfrelativepanelwatcher.md) interface to get an instance of this interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfrelativepanelreport
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

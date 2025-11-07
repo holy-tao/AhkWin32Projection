@@ -5,9 +5,9 @@
  * Identifies the kernel event for which you want to enable call stack tracing.
  * @remarks
  * 
-  * To enable the <a href="https://docs.microsoft.com/windows/desktop/ETW/diskio-typegroup1">read</a> event type for <a href="https://docs.microsoft.com/windows/desktop/ETW/diskio">disk IO </a>events, set <b>GUID</b> to 3d6fa8d4-fe05-11d0-9dda-00c04fd7ba7c and <b>Type</b> to 10.
-  * 
-  * 
+ * To enable the <a href="https://docs.microsoft.com/windows/desktop/ETW/diskio-typegroup1">read</a> event type for <a href="https://docs.microsoft.com/windows/desktop/ETW/diskio">disk IO </a>events, set <b>GUID</b> to 3d6fa8d4-fe05-11d0-9dda-00c04fd7ba7c and <b>Type</b> to 10.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-classic_event_id
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * The IXDSCodec interface is exposed by the XDS Codec filter. Most applications will not have to use this interface.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IXDSCodec)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IXDSCodec)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//encdec/nn-encdec-ixdscodec
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

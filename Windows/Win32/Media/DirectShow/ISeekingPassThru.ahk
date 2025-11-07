@@ -7,8 +7,8 @@
  * The ISeekingPassThru interface creates a helper object that implements seeking for one-input filters.
  * @remarks
  * 
-  * To obtain this interface, call <b>CoCreateInstance</b> with CLSID_SeekingPassThru. You can also use the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/createpospassthru">CreatePosPassThru</a> function in the base class library.
-  * 
+ * To obtain this interface, call <b>CoCreateInstance</b> with CLSID_SeekingPassThru. You can also use the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/createpospassthru">CreatePosPassThru</a> function in the base class library.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iseekingpassthru
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

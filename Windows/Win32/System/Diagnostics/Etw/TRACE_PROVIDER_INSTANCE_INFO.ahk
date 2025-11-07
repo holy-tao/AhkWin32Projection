@@ -5,9 +5,9 @@
  * Defines an instance of the provider GUID.
  * @remarks
  * 
-  *  If more than one provider uses the same GUID, the <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-guid-info">TRACE_GUID_INFO</a> block contains more than one <b>TRACE_PROVIDER_INSTANCE_INFO</b> structure.
-  * 
-  * 
+ *  If more than one provider uses the same GUID, the <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-guid-info">TRACE_GUID_INFO</a> block contains more than one <b>TRACE_PROVIDER_INSTANCE_INFO</b> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-trace_provider_instance_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

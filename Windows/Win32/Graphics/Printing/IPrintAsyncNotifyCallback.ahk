@@ -7,11 +7,11 @@
  * Creates and manages a communication channel used by applications and components that are hosted by the print spooler.
  * @remarks
  * 
-  * For an application to receive notifications from a Print Spooler-hosted component, it must provide an <b>IPrintAsyncNotifyCallback</b> object when it registers for notifications.
-  * 
-  * A Print Spooler-hosted component that opens a bidirectional communication channel with a listening application must provide an <b>IPrintAsyncNotifyCallback</b> object.
-  * 
-  * 
+ * For an application to receive notifications from a Print Spooler-hosted component, it must provide an <b>IPrintAsyncNotifyCallback</b> object when it registers for notifications.
+ * 
+ * A Print Spooler-hosted component that opens a bidirectional communication channel with a listening application must provide an <b>IPrintAsyncNotifyCallback</b> object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//prnasnot/nn-prnasnot-iprintasyncnotifycallback
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319

@@ -5,9 +5,9 @@
  * Describes a single element for the input-assembler stage of the graphics pipeline.
  * @remarks
  * 
-  * This structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_input_layout_desc">D3D12_INPUT_LAYOUT_DESC</a> structure. A pipeline state object contains a input-layout structure that defines one element being read from an input slot.
-  * 
-  * 
+ * This structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_input_layout_desc">D3D12_INPUT_LAYOUT_DESC</a> structure. A pipeline state object contains a input-layout structure that defines one element being read from an input slot.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_input_element_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

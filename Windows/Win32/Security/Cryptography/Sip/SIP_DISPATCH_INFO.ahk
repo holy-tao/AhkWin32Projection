@@ -6,9 +6,9 @@
  * Contains a set of function pointers assigned by the CryptSIPLoad function that your application uses to perform subject interface package (SIP) operations.
  * @remarks
  * 
-  * Your application must initialize this structure to binary zeros and set <b>cbSize</b> to <c>sizeof(SIP_DISPATCH_INFO)</c> by calling the <a href="https://docs.microsoft.com/cpp/c-runtime-library/reference/memset-wmemset">memset</a> function before calling the <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipload">CryptSIPLoad</a> function. Your application can use the function pointers in the returned <b>SIP_DISPATCH_INFO</b> structure to perform the necessary SIP operations.   The function pointers can point to functions exported by third party SIPs.
-  * 
-  * 
+ * Your application must initialize this structure to binary zeros and set <b>cbSize</b> to <c>sizeof(SIP_DISPATCH_INFO)</c> by calling the <a href="https://docs.microsoft.com/cpp/c-runtime-library/reference/memset-wmemset">memset</a> function before calling the <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipload">CryptSIPLoad</a> function. Your application can use the function pointers in the returned <b>SIP_DISPATCH_INFO</b> structure to perform the necessary SIP operations.   The function pointers can point to functions exported by third party SIPs.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mssip/ns-mssip-sip_dispatch_info
  * @namespace Windows.Win32.Security.Cryptography.Sip
  * @version v4.0.30319

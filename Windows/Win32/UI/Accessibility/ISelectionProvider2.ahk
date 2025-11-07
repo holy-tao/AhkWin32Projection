@@ -8,30 +8,30 @@
  * Extends the ISelectionItemProvider interface to provide information about selected items.
  * @remarks
  * 
-  * This interface is implemented by a Microsoft UI Automation provider.
-  * 
-  * Providers should raise an event of type <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">UIA_Selection_InvalidatedEventId</a> when a selection in a container has changed significantly.
-  * 
-  * 
-  * When selecting from a list or 2D grid there are primary pieces of information that ATs would like to better read to their end users.  Using Excel as a primary example, there are 4 main pieces of information necessary for the AT to provide a good experience:  
-  * 
-  * <ul>
-  * <li>The first cell in the selection</li>
-  * <li>The last cell in the selection</li>
-  * <li>The current item as you select</li>
-  * <li>The total count</li>
-  * </ul>
-  * <img alt="Image of an Excel spreadsheet showing multiple cells selected. Selection starts in the upper right on cell F5 and ends in the lower left on cell D7." src="./images/ISelectionPattern2.png"/>
-  * The above image illustrates the end state of a 2D selection:
-  * 
-  * 
-  * <ul>
-  * <li>The user started in cell F5 (note this is where focus input stays because if you type that is where data lands)</li>
-  * <li>The user selects down the column to cell F7</li>
-  * <li>The user then selects left to cell D7</li>
-  * </ul>
-  * 
-  * 
+ * This interface is implemented by a Microsoft UI Automation provider.
+ * 
+ * Providers should raise an event of type <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">UIA_Selection_InvalidatedEventId</a> when a selection in a container has changed significantly.
+ * 
+ * 
+ * When selecting from a list or 2D grid there are primary pieces of information that ATs would like to better read to their end users.  Using Excel as a primary example, there are 4 main pieces of information necessary for the AT to provide a good experience:  
+ * 
+ * <ul>
+ * <li>The first cell in the selection</li>
+ * <li>The last cell in the selection</li>
+ * <li>The current item as you select</li>
+ * <li>The total count</li>
+ * </ul>
+ * <img alt="Image of an Excel spreadsheet showing multiple cells selected. Selection starts in the upper right on cell F5 and ends in the lower left on cell D7." src="./images/ISelectionPattern2.png"/>
+ * The above image illustrates the end state of a 2D selection:
+ * 
+ * 
+ * <ul>
+ * <li>The user started in cell F5 (note this is where focus input stays because if you type that is where data lands)</li>
+ * <li>The user selects down the column to cell F7</li>
+ * <li>The user then selects left to cell D7</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-iselectionprovider2
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

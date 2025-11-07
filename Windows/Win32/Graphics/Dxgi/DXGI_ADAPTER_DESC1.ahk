@@ -6,9 +6,9 @@
  * Describes an adapter (or video card) using DXGI 1.1.
  * @remarks
  * 
-  * The <b>DXGI_ADAPTER_DESC1</b> structure provides a DXGI 1.1 description of an adapter.  This structure is initialized by using the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiadapter1-getdesc1">IDXGIAdapter1::GetDesc1</a> method.
-  * 
-  * 
+ * The <b>DXGI_ADAPTER_DESC1</b> structure provides a DXGI 1.1 description of an adapter.  This structure is initialized by using the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiadapter1-getdesc1">IDXGIAdapter1::GetDesc1</a> method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi/ns-dxgi-dxgi_adapter_desc1
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

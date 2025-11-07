@@ -22,17 +22,17 @@
  * The NTMS_OBJECTINFORMATION structure defines the properties that an application can get and set for RSM devices, media and system controls (such as libraries, drives, media, operator requests). This is the common structure of objects in the RSM database.
  * @remarks
  * 
-  * All members of the 
-  * <b>NTMS_OBJECTINFORMATION</b> structure are read-only at the RSM function-level unless specified as WRITABLE in the definition of the member.
-  * 
-  * 
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The ntmsapi.h header defines NTMS_OBJECTINFORMATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
-  * 
+ * All members of the 
+ * <b>NTMS_OBJECTINFORMATION</b> structure are read-only at the RSM function-level unless specified as WRITABLE in the definition of the member.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The ntmsapi.h header defines NTMS_OBJECTINFORMATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ntmsapi/ns-ntmsapi-ntms_objectinformationa
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319

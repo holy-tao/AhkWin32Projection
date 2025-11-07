@@ -8,31 +8,31 @@
  * The ISpatialAudioClient interface enables a client to create audio streams that emit audio from a position in 3D space.
  * @remarks
  * 
-  * Get an instance of this interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync">ActivateAudioInterfaceAsync</a>, using the  <a href="https://docs.microsoft.com/cpp/cpp/uuidof-operator">__uuidof</a> operator to get the class ID of the <b>ISpatialAudioClient</b> interface. The following example code shows how to initialize this interface.
-  * 
-  * 
-  * ```cpp
-  * PROPVARIANT var; 
-  * PropVariantInit(&var);  
-  * auto p = reinterpret_cast<SpatialAudioClientActivationParams *>(CoTaskMemAlloc(sizeof(SpatialAudioClientActivationParams)));  
-  * if (nullptr == p) { ... } 
-  * p->tracingContextId = // context identifier ;  
-  * p->appId = // app identifier ;  
-  * p->majorVersion = // app version info ;  
-  * p->majorVersionN = // app version info ;
-  * var.vt = VT_BLOB;
-  * var.blob.cbSize = sizeof(*p);
-  * var.blob.pBlobData = reinterpret_cast<BYTE *>(p); 
-  * hr = ActivateAudioInterfaceAsync(device, __uuidof(ISpatialAudioClient), &var, ...);
-  * // ...
-  * ropVariantClear(&var);
-  * ```
-  * 
-  * 
-  * <div class="alert"><b>Note</b>  When using the <b>ISpatialAudioClient</b> interfaces on an Xbox One Development Kit (XDK) title, you must first call <b>EnableSpatialAudio</b> before calling <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-enumaudioendpoints">IMMDeviceEnumerator::EnumAudioEndpoints</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-getdefaultaudioendpoint">IMMDeviceEnumerator::GetDefaultAudioEndpoint</a>. Failure to do so will result in an E_NOINTERFACE error being returned from the call to Activate. <b>EnableSpatialAudio</b> is only available for XDK titles, and does not need to be called for Universal Windows Platform apps running on Xbox One, nor for any non-Xbox One devices.</div>
-  * <div> </div>
-  * To access the <b>ActivateAudioIntefaceAsync</b>, you will need to link to mmdevapi.lib.
-  * 
+ * Get an instance of this interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync">ActivateAudioInterfaceAsync</a>, using the  <a href="https://docs.microsoft.com/cpp/cpp/uuidof-operator">__uuidof</a> operator to get the class ID of the <b>ISpatialAudioClient</b> interface. The following example code shows how to initialize this interface.
+ * 
+ * 
+ * ```cpp
+ * PROPVARIANT var; 
+ * PropVariantInit(&var);  
+ * auto p = reinterpret_cast<SpatialAudioClientActivationParams *>(CoTaskMemAlloc(sizeof(SpatialAudioClientActivationParams)));  
+ * if (nullptr == p) { ... } 
+ * p->tracingContextId = // context identifier ;  
+ * p->appId = // app identifier ;  
+ * p->majorVersion = // app version info ;  
+ * p->majorVersionN = // app version info ;
+ * var.vt = VT_BLOB;
+ * var.blob.cbSize = sizeof(*p);
+ * var.blob.pBlobData = reinterpret_cast<BYTE *>(p); 
+ * hr = ActivateAudioInterfaceAsync(device, __uuidof(ISpatialAudioClient), &var, ...);
+ * // ...
+ * ropVariantClear(&var);
+ * ```
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  When using the <b>ISpatialAudioClient</b> interfaces on an Xbox One Development Kit (XDK) title, you must first call <b>EnableSpatialAudio</b> before calling <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-enumaudioendpoints">IMMDeviceEnumerator::EnumAudioEndpoints</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-getdefaultaudioendpoint">IMMDeviceEnumerator::GetDefaultAudioEndpoint</a>. Failure to do so will result in an E_NOINTERFACE error being returned from the call to Activate. <b>EnableSpatialAudio</b> is only available for XDK titles, and does not need to be called for Universal Windows Platform apps running on Xbox One, nor for any non-Xbox One devices.</div>
+ * <div> </div>
+ * To access the <b>ActivateAudioIntefaceAsync</b>, you will need to link to mmdevapi.lib.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nn-spatialaudioclient-ispatialaudioclient
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319

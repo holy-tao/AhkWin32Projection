@@ -4,9 +4,9 @@
  * Specifies how to access a resource that is used in a video processor output view.
  * @remarks
  * 
-  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_processor_output_view_desc">D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC</a> structure.
-  * 
-  * 
+ * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_processor_output_view_desc">D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_vpov_dimension
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

@@ -7,12 +7,12 @@
  * Exposes methods that control the taskbar. It allows you to dynamically add, remove, and activate items on the taskbar.
  * @remarks
  * 
-  * You do not implement <b>ITaskbarList</b>; it is implemented by the Shell.
-  * 
-  * Use <b>ITaskbarList</b> to add items to the taskbar, remove items from the taskbar, and activate items on the taskbar.
-  * 
-  * See <a href="https://docs.microsoft.com/windows/desktop/shell/taskbar">Modifying Contents of the Taskbar</a> for more information about using this interface.
-  * 
+ * You do not implement <b>ITaskbarList</b>; it is implemented by the Shell.
+ * 
+ * Use <b>ITaskbarList</b> to add items to the taskbar, remove items from the taskbar, and activate items on the taskbar.
+ * 
+ * See <a href="https://docs.microsoft.com/windows/desktop/shell/taskbar">Modifying Contents of the Taskbar</a> for more information about using this interface.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-itaskbarlist
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

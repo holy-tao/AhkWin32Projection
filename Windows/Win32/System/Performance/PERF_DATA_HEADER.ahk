@@ -6,17 +6,17 @@
  * Provides information about the PERF_DATA_HEADER block that contains the structure.
  * @remarks
  * 
-  * The ordering of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_header">PERF_COUNTER_HEADER</a> blocks is based on the <b>Index</b> member of
-  * the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> blocks that the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycounterinfo">PerfQueryCounterInfo</a> function gets. Each
-  * <b>PERF_COUNTER_HEADER</b> block is 8-byte aligned, so the value of the <b>dwTotalSize</b> is  a multiple
-  * of 8 bytes.
-  * 
-  * 
-  * 
-  * The timestamp information in the <b>PERF_DATA_HEADER</b> structure is required when
-  * you compute the display values of certain performance counters.
-  * 
-  * 
+ * The ordering of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_header">PERF_COUNTER_HEADER</a> blocks is based on the <b>Index</b> member of
+ * the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> blocks that the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycounterinfo">PerfQueryCounterInfo</a> function gets. Each
+ * <b>PERF_COUNTER_HEADER</b> block is 8-byte aligned, so the value of the <b>dwTotalSize</b> is  a multiple
+ * of 8 bytes.
+ * 
+ * 
+ * 
+ * The timestamp information in the <b>PERF_DATA_HEADER</b> structure is required when
+ * you compute the display values of certain performance counters.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//perflib/ns-perflib-perf_data_header
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319

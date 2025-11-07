@@ -7,9 +7,9 @@
  * The IWMLicenseRevocationAgent interface handles messages from a DRM license server that involve license revocation.IWMLicenseRevocationAgent is the primary interface of the license revocation agent object.
  * @remarks
  * 
-  * License revocation enables a license issuer to remove licenses from a computer.
-  * 
-  * 
+ * License revocation enables a license issuer to remove licenses from a computer.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmlicenserevocationagent
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319

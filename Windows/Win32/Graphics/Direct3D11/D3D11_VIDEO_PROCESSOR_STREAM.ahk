@@ -5,9 +5,9 @@
  * Contains stream-level data for the ID3D11VideoContext::VideoProcessorBlt method.
  * @remarks
  * 
-  * If the stereo 3D format is <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_SEPARATE</b>, the <b>ppPastSurfaces</b>, <b>pInputSurface</b>, and <b>ppFutureSurfaces</b> members contain the left view.
-  * 
-  * 
+ * If the stereo 3D format is <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_SEPARATE</b>, the <b>ppPastSurfaces</b>, <b>pInputSurface</b>, and <b>ppFutureSurfaces</b> members contain the left view.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_video_processor_stream
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

@@ -31,13 +31,13 @@
  * The device interface represents a virtual adapter; it is used to create resources.
  * @remarks
  * 
-  * A device is created using <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-d3d11createdevice">D3D11CreateDevice</a>.
-  *           
-  * 
-  * <b>Windows Phone 8:
-  *         </b> This API is supported.
-  * 
-  * 
+ * A device is created using <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-d3d11createdevice">D3D11CreateDevice</a>.
+ *           
+ * 
+ * <b>Windows Phone 8:
+ *         </b> This API is supported.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11device
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

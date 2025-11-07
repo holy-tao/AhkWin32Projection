@@ -8,9 +8,9 @@
  * Provides the settings that the Task Scheduler service uses to obtain a network profile.
  * @remarks
  * 
-  * When reading or writing your own XML for a task, network settings are specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-networksettings-settingstype-element">NetworkSettings</a> element of the Task Scheduler schema.
-  * 
-  * 
+ * When reading or writing your own XML for a task, network settings are specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-networksettings-settingstype-element">NetworkSettings</a> element of the Task Scheduler schema.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-inetworksettings
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

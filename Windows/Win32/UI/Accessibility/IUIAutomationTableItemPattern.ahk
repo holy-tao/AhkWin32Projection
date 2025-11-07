@@ -8,9 +8,9 @@
  * Provides access to a child element in a container that supports IUIAutomationTablePattern.
  * @remarks
  * 
-  * Elements that support this interface must also support <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationgriditempattern">IUIAutomationGridItemPattern</a>, to provide properties that are not specific to tables.
-  * 
-  * 
+ * Elements that support this interface must also support <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationgriditempattern">IUIAutomationGridItemPattern</a>, to provide properties that are not specific to tables.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationtableitempattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

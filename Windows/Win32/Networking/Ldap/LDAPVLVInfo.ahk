@@ -5,29 +5,29 @@
  * Used to set up the search parameters for a virtual list view (VLV) request control (LDAP_CONTROL_VLVREQUEST).
  * @remarks
  * 
-  * There are two methods for calculating the target of a VLV search: using an attribute value or using an offset. Different elements of this structure will be used depending on which type of search you choose. Both methods require that values be entered for the <b>ldvlv_before_count</b> and <b>ldvlv_after_count</b> members. Specify a list content count in <b>ldvlv_count</b>, or if you do not know this value, then use zero (0), so that the server will calculate it.
-  * 
-  * <ul>
-  * <li>
-  * Searching with Attribute Values
-  * 
-  * To perform a value-based search, for example, if you wanted to search for Jeff Smith, and you know the attribute type for that value, then set the attribute type in the <b>sk_attrtype</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapsortkeya">LDAPSortKey</a> structure and the attribute value in <b>ldvlv_attrvalue</b>. The <b>ldvlv_offset</b> member is ignored for this type of search, so it is not necessary to set it.
-  * 
-  * For example, to perform a search using the letter J. To retrieve 20 results, set <b>ldvlv_before_count</b> to 9, <b>ldvlv_after_count</b> to 10 and <b>ldvlv_attrvalue</b> to J. The server finds the first entry in the list that is not less than J, such as Jeff Smith, and returns the nine preceding entries, the target entry, and the proceeding 10 entries. The server would return a <b>ldvlv_count</b> of 30000 and a <b>ldvlv_offset</b> of 4053 in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a> control; that is assuming that Jeff Smith is entry number 4053 on the list. The server may return few entries than requested before and/or after the target entry if there are insufficient entries in the list to satisfy the request. For example, if there were only two entries total before the first 'J' entry, the server could not return nine preceding entries.
-  * 
-  * </li>
-  * <li>
-  * Searching with Offsets
-  * 
-  * To use offsets for your search, set an offset in <b>ldvlv_offset</b>, and set <b>ldvlv_attrvalue</b> to <b>NULL</b>. Also set the attribute type in the <b>sk_attrtype</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapsortkeya">LDAPSortKey</a>, but this time, the target will be an offset within the list of entries for that attribute type, rather than a specific attribute value.
-  * 
-  * For example, to target the search 68 percent of the search results list. If the <b>ldvlv_count</b> is 30000, the 68 percent of 30000 is 20400. To retrieve 20 results, set <b>ldvlv_before_count</b> to 9, <b>ldvlv_after_count</b> to 10, <b>ldvlv_count</b> to 30000, <b>ldvlv_offset</b> to 20400 and send the request to the server. The server  returns the preceding 20 entries in the list, plus the <b>ldvlv_count</b> of 30000 and a <b>ldvlv_offset</b> of 20400. Be aware that it is possible for the number of entries on the list to change between the client estimation of the number of entries and the server processing the search, which in turn effects the offsets. In this case the target entry returned may not be exactly the target entry the client was expecting. Applications must be prepared to handle this uncertainty.
-  * 
-  * </li>
-  * </ul>
-  * Be aware that a sort control must accompany a VLV search request to specify the ordered list of entries against which the VLV search is performed. Servers can reject VLV searches performed against lists for which they do not have indexes.
-  * 
-  * 
+ * There are two methods for calculating the target of a VLV search: using an attribute value or using an offset. Different elements of this structure will be used depending on which type of search you choose. Both methods require that values be entered for the <b>ldvlv_before_count</b> and <b>ldvlv_after_count</b> members. Specify a list content count in <b>ldvlv_count</b>, or if you do not know this value, then use zero (0), so that the server will calculate it.
+ * 
+ * <ul>
+ * <li>
+ * Searching with Attribute Values
+ * 
+ * To perform a value-based search, for example, if you wanted to search for Jeff Smith, and you know the attribute type for that value, then set the attribute type in the <b>sk_attrtype</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapsortkeya">LDAPSortKey</a> structure and the attribute value in <b>ldvlv_attrvalue</b>. The <b>ldvlv_offset</b> member is ignored for this type of search, so it is not necessary to set it.
+ * 
+ * For example, to perform a search using the letter J. To retrieve 20 results, set <b>ldvlv_before_count</b> to 9, <b>ldvlv_after_count</b> to 10 and <b>ldvlv_attrvalue</b> to J. The server finds the first entry in the list that is not less than J, such as Jeff Smith, and returns the nine preceding entries, the target entry, and the proceeding 10 entries. The server would return a <b>ldvlv_count</b> of 30000 and a <b>ldvlv_offset</b> of 4053 in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a> control; that is assuming that Jeff Smith is entry number 4053 on the list. The server may return few entries than requested before and/or after the target entry if there are insufficient entries in the list to satisfy the request. For example, if there were only two entries total before the first 'J' entry, the server could not return nine preceding entries.
+ * 
+ * </li>
+ * <li>
+ * Searching with Offsets
+ * 
+ * To use offsets for your search, set an offset in <b>ldvlv_offset</b>, and set <b>ldvlv_attrvalue</b> to <b>NULL</b>. Also set the attribute type in the <b>sk_attrtype</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapsortkeya">LDAPSortKey</a>, but this time, the target will be an offset within the list of entries for that attribute type, rather than a specific attribute value.
+ * 
+ * For example, to target the search 68 percent of the search results list. If the <b>ldvlv_count</b> is 30000, the 68 percent of 30000 is 20400. To retrieve 20 results, set <b>ldvlv_before_count</b> to 9, <b>ldvlv_after_count</b> to 10, <b>ldvlv_count</b> to 30000, <b>ldvlv_offset</b> to 20400 and send the request to the server. The server  returns the preceding 20 entries in the list, plus the <b>ldvlv_count</b> of 30000 and a <b>ldvlv_offset</b> of 20400. Be aware that it is possible for the number of entries on the list to change between the client estimation of the number of entries and the server processing the search, which in turn effects the offsets. In this case the target entry returned may not be exactly the target entry the client was expecting. Applications must be prepared to handle this uncertainty.
+ * 
+ * </li>
+ * </ul>
+ * Be aware that a sort control must accompany a VLV search request to specify the ordered list of entries against which the VLV search is performed. Servers can reject VLV searches performed against lists for which they do not have indexes.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winldap/ns-winldap-ldapvlvinfo
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319

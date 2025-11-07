@@ -4,16 +4,16 @@
  * The StringFormatFlags enumeration specifies text layout information (such as orientation and clipping) and display manipulations (such as ellipsis insertion, digit substitution, and representation of characters that are not supported by a font).
  * @remarks
  * 
-  * Multiple flags set can produce combined effects: 
-  * 
-  * <ul>
-  * <li>When both <b><b>StringFormatFlagsDirectionVertical</b></b> and <b><b>StringFormatFlagsDirectionRightToLeft</b></b> are set, individual lines of text are drawn vertically. The first line starts at the right edge of the layout rectangle; the second line of text is to the left of the first line, and so on. </li>
-  * <li>When <b><b>StringFormatFlagsDirectionVertical</b></b> is set and <b><b>StringFormatFlagsDirectionRightToLeft</b></b> is not set, individual lines of text are drawn vertically. The first line starts at the left edge of the layout rectangle; the second line of text is to the right of the first line. </li>
-  * <li>When <b><b>StringFormatFlagsDirectionRightToLeft</b></b> is set and <b><b>StringFormatFlagsDirectionVertical</b></b> is not set, the individual lines of text are horizontal and the reading order is from right to left. This setting does not change the order in which characters are displayed, it simply specifies the order in which characters can be read. </li>
-  * </ul>
-  * The <b><b>StringFormatFlagsDirectionVertical</b></b> and <b><b>StringFormatFlagsDirectionRightToLeft</b></b> flags can affect string alignment.
-  * 
-  * 
+ * Multiple flags set can produce combined effects: 
+ * 
+ * <ul>
+ * <li>When both <b><b>StringFormatFlagsDirectionVertical</b></b> and <b><b>StringFormatFlagsDirectionRightToLeft</b></b> are set, individual lines of text are drawn vertically. The first line starts at the right edge of the layout rectangle; the second line of text is to the left of the first line, and so on. </li>
+ * <li>When <b><b>StringFormatFlagsDirectionVertical</b></b> is set and <b><b>StringFormatFlagsDirectionRightToLeft</b></b> is not set, individual lines of text are drawn vertically. The first line starts at the left edge of the layout rectangle; the second line of text is to the right of the first line. </li>
+ * <li>When <b><b>StringFormatFlagsDirectionRightToLeft</b></b> is set and <b><b>StringFormatFlagsDirectionVertical</b></b> is not set, the individual lines of text are horizontal and the reading order is from right to left. This setting does not change the order in which characters are displayed, it simply specifies the order in which characters can be read. </li>
+ * </ul>
+ * The <b><b>StringFormatFlagsDirectionVertical</b></b> and <b><b>StringFormatFlagsDirectionRightToLeft</b></b> flags can affect string alignment.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplusenums/ne-gdiplusenums-stringformatflags
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

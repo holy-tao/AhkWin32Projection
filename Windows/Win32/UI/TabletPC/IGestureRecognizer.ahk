@@ -7,13 +7,13 @@
  * Reacts to events by recognizing gestures and adding gesture data to the input queue.
  * @remarks
  * 
-  * This interface is implemented by the <a href="https://docs.microsoft.com/windows/desktop/tablet/gesturerecognizer-class">GestureRecognizer Class</a>.
-  * 
-  * The gesture recognizer analyzes digitizer input and injects gesture recognition results into the input queue.
-  * 
-  * Adding an instance of the <a href="https://docs.microsoft.com/windows/desktop/tablet/gesturerecognizer-class">GestureRecognizer Class</a> to multiple <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> instances is not a valid operation.
-  * 
-  * 
+ * This interface is implemented by the <a href="https://docs.microsoft.com/windows/desktop/tablet/gesturerecognizer-class">GestureRecognizer Class</a>.
+ * 
+ * The gesture recognizer analyzes digitizer input and injects gesture recognition results into the input queue.
+ * 
+ * Adding an instance of the <a href="https://docs.microsoft.com/windows/desktop/tablet/gesturerecognizer-class">GestureRecognizer Class</a> to multiple <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> instances is not a valid operation.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//rtscom/nn-rtscom-igesturerecognizer
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

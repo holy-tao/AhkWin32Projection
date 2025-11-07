@@ -5,12 +5,12 @@
  * Describes the format, width, height, depth, and row-pitch of the subresource into the parent resource.
  * @remarks
  * 
-  * Use this structure in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_placed_subresource_footprint">D3D12_PLACED_SUBRESOURCE_FOOTPRINT</a> structure.
-  *       
-  * 
-  * The helper structure is <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-subresource-footprint">CD3DX12_SUBRESOURCE_FOOTPRINT</a>.
-  * 
-  * 
+ * Use this structure in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_placed_subresource_footprint">D3D12_PLACED_SUBRESOURCE_FOOTPRINT</a> structure.
+ *       
+ * 
+ * The helper structure is <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-subresource-footprint">CD3DX12_SUBRESOURCE_FOOTPRINT</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_subresource_footprint
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

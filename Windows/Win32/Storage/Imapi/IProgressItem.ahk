@@ -8,9 +8,9 @@
  * Use this interface to retrieve block information for one segment of the result file image.
  * @remarks
  * 
-  * This is a <b>ProgressItem</b> object in script.
-  * 
-  * 
+ * This is a <b>ProgressItem</b> object in script.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-iprogressitem
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

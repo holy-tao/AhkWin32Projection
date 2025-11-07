@@ -5,11 +5,11 @@
  * Represents a DS resource record (RR) as specified in section 2 of RFC 4034 and is used to verify the contents of DNS_DNSKEY_DATA.
  * @remarks
  * 
-  * The 
-  * <b>DNS_DS_DATA</b> structure is used in conjunction with the 
-  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
-  * 
-  * 
+ * The 
+ * <b>DNS_DS_DATA</b> structure is used in conjunction with the 
+ * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_ds_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319

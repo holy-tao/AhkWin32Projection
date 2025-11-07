@@ -4,9 +4,9 @@
  * The DashCap enumeration specifies the type of graphic shape to use on both ends of each dash in a dashed line.
  * @remarks
  * 
-  * If you set the alignment of a 
-  * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdipluspen/nl-gdipluspen-pen">Pen</a> object to <b>PenAlignmentInset</b>, you cannot use that pen to draw triangular dash caps.
-  * 
+ * If you set the alignment of a 
+ * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdipluspen/nl-gdipluspen-pen">Pen</a> object to <b>PenAlignmentInset</b>, you cannot use that pen to draw triangular dash caps.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplusenums/ne-gdiplusenums-dashcap
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

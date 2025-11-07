@@ -7,21 +7,21 @@
  * Implemented by the default folder view created using SHCreateShellFolderView.
  * @remarks
  * 
-  * The IID for this interface is <b>IID_IContextMenuSite</b>.
-  * 
-  * To acquire a context menu site pointer code that exists in the site chain of the folder view, use <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">QueryService</a> using <b>SID_SFolderView</b> to get to the folder view.
-  * 
-  * 
-  * ```
-  * CComPtr<IContextMenuSite> spcms;
-  * hr = IUnknown_QueryService(_punkSite, SID_SFolderView, IID_PPV_ARGS(&spcms));
-  * 
-  * if (SUCCEEDED(hr))
-  * {
-  *     ...
-  * }
-  * ```
-  * 
+ * The IID for this interface is <b>IID_IContextMenuSite</b>.
+ * 
+ * To acquire a context menu site pointer code that exists in the site chain of the folder view, use <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">QueryService</a> using <b>SID_SFolderView</b> to get to the folder view.
+ * 
+ * 
+ * ```
+ * CComPtr<IContextMenuSite> spcms;
+ * hr = IUnknown_QueryService(_punkSite, SID_SFolderView, IID_PPV_ARGS(&spcms));
+ * 
+ * if (SUCCEEDED(hr))
+ * {
+ *     ...
+ * }
+ * ```
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-icontextmenusite
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

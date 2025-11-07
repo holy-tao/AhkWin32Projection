@@ -9,8 +9,8 @@
  * Note  This structure is deprecated.  Contains information about an event that is raised when a Microsoft UI Automation element property change occurs.
  * @remarks
  * 
-  * The old value might not be set if the UI Automation provider cannot do so efficiently.
-  * 
+ * The old value might not be set if the UI Automation provider cannot do so efficiently.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ns-uiautomationcoreapi-uiapropertychangedeventargs
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

@@ -4,9 +4,9 @@
  * A bitwise enumerator that indicates which, if any, optional parts of an XPS document are signed.
  * @remarks
  * 
-  * More than one value may be set.
-  * 
-  * 
+ * More than one value may be set.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/ne-xpsdigitalsignature-xps_sign_policy
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

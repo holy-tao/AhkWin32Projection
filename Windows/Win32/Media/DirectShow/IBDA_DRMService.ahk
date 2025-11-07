@@ -7,8 +7,8 @@
  * Provides access to a device's Digital Rights Management (DRM) Service.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_DRMService)</c>.
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_DRMService)</c>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_drmservice
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

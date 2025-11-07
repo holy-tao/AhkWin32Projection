@@ -7,19 +7,19 @@
  * Provides access to child controls of containers that implement ITableProvider.
  * @remarks
  * 
-  * This control pattern is analogous to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-igriditemprovider">IGridItemProvider</a> with 
-  *             the distinction that any control implementing <b>ITableItemProvider</b> 
-  *             must expose the relationship between the individual cell and its row and column information.
-  *             
-  * 
-  * Access to individual cell functionality is provided by the concurrent implementation 
-  *             of <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-igriditemprovider">IGridItemProvider</a>. 
-  *             
-  * 
-  * Implemented on a UI Automation provider that must 
-  *             support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtableitem">TableItem</a> control pattern.
-  * 
-  * 
+ * This control pattern is analogous to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-igriditemprovider">IGridItemProvider</a> with 
+ *             the distinction that any control implementing <b>ITableItemProvider</b> 
+ *             must expose the relationship between the individual cell and its row and column information.
+ *             
+ * 
+ * Access to individual cell functionality is provided by the concurrent implementation 
+ *             of <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-igriditemprovider">IGridItemProvider</a>. 
+ *             
+ * 
+ * Implemented on a UI Automation provider that must 
+ *             support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtableitem">TableItem</a> control pattern.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-itableitemprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

@@ -9,11 +9,11 @@
  * The IADsProperty interface is designed to manage a single attribute definition for a schema class object.
  * @remarks
  * 
-  * The <b>IADsProperty</b> interface methods can add new 
-  *     attributes and property objects to a provider-specific implementation.
-  * 
-  * 
-  * 
+ * The <b>IADsProperty</b> interface methods can add new 
+ *     attributes and property objects to a provider-specific implementation.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsproperty
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

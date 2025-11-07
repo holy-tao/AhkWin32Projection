@@ -5,11 +5,11 @@
  * Contains directory information for a file.
  * @remarks
  * 
-  * If a volume is built on top of storage devices with different properties (for example a mirrored, spanned, 
-  *     striped, or RAID configuration) the sizes returned are those of the largest size of any of the underlying storage 
-  *     devices.
-  * 
-  * 
+ * If a volume is built on top of storage devices with different properties (for example a mirrored, spanned, 
+ *     striped, or RAID configuration) the sizes returned are those of the largest size of any of the underlying storage 
+ *     devices.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_storage_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319

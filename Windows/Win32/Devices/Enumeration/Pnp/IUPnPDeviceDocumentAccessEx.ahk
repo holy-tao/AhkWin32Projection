@@ -8,9 +8,9 @@
  * Provides a method to obtain the entire XML device description document for a specific device.
  * @remarks
  * 
-  * This interface is obtained by calling QueryInterface on the same object that provides an implementation of <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevice">IUPnPDevice</a>, after which <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevicedocumentaccessex-getdocument">GetDocument</a> can be called on it.
-  * 
-  * 
+ * This interface is obtained by calling QueryInterface on the same object that provides an implementation of <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevice">IUPnPDevice</a>, after which <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevicedocumentaccessex-getdocument">GetDocument</a> can be called on it.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//upnp/nn-upnp-iupnpdevicedocumentaccessex
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319

@@ -8,8 +8,8 @@
  * The IFaxActivityLogging interface defines a configuration object used by a fax client application to retrieve and set options for activity logging.
  * @remarks
  * 
-  * A default implementation of <b>IFaxActivityLogging</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxactivitylogging">FaxActivityLogging</a> object.
-  * 
+ * A default implementation of <b>IFaxActivityLogging</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxactivitylogging">FaxActivityLogging</a> object.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxactivitylogging
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319

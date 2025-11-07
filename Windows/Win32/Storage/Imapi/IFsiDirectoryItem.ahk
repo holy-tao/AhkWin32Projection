@@ -10,14 +10,14 @@
  * Use this interface to add items to or remove items from the file-system image.
  * @remarks
  * 
-  * Each directory item contains an enumerable collection of child items within the directory.
-  * 
-  * You can add and remove files and directories only after the directory item has been added to the file system image.
-  * 
-  * 
-  * This is an <b>FsiDirectoryItem</b> object in script.
-  * 
-  * 
+ * Each directory item contains an enumerable collection of child items within the directory.
+ * 
+ * You can add and remove files and directories only after the directory item has been added to the file system image.
+ * 
+ * 
+ * This is an <b>FsiDirectoryItem</b> object in script.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ifsidirectoryitem
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

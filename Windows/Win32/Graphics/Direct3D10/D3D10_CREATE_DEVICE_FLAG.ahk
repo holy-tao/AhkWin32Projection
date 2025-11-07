@@ -4,14 +4,14 @@
  * Device creation flags.
  * @remarks
  * 
-  * Device creation flags are used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/nf-d3d10misc-d3d10createdevice">D3D10CreateDevice</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/nf-d3d10misc-d3d10createdeviceandswapchain">D3D10CreateDeviceAndSwapChain</a>.
-  * 
-  * An application might dynamically create (and destroy) threads to improve performance especially on a machine with multiple CPU cores. 
-  *       There may be cases, however, when an application needs to prevent extra threads from being created. This can happen when you want to simplify 
-  *       debugging, profile code or develop a tool for instance. For these cases, use D3D10_CREATE_DEVICE_PREVENT_INTERNAL_THREADING_OPTIMIZATIONS to request 
-  *       that the runtime and video driver not create any additional threads that might interfere with the application.
-  * 
-  * 
+ * Device creation flags are used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/nf-d3d10misc-d3d10createdevice">D3D10CreateDevice</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/nf-d3d10misc-d3d10createdeviceandswapchain">D3D10CreateDeviceAndSwapChain</a>.
+ * 
+ * An application might dynamically create (and destroy) threads to improve performance especially on a machine with multiple CPU cores. 
+ *       There may be cases, however, when an application needs to prevent extra threads from being created. This can happen when you want to simplify 
+ *       debugging, profile code or develop a tool for instance. For these cases, use D3D10_CREATE_DEVICE_PREVENT_INTERNAL_THREADING_OPTIMIZATIONS to request 
+ *       that the runtime and video driver not create any additional threads that might interfere with the application.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_create_device_flag
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

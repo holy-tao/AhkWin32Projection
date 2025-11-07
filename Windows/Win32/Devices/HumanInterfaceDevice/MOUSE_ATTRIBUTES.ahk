@@ -5,9 +5,9 @@
  * MOUSE_ATTRIBUTES specifies the attributes of a mouse device.
  * @remarks
  * 
-  * This structure is used with an <a href="https://docs.microsoft.com/windows/desktop/api/ntddmou/ni-ntddmou-ioctl_mouse_query_attributes">IOCTL_MOUSE_QUERY_ATTRIBUTES</a> request to obtain the attributes of a mouse.
-  * 
-  * 
+ * This structure is used with an <a href="https://docs.microsoft.com/windows/desktop/api/ntddmou/ni-ntddmou-ioctl_mouse_query_attributes">IOCTL_MOUSE_QUERY_ATTRIBUTES</a> request to obtain the attributes of a mouse.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ntddmou/ns-ntddmou-mouse_attributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319

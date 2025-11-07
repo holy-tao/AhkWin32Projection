@@ -6,7 +6,7 @@
  * Receives output data from calls to ID3D12VideoEncodeCommandList::ResolveMotionVectorHeap.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_resolve_video_motion_vector_heap_output
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

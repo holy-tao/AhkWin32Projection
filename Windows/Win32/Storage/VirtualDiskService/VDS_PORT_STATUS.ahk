@@ -4,14 +4,14 @@
  * Defines the set of object status values for a port.
  * @remarks
  * 
-  * The  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_port_prop">VDS_PORT_PROP</a> structure includes a <b>VDS_PORT_STATUS</b> value as a member to indicate the current status of a port.
-  * 
-  * If your application encounters a <b>VDS_PORT_STATUS</b> value that it does not recognize, it should display the port status as unknown. It should not attempt to map the unrecognized port status to another port status.
-  * 
-  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_PORT_STATUS</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_PORT_STATUS</b> enumeration constant.</div>
-  * <div> </div>
-  * 
-  * 
+ * The  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_port_prop">VDS_PORT_PROP</a> structure includes a <b>VDS_PORT_STATUS</b> value as a member to indicate the current status of a port.
+ * 
+ * If your application encounters a <b>VDS_PORT_STATUS</b> value that it does not recognize, it should display the port status as unknown. It should not attempt to map the unrecognized port status to another port status.
+ * 
+ * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_PORT_STATUS</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_PORT_STATUS</b> enumeration constant.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_port_status
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

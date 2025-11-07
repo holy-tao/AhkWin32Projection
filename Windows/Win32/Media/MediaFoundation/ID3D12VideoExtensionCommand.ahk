@@ -7,9 +7,9 @@
  * A reference counted object representing the video extension command.
  * @remarks
  * 
-  * Create an instance of this interface by calling [ID3D12VideoDevice2::CreateVideoExtensionCommand](nf-d3d12video-id3d12videodevice2-createvideoextensioncommand.md).
-  * 
-  * 
+ * Create an instance of this interface by calling [ID3D12VideoDevice2::CreateVideoExtensionCommand](nf-d3d12video-id3d12videodevice2-createvideoextensioncommand.md).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videoextensioncommand
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

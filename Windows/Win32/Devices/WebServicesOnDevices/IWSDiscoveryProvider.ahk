@@ -8,9 +8,9 @@
  * Used to discover services on the network advertised by WS-Discovery.
  * @remarks
  * 
-  * The Discovery Provider represents the "client" view of WS-Discovery.
-  * 
-  * 
+ * The Discovery Provider represents the "client" view of WS-Discovery.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nn-wsddisco-iwsdiscoveryprovider
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319

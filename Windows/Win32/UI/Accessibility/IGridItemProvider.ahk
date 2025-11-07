@@ -8,13 +8,13 @@
  * Provides access to individual child controls of containers that implement IGridProvider.
  * @remarks
  * 
-  * Implemented on a UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementinggriditem">GridItem</a> <i>control pattern</i>.
-  *    			
-  * 
-  * Controls that implement <b>IGridItemProvider</b> can typically be traversed 
-  *             (that is, a UI Automation client can move to adjacent controls) by using the keyboard.
-  * 
-  * 
+ * Implemented on a UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementinggriditem">GridItem</a> <i>control pattern</i>.
+ *    			
+ * 
+ * Controls that implement <b>IGridItemProvider</b> can typically be traversed 
+ *             (that is, a UI Automation client can move to adjacent controls) by using the keyboard.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-igriditemprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

@@ -5,17 +5,17 @@
  * Defines the details of iSCSI portal events.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_notification">VDS_NOTIFICATION</a> structure includes this 
-  *     structure as a member.
-  * 
-  * An application can receive disk events by implementing the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsadvisesink">IVdsAdviseSink</a> interface and passing the interface 
-  *     pointer as an argument to the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-advise">IVdsService::Advise</a> 
-  *     method.
-  * 
-  * To get the portal object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-getproperties">IVdsIscsiPortal::GetProperties</a> method to get the portal properties.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_notification">VDS_NOTIFICATION</a> structure includes this 
+ *     structure as a member.
+ * 
+ * An application can receive disk events by implementing the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsadvisesink">IVdsAdviseSink</a> interface and passing the interface 
+ *     pointer as an argument to the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-advise">IVdsService::Advise</a> 
+ *     method.
+ * 
+ * To get the portal object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-getproperties">IVdsIscsiPortal::GetProperties</a> method to get the portal properties.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_portal_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

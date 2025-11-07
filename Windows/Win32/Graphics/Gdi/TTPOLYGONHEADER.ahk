@@ -7,9 +7,9 @@
  * The TTPOLYGONHEADER structure specifies the starting position and type of a contour in a TrueType character outline.
  * @remarks
  * 
-  * Each <b>TTPOLYGONHEADER</b> structure is followed by one or more <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-ttpolycurve">TTPOLYCURVE</a> structures.
-  * 
-  * 
+ * Each <b>TTPOLYGONHEADER</b> structure is followed by one or more <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-ttpolycurve">TTPOLYCURVE</a> structures.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-ttpolygonheader
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319

@@ -5,11 +5,11 @@
  * Describes the stroke that outlines a shape.
  * @remarks
  * 
-  * The following illustration shows different <i>dashOffset</i> values for the same custom dash style.
-  * 
-  * <img alt="Illustration of four dashes with the same style and different dashOffset values" src="./images/StrokeStyle_DashOffset.png"/>
-  * 
-  * 
+ * The following illustration shows different <i>dashOffset</i> values for the same custom dash style.
+ * 
+ * <img alt="Illustration of four dashes with the same style and different dashOffset values" src="./images/StrokeStyle_DashOffset.png"/>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_stroke_style_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

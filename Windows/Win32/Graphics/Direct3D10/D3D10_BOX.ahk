@@ -5,11 +5,11 @@
  * Defines a 3D box.
  * @remarks
  * 
-  * The following diagram shows a 3D box, where the origin is the left, front, top corner.
-  * 
-  * <img alt="Diagram of a 3D box, where the origin is the left, front, top corner" src="./images/d3d10_box.png"/>
-  * 
-  * 
+ * The following diagram shows a 3D box, where the origin is the left, front, top corner.
+ * 
+ * <img alt="Diagram of a 3D box, where the origin is the left, front, top corner" src="./images/d3d10_box.png"/>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_box
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

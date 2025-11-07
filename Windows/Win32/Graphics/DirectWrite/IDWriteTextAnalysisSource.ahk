@@ -7,10 +7,10 @@
  * Implemented by the text analyzer's client to provide text to the analyzer.
  * @remarks
  * 
-  * If any of these callbacks returns an error, then the analysis functions will stop prematurely and return a callback error. Note that rather than return E_NOTIMPL,
-  *  an application should stub the method and return a constant/null and S_OK.
-  * 
-  * 
+ * If any of these callbacks returns an error, then the analysis functions will stop prematurely and return a callback error. Note that rather than return E_NOTIMPL,
+ *  an application should stub the method and return a constant/null and S_OK.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritetextanalysissource
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

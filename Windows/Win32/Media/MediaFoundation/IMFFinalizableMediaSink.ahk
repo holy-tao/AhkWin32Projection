@@ -7,9 +7,9 @@
  * Optionally supported by media sinks to perform required tasks before shutdown.
  * @remarks
  * 
-  * If a media sink exposes this interface, the Media Session will call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imffinalizablemediasink-beginfinalize">BeginFinalize</a> on the sink before the session closes.
-  * 
-  * 
+ * If a media sink exposes this interface, the Media Session will call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imffinalizablemediasink-beginfinalize">BeginFinalize</a> on the sink before the session closes.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imffinalizablemediasink
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

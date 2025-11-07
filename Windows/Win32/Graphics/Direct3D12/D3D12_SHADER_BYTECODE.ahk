@@ -5,11 +5,11 @@
  * Describes shader data.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc">D3D12_GRAPHICS_PIPELINE_STATE_DESC</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_compute_pipeline_state_desc">D3D12_COMPUTE_PIPELINE_STATE_DESC</a> objects contain <b>D3D12_SHADER_BYTECODE</b> structures that describe various shader types.
-  * 
-  * When loading a shader from FXC/DXC, this may be the entire compiled blob as is loaded from disk.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc">D3D12_GRAPHICS_PIPELINE_STATE_DESC</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_compute_pipeline_state_desc">D3D12_COMPUTE_PIPELINE_STATE_DESC</a> objects contain <b>D3D12_SHADER_BYTECODE</b> structures that describe various shader types.
+ * 
+ * When loading a shader from FXC/DXC, this may be the entire compiled blob as is loaded from disk.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_shader_bytecode
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

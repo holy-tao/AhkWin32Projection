@@ -5,9 +5,9 @@
  * The BUSNUMBER_RANGE structure specifies a resource requirements list that describes bus number usage for a device instance. For more information about resource requirements lists, see Hardware Resources.
  * @remarks
  * 
-  * The BUSNUMBER_RANGE structure is included as a member of the [BUSNUMBER_RESOURCE](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-busnumber_resource) structure.
-  * 
-  * 
+ * The BUSNUMBER_RANGE structure is included as a member of the [BUSNUMBER_RESOURCE](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-busnumber_resource) structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/ns-cfgmgr32-busnumber_range
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319

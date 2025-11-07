@@ -9,9 +9,9 @@
  * The IMSVidTuner interface manages tuning devices.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidTuner)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidTuner)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidtuner
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

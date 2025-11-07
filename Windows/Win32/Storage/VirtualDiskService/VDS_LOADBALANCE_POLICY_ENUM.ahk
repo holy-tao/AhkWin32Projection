@@ -4,10 +4,10 @@
  * Defines a set of valid load balance policies for a path.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_LOADBALANCE_POLICY_ENUM</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_LOADBALANCE_POLICY_ENUM</b> enumeration constant.</div>
-  * <div> </div>
-  * 
-  * 
+ * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_LOADBALANCE_POLICY_ENUM</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_LOADBALANCE_POLICY_ENUM</b> enumeration constant.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_loadbalance_policy_enum
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

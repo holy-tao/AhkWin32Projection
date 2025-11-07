@@ -4,20 +4,20 @@
  * Defines the flags used for setting user properties in the directory.
  * @remarks
  * 
-  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/AD/managing-users">Managing Users</a>.
-  * 
-  * For more information, and a code example that shows how to set the 
-  *      <b>ADS_UF_DONT_EXPIRE_PASSWD</b> value on a user 
-  *      <b>userAccountControl</b> attribute, see 
-  *      <a href="https://docs.microsoft.com/windows/desktop/ADSI/password-never-expires">Password Never Expires</a>.
-  * 
-  * <div class="alert"><b>Note</b>  Because VBScript cannot read data from a type library, VBScript applications do not understand the symbolic 
-  *     constants as defined above. Use the numerical constants, instead, to set the appropriate flags in your VBScript 
-  *     applications. To use the symbolic constants as a good programming practice, create explicit declarations of such 
-  *     constants, as done here, in your VBScript applications.</div>
-  * <div> </div>
-  * 
-  * 
+ * For more information, see <a href="https://docs.microsoft.com/windows/desktop/AD/managing-users">Managing Users</a>.
+ * 
+ * For more information, and a code example that shows how to set the 
+ *      <b>ADS_UF_DONT_EXPIRE_PASSWD</b> value on a user 
+ *      <b>userAccountControl</b> attribute, see 
+ *      <a href="https://docs.microsoft.com/windows/desktop/ADSI/password-never-expires">Password Never Expires</a>.
+ * 
+ * <div class="alert"><b>Note</b>  Because VBScript cannot read data from a type library, VBScript applications do not understand the symbolic 
+ *     constants as defined above. Use the numerical constants, instead, to set the appropriate flags in your VBScript 
+ *     applications. To use the symbolic constants as a good programming practice, create explicit declarations of such 
+ *     constants, as done here, in your VBScript applications.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_user_flag_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

@@ -7,10 +7,10 @@
  * This interface is implemented by the text analyzer's client to receive the output of a given text analysis.
  * @remarks
  * 
-  * The text analyzer disregards any current
-  *  state of the analysis sink, therefore, a Set method call on a range overwrites the previously set analysis result of the same range.
-  * 
-  * 
+ * The text analyzer disregards any current
+ *  state of the analysis sink, therefore, a Set method call on a range overwrites the previously set analysis result of the same range.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritetextanalysissink
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

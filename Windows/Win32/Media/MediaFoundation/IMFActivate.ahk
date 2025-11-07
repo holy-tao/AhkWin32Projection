@@ -7,9 +7,9 @@
  * Enables the application to defer the creation of an object.
  * @remarks
  * 
-  * Typically, the application calls some function that returns an <b>IMFActivate</b> pointer and then passes that pointer to another component. The other component calls <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfactivate-activateobject">ActivateObject</a> at a later time to create the object. In the protected media path (PMP), the <b>IMFActivate</b> pointer might be marshaled to the protected process, so that the object can be created in that process.
-  * 
-  * 
+ * Typically, the application calls some function that returns an <b>IMFActivate</b> pointer and then passes that pointer to another component. The other component calls <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfactivate-activateobject">ActivateObject</a> at a later time to create the object. In the protected media path (PMP), the <b>IMFActivate</b> pointer might be marshaled to the protected process, so that the object can be created in that process.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfactivate
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

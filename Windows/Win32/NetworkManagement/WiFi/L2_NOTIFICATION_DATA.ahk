@@ -5,15 +5,15 @@
  * Important  The Native 802.11 Wireless LAN interface is deprecated in Windows 10 and later.
  * @remarks
  * 
-  * The application or service registers to receive notifications by calling the 
-  *     <b>WlanRegisterNotification</b> Auto Configuration Manager (ACM) function. For more information about this
-  *     function, refer to the Microsoft Windows SDK documentation.
-  * 
-  * The IHV Extensions DLL sends notifications to registered services or applications by calling the 
-  *     <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wlanihv/nc-wlanihv-dot11ext_send_notification">Dot11ExtSendNotification</a> function. The service or application must register to receive
-  *     notifications from a source of L2_NOTIFICATION_SOURCE_WLAN_IHV.
-  * 
-  * 
+ * The application or service registers to receive notifications by calling the 
+ *     <b>WlanRegisterNotification</b> Auto Configuration Manager (ACM) function. For more information about this
+ *     function, refer to the Microsoft Windows SDK documentation.
+ * 
+ * The IHV Extensions DLL sends notifications to registered services or applications by calling the 
+ *     <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wlanihv/nc-wlanihv-dot11ext_send_notification">Dot11ExtSendNotification</a> function. The service or application must register to receive
+ *     notifications from a source of L2_NOTIFICATION_SOURCE_WLAN_IHV.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//l2cmn/ns-l2cmn-l2_notification_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319

@@ -4,41 +4,41 @@
  * Specify how a shadow copy is to be created, queried, or deleted and the degree of writer involvement.
  * @remarks
  * 
-  * The data type to be used with values of 
-  *     <b>_VSS_SNAPSHOT_CONTEXT</b> is 
-  *     <b>LONG</b>.
-  * 
-  * The default context for VSS shadow copies is <b>VSS_CTX_BACKUP</b>.
-  * 
-  * <b>Windows XP:  </b>The only supported context is the default, <b>VSS_CTX_BACKUP</b>. Calling 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setcontext">IVssBackupComponents::SetContext</a> will 
-  *      return <b>E_NOTIMPL</b>.
-  * 
-  * For details on how to use VSS shadow copies contexts, see 
-  *     <a href="https://docs.microsoft.com/windows/desktop/VSS/implementation-details-for-creating-shadow-copies">Implementation Details for 
-  *     Creating Shadow Copies</a>.
-  * 
-  * Shadow copy behavior can be further controlled by using a bitwise OR to combine a supported 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_volume_snapshot_attributes">_VSS_VOLUME_SNAPSHOT_ATTRIBUTES</a> with valid 
-  *     <b>_VSS_SNAPSHOT_CONTEXT</b> values as an argument to the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setcontext">IVssBackupComponents::SetContext</a> 
-  *     method.
-  * 
-  * Currently, the only supported modifications are the bitwise OR of a 
-  *      <b>_VSS_SNAPSHOT_CONTEXT</b> value with the
-  *      <b>VSS_VOLSNAP_ATTR_TRANSPORTABLE</b> and either the 
-  *      <b>VSS_VOLSNAP_ATTR_DIFFERENTIAL</b> or the <b>VSS_VOLSNAP_ATTR_PLEX</b> 
-  *      value of the 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_volume_snapshot_attributes">_VSS_VOLUME_SNAPSHOT_ATTRIBUTES</a> 
-  *      enumeration.
-  * 
-  * However, these values cannot be used to modify <b>VSS_CTX_CLIENT_ACCESSIBLE</b> 
-  *      context.
-  * 
-  * The use of <b>VSS_VOLSNAP_ATTR_TRANSPORTABLE</b> is limited to systems running 
-  *     Windows Server 2008 Enterprise, Windows Server 2008 Datacenter, Windows Server 2003, Enterprise Edition, or Windows Server 2003, Datacenter Edition.
-  * 
-  * 
+ * The data type to be used with values of 
+ *     <b>_VSS_SNAPSHOT_CONTEXT</b> is 
+ *     <b>LONG</b>.
+ * 
+ * The default context for VSS shadow copies is <b>VSS_CTX_BACKUP</b>.
+ * 
+ * <b>Windows XP:  </b>The only supported context is the default, <b>VSS_CTX_BACKUP</b>. Calling 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setcontext">IVssBackupComponents::SetContext</a> will 
+ *      return <b>E_NOTIMPL</b>.
+ * 
+ * For details on how to use VSS shadow copies contexts, see 
+ *     <a href="https://docs.microsoft.com/windows/desktop/VSS/implementation-details-for-creating-shadow-copies">Implementation Details for 
+ *     Creating Shadow Copies</a>.
+ * 
+ * Shadow copy behavior can be further controlled by using a bitwise OR to combine a supported 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_volume_snapshot_attributes">_VSS_VOLUME_SNAPSHOT_ATTRIBUTES</a> with valid 
+ *     <b>_VSS_SNAPSHOT_CONTEXT</b> values as an argument to the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setcontext">IVssBackupComponents::SetContext</a> 
+ *     method.
+ * 
+ * Currently, the only supported modifications are the bitwise OR of a 
+ *      <b>_VSS_SNAPSHOT_CONTEXT</b> value with the
+ *      <b>VSS_VOLSNAP_ATTR_TRANSPORTABLE</b> and either the 
+ *      <b>VSS_VOLSNAP_ATTR_DIFFERENTIAL</b> or the <b>VSS_VOLSNAP_ATTR_PLEX</b> 
+ *      value of the 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_volume_snapshot_attributes">_VSS_VOLUME_SNAPSHOT_ATTRIBUTES</a> 
+ *      enumeration.
+ * 
+ * However, these values cannot be used to modify <b>VSS_CTX_CLIENT_ACCESSIBLE</b> 
+ *      context.
+ * 
+ * The use of <b>VSS_VOLSNAP_ATTR_TRANSPORTABLE</b> is limited to systems running 
+ *     Windows Server 2008 Enterprise, Windows Server 2008 Datacenter, Windows Server 2003, Enterprise Edition, or Windows Server 2003, Datacenter Edition.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_snapshot_context
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319

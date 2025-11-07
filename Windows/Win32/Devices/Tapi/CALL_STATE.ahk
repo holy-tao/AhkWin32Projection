@@ -4,80 +4,80 @@
  * The CALL_STATE enum is used by the ITCallInfo::get_CallState and ITCallStateEvent::get_State methods.
  * @remarks
  * 
-  * Following is a table of all valid call state transitions.
-  * 
-  * <table>
-  * <tr>
-  * <th>From state</th>
-  * <th>To state</th>
-  * </tr>
-  * <tr>
-  * <td>CS_IDLE</td>
-  * <td>
-  * <dl>
-  * <dt>INPROGRESS</dt>
-  * <dt>CONNECTED</dt>
-  * <dt>DISCONNECTED</dt>
-  * <dt>OFFERING</dt>
-  * <dt>HOLD</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>CS_INPROGRESS</td>
-  * <td>
-  * <dl>
-  * <dt>CONNECTED</dt>
-  * <dt>DISCONNECTED</dt>
-  * <dt>HOLD</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>CS_CONNECTED</td>
-  * <td>
-  * <dl>
-  * <dt>HOLD</dt>
-  * <dt>DISCONNECTED</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>CS_DISCONNECTED</td>
-  * <td>Nothing—call should be freed</td>
-  * </tr>
-  * <tr>
-  * <td>CS_OFFERING</td>
-  * <td>
-  * <dl>
-  * <dt>CONNECTED</dt>
-  * <dt>DISCONNECTED</dt>
-  * <dt>HOLD</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>CS_HOLD</td>
-  * <td>
-  * <dl>
-  * <dt>CONNECTED</dt>
-  * <dt>DISCONNECTED</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>CS_QUEUED</td>
-  * <td>
-  * <dl>
-  * <dt>CONNECTED</dt>
-  * <dt>DISCONNECTED</dt>
-  * <dt>HOLD</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * Following is a table of all valid call state transitions.
+ * 
+ * <table>
+ * <tr>
+ * <th>From state</th>
+ * <th>To state</th>
+ * </tr>
+ * <tr>
+ * <td>CS_IDLE</td>
+ * <td>
+ * <dl>
+ * <dt>INPROGRESS</dt>
+ * <dt>CONNECTED</dt>
+ * <dt>DISCONNECTED</dt>
+ * <dt>OFFERING</dt>
+ * <dt>HOLD</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>CS_INPROGRESS</td>
+ * <td>
+ * <dl>
+ * <dt>CONNECTED</dt>
+ * <dt>DISCONNECTED</dt>
+ * <dt>HOLD</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>CS_CONNECTED</td>
+ * <td>
+ * <dl>
+ * <dt>HOLD</dt>
+ * <dt>DISCONNECTED</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>CS_DISCONNECTED</td>
+ * <td>Nothing—call should be freed</td>
+ * </tr>
+ * <tr>
+ * <td>CS_OFFERING</td>
+ * <td>
+ * <dl>
+ * <dt>CONNECTED</dt>
+ * <dt>DISCONNECTED</dt>
+ * <dt>HOLD</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>CS_HOLD</td>
+ * <td>
+ * <dl>
+ * <dt>CONNECTED</dt>
+ * <dt>DISCONNECTED</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>CS_QUEUED</td>
+ * <td>
+ * <dl>
+ * <dt>CONNECTED</dt>
+ * <dt>DISCONNECTED</dt>
+ * <dt>HOLD</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-call_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

@@ -8,15 +8,15 @@
  * The INetFwPolicy interface provides access to a firewall policy.
  * @remarks
  * 
-  * Instances of this interface are
-  * retrieved through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwmgr-get_localpolicy">LocalPolicy</a> property of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwmgr">INetFwMgr</a> interface.
-  * 
-  * All configuration changes take
-  * effect immediately.
-  * 
-  * The Windows Firewall/Internet Connection Sharing  service must be running to access this interface.
-  * 
-  * 
+ * Instances of this interface are
+ * retrieved through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwmgr-get_localpolicy">LocalPolicy</a> property of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwmgr">INetFwMgr</a> interface.
+ * 
+ * All configuration changes take
+ * effect immediately.
+ * 
+ * The Windows Firewall/Internet Connection Sharing  service must be running to access this interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwpolicy
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

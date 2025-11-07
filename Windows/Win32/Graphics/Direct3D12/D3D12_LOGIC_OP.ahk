@@ -4,9 +4,9 @@
  * Specifies logical operations to configure for a render target.
  * @remarks
  * 
-  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_render_target_blend_desc">D3D12_RENDER_TARGET_BLEND_DESC</a> structure.
-  * 
-  * 
+ * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_render_target_blend_desc">D3D12_RENDER_TARGET_BLEND_DESC</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_logic_op
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

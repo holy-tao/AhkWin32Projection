@@ -5,9 +5,9 @@
  * Describes the level of support for shared resources in the current graphics driver.
  * @remarks
  * 
-  * Use this structure with the **D3D11_FEATURE_D3D11_OPTIONS5** member of [D3D11_FEATURE](./ne-d3d11-d3d11_feature.md).
-  * 
-  * 
+ * Use this structure with the **D3D11_FEATURE_D3D11_OPTIONS5** member of [D3D11_FEATURE](./ne-d3d11-d3d11_feature.md).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_feature_data_d3d11_options5
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

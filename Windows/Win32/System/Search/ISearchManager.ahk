@@ -8,8 +8,8 @@
  * Provides methods for controlling the Search service. This interface manages settings and objects that affect the search engine across catalogs.
  * @remarks
  * 
-  * For a sample that demonstrates ways to specify which files to re-index and how, see the [ReindexMatchingUrls](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/ReindexMatchingUrls) sample.
-  * 
+ * For a sample that demonstrates ways to specify which files to re-index and how, see the [ReindexMatchingUrls](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/ReindexMatchingUrls) sample.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-isearchmanager
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319

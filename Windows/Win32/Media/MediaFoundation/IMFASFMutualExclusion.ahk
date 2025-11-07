@@ -8,9 +8,9 @@
  * Configures an Advanced Systems Format (ASF) mutual exclusion object, which manages information about a group of streams in an ASF profile that are mutually exclusive.
  * @remarks
  * 
-  * An ASF profile object can support multiple mutual exclusions. Each must be configured using a separate ASF mutual exclusion object.
-  * 
-  * 
+ * An ASF profile object can support multiple mutual exclusions. Each must be configured using a separate ASF mutual exclusion object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nn-wmcontainer-imfasfmutualexclusion
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

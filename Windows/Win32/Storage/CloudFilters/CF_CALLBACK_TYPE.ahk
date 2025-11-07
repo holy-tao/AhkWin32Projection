@@ -4,21 +4,21 @@
  * Contains the various types of callbacks used on placeholder files or folders.
  * @remarks
  * 
-  * These are not APIs provided by the library, but rather callbacks that a sync provider must implement in order to service requests from the platform.  As necessary, the platform will ask the library instance running inside the sync provider process to invoke the appropriate callback routine.
-  * 
-  * 
-  * Callback routines will be invoked in an arbitrary thread (part of a thread pool).  Multiple callbacks can occur simultaneously, in different threads, and it is the responsibility of the sync provider code to implement any necessary synchronization to make this work reliably. All callbacks are asynchronous. Asynchronous user requests that trigger the callbacks are pended and the control is returned to the user application.
-  * 
-  * 
-  * Every callback request has a fixed 60 second timeout. A valid operation on any pending requests from the sync provider resets the timers of all pending requests.
-  * 
-  * 
-  * All callback functions have the same prototype with two arguments: a CF_CALLBACK_INFO structure and a CF_CALLBACK_PARAMETER structure.
-  * 
-  * 
-  * Callback routines have no return value.
-  * 
-  * 
+ * These are not APIs provided by the library, but rather callbacks that a sync provider must implement in order to service requests from the platform.  As necessary, the platform will ask the library instance running inside the sync provider process to invoke the appropriate callback routine.
+ * 
+ * 
+ * Callback routines will be invoked in an arbitrary thread (part of a thread pool).  Multiple callbacks can occur simultaneously, in different threads, and it is the responsibility of the sync provider code to implement any necessary synchronization to make this work reliably. All callbacks are asynchronous. Asynchronous user requests that trigger the callbacks are pended and the control is returned to the user application.
+ * 
+ * 
+ * Every callback request has a fixed 60 second timeout. A valid operation on any pending requests from the sync provider resets the timers of all pending requests.
+ * 
+ * 
+ * All callback functions have the same prototype with two arguments: a CF_CALLBACK_INFO structure and a CF_CALLBACK_PARAMETER structure.
+ * 
+ * 
+ * Callback routines have no return value.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_callback_type
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319

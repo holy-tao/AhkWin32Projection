@@ -7,9 +7,9 @@
  * Exposes a method to handle one or more Microsoft UI Automation change events.
  * @remarks
  * 
-  * This interface is implemented by the application to handle events that it has subscribed to by calling <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation4-addchangeseventhandler">AddChangesEventHandler</a>.
-  * 
-  * 
+ * This interface is implemented by the application to handle events that it has subscribed to by calling <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation4-addchangeseventhandler">AddChangesEventHandler</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationchangeseventhandler
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

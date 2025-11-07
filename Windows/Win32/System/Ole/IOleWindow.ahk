@@ -8,98 +8,98 @@
  * The IOleWindow interface provides methods that allow an application to obtain the handle to the various windows that participate in in-place activation, and also to enter and exit context-sensitive help mode.
  * @remarks
  * 
-  * Several other in-place activation interfaces are derived from the <b>IOleWindow</b> interface. Containers and objects must implement and use these interfaces in order to support in-place activation. The following table briefly summarizes each of these interfaces.
-  * 
-  * <table>
-  * <tr>
-  * <th>Interface</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td><b>IOleWindow</b></td>
-  * <td>
-  * The base interface. Implemented and used by containers and objects to obtain window handles and manage context-sensitive help. This interface is not supported for use across machine boundaries.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceobject">IOleInPlaceObject</a>
-  * </td>
-  * <td>
-  * Implemented by objects and used by an object's immediate container to activate and deactivate the object.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a>
-  * </td>
-  * <td>
-  * Implemented by objects and used by the top-level container to manipulate the object while it is active. Provides a direct channel of communication between an active object and its frame and document windows.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceuiwindow">IOleInPlaceUIWindow</a>
-  * </td>
-  * <td>
-  * Implemented by containers and used by objects to manipulate the container's document window.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceframe">IOleInPlaceFrame</a>
-  * </td>
-  * <td>
-  * Implemented by containers and used by objects to control the container's frame window.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplacesite">IOleInPlaceSite</a>
-  * </td>
-  * <td>
-  * Implemented by containers and used by objects to interact with the in-place client site.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleinplacesiteex">IOleInPlaceSiteEx</a>
-  * </td>
-  * <td>
-  * Implemented by containers and called by objects to optimize activation and deactivation.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleinplacesitewindowless">IOleInPlaceSiteWindowless</a>
-  * </td>
-  * <td>
-  * Implemented by containers and called by windowless object to obtain services from its container.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleinplaceobjectwindowless">IOleInPlaceObjectWindowless</a>
-  * </td>
-  * <td>
-  * Implemented by windowless objects called by containers to support window message processing and drag and drop operations for windowless objects.
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * These interfaces can be arranged in three hierarchical levels with various interfaces implemented at each level. Calls that install user-interface menus commands and frame adornments, activate and switch between windows, and dispatch menu and keystrokes take place between the top-level container and the active object. Calls that support activating, deactivating, scrolling, or clipping span the containment hierarchy, with each level performing the correct actions.
-  * 
-  * 
+ * Several other in-place activation interfaces are derived from the <b>IOleWindow</b> interface. Containers and objects must implement and use these interfaces in order to support in-place activation. The following table briefly summarizes each of these interfaces.
+ * 
+ * <table>
+ * <tr>
+ * <th>Interface</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td><b>IOleWindow</b></td>
+ * <td>
+ * The base interface. Implemented and used by containers and objects to obtain window handles and manage context-sensitive help. This interface is not supported for use across machine boundaries.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceobject">IOleInPlaceObject</a>
+ * </td>
+ * <td>
+ * Implemented by objects and used by an object's immediate container to activate and deactivate the object.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a>
+ * </td>
+ * <td>
+ * Implemented by objects and used by the top-level container to manipulate the object while it is active. Provides a direct channel of communication between an active object and its frame and document windows.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceuiwindow">IOleInPlaceUIWindow</a>
+ * </td>
+ * <td>
+ * Implemented by containers and used by objects to manipulate the container's document window.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceframe">IOleInPlaceFrame</a>
+ * </td>
+ * <td>
+ * Implemented by containers and used by objects to control the container's frame window.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplacesite">IOleInPlaceSite</a>
+ * </td>
+ * <td>
+ * Implemented by containers and used by objects to interact with the in-place client site.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleinplacesiteex">IOleInPlaceSiteEx</a>
+ * </td>
+ * <td>
+ * Implemented by containers and called by objects to optimize activation and deactivation.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleinplacesitewindowless">IOleInPlaceSiteWindowless</a>
+ * </td>
+ * <td>
+ * Implemented by containers and called by windowless object to obtain services from its container.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleinplaceobjectwindowless">IOleInPlaceObjectWindowless</a>
+ * </td>
+ * <td>
+ * Implemented by windowless objects called by containers to support window message processing and drag and drop operations for windowless objects.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * These interfaces can be arranged in three hierarchical levels with various interfaces implemented at each level. Calls that install user-interface menus commands and frame adornments, activate and switch between windows, and dispatch menu and keystrokes take place between the top-level container and the active object. Calls that support activating, deactivating, scrolling, or clipping span the containment hierarchy, with each level performing the correct actions.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//oleidl/nn-oleidl-iolewindow
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319

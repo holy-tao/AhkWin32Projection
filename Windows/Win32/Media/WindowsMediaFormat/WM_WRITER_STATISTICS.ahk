@@ -5,9 +5,9 @@
  * The WM_WRITER_STATISTICS structure describes the performance of a writing operation.
  * @remarks
  * 
-  * Sample rates are specified in kilohertz. For instance, a sample rate of 8 indicates 8000 samples per second.
-  * 
-  * 
+ * Sample rates are specified in kilohertz. For instance, a sample rate of 8 indicates 8000 samples per second.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wm_writer_statistics
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319

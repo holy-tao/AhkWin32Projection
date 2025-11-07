@@ -7,10 +7,10 @@
  * The ITfMessagePump interface is implemented by the TSF manager and is used by an application to obtain messages from the application message queue.
  * @remarks
  * 
-  * If the application is Unicode, it should use the PeekMessageW and GetMessageW methods. Otherwise, the application should use the PeekMessageA and GetMessageA methods.
-  * 
-  * 
-  * 
+ * If the application is Unicode, it should use the PeekMessageW and GetMessageW methods. Otherwise, the application should use the PeekMessageA and GetMessageA methods.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfmessagepump
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

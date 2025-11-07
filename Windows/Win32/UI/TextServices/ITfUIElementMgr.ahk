@@ -9,8 +9,8 @@
  * The ITfUIElementMgr interface is implemented by TSF manager and used by an application or a text service. An application and a text service can obtain this interface by ITfThreadMgr::QueryInterface with IID_ITfUIElementMgr.
  * @remarks
  * 
-  * A text service that supports UIElement must call <b>ITfUIElementMgr</b> whenever the UI is shown, updated or hidden. Then the application can control the visibility of the UI.
-  * 
+ * A text service that supports UIElement must call <b>ITfUIElementMgr</b> whenever the UI is shown, updated or hidden. Then the application can control the visibility of the UI.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfuielementmgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

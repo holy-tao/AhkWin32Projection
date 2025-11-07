@@ -5,9 +5,9 @@
  * The LINETRANSLATEOUTPUT structure describes the result of an address translation. The lineTranslateAddress function uses this structure.
  * @remarks
  * 
-  * This structure cannot be extended.
-  * 
-  * 
+ * This structure cannot be extended.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linetranslateoutput
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

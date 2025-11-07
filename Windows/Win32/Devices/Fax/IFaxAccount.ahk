@@ -9,8 +9,8 @@
  * Represents a fax account on the fax server.
  * @remarks
  * 
-  * A default implementation of <b>IFaxAccount</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxaccount">FaxAccount</a> object. The interface and the object are supported only on Windows Vista or later.
-  * 
+ * A default implementation of <b>IFaxAccount</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxaccount">FaxAccount</a> object. The interface and the object are supported only on Windows Vista or later.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxaccount
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319

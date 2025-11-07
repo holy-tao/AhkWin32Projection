@@ -11,11 +11,11 @@
  * To access the firewall policy.
  * @remarks
  * 
-  * All configuration changes take effect immediately.
-  * 
-  * The Windows Firewall/Internet Connection Sharing  service must be running to access this interface.
-  * 
-  * 
+ * All configuration changes take effect immediately.
+ * 
+ * The Windows Firewall/Internet Connection Sharing  service must be running to access this interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwpolicy2
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

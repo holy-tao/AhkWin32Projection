@@ -7,12 +7,12 @@
  * Exposes methods that report status and error messages to Remote Desktop Connection Broker (RD Connection Broker).
  * @remarks
  * 
-  * Plug-ins can use this interface to report status and error messages to RD Connection Broker.
-  * 
-  * The RD Connection Broker server and the Remote Desktop Session Host (RD Session Host) server (the redirector) must 
-  *     be running Windows Server 2008 R2, and clients must use RDC 7.0.
-  * 
-  * 
+ * Plug-ins can use this interface to report status and error messages to RD Connection Broker.
+ * 
+ * The RD Connection Broker server and the Remote Desktop Session Host (RD Session Host) server (the redirector) must 
+ *     be running Windows Server 2008 R2, and clients must use RDC 7.0.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbbasenotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319

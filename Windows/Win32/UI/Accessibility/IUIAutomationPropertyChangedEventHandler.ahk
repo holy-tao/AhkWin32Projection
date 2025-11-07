@@ -7,9 +7,9 @@
  * Exposes a method to handle Microsoft UI Automation events that occur when a property is changed.
  * @remarks
  * 
-  * This interface is implemented by the application to handle events that it has subscribed to by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandler">AddPropertyChangedEventHandler</a>.
-  * 
-  * 
+ * This interface is implemented by the application to handle events that it has subscribed to by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandler">AddPropertyChangedEventHandler</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationpropertychangedeventhandler
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

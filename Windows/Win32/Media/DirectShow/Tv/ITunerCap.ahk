@@ -7,9 +7,9 @@
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The ITunerCap interface provides information about the capabilities of a BDA device filter that represents a TV tuner.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ITunerCap)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ITunerCap)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-itunercap
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

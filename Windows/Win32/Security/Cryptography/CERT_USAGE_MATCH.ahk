@@ -6,24 +6,24 @@
  * Provides criteria for identifying issuer certificates to be used to build a certificate chain.
  * @remarks
  * 
-  * If the <i>dwType</i> member is set to <b>USAGE_MATCH_TYPE_OR</b>, the <i>Usage</i> member cannot be empty.
-  * 
-  * If the <i>dwType</i> member is set to <b>USAGE_MATCH_TYPE_AND</b>, an empty <i>Usage</i> member means that any nested usage in the chain will work.
-  * 
-  * The following describes the behavior given two enhanced key usage (EKU) extensions EKU A and EKU B.
-  * 
-  * <h3><a id="AND_Logic"></a><a id="and_logic"></a><a id="AND_LOGIC"></a>AND Logic</h3>
-  *  If the caller specifies EKU A AND EKU B then the target certificate is valid if EKU A and EKU B are supported by every certificate in the path (either by an explicit EKU setting or through an absent EKU extension in CA certificates.)
-  * 
-  * <h3><a id="OR_Logic"></a><a id="or_logic"></a><a id="OR_LOGIC"></a>OR Logic</h3>
-  * If the caller specifies EKU A OR EKU B then the target certificate is valid if either EKU A or EKU B is supported in the path.
-  * 
-  *  Besides the simple case where the certificates in the path contain EKU A or EKU B, the <b>OR</b> clause has the following special evaluation.
-  * 
-  * Given the following path, the <b>OR</b> test is deemed valid:
-  * 
-  *  Although the intersection of the EKUs in the chain is an empty set, the use of the EE certificate is valid for EKU A because the request to the cryptography API specifies that the certificate is valid if each certificate of the path supports either EKU A OR EKU B.
-  * 
+ * If the <i>dwType</i> member is set to <b>USAGE_MATCH_TYPE_OR</b>, the <i>Usage</i> member cannot be empty.
+ * 
+ * If the <i>dwType</i> member is set to <b>USAGE_MATCH_TYPE_AND</b>, an empty <i>Usage</i> member means that any nested usage in the chain will work.
+ * 
+ * The following describes the behavior given two enhanced key usage (EKU) extensions EKU A and EKU B.
+ * 
+ * <h3><a id="AND_Logic"></a><a id="and_logic"></a><a id="AND_LOGIC"></a>AND Logic</h3>
+ *  If the caller specifies EKU A AND EKU B then the target certificate is valid if EKU A and EKU B are supported by every certificate in the path (either by an explicit EKU setting or through an absent EKU extension in CA certificates.)
+ * 
+ * <h3><a id="OR_Logic"></a><a id="or_logic"></a><a id="OR_LOGIC"></a>OR Logic</h3>
+ * If the caller specifies EKU A OR EKU B then the target certificate is valid if either EKU A or EKU B is supported in the path.
+ * 
+ *  Besides the simple case where the certificates in the path contain EKU A or EKU B, the <b>OR</b> clause has the following special evaluation.
+ * 
+ * Given the following path, the <b>OR</b> test is deemed valid:
+ * 
+ *  Although the intersection of the EKUs in the chain is an empty set, the use of the EE certificate is valid for EKU A because the request to the cryptography API specifies that the certificate is valid if each certificate of the path supports either EKU A OR EKU B.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_usage_match
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319

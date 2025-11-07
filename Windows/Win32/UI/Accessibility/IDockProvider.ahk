@@ -7,15 +7,15 @@
  * Provides access to an element in a docking container.
  * @remarks
  * 
-  * <b>IDockProvider</b> does not expose any properties of the docking 
-  *         container or any properties of controls that might be docked adjacent to the current 
-  *         control in the docking container.
-  *         
-  * 
-  * Controls are docked relative to each other based on their current z-order; 
-  *         the higher their z-order placement, the farther they are placed from the specified edge of the docking container.
-  * 
-  * 
+ * <b>IDockProvider</b> does not expose any properties of the docking 
+ *         container or any properties of controls that might be docked adjacent to the current 
+ *         control in the docking container.
+ *         
+ * 
+ * Controls are docked relative to each other based on their current z-order; 
+ *         the higher their z-order placement, the farther they are placed from the specified edge of the docking container.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-idockprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

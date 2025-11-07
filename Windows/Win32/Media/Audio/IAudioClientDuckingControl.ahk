@@ -7,13 +7,13 @@
  * Provides a method, SetDuckingOptionsForCurrentStream, that allows an app to specify that the system shouldn't duck the audio of other streams when the app's audio render stream is active.
  * @remarks
  * 
-  * Get an instance of the [IAudioClientDuckingControl](nn-audioclient-iaudioclientduckingcontrol.md) interface by calling [IAudioClient::GetService](nf-audioclient-iaudioclient-getservice.md), passing in the interface ID constant **IID_IAudioClientDuckingControl**.
-  * 
-  * **IAudioClientDuckingControl** only controls the ducking caused by the audio stream (**IAudioClient**) that the interface is obtained from. 
-  * 
-  * Audio from applications could continue to be ducked if there are other concurrent applications with streams that cause ducking.
-  * 
-  * 
+ * Get an instance of the [IAudioClientDuckingControl](nn-audioclient-iaudioclientduckingcontrol.md) interface by calling [IAudioClient::GetService](nf-audioclient-iaudioclient-getservice.md), passing in the interface ID constant **IID_IAudioClientDuckingControl**.
+ * 
+ * **IAudioClientDuckingControl** only controls the ducking caused by the audio stream (**IAudioClient**) that the interface is obtained from. 
+ * 
+ * Audio from applications could continue to be ducked if there are other concurrent applications with streams that cause ducking.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audioclient/nn-audioclient-iaudioclientduckingcontrol
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319

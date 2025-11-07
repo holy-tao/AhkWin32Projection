@@ -4,9 +4,9 @@
  * Defines the values that specify the type of information to access from the event.
  * @remarks
  * 
-  * You cannot specify the EvtRenderContextValues flag with the EvtRenderContextSystem or EvtRenderContextUser flag.
-  * 
-  * 
+ * You cannot specify the EvtRenderContextValues flag with the EvtRenderContextSystem or EvtRenderContextUser flag.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_render_context_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319

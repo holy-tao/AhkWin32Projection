@@ -4,9 +4,9 @@
  * Defines the options for committing a collection of objects.
  * @remarks
  * 
-  * The <b>FsrmCommitOptions_Asynchronous</b> option is not supported.
-  * 
-  * 
+ * The <b>FsrmCommitOptions_Asynchronous</b> option is not supported.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmcommitoptions
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

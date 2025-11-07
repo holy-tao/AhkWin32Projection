@@ -5,22 +5,22 @@
  * Contains information about the PERF_COUNTER_IDENTIFIER block that contains the structure.
  * @remarks
  * 
-  * When you specify a counter set identifier for a single-instance counter set, you must not specify the
-  * instance name in the additional data of the <b>PERF_COUNTER_IDENTIFIER</b> block. The size of the <b>PERF_COUNTER_IDENTIFIER</b> block must be the size of the <b>PERF_COUNTER_IDENTIFIER</b> structure.
-  * 
-  * On the other hand, when you specify a counter set identifier for a multiple-instance counter set, you must specify the instance name in the additional data of the <b>PERF_COUNTER_IDENTIFIER</b> block. The identifier is notconsidered valid unless the size of
-  * the <b>PERF_COUNTER_IDENTIFIER</b> block is greater than the  size of the <b>PERF_COUNTER_IDENTIFIER</b> structure. If you do not want
-  * to filter the counter sets based on the instance name, use <b>PERF_WILDCARD_INSTANCE</b> as the instance
-  * name.
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfaddcounters">PerfAddCounters</a> and <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfdeletecounters">PerfDeleteCounters</a> functions accept a sequence of
-  * <b>PERF_COUNTER_IDENTIFIER</b> blocks to define the counter specifications that you want to be
-  * add or remove from a query.
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycounterinfo">PerfQueryCounterInfo</a> function gets a sequence of <b>PERF_COUNTER_IDENTIFIER</b>blocks to indicate the counter specifications in a query and to indicate in the <b>Index</b> member the
-  * order in which the  query gets the results.
-  * 
-  * 
+ * When you specify a counter set identifier for a single-instance counter set, you must not specify the
+ * instance name in the additional data of the <b>PERF_COUNTER_IDENTIFIER</b> block. The size of the <b>PERF_COUNTER_IDENTIFIER</b> block must be the size of the <b>PERF_COUNTER_IDENTIFIER</b> structure.
+ * 
+ * On the other hand, when you specify a counter set identifier for a multiple-instance counter set, you must specify the instance name in the additional data of the <b>PERF_COUNTER_IDENTIFIER</b> block. The identifier is notconsidered valid unless the size of
+ * the <b>PERF_COUNTER_IDENTIFIER</b> block is greater than the  size of the <b>PERF_COUNTER_IDENTIFIER</b> structure. If you do not want
+ * to filter the counter sets based on the instance name, use <b>PERF_WILDCARD_INSTANCE</b> as the instance
+ * name.
+ * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfaddcounters">PerfAddCounters</a> and <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfdeletecounters">PerfDeleteCounters</a> functions accept a sequence of
+ * <b>PERF_COUNTER_IDENTIFIER</b> blocks to define the counter specifications that you want to be
+ * add or remove from a query.
+ * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycounterinfo">PerfQueryCounterInfo</a> function gets a sequence of <b>PERF_COUNTER_IDENTIFIER</b>blocks to indicate the counter specifications in a query and to indicate in the <b>Index</b> member the
+ * order in which the  query gets the results.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//perflib/ns-perflib-perf_counter_identifier
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319

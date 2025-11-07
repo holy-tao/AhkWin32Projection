@@ -8,10 +8,10 @@
  * Exposes methods that enable the encoding of metadata. This interface is implemented by the decoder and its image frames.
  * @remarks
  * 
-  * When the encoder is told to commit, it goes through each metadata writer and serializes the metadata content into the encoding stream.
-  *             If the metadata block contains metadata important to the integrity of the file, such as the image width or height or other intrinsic information about the image, the encoder must set the critical metadata items prior to serializing the metadata.
-  * 
-  * 
+ * When the encoder is told to commit, it goes through each metadata writer and serializes the metadata content into the encoding stream.
+ *             If the metadata block contains metadata important to the integrity of the file, such as the image width or height or other intrinsic information about the image, the encoder must set the critical metadata items prior to serializing the metadata.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nn-wincodecsdk-iwicmetadatablockwriter
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319

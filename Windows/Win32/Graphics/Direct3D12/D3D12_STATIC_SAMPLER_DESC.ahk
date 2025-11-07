@@ -5,9 +5,9 @@
  * Describes a static sampler.
  * @remarks
  * 
-  * Use this structure with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a> structure.
-  * 
-  * 
+ * Use this structure with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_static_sampler_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

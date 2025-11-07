@@ -8,10 +8,10 @@
  * Used to write spatial audio metadata for applications that require multiple metadata items per buffer with frame-accurate placement.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  Many of the methods provided by this interface are implemented in the inherited <a href="https://docs.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioobjectbase">ISpatialAudioObjectBase</a> interface.</div>
-  * <div> </div>
-  * 
-  * 
+ * <div class="alert"><b>Note</b>  Many of the methods provided by this interface are implemented in the inherited <a href="https://docs.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioobjectbase">ISpatialAudioObjectBase</a> interface.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nn-spatialaudiometadata-ispatialaudioobjectformetadataitems
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319

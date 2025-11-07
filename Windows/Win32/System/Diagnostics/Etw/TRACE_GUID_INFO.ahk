@@ -5,9 +5,9 @@
  * Defines the header to the list of sessions that enabled the provider specified in the InBuffer parameter of EnumerateTraceGuidsEx.
  * @remarks
  * 
-  * Use the size of this structure to access the first <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-provider-instance-info">TRACE_PROVIDER_INSTANCE_INFO</a> block in the list.
-  * 
-  * 
+ * Use the size of this structure to access the first <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-provider-instance-info">TRACE_PROVIDER_INSTANCE_INFO</a> block in the list.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-trace_guid_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

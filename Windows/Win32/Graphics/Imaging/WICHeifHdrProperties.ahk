@@ -4,46 +4,46 @@
  * Specifies the HDR properties of a High Efficiency Image Format (HEIF) image.
  * @remarks
  * 
-  * Use [IWicMetadataReader::GetValue](/windows/desktop/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareader-getvalue) to retrieve the value of the properties specified with this enumeration. Instantiate the **IWicMetadataReader** instance using the GUID **CLSID_WICMetadataReader**. Call [IWicMetadataReader::GetMetadataFormat](/windows/desktop/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareader-getmetadataformat) and confirm that the value is **GUID_MetadataFormatHeifHDR** to verify that the metadata format is HEIF HDR metadata. 
-  * 
-  * Not all HEIF HDR images will have all of these properties present in the file, so only those properties that are available will be exposed by the metadata reader. 
-  * 
-  * ```cpp
-  * using namespace winrt;
-  * 
-  * std::optional<uint32_t> GetMaximumLuminanceLevelFromMetadataReader(_In_ IWICMetadataReader* metadataReader)
-  * {
-  *     std::optional<uint32_t> result;
-  *     GUID metadataFormat;
-  * 
-  *     // Retrieve the format of the metadata used by this IWICMetadataReader
-  *     check_hresult(metadataReader->GetMetadataFormat(&metadataFormat));
-  * 
-  *     // This function only handles HEIF HDR metadata
-  *     if (metadataFormat != GUID_MetadataFormatHeifHDR)
-  *     {
-  *         throw_hresult(E_INVALIDARG);
-  *     }
-  * 
-  *     PROPVARIANT variantId = {};
-  *     PROPVARIANT variantValue = {};
-  * 
-  *     variantId.vt = VT_UI4;
-  *     variantId.uiVal = WICHeifHdrMaximumLuminanceLevel;
-  *     if (SUCCEEDED(metadataReader->GetValue(nullptr, &variantId, &variantValue)))
-  *     {
-  *         if (variantValue.vt == VT_UI4)
-  *         {
-  *             result = variantValue.uiVal;
-  *         }
-  *         PropVariantClear(&variantValue);
-  *     }
-  * 
-  *     return result;
-  * }
-  * ```
-  * 
-  * 
+ * Use [IWicMetadataReader::GetValue](/windows/desktop/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareader-getvalue) to retrieve the value of the properties specified with this enumeration. Instantiate the **IWicMetadataReader** instance using the GUID **CLSID_WICMetadataReader**. Call [IWicMetadataReader::GetMetadataFormat](/windows/desktop/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareader-getmetadataformat) and confirm that the value is **GUID_MetadataFormatHeifHDR** to verify that the metadata format is HEIF HDR metadata. 
+ * 
+ * Not all HEIF HDR images will have all of these properties present in the file, so only those properties that are available will be exposed by the metadata reader. 
+ * 
+ * ```cpp
+ * using namespace winrt;
+ * 
+ * std::optional<uint32_t> GetMaximumLuminanceLevelFromMetadataReader(_In_ IWICMetadataReader* metadataReader)
+ * {
+ *     std::optional<uint32_t> result;
+ *     GUID metadataFormat;
+ * 
+ *     // Retrieve the format of the metadata used by this IWICMetadataReader
+ *     check_hresult(metadataReader->GetMetadataFormat(&metadataFormat));
+ * 
+ *     // This function only handles HEIF HDR metadata
+ *     if (metadataFormat != GUID_MetadataFormatHeifHDR)
+ *     {
+ *         throw_hresult(E_INVALIDARG);
+ *     }
+ * 
+ *     PROPVARIANT variantId = {};
+ *     PROPVARIANT variantValue = {};
+ * 
+ *     variantId.vt = VT_UI4;
+ *     variantId.uiVal = WICHeifHdrMaximumLuminanceLevel;
+ *     if (SUCCEEDED(metadataReader->GetValue(nullptr, &variantId, &variantValue)))
+ *     {
+ *         if (variantValue.vt == VT_UI4)
+ *         {
+ *             result = variantValue.uiVal;
+ *         }
+ *         PropVariantClear(&variantValue);
+ *     }
+ * 
+ *     return result;
+ * }
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicheifhdrproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319

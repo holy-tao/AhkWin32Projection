@@ -7,9 +7,9 @@
  * The IWMReaderAdvanced5 interface enables you to associate a player-hook callback interface with the reader object.An IWMReaderAdvanced5 interface exists for every reader object.
  * @remarks
  * 
-  * A player-hook callback can be assigned in the reader object to enable per-sample processing when using DirectX Video Acceleration.
-  * 
-  * 
+ * A player-hook callback can be assigned in the reader object to enable per-sample processing when using DirectX Video Acceleration.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmreaderadvanced5
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319

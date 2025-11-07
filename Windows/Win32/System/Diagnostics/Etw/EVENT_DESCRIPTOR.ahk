@@ -5,37 +5,37 @@
  * The EVENT_DESCRIPTOR structure contains information (metadata) about an ETW event.
  * @remarks
  * 
-  * This structure is used when calling
-  * [EventWrite](/windows/desktop/api/evntprov/nf-evntprov-eventwrite) to write the
-  * event. You can also use it when calling
-  * [EventEnabled](/windows/desktop/api/evntprov/nf-evntprov-eventenabled) to
-  * determine whether the event should be generated (i.e. to determine whether any
-  * event listeners are interested in the event).
-  * 
-  * > **Note:** Most event providers will not use **EVENT_DESCRIPTOR** directly.
-  * > Instead, most event providers are implemented using an ETW framework that
-  * > wraps the calls to **EventRegister**, **EventWriteEx**, and
-  * > **EventUnregister**. For example, you might
-  * > [write an event manifest](/windows/win32/etw/writing-manifest-based-events)
-  * > and then use the
-  * > [Message Compiler](/windows/win32/wes/message-compiler--mc-exe-) to generate
-  * > C/C++ code for the events, or you might use
-  * > [TraceLogging](/windows/win32/tracelogging/trace-logging-portal) to avoid the
-  * > need for a manifest. For details on how the members of this structure relate
-  * > to the instrumentation manifest, see the attributes of the
-  * > [EventDefinitionType](/windows/desktop/WES/eventmanifestschema-eventdefinitiontype-complextype)
-  * > complex type.
-  * 
-  * This structure is included in the
-  * [EVENT_HEADER](/windows/desktop/api/evntcons/ns-evntcons-event_header) structure
-  * that is returned with the event record when you consume events using
-  * [ProcessTrace](/windows/win32/api/evntrace/nf-evntrace-processtrace) with the
-  * [EventRecordCallback](/windows/desktop/ETW/eventrecordcallback) callback.
-  * 
-  * > **Note:** When processing MOF-based events, the event identity is contained in
-  * > the **Opcode** field, not the **Id** field.
-  * 
-  * 
+ * This structure is used when calling
+ * [EventWrite](/windows/desktop/api/evntprov/nf-evntprov-eventwrite) to write the
+ * event. You can also use it when calling
+ * [EventEnabled](/windows/desktop/api/evntprov/nf-evntprov-eventenabled) to
+ * determine whether the event should be generated (i.e. to determine whether any
+ * event listeners are interested in the event).
+ * 
+ * > **Note:** Most event providers will not use **EVENT_DESCRIPTOR** directly.
+ * > Instead, most event providers are implemented using an ETW framework that
+ * > wraps the calls to **EventRegister**, **EventWriteEx**, and
+ * > **EventUnregister**. For example, you might
+ * > [write an event manifest](/windows/win32/etw/writing-manifest-based-events)
+ * > and then use the
+ * > [Message Compiler](/windows/win32/wes/message-compiler--mc-exe-) to generate
+ * > C/C++ code for the events, or you might use
+ * > [TraceLogging](/windows/win32/tracelogging/trace-logging-portal) to avoid the
+ * > need for a manifest. For details on how the members of this structure relate
+ * > to the instrumentation manifest, see the attributes of the
+ * > [EventDefinitionType](/windows/desktop/WES/eventmanifestschema-eventdefinitiontype-complextype)
+ * > complex type.
+ * 
+ * This structure is included in the
+ * [EVENT_HEADER](/windows/desktop/api/evntcons/ns-evntcons-event_header) structure
+ * that is returned with the event record when you consume events using
+ * [ProcessTrace](/windows/win32/api/evntrace/nf-evntrace-processtrace) with the
+ * [EventRecordCallback](/windows/desktop/ETW/eventrecordcallback) callback.
+ * 
+ * > **Note:** When processing MOF-based events, the event identity is contained in
+ * > the **Opcode** field, not the **Id** field.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntprov/ns-evntprov-event_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

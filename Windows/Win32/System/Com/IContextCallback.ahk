@@ -7,8 +7,8 @@
  * Provides a mechanism to execute a function inside a specific COM+ object context.
  * @remarks
  * 
-  *  An instance of this interface for the current context can be obtained using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetobjectcontext">CoGetObjectContext</a>.
-  * 
+ *  An instance of this interface for the current context can be obtained using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetobjectcontext">CoGetObjectContext</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ctxtcall/nn-ctxtcall-icontextcallback
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

@@ -7,14 +7,14 @@
  * Notifies the application when a byte stream requests a URL, and enables the application to block URL redirection.
  * @remarks
  * 
-  * To set the callback interface:
-  * 
-  * <ol>
-  * <li>Query the byte stream object for the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface.</li>
-  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfattributes-setunknown">IMFAttributes::SetUnknown</a> to set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-resource-filter">MFNETSOURCE_RESOURCE_FILTER</a> attribute.</li>
-  * </ol>
-  * 
-  * 
+ * To set the callback interface:
+ * 
+ * <ol>
+ * <li>Query the byte stream object for the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface.</li>
+ * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfattributes-setunknown">IMFAttributes::SetUnknown</a> to set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-resource-filter">MFNETSOURCE_RESOURCE_FILTER</a> attribute.</li>
+ * </ol>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfnetresourcefilter
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

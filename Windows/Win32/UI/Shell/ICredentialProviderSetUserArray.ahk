@@ -7,13 +7,13 @@
  * Provides a method that enables a credential provider to receive the set of users that will be shown in the logon or credential UI.
  * @remarks
  * 
-  * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
-  * Implement this interface for credential providers that have a need to know which users will appear in the logon or credential UI.
-  * 
-  * <h3><a id="When_to_use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to use</h3>
-  * This interface is used only by the Windows credential provider framework. Its method should not be called by other parties.
-  * 
-  * 
+ * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
+ * Implement this interface for credential providers that have a need to know which users will appear in the logon or credential UI.
+ * 
+ * <h3><a id="When_to_use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to use</h3>
+ * This interface is used only by the Windows credential provider framework. Its method should not be called by other parties.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nn-credentialprovider-icredentialprovidersetuserarray
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

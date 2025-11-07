@@ -4,13 +4,13 @@
  * Defines the set of operations that objects can process.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> structure includes a <b>VDS_ASYNC_OUTPUT_TYPE</b> 
-  *     value as a member to indicate an operation type.
-  * 
-  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_ASYNC_OUTPUT_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_ASYNC_OUTPUT_TYPE</b> enumeration constant.</div>
-  * <div> </div>
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> structure includes a <b>VDS_ASYNC_OUTPUT_TYPE</b> 
+ *     value as a member to indicate an operation type.
+ * 
+ * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_ASYNC_OUTPUT_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_ASYNC_OUTPUT_TYPE</b> enumeration constant.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_async_output_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

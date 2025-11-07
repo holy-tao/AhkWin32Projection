@@ -8,56 +8,56 @@
  * Provides an IStream interface to a font resource.
  * @remarks
  * 
-  * The code example that follows illustrates how to create an instance of  this interface.
-  * 
-  * 
-  * ```cpp
-  * 
-  * IXpsOMFontResource    *newInterface;
-  * IOpcPartUri           *partUri;
-  * 
-  * // Note the implicit requirement that CoInitializeEx 
-  * //  has previously been called from this thread.
-  * 
-  * hr = CoCreateInstance(
-  *     __uuidof(XpsOMObjectFactory),
-  *     NULL,
-  *     CLSCTX_INPROC_SERVER,
-  *     _uuidof(IXpsOMObjectFactory),
-  *     reinterpret_cast<LPVOID*>(&xpsFactory)
-  *     );
-  * 
-  * if (SUCCEEDED(hr))
-  * {
-  *     // The partUriString and acquiredStream variables 
-  *     //   are defined outside of this example.
-  *     hr = xpsFactory->CreatePartUri(partUriString, &partUri);
-  *     if (SUCCEEDED(hr))
-  *     {
-  *         hr = xpsFactory->CreateFontResource (
-  *             acquiredStream, 
-  *             XPS_FONT_EMBEDDING_NORMAL,    // normal
-  *             partUri, 
-  *             FALSE,                        // not obfuscated
-  *             &newInterface);
-  *         if (SUCCEEDED(hr))
-  *         {
-  *             // use newInterface
-  * 
-  *             newInterface->Release();
-  *         }
-  *         partUri->Release();
-  *     }
-  *     xpsFactory->Release();
-  * }
-  * else
-  * {
-  *     // evaluate HRESULT error returned in hr
-  * }
-  * 
-  * ```
-  * 
-  * 
+ * The code example that follows illustrates how to create an instance of  this interface.
+ * 
+ * 
+ * ```cpp
+ * 
+ * IXpsOMFontResource    *newInterface;
+ * IOpcPartUri           *partUri;
+ * 
+ * // Note the implicit requirement that CoInitializeEx 
+ * //  has previously been called from this thread.
+ * 
+ * hr = CoCreateInstance(
+ *     __uuidof(XpsOMObjectFactory),
+ *     NULL,
+ *     CLSCTX_INPROC_SERVER,
+ *     _uuidof(IXpsOMObjectFactory),
+ *     reinterpret_cast<LPVOID*>(&xpsFactory)
+ *     );
+ * 
+ * if (SUCCEEDED(hr))
+ * {
+ *     // The partUriString and acquiredStream variables 
+ *     //   are defined outside of this example.
+ *     hr = xpsFactory->CreatePartUri(partUriString, &partUri);
+ *     if (SUCCEEDED(hr))
+ *     {
+ *         hr = xpsFactory->CreateFontResource (
+ *             acquiredStream, 
+ *             XPS_FONT_EMBEDDING_NORMAL,    // normal
+ *             partUri, 
+ *             FALSE,                        // not obfuscated
+ *             &newInterface);
+ *         if (SUCCEEDED(hr))
+ *         {
+ *             // use newInterface
+ * 
+ *             newInterface->Release();
+ *         }
+ *         partUri->Release();
+ *     }
+ *     xpsFactory->Release();
+ * }
+ * else
+ * {
+ *     // evaluate HRESULT error returned in hr
+ * }
+ * 
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

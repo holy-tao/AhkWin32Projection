@@ -8,7 +8,7 @@
  * Provides methods for getting information about the parameters to the call to ID3D12VideoDevice::CreateVideoProcessor that created the video processor.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videoprocessor
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

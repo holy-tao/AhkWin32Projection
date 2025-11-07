@@ -8,13 +8,13 @@
  * The INetFwAuthorizedApplication interface provides access to the properties of an application that has been authorized have openings in the firewall.
  * @remarks
  * 
-  * When creating new applications, this interface is supported by the HNetCfg.FwAuthorizedApplication COM object.  
-  * 
-  * For reading or modifying existing applications, instances of this interface are retrieved through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwauthorizedapplications">INetFwAuthorizedApplications</a> collection.
-  * 
-  * All configuration changes take effect immediately.
-  * 
-  * 
+ * When creating new applications, this interface is supported by the HNetCfg.FwAuthorizedApplication COM object.  
+ * 
+ * For reading or modifying existing applications, instances of this interface are retrieved through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwauthorizedapplications">INetFwAuthorizedApplications</a> collection.
+ * 
+ * All configuration changes take effect immediately.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwauthorizedapplication
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

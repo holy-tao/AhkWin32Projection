@@ -9,9 +9,9 @@
  * Manages attendee objects.
  * @remarks
  * 
-  * The lifetime of the objects in this collection is controlled by the network layer.
-  * 
-  * 
+ * The lifetime of the objects in this collection is controlled by the network layer.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiattendeemanager
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319

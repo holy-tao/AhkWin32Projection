@@ -9,44 +9,44 @@
  * Applications use the methods of the IDirect3DDevice9Ex interface to render primitives, create resources, work with system-level variables, adjust gamma ramp levels, work with palettes, and create shaders.
  * @remarks
  * 
-  * The <b>IDirect3DDevice9Ex</b> interface is obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9ex-createdeviceex">IDirect3D9Ex::CreateDeviceEx</a>.
-  * 
-  * The LPDIRECT3DDEVICE9EX and PDIRECT3DDEVICE9EX types are defined as pointers to the IDirect3DDevice9Ex interface:
-  * 
-  * 
-  * 
-  * ```
-  * 
-  * typedef struct IDirect3DDevice9Ex *LPDIRECT3DDEVICE9EX, *PDIRECT3DDEVICE9EX;
-  * 
-  * ```
-  * 
-  * 
-  * 
-  * 
-  * <h3><a id="Creating_a_Device"></a><a id="creating_a_device"></a><a id="CREATING_A_DEVICE"></a>Creating a Device</h3>
-  * Follow these two steps to initialize a Direct3D device:
-  * 
-  * <ol>
-  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-direct3dcreate9ex">Direct3DCreate9Ex</a> to create the Direct3D object.</li>
-  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9ex-createdeviceex">CreateDeviceEx</a> to create the Direct3D device.</li>
-  * </ol>
-  * Here is an example:
-  * 
-  * 
-  * 
-  * ```
-  * 
-  * IDirect3D9Ex *pDirect3DEx;
-  * LPDIRECT3DDEVICE9EX pDeviceEx;
-  * DWORD behaviorFlags = D3DCREATE_HARDWARE_VERTEXPROCESSING;
-  * 
-  * Direct3DCreate9Ex(D3D_SDK_VERSION, &pDirect3DEx);
-  * pDirect3DEx->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, behaviorFlags, &d3dpp, NULL, &pDeviceEx);
-  * 
-  * ```
-  * 
-  * 
+ * The <b>IDirect3DDevice9Ex</b> interface is obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9ex-createdeviceex">IDirect3D9Ex::CreateDeviceEx</a>.
+ * 
+ * The LPDIRECT3DDEVICE9EX and PDIRECT3DDEVICE9EX types are defined as pointers to the IDirect3DDevice9Ex interface:
+ * 
+ * 
+ * 
+ * ```
+ * 
+ * typedef struct IDirect3DDevice9Ex *LPDIRECT3DDEVICE9EX, *PDIRECT3DDEVICE9EX;
+ * 
+ * ```
+ * 
+ * 
+ * 
+ * 
+ * <h3><a id="Creating_a_Device"></a><a id="creating_a_device"></a><a id="CREATING_A_DEVICE"></a>Creating a Device</h3>
+ * Follow these two steps to initialize a Direct3D device:
+ * 
+ * <ol>
+ * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-direct3dcreate9ex">Direct3DCreate9Ex</a> to create the Direct3D object.</li>
+ * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9ex-createdeviceex">CreateDeviceEx</a> to create the Direct3D device.</li>
+ * </ol>
+ * Here is an example:
+ * 
+ * 
+ * 
+ * ```
+ * 
+ * IDirect3D9Ex *pDirect3DEx;
+ * LPDIRECT3DDEVICE9EX pDeviceEx;
+ * DWORD behaviorFlags = D3DCREATE_HARDWARE_VERTEXPROCESSING;
+ * 
+ * Direct3DCreate9Ex(D3D_SDK_VERSION, &pDirect3DEx);
+ * pDirect3DEx->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, behaviorFlags, &d3dpp, NULL, &pDeviceEx);
+ * 
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d9/nn-d3d9-idirect3ddevice9ex
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

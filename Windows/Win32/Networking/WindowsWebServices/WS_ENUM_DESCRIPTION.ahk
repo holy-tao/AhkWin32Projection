@@ -5,46 +5,46 @@
  * A type description that is used with WS_ENUM_TYPE and is required. It provides information used in serializing and deserializing values of an enumeration.
  * @remarks
  * 
-  * The following examples illustrates initializing an enum description.  This 
-  *                 example illustrates the use of the nameIndices field, but this field could
-  *                 be <b>NULL</b> instead.
-  *             
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>
-  * enum
-  * {
-  *     Red = 10,
-  *     Green = 20,
-  *     Blue = 30,
-  * };
-  * 
-  * WS_XML_STRING redString = WS_XML_STRING_VALUE("red");
-  * WS_XML_STRING greenString = WS_XML_STRING_VALUE("green");
-  * WS_XML_STRING blueString = WS_XML_STRING_VALUE("blue");
-  * 
-  * // sorted by ascending numeric value
-  * WS_ENUM_VALUE valueArray[3] =
-  * {
-  *     { Red, &amp;redString },
-  *     { Green, &amp;greenString },
-  *     { Blue, &amp;blueString },
-  * };
-  * 
-  * // sorted by ascending name
-  * ULONG nameIndices[3] =
-  * {
-  *     2, // "blue"
-  *     1, // "green"
-  *     0, // "red"
-  * };
-  * 
-  * WS_ENUM_DESCRIPTION enumDescription;
-  * enumDescription.maxByteCount = 5; // "green"
-  * enumDescription.values = valueArray;
-  * enumDescription.valueCount = 3;
-  * enumDescription.nameIndices = nameIndices;
-  * </code></pre>
-  * 
+ * The following examples illustrates initializing an enum description.  This 
+ *                 example illustrates the use of the nameIndices field, but this field could
+ *                 be <b>NULL</b> instead.
+ *             
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>
+ * enum
+ * {
+ *     Red = 10,
+ *     Green = 20,
+ *     Blue = 30,
+ * };
+ * 
+ * WS_XML_STRING redString = WS_XML_STRING_VALUE("red");
+ * WS_XML_STRING greenString = WS_XML_STRING_VALUE("green");
+ * WS_XML_STRING blueString = WS_XML_STRING_VALUE("blue");
+ * 
+ * // sorted by ascending numeric value
+ * WS_ENUM_VALUE valueArray[3] =
+ * {
+ *     { Red, &amp;redString },
+ *     { Green, &amp;greenString },
+ *     { Blue, &amp;blueString },
+ * };
+ * 
+ * // sorted by ascending name
+ * ULONG nameIndices[3] =
+ * {
+ *     2, // "blue"
+ *     1, // "green"
+ *     0, // "red"
+ * };
+ * 
+ * WS_ENUM_DESCRIPTION enumDescription;
+ * enumDescription.maxByteCount = 5; // "green"
+ * enumDescription.values = valueArray;
+ * enumDescription.valueCount = 3;
+ * enumDescription.nameIndices = nameIndices;
+ * </code></pre>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_enum_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

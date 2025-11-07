@@ -7,11 +7,11 @@
  * Exposes methods that allow an application to be notified of events that are related to controls that the application has added to a common file dialog.
  * @remarks
  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * <b>IFileDialogControlEvents</b> is implemented by an application on the same object that it implements <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialogevents">IFileDialogEvents</a> in.
-  * 
-  * The dialog does not check the return values of this interface's methods.
-  * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * <b>IFileDialogControlEvents</b> is implemented by an application on the same object that it implements <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialogevents">IFileDialogEvents</a> in.
+ * 
+ * The dialog does not check the return values of this interface's methods.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ifiledialogcontrolevents
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

@@ -7,11 +7,11 @@
  * This interface is used to configure the runtime for tools such as PIX. Its not intended or supported for any other scenario.
  * @remarks
  * 
-  * Do not use this interface in your application, its not intended or supported for any scenario other than to enable tooling such as PIX.
-  * 
-  * Developer Mode must be enabled for this interface to respond.
-  * 
-  * 
+ * Do not use this interface in your application, its not intended or supported for any scenario other than to enable tooling such as PIX.
+ * 
+ * Developer Mode must be enabled for this interface to respond.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12tools
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

@@ -8,19 +8,19 @@
  * Applications use the methods of the IDirect3D9Ex interface (which inherits from IDirect3D9) to create Microsoft Direct3D 9Ex objects and set up the environment.
  * @remarks
  * 
-  * The <b>IDirect3D9Ex</b> interface is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-direct3dcreate9ex">Direct3DCreate9Ex</a> function.
-  * 
-  * The <b>LPDIRECT3D9EX</b> and <b>PDIRECT3D9EX</b> types are defined as pointers to the <b>IDirect3D9Ex</b> interface:
-  * 
-  * 
-  * 
-  * ```
-  * 
-  * typedef struct IDirect3D9Ex *LPDIRECT3D9EX, *PDIRECT3D9EX;
-  * 
-  * ```
-  * 
-  * 
+ * The <b>IDirect3D9Ex</b> interface is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-direct3dcreate9ex">Direct3DCreate9Ex</a> function.
+ * 
+ * The <b>LPDIRECT3D9EX</b> and <b>PDIRECT3D9EX</b> types are defined as pointers to the <b>IDirect3D9Ex</b> interface:
+ * 
+ * 
+ * 
+ * ```
+ * 
+ * typedef struct IDirect3D9Ex *LPDIRECT3D9EX, *PDIRECT3D9EX;
+ * 
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d9/nn-d3d9-idirect3d9ex
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

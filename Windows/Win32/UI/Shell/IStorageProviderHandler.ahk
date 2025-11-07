@@ -8,11 +8,11 @@
  * Retrieves the IStorageProviderPropertyHandler associated with a specific file or folder.
  * @remarks
  * 
-  * <div class="alert"><b>Caution</b>  <p class="note">You should only implement this interface if you have a specific need to do so.  
-  * 
-  * </div>
-  * <div> </div>
-  * 
+ * <div class="alert"><b>Caution</b>  <p class="note">You should only implement this interface if you have a specific need to do so.  
+ * 
+ * </div>
+ * <div> </div>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//storageprovider/nn-storageprovider-istorageproviderhandler
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

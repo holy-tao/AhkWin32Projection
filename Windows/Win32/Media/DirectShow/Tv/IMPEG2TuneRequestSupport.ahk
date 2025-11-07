@@ -7,8 +7,8 @@
  * Indicates that the default network provider for a tuning space allows tuning through the IMPEG2TuneRequest interface as well as tuning through the native tuning request type implemented by that tuning space's CreateTuneRequest method.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMPEG2TuneRequestSupport)</c>.
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMPEG2TuneRequestSupport)</c>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-impeg2tunerequestsupport
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

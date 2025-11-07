@@ -5,18 +5,18 @@
  * Contains a list of access entries.
  * @remarks
  * 
-  * To create an empty access list, set <b>cEntries</b> to zero and <b>pAccessList</b> to <b>NULL</b>. An empty list does not grant access to any trustee, and thus, denies all access to an object.
-  * 
-  * To create a null access list, set the <b>pAccessEntryList</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-actrl_property_entrya">ACTRL_PROPERTY_ENTRY</a> structure to <b>NULL</b>. A null access list grants everyone full access to the object.
-  * 
-  * 
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The accctrl.h header defines ACTRL_ACCESS_ENTRY_LIST as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
-  * 
+ * To create an empty access list, set <b>cEntries</b> to zero and <b>pAccessList</b> to <b>NULL</b>. An empty list does not grant access to any trustee, and thus, denies all access to an object.
+ * 
+ * To create a null access list, set the <b>pAccessEntryList</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-actrl_property_entrya">ACTRL_PROPERTY_ENTRY</a> structure to <b>NULL</b>. A null access list grants everyone full access to the object.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The accctrl.h header defines ACTRL_ACCESS_ENTRY_LIST as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//accctrl/ns-accctrl-actrl_access_entry_lista
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Creates a media source from a byte stream.
  * @remarks
  * 
-  * Applications do not use this interface directly. This interface is exposed by byte-stream handlers, which are used by the source resolver. When the byte-stream handler is given a byte stream, it parses the stream and creates a media source. Byte-stream handlers are registered by file name extension or MIME type.
-  * 
-  * 
+ * Applications do not use this interface directly. This interface is exposed by byte-stream handlers, which are used by the source resolver. When the byte-stream handler is given a byte stream, it parses the stream and creates a media source. Byte-stream handlers are registered by file name extension or MIME type.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfbytestreamhandler
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

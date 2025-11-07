@@ -5,16 +5,16 @@
  * Returns the voice's current state and cursor position data.
  * @remarks
  * 
-  * For all encoded formats, including constant bit rate (CBR) formats such as adaptive differential pulse code modulation (ADPCM), <b>SamplesPlayed</b> is expressed in terms of decoded samples. For pulse code modulation (PCM) formats, <b>SamplesPlayed</b> is expressed in terms of either input or output samples. There is a one-to-one mapping from input to output for PCM formats.
-  * 
-  * 
-  * 
-  * If a client needs to get the correlated positions of several voices—that is, to know exactly which sample of a particular voice is playing when a specified sample of another voice is playing—it must make the <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-getstate">IXAudio2SourceVoice::GetState</a> calls in an XAudio2 engine callback. Doing this ensures that none of the voices advance while the calls are made.
-  * 
-  * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
-  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
-  * 
-  * 
+ * For all encoded formats, including constant bit rate (CBR) formats such as adaptive differential pulse code modulation (ADPCM), <b>SamplesPlayed</b> is expressed in terms of decoded samples. For pulse code modulation (PCM) formats, <b>SamplesPlayed</b> is expressed in terms of either input or output samples. There is a one-to-one mapping from input to output for PCM formats.
+ * 
+ * 
+ * 
+ * If a client needs to get the correlated positions of several voices—that is, to know exactly which sample of a particular voice is playing when a specified sample of another voice is playing—it must make the <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-getstate">IXAudio2SourceVoice::GetState</a> calls in an XAudio2 engine callback. Doing this ensures that none of the voices advance while the calls are made.
+ * 
+ * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
+ * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xaudio2/ns-xaudio2-xaudio2_voice_state
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319

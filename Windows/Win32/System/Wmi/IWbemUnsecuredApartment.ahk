@@ -8,15 +8,15 @@
  * Allows client applications to determine whether Unsecapp.exe performs access checks on asynchronous callbacks.
  * @remarks
  * 
-  * <b>IWbemUnsecuredApartment</b> is similar to 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iunsecuredapartment">IUnsecuredApartment</a>, which also creates a sink in a 
-  *      separate process. For more information, see 
-  *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/performing-access-checks">Performing Access Checks</a>.
-  * 
-  * 
-  * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>WBEM</b>&#92;<b>CIMOM</b>&#92;<b>UnsecAppAccessControlDefault</b>
-  * 
-  * 
+ * <b>IWbemUnsecuredApartment</b> is similar to 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iunsecuredapartment">IUnsecuredApartment</a>, which also creates a sink in a 
+ *      separate process. For more information, see 
+ *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/performing-access-checks">Performing Access Checks</a>.
+ * 
+ * 
+ * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>WBEM</b>&#92;<b>CIMOM</b>&#92;<b>UnsecAppAccessControlDefault</b>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iwbemunsecuredapartment
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319

@@ -9,11 +9,11 @@
  * Provides a method that returns an interface to further configure a shadow copy provider.
  * @remarks
  * 
-  * The <b>IVssSnapshotMgmt</b> interface can be invoked 
-  *     remotely using DCOM. The caller must be a member of the local administrators group on the remote machine.
-  * 
-  * 
-  * 
+ * The <b>IVssSnapshotMgmt</b> interface can be invoked 
+ *     remotely using DCOM. The caller must be a member of the local administrators group on the remote machine.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nn-vsmgmt-ivsssnapshotmgmt
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319

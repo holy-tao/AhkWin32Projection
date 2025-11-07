@@ -8,12 +8,12 @@
  * Provides access to controls that act as containers of other controls, such as a virtual list-view.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingitemcontainer">ItemContainer</a> control pattern allows a container object to efficiently lookup an item by a 
-  * 		specified automation element property, such as Name, AutomationId, or IsSelected state. While this control 
-  * 		pattern is introduced with a view to being used by virtualized containers, it can be implemented by any container 
-  * 		that provides name lookup, independently of whether that container uses virtualization.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingitemcontainer">ItemContainer</a> control pattern allows a container object to efficiently lookup an item by a 
+ * 		specified automation element property, such as Name, AutomationId, or IsSelected state. While this control 
+ * 		pattern is introduced with a view to being used by virtualized containers, it can be implemented by any container 
+ * 		that provides name lookup, independently of whether that container uses virtualization.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-iitemcontainerprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

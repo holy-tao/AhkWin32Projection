@@ -9,11 +9,11 @@
  * The PEER_ENDPOINT structure contains the address and friendly name of a peer endpoint.
  * @remarks
  * 
-  * A peer "endpoint" describes a contact's presence location — the unique network address configuration that describes the currently available instance of the contact within the peer collaboration network. A single contact can be available at multiple endpoints within the peer collaboration network.
-  * 
-  * A peer watching a contact can query any of the endpoints associated with that contact for specific peer presence, application, or object updates.
-  * 
-  * 
+ * A peer "endpoint" describes a contact's presence location — the unique network address configuration that describes the currently available instance of the contact within the peer collaboration network. A single contact can be available at multiple endpoints within the peer collaboration network.
+ * 
+ * A peer watching a contact can query any of the endpoints associated with that contact for specific peer presence, application, or object updates.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_endpoint
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319

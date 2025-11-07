@@ -4,9 +4,9 @@
  * The ADS_PREFERENCES_ENUM enumeration specifies the query preferences of the OLE DB provider for ADSI.
  * @remarks
  * 
-  * Because VBScript cannot read data from a type library, VBScript applications do not recognize the symbolic constants as defined above. Instead, use the numerical constants to set the appropriate flags in your VBScript application. To use the symbolic constants, as a good programming practice, write explicit declarations of such constants, as done here, in your VBScript application.
-  * 
-  * 
+ * Because VBScript cannot read data from a type library, VBScript applications do not recognize the symbolic constants as defined above. Instead, use the numerical constants to set the appropriate flags in your VBScript application. To use the symbolic constants, as a good programming practice, write explicit declarations of such constants, as done here, in your VBScript application.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_preferences_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

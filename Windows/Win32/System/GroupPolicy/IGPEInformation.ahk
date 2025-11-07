@@ -7,10 +7,10 @@
  * The IGPEInformation interface provides methods for Microsoft Management Console (MMC) extension snap-ins to communicate with the Group Policy Object Editor. For more information about MMC, see the Microsoft Management Console.
  * @remarks
  * 
-  * To create and modify a GPO directly, without using the Group Policy Object Editor, see the methods of the 
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpedit/nn-gpedit-igrouppolicyobject">IGroupPolicyObject</a> interface.
-  * 
-  * 
+ * To create and modify a GPO directly, without using the Group Policy Object Editor, see the methods of the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpedit/nn-gpedit-igrouppolicyobject">IGroupPolicyObject</a> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gpedit/nn-gpedit-igpeinformation
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319

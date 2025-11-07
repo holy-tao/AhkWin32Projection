@@ -10,9 +10,9 @@
  * Extension for the IMFMediaEngineClassFactory interface.
  * @remarks
  * 
-  * This class is implemented by the Media Engine (CLSID_MFMediaEngineClassFactory).
-  * 
-  * 
+ * This class is implemented by the Media Engine (CLSID_MFMediaEngineClassFactory).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfmediaengineclassfactoryex
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

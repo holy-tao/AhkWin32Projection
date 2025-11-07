@@ -4,9 +4,9 @@
  * Driver type options.
  * @remarks
  * 
-  * The driver type is required when calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-d3d11createdevice">D3D11CreateDevice</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-d3d11createdeviceandswapchain">D3D11CreateDeviceAndSwapChain</a>.
-  * 
-  * 
+ * The driver type is required when calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-d3d11createdevice">D3D11CreateDevice</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-d3d11createdeviceandswapchain">D3D11CreateDeviceAndSwapChain</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/ne-d3dcommon-d3d_driver_type
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319

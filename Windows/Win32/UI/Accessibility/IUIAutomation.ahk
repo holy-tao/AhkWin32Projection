@@ -16,26 +16,26 @@
  * Exposes methods that enable Microsoft UI Automation client applications to discover, access, and filter UI Automation elements.
  * @remarks
  * 
-  * Every UI Automation client application must obtain this interface to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff384838(v=vs.85)">CUIAutomation</a> object in order to gain access to the functionality of UI Automation.
-  * 	        
-  * 
-  * The following example function creates a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff384838(v=vs.85)">CUIAutomation</a> object and obtains the <b>IUIAutomation</b> interface.
-  * 
-  * 
-  * 
-  * ```
-  * IUIAutomation *g_pAutomation;
-  * 
-  * BOOL InitializeUIAutomation()
-  * {
-  *     CoInitialize(NULL);
-  *     HRESULT hr = CoCreateInstance(__uuidof(CUIAutomation), NULL, CLSCTX_INPROC_SERVER, 
-  *         __uuidof(IUIAutomation), (void**)&g_pAutomation);
-  *     return (SUCCEEDED(hr));
-  * }
-  * ```
-  * 
-  * 
+ * Every UI Automation client application must obtain this interface to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff384838(v=vs.85)">CUIAutomation</a> object in order to gain access to the functionality of UI Automation.
+ * 	        
+ * 
+ * The following example function creates a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff384838(v=vs.85)">CUIAutomation</a> object and obtains the <b>IUIAutomation</b> interface.
+ * 
+ * 
+ * 
+ * ```
+ * IUIAutomation *g_pAutomation;
+ * 
+ * BOOL InitializeUIAutomation()
+ * {
+ *     CoInitialize(NULL);
+ *     HRESULT hr = CoCreateInstance(__uuidof(CUIAutomation), NULL, CLSCTX_INPROC_SERVER, 
+ *         __uuidof(IUIAutomation), (void**)&g_pAutomation);
+ *     return (SUCCEEDED(hr));
+ * }
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomation
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

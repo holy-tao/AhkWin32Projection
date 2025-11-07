@@ -4,54 +4,54 @@
  * Allows additional attributes to be specified for a shadow copy.
  * @remarks
  * 
-  * The default context for VSS shadow copies is VSS_CTX_BACKUP.
-  * 
-  * A requester sets the context for a shadow copy about to be created by passing the member of the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_snapshot_context">_VSS_SNAPSHOT_CONTEXT</a> enumeration to the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setcontext">IVssBackupComponents::SetContext</a> 
-  *     method.
-  * 
-  * Requesters can modify this context by using a bitwise OR of the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_snapshot_context">_VSS_SNAPSHOT_CONTEXT</a> value with a 
-  *     supported value from the 
-  *     <b>_VSS_VOLUME_SNAPSHOT_ATTRIBUTES</b> 
-  *     enumeration as an argument to 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setcontext">IVssBackupComponents::SetContext</a>.
-  * 
-  * Unless specifically requested to support a given mechanism, providers are free to use any type of mechanism 
-  *     to implement a shadow copy. Therefore, in the case where a shadow copy method is not specified, the provider is 
-  *     free to choose a differential mechanism (<b>VSS_VOLSNAP_ATTR_DIFFERENTIAL</b>), a PLEX 
-  *     mechanism (<b>VSS_VOLSNAP_ATTR_PLEX</b>), or any other mechanism to support the shadow 
-  *     copy.
-  * 
-  * While a provider can support both mechanisms, they are mutually exclusive for a given shadow copy. Requesters 
-  *     should not use both <b>VSS_VOLSNAP_ATTR_DIFFERENTIAL</b> and 
-  *     <b>VSS_VOLSNAP_ATTR_PLEX</b> to modify a specific shadow copy context.
-  * 
-  * Currently, <b>VSS_VOLSNAP_ATTR_DIFFERENTIAL</b>, 
-  *     <b>VSS_VOLSNAP_ATTR_PLEX</b>, and <b>VSS_VOLSNAP_ATTR_TRANSPORTABLE</b> 
-  *     are the only values of the 
-  *     <b>_VSS_VOLUME_SNAPSHOT_ATTRIBUTES</b> 
-  *     enumeration that can be used to modify any context.
-  * 
-  * In addition, it cannot be used to modify a <b>VSS_CTX_CLIENT_ACCESSIBLE</b> context.
-  * 
-  * A requester can obtain information about a specific shadow copy (identified by 
-  *     <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a>) by unpacking the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure from the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_object_prop">VSS_OBJECT_PROP</a> structure returned by a call to 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getsnapshotproperties">IVssBackupComponents::GetSnapshotProperties</a>.
-  * 
-  * A requester can also obtain a <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> 
-  *     structure for each of multiple shadow copies by calling 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-query">IVssBackupComponents::Query</a> and using 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssenumobject">IVssEnumObject</a> to iterate the returns.
-  * 
-  * The shadow copies' context and attributes are found as a bit mask contained in the 
-  *     <b>m_lSnapshotAttributes</b> member of the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
-  * 
-  * 
+ * The default context for VSS shadow copies is VSS_CTX_BACKUP.
+ * 
+ * A requester sets the context for a shadow copy about to be created by passing the member of the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_snapshot_context">_VSS_SNAPSHOT_CONTEXT</a> enumeration to the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setcontext">IVssBackupComponents::SetContext</a> 
+ *     method.
+ * 
+ * Requesters can modify this context by using a bitwise OR of the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_snapshot_context">_VSS_SNAPSHOT_CONTEXT</a> value with a 
+ *     supported value from the 
+ *     <b>_VSS_VOLUME_SNAPSHOT_ATTRIBUTES</b> 
+ *     enumeration as an argument to 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setcontext">IVssBackupComponents::SetContext</a>.
+ * 
+ * Unless specifically requested to support a given mechanism, providers are free to use any type of mechanism 
+ *     to implement a shadow copy. Therefore, in the case where a shadow copy method is not specified, the provider is 
+ *     free to choose a differential mechanism (<b>VSS_VOLSNAP_ATTR_DIFFERENTIAL</b>), a PLEX 
+ *     mechanism (<b>VSS_VOLSNAP_ATTR_PLEX</b>), or any other mechanism to support the shadow 
+ *     copy.
+ * 
+ * While a provider can support both mechanisms, they are mutually exclusive for a given shadow copy. Requesters 
+ *     should not use both <b>VSS_VOLSNAP_ATTR_DIFFERENTIAL</b> and 
+ *     <b>VSS_VOLSNAP_ATTR_PLEX</b> to modify a specific shadow copy context.
+ * 
+ * Currently, <b>VSS_VOLSNAP_ATTR_DIFFERENTIAL</b>, 
+ *     <b>VSS_VOLSNAP_ATTR_PLEX</b>, and <b>VSS_VOLSNAP_ATTR_TRANSPORTABLE</b> 
+ *     are the only values of the 
+ *     <b>_VSS_VOLUME_SNAPSHOT_ATTRIBUTES</b> 
+ *     enumeration that can be used to modify any context.
+ * 
+ * In addition, it cannot be used to modify a <b>VSS_CTX_CLIENT_ACCESSIBLE</b> context.
+ * 
+ * A requester can obtain information about a specific shadow copy (identified by 
+ *     <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a>) by unpacking the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure from the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_object_prop">VSS_OBJECT_PROP</a> structure returned by a call to 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getsnapshotproperties">IVssBackupComponents::GetSnapshotProperties</a>.
+ * 
+ * A requester can also obtain a <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> 
+ *     structure for each of multiple shadow copies by calling 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-query">IVssBackupComponents::Query</a> and using 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssenumobject">IVssEnumObject</a> to iterate the returns.
+ * 
+ * The shadow copies' context and attributes are found as a bit mask contained in the 
+ *     <b>m_lSnapshotAttributes</b> member of the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_volume_snapshot_attributes
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319

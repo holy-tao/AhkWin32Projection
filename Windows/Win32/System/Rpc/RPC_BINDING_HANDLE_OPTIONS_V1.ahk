@@ -5,9 +5,9 @@
  * Contains additional options with which to create an RPC binding handle.
  * @remarks
  * 
-  * If this structure is not specified in a call to <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingcreatea">RpcBindingCreate</a>, the default values for each option are used.
-  * 
-  * 
+ * If this structure is not specified in a call to <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingcreatea">RpcBindingCreate</a>, the default values for each option are used.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-rpc_binding_handle_options_v1
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319

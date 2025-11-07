@@ -6,22 +6,22 @@
  * The ACTCTX structure is used by the CreateActCtx function to create the activation context.
  * @remarks
  * 
-  * If the file identified by the value of the <b>lpSource</b> member is a PE image file, 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createactctxa">CreateActCtx</a> searches for the manifest in the .manifest file located in the same directory and in the first RT_MANIFEST resource located in the PE image file. To find a specific named resource from the image, set the <b>lpResourceName</b> to the name of the resource, and add the ACTCTX_FLAG_RESOURCE_NAME_VALID to the <b>dwFlags</b> member. Refer to 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findresourcea">FindResource</a> for more information on specifying resource names.
-  * 
-  * In most cases, the caller should not set the ACTCTX_FLAG_PROCESSOR_ARCHITECTURE_VALID and ACTCTX_FLAG_LANGID_VALID flags of the <b>dwFlags</b> member. Also, in most cases, the value of the <b>lpResourceName</b> member should be set to null.
-  * 
-  * The values of <b>lpApplicationName</b> and <b>lpAssemblyDirectory</b> are not set to null when the executable creating the activation context is a host for the application. In this case, the host can set a different name for the application to find configuration files, report errors, and so forth.
-  * 
-  * 
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The winbase.h header defines ACTCTX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
-  * 
+ * If the file identified by the value of the <b>lpSource</b> member is a PE image file, 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createactctxa">CreateActCtx</a> searches for the manifest in the .manifest file located in the same directory and in the first RT_MANIFEST resource located in the PE image file. To find a specific named resource from the image, set the <b>lpResourceName</b> to the name of the resource, and add the ACTCTX_FLAG_RESOURCE_NAME_VALID to the <b>dwFlags</b> member. Refer to 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findresourcea">FindResource</a> for more information on specifying resource names.
+ * 
+ * In most cases, the caller should not set the ACTCTX_FLAG_PROCESSOR_ARCHITECTURE_VALID and ACTCTX_FLAG_LANGID_VALID flags of the <b>dwFlags</b> member. Also, in most cases, the value of the <b>lpResourceName</b> member should be set to null.
+ * 
+ * The values of <b>lpApplicationName</b> and <b>lpAssemblyDirectory</b> are not set to null when the executable creating the activation context is a host for the application. In this case, the host can set a different name for the application to find configuration files, report errors, and so forth.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winbase.h header defines ACTCTX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-actctxa
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319

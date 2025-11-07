@@ -7,10 +7,10 @@
  * Used for resetting the current audio endpoint device format.
  * @remarks
  * 
-  * This setting is exposed to the user through the "Sounds" control panel  and can be read from the endpoint property store using
-  * <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/pkey-audioengine-deviceformat">PKEY_AudioEngine_DeviceFormat</a>.
-  * 
-  * 
+ * This setting is exposed to the user through the "Sounds" control panel  and can be read from the endpoint property store using
+ * <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/pkey-audioengine-deviceformat">PKEY_AudioEngine_DeviceFormat</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audioendpoints/nn-audioendpoints-iaudioendpointformatcontrol
  * @namespace Windows.Win32.Media.Audio.Endpoints
  * @version v4.0.30319

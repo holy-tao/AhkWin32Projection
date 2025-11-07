@@ -7,7 +7,7 @@
  * Enables interoperability with a WinRT [UIViewSettings](/uwp/api/Windows.UI.ViewManagement.UIViewSettings) object.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiviewsettingsinterop/nn-uiviewsettingsinterop-iuiviewsettingsinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

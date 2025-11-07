@@ -7,17 +7,17 @@
  * The IAudioSessionControl2 interface can be used by a client to get information about the audio session.
  * @remarks
  * 
-  * This interface supports  custom implementations for <i>stream attenuation</i> or <i>ducking</i>, a new feature in Windows 7. An application playing a media stream can make it behave differently when a new communication stream is opened on the default communication device. For example, the original media stream can be paused while the new communication stream is open. For more information about this feature, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/stream-attenuation">Default Ducking Experience</a>. 
-  * 
-  * An application can use this interface to perform the following tasks:
-  * 
-  * <ul>
-  * <li>Specify that it wants to opt out of the default stream attenuation experience provided by the system.</li>
-  * <li>Get the audio session identifier that is associated with the stream. The identifier is required during the notification registration. The application can register itself to receive ducking notifications from the system.</li>
-  * <li>Check whether the stream associated with the audio session  is a system sound.</li>
-  * </ul>
-  * 
-  * 
+ * This interface supports  custom implementations for <i>stream attenuation</i> or <i>ducking</i>, a new feature in Windows 7. An application playing a media stream can make it behave differently when a new communication stream is opened on the default communication device. For example, the original media stream can be paused while the new communication stream is open. For more information about this feature, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/stream-attenuation">Default Ducking Experience</a>. 
+ * 
+ * An application can use this interface to perform the following tasks:
+ * 
+ * <ul>
+ * <li>Specify that it wants to opt out of the default stream attenuation experience provided by the system.</li>
+ * <li>Get the audio session identifier that is associated with the stream. The identifier is required during the notification registration. The application can register itself to receive ducking notifications from the system.</li>
+ * <li>Check whether the stream associated with the audio session  is a system sound.</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nn-audiopolicy-iaudiosessioncontrol2
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319

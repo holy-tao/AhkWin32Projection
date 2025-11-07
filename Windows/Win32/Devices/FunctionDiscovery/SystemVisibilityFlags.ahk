@@ -4,9 +4,9 @@
  * Determines the visibility of the function instance's data.
  * @remarks
  * 
-  * All data operations and function instances are stored in HKEY_LOCAL_MACHINE. Access to a function instance or its data with system-wide visibility must be performed with Administrator access permissions.
-  * 
-  * 
+ * All data operations and function instances are stored in HKEY_LOCAL_MACHINE. Access to a function instance or its data with system-wide visibility must be performed with Administrator access permissions.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319

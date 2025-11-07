@@ -5,7 +5,7 @@
  * 
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_rpmb_data_frame
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319

@@ -5,9 +5,9 @@
  * Describes how a shader resource is bound to a shader input.
  * @remarks
  * 
-  * Get a shader-input-signature description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getresourcebindingdesc">ID3D11ShaderReflection::GetResourceBindingDesc</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getresourcebindingdescbyname">ID3D11ShaderReflection::GetResourceBindingDescByName</a>.
-  * 
-  * 
+ * Get a shader-input-signature description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getresourcebindingdesc">ID3D11ShaderReflection::GetResourceBindingDesc</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getresourcebindingdescbyname">ID3D11ShaderReflection::GetResourceBindingDescByName</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/ns-d3d11shader-d3d11_shader_input_bind_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

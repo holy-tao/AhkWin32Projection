@@ -9,9 +9,9 @@
  * Access to the Windows Service Hardening networking rules.
  * @remarks
  * 
-  * When adding rules, note that there may be a small time lag before the newly-added rule is applied.
-  * 
-  * 
+ * When adding rules, note that there may be a small time lag before the newly-added rule is applied.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwservicerestriction
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

@@ -17,9 +17,9 @@
  * The IMSVidCtl interface is the main interface for the Video Control.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidCtl)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidCtl)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msvidctl/nn-msvidctl-imsvidctl
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

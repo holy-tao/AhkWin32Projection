@@ -7,9 +7,9 @@
  * Enables an application to use a Media Foundation transform (MFT) that has restrictions on its use.
  * @remarks
  * 
-  * If you register an MFT that requires unlocking, include the <b>MFT_ENUM_FLAG_FIELDOFUSE</b> flag when you call the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregister">MFTRegister</a> function.
-  * 
-  * 
+ * If you register an MFT that requires unlocking, include the <b>MFT_ENUM_FLAG_FIELDOFUSE</b> flag when you call the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregister">MFTRegister</a> function.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imffieldofusemftunlock
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

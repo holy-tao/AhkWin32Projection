@@ -5,7 +5,7 @@
  * Contains an array of device service GUIDs.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_device_service_guid_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319

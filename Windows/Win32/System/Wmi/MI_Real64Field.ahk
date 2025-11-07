@@ -5,8 +5,8 @@
  * Represents a property inside an MI_Instance structure.
  * @remarks
  * 
-  * This type cannot be a key. This differs from the DMTF CIM specification. For more information on keys, see <a href="https://docs.microsoft.com/windows/win32/wmisdk/key-qualifier">https://go.microsoft.com/fwlink/p/?linkid=259738</a>.
-  * 
+ * This type cannot be a key. This differs from the DMTF CIM specification. For more information on keys, see <a href="https://docs.microsoft.com/windows/win32/wmisdk/key-qualifier">https://go.microsoft.com/fwlink/p/?linkid=259738</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_real64field
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319

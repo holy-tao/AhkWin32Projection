@@ -5,183 +5,183 @@
  * Gets and sets the configuration for enabling gesture messages and the type of this configuration.
  * @remarks
  * 
-  * It is impossible to disable two-finger panning and keep single finger panning.
-  *       You must set the want bits for GC_PAN before you can set them for GC_PAN_WITH_SINGLE_FINGER_HORIZONTALLY 
-  * 		or GC_PAN_WITH_SINGLE_FINGER_VERTICALLY.
-  * 		
-  * 
-  * An inertia vector is included in the GID_PAN message with the GF_END flag if inertia was disabled by a call to 
-  * 		<a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setgestureconfig">SetGestureConfig</a>.
-  * 		
-  * 
-  * When you pass this structure, the <i>dwID</i> member contains information 
-  *   for a set of gestures. This determines what the other flags will mean.
-  *   If you set flags for pan messages, they will be different from those
-  *   flags that are set for rotation messages.
-  *   
-  * 
-  * The following table indicates the various identifiers for gestures that are
-  *   supported by the <i>dwID</i> member of the <b>GESTURECONFIG</b> structure.  Note that setting
-  *   <i>dwID</i> to 0 indicates that global gesture configuration flags are set.
-  *   
-  * 
-  * <table>
-  * <tr>
-  * <th>Name</th>
-  * <th>Value</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>GID_ZOOM</td>
-  * <td>3</td>
-  * <td>Indicates configuration settings for the zoom gesture.</td>
-  * </tr>
-  * <tr>
-  * <td>GID_PAN</td>
-  * <td>4</td>
-  * <td>Indicates the pan gesture.</td>
-  * </tr>
-  * <tr>
-  * <td>GID_ROTATE</td>
-  * <td>5</td>
-  * <td>Indicates the rotation gesture.</td>
-  * </tr>
-  * <tr>
-  * <td>GID_TWOFINGERTAP</td>
-  * <td>6</td>
-  * <td>Indicates the two-finger tap gesture.</td>
-  * </tr>
-  * <tr>
-  * <td>GID_PRESSANDTAP</td>
-  * <td>7</td>
-  * <td>Indicates the press and tap gesture.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * The following flags are used when <i>dwID</i> is set to 0.
-  * 
-  * <table>
-  * <tr>
-  * <th>Name</th>
-  * <th>Value</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>GC_ALLGESTURES</td>
-  * <td>0x00000001</td>
-  * <td>Indicates all of the gestures.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * The following flags are used when <i>dwID</i> is set to GID_ZOOM.
-  * 
-  * <table>
-  * <tr>
-  * <th>Name</th>
-  * <th>Value</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>GC_ZOOM</td>
-  * <td>0x00000001</td>
-  * <td>Indicates the zoom gesture.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * The following flags are used when <i>dwID</i> is set to GID_PAN.
-  * 
-  * <table>
-  * <tr>
-  * <th>Name</th>
-  * <th>Value</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>GC_PAN</td>
-  * <td>0x00000001</td>
-  * <td>Indicates all pan gestures.</td>
-  * </tr>
-  * <tr>
-  * <td>GC_PAN_WITH_SINGLE_FINGER_VERTICALLY</td>
-  * <td>0x00000002</td>
-  * <td>Indicates vertical pans with one finger.</td>
-  * </tr>
-  * <tr>
-  * <td>GC_PAN_WITH_SINGLE_FINGER_HORIZONTALLY</td>
-  * <td>0x00000004</td>
-  * <td>Indicates horizontal pans with one finger.</td>
-  * </tr>
-  * <tr>
-  * <td>GC_PAN_WITH_GUTTER</td>
-  * <td>0x00000008</td>
-  * <td>Limits perpendicular movement to primary direction until a threshold is reached to break out of the gutter.</td>
-  * </tr>
-  * <tr>
-  * <td>GC_PAN_WITH_INERTIA</td>
-  * <td>0x00000010</td>
-  * <td>Indicates panning with inertia to smoothly slow when pan gestures stop.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * <div class="alert"><b>Note</b>  Setting the <b>GID_PAN</b> flags in <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setgestureconfig">SetGestureConfig</a> will affect the default gesture handler for panning.
-  *     You should not have both <b>dwWant</b> and <b>dwBlock</b> set for the same flags; this will result in unexpected behavior.  
-  *     See  <a href="https://docs.microsoft.com/windows/desktop/wintouch/guide-multi-touch-gestures">Windows Touch Gestures</a> for more information on panning 
-  *     and legacy panning support; see <b>SetGestureConfig</b> for examples  of enabling and blocking gestures.</div>
-  * <div> </div>
-  * The following flags are used when <i>dwID</i> is set to GID_ROTATE.
-  * 
-  * <table>
-  * <tr>
-  * <th>Name</th>
-  * <th>Value</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>GC_ROTATE</td>
-  * <td>0x00000001</td>
-  * <td>Indicates the rotation gesture.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * The following flags are used when <i>dwID</i> is set to GID_TWOFINGERTAP.
-  * 
-  * <table>
-  * <tr>
-  * <th>Name</th>
-  * <th>Value</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>GC_TWOFINGERTAP</td>
-  * <td>0x00000001</td>
-  * <td>Indicates the two-finger tap gesture.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * The following flags are used when <i>dwID</i> is set to GID_PRESSANDTAP.
-  * 
-  * <table>
-  * <tr>
-  * <th>Name</th>
-  * <th>Value</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>GC_PRESSANDTAP</td>
-  * <td>0x00000001</td>
-  * <td>Indicates the press and tap gesture.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * 
-  * 
+ * It is impossible to disable two-finger panning and keep single finger panning.
+ *       You must set the want bits for GC_PAN before you can set them for GC_PAN_WITH_SINGLE_FINGER_HORIZONTALLY 
+ * 		or GC_PAN_WITH_SINGLE_FINGER_VERTICALLY.
+ * 		
+ * 
+ * An inertia vector is included in the GID_PAN message with the GF_END flag if inertia was disabled by a call to 
+ * 		<a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setgestureconfig">SetGestureConfig</a>.
+ * 		
+ * 
+ * When you pass this structure, the <i>dwID</i> member contains information 
+ *   for a set of gestures. This determines what the other flags will mean.
+ *   If you set flags for pan messages, they will be different from those
+ *   flags that are set for rotation messages.
+ *   
+ * 
+ * The following table indicates the various identifiers for gestures that are
+ *   supported by the <i>dwID</i> member of the <b>GESTURECONFIG</b> structure.  Note that setting
+ *   <i>dwID</i> to 0 indicates that global gesture configuration flags are set.
+ *   
+ * 
+ * <table>
+ * <tr>
+ * <th>Name</th>
+ * <th>Value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>GID_ZOOM</td>
+ * <td>3</td>
+ * <td>Indicates configuration settings for the zoom gesture.</td>
+ * </tr>
+ * <tr>
+ * <td>GID_PAN</td>
+ * <td>4</td>
+ * <td>Indicates the pan gesture.</td>
+ * </tr>
+ * <tr>
+ * <td>GID_ROTATE</td>
+ * <td>5</td>
+ * <td>Indicates the rotation gesture.</td>
+ * </tr>
+ * <tr>
+ * <td>GID_TWOFINGERTAP</td>
+ * <td>6</td>
+ * <td>Indicates the two-finger tap gesture.</td>
+ * </tr>
+ * <tr>
+ * <td>GID_PRESSANDTAP</td>
+ * <td>7</td>
+ * <td>Indicates the press and tap gesture.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * The following flags are used when <i>dwID</i> is set to 0.
+ * 
+ * <table>
+ * <tr>
+ * <th>Name</th>
+ * <th>Value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>GC_ALLGESTURES</td>
+ * <td>0x00000001</td>
+ * <td>Indicates all of the gestures.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * The following flags are used when <i>dwID</i> is set to GID_ZOOM.
+ * 
+ * <table>
+ * <tr>
+ * <th>Name</th>
+ * <th>Value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>GC_ZOOM</td>
+ * <td>0x00000001</td>
+ * <td>Indicates the zoom gesture.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * The following flags are used when <i>dwID</i> is set to GID_PAN.
+ * 
+ * <table>
+ * <tr>
+ * <th>Name</th>
+ * <th>Value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>GC_PAN</td>
+ * <td>0x00000001</td>
+ * <td>Indicates all pan gestures.</td>
+ * </tr>
+ * <tr>
+ * <td>GC_PAN_WITH_SINGLE_FINGER_VERTICALLY</td>
+ * <td>0x00000002</td>
+ * <td>Indicates vertical pans with one finger.</td>
+ * </tr>
+ * <tr>
+ * <td>GC_PAN_WITH_SINGLE_FINGER_HORIZONTALLY</td>
+ * <td>0x00000004</td>
+ * <td>Indicates horizontal pans with one finger.</td>
+ * </tr>
+ * <tr>
+ * <td>GC_PAN_WITH_GUTTER</td>
+ * <td>0x00000008</td>
+ * <td>Limits perpendicular movement to primary direction until a threshold is reached to break out of the gutter.</td>
+ * </tr>
+ * <tr>
+ * <td>GC_PAN_WITH_INERTIA</td>
+ * <td>0x00000010</td>
+ * <td>Indicates panning with inertia to smoothly slow when pan gestures stop.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * <div class="alert"><b>Note</b>  Setting the <b>GID_PAN</b> flags in <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setgestureconfig">SetGestureConfig</a> will affect the default gesture handler for panning.
+ *     You should not have both <b>dwWant</b> and <b>dwBlock</b> set for the same flags; this will result in unexpected behavior.  
+ *     See  <a href="https://docs.microsoft.com/windows/desktop/wintouch/guide-multi-touch-gestures">Windows Touch Gestures</a> for more information on panning 
+ *     and legacy panning support; see <b>SetGestureConfig</b> for examples  of enabling and blocking gestures.</div>
+ * <div> </div>
+ * The following flags are used when <i>dwID</i> is set to GID_ROTATE.
+ * 
+ * <table>
+ * <tr>
+ * <th>Name</th>
+ * <th>Value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>GC_ROTATE</td>
+ * <td>0x00000001</td>
+ * <td>Indicates the rotation gesture.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * The following flags are used when <i>dwID</i> is set to GID_TWOFINGERTAP.
+ * 
+ * <table>
+ * <tr>
+ * <th>Name</th>
+ * <th>Value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>GC_TWOFINGERTAP</td>
+ * <td>0x00000001</td>
+ * <td>Indicates the two-finger tap gesture.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * The following flags are used when <i>dwID</i> is set to GID_PRESSANDTAP.
+ * 
+ * <table>
+ * <tr>
+ * <th>Name</th>
+ * <th>Value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>GC_PRESSANDTAP</td>
+ * <td>0x00000001</td>
+ * <td>Indicates the press and tap gesture.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-gestureconfig
  * @namespace Windows.Win32.UI.Input.Touch
  * @version v4.0.30319

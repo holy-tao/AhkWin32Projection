@@ -5,9 +5,9 @@
  * Contains client window coordinates.
  * @remarks
  * 
-  * This structure is used by the Remote Desktop Services service to redraw the client window.
-  * 
-  * 
+ * This structure is used by the Remote Desktop Services service to redraw the client window.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wts_small_rect
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319

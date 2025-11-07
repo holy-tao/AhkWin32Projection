@@ -11,7 +11,7 @@
  * Specifies input stream arguments for an input stream passed to ID3D12VideoCommandList::ProcessFrames.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_process_input_stream_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

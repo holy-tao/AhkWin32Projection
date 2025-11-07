@@ -5,34 +5,34 @@
  * Contains information about a range of pages in the virtual address space of a process.
  * @remarks
  * 
-  * To enable a debugger to debug a target that is running on a different architecture (32-bit versus 64-bit), use one of the explicit forms of this structure.
-  * 
-  * 
-  * ```cpp
-  * typedef struct _MEMORY_BASIC_INFORMATION32 {
-  *     DWORD BaseAddress;
-  *     DWORD AllocationBase;
-  *     DWORD AllocationProtect;
-  *     DWORD RegionSize;
-  *     DWORD State;
-  *     DWORD Protect;
-  *     DWORD Type;
-  * } MEMORY_BASIC_INFORMATION32, *PMEMORY_BASIC_INFORMATION32;
-  * 
-  * typedef struct DECLSPEC_ALIGN(16) _MEMORY_BASIC_INFORMATION64 {
-  *     ULONGLONG BaseAddress;
-  *     ULONGLONG AllocationBase;
-  *     DWORD     AllocationProtect;
-  *     DWORD     __alignment1;
-  *     ULONGLONG RegionSize;
-  *     DWORD     State;
-  *     DWORD     Protect;
-  *     DWORD     Type;
-  *     DWORD     __alignment2;
-  * } MEMORY_BASIC_INFORMATION64, *PMEMORY_BASIC_INFORMATION64;
-  * ```
-  * 
-  * 
+ * To enable a debugger to debug a target that is running on a different architecture (32-bit versus 64-bit), use one of the explicit forms of this structure.
+ * 
+ * 
+ * ```cpp
+ * typedef struct _MEMORY_BASIC_INFORMATION32 {
+ *     DWORD BaseAddress;
+ *     DWORD AllocationBase;
+ *     DWORD AllocationProtect;
+ *     DWORD RegionSize;
+ *     DWORD State;
+ *     DWORD Protect;
+ *     DWORD Type;
+ * } MEMORY_BASIC_INFORMATION32, *PMEMORY_BASIC_INFORMATION32;
+ * 
+ * typedef struct DECLSPEC_ALIGN(16) _MEMORY_BASIC_INFORMATION64 {
+ *     ULONGLONG BaseAddress;
+ *     ULONGLONG AllocationBase;
+ *     DWORD     AllocationProtect;
+ *     DWORD     __alignment1;
+ *     ULONGLONG RegionSize;
+ *     DWORD     State;
+ *     DWORD     Protect;
+ *     DWORD     Type;
+ *     DWORD     __alignment2;
+ * } MEMORY_BASIC_INFORMATION64, *PMEMORY_BASIC_INFORMATION64;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-memory_basic_information
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319

@@ -5,9 +5,9 @@
  * Retrieves the attributes of a recognizer or specifies which attributes to use when you search for an installed recognizer.
  * @remarks
  * 
-  * The <i>awcFriendlyName</i> parameter may be empty (that is, having the first element set to the null character) when you use this structure as a return value from the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getrecoattributes">GetRecoAttributes Function</a>. Because this is not an error, the return code for <i>awcFriendlyName</i> in <b>GetRecoAttributes Function</b> will be S_OK, and the other fields will contain data.
-  * 
-  * 
+ * The <i>awcFriendlyName</i> parameter may be empty (that is, having the first element set to the null character) when you use this structure as a return value from the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getrecoattributes">GetRecoAttributes Function</a>. Because this is not an error, the return code for <i>awcFriendlyName</i> in <b>GetRecoAttributes Function</b> will be S_OK, and the other fields will contain data.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//rectypes/ns-rectypes-reco_attrs
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

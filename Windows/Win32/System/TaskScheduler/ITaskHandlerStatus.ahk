@@ -8,11 +8,11 @@
  * Provides the methods that are used by COM handlers to notify the Task Scheduler about the status of the handler.
  * @remarks
  * 
-  * For information on specifying a COM handler action, see the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-icomhandleraction">IComHandlerAction</a> interface.
-  * 
-  * For information on the required interfaces that must be implemented by the handler, see the  <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskhandler">ITaskHandler</a> interface.
-  * 
-  * 
+ * For information on specifying a COM handler action, see the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-icomhandleraction">IComHandlerAction</a> interface.
+ * 
+ * For information on the required interfaces that must be implemented by the handler, see the  <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskhandler">ITaskHandler</a> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itaskhandlerstatus
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

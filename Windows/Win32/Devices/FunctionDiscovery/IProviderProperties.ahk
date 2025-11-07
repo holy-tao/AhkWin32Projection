@@ -9,12 +9,12 @@
  * Is optionally implemented by discovery providers to directly create and manage their own property store.
  * @remarks
  * 
-  * Implementing this interface enables a provider to provide access to the most current property values. Otherwise, the client uses the values in the cache created by Function Discovery when the function instance is created or the property store is opened.
-  * 
-  * If a provider does not implement this interface, then the provider must provide a property store
-  * at the time the instance is created or when the client calls <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancepropertystoreopen">InstancePropertyStoreOpen</a>.
-  * 
-  * 
+ * Implementing this interface enables a provider to provide access to the most current property values. Otherwise, the client uses the values in the cache created by Function Discovery when the function instance is created or the property store is opened.
+ * 
+ * If a provider does not implement this interface, then the provider must provide a property store
+ * at the time the instance is created or when the client calls <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancepropertystoreopen">InstancePropertyStoreOpen</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderproperties
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319

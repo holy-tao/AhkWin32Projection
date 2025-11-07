@@ -5,11 +5,11 @@
  * The XLATEOBJ structure is used to translate color indexes from one palette to another.
  * @remarks
  * 
-  * The destination palette always belongs to the destination surface of some drawing operation. The source palette is an application-selected palette or a palette from another surface.
-  * 
-  * The XLATEOBJ structure is used to translate color indices that refer to the source palette to indices for the destination palette. The resulting index identifies a color that matches the source color as closely as possible.
-  * 
-  * 
+ * The destination palette always belongs to the destination surface of some drawing operation. The source palette is an application-selected palette or a palette from another surface.
+ * 
+ * The XLATEOBJ structure is used to translate color indices that refer to the source palette to indices for the destination palette. The resulting index identifies a color that matches the source color as closely as possible.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-xlateobj
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319

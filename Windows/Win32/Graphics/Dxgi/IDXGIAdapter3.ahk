@@ -8,9 +8,9 @@
  * This interface adds some memory residency methods, for budgeting and reserving physical memory.
  * @remarks
  * 
-  * For more details, refer to the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/residency">Residency</a> section of the D3D12 documentation.
-  * 
-  * 
+ * For more details, refer to the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/residency">Residency</a> section of the D3D12 documentation.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nn-dxgi1_4-idxgiadapter3
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

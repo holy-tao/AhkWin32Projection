@@ -5,16 +5,16 @@
  * Contains information about character formatting in a rich edit control.
  * @remarks
  * 
-  * To turn off a formatting attribute, set the appropriate value in <b>dwMask</b> but do not set the corresponding value in <b>dwEffects</b>. For example, to turn off italics, set CFM_ITALIC but do not set CFE_ITALIC.
-  * 
-  * 
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The richedit.h header defines CHARFORMAT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
-  * 
+ * To turn off a formatting attribute, set the appropriate value in <b>dwMask</b> but do not set the corresponding value in <b>dwEffects</b>. For example, to turn off italics, set CFM_ITALIC but do not set CFE_ITALIC.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The richedit.h header defines CHARFORMAT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-charformata
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319

@@ -4,8 +4,8 @@
  * Allows a sync provider to control how placeholder files should be hydrated by the platform. This is a modifier that can be used with the primary policy:\_CF_HYDRATION_POLICY_PRIMARY.
  * @remarks
  * 
-  * In general, modifiers can be mixed and matched with any primary policy (<a href="https://docs.microsoft.com/windows/desktop/api/cfapi/ne-cfapi-cf_hydration_policy_primary">CF_HYDRATION_POLICY_PRIMARY</a>) and other policy modifiers so long as the combination is not self-conflicting.
-  * 
+ * In general, modifiers can be mixed and matched with any primary policy (<a href="https://docs.microsoft.com/windows/desktop/api/cfapi/ne-cfapi-cf_hydration_policy_primary">CF_HYDRATION_POLICY_PRIMARY</a>) and other policy modifiers so long as the combination is not self-conflicting.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_hydration_policy_modifier
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319

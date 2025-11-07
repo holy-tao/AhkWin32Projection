@@ -10,10 +10,10 @@
  * The IADsClass interface is designed for managing schema class objects that provide class definitions for any ADSI object. Other schema management interfaces include IADsProperty for attribute definitions and IADsSyntax for attribute syntax.
  * @remarks
  * 
-  * Schema objects are organized in the schema container of a given directory. To access an object's schema class, use the object's <b>Schema</b> property (namely, call the <a href="https://docs.microsoft.com/windows/desktop/ADSI/iads-property-methods">IADs::get_Schema</a> property method) to obtain the ADsPath string and use that string to bind to its schema class object.
-  * 
-  * 
-  * 
+ * Schema objects are organized in the schema container of a given directory. To access an object's schema class, use the object's <b>Schema</b> property (namely, call the <a href="https://docs.microsoft.com/windows/desktop/ADSI/iads-property-methods">IADs::get_Schema</a> property method) to obtain the ADsPath string and use that string to bind to its schema class object.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsclass
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

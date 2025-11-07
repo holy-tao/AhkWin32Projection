@@ -7,13 +7,13 @@
  * The IAppxBlockMapBlock interface provides a read-only object that represents an individual block within a file contained in the block map file (AppxBlockMap.xml) for the App package.
  * @remarks
  * 
-  * Each <b>Block</b> element has an attribute for the hash value and compressed size of the block.
-  * 
-  * For a code example, see the [Query app package and app manifest sample](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/AppxPackingDescribeAppx).
-  * 
-  * <div class="code"></div>
-  * 
-  * 
+ * Each <b>Block</b> element has an attribute for the hash value and compressed size of the block.
+ * 
+ * For a code example, see the [Query app package and app manifest sample](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/AppxPackingDescribeAppx).
+ * 
+ * <div class="code"></div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxblockmapblock
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319

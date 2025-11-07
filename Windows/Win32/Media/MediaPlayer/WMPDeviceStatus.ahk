@@ -4,9 +4,9 @@
  * The WMPDeviceStatus enumeration type defines the possible values for the current status of a device. To use this enumeration, you must create a remoted instance of the Windows Media Player 10 or later control.
  * @remarks
  * 
-  * Windows Media Player 10 Mobile: This enumeration is not supported.
-  * 
-  * 
+ * Windows Media Player 10 Mobile: This enumeration is not supported.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmp/ne-wmp-wmpdevicestatus
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319

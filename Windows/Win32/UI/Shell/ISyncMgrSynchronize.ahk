@@ -8,15 +8,15 @@
  * Exposes methods that enable the registered application or service to receive notifications from the synchronization manager.
  * @remarks
  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * This interface should be implemented on the registered application's handler to receive notifications from the synchronization manager and to participate in the synchronization process.
-  * 
-  * <b>ISyncMgrSynchronize</b> has been replaced in Windows Vista by <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrhandler">ISyncMgrHandler</a>.
-  * 
-  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
-  * The synchronization manager calls the methods of this interface to send notifications to the registered application or service during synchronization.
-  * 
-  * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * This interface should be implemented on the registered application's handler to receive notifications from the synchronization manager and to participate in the synchronization process.
+ * 
+ * <b>ISyncMgrSynchronize</b> has been replaced in Windows Vista by <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrhandler">ISyncMgrHandler</a>.
+ * 
+ * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
+ * The synchronization manager calls the methods of this interface to send notifications to the registered application or service during synchronization.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mobsync/nn-mobsync-isyncmgrsynchronize
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

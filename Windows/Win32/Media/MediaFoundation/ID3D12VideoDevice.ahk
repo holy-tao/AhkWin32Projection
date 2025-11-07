@@ -7,7 +7,7 @@
  * Provides video decoding and processing capabilities of a Microsoft Direct3D 12 device including the ability to query video capabilities and instantiating video decoders and processors.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videodevice
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

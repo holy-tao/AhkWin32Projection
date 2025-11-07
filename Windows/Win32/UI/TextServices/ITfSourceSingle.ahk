@@ -7,22 +7,22 @@
  * The ITfSourceSingle interface is implemented by the TSF manager.
  * @remarks
  * 
-  * The TSF manager has different implementations of <b>ITfSourceSingle</b>, depending upon how the <b>ITfSourceSingle</b> interface is obtained. The difference in the implementations is the types of advise sinks that can be installed with the interface. The different implementations can be obtained from the following objects.
-  * 
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfthreadmgr">ITfThreadMgr
-  *             </a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext
-  *             </a>
-  * </li>
-  * </ul>
-  * For more information about advise sinks that can be installed by each implementation, see <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsourcesingle-advisesinglesink">ITfSourceSingle::AdviseSingleSink</a>.
-  * 
-  * 
-  * 
+ * The TSF manager has different implementations of <b>ITfSourceSingle</b>, depending upon how the <b>ITfSourceSingle</b> interface is obtained. The difference in the implementations is the types of advise sinks that can be installed with the interface. The different implementations can be obtained from the following objects.
+ * 
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfthreadmgr">ITfThreadMgr
+ *             </a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext
+ *             </a>
+ * </li>
+ * </ul>
+ * For more information about advise sinks that can be installed by each implementation, see <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsourcesingle-advisesinglesink">ITfSourceSingle::AdviseSingleSink</a>.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfsourcesingle
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

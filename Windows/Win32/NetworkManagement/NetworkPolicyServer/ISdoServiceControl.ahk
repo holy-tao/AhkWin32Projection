@@ -7,11 +7,11 @@
  * Use the ISdoServiceControl interface to control the service being administered on the SDO computer.
  * @remarks
  * 
-  * Use the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/nf-sdoias-isdomachine-getservicesdo">ISdoMachine::GetServiceSDO</a> method to retrieve a pointer to an 
-  * <b>ISdoServiceControl</b> interface.
-  * 
-  * 
+ * Use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/nf-sdoias-isdomachine-getservicesdo">ISdoMachine::GetServiceSDO</a> method to retrieve a pointer to an 
+ * <b>ISdoServiceControl</b> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sdoias/nn-sdoias-isdoservicecontrol
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319

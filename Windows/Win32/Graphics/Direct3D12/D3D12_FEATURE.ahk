@@ -4,9 +4,9 @@
  * Defines constants that specify a Direct3D 12 feature or feature set to query about.
  * @remarks
  * 
-  * Use a constant from  this enumeration in a call to [ID3D12Device::CheckFeatureSupport](./nf-d3d12-id3d12device-checkfeaturesupport.md) to query a driver about support for various Direct3D 12 features. Each value in this enumeration has a corresponding data structure that you must pass (by pointer reference) in the *pFeatureSupportData* parameter of **ID3D12Device::CheckFeatureSupport**.
-  * 
-  * 
+ * Use a constant from  this enumeration in a call to [ID3D12Device::CheckFeatureSupport](./nf-d3d12-id3d12device-checkfeaturesupport.md) to query a driver about support for various Direct3D 12 features. Each value in this enumeration has a corresponding data structure that you must pass (by pointer reference) in the *pFeatureSupportData* parameter of **ID3D12Device::CheckFeatureSupport**.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_feature
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

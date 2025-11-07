@@ -6,18 +6,18 @@
  * The RPC_CALL_ATTRIBUTES_V2 structure provides parameters to the RpcServerInqCallAttributes function. Version 2 specifies support for local addresses and client process IDs.
  * @remarks
  * 
-  * The 
-  * <b>RPC_CALL_ATTRIBUTES</b> structure uses a versioning scheme to enable the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcserverinqcallattributesa">RpcServerInqCallAttributes</a> function to incorporate new capabilities without having to introduce new functions with suffix identifiers. For example, a second version of the 
-  * <b>RPC_CALL_ATTRIBUTES</b>, identified with a simple #define in the header, can add new members to facilitate new functionality built into future versions of the 
-  * <b>RpcServerInqCallAttributes</b> function, without having to release a corresponding alternative function.
-  * 
-  * The <b>Version</b> member indicates the version of the 
-  * <b>RPC_CALL_ATTRIBUTES</b> structure (currently either <b>RPC_CALL_ATTRIBUTES_V1</b> or <b>RPC_CALL_ATTRIBUTES_V2</b>) being used by the calling application. This identification enables the RPC run time to provide backward compatibility for applications not using the most current version of the structure.
-  * 
-  *  Until the process terminates, <b>ClientPID</b> uniquely identifies that process on the client. When the process terminates, the process ID specified by <b>ClientPID</b> can be used by new processes.
-  * 
-  * 
+ * The 
+ * <b>RPC_CALL_ATTRIBUTES</b> structure uses a versioning scheme to enable the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcserverinqcallattributesa">RpcServerInqCallAttributes</a> function to incorporate new capabilities without having to introduce new functions with suffix identifiers. For example, a second version of the 
+ * <b>RPC_CALL_ATTRIBUTES</b>, identified with a simple #define in the header, can add new members to facilitate new functionality built into future versions of the 
+ * <b>RpcServerInqCallAttributes</b> function, without having to release a corresponding alternative function.
+ * 
+ * The <b>Version</b> member indicates the version of the 
+ * <b>RPC_CALL_ATTRIBUTES</b> structure (currently either <b>RPC_CALL_ATTRIBUTES_V1</b> or <b>RPC_CALL_ATTRIBUTES_V2</b>) being used by the calling application. This identification enables the RPC run time to provide backward compatibility for applications not using the most current version of the structure.
+ * 
+ *  Until the process terminates, <b>ClientPID</b> uniquely identifies that process on the client. When the process terminates, the process ID specified by <b>ClientPID</b> can be used by new processes.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ns-rpcasync-rpc_call_attributes_v2_w
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319

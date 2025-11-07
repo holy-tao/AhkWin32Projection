@@ -5,9 +5,9 @@
  * Sync root provider information.
  * @remarks
  * 
-  * <b>CF_MAX_PROVIDER_NAME_LENGTH</b> and <b>CF_MAX_PROVIDER_VERSION_LENGTH</b> are set to 255.
-  * 
-  * 
+ * <b>CF_MAX_PROVIDER_NAME_LENGTH</b> and <b>CF_MAX_PROVIDER_VERSION_LENGTH</b> are set to 255.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_sync_root_provider_info
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319

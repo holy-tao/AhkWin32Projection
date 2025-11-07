@@ -6,24 +6,24 @@
  * Contains the thread profiling and hardware counter data that you requested.
  * @remarks
  * 
-  * You must initialize the <b>Size</b> and <b>Version</b> members before calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-readthreadprofilingdata">ReadThreadProfilingData</a> function to read the profiling data.
-  * 
-  * The profile data contained in this structure depends on the data that you requested when you called the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-readthreadprofilingdata">ReadThreadProfilingData</a> function. The following members are set when you specify the READ_THREAD_PROFILING_FLAG_DISPATCHING flag:
-  * 
-  * <ul>
-  * <li><b>ContextSwitchCount</b></li>
-  * <li><b>CycleTime</b></li>
-  * <li><b>RetryCount</b></li>
-  * <li><b>WaitReasonBitMap</b></li>
-  * </ul>
-  * The following members are set when you specify the READ_THREAD_PROFILING_FLAG_HARDWARE_COUNTERS flag:
-  * 
-  * <ul>
-  * <li><b>HwCounters</b></li>
-  * <li><b>HwCountersCount</b></li>
-  * </ul>
-  * 
-  * 
+ * You must initialize the <b>Size</b> and <b>Version</b> members before calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-readthreadprofilingdata">ReadThreadProfilingData</a> function to read the profiling data.
+ * 
+ * The profile data contained in this structure depends on the data that you requested when you called the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-readthreadprofilingdata">ReadThreadProfilingData</a> function. The following members are set when you specify the READ_THREAD_PROFILING_FLAG_DISPATCHING flag:
+ * 
+ * <ul>
+ * <li><b>ContextSwitchCount</b></li>
+ * <li><b>CycleTime</b></li>
+ * <li><b>RetryCount</b></li>
+ * <li><b>WaitReasonBitMap</b></li>
+ * </ul>
+ * The following members are set when you specify the READ_THREAD_PROFILING_FLAG_HARDWARE_COUNTERS flag:
+ * 
+ * <ul>
+ * <li><b>HwCounters</b></li>
+ * <li><b>HwCountersCount</b></li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-performance_data
  * @namespace Windows.Win32.System.Performance.HardwareCounterProfiling
  * @version v4.0.30319

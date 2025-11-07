@@ -11,60 +11,60 @@
  * Exposes methods that represent a decoder.
  * @remarks
  * 
-  * There are a number of concrete implemenations of this interface representing each of the standard decoders provided by the platform including bitmap (BMP), Portable Network Graphics (PNG), icon (ICO), Joint Photographic Experts Group (JPEG), Graphics Interchange Format (GIF), Tagged Image File Format (TIFF), and Microsoft Windows Digital Photo (WDP). The following table includes the class identifier (CLSID) for each native decoder.
-  *             
-  * 
-  * <table class="clsStd">
-  * <tr>
-  * <th>CLSID Name</th>
-  * <th>CLSID</th>
-  * </tr>
-  * <tr>
-  * <td>CLSID_WICBmpDecoder</td>
-  * <td>0x6b462062, 0x7cbf, 0x400d, 0x9f, 0xdb, 0x81, 0x3d, 0xd1, 0xf, 0x27, 0x78</td>
-  * </tr>
-  * <tr>
-  * <td>CLSID_WICGifDecoder</td>
-  * <td>0x381dda3c, 0x9ce9, 0x4834, 0xa2, 0x3e, 0x1f, 0x98, 0xf8, 0xfc, 0x52, 0xbe</td>
-  * </tr>
-  * <tr>
-  * <td>CLSID_WICHeifDecoder</td>
-  * <td>0xe9a4a80a, 0x44fe, 0x4de4, 0x89, 0x71, 0x71, 0x50, 0xb1, 0x0a, 0x51, 0x99</td>
-  * </tr>
-  * <tr>
-  * <td>CLSID_WICIcoDecoder</td>
-  * <td>0xc61bfcdf, 0x2e0f, 0x4aad, 0xa8, 0xd7, 0xe0, 0x6b, 0xaf, 0xeb, 0xcd, 0xfe</td>
-  * </tr>
-  * <tr>
-  * <td>CLSID_WICJpegDecoder</td>
-  * <td>0x9456a480, 0xe88b, 0x43ea, 0x9e, 0x73, 0xb, 0x2d, 0x9b, 0x71, 0xb1, 0xca</td>
-  * </tr>
-  * <tr>
-  * <td>CLSID_WICPngDecoder</td>
-  * <td>0x389ea17b, 0x5078, 0x4cde, 0xb6, 0xef, 0x25, 0xc1, 0x51, 0x75, 0xc7, 0x51</td>
-  * </tr>
-  * <tr>
-  * <td>CLSID_WICTiffDecoder</td>
-  * <td>0xb54e85d9, 0xfe23, 0x499f, 0x8b, 0x88, 0x6a, 0xce, 0xa7, 0x13, 0x75, 0x2b</td>
-  * </tr>
-  * <tr>
-  * <td>CLSID_WICWebpDecoder</td>
-  * <td>0x7693e886, 0x51c9, 0x4070, 0x84, 0x19, 0x9f, 0x70, 0X73, 0X8e, 0Xc8, 0Xfa</td>
-  * </tr>
-  * <tr>
-  * <td>CLSID_WICWmpDecoder</td>
-  * <td>0xa26cec36, 0x234c, 0x4950, 0xae, 0x16, 0xe3, 0x4a, 0xac, 0xe7, 0x1d, 0x0d</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * This interface may be sub-classed to provide support for third party codecs as part of the extensibility model. See the <a href="https://docs.microsoft.com/previous-versions/ms771770(v=vs.100)">AITCodec Sample CODEC</a>.
-  * 
-  * Codecs written as TIFF container formats that are not register will decode as a TIFF image. Client applications should check for a zero frame count to determine if the codec is valid.
-  * 
-  * CLSID_WICHeifDecoder operates on HEIF (High Efficiency Image Format) images.
-  * 
-  * 
+ * There are a number of concrete implemenations of this interface representing each of the standard decoders provided by the platform including bitmap (BMP), Portable Network Graphics (PNG), icon (ICO), Joint Photographic Experts Group (JPEG), Graphics Interchange Format (GIF), Tagged Image File Format (TIFF), and Microsoft Windows Digital Photo (WDP). The following table includes the class identifier (CLSID) for each native decoder.
+ *             
+ * 
+ * <table class="clsStd">
+ * <tr>
+ * <th>CLSID Name</th>
+ * <th>CLSID</th>
+ * </tr>
+ * <tr>
+ * <td>CLSID_WICBmpDecoder</td>
+ * <td>0x6b462062, 0x7cbf, 0x400d, 0x9f, 0xdb, 0x81, 0x3d, 0xd1, 0xf, 0x27, 0x78</td>
+ * </tr>
+ * <tr>
+ * <td>CLSID_WICGifDecoder</td>
+ * <td>0x381dda3c, 0x9ce9, 0x4834, 0xa2, 0x3e, 0x1f, 0x98, 0xf8, 0xfc, 0x52, 0xbe</td>
+ * </tr>
+ * <tr>
+ * <td>CLSID_WICHeifDecoder</td>
+ * <td>0xe9a4a80a, 0x44fe, 0x4de4, 0x89, 0x71, 0x71, 0x50, 0xb1, 0x0a, 0x51, 0x99</td>
+ * </tr>
+ * <tr>
+ * <td>CLSID_WICIcoDecoder</td>
+ * <td>0xc61bfcdf, 0x2e0f, 0x4aad, 0xa8, 0xd7, 0xe0, 0x6b, 0xaf, 0xeb, 0xcd, 0xfe</td>
+ * </tr>
+ * <tr>
+ * <td>CLSID_WICJpegDecoder</td>
+ * <td>0x9456a480, 0xe88b, 0x43ea, 0x9e, 0x73, 0xb, 0x2d, 0x9b, 0x71, 0xb1, 0xca</td>
+ * </tr>
+ * <tr>
+ * <td>CLSID_WICPngDecoder</td>
+ * <td>0x389ea17b, 0x5078, 0x4cde, 0xb6, 0xef, 0x25, 0xc1, 0x51, 0x75, 0xc7, 0x51</td>
+ * </tr>
+ * <tr>
+ * <td>CLSID_WICTiffDecoder</td>
+ * <td>0xb54e85d9, 0xfe23, 0x499f, 0x8b, 0x88, 0x6a, 0xce, 0xa7, 0x13, 0x75, 0x2b</td>
+ * </tr>
+ * <tr>
+ * <td>CLSID_WICWebpDecoder</td>
+ * <td>0x7693e886, 0x51c9, 0x4070, 0x84, 0x19, 0x9f, 0x70, 0X73, 0X8e, 0Xc8, 0Xfa</td>
+ * </tr>
+ * <tr>
+ * <td>CLSID_WICWmpDecoder</td>
+ * <td>0xa26cec36, 0x234c, 0x4950, 0xae, 0x16, 0xe3, 0x4a, 0xac, 0xe7, 0x1d, 0x0d</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * This interface may be sub-classed to provide support for third party codecs as part of the extensibility model. See the <a href="https://docs.microsoft.com/previous-versions/ms771770(v=vs.100)">AITCodec Sample CODEC</a>.
+ * 
+ * Codecs written as TIFF container formats that are not register will decode as a TIFF image. Client applications should check for a zero frame count to determine if the codec is valid.
+ * 
+ * CLSID_WICHeifDecoder operates on HEIF (High Efficiency Image Format) images.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicbitmapdecoder
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319

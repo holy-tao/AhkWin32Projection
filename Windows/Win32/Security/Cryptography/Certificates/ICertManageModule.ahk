@@ -9,60 +9,60 @@
  * Provided to retrieve information about a Certificate Services Policy or Exit module.
  * @remarks
  * 
-  * The <b>ICertManageModule</b> interface provides a method to invoke the module user interface for setting and viewing configuration settings. Writers of Policy and Exit modules should implement the <b>ICertManageModule</b> interface (in addition to the <a href="https://docs.microsoft.com/windows/desktop/api/certpol/nn-certpol-icertpolicy">ICertPolicy</a> and <a href="https://docs.microsoft.com/windows/desktop/api/certexit/nn-certexit-icertexit">ICertExit</a> interfaces, respectively). An enterprise <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) should always use the Microsoft-provided enterprise policy and exit modules; additional exit modules are permitted for enterprise CAs.
-  * 
-  * The following is an example of what could be used in the DECLARE_REGISTRY macro of a class (CMyCertManagePolicyModule) which implements <b>ICertManageModule</b>.
-  * 
-  * 
-  * ```cpp
-  * DECLARE_REGISTRY(
-  *     CMyCertManagePolicyModule,
-  *     L"MyCode.PolicyManage.1",
-  *     L"MyCode.PolicyManage",
-  *     IDS_CERTMANAGEPOLICYMODULE_DESC,
-  *     THREADFLAGS_BOTH);
-  * ```
-  * 
-  * 
-  * The IDS_CERTMANAGEPOLICYMODULE_DESC value is an application-specific identifier that identifies a string table string in the resource file (.rc) which describes the class.
-  * 			
-  * 			
-  * 			
-  * 			
-  * 
-  * <b>ICertManageModule</b> is defined in Certmod.h. When you create your program, however, use Certsrv.h as the include file.
-  * 
-  * Certificate Services interfaces support both apartment-threading and free-threading models. For better throughput, free threading is recommended.
-  * 
-  * In Visual Basic Scripting Edition, the name of the class that implements <b>ICertManageModule</b> must be either "PolicyManage" or "PolicyExit", depending on the type of module being created. The following string constants defined in Certmod.h may be used to simplify following the naming convention.
-  * 
-  * <table>
-  * <tr>
-  * <th>Constant</th>
-  * <th>Value</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>wszCERTMANAGEEXIT_POSTFIX</b>
-  * 
-  * </td>
-  * <td>
-  * TEXT(".ExitManage")
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>wszCERTMANAGEPOLICY_POSTFIX</b>
-  * 
-  * </td>
-  * <td>
-  * TEXT(".PolicyManage")
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  * 
+ * The <b>ICertManageModule</b> interface provides a method to invoke the module user interface for setting and viewing configuration settings. Writers of Policy and Exit modules should implement the <b>ICertManageModule</b> interface (in addition to the <a href="https://docs.microsoft.com/windows/desktop/api/certpol/nn-certpol-icertpolicy">ICertPolicy</a> and <a href="https://docs.microsoft.com/windows/desktop/api/certexit/nn-certexit-icertexit">ICertExit</a> interfaces, respectively). An enterprise <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) should always use the Microsoft-provided enterprise policy and exit modules; additional exit modules are permitted for enterprise CAs.
+ * 
+ * The following is an example of what could be used in the DECLARE_REGISTRY macro of a class (CMyCertManagePolicyModule) which implements <b>ICertManageModule</b>.
+ * 
+ * 
+ * ```cpp
+ * DECLARE_REGISTRY(
+ *     CMyCertManagePolicyModule,
+ *     L"MyCode.PolicyManage.1",
+ *     L"MyCode.PolicyManage",
+ *     IDS_CERTMANAGEPOLICYMODULE_DESC,
+ *     THREADFLAGS_BOTH);
+ * ```
+ * 
+ * 
+ * The IDS_CERTMANAGEPOLICYMODULE_DESC value is an application-specific identifier that identifies a string table string in the resource file (.rc) which describes the class.
+ * 			
+ * 			
+ * 			
+ * 			
+ * 
+ * <b>ICertManageModule</b> is defined in Certmod.h. When you create your program, however, use Certsrv.h as the include file.
+ * 
+ * Certificate Services interfaces support both apartment-threading and free-threading models. For better throughput, free threading is recommended.
+ * 
+ * In Visual Basic Scripting Edition, the name of the class that implements <b>ICertManageModule</b> must be either "PolicyManage" or "PolicyExit", depending on the type of module being created. The following string constants defined in Certmod.h may be used to simplify following the naming convention.
+ * 
+ * <table>
+ * <tr>
+ * <th>Constant</th>
+ * <th>Value</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>wszCERTMANAGEEXIT_POSTFIX</b>
+ * 
+ * </td>
+ * <td>
+ * TEXT(".ExitManage")
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>wszCERTMANAGEPOLICY_POSTFIX</b>
+ * 
+ * </td>
+ * <td>
+ * TEXT(".PolicyManage")
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//certmod/nn-certmod-icertmanagemodule
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319

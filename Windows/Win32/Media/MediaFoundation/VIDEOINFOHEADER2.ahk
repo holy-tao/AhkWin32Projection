@@ -7,185 +7,185 @@
  * The VIDEOINFOHEADER2 structure describes the bitmap and color information for a video image, including interlace, copy protection, and pixel aspect ratio information.
  * @remarks
  * 
-  * The picture aspect ratio is given by <b>dwPictAspectRatioX</b> and <b>dwPictAspectRatioY</b>. These specify the intended shape of the video image when it is displayed. The pixel aspect ratio is calculated from the <b>rcSource</b> rectangle and the picture aspect ratio.
-  * 
-  * The <b>dwInterlaceFlags</b> field indicates whether the video is interlaced, and if so, the format of the fields within the media samples. The following table shows the valid interlace modes for the Overlay Mixer and Video Mixing Renderer filters.
-  * 
-  * <table>
-  * <tr>
-  * <th>Display Mode
-  *             </th>
-  * <th>Interlace Flags
-  *             </th>
-  * <th>Description
-  *             </th>
-  * </tr>
-  * <tr>
-  * <td>Progressive frames</td>
-  * <td>None</td>
-  * <td>The video stream is not interlaced.</td>
-  * </tr>
-  * <tr>
-  * <td>Non-interleaved bob</td>
-  * <td>AMINTERLACE_IsInterlaced |AMINTERLACE_1FieldPerSample |
-  * 
-  * AMINTERLACE_DisplayModeBobOnly
-  * 
-  * </td>
-  * <td>The entire video stream is interlaced, and each media sample contains a single video field.</td>
-  * </tr>
-  * <tr>
-  * <td>Interleaved bob</td>
-  * <td>AMINTERLACE_IsInterlaced |AMINTERLACE_DisplayModeBobOnly
-  * 
-  * </td>
-  * <td>The entire video stream is interlaced. Each media sample contains two video fields. Flags on the media sample indicate which field to display first.</td>
-  * </tr>
-  * <tr>
-  * <td>Weave</td>
-  * <td>AMINTERLACE_IsInterlaced |AMINTERLACE_FieldPatBothRegular |
-  * 
-  * AMINTERLACE_DisplayModeWeaveOnly
-  * 
-  * </td>
-  * <td>The video stream is interlaced, and each sample contains two video fields. The fields should not be deinterlaced.</td>
-  * </tr>
-  * <tr>
-  * <td>Bob or weave</td>
-  * <td>AMINTERLACE_IsInterlaced |AMINTERLACE_DisplayModeBobOrWeave
-  * 
-  * </td>
-  * <td>The video stream varies between progressive and interlaced content. Each media sample contains either a progressive frame or two video fields. Flags on the media sample indicate the correct way to display the contents.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * If the video is interlaced, the media samples may carry flags that describe the contents of the sample (such as field 1 or field 2), along with the rendering requirements. These are specified by setting the <b>dwTypeSpecificFlags</b> member of each media sample's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ns-strmif-am_sample2_properties">AM_SAMPLE2_PROPERTIES</a> structure. The following table shows the valid media sample flags for each of the display modes listed in the previous table. To set these flags, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imediasample2-setproperties">IMediaSample2::SetProperties</a> on the media sample.
-  * 
-  * <table>
-  * <tr>
-  * <th colspan="2">Display Mode</th>
-  * <th>Media Sample Properties</th>
-  * </tr>
-  * <tr>
-  * <td colspan="2">Progressive frames</td>
-  * <td>None</td>
-  * </tr>
-  * <tr>
-  * <td colspan="2">Non-interleaved bob</td>
-  * <td>AM_VIDEO_FLAG_FIELD1 or AM_VIDEO_FLAG_FIELD2</td>
-  * </tr>
-  * <tr>
-  * <td rowspan="2">Interleaved bob</td>
-  * <td>Field 1 first</td>
-  * <td>AM_VIDEO_FLAG_FIELD1FIRST</td>
-  * </tr>
-  * <tr>
-  * <td>Field 2 first</td>
-  * <td>None</td>
-  * </tr>
-  * <tr>
-  * <td colspan="2">Weave</td>
-  * <td>AM_VIDEO_FLAG_WEAVE</td>
-  * </tr>
-  * <tr>
-  * <td rowspan="3">Bob or weave</td>
-  * <td>Bob, field 1 first</td>
-  * <td>AM_VIDEO_FLAG_FIELD1FIRST</td>
-  * </tr>
-  * <tr>
-  * <td>Bob, field 2 first</td>
-  * <td>None</td>
-  * </tr>
-  * <tr>
-  * <td>Weave</td>
-  * <td>AM_VIDEO_FLAG_WEAVE</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * Use the bit mask AMINTERLACE_FieldPatternMask to check the field pattern flags in <b>dwInterlaceFlags</b>:
-  * 
-  * 
-  * ```cpp
-  * 
-  * switch (dwInterlaceFlags & AMINTERLACE_FieldPatternMask)
-  * {
-  * case AMINTERLACE_FieldPatField1Only:
-  *     // Stream never contains a Field 2.
-  * 
-  * case AMINTERLACE_FieldPatField2Only:
-  *     // Stream never contains a Field 1.
-  * 
-  * case AMINTERLACE_FieldPatBothRegular:
-  *     // One Field 2 for every Field 1.
-  * 
-  * case AMINTERLACE_FieldPatBothIrregular:
-  *     // Random pattern of Field 1 and Field 2.
-  * }
-  * 
-  * ```
-  * 
-  * 
-  * Use the bit mask AMINTERLACE_DisplayModeMask to check the display mode flags in <b>dwInterlaceFlags</b>:
-  * 
-  * 
-  * ```cpp
-  * 
-  * switch (dwInterlaceFlags & AMINTERLACE_DisplayModeMask)
-  * {
-  * case AMINTERLACE_DisplayModeBobOnly:
-  *     // Bob display mode only.
-  * 
-  * case AMINTERLACE_DisplayModeWeaveOnly:
-  *     // Weave display mode only.
-  * 
-  * case AMINTERLACE_DisplayModeBobOrWeave:
-  *     // Either bob or weave mode.
-  * }
-  * 
-  * ```
-  * 
-  * 
-  * Interlaced video samples must have valid time stamps. Otherwise, it is not guaranteed that the display driver can deinterlace the video. If you need to display an interlaced video frame with no time stamp, set the AM_VIDEO_FLAG_WEAVE flag on the sample as follows:
-  * 
-  * 
-  * ```cpp
-  * 
-  * IMediaSample2* pSample2 = NULL;
-  * hr = pSample->QueryInterface(IID_IMediaSample2, (void**)&pSample2);
-  * if (SUCCEEDED(hr))
-  * {
-  *     AM_SAMPLE2_PROPERTIES Prop;
-  *     hr = pSample2->GetProperties(sizeof(Prop), (BYTE*)&Prop);
-  *     if (SUCCEEDED(hr))
-  *     {
-  *         Prop.dwTypeSpecificFlags = AM_VIDEO_FLAG_WEAVE;
-  *         hr = pSample2->SetProperties(sizeof(Prop), (BYTE*)&Prop);
-  *     }
-  *     pSample2->Release();
-  * }
-  * 
-  * ```
-  * 
-  * 
-  * This causes the driver to display the two fields as one frame, using weave mode, without deinterlacing.
-  * 
-  * <h3><a id="Extended_Color_Information"></a><a id="extended_color_information"></a><a id="EXTENDED_COLOR_INFORMATION"></a>Extended Color Information</h3>
-  * If the AMCONTROL_COLORINFO_PRESENT flag is set in the <b>dwControlFlags</b> member, you can cast the <b>dwControlFlags</b> value to a <b>DXVA_ExtendedFormat</b> structure to access the extended color information, as shown in the following code.
-  * 
-  * 
-  * ```cpp
-  * 
-  * VIDEOINFOHEADER2 *pVIH2;
-  * DXVA_ExtendedFormat& flags = (DXVA_ExtendedFormat&)pVIH2->dwControlFlags;
-  * 
-  * ```
-  * 
-  * 
-  * Ignore the <b>SampleFormat</b> member of the <b>DXVA_ExtendedFormat</b> structure, because it corresponds to the lower 8 bits of <b>dwControlFlags</b>, which are reserved for the AMCONTROL_xxx flags. The <b>DXVA_ExtendedFormat</b> structure is documented in the Windows DDK documentation.
-  * 
-  * 
+ * The picture aspect ratio is given by <b>dwPictAspectRatioX</b> and <b>dwPictAspectRatioY</b>. These specify the intended shape of the video image when it is displayed. The pixel aspect ratio is calculated from the <b>rcSource</b> rectangle and the picture aspect ratio.
+ * 
+ * The <b>dwInterlaceFlags</b> field indicates whether the video is interlaced, and if so, the format of the fields within the media samples. The following table shows the valid interlace modes for the Overlay Mixer and Video Mixing Renderer filters.
+ * 
+ * <table>
+ * <tr>
+ * <th>Display Mode
+ *             </th>
+ * <th>Interlace Flags
+ *             </th>
+ * <th>Description
+ *             </th>
+ * </tr>
+ * <tr>
+ * <td>Progressive frames</td>
+ * <td>None</td>
+ * <td>The video stream is not interlaced.</td>
+ * </tr>
+ * <tr>
+ * <td>Non-interleaved bob</td>
+ * <td>AMINTERLACE_IsInterlaced |AMINTERLACE_1FieldPerSample |
+ * 
+ * AMINTERLACE_DisplayModeBobOnly
+ * 
+ * </td>
+ * <td>The entire video stream is interlaced, and each media sample contains a single video field.</td>
+ * </tr>
+ * <tr>
+ * <td>Interleaved bob</td>
+ * <td>AMINTERLACE_IsInterlaced |AMINTERLACE_DisplayModeBobOnly
+ * 
+ * </td>
+ * <td>The entire video stream is interlaced. Each media sample contains two video fields. Flags on the media sample indicate which field to display first.</td>
+ * </tr>
+ * <tr>
+ * <td>Weave</td>
+ * <td>AMINTERLACE_IsInterlaced |AMINTERLACE_FieldPatBothRegular |
+ * 
+ * AMINTERLACE_DisplayModeWeaveOnly
+ * 
+ * </td>
+ * <td>The video stream is interlaced, and each sample contains two video fields. The fields should not be deinterlaced.</td>
+ * </tr>
+ * <tr>
+ * <td>Bob or weave</td>
+ * <td>AMINTERLACE_IsInterlaced |AMINTERLACE_DisplayModeBobOrWeave
+ * 
+ * </td>
+ * <td>The video stream varies between progressive and interlaced content. Each media sample contains either a progressive frame or two video fields. Flags on the media sample indicate the correct way to display the contents.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * If the video is interlaced, the media samples may carry flags that describe the contents of the sample (such as field 1 or field 2), along with the rendering requirements. These are specified by setting the <b>dwTypeSpecificFlags</b> member of each media sample's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ns-strmif-am_sample2_properties">AM_SAMPLE2_PROPERTIES</a> structure. The following table shows the valid media sample flags for each of the display modes listed in the previous table. To set these flags, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imediasample2-setproperties">IMediaSample2::SetProperties</a> on the media sample.
+ * 
+ * <table>
+ * <tr>
+ * <th colspan="2">Display Mode</th>
+ * <th>Media Sample Properties</th>
+ * </tr>
+ * <tr>
+ * <td colspan="2">Progressive frames</td>
+ * <td>None</td>
+ * </tr>
+ * <tr>
+ * <td colspan="2">Non-interleaved bob</td>
+ * <td>AM_VIDEO_FLAG_FIELD1 or AM_VIDEO_FLAG_FIELD2</td>
+ * </tr>
+ * <tr>
+ * <td rowspan="2">Interleaved bob</td>
+ * <td>Field 1 first</td>
+ * <td>AM_VIDEO_FLAG_FIELD1FIRST</td>
+ * </tr>
+ * <tr>
+ * <td>Field 2 first</td>
+ * <td>None</td>
+ * </tr>
+ * <tr>
+ * <td colspan="2">Weave</td>
+ * <td>AM_VIDEO_FLAG_WEAVE</td>
+ * </tr>
+ * <tr>
+ * <td rowspan="3">Bob or weave</td>
+ * <td>Bob, field 1 first</td>
+ * <td>AM_VIDEO_FLAG_FIELD1FIRST</td>
+ * </tr>
+ * <tr>
+ * <td>Bob, field 2 first</td>
+ * <td>None</td>
+ * </tr>
+ * <tr>
+ * <td>Weave</td>
+ * <td>AM_VIDEO_FLAG_WEAVE</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * Use the bit mask AMINTERLACE_FieldPatternMask to check the field pattern flags in <b>dwInterlaceFlags</b>:
+ * 
+ * 
+ * ```cpp
+ * 
+ * switch (dwInterlaceFlags & AMINTERLACE_FieldPatternMask)
+ * {
+ * case AMINTERLACE_FieldPatField1Only:
+ *     // Stream never contains a Field 2.
+ * 
+ * case AMINTERLACE_FieldPatField2Only:
+ *     // Stream never contains a Field 1.
+ * 
+ * case AMINTERLACE_FieldPatBothRegular:
+ *     // One Field 2 for every Field 1.
+ * 
+ * case AMINTERLACE_FieldPatBothIrregular:
+ *     // Random pattern of Field 1 and Field 2.
+ * }
+ * 
+ * ```
+ * 
+ * 
+ * Use the bit mask AMINTERLACE_DisplayModeMask to check the display mode flags in <b>dwInterlaceFlags</b>:
+ * 
+ * 
+ * ```cpp
+ * 
+ * switch (dwInterlaceFlags & AMINTERLACE_DisplayModeMask)
+ * {
+ * case AMINTERLACE_DisplayModeBobOnly:
+ *     // Bob display mode only.
+ * 
+ * case AMINTERLACE_DisplayModeWeaveOnly:
+ *     // Weave display mode only.
+ * 
+ * case AMINTERLACE_DisplayModeBobOrWeave:
+ *     // Either bob or weave mode.
+ * }
+ * 
+ * ```
+ * 
+ * 
+ * Interlaced video samples must have valid time stamps. Otherwise, it is not guaranteed that the display driver can deinterlace the video. If you need to display an interlaced video frame with no time stamp, set the AM_VIDEO_FLAG_WEAVE flag on the sample as follows:
+ * 
+ * 
+ * ```cpp
+ * 
+ * IMediaSample2* pSample2 = NULL;
+ * hr = pSample->QueryInterface(IID_IMediaSample2, (void**)&pSample2);
+ * if (SUCCEEDED(hr))
+ * {
+ *     AM_SAMPLE2_PROPERTIES Prop;
+ *     hr = pSample2->GetProperties(sizeof(Prop), (BYTE*)&Prop);
+ *     if (SUCCEEDED(hr))
+ *     {
+ *         Prop.dwTypeSpecificFlags = AM_VIDEO_FLAG_WEAVE;
+ *         hr = pSample2->SetProperties(sizeof(Prop), (BYTE*)&Prop);
+ *     }
+ *     pSample2->Release();
+ * }
+ * 
+ * ```
+ * 
+ * 
+ * This causes the driver to display the two fields as one frame, using weave mode, without deinterlacing.
+ * 
+ * <h3><a id="Extended_Color_Information"></a><a id="extended_color_information"></a><a id="EXTENDED_COLOR_INFORMATION"></a>Extended Color Information</h3>
+ * If the AMCONTROL_COLORINFO_PRESENT flag is set in the <b>dwControlFlags</b> member, you can cast the <b>dwControlFlags</b> value to a <b>DXVA_ExtendedFormat</b> structure to access the extended color information, as shown in the following code.
+ * 
+ * 
+ * ```cpp
+ * 
+ * VIDEOINFOHEADER2 *pVIH2;
+ * DXVA_ExtendedFormat& flags = (DXVA_ExtendedFormat&)pVIH2->dwControlFlags;
+ * 
+ * ```
+ * 
+ * 
+ * Ignore the <b>SampleFormat</b> member of the <b>DXVA_ExtendedFormat</b> structure, because it corresponds to the lower 8 bits of <b>dwControlFlags</b>, which are reserved for the AMCONTROL_xxx flags. The <b>DXVA_ExtendedFormat</b> structure is documented in the Windows DDK documentation.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-videoinfoheader2
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

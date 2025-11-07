@@ -8,45 +8,45 @@
  * Exposes methods that provide an enumerator of sync handler IDs and instantiate those sync handlers.
  * @remarks
  * 
-  * The author of a sync handler implements this interface to support multiple devices or computers and sync their details independently. Sync Center uses the handler collection to request instantiation of individual sync handlers. <b>ISyncMgrHandlerCollection</b> also allows a sync handler author to add handlers dynamically to Sync Center as opposed to registering each one individually in the registry.
-  * 
-  * The following example shows an outline implementation of this interface.
-  * 
-  * 
-  * ```cpp
-  * class CMyHandlerCollection : public ISyncMgrHandlerCollection
-  * {
-  * public:
-  *     // IUnknown
-  *     // ISyncMgrHandlerCollection
-  *     IFACEMETHODIMP GetHandlerEnumerator(__out IEnumString **ppenum);
-  *     IFACEMETHODIMP BindToHandler(
-  *         __in LPCWSTR    pszHandlerID,
-  *         __in REFIID     riid,
-  *         __out void    **ppv);
-  * };
-  * 
-  * STDMETHODIMP CMyHandlerCollection::GetHandlerEnumerator(
-  *     __out IEnumString **ppenum)
-  * {
-  *     // IDs are retrieved from a data source such as the registry.
-  *     // IDs could be retrieved either by this collection class 
-  *     // or the factory method.
-  *     return CEnumMyHandlerIDs_Create(ppenum);
-  * }
-  * 
-  * STDMETHODIMP CMyHandlerCollection::BindToHandler(
-  *     __in LPCWSTR    pszHandlerID,
-  *     __in REFIID     riid,
-  *     __out void    **ppv)
-  * {
-  *     // Map the pszHandlerID to the handler to create. This could be done
-  *     // by the factory method or by some other method.
-  *     return CMyHandler_Create(pszHandlerID, riid, ppv);
-  * }
-  * 
-  * ```
-  * 
+ * The author of a sync handler implements this interface to support multiple devices or computers and sync their details independently. Sync Center uses the handler collection to request instantiation of individual sync handlers. <b>ISyncMgrHandlerCollection</b> also allows a sync handler author to add handlers dynamically to Sync Center as opposed to registering each one individually in the registry.
+ * 
+ * The following example shows an outline implementation of this interface.
+ * 
+ * 
+ * ```cpp
+ * class CMyHandlerCollection : public ISyncMgrHandlerCollection
+ * {
+ * public:
+ *     // IUnknown
+ *     // ISyncMgrHandlerCollection
+ *     IFACEMETHODIMP GetHandlerEnumerator(__out IEnumString **ppenum);
+ *     IFACEMETHODIMP BindToHandler(
+ *         __in LPCWSTR    pszHandlerID,
+ *         __in REFIID     riid,
+ *         __out void    **ppv);
+ * };
+ * 
+ * STDMETHODIMP CMyHandlerCollection::GetHandlerEnumerator(
+ *     __out IEnumString **ppenum)
+ * {
+ *     // IDs are retrieved from a data source such as the registry.
+ *     // IDs could be retrieved either by this collection class 
+ *     // or the factory method.
+ *     return CEnumMyHandlerIDs_Create(ppenum);
+ * }
+ * 
+ * STDMETHODIMP CMyHandlerCollection::BindToHandler(
+ *     __in LPCWSTR    pszHandlerID,
+ *     __in REFIID     riid,
+ *     __out void    **ppv)
+ * {
+ *     // Map the pszHandlerID to the handler to create. This could be done
+ *     // by the factory method or by some other method.
+ *     return CMyHandler_Create(pszHandlerID, riid, ppv);
+ * }
+ * 
+ * ```
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgrhandlercollection
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

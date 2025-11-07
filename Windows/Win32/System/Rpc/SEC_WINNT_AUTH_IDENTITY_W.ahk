@@ -5,10 +5,10 @@
  * The SEC_WINNT_AUTH_IDENTITY structure enables passing a particular user name and password to the run-time library for the purpose of authentication. The structure is valid for Windows and Macintosh.
  * @remarks
  * 
-  * This structure must remain valid for the lifetime of the binding handle unless pointed to from the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_http_transport_credentials_a">RPC_HTTP_TRANSPORT_CREDENTIALS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_http_transport_credentials_v2_a">RPC_HTTP_TRANSPORT_CREDENTIALS_V2</a> structure.
-  * 
-  * The strings may be ANSI or UNICODE depending on the value assigned to <b>Flags</b>.
-  * 
+ * This structure must remain valid for the lifetime of the binding handle unless pointed to from the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_http_transport_credentials_a">RPC_HTTP_TRANSPORT_CREDENTIALS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_http_transport_credentials_v2_a">RPC_HTTP_TRANSPORT_CREDENTIALS_V2</a> structure.
+ * 
+ * The strings may be ANSI or UNICODE depending on the value assigned to <b>Flags</b>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-sec_winnt_auth_identity_w
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319

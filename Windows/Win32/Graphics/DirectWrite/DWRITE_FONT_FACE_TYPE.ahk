@@ -4,9 +4,9 @@
  * Indicates the file format of a complete font face.
  * @remarks
  * 
-  * Font formats that consist of multiple files, such as Type 1 .PFM and .PFB, have a single enum entry.
-  * 
-  * 
+ * Font formats that consist of multiple files, such as Type 1 .PFM and .PFB, have a single enum entry.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_font_face_type
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

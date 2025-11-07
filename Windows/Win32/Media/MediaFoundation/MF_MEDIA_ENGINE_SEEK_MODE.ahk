@@ -4,9 +4,9 @@
  * Defines values for the media engine seek mode.
  * @remarks
  * 
-  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setcurrenttimeex">MediaEngineEx::SetCurrentTimeEx</a>.
-  * 
-  * 
+ * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setcurrenttimeex">MediaEngineEx::SetCurrentTimeEx</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_media_engine_seek_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

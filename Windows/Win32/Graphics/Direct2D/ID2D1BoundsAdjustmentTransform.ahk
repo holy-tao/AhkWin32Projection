@@ -7,21 +7,21 @@
  * A support transform for effects to modify the output rectangle of the previous effect or bitmap.
  * @remarks
  * 
-  * The support transform can be used for two different reasons.
-  * 
-  * <ul>
-  * <li>
-  * To indicate that a region of its input image is already transparent black.  The expanded area will be treated as transparent black.
-  * 
-  * This can increase efficiency for rendering bitmaps.
-  * 
-  * </li>
-  * <li>
-  * To increase the size of the input image.
-  * 
-  * </li>
-  * </ul>
-  * 
+ * The support transform can be used for two different reasons.
+ * 
+ * <ul>
+ * <li>
+ * To indicate that a region of its input image is already transparent black.  The expanded area will be treated as transparent black.
+ * 
+ * This can increase efficiency for rendering bitmaps.
+ * 
+ * </li>
+ * <li>
+ * To increase the size of the input image.
+ * 
+ * </li>
+ * </ul>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1boundsadjustmenttransform
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

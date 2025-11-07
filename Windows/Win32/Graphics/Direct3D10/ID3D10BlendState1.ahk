@@ -7,13 +7,13 @@
  * This blend-state interface accesses blending state for a Direct3D 10.1 device for the output-merger stage.
  * @remarks
  * 
-  * Blending combines two pixel values. You have control over how the pixels are blended by using a predefined set of blending operations, as well as preblending operations. The <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">Blending Block Diagram</a> shows conceptually how blending works.
-  * 
-  * To create a blend-state interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/nf-d3d10_1-id3d10device1-createblendstate1">ID3D10Device1::CreateBlendState1</a>. To initialize the blend state, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-omsetblendstate">ID3D10Device::OMSetBlendState</a>.
-  * 
-  * This method requires Windows Vista Service Pack 1.
-  * 
-  * 
+ * Blending combines two pixel values. You have control over how the pixels are blended by using a predefined set of blending operations, as well as preblending operations. The <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">Blending Block Diagram</a> shows conceptually how blending works.
+ * 
+ * To create a blend-state interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/nf-d3d10_1-id3d10device1-createblendstate1">ID3D10Device1::CreateBlendState1</a>. To initialize the blend state, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-omsetblendstate">ID3D10Device::OMSetBlendState</a>.
+ * 
+ * This method requires Windows Vista Service Pack 1.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10_1/nn-d3d10_1-id3d10blendstate1
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

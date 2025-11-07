@@ -7,29 +7,29 @@
  * The IDsBrowseDomainTree interface is used by an application to display a domain browser dialog box and/or obtain a list of trust domains related to a given computer.
  * @remarks
  * 
-  * An instance of this interface is created by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> with the <b>CLSID_DsDomainTreeBrowser</b> class identifier as shown below.
-  * 
-  * 
-  * ```cpp
-  * HRESULT hr = S_OK;
-  * IDsBrowseDomainTree *pDSB = NULL;
-  * 
-  * hr = CoCreateInstance(    CLSID_DsDomainTreeBrowser,
-  *                           NULL,
-  *                           CLSCTX_INPROC_SERVER,
-  *                           IID_IDsBrowseDomainTree,
-  *                           (void**)&pDSB);
-  * 
-  * if(SUCCEEDED(hr))
-  * {
-  *     //use the IDsBrowseDomainTree object
-  * 
-  *     //release the IDsBrowseDomainTree object
-  *     pDSB->Release();
-  * }
-  * ```
-  * 
-  * 
+ * An instance of this interface is created by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> with the <b>CLSID_DsDomainTreeBrowser</b> class identifier as shown below.
+ * 
+ * 
+ * ```cpp
+ * HRESULT hr = S_OK;
+ * IDsBrowseDomainTree *pDSB = NULL;
+ * 
+ * hr = CoCreateInstance(    CLSID_DsDomainTreeBrowser,
+ *                           NULL,
+ *                           CLSCTX_INPROC_SERVER,
+ *                           IID_IDsBrowseDomainTree,
+ *                           (void**)&pDSB);
+ * 
+ * if(SUCCEEDED(hr))
+ * {
+ *     //use the IDsBrowseDomainTree object
+ * 
+ *     //release the IDsBrowseDomainTree object
+ *     pDSB->Release();
+ * }
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dsclient/nn-dsclient-idsbrowsedomaintree
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

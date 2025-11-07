@@ -6,9 +6,9 @@
  * Contains information about a DFS target, including the DFS target server name and share name as well as the target's state and priority.
  * @remarks
  * 
-  * This structure is used as the <b>Storage</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_info_6">DFS_INFO_6</a> structure.
-  * 
-  * 
+ * This structure is used as the <b>Storage</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_info_6">DFS_INFO_6</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_storage_info_1
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319

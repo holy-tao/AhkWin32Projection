@@ -7,9 +7,9 @@
  * Extends the IObjectArray interface by providing methods that enable clients to add and remove objects that support IUnknown in a collection.
  * @remarks
  * 
-  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
-  * Use this interface to interact with a collection of generic objects.
-  * 
+ * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
+ * Use this interface to interact with a collection of generic objects.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//objectarray/nn-objectarray-iobjectcollection
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319

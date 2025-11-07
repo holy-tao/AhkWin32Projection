@@ -5,9 +5,9 @@
  * Defines custom color primaries for a video source. The color primaries define how to convert colors from RGB color space to CIE XYZ color space.
  * @remarks
  * 
-  * This structure is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-custom-video-primaries-attribute">MF_MT_CUSTOM_VIDEO_PRIMARIES</a> attribute.
-  * 
-  * 
+ * This structure is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-custom-video-primaries-attribute">MF_MT_CUSTOM_VIDEO_PRIMARIES</a> attribute.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-mt_custom_video_primaries
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

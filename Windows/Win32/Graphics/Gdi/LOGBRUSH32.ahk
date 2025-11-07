@@ -5,11 +5,11 @@
  * The LOGBRUSH32 structure defines the style, color, and pattern of a physical brush.
  * @remarks
  * 
-  * Although <b>lbColor</b> controls the foreground color of a hatch brush, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkmode">SetBkMode</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkcolor">SetBkColor</a> functions control the background color.
-  * 
-  * Brushes can be created from bitmaps or DIBs larger than 8 by 8 pixels.
-  * 
-  * 
+ * Although <b>lbColor</b> controls the foreground color of a hatch brush, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkmode">SetBkMode</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkcolor">SetBkColor</a> functions control the background color.
+ * 
+ * Brushes can be created from bitmaps or DIBs larger than 8 by 8 pixels.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-logbrush32
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319

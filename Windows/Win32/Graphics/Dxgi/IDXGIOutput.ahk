@@ -12,9 +12,9 @@
  * An IDXGIOutput interface represents an adapter output (such as a monitor).
  * @remarks
  * 
-  * To see the outputs available, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiadapter-enumoutputs">IDXGIAdapter::EnumOutputs</a>. To see the specific output that the swap chain will update, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-getcontainingoutput">IDXGISwapChain::GetContainingOutput</a>.
-  * 
-  * 
+ * To see the outputs available, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiadapter-enumoutputs">IDXGIAdapter::EnumOutputs</a>. To see the specific output that the swap chain will update, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-getcontainingoutput">IDXGISwapChain::GetContainingOutput</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi/nn-dxgi-idxgioutput
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

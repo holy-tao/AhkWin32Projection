@@ -5,9 +5,9 @@
  * The CERT_CREDENTIAL_INFO structure contains a reference to a certificate.
  * @remarks
  * 
-  * <b>CERT_HASH_LENGTH</b> is defined as 20 in WinCred.h.
-  * 
-  * 
+ * <b>CERT_HASH_LENGTH</b> is defined as 20 in WinCred.h.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincred/ns-wincred-cert_credential_info
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319

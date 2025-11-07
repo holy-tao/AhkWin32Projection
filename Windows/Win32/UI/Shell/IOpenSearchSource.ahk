@@ -7,19 +7,19 @@
  * Exposes a method to get search results from a custom client-side OpenSearch data source.
  * @remarks
  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * Implement this interface when a server-side only solution will not work, such as the following: 
-  *             
-  * 
-  * <ul>
-  * <li>Remote indexes with authentication methods which Windows 7 search federation does not support, like forms-based authentication or other custom authentication methods.</li>
-  * <li>High value public stores of vertical data which are not controlled by the developer (such as the Library of Congress or medical research databases) and which do not provide OpenSearch output support today but have public web API.</li>
-  * <li>Proprietary enterprise data stores or indexes and legacy content management stores for which it might not be possible to implement a front end.</li>
-  * </ul>
-  * A client-side OpenSearch data source that sits in between the Windows OpenSearch provider and the external data source.
-  * 
-  * With a search connector (a .searchconnector-ms file), Windows Explorer calls your implementation with the query parameters. Your implementation returns results formatted in RSS or Atom format. That allows your implementation to provide custom authentication UI and connect to the data source using its proprietary API.
-  * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * Implement this interface when a server-side only solution will not work, such as the following: 
+ *             
+ * 
+ * <ul>
+ * <li>Remote indexes with authentication methods which Windows 7 search federation does not support, like forms-based authentication or other custom authentication methods.</li>
+ * <li>High value public stores of vertical data which are not controlled by the developer (such as the Library of Congress or medical research databases) and which do not provide OpenSearch output support today but have public web API.</li>
+ * <li>Proprietary enterprise data stores or indexes and legacy content management stores for which it might not be possible to implement a front end.</li>
+ * </ul>
+ * A client-side OpenSearch data source that sits in between the Windows OpenSearch provider and the external data source.
+ * 
+ * With a search connector (a .searchconnector-ms file), Windows Explorer calls your implementation with the query parameters. Your implementation returns results formatted in RSS or Atom format. That allows your implementation to provide custom authentication UI and connect to the data source using its proprietary API.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iopensearchsource
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

@@ -7,11 +7,11 @@
  * Represents a list of time ranges, where each range is defined by a start and end time.
  * @remarks
  * 
-  * The <b>IMFMediaTimeRange</b> interface corresponds to the <b>TimeRanges</b> interface in HTML5.
-  * 
-  * Several <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediaengine">IMFMediaEngine</a> methods return <b>IMFMediaTimeRange</b> pointers.
-  * 
-  * 
+ * The <b>IMFMediaTimeRange</b> interface corresponds to the <b>TimeRanges</b> interface in HTML5.
+ * 
+ * Several <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediaengine">IMFMediaEngine</a> methods return <b>IMFMediaTimeRange</b> pointers.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfmediatimerange
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

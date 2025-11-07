@@ -7,13 +7,13 @@
  * Exposed by the common file dialog boxes to be used when they host a Shell browser.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  In Windows XP and earlier, this interface was defined in Shlobj.h.
-  *       </div>
-  * <div> </div>
-  * This interface is implemented only by the common file dialog boxes.
-  * 
-  * Use <b>ICommDlgBrowser</b> when you need to provide special behavior while hosted inside the common dialog boxes.
-  * 
+ * <div class="alert"><b>Note</b>  In Windows XP and earlier, this interface was defined in Shlobj.h.
+ *       </div>
+ * <div> </div>
+ * This interface is implemented only by the common file dialog boxes.
+ * 
+ * Use <b>ICommDlgBrowser</b> when you need to provide special behavior while hosted inside the common dialog boxes.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-icommdlgbrowser
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

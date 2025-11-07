@@ -10,9 +10,9 @@
  * Use this interface to get information about the burn image, the image data stream, and progress information.
  * @remarks
  * 
-  * This is an <b>FileSystemImageResult</b> object in script.
-  * 
-  * 
+ * This is an <b>FileSystemImageResult</b> object in script.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ifilesystemimageresult
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

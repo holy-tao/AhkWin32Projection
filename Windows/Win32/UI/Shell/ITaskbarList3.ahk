@@ -7,34 +7,34 @@
  * Extends ITaskbarList2 by exposing methods that support the unified launching and switching taskbar button functionality added in Windows 7.
  * @remarks
  * 
-  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-itaskbarlist">ITaskbarList</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-itaskbarlist2">ITaskbarList2</a> interfaces, from which it inherits.
-  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * An implementation of this interface is provided in Windows as CLSID_TaskbarList. This interface is not implemented by third parties.
-  * 
-  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
-  * Use the methods of this interface to do the following:
-  * 
-  * <ul>
-  * <li>When working with a TDI application (such as Windows Internet Explorer) or a MDI application (such as Microsoft Excel) that is displaying its windows as a group on the taskbar:
-  *                         
-  *                         <ul>
-  * <li>Provide the taskbar with a thumbnail that represents the view of an individual tab or document.</li>
-  * <li>Remove the thumbnail of an individual tab or document from the group.</li>
-  * <li>Change the order of thumbnails in the group.</li>
-  * <li>Set a tab thumbnail as the selected item when the thumbnails are shown.</li>
-  * </ul>
-  * </li>
-  * <li>When applying an overlay to a taskbar icon, such as a notification.</li>
-  * <li>When showing the progress of an operation, such as copying or installing an item.</li>
-  * <li>When adding a toolbar to a thumbnail.</li>
-  * </ul>
-  * When an application displays a window, its taskbar button is created by the system. When the button is in place, the taskbar sends a <b>TaskbarButtonCreated</b> message to the window. Your application should call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerwindowmessagea">RegisterWindowMessage</a>(L"TaskbarButtonCreated") and handle that message in its wndproc. That message must be received by your application before it calls any <b>ITaskbarList3</b> method.
-  * 
-  * <div class="alert"><b>Note</b>  Applications cannot programmatically pin themselves to the taskbar. That functionality is reserved strictly for the user.</div>
-  * <div> </div>
-  * 
-  * 
+ * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-itaskbarlist">ITaskbarList</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-itaskbarlist2">ITaskbarList2</a> interfaces, from which it inherits.
+ * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * An implementation of this interface is provided in Windows as CLSID_TaskbarList. This interface is not implemented by third parties.
+ * 
+ * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
+ * Use the methods of this interface to do the following:
+ * 
+ * <ul>
+ * <li>When working with a TDI application (such as Windows Internet Explorer) or a MDI application (such as Microsoft Excel) that is displaying its windows as a group on the taskbar:
+ *                         
+ *                         <ul>
+ * <li>Provide the taskbar with a thumbnail that represents the view of an individual tab or document.</li>
+ * <li>Remove the thumbnail of an individual tab or document from the group.</li>
+ * <li>Change the order of thumbnails in the group.</li>
+ * <li>Set a tab thumbnail as the selected item when the thumbnails are shown.</li>
+ * </ul>
+ * </li>
+ * <li>When applying an overlay to a taskbar icon, such as a notification.</li>
+ * <li>When showing the progress of an operation, such as copying or installing an item.</li>
+ * <li>When adding a toolbar to a thumbnail.</li>
+ * </ul>
+ * When an application displays a window, its taskbar button is created by the system. When the button is in place, the taskbar sends a <b>TaskbarButtonCreated</b> message to the window. Your application should call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerwindowmessagea">RegisterWindowMessage</a>(L"TaskbarButtonCreated") and handle that message in its wndproc. That message must be received by your application before it calls any <b>ITaskbarList3</b> method.
+ * 
+ * <div class="alert"><b>Note</b>  Applications cannot programmatically pin themselves to the taskbar. That functionality is reserved strictly for the user.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-itaskbarlist3
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

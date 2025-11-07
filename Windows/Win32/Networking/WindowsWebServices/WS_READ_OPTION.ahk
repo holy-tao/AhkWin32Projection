@@ -4,44 +4,44 @@
  * Specifies whether a value is required, and how the value should be allocated.
  * @remarks
  * 
-  * Each <b>WS_READ_OPTION</b> discusses when a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a>object must be specified.  Depending on the function, it may still be
-  *                 possible to pass a <b>NULL</b> heap parameter in this case; see the documentation
-  *                 for the specific function for details on whether a default heap is used
-  *                 if the heap parameter is <b>NULL</b>.
-  *             
-  * 
-  * The following are things to consider when deserializing values into
-  *                 a heap object (<a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a>):
-  *             
-  * 
-  * <ul>
-  * <li>Deserialized values remain allocated until the heap
-  *                 is freed (<a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreeheap">WsFreeHeap</a>) or reset (<a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsresetheap">WsResetHeap</a>).
-  *                 </li>
-  * <li>Each time values are deserialized, they are appended to the heap (instead
-  *                 of replacing existing values).
-  *                 </li>
-  * <li>If errors are encountered during the deserialization function and the
-  *                 function fails, the memory allocated from the heap object up until 
-  *                 the error will not be released.
-  *                 </li>
-  * <li>The size of the heap can be used to limit the total allocations made
-  *                 during deserialization.  The max size of the heap can be determined 
-  *                 in the following way:
-  *                 <ul>
-  * <li>Determine the max size, in bytes, of each value that will be
-  *                     allocated on the heap during deserialization. Remember to take into
-  *                     account that sizes of deserialized data structures may vary by platform.
-  *                     </li>
-  * <li>Each array is considered one value.  Note that the actual size of an item
-  *                     in the array may by affected by the required alignment of the item.
-  *                     </li>
-  * <li>Round the max size of each value to a 16-byte boundary.
-  *                 </li>
-  * </ul>
-  * </li>
-  * </ul>
-  * 
+ * Each <b>WS_READ_OPTION</b> discusses when a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a>object must be specified.  Depending on the function, it may still be
+ *                 possible to pass a <b>NULL</b> heap parameter in this case; see the documentation
+ *                 for the specific function for details on whether a default heap is used
+ *                 if the heap parameter is <b>NULL</b>.
+ *             
+ * 
+ * The following are things to consider when deserializing values into
+ *                 a heap object (<a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a>):
+ *             
+ * 
+ * <ul>
+ * <li>Deserialized values remain allocated until the heap
+ *                 is freed (<a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreeheap">WsFreeHeap</a>) or reset (<a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsresetheap">WsResetHeap</a>).
+ *                 </li>
+ * <li>Each time values are deserialized, they are appended to the heap (instead
+ *                 of replacing existing values).
+ *                 </li>
+ * <li>If errors are encountered during the deserialization function and the
+ *                 function fails, the memory allocated from the heap object up until 
+ *                 the error will not be released.
+ *                 </li>
+ * <li>The size of the heap can be used to limit the total allocations made
+ *                 during deserialization.  The max size of the heap can be determined 
+ *                 in the following way:
+ *                 <ul>
+ * <li>Determine the max size, in bytes, of each value that will be
+ *                     allocated on the heap during deserialization. Remember to take into
+ *                     account that sizes of deserialized data structures may vary by platform.
+ *                     </li>
+ * <li>Each array is considered one value.  Note that the actual size of an item
+ *                     in the array may by affected by the required alignment of the item.
+ *                     </li>
+ * <li>Round the max size of each value to a 16-byte boundary.
+ *                 </li>
+ * </ul>
+ * </li>
+ * </ul>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_read_option
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Provides methods for performing query and configuration operations on a LUN with MPIO extensions.
  * @remarks
  * 
-  * If your provider is an iSCSI provider, or if your provider does not support MPIO, you should not implement the <b>IVdsLunMpio</b> interface. If an iSCSI provider implements this interface, VDS will ignore it, because VDS uses the service's own routines to handle MPIO for iSCSI.
-  * 
-  * 
+ * If your provider is an iSCSI provider, or if your provider does not support MPIO, you should not implement the <b>IVdsLunMpio</b> interface. If an iSCSI provider implements this interface, VDS will ignore it, because VDS uses the service's own routines to handle MPIO for iSCSI.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdslunmpio
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

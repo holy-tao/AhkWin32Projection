@@ -5,10 +5,10 @@
  * Computes each element of *InputTensor* raised to the power of the corresponding element of *ExponentTensor*, placing the result into the corresponding element of *OutputTensor*.
  * @remarks
  * Until `DML_FEATURE_LEVEL_3_0`, *ExponentTensor* _must_ match the type of *InputTensor*.
-  * 
-  * See [DML_ELEMENT_WISE_CONSTANT_POW_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_constant_pow_operator_desc) for a POW operator that accepts a `FLOAT` constant for the exponent.
-  * 
-  * 
+ * 
+ * See [DML_ELEMENT_WISE_CONSTANT_POW_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_constant_pow_operator_desc) for a POW operator that accepts a `FLOAT` constant for the exponent.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_element_wise_pow_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319

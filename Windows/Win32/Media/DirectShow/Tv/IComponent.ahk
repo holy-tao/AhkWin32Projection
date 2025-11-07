@@ -10,9 +10,9 @@
  * The IComponent interface a base class for all derived interfaces such as IMPEG2Component and it describes the general characteristics of a component, which is an elementary stream within the program stream.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IComponent)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IComponent)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-icomponent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

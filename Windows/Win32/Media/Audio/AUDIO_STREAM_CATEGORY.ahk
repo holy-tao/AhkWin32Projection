@@ -4,33 +4,33 @@
  * Specifies the category of an audio stream.
  * @remarks
  * 
-  * Note that only a subset of the audio stream categories are valid for certain stream types.
-  * 
-  * <table>
-  * <tr>
-  * <th>Stream type</th>
-  * <th>Valid categories</th>
-  * </tr>
-  * <tr>
-  * <td>Render stream</td>
-  * <td>All categories are valid.</td>
-  * </tr>
-  * <tr>
-  * <td>Capture stream</td>
-  * <td>AudioCategory_Communications, AudioCategory_Speech, AudioCategory_Other</td>
-  * </tr>
-  * <tr>
-  * <td>Loopback stream</td>
-  * <td>AudioCategory_Other</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * Games should categorize their music streams as <b>AudioCategory_GameMedia</b> so that game music mutes automatically if another application plays music in the background. Music or video applications should categorize their streams as <b>AudioCategory_Media</b> or <b>AudioCategory_Movie</b> so they will take priority over <b>AudioCategory_GameMedia</b> streams. Game audio for in-game cinematics or cutscenes, when the audio is premixed or for creative reasons should take priority over background audio, should also be categorized as <b>Media</b> or <b>Movie</b>.
-  * 
-  * The values <b>AudioCategory_ForegroundOnlyMedia</b> and <b>AudioCategory_BackgroundCapableMedia</b> are deprecated. For Windows Store apps, these values will continue to function the same when running on Windows 10 as they did on Windows 8.1. Attempting to use these values in a Universal Windows Platform (UWP) app, will result in compilation errors and an exception at runtime. Using these values in a Windows desktop application built with the Windows 10   SDK the  will result in a compilation error.
-  * 
-  * 
+ * Note that only a subset of the audio stream categories are valid for certain stream types.
+ * 
+ * <table>
+ * <tr>
+ * <th>Stream type</th>
+ * <th>Valid categories</th>
+ * </tr>
+ * <tr>
+ * <td>Render stream</td>
+ * <td>All categories are valid.</td>
+ * </tr>
+ * <tr>
+ * <td>Capture stream</td>
+ * <td>AudioCategory_Communications, AudioCategory_Speech, AudioCategory_Other</td>
+ * </tr>
+ * <tr>
+ * <td>Loopback stream</td>
+ * <td>AudioCategory_Other</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * Games should categorize their music streams as <b>AudioCategory_GameMedia</b> so that game music mutes automatically if another application plays music in the background. Music or video applications should categorize their streams as <b>AudioCategory_Media</b> or <b>AudioCategory_Movie</b> so they will take priority over <b>AudioCategory_GameMedia</b> streams. Game audio for in-game cinematics or cutscenes, when the audio is premixed or for creative reasons should take priority over background audio, should also be categorized as <b>Media</b> or <b>Movie</b>.
+ * 
+ * The values <b>AudioCategory_ForegroundOnlyMedia</b> and <b>AudioCategory_BackgroundCapableMedia</b> are deprecated. For Windows Store apps, these values will continue to function the same when running on Windows 10 as they did on Windows 8.1. Attempting to use these values in a Universal Windows Platform (UWP) app, will result in compilation errors and an exception at runtime. Using these values in a Windows desktop application built with the Windows 10   SDK the  will result in a compilation error.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audiosessiontypes/ne-audiosessiontypes-audio_stream_category
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319

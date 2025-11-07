@@ -7,17 +7,17 @@
  * Provides access to controls that initiate or perform a single, unambiguous action and do not maintain state when activated.
  * @remarks
  * 
-  * Implemented on a Microsoft UI Automation provider that must 
-  *         support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementinginvoke">Invoke</a> control pattern.
-  * 		
-  * 
-  * Controls implement <b>IInvokeProvider</b> if the same behavior is not 
-  *         exposed through another  control pattern provider. For example, if 
-  *         the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-iinvokeprovider-invoke">Invoke</a> method of a control performs the same 
-  *         action as the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-expand">IExpandCollapseProvider::Expand</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-collapse">Collapse</a> 
-  *         method, the control should not also implement <b>IInvokeProvider</b>.
-  * 
-  * 
+ * Implemented on a Microsoft UI Automation provider that must 
+ *         support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementinginvoke">Invoke</a> control pattern.
+ * 		
+ * 
+ * Controls implement <b>IInvokeProvider</b> if the same behavior is not 
+ *         exposed through another  control pattern provider. For example, if 
+ *         the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-iinvokeprovider-invoke">Invoke</a> method of a control performs the same 
+ *         action as the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-expand">IExpandCollapseProvider::Expand</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-collapse">Collapse</a> 
+ *         method, the control should not also implement <b>IInvokeProvider</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-iinvokeprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

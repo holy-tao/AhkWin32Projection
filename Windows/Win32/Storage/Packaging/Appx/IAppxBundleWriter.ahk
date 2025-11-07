@@ -7,10 +7,10 @@
  * Provides a write-only object model for bundle packages.
  * @remarks
  * 
-  * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlewriter">CreateBundleWriter</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxbundlefactory">IAppxBundleFactory</a> interface to retrieve the <b>IAppxBundleWriter</b> object. 
-  * 
-  * You can add only app packages to the writer.  The writer automatically generates footprint files, such as, the bundle’s manifest and block map.
-  * 
+ * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlewriter">CreateBundleWriter</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxbundlefactory">IAppxBundleFactory</a> interface to retrieve the <b>IAppxBundleWriter</b> object. 
+ * 
+ * You can add only app packages to the writer.  The writer automatically generates footprint files, such as, the bundle’s manifest and block map.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxbundlewriter
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319

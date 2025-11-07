@@ -9,11 +9,11 @@
  * The ITAutomatedPhoneControl is a fully OLE automatable and scriptable interface exposed by the TAPI phone object.
  * @remarks
  * 
-  * An 
-  * <b>ITAutomatedPhoneControl</b> pointer becomes invalid when the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itphone-close">ITPhone::Close</a> method is called.
-  * 
-  * 
+ * An 
+ * <b>ITAutomatedPhoneControl</b> pointer becomes invalid when the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itphone-close">ITPhone::Close</a> method is called.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itautomatedphonecontrol
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

@@ -5,11 +5,11 @@
  * Describes the capabilities of a Microsoft Direct3D 11 video processor.
  * @remarks
  * 
-  * The video processor stores state information for each input stream. These states persist between blits. With each blit, the application selects which streams to enable or disable. Disabling a stream does not affect the state information for that stream.
-  * 
-  * The <b>MaxStreamStates</b> member gives the maximum number of stream states that can be saved. The <b>MaxInputStreams</b> member gives the maximum number of streams that can be enabled during a blit. These two values can differ.
-  * 
-  * 
+ * The video processor stores state information for each input stream. These states persist between blits. With each blit, the application selects which streams to enable or disable. Disabling a stream does not affect the state information for that stream.
+ * 
+ * The <b>MaxStreamStates</b> member gives the maximum number of stream states that can be saved. The <b>MaxInputStreams</b> member gives the maximum number of streams that can be enabled during a blit. These two values can differ.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_video_processor_caps
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * The IVPConfig interface must be implemented by any filter that wraps a hardware decoder with a video port.
  * @remarks
  * 
-  * Include Dvp.h and Vptype.h before Vpconfig.h.
-  * 
-  * 
+ * Include Dvp.h and Vptype.h before Vpconfig.h.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vpconfig/nn-vpconfig-ivpconfig
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

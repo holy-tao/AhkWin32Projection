@@ -5,12 +5,12 @@
  * Contains module information.
  * @remarks
  * 
-  * This structure supersedes the <b>IMAGEHLP_MODULE</b> structure. For more information, see 
-  * <a href="https://docs.microsoft.com/windows/desktop/Debug/updated-platform-support">Updated Platform Support</a>. <b>IMAGEHLP_MODULE</b> is defined as follows in DbgHelp.h. 
-  * 
-  * 
-  * ```cpp
-  * 
+ * This structure supersedes the <b>IMAGEHLP_MODULE</b> structure. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/Debug/updated-platform-support">Updated Platform Support</a>. <b>IMAGEHLP_MODULE</b> is defined as follows in DbgHelp.h. 
+ * 
+ * 
+ * ```cpp
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-imagehlp_module64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319

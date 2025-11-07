@@ -4,10 +4,10 @@
  * Data types that can be stored in an FWP_VALUE0 or an FWP_CONDITION_VALUE0structure.
  * @remarks
  * 
-  * Not all data types are valid for each structure; see the tagged union
-  * in each structure to determine which are allowed.
-  * 
-  * 
+ * Not all data types are valid for each structure; see the tagged union
+ * in each structure to determine which are allowed.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ne-fwptypes-fwp_data_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319

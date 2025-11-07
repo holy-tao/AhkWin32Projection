@@ -10,10 +10,10 @@
  * The ITfInputProcessorProfiles interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.
  * @remarks
  * 
-  * To obtain a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> with CLSID_TF_InputProcessorProfiles.
-  * 
-  * 
-  * 
+ * To obtain a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> with CLSID_TF_InputProcessorProfiles.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfinputprocessorprofiles
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

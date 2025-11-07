@@ -8,8 +8,8 @@
  * Provides methods used to manage location reports, event registration, and sensor permissions.
  * @remarks
  * 
-  * When <b>CoCreateInstance</b> is callled to create an <b>ILocation</b> object, it may result in a notification being displayed in the taskbar, and a Location Activity event being logged in Event Viewer, if it is the application's first use of location.
-  * 
+ * When <b>CoCreateInstance</b> is callled to create an <b>ILocation</b> object, it may result in a notification being displayed in the taskbar, and a Location Activity event being logged in Event Viewer, if it is the application's first use of location.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//locationapi/nn-locationapi-ilocation
  * @namespace Windows.Win32.Devices.Geolocation
  * @version v4.0.30319

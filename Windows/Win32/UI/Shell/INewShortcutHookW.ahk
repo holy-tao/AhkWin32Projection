@@ -7,18 +7,18 @@
  * Exposes methods to create a new Internet shortcut.
  * @remarks
  * 
-  * You do not typically implement <b>INewShortcutHook</b>. It is implemented by the Shell for Internet shortcuts.
-  * 
-  * You use <b>INewShortcutHook</b> when creating a new Internet shortcut. The methods provided by this interface are supplied as a convenience.
-  * 
-  * <b>INewShortcutHook</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. The listed methods are specific to <b>INewShortcutHook</b>.
-  * 
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The shlobj.h header defines INewShortcutHook as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
+ * You do not typically implement <b>INewShortcutHook</b>. It is implemented by the Shell for Internet shortcuts.
+ * 
+ * You use <b>INewShortcutHook</b> when creating a new Internet shortcut. The methods provided by this interface are supplied as a convenience.
+ * 
+ * <b>INewShortcutHook</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. The listed methods are specific to <b>INewShortcutHook</b>.
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The shlobj.h header defines INewShortcutHook as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-inewshortcuthookw
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

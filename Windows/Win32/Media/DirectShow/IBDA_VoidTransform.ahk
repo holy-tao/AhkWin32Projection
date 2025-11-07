@@ -7,9 +7,9 @@
  * The IBDA_VoidTransform interface is implemented on a BDA device filter. It is used by the Network Provider to inactivate a portion of a filter graph without stopping the graph.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_VoidTransform)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_VoidTransform)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_voidtransform
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

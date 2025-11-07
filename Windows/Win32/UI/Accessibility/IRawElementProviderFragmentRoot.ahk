@@ -8,10 +8,10 @@
  * Exposes methods and properties on the root element in a fragment.
  * @remarks
  * 
-  * This interface is implemented by a root element within a framework; for example, a list box within a window. 
-  * 			Other elements in the same fragment, such as list items, implement the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a> interface.
-  * 
-  * 
+ * This interface is implemented by a root element within a framework; for example, a list box within a window. 
+ * 			Other elements in the same fragment, such as list items, implement the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-irawelementproviderfragmentroot
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

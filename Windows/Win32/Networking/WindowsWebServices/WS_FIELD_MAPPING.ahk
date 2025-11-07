@@ -4,16 +4,16 @@
  * Specifies how a field of a structure is represented in XML. This is used within a WS_FIELD_DESCRIPTION.
  * @remarks
  * 
-  * The <b>WS_FIELD_MAPPING</b> indicates how different parts of the XML content
-  *                 maps to the fields of a structure.  For example, <b>WS_ELEMENT_FIELD_MAPPING</b> can
-  *                 be used to map the value of an child element, and <b>WS_ATTRIBUTE_FIELD_MAPPING</b>can be used to map an attribute.  Any XML content that is read that is not explicitly
-  *                 mapped will cause <b>WS_E_INVALID_FORMAT</b> to be returned when the XML
-  *                 is deserialized.
-  *              (See <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.)
-  * 
-  * The order of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a> within a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_struct_description">WS_STRUCT_DESCRIPTION</a>is determined by the <b>WS_FIELD_MAPPING</b> value of the <b>WS_FIELD_DESCRIPTION</b>.
-  *                 See <b>WS_STRUCT_DESCRIPTION</b> for more information on the ordering.
-  * 
+ * The <b>WS_FIELD_MAPPING</b> indicates how different parts of the XML content
+ *                 maps to the fields of a structure.  For example, <b>WS_ELEMENT_FIELD_MAPPING</b> can
+ *                 be used to map the value of an child element, and <b>WS_ATTRIBUTE_FIELD_MAPPING</b>can be used to map an attribute.  Any XML content that is read that is not explicitly
+ *                 mapped will cause <b>WS_E_INVALID_FORMAT</b> to be returned when the XML
+ *                 is deserialized.
+ *              (See <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.)
+ * 
+ * The order of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a> within a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_struct_description">WS_STRUCT_DESCRIPTION</a>is determined by the <b>WS_FIELD_MAPPING</b> value of the <b>WS_FIELD_DESCRIPTION</b>.
+ *                 See <b>WS_STRUCT_DESCRIPTION</b> for more information on the ordering.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_field_mapping
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

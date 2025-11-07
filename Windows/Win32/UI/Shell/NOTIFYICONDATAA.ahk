@@ -7,18 +7,18 @@
  * Contains information that the system needs to display notifications in the notification area. Used by Shell_NotifyIcon.
  * @remarks
  * 
-  * See "Notifications" in the Windows User Experience Interaction Guidelines for more information on notification UI and content best practices.
-  * 
-  * If you set the <b>NIF_INFO</b> flag in the <b>uFlags</b> member, the balloon-style notification is used. For more discussion of these notifications, see <a href="https://docs.microsoft.com/windows/desktop/Controls/using-tooltip-contro">Balloon tooltips</a>.
-  * 
-  * No more than one balloon notification at a time can be displayed for the taskbar. If an application attempts to display a notification when one is already being displayed, the new notification is queued and displayed when the older notification goes away. In versions of Windows before Windows Vista, the new notification would not appear until the existing notification has been visible for at least the system minimum timeout length, regardless of the original notification's <b>uTimeout</b> value. If the user does not appear to be using the computer, the system does not count this time toward the timeout.
-  * 
-  * Several members of this structure are only supported for Windows 2000 and later. To enable these members, include one of the following lines in your header:
-  * 
-  * 
-  * ```cpp
-  * // Windows Vista and later:
-  * 
+ * See "Notifications" in the Windows User Experience Interaction Guidelines for more information on notification UI and content best practices.
+ * 
+ * If you set the <b>NIF_INFO</b> flag in the <b>uFlags</b> member, the balloon-style notification is used. For more discussion of these notifications, see <a href="https://docs.microsoft.com/windows/desktop/Controls/using-tooltip-contro">Balloon tooltips</a>.
+ * 
+ * No more than one balloon notification at a time can be displayed for the taskbar. If an application attempts to display a notification when one is already being displayed, the new notification is queued and displayed when the older notification goes away. In versions of Windows before Windows Vista, the new notification would not appear until the existing notification has been visible for at least the system minimum timeout length, regardless of the original notification's <b>uTimeout</b> value. If the user does not appear to be using the computer, the system does not count this time toward the timeout.
+ * 
+ * Several members of this structure are only supported for Windows 2000 and later. To enable these members, include one of the following lines in your header:
+ * 
+ * 
+ * ```cpp
+ * // Windows Vista and later:
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shellapi/ns-shellapi-notifyicondataa
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

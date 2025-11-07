@@ -8,9 +8,9 @@
  * Represents a font file stream, parts of which may be non-local.
  * @remarks
  * 
-  * For more information, see the description of IDWriteRemoteFontFileLoader.
-  * 
-  * 
+ * For more information, see the description of IDWriteRemoteFontFileLoader.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwriteremotefontfilestream
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

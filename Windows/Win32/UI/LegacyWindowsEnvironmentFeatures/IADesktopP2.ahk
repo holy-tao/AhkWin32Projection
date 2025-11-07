@@ -7,9 +7,9 @@
  * Provides methods to manage the Windows Desktop.
  * @remarks
  * 
-  * Despite its name, this interface does not inherit from <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nn-shlobj-iactivedesktopp">IActiveDesktopP</a>.
-  * 
-  * 
+ * Despite its name, this interface does not inherit from <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nn-shlobj-iactivedesktopp">IActiveDesktopP</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-iadesktopp2
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  * @version v4.0.30319

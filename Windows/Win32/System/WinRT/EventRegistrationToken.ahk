@@ -5,11 +5,11 @@
  * Identifies an event handler that has been registered with an event source.
  * @remarks
  * 
-  * Use an <b>EventRegistrationToken</b> to  unsubscribe from a Windows Runtime event source.
-  * 
-  * You acquire an <b>EventRegistrationToken</b> when you subscribe to an event.
-  * 
-  * 
+ * Use an <b>EventRegistrationToken</b> to  unsubscribe from a Windows Runtime event source.
+ * 
+ * You acquire an <b>EventRegistrationToken</b> when you subscribe to an event.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//eventtoken/ns-eventtoken-eventregistrationtoken
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

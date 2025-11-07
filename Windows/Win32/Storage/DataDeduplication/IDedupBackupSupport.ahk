@@ -7,18 +7,18 @@
  * Provides a method for restoring a file from a backup store containing copies of Data Deduplication reparse points, metadata, and container files.
  * @remarks
  * 
-  *  A backup application uses the 
-  *      <b>IDedupBackupSupport</b> interface to drive the restore 
-  *      process for a select file from a backup store that contains the fully optimized version of the file (reparse 
-  *      point) and the Data Deduplication store.
-  * 
-  * This interface is not useful when the backup store contains a copy of the original, non-optimized file.
-  * 
-  * Applications that use the <b>IDedupBackupSupport</b> 
-  *      interface must also implement the 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ddpbackup/nn-ddpbackup-idedupreadfilecallback">IDedupReadFileCallback</a> interface.
-  * 
-  * 
+ *  A backup application uses the 
+ *      <b>IDedupBackupSupport</b> interface to drive the restore 
+ *      process for a select file from a backup store that contains the fully optimized version of the file (reparse 
+ *      point) and the Data Deduplication store.
+ * 
+ * This interface is not useful when the backup store contains a copy of the original, non-optimized file.
+ * 
+ * Applications that use the <b>IDedupBackupSupport</b> 
+ *      interface must also implement the 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ddpbackup/nn-ddpbackup-idedupreadfilecallback">IDedupReadFileCallback</a> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddpbackup/nn-ddpbackup-idedupbackupsupport
  * @namespace Windows.Win32.Storage.DataDeduplication
  * @version v4.0.30319

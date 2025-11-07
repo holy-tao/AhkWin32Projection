@@ -7,10 +7,10 @@
  * Enables debugger developers to control the life cycle of a Windows Store app, such as suspending or resuming.
  * @remarks
  * 
-  * Any debug options set remain in effect until they are cleared or this interface is released.
-  * 
-  * For debug settings to take effect on Internet Explorer in the new Windows UI, use "DefaultBrowser_NOPUBLISHERID" as the <i>packageFullName</i> parameter  for  <a href="https://docs.microsoft.com/previous-versions/hh438393(v=vs.85)">IPackageDebugSettings</a> methods.
-  * 
+ * Any debug options set remain in effect until they are cleared or this interface is released.
+ * 
+ * For debug settings to take effect on Internet Explorer in the new Windows UI, use "DefaultBrowser_NOPUBLISHERID" as the <i>packageFullName</i> parameter  for  <a href="https://docs.microsoft.com/previous-versions/hh438393(v=vs.85)">IPackageDebugSettings</a> methods.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ipackagedebugsettings
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

@@ -7,11 +7,11 @@
  * Synchronizes access to the RealTimeStylus Class object.
  * @remarks
  * 
-  * Use locks when you must protect access to and modification of the plug-ins or properties of the <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus</a> object through the <b>IRealTimeStylusSynchronization Interface</b> interface.
-  * 
-  * Use the <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/ne-rtscom-realtimestyluslocktype">RealTimeStylusLockType Enumeration</a> enumeration to specify the lock.
-  * 
-  * 
+ * Use locks when you must protect access to and modification of the plug-ins or properties of the <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus</a> object through the <b>IRealTimeStylusSynchronization Interface</b> interface.
+ * 
+ * Use the <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/ne-rtscom-realtimestyluslocktype">RealTimeStylusLockType Enumeration</a> enumeration to specify the lock.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//rtscom/nn-rtscom-irealtimestylussynchronization
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

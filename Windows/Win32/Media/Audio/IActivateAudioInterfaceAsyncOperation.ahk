@@ -7,10 +7,10 @@
  * Represents an asynchronous operation activating a WASAPI interface and provides a method to retrieve the results of the activation.
  * @remarks
  * 
-  * <b>When to implement:</b>  
-  * Implemented by Windows and returned from the function <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync">ActivateAudioInterfaceAsync</a>.
-  * 
-  * 
+ * <b>When to implement:</b>  
+ * Implemented by Windows and returned from the function <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync">ActivateAudioInterfaceAsync</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfaceasyncoperation
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319

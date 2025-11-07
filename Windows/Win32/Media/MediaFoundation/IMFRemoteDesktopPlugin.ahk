@@ -7,19 +7,19 @@
  * Modifies a topology for use in a Terminal Services environment.
  * @remarks
  * 
-  * To use this interface, do the following:
-  * 
-  * <ol>
-  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> with the <b>SM_REMOTESESSION</b> flag. The function returns <b>TRUE</b> if the calling process is associated with a Terminal Services client session.
-  *           </li>
-  * <li>If <b>GetSystemMetrics</b> returns <b>TRUE</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreateremotedesktopplugin">MFCreateRemoteDesktopPlugin</a>. This function returns a pointer to the <b>IMFRemoteDesktopPlugin</b> interface.
-  *           </li>
-  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfremotedesktopplugin-updatetopology">UpdateTopology</a> with a pointer to the topology.
-  *           </li>
-  * </ol>
-  * The application must call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfremotedesktopplugin-updatetopology">UpdateTopology</a> before calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-settopology">IMFMediaSession::SetTopology</a> on the Media Session.
-  * 
-  * 
+ * To use this interface, do the following:
+ * 
+ * <ol>
+ * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> with the <b>SM_REMOTESESSION</b> flag. The function returns <b>TRUE</b> if the calling process is associated with a Terminal Services client session.
+ *           </li>
+ * <li>If <b>GetSystemMetrics</b> returns <b>TRUE</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreateremotedesktopplugin">MFCreateRemoteDesktopPlugin</a>. This function returns a pointer to the <b>IMFRemoteDesktopPlugin</b> interface.
+ *           </li>
+ * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfremotedesktopplugin-updatetopology">UpdateTopology</a> with a pointer to the topology.
+ *           </li>
+ * </ol>
+ * The application must call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfremotedesktopplugin-updatetopology">UpdateTopology</a> before calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-settopology">IMFMediaSession::SetTopology</a> on the Media Session.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfremotedesktopplugin
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

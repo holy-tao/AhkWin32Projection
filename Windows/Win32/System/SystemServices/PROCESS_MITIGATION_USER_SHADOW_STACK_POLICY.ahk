@@ -5,7 +5,7 @@
  * Contains process mitigation policy settings for user-mode Hardware-enforced Stack Protection (HSP).
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-process_mitigation_user_shadow_stack_policy
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319

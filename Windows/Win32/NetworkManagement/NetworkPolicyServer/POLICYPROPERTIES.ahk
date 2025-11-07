@@ -4,11 +4,11 @@
  * The values of the POLICYPROPERTIES enumeration type enumerate properties of a Network Access Policy (NAP).
  * @remarks
  * 
-  * To create a new policy, you must specify a unique name for the policy, a profile to associate with the policy, 
-  *     and a collection of conditions for the policy. The name of the policy and the name of the profile should be 
-  *     identical.
-  * 
-  * 
+ * To create a new policy, you must specify a unique name for the policy, a profile to associate with the policy, 
+ *     and a collection of conditions for the policy. The name of the policy and the name of the profile should be 
+ *     identical.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-policyproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319

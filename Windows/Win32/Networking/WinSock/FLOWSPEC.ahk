@@ -5,54 +5,54 @@
  * The FLOWSPEC structure provides quality of service parameters to the RSVP SP.
  * @remarks
  * 
-  * Many members of the 
-  * <b>FLOWSPEC</b> structure can be set to default values by setting the member to QOS_NOT_SPECIFIED. Note that the members that can be set to default values differ depending on whether the 
-  * <b>FLOWSPEC</b> is a receiving 
-  * <b>FLOWSPEC</b> or a sending 
-  * <b>FLOWSPEC</b>.
-  * 
-  * There are a handful of considerations you should keep in mind when using 
-  * <b>FLOWSPEC</b> with traffic control:
-  * 
-  * <ul>
-  * <li><b>TokenRate</b> can be QOS_NOT_SPECIFIED for SERVICETYPE_NETWORKCONTROL, SERVICETYPE_QUALITATIVE, and SERVICETYPE_BESTEFFORT. <b>TokenRate</b> must be valid for all other <b>ServiceType</b> values.</li>
-  * <li>If <b>PeakBandwidth</b> is specified, it must be greater than or equal to <b>TokenRate</b>.</li>
-  * </ul>
-  * Many settings can be defaulted in a receiving 
-  * <b>FLOWSPEC</b> except <b>ServiceType</b>, with the following considerations:
-  * 
-  * <ul>
-  * <li>For a Controlled Load Service receiver, the default values are derived from the sender <b>TSPEC</b>.</li>
-  * <li>For a Guaranteed Service receiver, <b>ServiceType</b> and <b>TokenRate</b> must be specified.</li>
-  * </ul>
-  * The following list specifies the values that are applied when a receiving 
-  * <b>FLOWSPEC</b> sets the corresponding values to default:
-  * 
-  * 
-  * 
-  * When the value of the <b>ServiceType</b> is set to SERVICETYPE_GUARANTEED, the following also applies:
-  * 
-  * <ul>
-  * <li>The RATE value in <b>RSPEC</b> is set to the value of <i>TokenRate</i>.</li>
-  * <li>The DELAYSLACKTERM value in <b>RSPEC</b> is set to <i>DelayVariation</i>, which is set to zero if <i>DelayVariation</i> is set to QOS_NOT_SPECIFIED.</li>
-  * <li>For receivers requesting SERVICETYPE_GUARANTEED, the receiving <i>TokenRate</i> must be specified. This contrasts with a SERVICETYPE_CONTROLLEDLOAD receiver, for which <i>TokenRate</i> may be set to QOS_NOT_SPECIFIED.</li>
-  * </ul>
-  * In a sending 
-  * <b>FLOWSPEC</b>, everything can be defaulted except <b>ServiceType</b> and <b>TokenRate</b>. The following list specifies the values that are applied when a sending 
-  * <b>FLOWSPEC</b> sets the corresponding values to default:
-  * 
-  * 
-  * 
-  * <b>Traffic Control:  </b>The following <b>ServiceType</b>s are invalid when specifically working with Traffic Control. If you are unsure whether you are working directly with Traffic Control (and thereby need to be concerned about whether the following <b>ServiceType</b>s are applicable in your situation), you probably are not:<dl>
-  * <dd>SERVICE_NO_TRAFFIC_CONTROL</dd>
-  * <dd>SERVICE_NO_QOS_SIGNALING</dd>
-  * <dd>SERVICETYPE_GENERAL_INFORMATION</dd>
-  * <dd>SERVICETYPE_NETWORK_UNAVAILABLE</dd>
-  * <dd>SERVICETYPE_NOCHANGE</dd>
-  * <dd>SERVICETYPE_NOTRAFFIC</dd>
-  * </dl>
-  * 
-  * 
+ * Many members of the 
+ * <b>FLOWSPEC</b> structure can be set to default values by setting the member to QOS_NOT_SPECIFIED. Note that the members that can be set to default values differ depending on whether the 
+ * <b>FLOWSPEC</b> is a receiving 
+ * <b>FLOWSPEC</b> or a sending 
+ * <b>FLOWSPEC</b>.
+ * 
+ * There are a handful of considerations you should keep in mind when using 
+ * <b>FLOWSPEC</b> with traffic control:
+ * 
+ * <ul>
+ * <li><b>TokenRate</b> can be QOS_NOT_SPECIFIED for SERVICETYPE_NETWORKCONTROL, SERVICETYPE_QUALITATIVE, and SERVICETYPE_BESTEFFORT. <b>TokenRate</b> must be valid for all other <b>ServiceType</b> values.</li>
+ * <li>If <b>PeakBandwidth</b> is specified, it must be greater than or equal to <b>TokenRate</b>.</li>
+ * </ul>
+ * Many settings can be defaulted in a receiving 
+ * <b>FLOWSPEC</b> except <b>ServiceType</b>, with the following considerations:
+ * 
+ * <ul>
+ * <li>For a Controlled Load Service receiver, the default values are derived from the sender <b>TSPEC</b>.</li>
+ * <li>For a Guaranteed Service receiver, <b>ServiceType</b> and <b>TokenRate</b> must be specified.</li>
+ * </ul>
+ * The following list specifies the values that are applied when a receiving 
+ * <b>FLOWSPEC</b> sets the corresponding values to default:
+ * 
+ * 
+ * 
+ * When the value of the <b>ServiceType</b> is set to SERVICETYPE_GUARANTEED, the following also applies:
+ * 
+ * <ul>
+ * <li>The RATE value in <b>RSPEC</b> is set to the value of <i>TokenRate</i>.</li>
+ * <li>The DELAYSLACKTERM value in <b>RSPEC</b> is set to <i>DelayVariation</i>, which is set to zero if <i>DelayVariation</i> is set to QOS_NOT_SPECIFIED.</li>
+ * <li>For receivers requesting SERVICETYPE_GUARANTEED, the receiving <i>TokenRate</i> must be specified. This contrasts with a SERVICETYPE_CONTROLLEDLOAD receiver, for which <i>TokenRate</i> may be set to QOS_NOT_SPECIFIED.</li>
+ * </ul>
+ * In a sending 
+ * <b>FLOWSPEC</b>, everything can be defaulted except <b>ServiceType</b> and <b>TokenRate</b>. The following list specifies the values that are applied when a sending 
+ * <b>FLOWSPEC</b> sets the corresponding values to default:
+ * 
+ * 
+ * 
+ * <b>Traffic Control:  </b>The following <b>ServiceType</b>s are invalid when specifically working with Traffic Control. If you are unsure whether you are working directly with Traffic Control (and thereby need to be concerned about whether the following <b>ServiceType</b>s are applicable in your situation), you probably are not:<dl>
+ * <dd>SERVICE_NO_TRAFFIC_CONTROL</dd>
+ * <dd>SERVICE_NO_QOS_SIGNALING</dd>
+ * <dd>SERVICETYPE_GENERAL_INFORMATION</dd>
+ * <dd>SERVICETYPE_NETWORK_UNAVAILABLE</dd>
+ * <dd>SERVICETYPE_NOCHANGE</dd>
+ * <dd>SERVICETYPE_NOTRAFFIC</dd>
+ * </dl>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//qos/ns-qos-flowspec
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

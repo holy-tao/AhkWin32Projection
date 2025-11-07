@@ -5,10 +5,10 @@
  * Used to query a DirectML device for its support for one or more feature levels.
  * @remarks
  * This query is useful in combination with the *minimumFeatureLevel* parameter of [DMLCreateDevice1](/windows/win32/api/directml/nf-directml-dmlcreatedevice1). By supplying a minimum feature level to **DMLCreateDevice1**, you can be guaranteed a *lower* bound to the underlying DirectML device's feature level support.
-  * 
-  * Using this query, you can then also retrieve an *upper* bound for the feature levels supported by this DirectML device. This information can then be used to achieve graceful fallbacks in cases where particular features are unavailable.
-  * 
-  * 
+ * 
+ * Using this query, you can then also retrieve an *upper* bound for the feature levels supported by this DirectML device. This information can then be used to achieve graceful fallbacks in cases where particular features are unavailable.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_feature_query_feature_levels
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319

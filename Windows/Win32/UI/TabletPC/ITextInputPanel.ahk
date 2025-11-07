@@ -9,19 +9,19 @@
  * Provides control of appearance and behavior of the Tablet PC Input Panel.
  * @remarks
  * 
-  * <b>ITextInputPanel Interface</b> gives application developers more control and information about Input Panel's state than <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel Class</a>. <b>ITextInputPanel Interface</b> replaces the <b>PenInputPanel Class</b> as the preferred mechanism for programmatically interacting with the Input Panel.
-  * 
-  * <b>ITextInputPanel Interface</b> provides:
-  * 
-  * <ul>
-  * <li>A complete control over the positioning of the in-place Input Panel when the application has focus.</li>
-  * <li>An access to the ink objects from the Input Panel text insertion in addition to the recognized text.</li>
-  * <li>A set of properties that correspond exactly to Input Panel's capabilities giving both the ability to know Input Panel's current state and to customize Input Panel's configuration.</li>
-  * </ul>
-  * The <b>ITextInputPanel Interface</b> continues to provide nearly all of the programmatic capabilities of the <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel Class</a> thus superseding the <b>PenInputPanel Class</b>.
-  * 
-  * This element is declared in Peninputpanel.h.
-  * 
+ * <b>ITextInputPanel Interface</b> gives application developers more control and information about Input Panel's state than <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel Class</a>. <b>ITextInputPanel Interface</b> replaces the <b>PenInputPanel Class</b> as the preferred mechanism for programmatically interacting with the Input Panel.
+ * 
+ * <b>ITextInputPanel Interface</b> provides:
+ * 
+ * <ul>
+ * <li>A complete control over the positioning of the in-place Input Panel when the application has focus.</li>
+ * <li>An access to the ink objects from the Input Panel text insertion in addition to the recognized text.</li>
+ * <li>A set of properties that correspond exactly to Input Panel's capabilities giving both the ability to know Input Panel's current state and to customize Input Panel's configuration.</li>
+ * </ul>
+ * The <b>ITextInputPanel Interface</b> continues to provide nearly all of the programmatic capabilities of the <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel Class</a> thus superseding the <b>PenInputPanel Class</b>.
+ * 
+ * This element is declared in Peninputpanel.h.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nn-peninputpanel-itextinputpanel
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

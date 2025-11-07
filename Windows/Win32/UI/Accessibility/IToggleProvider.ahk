@@ -7,9 +7,9 @@
  * Provides access to controls that can cycle through a set of states and maintain a state after it is set.
  * @remarks
  * 
-  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtoggle">Toggle</a> control pattern.
-  * 
-  * 
+ * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtoggle">Toggle</a> control pattern.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-itoggleprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

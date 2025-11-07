@@ -6,9 +6,9 @@
  * The NDK_ADAPTER_INFO structure specifies information about limits and capabilities of an NDK adapter.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ndkpi/nc-ndkpi-ndk_fn_query_adapter_info">NDK_FN_QUERY_ADAPTER_INFO</a> function retrieves the <b>NDK_ADAPTER_INFO</b>, which contains information on various limits and capabilities of the adapter.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ndkpi/nc-ndkpi-ndk_fn_query_adapter_info">NDK_FN_QUERY_ADAPTER_INFO</a> function retrieves the <b>NDK_ADAPTER_INFO</b>, which contains information on various limits and capabilities of the adapter.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ndkinfo/ns-ndkinfo-ndk_adapter_info
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319

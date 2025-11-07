@@ -5,11 +5,11 @@
  * Defines one or more storage identifiers for a storage device (typically an instance, as opposed to a class, of device).
  * @remarks
  * 
-  * Storage devices can have multiple identifiers, and each of these identifiers can have a different code set and 
-  *     type. The <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structure includes 
-  *     this structure as a member to specify the storage device identifiers of a LUN.
-  * 
-  * 
+ * Storage devices can have multiple identifiers, and each of these identifiers can have a different code set and 
+ *     type. The <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structure includes 
+ *     this structure as a member to specify the storage device identifiers of a LUN.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vdslun/ns-vdslun-vds_storage_device_id_descriptor
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

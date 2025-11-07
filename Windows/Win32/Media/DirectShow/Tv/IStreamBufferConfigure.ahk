@@ -7,9 +7,9 @@
  * The IStreamBufferConfigure interface configures the location, number, and size of the backing files used by the various stream buffer objects.The StreamBufferConfig object exposes this interface.Before calling any of the Set methods on this interface, you must specify a registry key to hold the new settings. For more information, see IStreamBufferInitialize::SetHKEY.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferConfigure)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferConfigure)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-istreambufferconfigure
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

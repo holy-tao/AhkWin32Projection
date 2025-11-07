@@ -4,11 +4,11 @@
  * The state of the metadata object.
  * @remarks
  * 
-  * The following diagram illustrates the functions that 
-  *                 cause state transitions in the metadata object.
-  *             
-  * :::image type="content" source="./images/MetadataStates.png" border="false" alt-text="Diagram of the state transitions for a Metadata object showing the functions that cause transitions between the Created, Faulted, and Resolved states.":::
-  * 
+ * The following diagram illustrates the functions that 
+ *                 cause state transitions in the metadata object.
+ *             
+ * :::image type="content" source="./images/MetadataStates.png" border="false" alt-text="Diagram of the state transitions for a Metadata object showing the functions that cause transitions between the Created, Faulted, and Resolved states.":::
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_metadata_state
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

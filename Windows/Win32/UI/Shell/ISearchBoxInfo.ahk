@@ -7,18 +7,18 @@
  * Exposes methods that allow the caller to retrieve information entered into a search box.
  * @remarks
  * 
-  * The search box is shown here in an Windows Explorer window frame.
-  * 
-  * 
-  * 
-  * <img alt="Screen shot of upper-right corner of explorer frame showing search box" src="./images/searchbox.jpg"/>
-  * The frame that contains the search box might also be hosted in another window or in the common file dialog box.
-  * 
-  * To access the search dialog, use <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">QueryService</a> using SID_SSearchBoxInfo on a site pointer within the Windows Explorer window.
-  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * An implementation of this interface is provided with Windows. Third parties do not need to implement their own version.
-  * 
+ * The search box is shown here in an Windows Explorer window frame.
+ * 
+ * 
+ * 
+ * <img alt="Screen shot of upper-right corner of explorer frame showing search box" src="./images/searchbox.jpg"/>
+ * The frame that contains the search box might also be hosted in another window or in the common file dialog box.
+ * 
+ * To access the search dialog, use <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">QueryService</a> using SID_SSearchBoxInfo on a site pointer within the Windows Explorer window.
+ * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * An implementation of this interface is provided with Windows. Third parties do not need to implement their own version.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-isearchboxinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

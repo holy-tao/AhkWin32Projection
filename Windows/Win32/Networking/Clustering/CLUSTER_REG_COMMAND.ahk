@@ -4,9 +4,9 @@
  * Enumerates the possible cluster registry commands that a local node will perform when attempting to join a cluster.
  * @remarks
  * 
-  * The <b>CLUSREG_VALUE_DELETED</b> command precedes every <b>CLUSREG_SET_VALUE</b> and <b>CLUSREG_DELETE_VALUE</b> command in the returned notification data, if the value had existing data.
-  * 
-  * 
+ * The <b>CLUSREG_VALUE_DELETED</b> command precedes every <b>CLUSREG_SET_VALUE</b> and <b>CLUSREG_DELETE_VALUE</b> command in the returned notification data, if the value had existing data.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_reg_command
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

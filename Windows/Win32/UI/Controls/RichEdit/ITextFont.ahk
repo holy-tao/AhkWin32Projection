@@ -9,30 +9,30 @@
  * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara.
  * @remarks
  * 
-  * The <b>ITextFont</b> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextpara">ITextPara</a> interfaces encapsulate the functionality of the Microsoft Word Format <b>Font</b> and <b>Paragraph</b> dialog boxes, respectively. Both interfaces include a duplicate (<b>Value</b>) property that can return a duplicate of the attributes in a range object or transfer a set of attributes to a range. As such, they act like programmable format painters. For example, you could transfer all attributes from range r1 to range r2 except for making r2 bold and the font size 12 points by using the following subroutine.
-  * 
-  * 
-  * ```
-  * Sub AttributeCopy(r1 As ITextRange, r2 As ITextRange)
-  *     Dim tf As ITextFont
-  *     tf = r1.Font                ' Value is the default property    
-  *     tf.Bold = tomTrue           ' You can make some modifications
-  *     tf.Size = 12
-  *     tf.Animation = tomSparkleText
-  *     r2.Font = tf                ' Apply font attributes all at once
-  * End Sub
-  * ```
-  * 
-  * 
-  * See <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-setfont">SetFont</a> for a similar example written in C++.
-  * 
-  * The <b>ITextFont</b> attribute interface represents the traditional Microsoft Visual Basic for Applications (VBA) way of setting properties and it gives the desired VBA notation.
-  * 
-  * <b>ITextFont</b> uses the "tomBool" type for rich-text attributes that have binary states. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">The tomBool Type</a>.
-  * 
-  * The rich edit control is able to accept and return all <b>ITextFont</b> properties intact, that is, without modification, both through TOM and through its Rich Text Format (RTF) converters. However, it cannot display the All Caps, Animation, Embossed, Imprint, Shadow, Small Caps, Hidden, Kerning, Outline, and Style font properties.
-  * 
-  * 
+ * The <b>ITextFont</b> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextpara">ITextPara</a> interfaces encapsulate the functionality of the Microsoft Word Format <b>Font</b> and <b>Paragraph</b> dialog boxes, respectively. Both interfaces include a duplicate (<b>Value</b>) property that can return a duplicate of the attributes in a range object or transfer a set of attributes to a range. As such, they act like programmable format painters. For example, you could transfer all attributes from range r1 to range r2 except for making r2 bold and the font size 12 points by using the following subroutine.
+ * 
+ * 
+ * ```
+ * Sub AttributeCopy(r1 As ITextRange, r2 As ITextRange)
+ *     Dim tf As ITextFont
+ *     tf = r1.Font                ' Value is the default property    
+ *     tf.Bold = tomTrue           ' You can make some modifications
+ *     tf.Size = 12
+ *     tf.Animation = tomSparkleText
+ *     r2.Font = tf                ' Apply font attributes all at once
+ * End Sub
+ * ```
+ * 
+ * 
+ * See <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-setfont">SetFont</a> for a similar example written in C++.
+ * 
+ * The <b>ITextFont</b> attribute interface represents the traditional Microsoft Visual Basic for Applications (VBA) way of setting properties and it gives the desired VBA notation.
+ * 
+ * <b>ITextFont</b> uses the "tomBool" type for rich-text attributes that have binary states. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">The tomBool Type</a>.
+ * 
+ * The rich edit control is able to accept and return all <b>ITextFont</b> properties intact, that is, without modification, both through TOM and through its Rich Text Format (RTF) converters. However, it cannot display the All Caps, Animation, Embossed, Imprint, Shadow, Small Caps, Hidden, Kerning, Outline, and Style font properties.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextfont
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319

@@ -7,8 +7,8 @@
  * Gets the capabilities of a device's auxiliary input connectors. This interface provides access to a device's Aux Service.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_AUX)</c>.
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_AUX)</c>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_aux
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

@@ -7,10 +7,10 @@
  * The EVENT_TRACE structure is used to deliver event information to an event trace consumer.
  * @remarks
  * 
-  * ETW passes this structure to the 
-  * consumer's <a href="https://docs.microsoft.com/windows/desktop/ETW/eventcallback">EventCallback</a> callback function.
-  * 
-  * 
+ * ETW passes this structure to the 
+ * consumer's <a href="https://docs.microsoft.com/windows/desktop/ETW/eventcallback">EventCallback</a> callback function.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-event_trace
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

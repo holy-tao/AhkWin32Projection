@@ -4,9 +4,9 @@
  * Specifies the DVD menu in a call to IDvdControl2::ShowMenu.
  * @remarks
  * 
-  * The root menu always provides a means of getting to the subpicture, audio, angle and chapter menus if they exist.
-  * 
-  * 
+ * The root menu always provides a means of getting to the subpicture, audio, angle and chapter menus if they exist.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_menu_id
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

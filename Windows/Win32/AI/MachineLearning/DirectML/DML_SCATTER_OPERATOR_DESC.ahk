@@ -5,9 +5,9 @@
  * Copies the whole input tensor to the output, then overwrites selected indices with corresponding values from the updates tensor.
  * @remarks
  * 
-  * **DML_SCATTER_OPERATOR_DESC** has been more properly aliased to the name **DML_SCATTER_ELEMENTS_OPERATOR_DESC** as the proper counterpart to [DML_GATHER_ELEMENTS_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_gather_elements_operator_desc). This is because **DML_SCATTER_OPERATOR_DESC** was not really symmetric to [DML_GATHER_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_gather_operator_desc).
-  * 
-  * 
+ * **DML_SCATTER_OPERATOR_DESC** has been more properly aliased to the name **DML_SCATTER_ELEMENTS_OPERATOR_DESC** as the proper counterpart to [DML_GATHER_ELEMENTS_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_gather_elements_operator_desc). This is because **DML_SCATTER_OPERATOR_DESC** was not really symmetric to [DML_GATHER_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_gather_operator_desc).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_scatter_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319

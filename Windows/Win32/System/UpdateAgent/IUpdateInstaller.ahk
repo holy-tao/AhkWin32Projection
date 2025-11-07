@@ -13,9 +13,9 @@
  * Installs or uninstalls updates from or onto a computer.
  * @remarks
  * 
-  * This interface can be instantiated by using the UpdateInstaller coclass. Use the Microsoft.Update.Installer program identifier to create the object.
-  * 
-  * 
+ * This interface can be instantiated by using the UpdateInstaller coclass. Use the Microsoft.Update.Installer program identifier to create the object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdateinstaller
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

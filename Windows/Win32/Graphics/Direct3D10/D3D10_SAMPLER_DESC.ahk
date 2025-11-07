@@ -5,60 +5,60 @@
  * Describes a sampler state.
  * @remarks
  * 
-  * These are the default values for sampler state.
-  * 
-  * <table>
-  * <tr>
-  * <th>State</th>
-  * <th>Default Value</th>
-  * </tr>
-  * <tr>
-  * <td>Filter</td>
-  * <td>Min_Mag_Mip_Point</td>
-  * </tr>
-  * <tr>
-  * <td>AddressU</td>
-  * <td>Clamp</td>
-  * </tr>
-  * <tr>
-  * <td>AddressV</td>
-  * <td>Clamp</td>
-  * </tr>
-  * <tr>
-  * <td>AddressW</td>
-  * <td>Clamp</td>
-  * </tr>
-  * <tr>
-  * <td>MinLOD</td>
-  * <td>0.0f</td>
-  * </tr>
-  * <tr>
-  * <td>MaxLOD</td>
-  * <td>3.402823466e+38F (FLT_MAX)</td>
-  * </tr>
-  * <tr>
-  * <td>MipMapLODBias</td>
-  * <td>0.0f</td>
-  * </tr>
-  * <tr>
-  * <td>MaxAnisotropy</td>
-  * <td>16</td>
-  * </tr>
-  * <tr>
-  * <td>ComparisonFunc</td>
-  * <td>Never</td>
-  * </tr>
-  * <tr>
-  * <td>BorderColor</td>
-  * <td>float4(0.0f, 0.0f, 0.0f, 0.0f)</td>
-  * </tr>
-  * <tr>
-  * <td>Texture</td>
-  * <td>N/A</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * These are the default values for sampler state.
+ * 
+ * <table>
+ * <tr>
+ * <th>State</th>
+ * <th>Default Value</th>
+ * </tr>
+ * <tr>
+ * <td>Filter</td>
+ * <td>Min_Mag_Mip_Point</td>
+ * </tr>
+ * <tr>
+ * <td>AddressU</td>
+ * <td>Clamp</td>
+ * </tr>
+ * <tr>
+ * <td>AddressV</td>
+ * <td>Clamp</td>
+ * </tr>
+ * <tr>
+ * <td>AddressW</td>
+ * <td>Clamp</td>
+ * </tr>
+ * <tr>
+ * <td>MinLOD</td>
+ * <td>0.0f</td>
+ * </tr>
+ * <tr>
+ * <td>MaxLOD</td>
+ * <td>3.402823466e+38F (FLT_MAX)</td>
+ * </tr>
+ * <tr>
+ * <td>MipMapLODBias</td>
+ * <td>0.0f</td>
+ * </tr>
+ * <tr>
+ * <td>MaxAnisotropy</td>
+ * <td>16</td>
+ * </tr>
+ * <tr>
+ * <td>ComparisonFunc</td>
+ * <td>Never</td>
+ * </tr>
+ * <tr>
+ * <td>BorderColor</td>
+ * <td>float4(0.0f, 0.0f, 0.0f, 0.0f)</td>
+ * </tr>
+ * <tr>
+ * <td>Texture</td>
+ * <td>N/A</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_sampler_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

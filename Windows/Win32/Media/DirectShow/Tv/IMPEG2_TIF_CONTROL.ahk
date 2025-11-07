@@ -7,9 +7,9 @@
  * IMPEG2_TIF_CONTROL is no longer available for use.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMPEG2_TIF_CONTROL)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMPEG2_TIF_CONTROL)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bdatif/nn-bdatif-impeg2_tif_control
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

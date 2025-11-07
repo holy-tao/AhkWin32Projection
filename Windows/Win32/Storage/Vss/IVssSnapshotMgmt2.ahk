@@ -7,12 +7,12 @@
  * Provides a method to retrieve the minimum size of the shadow copy storage area.
  * @remarks
  * 
-  * To obtain an instance of the <b>IVssSnapshotMgmt2</b> 
-  *    interface, call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method of the 
-  *    <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nn-vsmgmt-ivsssnapshotmgmt">IVssSnapshotMgmt</a> interface, passing 
-  *    <b>IID_IVssSnapshotMgmt2</b> as the <i>riid</i> parameter.
-  * 
-  * 
+ * To obtain an instance of the <b>IVssSnapshotMgmt2</b> 
+ *    interface, call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method of the 
+ *    <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nn-vsmgmt-ivsssnapshotmgmt">IVssSnapshotMgmt</a> interface, passing 
+ *    <b>IID_IVssSnapshotMgmt2</b> as the <i>riid</i> parameter.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nn-vsmgmt-ivsssnapshotmgmt2
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319

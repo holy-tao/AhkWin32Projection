@@ -7,9 +7,9 @@
  * Exposes a method to handle events that are raised when the keyboard focus moves to another UI Automation element.
  * @remarks
  * 
-  * This interface is implemented by the application to handle events that were subscribed to by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addfocuschangedeventhandler">AddFocusChangedEventHandler</a>
-  * 
-  * 
+ * This interface is implemented by the application to handle events that were subscribed to by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addfocuschangedeventhandler">AddFocusChangedEventHandler</a>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationfocuschangedeventhandler
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

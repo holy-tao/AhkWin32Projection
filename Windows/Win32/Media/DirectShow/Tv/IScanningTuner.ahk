@@ -7,13 +7,13 @@
  * The IScanningTuner interface is implemented on the BDA Network Provider filter.
  * @remarks
  * 
-  * Currently the DVB-C and DVB-S Network Provider filters do not implement this interface. The interface is implemented for DVB-T.
-  * 
-  * <b>OCUR Devices: </b>This interface supports OpenCable Unidirectional Cable Receiver (OCUR) devices. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/ocur-devices">OCUR Devices</a>.
-  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IScanningTuner)</c>.
-  * 
-  * 
+ * Currently the DVB-C and DVB-S Network Provider filters do not implement this interface. The interface is implemented for DVB-T.
+ * 
+ * <b>OCUR Devices: </b>This interface supports OpenCable Unidirectional Cable Receiver (OCUR) devices. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/ocur-devices">OCUR Devices</a>.
+ * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IScanningTuner)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-iscanningtuner
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

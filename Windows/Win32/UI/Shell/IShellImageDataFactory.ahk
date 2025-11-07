@@ -8,10 +8,10 @@
  * Exposes methods that create IShellImageData instances based on various image sources.
  * @remarks
  * 
-  * This interface is not expected to be available in later versions of Windows. It is recommended that Windows GDI+ APIs be used in place of <b>IShellImageDataFactory</b> methods.
-  * 
-  * This interface was not included in a public header file prior to Windows Vista.
-  * 
+ * This interface is not expected to be available in later versions of Windows. It is recommended that Windows GDI+ APIs be used in place of <b>IShellImageDataFactory</b> methods.
+ * 
+ * This interface was not included in a public header file prior to Windows Vista.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nn-shimgdata-ishellimagedatafactory
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

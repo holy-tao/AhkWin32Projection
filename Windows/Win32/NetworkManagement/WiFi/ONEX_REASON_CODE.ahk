@@ -4,13 +4,13 @@
  * Specifies the possible values that indicate the reason that 802.1X authentication failed.
  * @remarks
  * 
-  * The <b>ONEX_REASON_CODE</b> enumerated type is used by the 802.1X module, a new wireless configuration component supported on Windows Vista and  later.  
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> contains information on a status change to 802.1X authentication. The <b>ONEX_RESULT_UPDATE_DATA</b> structure is returned  when  the <b>NotificationSource</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure is <b>WLAN_NOTIFICATION_SOURCE_ONEX</b>  and the <b>NotificationCode</b> member of the <b>WLAN_NOTIFICATION_DATA</b> structure for received notification  is <b>OneXNotificationTypeResultUpdate</b>. For this notification, the <b>pData</b> member of the <b>WLAN_NOTIFICATION_DATA</b> structure points to an  <b>ONEX_RESULT_UPDATE_DATA</b> structure that contains information on the 802.1X authentication status change. 
-  * 
-  * The <b>oneXStatus</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure contains an <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_status">ONEX_STATUS</a> structure. If an error occurred during 802.1X authentication, the dwReason member of this <b>ONEX_STATUS</b> structure contains the reason for the error specified as a value from the <b>ONEX_REASON_CODE</b> enumeration.
-  * 
-  * 
+ * The <b>ONEX_REASON_CODE</b> enumerated type is used by the 802.1X module, a new wireless configuration component supported on Windows Vista and  later.  
+ * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> contains information on a status change to 802.1X authentication. The <b>ONEX_RESULT_UPDATE_DATA</b> structure is returned  when  the <b>NotificationSource</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure is <b>WLAN_NOTIFICATION_SOURCE_ONEX</b>  and the <b>NotificationCode</b> member of the <b>WLAN_NOTIFICATION_DATA</b> structure for received notification  is <b>OneXNotificationTypeResultUpdate</b>. For this notification, the <b>pData</b> member of the <b>WLAN_NOTIFICATION_DATA</b> structure points to an  <b>ONEX_RESULT_UPDATE_DATA</b> structure that contains information on the 802.1X authentication status change. 
+ * 
+ * The <b>oneXStatus</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure contains an <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_status">ONEX_STATUS</a> structure. If an error occurred during 802.1X authentication, the dwReason member of this <b>ONEX_STATUS</b> structure contains the reason for the error specified as a value from the <b>ONEX_REASON_CODE</b> enumeration.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dot1x/ne-dot1x-onex_reason_code
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319

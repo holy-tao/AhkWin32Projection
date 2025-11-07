@@ -4,12 +4,12 @@
  * Defines the set of valid types for a volume object.
  * @remarks
  * 
-  * The  <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-createvolume">IVdsPack::CreateVolume</a>method passes a <b>VDS_VOLUME_TYPE</b> value as an argument to set a new volume type, and the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop">VDS_VOLUME_PROP</a>structure includes a <b>VDS_VOLUME_TYPE</b> value as a member to indicate  the existing volume type.
-  * 
-  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_VOLUME_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_VOLUME_TYPE</b> enumeration constant.</div>
-  * <div> </div>
-  * 
-  * 
+ * The  <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-createvolume">IVdsPack::CreateVolume</a>method passes a <b>VDS_VOLUME_TYPE</b> value as an argument to set a new volume type, and the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop">VDS_VOLUME_PROP</a>structure includes a <b>VDS_VOLUME_TYPE</b> value as a member to indicate  the existing volume type.
+ * 
+ * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_VOLUME_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_VOLUME_TYPE</b> enumeration constant.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_volume_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

@@ -8,8 +8,8 @@
  * Retrieves name/value pairs from a media transform device (MTD) through the device's General Purpose Name Value Service (GPNVS). Name/value pairs are used to get the capabilities of the device.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_NameValueService)</c>.
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_NameValueService)</c>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_namevalueservice
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

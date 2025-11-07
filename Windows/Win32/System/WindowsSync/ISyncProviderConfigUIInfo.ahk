@@ -8,9 +8,9 @@
  * Represents the information and properties needed to create an instance of a synchronization provider configuration UI.
  * @remarks
  * 
-  * You can get and set the properties of a  synchronization provider configuration UI by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderconfiguiinfo-getsyncproviderconfigui">GetSyncProviderConfigUI</a>method and manipulating the configuration UI's <b>IPropertyStore</b>.
-  * 
-  * 
+ * You can get and set the properties of a  synchronization provider configuration UI by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderconfiguiinfo-getsyncproviderconfigui">GetSyncProviderConfigUI</a>method and manipulating the configuration UI's <b>IPropertyStore</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nn-syncregistration-isyncproviderconfiguiinfo
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

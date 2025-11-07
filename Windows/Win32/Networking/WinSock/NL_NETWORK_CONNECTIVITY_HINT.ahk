@@ -5,7 +5,7 @@
  * Describes a level of network connectivity, the usage charge for a network connection, and other members reflecting cost factors.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//nldef/ns-nldef-nl_network_connectivity_hint
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

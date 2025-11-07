@@ -8,14 +8,14 @@
  * Used to log an event to the Windows Application event log in response to a quota, file screen, or file management job event.
  * @remarks
  * 
-  * For most events, the event identifier is 12325. However, for events that a file management job logs, the event 
-  *     identifier is 8244.
-  * 
-  * You must set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_messagetext">MessageText</a> 
-  *     property; the other property is optional.
-  * 
-  * 
-  * 
+ * For most events, the event identifier is 12325. However, for events that a file management job logs, the event 
+ *     identifier is 8244.
+ * 
+ * You must set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_messagetext">MessageText</a> 
+ *     property; the other property is optional.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmactioneventlog
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

@@ -5,9 +5,9 @@
  * The WM_ADDRESS_ACCESSENTRY structure specifies an entry in an IP address access list.
  * @remarks
  * 
-  * You can use the <b>inet_addr</b> function to convert a standard dotted-format string (such as "255.255.255.255") to the correct binary number in network byte order.
-  * 
-  * 
+ * You can use the <b>inet_addr</b> function to convert a standard dotted-format string (such as "255.255.255.255") to the correct binary number in network byte order.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wm_address_accessentry
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319

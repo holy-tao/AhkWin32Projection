@@ -6,9 +6,9 @@
  * The TRACE_GUID_REGISTRATION structure is used to register event trace classes.
  * @remarks
  * 
-  * Be sure to initialize the memory for this structure to zero before setting any members.
-  * 
-  * 
+ * Be sure to initialize the memory for this structure to zero before setting any members.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-trace_guid_registration
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

@@ -10,14 +10,14 @@
  * Used to manage file management jobs.
  * @remarks
  * 
-  * To create this object from a script, use the "Fsrm.FsrmFileManagementJobManager" program identifier.
-  * 
-  * A file management job consumes the classification properties associated with a file. The job performs actions 
-  *     based whether the property values set by classification meet the specified file management property conditions. 
-  *     The primary action is to expire the file (move the file to an expired files folder) and send notification that the 
-  *     file was expired; however, you can also perform custom actions.
-  * 
-  * 
+ * To create this object from a script, use the "Fsrm.FsrmFileManagementJobManager" program identifier.
+ * 
+ * A file management job consumes the classification properties associated with a file. The job performs actions 
+ *     based whether the property values set by classification meet the specified file management property conditions. 
+ *     The primary action is to expire the file (move the file to an expired files folder) and send notification that the 
+ *     file was expired; however, you can also perform custom actions.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nn-fsrmreports-ifsrmfilemanagementjobmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

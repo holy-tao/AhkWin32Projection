@@ -4,9 +4,9 @@
  * Identifies the type of DXGI adapter.
  * @remarks
  * 
-  * The <b>DXGI_ADAPTER_FLAG3</b> enumerated type is used by the <b>Flags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_6/ns-dxgi1_6-dxgi_adapter_desc3">DXGI_ADAPTER_DESC3</a> structure to ientify the type of DXGI adapter.
-  * 
-  * 
+ * The <b>DXGI_ADAPTER_FLAG3</b> enumerated type is used by the <b>Flags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_6/ns-dxgi1_6-dxgi_adapter_desc3">DXGI_ADAPTER_DESC3</a> structure to ientify the type of DXGI adapter.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi1_6/ne-dxgi1_6-dxgi_adapter_flag3
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

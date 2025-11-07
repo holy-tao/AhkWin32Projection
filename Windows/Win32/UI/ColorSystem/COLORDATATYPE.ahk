@@ -4,11 +4,11 @@
  * Used by WCS functions to indicate the data type of vector content.
  * @remarks
  * 
-  * The PCOLORDATATYPE and LPCOLORDATATYPE data types are defined as pointers to the **COLORDATATYPE** enumeration:
-  * 
-  * `typedef COLORDATATYPE *PCOLORDATATYPE, *LPCOLORDATATYPE;`
-  * 
-  * 
+ * The PCOLORDATATYPE and LPCOLORDATATYPE data types are defined as pointers to the **COLORDATATYPE** enumeration:
+ * 
+ * `typedef COLORDATATYPE *PCOLORDATATYPE, *LPCOLORDATATYPE;`
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//icm/ne-icm-colordatatype
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319

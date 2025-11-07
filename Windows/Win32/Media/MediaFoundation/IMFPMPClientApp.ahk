@@ -7,10 +7,10 @@
  * Provides a mechanism for a media source to implement content protection functionality in a Windows Store apps.
  * @remarks
  * 
-  * <b>When to implement:</b> 
-  * A media source implements <b>IMFPMPClientApp</b> in order to implement content protection functionality for Windows Store apps.
-  * 
-  * 
+ * <b>When to implement:</b> 
+ * A media source implements <b>IMFPMPClientApp</b> in order to implement content protection functionality for Windows Store apps.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfpmpclientapp
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

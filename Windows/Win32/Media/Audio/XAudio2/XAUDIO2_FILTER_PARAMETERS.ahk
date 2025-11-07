@@ -5,48 +5,48 @@
  * Defines filter parameters for a source voice.
  * @remarks
  * 
-  * Setting XAUDIO2_FILTER_PARAMETERS with the following values is acoustically equivalent to the filter being fully bypassed.
-  * 
-  * 
-  * ```
-  * XAUDIO2_FILTER_PARAMETERS FilterParams;
-  * FilterParams.Frequency = 1.0f;    
-  * FilterParams.OneOverQ = 1.0f;
-  * FilterParams.Type = LowPassFilter;
-  * 
-  * ```
-  * 
-  * 
-  * The following formulas show the relationship between the members of XAUDIO2_FILTER_PARAMETERS and the per-voice filter.
-  * 
-  * 
-  * ```
-  * Yl( n ) = F1 yb( n ) + yl( n - 1 )
-  * Yb( n ) = F1 yh( n ) + yb( n - 1 )
-  * Yh( n ) = x( n ) - yl( n ) - OneOverQ(yb( n - 1 )
-  * Yn( n ) = Yl(n) + Yh(n)
-  * 
-  * 
-  * ```
-  * 
-  * 
-  * Where:
-  * 
-  * 
-  * ```
-  * Yl = lowpass output
-  * Yb = bandpass output
-  * Yh = highpass output
-  * Yn = notch output
-  * F1 = XAUDIO2_FILTER_PARAMETERS.Frequency
-  * OneOverQ = XAUDIO2_FILTER_PARAMETERS.OneOverQ
-  * ```
-  * 
-  * 
-  * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
-  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
-  * 
-  * 
+ * Setting XAUDIO2_FILTER_PARAMETERS with the following values is acoustically equivalent to the filter being fully bypassed.
+ * 
+ * 
+ * ```
+ * XAUDIO2_FILTER_PARAMETERS FilterParams;
+ * FilterParams.Frequency = 1.0f;    
+ * FilterParams.OneOverQ = 1.0f;
+ * FilterParams.Type = LowPassFilter;
+ * 
+ * ```
+ * 
+ * 
+ * The following formulas show the relationship between the members of XAUDIO2_FILTER_PARAMETERS and the per-voice filter.
+ * 
+ * 
+ * ```
+ * Yl( n ) = F1 yb( n ) + yl( n - 1 )
+ * Yb( n ) = F1 yh( n ) + yb( n - 1 )
+ * Yh( n ) = x( n ) - yl( n ) - OneOverQ(yb( n - 1 )
+ * Yn( n ) = Yl(n) + Yh(n)
+ * 
+ * 
+ * ```
+ * 
+ * 
+ * Where:
+ * 
+ * 
+ * ```
+ * Yl = lowpass output
+ * Yb = bandpass output
+ * Yh = highpass output
+ * Yn = notch output
+ * F1 = XAUDIO2_FILTER_PARAMETERS.Frequency
+ * OneOverQ = XAUDIO2_FILTER_PARAMETERS.OneOverQ
+ * ```
+ * 
+ * 
+ * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
+ * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xaudio2/ns-xaudio2-xaudio2_filter_parameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319

@@ -5,9 +5,9 @@
  * DDP_FILE_EXTENT represents the extent of data in a file that is to be read in a pending call to ReadBackupFile.
  * @remarks
  * 
-  * Data Deduplication needs to read only the portions of a container file that back the restore target file.
-  * 
-  * 
+ * Data Deduplication needs to read only the portions of a container file that back the restore target file.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddpbackup/ns-ddpbackup-ddp_file_extent
  * @namespace Windows.Win32.Storage.DataDeduplication
  * @version v4.0.30319

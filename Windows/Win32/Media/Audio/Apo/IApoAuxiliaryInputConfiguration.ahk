@@ -8,7 +8,7 @@
  * Provides methods that APOs can implement so that the audio engine can add and remove auxiliary input streams.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nn-audioenginebaseapo-iapoauxiliaryinputconfiguration
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319

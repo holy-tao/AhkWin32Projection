@@ -4,7 +4,7 @@
  * Specifies the decoding tier of a hardware video decoder, which determines the required format of application-defined textures and buffers.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_decode_tier
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -5,10 +5,10 @@
  * The MTP_COMMAND_DATA_OUT structure contains Media Transport Protocol (MTP) responses that are filled by the device driver on exiting a call to IWMDMDevice3::DeviceIoControl.
  * @remarks
  * 
-  * The input buffer is expected to contain an appropriately filled out <a href="https://docs.microsoft.com/windows/desktop/api/mtpext/ns-mtpext-mtp_command_data_in">MTP_COMMAND_DATA_IN</a> structure. On exit, the device driver will fill out the <b>MTP_COMMAND_DATA_OUT</b> structure and save it to the output buffer. Therefore, any request must have an input buffer of at least SIZEOF_REQUIRED_COMMAND_DATA_IN bytes, which is defined as the following:
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>
-  * 
+ * The input buffer is expected to contain an appropriately filled out <a href="https://docs.microsoft.com/windows/desktop/api/mtpext/ns-mtpext-mtp_command_data_in">MTP_COMMAND_DATA_IN</a> structure. On exit, the device driver will fill out the <b>MTP_COMMAND_DATA_OUT</b> structure and save it to the output buffer. Therefore, any request must have an input buffer of at least SIZEOF_REQUIRED_COMMAND_DATA_IN bytes, which is defined as the following:
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mtpext/ns-mtpext-mtp_command_data_out
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319

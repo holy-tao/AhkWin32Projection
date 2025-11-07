@@ -5,22 +5,22 @@
  * Represents an audio data buffer, used with IXAudio2SourceVoice::SubmitSourceBuffer.
  * @remarks
  * 
-  * XAudio2 audio data is interleaved, data from each channel is adjacent for a particular sample number. For example if there was a 4 channel wave playing into an XAudio2 source voice, the audio data would be a sample of channel 0, a sample of channel 1, a sample of channel 2, a sample of channel 3, and then the next sample of channels 0, 1, 2, 3, etc.
-  * 
-  * 
-  * 
-  * The <b>AudioBytes</b> and <b>pAudioData</b> members of <b>XAUDIO2_BUFFER</b> correspond to the size in bytes and contents of the 'data' RIFF chunk of the file being played. The contents of the chunk may need to be byte swapped when loading the file on Xbox 360.
-  * 
-  * 
-  * 
-  * Memory allocated to hold a <b>XAUDIO2_BUFFER</b> or <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/ns-xaudio2-xaudio2_buffer_wma">XAUDIO2_BUFFER_WMA</a> structure can be freed as soon as the <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-submitsourcebuffer">IXAudio2SourceVoice::SubmitSourceBuffer</a> call it is passed to returns. The data the structure points to (<b>pAudioData</b> and <b>pDecodedPacketCumulativeBytes</b>, respectively) can't be freed until the buffer completes (as signaled by the <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-ixaudio2voicecallback-onbufferend">IXAudio2VoiceCallback::OnBufferEnd</a> callback) or the voice is stopped or destroyed.
-  * 
-  * 
-  * 
-  * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
-  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
-  * 
-  * 
+ * XAudio2 audio data is interleaved, data from each channel is adjacent for a particular sample number. For example if there was a 4 channel wave playing into an XAudio2 source voice, the audio data would be a sample of channel 0, a sample of channel 1, a sample of channel 2, a sample of channel 3, and then the next sample of channels 0, 1, 2, 3, etc.
+ * 
+ * 
+ * 
+ * The <b>AudioBytes</b> and <b>pAudioData</b> members of <b>XAUDIO2_BUFFER</b> correspond to the size in bytes and contents of the 'data' RIFF chunk of the file being played. The contents of the chunk may need to be byte swapped when loading the file on Xbox 360.
+ * 
+ * 
+ * 
+ * Memory allocated to hold a <b>XAUDIO2_BUFFER</b> or <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/ns-xaudio2-xaudio2_buffer_wma">XAUDIO2_BUFFER_WMA</a> structure can be freed as soon as the <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-submitsourcebuffer">IXAudio2SourceVoice::SubmitSourceBuffer</a> call it is passed to returns. The data the structure points to (<b>pAudioData</b> and <b>pDecodedPacketCumulativeBytes</b>, respectively) can't be freed until the buffer completes (as signaled by the <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-ixaudio2voicecallback-onbufferend">IXAudio2VoiceCallback::OnBufferEnd</a> callback) or the voice is stopped or destroyed.
+ * 
+ * 
+ * 
+ * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
+ * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xaudio2/ns-xaudio2-xaudio2_buffer
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319

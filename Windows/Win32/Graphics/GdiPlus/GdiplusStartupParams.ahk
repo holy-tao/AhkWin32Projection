@@ -4,7 +4,7 @@
  * Defines constants that specify parameters for startup.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplusinit/ne-gdiplusinit-gdiplusstartupparams
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

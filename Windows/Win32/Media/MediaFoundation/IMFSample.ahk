@@ -8,20 +8,20 @@
  * Represents a media sample, which is a container object for media data.
  * @remarks
  * 
-  * To create a new media sample, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatesample">MFCreateSample</a>.
-  * 
-  * <div class="alert"><b>Note</b>  <p class="note">When you call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfattributes-copyallitems">CopyAllItems</a>, inherited from the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface, on an <b>IMFSample</b>, the sample time, duration, and flags are not copied to the destination sample. You must copy these values to the new sample manually.
-  * 
-  * </div>
-  * <div> </div>
-  * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
-  * 
-  * <ul>
-  * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
-  * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
-  * </ul>
-  * 
-  * 
+ * To create a new media sample, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatesample">MFCreateSample</a>.
+ * 
+ * <div class="alert"><b>Note</b>  <p class="note">When you call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfattributes-copyallitems">CopyAllItems</a>, inherited from the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface, on an <b>IMFSample</b>, the sample time, duration, and flags are not copied to the destination sample. You must copy these values to the new sample manually.
+ * 
+ * </div>
+ * <div> </div>
+ * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+ * 
+ * <ul>
+ * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+ * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfsample
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

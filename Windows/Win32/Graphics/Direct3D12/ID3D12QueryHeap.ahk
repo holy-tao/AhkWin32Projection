@@ -7,10 +7,10 @@
  * Manages a query heap. A query heap holds an array of queries, referenced by indexes.
  * @remarks
  * 
-  * For more information, refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/queries">Queries</a>.
-  * 
-  * 
-  * 
+ * For more information, refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/queries">Queries</a>.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12queryheap
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

@@ -8,52 +8,52 @@
  * The ICodecAPI interface sets and retrieves settings on an encoder or decoder filter.
  * @remarks
  * 
-  * This interface defines a generic mechanism for setting properties on a codec (encoder or decoder). A <i>codec property</i> is a key/value pair, where the key is a GUID and the value is a <b>VARIANT</b>. The interpretation of the <b>VARIANT</b> data depends on the property GUID. For a list of codec property GUIDs, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/codec-api-properties">Codec API Properties</a>.
-  * 
-  * <h3><a id="Codec_Profiles"></a><a id="codec_profiles"></a><a id="CODEC_PROFILES"></a>Codec Profiles</h3>
-  * Codecs can optionally store profile and capability information in the system registry. This information enables applications to query the device during device enumeration. Default profiles are stored in the following registry key:<pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
-  *    <b>Software</b>
-  *       <b>Classes</b>
-  *          <b>CLSID</b>
-  *             <b><i>Category</i></b>
-  *                <b>Profiles</b></pre>Each profile is a registry key whose default string is a text description of the profile. Each value has a GUID name, followed by a string value containing the numeric GUID value. For example:
-  * 
-  * <div class="code"><span codelanguage="ManagedCPlusPlus"><table>
-  * <tr>
-  * <th>C++</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * <pre>
-  *   HLKM\Software\Classes\CLSID\&lt;category&gt;\Profiles\DVD
-  *     default "HQ DVD"
-  *     REG_SZ {...} = "0"
-  *     REG_SZ {...} = "1234"
-  * </pre>
-  * </td>
-  * </tr>
-  * </table></span></div>
-  * where {...} is a property GUID that the application can map into its user interface. Microsoft is currently considering the definition of a set of standard profiles.
-  * 
-  * Default codec capabilities are stored under HLKM\Software\Classes\CLSID\&lt;category&gt;\Instance\&lt;Filter CLSID&gt;\Capabilities. Each value has a GUID name, followed by a string value containing the numeric GUID value. For example:
-  * 
-  * <div class="code"><span codelanguage="ManagedCPlusPlus"><table>
-  * <tr>
-  * <th>C++</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * <pre>
-  * HLKM\Software\Classes\CLSID\&lt;category&gt;\Instance\&lt;My DVD encoder&gt;\Capabilities
-  *      default "My DVD encoder"
-  *      REG_SZ_MULTI {...}
-  * </pre>
-  * </td>
-  * </tr>
-  * </table></span></div>
-  * where {...} is a property GUID that the application can map into its user interface.
-  * 
-  * 
+ * This interface defines a generic mechanism for setting properties on a codec (encoder or decoder). A <i>codec property</i> is a key/value pair, where the key is a GUID and the value is a <b>VARIANT</b>. The interpretation of the <b>VARIANT</b> data depends on the property GUID. For a list of codec property GUIDs, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/codec-api-properties">Codec API Properties</a>.
+ * 
+ * <h3><a id="Codec_Profiles"></a><a id="codec_profiles"></a><a id="CODEC_PROFILES"></a>Codec Profiles</h3>
+ * Codecs can optionally store profile and capability information in the system registry. This information enables applications to query the device during device enumeration. Default profiles are stored in the following registry key:<pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>Software</b>
+ *       <b>Classes</b>
+ *          <b>CLSID</b>
+ *             <b><i>Category</i></b>
+ *                <b>Profiles</b></pre>Each profile is a registry key whose default string is a text description of the profile. Each value has a GUID name, followed by a string value containing the numeric GUID value. For example:
+ * 
+ * <div class="code"><span codelanguage="ManagedCPlusPlus"><table>
+ * <tr>
+ * <th>C++</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * <pre>
+ *   HLKM\Software\Classes\CLSID\&lt;category&gt;\Profiles\DVD
+ *     default "HQ DVD"
+ *     REG_SZ {...} = "0"
+ *     REG_SZ {...} = "1234"
+ * </pre>
+ * </td>
+ * </tr>
+ * </table></span></div>
+ * where {...} is a property GUID that the application can map into its user interface. Microsoft is currently considering the definition of a set of standard profiles.
+ * 
+ * Default codec capabilities are stored under HLKM\Software\Classes\CLSID\&lt;category&gt;\Instance\&lt;Filter CLSID&gt;\Capabilities. Each value has a GUID name, followed by a string value containing the numeric GUID value. For example:
+ * 
+ * <div class="code"><span codelanguage="ManagedCPlusPlus"><table>
+ * <tr>
+ * <th>C++</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * <pre>
+ * HLKM\Software\Classes\CLSID\&lt;category&gt;\Instance\&lt;My DVD encoder&gt;\Capabilities
+ *      default "My DVD encoder"
+ *      REG_SZ_MULTI {...}
+ * </pre>
+ * </td>
+ * </tr>
+ * </table></span></div>
+ * where {...} is a property GUID that the application can map into its user interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-icodecapi
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

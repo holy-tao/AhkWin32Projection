@@ -5,10 +5,10 @@
  * The AFPROTOCOLS structure supplies a list of protocols to which application programmers can constrain queries. The AFPROTOCOLS structure is used for query purposes only.
  * @remarks
  * 
-  * The members of the 
-  * <b>AFPROTOCOLS</b> structure are a functional pair, and only have meaning when used together, as protocol values have meaning only within the context of an address family.
-  * 
-  * 
+ * The members of the 
+ * <b>AFPROTOCOLS</b> structure are a functional pair, and only have meaning when used together, as protocol values have meaning only within the context of an address family.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-afprotocols
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

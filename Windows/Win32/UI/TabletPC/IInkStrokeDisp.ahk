@@ -14,9 +14,9 @@
  * Represents a single ink stroke.A stroke is a set of properties and point data that the digitizer captures that represent the coordinates and properties of a known ink mark.
  * @remarks
  * 
-  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
-  * 
-  * 
+ * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkstrokedisp
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

@@ -5,17 +5,17 @@
  * Contains data describing a storage class resource volume and file system. It is used as the data member of a CLUSPROP_PARTITION_INFO structure and as the return value of some control code operations.
  * @remarks
  * 
-  * A <b>CLUS_PARTITION_INFO</b> structure can be returned by 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcecontrol">ClusterResourceControl</a> when the 
-  *      <i>dwControlCode</i> parameter is set to 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-storage-get-disk-info">CLUSCTL_RESOURCE_STORAGE_GET_DISK_INFO</a> 
-  *      and can be returned by 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypecontrol">ClusterResourceTypeControl</a> when 
-  *      <i>dwControlCode</i> is set to 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-type-storage-get-available-disks">CLUSCTL_RESOURCE_TYPE_STORAGE_GET_AVAILABLE_DISKS</a>.
-  * 
-  * 
-  * 
+ * A <b>CLUS_PARTITION_INFO</b> structure can be returned by 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcecontrol">ClusterResourceControl</a> when the 
+ *      <i>dwControlCode</i> parameter is set to 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-storage-get-disk-info">CLUSCTL_RESOURCE_STORAGE_GET_DISK_INFO</a> 
+ *      and can be returned by 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypecontrol">ClusterResourceTypeControl</a> when 
+ *      <i>dwControlCode</i> is set to 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-type-storage-get-available-disks">CLUSCTL_RESOURCE_TYPE_STORAGE_GET_AVAILABLE_DISKS</a>.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_partition_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

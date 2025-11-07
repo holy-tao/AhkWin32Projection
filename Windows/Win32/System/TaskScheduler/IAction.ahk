@@ -8,44 +8,44 @@
  * Provides the common properties inherited by all action objects.
  * @remarks
  * 
-  * For more information about how actions and tasks work together, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-actions">Task Actions</a>. The following table contains the interfaces that represent the actions  that can be performed:<table>
-  * <tr>
-  * <th>API</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-icomhandleraction">IComHandlerAction</a>
-  * </td>
-  * <td>Represents an action that fires a handler.</td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-iexecaction">IExecAction</a>
-  * </td>
-  * <td>Represents an action that executes a command-line operation.</td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-iemailaction">IEmailAction</a>
-  * </td>
-  * <td>Represents an action that sends an email message.</td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-ishowmessageaction">IShowMessageAction</a>
-  * </td>
-  * <td>Represents an action that shows a message box.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * 
-  * 
-  * When reading or writing XML, the actions of a task are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-actions-tasktype-element">Actions</a> element of the Task Scheduler schema.
-  * 
-  * 
-  * 
+ * For more information about how actions and tasks work together, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-actions">Task Actions</a>. The following table contains the interfaces that represent the actions  that can be performed:<table>
+ * <tr>
+ * <th>API</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-icomhandleraction">IComHandlerAction</a>
+ * </td>
+ * <td>Represents an action that fires a handler.</td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-iexecaction">IExecAction</a>
+ * </td>
+ * <td>Represents an action that executes a command-line operation.</td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-iemailaction">IEmailAction</a>
+ * </td>
+ * <td>Represents an action that sends an email message.</td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-ishowmessageaction">IShowMessageAction</a>
+ * </td>
+ * <td>Represents an action that shows a message box.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
+ * When reading or writing XML, the actions of a task are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-actions-tasktype-element">Actions</a> element of the Task Scheduler schema.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-iaction
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

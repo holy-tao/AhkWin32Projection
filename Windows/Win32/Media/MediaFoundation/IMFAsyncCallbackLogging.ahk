@@ -7,9 +7,9 @@
  * Provides logging information about the parent object the async callback is associated with.
  * @remarks
  * 
-  * <b>IMFAsyncCallbackLogging</b> is primarily used for async callbacks to return an ID of the parent object that they are associated with.
-  * 
-  * 
+ * <b>IMFAsyncCallbackLogging</b> is primarily used for async callbacks to return an ID of the parent object that they are associated with.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfasynccallbacklogging
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

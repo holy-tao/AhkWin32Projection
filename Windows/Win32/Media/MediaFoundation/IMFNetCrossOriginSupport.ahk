@@ -7,8 +7,8 @@
  * Implemented by clients that want to enforce a cross origin policy for HTML5 media downloads.
  * @remarks
  * 
-  * The Media Foundation network code uses these client callbacks to implement and enforce cross origin downloads.
-  * 
+ * The Media Foundation network code uses these client callbacks to implement and enforce cross origin downloads.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfnetcrossoriginsupport
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

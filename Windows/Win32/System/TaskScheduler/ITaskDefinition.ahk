@@ -13,10 +13,10 @@
  * Defines all the components of a task, such as the task settings, triggers, actions, and registration information.
  * @remarks
  * 
-  * When reading or writing your own XML for a task, a task definition is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-task-element">Task</a> element of the Task Scheduler schema.
-  * 
-  * 
-  * 
+ * When reading or writing your own XML for a task, a task definition is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-task-element">Task</a> element of the Task Scheduler schema.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itaskdefinition
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

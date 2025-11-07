@@ -5,9 +5,9 @@
  * Contains a 128-bit random number for use with Output Protection Manager (OPM).
  * @remarks
  * 
-  * Always use a cryptographically secure random-number generator to fill in this structure. The <b>CryptGenRandom</b> function is recommended, although not required.
-  * 
-  * 
+ * Always use a cryptographically secure random-number generator to fill in this structure. The <b>CryptGenRandom</b> function is recommended, although not required.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_random_number
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -4,70 +4,70 @@
  * The DVD_OPTION_FLAG enumeration defines flags that control the behavior of the DVD Navigator Filter. To set any of these flags, call IDvdControl2::SetOption.
  * @remarks
  * 
-  * The following table lists the default values for the Boolean flags.
-  * 
-  * <table>
-  * <tr>
-  * <th>Flag
-  *             </th>
-  * <th>Default value
-  *             </th>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_AudioDuringFFwdRew</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_DisableStillThrottle</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_EnableESOutput</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_EnableExtendedCopyProtectErrors</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_EnableLoggingEvents</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_EnableNonblockingAPIs</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_EnableStreaming</b></td>
-  * <td><b>TRUE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_EnablePortableBookmarks</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_EnableTitleLength</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_HMSF_TimeCodeEvents</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_NotifyParentalLevelChange</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_NotifyPositionChange</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DVD_ResetOnStop</b></td>
-  * <td><b>TRUE</b></td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * The following table lists the default values for the Boolean flags.
+ * 
+ * <table>
+ * <tr>
+ * <th>Flag
+ *             </th>
+ * <th>Default value
+ *             </th>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_AudioDuringFFwdRew</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_DisableStillThrottle</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_EnableESOutput</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_EnableExtendedCopyProtectErrors</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_EnableLoggingEvents</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_EnableNonblockingAPIs</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_EnableStreaming</b></td>
+ * <td><b>TRUE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_EnablePortableBookmarks</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_EnableTitleLength</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_HMSF_TimeCodeEvents</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_NotifyParentalLevelChange</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_NotifyPositionChange</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DVD_ResetOnStop</b></td>
+ * <td><b>TRUE</b></td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_option_flag
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

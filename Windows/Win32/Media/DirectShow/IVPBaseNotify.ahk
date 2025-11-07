@@ -7,9 +7,9 @@
  * Enables the Overlay Mixer to control the properties of a hardware device such as a decoder that uses a video port. The IVPNotify interface derives from this interface.Applications should never use this interface.
  * @remarks
  * 
-  * Include Vptype.h before Vpnotify.h.
-  * 
-  * 
+ * Include Vptype.h before Vpnotify.h.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nn-vpnotify-ivpbasenotify
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

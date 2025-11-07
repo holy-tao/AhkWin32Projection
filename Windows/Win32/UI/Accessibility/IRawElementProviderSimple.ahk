@@ -9,17 +9,17 @@
  * Defines methods and properties that expose simple UI elements.
  * @remarks
  * 
-  * This interface can be implemented on:
-  * 			
-  * 
-  * <ul>
-  * <li>UI Automation provider for simple UI elements, such as buttons.</li>
-  * <li>Providers that add or override properties or control patterns on a UI element that already has a provider.</li>
-  * </ul>
-  * Providers for complex elements must also implement <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a> and, if they 
-  * 			are root elements, <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragmentroot">IRawElementProviderFragmentRoot</a>.
-  * 
-  * 
+ * This interface can be implemented on:
+ * 			
+ * 
+ * <ul>
+ * <li>UI Automation provider for simple UI elements, such as buttons.</li>
+ * <li>Providers that add or override properties or control patterns on a UI element that already has a provider.</li>
+ * </ul>
+ * Providers for complex elements must also implement <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a> and, if they 
+ * 			are root elements, <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragmentroot">IRawElementProviderFragmentRoot</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-irawelementprovidersimple
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

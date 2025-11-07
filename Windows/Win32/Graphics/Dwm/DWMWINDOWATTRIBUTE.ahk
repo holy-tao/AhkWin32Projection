@@ -4,14 +4,14 @@
  * Flags used by the [DwmGetWindowAttribute](/windows/desktop/api/dwmapi/nf-dwmapi-dwmgetwindowattribute) and [DwmSetWindowAttribute](/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute) functions to specify window attributes for Desktop Window Manager (DWM) non-client rendering.
  * @remarks
  * 
-  * > [!IMPORTANT]
-  * > The value described below is available in pre-release versions of the [SDK Insider Preview](https://www.microsoft.com/software-download/windowsinsiderpreviewSDK).
-  * 
-  * `DWMWA_USE_HOSTBACKDROPBRUSH`
-  * 
-  * Use with [DwmSetWindowAttribute](/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute). Enables a non-UWP window to use host backdrop brushes. If this flag is set, then a Win32 app that calls [Windows::UI::Composition](/uwp/api/windows.ui.composition) APIs can build transparency effects using the host backdrop brush (see [Compositor.CreateHostBackdropBrush](/uwp/api/windows.ui.composition.compositor.createhostbackdropbrush)). The retrieved value is of type **BOOL**. **TRUE** to enable host backdrop brushes for the window; otherwise, **FALSE**.
-  * 
-  * 
+ * > [!IMPORTANT]
+ * > The value described below is available in pre-release versions of the [SDK Insider Preview](https://www.microsoft.com/software-download/windowsinsiderpreviewSDK).
+ * 
+ * `DWMWA_USE_HOSTBACKDROPBRUSH`
+ * 
+ * Use with [DwmSetWindowAttribute](/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute). Enables a non-UWP window to use host backdrop brushes. If this flag is set, then a Win32 app that calls [Windows::UI::Composition](/uwp/api/windows.ui.composition) APIs can build transparency effects using the host backdrop brush (see [Compositor.CreateHostBackdropBrush](/uwp/api/windows.ui.composition.compositor.createhostbackdropbrush)). The retrieved value is of type **BOOL**. **TRUE** to enable host backdrop brushes for the window; otherwise, **FALSE**.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwmapi/ne-dwmapi-dwmwindowattribute
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319

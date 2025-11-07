@@ -8,12 +8,12 @@
  * The blend-variable interface accesses blend state.
  * @remarks
  * 
-  * An <b>ID3D10EffectBlendVariable Interface</b> is created when an effect is read into memory.
-  * 
-  * Effect variables are saved in memory in the backing store; when a technique is applied, the values in the backing store are copied to the device. You
-  *  can use either of these methods to return state. For examples, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects-set-state">Two Ways to Get the State in an Effect Variable</a>.
-  * 
-  * 
+ * An <b>ID3D10EffectBlendVariable Interface</b> is created when an effect is read into memory.
+ * 
+ * Effect variables are saved in memory in the backing store; when a technique is applied, the values in the backing store are copied to the device. You
+ *  can use either of these methods to return state. For examples, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects-set-state">Two Ways to Get the State in an Effect Variable</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nn-d3d10effect-id3d10effectblendvariable
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

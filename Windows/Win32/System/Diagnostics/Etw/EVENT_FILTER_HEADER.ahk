@@ -5,22 +5,22 @@
  * Defines the header data that must precede the filter data that is defined in the instrumentation manifest.
  * @remarks
  * 
-  * The filter data that you pass to the provider also includes a header. The
-  * following shows an example of how you would define a filter that contained three
-  * integers:
-  * 
-  * ```c
-  * struct _MY_FILTER {
-  *     EVENT_FILTER_HEADER FilterHeader;
-  *     ULONG Int1;
-  *     ULONG Int2;
-  *     ULONG Int3;
-  * } MY_FILTER, *MY_FILTER;
-  * 
-  * MY_FILTER FilterData;
-  * ```
-  * 
-  * 
+ * The filter data that you pass to the provider also includes a header. The
+ * following shows an example of how you would define a filter that contained three
+ * integers:
+ * 
+ * ```c
+ * struct _MY_FILTER {
+ *     EVENT_FILTER_HEADER FilterHeader;
+ *     ULONG Int1;
+ *     ULONG Int2;
+ *     ULONG Int3;
+ * } MY_FILTER, *MY_FILTER;
+ * 
+ * MY_FILTER FilterData;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntprov/ns-evntprov-event_filter_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

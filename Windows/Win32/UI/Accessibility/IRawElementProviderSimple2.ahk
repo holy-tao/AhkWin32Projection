@@ -7,14 +7,14 @@
  * Extends the IRawElementProviderSimple interface to enable programmatically invoking context menus.
  * @remarks
  * 
-  * This interface can be implemented on:
-  * 			
-  * 
-  * <ul>
-  * <li>Providers that add or override properties or control patterns on a UI element that already has a provider.</li>
-  * </ul>
-  *  If no context menu is available directly on the element on which <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple2-showcontextmenu">ShowContextMenu</a>  was invoked, the provider should attempt to invoke a context menu on the UI Automation parent of the current item.
-  * 
+ * This interface can be implemented on:
+ * 			
+ * 
+ * <ul>
+ * <li>Providers that add or override properties or control patterns on a UI element that already has a provider.</li>
+ * </ul>
+ *  If no context menu is available directly on the element on which <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple2-showcontextmenu">ShowContextMenu</a>  was invoked, the provider should attempt to invoke a context menu on the UI Automation parent of the current item.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-irawelementprovidersimple2
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

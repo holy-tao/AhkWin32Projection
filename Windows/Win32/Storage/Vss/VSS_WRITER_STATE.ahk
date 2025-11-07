@@ -4,10 +4,10 @@
  * Indicates the current state of the writer.
  * @remarks
  * 
-  * A requester determines the state of a writer through 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getwriterstatus">IVssBackupComponents::GetWriterStatus</a>.
-  * 
-  * 
+ * A requester determines the state of a writer through 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getwriterstatus">IVssBackupComponents::GetWriterStatus</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_writer_state
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319

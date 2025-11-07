@@ -5,15 +5,15 @@
  * Provides input data used by the SIO_ACQUIRE_PORT_RESERVATION IOCTL to acquire a runtime reservation for a block of TCP or UDP ports.
  * @remarks
  * 
-  * The  <b>INET_PORT_RANGE</b> structure is supported on Windows Vistaand later.
-  * 
-  * The 
-  * <b>INET_PORT_RANGE</b> structure is the datatype passed in the input buffer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/gg699720(v=vs.85)">SIO_ACQUIRE_PORT_RESERVATION</a> IOCTL. This IOCTL is used to acquire a runtime reservation for a block of TCP or UDP ports.  
-  * 
-  * The 
-  * <b>INET_PORT_RANGE</b> structure is typedefed to the <b>INET_PORT_RESERVATION</b> structure.
-  * 
-  * 
+ * The  <b>INET_PORT_RANGE</b> structure is supported on Windows Vistaand later.
+ * 
+ * The 
+ * <b>INET_PORT_RANGE</b> structure is the datatype passed in the input buffer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/gg699720(v=vs.85)">SIO_ACQUIRE_PORT_RESERVATION</a> IOCTL. This IOCTL is used to acquire a runtime reservation for a block of TCP or UDP ports.  
+ * 
+ * The 
+ * <b>INET_PORT_RANGE</b> structure is typedefed to the <b>INET_PORT_RESERVATION</b> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mstcpip/ns-mstcpip-inet_port_range
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

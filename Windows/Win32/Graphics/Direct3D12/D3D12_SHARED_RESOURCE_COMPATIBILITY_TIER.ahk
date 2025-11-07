@@ -4,7 +4,7 @@
  * Defines constants that specify a cross-API sharing support tier.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_shared_resource_compatibility_tier
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

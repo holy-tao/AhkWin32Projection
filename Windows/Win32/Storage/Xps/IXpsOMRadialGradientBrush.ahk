@@ -10,58 +10,58 @@
  * Specifies a radial gradient.
  * @remarks
  * 
-  *   As shown in the figure that follows, the gradient region of a radial gradient is the area enclosed by the ellipse that is described by the center point and the x and y radii that extend from the center point. The spread area is the area outside of that ellipse. The gradient path (not shown) is a radial line that is drawn between the gradient origin and the ellipse that bounds the gradient region.
-  * 
-  * <img alt="A figure that shows the terms used in a radial gradient" src="./images/RadialGradient1.png"/>
-  * The code example that follows illustrates how to create an instance of  this interface.
-  * 
-  * 
-  * ```cpp
-  * 
-  * IXpsOMRadialGradientBrush    *newInterface;
-  * // The following values are defined outside of 
-  * // this example.
-  * //  IXpsOMGradientStop       *gradStop1, *gradStop2;
-  * //  XPS_POINT                centerPoint, gradientOrigin;
-  * //  XPS_SIZE                 radiiSizes;
-  * 
-  * // Note the implicit requirement that CoInitializeEx 
-  * //  has previously been called from this thread.
-  * 
-  * hr = CoCreateInstance(
-  *     __uuidof(XpsOMObjectFactory),
-  *     NULL,
-  *     CLSCTX_INPROC_SERVER,
-  *     _uuidof(IXpsOMObjectFactory),
-  *     reinterpret_cast<LPVOID*>(&xpsFactory)
-  *     );
-  * 
-  * if (SUCCEEDED(hr))
-  * {
-  *     hr = xpsFactory->CreateRadialGradientBrush (
-  *         gradStop1,
-  *         gradStop2,
-  *         &centerPoint,
-  *         &gradientOrigin,
-  *         &radiiSizes,
-  *         &newInterface);
-  * 
-  *     if (SUCCEEDED(hr))
-  *     {
-  *         // use newInterface
-  * 
-  *         newInterface->Release();
-  *     }
-  *     xpsFactory->Release();
-  * }
-  * else
-  * {
-  *     // evaluate HRESULT error returned in hr
-  * }
-  * 
-  * ```
-  * 
-  * 
+ *   As shown in the figure that follows, the gradient region of a radial gradient is the area enclosed by the ellipse that is described by the center point and the x and y radii that extend from the center point. The spread area is the area outside of that ellipse. The gradient path (not shown) is a radial line that is drawn between the gradient origin and the ellipse that bounds the gradient region.
+ * 
+ * <img alt="A figure that shows the terms used in a radial gradient" src="./images/RadialGradient1.png"/>
+ * The code example that follows illustrates how to create an instance of  this interface.
+ * 
+ * 
+ * ```cpp
+ * 
+ * IXpsOMRadialGradientBrush    *newInterface;
+ * // The following values are defined outside of 
+ * // this example.
+ * //  IXpsOMGradientStop       *gradStop1, *gradStop2;
+ * //  XPS_POINT                centerPoint, gradientOrigin;
+ * //  XPS_SIZE                 radiiSizes;
+ * 
+ * // Note the implicit requirement that CoInitializeEx 
+ * //  has previously been called from this thread.
+ * 
+ * hr = CoCreateInstance(
+ *     __uuidof(XpsOMObjectFactory),
+ *     NULL,
+ *     CLSCTX_INPROC_SERVER,
+ *     _uuidof(IXpsOMObjectFactory),
+ *     reinterpret_cast<LPVOID*>(&xpsFactory)
+ *     );
+ * 
+ * if (SUCCEEDED(hr))
+ * {
+ *     hr = xpsFactory->CreateRadialGradientBrush (
+ *         gradStop1,
+ *         gradStop2,
+ *         &centerPoint,
+ *         &gradientOrigin,
+ *         &radiiSizes,
+ *         &newInterface);
+ * 
+ *     if (SUCCEEDED(hr))
+ *     {
+ *         // use newInterface
+ * 
+ *         newInterface->Release();
+ *     }
+ *     xpsFactory->Release();
+ * }
+ * else
+ * {
+ *     // evaluate HRESULT error returned in hr
+ * }
+ * 
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomradialgradientbrush
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

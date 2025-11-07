@@ -5,9 +5,9 @@
  * Contains the text recognition data properties retrieved by MappingRecognizeText.
  * @remarks
  * 
-  * The memory for the property bag structure itself is managed by the application. The ELS platform and its services only manage the data pointers that they store in the property bag.
-  * 
-  * 
+ * The memory for the property bag structure itself is managed by the application. The ELS platform and its services only manage the data pointers that they store in the property bag.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//elscore/ns-elscore-mapping_property_bag
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319

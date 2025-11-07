@@ -4,20 +4,20 @@
  * The RADIUS_ATTRIBUTE_TYPE type enumerates the possible types for a RADIUS attribute.
  * @remarks
  * 
-  * The following attributes are read-only. Extension DLLs that implement <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_2">RadiusExtensionProcess2</a> cannot add/remove/modify these attributes within a request or response contained in a <a href="https://docs.microsoft.com/windows/desktop/api/authif/ns-authif-radius_extension_control_block">RADIUS_EXTENSION_CONTROL_BLOCK</a>.
-  * 
-  * <ul>
-  * <li><b>ratCode</b></li>
-  * <li><b>ratIdentifier</b></li>
-  * <li><b>ratAuthenticator</b></li>
-  * <li><b>ratSrcIPAddress</b></li>
-  * <li><b>ratSrcPort</b></li>
-  * <li><b>ratProvider</b></li>
-  * <li><b>ratUniqueId</b></li>
-  * <li><b>ratSrcIPv6Address</b></li>
-  * </ul>
-  * 
-  * 
+ * The following attributes are read-only. Extension DLLs that implement <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_2">RadiusExtensionProcess2</a> cannot add/remove/modify these attributes within a request or response contained in a <a href="https://docs.microsoft.com/windows/desktop/api/authif/ns-authif-radius_extension_control_block">RADIUS_EXTENSION_CONTROL_BLOCK</a>.
+ * 
+ * <ul>
+ * <li><b>ratCode</b></li>
+ * <li><b>ratIdentifier</b></li>
+ * <li><b>ratAuthenticator</b></li>
+ * <li><b>ratSrcIPAddress</b></li>
+ * <li><b>ratSrcPort</b></li>
+ * <li><b>ratProvider</b></li>
+ * <li><b>ratUniqueId</b></li>
+ * <li><b>ratSrcIPv6Address</b></li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//authif/ne-authif-radius_attribute_type
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319

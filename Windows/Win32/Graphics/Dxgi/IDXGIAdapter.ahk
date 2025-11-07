@@ -8,22 +8,22 @@
  * The IDXGIAdapter interface represents a display subsystem (including one or more GPUs, DACs and video memory).
  * @remarks
  * 
-  * A display subsystem is often referred to as a video card, however, on some machines the display subsystem is part of the motherboard.
-  *           
-  * 
-  * To enumerate the display subsystems, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-enumadapters">IDXGIFactory::EnumAdapters</a>.
-  *           
-  * 
-  * To get an interface to the adapter for a particular device, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgidevice-getadapter">IDXGIDevice::GetAdapter</a>.
-  *           
-  * 
-  * To create a software adapter, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createsoftwareadapter">IDXGIFactory::CreateSoftwareAdapter</a>.
-  *           
-  * 
-  * <b>Windows Phone 8:
-  *         </b> This API is supported.
-  * 
-  * 
+ * A display subsystem is often referred to as a video card, however, on some machines the display subsystem is part of the motherboard.
+ *           
+ * 
+ * To enumerate the display subsystems, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-enumadapters">IDXGIFactory::EnumAdapters</a>.
+ *           
+ * 
+ * To get an interface to the adapter for a particular device, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgidevice-getadapter">IDXGIDevice::GetAdapter</a>.
+ *           
+ * 
+ * To create a software adapter, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createsoftwareadapter">IDXGIFactory::CreateSoftwareAdapter</a>.
+ *           
+ * 
+ * <b>Windows Phone 8:
+ *         </b> This API is supported.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi/nn-dxgi-idxgiadapter
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

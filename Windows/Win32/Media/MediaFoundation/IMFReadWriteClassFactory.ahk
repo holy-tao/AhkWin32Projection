@@ -7,32 +7,32 @@
  * Creates an instance of either the sink writer or the source reader.
  * @remarks
  * 
-  * To get a pointer to this interface, call the <b>CoCreateInstance</b> function. The CLSID is <b>CLSID_MFReadWriteClassFactory</b>. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfstartup">MFStartup</a> function before using  the interface.
-  * 
-  * As an alternative to using this interface, you can call any of the following functions:
-  * 
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-mfcreatesinkwriterfrommediasink">MFCreateSinkWriterFromMediaSink</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-mfcreatesinkwriterfromurl">MFCreateSinkWriterFromURL</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-mfcreatesourcereaderfrombytestream">MFCreateSourceReaderFromByteStream</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-mfcreatesourcereaderfrommediasource">MFCreateSourceReaderFromMediaSource</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-mfcreatesourcereaderfromurl">MFCreateSourceReaderFromURL</a>
-  * </li>
-  * </ul>
-  * Internally, these functions use the <b>IMFReadWriteClassFactory</b> interface.
-  * 
-  * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
-  * 
-  * 
+ * To get a pointer to this interface, call the <b>CoCreateInstance</b> function. The CLSID is <b>CLSID_MFReadWriteClassFactory</b>. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfstartup">MFStartup</a> function before using  the interface.
+ * 
+ * As an alternative to using this interface, you can call any of the following functions:
+ * 
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-mfcreatesinkwriterfrommediasink">MFCreateSinkWriterFromMediaSink</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-mfcreatesinkwriterfromurl">MFCreateSinkWriterFromURL</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-mfcreatesourcereaderfrombytestream">MFCreateSourceReaderFromByteStream</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-mfcreatesourcereaderfrommediasource">MFCreateSourceReaderFromMediaSource</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-mfcreatesourcereaderfromurl">MFCreateSourceReaderFromURL</a>
+ * </li>
+ * </ul>
+ * Internally, these functions use the <b>IMFReadWriteClassFactory</b> interface.
+ * 
+ * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nn-mfreadwrite-imfreadwriteclassfactory
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -9,9 +9,9 @@
  * The IMSVidFeatures interface represents a collection of Video Control features.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidFeatures)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidFeatures)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidfeatures
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

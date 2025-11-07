@@ -5,9 +5,9 @@
  * Defines provider context information.
  * @remarks
  * 
-  * By default, PERFLIB uses process heap. The memory allocation and free routines lets you provide custom memory management.
-  * 
-  * 
+ * By default, PERFLIB uses process heap. The memory allocation and free routines lets you provide custom memory management.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//perflib/ns-perflib-perf_provider_context
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319

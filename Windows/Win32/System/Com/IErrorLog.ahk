@@ -7,7 +7,7 @@
  * Communicates detailed error information between a client and an object.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-ierrorlog
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

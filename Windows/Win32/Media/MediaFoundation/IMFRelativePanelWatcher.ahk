@@ -8,9 +8,9 @@
  * Monitors the panel associated with a display, so that the app receives notifications when the relative location of the panel changes.
  * @remarks
  * 
-  * Get an instance of this interface by calling [MFCreateRelativePanelWatcher](nf-mfidl-mfcreaterelativepanelwatcher.md).
-  * 
-  * 
+ * Get an instance of this interface by calling [MFCreateRelativePanelWatcher](nf-mfidl-mfcreaterelativepanelwatcher.md).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfrelativepanelwatcher
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -7,31 +7,31 @@
  * Exposes methods that support the addition of IDockingWindow objects to a frame. Implemented by the browser.
  * @remarks
  * 
-  * <b>IDockingWindowFrame</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iolewindow">IOleWindow</a>. See the following topics for details on these methods also available to <b>IDockingWindowFrame</b> through that inheritance.
-  * 
-  * <table class="clsStd">
-  * <tr>
-  * <th>Additional IDockingWindowFrame Methods</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolewindow-getwindow">IOleWindow::GetWindow</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolewindow-contextsensitivehelp">IOleWindow::ContextSensitiveHelp</a>
-  * </td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * You do not typically implement the <b>IDockingWindowFrame</b> interface. The Shell browser implements this interface to support docked windows inside the browser frame.
-  * 
-  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
-  * You use <b>IDockingWindowFrame</b> to add, find, and remove docking window objects in a browser frame.
-  * 
+ * <b>IDockingWindowFrame</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iolewindow">IOleWindow</a>. See the following topics for details on these methods also available to <b>IDockingWindowFrame</b> through that inheritance.
+ * 
+ * <table class="clsStd">
+ * <tr>
+ * <th>Additional IDockingWindowFrame Methods</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolewindow-getwindow">IOleWindow::GetWindow</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolewindow-contextsensitivehelp">IOleWindow::ContextSensitiveHelp</a>
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * You do not typically implement the <b>IDockingWindowFrame</b> interface. The Shell browser implements this interface to support docked windows inside the browser frame.
+ * 
+ * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
+ * You use <b>IDockingWindowFrame</b> to add, find, and remove docking window objects in a browser frame.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-idockingwindowframe
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

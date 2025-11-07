@@ -5,10 +5,10 @@
  * The BTH_QUERY_DEVICE structure is used when querying for the presence of a Bluetooth device.
  * @remarks
  * 
-  * See the Bluetooth specification at 
-  * <a href="https://www.bluetooth.com/">www.bluetooth.com</a> for additional information about LAP.
-  * 
-  * 
+ * See the Bluetooth specification at 
+ * <a href="https://www.bluetooth.com/">www.bluetooth.com</a> for additional information about LAP.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ws2bth/ns-ws2bth-bth_query_device
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319

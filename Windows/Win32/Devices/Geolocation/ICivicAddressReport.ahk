@@ -8,8 +8,8 @@
  * ICivicAddressReport represents a location report that contains information in the form of a street address.
  * @remarks
  * 
-  * Note that any property value can be <b>NULL</b> if the value is not available.
-  * 
+ * Note that any property value can be <b>NULL</b> if the value is not available.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//locationapi/nn-locationapi-icivicaddressreport
  * @namespace Windows.Win32.Devices.Geolocation
  * @version v4.0.30319

@@ -5,11 +5,11 @@
  * The REGPINMEDIUM structure describes a pin medium for registration through the IFilterMapper2 interface.
  * @remarks
  * 
-  * A <i>medium</i> identifies a hardware path of communication that exists within a single hardware device or between two devices. Register mediums if your filter is built on kernel streaming pins and needs to connect to other such filters.
-  * 
-  * This structure is equivalent to the <a href="https://docs.microsoft.com/previous-versions/ff563538(v=vs.85)">KSPIN_MEDIUM</a> structure, which is used by kernel streaming drivers.
-  * 
-  * 
+ * A <i>medium</i> identifies a hardware path of communication that exists within a single hardware device or between two devices. Register mediums if your filter is built on kernel streaming pins and needs to connect to other such filters.
+ * 
+ * This structure is equivalent to the <a href="https://docs.microsoft.com/previous-versions/ff563538(v=vs.85)">KSPIN_MEDIUM</a> structure, which is used by kernel streaming drivers.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-regpinmedium
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

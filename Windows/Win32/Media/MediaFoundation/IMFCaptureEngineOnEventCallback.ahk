@@ -7,9 +7,9 @@
  * Callback interface for receiving events from the capture engine.
  * @remarks
  * 
-  * To set the callback interface on the capture engine, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-initialize">IMFCaptureEngine::Initialize</a> method.
-  * 
-  * 
+ * To set the callback interface on the capture engine, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-initialize">IMFCaptureEngine::Initialize</a> method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nn-mfcaptureengine-imfcaptureengineoneventcallback
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

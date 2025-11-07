@@ -6,9 +6,9 @@
  * Defines the range of supported values for a DirectX Video Acceleration (DXVA) operation.
  * @remarks
  * 
-  * All values in this structure are specified as <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_fixed32">DXVA2_Fixed32</a> structures.
-  * 
-  * 
+ * All values in this structure are specified as <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_fixed32">DXVA2_Fixed32</a> structures.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxva2api/ns-dxva2api-dxva2_valuerange
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

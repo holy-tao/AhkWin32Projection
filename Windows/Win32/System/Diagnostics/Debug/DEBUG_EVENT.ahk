@@ -16,10 +16,10 @@
  * Describes a debugging event.
  * @remarks
  * 
-  * If the <a href="https://docs.microsoft.com/windows/desktop/api/debugapi/nf-debugapi-waitfordebugevent">WaitForDebugEvent</a> function succeeds, it 
-  *     fills in the members of a <b>DEBUG_EVENT</b> structure.
-  * 
-  * 
+ * If the <a href="https://docs.microsoft.com/windows/desktop/api/debugapi/nf-debugapi-waitfordebugevent">WaitForDebugEvent</a> function succeeds, it 
+ *     fills in the members of a <b>DEBUG_EVENT</b> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ns-minwinbase-debug_event
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319

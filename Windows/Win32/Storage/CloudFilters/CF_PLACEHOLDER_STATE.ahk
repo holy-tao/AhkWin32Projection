@@ -4,8 +4,8 @@
  * The state of a placeholder file or folder.
  * @remarks
  * 
-  * Placeholder state information can be obtained by calling: <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfgetplaceholderstatefromattributetag">CfGetPlaceholderStateFromAttributeTag</a>, <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfgetplaceholderstatefromfileinfo">CfGetPlaceholderStateFromFileInfo</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfgetplaceholderstatefromfinddata">CfGetPlaceholderStateFromFindData</a>.
-  * 
+ * Placeholder state information can be obtained by calling: <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfgetplaceholderstatefromattributetag">CfGetPlaceholderStateFromAttributeTag</a>, <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfgetplaceholderstatefromfileinfo">CfGetPlaceholderStateFromFileInfo</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfgetplaceholderstatefromfinddata">CfGetPlaceholderStateFromFindData</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_placeholder_state
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319

@@ -4,9 +4,9 @@
  * Defines the set of possible isolation state values of a machine.
  * @remarks
  * 
-  * Network Access Protection (NAP) uses the <b>ISOLATION_STATE</b> value to determine if a client should be granted  network access.
-  * 
-  * 
+ * Network Access Protection (NAP) uses the <b>ISOLATION_STATE</b> value to determine if a client should be granted  network access.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//eaphostpeertypes/ne-eaphostpeertypes-isolation_state
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319

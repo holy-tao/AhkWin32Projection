@@ -4,129 +4,129 @@
  * Describes how to interpret the signingTime parameter, which is a record of when a signature was created, of the IOpcDigitalSignature::GetSigningTime method.
  * @remarks
  * 
-  * The following table provides descriptions of  placeholder values.
-  * 
-  * <table>
-  * <tr>
-  * <th>Placeholder </th>
-  * <th>Description </th>
-  * <th>Example</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * <i>YYYY</i>
-  * 
-  * </td>
-  * <td>
-  * Four-digit year.
-  * 
-  * </td>
-  * <td>
-  * 2010
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <i>MM</i>
-  * 
-  * </td>
-  * <td>
-  * Two-digit month with a leading zero. Possible values: 01–12.
-  * 
-  * </td>
-  * <td>
-  * 03
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <i>DD</i>
-  * 
-  * </td>
-  * <td>
-  * Two-digit day of month with a leading zero. Possible values: 01–31.
-  * 
-  * </td>
-  * <td>
-  * 09
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <i>hh</i>
-  * 
-  * </td>
-  * <td>
-  * Two-digit hour, 24-hour time with a leading zero. Possible values: 00–23.
-  * 
-  * </td>
-  * <td>
-  * 18
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <i>mm</i>
-  * 
-  * </td>
-  * <td>
-  * Two-digit minute with a leading zero. Possible values: 00–59.
-  * 
-  * </td>
-  * <td>
-  * 45
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <i>ss</i>
-  * 
-  * </td>
-  * <td>
-  * Two-digit second with a leading zero. Possible values: 00–59.
-  * 
-  * </td>
-  * <td>
-  * 32
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <i>s</i>
-  * 
-  * </td>
-  * <td>
-  * One digit representing the decimal fraction of a second.
-  * 
-  * </td>
-  * <td>
-  * 3
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <i>TZD</i>
-  * 
-  * </td>
-  * <td>
-  * Time zone designator with a leading zero. Possible values:  Z, +<i>hh</i>:<i>mm</i>, -<i>hh</i>:<i>mm</i>.
-  * 
-  * </td>
-  * <td>
-  * -08:00
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * The following table provides descriptions of  placeholder values.
+ * 
+ * <table>
+ * <tr>
+ * <th>Placeholder </th>
+ * <th>Description </th>
+ * <th>Example</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * <i>YYYY</i>
+ * 
+ * </td>
+ * <td>
+ * Four-digit year.
+ * 
+ * </td>
+ * <td>
+ * 2010
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <i>MM</i>
+ * 
+ * </td>
+ * <td>
+ * Two-digit month with a leading zero. Possible values: 01–12.
+ * 
+ * </td>
+ * <td>
+ * 03
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <i>DD</i>
+ * 
+ * </td>
+ * <td>
+ * Two-digit day of month with a leading zero. Possible values: 01–31.
+ * 
+ * </td>
+ * <td>
+ * 09
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <i>hh</i>
+ * 
+ * </td>
+ * <td>
+ * Two-digit hour, 24-hour time with a leading zero. Possible values: 00–23.
+ * 
+ * </td>
+ * <td>
+ * 18
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <i>mm</i>
+ * 
+ * </td>
+ * <td>
+ * Two-digit minute with a leading zero. Possible values: 00–59.
+ * 
+ * </td>
+ * <td>
+ * 45
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <i>ss</i>
+ * 
+ * </td>
+ * <td>
+ * Two-digit second with a leading zero. Possible values: 00–59.
+ * 
+ * </td>
+ * <td>
+ * 32
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <i>s</i>
+ * 
+ * </td>
+ * <td>
+ * One digit representing the decimal fraction of a second.
+ * 
+ * </td>
+ * <td>
+ * 3
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <i>TZD</i>
+ * 
+ * </td>
+ * <td>
+ * Time zone designator with a leading zero. Possible values:  Z, +<i>hh</i>:<i>mm</i>, -<i>hh</i>:<i>mm</i>.
+ * 
+ * </td>
+ * <td>
+ * -08:00
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msopc/ne-msopc-opc_signature_time_format
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319

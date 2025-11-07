@@ -8,37 +8,37 @@
  * Provides the video functionality of a Microsoft Direct3D 11 device.
  * @remarks
  * 
-  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> with an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a> interface pointer.
-  * 
-  * This interface provides access to several areas of Microsoft Direct3Dvideo functionality:
-  * 
-  * <ul>
-  * <li>Hardware-accelerated video decoding</li>
-  * <li>Video processing</li>
-  * <li>GPU-based content protection</li>
-  * <li>Video encryption and decryption</li>
-  * </ul>
-  * In Microsoft Direct3D 9, the equivalent functions were distributed across several interfaces:
-  * 
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3dauthenticatedchannel9">IDirect3DAuthenticatedChannel9</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3dcryptosession9">IDirect3DCryptoSession9</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nn-dxva2api-idirectxvideodecoder">IDirectXVideoDecoder</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nn-dxva2api-idirectxvideoprocessor">IDirectXVideoProcessor</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nn-dxvahd-idxvahd_videoprocessor">IDXVAHD_VideoProcessor</a>
-  * </li>
-  * </ul>
-  * 
-  * 
+ * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> with an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a> interface pointer.
+ * 
+ * This interface provides access to several areas of Microsoft Direct3Dvideo functionality:
+ * 
+ * <ul>
+ * <li>Hardware-accelerated video decoding</li>
+ * <li>Video processing</li>
+ * <li>GPU-based content protection</li>
+ * <li>Video encryption and decryption</li>
+ * </ul>
+ * In Microsoft Direct3D 9, the equivalent functions were distributed across several interfaces:
+ * 
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3dauthenticatedchannel9">IDirect3DAuthenticatedChannel9</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3dcryptosession9">IDirect3DCryptoSession9</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nn-dxva2api-idirectxvideodecoder">IDirectXVideoDecoder</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nn-dxva2api-idirectxvideoprocessor">IDirectXVideoProcessor</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nn-dxvahd-idxvahd_videoprocessor">IDXVAHD_VideoProcessor</a>
+ * </li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11videocontext
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

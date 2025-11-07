@@ -5,11 +5,11 @@
  * Describes a buffer resource.
  * @remarks
  * 
-  * This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createbuffer">ID3D10Device::CreateBuffer</a> to create buffer resources.
-  * 
-  * In addition to this structure, there is also a derived structure in D3D10.h (CD3D10_BUFFER_DESC) which behaves like an inherited class to help create a buffer description.
-  * 
-  * 
+ * This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createbuffer">ID3D10Device::CreateBuffer</a> to create buffer resources.
+ * 
+ * In addition to this structure, there is also a derived structure in D3D10.h (CD3D10_BUFFER_DESC) which behaves like an inherited class to help create a buffer description.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_buffer_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

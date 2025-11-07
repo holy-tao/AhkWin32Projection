@@ -19,27 +19,27 @@
  * Used to create all subsequent DirectWrite objects. This interface is the root factory interface for all DirectWrite objects.
  * @remarks
  * 
-  * Create an <b>IDWriteFactory</b> object by using the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-dwritecreatefactory">DWriteCreateFactory</a> function.  
-  * 
-  * 
-  * ```cpp
-  * 
-  * if (SUCCEEDED(hr))
-  * {
-  *     hr = DWriteCreateFactory(
-  *         DWRITE_FACTORY_TYPE_SHARED,
-  *         __uuidof(IDWriteFactory),
-  *         reinterpret_cast<IUnknown**>(&pDWriteFactory_)
-  *         );
-  * }
-  * 
-  * 
-  * ```
-  * 
-  * 
-  * An <b>IDWriteFactory</b> object holds state information, such as font loader registration and cached font data.  This state can be shared or isolated.  Shared is recommended for most applications because it saves memory.  However, isolated can be useful in situations where you want to have a separate state for some objects.
-  * 
-  * 
+ * Create an <b>IDWriteFactory</b> object by using the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-dwritecreatefactory">DWriteCreateFactory</a> function.  
+ * 
+ * 
+ * ```cpp
+ * 
+ * if (SUCCEEDED(hr))
+ * {
+ *     hr = DWriteCreateFactory(
+ *         DWRITE_FACTORY_TYPE_SHARED,
+ *         __uuidof(IDWriteFactory),
+ *         reinterpret_cast<IUnknown**>(&pDWriteFactory_)
+ *         );
+ * }
+ * 
+ * 
+ * ```
+ * 
+ * 
+ * An <b>IDWriteFactory</b> object holds state information, such as font loader registration and cached font data.  This state can be shared or isolated.  Shared is recommended for most applications because it saves memory.  However, isolated can be useful in situations where you want to have a separate state for some objects.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritefactory
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

@@ -10,20 +10,20 @@
  * Represents a Relationships part as an unordered set of IOpcRelationship interface pointers to relationship objects.
  * @remarks
  * 
-  * When a relationship object is created and a pointer to it is added to the set, the relationship it represents is saved when the package is saved.
-  * 
-  * When an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface pointer is deleted from the set, the relationship it represents is not saved when the package is saved.
-  * 
-  * If a relationship is represented in the set, the relationship is stored in the Relationships part represented as the set.
-  * 
-  * For how to form the part name for the target of a relationship, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/resolving-a-part-name-from-a-relationship-s-target-uri">Resolving a Part Name from a Target URI</a>.
-  * 
-  * For more information about relationships, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
-  * 
-  * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface provides access to relationship properties. For details about these properties, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/relationships-overview">Relationships Overview</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a>.
-  * 
-  * 
-  * 
+ * When a relationship object is created and a pointer to it is added to the set, the relationship it represents is saved when the package is saved.
+ * 
+ * When an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface pointer is deleted from the set, the relationship it represents is not saved when the package is saved.
+ * 
+ * If a relationship is represented in the set, the relationship is stored in the Relationships part represented as the set.
+ * 
+ * For how to form the part name for the target of a relationship, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/resolving-a-part-name-from-a-relationship-s-target-uri">Resolving a Part Name from a Target URI</a>.
+ * 
+ * For more information about relationships, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
+ * 
+ * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface provides access to relationship properties. For details about these properties, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/relationships-overview">Relationships Overview</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a>.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcrelationshipset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319

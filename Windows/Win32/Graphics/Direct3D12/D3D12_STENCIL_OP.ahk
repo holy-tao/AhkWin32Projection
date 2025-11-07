@@ -4,9 +4,9 @@
  * Identifies the stencil operations that can be performed during depth-stencil testing.
  * @remarks
  * 
-  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencilop_desc">D3D12_DEPTH_STENCILOP_DESC</a> structure.
-  * 
-  * 
+ * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencilop_desc">D3D12_DEPTH_STENCILOP_DESC</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_stencil_op
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

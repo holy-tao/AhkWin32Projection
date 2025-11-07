@@ -4,16 +4,16 @@
  * Value that represent a category by which a folder registered with the Known Folder system can be classified.
  * @remarks
  * 
-  * The <b>KF_CATEGORY</b> type is defined in Shobjidl.h as shown here.
-  * 
-  *                 
-  * 
-  * 
-  * ```
-  * typedef DWORD KF_CATEGORY;
-  * ```
-  * 
-  * 
+ * The <b>KF_CATEGORY</b> type is defined in Shobjidl.h as shown here.
+ * 
+ *                 
+ * 
+ * 
+ * ```
+ * typedef DWORD KF_CATEGORY;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-kf_category
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

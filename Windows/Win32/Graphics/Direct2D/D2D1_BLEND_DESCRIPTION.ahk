@@ -5,9 +5,9 @@
  * Defines a blend description to be used in a particular blend transform.
  * @remarks
  * 
-  * This description closely matches the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_blend_desc">D3D11_BLEND_DESC</a> struct with some omissions and the addition of the blend factor in the description.
-  * 
-  * 
+ * This description closely matches the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_blend_desc">D3D11_BLEND_DESC</a> struct with some omissions and the addition of the blend factor in the description.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/ns-d2d1effectauthor-d2d1_blend_description
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

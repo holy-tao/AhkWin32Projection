@@ -4,24 +4,24 @@
  * The types supported for serialization.
  * @remarks
  * 
-  * Many of the <b>WS_TYPE</b>s have a corresponding type description structure
-  *                 which allows for additional information used to serialize or deserialize the
-  *                 type.
-  *             
-  * 
-  * For example, the <b>WS_INT32_TYPE</b> has a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_int32_description">WS_INT32_DESCRIPTION</a>structure which allows for constraints on the deserialized values.  This is an optional
-  *                 type description (if not specified, the full 32-bit integer space is allowed).
-  *             
-  * 
-  * Another example is the <b>WS_STRUCT_TYPE</b>, which allows for the specification of
-  *                 a user-defined structure with fields.  The fields are described in a 
-  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_struct_description">WS_STRUCT_DESCRIPTION</a>.  This type description is required.
-  *             
-  * 
-  * Type description pointers accompany <b>WS_TYPE</b> in the various APIs and structures 
-  *                 that are based on serialization.  This should be <b>NULL</b> or non-<b>NULL</b> based on whether or not
-  *                 the type description is not defined, optional or required.
-  * 
+ * Many of the <b>WS_TYPE</b>s have a corresponding type description structure
+ *                 which allows for additional information used to serialize or deserialize the
+ *                 type.
+ *             
+ * 
+ * For example, the <b>WS_INT32_TYPE</b> has a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_int32_description">WS_INT32_DESCRIPTION</a>structure which allows for constraints on the deserialized values.  This is an optional
+ *                 type description (if not specified, the full 32-bit integer space is allowed).
+ *             
+ * 
+ * Another example is the <b>WS_STRUCT_TYPE</b>, which allows for the specification of
+ *                 a user-defined structure with fields.  The fields are described in a 
+ *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_struct_description">WS_STRUCT_DESCRIPTION</a>.  This type description is required.
+ *             
+ * 
+ * Type description pointers accompany <b>WS_TYPE</b> in the various APIs and structures 
+ *                 that are based on serialization.  This should be <b>NULL</b> or non-<b>NULL</b> based on whether or not
+ *                 the type description is not defined, optional or required.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

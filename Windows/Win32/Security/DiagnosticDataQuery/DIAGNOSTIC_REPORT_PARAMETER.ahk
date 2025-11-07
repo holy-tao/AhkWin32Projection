@@ -5,9 +5,9 @@
  * Resource that describes the parameters for an error report.
  * @remarks
  * 
-  * For more information about parameters, see the [**WER APIs**](/windows/win32/api/werapi/nf-werapi-werreportsetparameter).
-  * 
-  * 
+ * For more information about parameters, see the [**WER APIs**](/windows/win32/api/werapi/nf-werapi-werreportsetparameter).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_report_parameter
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  * @version v4.0.30319

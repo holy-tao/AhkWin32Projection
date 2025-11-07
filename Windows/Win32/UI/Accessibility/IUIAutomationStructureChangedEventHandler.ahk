@@ -7,9 +7,9 @@
  * Exposes a method to handle events that occur when the Microsoft UI Automation tree structure is changed.
  * @remarks
  * 
-  * This interface is implemented by the application to handle events that it has subscribed to by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addstructurechangedeventhandler">AddStructureChangedEventHandler</a>.
-  * 
-  * 
+ * This interface is implemented by the application to handle events that it has subscribed to by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addstructurechangedeventhandler">AddStructureChangedEventHandler</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationstructurechangedeventhandler
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

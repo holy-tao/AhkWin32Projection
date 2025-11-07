@@ -8,17 +8,17 @@
  * The IDvbSiParser2 interface retrieves program specific information (PSI) and service information (SI) tables from a DVB transport stream.
  * @remarks
  * 
-  * To get a pointer to this interface, call <b>CoCreateInstance</b>. Use the following CLSID:
-  * 
-  * 
-  * ```cpp
-  * F6B96EDA-1A94-4476-A85F-4D3DC7B39C3F
-  * ```
-  * 
-  * 
-  * This CLSID is not is not published in an SDK header; define a new GUID constant in your application.
-  * 
-  * 
+ * To get a pointer to this interface, call <b>CoCreateInstance</b>. Use the following CLSID:
+ * 
+ * 
+ * ```cpp
+ * F6B96EDA-1A94-4476-A85F-4D3DC7B39C3F
+ * ```
+ * 
+ * 
+ * This CLSID is not is not published in an SDK header; define a new GUID constant in your application.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvbsiparser2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

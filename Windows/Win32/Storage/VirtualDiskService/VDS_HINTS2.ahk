@@ -5,18 +5,18 @@
  * Contains the automagic hints for a LUN in a storage pool.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwproviderstoragepools-createluninstoragepool">IVdsHwProviderStoragePools::CreateLunInStoragePool</a> method passes 
-  *     this structure as a parameter to provide hints for creating a LUN in a storage pool. It is passed as a parameter in the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun2-applyhints2">IVdsLun2::ApplyHints2</a> method to apply a new set of hints to a 
-  *     LUN. Further, it is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun2-queryhints2">IVdsLun2::QueryHints2</a> method  to report hints currently applied 
-  *     to a LUN or LUN plex, respectively.
-  *     
-  * 
-  * Hints are not directives to implementers. While implementers are in general expected to do their best to take hints into consideration, 
-  *      they are not obligated to follow them. Implementers can opt for alternatives when unable to follow specified hints for
-  *      technical reasons or when following them can result in a poor configuration.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwproviderstoragepools-createluninstoragepool">IVdsHwProviderStoragePools::CreateLunInStoragePool</a> method passes 
+ *     this structure as a parameter to provide hints for creating a LUN in a storage pool. It is passed as a parameter in the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun2-applyhints2">IVdsLun2::ApplyHints2</a> method to apply a new set of hints to a 
+ *     LUN. Further, it is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun2-queryhints2">IVdsLun2::QueryHints2</a> method  to report hints currently applied 
+ *     to a LUN or LUN plex, respectively.
+ *     
+ * 
+ * Hints are not directives to implementers. While implementers are in general expected to do their best to take hints into consideration, 
+ *      they are not obligated to follow them. Implementers can opt for alternatives when unable to follow specified hints for
+ *      technical reasons or when following them can result in a poor configuration.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_hints2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

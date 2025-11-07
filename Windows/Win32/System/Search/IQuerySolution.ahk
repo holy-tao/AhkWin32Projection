@@ -7,8 +7,8 @@
  * Provides methods that retrieve information about the interpretation of a parsed query.
  * @remarks
  * 
-  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
-  * 
+ * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nn-structuredquery-iquerysolution
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319

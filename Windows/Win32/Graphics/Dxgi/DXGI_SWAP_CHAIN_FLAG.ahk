@@ -4,17 +4,17 @@
  * Options for swap-chain behavior.
  * @remarks
  * 
-  * This enumeration is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_swap_chain_desc">DXGI_SWAP_CHAIN_DESC</a> structure and the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-resizetarget">IDXGISwapChain::ResizeTarget</a> method.
-  * 
-  * This enumeration is also used by the  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1">DXGI_SWAP_CHAIN_DESC1</a> structure.
-  * 
-  * You don't need to set <b>DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY</b> for swap chains that you create in full-screen mode  with the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createswapchain">IDXGIFactory::CreateSwapChain</a> method because those swap chains already behave as if <b>DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY</b> is set. That is, presented content is not accessible by remote access or through the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgioutputduplication">desktop duplication APIs</a>.
-  * 
-  * Swap chains that you create with the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforhwnd">IDXGIFactory2::CreateSwapChainForHwnd</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcorewindow">IDXGIFactory2::CreateSwapChainForCoreWindow</a>, and  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">IDXGIFactory2::CreateSwapChainForComposition</a> methods are not protected if <b>DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY</b> is not set and are protected if <b>DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY</b> is set. When swap chains are protected, screen scraping is prevented and, in full-screen mode, presented content is not accessible through the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgioutputduplication">desktop duplication APIs</a>.
-  * 
-  * When you call <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-resizebuffers">IDXGISwapChain::ResizeBuffers</a> to change the swap chain's back buffer, you can reset or change all <b>DXGI_SWAP_CHAIN_FLAG</b> flags.
-  * 
-  * 
+ * This enumeration is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_swap_chain_desc">DXGI_SWAP_CHAIN_DESC</a> structure and the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-resizetarget">IDXGISwapChain::ResizeTarget</a> method.
+ * 
+ * This enumeration is also used by the  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1">DXGI_SWAP_CHAIN_DESC1</a> structure.
+ * 
+ * You don't need to set <b>DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY</b> for swap chains that you create in full-screen mode  with the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createswapchain">IDXGIFactory::CreateSwapChain</a> method because those swap chains already behave as if <b>DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY</b> is set. That is, presented content is not accessible by remote access or through the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgioutputduplication">desktop duplication APIs</a>.
+ * 
+ * Swap chains that you create with the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforhwnd">IDXGIFactory2::CreateSwapChainForHwnd</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcorewindow">IDXGIFactory2::CreateSwapChainForCoreWindow</a>, and  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">IDXGIFactory2::CreateSwapChainForComposition</a> methods are not protected if <b>DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY</b> is not set and are protected if <b>DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY</b> is set. When swap chains are protected, screen scraping is prevented and, in full-screen mode, presented content is not accessible through the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgioutputduplication">desktop duplication APIs</a>.
+ * 
+ * When you call <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-resizebuffers">IDXGISwapChain::ResizeBuffers</a> to change the swap chain's back buffer, you can reset or change all <b>DXGI_SWAP_CHAIN_FLAG</b> flags.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi/ne-dxgi-dxgi_swap_chain_flag
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

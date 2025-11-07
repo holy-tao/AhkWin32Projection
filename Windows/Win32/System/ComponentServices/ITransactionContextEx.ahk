@@ -7,19 +7,19 @@
  * Provides basic methods for a generic transactional object that begins a transaction. By calling the methods of this interface, you can compose the work of multiple COM+ objects in a single transaction and explicitly commit or abort the transaction.
  * @remarks
  * 
-  * Using the transaction context object to control a transaction limits the reuse of the business logic driving the transaction and should be used sparingly.
-  * 
-  * You obtain a reference to the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-itransactioncontext">ITransactionContext</a> interface by creating a transaction context object with the appropriate call, as in the following example.
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>hr = CoCreateInstance(
-  *        CLSID_TransactionContextEx, 
-  *        NULL, 
-  *        CLSCTX_INPROC,
-  *        IID_ITransactionContextEx, 
-  *        (void**)&amp;m_pTransactionContext);
-  * </code></pre>
-  * 
-  * 
+ * Using the transaction context object to control a transaction limits the reuse of the business logic driving the transaction and should be used sparingly.
+ * 
+ * You obtain a reference to the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-itransactioncontext">ITransactionContext</a> interface by creating a transaction context object with the appropriate call, as in the following example.
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>hr = CoCreateInstance(
+ *        CLSID_TransactionContextEx, 
+ *        NULL, 
+ *        CLSCTX_INPROC,
+ *        IID_ITransactionContextEx, 
+ *        (void**)&amp;m_pTransactionContext);
+ * </code></pre>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-itransactioncontextex
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319

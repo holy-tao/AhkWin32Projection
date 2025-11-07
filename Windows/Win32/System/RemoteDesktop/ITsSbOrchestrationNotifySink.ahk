@@ -7,9 +7,9 @@
  * Exposes methods that return an ITsSbTarget object to Remote Desktop Connection Broker (RD Connection Broker) after the target is successfully prepared for a connection.
  * @remarks
  * 
-  * Plug-ins should use this interface to return an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtarget">ITsSbTarget</a> object to RD Connection Broker after the plug-in has successfully prepared ("orchestrated") the target.
-  * 
-  * 
+ * Plug-ins should use this interface to return an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtarget">ITsSbTarget</a> object to RD Connection Broker after the plug-in has successfully prepared ("orchestrated") the target.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssborchestrationnotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319

@@ -5,9 +5,9 @@
  * Specifies how to mix the karaoke audio channels.
  * @remarks
  * 
-  * This structure is used for the AM_PROPERTY_DVDKARAOKE_DATA property.
-  * 
-  * 
+ * This structure is used for the AM_PROPERTY_DVDKARAOKE_DATA property.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-am_dvdkaraokedata
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

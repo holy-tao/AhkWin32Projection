@@ -4,7 +4,7 @@
  * Defines constants that specify how font families are grouped together.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/ne-dwrite_3-dwrite_font_family_model
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

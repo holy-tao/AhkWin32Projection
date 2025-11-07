@@ -4,185 +4,185 @@
  * Specifies color space types.
  * @remarks
  * 
-  * This enum is used within DXGI in  the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-checkcolorspacesupport">CheckColorSpaceSupport</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-setcolorspace1">SetColorSpace1</a> and <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgioutput4-checkoverlaycolorspacesupport">CheckOverlayColorSpaceSupport</a> methods. It is also referenced in D3D11 video methods such as <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetoutputcolorspace1">ID3D11VideoContext1::VideoProcessorSetOutputColorSpace1</a>, and D2D methods such as <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createimagesourcefromdxgi">ID2D1DeviceContext2::CreateImageSourceFromDxgi</a>.
-  * 
-  * The following color parameters are defined:
-  * 
-  * <h3><a id="Colorspace"></a><a id="colorspace"></a><a id="COLORSPACE"></a>Colorspace</h3>
-  * Defines the color space of the color channel data. 
-  * 
-  * <table>
-  * <tr>
-  * <td><b>Defined Values</b></td>
-  * <td><b>Notation in color space enumeration</b></td>
-  * <td><b>Comments</b></td>
-  * </tr>
-  * <tr>
-  * <td>RGB</td>
-  * <td>_RGB_</td>
-  * <td>The red/green/blue color space color channel.</td>
-  * </tr>
-  * <tr>
-  * <td>YCbCr</td>
-  * <td>_YCbCr_</td>
-  * <td>Three channel color model which splits luma (brightness) from chroma (color). YUV technically refers to analog signals and YCbCr to digital, but they are used interchangeably. </td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * <h3><a id="Range"></a><a id="range"></a><a id="RANGE"></a>Range</h3>
-  * Indicates which integer range corresponds to the floating point [0..1] range of the data. For video, integer YCbCr data with ranges of [16..235] or [8..247] are usually mapped to normalized YCbCr with ranges of [0..1] or [-0.5..0.5]. 
-  * 
-  * <table>
-  * <tr>
-  * <td><b>Defined_Values</b></td>
-  * <td><b>Notation in color space numeration</b></td>
-  * <td><b>Comments</b></td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <dl>
-  * <dd>8 bit: 0-255</dd>
-  * <dd>10 bit: 0-1023</dd>
-  * <dd>12 bit: 0-4095</dd>
-  * </dl>
-  * </td>
-  * <td>_FULL_</td>
-  * <td>PC desktop content and images.</td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <dl>
-  * <dd>8 bit:16-235</dd>
-  * <dd>10 bit: 64-940</dd>
-  * <dd>12 bit: 256 - 3760</dd>
-  * </dl>
-  * </td>
-  * <td>_STUDIO_</td>
-  * <td>Often used in video. Enables the calibration of white and black between displays.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * <h3><a id="Gamma"></a><a id="gamma"></a><a id="GAMMA"></a>Gamma</h3>
-  * 
-  * 
-  * <table>
-  * <tr>
-  * <td><b>Defined Values</b></td>
-  * <td><b>Notation in color space numeration</b></td>
-  * <td><b>Comments</b></td>
-  * </tr>
-  * <tr>
-  * <td>1.0</td>
-  * <td>_G10_</td>
-  * <td>Linear light levels.</td>
-  * </tr>
-  * <tr>
-  * <td>2.2</td>
-  * <td>_G22_</td>
-  * <td>Commonly used for sRGB and BT.709 (linear segment + 2.222).</td>
-  * </tr>
-  * <tr>
-  * <td>2084</td>
-  * <td>_G2084_</td>
-  * <td>See SMPTE ST.2084 (Perceptual Quantization)</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * <h3><a id="Siting"></a><a id="siting"></a><a id="SITING"></a>Siting</h3>
-  * "Siting" indicates a horizontal or vertical shift of the chrominance channels relative to the luminance channel. 
-  *       "Cositing" indicates values are sited between pixels in the vertical or horizontal direction (also known as being "sited interstitially").
-  * 
-  * <table>
-  * <tr>
-  * <td><b>Defined Values</b></td>
-  * <td><b>Notation in color space enumeration</b></td>
-  * <td><b>Comments</b></td>
-  * <td><b>For Example</b></td>
-  * </tr>
-  * <tr>
-  * <td>Image</td>
-  * <td>_NONE_</td>
-  * <td>The U and V planes are aligned vertically.</td>
-  * <td>MPEG1, JPG</td>
-  * </tr>
-  * <tr>
-  * <td>Video</td>
-  * <td>_LEFT_</td>
-  * <td>Chroma samples are aligned horizontally with the luma samples, or with multiples of the luma samples. The U and V planes are aligned vertically.</td>
-  * <td>MPEG2, MPEG4</td>
-  * </tr>
-  * <tr>
-  * <td>Video</td>
-  * <td>_TOPLEFT_</td>
-  * <td>"Top left" means that the sampling point is the top left pixel (usually of a 2x2 pixel block). Chroma samples are aligned horizontally with the luma samples, or with multiples of the luma samples. Chroma samples are also aligned vertically with the luma samples, or with multiples of the luma samples.</td>
-  * <td>UHD Blu-Ray</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * For more information on siting, refer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideochromasubsampling">MFVideoChromaSubsampling</a> enum.
-  * 
-  * <h3><a id="Primaries"></a><a id="primaries"></a><a id="PRIMARIES"></a>Primaries</h3>
-  * 
-  * 
-  * <table>
-  * <tr>
-  * <td><b>Defined Values</b></td>
-  * <td><b>Notation in color space enumeration</b></td>
-  * <td><b>Comments</b></td>
-  * </tr>
-  * <tr>
-  * <td>BT.601</td>
-  * <td>_P601</td>
-  * <td>Standard defining digital encoding of SDTV video.</td>
-  * </tr>
-  * <tr>
-  * <td>BT.709</td>
-  * <td>_P709</td>
-  * <td>Standard defining digital encoding of HDTV video.</td>
-  * </tr>
-  * <tr>
-  * <td>BT.2020</td>
-  * <td>_P2020</td>
-  * <td>Standard defining ultra-high definition television (UHDTV).</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * <h3><a id="Transfer_Matrix"></a><a id="transfer_matrix"></a><a id="TRANSFER_MATRIX"></a>Transfer Matrix</h3>
-  * In most cases, the transfer matrix can be determined from the primaries. For some cases it must be explicitly specified as described below: 
-  *       
-  * 
-  * <table>
-  * <tr>
-  * <td><b>Defined Values</b></td>
-  * <td><b>Notation in color space enumeration</b></td>
-  * <td><b>Comments</b></td>
-  * </tr>
-  * <tr>
-  * <td>BT.601</td>
-  * <td>_X601</td>
-  * <td>Standard defining digital encoding of SDTV video.</td>
-  * </tr>
-  * <tr>
-  * <td>BT.709</td>
-  * <td>_X709</td>
-  * <td>Standard defining digital encoding of HDTV video.</td>
-  * </tr>
-  * <tr>
-  * <td>BT.2020</td>
-  * <td>_X2020</td>
-  * <td>Standard defining ultra-high definition television (UHDTV).</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * Subsampling and the layout of the color channels are inferred from the surface format.
-  * 
-  * 
+ * This enum is used within DXGI in  the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-checkcolorspacesupport">CheckColorSpaceSupport</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-setcolorspace1">SetColorSpace1</a> and <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgioutput4-checkoverlaycolorspacesupport">CheckOverlayColorSpaceSupport</a> methods. It is also referenced in D3D11 video methods such as <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetoutputcolorspace1">ID3D11VideoContext1::VideoProcessorSetOutputColorSpace1</a>, and D2D methods such as <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createimagesourcefromdxgi">ID2D1DeviceContext2::CreateImageSourceFromDxgi</a>.
+ * 
+ * The following color parameters are defined:
+ * 
+ * <h3><a id="Colorspace"></a><a id="colorspace"></a><a id="COLORSPACE"></a>Colorspace</h3>
+ * Defines the color space of the color channel data. 
+ * 
+ * <table>
+ * <tr>
+ * <td><b>Defined Values</b></td>
+ * <td><b>Notation in color space enumeration</b></td>
+ * <td><b>Comments</b></td>
+ * </tr>
+ * <tr>
+ * <td>RGB</td>
+ * <td>_RGB_</td>
+ * <td>The red/green/blue color space color channel.</td>
+ * </tr>
+ * <tr>
+ * <td>YCbCr</td>
+ * <td>_YCbCr_</td>
+ * <td>Three channel color model which splits luma (brightness) from chroma (color). YUV technically refers to analog signals and YCbCr to digital, but they are used interchangeably. </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * <h3><a id="Range"></a><a id="range"></a><a id="RANGE"></a>Range</h3>
+ * Indicates which integer range corresponds to the floating point [0..1] range of the data. For video, integer YCbCr data with ranges of [16..235] or [8..247] are usually mapped to normalized YCbCr with ranges of [0..1] or [-0.5..0.5]. 
+ * 
+ * <table>
+ * <tr>
+ * <td><b>Defined_Values</b></td>
+ * <td><b>Notation in color space numeration</b></td>
+ * <td><b>Comments</b></td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <dl>
+ * <dd>8 bit: 0-255</dd>
+ * <dd>10 bit: 0-1023</dd>
+ * <dd>12 bit: 0-4095</dd>
+ * </dl>
+ * </td>
+ * <td>_FULL_</td>
+ * <td>PC desktop content and images.</td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <dl>
+ * <dd>8 bit:16-235</dd>
+ * <dd>10 bit: 64-940</dd>
+ * <dd>12 bit: 256 - 3760</dd>
+ * </dl>
+ * </td>
+ * <td>_STUDIO_</td>
+ * <td>Often used in video. Enables the calibration of white and black between displays.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * <h3><a id="Gamma"></a><a id="gamma"></a><a id="GAMMA"></a>Gamma</h3>
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <td><b>Defined Values</b></td>
+ * <td><b>Notation in color space numeration</b></td>
+ * <td><b>Comments</b></td>
+ * </tr>
+ * <tr>
+ * <td>1.0</td>
+ * <td>_G10_</td>
+ * <td>Linear light levels.</td>
+ * </tr>
+ * <tr>
+ * <td>2.2</td>
+ * <td>_G22_</td>
+ * <td>Commonly used for sRGB and BT.709 (linear segment + 2.222).</td>
+ * </tr>
+ * <tr>
+ * <td>2084</td>
+ * <td>_G2084_</td>
+ * <td>See SMPTE ST.2084 (Perceptual Quantization)</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * <h3><a id="Siting"></a><a id="siting"></a><a id="SITING"></a>Siting</h3>
+ * "Siting" indicates a horizontal or vertical shift of the chrominance channels relative to the luminance channel. 
+ *       "Cositing" indicates values are sited between pixels in the vertical or horizontal direction (also known as being "sited interstitially").
+ * 
+ * <table>
+ * <tr>
+ * <td><b>Defined Values</b></td>
+ * <td><b>Notation in color space enumeration</b></td>
+ * <td><b>Comments</b></td>
+ * <td><b>For Example</b></td>
+ * </tr>
+ * <tr>
+ * <td>Image</td>
+ * <td>_NONE_</td>
+ * <td>The U and V planes are aligned vertically.</td>
+ * <td>MPEG1, JPG</td>
+ * </tr>
+ * <tr>
+ * <td>Video</td>
+ * <td>_LEFT_</td>
+ * <td>Chroma samples are aligned horizontally with the luma samples, or with multiples of the luma samples. The U and V planes are aligned vertically.</td>
+ * <td>MPEG2, MPEG4</td>
+ * </tr>
+ * <tr>
+ * <td>Video</td>
+ * <td>_TOPLEFT_</td>
+ * <td>"Top left" means that the sampling point is the top left pixel (usually of a 2x2 pixel block). Chroma samples are aligned horizontally with the luma samples, or with multiples of the luma samples. Chroma samples are also aligned vertically with the luma samples, or with multiples of the luma samples.</td>
+ * <td>UHD Blu-Ray</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * For more information on siting, refer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideochromasubsampling">MFVideoChromaSubsampling</a> enum.
+ * 
+ * <h3><a id="Primaries"></a><a id="primaries"></a><a id="PRIMARIES"></a>Primaries</h3>
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <td><b>Defined Values</b></td>
+ * <td><b>Notation in color space enumeration</b></td>
+ * <td><b>Comments</b></td>
+ * </tr>
+ * <tr>
+ * <td>BT.601</td>
+ * <td>_P601</td>
+ * <td>Standard defining digital encoding of SDTV video.</td>
+ * </tr>
+ * <tr>
+ * <td>BT.709</td>
+ * <td>_P709</td>
+ * <td>Standard defining digital encoding of HDTV video.</td>
+ * </tr>
+ * <tr>
+ * <td>BT.2020</td>
+ * <td>_P2020</td>
+ * <td>Standard defining ultra-high definition television (UHDTV).</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * <h3><a id="Transfer_Matrix"></a><a id="transfer_matrix"></a><a id="TRANSFER_MATRIX"></a>Transfer Matrix</h3>
+ * In most cases, the transfer matrix can be determined from the primaries. For some cases it must be explicitly specified as described below: 
+ *       
+ * 
+ * <table>
+ * <tr>
+ * <td><b>Defined Values</b></td>
+ * <td><b>Notation in color space enumeration</b></td>
+ * <td><b>Comments</b></td>
+ * </tr>
+ * <tr>
+ * <td>BT.601</td>
+ * <td>_X601</td>
+ * <td>Standard defining digital encoding of SDTV video.</td>
+ * </tr>
+ * <tr>
+ * <td>BT.709</td>
+ * <td>_X709</td>
+ * <td>Standard defining digital encoding of HDTV video.</td>
+ * </tr>
+ * <tr>
+ * <td>BT.2020</td>
+ * <td>_X2020</td>
+ * <td>Standard defining ultra-high definition television (UHDTV).</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * Subsampling and the layout of the color channels are inferred from the surface format.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgicommon/ne-dxgicommon-dxgi_color_space_type
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  * @version v4.0.30319

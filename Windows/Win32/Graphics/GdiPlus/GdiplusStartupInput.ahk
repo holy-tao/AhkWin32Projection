@@ -5,11 +5,11 @@
  * The **GdiplusStartupInput** structure holds a block of arguments that are required by the [GdiplusStartup](../gdiplusinit/nf-gdiplusinit-gdiplusstartup.md) function.
  * @remarks
  * 
-  * The **GdiplusStartupInput** structure provides a constructor that sets the **GdiplusVersion** member to 1, and allows you to specify values for the other three members. All of the constructor parameters are optional, so you can declare a variable of type **GdiplusStartupInput** without passing any arguments to the constructor, and all of the members will be initialized with appropriate default values.
-  * 
-  * If you set the **SuppressBackgroundThread** member to **TRUE** in the *input* parameter of [GdiplusStartup](./nf-gdiplusinit-gdiplusstartup.md), then you must call the hook and unhook functions returned in the *output* parameter returned by that function. Call those functions before and after the application's main message loop; that is, a message loop that is active for the lifetime of GDI+. Call the hook function before the loop starts, and call the unhook function after the loop ends.
-  * 
-  * 
+ * The **GdiplusStartupInput** structure provides a constructor that sets the **GdiplusVersion** member to 1, and allows you to specify values for the other three members. All of the constructor parameters are optional, so you can declare a variable of type **GdiplusStartupInput** without passing any arguments to the constructor, and all of the members will be initialized with appropriate default values.
+ * 
+ * If you set the **SuppressBackgroundThread** member to **TRUE** in the *input* parameter of [GdiplusStartup](./nf-gdiplusinit-gdiplusstartup.md), then you must call the hook and unhook functions returned in the *output* parameter returned by that function. Call those functions before and after the application's main message loop; that is, a message loop that is active for the lifetime of GDI+. Call the hook function before the loop starts, and call the unhook function after the loop ends.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplusinit/ns-gdiplusinit-gdiplusstartupinput
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

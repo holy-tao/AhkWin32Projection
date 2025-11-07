@@ -5,9 +5,9 @@
  * The FIXED structure contains the integral and fractional parts of a fixed-point real number.
  * @remarks
  * 
-  * The <b>FIXED</b> structure is used to describe the elements of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-mat2">MAT2</a> structure.
-  * 
-  * 
+ * The <b>FIXED</b> structure is used to describe the elements of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-mat2">MAT2</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-fixed
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319

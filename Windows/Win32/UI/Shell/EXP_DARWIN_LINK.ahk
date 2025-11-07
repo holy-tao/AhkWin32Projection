@@ -6,9 +6,9 @@
  * Holds an extra data block used by IShellLinkDataList. It holds the link's Windows Installer ID.
  * @remarks
  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-getflags">IShellLinkDataList::GetFlags</a> returns the flag SLDF_HAS_DARWINID for links that have a darwin signature.
-  * 
-  * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-getflags">IShellLinkDataList::GetFlags</a> returns the flag SLDF_HAS_DARWINID for links that have a darwin signature.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-exp_darwin_link
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

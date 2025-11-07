@@ -5,9 +5,9 @@
  * The DNS_WIRE_RECORD structure contains information about a DNS wire record transmitted across the network as specified in section 4.1.3 of RFC 1035.
  * @remarks
  * 
-  * When constructing a DNS message, the <b>DNS_WIRE_RECORD</b> structure is immediately followed by the record data and is preceded by the DNS RR's domain name.
-  * 
-  * 
+ * When constructing a DNS message, the <b>DNS_WIRE_RECORD</b> structure is immediately followed by the record data and is preceded by the DNS RR's domain name.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_wire_record
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319

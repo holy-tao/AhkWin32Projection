@@ -4,9 +4,9 @@
  * Identifies a technique for resolving texture coordinates that are outside of the boundaries of a texture.
  * @remarks
  * 
-  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_sampler_desc">D3D12_SAMPLER_DESC</a> structure.
-  * 
-  * 
+ * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_sampler_desc">D3D12_SAMPLER_DESC</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_texture_address_mode
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

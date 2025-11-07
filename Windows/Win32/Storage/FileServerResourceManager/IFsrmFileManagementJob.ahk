@@ -12,36 +12,36 @@
  * Defines a file management job.
  * @remarks
  * 
-  * When a file management job runs, it scans the files in the specified folders and if a file in the folder meets 
-  *     the conditions specified by the job, FSRM moves the file to the specified expired files folder if the type is 
-  *     expiration, or runs the custom action if defined. If notifications or actions are specified, FSRM sends the 
-  *     notifications and performs the actions.
-  * 
-  * Use the following properties to specify the expiration conditions:
-  * 
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilecreated">DaysSinceFileCreated</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastaccessed">DaysSinceFileLastAccessed</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastmodified">DaysSinceFileLastModified</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_propertyconditions">PropertyConditions</a> (use 
-  *       the 
-  *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createpropertycondition">CreatePropertyCondition</a> 
-  *       method to create the property condition)</li>
-  * </ul>
-  * FSRM performs a logical AND on all the conditions to determine if the file meets those conditions.
-  * 
-  * FSRM does not expire files in the system directories (for example, "\Windows", 
-  *     "\System Volume Information", "$Event", and 
-  *     "$Recycle").
-  * 
-  * 
+ * When a file management job runs, it scans the files in the specified folders and if a file in the folder meets 
+ *     the conditions specified by the job, FSRM moves the file to the specified expired files folder if the type is 
+ *     expiration, or runs the custom action if defined. If notifications or actions are specified, FSRM sends the 
+ *     notifications and performs the actions.
+ * 
+ * Use the following properties to specify the expiration conditions:
+ * 
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilecreated">DaysSinceFileCreated</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastaccessed">DaysSinceFileLastAccessed</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastmodified">DaysSinceFileLastModified</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_propertyconditions">PropertyConditions</a> (use 
+ *       the 
+ *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createpropertycondition">CreatePropertyCondition</a> 
+ *       method to create the property condition)</li>
+ * </ul>
+ * FSRM performs a logical AND on all the conditions to determine if the file meets those conditions.
+ * 
+ * FSRM does not expire files in the system directories (for example, "\Windows", 
+ *     "\System Volume Information", "$Event", and 
+ *     "$Recycle").
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nn-fsrmreports-ifsrmfilemanagementjob
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

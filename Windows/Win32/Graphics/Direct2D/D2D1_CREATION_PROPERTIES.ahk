@@ -5,9 +5,9 @@
  * Specifies the options with which the Direct2D device, factory, and device context are created.
  * @remarks
  * 
-  * The root objects referred to here are the <a href="https://docs.microsoft.com/windows/desktop/Direct2D/direct2d-portal">Direct2D</a> device, Direct2D factory and the Direct2D device context.
-  * 
-  * 
+ * The root objects referred to here are the <a href="https://docs.microsoft.com/windows/desktop/Direct2D/direct2d-portal">Direct2D</a> device, Direct2D factory and the Direct2D device context.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ns-d2d1_1-d2d1_creation_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

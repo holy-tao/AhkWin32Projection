@@ -8,10 +8,10 @@
  * Specifies subject information data to the subject interface package (SIP) APIs.
  * @remarks
  * 
-  * Upon first use of the <b>SIP_SUBJECTINFO</b> structure, initialize the entire structure to binary zero. Do not initialize the structure between SIP function calls.
-  * 
-  * Subjects include, but are not limited to, portable executable images (.exe), cabinet (.cab) images, flat files, and catalog files. Each subject type uses a different subset of its data for hash calculation and requires a different procedure for storage and retrieval. Therefore each subject type has a unique subject interface package specification.
-  * 
+ * Upon first use of the <b>SIP_SUBJECTINFO</b> structure, initialize the entire structure to binary zero. Do not initialize the structure between SIP function calls.
+ * 
+ * Subjects include, but are not limited to, portable executable images (.exe), cabinet (.cab) images, flat files, and catalog files. Each subject type uses a different subset of its data for hash calculation and requires a different procedure for storage and retrieval. Therefore each subject type has a unique subject interface package specification.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mssip/ns-mssip-sip_subjectinfo
  * @namespace Windows.Win32.Security.Cryptography.Sip
  * @version v4.0.30319

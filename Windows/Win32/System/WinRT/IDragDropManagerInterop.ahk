@@ -7,7 +7,7 @@
  * Enables interoperability with a WinRT CoreDragDropManager object.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dragdropinterop/nn-dragdropinterop-idragdropmanagerinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

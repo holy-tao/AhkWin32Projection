@@ -7,9 +7,9 @@
  * This topic applies to Windows XP or later. The IMSVidDeviceEvent interface is the base interface for device events. Do not implement this interface directly. Other event interfaces derive from this interface.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidDeviceEvent)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidDeviceEvent)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsviddeviceevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

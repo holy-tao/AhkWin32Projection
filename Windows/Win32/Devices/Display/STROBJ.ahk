@@ -6,9 +6,9 @@
  * The STROBJ class, or text string object, contains an enumeration of glyph handles and positions for the device driver.
  * @remarks
  * 
-  * A driver can call <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-strobj_venumstart">STROBJ_vEnumStart</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-strobj_benum">STROBJ_bEnum</a> to obtain identities and positions of glyphs in the string. If <i>pgp</i> is not <b>NULL</b>, it points to a GLYPHPOS array describing the whole string and only a single call to <b>STROBJ_bEnum</b> is required. If <i>pgp</i> is <b>NULL</b>, <b>STROBJ_bEnum</b> will have to be called repeatedly in a loop to obtain all the string's glyph positions.
-  * 
-  * 
+ * A driver can call <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-strobj_venumstart">STROBJ_vEnumStart</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-strobj_benum">STROBJ_bEnum</a> to obtain identities and positions of glyphs in the string. If <i>pgp</i> is not <b>NULL</b>, it points to a GLYPHPOS array describing the whole string and only a single call to <b>STROBJ_bEnum</b> is required. If <i>pgp</i> is <b>NULL</b>, <b>STROBJ_bEnum</b> will have to be called repeatedly in a loop to obtain all the string's glyph positions.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-strobj
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319

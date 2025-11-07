@@ -4,9 +4,9 @@
  * Indicates the thread pool in which the work runs that is submitted through the activity returned from CoCreateActivity.
  * @remarks
  * 
-  * This enumeration is used to set the thread pool for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> only when calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-cocreateactivity">CoCreateActivity</a>. An error is returned if you try to set the thread pool when calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-coenterservicedomain">CoEnterServiceDomain</a>.
-  * 
-  * 
+ * This enumeration is used to set the thread pool for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> only when calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-cocreateactivity">CoCreateActivity</a>. An error is returned if you try to set the thread pool when calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-coenterservicedomain">CoEnterServiceDomain</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ne-comsvcs-csc_threadpool
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319

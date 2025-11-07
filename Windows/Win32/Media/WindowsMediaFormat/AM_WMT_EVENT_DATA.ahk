@@ -5,8 +5,8 @@
  * The AM_WMT_EVENT_DATA structure contains information pertaining to an EC_WMT_EVENT and the associated status code returned by the Windows Media Format SDK.
  * @remarks
  * 
-  * This structure is relevant when using the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wm-asf-reader-filter">WM ASF Reader</a> filter to read files protected with Digital Rights Management.
-  * 
+ * This structure is relevant when using the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wm-asf-reader-filter">WM ASF Reader</a> filter to read files protected with Digital Rights Management.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evcode/ns-evcode-am_wmt_event_data
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319

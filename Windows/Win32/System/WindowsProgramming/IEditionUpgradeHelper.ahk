@@ -7,8 +7,8 @@
  * Allows the Windows Store to install a Windows product that the user purchased, to perform either an upgrade to the edition of Windows that the user currently has installed, or to replace a non-genuine copy of Windows with a genuine copy of Windows.
  * @remarks
  * 
-  * The methods of this interface do not download the binaries or bits necessary to perform the upgrade.
-  * 
+ * The methods of this interface do not download the binaries or bits necessary to perform the upgrade.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//editionupgradehelper/nn-editionupgradehelper-ieditionupgradehelper
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319

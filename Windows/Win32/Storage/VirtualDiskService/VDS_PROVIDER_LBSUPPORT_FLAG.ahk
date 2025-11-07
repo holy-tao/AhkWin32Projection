@@ -4,10 +4,10 @@
  * Specifies the set of valid flags for indicating which load balance policies a hardware provider supports.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_PROVIDER_LBSUPPORT_FLAG</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_PROVIDER_LBSUPPORT_FLAG</b> enumeration constant.</div>
-  * <div> </div>
-  * 
-  * 
+ * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_PROVIDER_LBSUPPORT_FLAG</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_PROVIDER_LBSUPPORT_FLAG</b> enumeration constant.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_provider_lbsupport_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

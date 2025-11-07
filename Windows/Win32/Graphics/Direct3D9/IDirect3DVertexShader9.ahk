@@ -8,16 +8,16 @@
  * Applications use the methods of the IDirect3DVertexShader9 interface to encapsulate the functionality of a vertex shader.
  * @remarks
  * 
-  * The LPDIRECT3DVERTEXSHADER9 and PDIRECT3DVERTEXSHADER9 types are defined as pointers to the <b>IDirect3DVertexShader9</b> interface.
-  *     
-  *             
-  * 
-  * 
-  * ```
-  * typedef struct IDirect3DVertexShader9 *LPDIRECT3DVERTEXSHADER9, *PDIRECT3DVERTEXSHADER9;
-  * ```
-  * 
-  * 
+ * The LPDIRECT3DVERTEXSHADER9 and PDIRECT3DVERTEXSHADER9 types are defined as pointers to the <b>IDirect3DVertexShader9</b> interface.
+ *     
+ *             
+ * 
+ * 
+ * ```
+ * typedef struct IDirect3DVertexShader9 *LPDIRECT3DVERTEXSHADER9, *PDIRECT3DVERTEXSHADER9;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nn-d3d9helper-idirect3dvertexshader9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

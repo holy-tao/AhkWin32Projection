@@ -4,9 +4,9 @@
  * The DashStyle enumeration specifies the line style of a line drawn with a Windows GDI+ pen. The line can be drawn by using one of several predefined styles or a custom style.
  * @remarks
  * 
-  * A custom dashed line is created by calling the 
-  * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdipluspen/nf-gdipluspen-pen-setdashpattern">Pen::SetDashPattern</a> method, which takes an array of values for the dash lengths and the space lengths.
-  * 
+ * A custom dashed line is created by calling the 
+ * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdipluspen/nf-gdipluspen-pen-setdashpattern">Pen::SetDashPattern</a> method, which takes an array of values for the dash lengths and the space lengths.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplusenums/ne-gdiplusenums-dashstyle
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

@@ -8,9 +8,9 @@
  * Represents metadata about a change that is based on the prerequisite knowledge that is associated with the change.
  * @remarks
  * 
-  * An <b>ISyncChangeWithPrerequisite</b> object can be obtained by passing <b>IID_ ISyncChangeWithPrerequisite</b> to the <b>QueryInterface</b> method of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchange">ISyncChange</a> object.
-  * 
-  * 
+ * An <b>ISyncChangeWithPrerequisite</b> object can be obtained by passing <b>IID_ ISyncChangeWithPrerequisite</b> to the <b>QueryInterface</b> method of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchange">ISyncChange</a> object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncchangewithprerequisite
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

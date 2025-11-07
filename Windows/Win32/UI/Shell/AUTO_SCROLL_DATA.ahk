@@ -6,9 +6,9 @@
  * AUTO_SCROLL_DATA may be altered or unavailable.
  * @remarks
  * 
-  * NUM_POINTS is currently set to <c>3</c>.
-  * 
-  * 
+ * NUM_POINTS is currently set to <c>3</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-auto_scroll_data
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

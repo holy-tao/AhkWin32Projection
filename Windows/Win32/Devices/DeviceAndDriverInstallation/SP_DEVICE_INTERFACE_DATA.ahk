@@ -5,9 +5,9 @@
  * An SP_DEVICE_INTERFACE_DATA structure defines a device interface in a device information set.
  * @remarks
  * 
-  * A SetupAPI function that takes an instance of the SP_DEVICE_INTERFACE_DATA structure as a parameter verifies whether the <b>cbSize</b> member of the supplied structure is equal to the size, in bytes, of the structure. If the <b>cbSize</b> member is not set correctly, the function will fail and set an error code of ERROR_INVALID_USER_BUFFER.
-  * 
-  * 
+ * A SetupAPI function that takes an instance of the SP_DEVICE_INTERFACE_DATA structure as a parameter verifies whether the <b>cbSize</b> member of the supplied structure is equal to the size, in bytes, of the structure. If the <b>cbSize</b> member is not set correctly, the function will fail and set an error code of ERROR_INVALID_USER_BUFFER.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_device_interface_data
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319

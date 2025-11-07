@@ -7,12 +7,12 @@
  * IShellIconOverlayManager may be altered or unavailable.
  * @remarks
  * 
-  * Icon overlays are small images placed at the lower-left corner of the icon that represents a Shell object in Windows Explorer or on the desktop. They are used to add some extra information to the object's normal icon. A commonly used icon overlay is the small arrow that indicates that a file or folder is actually a link. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-ishelliconoverlay">IShellIconOverlay</a>.
-  * 
-  * This interface must be implemented by all icon overlay handlers.
-  * 
-  * This interface is not typically called by applications.
-  * 
+ * Icon overlays are small images placed at the lower-left corner of the icon that represents a Shell object in Windows Explorer or on the desktop. They are used to add some extra information to the object's normal icon. A commonly used icon overlay is the small arrow that indicates that a file or folder is actually a link. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-ishelliconoverlay">IShellIconOverlay</a>.
+ * 
+ * This interface must be implemented by all icon overlay handlers.
+ * 
+ * This interface is not typically called by applications.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-ishelliconoverlaymanager
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

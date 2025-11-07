@@ -7,9 +7,9 @@
  * Enables the Media Engine to play protected video content.
  * @remarks
  * 
-  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on the Media Engine.
-  * 
-  * 
+ * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on the Media Engine.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfmediaengineprotectedcontent
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

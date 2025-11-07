@@ -4,17 +4,17 @@
  * Defines the provider information to retrieve.
  * @remarks
  * 
-  * If you specify <b>EventOpcodeInformation</b> when calling <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhqueryproviderfieldinformation">TdhQueryProviderFieldInformation</a>, you must specify the  <i>EventFieldValue</i> parameter as follows:
-  * 
-  * <ul>
-  * <li>Bits 0 - 15 must contain the task value</li>
-  * <li>Bits 16 - 23 must contain the opcode value</li>
-  * </ul>
-  * You can get the task and opcode values from <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_descriptor">EVENT_RECORD.EventHeader.EventDescriptor</a>.
-  * 
-  * WMI MOF class supports retrieving keyword and level information only.
-  * 
-  * 
+ * If you specify <b>EventOpcodeInformation</b> when calling <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhqueryproviderfieldinformation">TdhQueryProviderFieldInformation</a>, you must specify the  <i>EventFieldValue</i> parameter as follows:
+ * 
+ * <ul>
+ * <li>Bits 0 - 15 must contain the task value</li>
+ * <li>Bits 16 - 23 must contain the opcode value</li>
+ * </ul>
+ * You can get the task and opcode values from <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_descriptor">EVENT_RECORD.EventHeader.EventDescriptor</a>.
+ * 
+ * WMI MOF class supports retrieving keyword and level information only.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tdh/ne-tdh-event_field_type
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

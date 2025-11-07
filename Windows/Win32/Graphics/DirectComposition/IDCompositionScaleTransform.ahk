@@ -7,13 +7,13 @@
  * Represents a 2D transformation that affects the scale of a visual along the x-axis and y-axis. The coordinate system is scaled from the specified center point.
  * @remarks
  * 
-  * A scale transform represents the following 3-by-3 matrix:
-  * 
-  * <img alt="Three-by-three scale matrix" src="./images/scale_transform_3x3matrix.png"/>
-  * 
-  * The effect is to scale the coordinate system up or down and apply the corresponding translation such that the center point does not move.
-  * 
-  * 
+ * A scale transform represents the following 3-by-3 matrix:
+ * 
+ * <img alt="Three-by-three scale matrix" src="./images/scale_transform_3x3matrix.png"/>
+ * 
+ * The effect is to scale the coordinate system up or down and apply the corresponding translation such that the center point does not move.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositionscaletransform
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319

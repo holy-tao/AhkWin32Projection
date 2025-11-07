@@ -11,105 +11,105 @@
  * Each Windows Image Acquisition (WIA) hardware device is represented to an application as a hierarchical tree of IWiaItem objects.
  * @remarks
  * 
-  * Some of the methods of the <b>IWiaItem</b> interface are valid only on the root item of the device's tree. Other methods are valid on all items. The methods are grouped as follows:
-  * 
-  * <table class="clsStd">
-  * <tr>
-  * <td>Valid On Root Item Only</td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-devicecommand">IWiaItem::DeviceCommand</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td> </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-devicedlg">IWiaItem::DeviceDlg</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td> </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-enumdevicecapabilities">IWiaItem::EnumDeviceCapabilities</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td> </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-enumregistereventinfo">IWiaItem::EnumRegisterEventInfo</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>Valid On All Items</td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-analyzeitem">IWiaItem::AnalyzeItem</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td> </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-createchilditem">IWiaItem::CreateChildItem</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td> </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-deleteitem">IWiaItem::DeleteItem</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td> </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-enumchilditems">IWiaItem::EnumChildItems</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td> </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-finditembyname">IWiaItem::FindItemByName</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td> </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-getitemtype">IWiaItem::GetItemType</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td> </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-getrootitem">IWiaItem::GetRootItem</a>
-  * </td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * The <b>IWiaItem</b> interface, like all Component Object Model (COM) interfaces, inherits the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface methods. 
-  * 
-  * <table class="clsStd">
-  * <tr>
-  * <th>IUnknown Methods</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a>
-  * </td>
-  * <td>Returns pointers to supported interfaces.</td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a>
-  * </td>
-  * <td>Increments reference count.</td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>
-  * </td>
-  * <td>Decrements reference count.</td>
-  * </tr>
-  * </table>
-  * 
+ * Some of the methods of the <b>IWiaItem</b> interface are valid only on the root item of the device's tree. Other methods are valid on all items. The methods are grouped as follows:
+ * 
+ * <table class="clsStd">
+ * <tr>
+ * <td>Valid On Root Item Only</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-devicecommand">IWiaItem::DeviceCommand</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td> </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-devicedlg">IWiaItem::DeviceDlg</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td> </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-enumdevicecapabilities">IWiaItem::EnumDeviceCapabilities</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td> </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-enumregistereventinfo">IWiaItem::EnumRegisterEventInfo</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Valid On All Items</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-analyzeitem">IWiaItem::AnalyzeItem</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td> </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-createchilditem">IWiaItem::CreateChildItem</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td> </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-deleteitem">IWiaItem::DeleteItem</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td> </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-enumchilditems">IWiaItem::EnumChildItems</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td> </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-finditembyname">IWiaItem::FindItemByName</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td> </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-getitemtype">IWiaItem::GetItemType</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td> </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-getrootitem">IWiaItem::GetRootItem</a>
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * The <b>IWiaItem</b> interface, like all Component Object Model (COM) interfaces, inherits the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface methods. 
+ * 
+ * <table class="clsStd">
+ * <tr>
+ * <th>IUnknown Methods</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a>
+ * </td>
+ * <td>Returns pointers to supported interfaces.</td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a>
+ * </td>
+ * <td>Increments reference count.</td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>
+ * </td>
+ * <td>Decrements reference count.</td>
+ * </tr>
+ * </table>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nn-wia_xp-iwiaitem
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319

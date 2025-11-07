@@ -8,9 +8,9 @@
  * Note  This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later. The IMSVidGenericSink2 interface represents a generic output device that supports streaming output. It is implemented by the MSVidGenericSink object.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidGenericSink2)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidGenericSink2)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidgenericsink2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

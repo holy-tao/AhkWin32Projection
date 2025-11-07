@@ -7,9 +7,9 @@
  * The IStreamBufferRecComp interface is used to create new content recordings by concatenating existing recordings. The new recording can be created from a mix of reference and content recordings.The Stream Buffer RecComp object exposes this interface.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferRecComp)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferRecComp)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-istreambufferreccomp
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

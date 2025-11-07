@@ -12,14 +12,14 @@
  * The INetFwProfile interface provides access to the firewall settings profile.
  * @remarks
  * 
-  * Instances of this interface
-  * are retrieved through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy-get_currentprofile">CurrentProfile</a> property or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy-getprofilebytype">GetProfileByType</a> method
-  * of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwpolicy">INetFwPolicy</a> interface.
-  * 
-  * All configuration changes take
-  * effect immediately.
-  * 
-  * 
+ * Instances of this interface
+ * are retrieved through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy-get_currentprofile">CurrentProfile</a> property or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy-getprofilebytype">GetProfileByType</a> method
+ * of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwpolicy">INetFwPolicy</a> interface.
+ * 
+ * All configuration changes take
+ * effect immediately.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwprofile
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

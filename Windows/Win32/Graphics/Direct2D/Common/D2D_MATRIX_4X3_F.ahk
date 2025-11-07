@@ -5,12 +5,12 @@
  * Describes a 4-by-3 floating point matrix.
  * @remarks
  * 
-  * The <b>D2D1_MATRIX_4X3_F</b> structure is type defined from a <b>D2D_MATRIX_4X3_F</b> structure in D2d1_1.h.
-  * 
-  * ```cpp
-  * typedef D2D_MATRIX_4X3_F D2D1_MATRIX_4X3_F;
-  * ```
-  * 
+ * The <b>D2D1_MATRIX_4X3_F</b> structure is type defined from a <b>D2D_MATRIX_4X3_F</b> structure in D2d1_1.h.
+ * 
+ * ```cpp
+ * typedef D2D_MATRIX_4X3_F D2D1_MATRIX_4X3_F;
+ * ```
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dcommon/ns-dcommon-d2d_matrix_4x3_f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319

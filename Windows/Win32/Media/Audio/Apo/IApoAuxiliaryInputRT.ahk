@@ -7,9 +7,9 @@
  * The realtime-safe interface used to drive the auxiliary inputs of an APO.
  * @remarks
  * This method may be called from a real-time processing thread. The implementation 
-  * of these methods must not block, touch paged memory, or call any blocking system routines.
-  * 
-  * 
+ * of these methods must not block, touch paged memory, or call any blocking system routines.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nn-audioenginebaseapo-iapoauxiliaryinputrt
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319

@@ -5,9 +5,9 @@
  * Describes files included by a shader.
  * @remarks
  * 
-  * The <b>D3D10_SHADER_DEBUG_FILE_INFO</b> structure is used with the <a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_info">D3D10_SHADER_DEBUG_INFO</a> structure.
-  * 
-  * 
+ * The <b>D3D10_SHADER_DEBUG_FILE_INFO</b> structure is used with the <a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_info">D3D10_SHADER_DEBUG_INFO</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_file_info
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

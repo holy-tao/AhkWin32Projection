@@ -4,16 +4,16 @@
  * Defines the set enumeration values that can be used to specify the underlying RAID type of a storage pool.
  * @remarks
  * 
-  * A subsystem uses a  <b>VDS_RAID_TYPE</b> enumeration value to specify the underlying RAID type of a storage pool. 
-  * 
-  * A storage pool does not necessarily have a single underlying RAID type. For example, 
-  * 
-  * The underlying RAID type of of the storage pool is different from the RAID type of a LUN that can be created from the storage pool.
-  * 
-  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_RAID_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_RAID_TYPE</b> enumeration constant.</div>
-  * <div> </div>
-  * 
-  * 
+ * A subsystem uses a  <b>VDS_RAID_TYPE</b> enumeration value to specify the underlying RAID type of a storage pool. 
+ * 
+ * A storage pool does not necessarily have a single underlying RAID type. For example, 
+ * 
+ * The underlying RAID type of of the storage pool is different from the RAID type of a LUN that can be created from the storage pool.
+ * 
+ * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_RAID_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_RAID_TYPE</b> enumeration constant.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_raid_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

@@ -4,20 +4,20 @@
  * Represents a method of rendering glyphs.
  * @remarks
  * 
-  * <h3><a id="DWRITE_RENDERING_MODE_previous_to_Windows_8"></a><a id="dwrite_rendering_mode_previous_to_windows_8"></a><a id="DWRITE_RENDERING_MODE_PREVIOUS_TO_WINDOWS_8"></a>DWRITE_RENDERING_MODE previous to Windows 8</h3>
-  * 
-  * <pre class="syntax">enum DWRITE_RENDERING_MODE {
-  *   DWRITE_RENDERING_MODE_DEFAULT, 
-  *   DWRITE_RENDERING_MODE_ALIASED, 
-  *   DWRITE_RENDERING_MODE_CLEARTYPE_GDI_CLASSIC, 
-  *   DWRITE_RENDERING_MODE_CLEARTYPE_GDI_NATURAL, 
-  *   DWRITE_RENDERING_MODE_CLEARTYPE_NATURAL, 
-  *   DWRITE_RENDERING_MODE_CLEARTYPE_NATURAL_SYMMETRIC, 
-  *   DWRITE_RENDERING_MODE_OUTLINE 
-  * 
-  * };</pre>
-  * 
-  * 
+ * <h3><a id="DWRITE_RENDERING_MODE_previous_to_Windows_8"></a><a id="dwrite_rendering_mode_previous_to_windows_8"></a><a id="DWRITE_RENDERING_MODE_PREVIOUS_TO_WINDOWS_8"></a>DWRITE_RENDERING_MODE previous to Windows 8</h3>
+ * 
+ * <pre class="syntax">enum DWRITE_RENDERING_MODE {
+ *   DWRITE_RENDERING_MODE_DEFAULT, 
+ *   DWRITE_RENDERING_MODE_ALIASED, 
+ *   DWRITE_RENDERING_MODE_CLEARTYPE_GDI_CLASSIC, 
+ *   DWRITE_RENDERING_MODE_CLEARTYPE_GDI_NATURAL, 
+ *   DWRITE_RENDERING_MODE_CLEARTYPE_NATURAL, 
+ *   DWRITE_RENDERING_MODE_CLEARTYPE_NATURAL_SYMMETRIC, 
+ *   DWRITE_RENDERING_MODE_OUTLINE 
+ * 
+ * };</pre>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_rendering_mode
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

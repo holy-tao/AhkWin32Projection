@@ -5,9 +5,9 @@
  * The WMDRM_IMPORT_INIT_STRUCT structure holds the encrypted session key and content key used in importing protected content.
  * @remarks
  * 
-  * This structure is used to initialize protected stream sample writing in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmdrmwriter3-setprotectstreamsamples">IWMDRMWriter3::SetProtectStreamSamples</a> method.
-  * 
-  * 
+ * This structure is used to initialize protected stream sample writing in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmdrmwriter3-setprotectstreamsamples">IWMDRMWriter3::SetProtectStreamSamples</a> method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wmdrm_import_init_struct
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319

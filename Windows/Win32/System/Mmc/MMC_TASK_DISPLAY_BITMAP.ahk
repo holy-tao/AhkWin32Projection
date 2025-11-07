@@ -5,11 +5,11 @@
  * The MMC_TASK_DISPLAY_BITMAP structure is introduced in MMC 1.1.
  * @remarks
  * 
-  * Allocate the <b>szMouseOverBitmap</b> and <b>szMouseOffBitmap</b> strings used in the structure with the COM API function <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> (or the equivalent) and MMC will release them.
-  * 
-  * If both <b>szMouseOverBitmap</b> and <b>szMouseOffBitmap</b> point to a <b>NULL</b> string, the task does not appear on the taskpad. If one of these strings is <b>NULL</b>, the other string is used for both.
-  * 
-  * 
+ * Allocate the <b>szMouseOverBitmap</b> and <b>szMouseOffBitmap</b> strings used in the structure with the COM API function <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> (or the equivalent) and MMC will release them.
+ * 
+ * If both <b>szMouseOverBitmap</b> and <b>szMouseOffBitmap</b> point to a <b>NULL</b> string, the task does not appear on the taskpad. If one of these strings is <b>NULL</b>, the other string is used for both.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-mmc_task_display_bitmap
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319

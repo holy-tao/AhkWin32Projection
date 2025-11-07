@@ -5,10 +5,10 @@
  * Defines the properties of a subsystem object. This structure is identical to the VDS_SUB_SYSTEM_PROP structure, except that it includes the supported RAID types and number of enclosures as members.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem2-getproperties2">IVdsSubSystem2::GetProperties2</a> 
-  *     method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/subsystem-object">subsystem object</a>.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem2-getproperties2">IVdsSubSystem2::GetProperties2</a> 
+ *     method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/subsystem-object">subsystem object</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_sub_system_prop2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

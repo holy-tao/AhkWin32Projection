@@ -9,14 +9,14 @@
  * The INetFwOpenPorts interface is a standard Automation collection interface.
  * @remarks
  * 
-  * An instance
-  * of this interface is retrieved through the <a href="https://docs.microsoft.com/windows/desktop/api/netfw/nf-netfw-inetfwprofile-get_globallyopenports">GloballyOpenPorts</a> property of the
-  * INetFwProfile interface.
-  * 
-  * All configuration changes take effect
-  * immediately.
-  * 
-  * 
+ * An instance
+ * of this interface is retrieved through the <a href="https://docs.microsoft.com/windows/desktop/api/netfw/nf-netfw-inetfwprofile-get_globallyopenports">GloballyOpenPorts</a> property of the
+ * INetFwProfile interface.
+ * 
+ * All configuration changes take effect
+ * immediately.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwopenports
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

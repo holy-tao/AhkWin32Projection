@@ -4,55 +4,55 @@
  * Controls the type of connections to a class object.
  * @remarks
  * 
-  * In <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterclassobject">CoRegisterClassObject</a>, members of both the <b>REGCLS</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumerations, taken together, determine how the class object is registered.
-  * 
-  * 
-  * 
-  * An EXE surrogate (in which DLL servers are run) calls <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterclassobject">CoRegisterClassObject</a> to register a class factory using a new <b>REGCLS</b> value, REGCLS_SURROGATE.
-  * 
-  * All class factories for DLL surrogates should be registered with REGCLS_SURROGATE set. Do not set REGCLS_SINGLUSE or REGCLS_MULTIPLEUSE when you register a surrogate for DLL servers.
-  * 
-  * The following table summarizes the allowable <b>REGCLS</b> value combinations and the object registrations affected by the combinations.
-  * 
-  * <table>
-  * <tr>
-  * <th></th>
-  * <th>REGCLS_SINGLEUSE</th>
-  * <th>REGCLS_MULTIPLEUSE</th>
-  * <th>REGCLS_MULTI_SEPARATE</th>
-  * <th>Other</th>
-  * </tr>
-  * <tr>
-  * <td>CLSCTX_INPROC_SERVER</td>
-  * <td>Error</td>
-  * <td>In-process</td>
-  * <td>In-process</td>
-  * <td>Error</td>
-  * </tr>
-  * <tr>
-  * <td>CLSCTX_LOCAL_SERVER</td>
-  * <td>Local</td>
-  * <td>In-process/local</td>
-  * <td>Local</td>
-  * <td>Error</td>
-  * </tr>
-  * <tr>
-  * <td>Both of the above</td>
-  * <td>Error</td>
-  * <td>In-process/local</td>
-  * <td>In-process/local</td>
-  * <td>Error</td>
-  * </tr>
-  * <tr>
-  * <td>Other</td>
-  * <td>Error</td>
-  * <td>Error</td>
-  * <td>Error</td>
-  * <td>Error</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * In <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterclassobject">CoRegisterClassObject</a>, members of both the <b>REGCLS</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumerations, taken together, determine how the class object is registered.
+ * 
+ * 
+ * 
+ * An EXE surrogate (in which DLL servers are run) calls <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterclassobject">CoRegisterClassObject</a> to register a class factory using a new <b>REGCLS</b> value, REGCLS_SURROGATE.
+ * 
+ * All class factories for DLL surrogates should be registered with REGCLS_SURROGATE set. Do not set REGCLS_SINGLUSE or REGCLS_MULTIPLEUSE when you register a surrogate for DLL servers.
+ * 
+ * The following table summarizes the allowable <b>REGCLS</b> value combinations and the object registrations affected by the combinations.
+ * 
+ * <table>
+ * <tr>
+ * <th></th>
+ * <th>REGCLS_SINGLEUSE</th>
+ * <th>REGCLS_MULTIPLEUSE</th>
+ * <th>REGCLS_MULTI_SEPARATE</th>
+ * <th>Other</th>
+ * </tr>
+ * <tr>
+ * <td>CLSCTX_INPROC_SERVER</td>
+ * <td>Error</td>
+ * <td>In-process</td>
+ * <td>In-process</td>
+ * <td>Error</td>
+ * </tr>
+ * <tr>
+ * <td>CLSCTX_LOCAL_SERVER</td>
+ * <td>Local</td>
+ * <td>In-process/local</td>
+ * <td>Local</td>
+ * <td>Error</td>
+ * </tr>
+ * <tr>
+ * <td>Both of the above</td>
+ * <td>Error</td>
+ * <td>In-process/local</td>
+ * <td>In-process/local</td>
+ * <td>Error</td>
+ * </tr>
+ * <tr>
+ * <td>Other</td>
+ * <td>Error</td>
+ * <td>Error</td>
+ * <td>Error</td>
+ * <td>Error</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//combaseapi/ne-combaseapi-regcls
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

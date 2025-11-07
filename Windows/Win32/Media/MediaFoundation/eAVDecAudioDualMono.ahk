@@ -4,9 +4,9 @@
  * Specifies whether the input audio stream is stereo or dual mono. This enumeration is used with the AVDecAudioDualMono property.
  * @remarks
  * 
-  * In dual mono encoding, each channel is encoded separately. In stereo encoding, both channels are encoded together.
-  * 
-  * 
+ * In dual mono encoding, each channel is encoded separately. In stereo encoding, both channels are encoded together.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavdecaudiodualmono
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

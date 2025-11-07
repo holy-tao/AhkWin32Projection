@@ -9,9 +9,9 @@
  * Use this interface to erase data from a disc.
  * @remarks
  * 
-  * To create the <b>MsftDiscFormat2Erase</b> object in a script, use IMAPI2.MsftDiscFormat2Erase as the program identifier when calling <b>CreateObject</b>.
-  * 
-  * 
+ * To create the <b>MsftDiscFormat2Erase</b> object in a script, use IMAPI2.MsftDiscFormat2Erase as the program identifier when calling <b>CreateObject</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-idiscformat2erase
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

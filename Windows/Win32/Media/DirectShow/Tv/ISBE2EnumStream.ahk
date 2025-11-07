@@ -8,8 +8,8 @@
  * Enumerates a collection of streams. This is a utility interface, which you can use to enumerate the streams discovered in a WTV file. The Stream Buffer Source filter implements this interface.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2EnumStream)</c>.
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2EnumStream)</c>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-isbe2enumstream
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

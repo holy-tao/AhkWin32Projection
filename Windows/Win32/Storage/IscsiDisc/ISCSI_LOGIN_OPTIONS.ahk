@@ -5,13 +5,13 @@
  * ISCSI_LOGIN_OPTIONS structure is used by initiators to specify the characteristics of a login session.
  * @remarks
  * 
-  * Initiators use the <b>ISCSI_LOGIN_OPTIONS</b> structure when creating a login session with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-loginiscsitargeta">LoginIScsiTarget</a> routine.
-  * 
-  * The <b>Username</b> and <b>Password</b> members are either strings or binary values that are used for iSCSI authentication. The exact meaning and function of these two values depends on the type of authentication used. For the Challenge Handshake Authentication Protocol (CHAP), the value in the <b>Username</b> member is the CHAP name, and the value in the <b>Password</b> member is the shared secret of the target. If there is no value specified in <b>Username</b>, the initiator node name is used as the CHAP name.
-  * 
-  * If the authentication protocol requires that these two values be strings, they must be ANSI strings.
-  * 
-  * 
+ * Initiators use the <b>ISCSI_LOGIN_OPTIONS</b> structure when creating a login session with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-loginiscsitargeta">LoginIScsiTarget</a> routine.
+ * 
+ * The <b>Username</b> and <b>Password</b> members are either strings or binary values that are used for iSCSI authentication. The exact meaning and function of these two values depends on the type of authentication used. For the Challenge Handshake Authentication Protocol (CHAP), the value in the <b>Username</b> member is the CHAP name, and the value in the <b>Password</b> member is the shared secret of the target. If there is no value specified in <b>Username</b>, the initiator node name is used as the CHAP name.
+ * 
+ * If the authentication protocol requires that these two values be strings, they must be ANSI strings.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/ns-iscsidsc-iscsi_login_options
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319

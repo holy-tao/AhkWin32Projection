@@ -5,9 +5,9 @@
  * The DHCP_HOST_INFO structure defines information on a DHCP server (host).
  * @remarks
  * 
-  * When this structure is populated by the DHCP Server, the <b>HostName</b> and <b>NetBiosName</b> members may be set to <b>NULL</b>.
-  * 
-  * 
+ * When this structure is populated by the DHCP Server, the <b>HostName</b> and <b>NetBiosName</b> members may be set to <b>NULL</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_host_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319

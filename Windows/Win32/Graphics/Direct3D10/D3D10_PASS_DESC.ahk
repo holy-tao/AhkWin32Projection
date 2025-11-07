@@ -5,9 +5,9 @@
  * Describes an effect pass, which contains pipeline state.
  * @remarks
  * 
-  * Get a pass description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectpass-getdesc">ID3D10EffectPass::GetDesc</a>; an effect technique contains one or more passes.
-  * 
-  * 
+ * Get a pass description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectpass-getdesc">ID3D10EffectPass::GetDesc</a>; an effect technique contains one or more passes.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/ns-d3d10effect-d3d10_pass_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

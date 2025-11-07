@@ -4,7 +4,7 @@
  * Flags for indicating a subset of components used with video decode histogram.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/ne-d3d11_4-d3d11_video_decoder_histogram_component_flags
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

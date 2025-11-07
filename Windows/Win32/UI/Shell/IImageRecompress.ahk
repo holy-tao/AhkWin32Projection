@@ -8,12 +8,12 @@
  * Exposes a method that recompress images.
  * @remarks
  * 
-  * Implement <b>IImageRecompress</b> if you are implementing
-  * 			an image object that may need recompressing. The
-  * 			<b>IImageRecompress</b> interface is implemented in the
-  * 			<a href="https://docs.microsoft.com/windows/desktop/shell/known-folders">ImageRecompress</a> object.
-  * 
-  * 
+ * Implement <b>IImageRecompress</b> if you are implementing
+ * 			an image object that may need recompressing. The
+ * 			<b>IImageRecompress</b> interface is implemented in the
+ * 			<a href="https://docs.microsoft.com/windows/desktop/shell/known-folders">ImageRecompress</a> object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iimagerecompress
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

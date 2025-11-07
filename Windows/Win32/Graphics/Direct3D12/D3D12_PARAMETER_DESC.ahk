@@ -5,9 +5,9 @@
  * Describes a function parameter.
  * @remarks
  * 
-  * Get a function-parameter description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nf-d3d12shader-id3d12functionparameterreflection-getdesc">ID3D12FunctionParameterReflection::GetDesc</a>.
-  * 
-  * 
+ * Get a function-parameter description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nf-d3d12shader-id3d12functionparameterreflection-getdesc">ID3D12FunctionParameterReflection::GetDesc</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/ns-d3d12shader-d3d12_parameter_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

@@ -4,22 +4,22 @@
  * The type of WS_XML_NODE structure.
  * @remarks
  * 
-  * The BNF for node types within a document is:
-  *       
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>
-  * Xml := StartInput Whitespace Element Whitespace EndInput
-  * Whitespace := (Text | Comment)* // Text is whitespace only
-  * Element := StartElement ElementContent EndElement
-  * ElementContent := (Element | Text | Comment | CData)*
-  * StartElement := WS_XML_NODE_TYPE_ELEMENT
-  * EndElement := WS_XML_NODE_TYPE_END_ELEMENT
-  * Text := WS_XML_NODE_TYPE_TEXT
-  * Comment := WS_XML_NODE_TYPE_COMMENT
-  * CData := WS_XML_NODE_TYPE_CDATA Text* WS_XML_NODE_TYPE_END_CDATA
-  * StartInput := WS_XML_NODE_TYPE_BOF
-  * EndInput := WS_XML_NODE_TYPE_EOF</code></pre>
-  * 
+ * The BNF for node types within a document is:
+ *       
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>
+ * Xml := StartInput Whitespace Element Whitespace EndInput
+ * Whitespace := (Text | Comment)* // Text is whitespace only
+ * Element := StartElement ElementContent EndElement
+ * ElementContent := (Element | Text | Comment | CData)*
+ * StartElement := WS_XML_NODE_TYPE_ELEMENT
+ * EndElement := WS_XML_NODE_TYPE_END_ELEMENT
+ * Text := WS_XML_NODE_TYPE_TEXT
+ * Comment := WS_XML_NODE_TYPE_COMMENT
+ * CData := WS_XML_NODE_TYPE_CDATA Text* WS_XML_NODE_TYPE_END_CDATA
+ * StartInput := WS_XML_NODE_TYPE_BOF
+ * EndInput := WS_XML_NODE_TYPE_EOF</code></pre>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_xml_node_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

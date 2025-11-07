@@ -8,20 +8,20 @@
  * The IDXGIAdapter1 interface represents a display sub-system (including one or more GPU's, DACs and video memory).
  * @remarks
  * 
-  * This interface is not supported by DXGI 1.0, which shipped in Windows Vista and Windows Server 2008. DXGI 1.1 support is required, which is available on
-  *             Windows 7, Windows Server 2008 R2, and as an update to Windows Vista with Service Pack 2 (SP2) (<a href="https://support.microsoft.com/kb/971644">KB 971644</a>) and Windows Server 2008 (<a href="https://support.microsoft.com/kb/971512/">KB 971512</a>).
-  *           
-  * 
-  * A display sub-system is often referred to as a video card, however, on some machines the display sub-system is part of the mother board.
-  * 
-  * To enumerate the display sub-systems, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory1-enumadapters1">IDXGIFactory1::EnumAdapters1</a>. To get an interface to the adapter for a
-  *             particular device, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgidevice-getadapter">IDXGIDevice::GetAdapter</a>. To create a software adapter, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createsoftwareadapter">IDXGIFactory::CreateSoftwareAdapter</a>.
-  *           
-  * 
-  * <b>Windows Phone 8:
-  *         </b> This API is supported.
-  * 
-  * 
+ * This interface is not supported by DXGI 1.0, which shipped in Windows Vista and Windows Server 2008. DXGI 1.1 support is required, which is available on
+ *             Windows 7, Windows Server 2008 R2, and as an update to Windows Vista with Service Pack 2 (SP2) (<a href="https://support.microsoft.com/kb/971644">KB 971644</a>) and Windows Server 2008 (<a href="https://support.microsoft.com/kb/971512/">KB 971512</a>).
+ *           
+ * 
+ * A display sub-system is often referred to as a video card, however, on some machines the display sub-system is part of the mother board.
+ * 
+ * To enumerate the display sub-systems, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory1-enumadapters1">IDXGIFactory1::EnumAdapters1</a>. To get an interface to the adapter for a
+ *             particular device, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgidevice-getadapter">IDXGIDevice::GetAdapter</a>. To create a software adapter, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createsoftwareadapter">IDXGIFactory::CreateSoftwareAdapter</a>.
+ *           
+ * 
+ * <b>Windows Phone 8:
+ *         </b> This API is supported.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi/nn-dxgi-idxgiadapter1
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

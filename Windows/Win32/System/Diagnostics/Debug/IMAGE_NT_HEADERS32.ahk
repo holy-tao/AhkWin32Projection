@@ -8,18 +8,18 @@
  * Represents the PE header format.
  * @remarks
  * 
-  * The actual structure in WinNT.h is named <b>IMAGE_NT_HEADERS32</b> and <b>IMAGE_NT_HEADERS</b> is defined as <b>IMAGE_NT_HEADERS32</b>. However, if _WIN64 is defined,  then <b>IMAGE_NT_HEADERS</b> is defined as <b>IMAGE_NT_HEADERS64</b>.
-  * 
-  * 
-  * ```cpp
-  * typedef struct _IMAGE_NT_HEADERS64 {
-  *     DWORD Signature;
-  *     IMAGE_FILE_HEADER FileHeader;
-  *     IMAGE_OPTIONAL_HEADER64 OptionalHeader;
-  * } IMAGE_NT_HEADERS64, *PIMAGE_NT_HEADERS64;
-  * ```
-  * 
-  * 
+ * The actual structure in WinNT.h is named <b>IMAGE_NT_HEADERS32</b> and <b>IMAGE_NT_HEADERS</b> is defined as <b>IMAGE_NT_HEADERS32</b>. However, if _WIN64 is defined,  then <b>IMAGE_NT_HEADERS</b> is defined as <b>IMAGE_NT_HEADERS64</b>.
+ * 
+ * 
+ * ```cpp
+ * typedef struct _IMAGE_NT_HEADERS64 {
+ *     DWORD Signature;
+ *     IMAGE_FILE_HEADER FileHeader;
+ *     IMAGE_OPTIONAL_HEADER64 OptionalHeader;
+ * } IMAGE_NT_HEADERS64, *PIMAGE_NT_HEADERS64;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_nt_headers32
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319

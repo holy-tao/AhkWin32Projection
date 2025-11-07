@@ -4,9 +4,9 @@
  * How a WS_TYPE maps to or from XML when serialized or deserialized.
  * @remarks
  * 
-  * See the documentation for each <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_TYPE</a> 
-  *                 for which <b>WS_TYPE_MAPPING</b> values are supported.
-  * 
+ * See the documentation for each <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_TYPE</a> 
+ *                 for which <b>WS_TYPE_MAPPING</b> values are supported.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_type_mapping
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

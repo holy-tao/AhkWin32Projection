@@ -7,15 +7,15 @@
  * Callback interface for the Microsoft Media Foundation sink writer.
  * @remarks
  * 
-  * Set the callback pointer by setting the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sink-writer-async-callback">MF_SINK_WRITER_ASYNC_CALLBACK</a> attribute when you first create the sink writer.
-  * 
-  * 
-  * 
-  * The callback methods can be called from any thread, so an object that implements this interface must be thread-safe.
-  * 
-  * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
-  * 
-  * 
+ * Set the callback pointer by setting the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sink-writer-async-callback">MF_SINK_WRITER_ASYNC_CALLBACK</a> attribute when you first create the sink writer.
+ * 
+ * 
+ * 
+ * The callback methods can be called from any thread, so an object that implements this interface must be thread-safe.
+ * 
+ * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nn-mfreadwrite-imfsinkwritercallback
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

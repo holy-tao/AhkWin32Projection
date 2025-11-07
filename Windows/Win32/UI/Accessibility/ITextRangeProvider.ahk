@@ -11,9 +11,9 @@
  * Provides access to a span of continuous text in a text container that implements ITextProvider or ITextProvider2.
  * @remarks
  * 
-  * A range can represent an insertion point, a portion of text, or all of the text in a container.
-  * 
-  * 
+ * A range can represent an insertion point, a portion of text, or all of the text in a container.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-itextrangeprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

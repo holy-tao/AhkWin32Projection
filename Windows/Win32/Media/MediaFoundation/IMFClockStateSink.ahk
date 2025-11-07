@@ -7,23 +7,23 @@
  * Receives state-change notifications from the presentation clock.
  * @remarks
  * 
-  * To receive state-change notifications from the presentation clock, implement this interface and call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpresentationclock-addclockstatesink">IMFPresentationClock::AddClockStateSink</a> on the presentation clock.
-  * 
-  * This interface must be implemented by:
-  * 
-  * <ul>
-  * <li>
-  * Presentation time sources. The presentation clock uses this interface to request change states from the time source.
-  * 
-  * </li>
-  * <li>
-  * Media sinks. Media sinks use this interface to get notifications when the presentation clock changes.
-  * 
-  * </li>
-  * </ul>
-  * Other objects that need to be notified can implement this interface.
-  * 
-  * 
+ * To receive state-change notifications from the presentation clock, implement this interface and call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpresentationclock-addclockstatesink">IMFPresentationClock::AddClockStateSink</a> on the presentation clock.
+ * 
+ * This interface must be implemented by:
+ * 
+ * <ul>
+ * <li>
+ * Presentation time sources. The presentation clock uses this interface to request change states from the time source.
+ * 
+ * </li>
+ * <li>
+ * Media sinks. Media sinks use this interface to get notifications when the presentation clock changes.
+ * 
+ * </li>
+ * </ul>
+ * Other objects that need to be notified can implement this interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfclockstatesink
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

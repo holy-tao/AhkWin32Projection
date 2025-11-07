@@ -9,10 +9,10 @@
  * Use this interface to communicate message specific information up and down the protocol stack.
  * @remarks
  * 
-  * In a request-response message pattern, the parameters also provide a way for the transport to determine where the response message for a given request should be sent. To enable this, the message parameters for a request must always be passed down the stack with the corresponding response.
-  * 
-  * Since message parameters can be packaged with a request or a response, and can be sent or received, the meaning of the local and remote address depends on the direction the message parameters.
-  * 
+ * In a request-response message pattern, the parameters also provide a way for the transport to determine where the response message for a given request should be sent. To enable this, the message parameters for a request must always be passed down the stack with the corresponding response.
+ * 
+ * Since message parameters can be packaged with a request or a response, and can be sent or received, the meaning of the local and remote address depends on the direction the message parameters.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nn-wsdbase-iwsdmessageparameters
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319

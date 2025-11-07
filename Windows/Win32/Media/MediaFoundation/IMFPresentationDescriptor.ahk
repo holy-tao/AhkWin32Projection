@@ -8,16 +8,16 @@
  * Describes the details of a presentation. A presentation is a set of related media streams that share a common presentation time.
  * @remarks
  * 
-  * Presentation descriptors are used to configure media sources and some media sinks. To get the presentation descriptor from a media source, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasource-createpresentationdescriptor">IMFMediaSource::CreatePresentationDescriptor</a>. To create a new presentation descriptor, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatepresentationdescriptor">MFCreatePresentationDescriptor</a>.
-  * 
-  * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
-  * 
-  * <ul>
-  * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
-  * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
-  * </ul>
-  * 
-  * 
+ * Presentation descriptors are used to configure media sources and some media sinks. To get the presentation descriptor from a media source, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasource-createpresentationdescriptor">IMFMediaSource::CreatePresentationDescriptor</a>. To create a new presentation descriptor, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatepresentationdescriptor">MFCreatePresentationDescriptor</a>.
+ * 
+ * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+ * 
+ * <ul>
+ * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+ * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfpresentationdescriptor
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

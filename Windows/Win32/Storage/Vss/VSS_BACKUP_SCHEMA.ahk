@@ -4,26 +4,26 @@
  * Used by a writer to indicate the types of backup operations it can participate in.
  * @remarks
  * 
-  * Writer set their backup schemas with calls to 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setbackupschema">IVssCreateWriterMetadata::SetBackupSchema</a>.
-  * 
-  * Requesters use 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getbackupschema">IVssExamineWriterMetadata::GetBackupSchema</a> 
-  *     to determine the backup schema that a writer supports.
-  * 
-  * For a specific kind of backup operation to be supported, the writer must support the corresponding schema, and 
-  *     the requester must set the corresponding backup type.
-  * 
-  * For example, to involve a writer in an incremental backup operation, the requester must set the backup type to 
-  *     <b>VSS_BT_INCREMENTAL</b>, and the writer should have a backup schema that includes <b>VSS_BS_INCREMENTAL</b>.
-  * 
-  * A writer that does not support the backup schema corresponding to a requester's backup type should treat the backup operation that is being performed as if it were a default (full) backup. If the desired backup type is not supported by the writer's backup schema, the requester can either perform a full backup for this writer or exclude the writer from the backup operation. A requester can exclude a writer by selecting none of the writer's components (see 
-  *     <a href="https://docs.microsoft.com/windows/desktop/VSS/working-with-selectability-and-logical-paths">Working with Selectability and 
-  *     Logical Paths</a>), or by disabling the writer (see 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-disablewriterclasses">IVssBackupComponents::DisableWriterClasses</a> or 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-disablewriterinstances">IVssBackupComponents::DisableWriterInstances</a>).
-  * 
-  * 
+ * Writer set their backup schemas with calls to 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setbackupschema">IVssCreateWriterMetadata::SetBackupSchema</a>.
+ * 
+ * Requesters use 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getbackupschema">IVssExamineWriterMetadata::GetBackupSchema</a> 
+ *     to determine the backup schema that a writer supports.
+ * 
+ * For a specific kind of backup operation to be supported, the writer must support the corresponding schema, and 
+ *     the requester must set the corresponding backup type.
+ * 
+ * For example, to involve a writer in an incremental backup operation, the requester must set the backup type to 
+ *     <b>VSS_BT_INCREMENTAL</b>, and the writer should have a backup schema that includes <b>VSS_BS_INCREMENTAL</b>.
+ * 
+ * A writer that does not support the backup schema corresponding to a requester's backup type should treat the backup operation that is being performed as if it were a default (full) backup. If the desired backup type is not supported by the writer's backup schema, the requester can either perform a full backup for this writer or exclude the writer from the backup operation. A requester can exclude a writer by selecting none of the writer's components (see 
+ *     <a href="https://docs.microsoft.com/windows/desktop/VSS/working-with-selectability-and-logical-paths">Working with Selectability and 
+ *     Logical Paths</a>), or by disabling the writer (see 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-disablewriterclasses">IVssBackupComponents::DisableWriterClasses</a> or 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-disablewriterinstances">IVssBackupComponents::DisableWriterInstances</a>).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_backup_schema
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319

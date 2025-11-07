@@ -4,9 +4,9 @@
  * Defines values that indicate the type of sub-channel data.
  * @remarks
  * 
-  * For details on the format of the sub-channel data, see Sub-Channel Field Formats in the latest release of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
-  * 
-  * 
+ * For details on the format of the sub-channel data, see Sub-Channel Field Formats in the latest release of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_format2_raw_cd_data_sector_type
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

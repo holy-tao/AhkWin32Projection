@@ -4,7 +4,7 @@
  * Specifies a Direct3D 12 video feature or feature set to query about.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_feature_video
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

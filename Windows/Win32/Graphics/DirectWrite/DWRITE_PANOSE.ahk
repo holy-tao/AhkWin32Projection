@@ -5,10 +5,10 @@
  * The DWRITE_PANOSE union describes typeface classification values that you use with IDWriteFont1::GetPanose to select and match the font.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  The <b>familyKind</b> member (index 0) is the only stable entry in the 10-byte array because all the entries that follow can change dynamically depending on the context of the first member.</div>
-  * <div> </div>
-  * 
-  * 
+ * <div class="alert"><b>Note</b>  The <b>familyKind</b> member (index 0) is the only stable entry in the 10-byte array because all the entries that follow can change dynamically depending on the context of the first member.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ns-dwrite_1-dwrite_panose
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

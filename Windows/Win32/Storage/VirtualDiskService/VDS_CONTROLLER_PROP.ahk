@@ -5,10 +5,10 @@
  * Defines the properties of a controller object.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdscontroller-getproperties">IVdsController::GetProperties</a> 
-  *     method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/controller-object">controller object</a>.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdscontroller-getproperties">IVdsController::GetProperties</a> 
+ *     method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/controller-object">controller object</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_controller_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Provides additional information about the marshaling context to custom-marshaled objects and unmarshalers.
  * @remarks
  * 
-  * Implement <b>IMarshalingStream</b> interface if you have <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> implementations that call the marshaling APIs and provide the correct value of any of the attributes. This is essential only for <b>IStream</b> implementations that are used in hybrid policy processes.
-  * 
-  * 
+ * Implement <b>IMarshalingStream</b> interface if you have <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> implementations that call the marshaling APIs and provide the correct value of any of the attributes. This is essential only for <b>IStream</b> implementations that are used in hybrid policy processes.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-imarshalingstream
  * @namespace Windows.Win32.System.Com.Marshal
  * @version v4.0.30319

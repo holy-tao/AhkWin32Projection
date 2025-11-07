@@ -6,51 +6,51 @@
  * Contains format data for an Advanced Audio Coding (AAC) or High-Efficiency Advanced Audio Coding (HE-AAC) stream.
  * @remarks
  * 
-  * This format structure is used to describe MPEG-2 AAC and MPEG-4 HE-AAC streams, including HE-AAC version 1 and HE-AAC version 2.
-  * 
-  * The <b>WAVEFORMATEX</b> structure defined in the <b>wfx</b> member contains the following values.
-  * 
-  * 
-  * 
-  * <table>
-  * <tr>
-  * <th>Member</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td><b>wFormatTag</b></td>
-  * <td>Must be <b>WAVE_FORMAT_MPEG_HEAAC</b> (0x1610).</td>
-  * </tr>
-  * <tr>
-  * <td><b>nChannels</b></td>
-  * <td>The number of channels in the core AAC stream, including the low frequency (LFE) channel, if present.
-  *  If parametric stereo (PS) 
-  *  is used, the value might differ from the number of channels in the decoded stream. If unknown, set to zero.</td>
-  * </tr>
-  * <tr>
-  * <td><b>nSamplesPerSec</b></td>
-  * <td>The sampling rate of the core AAC stream. The value must be one of the supported
-  *  sampling rates, from 8000 to 96000 Hz, defined in MPEG-2.  If spectral band replication (SBR) is used, the value might differ from the sampling rate of the decoded stream. If unknown, set to zero.</td>
-  * </tr>
-  * <tr>
-  * <td><b>nAvgBytesPerSec</b></td>
-  * <td>The average bytes per second, calculated from the average bit rate of
-  *  the compressed stream. If unknown, set to zero.</td>
-  * </tr>
-  * <tr>
-  * <td><b>nBlockAlign</b></td>
-  * <td>Set to 1.</td>
-  * </tr>
-  * <tr>
-  * <td><b>wBitsPerSample</b></td>
-  * <td>The desired number of bits per sample in the decoded PCM audio stream. If unknown, set to zero.</td>
-  * </tr>
-  * <tr>
-  * <td><b>cbSize</b></td>
-  * <td>Specifies the size, in bytes, of the format data after the <b>WAVEFORMATEX</b> structure.</td>
-  * </tr>
-  * </table>
-  * 
+ * This format structure is used to describe MPEG-2 AAC and MPEG-4 HE-AAC streams, including HE-AAC version 1 and HE-AAC version 2.
+ * 
+ * The <b>WAVEFORMATEX</b> structure defined in the <b>wfx</b> member contains the following values.
+ * 
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>Member</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td><b>wFormatTag</b></td>
+ * <td>Must be <b>WAVE_FORMAT_MPEG_HEAAC</b> (0x1610).</td>
+ * </tr>
+ * <tr>
+ * <td><b>nChannels</b></td>
+ * <td>The number of channels in the core AAC stream, including the low frequency (LFE) channel, if present.
+ *  If parametric stereo (PS) 
+ *  is used, the value might differ from the number of channels in the decoded stream. If unknown, set to zero.</td>
+ * </tr>
+ * <tr>
+ * <td><b>nSamplesPerSec</b></td>
+ * <td>The sampling rate of the core AAC stream. The value must be one of the supported
+ *  sampling rates, from 8000 to 96000 Hz, defined in MPEG-2.  If spectral band replication (SBR) is used, the value might differ from the sampling rate of the decoded stream. If unknown, set to zero.</td>
+ * </tr>
+ * <tr>
+ * <td><b>nAvgBytesPerSec</b></td>
+ * <td>The average bytes per second, calculated from the average bit rate of
+ *  the compressed stream. If unknown, set to zero.</td>
+ * </tr>
+ * <tr>
+ * <td><b>nBlockAlign</b></td>
+ * <td>Set to 1.</td>
+ * </tr>
+ * <tr>
+ * <td><b>wBitsPerSample</b></td>
+ * <td>The desired number of bits per sample in the decoded PCM audio stream. If unknown, set to zero.</td>
+ * </tr>
+ * <tr>
+ * <td><b>cbSize</b></td>
+ * <td>Specifies the size, in bytes, of the format data after the <b>WAVEFORMATEX</b> structure.</td>
+ * </tr>
+ * </table>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mmreg/ns-mmreg-heaacwaveinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

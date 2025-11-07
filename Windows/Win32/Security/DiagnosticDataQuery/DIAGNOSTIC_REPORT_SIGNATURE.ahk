@@ -6,7 +6,7 @@
  * This resource describes the signature for a diagnostic report.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_report_signature
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  * @version v4.0.30319

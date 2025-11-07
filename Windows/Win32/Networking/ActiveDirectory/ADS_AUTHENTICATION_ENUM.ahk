@@ -4,24 +4,24 @@
  * Specifies authentication options used in ADSI for binding to directory service objects.
  * @remarks
  * 
-  * The <b>ADS_SECURE_AUTHENTICATION</b> flag can be used in combination with other flags such 
-  *     as <b>ADS_READONLY_SERVER</b>, <b>ADS_PROMPT_CREDENTIALS</b>, 
-  *     <b>ADS_FAST_BIND</b>, and so on.
-  * 
-  * Serverless binding refers to a process in which a client attempts to bind to an Active Directory object 
-  *     without explicitly specifying an Active Directory server in the binding string. This is possible because the LDAP 
-  *     provider relies on the locator services of Windows to find the best domain controller (DC) for the client. 
-  *     However, the client must have an account on the Active Directory domain controller to take advantage of the 
-  *     serverless binding feature, and the DC used by a serverless bind will always be located in the default domain; 
-  *     that is, the domain associated with the current security context of the thread that performs the binding.
-  * 
-  * Because VBScript cannot read data from a type library, VBScript applications do not recognize the symbolic 
-  *     constants as defined above. Use the numerical constants instead to set the appropriate flags in your VBScript 
-  *     applications. To use the symbolic constants as a good programming practice, write explicit declarations of such 
-  *     constants, as done here, in your Visual Basic Scripting edition application.
-  * 
-  * 
-  * 
+ * The <b>ADS_SECURE_AUTHENTICATION</b> flag can be used in combination with other flags such 
+ *     as <b>ADS_READONLY_SERVER</b>, <b>ADS_PROMPT_CREDENTIALS</b>, 
+ *     <b>ADS_FAST_BIND</b>, and so on.
+ * 
+ * Serverless binding refers to a process in which a client attempts to bind to an Active Directory object 
+ *     without explicitly specifying an Active Directory server in the binding string. This is possible because the LDAP 
+ *     provider relies on the locator services of Windows to find the best domain controller (DC) for the client. 
+ *     However, the client must have an account on the Active Directory domain controller to take advantage of the 
+ *     serverless binding feature, and the DC used by a serverless bind will always be located in the default domain; 
+ *     that is, the domain associated with the current security context of the thread that performs the binding.
+ * 
+ * Because VBScript cannot read data from a type library, VBScript applications do not recognize the symbolic 
+ *     constants as defined above. Use the numerical constants instead to set the appropriate flags in your VBScript 
+ *     applications. To use the symbolic constants as a good programming practice, write explicit declarations of such 
+ *     constants, as done here, in your Visual Basic Scripting edition application.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_authentication_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

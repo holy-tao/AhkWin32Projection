@@ -6,11 +6,11 @@
  * Contains information about a smart card logon session.
  * @remarks
  * 
-  * This structure, along with the data pointed to by the <b>DomainName</b>, <b>UserName</b>, <b>Pin</b>, and <b>CspData</b> members, is contained in a single block of contiguous memory. When this structure is serialized, the offsets specified by each of these members must be multiples of two.
-  * 
-  * The pointers stored in the members of <b>UNICODE_STRING</b> type are relative to the beginning of the structure and are not absolute memory pointers.
-  * 
-  * 
+ * This structure, along with the data pointed to by the <b>DomainName</b>, <b>UserName</b>, <b>Pin</b>, and <b>CspData</b> members, is contained in a single block of contiguous memory. When this structure is serialized, the offsets specified by each of these members must be multiples of two.
+ * 
+ * The pointers stored in the members of <b>UNICODE_STRING</b> type are relative to the beginning of the structure and are not absolute memory pointers.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_certificate_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319

@@ -8,19 +8,19 @@
  * Represents general information about a button on a tablet pointing and selecting device.
  * @remarks
  * 
-  * An <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursor">IInkCursor</a> can contain zero to 32 associated buttons, and these buttons are provided to an application as <b>IInkCursorButton</b> objects. Examples of cursor buttons are:
-  * 
-  * <ul>
-  * <li>The writing end of a pen</li>
-  * <li>The inverted (or "eraser") end of a pen</li>
-  * <li>The barrel of a pen</li>
-  * <li>The button on a pen</li>
-  * </ul>
-  * A single pen cursor with no barrel may consist of two cursor buttons: the writing end and the inverted end. Each button can have a specific function, and an application must know which button, by identifier, is being used before it can accept input from the cursor. For example, an application must know the identifier of the inverted end of the pen before strokes can be erased.
-  * 
-  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
-  * 
-  * 
+ * An <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursor">IInkCursor</a> can contain zero to 32 associated buttons, and these buttons are provided to an application as <b>IInkCursorButton</b> objects. Examples of cursor buttons are:
+ * 
+ * <ul>
+ * <li>The writing end of a pen</li>
+ * <li>The inverted (or "eraser") end of a pen</li>
+ * <li>The barrel of a pen</li>
+ * <li>The button on a pen</li>
+ * </ul>
+ * A single pen cursor with no barrel may consist of two cursor buttons: the writing end and the inverted end. Each button can have a specific function, and an application must know which button, by identifier, is being used before it can accept input from the cursor. For example, an application must know the identifier of the inverted end of the pen before strokes can be erased.
+ * 
+ * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkcursorbutton
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

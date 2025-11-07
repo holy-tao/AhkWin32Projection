@@ -4,41 +4,41 @@
  * Specifies the types of event notifications, on a particular account, that the server sends to listening clients.
  * @remarks
  * 
-  * The following table lists the <a href="https://docs.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-_ifaxaccountnotify">IFaxAccountNotify</a> methods called by each member of the enumeration:
-  * 
-  * 
-  * <table class="clsStd">
-  * <tr>
-  * <th>Member</th>
-  * <th>Methods Called</th>
-  * </tr>
-  * <tr>
-  * <td>faetNONE</td>
-  * <td>none</td>
-  * </tr>
-  * <tr>
-  * <td>faetIN_QUEUE</td>
-  * <td>OnIncomingJobAdded</p>OnIncomingJobRemoved</p>OnIncomingJobChanged</td>
-  * </tr>
-  * <tr>
-  * <td>faetOUT_QUEUE</td>
-  * <td>OnOutgoingJobAdded</p>OnOutgoingJobRemoved</p>OnOutgoingJobChanged</td>
-  * </tr>
-  * <tr>
-  * <td>faetIN_ARCHIVE</td>
-  * <td>OnIncomingMessageAdded</p>OnIncomingMessageRemoved</td>
-  * </tr>
-  * <tr>
-  * <td>faetOUT_ARCHIVE</td>
-  * <td>OnOutgoingMessageAdded</p>OnOutgoingMessageRemoved</td>
-  * </tr>
-  * <tr>
-  * <td>faetFXSSVC_ENDED</td>
-  * <td>OnServerShutDown</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * The following table lists the <a href="https://docs.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-_ifaxaccountnotify">IFaxAccountNotify</a> methods called by each member of the enumeration:
+ * 
+ * 
+ * <table class="clsStd">
+ * <tr>
+ * <th>Member</th>
+ * <th>Methods Called</th>
+ * </tr>
+ * <tr>
+ * <td>faetNONE</td>
+ * <td>none</td>
+ * </tr>
+ * <tr>
+ * <td>faetIN_QUEUE</td>
+ * <td>OnIncomingJobAdded</p>OnIncomingJobRemoved</p>OnIncomingJobChanged</td>
+ * </tr>
+ * <tr>
+ * <td>faetOUT_QUEUE</td>
+ * <td>OnOutgoingJobAdded</p>OnOutgoingJobRemoved</p>OnOutgoingJobChanged</td>
+ * </tr>
+ * <tr>
+ * <td>faetIN_ARCHIVE</td>
+ * <td>OnIncomingMessageAdded</p>OnIncomingMessageRemoved</td>
+ * </tr>
+ * <tr>
+ * <td>faetOUT_ARCHIVE</td>
+ * <td>OnOutgoingMessageAdded</p>OnOutgoingMessageRemoved</td>
+ * </tr>
+ * <tr>
+ * <td>faetFXSSVC_ENDED</td>
+ * <td>OnServerShutDown</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//faxcomex/ne-faxcomex-fax_account_events_type_enum
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319

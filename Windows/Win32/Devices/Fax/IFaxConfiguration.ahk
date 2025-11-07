@@ -8,8 +8,8 @@
  * Defines various methods that provide configuration options for the fax service.
  * @remarks
  * 
-  * A default implementation of this interface is provided by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxconfiguration">FaxConfiguration</a> object.
-  * 
+ * A default implementation of this interface is provided by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxconfiguration">FaxConfiguration</a> object.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxconfiguration
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319

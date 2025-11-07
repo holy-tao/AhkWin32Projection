@@ -5,26 +5,26 @@
  * Contains information about the StickyKeys accessibility feature.
  * @remarks
  * 
-  * An application uses a <b>STICKYKEYS</b> structure when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> function with the <i>uiAction</i> parameter set to <b>SPI_GETSTICKYKEYS</b> or <b>SPI_SETSTICKYKEYS</b>. When using <b>SPI_GETSTICKYKEYS</b>, you must specify the <b>cbSize</b> member of the <b>STICKYKEYS</b> structure; the <b>SystemParametersInfo</b> function fills the remaining members. You must specify all structure members when using the <b>SPI_SETSTICKYKEYS</b> value.
-  * 
-  * If you call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> with the <b>SPI_SETSTICKYKEYS</b> value, the following flags are ignored:
-  * 
-  * <ul>
-  * <li>SKF_LALTLATCHED</li>
-  * <li>SKF_LCTLLATCHED</li>
-  * <li>SKF_LSHIFTLATCHED</li>
-  * <li>SKF_RALTLATCHED</li>
-  * <li>SKF_RCTLLATCHED</li>
-  * <li>SKF_RSHIFTLATCHED</li>
-  * <li>SKF_LALTLOCKED</li>
-  * <li>SKF_LCTLLOCKED</li>
-  * <li>SKF_LSHIFTLOCKED</li>
-  * <li>SKF_RALTLOCKED</li>
-  * <li>SKF_RCTLLOCKED</li>
-  * <li>SKF_RSHIFTLOCKED</li>
-  * </ul>
-  * 
-  * 
+ * An application uses a <b>STICKYKEYS</b> structure when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> function with the <i>uiAction</i> parameter set to <b>SPI_GETSTICKYKEYS</b> or <b>SPI_SETSTICKYKEYS</b>. When using <b>SPI_GETSTICKYKEYS</b>, you must specify the <b>cbSize</b> member of the <b>STICKYKEYS</b> structure; the <b>SystemParametersInfo</b> function fills the remaining members. You must specify all structure members when using the <b>SPI_SETSTICKYKEYS</b> value.
+ * 
+ * If you call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> with the <b>SPI_SETSTICKYKEYS</b> value, the following flags are ignored:
+ * 
+ * <ul>
+ * <li>SKF_LALTLATCHED</li>
+ * <li>SKF_LCTLLATCHED</li>
+ * <li>SKF_LSHIFTLATCHED</li>
+ * <li>SKF_RALTLATCHED</li>
+ * <li>SKF_RCTLLATCHED</li>
+ * <li>SKF_RSHIFTLATCHED</li>
+ * <li>SKF_LALTLOCKED</li>
+ * <li>SKF_LCTLLOCKED</li>
+ * <li>SKF_LSHIFTLOCKED</li>
+ * <li>SKF_RALTLOCKED</li>
+ * <li>SKF_RCTLLOCKED</li>
+ * <li>SKF_RSHIFTLOCKED</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-stickykeys
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

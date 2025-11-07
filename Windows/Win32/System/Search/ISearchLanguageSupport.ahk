@@ -7,8 +7,8 @@
  * Provides methods for accessing thesaurus information.
  * @remarks
  * 
-  * A thesaurus file contains a word and a list of words to substitute when querying. It is specific to a catalog and can be defined in more than one file.
-  * 
+ * A thesaurus file contains a word and a list of words to substitute when querying. It is specific to a catalog and can be defined in more than one file.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-isearchlanguagesupport
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319

@@ -4,11 +4,11 @@
  * The HotkeyPrefix enumeration specifies how to display hot keys. There are three options:\_do nothing, display hot keys underlined, and hide the hot key underlines.
  * @remarks
  * 
-  * Hot keys are keys that are programmed to provide keyboard shortcuts to functionality and are activated by pressing the ALT key. The keys are application dependent and are identified by an underscored letter, typically in a menu. An example would be the 
-  * 				<b>File</b> menu with the letter F underscored. This makes the F key a hot key to launch the 
-  * 				<b>File</b> menu.
-  * 
-  * 
+ * Hot keys are keys that are programmed to provide keyboard shortcuts to functionality and are activated by pressing the ALT key. The keys are application dependent and are identified by an underscored letter, typically in a menu. An example would be the 
+ * 				<b>File</b> menu with the letter F underscored. This makes the F key a hot key to launch the 
+ * 				<b>File</b> menu.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplusenums/ne-gdiplusenums-hotkeyprefix
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

@@ -9,11 +9,11 @@
  * Represents the ability to add your own data to a variety of objects within the Tablet PC object model.
  * @remarks
  * 
-  * Extended properties are application-defined data that can be of whatever form the application requires. The name of the extended property is expressed as a globally unique identifier (GUID).
-  * 
-  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
-  * 
-  * 
+ * Extended properties are application-defined data that can be of whatever form the application requires. The name of the extended property is expressed as a globally unique identifier (GUID).
+ * 
+ * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkextendedproperty
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

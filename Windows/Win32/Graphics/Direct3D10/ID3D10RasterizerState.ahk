@@ -7,9 +7,9 @@
  * A rasterizer-state interface accesses rasterizer state for the rasterizer stage.
  * @remarks
  * 
-  * A rasterizer-state object is created with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createrasterizerstate">ID3D10Device::CreateRasterizerState</a> and bound to the pipeline with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-rssetstate">ID3D10Device::RSSetState</a>.
-  * 
-  * 
+ * A rasterizer-state object is created with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createrasterizerstate">ID3D10Device::CreateRasterizerState</a> and bound to the pipeline with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-rssetstate">ID3D10Device::RSSetState</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/nn-d3d10-id3d10rasterizerstate
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

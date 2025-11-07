@@ -7,9 +7,9 @@
  * Provides access to the fundamental window-based functionality of a control.
  * @remarks
  * 
-  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingwindow">Window</a> control pattern.
-  * 
-  * 
+ * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingwindow">Window</a> control pattern.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-iwindowprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

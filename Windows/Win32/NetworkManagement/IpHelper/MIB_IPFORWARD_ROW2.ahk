@@ -13,27 +13,27 @@
  * Stores information about an IP route entry.
  * @remarks
  * 
-  * The <b>MIB_IPFORWARD_ROW2</b> structure is defined on Windows Vista and later. 
-  * 
-  * The <b>GetIpForwardTable2</b> function enumerates the IP route entries on a local system and returns this information in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_table2">MIB_IPFORWARD_TABLE2</a> structure as an array of <b>MIB_IPFORWARD_ROW2</b> entries. 
-  * 
-  * 
-  * 
-  * The <b>GetIpForwardEntry2</b> function retrieves a single IP route entry and returns this information in a <b>MIB_IPFORWARD_ROW2</b> structure.
-  * 
-  * An entry with the <b>Prefix</b> and the <b>PrefixLength</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-ip_address_prefix">IP_ADDRESS_PREFIX</a> set to zero in the <b>DestinationPrefix</b> member in the 
-  * <b>MIB_IPFORWARD_ROW2</b> structure is considered a
-  *                 default route. The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_table2">MIB_IPFORWARD_TABLE2</a> may contain multiple <b>MIB_IPFORWARD_ROW2</b> entries with the <b>Prefix</b> and the <b>PrefixLength</b> members of the <b>IP_ADDRESS_PREFIX</b> set to zero in the <b>DestinationPrefix</b> member when there are multiple network adapters installed.
-  * 
-  * The <b>Metric</b> member of a <b>MIB_IPFORWARD_ROW2</b> entry is a value that is assigned to an IP route for a particular network interface that identifies the cost that is associated with using that route. For example, the metric can be valued in terms of link speed, hop count, or time delay. Automatic metric is a feature on Windows XP and later that automatically configures the metric for the local routes that are based on link speed. The automatic metric feature is enabled by default (the <b>UseAutomaticMetric</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> structure is set to <b>TRUE</b>) on Windows XP and later. It can also be manually configured to assign a specific metric to an IP route.
-  * 
-  * 
-  * 
-  * The route metric specified in the <b>Metric</b> member of the  <b>MIB_IPFORWARD_ROW2</b> structure represents just the route metric offset. The complete metric is a combination of this route metric  offset added to the interface metric specified in the <b>Metric</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> structure of the associated interface.  An application can retrieve the interface metric by calling the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipinterfaceentry">GetIpInterfaceEntry</a> function.
-  * 
-  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
-  * 
-  * 
+ * The <b>MIB_IPFORWARD_ROW2</b> structure is defined on Windows Vista and later. 
+ * 
+ * The <b>GetIpForwardTable2</b> function enumerates the IP route entries on a local system and returns this information in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_table2">MIB_IPFORWARD_TABLE2</a> structure as an array of <b>MIB_IPFORWARD_ROW2</b> entries. 
+ * 
+ * 
+ * 
+ * The <b>GetIpForwardEntry2</b> function retrieves a single IP route entry and returns this information in a <b>MIB_IPFORWARD_ROW2</b> structure.
+ * 
+ * An entry with the <b>Prefix</b> and the <b>PrefixLength</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-ip_address_prefix">IP_ADDRESS_PREFIX</a> set to zero in the <b>DestinationPrefix</b> member in the 
+ * <b>MIB_IPFORWARD_ROW2</b> structure is considered a
+ *                 default route. The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_table2">MIB_IPFORWARD_TABLE2</a> may contain multiple <b>MIB_IPFORWARD_ROW2</b> entries with the <b>Prefix</b> and the <b>PrefixLength</b> members of the <b>IP_ADDRESS_PREFIX</b> set to zero in the <b>DestinationPrefix</b> member when there are multiple network adapters installed.
+ * 
+ * The <b>Metric</b> member of a <b>MIB_IPFORWARD_ROW2</b> entry is a value that is assigned to an IP route for a particular network interface that identifies the cost that is associated with using that route. For example, the metric can be valued in terms of link speed, hop count, or time delay. Automatic metric is a feature on Windows XP and later that automatically configures the metric for the local routes that are based on link speed. The automatic metric feature is enabled by default (the <b>UseAutomaticMetric</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> structure is set to <b>TRUE</b>) on Windows XP and later. It can also be manually configured to assign a specific metric to an IP route.
+ * 
+ * 
+ * 
+ * The route metric specified in the <b>Metric</b> member of the  <b>MIB_IPFORWARD_ROW2</b> structure represents just the route metric offset. The complete metric is a combination of this route metric  offset added to the interface metric specified in the <b>Metric</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> structure of the associated interface.  An application can retrieve the interface metric by calling the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipinterfaceentry">GetIpInterfaceEntry</a> function.
+ * 
+ * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_ipforward_row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319

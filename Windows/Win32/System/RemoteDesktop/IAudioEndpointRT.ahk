@@ -7,9 +7,9 @@
  * Gets the difference between the current read and write positions in the endpoint buffer.
  * @remarks
  * 
-  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client 
-  *     applications.
-  * 
+ * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client 
+ *     applications.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nn-audioengineendpoint-iaudioendpointrt
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319

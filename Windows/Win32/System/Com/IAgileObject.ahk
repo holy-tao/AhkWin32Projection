@@ -7,11 +7,11 @@
  * Marks an interface as agile across apartments.
  * @remarks
  * 
-  * The <b>IAgileObject</b> interface is a marker interface that indicates that an object is free threaded and can be called from any apartment.
-  * 
-  * Unlike what happens when aggregating the Free Threaded Marshaler (FTM), implementing the <b>IAgileObject</b> interface doesn't affect what happens when marshaling a call. Instead, the <b>IAgileObject</b> interface is recognized by the Global Interface Table (GIT). When an object that implements the <b>IAgileObject</b> interface is placed in the GIT and localized to another apartment, the object is called directly in the new apartment, rather than marshaling.
-  * 
-  * 
+ * The <b>IAgileObject</b> interface is a marker interface that indicates that an object is free threaded and can be called from any apartment.
+ * 
+ * Unlike what happens when aggregating the Free Threaded Marshaler (FTM), implementing the <b>IAgileObject</b> interface doesn't affect what happens when marshaling a call. Instead, the <b>IAgileObject</b> interface is recognized by the Global Interface Table (GIT). When an object that implements the <b>IAgileObject</b> interface is placed in the GIT and localized to another apartment, the object is called directly in the new apartment, rather than marshaling.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iagileobject
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

@@ -5,13 +5,13 @@
  * The NTMS_LIBRARYINFORMATION structure defines properties specific to a library object.
  * @remarks
  * 
-  * For offline libraries, only <b>LibraryType</b> and <b>dwNumberOfMedia</b> are reported. All other values should be ignored.
-  * 
-  * The 
-  * <b>NTMS_LIBRARYINFORMATION</b> structure is included in the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/ns-ntmsapi-ntms_objectinformationa">NTMS_OBJECTINFORMATION</a> structure.
-  * 
-  * 
+ * For offline libraries, only <b>LibraryType</b> and <b>dwNumberOfMedia</b> are reported. All other values should be ignored.
+ * 
+ * The 
+ * <b>NTMS_LIBRARYINFORMATION</b> structure is included in the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/ns-ntmsapi-ntms_objectinformationa">NTMS_OBJECTINFORMATION</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ntmsapi/ns-ntmsapi-ntms_libraryinformation
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319

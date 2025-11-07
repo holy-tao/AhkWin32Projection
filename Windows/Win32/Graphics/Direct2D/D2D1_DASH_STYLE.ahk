@@ -4,12 +4,12 @@
  * Describes the sequence of dashes and gaps in a stroke.
  * @remarks
  * 
-  * The following illustration shows several available dash styles. 
-  *       
-  * 
-  * <img alt="Illustration of available dash styles" src="./images/StrokeStyle_DashStyle.png"/>
-  * 
-  * 
+ * The following illustration shows several available dash styles. 
+ *       
+ * 
+ * <img alt="Illustration of available dash styles" src="./images/StrokeStyle_DashStyle.png"/>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_dash_style
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

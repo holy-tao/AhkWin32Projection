@@ -4,9 +4,9 @@
  * Indicates the closed captioning service.
  * @remarks
  * 
-  * The Line 21 decoder supports CC1 and CC2 only.
-  * 
-  * 
+ * The Line 21 decoder supports CC1 and CC2 only.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//il21dec/ne-il21dec-am_line21_ccservice
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

@@ -10,20 +10,20 @@
  * A shader-reflection interface accesses shader information.
  * @remarks
  * 
-  * An <b>ID3D11ShaderReflection</b> interface can be retrieved for a shader by using  <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dreflect">D3DReflect</a>.  The following code illustrates retrieving a <b>ID3D11ShaderReflection</b>  from a shader.
-  *           
-  * 
-  * 
-  * ```
-  * pd3dDevice->CreatePixelShader( pPixelShaderBuffer->GetBufferPointer(),
-  *                                pPixelShaderBuffer->GetBufferSize(), g_pPSClassLinkage, &g_pPixelShader );
-  * 
-  * ID3D11ShaderReflection* pReflector = NULL; 
-  * D3DReflect( pPixelShaderBuffer->GetBufferPointer(), pPixelShaderBuffer->GetBufferSize(), 
-  *             IID_ID3D11ShaderReflection, (void**) &pReflector);
-  * ```
-  * 
-  * 
+ * An <b>ID3D11ShaderReflection</b> interface can be retrieved for a shader by using  <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dreflect">D3DReflect</a>.  The following code illustrates retrieving a <b>ID3D11ShaderReflection</b>  from a shader.
+ *           
+ * 
+ * 
+ * ```
+ * pd3dDevice->CreatePixelShader( pPixelShaderBuffer->GetBufferPointer(),
+ *                                pPixelShaderBuffer->GetBufferSize(), g_pPSClassLinkage, &g_pPixelShader );
+ * 
+ * ID3D11ShaderReflection* pReflector = NULL; 
+ * D3DReflect( pPixelShaderBuffer->GetBufferPointer(), pPixelShaderBuffer->GetBufferSize(), 
+ *             IID_ID3D11ShaderReflection, (void**) &pReflector);
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nn-d3d11shader-id3d11shaderreflection
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

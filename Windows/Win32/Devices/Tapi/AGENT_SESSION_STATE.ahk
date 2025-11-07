@@ -4,56 +4,56 @@
  * This AGENT_SESSION_STATE enum defines the agent session indicators used by the ITAgentSession::get_State and the ITAgentSession::put_State methods.
  * @remarks
  * 
-  * Following is a table of all valid AgentSession state transitions.
-  * 
-  * <table>
-  * <tr>
-  * <th>From state</th>
-  * <th>To state</th>
-  * </tr>
-  * <tr>
-  * <td>ASST_NOT_READY</td>
-  * <td>
-  * <dl>
-  * <dt>ASST_READY</dt>
-  * <dt>ASST_SESSION_ENDED</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>ASST_READY</td>
-  * <td>
-  * <dl>
-  * <dt>ASST_BUSY_ON_CALL</dt>
-  * <dt>ASST_NOT_READY</dt>
-  * <dt>ASST_SESSION_ENDED</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>ASST_BUSY_ON_CALL</td>
-  * <td>
-  * <dl>
-  * <dt>ASST_BUSY_WRAPUP</dt>
-  * <dt>ASST_READY</dt>
-  * <dt>ASST_NOT_READY</dt>
-  * <dt>ASST_SESSION_ENDED</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>ASST_BUSY_WRAPUP</td>
-  * <td>
-  * <dl>
-  * <dt>ASST_READY</dt>
-  * <dt>ASST_NOT_READY</dt>
-  * <dt>ASST_SESSION_ENDED</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * Following is a table of all valid AgentSession state transitions.
+ * 
+ * <table>
+ * <tr>
+ * <th>From state</th>
+ * <th>To state</th>
+ * </tr>
+ * <tr>
+ * <td>ASST_NOT_READY</td>
+ * <td>
+ * <dl>
+ * <dt>ASST_READY</dt>
+ * <dt>ASST_SESSION_ENDED</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>ASST_READY</td>
+ * <td>
+ * <dl>
+ * <dt>ASST_BUSY_ON_CALL</dt>
+ * <dt>ASST_NOT_READY</dt>
+ * <dt>ASST_SESSION_ENDED</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>ASST_BUSY_ON_CALL</td>
+ * <td>
+ * <dl>
+ * <dt>ASST_BUSY_WRAPUP</dt>
+ * <dt>ASST_READY</dt>
+ * <dt>ASST_NOT_READY</dt>
+ * <dt>ASST_SESSION_ENDED</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>ASST_BUSY_WRAPUP</td>
+ * <td>
+ * <dl>
+ * <dt>ASST_READY</dt>
+ * <dt>ASST_NOT_READY</dt>
+ * <dt>ASST_SESSION_ENDED</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/ne-tapi3cc-agent_session_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

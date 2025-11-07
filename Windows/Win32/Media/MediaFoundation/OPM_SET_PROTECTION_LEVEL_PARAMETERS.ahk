@@ -5,9 +5,9 @@
  * Contains data for the OPM_SET_PROTECTION_LEVEL command in Output Protection Manager (OPM).
  * @remarks
  * 
-  * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxva_coppsetprotectionlevelcmddata">DXVA_COPPSetProtectionLevelCmdData</a> structure used in Certified Output Protection Protocol (COPP).
-  * 
-  * 
+ * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxva_coppsetprotectionlevelcmddata">DXVA_COPPSetProtectionLevelCmdData</a> structure used in Certified Output Protection Protocol (COPP).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_set_protection_level_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

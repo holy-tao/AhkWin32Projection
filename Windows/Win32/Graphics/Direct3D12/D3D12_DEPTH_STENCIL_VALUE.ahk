@@ -5,9 +5,9 @@
  * Specifies a depth and stencil value.
  * @remarks
  * 
-  * This structure is used in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_clear_value">D3D12_CLEAR_VALUE</a> structure.
-  * 
-  * 
+ * This structure is used in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_clear_value">D3D12_CLEAR_VALUE</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_depth_stencil_value
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

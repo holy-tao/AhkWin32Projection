@@ -7,18 +7,18 @@
  * Enables compound documents in general and active documents in particular to support programmatic printing.
  * @remarks
  * 
-  * After a document is loaded, containers and other clients can call <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iprint-print">IPrint::Print</a> to instruct a document to print itself, specifying printing control flags, the target device, the particular pages to print, and other options. The client can control the continuation of printing by calling the <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-icontinuecallback">IContinueCallback</a> interface. 
-  * 
-  * 
-  * An object that implements <b>IPrint</b> registers itself with the <b>Printable</b> key stored under its CLSID as follows:
-  * 
-  * 
-  * <b>HKEY_CLASSES_ROOT\CLSID\{...}\Printable</b>
-  * 
-  * 
-  * 
-  * Callers determine whether a particular object class supports programmatic printing of its persistent state by looking in the registry for this key.
-  * 
+ * After a document is loaded, containers and other clients can call <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iprint-print">IPrint::Print</a> to instruct a document to print itself, specifying printing control flags, the target device, the particular pages to print, and other options. The client can control the continuation of printing by calling the <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-icontinuecallback">IContinueCallback</a> interface. 
+ * 
+ * 
+ * An object that implements <b>IPrint</b> registers itself with the <b>Printable</b> key stored under its CLSID as follows:
+ * 
+ * 
+ * <b>HKEY_CLASSES_ROOT\CLSID\{...}\Printable</b>
+ * 
+ * 
+ * 
+ * Callers determine whether a particular object class supports programmatic printing of its persistent state by looking in the registry for this key.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//docobj/nn-docobj-iprint
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319

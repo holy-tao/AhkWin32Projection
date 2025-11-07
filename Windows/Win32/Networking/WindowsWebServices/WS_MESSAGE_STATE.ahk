@@ -4,23 +4,23 @@
  * The different states that a message can be in.
  * @remarks
  * 
-  * A message object transitions through a set of states as it
-  *                 is being received or sent (or read or written).
-  *             
-  * 
-  * The following are the state transitions while writing or sending:
-  *             
-  * 
-  * :::image type="content" source="./images/MessageSendStates.png" border="false" alt-text="Diagram of the valid state transitions for a Message object as it is being written or sent.":::
-  * 
-  * The following are the state transitions while reading or receiving:
-  *             
-  * 
-  * :::image type="content" source="./images/MessageReceiveStates.png" border="false" alt-text="Diagram of the valid state transitions for a Message object as it is being read or received.":::
-  * 
-  * Note that in the above diagrams, only valid transitions are
-  *                 shown.
-  * 
+ * A message object transitions through a set of states as it
+ *                 is being received or sent (or read or written).
+ *             
+ * 
+ * The following are the state transitions while writing or sending:
+ *             
+ * 
+ * :::image type="content" source="./images/MessageSendStates.png" border="false" alt-text="Diagram of the valid state transitions for a Message object as it is being written or sent.":::
+ * 
+ * The following are the state transitions while reading or receiving:
+ *             
+ * 
+ * :::image type="content" source="./images/MessageReceiveStates.png" border="false" alt-text="Diagram of the valid state transitions for a Message object as it is being read or received.":::
+ * 
+ * Note that in the above diagrams, only valid transitions are
+ *                 shown.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_message_state
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

@@ -5,17 +5,17 @@
  * Describes a transformation matrix that a magnifier control uses to magnify screen content.
  * @remarks
  * 
-  * The transformation matrix is 
-  * 
-  *  (<i>n</i>, 0.0, 0.0)
-  * 
-  *  (0.0, <i>n</i>, 0.0)
-  * 
-  *  (0.0, 0.0, 1.0) 
-  * 
-  * where <i>n</i> is the magnification factor.
-  * 
-  * 
+ * The transformation matrix is 
+ * 
+ *  (<i>n</i>, 0.0, 0.0)
+ * 
+ *  (0.0, <i>n</i>, 0.0)
+ * 
+ *  (0.0, 0.0, 1.0) 
+ * 
+ * where <i>n</i> is the magnification factor.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//magnification/ns-magnification-magtransform
  * @namespace Windows.Win32.UI.Magnification
  * @version v4.0.30319

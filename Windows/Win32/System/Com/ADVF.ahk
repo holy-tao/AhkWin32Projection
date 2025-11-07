@@ -4,17 +4,17 @@
  * Flags that control caching and notification of changes in data.
  * @remarks
  * 
-  * For a data or view advisory connection, the container uses the <b>ADVF</b> constants when setting up a connection between an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> instance and either an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> or <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iviewobject">IViewObject</a> instance. These connections are set up using the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataadviseholder-advise">IDataAdviseHolder::Advise</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iviewobject-setadvise">IViewObject::SetAdvise</a> methods.
-  * 
-  * 
-  * 
-  * For a caching connection, the constants are specified in the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a>method to indicate the container's requests on how the object should update its cache.
-  * 
-  * 
-  * 
-  * These constants are also used in the <b>advf</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-statdata">STATDATA</a> structure. This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstatdata">IEnumSTATDATA</a> to describe the enumerated connections, and the <b>advf</b> member indicates the flags that were specified when the advisory or cache connection was established. When <b>STATDATA</b> is used for an<a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-enumadvise"> IOleObject::EnumAdvise</a> enumerator, the <b>advf</b> member is indeterminate.
-  * 
-  * 
+ * For a data or view advisory connection, the container uses the <b>ADVF</b> constants when setting up a connection between an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> instance and either an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> or <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iviewobject">IViewObject</a> instance. These connections are set up using the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataadviseholder-advise">IDataAdviseHolder::Advise</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iviewobject-setadvise">IViewObject::SetAdvise</a> methods.
+ * 
+ * 
+ * 
+ * For a caching connection, the constants are specified in the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a>method to indicate the container's requests on how the object should update its cache.
+ * 
+ * 
+ * 
+ * These constants are also used in the <b>advf</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-statdata">STATDATA</a> structure. This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstatdata">IEnumSTATDATA</a> to describe the enumerated connections, and the <b>advf</b> member indicates the flags that were specified when the advisory or cache connection was established. When <b>STATDATA</b> is used for an<a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-enumadvise"> IOleObject::EnumAdvise</a> enumerator, the <b>advf</b> member is indeterminate.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-advf
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

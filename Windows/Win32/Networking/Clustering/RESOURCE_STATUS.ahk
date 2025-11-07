@@ -6,29 +6,29 @@
  * Contains information about a resource that is being brought online or taken offline. This structure is used as a parameter to the callback function SetResourceStatus.
  * @remarks
  * 
-  * Resource DLLs typically set the <b>ResourceState</b> member to 
-  *      <b>ClusterResourceOnline</b> or <b>ClusterResourceOffline</b>. However, 
-  *      if <b>ResourceState</b> is set to <b>ClusterResourceOnlinePending</b> or 
-  *      <b>ClusterResourceOfflinePending</b>, the <b>CheckPoint</b> member 
-  *      should be greater than the previous value reported for <b>CheckPoint</b>.
-  * 
-  * Resource DLLs initially set <b>CheckPoint</b> to zero, then increment it by 1 for each call 
-  *      to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pset_resource_status_routine">SetResourceStatus</a>. 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-monitor">Resource Monitors</a> detect new status reports by comparing 
-  *      the current value of <b>CheckPoint</b> to the previous value. If the value has changed, the 
-  *      Resource Monitor reads the new status information.
-  * 
-  * Before returning the <b>ClusterResourceUnknown</b> state in the 
-  *      <b>ResourceState</b> member, a resource DLL should call the function 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a>.
-  * 
-  * Resource DLLs set the <b>EventHandle</b> member to a handle that is signaled when a 
-  *      resource fails.
-  * 
-  * For more information, see 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/implementing-resource-dlls">Implementing Resource DLLs</a>.
-  * 
-  * 
+ * Resource DLLs typically set the <b>ResourceState</b> member to 
+ *      <b>ClusterResourceOnline</b> or <b>ClusterResourceOffline</b>. However, 
+ *      if <b>ResourceState</b> is set to <b>ClusterResourceOnlinePending</b> or 
+ *      <b>ClusterResourceOfflinePending</b>, the <b>CheckPoint</b> member 
+ *      should be greater than the previous value reported for <b>CheckPoint</b>.
+ * 
+ * Resource DLLs initially set <b>CheckPoint</b> to zero, then increment it by 1 for each call 
+ *      to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pset_resource_status_routine">SetResourceStatus</a>. 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-monitor">Resource Monitors</a> detect new status reports by comparing 
+ *      the current value of <b>CheckPoint</b> to the previous value. If the value has changed, the 
+ *      Resource Monitor reads the new status information.
+ * 
+ * Before returning the <b>ClusterResourceUnknown</b> state in the 
+ *      <b>ResourceState</b> member, a resource DLL should call the function 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a>.
+ * 
+ * Resource DLLs set the <b>EventHandle</b> member to a handle that is signaled when a 
+ *      resource fails.
+ * 
+ * For more information, see 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/implementing-resource-dlls">Implementing Resource DLLs</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-resource_status
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

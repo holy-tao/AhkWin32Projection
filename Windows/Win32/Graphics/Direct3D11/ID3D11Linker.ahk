@@ -7,14 +7,14 @@
  * A linker interface is used to link a shader module.
  * @remarks
  * 
-  * To get a linker interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3dcompiler/nf-d3dcompiler-d3dcreatelinker">D3DCreateLinker</a>.
-  *       
-  * 
-  * <div class="alert"><b>Note</b>  <b>ID3D11Linker</b> requires the D3dcompiler_47.dll or a later version of the DLL.
-  *       </div>
-  * <div> </div>
-  * 
-  * 
+ * To get a linker interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3dcompiler/nf-d3dcompiler-d3dcreatelinker">D3DCreateLinker</a>.
+ *       
+ * 
+ * <div class="alert"><b>Note</b>  <b>ID3D11Linker</b> requires the D3dcompiler_47.dll or a later version of the DLL.
+ *       </div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nn-d3d11shader-id3d11linker
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

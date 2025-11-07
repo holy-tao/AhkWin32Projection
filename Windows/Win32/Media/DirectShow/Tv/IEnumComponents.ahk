@@ -8,9 +8,9 @@
  * The IEnumComponents interface provides a standard COM enumeration object for the components (substreams) in a given program stream.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IEnumComponents)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IEnumComponents)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ienumcomponents
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

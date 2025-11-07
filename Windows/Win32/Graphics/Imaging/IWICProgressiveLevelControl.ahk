@@ -7,11 +7,11 @@
  * Exposes methods for obtaining information about and controlling progressive decoding.
  * @remarks
  * 
-  * Images can only be progressively decoded if they were progressively encoded. Progressive images automatically start at the highest (best quality) progressive level. The caller must manually set the decoder to a lower progressive level.
-  * 
-  * E_NOTIMPL is returned if the codec does not support progressive level decoding.
-  * 
-  * 
+ * Images can only be progressively decoded if they were progressively encoded. Progressive images automatically start at the highest (best quality) progressive level. The caller must manually set the decoder to a lower progressive level.
+ * 
+ * E_NOTIMPL is returned if the codec does not support progressive level decoding.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicprogressivelevelcontrol
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319

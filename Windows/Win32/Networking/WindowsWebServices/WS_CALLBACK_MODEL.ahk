@@ -4,11 +4,11 @@
  * Specifies the threading behavior of a callback (for example, a WS_ASYNC_CALLBACK).
  * @remarks
  * 
-  * Whether a callback will be invoked long or short is up to the caller implementation.
-  *                 The channel and listener implementations provide a way to control this for async callbacks
-  *                 via the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_property_id">WS_CHANNEL_PROPERTY_ASYNC_CALLBACK_MODEL</a> and 
-  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_property_id">WS_LISTENER_PROPERTY_ASYNC_CALLBACK_MODEL</a> properties.
-  * 
+ * Whether a callback will be invoked long or short is up to the caller implementation.
+ *                 The channel and listener implementations provide a way to control this for async callbacks
+ *                 via the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_property_id">WS_CHANNEL_PROPERTY_ASYNC_CALLBACK_MODEL</a> and 
+ *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_property_id">WS_LISTENER_PROPERTY_ASYNC_CALLBACK_MODEL</a> properties.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_callback_model
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

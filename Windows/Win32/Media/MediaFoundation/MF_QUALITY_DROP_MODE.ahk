@@ -4,31 +4,31 @@
  * Specifies how aggressively a pipeline component should drop samples.
  * @remarks
  * 
-  * In drop mode, a component drops samples, more or less aggressively depending on the level of the drop mode. The specific algorithm used depends on the component. Mode 1 is the least aggressive mode, and mode 5 is the most aggressive. A component is not required to implement all five levels.
-  * 
-  * For example, suppose an encoded video stream has three B-frames between each pair of P-frames. A decoder might implement the following drop modes:
-  * 
-  * <ul>
-  * <li>
-  * Mode 1: Drop one out of every three B frames.
-  * 
-  * </li>
-  * <li>
-  * Mode 2: Drop one out of every two B frames.
-  * 
-  * </li>
-  * <li>
-  * Mode 3: Drop all delta frames.
-  * 
-  * </li>
-  * <li>
-  * Modes 4 and 5: Unsupported.
-  * 
-  * </li>
-  * </ul>
-  * The enhanced video renderer (EVR) can drop video frames before sending them to the EVR mixer.
-  * 
-  * 
+ * In drop mode, a component drops samples, more or less aggressively depending on the level of the drop mode. The specific algorithm used depends on the component. Mode 1 is the least aggressive mode, and mode 5 is the most aggressive. A component is not required to implement all five levels.
+ * 
+ * For example, suppose an encoded video stream has three B-frames between each pair of P-frames. A decoder might implement the following drop modes:
+ * 
+ * <ul>
+ * <li>
+ * Mode 1: Drop one out of every three B frames.
+ * 
+ * </li>
+ * <li>
+ * Mode 2: Drop one out of every two B frames.
+ * 
+ * </li>
+ * <li>
+ * Mode 3: Drop all delta frames.
+ * 
+ * </li>
+ * <li>
+ * Modes 4 and 5: Unsupported.
+ * 
+ * </li>
+ * </ul>
+ * The enhanced video renderer (EVR) can drop video frames before sending them to the EVR mixer.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_quality_drop_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

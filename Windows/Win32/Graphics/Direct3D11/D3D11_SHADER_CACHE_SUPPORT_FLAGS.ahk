@@ -4,9 +4,9 @@
  * Describes the level of support for shader caching in the current graphics driver.
  * @remarks
  * 
-  * This enum is used by the [D3D11_FEATURE_DATA_SHADER_CACHE](./ns-d3d11-d3d11_feature_data_shader_cache.md) structure.
-  * 
-  * 
+ * This enum is used by the [D3D11_FEATURE_DATA_SHADER_CACHE](./ns-d3d11-d3d11_feature_data_shader_cache.md) structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_shader_cache_support_flags
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

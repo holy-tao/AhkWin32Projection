@@ -7,8 +7,8 @@
  * The IFEDictionary interface allows clients to access a Microsoft IME user dictionary.
  * @remarks
  * 
-  * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifedictionaryinstance">CreateIFEDictionaryInstance</a> function.
-  * 
+ * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifedictionaryinstance">CreateIFEDictionaryInstance</a> function.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msime/nn-msime-ifedictionary
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319

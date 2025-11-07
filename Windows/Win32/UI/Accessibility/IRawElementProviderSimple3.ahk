@@ -8,27 +8,27 @@
  * Extends the IRawElementProviderSimple2 interface to enable retrieving metadata about how accessible technology should say the preferred content type.
  * @remarks
  * 
-  * Screen reading accessibility tools like Narrator use a speech synthesizer to read what an app is showing.  Speech synthesizers usually read the provided content well based on the content description.
-  * 
-  * However, the speech synthesizer could use some help describing the preferred content type. The SayAs command provides accurate content reading from a Microsoft UI Automation provider to a UI Automation client (such as a screen reader) through UI Automation core APIs.
-  * 
-  * Examples:
-  * 
-  * <ul>
-  * <li>Given the date 10/4, is the format Month/Day or Day/Month?
-  * If a screen reader does not know, you could hear October 4th or 10th April. 
-  * </li>
-  * <li>
-  * Given the string "10-100", is this
-  * "Ten to one hundred" or
-  * "Ten minus 100"?
-  * 
-  * The ability to mark the "10" as a number and the "-100" as a number helps active technology (AT) read it better.
-  * 
-  * </li>
-  * </ul>
-  * 
-  * 
+ * Screen reading accessibility tools like Narrator use a speech synthesizer to read what an app is showing.  Speech synthesizers usually read the provided content well based on the content description.
+ * 
+ * However, the speech synthesizer could use some help describing the preferred content type. The SayAs command provides accurate content reading from a Microsoft UI Automation provider to a UI Automation client (such as a screen reader) through UI Automation core APIs.
+ * 
+ * Examples:
+ * 
+ * <ul>
+ * <li>Given the date 10/4, is the format Month/Day or Day/Month?
+ * If a screen reader does not know, you could hear October 4th or 10th April. 
+ * </li>
+ * <li>
+ * Given the string "10-100", is this
+ * "Ten to one hundred" or
+ * "Ten minus 100"?
+ * 
+ * The ability to mark the "10" as a number and the "-100" as a number helps active technology (AT) read it better.
+ * 
+ * </li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-irawelementprovidersimple3
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

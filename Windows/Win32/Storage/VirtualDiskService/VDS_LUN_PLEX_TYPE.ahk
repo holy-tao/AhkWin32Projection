@@ -4,14 +4,14 @@
  * Defines the set of valid types for a LUN plex.
  * @remarks
  * 
-  * The  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_lun_plex_prop">VDS_LUN_PLEX_PROP</a>structure includes a <b>VDS_LUN_PLEX_TYPE</b> value as a member to indicate the existing plex type.
-  * 
-  * If your application encounters a <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_hwprovider_type">VDS_HWPROVIDER_TYPE</a> value that it does not recognize, it should display the provider type as unknown. It should not attempt to map the unrecognized provider type to another provider type.
-  * 
-  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_LUN_PLEX_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_LUN_PLEX_TYPE</b> enumeration constant.</div>
-  * <div> </div>
-  * 
-  * 
+ * The  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_lun_plex_prop">VDS_LUN_PLEX_PROP</a>structure includes a <b>VDS_LUN_PLEX_TYPE</b> value as a member to indicate the existing plex type.
+ * 
+ * If your application encounters a <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_hwprovider_type">VDS_HWPROVIDER_TYPE</a> value that it does not recognize, it should display the provider type as unknown. It should not attempt to map the unrecognized provider type to another provider type.
+ * 
+ * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_LUN_PLEX_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_LUN_PLEX_TYPE</b> enumeration constant.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_lun_plex_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

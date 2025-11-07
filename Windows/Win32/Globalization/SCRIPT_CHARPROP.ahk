@@ -5,10 +5,10 @@
  * Contains information about a single character in a run (input string). The information indicates if the character glyph is affected by surrounding letters of the run.
  * @remarks
  * 
-  * One or more characters in a run, immediately preceding and/or following the letter being shaped, can influence shaping. Information about these characters can help optimize higher-level layout code, such as that used to optimize paragraph layout.
-  * 
-  * 
-  * 
+ * One or more characters in a run, immediately preceding and/or following the letter being shaped, can influence shaping. Information about these characters can help optimize higher-level layout code, such as that used to optimize paragraph layout.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//usp10/ns-usp10-script_charprop
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319

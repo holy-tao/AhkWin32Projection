@@ -7,9 +7,9 @@
  * This feature is expected to be available on a future version of the Windows operating system.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IRegisterTuner)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IRegisterTuner)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-iregistertuner
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

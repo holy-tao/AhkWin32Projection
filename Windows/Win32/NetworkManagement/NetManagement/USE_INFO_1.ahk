@@ -5,10 +5,10 @@
  * Contains information about the connection between a local device and a shared resource.
  * @remarks
  * 
-  * Specifying a <b>ui1_local</b> member that is <b>NULL</b> requests authentication with the server without redirecting a drive letter or a device. Future redirections involving the server while the same connection is in effect use the password specified by the <b>ui1_password</b> member in the initial call to the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/lmuse/nf-lmuse-netuseadd">NetUseAdd</a> function.
-  * 
-  * 
+ * Specifying a <b>ui1_local</b> member that is <b>NULL</b> requests authentication with the server without redirecting a drive letter or a device. Future redirections involving the server while the same connection is in effect use the password specified by the <b>ui1_password</b> member in the initial call to the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/lmuse/nf-lmuse-netuseadd">NetUseAdd</a> function.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//lmuse/ns-lmuse-use_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319

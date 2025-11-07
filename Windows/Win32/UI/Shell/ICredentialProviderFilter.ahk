@@ -8,8 +8,8 @@
  * Used to dynamically filter credential providers based on information available at runtime.
  * @remarks
  * 
-  * It is recommended that third party credential providers do not use this interface to filter or disable system credential providers on a desktop. If an enterprise deploys a third party credential provider and wants to disable system credential providers currently available, that is a decision that should be made by a domain administrator after careful consideration. System policies exist that enable administrators to filter out credential providers and those should be used instead of building filters directly into a third party credential provider.
-  * 
+ * It is recommended that third party credential providers do not use this interface to filter or disable system credential providers on a desktop. If an enterprise deploys a third party credential provider and wants to disable system credential providers currently available, that is a decision that should be made by a domain administrator after careful consideration. System policies exist that enable administrators to filter out credential providers and those should be used instead of building filters directly into a third party credential provider.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nn-credentialprovider-icredentialproviderfilter
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

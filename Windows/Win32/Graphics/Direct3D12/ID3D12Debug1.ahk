@@ -7,9 +7,9 @@
  * Adds GPU-Based Validation and Dependent Command Queue Synchronization to the debug layer.
  * @remarks
  * 
-  * This interface is currently in Preview mode.
-  * 
-  * 
+ * This interface is currently in Preview mode.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nn-d3d12sdklayers-id3d12debug1
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

@@ -4,18 +4,18 @@
  * The values of the IASCOMMONPROPERTIES enumeration type enumerate properties that are present in all SDO objects.
  * @remarks
  * 
-  * The following code snippet retrieves the name of the SDO object, if it exists. The variable pSdo is a pointer to an 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/nn-sdoias-isdo">ISdo</a> interface.
-  * 
-  * 
-  * ```cpp
-  * HRESULT hr;
-  * _variant_t vtItemName;
-  * hr = pSdo->GetProperty(PROPERTY_SDO_NAME, &vtItemName);
-  * 
-  * ```
-  * 
-  * 
+ * The following code snippet retrieves the name of the SDO object, if it exists. The variable pSdo is a pointer to an 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/nn-sdoias-isdo">ISdo</a> interface.
+ * 
+ * 
+ * ```cpp
+ * HRESULT hr;
+ * _variant_t vtItemName;
+ * hr = pSdo->GetProperty(PROPERTY_SDO_NAME, &vtItemName);
+ * 
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-iascommonproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319

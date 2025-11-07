@@ -4,56 +4,56 @@
  * Indicates FILETYPEATTRIBUTEFLAGS constants that are used in the EditFlags value of a file association PROGID registry key.
  * @remarks
  * 
-  * These flags represent possible attributes stored in the EditFlags value of a ProgID registration. The EditFlags data is a single REG_DWORD.
-  * 
-  * The following example shows the <b><b>FTA_NoRemove</b></b> (0x00000010) and <b><b>FTA_NoNewVerb</b></b> (0x00000020) attributes assigned to the .myp file type.
-  * 
-  * <pre xml:space="preserve"><b>HKEY_CLASSES_ROOT</b>
-  *    <b>.myp</b>
-  *       (Default) = MyProgram.1
-  *    <b>MyProgram.1</b>
-  *       (Default) = MyProgram Application
-  *       <b>EditFlags</b> = 0x00000030</pre>\
-  * 
-  * APIs such as <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getdata">IQueryAssociations::GetData</a> can retrieve that EditFlags data. Compare the numerical equivalents of these <b>FILETYPEATTRIBUTEFLAGS</b> flags against that retrived value to determine which flags are set.
-  * 
-  * The following example demonstrates the use of <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getdata">IQueryAssociations::GetData</a> to determine if those values are set.
-  * 
-  *                 
-  * 
-  * 
-  * ```
-  * IQueryAssociations *passoc;
-  * 
-  * HRESULT hr = AssocCreate(CLSID_QueryAssociations, IID_PPV_ARGS(&passoc));
-  * if (SUCCEEDED(hr))
-  * {
-  *     hr = passoc->Init(NULL, pszType, NULL, NULL);
-  *     if (SUCCEEDED(hr))
-  *     {
-  *         DWORD dwEditFlags;
-  *         ULONG cb = sizeof(dwEditFlags);
-  *         
-  *         hr = passoc->GetData(NULL, ASSOCDATA_EDITFLAGS, NULL, &dwEditFlags, &cb);
-  *         if (SUCCEEDED(hr))
-  *         {
-  *             if (dwEditFlags & 0x00000010) // FTA_NoRemove
-  *             {
-  *                 // ...
-  *             }    
-  *             if (dwEditFlags & 0x00000020)  // FTA_NoNewVerb
-  *             {
-  *                 // ...
-  *             }
-  *         }
-  *     }
-  *     passoc->Release();
-  * }
-  * ```
-  * 
-  * 
-  * To set an EditFlags attribute, you can use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shsetvaluea">SHSetValue</a> functions. First use <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getdata">IQueryAssociations::GetData</a> to retrieve the current set of attributes as shown in the example above, add the desired <b>FILETYPEATTRIBUTEFLAGS</b> to that value, then write that value back to the registry using one of the two set functions.
-  * 
+ * These flags represent possible attributes stored in the EditFlags value of a ProgID registration. The EditFlags data is a single REG_DWORD.
+ * 
+ * The following example shows the <b><b>FTA_NoRemove</b></b> (0x00000010) and <b><b>FTA_NoNewVerb</b></b> (0x00000020) attributes assigned to the .myp file type.
+ * 
+ * <pre xml:space="preserve"><b>HKEY_CLASSES_ROOT</b>
+ *    <b>.myp</b>
+ *       (Default) = MyProgram.1
+ *    <b>MyProgram.1</b>
+ *       (Default) = MyProgram Application
+ *       <b>EditFlags</b> = 0x00000030</pre>\
+ * 
+ * APIs such as <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getdata">IQueryAssociations::GetData</a> can retrieve that EditFlags data. Compare the numerical equivalents of these <b>FILETYPEATTRIBUTEFLAGS</b> flags against that retrived value to determine which flags are set.
+ * 
+ * The following example demonstrates the use of <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getdata">IQueryAssociations::GetData</a> to determine if those values are set.
+ * 
+ *                 
+ * 
+ * 
+ * ```
+ * IQueryAssociations *passoc;
+ * 
+ * HRESULT hr = AssocCreate(CLSID_QueryAssociations, IID_PPV_ARGS(&passoc));
+ * if (SUCCEEDED(hr))
+ * {
+ *     hr = passoc->Init(NULL, pszType, NULL, NULL);
+ *     if (SUCCEEDED(hr))
+ *     {
+ *         DWORD dwEditFlags;
+ *         ULONG cb = sizeof(dwEditFlags);
+ *         
+ *         hr = passoc->GetData(NULL, ASSOCDATA_EDITFLAGS, NULL, &dwEditFlags, &cb);
+ *         if (SUCCEEDED(hr))
+ *         {
+ *             if (dwEditFlags & 0x00000010) // FTA_NoRemove
+ *             {
+ *                 // ...
+ *             }    
+ *             if (dwEditFlags & 0x00000020)  // FTA_NoNewVerb
+ *             {
+ *                 // ...
+ *             }
+ *         }
+ *     }
+ *     passoc->Release();
+ * }
+ * ```
+ * 
+ * 
+ * To set an EditFlags attribute, you can use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shsetvaluea">SHSetValue</a> functions. First use <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getdata">IQueryAssociations::GetData</a> to retrieve the current set of attributes as shown in the example above, add the desired <b>FILETYPEATTRIBUTEFLAGS</b> to that value, then write that value back to the registry using one of the two set functions.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlwapi/ne-shlwapi-filetypeattributeflags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

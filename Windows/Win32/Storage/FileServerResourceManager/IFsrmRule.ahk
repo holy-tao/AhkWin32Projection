@@ -9,9 +9,9 @@
  * Defines a rule.
  * @remarks
  * 
-  * The name and rule type properties define a unique rule.
-  * 
-  * 
+ * The name and rule type properties define a unique rule.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmrule
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

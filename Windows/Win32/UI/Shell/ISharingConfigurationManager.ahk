@@ -7,9 +7,9 @@
  * Exposes methods that set and retrieve information about a computer's default sharing settings for the Users (C:\Users) or Public (C:\Users\Public) folder. Also exposes a set of methods that allow control of printer sharing.
  * @remarks
  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * An implementation of this interface is included in the <b>CSharingConfiguration</b> class. Third parties do not provide their own implementation.
-  * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * An implementation of this interface is included in the <b>CSharingConfiguration</b> class. Third parties do not provide their own implementation.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-isharingconfigurationmanager
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

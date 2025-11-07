@@ -6,12 +6,12 @@
  * Is used to pair SoHRequests with SoHResponses and uniquely describes an SoH exchange.
  * @remarks
  * 
-  * The
-  *    string version, <a href="https://docs.microsoft.com/windows/desktop/NAP/nap-datatypes">StringCorrelationId</a>, is used primarily for logging purposes,
-  *    whereas this byte version is used by SHA/SHVs to
-  *    match <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-soh">SoHRequests</a> to <b>SoHResponses</b>.
-  * 
-  * 
+ * The
+ *    string version, <a href="https://docs.microsoft.com/windows/desktop/NAP/nap-datatypes">StringCorrelationId</a>, is used primarily for logging purposes,
+ *    whereas this byte version is used by SHA/SHVs to
+ *    match <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-soh">SoHRequests</a> to <b>SoHResponses</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//naptypes/ns-naptypes-correlationid
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319

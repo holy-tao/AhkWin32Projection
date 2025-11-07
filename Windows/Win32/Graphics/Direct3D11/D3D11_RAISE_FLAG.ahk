@@ -4,9 +4,9 @@
  * Option(s) for raising an error to a non-continuable exception.
  * @remarks
  * 
-  * These flags are used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-getexceptionmode">ID3D11Device::GetExceptionMode</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-setexceptionmode">ID3D11Device::SetExceptionMode</a>. Use 0 to indicate no flags; multiple flags can be logically OR'ed together.
-  * 
-  * 
+ * These flags are used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-getexceptionmode">ID3D11Device::GetExceptionMode</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-setexceptionmode">ID3D11Device::SetExceptionMode</a>. Use 0 to indicate no flags; multiple flags can be logically OR'ed together.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_raise_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

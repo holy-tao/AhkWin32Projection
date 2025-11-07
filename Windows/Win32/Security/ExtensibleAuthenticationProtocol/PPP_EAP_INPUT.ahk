@@ -6,23 +6,23 @@
  * The PPP_EAP_INPUT structure is used in the interaction between the RAS Connection Manager Service PPP implementation and the EAP.
  * @remarks
  * 
-  * The <b>PPP_EAP_INPUT</b> structure is passed by RAS to the authentication protocol in calls to 
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa363520(v=vs.85)">RasEapBegin</a> and 
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa363532(v=vs.85)">RasEapMakeMessage</a>.
-  * 
-  * The <b>pwszIdentity</b> and <b>pwszPassword</b> members of the 
-  * <b>PPP_EAP_INPUT</b> structure are used by the 
-  * <b>RasEapBegin</b> function to obtain user information. The <b>pwszPassword</b> member is non-<b>NULL</b> only if the <b>fAuthenticator</b> member is <b>FALSE</b>, that is, the authentication protocol is running on the client computer.
-  * 
-  * If the authentication protocol is using an authentication provider, such as Radius or Windows 2000 domain authentication, the following members are used to interface with the authentication provider:
-  * 
-  * <b>pUserAttributes</b>
-  * <b>fAuthenticationComplete</b>
-  * <b>dwAuthResultCode</b>
-  * Note that the array of 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/raseapif/ns-raseapif-ras_auth_attribute">RAS_AUTH_ATTRIBUTE</a> structures is passed only if <b>fAuthenticator</b> is <b>TRUE</b>. This array contains current session information such as port identifier and local IP address.
-  * 
-  * 
+ * The <b>PPP_EAP_INPUT</b> structure is passed by RAS to the authentication protocol in calls to 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa363520(v=vs.85)">RasEapBegin</a> and 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa363532(v=vs.85)">RasEapMakeMessage</a>.
+ * 
+ * The <b>pwszIdentity</b> and <b>pwszPassword</b> members of the 
+ * <b>PPP_EAP_INPUT</b> structure are used by the 
+ * <b>RasEapBegin</b> function to obtain user information. The <b>pwszPassword</b> member is non-<b>NULL</b> only if the <b>fAuthenticator</b> member is <b>FALSE</b>, that is, the authentication protocol is running on the client computer.
+ * 
+ * If the authentication protocol is using an authentication provider, such as Radius or Windows 2000 domain authentication, the following members are used to interface with the authentication provider:
+ * 
+ * <b>pUserAttributes</b>
+ * <b>fAuthenticationComplete</b>
+ * <b>dwAuthResultCode</b>
+ * Note that the array of 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/raseapif/ns-raseapif-ras_auth_attribute">RAS_AUTH_ATTRIBUTE</a> structures is passed only if <b>fAuthenticator</b> is <b>TRUE</b>. This array contains current session information such as port identifier and local IP address.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//raseapif/ns-raseapif-ppp_eap_input
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319

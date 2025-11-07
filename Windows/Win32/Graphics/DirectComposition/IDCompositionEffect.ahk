@@ -7,13 +7,13 @@
  * Represents a bitmap effect that modifies the rasterization of a visual's subtree.
  * @remarks
  * 
-  * <b>IDCompositionEffect</b> is an abstract interface that represents a bitmap effect. An effect applies to the entire visual subtree rooted at the visual that the effect is associated with. An effect object can be associated with multiple visuals. When an effect object is modified, all affected visuals are recomposed to reflect the change.
-  * 
-  * 
-  * 
-  * More than one effect can be simultaneously applied to a visual by using the <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioneffectgroup">IDCompositionEffectGroup</a> interface.
-  * 
-  * 
+ * <b>IDCompositionEffect</b> is an abstract interface that represents a bitmap effect. An effect applies to the entire visual subtree rooted at the visual that the effect is associated with. An effect object can be associated with multiple visuals. When an effect object is modified, all affected visuals are recomposed to reflect the change.
+ * 
+ * 
+ * 
+ * More than one effect can be simultaneously applied to a visual by using the <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioneffectgroup">IDCompositionEffectGroup</a> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositioneffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319

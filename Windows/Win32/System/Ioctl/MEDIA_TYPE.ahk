@@ -4,9 +4,9 @@
  * Represents the various forms of device media.
  * @remarks
  * 
-  * The **MediaType** member of the [DISK_GEOMETRY](ns-winioctl-disk_geometry.md) data structure is of type **MEDIA_TYPE**. The [DeviceIoControl](../ioapiset/nf-ioapiset-deviceiocontrol.md) function receives a **DISK_GEOMETRY** structure in response to an [IOCTL_DISK_GET_DRIVE_GEOMETRY](ni-winioctl-ioctl_disk_get_drive_geometry.md) control code. The **DeviceIoControl** function receives an array of **DISK_GEOMETRY** structures in response to an [IOCTL_STORAGE_GET_MEDIA_TYPES](ni-winioctl-ioctl_storage_get_media_types.md) control code. The [STORAGE_MEDIA_TYPE](ne-winioctl-storage_media_type.md) enumeration type extends this enumeration type.
-  * 
-  * 
+ * The **MediaType** member of the [DISK_GEOMETRY](ns-winioctl-disk_geometry.md) data structure is of type **MEDIA_TYPE**. The [DeviceIoControl](../ioapiset/nf-ioapiset-deviceiocontrol.md) function receives a **DISK_GEOMETRY** structure in response to an [IOCTL_DISK_GET_DRIVE_GEOMETRY](ni-winioctl-ioctl_disk_get_drive_geometry.md) control code. The **DeviceIoControl** function receives an array of **DISK_GEOMETRY** structures in response to an [IOCTL_STORAGE_GET_MEDIA_TYPES](ni-winioctl-ioctl_storage_get_media_types.md) control code. The [STORAGE_MEDIA_TYPE](ne-winioctl-storage_media_type.md) enumeration type extends this enumeration type.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-media_type
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319

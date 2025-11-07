@@ -5,23 +5,23 @@
  * Defines the filter data that a session passes to the provider's enable callback function.
  * @remarks
  * 
-  * The provider determines the layout of the data and its purpose.
-  * 
-  * On Windows 8.1,Windows Server 2012 R2, and later, event payload, scope, and
-  * stack walk filters can be used by the
-  * [EnableTraceEx2](/windows/desktop/ETW/enabletraceex2) function and the
-  * [ENABLE_TRACE_PARAMETERS](/windows/desktop/ETW/enable-trace-parameters) and
-  * **EVENT_FILTER_DESCRIPTOR** structures to filter on specific conditions in a
-  * logger session. For more information on event payload filters, see the
-  * **EnableTraceEx2**,
-  * [TdhCreatePayloadFilter](/windows/desktop/api/tdh/nf-tdh-tdhcreatepayloadfilter),
-  * and
-  * [TdhAggregatePayloadFilters](/windows/desktop/api/tdh/nf-tdh-tdhaggregatepayloadfilters)
-  * functions and the **ENABLE_TRACE_PARAMETERS** and
-  * [PAYLOAD_FILTER_PREDICATE](/windows/desktop/api/tdh/ns-tdh-payload_filter_predicate)
-  * structures.
-  * 
-  * 
+ * The provider determines the layout of the data and its purpose.
+ * 
+ * On Windows 8.1,Windows Server 2012 R2, and later, event payload, scope, and
+ * stack walk filters can be used by the
+ * [EnableTraceEx2](/windows/desktop/ETW/enabletraceex2) function and the
+ * [ENABLE_TRACE_PARAMETERS](/windows/desktop/ETW/enable-trace-parameters) and
+ * **EVENT_FILTER_DESCRIPTOR** structures to filter on specific conditions in a
+ * logger session. For more information on event payload filters, see the
+ * **EnableTraceEx2**,
+ * [TdhCreatePayloadFilter](/windows/desktop/api/tdh/nf-tdh-tdhcreatepayloadfilter),
+ * and
+ * [TdhAggregatePayloadFilters](/windows/desktop/api/tdh/nf-tdh-tdhaggregatepayloadfilters)
+ * functions and the **ENABLE_TRACE_PARAMETERS** and
+ * [PAYLOAD_FILTER_PREDICATE](/windows/desktop/api/tdh/ns-tdh-payload_filter_predicate)
+ * structures.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntprov/ns-evntprov-event_filter_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

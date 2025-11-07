@@ -8,9 +8,9 @@
  * Enumerates the payload files in a package.
  * @remarks
  * 
-  * To get the footprint files, use the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxpackagereader-getfootprintfile">IAppxPackageReader::GetFootprintFile</a> method.
-  * 
-  * 
+ * To get the footprint files, use the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxpackagereader-getfootprintfile">IAppxPackageReader::GetFootprintFile</a> method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxfilesenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319

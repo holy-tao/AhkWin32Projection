@@ -6,19 +6,19 @@
  * Sets parameters for building a non-default certificate chain engine. The engine used determines the ways that certificate chains are built.
  * @remarks
  * 
-  * The chain-building engine uses four certificate stores in building chains. These are hRoot, hWorld, hTrust, and hOther. These stores' handles are established by using information in this structure when a chain engine is created.
-  * 
-  * hRoot is the store handle from <b>hRestrictedRoot</b> or, if <b>hRestrictedRoot</b> is <b>NULL</b>, the handle for System Store "Root."
-  * 
-  * hWorld is a collection certificate store including sibling stores hRoot, "CA," "My," "Trust," and any additional stores whose handles are in the array pointed to by <b>rghAdditionalStore</b>.
-  * 
-  * hTrust is the store handle from <b>hRestrictedTrust</b> or, if <b>hRestrictedTrust</b> is <b>NULL</b>, hWorld.
-  * 
-  * hOther is <b>hRestrictedOther</b> plus hRoot or, if <b>hRestrictedTrust</b> is non-<b>NULL</b>, the hWorld collection store plus the store handle from <b>hRestrictedTrust</b>.
-  * 
-  * Exclusive trust mode allows applications to specify trust anchors and peer-trusted certificates  for certificate chain validation. In the exclusive trust mode, the root store and the trusted people store on the system are ignored, and the anchors and certificates pointed to by the <b>hExclusiveRoot</b> and <b>hExclusiveTrustedPeople</b> members are used instead.
-  * 
-  * 
+ * The chain-building engine uses four certificate stores in building chains. These are hRoot, hWorld, hTrust, and hOther. These stores' handles are established by using information in this structure when a chain engine is created.
+ * 
+ * hRoot is the store handle from <b>hRestrictedRoot</b> or, if <b>hRestrictedRoot</b> is <b>NULL</b>, the handle for System Store "Root."
+ * 
+ * hWorld is a collection certificate store including sibling stores hRoot, "CA," "My," "Trust," and any additional stores whose handles are in the array pointed to by <b>rghAdditionalStore</b>.
+ * 
+ * hTrust is the store handle from <b>hRestrictedTrust</b> or, if <b>hRestrictedTrust</b> is <b>NULL</b>, hWorld.
+ * 
+ * hOther is <b>hRestrictedOther</b> plus hRoot or, if <b>hRestrictedTrust</b> is non-<b>NULL</b>, the hWorld collection store plus the store handle from <b>hRestrictedTrust</b>.
+ * 
+ * Exclusive trust mode allows applications to specify trust anchors and peer-trusted certificates  for certificate chain validation. In the exclusive trust mode, the root store and the trusted people store on the system are ignored, and the anchors and certificates pointed to by the <b>hExclusiveRoot</b> and <b>hExclusiveTrustedPeople</b> members are used instead.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_chain_engine_config
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319

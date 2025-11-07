@@ -9,9 +9,9 @@
  * IMpeg2Data is no longer available for use as of Windows 7.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMpeg2Data)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMpeg2Data)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nn-mpeg2data-impeg2data
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

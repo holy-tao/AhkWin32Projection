@@ -7,10 +7,10 @@
  * Exposes methods for setting or removing metadata blocks and items to an encoder or its image frames using a metadata query expression.
  * @remarks
  * 
-  * A metadata query writer uses metadata query expressions to set or remove metadata. For more information on the metadata query language, see the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-metadataquerylanguage">Metadata Query Language Overview</a>.
-  * 
-  * 
-  * 
+ * A metadata query writer uses metadata query expressions to set or remove metadata. For more information on the metadata query language, see the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-metadataquerylanguage">Metadata Query Language Overview</a>.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicmetadataquerywriter
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319

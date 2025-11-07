@@ -4,9 +4,9 @@
  * Represents the version of Microsoft Sync Framework that a particular component is compatible with.
  * @remarks
  * 
-  * A component that is designed to work with a particular version of Sync Framework can indicate the version for which it is designed. This way, when Sync Framework changes in later versions, a component designed for an earlier version will continue to function as expected.
-  * 
-  * 
+ * A component that is designed to work with a particular version of Sync Framework can indicate the version for which it is designed. This way, when Sync Framework changes in later versions, a component designed for an earlier version will continue to function as expected.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/ne-winsync-sync_serialization_version
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

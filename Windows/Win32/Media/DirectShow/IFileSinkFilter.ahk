@@ -7,9 +7,9 @@
  * The IFileSinkFilter interface is implemented on filters that write media streams to a file.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ifilesinkfilter2">IFileSinkFilter2</a> interface extends <b>IFileSinkFilter</b>.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ifilesinkfilter2">IFileSinkFilter2</a> interface extends <b>IFileSinkFilter</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ifilesinkfilter
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

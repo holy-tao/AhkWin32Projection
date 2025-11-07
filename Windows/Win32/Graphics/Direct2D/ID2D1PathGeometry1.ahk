@@ -8,9 +8,9 @@
  * The ID2D1PathGeometry1 interface adds functionality to ID2D1PathGeometry. In particular, it provides the path geometry-specific ComputePointAndSegmentAtLength method.
  * @remarks
  * 
-  * This interface adds functionality to <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1pathgeometry">ID2D1PathGeometry</a>.
-  * 
-  * 
+ * This interface adds functionality to <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1pathgeometry">ID2D1PathGeometry</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1pathgeometry1
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

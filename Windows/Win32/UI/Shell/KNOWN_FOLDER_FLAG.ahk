@@ -4,9 +4,9 @@
  * Specify special retrieval options for known folders. These values supersede CSIDL values, which have parallel meanings.
  * @remarks
  * 
-  * These values, with the exception of KF_FLAG_ALIAS_ONLY, were defined in Windows Vista as individual constants. They are defined as an enumeration only in Windows 7 and later. However, all underlying numerical values are the same in either form.
-  * 
-  * 
+ * These values, with the exception of KF_FLAG_ALIAS_ONLY, were defined in Windows Vista as individual constants. They are defined as an enumeration only in Windows 7 and later. However, all underlying numerical values are the same in either form.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ne-shlobj_core-known_folder_flag
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

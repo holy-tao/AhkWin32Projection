@@ -7,9 +7,9 @@
  * Exposes a method that enables a client application to invoke the action of a control (typically a button).
  * @remarks
  * 
-  * A control should support this interface if it initiates or performs a single, unambiguous action and does not maintain state when activated.
-  * 
-  * 
+ * A control should support this interface if it initiates or performs a single, unambiguous action and does not maintain state when activated.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationinvokepattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

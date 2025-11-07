@@ -9,9 +9,9 @@
  * The IMSVidOutputDevices interface represents a collection of output devices.Output devices include video and audio renderers, and the Stream Buffer Sink object.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidOutputDevices)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidOutputDevices)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidoutputdevices
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

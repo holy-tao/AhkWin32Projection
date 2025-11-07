@@ -7,7 +7,7 @@
  * Provides the video functionality of a Microsoft Direct3D 11 device.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/nn-d3d11_4-id3d11videocontext3
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

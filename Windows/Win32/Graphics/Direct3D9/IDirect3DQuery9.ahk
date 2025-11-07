@@ -8,16 +8,16 @@
  * Applications use the methods of the IDirect3DQuery9 interface to perform asynchronous queries on a driver.
  * @remarks
  * 
-  * The LPDIRECT3DQUERY9 and PDIRECT3DQUERY9 types are defined as pointers to the <b>IDirect3DQuery9</b> interface.
-  *     
-  *             
-  * 
-  * 
-  * ```
-  * typedef struct IDirect3DQuery9 *LPDIRECT3DQUERY9, *PDIRECT3DQUERY9;
-  * ```
-  * 
-  * 
+ * The LPDIRECT3DQUERY9 and PDIRECT3DQUERY9 types are defined as pointers to the <b>IDirect3DQuery9</b> interface.
+ *     
+ *             
+ * 
+ * 
+ * ```
+ * typedef struct IDirect3DQuery9 *LPDIRECT3DQUERY9, *PDIRECT3DQUERY9;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nn-d3d9helper-idirect3dquery9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

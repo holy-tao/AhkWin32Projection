@@ -6,12 +6,12 @@
  * Describes a video stream for a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.
  * @remarks
  * 
-  * Frame rates are expressed as ratios. For example, 30 frames per second (fps) is expressed as 30:1, and 29.97 fps is expressed as 30000/1001. For interlaced content, a frame consists of two fields, so that the frame rate is half the field rate.
-  *       
-  * 
-  *  If the application will composite two or more input streams, use the largest stream for the values of <b>InputWidth</b> and <b>InputHeight</b>.
-  * 
-  * 
+ * Frame rates are expressed as ratios. For example, 30 frames per second (fps) is expressed as 30:1, and 29.97 fps is expressed as 30000/1001. For interlaced content, a frame consists of two fields, so that the frame rate is half the field rate.
+ *       
+ * 
+ *  If the application will composite two or more input streams, use the largest stream for the values of <b>InputWidth</b> and <b>InputHeight</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_content_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

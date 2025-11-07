@@ -5,11 +5,11 @@
  * Identifies the DVD challenge key.
  * @remarks
  * 
-  * The AM_PROPERTY_DVDCOPY_CHLG_KEY property uses this structure.
-  * 
-  * A challenge key is used for the DVD CSS key exchange for decryption. Implementors should get a CSS license and further instructions from CSS.
-  * 
-  * 
+ * The AM_PROPERTY_DVDCOPY_CHLG_KEY property uses this structure.
+ * 
+ * A challenge key is used for the DVD CSS key exchange for decryption. Implementors should get a CSS license and further instructions from CSS.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-am_dvdcopy_chlgkey
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

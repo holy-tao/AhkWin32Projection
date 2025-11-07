@@ -7,15 +7,15 @@
  * The INetFwIcmpSettings interface provides access to the settings controlling ICMP packets.
  * @remarks
  * 
-  * Instances of this interface
-  * are retrieved through the <a href="https://docs.microsoft.com/windows/desktop/api/netfw/nf-netfw-inetfwprofile-get_icmpsettings">IcmpSettings</a> property of the INetFwProfile interface.
-  * 
-  * Because the methods and properties of this interface enable all rules belonging to a given ICMP type, enabling a rule may enable rules from other groups as well.
-  * 
-  * All configuration changes take
-  * effect immediately.
-  * 
-  * 
+ * Instances of this interface
+ * are retrieved through the <a href="https://docs.microsoft.com/windows/desktop/api/netfw/nf-netfw-inetfwprofile-get_icmpsettings">IcmpSettings</a> property of the INetFwProfile interface.
+ * 
+ * Because the methods and properties of this interface enable all rules belonging to a given ICMP type, enabling a rule may enable rules from other groups as well.
+ * 
+ * All configuration changes take
+ * effect immediately.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwicmpsettings
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

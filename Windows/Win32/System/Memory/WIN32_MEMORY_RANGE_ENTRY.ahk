@@ -5,11 +5,11 @@
  * Specifies a range of memory.
  * @remarks
  * 
-  * To compile an application that calls this function, define <b>_WIN32_WINNT</b> as 
-  *     <b>_WIN32_WINNT_WIN8</b> or higher. For more information, see 
-  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-  * 
-  * 
+ * To compile an application that calls this function, define <b>_WIN32_WINNT</b> as 
+ *     <b>_WIN32_WINNT_WIN8</b> or higher. For more information, see 
+ *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//memoryapi/ns-memoryapi-win32_memory_range_entry
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319

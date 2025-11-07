@@ -7,9 +7,9 @@
  * Defines the information about the event.
  * @remarks
  * 
-  * The value of an offset is zero if the member is not defined.
-  * 
-  * 
+ * The value of an offset is zero if the member is not defined.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tdh/ns-tdh-trace_event_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

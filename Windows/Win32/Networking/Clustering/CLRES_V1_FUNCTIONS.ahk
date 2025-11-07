@@ -5,34 +5,34 @@
  * Contains pointers to all Resource API version 1.0 entry points except Startup.
  * @remarks
  * 
-  * The <b>CLRES_V1_FUNCTIONS</b> structure is the function 
-  *     table that is returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pstartup_routine">Startup</a> function in 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-api">Resource API</a> 1.0. 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">Resource DLLs</a> that support multiple 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource types</a> must provide one function table for each 
-  *     resource type. All function pointers must be non-NULL except for the following entry points:
-  * 
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-parbitrate_routine">Arbitrate</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-prelease_routine">Release</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-presource_control_routine">ResourceControl</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-presource_type_control_routine">ResourceTypeControl</a>
-  * </li>
-  * </ul>
-  * For more information, see 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/implementing-resource-dlls">Implementing Resource DLLs</a>.
-  * 
-  * To create a function table for version 1.0 of the Resource API, use the 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nf-resapi-clres_v1_function_table">CLRES_V1_FUNCTION_TABLE</a> macro.
-  * 
-  * 
+ * The <b>CLRES_V1_FUNCTIONS</b> structure is the function 
+ *     table that is returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pstartup_routine">Startup</a> function in 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-api">Resource API</a> 1.0. 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">Resource DLLs</a> that support multiple 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource types</a> must provide one function table for each 
+ *     resource type. All function pointers must be non-NULL except for the following entry points:
+ * 
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-parbitrate_routine">Arbitrate</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-prelease_routine">Release</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-presource_control_routine">ResourceControl</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-presource_type_control_routine">ResourceTypeControl</a>
+ * </li>
+ * </ul>
+ * For more information, see 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/implementing-resource-dlls">Implementing Resource DLLs</a>.
+ * 
+ * To create a function table for version 1.0 of the Resource API, use the 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nf-resapi-clres_v1_function_table">CLRES_V1_FUNCTION_TABLE</a> macro.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-clres_v1_functions
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

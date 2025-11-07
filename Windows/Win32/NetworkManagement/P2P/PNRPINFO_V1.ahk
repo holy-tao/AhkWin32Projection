@@ -6,9 +6,9 @@
  * The PNRPINFO_V1 structure is pointed to by the lpBlob member of the WSAQUERYSET structure.
  * @remarks
  * 
-  *  Starting with Windows Vista, please use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa371671(v=vs.85)">PNRPINFO_V2</a> structure.
-  * 
-  * 
+ *  Starting with Windows Vista, please use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa371671(v=vs.85)">PNRPINFO_V2</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//pnrpns/ns-pnrpns-pnrpinfo_v1
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319

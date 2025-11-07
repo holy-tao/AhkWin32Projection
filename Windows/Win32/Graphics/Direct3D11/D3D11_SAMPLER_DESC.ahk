@@ -5,60 +5,60 @@
  * Describes a sampler state.
  * @remarks
  * 
-  * These are the default values for sampler state.
-  * 
-  * <table>
-  * <tr>
-  * <th>State</th>
-  * <th>Default Value</th>
-  * </tr>
-  * <tr>
-  * <td>Filter</td>
-  * <td>D3D11_FILTER_MIN_MAG_MIP_LINEAR</td>
-  * </tr>
-  * <tr>
-  * <td>AddressU</td>
-  * <td>D3D11_TEXTURE_ADDRESS_CLAMP</td>
-  * </tr>
-  * <tr>
-  * <td>AddressV</td>
-  * <td>D3D11_TEXTURE_ADDRESS_CLAMP</td>
-  * </tr>
-  * <tr>
-  * <td>AddressW</td>
-  * <td>D3D11_TEXTURE_ADDRESS_CLAMP</td>
-  * </tr>
-  * <tr>
-  * <td>MinLOD</td>
-  * <td>-3.402823466e+38F (-FLT_MAX)</td>
-  * </tr>
-  * <tr>
-  * <td>MaxLOD</td>
-  * <td>3.402823466e+38F (FLT_MAX)</td>
-  * </tr>
-  * <tr>
-  * <td>MipMapLODBias</td>
-  * <td>0.0f</td>
-  * </tr>
-  * <tr>
-  * <td>MaxAnisotropy</td>
-  * <td>1</td>
-  * </tr>
-  * <tr>
-  * <td>ComparisonFunc</td>
-  * <td>D3D11_COMPARISON_NEVER</td>
-  * </tr>
-  * <tr>
-  * <td>BorderColor</td>
-  * <td>float4(1.0f,1.0f,1.0f,1.0f)</td>
-  * </tr>
-  * <tr>
-  * <td>Texture</td>
-  * <td>N/A</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * These are the default values for sampler state.
+ * 
+ * <table>
+ * <tr>
+ * <th>State</th>
+ * <th>Default Value</th>
+ * </tr>
+ * <tr>
+ * <td>Filter</td>
+ * <td>D3D11_FILTER_MIN_MAG_MIP_LINEAR</td>
+ * </tr>
+ * <tr>
+ * <td>AddressU</td>
+ * <td>D3D11_TEXTURE_ADDRESS_CLAMP</td>
+ * </tr>
+ * <tr>
+ * <td>AddressV</td>
+ * <td>D3D11_TEXTURE_ADDRESS_CLAMP</td>
+ * </tr>
+ * <tr>
+ * <td>AddressW</td>
+ * <td>D3D11_TEXTURE_ADDRESS_CLAMP</td>
+ * </tr>
+ * <tr>
+ * <td>MinLOD</td>
+ * <td>-3.402823466e+38F (-FLT_MAX)</td>
+ * </tr>
+ * <tr>
+ * <td>MaxLOD</td>
+ * <td>3.402823466e+38F (FLT_MAX)</td>
+ * </tr>
+ * <tr>
+ * <td>MipMapLODBias</td>
+ * <td>0.0f</td>
+ * </tr>
+ * <tr>
+ * <td>MaxAnisotropy</td>
+ * <td>1</td>
+ * </tr>
+ * <tr>
+ * <td>ComparisonFunc</td>
+ * <td>D3D11_COMPARISON_NEVER</td>
+ * </tr>
+ * <tr>
+ * <td>BorderColor</td>
+ * <td>float4(1.0f,1.0f,1.0f,1.0f)</td>
+ * </tr>
+ * <tr>
+ * <td>Texture</td>
+ * <td>N/A</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_sampler_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

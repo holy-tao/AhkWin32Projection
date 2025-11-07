@@ -9,28 +9,28 @@
  * Represents a type library, the data that describes a set of objects.
  * @remarks
  * 
-  * The system registry contains a list of all the installed type libraries. Type library organization is illustrated in the following figure:
-  * 
-  * :::image type="content" source="./images/oa03_10.Png" border="false" alt-text="Diagram showing the organization of installed type libraries as they are listed in the system registry.":::
-  * 
-  * The <b>ITypeLib</b> interface provides methods for accessing a library of type descriptions. This interface supports the following:  
-  * 
-  * <ul>
-  * <li>
-  * Generalized containment for type information. <b>ITypeLib</b> allows iteration over the type descriptions contained in the library.
-  * 
-  * </li>
-  * <li>
-  * Global functions and data. A type library can contain descriptions of a set of modules (.DLLs) that exports data and functions. The type library supports compiling references to the exported data and functions.
-  * 
-  * </li>
-  * <li>
-  * General information, including a user-readable name for the library and help for the library as a whole.
-  * 
-  * </li>
-  * </ul>
-  * 
-  * 
+ * The system registry contains a list of all the installed type libraries. Type library organization is illustrated in the following figure:
+ * 
+ * :::image type="content" source="./images/oa03_10.Png" border="false" alt-text="Diagram showing the organization of installed type libraries as they are listed in the system registry.":::
+ * 
+ * The <b>ITypeLib</b> interface provides methods for accessing a library of type descriptions. This interface supports the following:  
+ * 
+ * <ul>
+ * <li>
+ * Generalized containment for type information. <b>ITypeLib</b> allows iteration over the type descriptions contained in the library.
+ * 
+ * </li>
+ * <li>
+ * Global functions and data. A type library can contain descriptions of a set of modules (.DLLs) that exports data and functions. The type library supports compiling references to the exported data and functions.
+ * 
+ * </li>
+ * <li>
+ * General information, including a user-readable name for the library and help for the library as a whole.
+ * 
+ * </li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-itypelib
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

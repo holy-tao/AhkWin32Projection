@@ -4,9 +4,9 @@
  * Specifies the intended use for a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
  * @remarks
  * 
-  * The graphics driver uses one of these enumeration constants as a hint when it creates the DXVA-HD device.
-  * 
-  * 
+ * The graphics driver uses one of these enumeration constants as a hint when it creates the DXVA-HD device.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ne-dxvahd-dxvahd_device_usage
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Represents a buffer that contains a Microsoft DirectX Graphics Infrastructure (DXGI)surface.
  * @remarks
  * 
-  * To create a DXGImedia buffer, first create the DXGIsurface. Then call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatedxgisurfacebuffer">MFCreateDXGISurfaceBuffer</a>.
-  * 
-  * 
+ * To create a DXGImedia buffer, first create the DXGIsurface. Then call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatedxgisurfacebuffer">MFCreateDXGISurfaceBuffer</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfdxgibuffer
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

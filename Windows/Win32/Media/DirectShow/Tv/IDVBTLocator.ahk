@@ -7,9 +7,9 @@
  * The IDVBTLocator interface is implemented on the DVBTLocator object.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDVBTLocator)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDVBTLocator)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-idvbtlocator
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

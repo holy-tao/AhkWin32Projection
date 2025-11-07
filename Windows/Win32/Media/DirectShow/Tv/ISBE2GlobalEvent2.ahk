@@ -7,8 +7,8 @@
  * Offers access to global spanning events and their data from the Stream Buffer Source filters. A global spanning event contains state information that applies to all the streams in a pipeline. This interface extends the ISBE2GlobalEvent interface.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2GlobalEvent2)</c>.
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2GlobalEvent2)</c>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-isbe2globalevent2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

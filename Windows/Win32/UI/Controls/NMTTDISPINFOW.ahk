@@ -8,14 +8,14 @@
  * Contains information used in handling the TTN_GETDISPINFO notification code. This structure supersedes the TOOLTIPTEXT structure.
  * @remarks
  * 
-  * You need to point the <b>lpszText</b>  array to your own private buffer when the text used in the tooltip exceeds 80 <b>TCHAR</b><b>s</b> in length. The system automatically strips the ampersand (&amp;) accelerator <b>TCHAR</b><b>s</b> from all strings passed to a tooltip control, unless the control has the <a href="https://docs.microsoft.com/windows/desktop/Controls/tooltip-styles">TTS_NOPREFIX</a> style.
-  * 
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The commctrl.h header defines NMTTDISPINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
+ * You need to point the <b>lpszText</b>  array to your own private buffer when the text used in the tooltip exceeds 80 <b>TCHAR</b><b>s</b> in length. The system automatically strips the ampersand (&amp;) accelerator <b>TCHAR</b><b>s</b> from all strings passed to a tooltip control, unless the control has the <a href="https://docs.microsoft.com/windows/desktop/Controls/tooltip-styles">TTS_NOPREFIX</a> style.
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The commctrl.h header defines NMTTDISPINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmttdispinfow
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319

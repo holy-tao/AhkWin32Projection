@@ -9,9 +9,9 @@
  * The ITfLangBarItemBalloon interface is implemented by an application or text service and is used by the language bar manager to obtain information specific to a balloon item on the language bar.
  * @remarks
  * 
-  * A language bar balloon acts as a pop-up notification on the language bar.
-  * 
-  * 
+ * A language bar balloon acts as a pop-up notification on the language bar.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nn-ctfutb-itflangbaritemballoon
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Produces 2D pixel data that has been sourced from WIC.
  * @remarks
  * 
-  * Create an an instance of ID2D1ImageSourceFromWic 
-  *           using [ID2D1DeviceContext2::CreateImageSourceFromWic](./nf-d2d1_3-id2d1devicecontext2-createimagesourcefromwic(iwicbitmapsource_d2d1_image_source_loading_options_d2d1_alpha_mode_id2d1imagesourcefromwic).md).
-  * 
+ * Create an an instance of ID2D1ImageSourceFromWic 
+ *           using [ID2D1DeviceContext2::CreateImageSourceFromWic](./nf-d2d1_3-id2d1devicecontext2-createimagesourcefromwic(iwicbitmapsource_d2d1_image_source_loading_options_d2d1_alpha_mode_id2d1imagesourcefromwic).md).
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1imagesourcefromwic
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

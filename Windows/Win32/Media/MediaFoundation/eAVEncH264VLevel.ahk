@@ -4,9 +4,9 @@
  * Specifies an H.264 encoding level.
  * @remarks
  * 
-  * This values are used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-mpeg2-level-attribute">MF_MT_MPEG2_LEVEL</a> attribute.
-  * 
-  * 
+ * This values are used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-mpeg2-level-attribute">MF_MT_MPEG2_LEVEL</a> attribute.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavench264vlevel
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

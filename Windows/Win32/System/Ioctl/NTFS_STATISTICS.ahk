@@ -5,14 +5,14 @@
  * Contains statistical information from the NTFS file system.
  * @remarks
  * 
-  * The MFT, MFT mirror, root index, user index, bitmap, and MFT bitmap are counted as metadata files. The log 
-  *     file is not counted as a metadata file.
-  * 
-  * The number of read and write operations measured is the number of paging operations.
-  * 
-  * For additional statistics that are only available with Windows 10, use <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-ntfs_statistics_ex">NTFS_STATISTICS_EX</a>.
-  * 
-  * 
+ * The MFT, MFT mirror, root index, user index, bitmap, and MFT bitmap are counted as metadata files. The log 
+ *     file is not counted as a metadata file.
+ * 
+ * The number of read and write operations measured is the number of paging operations.
+ * 
+ * For additional statistics that are only available with Windows 10, use <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-ntfs_statistics_ex">NTFS_STATISTICS_EX</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-ntfs_statistics
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319

@@ -4,9 +4,9 @@
  * Indicates options for presenting frames to the swap chain.
  * @remarks
  * 
-  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/ns-dxgi1_3-dxgi_frame_statistics_media">DXGI_FRAME_STATISTICS_MEDIA</a> structure.
-  * 
-  * 
+ * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/ns-dxgi1_3-dxgi_frame_statistics_media">DXGI_FRAME_STATISTICS_MEDIA</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/ne-dxgi1_3-dxgi_frame_presentation_mode
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

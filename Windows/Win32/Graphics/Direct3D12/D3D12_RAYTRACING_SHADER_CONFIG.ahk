@@ -5,8 +5,8 @@
  * A state subobject that represents a shader configuration.
  * @remarks
  * 
-  * A raytracing pipeline needs one raytracing shader configuration.  If multiple shader configurations are present, such as one in each collection to enable independent driver compilation for each one, they must all match when combined into a raytracing pipeline.
-  * 
+ * A raytracing pipeline needs one raytracing shader configuration.  If multiple shader configurations are present, such as one in each collection to enable independent driver compilation for each one, they must all match when combined into a raytracing pipeline.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_raytracing_shader_config
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

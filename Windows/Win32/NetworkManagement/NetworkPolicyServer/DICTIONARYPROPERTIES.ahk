@@ -4,9 +4,9 @@
  * The values of the DICTIONARYPROPERTIES properties type enumerate properties associated with the attribute dictionary.
  * @remarks
  * 
-  * The dictionary is the collection of all possible attributes. It includes some attributes that are reserved for system use.
-  * 
-  * 
+ * The dictionary is the collection of all possible attributes. It includes some attributes that are reserved for system use.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-dictionaryproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319

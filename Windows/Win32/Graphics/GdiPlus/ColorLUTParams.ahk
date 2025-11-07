@@ -5,12 +5,12 @@
  * A ColorLUTParams structure contains members (color lookup tables) that specify color adjustments to a bitmap.
  * @remarks
  * 
-  * A lookup table specifies how existing color channel values should be replaced by new values. A color channel value of j is replaced by the jth entry in the lookup table for that channel. For example, an existing blue channel value of 25 would be replaced by the value of lutB[25].
-  * 
-  * The ColorChannelLUT data type is defined in GdiplusColorMatrix.h as follows:
-  * 
-  * <c>typedef BYTE ColorChannelLUT[256];</c>
-  * 
+ * A lookup table specifies how existing color channel values should be replaced by new values. A color channel value of j is replaced by the jth entry in the lookup table for that channel. For example, an existing blue channel value of 25 would be replaced by the value of lutB[25].
+ * 
+ * The ColorChannelLUT data type is defined in GdiplusColorMatrix.h as follows:
+ * 
+ * <c>typedef BYTE ColorChannelLUT[256];</c>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdipluseffects/ns-gdipluseffects-colorlutparams
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

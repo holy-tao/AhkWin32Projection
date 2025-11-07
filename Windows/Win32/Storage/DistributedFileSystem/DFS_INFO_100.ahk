@@ -5,10 +5,10 @@
  * Contains a comment associated with a Distributed File System (DFS) root or link.
  * @remarks
  * 
-  * The DFS functions use the <b>DFS_INFO_100</b> structure to 
-  *     retrieve and set information about a DFS root or link.
-  * 
-  * 
+ * The DFS functions use the <b>DFS_INFO_100</b> structure to 
+ *     retrieve and set information about a DFS root or link.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_info_100
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319

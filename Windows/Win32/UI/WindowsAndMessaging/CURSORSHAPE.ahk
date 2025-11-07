@@ -5,9 +5,9 @@
  * Contains information about a cursor.
  * @remarks
  * 
-  * When an application passes a cursor handle to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-lockresource">LockResource</a>function, the function returns a pointer to a buffer containing information about the cursor. An application can use the <b>CURSORSHAPE</b> structure to access the information.
-  * 
-  * 
+ * When an application passes a cursor handle to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-lockresource">LockResource</a>function, the function returns a pointer to a buffer containing information about the cursor. An application can use the <b>CURSORSHAPE</b> structure to access the information.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-cursorshape
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319

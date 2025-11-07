@@ -4,9 +4,9 @@
  * Specifies the level of support for render passes on a graphics device.
  * @remarks
  * 
-  * To determine the level of support for render passes for a graphics device, pass <a href="../d3d12/ns-d3d12-d3d12_feature_data_d3d12_options5.md">D3D12_FEATURE_DATA_D3D12_OPTIONS5</a> struct.
-  * 
-  * 
+ * To determine the level of support for render passes for a graphics device, pass <a href="../d3d12/ns-d3d12-d3d12_feature_data_d3d12_options5.md">D3D12_FEATURE_DATA_D3D12_OPTIONS5</a> struct.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_render_pass_tier
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

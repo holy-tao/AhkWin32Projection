@@ -7,8 +7,8 @@
  * Provides methods that enable an application using the PrintDlgEx function to retrieve information about the currently selected printer.
  * @remarks
  * 
-  * This printer is indicated on the list of installed printers on the <b>General</b> page of the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/print-property-sheet">Print Property Sheet</a>.
-  * 
+ * This printer is indicated on the list of installed printers on the <b>General</b> page of the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/print-property-sheet">Print Property Sheet</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//commdlg/nn-commdlg-iprintdialogservices
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319

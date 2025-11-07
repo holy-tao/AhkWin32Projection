@@ -7,9 +7,9 @@
  * Provides functionality to allow an offload stream client to notify the endpoint that the last buffer has been sent only partially filled.
  * @remarks
  * 
-  * This is an optional interface on an endpoint.
-  * 
-  * 
+ * This is an optional interface on an endpoint.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nn-audioengineendpoint-iaudioendpointlastbuffercontrol
  * @namespace Windows.Win32.Media.Audio.Endpoints
  * @version v4.0.30319

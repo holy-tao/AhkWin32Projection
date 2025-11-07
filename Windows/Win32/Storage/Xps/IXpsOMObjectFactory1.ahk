@@ -11,12 +11,12 @@
  * Inherits from IXpsOMObjectFactory.
  * @remarks
  * 
-  * <h3><a id="Additional_References"></a><a id="additional_references"></a><a id="ADDITIONAL_REFERENCES"></a>Additional References</h3>
-  * The base interface is defined and documented in Windows 7 SDK.
-  * 
-  * [IXpsOMObjectFactory interface](/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomobjectfactory)
-  * 
-  * 
+ * <h3><a id="Additional_References"></a><a id="additional_references"></a><a id="ADDITIONAL_REFERENCES"></a>Additional References</h3>
+ * The base interface is defined and documented in Windows 7 SDK.
+ * 
+ * [IXpsOMObjectFactory interface](/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomobjectfactory)
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsomobjectfactory1
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

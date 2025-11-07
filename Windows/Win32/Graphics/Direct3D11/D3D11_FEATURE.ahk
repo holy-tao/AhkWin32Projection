@@ -4,9 +4,9 @@
  * Direct3D 11 feature options.
  * @remarks
  * 
-  * This enumeration is used when querying a driver about support for these features by calling <a href="https://docs.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-checkfeaturesupport">ID3D11Device::CheckFeatureSupport</a>. Each value in this enumeration has a corresponding data structure that is required to be passed to the <i>pFeatureSupportData</i> parameter of <b>ID3D11Device::CheckFeatureSupport</b>.
-  * 
-  * 
+ * This enumeration is used when querying a driver about support for these features by calling <a href="https://docs.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-checkfeaturesupport">ID3D11Device::CheckFeatureSupport</a>. Each value in this enumeration has a corresponding data structure that is required to be passed to the <i>pFeatureSupportData</i> parameter of <b>ID3D11Device::CheckFeatureSupport</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_feature
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

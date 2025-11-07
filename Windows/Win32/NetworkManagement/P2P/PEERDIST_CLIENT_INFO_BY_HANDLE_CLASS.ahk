@@ -4,9 +4,9 @@
  * The PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS enumeration defines the possible client information values.
  * @remarks
  * 
-  * A value from this enumeration is passed to the<a href="https://docs.microsoft.com/windows/desktop/api/peerdist/nf-peerdist-peerdistclientgetinformationbyhandle">PeerDistClientGetInformationByHandle</a> function as the <i>PeerDistClientInfoClass</i> parameter.
-  * 
-  * 
+ * A value from this enumeration is passed to the<a href="https://docs.microsoft.com/windows/desktop/api/peerdist/nf-peerdist-peerdistclientgetinformationbyhandle">PeerDistClientGetInformationByHandle</a> function as the <i>PeerDistClientInfoClass</i> parameter.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//peerdist/ne-peerdist-peerdist_client_info_by_handle_class
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319

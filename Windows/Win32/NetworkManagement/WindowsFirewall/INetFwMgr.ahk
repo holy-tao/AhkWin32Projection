@@ -9,15 +9,15 @@
  * The INetFwMgr interface provides access to the firewall settings for a computer.
  * @remarks
  * 
-  * <b>Windows Vista:  </b>Windows Vista users must use applications developed in Windows Vista for all methods and properties of this interface.
-  * 
-  * This interface is
-  * supported by the HNetCfg.FwMgr COM object. 
-  * 
-  * All configuration changes take
-  * effect immediately.
-  * 
-  * 
+ * <b>Windows Vista:  </b>Windows Vista users must use applications developed in Windows Vista for all methods and properties of this interface.
+ * 
+ * This interface is
+ * supported by the HNetCfg.FwMgr COM object. 
+ * 
+ * All configuration changes take
+ * effect immediately.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwmgr
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

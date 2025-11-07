@@ -8,9 +8,9 @@
  * Represents metadata for a set of changes.
  * @remarks
  * 
-  * Change batches are used by synchronization providers to communicate metadata for item changes from a source provider to a destination provider. The source provider enumerates changes and adds a specified number of them to a change batch. The change batch is then sent to the destination provider. The destination provider enumerates the changes in the change batch and applies them to its item store.
-  * 
-  * 
+ * Change batches are used by synchronization providers to communicate metadata for item changes from a source provider to a destination provider. The source provider enumerates changes and adds a specified number of them to a change batch. The change batch is then sent to the destination provider. The destination provider enumerates the changes in the change batch and applies them to its item store.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncchangebatch
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

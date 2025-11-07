@@ -9,13 +9,13 @@
  * Stores the state associated with a filter.
  * @remarks
  * 
-  * The first ten members of this structure contain information supplied when adding objects.
-  * 
-  * The last members, <b>filterId</b> and <b>effectiveWeight</b>, provides additional information when getting/enumerating objects.
-  * 
-  * <b>FWPM_FILTER0</b> is a specific implementation of FWPM_FILTER. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
-  * 
-  * 
+ * The first ten members of this structure contain information supplied when adding objects.
+ * 
+ * The last members, <b>filterId</b> and <b>effectiveWeight</b>, provides additional information when getting/enumerating objects.
+ * 
+ * <b>FWPM_FILTER0</b> is a specific implementation of FWPM_FILTER. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_filter0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319

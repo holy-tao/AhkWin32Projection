@@ -9,9 +9,9 @@
  * Contains information about the registration state of a service.
  * @remarks
  * 
-  * You can create an instance of this interface by using the UpdateServiceRegistration coclass. Use the Microsoft.Update.ServiceRegistration program identifier to create the object.
-  * 
-  * 
+ * You can create an instance of this interface by using the UpdateServiceRegistration coclass. Use the Microsoft.Update.ServiceRegistration program identifier to create the object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdateserviceregistration
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

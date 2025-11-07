@@ -6,23 +6,23 @@
  * Contains response information used by the Cryptnet URL Cache (CUC) service to maintain a URL cache entry.
  * @remarks
  * 
-  * If not specified in the HTTP response headers, the cache service sets the values of the <b>LastModifiedTime</b>, <b>dwMaxAge</b>, <b>pwszETag</b>, and <b>dwProxyId</b> members to zero.
-  * 
-  * The cache service only allows a strong <b>ETag</b> in the <b>pwszETag</b> member.
-  * 
-  * To determine whether a response is valid, the cache service performs a bitwise <b>AND</b> of the <b>wResponseFlags</b> member with the following constant defined in Wincrypt.h. If the result is <b>TRUE</b>, the response is valid.
-  * 
-  * <table>
-  * <tr>
-  * <th>Name</th>
-  * <th>Value</th>
-  * </tr>
-  * <tr>
-  * <td>CRYPTNET_URL_CACHE_RESPONSE_VALIDATED</td>
-  * <td>0x8000</td>
-  * </tr>
-  * </table>
-  * 
+ * If not specified in the HTTP response headers, the cache service sets the values of the <b>LastModifiedTime</b>, <b>dwMaxAge</b>, <b>pwszETag</b>, and <b>dwProxyId</b> members to zero.
+ * 
+ * The cache service only allows a strong <b>ETag</b> in the <b>pwszETag</b> member.
+ * 
+ * To determine whether a response is valid, the cache service performs a bitwise <b>AND</b> of the <b>wResponseFlags</b> member with the following constant defined in Wincrypt.h. If the result is <b>TRUE</b>, the response is valid.
+ * 
+ * <table>
+ * <tr>
+ * <th>Name</th>
+ * <th>Value</th>
+ * </tr>
+ * <tr>
+ * <td>CRYPTNET_URL_CACHE_RESPONSE_VALIDATED</td>
+ * <td>0x8000</td>
+ * </tr>
+ * </table>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cryptnet_url_cache_response_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319

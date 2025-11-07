@@ -7,9 +7,9 @@
  * Use this interface retrieve detailed write configurations supported by the disc recorder and current media, for example, the media type, write speed, rotational-speed control type.
  * @remarks
  * 
-  * This is a <b>MsftWriteSpeedDescriptor</b> object in script.
-  * 
-  * 
+ * This is a <b>MsftWriteSpeedDescriptor</b> object in script.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-iwritespeeddescriptor
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

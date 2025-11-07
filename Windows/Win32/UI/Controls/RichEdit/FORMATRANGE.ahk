@@ -8,12 +8,12 @@
  * Information that a rich edit control uses to format its output for a particular device. This structure is used with the EM_FORMATRANGE message.
  * @remarks
  * 
-  * <b>hdcTarget</b> contains the HDC to format for, which is usually the same as the HDC specified by <b>hdc</b> but can be different. For example, if you create a print preview module, <b>hdc</b> is the HDC of the window in which the output is viewed, and <b>hdcTarget</b> is the HDC for the printer. 
-  * 	
-  * 
-  * The values for <b>rc</b> and <b>rcPage</b> can be obtained by using <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a>.
-  * 
-  * 
+ * <b>hdcTarget</b> contains the HDC to format for, which is usually the same as the HDC specified by <b>hdc</b> but can be different. For example, if you create a print preview module, <b>hdc</b> is the HDC of the window in which the output is viewed, and <b>hdcTarget</b> is the HDC for the printer. 
+ * 	
+ * 
+ * The values for <b>rc</b> and <b>rcPage</b> can be obtained by using <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-formatrange
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319

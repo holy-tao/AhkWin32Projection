@@ -4,9 +4,9 @@
  * This enumeration identifies Plug and Play device event types.
  * @remarks
  * 
-  * When a driver calls the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_register_notification">CM_Register_Notification</a> function, the <i>pCallback</i> parameter contains a pointer to a routine to be called when a specified PnP event occurs.  The callback routine's <i>Action</i> parameter is a value from the <b>CM_NOTIFY_ACTION</b> enumeration.
-  * 
-  * 
+ * When a driver calls the <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_register_notification">CM_Register_Notification</a> function, the <i>pCallback</i> parameter contains a pointer to a routine to be called when a specified PnP event occurs.  The callback routine's <i>Action</i> parameter is a value from the <b>CM_NOTIFY_ACTION</b> enumeration.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/ne-cfgmgr32-cm_notify_action
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Allocates video samples for a video media sink with specialized functionality for video capture devices.
  * @remarks
  * 
-  * This interface inherits from [IMFVideoSampleAllocator](nn-mfidl-imfvideosampleallocator.md) and provides the [InitializeCaptureSampleAllocator](nf-mfidl-imfvideocapturesampleallocator-initializecapturesampleallocator.md) method with parameters relevant to video capture scenarios.
-  * 
-  * 
+ * This interface inherits from [IMFVideoSampleAllocator](nn-mfidl-imfvideosampleallocator.md) and provides the [InitializeCaptureSampleAllocator](nf-mfidl-imfvideocapturesampleallocator-initializecapturesampleallocator.md) method with parameters relevant to video capture scenarios.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfvideocapturesampleallocator
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Enables Windows Store apps to opt out of the automatic invocation behavior.
  * @remarks
  * 
-  * Clients can request that the touch keyboard and handwriting input panel check to see that a user tapped in the edit control with focus before invoking.
-  * 
-  * 
+ * Clients can request that the touch keyboard and handwriting input panel check to see that a user tapped in the edit control with focus before invoking.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//inputpanelconfiguration/nn-inputpanelconfiguration-iinputpanelinvocationconfiguration
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

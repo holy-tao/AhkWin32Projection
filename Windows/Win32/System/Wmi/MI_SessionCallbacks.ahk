@@ -5,10 +5,10 @@
  * A container for callback function pointers that handle logging and error messages.
  * @remarks
  * 
-  * This is the structure that holds all callback function pointers. Fill in the ones 
-  * you want to receive. All callbacks are CIM extensions for tracking
-  * logging and error messages.
-  * 
+ * This is the structure that holds all callback function pointers. Fill in the ones 
+ * you want to receive. All callbacks are CIM extensions for tracking
+ * logging and error messages.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_sessioncallbacks
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319

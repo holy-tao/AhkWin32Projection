@@ -9,17 +9,17 @@
  * A read-only enumerator of IOpcRelationshipSelector interface pointers.
  * @remarks
  * 
-  * When an enumerator is created, the current position precedes the first pointer.
-  * 
-  * To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselectorenumerator-movenext">MoveNext</a>method after creating the enumerator.
-  * 
-  * Changes to the set will invalidate the enumerator, and all subsequent calls to it will fail.
-  * 
-  * To get an 
-  * 				 <b>IOpcRelationshipSelectorEnumerator</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselectorset-getenumerator">IOpcRelationshipSelectorSet::GetEnumerator</a> or  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getrelationshipselectorenumerator">IOpcSignatureRelationshipReference::GetRelationshipSelectorEnumerator</a> method.
-  * 
-  * 
-  * 
+ * When an enumerator is created, the current position precedes the first pointer.
+ * 
+ * To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselectorenumerator-movenext">MoveNext</a>method after creating the enumerator.
+ * 
+ * Changes to the set will invalidate the enumerator, and all subsequent calls to it will fail.
+ * 
+ * To get an 
+ * 				 <b>IOpcRelationshipSelectorEnumerator</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselectorset-getenumerator">IOpcRelationshipSelectorSet::GetEnumerator</a> or  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getrelationshipselectorenumerator">IOpcSignatureRelationshipReference::GetRelationshipSelectorEnumerator</a> method.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcrelationshipselectorenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319

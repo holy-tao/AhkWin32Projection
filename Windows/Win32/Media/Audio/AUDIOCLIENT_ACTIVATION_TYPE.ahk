@@ -4,7 +4,7 @@
  * Specifies the activation type for an AUDIOCLIENT_ACTIVATION_PARAMS structure passed into a call to ActivateAudioInterfaceAsync.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audioclientactivationparams/ne-audioclientactivationparams-audioclient_activation_type
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319

@@ -8,9 +8,9 @@
  * Contains information about a logon session.
  * @remarks
  * 
-  * This structure is allocated by the LSA. When the structure is no longer required, free it by using the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreereturnbuffer">LSAFreeReturnBuffer</a> function.
-  * 
+ * This structure is allocated by the LSA. When the structure is no longer required, free it by using the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreereturnbuffer">LSAFreeReturnBuffer</a> function.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-security_logon_session_data
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319

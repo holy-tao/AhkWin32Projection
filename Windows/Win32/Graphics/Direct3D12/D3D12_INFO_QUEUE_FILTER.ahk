@@ -6,9 +6,9 @@
  * Debug message filter; contains a lists of message types to allow or deny.
  * @remarks
  * 
-  * For use with an <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12infoqueue">ID3D12InfoQueue</a> Interface.
-  * 
-  * 
+ * For use with an <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12infoqueue">ID3D12InfoQueue</a> Interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/ns-d3d12sdklayers-d3d12_info_queue_filter
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

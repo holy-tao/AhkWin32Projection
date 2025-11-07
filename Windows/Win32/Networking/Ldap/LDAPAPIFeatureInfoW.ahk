@@ -5,16 +5,16 @@
  * Retrieves data about any supported LDAP API extensions.
  * @remarks
  * 
-  * A pointer to this structure is passed, along with the <a href="https://docs.microsoft.com/previous-versions/previous-versions/windows/desktop/ldap/session-options">LDAP_FEATURE_API_INFO</a> session option and the name of the desired API extension, to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_get_option">ldap_get_option</a>, to retrieve detailed data about the LDAP API extension.
-  * 
-  * 
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The winldap.h header defines LDAPAPIFeatureInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
-  * 
+ * A pointer to this structure is passed, along with the <a href="https://docs.microsoft.com/previous-versions/previous-versions/windows/desktop/ldap/session-options">LDAP_FEATURE_API_INFO</a> session option and the name of the desired API extension, to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_get_option">ldap_get_option</a>, to retrieve detailed data about the LDAP API extension.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The winldap.h header defines LDAPAPIFeatureInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winldap/ns-winldap-ldapapifeatureinfow
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319

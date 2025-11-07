@@ -5,50 +5,50 @@
  * Provides service information for the specified Bluetooth service.
  * @remarks
  * 
-  * When using the 
-  * <b>BTH_SET_SERVICE</b> structure to query services and devices using the 
-  * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-wsasetservice">WSASetService</a> function and 
-  * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-wsaqueryset-for-service-inquiry">WSAQUERYSET</a> and 
-  * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-blob">BLOB</a> structures. The following values for 
-  * <b>BTH_SET_SERVICE</b> members must be used.
-  * 
-  * For more information about class of device (COD), see the Bluetooth specification at 
-  * <a href="https://www.bluetooth.com/">www.bluetooth.com</a>.<table>
-  * <tr>
-  * <th>Member</th>
-  * <th>Required value</th>
-  * </tr>
-  * <tr>
-  * <td><b>pSdpVersion</b></td>
-  * <td>Pointer to ULONG version, which is changed whenever the binary format of SDP records change, affecting the format of the <b>pRecord</b> member. Set to <b>BTH_SDP_VERSION</b> for the client, and returned by the system.</td>
-  * </tr>
-  * <tr>
-  * <td><b>pRecordHandle</b></td>
-  * <td>Handle to the SDP record; corresponds to SDP ServiceRecordHandle. Returned by the add record operations, and subsequently used to delete the record.</td>
-  * </tr>
-  * <tr>
-  * <td><b>fOptions</b></td>
-  * <td>Attributes defined by <b>BTHNS_SET_FLAGS</b>.</td>
-  * </tr>
-  * <tr>
-  * <td><b>ulRecordLength</b></td>
-  * <td>Length, in bytes, of the binary SDP record pointed to by <b>pRecord</b>.</td>
-  * </tr>
-  * <tr>
-  * <td><b>pRecord</b></td>
-  * <td>Pointer to a valid SDP record, in the format defined by the Bluetooth specification.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * 
-  * 
-  * The <b>pRecordHandle</b> member must point to data that is null for new service registration. For service deletion, <b>pRecordHandle</b> must point to a valid handle. The <b>pRecord</b> member must contain the entire SD service record, as described in the Bluetooth specification. For RFCOMM protocol entries, the port number is the same as the port returned by the 
-  * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-getsockname">getsockname</a> function call.
-  * 
-  * Bluetooth implements a one-to-one correlation between SDP records and server sockets. As such, there is no need for the <b>SERVICE_MULTIPLE</b> flag.
-  * 
-  * 
+ * When using the 
+ * <b>BTH_SET_SERVICE</b> structure to query services and devices using the 
+ * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-wsasetservice">WSASetService</a> function and 
+ * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-wsaqueryset-for-service-inquiry">WSAQUERYSET</a> and 
+ * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-blob">BLOB</a> structures. The following values for 
+ * <b>BTH_SET_SERVICE</b> members must be used.
+ * 
+ * For more information about class of device (COD), see the Bluetooth specification at 
+ * <a href="https://www.bluetooth.com/">www.bluetooth.com</a>.<table>
+ * <tr>
+ * <th>Member</th>
+ * <th>Required value</th>
+ * </tr>
+ * <tr>
+ * <td><b>pSdpVersion</b></td>
+ * <td>Pointer to ULONG version, which is changed whenever the binary format of SDP records change, affecting the format of the <b>pRecord</b> member. Set to <b>BTH_SDP_VERSION</b> for the client, and returned by the system.</td>
+ * </tr>
+ * <tr>
+ * <td><b>pRecordHandle</b></td>
+ * <td>Handle to the SDP record; corresponds to SDP ServiceRecordHandle. Returned by the add record operations, and subsequently used to delete the record.</td>
+ * </tr>
+ * <tr>
+ * <td><b>fOptions</b></td>
+ * <td>Attributes defined by <b>BTHNS_SET_FLAGS</b>.</td>
+ * </tr>
+ * <tr>
+ * <td><b>ulRecordLength</b></td>
+ * <td>Length, in bytes, of the binary SDP record pointed to by <b>pRecord</b>.</td>
+ * </tr>
+ * <tr>
+ * <td><b>pRecord</b></td>
+ * <td>Pointer to a valid SDP record, in the format defined by the Bluetooth specification.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
+ * The <b>pRecordHandle</b> member must point to data that is null for new service registration. For service deletion, <b>pRecordHandle</b> must point to a valid handle. The <b>pRecord</b> member must contain the entire SD service record, as described in the Bluetooth specification. For RFCOMM protocol entries, the port number is the same as the port returned by the 
+ * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-getsockname">getsockname</a> function call.
+ * 
+ * Bluetooth implements a one-to-one correlation between SDP records and server sockets. As such, there is no need for the <b>SERVICE_MULTIPLE</b> flag.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ws2bth/ns-ws2bth-bth_set_service
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319

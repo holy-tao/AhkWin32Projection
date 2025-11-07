@@ -9,23 +9,23 @@
  * Exposes properties and methods that provide information about resources available to users of RemoteApp and Desktop Connections.
  * @remarks
  * 
-  * <p class="proch"><b>To register your plug-in so that it will be called by the RemoteApp and Desktop Connection Management service</b>
-  * 
-  * <ol>
-  * <li>Implement the plug-in in a DLL and register the DLL by using the Regsvr32.exe tool.</li>
-  * <li>Create a subkey named for the CLSID of the DLL under the following key:<pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
-  *    <b>Software</b>
-  *       <b>Microsoft</b>
-  *          <b>Windows NT</b>
-  *             <b>CurrentVersion</b>
-  *                <b>Terminal Server</b>
-  *                   <b>CentralizedPublishing</b>
-  *                      <b>Plugins</b></pre>
-  * </li>
-  * <li>Create a value for the subkey of type <b>DWORD</b> with the name "IsEnabled". To allow the service to call the plug-in, set the value to one. To disallow calls to the plug-in, set the value to zero. You do not need to restart the service because the service loads the plug-in automatically.</li>
-  * </ol>
-  * 
-  * 
+ * <p class="proch"><b>To register your plug-in so that it will be called by the RemoteApp and Desktop Connection Management service</b>
+ * 
+ * <ol>
+ * <li>Implement the plug-in in a DLL and register the DLL by using the Regsvr32.exe tool.</li>
+ * <li>Create a subkey named for the CLSID of the DLL under the following key:<pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>Software</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>Terminal Server</b>
+ *                   <b>CentralizedPublishing</b>
+ *                      <b>Plugins</b></pre>
+ * </li>
+ * <li>Create a value for the subkey of type <b>DWORD</b> with the name "IsEnabled". To allow the service to call the plug-in, set the value to one. To disallow calls to the plug-in, set the value to zero. You do not need to restart the service because the service loads the plug-in automatically.</li>
+ * </ol>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tspubplugincom/nn-tspubplugincom-itspubplugin
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319

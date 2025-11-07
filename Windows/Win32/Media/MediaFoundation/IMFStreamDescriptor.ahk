@@ -8,16 +8,16 @@
  * Gets information about one stream in a media source.
  * @remarks
  * 
-  * A presentation descriptor contains one or more stream descriptors. To get the stream descriptors from a presentation descriptor, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpresentationdescriptor-getstreamdescriptorbyindex">IMFPresentationDescriptor::GetStreamDescriptorByIndex</a>. To create a new stream descriptor, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatestreamdescriptor">MFCreateStreamDescriptor</a>.
-  * 
-  * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
-  * 
-  * <ul>
-  * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
-  * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
-  * </ul>
-  * 
-  * 
+ * A presentation descriptor contains one or more stream descriptors. To get the stream descriptors from a presentation descriptor, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpresentationdescriptor-getstreamdescriptorbyindex">IMFPresentationDescriptor::GetStreamDescriptorByIndex</a>. To create a new stream descriptor, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatestreamdescriptor">MFCreateStreamDescriptor</a>.
+ * 
+ * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+ * 
+ * <ul>
+ * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+ * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfstreamdescriptor
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

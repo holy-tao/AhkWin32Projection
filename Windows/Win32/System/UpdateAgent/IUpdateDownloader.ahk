@@ -11,9 +11,9 @@
  * Downloads updates from the server.
  * @remarks
  * 
-  * You can create an instance of this interface by using the UpdateDownloader coclass. Use the Microsoft.Update.Downloader program identifier to create the object.
-  * 
-  * 
+ * You can create an instance of this interface by using the UpdateDownloader coclass. Use the Microsoft.Update.Downloader program identifier to create the object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatedownloader
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

@@ -5,11 +5,11 @@
  * The PHONESTATUS structure describes the current status of a phone device. The phoneGetStatus and TSPI_phoneGetStatus functions return this structure.
  * @remarks
  * 
-  * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
-  * 
-  * The <b>dwPhoneFeatures</b> member is available only to applications that open the phone device with an API version of 2.0 or later.
-  * 
-  * 
+ * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
+ * 
+ * The <b>dwPhoneFeatures</b> member is available only to applications that open the phone device with an API version of 2.0 or later.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-phonestatus
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

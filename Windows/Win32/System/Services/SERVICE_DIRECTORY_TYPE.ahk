@@ -4,10 +4,10 @@
  * Specifies the type of a per-service directory path.
  * @remarks
  * 
-  * All per-service state directory types have a lifetime that is scoped to the lifetime of the service installation.
-  * Once the service is removed by calling [DeleteService](/windows/win32/api/winsvc/ne-winsvc-DeleteService) the state directories are deleted too.
-  * 
-  * 
+ * All per-service state directory types have a lifetime that is scoped to the lifetime of the service installation.
+ * Once the service is removed by calling [DeleteService](/windows/win32/api/winsvc/ne-winsvc-DeleteService) the state directories are deleted too.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsvc/ne-winsvc-service_directory_type
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319

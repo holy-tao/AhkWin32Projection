@@ -6,10 +6,10 @@
  * The SOCKADDR_IN structure specifies a transport address and port for the AF_INET address family.
  * @remarks
  * 
-  * All of the data in the SOCKADDR_IN structure, except for the address family, must be specified in
-  *     network-byte-order (big-endian).
-  * 
-  * 
+ * All of the data in the SOCKADDR_IN structure, except for the address family, must be specified in
+ *     network-byte-order (big-endian).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ws2def/ns-ws2def-sockaddr_in
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

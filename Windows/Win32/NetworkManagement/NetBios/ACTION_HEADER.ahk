@@ -5,27 +5,27 @@
  * The ACTION_HEADER structure contains information about an action. This action is an extension to the standard transport interface.
  * @remarks
  * 
-  * The scope of the action is determined by the <b>ncb_lsn</b> and <b>ncb_num</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/nb30/ns-nb30-ncb">NCB</a> structure, as follows.
-  * 
-  * <table>
-  * <tr>
-  * <th></th>
-  * <th>ncb_lsn = 0</th>
-  * <th>ncb_lsn != 0</th>
-  * </tr>
-  * <tr>
-  * <td>ncb_num = 0</td>
-  * <td>Action applies to control channel associated with the valid LAN adapter. </td>
-  * <td>Action applies to connection identifier associated with the valid local session number. </td>
-  * </tr>
-  * <tr>
-  * <td>ncb_num != 0</td>
-  * <td>Action applies to address associated with the valid LAN adapter.</td>
-  * <td>Illegal combination. </td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * The scope of the action is determined by the <b>ncb_lsn</b> and <b>ncb_num</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/nb30/ns-nb30-ncb">NCB</a> structure, as follows.
+ * 
+ * <table>
+ * <tr>
+ * <th></th>
+ * <th>ncb_lsn = 0</th>
+ * <th>ncb_lsn != 0</th>
+ * </tr>
+ * <tr>
+ * <td>ncb_num = 0</td>
+ * <td>Action applies to control channel associated with the valid LAN adapter. </td>
+ * <td>Action applies to connection identifier associated with the valid local session number. </td>
+ * </tr>
+ * <tr>
+ * <td>ncb_num != 0</td>
+ * <td>Action applies to address associated with the valid LAN adapter.</td>
+ * <td>Illegal combination. </td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//nb30/ns-nb30-action_header
  * @namespace Windows.Win32.NetworkManagement.NetBios
  * @version v4.0.30319

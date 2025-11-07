@@ -7,10 +7,10 @@
  * The IGroupPolicyObject interface provides methods to create and modify a GPO directly, without using the Group Policy Object Editor.
  * @remarks
  * 
-  * For methods that Microsoft Management Console (MMC) extension snap-ins can use to communicate with the Group Policy Object Editor, see the 
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpedit/nn-gpedit-igpeinformation">IGPEInformation</a> interface.
-  * 
-  * 
+ * For methods that Microsoft Management Console (MMC) extension snap-ins can use to communicate with the Group Policy Object Editor, see the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpedit/nn-gpedit-igpeinformation">IGPEInformation</a> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gpedit/nn-gpedit-igrouppolicyobject
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319

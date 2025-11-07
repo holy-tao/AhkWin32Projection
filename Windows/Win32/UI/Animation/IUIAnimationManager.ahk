@@ -9,17 +9,17 @@
  * Defines the animation manager, which provides a central interface for creating and managing animations.
  * @remarks
  * 
-  * <b>IUIAnimationManager</b> defines a central control object for animations.
-  *          
-  * A single instance of <b>IUIAnimationManager</b> is typically used to compose, schedule, and manage all animations for a client application.
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationvariable">IUIAnimationVariable</a>, <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtransition">IUIAnimationTransition</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationstoryboard">IUIAnimationStoryboard</a>are the primary components for building animations.
-  *          
-  * Use <b>IUIAnimationManager</b> to create and manage these components.
-  * 
-  * 
-  * 
+ * <b>IUIAnimationManager</b> defines a central control object for animations.
+ *          
+ * A single instance of <b>IUIAnimationManager</b> is typically used to compose, schedule, and manage all animations for a client application.
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationvariable">IUIAnimationVariable</a>, <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtransition">IUIAnimationTransition</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationstoryboard">IUIAnimationStoryboard</a>are the primary components for building animations.
+ *          
+ * Use <b>IUIAnimationManager</b> to create and manage these components.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uianimation/nn-uianimation-iuianimationmanager
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319

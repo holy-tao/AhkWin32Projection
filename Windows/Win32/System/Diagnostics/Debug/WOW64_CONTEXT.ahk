@@ -6,28 +6,28 @@
  * Represents a context frame on WOW64.
  * @remarks
  * 
-  * In the following versions of Windows, Slot 1 of Thread Local Storage (TLS) holds a pointer to a structure that contains a <b>WOW64_CONTEXT</b> structure starting at offset 4. This might change in later versions of Windows.
-  * 
-  * <table>
-  * <tr>
-  * <td>Windows Vista</td>
-  * <td>Windows Server 2008</td>
-  * </tr>
-  * <tr>
-  * <td>Windows 7</td>
-  * <td>Windows Server 2008 R2</td>
-  * </tr>
-  * <tr>
-  * <td>Windows 8</td>
-  * <td>Windows Server 2012</td>
-  * </tr>
-  * <tr>
-  * <td>Windows 8.1</td>
-  * <td>Windows Server 2012 R2</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * In the following versions of Windows, Slot 1 of Thread Local Storage (TLS) holds a pointer to a structure that contains a <b>WOW64_CONTEXT</b> structure starting at offset 4. This might change in later versions of Windows.
+ * 
+ * <table>
+ * <tr>
+ * <td>Windows Vista</td>
+ * <td>Windows Server 2008</td>
+ * </tr>
+ * <tr>
+ * <td>Windows 7</td>
+ * <td>Windows Server 2008 R2</td>
+ * </tr>
+ * <tr>
+ * <td>Windows 8</td>
+ * <td>Windows Server 2012</td>
+ * </tr>
+ * <tr>
+ * <td>Windows 8.1</td>
+ * <td>Windows Server 2012 R2</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-wow64_context
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319

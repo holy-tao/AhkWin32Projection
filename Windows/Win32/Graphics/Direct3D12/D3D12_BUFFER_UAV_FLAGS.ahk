@@ -4,9 +4,9 @@
  * Identifies unordered-access view options for a buffer resource.
  * @remarks
  * 
-  * This enum is used in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_buffer_uav">D3D12_BUFFER_UAV</a>  structure.
-  * 
-  * 
+ * This enum is used in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_buffer_uav">D3D12_BUFFER_UAV</a>  structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_buffer_uav_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

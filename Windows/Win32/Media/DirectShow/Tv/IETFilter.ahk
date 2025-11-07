@@ -7,9 +7,9 @@
  * The IETFilter interface is exposed by the Encrypter/Tagger filter. Most applications will not have to use this interface.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IETFilter)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IETFilter)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//encdec/nn-encdec-ietfilter
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

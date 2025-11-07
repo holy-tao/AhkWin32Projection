@@ -7,9 +7,9 @@
  * The IXDSToRat interface parses rating information from extended data services (XDS) information in line 21.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IXDSToRat)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IXDSToRat)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tvratings/nn-tvratings-ixdstorat
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

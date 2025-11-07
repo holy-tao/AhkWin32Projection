@@ -7,8 +7,8 @@
  * Interface implemented by the client to receive callbacks when sensor activity reports are available.
  * @remarks
  * 
-  * Register the callback by passing an implementation of this interface into <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatesensoractivitymonitor">MFCreateSensorActivityMonitor</a>.
-  * 
+ * Register the callback by passing an implementation of this interface into <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatesensoractivitymonitor">MFCreateSensorActivityMonitor</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsensoractivitiesreportcallback
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

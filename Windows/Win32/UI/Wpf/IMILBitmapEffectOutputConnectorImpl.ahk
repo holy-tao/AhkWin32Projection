@@ -7,8 +7,8 @@
  * Exposes methods that define an output connector.
  * @remarks
  * 
-  * This interface must be implemented if an effect also implements <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnector">IMILBitmapEffectOutputConnector</a>.
-  * 
+ * This interface must be implemented if an effect also implements <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnector">IMILBitmapEffectOutputConnector</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectoutputconnectorimpl
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319

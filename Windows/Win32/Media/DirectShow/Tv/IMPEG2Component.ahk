@@ -7,9 +7,9 @@
  * The IMPEG2Component interface contains methods for getting and setting properties that describe an MPEG2 elementary stream.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMPEG2Component)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMPEG2Component)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-impeg2component
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

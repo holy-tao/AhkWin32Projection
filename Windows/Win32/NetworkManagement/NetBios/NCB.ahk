@@ -6,9 +6,9 @@
  * The NCB structure represents a network control block.
  * @remarks
  * 
-  * Using <b>ncb_event</b> to issue asynchronous requests requires fewer system resources than using <b>ncb_post</b>. In addition, when <b>ncb_event</b> is nonzero, the pending request is canceled if the thread terminates before the request is processed. This is not true for asynchronous requests sent using <b>ncb_post</b>.
-  * 
-  * 
+ * Using <b>ncb_event</b> to issue asynchronous requests requires fewer system resources than using <b>ncb_post</b>. In addition, when <b>ncb_event</b> is nonzero, the pending request is canceled if the thread terminates before the request is processed. This is not true for asynchronous requests sent using <b>ncb_post</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//nb30/ns-nb30-ncb
  * @namespace Windows.Win32.NetworkManagement.NetBios
  * @version v4.0.30319

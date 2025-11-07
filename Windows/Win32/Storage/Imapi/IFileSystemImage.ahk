@@ -12,9 +12,9 @@
  * Use this interface to build a file system image, set session parameter, and import or export an image.
  * @remarks
  * 
-  * To create the <b>CFileSystemImage</b> object in a script, use IMAPI2.MsftFileSystemImage as the program identifier when calling <b>CreateObject</b>.
-  * 
-  * 
+ * To create the <b>CFileSystemImage</b> object in a script, use IMAPI2.MsftFileSystemImage as the program identifier when calling <b>CreateObject</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ifilesystemimage
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

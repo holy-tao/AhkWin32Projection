@@ -7,9 +7,9 @@
  * Used to dynamically load new DLL servers into an existing surrogate and free the surrogate when it is no longer needed.
  * @remarks
  * 
-  * A surrogate is an EXE process into which a DLL server can be loaded to give the DLL server the advantages of an EXE server without the coding overhead. It can also allow independent DLL servers to be located together within a single process, reducing the total number of processes needed. DLL servers are easy to write using standard development tools, like Microsoft Visual Studio, and running them in a surrogate process provides the benefits of an executable implementation, including fault isolation, the ability to serve multiple clients simultaneously, and allowing the server to provide services to remote clients in a distributed environment.
-  * 
-  * 
+ * A surrogate is an EXE process into which a DLL server can be loaded to give the DLL server the advantages of an EXE server without the coding overhead. It can also allow independent DLL servers to be located together within a single process, reducing the total number of processes needed. DLL servers are easy to write using standard development tools, like Microsoft Visual Studio, and running them in a surrogate process provides the benefits of an executable implementation, including fault isolation, the ability to serve multiple clients simultaneously, and allowing the server to provide services to remote clients in a distributed environment.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-isurrogate
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

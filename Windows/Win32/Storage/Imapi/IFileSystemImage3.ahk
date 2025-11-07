@@ -7,15 +7,15 @@
  * Use this interface to set or check the metadata and metadata mirror files in a UDF file system (rev 2.50 and later) to determine redundancy.
  * @remarks
  * 
-  * If the metadata and metadata mirror files are set for redundancy, IMAPI  creates identical copies of each in the file system image, which results in increased level of fault tolerance. In a scenario where the metadata files are not set for redundancy, IMAPI only creates a single copy in the file system image, which can save several MB of space on the burned disc.
-  * 
-  * The metadata redundancy option is set to <b>TRUE</b> by default.
-  * 
-  * <b>IFileSystemImage3</b> is the default interface of <b>MsftFileSystemImage3</b> objects.
-  * 
-  * This interface is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
-  * 
-  * 
+ * If the metadata and metadata mirror files are set for redundancy, IMAPI  creates identical copies of each in the file system image, which results in increased level of fault tolerance. In a scenario where the metadata files are not set for redundancy, IMAPI only creates a single copy in the file system image, which can save several MB of space on the burned disc.
+ * 
+ * The metadata redundancy option is set to <b>TRUE</b> by default.
+ * 
+ * <b>IFileSystemImage3</b> is the default interface of <b>MsftFileSystemImage3</b> objects.
+ * 
+ * This interface is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ifilesystemimage3
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

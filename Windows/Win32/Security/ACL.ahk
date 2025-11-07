@@ -5,25 +5,25 @@
  * Header of an access control list (ACL).
  * @remarks
  * 
-  * An ACL includes a sequential list of zero or more ACEs. The individual ACEs in an ACL are numbered from 0 to <i>n</i>, where <i>n</i>+1 is the number of ACEs in the ACL. When editing an ACL, an application refers to an ACE within the ACL by the ACE's index.
-  * 
-  * There are two types of ACL: discretionary and system.
-  * 
-  * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) is controlled by the owner of an object or anyone granted WRITE_DAC access to the object. It specifies the access particular users and groups can have to an object. For example, the owner of a file can use a DACL to control which users and groups can and cannot have access to the file.
-  * 
-  * An object can also have system-level security information associated with it, in the form of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) controlled by a system administrator. A SACL  allows the system administrator to audit any attempts to gain access to an object.
-  * 
-  * For a list of currently defined ACE structures, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a>.
-  * 
-  * A fourth ACE structure, <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_alarm_ace">SYSTEM_ALARM_ACE</a>, is not currently supported.
-  * 
-  * The <b>ACL</b> structure is to be treated as though it were opaque and applications are not to attempt to work with its members directly. To ensure that ACLs are semantically correct, applications can use the functions listed in the See Also section to create and manipulate ACLs.
-  * 
-  * Each <b>ACL</b> and <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> structure begins on a <b>DWORD</b> boundary.
-  * 
-  * The maximum size for an ACL, including its ACEs, is 64 KB.
-  * 
-  * 
+ * An ACL includes a sequential list of zero or more ACEs. The individual ACEs in an ACL are numbered from 0 to <i>n</i>, where <i>n</i>+1 is the number of ACEs in the ACL. When editing an ACL, an application refers to an ACE within the ACL by the ACE's index.
+ * 
+ * There are two types of ACL: discretionary and system.
+ * 
+ * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) is controlled by the owner of an object or anyone granted WRITE_DAC access to the object. It specifies the access particular users and groups can have to an object. For example, the owner of a file can use a DACL to control which users and groups can and cannot have access to the file.
+ * 
+ * An object can also have system-level security information associated with it, in the form of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) controlled by a system administrator. A SACL  allows the system administrator to audit any attempts to gain access to an object.
+ * 
+ * For a list of currently defined ACE structures, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a>.
+ * 
+ * A fourth ACE structure, <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_alarm_ace">SYSTEM_ALARM_ACE</a>, is not currently supported.
+ * 
+ * The <b>ACL</b> structure is to be treated as though it were opaque and applications are not to attempt to work with its members directly. To ensure that ACLs are semantically correct, applications can use the functions listed in the See Also section to create and manipulate ACLs.
+ * 
+ * Each <b>ACL</b> and <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> structure begins on a <b>DWORD</b> boundary.
+ * 
+ * The maximum size for an ACL, including its ACEs, is 64 KB.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-acl
  * @namespace Windows.Win32.Security
  * @version v4.0.30319

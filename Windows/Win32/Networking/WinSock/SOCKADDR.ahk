@@ -5,16 +5,16 @@
  * The SOCKADDR structure is a generic structure that specifies a transport address.
  * @remarks
  * 
-  * The SOCKADDR structure is large enough to contain a transport address for most address families. For a
-  *     structure that is guaranteed to be large enough to contain a transport address for all possible address
-  *     families, see 
-  *     [SOCKADDR_STORAGE](./ns-ws2def-sockaddr_storage_lh.md).
-  * 
-  * A WSK application typically does not access the 
-  *     <b>sa_data</b> member directly. Instead, a pointer to a SOCKADDR structure is normally cast to a pointer
-  *     to the specific SOCKADDR structure type that corresponds to a particular address family.
-  * 
-  * 
+ * The SOCKADDR structure is large enough to contain a transport address for most address families. For a
+ *     structure that is guaranteed to be large enough to contain a transport address for all possible address
+ *     families, see 
+ *     [SOCKADDR_STORAGE](./ns-ws2def-sockaddr_storage_lh.md).
+ * 
+ * A WSK application typically does not access the 
+ *     <b>sa_data</b> member directly. Instead, a pointer to a SOCKADDR structure is normally cast to a pointer
+ *     to the specific SOCKADDR structure type that corresponds to a particular address family.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ws2def/ns-ws2def-sockaddr
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

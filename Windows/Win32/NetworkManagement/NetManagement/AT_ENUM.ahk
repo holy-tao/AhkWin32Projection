@@ -5,10 +5,10 @@
  * The AT_ENUM structure contains information about a submitted job. The NetScheduleJobEnum function uses this structure to enumerate and return information about an entire queue of submitted jobs.
  * @remarks
  * 
-  * For more information about setting the bit flags to schedule jobs that execute once, jobs that execute multiple times, and jobs that execute periodically without deletion, see 
-  * the <a href="https://docs.microsoft.com/windows/desktop/api/lmat/nf-lmat-netschedulejobadd">NetScheduleJobAdd</a> function.
-  * 
-  * 
+ * For more information about setting the bit flags to schedule jobs that execute once, jobs that execute multiple times, and jobs that execute periodically without deletion, see 
+ * the <a href="https://docs.microsoft.com/windows/desktop/api/lmat/nf-lmat-netschedulejobadd">NetScheduleJobAdd</a> function.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//lmat/ns-lmat-at_enum
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319

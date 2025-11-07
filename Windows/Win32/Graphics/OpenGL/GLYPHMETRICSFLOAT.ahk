@@ -6,9 +6,9 @@
  * The GLYPHMETRICSFLOAT structure contains information about the placement and orientation of a glyph in a character cell.
  * @remarks
  * 
-  * The values of <b>GLYPHMETRICSFLOAT</b> are specified as notional units.
-  * 
-  * 
+ * The values of <b>GLYPHMETRICSFLOAT</b> are specified as notional units.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-glyphmetricsfloat
  * @namespace Windows.Win32.Graphics.OpenGL
  * @version v4.0.30319

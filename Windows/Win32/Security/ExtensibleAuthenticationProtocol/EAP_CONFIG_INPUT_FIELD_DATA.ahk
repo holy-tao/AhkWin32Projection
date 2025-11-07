@@ -5,13 +5,13 @@
  * Contains the data associated with a single input field.
  * @remarks
  * 
-  * The <b>EAP_CONFIG_INPUT_FIELD_DATA</b> structure can be employed to support SSO.
-  * 
-  * This structure represents the data associated with a single input field in an EAP configuration dialog box. For example, it could contain the data for the "Login User" as supplied by the EAP application user.
-  * 
-  * The entire collection of input fields in a EAP configuration dialog box is represented by a <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_config_input_field_array">EAP_CONFIG_INPUT_FIELD_ARRAY</a> structure.
-  * 
-  * 
+ * The <b>EAP_CONFIG_INPUT_FIELD_DATA</b> structure can be employed to support SSO.
+ * 
+ * This structure represents the data associated with a single input field in an EAP configuration dialog box. For example, it could contain the data for the "Login User" as supplied by the EAP application user.
+ * 
+ * The entire collection of input fields in a EAP configuration dialog box is represented by a <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_config_input_field_array">EAP_CONFIG_INPUT_FIELD_ARRAY</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eap_config_input_field_data
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319

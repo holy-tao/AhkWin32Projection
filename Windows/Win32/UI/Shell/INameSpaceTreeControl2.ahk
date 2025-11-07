@@ -7,13 +7,13 @@
  * Extends the INameSpaceTreeControl interface by providing methods that get and set the display styles of treeview controls for use with Shell namespace items.
  * @remarks
  * 
-  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-inamespacetreecontrol">INameSpaceTreeControl</a> interface, from which it inherits.
-  * 
-  * Use class identifier (CLSID) CLSID_NameSpaceTreeControl to instantiate an instance of this interface.
-  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * An implementation of this interface is provided with Windows. Third parties should not implement their own versions.
-  * 
+ * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-inamespacetreecontrol">INameSpaceTreeControl</a> interface, from which it inherits.
+ * 
+ * Use class identifier (CLSID) CLSID_NameSpaceTreeControl to instantiate an instance of this interface.
+ * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * An implementation of this interface is provided with Windows. Third parties should not implement their own versions.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-inamespacetreecontrol2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

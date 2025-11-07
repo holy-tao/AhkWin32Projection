@@ -7,9 +7,9 @@
  * Provides a method to determine if the Text Input Panel is currently running.
  * @remarks
  * 
-  * This element is declared in Peninputpanel.h.
-  * 
-  * 
+ * This element is declared in Peninputpanel.h.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nn-peninputpanel-itextinputpanelruninfo
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

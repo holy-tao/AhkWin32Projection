@@ -5,9 +5,9 @@
  * The POINTS structure defines the x- and y-coordinates of a point.
  * @remarks
  * 
-  * The POINTS structure is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-point">POINT</a> and <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structures. The difference is that the members of the POINTS structure are of type SHORT, while those of the other two structures are of type LONG.
-  * 
-  * 
+ * The POINTS structure is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-point">POINT</a> and <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structures. The difference is that the members of the POINTS structure are of type SHORT, while those of the other two structures are of type LONG.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//windef/ns-windef-points
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319

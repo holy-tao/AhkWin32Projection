@@ -7,12 +7,12 @@
  * Defines a storyboard, which contains a group of transitions that are synchronized relative to one another.
  * @remarks
  * 
-  * <b>IUIAnimationStoryboard</b> is a primary component for building animations,
-  *          along with 
-  *          <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationvariable">IUIAnimationVariable</a> and 
-  *          <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtransition">IUIAnimationTransition</a>.
-  * 
-  * 
+ * <b>IUIAnimationStoryboard</b> is a primary component for building animations,
+ *          along with 
+ *          <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationvariable">IUIAnimationVariable</a> and 
+ *          <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtransition">IUIAnimationTransition</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uianimation/nn-uianimation-iuianimationstoryboard
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319

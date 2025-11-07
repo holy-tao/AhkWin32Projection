@@ -8,8 +8,8 @@
  * Provided by an IExplorerCommandProvider. This interface contains the enumeration of commands to be put into the command bar.
  * @remarks
  * 
-  * None of the methods of this interface should talk to network resources. They are called on the UI thread; communicating with network resources would cause the UI to stop responding.
-  * 
+ * None of the methods of this interface should talk to network resources. They are called on the UI thread; communicating with network resources would cause the UI to stop responding.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ienumexplorercommand
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

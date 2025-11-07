@@ -8,9 +8,9 @@
  * Gets summary information for a subcomponent of the assessment, for example, its score.
  * @remarks
  * 
-  * To retrieve details of the subcomponent, call the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iqueryrecentwinsatassessment-get_xml">IQueryRecentWinSATAssessment::get_XML</a> method.
-  * 
-  * 
+ * To retrieve details of the subcomponent, call the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iqueryrecentwinsatassessment-get_xml">IQueryRecentWinSATAssessment::get_XML</a> method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nn-winsatcominterfacei-iprovidewinsatassessmentinfo
  * @namespace Windows.Win32.System.AssessmentTool
  * @version v4.0.30319

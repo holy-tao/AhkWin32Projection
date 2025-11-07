@@ -4,10 +4,10 @@
  * The NET_IF_ADMIN_STATUS enumeration type specifies the NDIS network interface administrative status, as described in RFC 2863.
  * @remarks
  * 
-  * For more information on RFC 2863, see 
-  *     <a href="https://www.ietf.org/rfc/rfc2863.txt">"The Interfaces Group MIB"</a>.
-  * 
-  * 
+ * For more information on RFC 2863, see 
+ *     <a href="https://www.ietf.org/rfc/rfc2863.txt">"The Interfaces Group MIB"</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ifdef/ne-ifdef-net_if_admin_status
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319

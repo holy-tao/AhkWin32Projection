@@ -6,36 +6,36 @@
  * Specifies a custom rate for frame-rate conversion or inverse telecine (IVTC).
  * @remarks
  * 
-  * The <b>CustomRate</b> member gives the rate conversion factor, while the remaining members define the pattern of input and output samples. 
-  * 
-  * Here are some example uses for this structure:
-  * 
-  * <ul>
-  * <li>
-  * Frame rate conversion from 60p to 120p (doubling the frame rate).
-  * 
-  * <ul>
-  * <li><b>CustomRate</b>: 2/1</li>
-  * <li><b>OutputFrames</b>: 2</li>
-  * <li><b>InputInterlaced</b>: <b>FALSE</b></li>
-  * <li><b>InputFramesOrFields</b>: 1</li>
-  * </ul>
-  * </li>
-  * <li>
-  * Reverse 2:3 pulldown (IVTC) from 60i to 24p.
-  * 
-  * <ul>
-  * <li><b>CustomRate</b>: 4/5</li>
-  * <li><b>OutputFrames</b>: 4</li>
-  * <li><b>InputInterlaced</b>: <b>TRUE</b></li>
-  * <li><b>InputFramesOrFields</b>: 10</li>
-  * </ul>
-  * (Ten interlaced fields are converted into four progressive frames.)
-  * 
-  * </li>
-  * </ul>
-  * 
-  * 
+ * The <b>CustomRate</b> member gives the rate conversion factor, while the remaining members define the pattern of input and output samples. 
+ * 
+ * Here are some example uses for this structure:
+ * 
+ * <ul>
+ * <li>
+ * Frame rate conversion from 60p to 120p (doubling the frame rate).
+ * 
+ * <ul>
+ * <li><b>CustomRate</b>: 2/1</li>
+ * <li><b>OutputFrames</b>: 2</li>
+ * <li><b>InputInterlaced</b>: <b>FALSE</b></li>
+ * <li><b>InputFramesOrFields</b>: 1</li>
+ * </ul>
+ * </li>
+ * <li>
+ * Reverse 2:3 pulldown (IVTC) from 60i to 24p.
+ * 
+ * <ul>
+ * <li><b>CustomRate</b>: 4/5</li>
+ * <li><b>OutputFrames</b>: 4</li>
+ * <li><b>InputInterlaced</b>: <b>TRUE</b></li>
+ * <li><b>InputFramesOrFields</b>: 10</li>
+ * </ul>
+ * (Ten interlaced fields are converted into four progressive frames.)
+ * 
+ * </li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_custom_rate_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

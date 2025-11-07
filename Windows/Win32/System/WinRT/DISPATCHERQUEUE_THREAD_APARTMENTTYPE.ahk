@@ -4,11 +4,11 @@
  * Specifies the threading apartment type for a new DispatcherQueueController.
  * @remarks
  * 
-  * This value is relevant when <a href="https://docs.microsoft.com/windows/desktop/api/dispatcherqueue/ns-dispatcherqueue-dispatcherqueueoptions">DispatcherQueueOptions.threadType</a> is  <b>DQTYPE_THREAD_DEDICATED</b>. Use <b>DQTAT_COM_NONE</b> when <b>DispatcherQueueOptions.threadType</b> is <b>DQTYPE_THREAD_CURRENT</b>.
-  * 
-  * Introduced in Windows 10, version 1709.
-  * 
-  * 
+ * This value is relevant when <a href="https://docs.microsoft.com/windows/desktop/api/dispatcherqueue/ns-dispatcherqueue-dispatcherqueueoptions">DispatcherQueueOptions.threadType</a> is  <b>DQTYPE_THREAD_DEDICATED</b>. Use <b>DQTAT_COM_NONE</b> when <b>DispatcherQueueOptions.threadType</b> is <b>DQTYPE_THREAD_CURRENT</b>.
+ * 
+ * Introduced in Windows 10, version 1709.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dispatcherqueue/ne-dispatcherqueue-dispatcherqueue_thread_apartmenttype
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

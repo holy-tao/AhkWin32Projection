@@ -5,46 +5,46 @@
  * Contains information about a print job.
  * @remarks
  * 
-  * Additional variable-length data follows the 
-  * <b>PRINT_OTHER_INFO</b> structure in the alert message buffer. The information is in the form of contiguous null-terminated character strings, as follows.
-  * 
-  * 
-  * <table>
-  * <tr>
-  * <th>String</th>
-  * <th>Meaning</th>
-  * </tr>
-  * <tr>
-  * <td>computername</td>
-  * <td>The computer that submitted the print job.</td>
-  * </tr>
-  * <tr>
-  * <td>username</td>
-  * <td>The user who submitted the print job.</td>
-  * </tr>
-  * <tr>
-  * <td>queuename</td>
-  * <td>The print queue to which the job was submitted.</td>
-  * </tr>
-  * <tr>
-  * <td>destination</td>
-  * <td>The printer destination (device) to which the print job was routed.</td>
-  * </tr>
-  * <tr>
-  * <td>status</td>
-  * <td>The status of the print job.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * 
-  * 
-  * The calling application must allocate and free the memory for all structures and variable-length data in an alert message buffer.
-  * 
-  * See 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/nf-lmalert-netalertraiseex">NetAlertRaiseEx</a> for a code sample that demonstrates how to raise a print alert.
-  * 
-  * 
+ * Additional variable-length data follows the 
+ * <b>PRINT_OTHER_INFO</b> structure in the alert message buffer. The information is in the form of contiguous null-terminated character strings, as follows.
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>String</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td>computername</td>
+ * <td>The computer that submitted the print job.</td>
+ * </tr>
+ * <tr>
+ * <td>username</td>
+ * <td>The user who submitted the print job.</td>
+ * </tr>
+ * <tr>
+ * <td>queuename</td>
+ * <td>The print queue to which the job was submitted.</td>
+ * </tr>
+ * <tr>
+ * <td>destination</td>
+ * <td>The printer destination (device) to which the print job was routed.</td>
+ * </tr>
+ * <tr>
+ * <td>status</td>
+ * <td>The status of the print job.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
+ * The calling application must allocate and free the memory for all structures and variable-length data in an alert message buffer.
+ * 
+ * See 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/nf-lmalert-netalertraiseex">NetAlertRaiseEx</a> for a code sample that demonstrates how to raise a print alert.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//lmalert/ns-lmalert-print_other_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319

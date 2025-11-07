@@ -7,15 +7,15 @@
  * Provides functionality for desktop apps to opt in to the focus tracking mechanism used in Windows Store apps.
  * @remarks
  * 
-  * <div class="alert"><b>Warning</b>  <p class="note"><b>IInputPanelConfiguration</b> will not work in Windows 10. 
-  * 
-  * </div>
-  * <div> </div>
-  * Implement the <b>IInputPanelConfiguration</b> interface if your Desktop client processes need to leverage the invoking and dismissing semantics of the touch keyboard and handwriting input panel. 
-  * 
-  * The <b>IInputPanelConfiguration</b> interface enables your app to opt in to the focus tracking mechanism for Windows Store apps.
-  * 
-  * 
+ * <div class="alert"><b>Warning</b>  <p class="note"><b>IInputPanelConfiguration</b> will not work in Windows 10. 
+ * 
+ * </div>
+ * <div> </div>
+ * Implement the <b>IInputPanelConfiguration</b> interface if your Desktop client processes need to leverage the invoking and dismissing semantics of the touch keyboard and handwriting input panel. 
+ * 
+ * The <b>IInputPanelConfiguration</b> interface enables your app to opt in to the focus tracking mechanism for Windows Store apps.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//inputpanelconfiguration/nn-inputpanelconfiguration-iinputpanelconfiguration
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

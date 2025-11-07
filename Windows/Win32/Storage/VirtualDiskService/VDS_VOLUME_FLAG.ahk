@@ -4,47 +4,47 @@
  * Defines the set of valid flags for a volume object.
  * @remarks
  * 
-  * On an MBR basic disk, volume flags can be set only for the entire disk, not for individual volumes.
-  * 
-  * If the <b>VDS_VF_NO_DEFAULT_DRIVE_LETTER</b> flag is set on an MBR disk, any existing drive letters are preserved, but no new drive letters will be assigned to volumes on the disk.
-  * 
-  * This enumeration provides values for the <b>ulFlags</b> member of the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop">VDS_VOLUME_PROP</a> structure and the <i>ulFlags</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-setflags">IVdsVolume::SetFlags</a> and <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-clearflags">IVdsVolume::ClearFlags</a> methods.
-  * 
-  * The following table compares the behavior of the VDS_VF_NO_DEFAULT_DRIVE_LETTER flag on MBR basic disks, GPT basic disks, and dynamic disks.
-  * 
-  * <table>
-  * <tr>
-  * <th>Feature</th>
-  * <th>MBR basic disks</th>
-  * <th>GPT basic disks</th>
-  * <th>MBR or GPT dynamic disks</th>
-  * </tr>
-  * <tr>
-  * <td>The VDS_VF_NO_DEFAULT_DRIVE_LETTER flag is cleared by default. However, this flag can be set by calling <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-setflags">IVdsVolume::SetFlags</a>.</td>
-  * <td>Yes.</td>
-  * <td>Yes.</td>
-  * <td>Yes.<b>Windows Server 2003:  </b>This flag is always set for dynamic disks and cannot be cleared.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>Assigning or removing a drive letter toggles the VDS_VF_NO_DEFAULT_DRIVE_LETTER flag setting.</td>
-  * <td>No, because this flag is set or cleared for the entire disk.</td>
-  * <td>Yes, because this flag is set or cleared for individual volumes.</td>
-  * <td>Yes.<b>Windows Server 2003:  </b>This flag is always set for dynamic disks and cannot be cleared.
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * To create a boot volume on a dynamic disk, you must set the <b>VDS_VF_INSTALLABLE</b> flag for the volume and then format the volume by calling the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumemf-format">IVdsVolumeMF::Format</a> method.
-  * 
-  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_VOLUME_FLAG</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_VOLUME_FLAG</b> enumeration constant.</div>
-  * <div> </div>
-  * 
-  * 
+ * On an MBR basic disk, volume flags can be set only for the entire disk, not for individual volumes.
+ * 
+ * If the <b>VDS_VF_NO_DEFAULT_DRIVE_LETTER</b> flag is set on an MBR disk, any existing drive letters are preserved, but no new drive letters will be assigned to volumes on the disk.
+ * 
+ * This enumeration provides values for the <b>ulFlags</b> member of the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop">VDS_VOLUME_PROP</a> structure and the <i>ulFlags</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-setflags">IVdsVolume::SetFlags</a> and <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-clearflags">IVdsVolume::ClearFlags</a> methods.
+ * 
+ * The following table compares the behavior of the VDS_VF_NO_DEFAULT_DRIVE_LETTER flag on MBR basic disks, GPT basic disks, and dynamic disks.
+ * 
+ * <table>
+ * <tr>
+ * <th>Feature</th>
+ * <th>MBR basic disks</th>
+ * <th>GPT basic disks</th>
+ * <th>MBR or GPT dynamic disks</th>
+ * </tr>
+ * <tr>
+ * <td>The VDS_VF_NO_DEFAULT_DRIVE_LETTER flag is cleared by default. However, this flag can be set by calling <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-setflags">IVdsVolume::SetFlags</a>.</td>
+ * <td>Yes.</td>
+ * <td>Yes.</td>
+ * <td>Yes.<b>Windows Server 2003:  </b>This flag is always set for dynamic disks and cannot be cleared.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Assigning or removing a drive letter toggles the VDS_VF_NO_DEFAULT_DRIVE_LETTER flag setting.</td>
+ * <td>No, because this flag is set or cleared for the entire disk.</td>
+ * <td>Yes, because this flag is set or cleared for individual volumes.</td>
+ * <td>Yes.<b>Windows Server 2003:  </b>This flag is always set for dynamic disks and cannot be cleared.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * To create a boot volume on a dynamic disk, you must set the <b>VDS_VF_INSTALLABLE</b> flag for the volume and then format the volume by calling the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumemf-format">IVdsVolumeMF::Format</a> method.
+ * 
+ * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_VOLUME_FLAG</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_VOLUME_FLAG</b> enumeration constant.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_volume_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

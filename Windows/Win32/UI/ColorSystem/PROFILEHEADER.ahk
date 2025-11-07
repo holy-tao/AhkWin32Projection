@@ -6,7 +6,7 @@
  * Contains information that describes the contents of a device profile file. This header occurs at the beginning of a device profile file.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//icm/ns-icm-profileheader
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319

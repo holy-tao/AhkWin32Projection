@@ -5,52 +5,52 @@
  * Describes the blend state for a render target.
  * @remarks
  * 
-  * You specify an array of <b>D3D11_RENDER_TARGET_BLEND_DESC</b> structures in the <b>RenderTarget</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_blend_desc">D3D11_BLEND_DESC</a> structure to describe the blend states for render targets; you can bind up to eight render targets to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger stage</a> at one time.
-  * 
-  * For info about how blending is done, see the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger stage</a>.
-  * 
-  * Here are the default values for blend state.
-  * 
-  * <table>
-  * <tr>
-  * <th>State</th>
-  * <th>Default Value</th>
-  * </tr>
-  * <tr>
-  * <td>BlendEnable</td>
-  * <td>FALSE</td>
-  * </tr>
-  * <tr>
-  * <td>SrcBlend</td>
-  * <td>D3D11_BLEND_ONE</td>
-  * </tr>
-  * <tr>
-  * <td>DestBlend</td>
-  * <td>D3D11_BLEND_ZERO</td>
-  * </tr>
-  * <tr>
-  * <td>BlendOp</td>
-  * <td>D3D11_BLEND_OP_ADD</td>
-  * </tr>
-  * <tr>
-  * <td>SrcBlendAlpha</td>
-  * <td>D3D11_BLEND_ONE</td>
-  * </tr>
-  * <tr>
-  * <td>DestBlendAlpha</td>
-  * <td>D3D11_BLEND_ZERO</td>
-  * </tr>
-  * <tr>
-  * <td>BlendOpAlpha</td>
-  * <td>D3D11_BLEND_OP_ADD</td>
-  * </tr>
-  * <tr>
-  * <td>RenderTargetWriteMask</td>
-  * <td>D3D11_COLOR_WRITE_ENABLE_ALL</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * You specify an array of <b>D3D11_RENDER_TARGET_BLEND_DESC</b> structures in the <b>RenderTarget</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_blend_desc">D3D11_BLEND_DESC</a> structure to describe the blend states for render targets; you can bind up to eight render targets to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger stage</a> at one time.
+ * 
+ * For info about how blending is done, see the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger stage</a>.
+ * 
+ * Here are the default values for blend state.
+ * 
+ * <table>
+ * <tr>
+ * <th>State</th>
+ * <th>Default Value</th>
+ * </tr>
+ * <tr>
+ * <td>BlendEnable</td>
+ * <td>FALSE</td>
+ * </tr>
+ * <tr>
+ * <td>SrcBlend</td>
+ * <td>D3D11_BLEND_ONE</td>
+ * </tr>
+ * <tr>
+ * <td>DestBlend</td>
+ * <td>D3D11_BLEND_ZERO</td>
+ * </tr>
+ * <tr>
+ * <td>BlendOp</td>
+ * <td>D3D11_BLEND_OP_ADD</td>
+ * </tr>
+ * <tr>
+ * <td>SrcBlendAlpha</td>
+ * <td>D3D11_BLEND_ONE</td>
+ * </tr>
+ * <tr>
+ * <td>DestBlendAlpha</td>
+ * <td>D3D11_BLEND_ZERO</td>
+ * </tr>
+ * <tr>
+ * <td>BlendOpAlpha</td>
+ * <td>D3D11_BLEND_OP_ADD</td>
+ * </tr>
+ * <tr>
+ * <td>RenderTargetWriteMask</td>
+ * <td>D3D11_COLOR_WRITE_ENABLE_ALL</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_render_target_blend_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

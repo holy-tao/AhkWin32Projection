@@ -5,11 +5,11 @@
  * The REGFILTER2 structure contains information for registering a filter.
  * @remarks
  * 
-  * This structure is passed to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ifiltermapper2-registerfilter">IFilterMapper2::RegisterFilter</a> method.
-  * 
-  * If you need to register pin mediums or pin categories, set <b>dwVersion</b> to 2 and use the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-regfilterpins2">REGFILTERPINS2</a> structure.
-  * 
-  * 
+ * This structure is passed to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ifiltermapper2-registerfilter">IFilterMapper2::RegisterFilter</a> method.
+ * 
+ * If you need to register pin mediums or pin categories, set <b>dwVersion</b> to 2 and use the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-regfilterpins2">REGFILTERPINS2</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-regfilter2
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

@@ -7,13 +7,13 @@
  * Provides a callback to indicate that activation of a WASAPI interface is complete.
  * @remarks
  * 
-  * <b>When to implement:</b>  
-  * An application implements this interface if it calls the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync">ActivateAudioInterfaceAsync</a> function.
-  * 
-  * 
-  * The implementation must be agile (aggregating a free-threaded marshaler).
-  * 
-  * 
+ * <b>When to implement:</b>  
+ * An application implements this interface if it calls the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync">ActivateAudioInterfaceAsync</a> function.
+ * 
+ * 
+ * The implementation must be agile (aggregating a free-threaded marshaler).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfacecompletionhandler
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319

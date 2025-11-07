@@ -7,10 +7,10 @@
  * The ITfQueryEmbedded interface is implemented by the TSF manager and used by a text service to determine if a context can accept an embedded object.
  * @remarks
  * 
-  * To obtain an instance of this interface, call the <b>ITfContext::QueryInterface</b> method with IID_ITfQueryEmbedded.
-  * 
-  * 
-  * 
+ * To obtain an instance of this interface, call the <b>ITfContext::QueryInterface</b> method with IID_ITfQueryEmbedded.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfqueryembedded
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

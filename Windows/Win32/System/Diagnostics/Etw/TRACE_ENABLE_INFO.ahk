@@ -5,9 +5,9 @@
  * Defines the session and the information that the session used to enable the provider.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-provider-instance-info">TRACE_PROVIDER_INSTANCE_INFO</a> block contains one or more of these structures.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-provider-instance-info">TRACE_PROVIDER_INSTANCE_INFO</a> block contains one or more of these structures.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-trace_enable_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

@@ -6,12 +6,12 @@
  * The SYSTEM_ALARM_CALLBACK_OBJECT_ACE structure is reserved for future use.
  * @remarks
  * 
-  * If neither the <b>ObjectType</b> nor <b>InheritedObjectType</b> GUID is specified, the <b>SYSTEM_ALARM_CALLBACK_OBJECT_ACE</b> structure has the same semantics as the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_alarm_callback_ace">SYSTEM_ALARM_CALLBACK_ACE</a> structure. In that case, use the 
-  * <b>SYSTEM_ALARM_CALLBACK_ACE</b> structure because it is smaller and more efficient.
-  * 
-  * An ACL that contains an <b>SYSTEM_ALARM_CALLBACK_OBJECT_ACE</b> must specify the ACL_REVISION_DS revision number in its 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure.
-  * 
+ * If neither the <b>ObjectType</b> nor <b>InheritedObjectType</b> GUID is specified, the <b>SYSTEM_ALARM_CALLBACK_OBJECT_ACE</b> structure has the same semantics as the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_alarm_callback_ace">SYSTEM_ALARM_CALLBACK_ACE</a> structure. In that case, use the 
+ * <b>SYSTEM_ALARM_CALLBACK_ACE</b> structure because it is smaller and more efficient.
+ * 
+ * An ACL that contains an <b>SYSTEM_ALARM_CALLBACK_OBJECT_ACE</b> must specify the ACL_REVISION_DS revision number in its 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_alarm_callback_object_ace
  * @namespace Windows.Win32.Security
  * @version v4.0.30319

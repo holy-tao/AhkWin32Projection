@@ -4,8 +4,8 @@
  * Used by SHGetStockIconInfo to identify which stock system icon to retrieve.
  * @remarks
  * 
-  * SIID_INVALID, with a value of -1, indicates an invalid **SHSTOCKICONID** value.
-  * 
+ * SIID_INVALID, with a value of -1, indicates an invalid **SHSTOCKICONID** value.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shellapi/ne-shellapi-shstockiconid
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

@@ -4,9 +4,9 @@
  * Enumerates the possible states of an interface on a router.
  * @remarks
  * 
-  * These states are sometimes referred to as <i>operational states</i>.
-  * 
-  * 
+ * These states are sometimes referred to as <i>operational states</i>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mprapi/ne-mprapi-router_connection_state
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319

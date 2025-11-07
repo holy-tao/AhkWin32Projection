@@ -5,9 +5,9 @@
  * The MP_PARAMINFO structure contains information about a parameter.
  * @remarks
  * 
-  * The <b>szUnitText</b> and <b>szLabel</b> members always contain English-language strings. For international support, use the <a href="https://docs.microsoft.com/windows/desktop/api/medparam/nf-medparam-imediaparaminfo-getparamtext">IMediaParamInfo::GetParamText</a> method.
-  * 
-  * 
+ * The <b>szUnitText</b> and <b>szLabel</b> members always contain English-language strings. For international support, use the <a href="https://docs.microsoft.com/windows/desktop/api/medparam/nf-medparam-imediaparaminfo-getparamtext">IMediaParamInfo::GetParamText</a> method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//medparam/ns-medparam-mp_paraminfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

@@ -4,9 +4,9 @@
  * Identify which components of each pixel of a render target are writable during blending.
  * @remarks
  * 
-  * These flags can be combined with a bitwise OR.
-  * 
-  * 
+ * These flags can be combined with a bitwise OR.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_color_write_enable
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

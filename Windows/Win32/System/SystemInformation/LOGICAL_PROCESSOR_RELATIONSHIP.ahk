@@ -4,10 +4,10 @@
  * Represents the relationship between the processor set identified in the corresponding SYSTEM_LOGICAL_PROCESSOR_INFORMATION or SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX structure.
  * @remarks
  * 
-  * The value specified by this enumeration indicates the relationship represented in the corresponding [SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX](./ns-winnt-system_logical_processor_information_ex.md)  structure. 
-  * 
-  * 
-  * 
+ * The value specified by this enumeration indicates the relationship represented in the corresponding [SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX](./ns-winnt-system_logical_processor_information_ex.md)  structure. 
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-logical_processor_relationship
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319

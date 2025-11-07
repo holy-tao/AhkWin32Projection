@@ -8,10 +8,10 @@
  * Provides access to individual, selectable child controls of containers that implement ISelectionProvider.
  * @remarks
  * 
-  * Implemented on a Microsoft UI Automation provider that 
-  *             must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingselectionitem">SelectionItem</a> control pattern.
-  * 
-  * 
+ * Implemented on a Microsoft UI Automation provider that 
+ *             must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingselectionitem">SelectionItem</a> control pattern.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-iselectionitemprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

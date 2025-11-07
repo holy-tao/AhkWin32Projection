@@ -7,9 +7,9 @@
  * The IDigitalLocator interface serves as the base interface for Locator objects that contain tuning information about the tuning space for a digital network. This interface is used only through derived interfaces such as IATSCLocator.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDigitalLocator)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDigitalLocator)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-idigitallocator
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

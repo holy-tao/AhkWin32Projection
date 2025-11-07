@@ -7,45 +7,45 @@
  * Applications use the methods of the IDirectDrawClipper interface to manage clip lists. This section is a reference to the methods of this interface.
  * @remarks
  * 
-  * The methods of the <b>IDirectDrawClipper</b> interface can be organized into the following groups:<table>
-  * <tr>
-  * <th>Group</th>
-  * <th>Methods</th>
-  * </tr>
-  * <tr>
-  * <td>Allocating memory</td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-initialize">Initialize</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>Clip list</td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-getcliplist">GetClipList</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-iscliplistchanged">IsClipListChanged</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-setcliplist">SetClipList</a>,  and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-sethwnd">SetHWnd</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>Handles</td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-gethwnd">GetHWnd</a>
-  * </td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * 
-  * 
-  * You can use the LPDIRECTDRAWCLIPPER data type to declare a variable that contains a pointer to an <b>IDirectDrawClipper</b> interface. The Ddraw.h header file declares this data type with the following code:
-  * 
-  * 
-  * 
-  * 
-  * ```
-  * 
-  * typedef struct IDirectDrawClipper    FAR *LPDIRECTDRAWCLIPPER;
-  * 
-  * ```
-  * 
+ * The methods of the <b>IDirectDrawClipper</b> interface can be organized into the following groups:<table>
+ * <tr>
+ * <th>Group</th>
+ * <th>Methods</th>
+ * </tr>
+ * <tr>
+ * <td>Allocating memory</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-initialize">Initialize</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Clip list</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-getcliplist">GetClipList</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-iscliplistchanged">IsClipListChanged</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-setcliplist">SetClipList</a>,  and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-sethwnd">SetHWnd</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Handles</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-gethwnd">GetHWnd</a>
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
+ * You can use the LPDIRECTDRAWCLIPPER data type to declare a variable that contains a pointer to an <b>IDirectDrawClipper</b> interface. The Ddraw.h header file declares this data type with the following code:
+ * 
+ * 
+ * 
+ * 
+ * ```
+ * 
+ * typedef struct IDirectDrawClipper    FAR *LPDIRECTDRAWCLIPPER;
+ * 
+ * ```
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddraw/nn-ddraw-idirectdrawclipper
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319

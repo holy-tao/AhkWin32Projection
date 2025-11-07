@@ -7,16 +7,16 @@
  * Contains combo box status information.
  * @remarks
  * 
-  * The following example code retrieves information about the combo box specified by the window handle.
-  * 
-  * 
-  * ```
-  * COMBOBOXINFO info = { sizeof(COMBOBOXINFO) };
-  * GetComboBoxInfo(hwnd, &info);
-  * 
-  * ```
-  * 
-  * 
+ * The following example code retrieves information about the combo box specified by the window handle.
+ * 
+ * 
+ * ```
+ * COMBOBOXINFO info = { sizeof(COMBOBOXINFO) };
+ * GetComboBoxInfo(hwnd, &info);
+ * 
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-comboboxinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319

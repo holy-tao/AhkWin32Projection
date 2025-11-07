@@ -4,9 +4,9 @@
  * Specifies the state of a tree item. These values are used by methods of the INameSpaceTreeControlFolderCapabilities interface.
  * @remarks
  * 
-  * The <b>NSTCFOLDERCAPABILITIES</b> type is defined in Shobjidl.h beginning in Windows 7.
-  * 
-  * 
+ * The <b>NSTCFOLDERCAPABILITIES</b> type is defined in Shobjidl.h beginning in Windows 7.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-nstcfoldercapabilities
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

@@ -7,12 +7,12 @@
  * A device-child interface accesses data used by a device.
  * @remarks
  * 
-  * There are several types of device child interfaces, all of which inherit this interface. They include shaders, state objects, and input layouts.
-  * 
-  * <b>Windows Phone 8:
-  *         </b> This API is supported.
-  * 
-  * 
+ * There are several types of device child interfaces, all of which inherit this interface. They include shaders, state objects, and input layouts.
+ * 
+ * <b>Windows Phone 8:
+ *         </b> This API is supported.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11devicechild
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

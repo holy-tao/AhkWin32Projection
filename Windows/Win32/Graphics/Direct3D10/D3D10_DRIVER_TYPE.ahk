@@ -4,11 +4,11 @@
  * The device-driver type.
  * @remarks
  * 
-  * The device-driver type needs to be specified when the device is created (using <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/nf-d3d10misc-d3d10createdevice">D3D10CreateDevice</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/nf-d3d10misc-d3d10createdeviceandswapchain">D3D10CreateDeviceAndSwapChain</a>). 
-  * 
-  * For information about limitations creating nonhardware-type devices on certain feature levels, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-limitations">Limitations Creating WARP and Reference Devices</a>.
-  * 
-  * 
+ * The device-driver type needs to be specified when the device is created (using <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/nf-d3d10misc-d3d10createdevice">D3D10CreateDevice</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/nf-d3d10misc-d3d10createdeviceandswapchain">D3D10CreateDeviceAndSwapChain</a>). 
+ * 
+ * For information about limitations creating nonhardware-type devices on certain feature levels, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-limitations">Limitations Creating WARP and Reference Devices</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10misc/ne-d3d10misc-d3d10_driver_type
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

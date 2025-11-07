@@ -7,8 +7,8 @@
  * Contains format data for an AAC or HE-AAC stream that includes AudioSpecificConfig() data.
  * @remarks
  * 
-  * Use this structure to access the AudioSpecificConfig() data that follows an <a href="https://docs.microsoft.com/windows/desktop/api/mmreg/ns-mmreg-heaacwaveinfo">HEAACWAVEINFO</a> structure. This data is present only when the <b>wStructType</b> member of the <b>HEAACWAVEFORMAT</b> structure is zero.
-  * 
+ * Use this structure to access the AudioSpecificConfig() data that follows an <a href="https://docs.microsoft.com/windows/desktop/api/mmreg/ns-mmreg-heaacwaveinfo">HEAACWAVEINFO</a> structure. This data is present only when the <b>wStructType</b> member of the <b>HEAACWAVEFORMAT</b> structure is zero.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mmreg/ns-mmreg-heaacwaveformat
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

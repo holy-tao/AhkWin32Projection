@@ -5,15 +5,15 @@
  * The SOCKADDR_IRDA structure is used in conjunction with IrDA socket operations, defined by address family AF_IRDA.
  * @remarks
  * 
-  * Client applications make use of each field in the 
-  * <b>SOCKADDR_IRDA</b> structure. The <b>irdaDeviceID</b> member is obtained by a previous discovery operation performed by making a 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a>(IRLMP_ENUMDEVICES) function call. For more information on performing a discovery operation, see the Notes for IrDA Sockets section in the Remarks section of 
-  * <b>getsockopt</b>.
-  * 
-  * The <b>irdaServiceName</b> member is filled with the well-known value that the server application specified in its 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a> function call.
-  * 
-  * 
+ * Client applications make use of each field in the 
+ * <b>SOCKADDR_IRDA</b> structure. The <b>irdaDeviceID</b> member is obtained by a previous discovery operation performed by making a 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a>(IRLMP_ENUMDEVICES) function call. For more information on performing a discovery operation, see the Notes for IrDA Sockets section in the Remarks section of 
+ * <b>getsockopt</b>.
+ * 
+ * The <b>irdaServiceName</b> member is filled with the well-known value that the server application specified in its 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a> function call.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//af_irda/ns-af_irda-sockaddr_irda
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

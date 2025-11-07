@@ -5,17 +5,17 @@
  * Describes a location used to provide an address translation context.
  * @remarks
  * 
-  * This structure cannot be extended.
-  * 
-  * Older applications are compiled without knowledge of these new fields, and using a SIZEOF LINELOCATIONENTRY smaller than the new size. Because this is an array in the variable portion of a 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure, it is imperative that older applications receive 
-  * <b>LINELOCATIONENTRY</b> structures in the format they previously expected, or they are not able to index through the array properly. The application passes in a <i>dwAPIVersion</i> parameter with the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegettranslatecaps">lineGetTranslateCaps</a> function, which can be used for guidance by TAPI in handling this situation. The 
-  * <b>lineGetTranslateCaps</b> function should use the 
-  * <b>LINELOCATIONENTRY</b> members and size that match the indicated API version, when building the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure to be returned to the application.
-  * 
-  * 
+ * This structure cannot be extended.
+ * 
+ * Older applications are compiled without knowledge of these new fields, and using a SIZEOF LINELOCATIONENTRY smaller than the new size. Because this is an array in the variable portion of a 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure, it is imperative that older applications receive 
+ * <b>LINELOCATIONENTRY</b> structures in the format they previously expected, or they are not able to index through the array properly. The application passes in a <i>dwAPIVersion</i> parameter with the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegettranslatecaps">lineGetTranslateCaps</a> function, which can be used for guidance by TAPI in handling this situation. The 
+ * <b>lineGetTranslateCaps</b> function should use the 
+ * <b>LINELOCATIONENTRY</b> members and size that match the indicated API version, when building the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure to be returned to the application.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linelocationentry
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

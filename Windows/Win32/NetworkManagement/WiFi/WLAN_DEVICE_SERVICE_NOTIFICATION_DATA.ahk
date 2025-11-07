@@ -5,7 +5,7 @@
  * A structure that represents a device service notification.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_device_service_notification_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319

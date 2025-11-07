@@ -5,11 +5,11 @@
  * Extracts a single subregion (a "slice") of an input tensor.
  * @remarks
  * This operator is similar to [DML_SLICE_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_slice_operator_desc), but it differs in two important ways.
-  * 
-  * - Slice strides may be negative, which allows reversing values along dimensions.
-  * - The input window sizes are not necessarily the same as the output tensor sizes.
-  * 
-  * 
+ * 
+ * - Slice strides may be negative, which allows reversing values along dimensions.
+ * - The input window sizes are not necessarily the same as the output tensor sizes.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_slice1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319

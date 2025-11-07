@@ -4,19 +4,19 @@
  * Indicates flags that modify the property store object retrieved by methods that create a property store, such as IShellItem2::GetPropertyStore or IPropertyStoreFactory::GetPropertyStore.
  * @remarks
  * 
-  * If the Shell item is a file, the property store contains the following items. 
-  *                 
-  *                 
-  * 
-  * <ul>
-  * <li>Properties from the file system that concern the file.</li>
-  * <li>Properties from the file itself that are provided by the file's property handler, unless the file is offline (see GPS_OPENSLOWITEM).</li>
-  * </ul>
-  * Non-file Shell items return a similar read-only store.
-  * 
-  * <div class="alert"><b>Note</b>  GPS_INCLUDEOFFLINEPROPERTIES has been superseded by GPS_OPENSLOWITEM.</div>
-  * <div> </div>
-  * 
+ * If the Shell item is a file, the property store contains the following items. 
+ *                 
+ *                 
+ * 
+ * <ul>
+ * <li>Properties from the file system that concern the file.</li>
+ * <li>Properties from the file itself that are provided by the file's property handler, unless the file is offline (see GPS_OPENSLOWITEM).</li>
+ * </ul>
+ * Non-file Shell items return a similar read-only store.
+ * 
+ * <div class="alert"><b>Note</b>  GPS_INCLUDEOFFLINEPROPERTIES has been superseded by GPS_OPENSLOWITEM.</div>
+ * <div> </div>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-getpropertystoreflags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319

@@ -5,31 +5,31 @@
  * Describes an exception.
  * @remarks
  * 
-  * To enable a debugger to debug a target that is running on a different architecture (32-bit versus 64-bit), use one of the explicit forms of this structure.
-  * 
-  * 
-  * ```cpp
-  * typedef struct _EXCEPTION_RECORD32 {
-  *     DWORD    ExceptionCode;
-  *     DWORD ExceptionFlags;
-  *     DWORD ExceptionRecord;
-  *     DWORD ExceptionAddress;
-  *     DWORD NumberParameters;
-  *     DWORD ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
-  * } EXCEPTION_RECORD32, *PEXCEPTION_RECORD32;
-  * 
-  * typedef struct _EXCEPTION_RECORD64 {
-  *     DWORD    ExceptionCode;
-  *     DWORD ExceptionFlags;
-  *     DWORD64 ExceptionRecord;
-  *     DWORD64 ExceptionAddress;
-  *     DWORD NumberParameters;
-  *     DWORD __unusedAlignment;
-  *     DWORD64 ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
-  * } EXCEPTION_RECORD64, *PEXCEPTION_RECORD64;
-  * ```
-  * 
-  * 
+ * To enable a debugger to debug a target that is running on a different architecture (32-bit versus 64-bit), use one of the explicit forms of this structure.
+ * 
+ * 
+ * ```cpp
+ * typedef struct _EXCEPTION_RECORD32 {
+ *     DWORD    ExceptionCode;
+ *     DWORD ExceptionFlags;
+ *     DWORD ExceptionRecord;
+ *     DWORD ExceptionAddress;
+ *     DWORD NumberParameters;
+ *     DWORD ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
+ * } EXCEPTION_RECORD32, *PEXCEPTION_RECORD32;
+ * 
+ * typedef struct _EXCEPTION_RECORD64 {
+ *     DWORD    ExceptionCode;
+ *     DWORD ExceptionFlags;
+ *     DWORD64 ExceptionRecord;
+ *     DWORD64 ExceptionAddress;
+ *     DWORD NumberParameters;
+ *     DWORD __unusedAlignment;
+ *     DWORD64 ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
+ * } EXCEPTION_RECORD64, *PEXCEPTION_RECORD64;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-exception_record
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319

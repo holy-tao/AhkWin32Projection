@@ -8,9 +8,9 @@
  * The IStreamBufferDataCounters interface returns performance statistics for the Stream Buffer filters. This interface is exposed by the pins on the Stream Buffer Sink filter and the Stream Buffer Source filter.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferDataCounters)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferDataCounters)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-istreambufferdatacounters
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

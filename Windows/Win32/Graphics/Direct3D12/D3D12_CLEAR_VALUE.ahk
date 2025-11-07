@@ -6,22 +6,22 @@
  * Describes a value used to optimize clear operations for a particular resource.
  * @remarks
  * 
-  * This structure is optionally passed into the following methods:
-  *         
-  * 
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommittedresource">ID3D12Device::CreateCommittedResource</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createplacedresource">ID3D12Device::CreatePlacedResource</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createreservedresource">ID3D12Device::CreateReservedResource</a>
-  * </li>
-  * </ul>
-  * 
-  * 
+ * This structure is optionally passed into the following methods:
+ *         
+ * 
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommittedresource">ID3D12Device::CreateCommittedResource</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createplacedresource">ID3D12Device::CreatePlacedResource</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createreservedresource">ID3D12Device::CreateReservedResource</a>
+ * </li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_clear_value
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

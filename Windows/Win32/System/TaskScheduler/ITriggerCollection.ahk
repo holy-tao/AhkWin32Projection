@@ -9,10 +9,10 @@
  * Provides the methods that are used to add to, remove from, and get the triggers of a task.
  * @remarks
  * 
-  * When reading or writing XML for a task, the triggers for the task are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-triggers-tasktype-element">Triggers</a> element of the Task Scheduler schema.
-  * 
-  * 
-  * 
+ * When reading or writing XML for a task, the triggers for the task are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-triggers-tasktype-element">Triggers</a> element of the Task Scheduler schema.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itriggercollection
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

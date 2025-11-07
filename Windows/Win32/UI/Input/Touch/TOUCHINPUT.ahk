@@ -6,103 +6,103 @@
  * Encapsulates data for touch input.
  * @remarks
  * 
-  * The following table lists the flags for the <b>dwFlags</b> member.
-  *        <table>
-  * <tr>
-  * <th>Flag</th>
-  * <th>Value</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td><b>TOUCHEVENTF_MOVE</b></td>
-  * <td>0x0001</td>
-  * <td>Movement has occurred. Cannot be combined with <b>TOUCHEVENTF_DOWN</b>.</td>
-  * </tr>
-  * <tr>
-  * <td><b>TOUCHEVENTF_DOWN</b></td>
-  * <td>0x0002</td>
-  * <td>The corresponding touch point was established through a new contact. Cannot be combined with <b>TOUCHEVENTF_MOVE</b> or <b>TOUCHEVENTF_UP</b>.</td>
-  * </tr>
-  * <tr>
-  * <td><b>TOUCHEVENTF_UP</b></td>
-  * <td>0x0004</td>
-  * <td>A touch point was removed.</td>
-  * </tr>
-  * <tr>
-  * <td><b>TOUCHEVENTF_INRANGE</b></td>
-  * <td>0x0008</td>
-  * <td>A touch point is in range. This flag is used to enable touch hover support on compatible hardware. Applications that do not want support for hover can ignore this flag.</td>
-  * </tr>
-  * <tr>
-  * <td><b>TOUCHEVENTF_PRIMARY</b></td>
-  * <td>0x0010</td>
-  * <td>Indicates that this <b>TOUCHINPUT</b> structure corresponds to a primary contact point. See the following text for more information on primary touch points.</td>
-  * </tr>
-  * <tr>
-  * <td><b>TOUCHEVENTF_NOCOALESCE</b></td>
-  * <td>0x0020</td>
-  * <td>When received using <b>GetTouchInputInfo</b>, this input was not coalesced.</td>
-  * </tr>
-  * <tr>
-  * <td><b>TOUCHEVENTF_PALM</b></td>
-  * <td>0x0080</td>
-  * <td>The touch event came from the user's palm.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * 
-  * 
-  * <div class="alert"><b>Note</b>     If the target hardware on a machine does not support hover, when the <b>TOUCHEVENTF_UP</b> flag is set, the <b>TOUCHEVENTF_INRANGE</b> flag is cleared.
-  *    If the target hardware on a machine supports hover, the <b>TOUCHEVENTF_UP</b> and <b>TOUCHEVENTF_INRANGE</b> flags will be set independently.
-  *    </div>
-  * <div> </div>
-  * The following table lists the flags for the <b>dwMask</b> member.
-  *        <table>
-  * <tr>
-  * <th>Flag</th>
-  * <th>Value</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td><b>TOUCHINPUTMASKF_CONTACTAREA</b></td>
-  * <td>0x0004</td>
-  * <td><b>cxContact</b> and <b>cyContact</b> are valid. See the following text for more information on primary touch points.</td>
-  * </tr>
-  * <tr>
-  * <td><b>TOUCHINPUTMASKF_EXTRAINFO</b></td>
-  * <td>0x0002</td>
-  * <td><b>dwExtraInfo</b> is valid.</td>
-  * </tr>
-  * <tr>
-  * <td><b>TOUCHINPUTMASKF_TIMEFROMSYSTEM</b></td>
-  * <td>0x0001</td>
-  * <td>The system time was set in the <b>TOUCHINPUT</b> structure.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * 
-  * 
-  * A touch point is designated as primary when it is the first touch point to be established from a previous state of no touch points. 
-  *    The <b>TOUCHEVENTF_PRIMARY</b> flag continues to be set for all subsequent events for the primary touch point until 
-  *    the primary touch point is released. Note that a <b>TOUCHEVENTF_UP</b> event on the primary touch point does not 
-  *    necessarily designate the end of a Windows Touch operation; the current Windows Touch operation proceeds from the establishment of the primary 
-  *    touch point until the last touch point is released.
-  *    
-  * 
-  * Note that a solitary touch point or, in a set of simultaneous touch points, the first to be detected, is designated the primary. The system mouse position follows the primary touch point and, in addition to touch messages, also generates <b>WM_LBUTTONDOWN</b>, <b>WM_MOUSEMOVE</b>, and <b>WM_LBUTTONUP</b> messages in response to actions on a primary touch point. The primary touch point can also generate <b>WM_RBUTTONDOWN</b> and <b>WM_RBUTTONUP</b> messages using the press and hold gesture.
-  * 
-  * Note that the touch point identifier may be dynamic and is associated with a given touch point only as long as the touch point persists. If contact is broken and then resumed (for example, if a finger is removed from the surface and then pressed down again), the same touch point (the same finger, pen, or other such device) may receive a different touch point identifier.
-  * 
-  * The following type is defined to represent a constant pointer to a <b>TOUCHINPUT</b> structure.
-  * 	
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>
-  *    typedef TOUCHINPUT const * PCTOUCHINPUT;
-  * 	</code></pre>
-  * 
-  * 
+ * The following table lists the flags for the <b>dwFlags</b> member.
+ *        <table>
+ * <tr>
+ * <th>Flag</th>
+ * <th>Value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td><b>TOUCHEVENTF_MOVE</b></td>
+ * <td>0x0001</td>
+ * <td>Movement has occurred. Cannot be combined with <b>TOUCHEVENTF_DOWN</b>.</td>
+ * </tr>
+ * <tr>
+ * <td><b>TOUCHEVENTF_DOWN</b></td>
+ * <td>0x0002</td>
+ * <td>The corresponding touch point was established through a new contact. Cannot be combined with <b>TOUCHEVENTF_MOVE</b> or <b>TOUCHEVENTF_UP</b>.</td>
+ * </tr>
+ * <tr>
+ * <td><b>TOUCHEVENTF_UP</b></td>
+ * <td>0x0004</td>
+ * <td>A touch point was removed.</td>
+ * </tr>
+ * <tr>
+ * <td><b>TOUCHEVENTF_INRANGE</b></td>
+ * <td>0x0008</td>
+ * <td>A touch point is in range. This flag is used to enable touch hover support on compatible hardware. Applications that do not want support for hover can ignore this flag.</td>
+ * </tr>
+ * <tr>
+ * <td><b>TOUCHEVENTF_PRIMARY</b></td>
+ * <td>0x0010</td>
+ * <td>Indicates that this <b>TOUCHINPUT</b> structure corresponds to a primary contact point. See the following text for more information on primary touch points.</td>
+ * </tr>
+ * <tr>
+ * <td><b>TOUCHEVENTF_NOCOALESCE</b></td>
+ * <td>0x0020</td>
+ * <td>When received using <b>GetTouchInputInfo</b>, this input was not coalesced.</td>
+ * </tr>
+ * <tr>
+ * <td><b>TOUCHEVENTF_PALM</b></td>
+ * <td>0x0080</td>
+ * <td>The touch event came from the user's palm.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
+ * <div class="alert"><b>Note</b>     If the target hardware on a machine does not support hover, when the <b>TOUCHEVENTF_UP</b> flag is set, the <b>TOUCHEVENTF_INRANGE</b> flag is cleared.
+ *    If the target hardware on a machine supports hover, the <b>TOUCHEVENTF_UP</b> and <b>TOUCHEVENTF_INRANGE</b> flags will be set independently.
+ *    </div>
+ * <div> </div>
+ * The following table lists the flags for the <b>dwMask</b> member.
+ *        <table>
+ * <tr>
+ * <th>Flag</th>
+ * <th>Value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td><b>TOUCHINPUTMASKF_CONTACTAREA</b></td>
+ * <td>0x0004</td>
+ * <td><b>cxContact</b> and <b>cyContact</b> are valid. See the following text for more information on primary touch points.</td>
+ * </tr>
+ * <tr>
+ * <td><b>TOUCHINPUTMASKF_EXTRAINFO</b></td>
+ * <td>0x0002</td>
+ * <td><b>dwExtraInfo</b> is valid.</td>
+ * </tr>
+ * <tr>
+ * <td><b>TOUCHINPUTMASKF_TIMEFROMSYSTEM</b></td>
+ * <td>0x0001</td>
+ * <td>The system time was set in the <b>TOUCHINPUT</b> structure.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
+ * A touch point is designated as primary when it is the first touch point to be established from a previous state of no touch points. 
+ *    The <b>TOUCHEVENTF_PRIMARY</b> flag continues to be set for all subsequent events for the primary touch point until 
+ *    the primary touch point is released. Note that a <b>TOUCHEVENTF_UP</b> event on the primary touch point does not 
+ *    necessarily designate the end of a Windows Touch operation; the current Windows Touch operation proceeds from the establishment of the primary 
+ *    touch point until the last touch point is released.
+ *    
+ * 
+ * Note that a solitary touch point or, in a set of simultaneous touch points, the first to be detected, is designated the primary. The system mouse position follows the primary touch point and, in addition to touch messages, also generates <b>WM_LBUTTONDOWN</b>, <b>WM_MOUSEMOVE</b>, and <b>WM_LBUTTONUP</b> messages in response to actions on a primary touch point. The primary touch point can also generate <b>WM_RBUTTONDOWN</b> and <b>WM_RBUTTONUP</b> messages using the press and hold gesture.
+ * 
+ * Note that the touch point identifier may be dynamic and is associated with a given touch point only as long as the touch point persists. If contact is broken and then resumed (for example, if a finger is removed from the surface and then pressed down again), the same touch point (the same finger, pen, or other such device) may receive a different touch point identifier.
+ * 
+ * The following type is defined to represent a constant pointer to a <b>TOUCHINPUT</b> structure.
+ * 	
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>
+ *    typedef TOUCHINPUT const * PCTOUCHINPUT;
+ * 	</code></pre>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-touchinput
  * @namespace Windows.Win32.UI.Input.Touch
  * @version v4.0.30319

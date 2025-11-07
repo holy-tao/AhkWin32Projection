@@ -8,9 +8,9 @@
  * Represents the unique identifier of an update.
  * @remarks
  * 
-  * You can create an instance of this interface by using the UpdateIdentity coclass.
-  * 
-  * 
+ * You can create an instance of this interface by using the UpdateIdentity coclass.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdateidentity
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

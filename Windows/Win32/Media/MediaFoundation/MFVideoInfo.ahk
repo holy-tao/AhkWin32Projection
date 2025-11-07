@@ -9,98 +9,98 @@
  * Contains video format information that applies to both compressed and uncompressed formats.This structure is used in the MFVIDEOFORMAT structure.
  * @remarks
  * 
-  * Developers are encouraged to use media type attributes instead of using the <b>MFVideoInfo</b> structure. The following table lists the attributes that correspond to the members of this structure.
-  * 
-  * <table>
-  * <tr>
-  * <th>Structure Member</th>
-  * <th>Media Type Attribute</th>
-  * </tr>
-  * <tr>
-  * <td><b>dwWidth</b>, <b>dwHeight</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-frame-size-attribute">MF_MT_FRAME_SIZE</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>PixelAspectRatio</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-pixel-aspect-ratio-attribute">MF_MT_PIXEL_ASPECT_RATIO</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>SourceChromaSubsampling</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-chroma-siting-attribute">MF_MT_VIDEO_CHROMA_SITING</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>InterlaceMode</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-interlace-mode-attribute">MF_MT_INTERLACE_MODE</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>TransferFunction</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-transfer-function-attribute">MF_MT_TRANSFER_FUNCTION</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>ColorPrimaries</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-primaries-attribute">MF_MT_VIDEO_PRIMARIES</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>TransferMatrix</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-yuv-matrix-attribute">MF_MT_YUV_MATRIX</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>SourceLighting</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-lighting-attribute">MF_MT_VIDEO_LIGHTING</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>FramesPerSecond</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-frame-rate-attribute">MF_MT_FRAME_RATE</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>NominalRange</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-nominal-range-attribute">MF_MT_VIDEO_NOMINAL_RANGE</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>GeometricAperture</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-geometric-aperture-attribute">MF_MT_GEOMETRIC_APERTURE</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>MinimumDisplayAperture</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-minimum-display-aperture-attribute">MF_MT_MINIMUM_DISPLAY_APERTURE</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>PanScanAperture</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-pan-scan-aperture-attribute">MF_MT_PAN_SCAN_APERTURE</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>VideoFlags</b></td>
-  * <td>See <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideoflags">MFVideoFlags</a>.</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * Developers are encouraged to use media type attributes instead of using the <b>MFVideoInfo</b> structure. The following table lists the attributes that correspond to the members of this structure.
+ * 
+ * <table>
+ * <tr>
+ * <th>Structure Member</th>
+ * <th>Media Type Attribute</th>
+ * </tr>
+ * <tr>
+ * <td><b>dwWidth</b>, <b>dwHeight</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-frame-size-attribute">MF_MT_FRAME_SIZE</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>PixelAspectRatio</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-pixel-aspect-ratio-attribute">MF_MT_PIXEL_ASPECT_RATIO</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>SourceChromaSubsampling</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-chroma-siting-attribute">MF_MT_VIDEO_CHROMA_SITING</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>InterlaceMode</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-interlace-mode-attribute">MF_MT_INTERLACE_MODE</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>TransferFunction</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-transfer-function-attribute">MF_MT_TRANSFER_FUNCTION</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>ColorPrimaries</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-primaries-attribute">MF_MT_VIDEO_PRIMARIES</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>TransferMatrix</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-yuv-matrix-attribute">MF_MT_YUV_MATRIX</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>SourceLighting</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-lighting-attribute">MF_MT_VIDEO_LIGHTING</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>FramesPerSecond</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-frame-rate-attribute">MF_MT_FRAME_RATE</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>NominalRange</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-nominal-range-attribute">MF_MT_VIDEO_NOMINAL_RANGE</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>GeometricAperture</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-geometric-aperture-attribute">MF_MT_GEOMETRIC_APERTURE</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>MinimumDisplayAperture</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-minimum-display-aperture-attribute">MF_MT_MINIMUM_DISPLAY_APERTURE</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>PanScanAperture</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-pan-scan-aperture-attribute">MF_MT_PAN_SCAN_APERTURE</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>VideoFlags</b></td>
+ * <td>See <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideoflags">MFVideoFlags</a>.</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ns-mfobjects-mfvideoinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

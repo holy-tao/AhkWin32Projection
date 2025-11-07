@@ -12,45 +12,45 @@
  * Describes the text that appears on a page.
  * @remarks
  * 
-  * The code example that follows illustrates how to create an instance of  this interface.
-  * 
-  * 
-  * ```cpp
-  * 
-  * IXpsOMGlyphs       *newInterface;
-  * // this interface is defined outside of this example
-  * //  IXpsOMFontResource *font; 
-  * 
-  * // Note the implicit requirement that CoInitializeEx 
-  * //  has previously been called from this thread.
-  * 
-  * hr = CoCreateInstance(
-  *     __uuidof(XpsOMObjectFactory),
-  *     NULL,
-  *     CLSCTX_INPROC_SERVER,
-  *     _uuidof(IXpsOMObjectFactory),
-  *     reinterpret_cast<LPVOID*>(&xpsFactory)
-  *     );
-  * 
-  * if (SUCCEEDED(hr))
-  * {
-  *     hr = xpsFactory->CreateGlyphs (font, &newInterface);
-  *     if (SUCCEEDED(hr))
-  *     {
-  *         // use newInterface
-  * 
-  *         newInterface->Release();
-  *     }
-  *     xpsFactory->Release();
-  * }
-  * else
-  * {
-  *     // evaluate HRESULT error returned in hr
-  * }
-  * 
-  * ```
-  * 
-  * 
+ * The code example that follows illustrates how to create an instance of  this interface.
+ * 
+ * 
+ * ```cpp
+ * 
+ * IXpsOMGlyphs       *newInterface;
+ * // this interface is defined outside of this example
+ * //  IXpsOMFontResource *font; 
+ * 
+ * // Note the implicit requirement that CoInitializeEx 
+ * //  has previously been called from this thread.
+ * 
+ * hr = CoCreateInstance(
+ *     __uuidof(XpsOMObjectFactory),
+ *     NULL,
+ *     CLSCTX_INPROC_SERVER,
+ *     _uuidof(IXpsOMObjectFactory),
+ *     reinterpret_cast<LPVOID*>(&xpsFactory)
+ *     );
+ * 
+ * if (SUCCEEDED(hr))
+ * {
+ *     hr = xpsFactory->CreateGlyphs (font, &newInterface);
+ *     if (SUCCEEDED(hr))
+ *     {
+ *         // use newInterface
+ * 
+ *         newInterface->Release();
+ *     }
+ *     xpsFactory->Release();
+ * }
+ * else
+ * {
+ *     // evaluate HRESULT error returned in hr
+ * }
+ * 
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomglyphs
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

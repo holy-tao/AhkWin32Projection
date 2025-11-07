@@ -9,12 +9,12 @@
  * Used to define a group of files based on one or more file name patterns.
  * @remarks
  * 
-  * A file group is formed by including all members and then excluding all nonmembers. For example, to list all 
-  *     files except for <i>examplename</i>, set <b>Members</b> 
-  *     to "*.*" and <b>NonMembers</b> to 
-  *     "<i>examplename</i>".
-  * 
-  * 
+ * A file group is formed by including all members and then excluding all nonmembers. For example, to list all 
+ *     files except for <i>examplename</i>, set <b>Members</b> 
+ *     to "*.*" and <b>NonMembers</b> to 
+ *     "<i>examplename</i>".
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nn-fsrmscreen-ifsrmfilegroup
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

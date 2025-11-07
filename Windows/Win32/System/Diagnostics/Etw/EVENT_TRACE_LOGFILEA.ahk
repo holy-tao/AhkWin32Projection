@@ -11,22 +11,22 @@
  * The EVENT_TRACE_LOGFILE structure specifies how the consumer wants to read events (from a log file or in real-time) and the callbacks that will receive the events.
  * @remarks
  * 
-  * Be sure to initialize the memory for this structure to zero before setting any members.
-  * 
-  * Consumers pass this structure to the 
-  * <a href="https://docs.microsoft.com/windows/desktop/ETW/opentrace">OpenTrace</a> function. 
-  * 
-  * When ETW flushes a buffer, it passes the structure to the 
-  * consumer's <a href="https://docs.microsoft.com/windows/desktop/ETW/buffercallback">BufferCallback</a> function.
-  * 
-  * 
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The evntrace.h header defines EVENT_TRACE_LOGFILE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
-  * 
+ * Be sure to initialize the memory for this structure to zero before setting any members.
+ * 
+ * Consumers pass this structure to the 
+ * <a href="https://docs.microsoft.com/windows/desktop/ETW/opentrace">OpenTrace</a> function. 
+ * 
+ * When ETW flushes a buffer, it passes the structure to the 
+ * consumer's <a href="https://docs.microsoft.com/windows/desktop/ETW/buffercallback">BufferCallback</a> function.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The evntrace.h header defines EVENT_TRACE_LOGFILE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-event_trace_logfilea
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

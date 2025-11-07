@@ -5,9 +5,9 @@
  * Contains information about a candidate list.
  * @remarks
  * 
-  * The candidate strings immediately follow the last offset in the <b>dwOffset</b> array.
-  * 
-  * 
+ * The candidate strings immediately follow the last offset in the <b>dwOffset</b> array.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imm/ns-imm-candidatelist
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319

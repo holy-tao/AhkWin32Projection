@@ -4,9 +4,9 @@
  * The CALL_MEDIA_EVENT enum describes call media events. The ITCallMediaEvent::get_Event method returns a member of this enum to indicate the type of call media event that occurred.
  * @remarks
  * 
-  * Due to latency, stream events may continue for a few seconds after a stream or related call session has been torn down.
-  * 
-  * 
+ * Due to latency, stream events may continue for a few seconds after a stream or related call session has been torn down.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-call_media_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

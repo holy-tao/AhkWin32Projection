@@ -5,11 +5,11 @@
  * Defines a vertex shader and the input element description to define the input layout.
  * @remarks
  * 
-  * The vertex shader will be loaded by the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createvertexbuffer">CreateVertexBuffer</a> call that accepts the vertex buffer properties.
-  * 
-  * This structure does not need to be specified if one of the standard vertex shaders is used.
-  * 
-  * 
+ * The vertex shader will be loaded by the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createvertexbuffer">CreateVertexBuffer</a> call that accepts the vertex buffer properties.
+ * 
+ * This structure does not need to be specified if one of the standard vertex shaders is used.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/ns-d2d1effectauthor-d2d1_custom_vertex_buffer_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

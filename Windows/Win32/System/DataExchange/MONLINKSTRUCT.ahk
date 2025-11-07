@@ -8,12 +8,12 @@
  * Contains information about a Dynamic Data Exchange (DDE) advise loop. A DDE monitoring application can use this structure to obtain information about an advise loop that has started or ended.
  * @remarks
  * 
-  * Because string handles are local to the process, the <b>hszSvc</b>, <b>hszTopic</b>, and <b>hszItem</b> members are global atoms. 
-  * 
-  * The 
-  * 				<b>hConvClient</b> and <b>hConvServer</b> members of the <b>MONLINKSTRUCT</b> structure do not hold the same value as would be seen by the applications engaged in the conversation. Instead, they hold a globally unique pair of values that identify the conversation.
-  * 
-  * 
+ * Because string handles are local to the process, the <b>hszSvc</b>, <b>hszTopic</b>, and <b>hszItem</b> members are global atoms. 
+ * 
+ * The 
+ * 				<b>hConvClient</b> and <b>hConvServer</b> members of the <b>MONLINKSTRUCT</b> structure do not hold the same value as would be seen by the applications engaged in the conversation. Instead, they hold a globally unique pair of values that identify the conversation.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddeml/ns-ddeml-monlinkstruct
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319

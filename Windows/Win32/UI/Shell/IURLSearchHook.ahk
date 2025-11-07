@@ -7,21 +7,21 @@
  * Exposes a method that is used by the browser to translate the address of an unknown URL protocol.
  * @remarks
  * 
-  * When attempting to browse to a URL address that does not contain a protocol, the browser will first attempt to determine the correct protocol from the address. If this is not successful, the browser will create URL Search Hook objects and call each object's <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-iurlsearchhook-translate">Translate</a> method until the address is translated or all of the hooks have been queried.
-  * 
-  * URL Search Hooks are registered by adding a value that contains the object's class identifier (CLSID) string under the following key in the registry: 
-  * 				
-  * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
-  *    <b>Software</b>
-  *       <b>Microsoft</b>
-  *          <b>Internet Explorer</b>
-  *             <b>UrlSearchHooks</b></pre>
-  * 
-  * 
-  * Implement this interface if your application defines a custom URL protocol and if address translation for this protocol is required.
-  * 
-  * You do not typically use this interface; it is called by the browser.
-  * 
+ * When attempting to browse to a URL address that does not contain a protocol, the browser will first attempt to determine the correct protocol from the address. If this is not successful, the browser will create URL Search Hook objects and call each object's <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-iurlsearchhook-translate">Translate</a> method until the address is translated or all of the hooks have been queried.
+ * 
+ * URL Search Hooks are registered by adding a value that contains the object's class identifier (CLSID) string under the following key in the registry: 
+ * 				
+ * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>Software</b>
+ *       <b>Microsoft</b>
+ *          <b>Internet Explorer</b>
+ *             <b>UrlSearchHooks</b></pre>
+ * 
+ * 
+ * Implement this interface if your application defines a custom URL protocol and if address translation for this protocol is required.
+ * 
+ * You do not typically use this interface; it is called by the browser.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-iurlsearchhook
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

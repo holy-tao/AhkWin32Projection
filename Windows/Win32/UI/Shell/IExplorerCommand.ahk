@@ -8,8 +8,8 @@
  * Exposes methods that get the command appearance, enumerate subcommands, or invoke the command.
  * @remarks
  * 
-  * None of the methods of this interface should communicate with network resources. These methods are called on the UI thread, so communication with network resources could cause the UI to stop responding.
-  * 
+ * None of the methods of this interface should communicate with network resources. These methods are called on the UI thread, so communication with network resources could cause the UI to stop responding.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iexplorercommand
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

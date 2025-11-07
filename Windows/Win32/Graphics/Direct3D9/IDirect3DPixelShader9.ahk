@@ -8,16 +8,16 @@
  * Applications use the methods of the IDirect3DPixelShader9 interface to encapsulate the functionality of a pixel shader.
  * @remarks
  * 
-  * The LPDIRECT3DPIXELSHADER9 and PDIRECT3DPIXELSHADER9 types are defined as pointers to the <b>IDirect3DPixelShader9</b> interface.
-  *     
-  *             
-  * 
-  * 
-  * ```
-  * typedef struct IDirect3DPixelShader9 *LPDIRECT3DPIXELSHADER9, *PDIRECT3DPIXELSHADER9;
-  * ```
-  * 
-  * 
+ * The LPDIRECT3DPIXELSHADER9 and PDIRECT3DPIXELSHADER9 types are defined as pointers to the <b>IDirect3DPixelShader9</b> interface.
+ *     
+ *             
+ * 
+ * 
+ * ```
+ * typedef struct IDirect3DPixelShader9 *LPDIRECT3DPIXELSHADER9, *PDIRECT3DPIXELSHADER9;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nn-d3d9helper-idirect3dpixelshader9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

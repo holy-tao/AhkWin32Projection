@@ -8,11 +8,11 @@
  * An ID3D11ShaderTraceFactory interface implements a method for generating shader trace information objects.
  * @remarks
  * 
-  * These APIs require the Windows Software Development Kit (SDK) for Windows 8.
-  * 
-  * To retrieve an instance of <b>ID3D11ShaderTraceFactory</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> on a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a> that you created with <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_create_device_flag">D3D11_CREATE_DEVICE_DEBUGGABLE</a>.
-  * 
-  * 
+ * These APIs require the Windows Software Development Kit (SDK) for Windows 8.
+ * 
+ * To retrieve an instance of <b>ID3D11ShaderTraceFactory</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> on a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a> that you created with <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_create_device_flag">D3D11_CREATE_DEVICE_DEBUGGABLE</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/nn-d3d11shadertracing-id3d11shadertracefactory
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

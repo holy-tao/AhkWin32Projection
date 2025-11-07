@@ -9,9 +9,9 @@
  * The DD_HALINFO structure describes the capabilities of the hardware and driver.
  * @remarks
  * 
-  * GDI allocates and zero-initializes the DD_HALINFO structure and passes it to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvgetdirectdrawinfo">DrvGetDirectDrawInfo</a> routine to be initialized with driver-specific data.
-  * 
-  * 
+ * GDI allocates and zero-initializes the DD_HALINFO structure and passes it to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvgetdirectdrawinfo">DrvGetDirectDrawInfo</a> routine to be initialized with driver-specific data.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_halinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319

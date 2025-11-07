@@ -10,8 +10,8 @@
  * Represents an ordered list of updates.
  * @remarks
  * 
-  * You can create an instance of this interface by using the UpdateCollection coclass. Use the Microsoft.Update.UpdateColl program identifier to create the object.
-  * 
+ * You can create an instance of this interface by using the UpdateCollection coclass. Use the Microsoft.Update.UpdateColl program identifier to create the object.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatecollection
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

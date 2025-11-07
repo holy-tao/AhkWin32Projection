@@ -7,9 +7,9 @@
  * The ITfSystemDeviceTypeLangBarItem interface is implemented by a system language bar item and used by an application or text service to control how the system item displays its icon.
  * @remarks
  * 
-  * Support for this interface is optional and must not be assumed.
-  * 
-  * 
+ * Support for this interface is optional and must not be assumed.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nn-ctfutb-itfsystemdevicetypelangbaritem
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

@@ -5,11 +5,11 @@
  * The RDCOMPARE structure is introduced in MMC 1.2.
  * @remarks
  * 
-  * If the snap-in implements the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iresultdatacompareex">IResultDataCompareEx</a> interface, MMC MMC allocates the parameters to the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iresultdatacompareex-compare">IResultDataCompareEx::Compare</a> snap-in's method and then calls the method. MMC releases the parameters after the method returns.
-  * 
-  * 
+ * If the snap-in implements the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iresultdatacompareex">IResultDataCompareEx</a> interface, MMC MMC allocates the parameters to the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iresultdatacompareex-compare">IResultDataCompareEx::Compare</a> snap-in's method and then calls the method. MMC releases the parameters after the method returns.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-rdcompare
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319

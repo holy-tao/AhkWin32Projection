@@ -7,12 +7,12 @@
  * Exposes methods that change UI activation and process accelerators for a user input object contained in the Shell.
  * @remarks
  * 
-  * Implement <b>IInputObject</b> if you are implementing a Shell object that takes user input.
-  * 
-  * You do not call this interface directly. <b>IInputObject</b> is used by the Shell or the browser to notify the object of UI activation changes and to translate keyboard accelerators.
-  * 
-  * <b>IInputObject</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. The listed methods are specific to <b>IInputObject</b>.
-  * 
+ * Implement <b>IInputObject</b> if you are implementing a Shell object that takes user input.
+ * 
+ * You do not call this interface directly. <b>IInputObject</b> is used by the Shell or the browser to notify the object of UI activation changes and to translate keyboard accelerators.
+ * 
+ * <b>IInputObject</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. The listed methods are specific to <b>IInputObject</b>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iinputobject
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

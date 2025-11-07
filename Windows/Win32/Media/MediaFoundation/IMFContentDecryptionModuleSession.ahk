@@ -7,9 +7,9 @@
  * Provides access to the Content Decryption Module (CDM) for encrypted media extensions support.
  * @remarks
  * 
-  * **IMFContentDecryptionModuleSession** is based on the Encrypted Media Extension specification's [MediaKeySession](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeysession).
-  * 
-  * 
+ * **IMFContentDecryptionModuleSession** is based on the Encrypted Media Extension specification's [MediaKeySession](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeysession).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

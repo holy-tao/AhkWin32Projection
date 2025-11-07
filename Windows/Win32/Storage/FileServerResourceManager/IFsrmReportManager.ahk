@@ -11,14 +11,14 @@
  * Used to manage report jobs.
  * @remarks
  * 
-  * A storage report job specifies a set of directories that will be analyzed to generate one or more different 
-  *     report types that help administrators to better understand how storage is utilized in the specified directories. 
-  *     You can configure report jobs to execute according to a schedule or on demand.
-  * 
-  * To create this object from a script, use the "Fsrm.FsrmReportManager" program 
-  *     identifier.
-  * 
-  * 
+ * A storage report job specifies a set of directories that will be analyzed to generate one or more different 
+ *     report types that help administrators to better understand how storage is utilized in the specified directories. 
+ *     You can configure report jobs to execute according to a schedule or on demand.
+ * 
+ * To create this object from a script, use the "Fsrm.FsrmReportManager" program 
+ *     identifier.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nn-fsrmreports-ifsrmreportmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

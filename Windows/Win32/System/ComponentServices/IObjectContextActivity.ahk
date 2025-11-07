@@ -7,14 +7,14 @@
  * Retrieves the activity identifier associated with the current object context.
  * @remarks
  * 
-  * You obtain a reference to an object's <b>IObjectContextActivity</b> interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on the object's context, as in the following example:
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>hr = m_pIObjectContext-&gt;QueryInterface(
-  *             IID_IObjectContextActivity, 
-  *             (void**)&amp;m_pIObjectContextActivity);
-  * </code></pre>
-  * 
-  * 
+ * You obtain a reference to an object's <b>IObjectContextActivity</b> interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on the object's context, as in the following example:
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>hr = m_pIObjectContext-&gt;QueryInterface(
+ *             IID_IObjectContextActivity, 
+ *             (void**)&amp;m_pIObjectContextActivity);
+ * </code></pre>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iobjectcontextactivity
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319

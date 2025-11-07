@@ -8,8 +8,8 @@
  * Provides access to ITfReverseConversion objects, which are used to perform reverse conversions.
  * @remarks
  * 
-  * A reverse conversion provides the keystroke sequences required to create the specified string.
-  * 
+ * A reverse conversion provides the keystroke sequences required to create the specified string.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfreverseconversionmgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

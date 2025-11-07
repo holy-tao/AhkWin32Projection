@@ -5,9 +5,9 @@
  * Provides the data for a single country/region entry.
  * @remarks
  * 
-  * This structure cannot be extended.
-  * 
-  * 
+ * This structure cannot be extended.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linecountryentry
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

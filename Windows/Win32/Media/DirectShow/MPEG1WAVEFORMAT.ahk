@@ -6,54 +6,54 @@
  * The MPEG1WAVEFORMAT structure describes the format of MPEG-1 audio data.
  * @remarks
  * 
-  * For MPEG-1 audio, the <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure defined in the <b>wfx</b> member must have the following values.
-  * 
-  * <table>
-  * <tr>
-  * <th>WAVEFORMATEX Member
-  *             </th>
-  * <th>Description
-  *             </th>
-  * </tr>
-  * <tr>
-  * <td><b>wFormatTag</b></td>
-  * <td>Must be WAVE_FORMAT_MPEG</td>
-  * </tr>
-  * <tr>
-  * <td><b>nChannels</b></td>
-  * <td>1 for mono, 2 for stereo</td>
-  * </tr>
-  * <tr>
-  * <td><b>nSamplesPerSec</b></td>
-  * <td>Specifies the sampling frequency, if the sampling frequency is fixed. If it is variable, set this field to zero.</td>
-  * </tr>
-  * <tr>
-  * <td><b>nAvgBytesPerSec</b></td>
-  * <td>Specifies the average data rate. If variable bitrate encoding is used under layer 3, the value might not be a legal MPEG-1 bit rate.</td>
-  * </tr>
-  * <tr>
-  * <td><b>nBlockAlign</b></td>
-  * <td>For audio streams with a fixed audio frame length, this field specifies the length of the audio frame. If the frame length is variable, set this field to 1.If the sampling frequency is 32 kHz or 48 kHz and the bit rate is constant, the audio frame size is constant. In that case, calculate <b>nBlockAlign</b> as follows:
-  * 
-  * <ul>
-  * <li>Layer 1: <c>4 * (int)(12 * bitrate / sampling frequency)</c></li>
-  * <li>Layers 2 and 3: <c>(int)(144 * bitrate / sampling frequency)</c></li>
-  * </ul>
-  * If the bit rate is variable or the sampling frequency is 44.1 kHz, the audio frame size is not constant and <b>nBlockAlign</b> should be 1.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><b>wBitsPerSample</b></td>
-  * <td>Not used; set to zero.</td>
-  * </tr>
-  * <tr>
-  * <td><b>cbSize</b></td>
-  * <td>Specifies the size of the format data after the <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure, in bytes. For the standard <b>MPEG1WAVEFORMAT</b> structure, this value is 22 bytes.</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * For MPEG-1 audio, the <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure defined in the <b>wfx</b> member must have the following values.
+ * 
+ * <table>
+ * <tr>
+ * <th>WAVEFORMATEX Member
+ *             </th>
+ * <th>Description
+ *             </th>
+ * </tr>
+ * <tr>
+ * <td><b>wFormatTag</b></td>
+ * <td>Must be WAVE_FORMAT_MPEG</td>
+ * </tr>
+ * <tr>
+ * <td><b>nChannels</b></td>
+ * <td>1 for mono, 2 for stereo</td>
+ * </tr>
+ * <tr>
+ * <td><b>nSamplesPerSec</b></td>
+ * <td>Specifies the sampling frequency, if the sampling frequency is fixed. If it is variable, set this field to zero.</td>
+ * </tr>
+ * <tr>
+ * <td><b>nAvgBytesPerSec</b></td>
+ * <td>Specifies the average data rate. If variable bitrate encoding is used under layer 3, the value might not be a legal MPEG-1 bit rate.</td>
+ * </tr>
+ * <tr>
+ * <td><b>nBlockAlign</b></td>
+ * <td>For audio streams with a fixed audio frame length, this field specifies the length of the audio frame. If the frame length is variable, set this field to 1.If the sampling frequency is 32 kHz or 48 kHz and the bit rate is constant, the audio frame size is constant. In that case, calculate <b>nBlockAlign</b> as follows:
+ * 
+ * <ul>
+ * <li>Layer 1: <c>4 * (int)(12 * bitrate / sampling frequency)</c></li>
+ * <li>Layers 2 and 3: <c>(int)(144 * bitrate / sampling frequency)</c></li>
+ * </ul>
+ * If the bit rate is variable or the sampling frequency is 44.1 kHz, the audio frame size is not constant and <b>nBlockAlign</b> should be 1.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><b>wBitsPerSample</b></td>
+ * <td>Not used; set to zero.</td>
+ * </tr>
+ * <tr>
+ * <td><b>cbSize</b></td>
+ * <td>Specifies the size of the format data after the <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure, in bytes. For the standard <b>MPEG1WAVEFORMAT</b> structure, this value is 22 bytes.</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mmreg/ns-mmreg-mpeg1waveformat
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

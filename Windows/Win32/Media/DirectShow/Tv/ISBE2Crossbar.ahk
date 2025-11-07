@@ -9,8 +9,8 @@
  * Defines crossbar functionality for a Stream Buffer Engine (SBE) version 2 (SBE2) Stream Buffer Source filter.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2Crossbar)</c>.
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2Crossbar)</c>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-isbe2crossbar
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

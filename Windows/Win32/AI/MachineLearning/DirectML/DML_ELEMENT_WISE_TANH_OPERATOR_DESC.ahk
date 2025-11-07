@@ -5,9 +5,9 @@
  * Computes the hyperbolic tangent of element of *InputTensor*, placing the result into the corresponding element of *OutputTensor*.
  * @remarks
  * 
-  * An optional scale and bias to apply to the input. If present, this has the effect of applying the function `g(x) = x * scale + bias` to each *input* element prior to computing this operator.
-  * 
-  * 
+ * An optional scale and bias to apply to the input. If present, this has the effect of applying the function `g(x) = x * scale + bias` to each *input* element prior to computing this operator.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_element_wise_tanh_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319

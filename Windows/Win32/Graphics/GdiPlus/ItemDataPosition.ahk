@@ -4,9 +4,9 @@
  * The ItemDataPosition enumeration is used to specify the location of custom metadata in an image file.
  * @remarks
  * 
-  * GDI+ supports custom metadata for JPEG, PNG, and GIF image files.
-  * 
-  * 
+ * GDI+ supports custom metadata for JPEG, PNG, and GIF image files.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplusimaging/ne-gdiplusimaging-itemdataposition
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

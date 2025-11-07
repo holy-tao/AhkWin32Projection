@@ -7,14 +7,14 @@
  * Exposes a method that notifies a Shell namespace extension when the ID of an item has changed.
  * @remarks
  * 
-  * <b>IShellChangeNotify</b> is used to let a host of a component communicate the change notifications that it receives to the objects that it hosts. This is used in Windows Explorer to communicate change notifications to band objects.
-  * 
-  * This interface is implemented by all namespace extensions.
-  * 
-  * You do not call this interface directly. <b>IShellChangeNotify</b> is used by the operating system only when it has confirmed that your application is aware of this interface.
-  * 
-  * <b>IShellChangeNotify</b> implements <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> as well as the listed method.
-  * 
+ * <b>IShellChangeNotify</b> is used to let a host of a component communicate the change notifications that it receives to the objects that it hosts. This is used in Windows Explorer to communicate change notifications to band objects.
+ * 
+ * This interface is implemented by all namespace extensions.
+ * 
+ * You do not call this interface directly. <b>IShellChangeNotify</b> is used by the operating system only when it has confirmed that your application is aware of this interface.
+ * 
+ * <b>IShellChangeNotify</b> implements <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> as well as the listed method.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-ishellchangenotify
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

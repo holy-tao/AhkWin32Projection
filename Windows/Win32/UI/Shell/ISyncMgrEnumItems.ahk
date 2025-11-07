@@ -8,13 +8,13 @@
  * Exposes methods that enumerate through an array of SYNCMGRITEM structures.
  * @remarks
  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * If the registered application works with the synchronization manager to synchronize items, it must implement an enumerator object with this interface to enumerate through the items.
-  * 
-  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
-  * The synchronization manager obtains a pointer to this interface and calls each method during the synchronization process.
-  * 
-  * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * If the registered application works with the synchronization manager to synchronize items, it must implement an enumerator object with this interface to enumerate through the items.
+ * 
+ * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
+ * The synchronization manager obtains a pointer to this interface and calls each method during the synchronization process.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mobsync/nn-mobsync-isyncmgrenumitems
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

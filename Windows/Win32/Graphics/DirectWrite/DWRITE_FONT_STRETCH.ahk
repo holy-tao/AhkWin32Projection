@@ -4,15 +4,15 @@
  * Represents the degree to which a font has been stretched compared to a font's normal aspect ratio.
  * @remarks
  * 
-  * A font stretch describes the degree to which a font form is stretched from its normal aspect ratio, which is the original width to height ratio specified for the glyphs in the font. 
-  * The following illustration shows an example of Normal and Condensed stretches for the Rockwell Bold typeface.
-  * 
-  * <img alt="Illustration of “D2D” text in Normal and Condensed font stretch" src="./images/FontStretch_for_RockwellBold.png"/>
-  * 
-  * <div class="alert"><b>Note</b>  Values other than the ones defined in the enumeration are considered to be invalid, and are rejected by font API functions.</div>
-  * <div> </div>
-  * 
-  * 
+ * A font stretch describes the degree to which a font form is stretched from its normal aspect ratio, which is the original width to height ratio specified for the glyphs in the font. 
+ * The following illustration shows an example of Normal and Condensed stretches for the Rockwell Bold typeface.
+ * 
+ * <img alt="Illustration of “D2D” text in Normal and Condensed font stretch" src="./images/FontStretch_for_RockwellBold.png"/>
+ * 
+ * <div class="alert"><b>Note</b>  Values other than the ones defined in the enumeration are considered to be invalid, and are rejected by font API functions.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_font_stretch
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

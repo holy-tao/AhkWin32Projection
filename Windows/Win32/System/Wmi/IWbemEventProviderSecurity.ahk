@@ -7,9 +7,9 @@
  * The IWbemEventProviderSecurity interface is optionally implemented by event providers who want to restrict consumer access to their event. For more information about when to use this interface, see Securing WMI Events.
  * @remarks
  * 
-  * This method is automatically called by Windows Management whenever a new consumer attempts to subscribe to an event where the event provider has implemented 
-  * <b>IWbemEventProviderSecurity</b>. If the consumer has access permission for the event the consumer is subscribed to the event; otherwise, the subscription is denied.
-  * 
+ * This method is automatically called by Windows Management whenever a new consumer attempts to subscribe to an event where the event provider has implemented 
+ * <b>IWbemEventProviderSecurity</b>. If the consumer has access permission for the event the consumer is subscribed to the event; otherwise, the subscription is denied.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nn-wbemprov-iwbemeventprovidersecurity
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319

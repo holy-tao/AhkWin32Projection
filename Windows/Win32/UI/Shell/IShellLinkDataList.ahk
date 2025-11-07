@@ -7,57 +7,57 @@
  * Exposes methods that allow an application to attach extra data blocks to a Shell link. These methods add, copy, or remove data blocks.
  * @remarks
  * 
-  * The data blocks are in the form of a structure. The first two members are the same for all data blocks. The first member gives the structure's size. The second member is a signature that identifies the type of data block. The remaining members hold the block's data. There are five types of data block currently supported.
-  * 				
-  * 
-  * 
-  * <table class="clsStd">
-  * <tr>
-  * <th>Data block structure</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-exp_darwin_link">EXP_DARWIN_LINK</a>
-  * </td>
-  * <td>The link's Windows Installer ID.</td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-exp_special_folder">EXP_SPECIAL_FOLDER</a>
-  * </td>
-  * <td>Special folder information.</td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-exp_sz_link">EXP_SZ_LINK</a>
-  * </td>
-  * <td>The target name.</td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-nt_console_props">NT_CONSOLE_PROPS</a>
-  * </td>
-  * <td>Console properties.</td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-nt_fe_console_props">NT_FE_CONSOLE_PROPS</a>
-  * </td>
-  * <td>The console's code page.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * 
-  * 
-  * This interface is not implemented by applications.
-  * 
-  * Use this interface if your application needs to add extra data blocks to a Shell link.
-  * 
-  * <div class="alert"><b>Note</b>  <b>Windows Vista and later.</b> Prior to Windows Vista this interface was declared in Shlobj.h.</div>
-  * <div> </div>
-  * 
+ * The data blocks are in the form of a structure. The first two members are the same for all data blocks. The first member gives the structure's size. The second member is a signature that identifies the type of data block. The remaining members hold the block's data. There are five types of data block currently supported.
+ * 				
+ * 
+ * 
+ * <table class="clsStd">
+ * <tr>
+ * <th>Data block structure</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-exp_darwin_link">EXP_DARWIN_LINK</a>
+ * </td>
+ * <td>The link's Windows Installer ID.</td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-exp_special_folder">EXP_SPECIAL_FOLDER</a>
+ * </td>
+ * <td>Special folder information.</td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-exp_sz_link">EXP_SZ_LINK</a>
+ * </td>
+ * <td>The target name.</td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-nt_console_props">NT_CONSOLE_PROPS</a>
+ * </td>
+ * <td>Console properties.</td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-nt_fe_console_props">NT_FE_CONSOLE_PROPS</a>
+ * </td>
+ * <td>The console's code page.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
+ * This interface is not implemented by applications.
+ * 
+ * Use this interface if your application needs to add extra data blocks to a Shell link.
+ * 
+ * <div class="alert"><b>Note</b>  <b>Windows Vista and later.</b> Prior to Windows Vista this interface was declared in Shlobj.h.</div>
+ * <div> </div>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ishelllinkdatalist
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

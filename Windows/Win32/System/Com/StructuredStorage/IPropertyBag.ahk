@@ -7,7 +7,7 @@
  * Provides an object with a property bag in which the object can save its properties persistently.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-ipropertybag
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319

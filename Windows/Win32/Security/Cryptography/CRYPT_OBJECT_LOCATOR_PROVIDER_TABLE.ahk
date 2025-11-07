@@ -5,9 +5,9 @@
  * Contains pointers to functions implemented by an object location provider.
  * @remarks
  * 
-  * No pointers in this table can be <b>NULL</b>. The client application does not free this structure. It is expected that the provider will return a table that is not allocated on the heap.
-  * 
-  * 
+ * No pointers in this table can be <b>NULL</b>. The client application does not free this structure. It is expected that the provider will return a table that is not allocated on the heap.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_object_locator_provider_table
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319

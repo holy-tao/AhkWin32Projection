@@ -7,9 +7,9 @@
  * The ITfTextLayoutSink interface supports the context layout change by an application. Install this advise sink by calling ITfSource::AdviseSink with IID_ITfTextLayoutSink. A text service can optionally implement this interface.
  * @remarks
  * 
-  * TSF does not currently support multiple views; some features of this interface are limited.
-  * 
-  * 
+ * TSF does not currently support multiple views; some features of this interface are limited.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itftextlayoutsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

@@ -8,14 +8,14 @@
  * Contains low-level information used to render a glyph run.
  * @remarks
  * 
-  * The alpha texture can be a   bi-level alpha  texture or a ClearType alpha texture.  
-  * 
-  * A bi-level alpha texture contains one byte per pixel, therefore the size of the buffer for a bi-level texture will be the area of the texture bounds, in bytes. Each byte in a bi-level alpha texture created by <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteglyphrunanalysis-createalphatexture">CreateAlphaTexture</a> is either set to DWRITE_ALPHA_MAX (that is, 255) or zero.
-  * 
-  * A ClearType alpha texture contains three bytes per pixel, therefore the size of the buffer for a ClearType alpha texture is three times the area of the texture bounds, in bytes.
-  * 
-  * 
-  * 
+ * The alpha texture can be a   bi-level alpha  texture or a ClearType alpha texture.  
+ * 
+ * A bi-level alpha texture contains one byte per pixel, therefore the size of the buffer for a bi-level texture will be the area of the texture bounds, in bytes. Each byte in a bi-level alpha texture created by <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteglyphrunanalysis-createalphatexture">CreateAlphaTexture</a> is either set to DWRITE_ALPHA_MAX (that is, 255) or zero.
+ * 
+ * A ClearType alpha texture contains three bytes per pixel, therefore the size of the buffer for a ClearType alpha texture is three times the area of the texture bounds, in bytes.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwriteglyphrunanalysis
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

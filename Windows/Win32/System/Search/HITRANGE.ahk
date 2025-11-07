@@ -5,9 +5,9 @@
  * Identifies the range of matching data when query search conditions match indexed data.
  * @remarks
  * 
-  * The <b>HITRANGE</b> structure is useful for identifying where a search term matches the content from returned results, and for hit highlighting in user interfaces.
-  * 
-  * 
+ * The <b>HITRANGE</b> structure is useful for identifying where a search term matches the content from returned results, and for hit highlighting in user interfaces.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//structuredquery/ns-structuredquery-hitrange
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319

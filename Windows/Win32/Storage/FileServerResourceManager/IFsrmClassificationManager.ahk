@@ -13,44 +13,44 @@
  * Manages file classification. Use this interface to define properties to use in classification, add classification rules for classifying files, define classification and storage modules, and enable classification reporting.
  * @remarks
  * 
-  * To create this object from a script, use the "Fsrm.FsrmClassificationManager" program 
-  *     identifier.
-  * 
-  * The classification feature lets you classify (tag) files. To do this the properties that can be associated with 
-  *      a file must first be defined using 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-createpropertydefinition">CreatePropertyDefinition</a>. 
-  *      Once a property is defined it may be set using APIs such as 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-setfileproperty">SetFileProperty</a>, retrieved 
-  *      using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-getfileproperty">GetFileProperty</a> or 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-enumfileproperties">EnumFileProperties</a>, or 
-  *      cleared using 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-clearfileproperty">ClearFileProperty</a>. 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager2-classifyfiles">ClassifyFiles</a> performs these 
-  *      actions on multiple files. Alternatively a series of rules to automatically classify files can be created. If a 
-  *      rule applies to the file, the rule associates a property and property value with the file. The property can be 
-  *      stored separately from the file or stored in the file depending on the storage module available on the 
-  *      machine.
-  * 
-  * The built-in System Cache Storage Module stores the properties outside of the file using alternate data stream 
-  *      storage and the security descriptor (Windows Server 2012 and Windows 8 only). Storing the 
-  *      properties separately may result in them not moving when the file is moved.
-  * 
-  * The Office Storage Modules store the classification properties in the Office files themselves. One parser is 
-  *      for Office 97-2003 files, and the other is for Office 2007-2010 files. Office files that contain the 
-  *      classification properties in the file can have the properties displayed in SharePoint if the property names match 
-  *      the SharePoint column names. Updating the column values in SharePoint updates the properties in the file. Note 
-  *      that SharePoint treats these names as case-sensitive, therefore the property definition's name defined in FSRM 
-  *      must have the same case when uploading to SharePoint.
-  * 
-  * You can use the classification and storage plugins or you can implement your own classification and storage 
-  *      plugins. Note that the built-in Content Classifier plugin uses the 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface to search the content of the file.
-  * 
-  * When you run classification, FSRM evaluates a files for any rule that is applicable to that file (and committed 
-  *      to FSRM) and enabled. If reporting is enabled, FSRM also generates the classification reports.
-  * 
-  * 
-  * 
+ * To create this object from a script, use the "Fsrm.FsrmClassificationManager" program 
+ *     identifier.
+ * 
+ * The classification feature lets you classify (tag) files. To do this the properties that can be associated with 
+ *      a file must first be defined using 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-createpropertydefinition">CreatePropertyDefinition</a>. 
+ *      Once a property is defined it may be set using APIs such as 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-setfileproperty">SetFileProperty</a>, retrieved 
+ *      using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-getfileproperty">GetFileProperty</a> or 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-enumfileproperties">EnumFileProperties</a>, or 
+ *      cleared using 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-clearfileproperty">ClearFileProperty</a>. 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager2-classifyfiles">ClassifyFiles</a> performs these 
+ *      actions on multiple files. Alternatively a series of rules to automatically classify files can be created. If a 
+ *      rule applies to the file, the rule associates a property and property value with the file. The property can be 
+ *      stored separately from the file or stored in the file depending on the storage module available on the 
+ *      machine.
+ * 
+ * The built-in System Cache Storage Module stores the properties outside of the file using alternate data stream 
+ *      storage and the security descriptor (Windows Server 2012 and Windows 8 only). Storing the 
+ *      properties separately may result in them not moving when the file is moved.
+ * 
+ * The Office Storage Modules store the classification properties in the Office files themselves. One parser is 
+ *      for Office 97-2003 files, and the other is for Office 2007-2010 files. Office files that contain the 
+ *      classification properties in the file can have the properties displayed in SharePoint if the property names match 
+ *      the SharePoint column names. Updating the column values in SharePoint updates the properties in the file. Note 
+ *      that SharePoint treats these names as case-sensitive, therefore the property definition's name defined in FSRM 
+ *      must have the same case when uploading to SharePoint.
+ * 
+ * You can use the classification and storage plugins or you can implement your own classification and storage 
+ *      plugins. Note that the built-in Content Classifier plugin uses the 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface to search the content of the file.
+ * 
+ * When you run classification, FSRM evaluates a files for any rule that is applicable to that file (and committed 
+ *      to FSRM) and enabled. If reporting is enabled, FSRM also generates the classification reports.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmclassificationmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

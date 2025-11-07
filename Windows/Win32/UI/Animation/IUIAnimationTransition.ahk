@@ -7,16 +7,16 @@
  * Defines a transition, which determines how an animation variable changes over time.
  * @remarks
  * 
-  * <b>IUIAnimationTransition</b> is one of the primary interfaces used to add animation to an application,
-  *          along with 
-  *          the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationvariable">IUIAnimationVariable</a> and 
-  *          <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationstoryboard">IUIAnimationStoryboard</a> interfaces.
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317028(v=vs.85)">UIAnimationTransitionLibrary</a> implements
-  *          a library of standard transitions.
-  * 
-  * 
+ * <b>IUIAnimationTransition</b> is one of the primary interfaces used to add animation to an application,
+ *          along with 
+ *          the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationvariable">IUIAnimationVariable</a> and 
+ *          <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationstoryboard">IUIAnimationStoryboard</a> interfaces.
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317028(v=vs.85)">UIAnimationTransitionLibrary</a> implements
+ *          a library of standard transitions.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uianimation/nn-uianimation-iuianimationtransition
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319

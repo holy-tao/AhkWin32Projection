@@ -5,9 +5,9 @@
  * Contains information about the result of hyphenation in a Microsoft Rich Edit control.
  * @remarks
  * 
-  * This structure is used with the <a href="https://docs.microsoft.com/windows/win32/api/richedit/ns-richedit-hyphenateinfo">HYPHENATEINFO</a> structure.
-  * 
-  * 
+ * This structure is used with the <a href="https://docs.microsoft.com/windows/win32/api/richedit/ns-richedit-hyphenateinfo">HYPHENATEINFO</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-hyphresult
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319

@@ -5,9 +5,9 @@
  * The DD_CALLBACKS structure contains entry pointers to the callback functions that a device driver supports.
  * @remarks
  * 
-  * Entries that the display driver does not use should be set to <b>NULL</b>. GDI allocates the memory for this structure and calls the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvenabledirectdraw">DrvEnableDirectDraw</a> function to initialize it.
-  * 
-  * 
+ * Entries that the display driver does not use should be set to <b>NULL</b>. GDI allocates the memory for this structure and calls the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvenabledirectdraw">DrvEnableDirectDraw</a> function to initialize it.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_callbacks
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319

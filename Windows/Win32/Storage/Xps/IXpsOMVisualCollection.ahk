@@ -8,9 +8,9 @@
  * A collection of IXpsOMVisual interface pointers.
  * @remarks
  * 
-  * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
-  * 
-  * 
+ * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisualcollection
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

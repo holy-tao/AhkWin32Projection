@@ -7,14 +7,14 @@
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
  * @remarks
  * 
-  * 
-  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBroadcastEventEx)</c>.
-  * 
-  * 
-  * 
-  * 
-  * 
+ * 
+ * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBroadcastEventEx)</c>.
+ * 
+ * 
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ibroadcasteventex
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

@@ -9,41 +9,41 @@
  * Contains information shared between the PFN_CMSG_GEN_CONTENT_ENCRYPT_KEY, PFN_CMSG_EXPORT_KEY_TRANS, PFN_CMSG_EXPORT_KEY_AGREE, and PFN_CMSG_EXPORT_MAIL_LIST functions.
  * @remarks
  * 
-  * When called with the <i>dwMsgType</i> parameter set to <b>CMSG_ENVELOPED</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentoencode">CryptMsgOpenToEncode</a> function  initializes the <b>CMSG_CONTENT_ENCRYPT_INFO</b> structure from the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_enveloped_encode_info">CMSG_ENVELOPED_ENCODE_INFO</a> structure.
-  * 
-  * If the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_enveloped_encode_info">CMSG_ENVELOPED_ENCODE_INFO</a> structure uses the <b>rgpRecipients</b> member instead of the <b>rgCmsRecipients</b> member, the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentoencode">CryptMsgOpenToEncode</a> function converts the <b>rgpRecipients</b> member structures to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_recipient_encode_info">CMSG_RECIPIENT_ENCODE_INFO</a> structures for the <b>rgCmsRecipients</b> member of the <b>CMSG_CONTENT_ENCRYPT_INFO</b> structure.
-  * 
-  * When the <b>fCNG</b> member is <b>FALSE</b>, the following members can be changed in the <b>CMSG_CONTENT_ENCRYPT_INFO</b> structure:<dl>
-  * <dd><b>hContentEncryptKey</b></dd>
-  * <dd><b>hCryptProv</b></dd>
-  * <dd>The <b>pszObjId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure referred to by the <b>ContentEncryptionAlgorithm</b> member</dd>
-  * <dd>The <b>Parameters</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure referred to by the <b>ContentEncryptionAlgorithm</b> member</dd>
-  * <dd><b>dwFlags</b></dd>
-  * </dl>
-  * 
-  * 
-  * When the <b>fCNG</b> member is <b>TRUE</b>, the following members can be changed in the <b>CMSG_CONTENT_ENCRYPT_INFO</b> structure:<dl>
-  * <dd><b>hCNGContentEncryptKey</b></dd>
-  * <dd><b>pbCNGContentEncryptKeyObject</b></dd>
-  * <dd><b>pbContentEncryptKey</b></dd>
-  * <dd><b>cbContentEncryptKey</b></dd>
-  * <dd>The <b>pszObjId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure referred to by the <b>ContentEncryptionAlgorithm</b> member</dd>
-  * <dd>The <b>Parameters</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure referred to by the <b>ContentEncryptionAlgorithm</b> member</dd>
-  * <dd><b>dwFlags</b></dd>
-  * </dl>
-  * 
-  * 
-  * The following members are read-only:<dl>
-  * <dd><b>cbSize</b></dd>
-  * <dd><b>pvEncryptionAuxInfo</b></dd>
-  * <dd><b>cRecipients</b></dd>
-  * <dd><b>rgCmsRecipients</b></dd>
-  * <dd><b>pfnAlloc</b></dd>
-  * <dd><b>pfnFree</b></dd>
-  * <dd><b>dwEncryptFlags</b></dd>
-  * </dl>
-  * 
-  * 
+ * When called with the <i>dwMsgType</i> parameter set to <b>CMSG_ENVELOPED</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentoencode">CryptMsgOpenToEncode</a> function  initializes the <b>CMSG_CONTENT_ENCRYPT_INFO</b> structure from the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_enveloped_encode_info">CMSG_ENVELOPED_ENCODE_INFO</a> structure.
+ * 
+ * If the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_enveloped_encode_info">CMSG_ENVELOPED_ENCODE_INFO</a> structure uses the <b>rgpRecipients</b> member instead of the <b>rgCmsRecipients</b> member, the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentoencode">CryptMsgOpenToEncode</a> function converts the <b>rgpRecipients</b> member structures to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_recipient_encode_info">CMSG_RECIPIENT_ENCODE_INFO</a> structures for the <b>rgCmsRecipients</b> member of the <b>CMSG_CONTENT_ENCRYPT_INFO</b> structure.
+ * 
+ * When the <b>fCNG</b> member is <b>FALSE</b>, the following members can be changed in the <b>CMSG_CONTENT_ENCRYPT_INFO</b> structure:<dl>
+ * <dd><b>hContentEncryptKey</b></dd>
+ * <dd><b>hCryptProv</b></dd>
+ * <dd>The <b>pszObjId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure referred to by the <b>ContentEncryptionAlgorithm</b> member</dd>
+ * <dd>The <b>Parameters</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure referred to by the <b>ContentEncryptionAlgorithm</b> member</dd>
+ * <dd><b>dwFlags</b></dd>
+ * </dl>
+ * 
+ * 
+ * When the <b>fCNG</b> member is <b>TRUE</b>, the following members can be changed in the <b>CMSG_CONTENT_ENCRYPT_INFO</b> structure:<dl>
+ * <dd><b>hCNGContentEncryptKey</b></dd>
+ * <dd><b>pbCNGContentEncryptKeyObject</b></dd>
+ * <dd><b>pbContentEncryptKey</b></dd>
+ * <dd><b>cbContentEncryptKey</b></dd>
+ * <dd>The <b>pszObjId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure referred to by the <b>ContentEncryptionAlgorithm</b> member</dd>
+ * <dd>The <b>Parameters</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure referred to by the <b>ContentEncryptionAlgorithm</b> member</dd>
+ * <dd><b>dwFlags</b></dd>
+ * </dl>
+ * 
+ * 
+ * The following members are read-only:<dl>
+ * <dd><b>cbSize</b></dd>
+ * <dd><b>pvEncryptionAuxInfo</b></dd>
+ * <dd><b>cRecipients</b></dd>
+ * <dd><b>rgCmsRecipients</b></dd>
+ * <dd><b>pfnAlloc</b></dd>
+ * <dd><b>pfnFree</b></dd>
+ * <dd><b>dwEncryptFlags</b></dd>
+ * </dl>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_content_encrypt_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319

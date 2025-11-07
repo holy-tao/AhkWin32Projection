@@ -7,9 +7,9 @@
  * Exposes methods used for progress notification for encoders and decoders.
  * @remarks
  * 
-  * This interface is not supported by the Windows provided codecs.
-  * 
-  * 
+ * This interface is not supported by the Windows provided codecs.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicbitmapcodecprogressnotification
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319

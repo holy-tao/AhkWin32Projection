@@ -4,9 +4,9 @@
  * Specifies blend factors, which modulate values for the pixel shader and render target.
  * @remarks
  * 
-  * Source and destination blend operations are specified in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_render_target_blend_desc">D3D12_RENDER_TARGET_BLEND_DESC</a> structure.
-  * 
-  * 
+ * Source and destination blend operations are specified in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_render_target_blend_desc">D3D12_RENDER_TARGET_BLEND_DESC</a> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_blend
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

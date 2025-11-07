@@ -10,25 +10,25 @@
  * Used to manage file group objects.
  * @remarks
  * 
-  * FSRM defines the following groups:
-  * 
-  * <ul>
-  * <li>Audio and Video Files</li>
-  * <li>Backup Files</li>
-  * <li>Compressed Files</li>
-  * <li>Email Files</li>
-  * <li>Executable Files</li>
-  * <li>Image Files</li>
-  * <li>Office Files</li>
-  * <li>System Files</li>
-  * <li>Temporary Files</li>
-  * <li>Text Files</li>
-  * <li>Webpage Files</li>
-  * </ul>
-  * To create this object from a script, use the "Fsrm.FsrmFileGroupManager" program 
-  *     identifier.
-  * 
-  * 
+ * FSRM defines the following groups:
+ * 
+ * <ul>
+ * <li>Audio and Video Files</li>
+ * <li>Backup Files</li>
+ * <li>Compressed Files</li>
+ * <li>Email Files</li>
+ * <li>Executable Files</li>
+ * <li>Image Files</li>
+ * <li>Office Files</li>
+ * <li>System Files</li>
+ * <li>Temporary Files</li>
+ * <li>Text Files</li>
+ * <li>Webpage Files</li>
+ * </ul>
+ * To create this object from a script, use the "Fsrm.FsrmFileGroupManager" program 
+ *     identifier.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nn-fsrmscreen-ifsrmfilegroupmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

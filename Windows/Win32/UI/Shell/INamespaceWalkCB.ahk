@@ -7,8 +7,8 @@
  * A callback interface exposing methods used with INamespaceWalk.
  * @remarks
  * 
-  * The IID for this interface is IID_INamespaceWalkCB.
-  * 
+ * The IID for this interface is IID_INamespaceWalkCB.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-inamespacewalkcb
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

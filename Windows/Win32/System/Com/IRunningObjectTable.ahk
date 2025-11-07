@@ -9,13 +9,13 @@
  * Manages access to the running object table (ROT), a globally accessible look-up table on each workstation.
  * @remarks
  * 
-  * The ROT contains entries of the following form: (<i>pmkObjectName</i>, <i>pUnkObject</i>).
-  * 
-  * The <i>pmkObjectName</i> element is a pointer to the moniker that identifies the running object. The <i>pUnkObject</i> element is a pointer to the running object itself. During the binding process, monikers consult the <i>pmkObjectName</i> entries in the ROT to see whether an object is already running.
-  * 
-  * Objects that can be named by monikers must be registered with the ROT when they are loaded and their registration must be revoked when they are no longer running.
-  * 
-  * 
+ * The ROT contains entries of the following form: (<i>pmkObjectName</i>, <i>pUnkObject</i>).
+ * 
+ * The <i>pmkObjectName</i> element is a pointer to the moniker that identifies the running object. The <i>pUnkObject</i> element is a pointer to the running object itself. During the binding process, monikers consult the <i>pmkObjectName</i> entries in the ROT to see whether an object is already running.
+ * 
+ * Objects that can be named by monikers must be registered with the ROT when they are loaded and their registration must be revoked when they are no longer running.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-irunningobjecttable
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

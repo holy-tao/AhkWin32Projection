@@ -10,9 +10,9 @@
  * IVPBaseConfig is implemented on a filter that wraps a hardware device such as a decoder or capture device, if the device has a video port to the graphics adapter.
  * @remarks
  * 
-  * Include Dvp.h and Vptype.h before Vpconfig.h.
-  * 
-  * 
+ * Include Dvp.h and Vptype.h before Vpconfig.h.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vpconfig/nn-vpconfig-ivpbaseconfig
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

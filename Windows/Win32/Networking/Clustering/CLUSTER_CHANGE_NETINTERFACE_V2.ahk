@@ -4,9 +4,9 @@
  * Defines the set of notifications that are generated for a cluster network interface.
  * @remarks
  * 
-  * Protocol version 2.0 servers do not support this enumeration.
-  * 
-  * 
+ * Protocol version 2.0 servers do not support this enumeration.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_change_netinterface_v2
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

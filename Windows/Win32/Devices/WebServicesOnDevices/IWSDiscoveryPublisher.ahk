@@ -8,9 +8,9 @@
  * Provides methods for announcing hosts and managing incoming queries to hosts.
  * @remarks
  * 
-  *  This interface represents the "server" or "host" side of <a href="https://specs.xmlsoap.org/ws/2005/04/discovery/ws-discovery.pdf">WS-Discovery</a>.
-  * 
-  * 
+ *  This interface represents the "server" or "host" side of <a href="https://specs.xmlsoap.org/ws/2005/04/discovery/ws-discovery.pdf">WS-Discovery</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nn-wsddisco-iwsdiscoverypublisher
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319

@@ -5,66 +5,66 @@
  * Defines the properties of a disk object. This structure is identical to the VDS_DISK_PROP structure, except that it also includes the location path and, if the disk is offline, the reason why it is offline.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsdisk3-getproperties2">IVdsDisk3::GetProperties2</a> method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/disk-object">disk object</a>.
-  * 
-  * The following table lists the parts of the location path string used in the <b>pwszLocationPath</b> member.
-  * 
-  * <table>
-  * <tr>
-  * <th>Location path part</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td><i>AdapterPnpLocationPath</i></td>
-  * <td>The adapter's PnP location path. This is retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetdevicepropertyw">SetupDiGetDeviceProperty</a> function, passing &amp;DEVPKEY_Device_LocationPaths for the <i>PropertyKey</i> parameter.</td>
-  * </tr>
-  * <tr>
-  * <td><i>BusType</i></td>
-  * <td>The bus type: ATA, RAID, SAS, or SCSI. <div class="alert"><b>Note</b>  If the bus type is IDE, PATA, or SATA, it appears as ATA in the location path string. If it is PCI RAID, it appears as RAID.</div>
-  * <div> </div>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><i>PathId</i></td>
-  * <td>The number of the bus. This is the value of the <b>PathId</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddscsi/ns-ntddscsi-_scsi_address">SCSI_ADDRESS</a> structure that is returned by the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddscsi/ni-ntddscsi-ioctl_scsi_get_address">IOCTL_SCSI_GET_ADDRESS</a> control code.</td>
-  * </tr>
-  * <tr>
-  * <td><i>TargetId</i></td>
-  * <td>The number of the target device. This is the value of the <b>TargetId</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddscsi/ns-ntddscsi-_scsi_address">SCSI_ADDRESS</a> structure that is returned by the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddscsi/ni-ntddscsi-ioctl_scsi_get_address">IOCTL_SCSI_GET_ADDRESS</a> control code.</td>
-  * </tr>
-  * <tr>
-  * <td><i>LunId</i></td>
-  * <td>The number of the LUN. This is the value of the <b>Lun</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddscsi/ns-ntddscsi-_scsi_address">SCSI_ADDRESS</a> structure that is returned by the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddscsi/ni-ntddscsi-ioctl_scsi_get_address">IOCTL_SCSI_GET_ADDRESS</a> control code.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * The following table contains examples of location paths.
-  * 
-  * <table>
-  * <tr>
-  * <th>Bus type</th>
-  * <th>Example location path</th>
-  * </tr>
-  * <tr>
-  * <td>ATA</td>
-  * <td>PCIROOT(0)#PCI(0100)#ATA(C01T03L00)</td>
-  * </tr>
-  * <tr>
-  * <td>RAID</td>
-  * <td>PCIROOT(0)#PCI(0200)#PCI(0003)#PCI(0100)#RAID(P02T00L00)</td>
-  * </tr>
-  * <tr>
-  * <td>SAS</td>
-  * <td>PCIROOT(1)#PCI(0300)#SAS(P00T03L00)</td>
-  * </tr>
-  * <tr>
-  * <td>SCSI</td>
-  * <td>PCIROOT(0)#PCI(1C00)#PCI(0000)#SCSI(P00T01L01)</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsdisk3-getproperties2">IVdsDisk3::GetProperties2</a> method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/disk-object">disk object</a>.
+ * 
+ * The following table lists the parts of the location path string used in the <b>pwszLocationPath</b> member.
+ * 
+ * <table>
+ * <tr>
+ * <th>Location path part</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td><i>AdapterPnpLocationPath</i></td>
+ * <td>The adapter's PnP location path. This is retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetdevicepropertyw">SetupDiGetDeviceProperty</a> function, passing &amp;DEVPKEY_Device_LocationPaths for the <i>PropertyKey</i> parameter.</td>
+ * </tr>
+ * <tr>
+ * <td><i>BusType</i></td>
+ * <td>The bus type: ATA, RAID, SAS, or SCSI. <div class="alert"><b>Note</b>  If the bus type is IDE, PATA, or SATA, it appears as ATA in the location path string. If it is PCI RAID, it appears as RAID.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><i>PathId</i></td>
+ * <td>The number of the bus. This is the value of the <b>PathId</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddscsi/ns-ntddscsi-_scsi_address">SCSI_ADDRESS</a> structure that is returned by the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddscsi/ni-ntddscsi-ioctl_scsi_get_address">IOCTL_SCSI_GET_ADDRESS</a> control code.</td>
+ * </tr>
+ * <tr>
+ * <td><i>TargetId</i></td>
+ * <td>The number of the target device. This is the value of the <b>TargetId</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddscsi/ns-ntddscsi-_scsi_address">SCSI_ADDRESS</a> structure that is returned by the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddscsi/ni-ntddscsi-ioctl_scsi_get_address">IOCTL_SCSI_GET_ADDRESS</a> control code.</td>
+ * </tr>
+ * <tr>
+ * <td><i>LunId</i></td>
+ * <td>The number of the LUN. This is the value of the <b>Lun</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddscsi/ns-ntddscsi-_scsi_address">SCSI_ADDRESS</a> structure that is returned by the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddscsi/ni-ntddscsi-ioctl_scsi_get_address">IOCTL_SCSI_GET_ADDRESS</a> control code.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * The following table contains examples of location paths.
+ * 
+ * <table>
+ * <tr>
+ * <th>Bus type</th>
+ * <th>Example location path</th>
+ * </tr>
+ * <tr>
+ * <td>ATA</td>
+ * <td>PCIROOT(0)#PCI(0100)#ATA(C01T03L00)</td>
+ * </tr>
+ * <tr>
+ * <td>RAID</td>
+ * <td>PCIROOT(0)#PCI(0200)#PCI(0003)#PCI(0100)#RAID(P02T00L00)</td>
+ * </tr>
+ * <tr>
+ * <td>SAS</td>
+ * <td>PCIROOT(1)#PCI(0300)#SAS(P00T03L00)</td>
+ * </tr>
+ * <tr>
+ * <td>SCSI</td>
+ * <td>PCIROOT(0)#PCI(1C00)#PCI(0000)#SCSI(P00T01L01)</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_disk_prop2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

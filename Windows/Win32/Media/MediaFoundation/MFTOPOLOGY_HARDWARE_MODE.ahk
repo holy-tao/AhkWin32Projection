@@ -4,9 +4,9 @@
  * Specifies whether the topology loader will insert hardware-based Media Foundation transforms (MFTs) into the topology.
  * @remarks
  * 
-  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-topology-hardware-mode">MF_TOPOLOGY_HARDWARE_MODE</a> topology attribute.
-  * 
-  * 
+ * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-topology-hardware-mode">MF_TOPOLOGY_HARDWARE_MODE</a> topology attribute.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mftopology_hardware_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

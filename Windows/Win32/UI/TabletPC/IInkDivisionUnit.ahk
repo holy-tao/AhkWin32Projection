@@ -10,11 +10,11 @@
  * Represents a single structural element within an IInkDivisionResult object.
  * @remarks
  * 
-  * Use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nf-msinkaut15-iinkdivisionunits-item">Item</a> method to return a single element from a <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nn-msinkaut15-iinkdivisionunits">DivisionUnits</a> collection.
-  * 
-  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
-  * 
-  * 
+ * Use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nf-msinkaut15-iinkdivisionunits-item">Item</a> method to return a single element from a <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nn-msinkaut15-iinkdivisionunits">DivisionUnits</a> collection.
+ * 
+ * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msinkaut15/nn-msinkaut15-iinkdivisionunit
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

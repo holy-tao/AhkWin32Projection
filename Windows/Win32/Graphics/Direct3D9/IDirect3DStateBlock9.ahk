@@ -8,18 +8,18 @@
  * Applications use the methods of the IDirect3DStateBlock9 interface to encapsulate render states.
  * @remarks
  * 
-  * This interface can be used to save and restore pipeline state. It can also be used to capture the current state.
-  * 
-  * The LPDIRECT3DSTATEBLOCK9 and PDIRECT3DSTATEBLOCK9 types are defined as pointers to the <b>IDirect3DStateBlock9</b> interface.
-  *     
-  *             
-  * 
-  * 
-  * ```
-  * typedef struct IDirect3DStateBlock9 *LPDIRECT3DSTATEBLOCK9, *PDIRECT3DSTATEBLOCK9;
-  * ```
-  * 
-  * 
+ * This interface can be used to save and restore pipeline state. It can also be used to capture the current state.
+ * 
+ * The LPDIRECT3DSTATEBLOCK9 and PDIRECT3DSTATEBLOCK9 types are defined as pointers to the <b>IDirect3DStateBlock9</b> interface.
+ *     
+ *             
+ * 
+ * 
+ * ```
+ * typedef struct IDirect3DStateBlock9 *LPDIRECT3DSTATEBLOCK9, *PDIRECT3DSTATEBLOCK9;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nn-d3d9helper-idirect3dstateblock9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

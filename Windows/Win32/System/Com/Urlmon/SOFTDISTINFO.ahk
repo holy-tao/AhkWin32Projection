@@ -5,9 +5,9 @@
  * Contains information about a software update.
  * @remarks
  * 
-  * The most-significant unsigned long integer of a version number contains the major and minor version numbers. The least-significant unsigned long integer of the version number contains the custom version and build numbers.
-  * 
-  * 
+ * The most-significant unsigned long integer of a version number contains the major and minor version numbers. The least-significant unsigned long integer of the version number contains the custom version and build numbers.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//urlmon/ns-urlmon-softdistinfo
  * @namespace Windows.Win32.System.Com.Urlmon
  * @version v4.0.30319

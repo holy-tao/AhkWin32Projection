@@ -4,7 +4,7 @@
  * Defines constants that specify render/compute GPU operations.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_auto_breadcrumb_op
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

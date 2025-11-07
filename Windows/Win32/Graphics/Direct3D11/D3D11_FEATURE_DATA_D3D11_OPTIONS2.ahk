@@ -5,18 +5,18 @@
  * Describes Direct3D 11.3 feature options in the current graphics driver.
  * @remarks
  * 
-  * If <b>MapOnDefaultTextures</b> is TRUE, applications may create textures using D3D11_USAGE_DEFAULT in combination with non-zero a D3D11_CPU_ACCESS_FLAG value.
-  *         For performance reasons it is typically undesirable to create a default texture with CPU access flags unless the <b>UnifiedMemoryArchitecture</b> option is TRUE, or CPU / GPU usage of the texture is tightly interleaved.
-  *       
-  * 
-  * Default textures may not be in a mapped state while either bound to the pipeline to referenced by an operation issued to a context.
-  *         Default textures may not be mapped by a deferred context.
-  *         Default textures may not be created shareable.
-  *       
-  * 
-  * See <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_texture_layout">D3D11_TEXTURE_LAYOUT</a> for texture swizzle options and restrictions.
-  * 
-  * 
+ * If <b>MapOnDefaultTextures</b> is TRUE, applications may create textures using D3D11_USAGE_DEFAULT in combination with non-zero a D3D11_CPU_ACCESS_FLAG value.
+ *         For performance reasons it is typically undesirable to create a default texture with CPU access flags unless the <b>UnifiedMemoryArchitecture</b> option is TRUE, or CPU / GPU usage of the texture is tightly interleaved.
+ *       
+ * 
+ * Default textures may not be in a mapped state while either bound to the pipeline to referenced by an operation issued to a context.
+ *         Default textures may not be mapped by a deferred context.
+ *         Default textures may not be created shareable.
+ *       
+ * 
+ * See <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_texture_layout">D3D11_TEXTURE_LAYOUT</a> for texture swizzle options and restrictions.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_feature_data_d3d11_options2
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

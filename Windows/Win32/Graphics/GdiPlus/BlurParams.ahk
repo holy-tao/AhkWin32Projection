@@ -5,8 +5,8 @@
  * A BlurParams structure contains members that specify the nature of a Gaussian blur.
  * @remarks
  * 
-  * One of the two <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusheaders/nf-gdiplusheaders-bitmap-applyeffect(inbitmap_inint_ineffect_inrect_outrect_outbitmap)">Bitmap::ApplyEffect</a> methods blurs a bitmap in place. That particular <a href="https://docs.microsoft.com/previous-versions/ms536321(v=vs.85)">Bitmap::ApplyEffect</a> method ignores the <b>expandEdge</b> parameter.
-  * 
+ * One of the two <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusheaders/nf-gdiplusheaders-bitmap-applyeffect(inbitmap_inint_ineffect_inrect_outrect_outbitmap)">Bitmap::ApplyEffect</a> methods blurs a bitmap in place. That particular <a href="https://docs.microsoft.com/previous-versions/ms536321(v=vs.85)">Bitmap::ApplyEffect</a> method ignores the <b>expandEdge</b> parameter.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdipluseffects/ns-gdipluseffects-blurparams
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

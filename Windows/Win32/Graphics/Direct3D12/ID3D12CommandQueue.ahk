@@ -7,10 +7,10 @@
  * Provides methods for submitting command lists, synchronizing command list execution, instrumenting the command queue, and updating resource tile mappings.
  * @remarks
  * 
-  * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandqueue">ID3D12Device::CreateCommandQueue</a> to create a command queue object. 
-  * 
-  * 
-  * 
+ * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandqueue">ID3D12Device::CreateCommandQueue</a> to create a command queue object. 
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12commandqueue
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

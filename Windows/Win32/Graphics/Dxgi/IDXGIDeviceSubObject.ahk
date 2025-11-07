@@ -7,10 +7,10 @@
  * Inherited from objects that are tied to the device so that they can retrieve a pointer to it.
  * @remarks
  * 
-  * <b>Windows Phone 8:
-  *         </b> This API is supported.
-  * 
-  * 
+ * <b>Windows Phone 8:
+ *         </b> This API is supported.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi/nn-dxgi-idxgidevicesubobject
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

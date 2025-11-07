@@ -8,8 +8,8 @@
  * Enumerates the items of a collection of settings and attributes.
  * @remarks
  * 
-  * SMI and SMI collections are not thread-safe. Modifying a collection will not invalidate an enumerator. Further operations on the enumerator do not result in exceptions, and could encounter an enumerator in an inconsistent state.
-  * 
+ * SMI and SMI collections are not thread-safe. Modifying a collection will not invalidate an enumerator. Further operations on the enumerator do not result in exceptions, and could encounter an enumerator in an inconsistent state.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nn-wcmconfig-iitemenumerator
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319

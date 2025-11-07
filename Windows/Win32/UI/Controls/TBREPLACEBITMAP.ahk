@@ -6,9 +6,9 @@
  * Used with the TB_REPLACEBITMAP message to replace one toolbar bitmap with another.
  * @remarks
  * 
-  * If 
-  * 				<b>nIDNew</b> holds a bitmap handle, rather than a resource ID, do not destroy the bitmap until it has been replaced with <a href="https://docs.microsoft.com/windows/desktop/Controls/tb-replacebitmap">TB_REPLACEBITMAP</a>, or the toolbar is destroyed.
-  * 
+ * If 
+ * 				<b>nIDNew</b> holds a bitmap handle, rather than a resource ID, do not destroy the bitmap until it has been replaced with <a href="https://docs.microsoft.com/windows/desktop/Controls/tb-replacebitmap">TB_REPLACEBITMAP</a>, or the toolbar is destroyed.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-tbreplacebitmap
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319

@@ -9,11 +9,11 @@
  * The IDiscRecorder interface enables access to a single disc recorder device, labeled the active disc recorder. An IMAPI object such as MSDiscMasterObj maintains an active disc recorder.
  * @remarks
  * 
-  * All 
-  * <b>IDiscRecorder</b> interfaces may be used on an 
-  * <b>IDiscRecorder</b> object even if the disc recorder is not the active disc recorder. The IMAPI client does not have to call 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/imapi/nf-imapi-idiscmaster-setactivediscrecorder">IDiscMaster::SetActiveDiscRecorder</a> first.
-  * 
+ * All 
+ * <b>IDiscRecorder</b> interfaces may be used on an 
+ * <b>IDiscRecorder</b> object even if the disc recorder is not the active disc recorder. The IMAPI client does not have to call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/imapi/nf-imapi-idiscmaster-setactivediscrecorder">IDiscMaster::SetActiveDiscRecorder</a> first.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi/nn-imapi-idiscrecorder
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

@@ -4,60 +4,60 @@
  * Used by a writer at backup time to specify through its Writer Metadata Document the default file restore method.
  * @remarks
  * 
-  * A writer sets the restore method in the Writer Metadata Document by calling 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setrestoremethod">IVssCreateWriterMetadata::SetRestoreMethod</a> 
-  *     during backup to specify its desired restore method in its metadata.
-  * 
-  * A requester retrieves a writer's requested restore method by calling 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getrestoremethod">IVssExamineWriterMetadata::GetRestoreMethod</a> 
-  *     and acts accordingly.
-  * 
-  * The restore method applies to all files in all components of a given writer.
-  * 
-  * The restore method may be overridden on a component-by-component basis at restore time if a writer sets a 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restore_target">VSS_RESTORE_TARGET</a> value other than
-  *     <b>VSS_RT_ORIGINAL</b> with 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-setrestoretarget">IVssComponent::SetRestoreTarget</a>.
-  * 
-  * A restore method of <b>VSS_RME_RESTORE_TO_ALTERNATE_LOCATION</b> without an alternate 
-  *     location mapping defined constitutes a writer error, and the requester should report it as such.
-  * 
-  * When a restore method requires a check on the status of files currently on disk 
-  *     (<b>VSS_RME_RESTORE_IF_NOT_THERE</b>, 
-  *     <b>VSS_RME_RESTORE_IF_CAN_REPLACE</b>, or 
-  *     <b>VSS_RME_RESTORE_AT_REBOOT_IF_CANNOT_REPLACE</b>), ideally, you should use file I/O 
-  *     operations to verify that an entire component can be restored before actually proceeding with the restore.
-  * 
-  * The safest way to do this would be to open exclusively (no-sharing) all the target files with 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> prior to the restore.
-  * 
-  * In the case of <b>VSS_RME_RESTORE_IF_NOT_THERE</b>, a creation disposition flag of 
-  *     <b>CREATE_NEW</b> should also be set.
-  * 
-  * If the open operations succeed, the restore can proceed and should use the handles returned by 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> to actually write restored data to disk.
-  * 
-  * If not, an error can be returned—depending on the method—or 
-  *     alternate location mapping checked and (if it is available) used, or the components files staged for restore at 
-  *     the next reboot.
-  * 
-  * This may be a problem for very large components (some of which may have thousands of files), due to system 
-  *     overhead.
-  * 
-  * In this case, an available though less reliable option is to do the following:
-  * 
-  * <ol>
-  * <li>Copy all files currently on disk and to be restored to a temporary cache.</li>
-  * <li>Attempt to replace the files currently on disk with the backed-up files (which could be either on disk in a 
-  *       second temporary area, or on a backup medium).</li>
-  * <li>If any files fail to restore, then terminate the restore operation and copy the original files back from 
-  *       their temporary location and proceed with alternate location mapping or restore on reboot operations.</li>
-  * </ol>
-  * For more information on backup and restore file locations under VSS, see 
-  *     <a href="https://docs.microsoft.com/windows/desktop/VSS/non-default-backup-and-restore-locations">Non-Default Backup And Restore 
-  *     Locations</a>.
-  * 
-  * 
+ * A writer sets the restore method in the Writer Metadata Document by calling 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setrestoremethod">IVssCreateWriterMetadata::SetRestoreMethod</a> 
+ *     during backup to specify its desired restore method in its metadata.
+ * 
+ * A requester retrieves a writer's requested restore method by calling 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getrestoremethod">IVssExamineWriterMetadata::GetRestoreMethod</a> 
+ *     and acts accordingly.
+ * 
+ * The restore method applies to all files in all components of a given writer.
+ * 
+ * The restore method may be overridden on a component-by-component basis at restore time if a writer sets a 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restore_target">VSS_RESTORE_TARGET</a> value other than
+ *     <b>VSS_RT_ORIGINAL</b> with 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-setrestoretarget">IVssComponent::SetRestoreTarget</a>.
+ * 
+ * A restore method of <b>VSS_RME_RESTORE_TO_ALTERNATE_LOCATION</b> without an alternate 
+ *     location mapping defined constitutes a writer error, and the requester should report it as such.
+ * 
+ * When a restore method requires a check on the status of files currently on disk 
+ *     (<b>VSS_RME_RESTORE_IF_NOT_THERE</b>, 
+ *     <b>VSS_RME_RESTORE_IF_CAN_REPLACE</b>, or 
+ *     <b>VSS_RME_RESTORE_AT_REBOOT_IF_CANNOT_REPLACE</b>), ideally, you should use file I/O 
+ *     operations to verify that an entire component can be restored before actually proceeding with the restore.
+ * 
+ * The safest way to do this would be to open exclusively (no-sharing) all the target files with 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> prior to the restore.
+ * 
+ * In the case of <b>VSS_RME_RESTORE_IF_NOT_THERE</b>, a creation disposition flag of 
+ *     <b>CREATE_NEW</b> should also be set.
+ * 
+ * If the open operations succeed, the restore can proceed and should use the handles returned by 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> to actually write restored data to disk.
+ * 
+ * If not, an error can be returned—depending on the method—or 
+ *     alternate location mapping checked and (if it is available) used, or the components files staged for restore at 
+ *     the next reboot.
+ * 
+ * This may be a problem for very large components (some of which may have thousands of files), due to system 
+ *     overhead.
+ * 
+ * In this case, an available though less reliable option is to do the following:
+ * 
+ * <ol>
+ * <li>Copy all files currently on disk and to be restored to a temporary cache.</li>
+ * <li>Attempt to replace the files currently on disk with the backed-up files (which could be either on disk in a 
+ *       second temporary area, or on a backup medium).</li>
+ * <li>If any files fail to restore, then terminate the restore operation and copy the original files back from 
+ *       their temporary location and proceed with alternate location mapping or restore on reboot operations.</li>
+ * </ol>
+ * For more information on backup and restore file locations under VSS, see 
+ *     <a href="https://docs.microsoft.com/windows/desktop/VSS/non-default-backup-and-restore-locations">Non-Default Backup And Restore 
+ *     Locations</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vswriter/ne-vswriter-vss_restoremethod_enum
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319

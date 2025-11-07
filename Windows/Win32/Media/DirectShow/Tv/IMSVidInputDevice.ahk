@@ -7,9 +7,9 @@
  * The IMSVidInputDevice interface represents any input device that is recognized by the Video Control, such as a television tuner card.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidInputDevice)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidInputDevice)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidinputdevice
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

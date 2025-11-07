@@ -7,10 +7,10 @@
  * Exposes methods that allow a client to append or remove an object from a collection of objects managed by a server object.
  * @remarks
  * 
-  * This interface is implemented by objects that manage a collection of other objects. It is exported to allow clients of the object to request that objects be added to or removed from the collection.
-  * 
-  * Use this interface to add or delete an object from the server object's collection of managed objects.
-  * 
+ * This interface is implemented by objects that manage a collection of other objects. It is exported to allow clients of the object to request that objects be added to or removed from the collection.
+ * 
+ * Use this interface to add or delete an object from the server object's collection of managed objects.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-iobjmgr
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * The IEvalRat interface is used to evaluate content ratings carried by a broadcast stream.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IEvalRat)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IEvalRat)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tvratings/nn-tvratings-ievalrat
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

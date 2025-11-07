@@ -5,9 +5,9 @@
  * Contains or receives information for a specific button in a toolbar.
  * @remarks
  * 
-  * > [!NOTE]
-  * > The commctrl.h header defines TBBUTTONINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
+ * > [!NOTE]
+ * > The commctrl.h header defines TBBUTTONINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-tbbuttoninfoa
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319

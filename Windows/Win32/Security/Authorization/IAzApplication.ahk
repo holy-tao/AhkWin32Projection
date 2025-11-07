@@ -20,9 +20,9 @@
  * Defines an installed instance of an application. An IAzApplication object is created when an application is installed.
  * @remarks
  * 
-  * The <b>IAzApplication</b> object is a container in which all authorization policies that apply to an instance of an application reside.
-  * 
-  * 
+ * The <b>IAzApplication</b> object is a container in which all authorization policies that apply to an instance of an application reside.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazapplication
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319

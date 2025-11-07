@@ -8,9 +8,9 @@
  * Contains the properties that are available only from a Windows driver update.
  * @remarks
  * 
-  * None of the IWindowsDriverUpdateEntry properties are expected to return any errors (other than E_POINTER if <b>NULL</b> is passed to the property).
-  * 
-  * 
+ * None of the IWindowsDriverUpdateEntry properties are expected to return any errors (other than E_POINTER if <b>NULL</b> is passed to the property).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iwindowsdriverupdateentry
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

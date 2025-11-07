@@ -4,8 +4,8 @@
  * Contains values that specify the type of certificate used to obtain a license.
  * @remarks
  * 
-  * This enumeration is used by the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_license_capabilities">WTS_LICENSE_CAPABILITIES</a> structure.
-  * 
+ * This enumeration is used by the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_license_capabilities">WTS_LICENSE_CAPABILITIES</a> structure.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ne-wtsdefs-wts_cert_type
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319

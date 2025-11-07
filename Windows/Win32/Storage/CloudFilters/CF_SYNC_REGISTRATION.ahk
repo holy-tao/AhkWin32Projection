@@ -5,9 +5,9 @@
  * The details of the sync provider and sync root to be registered.
  * @remarks
  * 
-  * <b>SyncRootIdentity</b> and <b>SyncRootIdentityLength</b> are optional members. If not used, set <b>SyncRootIdentity</b> to <b>nullptr</b> and <b>SyncRootIdentityLength</b> to <b>0</b>. <b>FileIdentity</b> and <b>FileIdentityLength</b> are also optional and if not used should be set to <b>nullptr</b> and <b>0</b>, respectively.
-  * 
-  * 
+ * <b>SyncRootIdentity</b> and <b>SyncRootIdentityLength</b> are optional members. If not used, set <b>SyncRootIdentity</b> to <b>nullptr</b> and <b>SyncRootIdentityLength</b> to <b>0</b>. <b>FileIdentity</b> and <b>FileIdentityLength</b> are also optional and if not used should be set to <b>nullptr</b> and <b>0</b>, respectively.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_sync_registration
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319

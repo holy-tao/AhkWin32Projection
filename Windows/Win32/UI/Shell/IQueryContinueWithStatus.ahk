@@ -7,8 +7,8 @@
  * Exposes methods that provide a standard mechanism for credential providers to call QueryContinue while attempting to connect to the network to determine if they should continue these attempts.
  * @remarks
  * 
-  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iquerycontinue">IQueryContinue</a> interface, from which it inherits.
-  * 
+ * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iquerycontinue">IQueryContinue</a> interface, from which it inherits.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nn-credentialprovider-iquerycontinuewithstatus
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

@@ -5,8 +5,8 @@
  * Contains information about a button in a toolbar.
  * @remarks
  * 
-  * The <b>iString</b> member can return either a string pointer or an index. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-is_intresource">IS_INTRESOURCE</a> macro to determine which is returned.
-  * 
+ * The <b>iString</b> member can return either a string pointer or an index. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-is_intresource">IS_INTRESOURCE</a> macro to determine which is returned.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-tbbutton
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319

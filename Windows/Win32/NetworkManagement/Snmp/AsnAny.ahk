@@ -7,9 +7,9 @@
  * The AsnAny structure contains an SNMP variable type and value. This structure is a member of the SnmpVarBind structure that is used as a parameter in many of the SNMP functions. This structure is not used by the WinSNMP API functions.
  * @remarks
  * 
-  * To use the definition of the Unsigned32 type described in RFC 1902, you can specify the ASN_GAUGE32 variable type. Currently the ASN_UNSIGNED32 variable type specifies the UInteger32 type described in RFC 1442.
-  * 
-  * 
+ * To use the definition of the Unsigned32 type described in RFC 1902, you can specify the ASN_GAUGE32 variable type. Currently the ASN_UNSIGNED32 variable type specifies the UInteger32 type described in RFC 1442.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//snmp/ns-snmp-asnany
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319

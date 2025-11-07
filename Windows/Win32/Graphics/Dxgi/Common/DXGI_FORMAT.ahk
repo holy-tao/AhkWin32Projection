@@ -4,158 +4,158 @@
  * Resource data formats, including fully-typed and typeless formats. A list of modifiers at the bottom of the page more fully describes each format type.
  * @remarks
  * 
-  * <h3><a id="Byte_Order__LSB_MSB_"></a><a id="byte_order__lsb_msb_"></a><a id="BYTE_ORDER__LSB_MSB_"></a>Byte Order (LSB/MSB)</h3>
-  * Most formats have byte-aligned components, and the components are in C-array order (the least address comes first).
-  *             For those formats that don't have power-of-2-aligned components, the first named component is in the least-significant bits.
-  *           
-  * 
-  * <h3><a id="Portable_Coding_for_Endian-Independence"></a><a id="portable_coding_for_endian-independence"></a><a id="PORTABLE_CODING_FOR_ENDIAN-INDEPENDENCE"></a>Portable Coding for Endian-Independence</h3>
-  * Rather than adjusting for whether a system uses big-endian or little-endian byte ordering, you should write portable code, as follows.
-  *           
-  * 
-  * 
-  * ```
-  * 
-  * // DXGI_FORMAT_R32G32B32A32_FLOAT
-  * FLOAT* pR32G32B32A32 = ...;
-  * pR32G32B32A32[0] = 1.f;  // R
-  * pR32G32B32A32[1] = 0.f;  // G
-  * pR32G32B32A32[2] = 0.f;  // B
-  * pR32G32B32A32[3] = 0.5f; // A
-  * 
-  * // DXGI_FORMAT_R10G10B10A2_UNORM
-  * UINT32* pR10G10B10A2 = ...;
-  * pR10G10B10A2 = (0x3ff) | (0x1 << 30);  // R=0x3ff, and A=0x1
-  * 
-  * ```
-  * 
-  * 
-  * <h3><a id="Restrictions_and_notes_on_formats"></a><a id="restrictions_and_notes_on_formats"></a><a id="RESTRICTIONS_AND_NOTES_ON_FORMATS"></a>Restrictions and notes on formats</h3>
-  * A few formats have additional restrictions and implied behavior:
-  * 
-  * <ol>
-  * <li>A resource declared with the DXGI_FORMAT_R32G32B32 family of formats cannot be used simultaneously for vertex and texture data.
-  *               That is, you may not create a buffer resource with the DXGI_FORMAT_R32G32B32 family of formats that uses any of the following bind flags:
-  *               D3D10_BIND_VERTEX_BUFFER, D3D10_BIND_INDEX_BUFFER, D3D10_BIND_CONSTANT_BUFFER, or D3D10_BIND_STREAM_OUTPUT
-  *               (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_bind_flag">D3D10_BIND_FLAG</a>).
-  *             </li>
-  * <li>DXGI_FORMAT_R1_UNORM is designed specifically for text filtering, and must be used with a format-specific, configurable 8x8 filter mode.
-  *               When calling an HLSL sampling function using this format, the address offset parameter must be set to (0,0).
-  *             </li>
-  * <li>A resource using a sub-sampled format (such as DXGI_FORMAT_R8G8_B8G8) must have a size that is a multiple of 2 in the x dimension.
-  *             </li>
-  * <li>Format is not available in Direct3D 10 and Direct3D 10.1
-  *             </li>
-  * <li>These float formats have an implied 1 added to their mantissa. If the exponent is not 0, 1.0 is added to the mantissa before applying the exponent. </li>
-  * <li>These float formats do not have an implied 1 added to their mantissa. </li>
-  * <li>Denorm support: the 9, 10, 11 and 16 bit float formats support denorms.</li>
-  * <li>No denorm support: the 32 and 64 bit float formats flush denorms to zero. </li>
-  * </ol>
-  * The following topics provide lists of the formats that particular hardware <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a> support:
-  *             
-  * 
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/hardware-support-for-direct3d-12-1-formats">DXGI Format  Support for Direct3D Feature Level 12.1 Hardware</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/hardware-support-for-direct3d-12-0-formats">DXGI Format  Support for Direct3D Feature Level 12.0 Hardware</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-11-1-feature-level-hardware">DXGI Format  Support for Direct3D Feature Level 11.1 Hardware</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-11-0-feature-level-hardware">DXGI Format  Support for Direct3D Feature Level 11.0 Hardware</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/previous-versions/ff471324(v=vs.85)">Hardware Support for Direct3D 10Level9 Formats</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-feature-level-10-1-hardware">Hardware Support for Direct3D 10.1 Formats</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-feature-level-10-0-hardware">Hardware Support for Direct3D 10 Formats</a>
-  * </li>
-  * </ul>
-  * For a list of the <b>DirectXMath</b> types that map to <b>DXGI_FORMAT</b> values, see <a href="https://docs.microsoft.com/windows/desktop/dxmath/pg-xnamath-internals">DirectXMath Library Internals</a>.
-  *           
-  * 
-  * <h3><a id="Format_Modifiers"></a><a id="format_modifiers"></a><a id="FORMAT_MODIFIERS"></a>Format Modifiers</h3>
-  * Each enumeration value contains a format modifier which describes the data type.
-  * 
-  * <table>
-  * <tr>
-  * <th>Format Modifiers</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>_FLOAT</td>
-  * <td>A floating-point value; 32-bit floating-point formats use IEEE 754 single-precision (s23e8 format): sign bit, 8-bit biased (127) exponent,
-  *                 and 23-bit mantissa. 16-bit floating-point formats use half-precision (s10e5 format): sign bit, 5-bit biased (15) exponent, and 10-bit mantissa.
-  *               </td>
-  * </tr>
-  * <tr>
-  * <td>_SINT</td>
-  * <td>Two's complement signed integer. For example, a 3-bit SINT represents the values -4, -3, -2, -1, 0, 1, 2, 3.</td>
-  * </tr>
-  * <tr>
-  * <td>_SNORM</td>
-  * <td>Signed normalized integer; which is interpreted in a resource as a signed integer, and is interpreted in a shader as a signed normalized floating-point value in the range [-1, 1]. For an 2's complement number, the maximum value is 1.0f (a 5-bit value 01111 maps to 1.0f), and the minimum value is -1.0f (a 5-bit value 10000 maps to -1.0f). In addition, the second-minimum number maps to -1.0f (a 5-bit value 10001 maps to -1.0f). The resulting integer representations are evenly spaced floating-point values in the range (-1.0f...0.0f), and also a complementary set of representations for numbers in the range (0.0f...1.0f).</td>
-  * </tr>
-  * <tr>
-  * <td>_SRGB</td>
-  * <td>
-  * Standard RGB data, which roughly displays colors in a linear ramp of luminosity levels such that an average observer, under average viewing conditions, can view them on an average display.
-  * 
-  * All 0's maps to 0.0f, and all 1's maps to 1.0f. The sequence of unsigned integer encodings between all 0's and all 1's represent a nonlinear progression in the floating-point interpretation of the numbers between 0.0f to 1.0f. For more detail, see the SRGB color standard, IEC 61996-2-1, at IEC (International Electrotechnical Commission).</p>Conversion to or from sRGB space is automatically done by D3DX10 or D3DX9 texture-load functions. If a format with _SRGB has an A channel, the A channel is stored in Gamma 1.0f data; the R, G, and B channels in the format are stored in Gamma 2.2f data.</td>
-  * </tr>
-  * <tr>
-  * <td>_TYPELESS</td>
-  * <td>Typeless data, with a defined number of bits. Typeless formats are designed for creating typeless resources; that is, a resource whose size is known, but whose data type is not yet fully defined. When a typeless resource is bound to a shader, the application or shader must resolve the format type (which must match the number of bits per component in the typeless format).
-  * 
-  * A typeless format contains one or more subformats; each subformat resolves the data type. 
-  *   For example, in the R32G32B32 group, which defines types for three-component 96-bit data, there is one typeless format and three fully typed subformats.
-  * 
-  * 
-  * 
-  * ```
-  * 
-  * DXGI_FORMAT_R32G32B32_TYPELESS,
-  * DXGI_FORMAT_R32G32B32_FLOAT,
-  * DXGI_FORMAT_R32G32B32_UINT,
-  * DXGI_FORMAT_R32G32B32_SINT,
-  * 
-  * ```
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>_UINT</td>
-  * <td>Unsigned integer. For instance, a 3-bit UINT represents the values 0, 1, 2, 3, 4, 5, 6, 7.</td>
-  * </tr>
-  * <tr>
-  * <td>_UNORM</td>
-  * <td>Unsigned normalized integer; which is interpreted in a resource as an unsigned integer, and is interpreted in a shader as an unsigned normalized floating-point value in the range [0, 1]. All 0's maps to 0.0f, and all 1's maps to 1.0f. A sequence of evenly spaced floating-point values from 0.0f to 1.0f are represented. For instance, a 2-bit UNORM represents 0.0f, 1/3, 2/3, and 1.0f.</td>
-  * </tr>
-  * <tr>
-  * <td>_SHAREDEXP</td>
-  * <td>A shared exponent. All the floating point representations in the format share the one exponent.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * <h3><a id="New_Resource_Formats"></a><a id="new_resource_formats"></a><a id="NEW_RESOURCE_FORMATS"></a>New Resource Formats</h3>
-  * Direct3D 10 offers new data compression formats for compressing high-dynamic range (HDR) lighting data, normal maps and heightfields to a fraction of their original size. These compression types include:
-  *           
-  * 
-  * <ul>
-  * <li>Shared-Exponent high-dynamic range (HDR) format (RGBE)</li>
-  * <li>New Block-Compressed 1-2 channel UNORM/SNORM formats</li>
-  * </ul>
-  * The block compression formats can be used for any of the 2D or 3D texture types ( Texture2D, Texture2DArray, Texture3D, or TextureCube) including mipmap surfaces. The block compression techniques require texture dimensions to be a multiple of 4 (since the implementation compresses on blocks of 4x4 texels). In the texture sampler, compressed formats are always decompressed before texture filtering.
-  * 
-  * 
+ * <h3><a id="Byte_Order__LSB_MSB_"></a><a id="byte_order__lsb_msb_"></a><a id="BYTE_ORDER__LSB_MSB_"></a>Byte Order (LSB/MSB)</h3>
+ * Most formats have byte-aligned components, and the components are in C-array order (the least address comes first).
+ *             For those formats that don't have power-of-2-aligned components, the first named component is in the least-significant bits.
+ *           
+ * 
+ * <h3><a id="Portable_Coding_for_Endian-Independence"></a><a id="portable_coding_for_endian-independence"></a><a id="PORTABLE_CODING_FOR_ENDIAN-INDEPENDENCE"></a>Portable Coding for Endian-Independence</h3>
+ * Rather than adjusting for whether a system uses big-endian or little-endian byte ordering, you should write portable code, as follows.
+ *           
+ * 
+ * 
+ * ```
+ * 
+ * // DXGI_FORMAT_R32G32B32A32_FLOAT
+ * FLOAT* pR32G32B32A32 = ...;
+ * pR32G32B32A32[0] = 1.f;  // R
+ * pR32G32B32A32[1] = 0.f;  // G
+ * pR32G32B32A32[2] = 0.f;  // B
+ * pR32G32B32A32[3] = 0.5f; // A
+ * 
+ * // DXGI_FORMAT_R10G10B10A2_UNORM
+ * UINT32* pR10G10B10A2 = ...;
+ * pR10G10B10A2 = (0x3ff) | (0x1 << 30);  // R=0x3ff, and A=0x1
+ * 
+ * ```
+ * 
+ * 
+ * <h3><a id="Restrictions_and_notes_on_formats"></a><a id="restrictions_and_notes_on_formats"></a><a id="RESTRICTIONS_AND_NOTES_ON_FORMATS"></a>Restrictions and notes on formats</h3>
+ * A few formats have additional restrictions and implied behavior:
+ * 
+ * <ol>
+ * <li>A resource declared with the DXGI_FORMAT_R32G32B32 family of formats cannot be used simultaneously for vertex and texture data.
+ *               That is, you may not create a buffer resource with the DXGI_FORMAT_R32G32B32 family of formats that uses any of the following bind flags:
+ *               D3D10_BIND_VERTEX_BUFFER, D3D10_BIND_INDEX_BUFFER, D3D10_BIND_CONSTANT_BUFFER, or D3D10_BIND_STREAM_OUTPUT
+ *               (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_bind_flag">D3D10_BIND_FLAG</a>).
+ *             </li>
+ * <li>DXGI_FORMAT_R1_UNORM is designed specifically for text filtering, and must be used with a format-specific, configurable 8x8 filter mode.
+ *               When calling an HLSL sampling function using this format, the address offset parameter must be set to (0,0).
+ *             </li>
+ * <li>A resource using a sub-sampled format (such as DXGI_FORMAT_R8G8_B8G8) must have a size that is a multiple of 2 in the x dimension.
+ *             </li>
+ * <li>Format is not available in Direct3D 10 and Direct3D 10.1
+ *             </li>
+ * <li>These float formats have an implied 1 added to their mantissa. If the exponent is not 0, 1.0 is added to the mantissa before applying the exponent. </li>
+ * <li>These float formats do not have an implied 1 added to their mantissa. </li>
+ * <li>Denorm support: the 9, 10, 11 and 16 bit float formats support denorms.</li>
+ * <li>No denorm support: the 32 and 64 bit float formats flush denorms to zero. </li>
+ * </ol>
+ * The following topics provide lists of the formats that particular hardware <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a> support:
+ *             
+ * 
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/hardware-support-for-direct3d-12-1-formats">DXGI Format  Support for Direct3D Feature Level 12.1 Hardware</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/hardware-support-for-direct3d-12-0-formats">DXGI Format  Support for Direct3D Feature Level 12.0 Hardware</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-11-1-feature-level-hardware">DXGI Format  Support for Direct3D Feature Level 11.1 Hardware</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-11-0-feature-level-hardware">DXGI Format  Support for Direct3D Feature Level 11.0 Hardware</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/previous-versions/ff471324(v=vs.85)">Hardware Support for Direct3D 10Level9 Formats</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-feature-level-10-1-hardware">Hardware Support for Direct3D 10.1 Formats</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-feature-level-10-0-hardware">Hardware Support for Direct3D 10 Formats</a>
+ * </li>
+ * </ul>
+ * For a list of the <b>DirectXMath</b> types that map to <b>DXGI_FORMAT</b> values, see <a href="https://docs.microsoft.com/windows/desktop/dxmath/pg-xnamath-internals">DirectXMath Library Internals</a>.
+ *           
+ * 
+ * <h3><a id="Format_Modifiers"></a><a id="format_modifiers"></a><a id="FORMAT_MODIFIERS"></a>Format Modifiers</h3>
+ * Each enumeration value contains a format modifier which describes the data type.
+ * 
+ * <table>
+ * <tr>
+ * <th>Format Modifiers</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>_FLOAT</td>
+ * <td>A floating-point value; 32-bit floating-point formats use IEEE 754 single-precision (s23e8 format): sign bit, 8-bit biased (127) exponent,
+ *                 and 23-bit mantissa. 16-bit floating-point formats use half-precision (s10e5 format): sign bit, 5-bit biased (15) exponent, and 10-bit mantissa.
+ *               </td>
+ * </tr>
+ * <tr>
+ * <td>_SINT</td>
+ * <td>Two's complement signed integer. For example, a 3-bit SINT represents the values -4, -3, -2, -1, 0, 1, 2, 3.</td>
+ * </tr>
+ * <tr>
+ * <td>_SNORM</td>
+ * <td>Signed normalized integer; which is interpreted in a resource as a signed integer, and is interpreted in a shader as a signed normalized floating-point value in the range [-1, 1]. For an 2's complement number, the maximum value is 1.0f (a 5-bit value 01111 maps to 1.0f), and the minimum value is -1.0f (a 5-bit value 10000 maps to -1.0f). In addition, the second-minimum number maps to -1.0f (a 5-bit value 10001 maps to -1.0f). The resulting integer representations are evenly spaced floating-point values in the range (-1.0f...0.0f), and also a complementary set of representations for numbers in the range (0.0f...1.0f).</td>
+ * </tr>
+ * <tr>
+ * <td>_SRGB</td>
+ * <td>
+ * Standard RGB data, which roughly displays colors in a linear ramp of luminosity levels such that an average observer, under average viewing conditions, can view them on an average display.
+ * 
+ * All 0's maps to 0.0f, and all 1's maps to 1.0f. The sequence of unsigned integer encodings between all 0's and all 1's represent a nonlinear progression in the floating-point interpretation of the numbers between 0.0f to 1.0f. For more detail, see the SRGB color standard, IEC 61996-2-1, at IEC (International Electrotechnical Commission).</p>Conversion to or from sRGB space is automatically done by D3DX10 or D3DX9 texture-load functions. If a format with _SRGB has an A channel, the A channel is stored in Gamma 1.0f data; the R, G, and B channels in the format are stored in Gamma 2.2f data.</td>
+ * </tr>
+ * <tr>
+ * <td>_TYPELESS</td>
+ * <td>Typeless data, with a defined number of bits. Typeless formats are designed for creating typeless resources; that is, a resource whose size is known, but whose data type is not yet fully defined. When a typeless resource is bound to a shader, the application or shader must resolve the format type (which must match the number of bits per component in the typeless format).
+ * 
+ * A typeless format contains one or more subformats; each subformat resolves the data type. 
+ *   For example, in the R32G32B32 group, which defines types for three-component 96-bit data, there is one typeless format and three fully typed subformats.
+ * 
+ * 
+ * 
+ * ```
+ * 
+ * DXGI_FORMAT_R32G32B32_TYPELESS,
+ * DXGI_FORMAT_R32G32B32_FLOAT,
+ * DXGI_FORMAT_R32G32B32_UINT,
+ * DXGI_FORMAT_R32G32B32_SINT,
+ * 
+ * ```
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>_UINT</td>
+ * <td>Unsigned integer. For instance, a 3-bit UINT represents the values 0, 1, 2, 3, 4, 5, 6, 7.</td>
+ * </tr>
+ * <tr>
+ * <td>_UNORM</td>
+ * <td>Unsigned normalized integer; which is interpreted in a resource as an unsigned integer, and is interpreted in a shader as an unsigned normalized floating-point value in the range [0, 1]. All 0's maps to 0.0f, and all 1's maps to 1.0f. A sequence of evenly spaced floating-point values from 0.0f to 1.0f are represented. For instance, a 2-bit UNORM represents 0.0f, 1/3, 2/3, and 1.0f.</td>
+ * </tr>
+ * <tr>
+ * <td>_SHAREDEXP</td>
+ * <td>A shared exponent. All the floating point representations in the format share the one exponent.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * <h3><a id="New_Resource_Formats"></a><a id="new_resource_formats"></a><a id="NEW_RESOURCE_FORMATS"></a>New Resource Formats</h3>
+ * Direct3D 10 offers new data compression formats for compressing high-dynamic range (HDR) lighting data, normal maps and heightfields to a fraction of their original size. These compression types include:
+ *           
+ * 
+ * <ul>
+ * <li>Shared-Exponent high-dynamic range (HDR) format (RGBE)</li>
+ * <li>New Block-Compressed 1-2 channel UNORM/SNORM formats</li>
+ * </ul>
+ * The block compression formats can be used for any of the 2D or 3D texture types ( Texture2D, Texture2DArray, Texture3D, or TextureCube) including mipmap surfaces. The block compression techniques require texture dimensions to be a multiple of 4 (since the implementation compresses on blocks of 4x4 texels). In the texture sampler, compressed formats are always decompressed before texture filtering.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgiformat/ne-dxgiformat-dxgi_format
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  * @version v4.0.30319

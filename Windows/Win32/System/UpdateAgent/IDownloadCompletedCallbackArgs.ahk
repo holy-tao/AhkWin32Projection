@@ -7,8 +7,8 @@
  * Contains information about the completion of a download. This interface acts as a parameter to the IDownloadCompletedCallback delegate. The download and installation of the update is asynchronous.
  * @remarks
  * 
-  * The <b>IDownloadCompletedCallbackArgs</b> interface is reserved for future use. It has no properties or methods.
-  * 
+ * The <b>IDownloadCompletedCallbackArgs</b> interface is reserved for future use. It has no properties or methods.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-idownloadcompletedcallbackargs
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

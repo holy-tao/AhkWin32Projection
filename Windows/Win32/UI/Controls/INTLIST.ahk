@@ -5,8 +5,8 @@
  * Contains an array or list of int data items from a visual style.
  * @remarks
  * 
-  * The lists are returned by <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemeintlist">GetThemeIntList</a>.
-  * 
+ * The lists are returned by <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemeintlist">GetThemeIntList</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uxtheme/ns-uxtheme-intlist
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319

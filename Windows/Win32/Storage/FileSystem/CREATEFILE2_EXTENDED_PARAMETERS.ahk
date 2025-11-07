@@ -6,90 +6,90 @@
  * Contains optional extended parameters for CreateFile2.
  * @remarks
  * 
-  * To compile an application that uses the 
-  *     <b>CREATEFILE2_EXTENDED_PARAMETERS</b> structure, 
-  *     define the <b>_WIN32_WINNT</b> macro as 0x0602 or later. For more information, see 
-  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-  * 
-  * <h3><a id="caching_behavior"></a><a id="CACHING_BEHAVIOR"></a>Caching Behavior</h3>
-  * Several of the possible values for the <b>dwFileFlags</b> member are used to control or 
-  *       affect how the data associated with the handle is cached by the system. They are:
-  * 
-  * <ul>
-  * <li><b>FILE_FLAG_NO_BUFFERING</b></li>
-  * <li><b>FILE_FLAG_RANDOM_ACCESS</b></li>
-  * <li><b>FILE_FLAG_SEQUENTIAL_SCAN</b></li>
-  * <li><b>FILE_FLAG_WRITE_THROUGH</b></li>
-  * <li><b>FILE_ATTRIBUTE_TEMPORARY</b></li>
-  * </ul>
-  * If none of these flags is specified, the system uses a default general-purpose caching scheme. Otherwise, the 
-  *       system caching behaves as specified for each flag.
-  * 
-  * Some of these flags should not be combined. For instance, combining 
-  *       <b>FILE_FLAG_RANDOM_ACCESS</b> with <b>FILE_FLAG_SEQUENTIAL_SCAN</b> is 
-  *       self-defeating.
-  * 
-  * Specifying the <b>FILE_FLAG_SEQUENTIAL_SCAN</b> flag can increase performance for 
-  *       applications that read large files using sequential access. Performance gains can be even more noticeable for 
-  *       applications that read large files mostly sequentially, but occasionally skip forward over small ranges of 
-  *       bytes. If an application moves the file pointer for random access, optimum caching performance most likely will 
-  *       not occur. However, correct operation is still guaranteed.
-  * 
-  * The flags <b>FILE_FLAG_WRITE_THROUGH</b> and 
-  *       <b>FILE_FLAG_NO_BUFFERING</b> are independent and may be combined.
-  * 
-  * If <b>FILE_FLAG_WRITE_THROUGH</b> is used but 
-  *       <b>FILE_FLAG_NO_BUFFERING</b> is not also specified, so that system caching is in effect, 
-  *       then the data is written to the system cache but is flushed to disk without delay.
-  * 
-  * If <b>FILE_FLAG_WRITE_THROUGH</b> and <b>FILE_FLAG_NO_BUFFERING</b> are 
-  *       both specified, so that system caching is not in effect, then the data is immediately flushed to disk without 
-  *       going through the Windows system cache. The operating system also requests a write-through of the hard disk's 
-  *       local hardware cache to persistent media.
-  * 
-  * <div class="alert"><b>Note</b>  Not all hard disk hardware supports this write-through capability.</div>
-  * <div> </div>
-  * Proper use of the <b>FILE_FLAG_NO_BUFFERING</b> flag requires special application 
-  *       considerations. For more information, see 
-  *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-buffering">File Buffering</a>.
-  * 
-  * A write-through request via <b>FILE_FLAG_WRITE_THROUGH</b> also causes NTFS to flush any 
-  *       metadata changes, such as a time stamp update or a rename operation, that result from processing the request. 
-  *       For this reason, the <b>FILE_FLAG_WRITE_THROUGH</b> flag is often used with the 
-  *       <b>FILE_FLAG_NO_BUFFERING</b> flag as a replacement for calling the 
-  *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-flushfilebuffers">FlushFileBuffers</a> function after each write, which can 
-  *       cause unnecessary performance penalties. Using these flags together avoids those penalties. For general 
-  *       information about the caching of files and metadata, see 
-  *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-caching">File Caching</a>.
-  * 
-  * When <b>FILE_FLAG_NO_BUFFERING</b> is combined with 
-  *       <b>FILE_FLAG_OVERLAPPED</b>, the flags give maximum asynchronous performance, because the I/O 
-  *       does not rely on the synchronous operations of the memory manager. However, some I/O operations take more time, 
-  *       because data is not being held in the cache. Also, the file metadata may still be cached (for example, when 
-  *       creating an empty file). To ensure that the metadata is flushed to disk, use the 
-  *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-flushfilebuffers">FlushFileBuffers</a> function.
-  * 
-  * Specifying the <b>FILE_ATTRIBUTE_TEMPORARY</b> attribute causes file systems to avoid 
-  *       writing data back to mass storage if sufficient cache memory is available, because an application deletes a 
-  *       temporary file after a handle is closed. In that case, the system can entirely avoid writing the data. Although 
-  *       it does not directly control data caching in the same way as the previously mentioned flags, the 
-  *       <b>FILE_ATTRIBUTE_TEMPORARY</b> attribute does tell the system to hold as much as possible in 
-  *       the system cache without writing and therefore may be of concern for certain applications.
-  * 
-  * <h3><a id="synchronous_and_asynchronous_i_o_handles"></a><a id="SYNCHRONOUS_AND_ASYNCHRONOUS_I_O_HANDLES"></a>Synchronous and Asynchronous I/O Handles</h3>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfile2">CreateFile2</a> provides for creating a file or device handle 
-  *       that is either synchronous or asynchronous. A synchronous handle behaves such that I/O function calls using that 
-  *       handle are blocked until they complete, while an asynchronous file handle makes it possible for the system to 
-  *       return immediately from I/O function calls, whether they completed the I/O operation or not. As stated 
-  *       previously, this synchronous versus asynchronous behavior is determined by specifying 
-  *       <b>FILE_FLAG_OVERLAPPED</b> within the <b>dwFileFlags</b> member of the 
-  *       <b>CREATEFILE2_EXTENDED_PARAMETERS</b> 
-  *       structure passed in the <i>pCreateExParams</i> parameter. There are several complexities and 
-  *       potential pitfalls when using asynchronous I/O; for more information, see 
-  *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/synchronous-and-asynchronous-i-o">Synchronous and Asynchronous I/O</a>.
-  * 
-  * 
+ * To compile an application that uses the 
+ *     <b>CREATEFILE2_EXTENDED_PARAMETERS</b> structure, 
+ *     define the <b>_WIN32_WINNT</b> macro as 0x0602 or later. For more information, see 
+ *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
+ * 
+ * <h3><a id="caching_behavior"></a><a id="CACHING_BEHAVIOR"></a>Caching Behavior</h3>
+ * Several of the possible values for the <b>dwFileFlags</b> member are used to control or 
+ *       affect how the data associated with the handle is cached by the system. They are:
+ * 
+ * <ul>
+ * <li><b>FILE_FLAG_NO_BUFFERING</b></li>
+ * <li><b>FILE_FLAG_RANDOM_ACCESS</b></li>
+ * <li><b>FILE_FLAG_SEQUENTIAL_SCAN</b></li>
+ * <li><b>FILE_FLAG_WRITE_THROUGH</b></li>
+ * <li><b>FILE_ATTRIBUTE_TEMPORARY</b></li>
+ * </ul>
+ * If none of these flags is specified, the system uses a default general-purpose caching scheme. Otherwise, the 
+ *       system caching behaves as specified for each flag.
+ * 
+ * Some of these flags should not be combined. For instance, combining 
+ *       <b>FILE_FLAG_RANDOM_ACCESS</b> with <b>FILE_FLAG_SEQUENTIAL_SCAN</b> is 
+ *       self-defeating.
+ * 
+ * Specifying the <b>FILE_FLAG_SEQUENTIAL_SCAN</b> flag can increase performance for 
+ *       applications that read large files using sequential access. Performance gains can be even more noticeable for 
+ *       applications that read large files mostly sequentially, but occasionally skip forward over small ranges of 
+ *       bytes. If an application moves the file pointer for random access, optimum caching performance most likely will 
+ *       not occur. However, correct operation is still guaranteed.
+ * 
+ * The flags <b>FILE_FLAG_WRITE_THROUGH</b> and 
+ *       <b>FILE_FLAG_NO_BUFFERING</b> are independent and may be combined.
+ * 
+ * If <b>FILE_FLAG_WRITE_THROUGH</b> is used but 
+ *       <b>FILE_FLAG_NO_BUFFERING</b> is not also specified, so that system caching is in effect, 
+ *       then the data is written to the system cache but is flushed to disk without delay.
+ * 
+ * If <b>FILE_FLAG_WRITE_THROUGH</b> and <b>FILE_FLAG_NO_BUFFERING</b> are 
+ *       both specified, so that system caching is not in effect, then the data is immediately flushed to disk without 
+ *       going through the Windows system cache. The operating system also requests a write-through of the hard disk's 
+ *       local hardware cache to persistent media.
+ * 
+ * <div class="alert"><b>Note</b>  Not all hard disk hardware supports this write-through capability.</div>
+ * <div> </div>
+ * Proper use of the <b>FILE_FLAG_NO_BUFFERING</b> flag requires special application 
+ *       considerations. For more information, see 
+ *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-buffering">File Buffering</a>.
+ * 
+ * A write-through request via <b>FILE_FLAG_WRITE_THROUGH</b> also causes NTFS to flush any 
+ *       metadata changes, such as a time stamp update or a rename operation, that result from processing the request. 
+ *       For this reason, the <b>FILE_FLAG_WRITE_THROUGH</b> flag is often used with the 
+ *       <b>FILE_FLAG_NO_BUFFERING</b> flag as a replacement for calling the 
+ *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-flushfilebuffers">FlushFileBuffers</a> function after each write, which can 
+ *       cause unnecessary performance penalties. Using these flags together avoids those penalties. For general 
+ *       information about the caching of files and metadata, see 
+ *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-caching">File Caching</a>.
+ * 
+ * When <b>FILE_FLAG_NO_BUFFERING</b> is combined with 
+ *       <b>FILE_FLAG_OVERLAPPED</b>, the flags give maximum asynchronous performance, because the I/O 
+ *       does not rely on the synchronous operations of the memory manager. However, some I/O operations take more time, 
+ *       because data is not being held in the cache. Also, the file metadata may still be cached (for example, when 
+ *       creating an empty file). To ensure that the metadata is flushed to disk, use the 
+ *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-flushfilebuffers">FlushFileBuffers</a> function.
+ * 
+ * Specifying the <b>FILE_ATTRIBUTE_TEMPORARY</b> attribute causes file systems to avoid 
+ *       writing data back to mass storage if sufficient cache memory is available, because an application deletes a 
+ *       temporary file after a handle is closed. In that case, the system can entirely avoid writing the data. Although 
+ *       it does not directly control data caching in the same way as the previously mentioned flags, the 
+ *       <b>FILE_ATTRIBUTE_TEMPORARY</b> attribute does tell the system to hold as much as possible in 
+ *       the system cache without writing and therefore may be of concern for certain applications.
+ * 
+ * <h3><a id="synchronous_and_asynchronous_i_o_handles"></a><a id="SYNCHRONOUS_AND_ASYNCHRONOUS_I_O_HANDLES"></a>Synchronous and Asynchronous I/O Handles</h3>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfile2">CreateFile2</a> provides for creating a file or device handle 
+ *       that is either synchronous or asynchronous. A synchronous handle behaves such that I/O function calls using that 
+ *       handle are blocked until they complete, while an asynchronous file handle makes it possible for the system to 
+ *       return immediately from I/O function calls, whether they completed the I/O operation or not. As stated 
+ *       previously, this synchronous versus asynchronous behavior is determined by specifying 
+ *       <b>FILE_FLAG_OVERLAPPED</b> within the <b>dwFileFlags</b> member of the 
+ *       <b>CREATEFILE2_EXTENDED_PARAMETERS</b> 
+ *       structure passed in the <i>pCreateExParams</i> parameter. There are several complexities and 
+ *       potential pitfalls when using asynchronous I/O; for more information, see 
+ *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/synchronous-and-asynchronous-i-o">Synchronous and Asynchronous I/O</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fileapi/ns-fileapi-createfile2_extended_parameters
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319

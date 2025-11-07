@@ -4,177 +4,177 @@
  * Defines the set of health state values for a VDS object.
  * @remarks
  * 
-  * Health enumeration values apply to the VDS objects as shown in the following table. Y indicates that the value 
-  *     applies to the object, and N indicates that the value does not apply to the object. A pack object does not 
-  *     report health status. 
-  * 
-  * <table>
-  * <tr>
-  * <th>Health enumeration value</th>
-  * <th>Disk</th>
-  * <th>Subsystem</th>
-  * <th>Controller</th>
-  * <th>Drive</th>
-  * <th>LUN</th>
-  * <th>LUN plex</th>
-  * <th>Storage pool</th>
-  * <th>Volume</th>
-  * <th>Volume plex</th>
-  * </tr>
-  * <tr>
-  * <td><b>VDS_H_UNKNOWN</b></td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * </tr>
-  * <tr>
-  * <td><b>VDS_H_HEALTHY</b></td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * </tr>
-  * <tr>
-  * <td><b>VDS_H_REBUILDING</b></td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * </tr>
-  * <tr>
-  * <td><b>VDS_H_STALE</b></td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * </tr>
-  * <tr>
-  * <td><b>VDS_H_FAILING</b></td>
-  * <td>Y</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * </tr>
-  * <tr>
-  * <td><b>VDS_H_FAILING_REDUNDANCY</b></td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * </tr>
-  * <tr>
-  * <td><b>VDS_H_FAILED_REDUNDANCY</b></td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * </tr>
-  * <tr>
-  * <td><b>VDS_H_FAILED_REDUNDANCY_FAILING</b></td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * </tr>
-  * <tr>
-  * <td><b>VDS_H_FAILED</b></td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * </tr>
-  * <tr>
-  * <td><b>VDS_H_REPLACED</b></td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * </tr>
-  * <tr>
-  * <td><b>VDS_H_PENDING_FAILURE</b></td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * </tr>
-  * <tr>
-  * <td><b>VDS_H_DEGRADED</b></td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>Y</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>N</td>
-  * <td>Y</td>
-  * <td>N</td>
-  * <td>N</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * The property structure for each object listed in the table includes the value of the 
-  *     <b>VDS_HEALTH</b> enumeration as a member.
-  * 
-  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_HEALTH</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_HEALTH</b> enumeration constant.</div>
-  * <div> </div>
-  * 
-  * 
+ * Health enumeration values apply to the VDS objects as shown in the following table. Y indicates that the value 
+ *     applies to the object, and N indicates that the value does not apply to the object. A pack object does not 
+ *     report health status. 
+ * 
+ * <table>
+ * <tr>
+ * <th>Health enumeration value</th>
+ * <th>Disk</th>
+ * <th>Subsystem</th>
+ * <th>Controller</th>
+ * <th>Drive</th>
+ * <th>LUN</th>
+ * <th>LUN plex</th>
+ * <th>Storage pool</th>
+ * <th>Volume</th>
+ * <th>Volume plex</th>
+ * </tr>
+ * <tr>
+ * <td><b>VDS_H_UNKNOWN</b></td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * </tr>
+ * <tr>
+ * <td><b>VDS_H_HEALTHY</b></td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * </tr>
+ * <tr>
+ * <td><b>VDS_H_REBUILDING</b></td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * </tr>
+ * <tr>
+ * <td><b>VDS_H_STALE</b></td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * </tr>
+ * <tr>
+ * <td><b>VDS_H_FAILING</b></td>
+ * <td>Y</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * </tr>
+ * <tr>
+ * <td><b>VDS_H_FAILING_REDUNDANCY</b></td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * </tr>
+ * <tr>
+ * <td><b>VDS_H_FAILED_REDUNDANCY</b></td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * </tr>
+ * <tr>
+ * <td><b>VDS_H_FAILED_REDUNDANCY_FAILING</b></td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * </tr>
+ * <tr>
+ * <td><b>VDS_H_FAILED</b></td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * </tr>
+ * <tr>
+ * <td><b>VDS_H_REPLACED</b></td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * </tr>
+ * <tr>
+ * <td><b>VDS_H_PENDING_FAILURE</b></td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * </tr>
+ * <tr>
+ * <td><b>VDS_H_DEGRADED</b></td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>Y</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>N</td>
+ * <td>Y</td>
+ * <td>N</td>
+ * <td>N</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * The property structure for each object listed in the table includes the value of the 
+ *     <b>VDS_HEALTH</b> enumeration as a member.
+ * 
+ * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_HEALTH</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_HEALTH</b> enumeration constant.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_health
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Exposes methods that query and set default applications for specific file Association Type, and protocols at a specific Association Level.
  * @remarks
  * 
-  * Because <b>IApplicationAssociationRegistration</b> is only supported for Windows Vista and Windows 7, applications that support earlier operating systems must use their preexisting code in relation to defaults when running under those operating systems. Those applications should include a check for the operating system version to account for this.
-  * 
-  * 
+ * Because <b>IApplicationAssociationRegistration</b> is only supported for Windows Vista and Windows 7, applications that support earlier operating systems must use their preexisting code in relation to defaults when running under those operating systems. Those applications should include a check for the operating system version to account for this.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iapplicationassociationregistration
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

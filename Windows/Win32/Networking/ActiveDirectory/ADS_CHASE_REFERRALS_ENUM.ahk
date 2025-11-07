@@ -4,16 +4,16 @@
  * The ADS_CHASE_REFERRALS_ENUM enumeration specifies if, and how, referral chasing occurs.
  * @remarks
  * 
-  * Use the constants of this enumeration to set up search preferences for referral chasing. The action amounts to assigning the appropriate fields of the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_searchpref_info">ADS_SEARCHPREF_INFO</a> structure with elements of the <b>ADS_CHASE_REFERRALS_ENUM</b> and  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_searchpref_enum">ADS_SEARCHPREF_ENUM</a> enumerations. The values of this enumeration can also be used with  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsobjectoptions">IADsObjectOptions</a> to specify whether referral chasing should take place when enumerating the objects under a container object.
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsnametranslate">IADsNameTranslate</a> interface has a partial implementation of <b>ADS_CHASE_REFERRALS_ENUM</b> through the <a href="https://docs.microsoft.com/windows/desktop/ADSI/iadsnametranslate-property-methods">ChaseReferral</a> property. If the <b>ChaseReferral</b> property is set to zero (0), it is the same as specifying <b>ADS_CHASE_REFERRALS_NEVER</b> (0). If a nonzero value is used, it is the same as specifying <b>ADS_CHASE_REFERRALS_ALWAYS</b> (0x60). <b>IADsNameTranslate</b> does not implement the <b>ADS_CHASE_REFERRALS_SUBORDINATE</b> (0x20) or <b>ADS_CHASE_REFERRALS_EXTERNAL</b> (0x40) options.
-  * 
-  * The ADSI LDAP provider supports external referrals for paged searches, but does not support subordinate referrals during paging.
-  * 
-  * <div class="alert"><b>Note</b>  Because VBScript cannot read data from a type library, VBScript applications do not understand the symbolic constants as defined above. You should use the numerical constants instead to set the appropriate flags in your VBScript applications. If you want to use the symbolic constants as a good programming practice, you should make explicit declarations of such constants, as done here, in your VBScript applications.</div>
-  * <div> </div>
-  * 
-  * 
+ * Use the constants of this enumeration to set up search preferences for referral chasing. The action amounts to assigning the appropriate fields of the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_searchpref_info">ADS_SEARCHPREF_INFO</a> structure with elements of the <b>ADS_CHASE_REFERRALS_ENUM</b> and  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_searchpref_enum">ADS_SEARCHPREF_ENUM</a> enumerations. The values of this enumeration can also be used with  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsobjectoptions">IADsObjectOptions</a> to specify whether referral chasing should take place when enumerating the objects under a container object.
+ * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsnametranslate">IADsNameTranslate</a> interface has a partial implementation of <b>ADS_CHASE_REFERRALS_ENUM</b> through the <a href="https://docs.microsoft.com/windows/desktop/ADSI/iadsnametranslate-property-methods">ChaseReferral</a> property. If the <b>ChaseReferral</b> property is set to zero (0), it is the same as specifying <b>ADS_CHASE_REFERRALS_NEVER</b> (0). If a nonzero value is used, it is the same as specifying <b>ADS_CHASE_REFERRALS_ALWAYS</b> (0x60). <b>IADsNameTranslate</b> does not implement the <b>ADS_CHASE_REFERRALS_SUBORDINATE</b> (0x20) or <b>ADS_CHASE_REFERRALS_EXTERNAL</b> (0x40) options.
+ * 
+ * The ADSI LDAP provider supports external referrals for paged searches, but does not support subordinate referrals during paging.
+ * 
+ * <div class="alert"><b>Note</b>  Because VBScript cannot read data from a type library, VBScript applications do not understand the symbolic constants as defined above. You should use the numerical constants instead to set the appropriate flags in your VBScript applications. If you want to use the symbolic constants as a good programming practice, you should make explicit declarations of such constants, as done here, in your VBScript applications.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_chase_referrals_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

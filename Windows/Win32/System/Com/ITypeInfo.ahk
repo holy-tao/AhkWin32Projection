@@ -10,29 +10,29 @@
  * Used for reading information about objects.
  * @remarks
  * 
-  * Type information interfaces are intended to describe the parts of the application that can be called by outside clients, rather than those that might be used internally to build an application.
-  * 
-  * The <b>ITypeInfo</b> interface provides access to the following:  
-  * 
-  * <ul>
-  * <li>
-  * The set of function descriptions associated with the type. For interfaces, this contains the set of member functions in the interface.
-  * 
-  * </li>
-  * <li>
-  * The set of data member descriptions associated with the type. For structures, this contains the set of fields of the type.
-  * 
-  * </li>
-  * <li>
-  * The general attributes of the type, such as whether it describes a structure, an interface, and so on.
-  * 
-  * </li>
-  * </ul>
-  * The type description of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface can be used to implement the interface. For more information, see the description of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-createstddispatch">CreateStdDispatch</a> in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/dispatch-interfaces">Dispatch Interface and API Functions</a>. 
-  * 
-  * An instance of <b>ITypeInfo</b> provides various information about the type of an object, and is used in different ways. A compiler can use an <b>ITypeInfo</b> to compile references to members of the type. A type interface browser can use it to find information about each member of the type. An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> implementor can use it to provide automatic delegation of <b>IDispatch</b> calls to an interface.
-  * 
-  * 
+ * Type information interfaces are intended to describe the parts of the application that can be called by outside clients, rather than those that might be used internally to build an application.
+ * 
+ * The <b>ITypeInfo</b> interface provides access to the following:  
+ * 
+ * <ul>
+ * <li>
+ * The set of function descriptions associated with the type. For interfaces, this contains the set of member functions in the interface.
+ * 
+ * </li>
+ * <li>
+ * The set of data member descriptions associated with the type. For structures, this contains the set of fields of the type.
+ * 
+ * </li>
+ * <li>
+ * The general attributes of the type, such as whether it describes a structure, an interface, and so on.
+ * 
+ * </li>
+ * </ul>
+ * The type description of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface can be used to implement the interface. For more information, see the description of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-createstddispatch">CreateStdDispatch</a> in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/dispatch-interfaces">Dispatch Interface and API Functions</a>. 
+ * 
+ * An instance of <b>ITypeInfo</b> provides various information about the type of an object, and is used in different ways. A compiler can use an <b>ITypeInfo</b> to compile references to members of the type. A type interface browser can use it to find information about each member of the type. An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> implementor can use it to provide automatic delegation of <b>IDispatch</b> calls to an interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-itypeinfo
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

@@ -7,15 +7,15 @@
  * Paints an area with a solid color.
  * @remarks
  * 
-  * <h3><a id="Creating_ID2D1SolidColorBrush_Objects"></a><a id="creating_id2d1solidcolorbrush_objects"></a><a id="CREATING_ID2D1SOLIDCOLORBRUSH_OBJECTS"></a>Creating ID2D1SolidColorBrush Objects</h3>
-  * 
-  * To create a solid color brush, use the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-createsolidcolorbrush(constd2d1_color_f__id2d1solidcolorbrush)">ID2D1RenderTarget::CreateSolidColorBrush</a> method of the render target on which the brush will be used. The brush can only be used with the render target that created it or with the compatible targets for that render target.
-  * 
-  * 
-  * A solid color brush is a device-dependent resource. (For more information about resources, see <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.)
-  * 
-  * 
-  * 
+ * <h3><a id="Creating_ID2D1SolidColorBrush_Objects"></a><a id="creating_id2d1solidcolorbrush_objects"></a><a id="CREATING_ID2D1SOLIDCOLORBRUSH_OBJECTS"></a>Creating ID2D1SolidColorBrush Objects</h3>
+ * 
+ * To create a solid color brush, use the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-createsolidcolorbrush(constd2d1_color_f__id2d1solidcolorbrush)">ID2D1RenderTarget::CreateSolidColorBrush</a> method of the render target on which the brush will be used. The brush can only be used with the render target that created it or with the compatible targets for that render target.
+ * 
+ * 
+ * A solid color brush is a device-dependent resource. (For more information about resources, see <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.)
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1/nn-d2d1-id2d1solidcolorbrush
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

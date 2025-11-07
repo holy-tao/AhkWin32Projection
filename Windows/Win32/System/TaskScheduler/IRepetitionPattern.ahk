@@ -8,23 +8,23 @@
  * Defines how often the task is run and how long the repetition pattern is repeated after the task is started.
  * @remarks
  * 
-  * If you specify a repetition duration for a task, you must also specify the repetition interval.
-  * 
-  * If you register a task that contains a  trigger with a repetition interval equal to one minute and a repetition duration equal to four minutes, the task will be launched five times. The five repetitions can be defined by the following pattern.
-  * 
-  * <ol>
-  * <li>A task  starts at the beginning of the first minute.</li>
-  * <li>The next task starts at the end of the first minute.</li>
-  * <li>The next task starts at the end of the second minute.</li>
-  * <li>The next task starts at the end of the third minute.</li>
-  * <li>The next task starts at the end of the fourth minute.</li>
-  * </ol>
-  * <b>Windows Server 2003, Windows XP and Windows 2000:  </b>If you register a task that contains a trigger with a repetition interval equal to one minute and a repetition duration equal to four minutes, the task will be launched four times.
-  * 
-  * When reading or writing  XML for a task, the repetition pattern is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-repetition-triggerbasetype-element">Repetition</a> element of the Task Scheduler schema.
-  * 
-  * 
-  * 
+ * If you specify a repetition duration for a task, you must also specify the repetition interval.
+ * 
+ * If you register a task that contains a  trigger with a repetition interval equal to one minute and a repetition duration equal to four minutes, the task will be launched five times. The five repetitions can be defined by the following pattern.
+ * 
+ * <ol>
+ * <li>A task  starts at the beginning of the first minute.</li>
+ * <li>The next task starts at the end of the first minute.</li>
+ * <li>The next task starts at the end of the second minute.</li>
+ * <li>The next task starts at the end of the third minute.</li>
+ * <li>The next task starts at the end of the fourth minute.</li>
+ * </ol>
+ * <b>Windows Server 2003, Windows XP and Windows 2000:  </b>If you register a task that contains a trigger with a repetition interval equal to one minute and a repetition duration equal to four minutes, the task will be launched four times.
+ * 
+ * When reading or writing  XML for a task, the repetition pattern is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-repetition-triggerbasetype-element">Repetition</a> element of the Task Scheduler schema.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-irepetitionpattern
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

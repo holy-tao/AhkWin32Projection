@@ -8,20 +8,20 @@
  * Used to automatically add the quota to new and existing subdirectories of the directory on which the automatic quota is applied.
  * @remarks
  * 
-  * To change the properties of an automatic quota, change the properties of the template from which the automatic 
-  *     quota is derived. Then call the 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-commitandupdatederived">IFsrmQuotaTemplate::CommitAndUpdateDerived</a> 
-  *     method to update the properties of the automatic quotas and the quotas that derive from the automatic quota.
-  * 
-  * If any quota under the automatic quota's path was changed to a different template, it will not be changed to 
-  *     the automatic quota's new settings until you call the 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmautoapplyquota-commitandupdatederived">IFsrmAutoApplyQuota::CommitAndUpdateDerived</a> 
-  *     method.
-  * 
-  * Changes made to the automatic quota are reflected in new quotas only after the automatic quota is 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">committed</a>.
-  * 
-  * 
+ * To change the properties of an automatic quota, change the properties of the template from which the automatic 
+ *     quota is derived. Then call the 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-commitandupdatederived">IFsrmQuotaTemplate::CommitAndUpdateDerived</a> 
+ *     method to update the properties of the automatic quotas and the quotas that derive from the automatic quota.
+ * 
+ * If any quota under the automatic quota's path was changed to a different template, it will not be changed to 
+ *     the automatic quota's new settings until you call the 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmautoapplyquota-commitandupdatederived">IFsrmAutoApplyQuota::CommitAndUpdateDerived</a> 
+ *     method.
+ * 
+ * Changes made to the automatic quota are reflected in new quotas only after the automatic quota is 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">committed</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nn-fsrmquota-ifsrmautoapplyquota
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

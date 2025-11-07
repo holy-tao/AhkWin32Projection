@@ -4,39 +4,39 @@
  * The GROUPPROP enumeration defines the constant values for retrieving and setting group property values.
  * @remarks
  * 
-  * The <b>GROUPPROP_NOTIFYFLAGS</b> group property can contain one or more of the following notification flags. 
-  * 
-  * <table>
-  * <tr>
-  * <th>Flag</th>
-  * <th>Meaning</th>
-  * </tr>
-  * <tr>
-  * <td>QM_NOTIFY_FILE_DONE</td>
-  * <td>Not supported.</td>
-  * </tr>
-  * <tr>
-  * <td>QM_NOTIFY_JOB_DONE</td>
-  * <td>Not supported.</td>
-  * </tr>
-  * <tr>
-  * <td>QM_NOTIFY_GROUP_DONE</td>
-  * <td>Notifies the application through <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/nf-qmgr-ibackgroundcopycallback1-onstatus">IBackgroundCopyCallback1::OnStatus</a> that the group is complete.</td>
-  * </tr>
-  * <tr>
-  * <td>QM_NOTIFY_DISABLE_NOTIFY</td>
-  * <td>Disables all notifications.</td>
-  * </tr>
-  * <tr>
-  * <td>QM_NOTIFY_USE_PROGRESSEX</td>
-  * <td>Not supported.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * <div class="alert"><b>Note</b>  By default, QMGR calls your <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/nf-qmgr-ibackgroundcopycallback1-onstatus">IBackgroundCopyCallback1::OnStatus</a> method when an error occurs.</div>
-  * <div> </div>
-  * 
+ * The <b>GROUPPROP_NOTIFYFLAGS</b> group property can contain one or more of the following notification flags. 
+ * 
+ * <table>
+ * <tr>
+ * <th>Flag</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td>QM_NOTIFY_FILE_DONE</td>
+ * <td>Not supported.</td>
+ * </tr>
+ * <tr>
+ * <td>QM_NOTIFY_JOB_DONE</td>
+ * <td>Not supported.</td>
+ * </tr>
+ * <tr>
+ * <td>QM_NOTIFY_GROUP_DONE</td>
+ * <td>Notifies the application through <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/nf-qmgr-ibackgroundcopycallback1-onstatus">IBackgroundCopyCallback1::OnStatus</a> that the group is complete.</td>
+ * </tr>
+ * <tr>
+ * <td>QM_NOTIFY_DISABLE_NOTIFY</td>
+ * <td>Disables all notifications.</td>
+ * </tr>
+ * <tr>
+ * <td>QM_NOTIFY_USE_PROGRESSEX</td>
+ * <td>Not supported.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * <div class="alert"><b>Note</b>  By default, QMGR calls your <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/nf-qmgr-ibackgroundcopycallback1-onstatus">IBackgroundCopyCallback1::OnStatus</a> method when an error occurs.</div>
+ * <div> </div>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//qmgr/ne-qmgr-groupprop
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319

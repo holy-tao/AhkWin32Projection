@@ -5,13 +5,13 @@
  * The REGPINTYPES structure contains media type information for registering a filter.
  * @remarks
  * 
-  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ifiltermapper2">IFilterMapper2</a> interface to identify the media types that a pin supports. The equivalent <b>AMOVIESETUP_MEDIATYPE</b> type is used in class factory templates (<a href="https://docs.microsoft.com/windows/desktop/DirectShow/cfactorytemplate">CFactoryTemplate</a>).
-  * 
-  * To register a range of subtypes within the same major type, use the value MEDIASUBTYPE_NULL.
-  * 
-  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/how-to-register-directshow-filters">How to Register DirectShow Filters</a>.
-  * 
-  * 
+ * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ifiltermapper2">IFilterMapper2</a> interface to identify the media types that a pin supports. The equivalent <b>AMOVIESETUP_MEDIATYPE</b> type is used in class factory templates (<a href="https://docs.microsoft.com/windows/desktop/DirectShow/cfactorytemplate">CFactoryTemplate</a>).
+ * 
+ * To register a range of subtypes within the same major type, use the value MEDIASUBTYPE_NULL.
+ * 
+ * For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/how-to-register-directshow-filters">How to Register DirectShow Filters</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-regpintypes
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

@@ -11,56 +11,56 @@
  * Provides functionality to manage an Online Certificate Status Protocol (OCSP) responder server.
  * @remarks
  * 
-  * The following table disambiguates the various properties used in the Microsoft OCSP architecture.
-  * 
-  * <table>
-  * <tr>
-  * <th>Architecture</th>
-  * <th>Scope</th>
-  * <th>Information types</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspadmin-get_ocspserviceproperties">OCSPServiceProperties</a>
-  * </td>
-  * <td>Governs general responder-service behavior for every CA.</td>
-  * <td>
-  * <ul>
-  * <li>Proxy</li>
-  * <li>Audit</li>
-  * <li>Security configurations</li>
-  * </ul>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspadmin-get_ocspcaconfigurationcollection">OCSPCAConfigurationCollection</a>
-  * </td>
-  * <td>Governs response behavior for a specific CA.</td>
-  * <td>
-  * <ul>
-  * <li>CA</li>
-  * <li>Hash algorithm</li>
-  * <li>Certificate signing</li>
-  * <li>Revocation provider configurations</li>
-  * </ul>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspcaconfiguration-get_providerproperties">ProviderProperties</a>
-  * </td>
-  * <td>Governs behavior of a revocation information provider that is specific to a particular <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-iocspcaconfiguration">OCSPCAConfiguration</a>.</td>
-  * <td>
-  * <ul>
-  * <li>Certificate revocation lists (CRLs)</li>
-  * <li>Refresh interval</li>
-  * </ul>
-  * </td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * The following table disambiguates the various properties used in the Microsoft OCSP architecture.
+ * 
+ * <table>
+ * <tr>
+ * <th>Architecture</th>
+ * <th>Scope</th>
+ * <th>Information types</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspadmin-get_ocspserviceproperties">OCSPServiceProperties</a>
+ * </td>
+ * <td>Governs general responder-service behavior for every CA.</td>
+ * <td>
+ * <ul>
+ * <li>Proxy</li>
+ * <li>Audit</li>
+ * <li>Security configurations</li>
+ * </ul>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspadmin-get_ocspcaconfigurationcollection">OCSPCAConfigurationCollection</a>
+ * </td>
+ * <td>Governs response behavior for a specific CA.</td>
+ * <td>
+ * <ul>
+ * <li>CA</li>
+ * <li>Hash algorithm</li>
+ * <li>Certificate signing</li>
+ * <li>Revocation provider configurations</li>
+ * </ul>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspcaconfiguration-get_providerproperties">ProviderProperties</a>
+ * </td>
+ * <td>Governs behavior of a revocation information provider that is specific to a particular <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-iocspcaconfiguration">OCSPCAConfiguration</a>.</td>
+ * <td>
+ * <ul>
+ * <li>Certificate revocation lists (CRLs)</li>
+ * <li>Refresh interval</li>
+ * </ul>
+ * </td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//certadm/nn-certadm-iocspadmin
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319

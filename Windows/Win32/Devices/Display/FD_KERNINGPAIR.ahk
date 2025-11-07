@@ -5,14 +5,14 @@
  * The FD_KERNINGPAIR structure is used to store information about kerning pairs.
  * @remarks
  * 
-  * An array of FD_KERNINGPAIR structures must be null-terminated, which means the last FD_KERNINGPAIR structure in the array has all structure members set to zero. An array of FD_KERNINGPAIR structures must be sorted in increasing order according to an unsigned 32-bit key, calculated as follows:
-  * 
-  * 
-  * ```
-  *     wcFirst + 65536 * wcSecond.
-  * ```
-  * 
-  * 
+ * An array of FD_KERNINGPAIR structures must be null-terminated, which means the last FD_KERNINGPAIR structure in the array has all structure members set to zero. An array of FD_KERNINGPAIR structures must be sorted in increasing order according to an unsigned 32-bit key, calculated as follows:
+ * 
+ * 
+ * ```
+ *     wcFirst + 65536 * wcSecond.
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-fd_kerningpair
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319

@@ -15,9 +15,9 @@
  * Represents a set of state and command buffers that are used to render to a target.
  * @remarks
  * 
-  *  Any resource created from a device context can be shared with any other resource created from a device context when both contexts are created on the same device.
-  * 
-  * 
+ *  Any resource created from a device context can be shared with any other resource created from a device context when both contexts are created on the same device.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1devicecontext
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

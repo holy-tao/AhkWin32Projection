@@ -5,42 +5,42 @@
  * The TS_RUNINFO structure specifies the properties of text run data.
  * @remarks
  * 
-  * A text run is a collection of consecutive visible, hidden, or embedded characters. For example, the text, Hello World in HTML might be &lt;b&gt;Hello &lt;/b&gt;&lt;i&gt;World&lt;/i&gt;. This text is represented in the TS_RUNINFO structure as follows.
-  * 
-  * <table>
-  * <tr>
-  * <th>Text Run</th>
-  * <th>uCount</th>
-  * <th>TsRunType</th>
-  * </tr>
-  * <tr>
-  * <td>&lt;b&gt;</td>
-  * <td>3</td>
-  * <td>TS_RT_HIDDEN</td>
-  * </tr>
-  * <tr>
-  * <td>Hello&lt;space&gt;</td>
-  * <td>5</td>
-  * <td>TS_RT_PLAIN</td>
-  * </tr>
-  * <tr>
-  * <td>&lt;/b&gt;&lt;i&gt;</td>
-  * <td>7</td>
-  * <td>TS_RT_HIDDEN</td>
-  * </tr>
-  * <tr>
-  * <td>World</td>
-  * <td>5</td>
-  * <td>TS_RT_PLAIN</td>
-  * </tr>
-  * <tr>
-  * <td>&lt;/i&gt;</td>
-  * <td>4</td>
-  * <td>TS_RT_HIDDEN</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * A text run is a collection of consecutive visible, hidden, or embedded characters. For example, the text, Hello World in HTML might be &lt;b&gt;Hello &lt;/b&gt;&lt;i&gt;World&lt;/i&gt;. This text is represented in the TS_RUNINFO structure as follows.
+ * 
+ * <table>
+ * <tr>
+ * <th>Text Run</th>
+ * <th>uCount</th>
+ * <th>TsRunType</th>
+ * </tr>
+ * <tr>
+ * <td>&lt;b&gt;</td>
+ * <td>3</td>
+ * <td>TS_RT_HIDDEN</td>
+ * </tr>
+ * <tr>
+ * <td>Hello&lt;space&gt;</td>
+ * <td>5</td>
+ * <td>TS_RT_PLAIN</td>
+ * </tr>
+ * <tr>
+ * <td>&lt;/b&gt;&lt;i&gt;</td>
+ * <td>7</td>
+ * <td>TS_RT_HIDDEN</td>
+ * </tr>
+ * <tr>
+ * <td>World</td>
+ * <td>5</td>
+ * <td>TS_RT_PLAIN</td>
+ * </tr>
+ * <tr>
+ * <td>&lt;/i&gt;</td>
+ * <td>4</td>
+ * <td>TS_RT_HIDDEN</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//textstor/ns-textstor-ts_runinfo
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

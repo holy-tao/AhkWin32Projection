@@ -8,12 +8,12 @@
  * Provides methods used to retrieve certain properties of an individual user included in a logon or credential UI.
  * @remarks
  * 
-  * Windows 8 introduces the ability to group credential providers by user. The logon UI can display a set of users rather than a set of multiple credential providers for each user. Selecting a user then displays the individual credential provider options associated with that user.
-  * 
-  * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
-  * Third-parties do not implement this interface. An implementation is included with Windows.
-  * 
-  * 
+ * Windows 8 introduces the ability to group credential providers by user. The logon UI can display a set of users rather than a set of multiple credential providers for each user. Selecting a user then displays the individual credential provider options associated with that user.
+ * 
+ * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
+ * Third-parties do not implement this interface. An implementation is included with Windows.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nn-credentialprovider-icredentialprovideruser
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

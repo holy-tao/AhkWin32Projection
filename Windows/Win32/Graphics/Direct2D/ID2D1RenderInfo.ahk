@@ -7,9 +7,9 @@
  * Describes the render information common to all of the various transform implementations.
  * @remarks
  * 
-  * This interface is used by a transform implementation to first describe and then indicate changes to the rendering pass that corresponds to the transform.
-  * 
-  * 
+ * This interface is used by a transform implementation to first describe and then indicate changes to the rendering pass that corresponds to the transform.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1renderinfo
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

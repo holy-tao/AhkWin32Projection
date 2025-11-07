@@ -7,9 +7,9 @@
  * Represents a filter that can be used to control which change units are included for items in an ISyncChangeBatch object.
  * @remarks
  * 
-  * If a provider filters the contents of a change batch that it creates, it must create a filtered <b>ISyncChangeBatch</b> object instead of a standard change batch object. The filtered change batch object contains an <b>IChangeUnitListFilterInfo</b> object that describes how the contents of the change batch were filtered.
-  * 
-  * 
+ * If a provider filters the contents of a change batch that it creates, it must create a filtered <b>ISyncChangeBatch</b> object instead of a standard change batch object. The filtered change batch object contains an <b>IChangeUnitListFilterInfo</b> object that describes how the contents of the change batch were filtered.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ichangeunitlistfilterinfo
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

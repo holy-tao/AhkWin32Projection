@@ -4,19 +4,19 @@
  * Defines the type of extended statistics for a TCP connection that is requested or being set.
  * @remarks
  * 
-  * The <b>TCP_ESTATS_TYPE</b> enumeration is defined on Windows Vista and later. 
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcp6connectionestats">GetPerTcp6ConnectionEStats</a> and <b>GetPerTcp6ConnectionEStats</b> functions are designed to use TCP to diagnose performance
-  *    problems in both the network and the application.  If a network based
-  *    application is performing poorly, TCP can determine if the bottleneck
-  *    is in the sender, the receiver or the network itself.  If the
-  *    bottleneck is in the network, TCP can provide specific information
-  *    about its nature.
-  * 
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcp6connectionestats">GetPerTcp6ConnectionEStats</a> and <b>GetPerTcp6ConnectionEStats</b> functions  are used to retrieve extended statistics for a TCP connection based on the type of extended statistics specified using one of values from the <b>TCP_ESTATS_TYPE</b> enumeration type. The collection of extended statistics on a TCP connection are enabled and disabled using calls to the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-setpertcp6connectionestats">SetPerTcp6ConnectionEStats</a> and <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-setpertcpconnectionestats">SetPerTcpConnectionEStats</a> functions where the type of extended statistics specified is one of values from the <b>TCP_ESTATS_TYPE</b> enumeration type.
-  * 
-  * 
+ * The <b>TCP_ESTATS_TYPE</b> enumeration is defined on Windows Vista and later. 
+ * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcp6connectionestats">GetPerTcp6ConnectionEStats</a> and <b>GetPerTcp6ConnectionEStats</b> functions are designed to use TCP to diagnose performance
+ *    problems in both the network and the application.  If a network based
+ *    application is performing poorly, TCP can determine if the bottleneck
+ *    is in the sender, the receiver or the network itself.  If the
+ *    bottleneck is in the network, TCP can provide specific information
+ *    about its nature.
+ * 
+ * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcp6connectionestats">GetPerTcp6ConnectionEStats</a> and <b>GetPerTcp6ConnectionEStats</b> functions  are used to retrieve extended statistics for a TCP connection based on the type of extended statistics specified using one of values from the <b>TCP_ESTATS_TYPE</b> enumeration type. The collection of extended statistics on a TCP connection are enabled and disabled using calls to the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-setpertcp6connectionestats">SetPerTcp6ConnectionEStats</a> and <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-setpertcpconnectionestats">SetPerTcpConnectionEStats</a> functions where the type of extended statistics specified is one of values from the <b>TCP_ESTATS_TYPE</b> enumeration type.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tcpestats/ne-tcpestats-tcp_estats_type
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319

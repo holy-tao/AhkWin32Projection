@@ -4,32 +4,32 @@
  * Specifies texture layout options.
  * @remarks
  * 
-  * This enum is used by the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc">D3D12_RESOURCE_DESC</a> structure.
-  *       
-  * 
-  * This enumeration controls the swizzle pattern of default textures and enable map support on default textures.
-  *           Callers must query <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options">D3D12_FEATURE_DATA_D3D12_OPTIONS</a> to ensure that each option is supported.
-  *         
-  * 
-  * The standard swizzle formats applies within each page-sized chunk, and pages are laid out in linear order with respect to one another.
-  *           A 16-bit interleave pattern defines the conversion from pre-swizzled intra-page location to the post-swizzled location.
-  *         
-  * 
-  * <img alt="Standard swizzle patterns" src="./images/d3d12_standardswizzle.png"/>
-  * To demonstrate, consider the 2D 32bpp swizzle format above.
-  *           This is represented by the following interleave masks, where bits on the left are most-significant:
-  *         
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>UINT xBytesMask = 1010 1010 1000 1111
-  * UINT yMask =      0101 0101 0111 0000</code></pre>
-  * To compute the swizzled address, the following code could be used (where the <b>_pdep_u32</b> intrinsic instruction is supported):
-  *         
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>UINT swizzledOffset = resourceBaseOffset +
-  *                       _pdep_u32(xOffset, xBytesMask) +
-  *                       _pdep_u32(yOffset, yBytesMask);</code></pre>
-  * 
-  * 
+ * This enum is used by the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc">D3D12_RESOURCE_DESC</a> structure.
+ *       
+ * 
+ * This enumeration controls the swizzle pattern of default textures and enable map support on default textures.
+ *           Callers must query <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options">D3D12_FEATURE_DATA_D3D12_OPTIONS</a> to ensure that each option is supported.
+ *         
+ * 
+ * The standard swizzle formats applies within each page-sized chunk, and pages are laid out in linear order with respect to one another.
+ *           A 16-bit interleave pattern defines the conversion from pre-swizzled intra-page location to the post-swizzled location.
+ *         
+ * 
+ * <img alt="Standard swizzle patterns" src="./images/d3d12_standardswizzle.png"/>
+ * To demonstrate, consider the 2D 32bpp swizzle format above.
+ *           This is represented by the following interleave masks, where bits on the left are most-significant:
+ *         
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>UINT xBytesMask = 1010 1010 1000 1111
+ * UINT yMask =      0101 0101 0111 0000</code></pre>
+ * To compute the swizzled address, the following code could be used (where the <b>_pdep_u32</b> intrinsic instruction is supported):
+ *         
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>UINT swizzledOffset = resourceBaseOffset +
+ *                       _pdep_u32(xOffset, xBytesMask) +
+ *                       _pdep_u32(yOffset, yBytesMask);</code></pre>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_texture_layout
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

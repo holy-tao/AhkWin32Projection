@@ -8,22 +8,22 @@
  * Enumerates connection points.
  * @remarks
  * 
-  * Connectable objects support the following features: 
-  * 
-  * 
-  * 
-  * <ul>
-  * <li>Outgoing interfaces, such as event sets
-  * </li>
-  * <li>The ability to enumerate the IIDs of the outgoing interfaces
-  * </li>
-  * <li>The ability to connect and disconnect sinks to the object for those outgoing IIDs
-  * </li>
-  * <li>The ability to enumerate the connections that exist to a particular outgoing interface
-  * </li>
-  * </ul>
-  * 
-  * 
+ * Connectable objects support the following features: 
+ * 
+ * 
+ * 
+ * <ul>
+ * <li>Outgoing interfaces, such as event sets
+ * </li>
+ * <li>The ability to enumerate the IIDs of the outgoing interfaces
+ * </li>
+ * <li>The ability to connect and disconnect sinks to the object for those outgoing IIDs
+ * </li>
+ * <li>The ability to enumerate the connections that exist to a particular outgoing interface
+ * </li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-ienumconnectionpoints
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

@@ -4,9 +4,9 @@
  * The WINHTTP_WEB_SOCKET_CLOSE_STATUS enumeration includes the status of a WebSocket close operation.
  * @remarks
  * 
-  * <b>WINHTTP_WEB_SOCKET_CLOSE_STATUS</b> is used by <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpwebsocketclose">WinHttpWebSocketClose</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpwebsocketshutdown">WinHttpWebSocketShutdown</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpwebsocketqueryclosestatus">WinHttpWebSocketQueryCloseStatus</a>.
-  * 
-  * 
+ * <b>WINHTTP_WEB_SOCKET_CLOSE_STATUS</b> is used by <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpwebsocketclose">WinHttpWebSocketClose</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpwebsocketshutdown">WinHttpWebSocketShutdown</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpwebsocketqueryclosestatus">WinHttpWebSocketQueryCloseStatus</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winhttp/ne-winhttp-winhttp_web_socket_close_status
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319

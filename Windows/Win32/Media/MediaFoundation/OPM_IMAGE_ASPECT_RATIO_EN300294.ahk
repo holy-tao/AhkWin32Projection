@@ -4,9 +4,9 @@
  * Specifies the aspect ratio for ETSI EN 300 294.
  * @remarks
  * 
-  * This enumeration is numerically equivalent to the <b>COPP_ImageAspectRatio_EN300294</b> enumeration used in Certified Output Protection Protocol (COPP).
-  * 
-  * 
+ * This enumeration is numerically equivalent to the <b>COPP_ImageAspectRatio_EN300294</b> enumeration used in Certified Output Protection Protocol (COPP).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//opmapi/ne-opmapi-opm_image_aspect_ratio_en300294
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

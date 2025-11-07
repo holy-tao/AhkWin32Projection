@@ -5,11 +5,11 @@
  * Defines the details of a master boot record (MBR) partition.
  * @remarks
  * 
-  * This structure is used in the <b>Mbr</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_partition_prop">VDS_PARTITION_PROP</a> structure.
-  * 
-  * For information about partition types, see <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-create_partition_parameters">CREATE_PARTITION_PARAMETERS</a>.
-  * 
-  * 
+ * This structure is used in the <b>Mbr</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_partition_prop">VDS_PARTITION_PROP</a> structure.
+ * 
+ * For information about partition types, see <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-create_partition_parameters">CREATE_PARTITION_PARAMETERS</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_partition_info_mbr
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

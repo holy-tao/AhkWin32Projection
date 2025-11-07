@@ -5,9 +5,9 @@
  * Contains the list of reference frames for the current decode operation.
  * @remarks
  * 
-  * Reference textures may have limitations such as a requirement to allocate reference buffers as a texture array.  For information on the requirements for different decoder configurations, see [D3D12_VIDEO_DECODE_TIER](ne-d3d12video-d3d12_video_decode_tier.md).
-  * 
-  * 
+ * Reference textures may have limitations such as a requirement to allocate reference buffers as a texture array.  For information on the requirements for different decoder configurations, see [D3D12_VIDEO_DECODE_TIER](ne-d3d12video-d3d12_video_decode_tier.md).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_decode_reference_frames
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

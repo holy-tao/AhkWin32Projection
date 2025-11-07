@@ -5,11 +5,11 @@
  * Contains the information used to connect to a remote computer.
  * @remarks
  * 
-  * You can set <b>User</b>, <b>Domain</b>, and <b>Password</b> to <b>NULL</b> to use the credentials of the current user.
-  * 
-  * If you set <b>Password</b>, consider using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function to clear the password after calling <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a>.
-  * 
-  * 
+ * You can set <b>User</b>, <b>Domain</b>, and <b>Password</b> to <b>NULL</b> to use the credentials of the current user.
+ * 
+ * If you set <b>Password</b>, consider using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function to clear the password after calling <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winevt/ns-winevt-evt_rpc_login
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319

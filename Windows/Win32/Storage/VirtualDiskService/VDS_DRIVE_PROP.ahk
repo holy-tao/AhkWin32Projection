@@ -5,10 +5,10 @@
  * Defines the properties of a drive object.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsdrive-getproperties">IVdsDrive::GetProperties</a> method 
-  *     returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/drive-object">drive object</a>.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsdrive-getproperties">IVdsDrive::GetProperties</a> method 
+ *     returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/drive-object">drive object</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_drive_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

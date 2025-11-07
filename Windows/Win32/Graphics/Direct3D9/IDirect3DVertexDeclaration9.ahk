@@ -8,18 +8,18 @@
  * Applications use the methods of the IDirect3DVertexDeclaration9 interface to encapsulate the vertex shader declaration.
  * @remarks
  * 
-  * A vertex shader declaration is made up of an array of vertex elements.
-  * 
-  * The LPDIRECT3DVERTEXDECLARATION9 and PDIRECT3DVERTEXDECLARATION9 types are defined as pointers to the <b>IDirect3DVertexDeclaration9</b> interface.
-  *     
-  *             
-  * 
-  * 
-  * ```
-  * typedef struct IDirect3DVertexDeclaration9 *LPDIRECT3DVERTEXDECLARATION9, *PDIRECT3DVERTEXDECLARATION9;
-  * ```
-  * 
-  * 
+ * A vertex shader declaration is made up of an array of vertex elements.
+ * 
+ * The LPDIRECT3DVERTEXDECLARATION9 and PDIRECT3DVERTEXDECLARATION9 types are defined as pointers to the <b>IDirect3DVertexDeclaration9</b> interface.
+ *     
+ *             
+ * 
+ * 
+ * ```
+ * typedef struct IDirect3DVertexDeclaration9 *LPDIRECT3DVERTEXDECLARATION9, *PDIRECT3DVERTEXDECLARATION9;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nn-d3d9helper-idirect3dvertexdeclaration9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

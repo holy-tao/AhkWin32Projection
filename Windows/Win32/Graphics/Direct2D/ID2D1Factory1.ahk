@@ -13,9 +13,9 @@
  * Creates Direct2D resources.
  * @remarks
  * 
-  * The <b>ID2D1Factory1</b> interface is used to create devices, register and unregister effects, and enumerate effects properties. Effects are registered and unregistered globally. The registration APIs are placed on this interface for convenience.
-  * 
-  * 
+ * The <b>ID2D1Factory1</b> interface is used to create devices, register and unregister effects, and enumerate effects properties. Effects are registered and unregistered globally. The registration APIs are placed on this interface for convenience.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1factory1
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

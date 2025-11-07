@@ -17,19 +17,19 @@
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IAtscPsipParser interface retrieves ATSC Program and System Information Protocol (PSIP) tables.
  * @remarks
  * 
-  * To get a pointer to this interface, call <b>CoCreateInstance</b>. Use the following CLSID:
-  * 
-  * 
-  * ```cpp
-  * 3508C064-B94E-420b-A821-20C8096FAADC
-  * ```
-  * 
-  * 
-  * This CLSID is not is not published in an SDK header; define a new GUID constant in your application.
-  * 
-  * You must call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-initialize">Initialize</a> before calling any other methods on the object.
-  * 
-  * 
+ * To get a pointer to this interface, call <b>CoCreateInstance</b>. Use the following CLSID:
+ * 
+ * 
+ * ```cpp
+ * 3508C064-B94E-420b-A821-20C8096FAADC
+ * ```
+ * 
+ * 
+ * This CLSID is not is not published in an SDK header; define a new GUID constant in your application.
+ * 
+ * You must call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-initialize">Initialize</a> before calling any other methods on the object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nn-atscpsipparser-iatscpsipparser
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

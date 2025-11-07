@@ -7,10 +7,10 @@
  * Exposes a method that enumerates or initializes a namespace extension when it is invoked on a remote object. This interface is used, for example, to initialize the remote printers virtual folder.
  * @remarks
  * 
-  * Implement <b>IRemoteComputer</b> when your namespace extension may be invoked on a remote computer.
-  * 
-  * You do not call this interface directly. <b>IRemoteComputer</b> is used by the operating system only when it has confirmed that your application is aware of this interface.
-  * 
+ * Implement <b>IRemoteComputer</b> when your namespace extension may be invoked on a remote computer.
+ * 
+ * You do not call this interface directly. <b>IRemoteComputer</b> is used by the operating system only when it has confirmed that your application is aware of this interface.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iremotecomputer
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

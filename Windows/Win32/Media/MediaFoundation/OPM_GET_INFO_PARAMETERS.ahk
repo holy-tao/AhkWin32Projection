@@ -7,16 +7,16 @@
  * Contains parameters for the IOPMVideoOutput::GetInformation method.
  * @remarks
  * 
-  * Initialize this structure as follows:
-  * 
-  * <ol>
-  * <li>Generate a cryptographically secure 128-bit random number and copy it to the <b>rnRandomNumber</b> member. Do not re-use this number after calling <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nf-opmapi-iopmvideooutput-getinformation">GetInformation</a>.</li>
-  * <li>Fill in the remaining structure members, except for the <b>omac</b> member.</li>
-  * <li>Use the OMAC 1 algorithm to calculate a message authentication code (MAC) for the block of data that appears after the <b>omac</b> member (excluding the <b>omac</b> member).</li>
-  * <li>Copy the MAC to the <b>omac</b> member.</li>
-  * </ol>
-  * 
-  * 
+ * Initialize this structure as follows:
+ * 
+ * <ol>
+ * <li>Generate a cryptographically secure 128-bit random number and copy it to the <b>rnRandomNumber</b> member. Do not re-use this number after calling <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nf-opmapi-iopmvideooutput-getinformation">GetInformation</a>.</li>
+ * <li>Fill in the remaining structure members, except for the <b>omac</b> member.</li>
+ * <li>Use the OMAC 1 algorithm to calculate a message authentication code (MAC) for the block of data that appears after the <b>omac</b> member (excluding the <b>omac</b> member).</li>
+ * <li>Copy the MAC to the <b>omac</b> member.</li>
+ * </ol>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_get_info_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -7,11 +7,11 @@
  * Represents a heap in which estimated motion vectors are stored.
  * @remarks
  * 
-  * Create a new instance of this interface by calling [ID3D12VideoDevice1::CreateVideoMotionVectorHeap](nf-d3d12video-id3d12videodevice1-createvideomotionvectorheap.md).
-  * 
-  * This interface is used by the [D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT](ns-d3d12video-d3d12_video_motion_estimator_output.md) structure returned from [ID3D12VideoEncodeCommandList::EstimateMotion](nf-d3d12video-id3d12videoencodecommandlist-estimatemotion.md). It is also used to supply hint vectors in the [D3D12_VIDEO_MOTION_ESTIMATOR_INPUT](ns-d3d12video-d3d12_video_motion_estimator_input.md) structure.
-  * 
-  * 
+ * Create a new instance of this interface by calling [ID3D12VideoDevice1::CreateVideoMotionVectorHeap](nf-d3d12video-id3d12videodevice1-createvideomotionvectorheap.md).
+ * 
+ * This interface is used by the [D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT](ns-d3d12video-d3d12_video_motion_estimator_output.md) structure returned from [ID3D12VideoEncodeCommandList::EstimateMotion](nf-d3d12video-id3d12videoencodecommandlist-estimatemotion.md). It is also used to supply hint vectors in the [D3D12_VIDEO_MOTION_ESTIMATOR_INPUT](ns-d3d12video-d3d12_video_motion_estimator_input.md) structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videomotionvectorheap
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

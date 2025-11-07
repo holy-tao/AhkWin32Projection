@@ -8,10 +8,10 @@
  * Used to configure FSRM.
  * @remarks
  * 
-  * To create this object from a script, use the program identifier, "Fsrm.FsrmSetting".
-  * 
-  * 
-  * 
+ * To create this object from a script, use the program identifier, "Fsrm.FsrmSetting".
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmsetting
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

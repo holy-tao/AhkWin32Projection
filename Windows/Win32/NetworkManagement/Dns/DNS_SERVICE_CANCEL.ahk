@@ -5,9 +5,9 @@
  * Used to cancel an asynchronous DNS-SD operation.
  * @remarks
  * 
-  * This structure is returned in the `pCancel` parameter from a previous call to [DnsServiceBrowse](nf-windns-dnsservicebrowse.md), [DnsServiceRegister](nf-windns-dnsserviceregister.md), or [DnsServiceResolve](nf-windns-dnsserviceresolve.md).
-  * 
-  * 
+ * This structure is returned in the `pCancel` parameter from a previous call to [DnsServiceBrowse](nf-windns-dnsservicebrowse.md), [DnsServiceRegister](nf-windns-dnsserviceregister.md), or [DnsServiceResolve](nf-windns-dnsserviceresolve.md).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_service_cancel
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319

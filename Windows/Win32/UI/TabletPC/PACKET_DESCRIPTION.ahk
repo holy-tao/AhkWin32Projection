@@ -5,9 +5,9 @@
  * Describes the content of the packet for a particular tablet recognizer context.Do not use this structure to access the data contained in a packet. This structure describes the content of the packet.
  * @remarks
  * 
-  * The <b>PACKET_DESCRIPTION</b> structure defines the logical layout of the packet. Typically, you do not need to address the contents of a packet. You pass the packets to the Ink object. However, if you need to address the contents of a packet, each packet contains a series of LONG values (properties) followed by one or more DWORD values (button states).
-  * 
-  * 
+ * The <b>PACKET_DESCRIPTION</b> structure defines the logical layout of the packet. Typically, you do not need to address the contents of a packet. You pass the packets to the Ink object. However, if you need to address the contents of a packet, each packet contains a series of LONG values (properties) followed by one or more DWORD values (button states).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tpcshrd/ns-tpcshrd-packet_description
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

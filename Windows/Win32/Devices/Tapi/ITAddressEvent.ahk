@@ -9,11 +9,11 @@
  * The ITAddressEvent interface contains methods that retrieve the description of address events.
  * @remarks
  * 
-  * Certain events on PnP devices will not be received until after the first time static terminals are enumerated using 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-enumeratestaticterminals">ITTerminalSupport::EnumerateStaticTerminals</a> or 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-get_staticterminals">ITTerminalSupport::get_StaticTerminals</a>.
-  * 
-  * 
+ * Certain events on PnP devices will not be received until after the first time static terminals are enumerated using 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-enumeratestaticterminals">ITTerminalSupport::EnumerateStaticTerminals</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-get_staticterminals">ITTerminalSupport::get_StaticTerminals</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itaddressevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

@@ -8,9 +8,9 @@
  * The IStaticPortMapping interface provides methods to retrieve and change the information for a particular port mapping.
  * @remarks
  * 
-  * The NAT API with UPnP technology uses the combination of the external port and the protocol to identify the port mapping.
-  * 
-  * 
+ * The NAT API with UPnP technology uses the combination of the external port and the protocol to identify the port mapping.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//natupnp/nn-natupnp-istaticportmapping
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

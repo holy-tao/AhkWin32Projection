@@ -5,16 +5,16 @@
  * The BLOB structure, derived from Binary Large Object, contains information about a block of data.
  * @remarks
  * 
-  * The structure name 
-  * <b>BLOB</b> comes from the acronym BLOB, which stands for Binary Large Object.
-  * 
-  * This structure does not describe the nature of the data pointed to by <b>pBlobData</b>.
-  * 
-  * <div class="alert"><b>Note</b>  Windows Sockets defines a similar 
-  * <b>BLOB</b> structure in Wtypes.h. Using both header files in the same source code file creates redefinition–compile time errors.</div>
-  * <div> </div>
-  * 
-  * 
+ * The structure name 
+ * <b>BLOB</b> comes from the acronym BLOB, which stands for Binary Large Object.
+ * 
+ * This structure does not describe the nature of the data pointed to by <b>pBlobData</b>.
+ * 
+ * <div class="alert"><b>Note</b>  Windows Sockets defines a similar 
+ * <b>BLOB</b> structure in Wtypes.h. Using both header files in the same source code file creates redefinition–compile time errors.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-blob
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

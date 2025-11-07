@@ -4,46 +4,46 @@
  * Indicates the state of the cluster.
  * @remarks
  * 
-  * The following constants are defined in ClusAPI.h.
-  * 
-  * <table>
-  * <tr>
-  * <th>Constant</th>
-  * <th>Value</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>CLUSTER_INSTALLED</b>
-  * 
-  * </td>
-  * <td>
-  * 0x00000001
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>CLUSTER_CONFIGURED</b>
-  * 
-  * </td>
-  * <td>
-  * 0x00000002
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>CLUSTER_RUNNING</b>
-  * 
-  * </td>
-  * <td>
-  * 0x00000010
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * The following constants are defined in ClusAPI.h.
+ * 
+ * <table>
+ * <tr>
+ * <th>Constant</th>
+ * <th>Value</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>CLUSTER_INSTALLED</b>
+ * 
+ * </td>
+ * <td>
+ * 0x00000001
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>CLUSTER_CONFIGURED</b>
+ * 
+ * </td>
+ * <td>
+ * 0x00000002
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>CLUSTER_RUNNING</b>
+ * 
+ * </td>
+ * <td>
+ * 0x00000010
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-node_cluster_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

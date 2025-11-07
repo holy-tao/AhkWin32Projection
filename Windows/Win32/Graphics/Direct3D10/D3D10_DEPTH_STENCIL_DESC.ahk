@@ -6,11 +6,11 @@
  * Describes depth-stencil state.
  * @remarks
  * 
-  * Depth-stencil state controls how <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">depth-stencil</a> testing is performed by the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger</a> stage.
-  * 
-  * The formats that support stenciling are DXGI_FORMAT_D24_UNORM_S8_UINT and DXGI_FORMAT_D32_FLOAT_S8X24_UINT.
-  * 
-  * 
+ * Depth-stencil state controls how <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">depth-stencil</a> testing is performed by the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger</a> stage.
+ * 
+ * The formats that support stenciling are DXGI_FORMAT_D24_UNORM_S8_UINT and DXGI_FORMAT_D32_FLOAT_S8X24_UINT.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_depth_stencil_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

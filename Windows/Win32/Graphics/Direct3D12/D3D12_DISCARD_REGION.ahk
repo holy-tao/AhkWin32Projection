@@ -5,12 +5,12 @@
  * Describes details for the discard-resource operation.
  * @remarks
  * 
-  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-discardresource">ID3D12GraphicsCommandList::DiscardResource</a> method.
-  *       
-  * 
-  * If rectangles are supplied in this structure, the resource must have 2D subresources with all specified subresources the same dimension.
-  * 
-  * 
+ * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-discardresource">ID3D12GraphicsCommandList::DiscardResource</a> method.
+ *       
+ * 
+ * If rectangles are supplied in this structure, the resource must have 2D subresources with all specified subresources the same dimension.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_discard_region
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

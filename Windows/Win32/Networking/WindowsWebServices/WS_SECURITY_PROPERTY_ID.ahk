@@ -4,11 +4,11 @@
  * Identifies the properties representing channel-wide security settings. This enumeration is used within the WS_SECURITY_PROPERTY structure, which is in turn used within a WS_SECURITY_DESCRIPTION structure.
  * @remarks
  * 
-  * All properties defined by the keys here have reasonable defaults; so
-  *         specifying them is optional.  In the common case, one should be able
-  *         to create a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_security_description">WS_SECURITY_DESCRIPTION</a> without setting any of
-  *         the properties below.
-  * 
+ * All properties defined by the keys here have reasonable defaults; so
+ *         specifying them is optional.  In the common case, one should be able
+ *         to create a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_security_description">WS_SECURITY_DESCRIPTION</a> without setting any of
+ *         the properties below.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_security_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
