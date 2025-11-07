@@ -52,7 +52,7 @@ class EC_SUBSCRIPTION_PROPERTY_ID{
 
     /**
      * The <b>URI</b> property of the subscription that contains the URI, which is used by WS-Management to connect to a computer. For example, the URI can be `http://schemas.microsoft.com/wbem/wsman/1/logrecord/sel` for hardware events or
- * it can be `http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog` for events that are published in the event log.  This property is an <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ns-evcoll-ec_variant">EcVarTypeString</a> value.
+     * it can be `http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog` for events that are published in the event log.  This property is an <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ns-evcoll-ec_variant">EcVarTypeString</a> value.
      * @type {Integer (Int32)}
      */
     static EcSubscriptionURI => 7

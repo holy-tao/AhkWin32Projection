@@ -45,8 +45,8 @@ class D3D_SHADER_INPUT_TYPE{
 
     /**
      * The shader resource is a structured buffer.
- * 
- * For more information about structured buffer, see the <b>Remarks</b> section.
+     * 
+     * For more information about structured buffer, see the <b>Remarks</b> section.
      * @type {Integer (Int32)}
      */
     static D3D_SIT_STRUCTURED => 5
@@ -129,8 +129,8 @@ class D3D_SHADER_INPUT_TYPE{
 
     /**
      * The shader resource is a structured buffer.
- * 
- * For more information about structured buffer, see the <b>Remarks</b> section.
+     * 
+     * For more information about structured buffer, see the <b>Remarks</b> section.
      * @type {Integer (Int32)}
      */
     static D3D11_SIT_STRUCTURED => 5

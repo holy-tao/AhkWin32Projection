@@ -178,27 +178,27 @@ class SHELL_LINK_DATA_FLAGS{
 
     /**
      * <b>Introduced in Windows Vista</b>. A mask for valid <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-shell_link_data_flags">SHELL_LINK_DATA_FLAGS</a> bits.
- * 
- *                         
- * 
- * <table class="clsStd">
- * <tr>
- * <th>OS</th>
- * <th>Value</th>
- * </tr>
- * <tr>
- * <td>Windows 8</td>
- * <td>0x0FFFF7FF</td>
- * </tr>
- * <tr>
- * <td>Windows 7</td>
- * <td>0x07FFF7FF</td>
- * </tr>
- * <tr>
- * <td>Windows Vista</td>
- * <td>0x003FF7FF</td>
- * </tr>
- * </table>
+     * 
+     *                         
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>OS</th>
+     * <th>Value</th>
+     * </tr>
+     * <tr>
+     * <td>Windows 8</td>
+     * <td>0x0FFFF7FF</td>
+     * </tr>
+     * <tr>
+     * <td>Windows 7</td>
+     * <td>0x07FFF7FF</td>
+     * </tr>
+     * <tr>
+     * <td>Windows Vista</td>
+     * <td>0x003FF7FF</td>
+     * </tr>
+     * </table>
      * @type {Integer (Int32)}
      */
     static SLDF_VALID => 268433407

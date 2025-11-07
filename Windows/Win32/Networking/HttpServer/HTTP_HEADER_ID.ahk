@@ -28,8 +28,8 @@ class HTTP_HEADER_ID{
 
     /**
      * Based on the keepalive XML element (see <a href="https://www.ietf.org/rfc/rfc2518.txt">RFC 2518</a>, section 12.12.1, page 66); a list of URIs included in the KeepAlive
- *    header must be "live" after they are copied
- *    (moved) to the destination.
+     *    header must be "live" after they are copied
+     *    (moved) to the destination.
      * @type {Integer (Int32)}
      */
     static HttpHeaderKeepAlive => 3
@@ -198,37 +198,37 @@ class HTTP_HEADER_ID{
 
     /**
      * The If-None-Match request-header field is used with a method to make
- *    it conditional. When a client has obtained one or more entities from a resource, it can verify that none of those entities is
- *    current by including a list of their associated entity tags in the
- *    If-None-Match header field. The purpose of this feature is to allow
- *    efficient updates of cached information with a minimum amount of
- *    transaction overhead, and to prevent a method such as PUT
- *    from inadvertently modifying an existing resource when the client
- *    believes that the resource does not exist.
+     *    it conditional. When a client has obtained one or more entities from a resource, it can verify that none of those entities is
+     *    current by including a list of their associated entity tags in the
+     *    If-None-Match header field. The purpose of this feature is to allow
+     *    efficient updates of cached information with a minimum amount of
+     *    transaction overhead, and to prevent a method such as PUT
+     *    from inadvertently modifying an existing resource when the client
+     *    believes that the resource does not exist.
      * @type {Integer (Int32)}
      */
     static HttpHeaderIfNoneMatch => 31
 
     /**
      * If a client has a partial copy of an entity in its cache, and wishes
- *    to obtain an up-to-date copy of the entire entity, it
- *    can use the If-Range header. Informally, its meaning is, "if the entity is unchanged, send
- *    me the part(s) I am missing; otherwise, send me the entire new
- *    entity."
+     *    to obtain an up-to-date copy of the entire entity, it
+     *    can use the If-Range header. Informally, its meaning is, "if the entity is unchanged, send
+     *    me the part(s) I am missing; otherwise, send me the entire new
+     *    entity."
      * @type {Integer (Int32)}
      */
     static HttpHeaderIfRange => 32
 
     /**
      * The If-Unmodified-Since request-header field is used with a method to
- *    make it conditional. If the requested resource has not been modified
- *    since the time specified in this field, the server performs the
- *    requested operation as if the If-Unmodified-Since header were not
- *    present, but
- * 
- *    if the requested resource has been modified,
- *    the server returns
- *    a 412 error (Precondition Failed).
+     *    make it conditional. If the requested resource has not been modified
+     *    since the time specified in this field, the server performs the
+     *    requested operation as if the If-Unmodified-Since header were not
+     *    present, but
+     * 
+     *    if the requested resource has been modified,
+     *    the server returns
+     *    a 412 error (Precondition Failed).
      * @type {Integer (Int32)}
      */
     static HttpHeaderIfUnmodifiedSince => 33

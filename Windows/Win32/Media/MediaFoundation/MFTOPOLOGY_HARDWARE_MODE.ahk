@@ -27,9 +27,9 @@ class MFTOPOLOGY_HARDWARE_MODE{
 
     /**
      * If hardware-based MFTs are available, the topoloader will insert
- *     them.  If not, the connection will fail.
- * 
- * Supported in Windows 8.1 and later.
+     *     them.  If not, the connection will fail.
+     * 
+     * Supported in Windows 8.1 and later.
      * @type {Integer (Int32)}
      */
     static MFTOPOLOGY_HWMODE_USE_ONLY_HARDWARE => 2

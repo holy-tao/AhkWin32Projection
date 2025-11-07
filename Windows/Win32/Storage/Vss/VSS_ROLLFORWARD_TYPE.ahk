@@ -16,9 +16,9 @@ class VSS_ROLLFORWARD_TYPE{
 
     /**
      * No roll-forward type is defined. 
- *       
- * 
- * This indicates an error on the part of the requester.
+     *       
+     * 
+     * This indicates an error on the part of the requester.
      * @type {Integer (Int32)}
      */
     static VSS_RF_UNDEFINED => 0

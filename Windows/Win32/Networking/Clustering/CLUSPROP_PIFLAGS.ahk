@@ -28,30 +28,30 @@ class CLUSPROP_PIFLAGS{
 
     /**
      * The storage class resource is formatted with a file system that is usable by the 
- *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>.
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>.
      * @type {Integer (Int32)}
      */
     static CLUSPROP_PIFLAG_USABLE => 4
 
     /**
      * The partition should be used to store quorum files if no partition is specified in the 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-setclusterquorumresource">SetClusterQuorumResource</a> function.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-setclusterquorumresource">SetClusterQuorumResource</a> function.
      * @type {Integer (Int32)}
      */
     static CLUSPROP_PIFLAG_DEFAULT_QUORUM => 8
 
     /**
      * The partition can be used in a cluster shared volume (CSV).
- * 
- * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This value is supported starting with Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This value is supported starting with Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static CLUSPROP_PIFLAG_USABLE_FOR_CSV => 16
 
     /**
      * The partition uses BitLocker encryption.
- * 
- * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is supported starting with Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is supported starting with Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSPROP_PIFLAG_ENCRYPTION_ENABLED => 32
@@ -63,8 +63,8 @@ class CLUSPROP_PIFLAGS{
 
     /**
      * The partition uses an unknown file system type.
- * 
- * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is supported starting with Windows Server 2012 R2 with KB 3093899.
+     * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is supported starting with Windows Server 2012 R2 with KB 3093899.
      * @type {Integer (Int32)}
      */
     static CLUSPROP_PIFLAG_UNKNOWN => -2147483648

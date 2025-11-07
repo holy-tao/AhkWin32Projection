@@ -16,8 +16,8 @@ class CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS{
 
     /**
      * Display the "password reveal" glyph in a password entry box. When this glyph is held down by the user, the entry in the password box is shown in plain text. The glyph is shown here:
- * 
- * <img alt="Password reveal glyph" src="./images/PasswordReveal.png"/>
+     * 
+     * <img alt="Password reveal glyph" src="./images/PasswordReveal.png"/>
      * @type {Integer (Int32)}
      */
     static CPCFO_ENABLE_PASSWORD_REVEAL => 1

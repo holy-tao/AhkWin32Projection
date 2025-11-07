@@ -15,8 +15,8 @@ class DIRECTMANIPULATION_SNAPPOINT_COORDINATE{
 
     /**
      * Default. 
- * 
- * Snap points are specified relative to the top and left boundaries of the content unless <b>DIRECTMANIPULATION_COORDINATE_MIRRORED</b> is also specified, in which case they are relative to the bottom and right boundaries of the content. For zoom, the boundary is 1.0f.
+     * 
+     * Snap points are specified relative to the top and left boundaries of the content unless <b>DIRECTMANIPULATION_COORDINATE_MIRRORED</b> is also specified, in which case they are relative to the bottom and right boundaries of the content. For zoom, the boundary is 1.0f.
      * @type {Integer (Int32)}
      */
     static DIRECTMANIPULATION_COORDINATE_BOUNDARY => 0

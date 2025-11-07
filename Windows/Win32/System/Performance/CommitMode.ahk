@@ -15,8 +15,8 @@ class CommitMode{
 
     /**
      * Save the set. The set must not already exist. 
- * 
- * The set is not saved if it is a trace session.
+     * 
+     * The set is not saved if it is a trace session.
      * @type {Integer (Int32)}
      */
     static plaCreateNew => 1
@@ -29,8 +29,8 @@ class CommitMode{
 
     /**
      * Save the set. If the set already exists, update the set.
- * 
- * The set is not saved if it is a trace session.
+     * 
+     * The set is not saved if it is a trace session.
      * @type {Integer (Int32)}
      */
     static plaCreateOrModify => 3

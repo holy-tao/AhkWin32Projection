@@ -240,8 +240,8 @@ class ShellSpecialFolderConstants{
 
     /**
      * Do not use this field. Use the value 0x2a (42) in your code instead to specify the Program Files (x86) folder. A typical path is C:\Program Files, or C:\Program Files (x86) on a 64-bit computer. 
- * 
- * **Note:**  In the shldisp.h header, the **ssfPROGRAMFILESx86** field is erroneously assigned to the value 0x30 (48). This value specifies the folder for the Administrative Tools folder instead of the Program Files folder.
+     * 
+     * **Note:**  In the shldisp.h header, the **ssfPROGRAMFILESx86** field is erroneously assigned to the value 0x30 (48). This value specifies the folder for the Administrative Tools folder instead of the Program Files folder.
      * @type {Integer (Int32)}
      */
     static ssfPROGRAMFILESx86 => 48

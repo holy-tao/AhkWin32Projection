@@ -46,12 +46,12 @@ class FOLDERVIEWOPTIONS{
 
     /**
      * 0x00000010. Do not show scroll tips. This option was introduced in Windows 7 and is active by default in the Windows 7 view.
- * 
- * 
- * 
- * A scroll tip displays the names of files as they are scrolled past, as a visual clue to your location in the list. An example is shown here.
- * 
- * <img alt="Screen shot of a Scroll tip displaying the name of the Shell32.dll file in the System32 folder." src="./images/scrolltip.jpg"/>
+     * 
+     * 
+     * 
+     * A scroll tip displays the names of files as they are scrolled past, as a visual clue to your location in the list. An example is shown here.
+     * 
+     * <img alt="Screen shot of a Scroll tip displaying the name of the Shell32.dll file in the System32 folder." src="./images/scrolltip.jpg"/>
      * @type {Integer (Int32)}
      */
     static FVO_NOSCROLLTIPS => 32

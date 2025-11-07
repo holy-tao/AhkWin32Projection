@@ -31,29 +31,29 @@ class NAPI_PROVIDER_LEVEL{
 
     /**
      * The namespace provider does not support the current domain. This value can be used to temporarily turn off the support for a domain without removing it from the list of supported domains. 
- * 
- * If <b>ProviderLevel_None</b> is set in the <b>AuthLevel</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/nsemail/ns-nsemail-napi_domain_description_blob">NAPI_DOMAIN_DESCRIPTION_BLOB</a> for a given domain when the provider is installed and registered, the namespace provider will not be called to resolve or register an address in that domain unless the provider registered as a wildcard provider. 
- * 
- * There may be multiple NS_EMAIL namespace providers for a domain with a value of <b>ProviderLevel_None</b>. If there are namespace providers with this value that also registered as a wildcard provider, the providers are called in the order that they appear in the Winsock catalog.
+     * 
+     * If <b>ProviderLevel_None</b> is set in the <b>AuthLevel</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/nsemail/ns-nsemail-napi_domain_description_blob">NAPI_DOMAIN_DESCRIPTION_BLOB</a> for a given domain when the provider is installed and registered, the namespace provider will not be called to resolve or register an address in that domain unless the provider registered as a wildcard provider. 
+     * 
+     * There may be multiple NS_EMAIL namespace providers for a domain with a value of <b>ProviderLevel_None</b>. If there are namespace providers with this value that also registered as a wildcard provider, the providers are called in the order that they appear in the Winsock catalog.
      * @type {Integer (Int32)}
      */
     static ProviderLevel_None => 0
 
     /**
      * The namespace provider is a secondary provider for a domain in the NS_EMAIL namespace. A namespace provider can be a secondary provider in the target domain if the provider can resolve and register NS_EMAIL names for this domain and give the same answer that a primary provider would provide. If <b>ProviderLevel_Secondary</b> is set in <b>AuthLevel</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/nsemail/ns-nsemail-napi_domain_description_blob">NAPI_DOMAIN_DESCRIPTION_BLOB</a> for a given domain when the provider is installed and registered, this provider is called when a primary provider for the domain is not currently available or the primary provider could not resolve or register the address in that domain. 
- * 
- * There may be multiple secondary NS_EMAIL namespace providers for a domain with a value of <b>ProviderLevel_Secondary</b>. If there are multiple secondary namespace providers, the providers are called in the order that they appear in the Winsock catalog.
+     * 
+     * There may be multiple secondary NS_EMAIL namespace providers for a domain with a value of <b>ProviderLevel_Secondary</b>. If there are multiple secondary namespace providers, the providers are called in the order that they appear in the Winsock catalog.
      * @type {Integer (Int32)}
      */
     static ProviderLevel_Secondary => 1
 
     /**
      * The namespace provider is the primary provider for a domain in the NS_EMAIL namespace. A namespace provider can claim to be the primary provider for a domain if it owns all of the NS_EMAIL names for that domain and thus has access to the master data for all such names. 
- * 
- * There should be only a single primary NS_EMAIL namespace provider for a domain registered on the local system.
- * 
- * <div class="alert"><b>Note</b>  There should never be two NS_EMAIL namespace providers that claim to be the primary provider for the same domain. If multiple providers try to register as the primary provider for the same domain, the first provider found in the Winsock namespace catalog for the domain as the primary provider will be called. All other provider claims to be the primary provider are ignored.</div>
- * <div> </div>
+     * 
+     * There should be only a single primary NS_EMAIL namespace provider for a domain registered on the local system.
+     * 
+     * <div class="alert"><b>Note</b>  There should never be two NS_EMAIL namespace providers that claim to be the primary provider for the same domain. If multiple providers try to register as the primary provider for the same domain, the first provider found in the Winsock namespace catalog for the domain as the primary provider will be called. All other provider claims to be the primary provider are ignored.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static ProviderLevel_Primary => 2

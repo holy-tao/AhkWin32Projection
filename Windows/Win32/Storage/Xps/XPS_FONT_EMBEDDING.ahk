@@ -28,8 +28,8 @@ class XPS_FONT_EMBEDDING{
 
     /**
      * The font is restricted but not obfuscated.
- * 
- * This value cannot be set by an application. It is set when the document being deserialized contains a restricted font that is not obfuscated. Restricted fonts should be obfuscated, so this value usually indicates an error in the application that created the XPS document being deserialized.
+     * 
+     * This value cannot be set by an application. It is set when the document being deserialized contains a restricted font that is not obfuscated. Restricted fonts should be obfuscated, so this value usually indicates an error in the application that created the XPS document being deserialized.
      * @type {Integer (Int32)}
      */
     static XPS_FONT_EMBEDDING_RESTRICTED_UNOBFUSCATED => 4

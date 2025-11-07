@@ -34,7 +34,7 @@ class StringFormatFlags{
 
     /**
      * Specifies that parts of characters are allowed to overhang the string's layout rectangle. By default, characters are first aligned inside the rectangle's boundaries, then any characters which still overhang the boundaries are repositioned to avoid any overhang and thereby avoid affecting pixels outside the layout rectangle. An italic, lowercase letter F (
- * 				<i>f</i>) is an example of a character that may have overhanging parts. Setting this flag ensures that the character aligns visually with the lines above and below but may cause parts of characters, which lie outside the layout rectangle, to be clipped or painted.
+     * 				<i>f</i>) is an example of a character that may have overhanging parts. Setting this flag ensures that the character aligns visually with the lines above and below but may cause parts of characters, which lie outside the layout rectangle, to be clipped or painted.
      * @type {Integer (Int32)}
      */
     static StringFormatFlagsNoFitBlackBox => 4
@@ -53,7 +53,7 @@ class StringFormatFlags{
 
     /**
      * Specifies that the space at the end of each line is included in a string measurement. By default, the boundary rectangle returned by the 
- * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusgraphics/nf-gdiplusgraphics-graphics-measurestring(inconstwchar_inint_inconstfont_inconstpointf__inconststringformat_outrectf)">Graphics::MeasureString</a> method excludes the space at the end of each line. Set this flag to include that space in the measurement.
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusgraphics/nf-gdiplusgraphics-graphics-measurestring(inconstwchar_inint_inconstfont_inconstpointf__inconststringformat_outrectf)">Graphics::MeasureString</a> method excludes the space at the end of each line. Set this flag to include that space in the measurement.
      * @type {Integer (Int32)}
      */
     static StringFormatFlagsMeasureTrailingSpaces => 2048

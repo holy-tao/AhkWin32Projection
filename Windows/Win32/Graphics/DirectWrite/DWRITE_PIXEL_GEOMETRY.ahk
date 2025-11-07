@@ -16,14 +16,14 @@ class DWRITE_PIXEL_GEOMETRY{
 
     /**
      * Each pixel is composed of three vertical stripes, with red on the left, green in the center, and 
- *      blue on the right. This is the most common pixel geometry for LCD monitors.
+     *      blue on the right. This is the most common pixel geometry for LCD monitors.
      * @type {Integer (Int32)}
      */
     static DWRITE_PIXEL_GEOMETRY_RGB => 1
 
     /**
      * Each pixel is composed of three vertical stripes, with blue on the left, green in the center, and 
- * 	  red on the right.
+     * 	  red on the right.
      * @type {Integer (Int32)}
      */
     static DWRITE_PIXEL_GEOMETRY_BGR => 2

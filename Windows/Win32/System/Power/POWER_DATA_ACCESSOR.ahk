@@ -10,14 +10,14 @@ class POWER_DATA_ACCESSOR{
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powersettingaccesscheck">PowerSettingAccessCheck</a> to 
- *       check for group policy overrides for AC power settings.
+     *       check for group policy overrides for AC power settings.
      * @type {Integer (Int32)}
      */
     static ACCESS_AC_POWER_SETTING_INDEX => 0
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powersettingaccesscheck">PowerSettingAccessCheck</a> to 
- *       check for group policy overrides for DC power settings.
+     *       check for group policy overrides for DC power settings.
      * @type {Integer (Int32)}
      */
     static ACCESS_DC_POWER_SETTING_INDEX => 1
@@ -108,37 +108,37 @@ class POWER_DATA_ACCESSOR{
 
     /**
      * Used to enumerate power schemes with 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerenumerate">PowerEnumerate</a> and with 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powersettingaccesscheck">PowerSettingAccessCheck</a> to check for 
- *       restricted access to specific power schemes.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerenumerate">PowerEnumerate</a> and with 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powersettingaccesscheck">PowerSettingAccessCheck</a> to check for 
+     *       restricted access to specific power schemes.
      * @type {Integer (Int32)}
      */
     static ACCESS_SCHEME => 16
 
     /**
      * Used to enumerate subgroups with 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerenumerate">PowerEnumerate</a>.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerenumerate">PowerEnumerate</a>.
      * @type {Integer (Int32)}
      */
     static ACCESS_SUBGROUP => 17
 
     /**
      * Used to enumerate individual power settings with 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerenumerate">PowerEnumerate</a>.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerenumerate">PowerEnumerate</a>.
      * @type {Integer (Int32)}
      */
     static ACCESS_INDIVIDUAL_SETTING => 18
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powersettingaccesscheck">PowerSettingAccessCheck</a> to 
- *       check for group policy overrides for active power schemes.
+     *       check for group policy overrides for active power schemes.
      * @type {Integer (Int32)}
      */
     static ACCESS_ACTIVE_SCHEME => 19
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powersettingaccesscheck">PowerSettingAccessCheck</a> to 
- *       check for restricted access for creating power schemes.
+     *       check for restricted access for creating power schemes.
      * @type {Integer (Int32)}
      */
     static ACCESS_CREATE_SCHEME => 20

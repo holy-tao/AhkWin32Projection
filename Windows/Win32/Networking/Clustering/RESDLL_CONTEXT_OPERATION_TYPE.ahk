@@ -40,16 +40,16 @@ class RESDLL_CONTEXT_OPERATION_TYPE{
 
     /**
      * A network connection failure.
- * 
- * <b>Windows Server 2012:  </b>This value is not supported before Windows Server 2012 R2.
+     * 
+     * <b>Windows Server 2012:  </b>This value is not supported before Windows Server 2012 R2.
      * @type {Integer (Int32)}
      */
     static ResdllContextOperationTypeNetworkDisconnect => 5
 
     /**
      * A network connection was disconnected and it is being re-established.
- * 
- * <b>Windows Server 2012:  </b>This value is not supported before Windows Server 2012 R2.
+     * 
+     * <b>Windows Server 2012:  </b>This value is not supported before Windows Server 2012 R2.
      * @type {Integer (Int32)}
      */
     static ResdllContextOperationTypeNetworkDisconnectMoveRetry => 6

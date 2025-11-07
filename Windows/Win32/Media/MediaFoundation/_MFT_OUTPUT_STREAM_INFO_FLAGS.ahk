@@ -29,18 +29,18 @@ class _MFT_OUTPUT_STREAM_INFO_FLAGS{
 
     /**
      * Each media sample (<a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface) of output data from the MFT contains complete, unbroken units of data. The definition of a <i>unit of data</i> depends on the media type: For uncompressed video, a video frame; for compressed data, a compressed packet; for uncompressed audio, a single audio frame.
- * 
- * For uncompressed audio formats, this flag is always implied. (It is valid to set the flag, but not required.) An uncompressed audio frame should never span more than one media sample.
+     * 
+     * For uncompressed audio formats, this flag is always implied. (It is valid to set the flag, but not required.) An uncompressed audio frame should never span more than one media sample.
      * @type {Integer (Int32)}
      */
     static MFT_OUTPUT_STREAM_WHOLE_SAMPLES => 1
 
     /**
      * Each output sample contains exactly one unit of data, as defined for the MFT_OUTPUT_STREAM_WHOLE_SAMPLES flag.
- * 
- * If this flag is present, the MFT_OUTPUT_STREAM_WHOLE_SAMPLES flag must also be present.
- * 
- * An MFT that outputs uncompressed audio should not set this flag. For efficiency, it should output more than one audio frame at a time.
+     * 
+     * If this flag is present, the MFT_OUTPUT_STREAM_WHOLE_SAMPLES flag must also be present.
+     * 
+     * An MFT that outputs uncompressed audio should not set this flag. For efficiency, it should output more than one audio frame at a time.
      * @type {Integer (Int32)}
      */
     static MFT_OUTPUT_STREAM_SINGLE_SAMPLE_PER_BUFFER => 2
@@ -65,16 +65,16 @@ class _MFT_OUTPUT_STREAM_INFO_FLAGS{
 
     /**
      * The MFT provides the output samples for this stream, either by allocating them internally or by operating directly on the input samples. The MFT cannot use output samples provided by the client for this stream.
- * 
- * If this flag is not set, the MFT must set <b>cbSize</b> to a nonzero value in the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ns-mftransform-mft_output_stream_info">MFT_OUTPUT_STREAM_INFO</a> structure, so that the client can allocate the correct buffer size. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-getoutputstreaminfo">IMFTransform::GetOutputStreamInfo</a>. This flag cannot be combined with the MFT_OUTPUT_STREAM_CAN_PROVIDE_SAMPLES flag.
+     * 
+     * If this flag is not set, the MFT must set <b>cbSize</b> to a nonzero value in the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ns-mftransform-mft_output_stream_info">MFT_OUTPUT_STREAM_INFO</a> structure, so that the client can allocate the correct buffer size. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-getoutputstreaminfo">IMFTransform::GetOutputStreamInfo</a>. This flag cannot be combined with the MFT_OUTPUT_STREAM_CAN_PROVIDE_SAMPLES flag.
      * @type {Integer (Int32)}
      */
     static MFT_OUTPUT_STREAM_PROVIDES_SAMPLES => 256
 
     /**
      * The MFT can either provide output samples for this stream or it can use samples that the client allocates. This flag cannot be combined with the MFT_OUTPUT_STREAM_PROVIDES_SAMPLES flag.
- * 
- * If the MFT does not set this flag or the MFT_OUTPUT_STREAM_PROVIDES_SAMPLES flag, the client must allocate the samples for this output stream. The MFT will not provide its own samples.
+     * 
+     * If the MFT does not set this flag or the MFT_OUTPUT_STREAM_PROVIDES_SAMPLES flag, the client must allocate the samples for this output stream. The MFT will not provide its own samples.
      * @type {Integer (Int32)}
      */
     static MFT_OUTPUT_STREAM_CAN_PROVIDE_SAMPLES => 512

@@ -23,10 +23,10 @@ class D3D12_DESCRIPTOR_RANGE_FLAGS{
 
     /**
      * If this is the only flag set, then descriptors are volatile and default assumptions are made about data (for SRV/CBV: DATA_STATIC_WHILE_SET_AT_EXECUTE, and for UAV: DATA_VOLATILE). 
- * 
- * If this flag is combined with DATA_VOLATILE, then both descriptors and data are volaille, which is equivalent to Root Signature Version 1.0.
- * 
- * If this flag is combined with DATA_STATIC_WHILE_SET_AT_EXECUTE, then descriptors are volatile. This still doesn’t allow them to change during command list execution so it is valid to combine the additional declaration that data is static while set via root descriptor table during execution – the underlying descriptors are effectively static for longer than the data is being promised to be static.
+     * 
+     * If this flag is combined with DATA_VOLATILE, then both descriptors and data are volaille, which is equivalent to Root Signature Version 1.0.
+     * 
+     * If this flag is combined with DATA_STATIC_WHILE_SET_AT_EXECUTE, then descriptors are volatile. This still doesn’t allow them to change during command list execution so it is valid to combine the additional declaration that data is static while set via root descriptor table during execution – the underlying descriptors are effectively static for longer than the data is being promised to be static.
      * @type {Integer (Int32)}
      */
     static D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_VOLATILE => 1

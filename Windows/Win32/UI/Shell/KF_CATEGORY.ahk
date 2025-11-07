@@ -40,13 +40,13 @@ class KF_CATEGORY{
 
     /**
      * Per-user folders are those stored under each user's profile and accessible only by that user. For example, <c>%USERPROFILE%\Pictures</c>. This category of folder usually supports many features including aliasing, redirection and customization. 
- *                 
- *                 
- * 
- * 
- * 
- * <div class="alert"><b>Note</b>  The user profile root folder (<a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_Profile</a>) does not support redirection.</div>
- * <div> </div>
+     *                 
+     *                 
+     * 
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  The user profile root folder (<a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_Profile</a>) does not support redirection.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static KF_CATEGORY_PERUSER => 4

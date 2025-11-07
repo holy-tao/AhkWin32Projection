@@ -55,18 +55,18 @@ class BMFORMAT{
 
     /**
      * 24 bits per pixel maximum. For three channel, X, Y and Z values, the total size is 24 bits per pixel. For single channel gray scale, the total size is 8 bits per pixel.
- * 
- * > [!Note]  
- * > The [**TranslateBitmapBits**](/windows/win32/api/icm/nf-icm-translatebitmapbits) function does not support [**BM\_XYZTRIPLETS**](/windows/win32/api/icm/ne-icm-bmformat) as an input.
+     * 
+     * > [!Note]  
+     * > The [**TranslateBitmapBits**](/windows/win32/api/icm/nf-icm-translatebitmapbits) function does not support [**BM\_XYZTRIPLETS**](/windows/win32/api/icm/ne-icm-bmformat) as an input.
      * @type {Integer (Int32)}
      */
     static BM_XYZTRIPLETS => 513
 
     /**
      * 24 bits per pixel maximum. For three channel, Y, x and y values, the total size is 24 bits per pixel. For single channel gray scale, the total size is 8 bits per pixel.
- * 
- * > [!Note]  
- * > The [**TranslateBitmapBits**](/windows/win32/api/icm/nf-icm-translatebitmapbits) function does not support [**BM\_YxyTRIPLETS**](/windows/win32/api/icm/ne-icm-bmformat) as an input.
+     * 
+     * > [!Note]  
+     * > The [**TranslateBitmapBits**](/windows/win32/api/icm/nf-icm-translatebitmapbits) function does not support [**BM\_YxyTRIPLETS**](/windows/win32/api/icm/ne-icm-bmformat) as an input.
      * @type {Integer (Int32)}
      */
     static BM_YxyTRIPLETS => 514
@@ -253,8 +253,8 @@ class BMFORMAT{
 
     /**
      * 32 bits per pixel. 10 bits are used for each color channel. The 10 bits of each color channel are 2.8 fixed point with a -0.75 bias, giving a range of \[-0.76 .. 1.25\]. This range corresponds to \[-0.5 .. 1.5\] in a gamma = 1 space. The two most significant bits are preserved for alpha.
- * 
- * This uses an extended range (XR) sRGB color space. It has the same RGB primaries, white point, and gamma as sRGB.
+     * 
+     * This uses an extended range (XR) sRGB color space. It has the same RGB primaries, white point, and gamma as sRGB.
      * @type {Integer (Int32)}
      */
     static BM_R10G10B10A2_XR => 1794

@@ -10,8 +10,8 @@ class ServerSelection{
 
     /**
      * Used only by <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a>. Indicates that the search call should search the default server.
- * 
- * The default server used by the Windows Update Agent (WUA) is the same as <b>ssMangagedServer</b> if the computer is set up to have a managed server. If the computer is not been set up to have a managed server, WUA uses the first update service for which the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservice-get_isregisteredwithau">IsRegisteredWithAU</a> property of <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateservice">IUpdateService</a> is VARIANT_TRUE and the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservice-get_ismanaged">IsManaged</a> property of <b>IUpdateService</b> is VARIANT_FALSE
+     * 
+     * The default server used by the Windows Update Agent (WUA) is the same as <b>ssMangagedServer</b> if the computer is set up to have a managed server. If the computer is not been set up to have a managed server, WUA uses the first update service for which the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservice-get_isregisteredwithau">IsRegisteredWithAU</a> property of <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateservice">IUpdateService</a> is VARIANT_TRUE and the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservice-get_ismanaged">IsManaged</a> property of <b>IUpdateService</b> is VARIANT_FALSE
      * @type {Integer (Int32)}
      */
     static ssDefault => 0

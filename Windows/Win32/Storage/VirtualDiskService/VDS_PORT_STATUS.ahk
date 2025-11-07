@@ -50,8 +50,8 @@ class VDS_PORT_STATUS{
 
     /**
      * The port's controller has been physically removed from the subsystem.  When this status is set, a <b>VDS_NF_PORT_DEPART</b> notification is sent.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_PRS_REMOVED => 8

@@ -10,9 +10,9 @@ class WS_MESSAGE_SECURITY_USAGE{
 
     /**
      * The security token obtained security binding is used for client
- * authentication, but not message protection.  Message protection should
- * be provided by a transport security binding or a message security
- * binding with symmetric or asymmetric usage.
+     * authentication, but not message protection.  Message protection should
+     * be provided by a transport security binding or a message security
+     * binding with symmetric or asymmetric usage.
      * @type {Integer (Int32)}
      */
     static WS_SUPPORTING_MESSAGE_SECURITY_USAGE => 1

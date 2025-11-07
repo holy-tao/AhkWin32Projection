@@ -10,11 +10,11 @@ class D2D1_OPACITYMETADATA_PROP{
 
     /**
      * The portion of the source image that is opaque. The default is the entire input image.
- *           
- * 
- * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_4f">D2D1_VECTOR_4F</a>.
- * 
- * The default is {-FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX}.
+     *           
+     * 
+     * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_4f">D2D1_VECTOR_4F</a>.
+     * 
+     * The default is {-FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX}.
      * @type {Integer (Int32)}
      */
     static D2D1_OPACITYMETADATA_PROP_INPUT_OPAQUE_RECT => 0

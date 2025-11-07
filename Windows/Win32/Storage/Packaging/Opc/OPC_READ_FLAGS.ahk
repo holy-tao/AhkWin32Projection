@@ -20,16 +20,16 @@ class OPC_READ_FLAGS{
 
     /**
      * Validate a package component against <i>OPC</i> conformance requirements when the  component is accessed. For more information about <i>OPC</i> conformance validation, see Remarks.
- * 
- * When validation is performed on access, <i>OPC</i> validation errors can be returned by any method.
+     * 
+     * When validation is performed on access, <i>OPC</i> validation errors can be returned by any method.
      * @type {Integer (Int32)}
      */
     static OPC_READ_DEFAULT => 0
 
     /**
      * Validate all package components against <i>OPC</i> conformance requirements when a package is loaded. For more information about <i>OPC</i> conformance validation, see Remarks.
- * 
- * If this setting is enabled, performance costs for loading and validating package components are paid when the package is first loaded.
+     * 
+     * If this setting is enabled, performance costs for loading and validating package components are paid when the package is first loaded.
      * @type {Integer (Int32)}
      */
     static OPC_VALIDATE_ON_LOAD => 1

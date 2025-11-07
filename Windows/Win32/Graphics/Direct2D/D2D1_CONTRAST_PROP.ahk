@@ -10,7 +10,7 @@ class D2D1_CONTRAST_PROP{
 
     /**
      * The D2D1_CONTRAST_PROP_CONTRAST property is a float value indicating the amount by which to adjust the contrast of the image. Negative values reduce contrast, while positive values increase contrast.  
- *           Minimum value is -1.0f, maximum value is 1.0f.  The default value for the property is 0.0f.
+     *           Minimum value is -1.0f, maximum value is 1.0f.  The default value for the property is 0.0f.
      * @type {Integer (Int32)}
      */
     static D2D1_CONTRAST_PROP_CONTRAST => 0

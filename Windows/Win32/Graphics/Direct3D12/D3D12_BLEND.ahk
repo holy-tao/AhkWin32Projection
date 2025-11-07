@@ -75,7 +75,7 @@ class D3D12_BLEND{
 
     /**
      * The blend factor is (f, f, f, 1); where f = min(Aₛ, 1
- *     - A<sub>d</sub>). The pre-blend operation clamps the data to 1 or less.
+     *     - A<sub>d</sub>). The pre-blend operation clamps the data to 1 or less.
      * @type {Integer (Int32)}
      */
     static D3D12_BLEND_SRC_ALPHA_SAT => 11

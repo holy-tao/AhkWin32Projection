@@ -15,27 +15,27 @@ class MFT_MESSAGE_TYPE{
 
     /**
      * Requests the MFT to flush all stored data. 
- * 
- * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-command-flush">MFT_MESSAGE_COMMAND_FLUSH</a>.
+     * 
+     * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-command-flush">MFT_MESSAGE_COMMAND_FLUSH</a>.
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_COMMAND_FLUSH => 0
 
     /**
      * Requests the MFT to drain any stored data.
- * 
- * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-command-drain">MFT_MESSAGE_COMMAND_DRAIN</a>.
+     * 
+     * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-command-drain">MFT_MESSAGE_COMMAND_DRAIN</a>.
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_COMMAND_DRAIN => 1
 
     /**
      * Sets or clears the <a href="https://docs.microsoft.com/windows/desktop/medfound/direct3d-device-manager">Direct3D Device Manager</a> for DirectX Video Accereration (DXVA).
- *             
- *             
- *           
- * 
- * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-set-d3d-manager">MFT_MESSAGE_SET_D3D_MANAGER</a>.
+     *             
+     *             
+     *           
+     * 
+     * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-set-d3d-manager">MFT_MESSAGE_SET_D3D_MANAGER</a>.
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_SET_D3D_MANAGER => 2
@@ -54,40 +54,40 @@ class MFT_MESSAGE_TYPE{
 
     /**
      * Notifies the MFT that streaming is about to begin.
- *             
- *           
- * 
- * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-notify-begin-streaming">MFT_MESSAGE_NOTIFY_BEGIN_STREAMING</a>.
+     *             
+     *           
+     * 
+     * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-notify-begin-streaming">MFT_MESSAGE_NOTIFY_BEGIN_STREAMING</a>.
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_NOTIFY_BEGIN_STREAMING => 268435456
 
     /**
      * Notifies the MFT that streaming is about to end.
- *             
- *           
- * 
- * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-notify-end-streaming">MFT_MESSAGE_NOTIFY_END_STREAMING</a>.
+     *             
+     *           
+     * 
+     * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-notify-end-streaming">MFT_MESSAGE_NOTIFY_END_STREAMING</a>.
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_NOTIFY_END_STREAMING => 268435457
 
     /**
      * Notifies the MFT that an input stream has ended.
- *             
- *           
- * 
- * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-notify-end-of-stream">MFT_MESSAGE_NOTIFY_END_OF_STREAM</a>.
+     *             
+     *           
+     * 
+     * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-notify-end-of-stream">MFT_MESSAGE_NOTIFY_END_OF_STREAM</a>.
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_NOTIFY_END_OF_STREAM => 268435458
 
     /**
      * Notifies the MFT that the first sample is about to be processed. 
- * 
- * See
- *             
- *            <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-notify-start-of-stream">MFT_MESSAGE_NOTIFY_START_OF_STREAM</a>.
+     * 
+     * See
+     *             
+     *            <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-notify-start-of-stream">MFT_MESSAGE_NOTIFY_START_OF_STREAM</a>.
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_NOTIFY_START_OF_STREAM => 268435459
@@ -124,11 +124,11 @@ class MFT_MESSAGE_TYPE{
 
     /**
      * Marks a point in the stream. This message applies only to asynchronous MFTs. 
- * 
- * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-command-marker">MFT_MESSAGE_COMMAND_MARKER</a>.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 7</div>
- * <div> </div>
+     * 
+     * See <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-message-command-marker">MFT_MESSAGE_COMMAND_MARKER</a>.
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 7</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFT_MESSAGE_COMMAND_MARKER => 536870912

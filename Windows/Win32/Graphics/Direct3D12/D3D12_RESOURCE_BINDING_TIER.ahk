@@ -15,21 +15,21 @@ class D3D12_RESOURCE_BINDING_TIER{
 
     /**
      * Tier 1.
- *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/hardware-support">Hardware Tiers</a>.
+     *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/hardware-support">Hardware Tiers</a>.
      * @type {Integer (Int32)}
      */
     static D3D12_RESOURCE_BINDING_TIER_1 => 1
 
     /**
      * Tier 2.
- *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/hardware-support">Hardware Tiers</a>.
+     *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/hardware-support">Hardware Tiers</a>.
      * @type {Integer (Int32)}
      */
     static D3D12_RESOURCE_BINDING_TIER_2 => 2
 
     /**
      * Tier 3.
- *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/hardware-support">Hardware Tiers</a>.
+     *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/hardware-support">Hardware Tiers</a>.
      * @type {Integer (Int32)}
      */
     static D3D12_RESOURCE_BINDING_TIER_3 => 3

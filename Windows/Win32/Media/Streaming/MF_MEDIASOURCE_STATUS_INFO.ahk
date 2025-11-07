@@ -16,8 +16,8 @@ class MF_MEDIASOURCE_STATUS_INFO{
 
     /**
      * The status is unknown.
- * 
- * >>>>>>> master
+     * 
+     * >>>>>>> master
      * @type {Integer (Int32)}
      */
     static MF_MEDIASOURCE_STATUS_INFO_UNKNOWN => 1

@@ -16,7 +16,7 @@ class RPC_NOTIFICATION_TYPES{
 
     /**
      * Notify the client program by signaling an event object. See 
- * <a href="https://docs.microsoft.com/windows/desktop/Sync/event-objects">Event Objects</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Sync/event-objects">Event Objects</a>.
      * @type {Integer (Int32)}
      */
     static RpcNotificationTypeEvent => 1

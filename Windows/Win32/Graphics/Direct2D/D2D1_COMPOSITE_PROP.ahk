@@ -10,11 +10,11 @@ class D2D1_COMPOSITE_PROP{
 
     /**
      * The mode used for the effect.
- *             
- * 
- * Type is D2D1_COMPOSITE_MODE.
- * 
- * Default value is D2D1_COMPOSITE_MODE_SOURCE_OVER
+     *             
+     * 
+     * Type is D2D1_COMPOSITE_MODE.
+     * 
+     * Default value is D2D1_COMPOSITE_MODE_SOURCE_OVER
      * @type {Integer (Int32)}
      */
     static D2D1_COMPOSITE_PROP_MODE => 0

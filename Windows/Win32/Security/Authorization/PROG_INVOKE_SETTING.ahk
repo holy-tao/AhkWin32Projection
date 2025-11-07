@@ -28,9 +28,9 @@ class PROG_INVOKE_SETTING{
 
     /**
      * Discontinue the tree operation.
- * 
- * <div class="alert"><b>Note</b>  The original state of the tree will not be reset, and the results are unpredictable.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  The original state of the tree will not be reset, and the results are unpredictable.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static ProgressCancelOperation => 4

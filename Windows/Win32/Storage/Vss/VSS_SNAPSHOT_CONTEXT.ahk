@@ -47,7 +47,7 @@ class VSS_SNAPSHOT_CONTEXT{
 
     /**
      * The standard backup context. Specifies an auto-release, nonpersistent shadow copy in which writers are 
- *       involved in the creation.
+     *       involved in the creation.
      * @type {Integer (Int32)}
      */
     static VSS_CTX_BACKUP => 0
@@ -60,55 +60,55 @@ class VSS_SNAPSHOT_CONTEXT{
 
     /**
      * Specifies a persistent, non-auto-release shadow copy without writer involvement. This context should be 
- *       used when there is no need for writer involvement to ensure that files are in a consistent state at the time 
- *       of the shadow copy. 
- *       
- * 
- * Lightweight automated file rollback mechanisms or persistent shadow copies of file shares or data volumes 
- *        that are not expected to contain any system-related files or databases might run under this context. For 
- *        example, a requester could use this context for creating a shadow copy of a NAS volume hosting documents and 
- *        simple user shares. Those types of data do not need writer involvement to create a consistent shadow copy.
+     *       used when there is no need for writer involvement to ensure that files are in a consistent state at the time 
+     *       of the shadow copy. 
+     *       
+     * 
+     * Lightweight automated file rollback mechanisms or persistent shadow copies of file shares or data volumes 
+     *        that are not expected to contain any system-related files or databases might run under this context. For 
+     *        example, a requester could use this context for creating a shadow copy of a NAS volume hosting documents and 
+     *        simple user shares. Those types of data do not need writer involvement to create a consistent shadow copy.
      * @type {Integer (Int32)}
      */
     static VSS_CTX_NAS_ROLLBACK => 25
 
     /**
      * Specifies a persistent, non-auto-release shadow copy with writer involvement. This context is designed 
- *       to be used when writers are needed to ensure that files are in a well-defined state prior to shadow copy.
- *       
- * 
- * Automated file rollback mechanisms of system volumes and shadow copies to be used in data mining or restore 
- *        operations might run under this context. This context is similar to <b>VSS_CTX_BACKUP</b> 
- *        but allows a requester more control over the persistence of the shadow copy.
+     *       to be used when writers are needed to ensure that files are in a well-defined state prior to shadow copy.
+     *       
+     * 
+     * Automated file rollback mechanisms of system volumes and shadow copies to be used in data mining or restore 
+     *        operations might run under this context. This context is similar to <b>VSS_CTX_BACKUP</b> 
+     *        but allows a requester more control over the persistence of the shadow copy.
      * @type {Integer (Int32)}
      */
     static VSS_CTX_APP_ROLLBACK => 9
 
     /**
      * Specifies a read-only, <a href="https://docs.microsoft.com/windows/win32/vss/vssgloss-c">client-accessible shadow copy</a> that supports Shadow Copies for Shared Folders and is created without writer involvement. Only the system provider (the default provider available on the system) can create this type of shadow copy.
- * 
- * Most requesters will want to use the <b>VSS_CTX_NAS_ROLLBACK</b> context for persistent, non-auto-release shadow copies without writer involvement.
+     * 
+     * Most requesters will want to use the <b>VSS_CTX_NAS_ROLLBACK</b> context for persistent, non-auto-release shadow copies without writer involvement.
      * @type {Integer (Int32)}
      */
     static VSS_CTX_CLIENT_ACCESSIBLE => 29
 
     /**
      * Specifies a read-only, <a href="https://docs.microsoft.com/windows/win32/vss/vssgloss-c">client-accessible shadow copy</a> that is created with writer involvement. Only the system provider (the default provider available on the system) can create this type of shadow copy.
- * 
- * Most requesters will want to use the <b>VSS_CTX_APP_ROLLBACK</b> context for persistent, non-auto-release shadow copies with writer involvement.
- * 
- * <b>Windows Server 2003 and Windows XP:  </b>This context is not supported by Windows Server 2003 and Windows XP.
+     * 
+     * Most requesters will want to use the <b>VSS_CTX_APP_ROLLBACK</b> context for persistent, non-auto-release shadow copies with writer involvement.
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>This context is not supported by Windows Server 2003 and Windows XP.
      * @type {Integer (Int32)}
      */
     static VSS_CTX_CLIENT_ACCESSIBLE_WRITERS => 13
 
     /**
      * All types of currently live shadow copies are available for administrative operations, such as shadow copy 
- *       queries (see <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-query">IVssBackupComponents::Query</a>). 
- *       <b>VSS_CTX_ALL</b> is a valid context for all VSS interfaces except 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-startsnapshotset">IVssBackupComponents::StartSnapshotSet</a> 
- *       and 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-dosnapshotset">IVssBackupComponents::DoSnapshotSet</a>.
+     *       queries (see <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-query">IVssBackupComponents::Query</a>). 
+     *       <b>VSS_CTX_ALL</b> is a valid context for all VSS interfaces except 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-startsnapshotset">IVssBackupComponents::StartSnapshotSet</a> 
+     *       and 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-dosnapshotset">IVssBackupComponents::DoSnapshotSet</a>.
      * @type {Integer (Int32)}
      */
     static VSS_CTX_ALL => -1

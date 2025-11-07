@@ -73,17 +73,17 @@ class REGCLS{
 
     /**
      * Useful for registering separate CLSCTX_LOCAL_SERVER and CLSCTX_INPROC_SERVER class factories through calls to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetclassobject">CoGetClassObject</a>. If REGCLS_MULTI_SEPARATE is set, each execution context must be set separately; <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterclassobject">CoRegisterClassObject</a> does not automatically register an out-of-process server (for which CLSCTX_LOCAL_SERVER is set) as an in-process server. This allows the EXE to create multiple instances of the object for in-process needs, such as self embeddings, without disturbing its CLSCTX_LOCAL_SERVER registration. If an EXE registers a REGCLS_MULTI_SEPARATE class factory and a CLSCTX_INPROC_SERVER class factory, instance creation calls that specify CLSCTX_INPROC_SERVER in the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> parameter executed by the EXE would be satisfied locally without approaching the SCM. This mechanism is useful when the EXE uses functions such as <a href="https://docs.microsoft.com/windows/desktop/api/ole/nf-ole-olecreate">OleCreate</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oleload">OleLoad</a> to create embeddings, but at the same does not wish to launch a new instance of itself for the self-embedding case. The distinction is important for embeddings because the default handler aggregates the proxy manager by default and the application should override this default behavior by calling <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olecreateembeddinghelper">OleCreateEmbeddingHelper</a> for the self-embedding case. 
- * 
- * If your application need not distinguish between the local and inproc case, you need not register your class factory using REGCLS_MULTI_SEPARATE. In fact, the application incurs an extra network round trip to the SCM when it registers its MULTIPLEUSE class factory as MULTI_SEPARATE and does not register another class factory as INPROC_SERVER.
+     * 
+     * If your application need not distinguish between the local and inproc case, you need not register your class factory using REGCLS_MULTI_SEPARATE. In fact, the application incurs an extra network round trip to the SCM when it registers its MULTIPLEUSE class factory as MULTI_SEPARATE and does not register another class factory as INPROC_SERVER.
      * @type {Integer (Int32)}
      */
     static REGCLS_MULTI_SEPARATE => 2
 
     /**
      * Suspends registration and activation requests for the specified CLSID until there is a call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coresumeclassobjects">CoResumeClassObjects</a>. This is used typically to register the CLSIDs for servers that can register multiple class objects to reduce the overall registration time, and thus the server application startup time, by making a single call to the SCM, no matter how many CLSIDs are registered for the server.
- * 
- * <div class="alert"><b>Note</b>  This flag prevents COM activation errors from a possible race condition between an application shutting down and that application attempting to register a COM class.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This flag prevents COM activation errors from a possible race condition between an application shutting down and that application attempting to register a COM class.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static REGCLS_SUSPENDED => 4
@@ -96,11 +96,11 @@ class REGCLS{
 
     /**
      * The class object aggregates the free-threaded marshaler
- *                                  and will be made visible to all inproc apartments. Can be used together with other flags. For example, REGCLS_AGILE | REGCLS_MULTIPLEUSE to register a
- *                                 class object that can be used multiple times from
- *                                 different apartments. Without other flags, behavior
- *                                 will retain REGCLS_SINGLEUSE semantics in that only
- *                                 one instance can be generated.
+     *                                  and will be made visible to all inproc apartments. Can be used together with other flags. For example, REGCLS_AGILE | REGCLS_MULTIPLEUSE to register a
+     *                                 class object that can be used multiple times from
+     *                                 different apartments. Without other flags, behavior
+     *                                 will retain REGCLS_SINGLEUSE semantics in that only
+     *                                 one instance can be generated.
      * @type {Integer (Int32)}
      */
     static REGCLS_AGILE => 16

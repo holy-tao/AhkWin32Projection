@@ -21,12 +21,12 @@ class COPP_StatusFlags{
 
     /**
      * The integrity of the connection has been compromised. Examples of events that cause the driver to set this flag include:
- * 
- * <ul>
- * <li>The driver can no longer enforce the current protection level.</li>
- * <li>The driver detected an internal integrity error.</li>
- * <li>The connector between the computer and the display device was unplugged.</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>The driver can no longer enforce the current protection level.</li>
+     * <li>The driver detected an internal integrity error.</li>
+     * <li>The connector between the computer and the display device was unplugged.</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static COPP_LinkLost => 1

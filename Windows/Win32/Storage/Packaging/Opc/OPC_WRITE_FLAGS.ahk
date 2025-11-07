@@ -16,11 +16,11 @@ class OPC_WRITE_FLAGS{
 
     /**
      * Force Zip32 encoding. The minimum software version for extracting a package with Zip32 encoding is 2.0.
- * 
- * If   one or more of the following Zip32 limitations are violated, the package write will fail:<ul>
- * <li>The maximum size for a single, uncompressed file item is 4 gigabytes.</li>
- * <li>The maximum number of file items is 65535 (2¹⁶-1).</li>
- * </ul>
+     * 
+     * If   one or more of the following Zip32 limitations are violated, the package write will fail:<ul>
+     * <li>The maximum size for a single, uncompressed file item is 4 gigabytes.</li>
+     * <li>The maximum number of file items is 65535 (2¹⁶-1).</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static OPC_WRITE_FORCE_ZIP32 => 1

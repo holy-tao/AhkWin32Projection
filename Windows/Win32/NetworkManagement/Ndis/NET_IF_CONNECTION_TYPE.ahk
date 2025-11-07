@@ -10,21 +10,21 @@ class NET_IF_CONNECTION_TYPE{
 
     /**
      * Specifies the dedicated connection type. The connection comes up automatically when media sense is
- *      <b>TRUE</b>. For example, an Ethernet connection is dedicated.
+     *      <b>TRUE</b>. For example, an Ethernet connection is dedicated.
      * @type {Integer (Int32)}
      */
     static NET_IF_CONNECTION_DEDICATED => 1
 
     /**
      * Specifies the passive connection type. The other end must bring up the connection to the local
- *      station. For example, the RAS interface is passive.
+     *      station. For example, the RAS interface is passive.
      * @type {Integer (Int32)}
      */
     static NET_IF_CONNECTION_PASSIVE => 2
 
     /**
      * Specifies the demand-dial connection type. A demand-dial connection comes up in response to a
- *      local action--for example, sending a packet.
+     *      local action--for example, sending a packet.
      * @type {Integer (Int32)}
      */
     static NET_IF_CONNECTION_DEMAND => 3

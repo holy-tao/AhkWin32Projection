@@ -232,7 +232,7 @@ class PHONE_BUTTON_FUNCTION{
 
     /**
      * Sends all calls to another phone used for coverage; same as the 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phonebuttonfunction--constants">PHONEBUTTONFUNCTION_COVER constant</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phonebuttonfunction--constants">PHONEBUTTONFUNCTION_COVER constant</a>.
      * @type {Integer (Int32)}
      */
     static PBF_SENDCALLS => 37

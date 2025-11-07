@@ -22,9 +22,9 @@ class WCN_PASSWORD_TYPE{
 
     /**
      * Indicates that authentication is secured via a PIN, as above, but that the PIN is specified by the registrar.
- * 
- * <div class="alert"><b>Note</b>  Only available  in Windows 8.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Only available  in Windows 8.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCN_PASSWORD_TYPE_PIN_REGISTRAR_SPECIFIED => 2

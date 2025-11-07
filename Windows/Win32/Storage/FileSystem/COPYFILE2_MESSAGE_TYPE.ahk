@@ -35,7 +35,7 @@ class COPYFILE2_MESSAGE_TYPE{
 
     /**
      * Indicates both source and destination handles for a stream have been opened and the  copy of the stream is 
- *       about to be started.
+     *       about to be started.
      * @type {Integer (Int32)}
      */
     static COPYFILE2_CALLBACK_STREAM_STARTED => 3

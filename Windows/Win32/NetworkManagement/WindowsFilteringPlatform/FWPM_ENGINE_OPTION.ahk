@@ -22,42 +22,42 @@ class FWPM_ENGINE_OPTION{
 
     /**
      * Reserved for internal use.
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows Server 2008 R2, Windows 7, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows Server 2008 R2, Windows 7, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_ENGINE_NAME_CACHE => 2
 
     /**
      * Enables the connection monitoring feature and starts logging creation and deletion events (and notifying any subscribers).
- * 
- * 
- * If the ETW operational log is already enabled, <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmenginegetoption0">FwpmEngineGetOption0</a> will return showing the option as enabled. <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmenginesetoption0">FwpmEngineSetOption0</a> can be used set the value (but fails with FWP_E_STILL_ON ERROR when attempting to disable it).
- * 
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
- * <div> </div>
+     * 
+     * 
+     * If the ETW operational log is already enabled, <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmenginegetoption0">FwpmEngineGetOption0</a> will return showing the option as enabled. <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmenginesetoption0">FwpmEngineSetOption0</a> can be used set the value (but fails with FWP_E_STILL_ON ERROR when attempting to disable it).
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_ENGINE_MONITOR_IPSEC_CONNECTIONS => 3
 
     /**
      * Enables inbound or forward packet queuing independently.   When enabled, the system is able to evenly distribute CPU load to multiple CPUs for site-to-site IPsec tunnel scenarios.
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_ENGINE_PACKET_QUEUING => 4
 
     /**
      * Transactions lasting longer than this time (in milliseconds) will trigger a
- *    watchdog event.
- * 
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
- * <div> </div>
+     *    watchdog event.
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_ENGINE_TXN_WATCHDOG_TIMEOUT_IN_MSEC => 5

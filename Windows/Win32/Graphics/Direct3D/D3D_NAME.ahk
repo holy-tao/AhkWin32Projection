@@ -163,14 +163,14 @@ class D3D_NAME{
 
     /**
      * This parameter contains a stencil reference.
- *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d11/shader-specified-stencil-reference-value">Shader Specified Stencil Reference Value</a>.
+     *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d11/shader-specified-stencil-reference-value">Shader Specified Stencil Reference Value</a>.
      * @type {Integer (Int32)}
      */
     static D3D_NAME_STENCIL_REF => 69
 
     /**
      * This parameter contains inner input coverage data.
- *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d11/conservative-rasterization">Conservative Rasterization</a>.
+     *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d11/conservative-rasterization">Conservative Rasterization</a>.
      * @type {Integer (Int32)}
      */
     static D3D_NAME_INNER_COVERAGE => 70
@@ -309,14 +309,14 @@ class D3D_NAME{
 
     /**
      * This parameter contains a stencil reference.
- *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d11/shader-specified-stencil-reference-value">Shader Specified Stencil Reference Value</a>.
+     *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d11/shader-specified-stencil-reference-value">Shader Specified Stencil Reference Value</a>.
      * @type {Integer (Int32)}
      */
     static D3D11_NAME_STENCIL_REF => 69
 
     /**
      * This parameter contains inner input coverage data.
- *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d11/conservative-rasterization">Conservative Rasterization</a>.
+     *             See <a href="https://docs.microsoft.com/windows/desktop/direct3d11/conservative-rasterization">Conservative Rasterization</a>.
      * @type {Integer (Int32)}
      */
     static D3D11_NAME_INNER_COVERAGE => 70

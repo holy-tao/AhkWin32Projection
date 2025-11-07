@@ -19,7 +19,7 @@ class MFTOPOLOGY_DXVA_MODE{
 
     /**
      * The topology loader enables DXVA
- * on the decoder if possible, and drops optional Media Foundation transforms (MFTs) that do not support DXVA.
+     * on the decoder if possible, and drops optional Media Foundation transforms (MFTs) that do not support DXVA.
      * @type {Integer (Int32)}
      */
     static MFTOPOLOGY_DXVA_DEFAULT => 0

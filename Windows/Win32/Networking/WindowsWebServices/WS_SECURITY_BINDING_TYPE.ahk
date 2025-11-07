@@ -58,7 +58,7 @@ class WS_SECURITY_BINDING_TYPE{
 
     /**
      * Windows 8 or later:
- * Type id for the security binding <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_namedpipe_sspi_transport_security_binding">WS_NAMEDPIPE_SSPI_TRANSPORT_SECURITY_BINDING</a>.
+     * Type id for the security binding <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_namedpipe_sspi_transport_security_binding">WS_NAMEDPIPE_SSPI_TRANSPORT_SECURITY_BINDING</a>.
      * @type {Integer (Int32)}
      */
     static WS_NAMEDPIPE_SSPI_TRANSPORT_SECURITY_BINDING_TYPE => 9

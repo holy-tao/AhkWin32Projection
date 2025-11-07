@@ -54,7 +54,7 @@ class FsrmPropertyFlags{
 
     /**
      * The property was deleted by 
- *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-clearfileproperty">IFsrmClassificationManager::ClearFileProperty</a>.
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-clearfileproperty">IFsrmClassificationManager::ClearFileProperty</a>.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_Deleted => 16
@@ -79,90 +79,90 @@ class FsrmPropertyFlags{
 
     /**
      * The property may only be partially classified because a failure occurred while loading properties from 
- *       storage.
+     *       storage.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_FailedLoadingProperties => 256
 
     /**
      * The property may only be partially classified because a failure occurred while classifying 
- *       properties.
+     *       properties.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_FailedClassifyingProperties => 512
 
     /**
      * The property failed to be saved by the storage module with the highest precedence.
- * 
- * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_FailedSavingProperties => 1024
 
     /**
      * The property is defined to be used for security purposes or came from secure storage.
- * 
- * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_Secure => 2048
 
     /**
      * The property value originally came from a classification policy.
- * 
- * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_PolicyDerived => 4096
 
     /**
      * The property value was inherited from the property value of the file's parent folder.
- * 
- * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_Inherited => 8192
 
     /**
      * The property value was set manually.
- * 
- * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_Manual => 16384
 
     /**
      * An explicit property value was deleted and replaced with an inherited value.
- * 
- * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_ExplicitValueDeleted => 32768
 
     /**
      * The property has been deleted due to a rule marked with clear property.
- * 
- * <b>Windows Server 2012 and Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012 R2.
+     * 
+     * <b>Windows Server 2012 and Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012 R2.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_PropertyDeletedFromClear => 65536
 
     /**
      * This mask shows which flags are used to indicate the source of the property and is equivalent to the 
- *        following flag combination:
- * 
- * <c>(FsrmPropertyFlags_RetrievedFromCache | FsrmPropertyFlags_RetrievedFromStorage | FsrmPropertyFlags_SetByClassifier)</c>
+     *        following flag combination:
+     * 
+     * <c>(FsrmPropertyFlags_RetrievedFromCache | FsrmPropertyFlags_RetrievedFromStorage | FsrmPropertyFlags_SetByClassifier)</c>
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_PropertySourceMask => 14
 
     /**
      * This mask shows which flags are persisted by the cache and secure storage modules and is equivalent to the 
- *        following flag combination:
- * 
- * <c>(FsrmPropertyFlags_PolicyDerived | FsrmPropertyFlags_Manual)</c>
- * 
- * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
+     *        following flag combination:
+     * 
+     * <c>(FsrmPropertyFlags_PolicyDerived | FsrmPropertyFlags_Manual)</c>
+     * 
+     * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_PersistentMask => 20480

@@ -110,8 +110,8 @@ class VDS_TRANSITION_STATE{
 
     /**
      * The object is being restriped.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_TS_RESTRIPING => 5

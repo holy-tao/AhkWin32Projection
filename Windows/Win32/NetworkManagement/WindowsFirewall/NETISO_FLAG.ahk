@@ -15,8 +15,8 @@ class NETISO_FLAG{
 
     /**
      * Specifies that all binaries will be computed before the app container is returned.
- * 
- * This flag should be set if the caller requires up-to-date and complete information on app container binaries. If this flag is not set, returned data may be stale or incomplete.
+     * 
+     * This flag should be set if the caller requires up-to-date and complete information on app container binaries. If this flag is not set, returned data may be stale or incomplete.
      * @type {Integer (Int32)}
      */
     static NETISO_FLAG_FORCE_COMPUTE_BINARIES => 1

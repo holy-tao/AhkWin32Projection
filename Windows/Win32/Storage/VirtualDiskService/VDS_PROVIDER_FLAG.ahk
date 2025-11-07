@@ -31,23 +31,23 @@ class VDS_PROVIDER_FLAG{
 
     /**
      * The provider supports single-disk packs only. Typically, the basic provider sets this flag to 
- *       simulate a pack with one disk.
+     *       simulate a pack with one disk.
      * @type {Integer (Int32)}
      */
     static VDS_PF_ONE_DISK_ONLY_PER_PACK => 4
 
     /**
      * The provider is a dynamic provider that supports online status for only one pack at a time. 
- *      
- * 
- * <b>Windows Server 2003:  </b>Only applies to this release.
+     *      
+     * 
+     * <b>Windows Server 2003:  </b>Only applies to this release.
      * @type {Integer (Int32)}
      */
     static VDS_PF_ONE_PACK_ONLINE_ONLY => 8
 
     /**
      * All volumes managed by this provider must have contiguous space. This flag applies to basic 
- *       providers only.
+     *       providers only.
      * @type {Integer (Int32)}
      */
     static VDS_PF_VOLUME_SPACE_MUST_BE_CONTIGUOUS => 16
@@ -60,30 +60,30 @@ class VDS_PROVIDER_FLAG{
 
     /**
      * If this flag is set, VDS sets the <b>VDS_SVF_SUPPORT_FAULT_TOLERANT</b> 
- *       flag in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_service_prop">VDS_SERVICE_PROP</a> structure.
+     *       flag in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_service_prop">VDS_SERVICE_PROP</a> structure.
      * @type {Integer (Int32)}
      */
     static VDS_PF_SUPPORT_FAULT_TOLERANT => 1073741824
 
     /**
      * If this flag is set, VDS sets the <b>VDS_SVF_SUPPORT_DYNAMIC_1394</b> 
- *       flag in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_service_prop">VDS_SERVICE_PROP</a> structure.
+     *       flag in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_service_prop">VDS_SERVICE_PROP</a> structure.
      * @type {Integer (Int32)}
      */
     static VDS_PF_SUPPORT_DYNAMIC_1394 => 536870912
 
     /**
      * If this flag is set, VDS sets the <b>VDS_SVF_SUPPORT_MIRROR</b> flag in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_service_prop">VDS_SERVICE_PROP</a> structure.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDS_PF_SUPPORT_MIRROR => 32
 
     /**
      * If this flag is set, VDS sets the <b>VDS_SVF_SUPPORT_RAID5</b> flag in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_service_prop">VDS_SERVICE_PROP</a> structure.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDS_PF_SUPPORT_RAID5 => 64

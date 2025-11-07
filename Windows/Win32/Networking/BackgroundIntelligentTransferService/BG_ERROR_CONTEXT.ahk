@@ -52,8 +52,8 @@ class BG_ERROR_CONTEXT{
 
     /**
      * The server application to which BITS passed the upload file generated an error while processing the upload file. 
- * 
- * **BITS 1.2 and earlier:** Not supported.
+     * 
+     * **BITS 1.2 and earlier:** Not supported.
      * @type {Integer (Int32)}
      */
     static BG_ERROR_CONTEXT_REMOTE_APPLICATION => 7

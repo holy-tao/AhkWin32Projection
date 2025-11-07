@@ -23,10 +23,10 @@ class MFNetCredentialRequirements{
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
- * 
- * 
- * The credentials are saved to persistent storage. This flag acts as a hint for the application's UI. If the application prompts the user for credentials, the UI can indicate that the credentials have already been saved.
+     * <div> </div>
+     * 
+     * 
+     * The credentials are saved to persistent storage. This flag acts as a hint for the application's UI. If the application prompts the user for credentials, the UI can indicate that the credentials have already been saved.
      * @type {Integer (Int32)}
      */
     static REQUIRE_SAVE_SELECTED => 2

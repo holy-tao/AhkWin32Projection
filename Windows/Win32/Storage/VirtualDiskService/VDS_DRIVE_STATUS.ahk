@@ -38,10 +38,10 @@ class VDS_DRIVE_STATUS{
 
     /**
      * The drive is physically present but has been removed from its RAID group or storage pool. For example, if the drive was removed from its RAID group because it failed, the  drive status should be <b>VDS_DRS_FAILED</b>. If the drive was removed as part of rebalancing storage, the drive status should be <b>VDS_DRS_OFFLINE</b>. 
- * 
- * When this drive status is set, a <b>VDS_NF_DRIVE_REMOVED</b> notification is sent.
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> value can be any value.
+     * 
+     * When this drive status is set, a <b>VDS_NF_DRIVE_REMOVED</b> notification is sent.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> value can be any value.
      * @type {Integer (Int32)}
      */
     static VDS_DRS_OFFLINE => 4
@@ -54,8 +54,8 @@ class VDS_DRIVE_STATUS{
 
     /**
      * The drive has been physically unplugged from the subsystem. When this status is set, a <b>VDS_NF_DRIVE_DEPART</b> notification is sent.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_DRS_REMOVED => 8

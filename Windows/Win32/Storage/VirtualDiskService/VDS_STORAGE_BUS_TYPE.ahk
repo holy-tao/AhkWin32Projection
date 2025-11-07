@@ -92,24 +92,24 @@ class VDS_STORAGE_BUS_TYPE{
 
     /**
      * The storage bus type is Secure Digital (SD).
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDSBusTypeSd => 12
 
     /**
      * The storage bus type is MultiMedia Card (MMC).
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDSBusTypeMmc => 13
 
     /**
      * This value is reserved for system use.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDSBusTypeMax => 14
@@ -122,8 +122,8 @@ class VDS_STORAGE_BUS_TYPE{
 
     /**
      * The storage bus type is file-backed virtual.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDSBusTypeFileBackedVirtual => 15

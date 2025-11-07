@@ -10,7 +10,7 @@ class WS_METADATA_EXCHANGE_TYPE{
 
     /**
      * Disables WS-MetadataExchange/HTTP GET servicing on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">endpoint</a>.  
- *                     This is the default value of  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_service_endpoint_property_id">WS_SERVICE_ENDPOINT_PROPERTY_METADATA_EXCHANGE_TYPE</a> property.
+     *                     This is the default value of  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_service_endpoint_property_id">WS_SERVICE_ENDPOINT_PROPERTY_METADATA_EXCHANGE_TYPE</a> property.
      * @type {Integer (Int32)}
      */
     static WS_METADATA_EXCHANGE_TYPE_NONE => 0
@@ -23,7 +23,7 @@ class WS_METADATA_EXCHANGE_TYPE{
 
     /**
      * Enables servicing of HTTP GET request servicing on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">endpoint</a> for metadata 
- *                     retrieval.
+     *                     retrieval.
      * @type {Integer (Int32)}
      */
     static WS_METADATA_EXCHANGE_TYPE_HTTP_GET => 2

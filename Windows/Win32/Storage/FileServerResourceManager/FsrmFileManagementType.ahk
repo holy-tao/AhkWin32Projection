@@ -28,8 +28,8 @@ class FsrmFileManagementType{
 
     /**
      * The file management jobs runs an RMS action on files meeting the specified criteria.
- * 
- * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmFileManagementType_Rms => 3

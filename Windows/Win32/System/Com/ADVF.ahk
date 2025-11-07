@@ -23,10 +23,10 @@ class ADVF{
 
     /**
      * For data advisory connections (<a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataadviseholder-advise">IDataAdviseHolder::Advise</a>), this flag requests the data object not to send data when it calls <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iadvisesink-ondatachange">IAdviseSink::OnDataChange</a>. The recipient of the change notification can later request the data by calling <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a>. The data object can honor the request by passing TYMED_NULL in the STGMEDIUM parameter, or it can provide the data anyway. For example, the data object might have multiple advisory connections, not all of which specified ADVF_NODATA, in which case the object might send the same notification to all connections. Regardless of the container's request, its <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> implementation must check the STGMEDIUM parameter because it is responsible for releasing the medium if it is not TYMED_NULL.
- * 
- * For cache connections (<a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a>), this flag requests that the cache not be updated by changes made to the running object. Instead, the container will update the cache by explicitly calling <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-setdata">IOleCache::SetData</a>. This situation typically occurs when the iconic aspect of an object is being cached. 
- * 
- * ADVF_NODATA is not a valid flag for view advisory connections (<a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iviewobject-setadvise">IViewObject::SetAdvise</a>) and it returns E_INVALIDARG.
+     * 
+     * For cache connections (<a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a>), this flag requests that the cache not be updated by changes made to the running object. Instead, the container will update the cache by explicitly calling <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-setdata">IOleCache::SetData</a>. This situation typically occurs when the iconic aspect of an object is being cached. 
+     * 
+     * ADVF_NODATA is not a valid flag for view advisory connections (<a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iviewobject-setadvise">IViewObject::SetAdvise</a>) and it returns E_INVALIDARG.
      * @type {Integer (Int32)}
      */
     static ADVF_NODATA => 1
@@ -39,22 +39,22 @@ class ADVF{
 
     /**
      * Requests that the object make only one change notification or cache update before deleting the connection. 
- * 
- * ADVF_ONLYONCE automatically deletes the advisory connection after sending one data or view notification. The advisory sink receives only one <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> call. A nonzero connection identifier is returned if the connection is established, so the caller can use it to delete the connection prior to the first change notification. 
- * 
- * For data change notifications, the combination of ADVF_ONLYONCE and ADVF_PRIMEFIRST provides, in effect, an asynchronous <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a> call. 
- * 
- * When used with caching, ADVF_ONLYONCE updates the cache one time only, on receipt of the first <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iadvisesink-ondatachange">IAdviseSink::OnDataChange</a> notification. After the update is complete, the advisory connection between the object and the cache is disconnected. The source object for the advisory connection calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
+     * 
+     * ADVF_ONLYONCE automatically deletes the advisory connection after sending one data or view notification. The advisory sink receives only one <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> call. A nonzero connection identifier is returned if the connection is established, so the caller can use it to delete the connection prior to the first change notification. 
+     * 
+     * For data change notifications, the combination of ADVF_ONLYONCE and ADVF_PRIMEFIRST provides, in effect, an asynchronous <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a> call. 
+     * 
+     * When used with caching, ADVF_ONLYONCE updates the cache one time only, on receipt of the first <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iadvisesink-ondatachange">IAdviseSink::OnDataChange</a> notification. After the update is complete, the advisory connection between the object and the cache is disconnected. The source object for the advisory connection calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
      * @type {Integer (Int32)}
      */
     static ADVF_ONLYONCE => 4
 
     /**
      * For data advisory connections, assures accessibility to data. This flag indicates that when the data object is closing, it should call , providing data with the call. Typically, this value is used in combination with ADVF_NODATA. Without th<a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iadvisesink-ondatachange">IAdviseSink::OnDataChange</a> is value, by the time an <b>OnDataChange</b> call without data reaches the sink, the source might have completed its shutdown and the data might not be accessible. Sinks that specify this value should accept data provided in <b>OnDataChange</b> if it is being passed, because they may not get another chance to retrieve it.
- * 
- * For cache connections, this flag indicates that the object should update the cache as part of object closure.
- * 
- * ADVF_DATAONSTOP is not a valid flag for view advisory connections.
+     * 
+     * For cache connections, this flag indicates that the object should update the cache as part of object closure.
+     * 
+     * ADVF_DATAONSTOP is not a valid flag for view advisory connections.
      * @type {Integer (Int32)}
      */
     static ADVF_DATAONSTOP => 64

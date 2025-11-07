@@ -28,7 +28,7 @@ class FsrmFileManagementLoggingFlags{
 
     /**
      * Log information about every file that met all of the file management job's conditions to the Security audit 
- *       log.
+     *       log.
      * @type {Integer (Int32)}
      */
     static FsrmFileManagementLoggingFlags_Audit => 4

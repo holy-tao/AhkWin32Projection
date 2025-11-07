@@ -598,24 +598,24 @@ class tomConstants{
 
     /**
      * List is ordered with Unicode circled numbers 
- * 
- * <img alt="Unicode numbers in a circle." src="images/unicodecirclednumbers.png"/>
+     * 
+     * <img alt="Unicode numbers in a circle." src="images/unicodecirclednumbers.png"/>
      * @type {Integer (Int32)}
      */
     static tomListNumberedCircle => 8
 
     /**
      * List is ordered with Wingdings black circled digits 
- * 
- * <img alt="Circled black digits." src="images/wingdingblackcircleddigits.png"/>
+     * 
+     * <img alt="Circled black digits." src="images/wingdingblackcircleddigits.png"/>
      * @type {Integer (Int32)}
      */
     static tomListNumberedBlackCircleWingding => 9
 
     /**
      * List is ordered with Wingdings white circled digits:
- * 
- * <img alt="White digits in a black circle." src="images/wingdingwhitecircleddigits.png"/>
+     * 
+     * <img alt="White digits in a black circle." src="images/wingdingwhitecircleddigits.png"/>
      * @type {Integer (Int32)}
      */
     static tomListNumberedWhiteCircleWingding => 10
@@ -2548,14 +2548,14 @@ class tomConstants{
 
     /**
      * Don’t use math italics for upper-case Greek letters. This value is used with  
- * <b>tomConvertMathChar</b>.
+     * <b>tomConvertMathChar</b>.
      * @type {Integer (Int32)}
      */
     static tomNoUCGreekItalic => 1024
 
     /**
      * Allow math bold.  This value is used with  
- * <b>tomConvertMathChar</b>.
+     * <b>tomConvertMathChar</b>.
      * @type {Integer (Int32)}
      */
     static tomAllowMathBold => 2048
@@ -2856,8 +2856,8 @@ class tomConstants{
 
     /**
      * Align the top of equations on the baseline.
- * 
- * Align the top row of the equation on the baseline.
+     * 
+     * Align the top row of the equation on the baseline.
      * @type {Integer (Int32)}
      */
     static tomEqArrayAlignTopRow => 4
@@ -3176,11 +3176,11 @@ class tomConstants{
 
     /**
      * Use <b>tomFontPropAlign</b> to get the <b>Align</b> property of an operator in a math zone. Here are how the values are assigned:<ul>
- * <li>Value 0 implies no special alignment.</li>
- * <li>Values 1 through 127 align the operator with the (n – 1)st operator on the first line of an equation.</li>
- * <li>Value 128 identifies operators to be vertically aligned with respect to one another ("Align at ="). </li>
- * <li>Other values are illegal.</li>
- * </ul>
+     * <li>Value 0 implies no special alignment.</li>
+     * <li>Values 1 through 127 align the operator with the (n – 1)st operator on the first line of an equation.</li>
+     * <li>Value 128 identifies operators to be vertically aligned with respect to one another ("Align at ="). </li>
+     * <li>Other values are illegal.</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static tomFontPropAlign => 829

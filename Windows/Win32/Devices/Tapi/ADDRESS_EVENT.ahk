@@ -17,14 +17,14 @@ class ADDRESS_EVENT{
 
     /**
      * The address state has changed. See 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itaddress-get_state">ITAddress::get_State</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itaddress-get_state">ITAddress::get_State</a>.
      * @type {Integer (Int32)}
      */
     static AE_STATE => 0
 
     /**
      * Address capabilities have changed. See 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddrcapflags--constants">capability flags</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddrcapflags--constants">capability flags</a>.
      * @type {Integer (Int32)}
      */
     static AE_CAPSCHANGE => 1
@@ -43,7 +43,7 @@ class ADDRESS_EVENT{
 
     /**
      * Forwarding has changed. See 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itaddress-get_currentforwardinfo">ITAddress::get_CurrentForwardInfo</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itaddress-get_currentforwardinfo">ITAddress::get_CurrentForwardInfo</a>.
      * @type {Integer (Int32)}
      */
     static AE_FORWARD => 4

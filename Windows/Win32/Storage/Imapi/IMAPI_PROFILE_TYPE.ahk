@@ -125,27 +125,27 @@ class IMAPI_PROFILE_TYPE{
 
     /**
      * A double density CD drive.
- * 
- * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IMAPI_PROFILE_TYPE_DDCDROM => 32
 
     /**
      * A double density CD-R drive.
- * 
- * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IMAPI_PROFILE_TYPE_DDCD_RECORDABLE => 33
 
     /**
      * A double density CD-RW drive.
- * 
- * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IMAPI_PROFILE_TYPE_DDCD_REWRITABLE => 34

@@ -33,16 +33,16 @@ class DVD_ERROR{
 
     /**
      * The disc cannot be played because it is not authored to play in the system region. You can try fixing the region mismatch by changing the system region with Dvdrgn.exe.
- * 
- * <i>lParam2</i>: The low <b>WORD</b> contains the disc region and the high <b>WORD</b> contains the system region.
+     * 
+     * <i>lParam2</i>: The low <b>WORD</b> contains the disc region and the high <b>WORD</b> contains the system region.
      * @type {Integer (Int32)}
      */
     static DVD_ERROR_InvalidDiscRegion => 4
 
     /**
      * Player parental level is lower than the lowest parental level available in the DVD content. Playback is stopped.
- * 
- * <i>lParam2</i>: The lowest parental level in the DVD content, or -1 if no parental level is specified in the content.
+     * 
+     * <i>lParam2</i>: The lowest parental level in the DVD content, or -1 if no parental level is specified in the content.
      * @type {Integer (Int32)}
      */
     static DVD_ERROR_LowParentalLevel => 5
@@ -55,16 +55,16 @@ class DVD_ERROR{
 
     /**
      * No discs can be played because the system region does not match the decoder region.
- * 
- * <i>lParam2</i>: The low <b>WORD</b> contains the system region and the high <b>WORD</b> contains the decoder region.
+     * 
+     * <i>lParam2</i>: The low <b>WORD</b> contains the system region and the high <b>WORD</b> contains the decoder region.
      * @type {Integer (Int32)}
      */
     static DVD_ERROR_IncompatibleSystemAndDecoderRegions => 7
 
     /**
      * The disc cannot be played because the disc is not authored to be played in the decoder's region.
- * 
- * <i>lParam2</i>: The low <b>WORD</b> contains the disc region and the high <b>WORD</b> contains the decoder region.
+     * 
+     * <i>lParam2</i>: The low <b>WORD</b> contains the disc region and the high <b>WORD</b> contains the decoder region.
      * @type {Integer (Int32)}
      */
     static DVD_ERROR_IncompatibleDiscAndDecoderRegions => 8

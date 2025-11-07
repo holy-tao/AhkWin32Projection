@@ -82,26 +82,26 @@ class InkCollectionMode{
 
     /**
      * Collects only ink, creating a stroke.
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event interest is set to <b>FALSE</b>, meaning that gestures are not collected (all other event interests remain as they were).
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event interest is set to <b>FALSE</b>, meaning that gestures are not collected (all other event interests remain as they were).
      * @type {Integer (Int32)}
      */
     static ICM_InkOnly => 0
 
     /**
      * Collects only gestures and does not create a stroke. Gestures can be either single or multi-stroke. Multi-stroke gestures are accepted if the strokes are made within the time set by the built-in timer of the recognizer.
- * 
- * All stroke-related and packet-related events do not fire from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a>. Cursor events do fire, and ink is always deleted.
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event interest is set to <b>TRUE</b>, meaning that gestures are collected (all other event interests remain as they were).
+     * 
+     * All stroke-related and packet-related events do not fire from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a>. Cursor events do fire, and ink is always deleted.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event interest is set to <b>TRUE</b>, meaning that gestures are collected (all other event interests remain as they were).
      * @type {Integer (Int32)}
      */
     static ICM_GestureOnly => 1
 
     /**
      * Accepts only single-stroke gestures. The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event fires first, giving the user the ability to say <i>Cancel</i> = <b>TRUE</b> or <b>FALSE</b>. The default is <b>TRUE</b>, except when <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkapplicationgesture">NoGesture</a> is the primary gesture, <i>Cancel</i> defaults to <b>FALSE</b>. If <b>TRUE</b>, the ink is a gesture and is deleted. If <b>FALSE</b>, the gesture is ink and a <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-stroke">Stroke</a> event fires.
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event interest is set to <b>TRUE</b> (all other event interests are kept as they were).
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event interest is set to <b>TRUE</b> (all other event interests are kept as they were).
      * @type {Integer (Int32)}
      */
     static ICM_InkAndGesture => 2

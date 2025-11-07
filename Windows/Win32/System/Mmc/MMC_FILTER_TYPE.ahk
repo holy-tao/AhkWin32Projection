@@ -29,10 +29,10 @@ class MMC_FILTER_TYPE{
 
     /**
      * When used by the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iheaderctrl2-setcolumnfilter">IHeaderCtrl2::SetColumnFilter</a> method, the snap-in sets the flag to clear the column filter.
- * 
- * When used by the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iheaderctrl2-getcolumnfilter">IHeaderCtrl2::GetColumnFilter</a> method, the flag is set to indicate that the column filter is empty.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iheaderctrl2-setcolumnfilter">IHeaderCtrl2::SetColumnFilter</a> method, the snap-in sets the flag to clear the column filter.
+     * 
+     * When used by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iheaderctrl2-getcolumnfilter">IHeaderCtrl2::GetColumnFilter</a> method, the flag is set to indicate that the column filter is empty.
      * @type {Integer (Int32)}
      */
     static MMC_FILTER_NOVALUE => 32768

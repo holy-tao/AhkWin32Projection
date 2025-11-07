@@ -100,8 +100,8 @@ class DWRITE_INFORMATIONAL_STRING_ID{
 
     /**
      * Contains sample text for display in font lists. This can be the font name or any other text that the designer thinks is the best 
- * 
- * example to display the font in.
+     * 
+     * example to display the font in.
      * @type {Integer (Int32)}
      */
     static DWRITE_INFORMATIONAL_STRING_SAMPLE_TEXT => 15

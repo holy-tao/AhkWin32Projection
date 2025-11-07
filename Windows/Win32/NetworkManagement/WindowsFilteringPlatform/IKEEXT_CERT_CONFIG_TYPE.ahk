@@ -28,8 +28,8 @@ class IKEEXT_CERT_CONFIG_TYPE{
 
     /**
      * No certificate authentication in the direction (inbound or outbound) specified by the configuration.
- * 
- * Available only on Windows 7, Windows Server 2008 R2, and later.
+     * 
+     * Available only on Windows 7, Windows Server 2008 R2, and later.
      * @type {Integer (Int32)}
      */
     static IKEEXT_CERT_CONFIG_UNSPECIFIED => 3

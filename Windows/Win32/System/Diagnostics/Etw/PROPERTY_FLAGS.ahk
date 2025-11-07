@@ -40,9 +40,9 @@ class PROPERTY_FLAGS{
 
     /**
      * Indicates that the count member of the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_property_info">EVENT_PROPERTY_INFO</a> structure contains a fixed array count, e.g. as specified in the provider manifest with &lt;data count="12" … /&gt;. This flag will not be set for a variable-length array, e.g. &lt;data count="ArrayCount" … /&gt;, nor will this flag be set for non-array fields. As an example, if <i>PropertyParamCount</i> is unset and count is 1, PropertyParamFixedCount flag must be checked to determine whether the field is a scalar value or a single-element array. If <i>PropertyParamFixedCount</i> is set, the field is a single-element array. If PropertyParamFixedCount is unset, the field is a scalar value, not an array.
- * 
- * <div class="alert"><b>Caution</b>  This flag is new in the Windows 10 SDK. Earlier versions of the manifest compiler did not set this flag. For compatibility with manifests compiled with earlier versions of the compiler, event processing tools should only use this flag when determining whether to present a field with a fixed count of 1 as an array or a scalar.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Caution</b>  This flag is new in the Windows 10 SDK. Earlier versions of the manifest compiler did not set this flag. For compatibility with manifests compiled with earlier versions of the compiler, event processing tools should only use this flag when determining whether to present a field with a fixed count of 1 as an array or a scalar.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static PropertyParamFixedCount => 32
@@ -55,9 +55,9 @@ class PROPERTY_FLAGS{
 
     /**
      * Indicates that the <b>Type</b> is described with a custom schema. 
- * 
- * <div class="alert"><b>Note</b>  This flag is new in the Windows 10 SDK.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This flag is new in the Windows 10 SDK.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static PropertyHasCustomSchema => 128

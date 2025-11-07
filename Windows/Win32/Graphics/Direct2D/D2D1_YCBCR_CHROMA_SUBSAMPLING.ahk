@@ -10,23 +10,23 @@ class D2D1_YCBCR_CHROMA_SUBSAMPLING{
 
     /**
      * This mode attempts to infer the chroma subsampling from the bounds of the input images. When this option is selected, 
- *           the smaller plane is upsampled to the size of the larger plane and this effect’s output rectangle is the intersection of the two planes. 
- *           When using this mode, care should be taken when applying effects to the input planes that change the image bounds, such as the border transform, 
- *           so that the desired size ratio between the planes is maintained.
+     *           the smaller plane is upsampled to the size of the larger plane and this effect’s output rectangle is the intersection of the two planes. 
+     *           When using this mode, care should be taken when applying effects to the input planes that change the image bounds, such as the border transform, 
+     *           so that the desired size ratio between the planes is maintained.
      * @type {Integer (Int32)}
      */
     static D2D1_YCBCR_CHROMA_SUBSAMPLING_AUTO => 0
 
     /**
      * The chroma plane is horizontally subsampled by 1/2 and vertically subsampled by 1/2. 
- *           When this option is selected, the chroma plane is horizontally and vertically upsampled by 2x and this effect's output rectangle is the intersection of the two planes.
+     *           When this option is selected, the chroma plane is horizontally and vertically upsampled by 2x and this effect's output rectangle is the intersection of the two planes.
      * @type {Integer (Int32)}
      */
     static D2D1_YCBCR_CHROMA_SUBSAMPLING_420 => 1
 
     /**
      * The chroma plane is horizontally subsampled by 1/2. When this option is selected, 
- *           the chroma plane is horizontally upsampled by 2x and this effect's output rectangle is the intersection of the two planes.
+     *           the chroma plane is horizontally upsampled by 2x and this effect's output rectangle is the intersection of the two planes.
      * @type {Integer (Int32)}
      */
     static D2D1_YCBCR_CHROMA_SUBSAMPLING_422 => 2
@@ -39,7 +39,7 @@ class D2D1_YCBCR_CHROMA_SUBSAMPLING{
 
     /**
      * The chroma plane is vertically subsampled by 1/2. When this option is selected, the chroma plane is vertically upsampled by 2x and this effect's 
- *           output rectangle is the intersection of the two planes.
+     *           output rectangle is the intersection of the two planes.
      * @type {Integer (Int32)}
      */
     static D2D1_YCBCR_CHROMA_SUBSAMPLING_440 => 4

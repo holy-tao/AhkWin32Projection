@@ -24,32 +24,32 @@ class D2D1_DASH_STYLE{
 
     /**
      * A dash followed by a gap of equal length. The dash and the gap are each twice as long as the stroke thickness.
- * 
- * The equivalent dash  array for  <b>D2D1_DASH_STYLE_DASH</b> is {2, 2}.
+     * 
+     * The equivalent dash  array for  <b>D2D1_DASH_STYLE_DASH</b> is {2, 2}.
      * @type {Integer (Int32)}
      */
     static D2D1_DASH_STYLE_DASH => 1
 
     /**
      * A dot followed by a longer gap.
- * 
- * The equivalent dash  array for  <b>D2D1_DASH_STYLE_DOT</b> is {0, 2}.
+     * 
+     * The equivalent dash  array for  <b>D2D1_DASH_STYLE_DOT</b> is {0, 2}.
      * @type {Integer (Int32)}
      */
     static D2D1_DASH_STYLE_DOT => 2
 
     /**
      * A dash, followed by a gap, followed by a dot, followed by another gap.
- * 
- * The equivalent dash array for  <b>D2D1_DASH_STYLE_DASH_DOT</b> is {2, 2, 0, 2}.
+     * 
+     * The equivalent dash array for  <b>D2D1_DASH_STYLE_DASH_DOT</b> is {2, 2, 0, 2}.
      * @type {Integer (Int32)}
      */
     static D2D1_DASH_STYLE_DASH_DOT => 3
 
     /**
      * A dash, followed by a gap, followed by a dot, followed by another gap, followed by another dot, followed by another gap.
- * 
- * The equivalent dash array for  <b>D2D1_DASH_STYLE_DASH_DOT_DOT</b> is {2, 2, 0, 2, 0, 2}.
+     * 
+     * The equivalent dash array for  <b>D2D1_DASH_STYLE_DASH_DOT_DOT</b> is {2, 2, 0, 2, 0, 2}.
      * @type {Integer (Int32)}
      */
     static D2D1_DASH_STYLE_DASH_DOT_DOT => 4

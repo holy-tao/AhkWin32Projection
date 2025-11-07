@@ -22,9 +22,9 @@ class CF_CALLBACK_FETCH_DATA_FLAGS{
 
     /**
      * <b>Note</b>  This value is new for Windows 10, version 1803.
- * 
- * Flag to be used if the callback is invoked as a 
- * result of a call to <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfhydrateplaceholder">CfHydratePlaceholder</a>.
+     * 
+     * Flag to be used if the callback is invoked as a 
+     * result of a call to <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfhydrateplaceholder">CfHydratePlaceholder</a>.
      * @type {Integer (Int32)}
      */
     static CF_CALLBACK_FETCH_DATA_FLAG_EXPLICIT_HYDRATION => 2

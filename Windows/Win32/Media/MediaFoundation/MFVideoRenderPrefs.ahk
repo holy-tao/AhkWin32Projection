@@ -29,72 +29,72 @@ class MFVideoRenderPrefs{
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
- * 
- * 
- * Allow the EVR to limit its output to match GPU bandwidth.
+     * <div> </div>
+     * 
+     * 
+     * Allow the EVR to limit its output to match GPU bandwidth.
      * @type {Integer (Int32)}
      */
     static MFVideoRenderPrefs_AllowOutputThrottling => 4
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
- * 
- * 
- * Force the EVR
- *             to limit its output to match GPU bandwidth.
+     * <div> </div>
+     * 
+     * 
+     * Force the EVR
+     *             to limit its output to match GPU bandwidth.
      * @type {Integer (Int32)}
      */
     static MFVideoRenderPrefs_ForceOutputThrottling => 8
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
- * 
- * 
- * Force the EVR to batch Direct3D <b>Present</b> calls. This optimization enables the system to enter to idle states more frequently, which can reduce power consumption.
+     * <div> </div>
+     * 
+     * 
+     * Force the EVR to batch Direct3D <b>Present</b> calls. This optimization enables the system to enter to idle states more frequently, which can reduce power consumption.
      * @type {Integer (Int32)}
      */
     static MFVideoRenderPrefs_ForceBatching => 16
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
- * 
- * 
- * Allow the EVR to batch Direct3D <b>Present</b> calls.
+     * <div> </div>
+     * 
+     * 
+     * Allow the EVR to batch Direct3D <b>Present</b> calls.
      * @type {Integer (Int32)}
      */
     static MFVideoRenderPrefs_AllowBatching => 32
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
- * 
- * 
- * Force the EVR to mix the video inside a rectangle that is smaller than the output rectangle. The EVR will then scale the result to the correct output size. The effective resolution will be lower if this setting is applied.
+     * <div> </div>
+     * 
+     * 
+     * Force the EVR to mix the video inside a rectangle that is smaller than the output rectangle. The EVR will then scale the result to the correct output size. The effective resolution will be lower if this setting is applied.
      * @type {Integer (Int32)}
      */
     static MFVideoRenderPrefs_ForceScaling => 64
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
- * 
- * 
- * Allow
- *             the EVR to mix the video inside a rectangle that is smaller than the output rectangle.
+     * <div> </div>
+     * 
+     * 
+     * Allow
+     *             the EVR to mix the video inside a rectangle that is smaller than the output rectangle.
      * @type {Integer (Int32)}
      */
     static MFVideoRenderPrefs_AllowScaling => 128
 
     /**
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
- * 
- * 
- * Prevent the EVR from repainting the video window after a stop command. By default, the EVR repaints the video window black after a stop command.
+     * <div> </div>
+     * 
+     * 
+     * Prevent the EVR from repainting the video window after a stop command. By default, the EVR repaints the video window black after a stop command.
      * @type {Integer (Int32)}
      */
     static MFVideoRenderPrefs_DoNotRepaintOnStop => 256

@@ -16,14 +16,14 @@ class GET_VIRTUAL_DISK_INFO_VERSION{
 
     /**
      * Information related to the virtual disk size, including total size, physical allocation used, block size, 
- *       and sector size.
+     *       and sector size.
      * @type {Integer (Int32)}
      */
     static GET_VIRTUAL_DISK_INFO_SIZE => 1
 
     /**
      * The unique identifier.  This identifier is persistently stored  in the virtual disk and will not change even 
- *       if the virtual disk file is copied to another file.
+     *       if the virtual disk file is copied to another file.
      * @type {Integer (Int32)}
      */
     static GET_VIRTUAL_DISK_INFO_IDENTIFIER => 2
@@ -42,7 +42,7 @@ class GET_VIRTUAL_DISK_INFO_VERSION{
 
     /**
      * The time stamp of the parent when the child virtual disk was created. Valid only for differencing virtual 
- *       disks.
+     *       disks.
      * @type {Integer (Int32)}
      */
     static GET_VIRTUAL_DISK_INFO_PARENT_TIMESTAMP => 5
@@ -61,64 +61,64 @@ class GET_VIRTUAL_DISK_INFO_VERSION{
 
     /**
      * Indicates whether the virtual disk is 4 KB aligned.
- * 
- * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static GET_VIRTUAL_DISK_INFO_IS_4K_ALIGNED => 8
 
     /**
      * Details about the physical disk on which the virtual disk resides.
- * 
- * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static GET_VIRTUAL_DISK_INFO_PHYSICAL_DISK => 9
 
     /**
      * The physical sector size of the virtual disk.
- * 
- * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static GET_VIRTUAL_DISK_INFO_VHD_PHYSICAL_SECTOR_SIZE => 10
 
     /**
      * The smallest safe minimum size of the virtual disk.
- * 
- * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static GET_VIRTUAL_DISK_INFO_SMALLEST_SAFE_VIRTUAL_SIZE => 11
 
     /**
      * The fragmentation level of the virtual disk.
- * 
- * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static GET_VIRTUAL_DISK_INFO_FRAGMENTATION => 12
 
     /**
      * Whether the virtual disk is currently mounted and in use. 
- * 
- * <b>Windows 8 and Windows Server 2012:  </b>This value is not supported before Windows 8.1 and Windows Server 2012 R2.
+     * 
+     * <b>Windows 8 and Windows Server 2012:  </b>This value is not supported before Windows 8.1 and Windows Server 2012 R2.
      * @type {Integer (Int32)}
      */
     static GET_VIRTUAL_DISK_INFO_IS_LOADED => 13
 
     /**
      * The identifier that is uniquely created when a user first creates the virtual disk to attempt to uniquely identify that virtual disk. 
- * 
- * <b>Windows 8 and Windows Server 2012:  </b>This value is not supported before Windows 8.1 and Windows Server 2012 R2.
+     * 
+     * <b>Windows 8 and Windows Server 2012:  </b>This value is not supported before Windows 8.1 and Windows Server 2012 R2.
      * @type {Integer (Int32)}
      */
     static GET_VIRTUAL_DISK_INFO_VIRTUAL_DISK_ID => 14
 
     /**
      * The state of resilient change tracking (RCT) for the virtual disk.
- * 
- * <b>Windows 8.1 and Windows Server 2012 R2:  </b>This value is not supported before Windows 10 and Windows Server 2016.
+     * 
+     * <b>Windows 8.1 and Windows Server 2012 R2:  </b>This value is not supported before Windows 10 and Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static GET_VIRTUAL_DISK_INFO_CHANGE_TRACKING_STATE => 15

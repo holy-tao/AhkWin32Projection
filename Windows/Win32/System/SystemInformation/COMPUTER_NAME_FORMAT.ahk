@@ -28,11 +28,11 @@ class COMPUTER_NAME_FORMAT{
 
     /**
      * The fully qualified DNS name that uniquely identifies the local computer or the cluster associated with the local computer. 
- * 
- * 
- * 
- * 
- * This name is a combination of the DNS host name and the DNS domain name, using the form <i>HostName</i>.<i>DomainName</i>. For example, if the DNS host name is "corporate-mail-server" and the DNS domain name is "microsoft.com", the fully qualified DNS name is "corporate-mail-server.microsoft.com".
+     * 
+     * 
+     * 
+     * 
+     * This name is a combination of the DNS host name and the DNS domain name, using the form <i>HostName</i>.<i>DomainName</i>. For example, if the DNS host name is "corporate-mail-server" and the DNS domain name is "microsoft.com", the fully qualified DNS name is "corporate-mail-server.microsoft.com".
      * @type {Integer (Int32)}
      */
     static ComputerNameDnsFullyQualified => 3

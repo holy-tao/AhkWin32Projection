@@ -28,10 +28,10 @@ class MF_CONNECT_METHOD{
 
     /**
      * Controls the order in which the topology loader attempts to  
- *             use different output types from this node. Currently, this flag applies only to source nodes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-topology-enumerate-source-types">MF_TOPOLOGY_ENUMERATE_SOURCE_TYPES</a>. 
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
+     *             use different output types from this node. Currently, this flag applies only to source nodes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-topology-enumerate-source-types">MF_TOPOLOGY_ENUMERATE_SOURCE_TYPES</a>. 
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MF_CONNECT_RESOLVE_INDEPENDENT_OUTPUTTYPES => 4

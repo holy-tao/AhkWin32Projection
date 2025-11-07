@@ -70,7 +70,7 @@ class RDC_ErrorCode{
 
     /**
      * The failure of the function is not RDC-specific and the <b>HRESULT</b> returned by 
- *       the function contains the specific error code.
+     *       the function contains the specific error code.
      * @type {Integer (Int32)}
      */
     static RDC_Win32Error => 10

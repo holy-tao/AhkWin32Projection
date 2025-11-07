@@ -22,9 +22,9 @@ class FWPM_FIELD_TYPE{
 
     /**
      * Value contains flags.
- * 
- * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_FIELD_FLAGS => 2

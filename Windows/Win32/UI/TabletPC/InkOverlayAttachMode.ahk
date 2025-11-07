@@ -10,8 +10,8 @@ class InkOverlayAttachMode{
 
     /**
      * The new <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object is attached behind the active window.
- * 
- * This is the default value.
+     * 
+     * This is the default value.
      * @type {Integer (Int32)}
      */
     static IOAM_Behind => 0

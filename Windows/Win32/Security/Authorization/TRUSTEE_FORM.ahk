@@ -28,14 +28,14 @@ class TRUSTEE_FORM{
 
     /**
      * The <b>ptstrName</b> member is a pointer to an 
- * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_sid">OBJECTS_AND_SID</a> structure that contains the SID of the trustee and the GUIDs of the object types in an object-specific <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entry</a> (ACE).
+     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_sid">OBJECTS_AND_SID</a> structure that contains the SID of the trustee and the GUIDs of the object types in an object-specific <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entry</a> (ACE).
      * @type {Integer (Int32)}
      */
     static TRUSTEE_IS_OBJECTS_AND_SID => 3
 
     /**
      * The <b>ptstrName</b> member is a pointer to an 
- * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_name_a">OBJECTS_AND_NAME</a> structure that contains the name of the trustee and the names of the object types in an object-specific ACE.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_name_a">OBJECTS_AND_NAME</a> structure that contains the name of the trustee and the names of the object types in an object-specific ACE.
      * @type {Integer (Int32)}
      */
     static TRUSTEE_IS_OBJECTS_AND_NAME => 4

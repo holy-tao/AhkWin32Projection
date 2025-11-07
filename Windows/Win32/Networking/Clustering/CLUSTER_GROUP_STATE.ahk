@@ -22,7 +22,7 @@ class CLUSTER_GROUP_STATE{
 
     /**
      * All of the resources in the group are <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/o-gly">offline</a> or 
- *       there are no resources in the group.
+     *       there are no resources in the group.
      * @type {Integer (Int32)}
      */
     static ClusterGroupOffline => 1
@@ -35,8 +35,8 @@ class CLUSTER_GROUP_STATE{
 
     /**
      * At least one resource in the group is online. No resources are 
- *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/p-gly">pending</a> or 
- *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/f-gly">failed</a>.
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/p-gly">pending</a> or 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/f-gly">failed</a>.
      * @type {Integer (Int32)}
      */
     static ClusterGroupPartialOnline => 3

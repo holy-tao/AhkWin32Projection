@@ -34,24 +34,24 @@ class D3D11_VIDEO_PROCESSOR_FEATURE_CAPS{
 
     /**
      * The driver does not support full video processing capabilities. If this capability flag is set, the video processor has the following limitations:
- * 
- * <ul>
- * <li>A maximum of two streams are supported:<ul>
- * <li>The first stream must be either NV12 or YUY2.</li>
- * <li>The second stream must be AYUV, AI44, or IA44.</li>
- * </ul>
- * </li>
- * <li>Image adjustment (proc amp) controls are applied to the entire video processing blit, rather than per stream.</li>
- * <li>Support for per-stream planar alpha is not reliable. (Per-pixel alpha is supported, however.)</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>A maximum of two streams are supported:<ul>
+     * <li>The first stream must be either NV12 or YUY2.</li>
+     * <li>The second stream must be AYUV, AI44, or IA44.</li>
+     * </ul>
+     * </li>
+     * <li>Image adjustment (proc amp) controls are applied to the entire video processing blit, rather than per stream.</li>
+     * <li>Support for per-stream planar alpha is not reliable. (Per-pixel alpha is supported, however.)</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_PROCESSOR_FEATURE_CAPS_LEGACY => 16
 
     /**
      * The video processor can support 3D stereo video. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamstereoformat">ID3D11VideoContext::VideoProcessorSetStreamStereoFormat</a>.
- * 
- * All drivers setting this caps must support the following stereo formats: <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_format">D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_HORIZONTAL</a>, <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_VERTICAL</b>, and <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_SEPARATE</b>.
+     * 
+     * All drivers setting this caps must support the following stereo formats: <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_format">D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_HORIZONTAL</a>, <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_VERTICAL</b>, and <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_SEPARATE</b>.
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_PROCESSOR_FEATURE_CAPS_STEREO => 32

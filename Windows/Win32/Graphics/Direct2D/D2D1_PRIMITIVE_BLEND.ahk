@@ -93,7 +93,7 @@ class D2D1_PRIMITIVE_BLEND{
 
     /**
      * The resulting pixel values use the maximum of the source and destination pixel values. 
- *           Available in Windows 10 and later (set using <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1commandsink4-setprimitiveblend2">ID21CommandSink4::SetPrimitiveBlend2</a>).
+     *           Available in Windows 10 and later (set using <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1commandsink4-setprimitiveblend2">ID21CommandSink4::SetPrimitiveBlend2</a>).
      * @type {Integer (Int32)}
      */
     static D2D1_PRIMITIVE_BLEND_MAX => 4

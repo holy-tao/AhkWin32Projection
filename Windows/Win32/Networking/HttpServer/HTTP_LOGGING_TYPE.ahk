@@ -139,8 +139,8 @@ class HTTP_LOGGING_TYPE{
 
     /**
      * The log format is W3C style extended logging. Applications choose the fields that are logged in the  <b>Fields</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_logging_info">HTTP_LOGGING_INFO</a> structure.
- * 
- *  When this type of logging is set on a URL Group, logging is similar to the IIS6 site logging. When set on a server session this format functions as a centralized logging for all of the URL Groups.
+     * 
+     *  When this type of logging is set on a URL Group, logging is similar to the IIS6 site logging. When set on a server session this format functions as a centralized logging for all of the URL Groups.
      * @type {Integer (Int32)}
      */
     static HttpLoggingTypeW3C => 0

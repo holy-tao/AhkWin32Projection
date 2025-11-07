@@ -22,26 +22,26 @@ class XPS_SIGNATURE_STATUS{
 
     /**
      * The signature violates one or more  signing rules stated in section 10.2.1.2 of the   <a href="https://www.ecma-international.org/activities/XML%20Paper%20Specification/XPS%20Standard%20WD%201.6.pdf">XML Paper Specification</a>. These rules describe the parts or relationships that must or must not be signed.
- * 
- * A signature that is incompliant must be created as such. 
- * Changing signed content cannot make a valid signature incompliant. One example of an incompliant signature  is the signature of a   package that has an unknown relationships type at the root.
+     * 
+     * A signature that is incompliant must be created as such. 
+     * Changing signed content cannot make a valid signature incompliant. One example of an incompliant signature  is the signature of a   package that has an unknown relationships type at the root.
      * @type {Integer (Int32)}
      */
     static XPS_SIGNATURE_STATUS_INCOMPLIANT => 1
 
     /**
      * The signature does not include parts that must be signed.
- * 
- * If a valid XPS signature is created and the XPS document contents are later modified, the signature will become incomplete or broken.
- * For example, removing a page from a FixedDocument makes the signature incomplete; it also breaks the signature,  but  the fact that the signature is incomplete is of greater importance.
+     * 
+     * If a valid XPS signature is created and the XPS document contents are later modified, the signature will become incomplete or broken.
+     * For example, removing a page from a FixedDocument makes the signature incomplete; it also breaks the signature,  but  the fact that the signature is incomplete is of greater importance.
      * @type {Integer (Int32)}
      */
     static XPS_SIGNATURE_STATUS_INCOMPLETE => 2
 
     /**
      * This is a compliant digital signature, but it fails the signature validation routines described in the <i>Open Packaging Conventions</i> (refer to See Also).
- * 
- * Modification of the markup in a FixedPage that has been signed breaks the signature.
+     * 
+     * Modification of the markup in a FixedPage that has been signed breaks the signature.
      * @type {Integer (Int32)}
      */
     static XPS_SIGNATURE_STATUS_BROKEN => 3

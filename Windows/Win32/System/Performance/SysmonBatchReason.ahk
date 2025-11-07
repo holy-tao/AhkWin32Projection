@@ -16,7 +16,7 @@ class SysmonBatchReason{
 
     /**
      * Prevents the System Monitor from sampling the file immediately when you use <a href="https://docs.microsoft.com/windows/desktop/SysMon/systemmonitor-logfiles-add">ILogFiles.Add</a> to add a log file to the 
- * collection.
+     * collection.
      * @type {Integer (Int32)}
      */
     static sysmonBatchAddFiles => 1

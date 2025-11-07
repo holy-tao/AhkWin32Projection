@@ -10,7 +10,7 @@ class WS_SECURITY_KEY_TYPE{
 
     /**
      * Has no key -- it may be a bearer token such as a username/password
- * pair.
+     * pair.
      * @type {Integer (Int32)}
      */
     static WS_SECURITY_KEY_TYPE_NONE => 1

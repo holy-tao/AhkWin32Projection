@@ -44,8 +44,8 @@ class DisplayTypeConstants{
 
     /**
      * Counter values are displayed as a line graph. The line graph for each counter is stacked one upon the other. The area between the line and the x-axis or adjacent counter is shaded. You can only use this option if the source of the counter data is a log file.
- * 
- * If the sum of all the counter values exceeds the maximum scale value of the graph, SYSMON uses an appropriate scale value for each counter in order to fit the counters within the maximum scale value of the graph.
+     * 
+     * If the sum of all the counter values exceeds the maximum scale value of the graph, SYSMON uses an appropriate scale value for each counter in order to fit the counters within the maximum scale value of the graph.
      * @type {Integer (Int32)}
      */
     static sysmonChartStackedArea => 5

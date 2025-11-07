@@ -16,7 +16,7 @@ class D2D1_SVG_ASPECT_SCALING{
 
     /**
      * Scale the viewBox down as much as possible such that the entire viewport is
- *           covered by the viewBox.
+     *           covered by the viewBox.
      * @type {Integer (Int32)}
      */
     static D2D1_SVG_ASPECT_SCALING_SLICE => 1

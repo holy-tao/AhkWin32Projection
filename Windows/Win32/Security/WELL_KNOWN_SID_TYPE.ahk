@@ -484,128 +484,128 @@ class WELL_KNOWN_SID_TYPE{
 
     /**
      * Indicates a SID that matches the medium plus integrity label.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinMediumPlusLabelSid => 79
 
     /**
      * Indicates a SID that matches a local logon group.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinLocalLogonSid => 80
 
     /**
      * Indicates a SID that matches a console logon group.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinConsoleLogonSid => 81
 
     /**
      * Indicates a SID that matches a certificate for the given organization.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinThisOrganizationCertificateSid => 82
 
     /**
      * Indicates a SID that matches the application package authority.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinApplicationPackageAuthoritySid => 83
 
     /**
      * Indicates a SID that applies to all app containers.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinBuiltinAnyPackageSid => 84
 
     /**
      * Indicates a SID of Internet client capability for app containers.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinCapabilityInternetClientSid => 85
 
     /**
      * Indicates a SID of Internet client and server capability for app containers.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinCapabilityInternetClientServerSid => 86
 
     /**
      * Indicates a SID of private network client and server capability for app containers.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinCapabilityPrivateNetworkClientServerSid => 87
 
     /**
      * Indicates a SID for pictures library capability for app containers.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinCapabilityPicturesLibrarySid => 88
 
     /**
      * Indicates a SID for videos library capability for app containers.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinCapabilityVideosLibrarySid => 89
 
     /**
      * Indicates a SID for music library capability for app containers.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinCapabilityMusicLibrarySid => 90
 
     /**
      * Indicates a SID for documents library capability for app containers.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinCapabilityDocumentsLibrarySid => 91
 
     /**
      * Indicates a SID for shared user certificates capability for app containers.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinCapabilitySharedUserCertificatesSid => 92
 
     /**
      * Indicates a SID for Windows credentials capability for app containers.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinCapabilityEnterpriseAuthenticationSid => 93
 
     /**
      * Indicates a SID for removable storage capability for app containers.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not available.
      * @type {Integer (Int32)}
      */
     static WinCapabilityRemovableStorageSid => 94

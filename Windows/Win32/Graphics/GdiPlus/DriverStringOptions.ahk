@@ -10,7 +10,7 @@ class DriverStringOptions{
 
     /**
      * Specifies that the string array contains Unicode character values. 
- * 			If this flag is not set, each value in array is interpreted as an index to a font glyph that defines a character to be displayed.
+     * 			If this flag is not set, each value in array is interpreted as an index to a font glyph that defines a character to be displayed.
      * @type {Integer (Int32)}
      */
     static DriverStringOptionsCmapLookup => 1

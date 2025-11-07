@@ -82,16 +82,16 @@ class CLUSTER_CHANGE_CLUSTER_V2{
 
     /**
      * Indicates that the cluster upgraded the Cluster service.
- * 
- * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This value is not supported until Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This value is not supported until Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSTER_CHANGE_CLUSTER_UPGRADED_V2 => 4096
 
     /**
      * Indicates all V2 cluster notifications.
- * 
- * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>The value of this constant is  4095 (0x0FFF).
+     * 
+     * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>The value of this constant is  4095 (0x0FFF).
      * @type {Integer (Int32)}
      */
     static CLUSTER_CHANGE_CLUSTER_ALL_V2 => 8191

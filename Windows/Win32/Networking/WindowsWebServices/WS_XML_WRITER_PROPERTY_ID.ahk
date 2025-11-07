@@ -10,317 +10,317 @@ class WS_XML_WRITER_PROPERTY_ID{
 
     /**
      * A <b>ULONG</b> that specifies the maximum depth of the document that the writer will permit.
- *         
- * 
- * Depth is measured at any point by the number of nested start elements.
- *         
- * 
- * A depth of 0 prevents any start elements from being written.
- *         
- * 
- * This property defaults to 32.
+     *         
+     * 
+     * Depth is measured at any point by the number of nested start elements.
+     *         
+     * 
+     * A depth of 0 prevents any start elements from being written.
+     *         
+     * 
+     * This property defaults to 32.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_MAX_DEPTH => 0
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_mtom_encoding">WS_XML_WRITER_MTOM_ENCODING</a> structure that specifies whether the writer will permit multiple elements and non-white space at the top level of the document.  This property
- *           may not be set to <b>TRUE</b> with <b>WS_XML_WRITER_MTOM_ENCODING</b>.
- *         
- * 
- * This property defaults to <b>FALSE</b>.
+     *           may not be set to <b>TRUE</b> with <b>WS_XML_WRITER_MTOM_ENCODING</b>.
+     *         
+     * 
+     * This property defaults to <b>FALSE</b>.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_ALLOW_FRAGMENT => 1
 
     /**
      * A <b>ULONG</b> that specifies
- *           the maximum number of attributes the writer will permit on an element.
- *         
- * 
- * This property defaults to 128.
+     *           the maximum number of attributes the writer will permit on an element.
+     *         
+     * 
+     * This property defaults to 128.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_MAX_ATTRIBUTES => 2
 
     /**
      * A <b>BOOL</b> that specifies if the writer should emit an appropriate xml declaration at the start of the document.
- *         
- * 
- * This property defaults to <b>FALSE</b>.
+     *         
+     * 
+     * This property defaults to <b>FALSE</b>.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_WRITE_DECLARATION => 3
 
     /**
      * A <b>ULONG</b> that specifies the how many spaces of indenting should be used to format the xml.  If indent is zero, no formatting occurs.
- *         
- * 
- * This property defaults to 0.
+     *         
+     * 
+     * This property defaults to 0.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_INDENT => 4
 
     /**
      * A <b>ULONG</b> that specifies one of the following.
- * 
- * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_buffer_output">WS_XML_WRITER_BUFFER_OUTPUT</a>, then this property is the maximum number of bytes
- *           the writer will retain across calls to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutput">WsSetOutput</a> for purposes of buffering output.
- *         
- * 
- * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_stream_output">WS_XML_WRITER_STREAM_OUTPUT</a>, then this property is the maximum number of bytes
- *           the writer will retain across calls to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutput">WsSetOutput</a>  and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushwriter">WsFlushWriter</a> for
- *           purposes of buffering output.
- *         
- * 
- * This property has no effect when specified with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutputtobuffer">WsSetOutputToBuffer</a>.
- *         
- * 
- * This property defaults to 4096.
+     * 
+     * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_buffer_output">WS_XML_WRITER_BUFFER_OUTPUT</a>, then this property is the maximum number of bytes
+     *           the writer will retain across calls to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutput">WsSetOutput</a> for purposes of buffering output.
+     *         
+     * 
+     * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_stream_output">WS_XML_WRITER_STREAM_OUTPUT</a>, then this property is the maximum number of bytes
+     *           the writer will retain across calls to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutput">WsSetOutput</a>  and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushwriter">WsFlushWriter</a> for
+     *           purposes of buffering output.
+     *         
+     * 
+     * This property has no effect when specified with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutputtobuffer">WsSetOutputToBuffer</a>.
+     *         
+     * 
+     * This property defaults to 4096.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_BUFFER_TRIM_SIZE => 5
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET</a> value that
- *           returns the character set the writer is using to encode the document.  This value is only available for
- *           text documents.
+     *           returns the character set the writer is using to encode the document.  This value is only available for
+     *           text documents.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_CHARSET => 6
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_buffers">WS_BUFFERS</a> structure
- *           that returns a set of buffers containing the generated xml bytes.
- *         
- * 
- * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_buffer_output">WS_XML_WRITER_BUFFER_OUTPUT</a>, then the all the generated bytes are returned, and
- *           the buffers are valid until <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutput">WsSetOutput</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreewriter">WsFreeWriter</a> is called.
- *         
- * 
- * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_mtom_encoding">WS_XML_WRITER_MTOM_ENCODING</a>, then there must be no open elements.
- *           The supporting MIME parts will be generated and included in the returned buffers.  Once this
- *           occurs, any API that attempts to write further to the xml document will return <b>WS_E_INVALID_OPERATION</b>.
- *         (See <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.)
- * 
- * This property is not available when using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_stream_output">WS_XML_WRITER_STREAM_OUTPUT</a>.
- *         
- * 
- * This property is not available on a writer that is set to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a>.
- *         
- * 
- * This may be less convenient but more efficient than using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BYTES</a> because the
- *           writer does not have to concatenate the buffers that comprise the document into a single buffer.
+     *           that returns a set of buffers containing the generated xml bytes.
+     *         
+     * 
+     * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_buffer_output">WS_XML_WRITER_BUFFER_OUTPUT</a>, then the all the generated bytes are returned, and
+     *           the buffers are valid until <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutput">WsSetOutput</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreewriter">WsFreeWriter</a> is called.
+     *         
+     * 
+     * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_mtom_encoding">WS_XML_WRITER_MTOM_ENCODING</a>, then there must be no open elements.
+     *           The supporting MIME parts will be generated and included in the returned buffers.  Once this
+     *           occurs, any API that attempts to write further to the xml document will return <b>WS_E_INVALID_OPERATION</b>.
+     *         (See <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.)
+     * 
+     * This property is not available when using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_stream_output">WS_XML_WRITER_STREAM_OUTPUT</a>.
+     *         
+     * 
+     * This property is not available on a writer that is set to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a>.
+     *         
+     * 
+     * This may be less convenient but more efficient than using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BYTES</a> because the
+     *           writer does not have to concatenate the buffers that comprise the document into a single buffer.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_BUFFERS => 7
 
     /**
      * A <b>ULONG</b> that
- *           specifies the maximum number of bytes the writer will buffer.
- *         
- * 
- * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_buffer_output">WS_XML_WRITER_BUFFER_OUTPUT</a>, then this is the maximum number of
- *           bytes that will buffered for the entire document.  Calls to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushwriter">WsFlushWriter</a> have no effect.
- *         
- * 
- * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_stream_output">WS_XML_WRITER_STREAM_OUTPUT</a>, then this is the maxmimum amount of
- *           data that will be buffered between <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushwriter">WsFlushWriter</a> calls.
- *         
- * 
- * This property has no effect when specified with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutputtobuffer">WsSetOutputToBuffer</a>.
+     *           specifies the maximum number of bytes the writer will buffer.
+     *         
+     * 
+     * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_buffer_output">WS_XML_WRITER_BUFFER_OUTPUT</a>, then this is the maximum number of
+     *           bytes that will buffered for the entire document.  Calls to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushwriter">WsFlushWriter</a> have no effect.
+     *         
+     * 
+     * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_stream_output">WS_XML_WRITER_STREAM_OUTPUT</a>, then this is the maxmimum amount of
+     *           data that will be buffered between <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushwriter">WsFlushWriter</a> calls.
+     *         
+     * 
+     * This property has no effect when specified with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutputtobuffer">WsSetOutputToBuffer</a>.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_BUFFER_MAX_SIZE => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_buffers">WS_BUFFERS</a> structure
- *           that returns a single buffer containing the generated xml bytes.
- *         
- * 
- * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_buffer_output">WS_XML_WRITER_BUFFER_OUTPUT</a>, then all the generated bytes are returned, and
- *           the buffer is valid until <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutput">WsSetOutput</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreewriter">WsFreeWriter</a> is called.
- *         
- * 
- * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_mtom_encoding">WS_XML_WRITER_MTOM_ENCODING</a>, then there must be no open elements.
- *           The supporting MIME parts will be generated and included in the returned buffers.  Once this
- *           occurs, any API that attempts to write further to the xml document will return <b>WS_E_INVALID_OPERATION</b>.
- *         
- * 
- * This property is not available when using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_stream_output">WS_XML_WRITER_STREAM_OUTPUT</a>.
- *         
- * 
- * This property is not available on a writer that is set to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a>.
- *         
- * 
- * This may be more convenient but less efficient than using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BUFFERS</a> because the
- *           writer may need to concatenate the buffers that comprise the document into a single buffer.
+     *           that returns a single buffer containing the generated xml bytes.
+     *         
+     * 
+     * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_buffer_output">WS_XML_WRITER_BUFFER_OUTPUT</a>, then all the generated bytes are returned, and
+     *           the buffer is valid until <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutput">WsSetOutput</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreewriter">WsFreeWriter</a> is called.
+     *         
+     * 
+     * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_mtom_encoding">WS_XML_WRITER_MTOM_ENCODING</a>, then there must be no open elements.
+     *           The supporting MIME parts will be generated and included in the returned buffers.  Once this
+     *           occurs, any API that attempts to write further to the xml document will return <b>WS_E_INVALID_OPERATION</b>.
+     *         
+     * 
+     * This property is not available when using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_stream_output">WS_XML_WRITER_STREAM_OUTPUT</a>.
+     *         
+     * 
+     * This property is not available on a writer that is set to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a>.
+     *         
+     * 
+     * This may be more convenient but less efficient than using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BUFFERS</a> because the
+     *           writer may need to concatenate the buffers that comprise the document into a single buffer.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_BYTES => 9
 
     /**
      * A <b>BOOL</b> that
- *           indicates that <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritestartattribute">WsWriteStartAttribute</a> has been called and the writer is
- *           positioned on attribute content.
+     *           indicates that <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritestartattribute">WsWriteStartAttribute</a> has been called and the writer is
+     *           positioned on attribute content.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_IN_ATTRIBUTE => 10
 
     /**
      * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_mtom_encoding">WS_XML_WRITER_MTOM_ENCODING</a>. This specifies the maximum amount of data that
- *           will be buffered for purposes of writing the MIME parts.  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritebytes">WsWriteBytes</a> and
- *           <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wspullbytes">WsPullBytes</a> need to buffer data in order to emit the data as a separate MIME part that
- *           follows the document, and this can be used to limit how much is buffered.
- *         
- * 
- * This property defaults to 65536.
+     *           will be buffered for purposes of writing the MIME parts.  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritebytes">WsWriteBytes</a> and
+     *           <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wspullbytes">WsPullBytes</a> need to buffer data in order to emit the data as a separate MIME part that
+     *           follows the document, and this can be used to limit how much is buffered.
+     *         
+     * 
+     * This property defaults to 65536.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_MAX_MIME_PARTS_BUFFER_SIZE => 11
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_bytes">WS_BYTES</a> structure that contains a buffer that the writer may use for encoding the xml document.  This is
- *           useful when an upper bound on the size of the generated xml data is known, or the caller wants to own
- *           the buffer in which the bytes are placed.
- *         
- * 
- * If the size specified is greater than or equal to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BUFFER_MAX_SIZE</a>, then the 
- *           writer will not allocate from its internal buffers.
- *         
- * 
- * This buffer may appear as one of the buffers returned by the property <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BUFFERS</a>or <b>WS_XML_WRITER_PROPERTY_BYTES</b>.
- *         
- * 
- * The caller must ensure that the buffer specified is valid for the lifetime of the writer.
+     *           useful when an upper bound on the size of the generated xml data is known, or the caller wants to own
+     *           the buffer in which the bytes are placed.
+     *         
+     * 
+     * If the size specified is greater than or equal to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BUFFER_MAX_SIZE</a>, then the 
+     *           writer will not allocate from its internal buffers.
+     *         
+     * 
+     * This buffer may appear as one of the buffers returned by the property <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BUFFERS</a>or <b>WS_XML_WRITER_PROPERTY_BYTES</b>.
+     *         
+     * 
+     * The caller must ensure that the buffer specified is valid for the lifetime of the writer.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_INITIAL_BUFFER => 12
 
     /**
      * A <b>BOOL</b> used with  <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_text_encoding">WS_XML_WRITER_TEXT_ENCODING</a>.  Setting this to <b>TRUE</b> permits character references
- *           of characters considered invalid by XML 1.0 to be accepted.
- *         
- * 
- * Setting this property to <b>TRUE</b> may affect interoperability.
- *         
- * 
- * This property defaults to <b>FALSE</b>.
+     *           of characters considered invalid by XML 1.0 to be accepted.
+     *         
+     * 
+     * Setting this property to <b>TRUE</b> may affect interoperability.
+     *         
+     * 
+     * This property defaults to <b>FALSE</b>.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_ALLOW_INVALID_CHARACTER_REFERENCES => 13
 
     /**
      * A <b>ULONG</b> that specifies the maximum number of xmlns unique declarations that may appear in scope at any point
- *           while writing the document.
- *         
- * 
- * This property defaults to 32.
+     *           while writing the document.
+     *         
+     * 
+     * This property defaults to 32.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_MAX_NAMESPACES => 14
 
     /**
      * A <b>ULONG</b> that specifies one of the following.
- * 
- * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_buffer_output">WS_XML_WRITER_BUFFER_OUTPUT</a>, then this property
- *           returns the number of bytes that have been written to the writer.
- *         
- * 
- * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_stream_output">WS_XML_WRITER_STREAM_OUTPUT</a>, then this property
- *           returns the number of bytes that have been written to the writer since the last call to
- *           <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushwriter">WsFlushWriter</a>.
- *         
- * 
- * If the writer is currently writing an element start tag, then the size of the start tag is not included in
- *           the value returned.
- *         
- * 
- * This property is not available on a writer that was set using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutputtobuffer">WsSetOutputToBuffer</a>.
+     * 
+     * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_buffer_output">WS_XML_WRITER_BUFFER_OUTPUT</a>, then this property
+     *           returns the number of bytes that have been written to the writer.
+     *         
+     * 
+     * If the writer is using <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_stream_output">WS_XML_WRITER_STREAM_OUTPUT</a>, then this property
+     *           returns the number of bytes that have been written to the writer since the last call to
+     *           <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushwriter">WsFlushWriter</a>.
+     *         
+     * 
+     * If the writer is currently writing an element start tag, then the size of the start tag is not included in
+     *           the value returned.
+     *         
+     * 
+     * This property is not available on a writer that was set using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutputtobuffer">WsSetOutputToBuffer</a>.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_BYTES_WRITTEN => 15
 
     /**
      * A <b>ULONG</b> that returns the maximum number of bytes necessary to close any open elements.
- *         
- * 
- * An application can use <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BYTES_WRITTEN</a> and 
- *           <b>WS_XML_WRITER_PROPERTY_BYTES_TO_CLOSE</b> to approximate how much additional
- *           data may be written to the document.  When doing so, the application should take into account
- *           the encoding of the document being written.
- *         
- * 
- * This property is not available on a writer that was set using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutputtobuffer">WsSetOutputToBuffer</a>.
+     *         
+     * 
+     * An application can use <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BYTES_WRITTEN</a> and 
+     *           <b>WS_XML_WRITER_PROPERTY_BYTES_TO_CLOSE</b> to approximate how much additional
+     *           data may be written to the document.  When doing so, the application should take into account
+     *           the encoding of the document being written.
+     *         
+     * 
+     * This property is not available on a writer that was set using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetoutputtobuffer">WsSetOutputToBuffer</a>.
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_BYTES_TO_CLOSE => 16
 
     /**
      * A <b>BOOL</b>that controls how <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a> copies elements with no content.
- *             
- * 
- * When this property is set to <b>FALSE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a>preserves whether each element is represented
- *                     as a start/end tag pair, or as an empty element.  When this property is set to <b>TRUE</b>, <b>WsCopyNode</b> wlll 
- *                 convert elements with no content to empty elements.
- *             
- * 
- * The binary encoding does not support empty elements.  When using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a> with
- *               a writer using the binary encoding this property has no effect either way.  All empty elements are
- *               converted into elements with no content.
- *            
- * 
- * By default, this property is <b>FALSE</b>.
- *             
- * 
- * For an input XML string like:
- *             
- * 
- * <pre class="syntax" xml:space="preserve"><code>
- * &lt;?xml version="1.0" encoding="utf-8"?&gt;
- * &lt;container&gt;
- *  &lt;emptyElement /&gt;
- *  &lt;emptyElementWithEndTag&gt;&lt;/emptyElementWithEndTag&gt;
- * &lt;/container&gt;</code></pre>
- * If this property is <b>FALSE</b>,  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a>will generate the following xml:
- *                 
- *                     
- * 
- * <pre class="syntax" xml:space="preserve"><code>
- * &lt;?xml version="1.0" encoding="utf-8"?&gt;
- * &lt;container&gt;
- *  &lt;emptyElement /&gt;
- *  &lt;emptyElementWithEndTag&gt;&lt;/emptyElementWithEndTag&gt;
- * &lt;/container&gt;</code></pre>
- * If this property is <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a> will generate the following xml:
- *             
- * 
- * <pre class="syntax" xml:space="preserve"><code>
- * &lt;?xml version="1.0" encoding="utf-8"?&gt;
- * &lt;container&gt;
- *  &lt;emptyElement /&gt;
- *  &lt;emptyElementWithEndTag /&gt;
- * &lt;/container&gt;</code></pre>
+     *             
+     * 
+     * When this property is set to <b>FALSE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a>preserves whether each element is represented
+     *                     as a start/end tag pair, or as an empty element.  When this property is set to <b>TRUE</b>, <b>WsCopyNode</b> wlll 
+     *                 convert elements with no content to empty elements.
+     *             
+     * 
+     * The binary encoding does not support empty elements.  When using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a> with
+     *               a writer using the binary encoding this property has no effect either way.  All empty elements are
+     *               converted into elements with no content.
+     *            
+     * 
+     * By default, this property is <b>FALSE</b>.
+     *             
+     * 
+     * For an input XML string like:
+     *             
+     * 
+     * <pre class="syntax" xml:space="preserve"><code>
+     * &lt;?xml version="1.0" encoding="utf-8"?&gt;
+     * &lt;container&gt;
+     *  &lt;emptyElement /&gt;
+     *  &lt;emptyElementWithEndTag&gt;&lt;/emptyElementWithEndTag&gt;
+     * &lt;/container&gt;</code></pre>
+     * If this property is <b>FALSE</b>,  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a>will generate the following xml:
+     *                 
+     *                     
+     * 
+     * <pre class="syntax" xml:space="preserve"><code>
+     * &lt;?xml version="1.0" encoding="utf-8"?&gt;
+     * &lt;container&gt;
+     *  &lt;emptyElement /&gt;
+     *  &lt;emptyElementWithEndTag&gt;&lt;/emptyElementWithEndTag&gt;
+     * &lt;/container&gt;</code></pre>
+     * If this property is <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a> will generate the following xml:
+     *             
+     * 
+     * <pre class="syntax" xml:space="preserve"><code>
+     * &lt;?xml version="1.0" encoding="utf-8"?&gt;
+     * &lt;container&gt;
+     *  &lt;emptyElement /&gt;
+     *  &lt;emptyElementWithEndTag /&gt;
+     * &lt;/container&gt;</code></pre>
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_COMPRESS_EMPTY_ELEMENTS => 17
 
     /**
      * Windows 8 or later: A <b>BOOL</b> that controls how empty elements are emitted.
- * 
- * If set to <b>FALSE</b>, an element that is created by only calls to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritestartelement">WsWriteStartElement</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswriteendelement">WsWriteEndElement</a> will be emitted as follows:
- * 
- * <pre class="syntax" xml:space="preserve"><c>&lt;emptyElement /&gt;</c></pre>
- * If set to <b>TRUE</b>, that element will be emitted as follows:
- * 
- * 
- * ```xml
- * <emptyElement></emptyElement>
- * 
- * ```
- * 
- * 
- * The default is <b>FALSE</b>
+     * 
+     * If set to <b>FALSE</b>, an element that is created by only calls to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritestartelement">WsWriteStartElement</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswriteendelement">WsWriteEndElement</a> will be emitted as follows:
+     * 
+     * <pre class="syntax" xml:space="preserve"><c>&lt;emptyElement /&gt;</c></pre>
+     * If set to <b>TRUE</b>, that element will be emitted as follows:
+     * 
+     * 
+     * ```xml
+     * <emptyElement></emptyElement>
+     * 
+     * ```
+     * 
+     * 
+     * The default is <b>FALSE</b>
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_EMIT_UNCOMPRESSED_EMPTY_ELEMENTS => 18

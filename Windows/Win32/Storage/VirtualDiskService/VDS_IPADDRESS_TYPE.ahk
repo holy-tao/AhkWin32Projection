@@ -16,7 +16,7 @@ class VDS_IPADDRESS_TYPE{
 
     /**
      * The address is a text address that is either a DNS address, an IPv4 dotted address, or an IPv6 hex 
- *       address.
+     *       address.
      * @type {Integer (Int32)}
      */
     static VDS_IPT_TEXT => 0

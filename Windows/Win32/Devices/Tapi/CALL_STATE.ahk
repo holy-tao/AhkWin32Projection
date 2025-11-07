@@ -86,7 +86,7 @@ class CALL_STATE{
 
     /**
      * The call has been created, but 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-connect">Connect</a> has not been called yet. A call can never transition into the idle state. This is the initial state for both incoming and outgoing calls.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-connect">Connect</a> has not been called yet. A call can never transition into the idle state. This is the initial state for both incoming and outgoing calls.
      * @type {Integer (Int32)}
      */
     static CS_IDLE => 0
@@ -111,9 +111,9 @@ class CALL_STATE{
 
     /**
      * A new call has appeared, and is being offered to an application. If the application has owner privileges on the call, it can either call 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-answer">Answer</a> or 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-disconnect">Disconnect</a> while the call is in the offering state. Current call privilege can be determined by calling 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itcallinfo-get_privilege">ITCallInfo::get_Privilege</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-answer">Answer</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-disconnect">Disconnect</a> while the call is in the offering state. Current call privilege can be determined by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itcallinfo-get_privilege">ITCallInfo::get_Privilege</a>.
      * @type {Integer (Int32)}
      */
     static CS_OFFERING => 4

@@ -16,8 +16,8 @@ class CF_PLACEHOLDER_CREATE_FLAGS{
 
     /**
      * The newly created child placeholder directory is considered to have all of its children present locally.
- * 
- * Applicable to a child placeholder directory only.
+     * 
+     * Applicable to a child placeholder directory only.
      * @type {Integer (Int32)}
      */
     static CF_PLACEHOLDER_CREATE_FLAG_DISABLE_ON_DEMAND_POPULATION => 1

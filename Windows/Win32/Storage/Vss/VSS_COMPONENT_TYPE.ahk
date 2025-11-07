@@ -35,9 +35,9 @@ class VSS_COMPONENT_TYPE{
 
     /**
      * Undefined component type. 
- *       
- * 
- * This value indicates an application error.
+     *       
+     * 
+     * This value indicates an application error.
      * @type {Integer (Int32)}
      */
     static VSS_CT_UNDEFINED => 0

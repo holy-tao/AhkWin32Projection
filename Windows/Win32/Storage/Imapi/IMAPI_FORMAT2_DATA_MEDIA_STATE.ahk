@@ -39,9 +39,9 @@ class IMAPI_FORMAT2_DATA_MEDIA_STATE{
 
     /**
      * Media is randomly writable.  This indicates that a single session can be written to this disc.
- * 
- * <div class="alert"><b>Note</b>  This value is deprecated and superseded by <b>IMAPI_FORMAT2_DATA_MEDIA_STATE_OVERWRITE_ONLY</b>.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This value is deprecated and superseded by <b>IMAPI_FORMAT2_DATA_MEDIA_STATE_OVERWRITE_ONLY</b>.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IMAPI_FORMAT2_DATA_MEDIA_STATE_RANDOMLY_WRITABLE => 1

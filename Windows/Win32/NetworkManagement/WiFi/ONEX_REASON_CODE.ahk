@@ -127,32 +127,32 @@ class ONEX_REASON_CODE{
 
     /**
      * User input was canceled. This value can be returned if an EAP method requested user input, but the user hit the Cancel button or dismissed the user input dialog.
- * 
- * This value is supported on Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed.
+     * 
+     * This value is supported on Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @type {Integer (Int32)}
      */
     static ONEX_UI_CANCELLED => 327697
 
     /**
      * The saved user credentials are not valid.  This value can be returned if a profile was saved with bad credentials (an incorrect password, for example), since the credentials are not tested until the profile is actually used to establish a connection.  
- * 
- * This value is supported on Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed.
+     * 
+     * This value is supported on Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @type {Integer (Int32)}
      */
     static ONEX_PROFILE_INVALID_EXPLICIT_CREDENTIALS => 327698
 
     /**
      * The saved user credentials have expired. This value can be returned if a profile was saved with credentials and the credentials subsequently expired (password expiration after some period of time, for example).
- * 
- * This value is supported on Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed.
+     * 
+     * This value is supported on Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @type {Integer (Int32)}
      */
     static ONEX_PROFILE_EXPIRED_EXPLICIT_CREDENTIALS => 327699
 
     /**
      * User interface is not permitted. On Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed, this value can be returned if an EAP method requested user input and the profile is configured with user credentials saved by another user and not the currently logged in user.
- * 
- * This value is supported on Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed.
+     * 
+     * This value is supported on Windows 7 and on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @type {Integer (Int32)}
      */
     static ONEX_UI_NOT_PERMITTED => 327700

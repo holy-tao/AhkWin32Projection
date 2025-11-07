@@ -16,21 +16,21 @@ class HANDLE_SHARING_OPTIONS{
 
     /**
      * Enables subsequent open operations on a file to request read access.
- * Otherwise, other processes cannot open the file if they request read access.
+     * Otherwise, other processes cannot open the file if they request read access.
      * @type {Integer (Int32)}
      */
     static HSO_SHARE_READ => 1
 
     /**
      * Enables subsequent open operations on a file to request write access.
- * Otherwise, other processes cannot open the file if they request write access.
+     * Otherwise, other processes cannot open the file if they request write access.
      * @type {Integer (Int32)}
      */
     static HSO_SHARE_WRITE => 2
 
     /**
      * Enables subsequent open operations on a file to request delete access.
- * Otherwise, other processes cannot open the file if they request delete access.
+     * Otherwise, other processes cannot open the file if they request delete access.
      * @type {Integer (Int32)}
      */
     static HSO_SHARE_DELETE => 4

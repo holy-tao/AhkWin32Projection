@@ -58,8 +58,8 @@ class POWER_PLATFORM_ROLE{
 
     /**
      * The OEM specified a tablet form factor role.
- * 
- * <b>Windows 7, Windows Server 2008 R2, Windows Vista or Windows Server 2008:  </b>In version 1 of this enumeration, this value is equivalent to <b>PlatformRoleMaximum</b>. This value is supported in version 2 of this enumeration starting with Windows 8 and Windows Server 2012.
+     * 
+     * <b>Windows 7, Windows Server 2008 R2, Windows Vista or Windows Server 2008:  </b>In version 1 of this enumeration, this value is equivalent to <b>PlatformRoleMaximum</b>. This value is supported in version 2 of this enumeration starting with Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static PlatformRoleSlate => 8

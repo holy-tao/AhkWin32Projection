@@ -21,7 +21,7 @@ class D3D12_BUFFER_UAV_FLAGS{
 
     /**
      * Resource contains raw, unstructured data.  Requires the UAV format to be <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT_R32_TYPELESS</a>.
- *             For more info about raw viewing of buffers, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-resources-intro">Raw Views of Buffers</a>.
+     *             For more info about raw viewing of buffers, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-resources-intro">Raw Views of Buffers</a>.
      * @type {Integer (Int32)}
      */
     static D3D12_BUFFER_UAV_FLAG_RAW => 1

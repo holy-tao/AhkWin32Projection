@@ -21,9 +21,9 @@ class VSS_SOURCE_TYPE{
 
     /**
      * The source of the data is not known. 
- *       
- * 
- * This indicates a writer error, and the requester should report it.
+     *       
+     * 
+     * This indicates a writer error, and the requester should report it.
      * @type {Integer (Int32)}
      */
     static VSS_ST_UNDEFINED => 0
@@ -42,9 +42,9 @@ class VSS_SOURCE_TYPE{
 
     /**
      * Unclassified source type—data will be in a file group. 
- *       
- * 
- * This is the default source type.
+     *       
+     * 
+     * This is the default source type.
      * @type {Integer (Int32)}
      */
     static VSS_ST_OTHER => 3

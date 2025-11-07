@@ -27,8 +27,8 @@ class InkApplicationGesture{
 
     /**
      * No application-specific gestures. See the following "Remarks" section for more details on this member.
- * 
- * This is the default value.
+     * 
+     * This is the default value.
      * @type {Integer (Int32)}
      */
     static IAG_NoGesture => 61440
@@ -149,32 +149,32 @@ class InkApplicationGesture{
 
     /**
      * This gesture must be drawn as a single fast flick in the upward direction.
- * 
- * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
+     * 
+     * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
      * @type {Integer (Int32)}
      */
     static IAG_Up => 61528
 
     /**
      * This gesture must be drawn as a single fast flick in the downward direction.
- * 
- * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
+     * 
+     * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
      * @type {Integer (Int32)}
      */
     static IAG_Down => 61529
 
     /**
      * This gesture must be drawn as a single fast flick to the left.
- * 
- * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
+     * 
+     * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
      * @type {Integer (Int32)}
      */
     static IAG_Left => 61530
 
     /**
      * This gesture must be drawn as a single fast flick to the right.
- * 
- * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
+     * 
+     * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
      * @type {Integer (Int32)}
      */
     static IAG_Right => 61531
@@ -283,16 +283,16 @@ class InkApplicationGesture{
 
     /**
      * A mouse click.
- * 
- * For the least amount of slipping across the digitizer surface, tap quickly.
+     * 
+     * For the least amount of slipping across the digitizer surface, tap quickly.
      * @type {Integer (Int32)}
      */
     static IAG_Tap => 61680
 
     /**
      * A mouse double-click.
- * 
- * Tap quickly and in as close to the same place for best results.
+     * 
+     * Tap quickly and in as close to the same place for best results.
      * @type {Integer (Int32)}
      */
     static IAG_DoubleTap => 61681

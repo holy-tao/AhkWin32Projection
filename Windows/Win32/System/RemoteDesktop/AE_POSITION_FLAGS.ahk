@@ -20,8 +20,8 @@ class AE_POSITION_FLAGS{
 
     /**
      * The position is valid; however, there has been
- *     a disruption such as a glitch or state transition.
- *     This current position is not correlated with the previous position. The start of a stream should not reflect a discontinuity.
+     *     a disruption such as a glitch or state transition.
+     *     This current position is not correlated with the previous position. The start of a stream should not reflect a discontinuity.
      * @type {Integer (Int32)}
      */
     static POSITION_DISCONTINUOUS => 1

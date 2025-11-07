@@ -16,54 +16,54 @@ class VDS_HBAPORT_SPEED_FLAG{
 
     /**
      * The HBA port speed is unknown. The transceiver is incapable of reporting.
- *       
- * 
- * HBA_PORTSPEED_UNKNOWN
+     *       
+     * 
+     * HBA_PORTSPEED_UNKNOWN
      * @type {Integer (Int32)}
      */
     static VDS_HSF_UNKNOWN => 0
 
     /**
      * The HBA port supports a transfer rate of 1 gigabit per second.
- *       
- * 
- * HBA_PORTSPEED_1GBIT
+     *       
+     * 
+     * HBA_PORTSPEED_1GBIT
      * @type {Integer (Int32)}
      */
     static VDS_HSF_1GBIT => 1
 
     /**
      * The HBA port supports a transfer rate of 2 gigabits per second.
- *       
- * 
- * HBA_PORTSPEED_2GBIT
+     *       
+     * 
+     * HBA_PORTSPEED_2GBIT
      * @type {Integer (Int32)}
      */
     static VDS_HSF_2GBIT => 2
 
     /**
      * The HBA port supports a transfer rate of 10 gigabits per second.
- *       
- * 
- * HBA_PORTSPEED_10GBIT
+     *       
+     * 
+     * HBA_PORTSPEED_10GBIT
      * @type {Integer (Int32)}
      */
     static VDS_HSF_10GBIT => 4
 
     /**
      * The HBA port supports a transfer rate of 4 gigabits per second.
- *       
- * 
- * HBA_PORTSPEED_4GBIT
+     *       
+     * 
+     * HBA_PORTSPEED_4GBIT
      * @type {Integer (Int32)}
      */
     static VDS_HSF_4GBIT => 8
 
     /**
      * The HBA port speed has not been established.
- *       
- * 
- * HBA_PORTSPEED_NOT_NEGOTIATED
+     *       
+     * 
+     * HBA_PORTSPEED_NOT_NEGOTIATED
      * @type {Integer (Int32)}
      */
     static VDS_HSF_NOT_NEGOTIATED => 32768

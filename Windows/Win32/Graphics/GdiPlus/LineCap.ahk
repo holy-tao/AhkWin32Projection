@@ -64,7 +64,7 @@ class LineCap{
 
     /**
      * Specifies that the line ends are made from a 
- * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusheaders/nl-gdiplusheaders-customlinecap">CustomLineCap</a>.
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusheaders/nl-gdiplusheaders-customlinecap">CustomLineCap</a>.
      * @type {Integer (Int32)}
      */
     static LineCapCustom => 255

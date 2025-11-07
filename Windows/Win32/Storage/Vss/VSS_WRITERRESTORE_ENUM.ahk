@@ -21,9 +21,9 @@ class VSS_WRITERRESTORE_ENUM{
 
     /**
      * It is not known whether the writer will perform special operations during the restore operation. 
- *       
- * 
- * This state indicates a writer error.
+     *       
+     * 
+     * This state indicates a writer error.
      * @type {Integer (Int32)}
      */
     static VSS_WRE_UNDEFINED => 0
@@ -36,13 +36,13 @@ class VSS_WRITERRESTORE_ENUM{
 
     /**
      * Indicates that the writer always expects to handle a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-prerestore">PreRestore</a> 
- *       (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onprerestore">CvssWriter::OnPreRestore</a>) event, but expects 
- *       to handle a <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-postrestore">PostRestore</a> event 
- *       (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostrestore">CvssWriter::OnPostRestore</a>) only if a restore 
- *       fails when implementing either a <b>VSS_RME_RESTORE_IF_NOT_THERE</b> or 
- *       <b>VSS_RME_RESTORE_IF_CAN_REPLACE</b> restore method 
- *       (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restoremethod_enum">VSS_RESTOREMETHOD_ENUM</a>).
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-prerestore">PreRestore</a> 
+     *       (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onprerestore">CvssWriter::OnPreRestore</a>) event, but expects 
+     *       to handle a <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-postrestore">PostRestore</a> event 
+     *       (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostrestore">CvssWriter::OnPostRestore</a>) only if a restore 
+     *       fails when implementing either a <b>VSS_RME_RESTORE_IF_NOT_THERE</b> or 
+     *       <b>VSS_RME_RESTORE_IF_CAN_REPLACE</b> restore method 
+     *       (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restoremethod_enum">VSS_RESTOREMETHOD_ENUM</a>).
      * @type {Integer (Int32)}
      */
     static VSS_WRE_IF_REPLACE_FAILS => 2

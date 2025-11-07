@@ -23,7 +23,7 @@ class D3D12_PIPELINE_STATE_FLAGS{
 
     /**
      * Indicates that the pipeline state should be compiled with additional information to assist debugging.
- *           This can only be set on WARP devices.
+     *           This can only be set on WARP devices.
      * @type {Integer (Int32)}
      */
     static D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG => 1

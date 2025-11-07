@@ -10,7 +10,7 @@ class SYSTEM_POWER_CONDITION{
 
     /**
      * The computer is powered by an AC power source (or similar, such as a laptop powered by a 12V automotive 
- *       adapter).
+     *       adapter).
      * @type {Integer (Int32)}
      */
     static PoAc => 0

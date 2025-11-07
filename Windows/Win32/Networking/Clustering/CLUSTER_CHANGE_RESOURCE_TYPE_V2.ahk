@@ -40,8 +40,8 @@ class CLUSTER_CHANGE_RESOURCE_TYPE_V2{
 
     /**
      * An indication that is specific to the resource type.
- * 
- * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This member is not supported until Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This member is not supported until Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSTER_RESOURCE_TYPE_SPECIFIC_V2 => 32

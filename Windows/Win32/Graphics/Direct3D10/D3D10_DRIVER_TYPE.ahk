@@ -41,8 +41,8 @@ class D3D10_DRIVER_TYPE{
 
     /**
      * A WARP driver, which is a high-performance software rasterizer. The rasterizer supports feature level 9_1 through level 10.1 with a 
- *         high performance software implementation when hardware is not available. For more information about using a WARP driver, see <a href="https://docs.microsoft.com/windows/desktop/direct3darticles/directx-warp">Windows Advanced Rasterization Platform (WARP) In-Depth Guide</a>.
- *         Note that WARP is only available with the DirectX 11 Runtime (Windows 7, Windows Server 2008 R2, updated Windows Vista [KB971644]).
+     *         high performance software implementation when hardware is not available. For more information about using a WARP driver, see <a href="https://docs.microsoft.com/windows/desktop/direct3darticles/directx-warp">Windows Advanced Rasterization Platform (WARP) In-Depth Guide</a>.
+     *         Note that WARP is only available with the DirectX 11 Runtime (Windows 7, Windows Server 2008 R2, updated Windows Vista [KB971644]).
      * @type {Integer (Int32)}
      */
     static D3D10_DRIVER_TYPE_WARP => 5

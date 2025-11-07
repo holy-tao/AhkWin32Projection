@@ -30,7 +30,7 @@ class VSS_APPLICATION_LEVEL{
 
     /**
      * The level at which this writer's freeze state will occur is not known. This indicates an application 
- *       error.
+     *       error.
      * @type {Integer (Int32)}
      */
     static VSS_APP_UNKNOWN => 0
@@ -61,7 +61,7 @@ class VSS_APPLICATION_LEVEL{
 
     /**
      * This writer freeze state will be determined automatically. This enumeration value is reserved for future 
- *       use.
+     *       use.
      * @type {Integer (Int32)}
      */
     static VSS_APP_AUTO => -1

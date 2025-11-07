@@ -39,38 +39,38 @@ class MFMEDIASOURCE_CHARACTERISTICS{
 
     /**
      * The media source delivers a playlist, which might contain more than one entry. After the first playlist entry has completed, the media source signals the start of each new playlist entry by sending an <a href="https://docs.microsoft.com/windows/desktop/medfound/menewpresentation">MENewPresentation</a> event. The event contains a presentation descriptor for the entry.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFMEDIASOURCE_HAS_MULTIPLE_PRESENTATIONS => 16
 
     /**
      * The media source can skip forward in the playlist. Applies only if the MFMEDIASOURCE_HAS_MULTIPLE_PRESENTATIONS flag is present. 
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFMEDIASOURCE_CAN_SKIPFORWARD => 32
 
     /**
      * The media source can skip backward in the playlist.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFMEDIASOURCE_CAN_SKIPBACKWARD => 64
 
     /**
      * The media source is not currently
- *     using the network to receive the content.  Networking hardware
- *     may enter a power saving state when this bit is set.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
- * <div> </div>
+     *     using the network to receive the content.  Networking hardware
+     *     may enter a power saving state when this bit is set.
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFMEDIASOURCE_DOES_NOT_USE_NETWORK => 128

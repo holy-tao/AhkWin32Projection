@@ -58,12 +58,12 @@ class AlgorithmOperationFlags{
 
     /**
      * The algorithm can be used for public key encryption, key exchange, and signing. This is a bitwise-<b>OR</b> combination of the following constants:
- * 
- * <ul>
- * <li>XCN_NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION</li>
- * <li>XCN_NCRYPT_SECRET_AGREEMENT_OPERATION</li>
- * <li>XCN_NCRYPT_SIGNATURE_OPERATION</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>XCN_NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION</li>
+     * <li>XCN_NCRYPT_SECRET_AGREEMENT_OPERATION</li>
+     * <li>XCN_NCRYPT_SIGNATURE_OPERATION</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static XCN_NCRYPT_ANY_ASYMMETRIC_OPERATION => 28

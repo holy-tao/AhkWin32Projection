@@ -50,104 +50,104 @@ class VDS_LUN_PLEX_TYPE{
 
     /**
      * The plex type is RAID level 2.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID2 => 15
 
     /**
      * The plex type is RAID level 3.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID3 => 16
 
     /**
      * The plex type is RAID level 4.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID4 => 17
 
     /**
      * The plex type is RAID level 5.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID5 => 18
 
     /**
      * The plex type is RAID level 6.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID6 => 19
 
     /**
      * The plex type is RAID level 0+3.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID03 => 21
 
     /**
      * The plex type is RAID level 0+5.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID05 => 22
 
     /**
      * The plex type is RAID level 1+0.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID10 => 23
 
     /**
      * The plex type is RAID level 1+5.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID15 => 24
 
     /**
      * The plex type is RAID level 3+0.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID30 => 25
 
     /**
      * The plex type is RAID level 5+0.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID50 => 26
 
     /**
      * The plex type is RAID level 5+3.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID53 => 28
 
     /**
      * The plex type is RAID level 6+0.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LPT_RAID60 => 29

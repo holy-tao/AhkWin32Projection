@@ -20,14 +20,14 @@ class RADIUS_EXTENSION_POINT{
 
     /**
      * Indicates that the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_2">RadiusExtensionProcess2</a> function is called at the point in the request process where authentication occurs.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_2">RadiusExtensionProcess2</a> function is called at the point in the request process where authentication occurs.
      * @type {Integer (Int32)}
      */
     static repAuthentication => 0
 
     /**
      * Indicates that the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_2">RadiusExtensionProcess2</a> function is called at the point in the request process where authorization occurs.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_2">RadiusExtensionProcess2</a> function is called at the point in the request process where authorization occurs.
      * @type {Integer (Int32)}
      */
     static repAuthorization => 1

@@ -75,7 +75,7 @@ class WINHTTP_WEB_SOCKET_CLOSE_STATUS{
 
     /**
      * An unexpected condition prevented the server from
- *       fulfilling the request.
+     *       fulfilling the request.
      * @type {Integer (Int32)}
      */
     static WINHTTP_WEB_SOCKET_SERVER_ERROR_CLOSE_STATUS => 1011

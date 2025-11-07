@@ -93,29 +93,29 @@ class PSS_CAPTURE_FLAGS{
 
     /**
      * For <b>MEM_IMAGE</b> and <b>MEM_MAPPED</b> regions, dumps the path to the file backing the sections (identical to what <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-getmappedfilenamea">GetMappedFileName</a> returns). For <b>MEM_IMAGE</b> regions, also dumps:
- * 
- * <ul>
- * <li>
- * <b>IMAGE_NT_HEADERS.FileHeader.TimeDateStamp</b>
- * 
- * </li>
- * <li>
- * <b>IMAGE_NT_HEADERS.OptionalHeader.SizeOfImage</b>
- * 
- * </li>
- * <li>
- * <b>IMAGE_NT_HEADERS.OptionalHeader.ImageBase</b>
- * 
- * </li>
- * <li>
- * <b>IMAGE_NT_HEADERS.OptionalHeader.CheckSum</b>
- * 
- * </li>
- * </ul>
- * The PROCESS_VM_READ access right is required on the process handle.
- * 
- * <div class="alert"><b>Warning</b>  This option is only valid when <b>PSS_CAPTURE_VA_SPACE</b> is specified. </div>
- * <div> </div>
+     * 
+     * <ul>
+     * <li>
+     * <b>IMAGE_NT_HEADERS.FileHeader.TimeDateStamp</b>
+     * 
+     * </li>
+     * <li>
+     * <b>IMAGE_NT_HEADERS.OptionalHeader.SizeOfImage</b>
+     * 
+     * </li>
+     * <li>
+     * <b>IMAGE_NT_HEADERS.OptionalHeader.ImageBase</b>
+     * 
+     * </li>
+     * <li>
+     * <b>IMAGE_NT_HEADERS.OptionalHeader.CheckSum</b>
+     * 
+     * </li>
+     * </ul>
+     * The PROCESS_VM_READ access right is required on the process handle.
+     * 
+     * <div class="alert"><b>Warning</b>  This option is only valid when <b>PSS_CAPTURE_VA_SPACE</b> is specified. </div>
+     * <div> </div>
      * @type {Integer (UInt32)}
      */
     static PSS_CAPTURE_VA_SPACE_SECTION_INFORMATION => 4096
@@ -163,11 +163,11 @@ class PSS_CAPTURE_FLAGS{
 
     /**
      * The virtual address (VA) clone process does not hold a reference to the underlying image. This will cause functions such as <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-queryfullprocessimagenamea">QueryFullProcessImageName</a> to fail on the VA clone process.
- * 
- * <div class="alert"><b>Important</b>  <p class="note"> This flag has no effect unless <b>PSS_CAPTURE_VA_CLONE</b> is specified.
- * 
- * </div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Important</b>  <p class="note"> This flag has no effect unless <b>PSS_CAPTURE_VA_CLONE</b> is specified.
+     * 
+     * </div>
+     * <div> </div>
      * @type {Integer (UInt32)}
      */
     static PSS_CREATE_RELEASE_SECTION => 2147483648

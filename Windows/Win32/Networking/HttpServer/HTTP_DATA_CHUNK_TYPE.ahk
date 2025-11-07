@@ -28,16 +28,16 @@ class HTTP_DATA_CHUNK_TYPE{
 
     /**
      * The data source is a fragment cache data block. The union should be interpreted as a <b>FromFragmentCacheEx</b> structure.
- * 
- * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>This flag is not supported.
+     * 
+     * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>This flag is not supported.
      * @type {Integer (Int32)}
      */
     static HttpDataChunkFromFragmentCacheEx => 3
 
     /**
      * The data source is a trailers data block. The union should be interpreted as a <b>Trailers</b> structure.
- * 
- * <b>Windows 10, version 2004 and prior:  </b>This flag is not supported.
+     * 
+     * <b>Windows 10, version 2004 and prior:  </b>This flag is not supported.
      * @type {Integer (Int32)}
      */
     static HttpDataChunkTrailers => 4

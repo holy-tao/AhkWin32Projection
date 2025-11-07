@@ -40,10 +40,10 @@ class WbemChangeFlagEnum{
 
     /**
      * Forces updates of classes when conflicting child classes exist.
- * 
- * An example of an update this flag forces would be if a class qualifier was defined in a child class, and the base class tried to add the same qualifier in conflict with the existing one. In the force mode, this conflict is resolved by deleting the qualifier in the child class. If the class has instances, the update fails.
- * 
- * Using the force mode to update a static class results in deletion of all instances of that class. Force update on provider classes does not delete instances of the class.
+     * 
+     * An example of an update this flag forces would be if a class qualifier was defined in a child class, and the base class tried to add the same qualifier in conflict with the existing one. In the force mode, this conflict is resolved by deleting the qualifier in the child class. If the class has instances, the update fails.
+     * 
+     * Using the force mode to update a static class results in deletion of all instances of that class. Force update on provider classes does not delete instances of the class.
      * @type {Integer (Int32)}
      */
     static wbemChangeFlagUpdateForceMode => 64

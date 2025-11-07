@@ -64,16 +64,16 @@ class AAAuthSchemes{
 
     /**
      * Claims-based authentication.
- * 
- * <b>Windows Server 2012, Windows 8, Windows Server 2008 R2 and Windows 7:  </b>Not supported.
+     * 
+     * <b>Windows Server 2012, Windows 8, Windows Server 2008 R2 and Windows 7:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static AA_AUTH_ORGID => 9
 
     /**
      * Authentication by reverse connection ID.
- * 
- * <b>Windows Server 2012 R2, Windows 8.1, Windows Server 2012, Windows 8, Windows Server 2008 R2 and Windows 7:  </b>Not supported.
+     * 
+     * <b>Windows Server 2012 R2, Windows 8.1, Windows Server 2012, Windows 8, Windows Server 2008 R2 and Windows 7:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static AA_AUTH_CONID => 10

@@ -16,10 +16,10 @@ class _MFP_CREDENTIAL_FLAGS{
 
     /**
      * The credentials are saved to persistent storage. This flag acts as a hint for the application's UI. If the application prompts the user for credentials, the UI can indicate that the credentials have already been saved.
- * 
- * 
- * 
- * [out] If the application sets this flag, the player object saves the user credentials in persistent storage. Otherwise, the player object does not save the credentials.
+     * 
+     * 
+     * 
+     * [out] If the application sets this flag, the player object saves the user credentials in persistent storage. Otherwise, the player object does not save the credentials.
      * @type {Integer (Int32)}
      */
     static MFP_CREDENTIAL_SAVE => 2
@@ -32,8 +32,8 @@ class _MFP_CREDENTIAL_FLAGS{
 
     /**
      * The credentials will be sent in clear text. The application should  warn the user that the credentials will be sent over the network without encryption.
- * 
- * [out] On output, set this flag to allow the player object to send credentials in clear text, without prompting the user to re-enter the credentials.
+     * 
+     * [out] On output, set this flag to allow the player object to send credentials in clear text, without prompting the user to re-enter the credentials.
      * @type {Integer (Int32)}
      */
     static MFP_CREDENTIAL_CLEAR_TEXT => 8

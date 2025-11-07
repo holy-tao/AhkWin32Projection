@@ -16,50 +16,50 @@ class TAPI_EVENT{
 
     /**
      * Change is in TAPI object itself. For more information, see 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ittapiobjectevent">ITTAPIObjectEvent</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ittapiobjectevent">ITTAPIObjectEvent</a>.
      * @type {Integer (Int32)}
      */
     static TE_TAPIOBJECT => 1
 
     /**
      * An Address object has changed. For more information, see 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddressevent">ITAddressEvent</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddressevent">ITAddressEvent</a>.
      * @type {Integer (Int32)}
      */
     static TE_ADDRESS => 2
 
     /**
      * A new communications session has appeared on the address and the TAPI DLL has created a new call object. This could be a result from an incoming session, a session handed off by another application, or a session being parked on the address. For more information, see 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallnotificationevent">ITCallNotificationEvent</a> and 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications">ITTAPI::RegisterCallNotifications</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallnotificationevent">ITCallNotificationEvent</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications">ITTAPI::RegisterCallNotifications</a>.
      * @type {Integer (Int32)}
      */
     static TE_CALLNOTIFICATION => 4
 
     /**
      * The Call state has changed. For more information, see 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallstateevent">ITCallStateEvent</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallstateevent">ITCallStateEvent</a>.
      * @type {Integer (Int32)}
      */
     static TE_CALLSTATE => 8
 
     /**
      * The media associated with a call has changed. For more information, see 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallmediaevent">ITCallMediaEvent</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallmediaevent">ITCallMediaEvent</a>.
      * @type {Integer (Int32)}
      */
     static TE_CALLMEDIA => 16
 
     /**
      * A CallHub object has changed. For more information, see 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallhubevent">ITCallHubEvent</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallhubevent">ITCallHubEvent</a>.
      * @type {Integer (Int32)}
      */
     static TE_CALLHUB => 32
 
     /**
      * The call information has changed. 
- * For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfochangeevent">ITCallInfoChangeEvent</a>.
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfochangeevent">ITCallInfoChangeEvent</a>.
      * @type {Integer (Int32)}
      */
     static TE_CALLINFOCHANGE => 64
@@ -150,21 +150,21 @@ class TAPI_EVENT{
 
     /**
      * A Phone object has changed. For more information, see 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphoneevent">ITPhoneEvent</a>. Valid only for computers running on Windows XP and later.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphoneevent">ITPhoneEvent</a>. Valid only for computers running on Windows XP and later.
      * @type {Integer (Int32)}
      */
     static TE_PHONEEVENT => 2097152
 
     /**
      * A tone event has been fired. Detection of in-band tones will be enabled or disabled. For more information, see 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ittonedetectionevent">ITToneDetectionEvent</a>. Valid only for computers running on Windows XP and later.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ittonedetectionevent">ITToneDetectionEvent</a>. Valid only for computers running on Windows XP and later.
      * @type {Integer (Int32)}
      */
     static TE_TONEEVENT => 4194304
 
     /**
      * A gather digits event has been fired. Digits will be gathered on the current call. For more information, see 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itdigitsgatheredevent">ITDigitsGatheredEvent</a>. Valid only for computers running on Windows XP and later.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itdigitsgatheredevent">ITDigitsGatheredEvent</a>. Valid only for computers running on Windows XP and later.
      * @type {Integer (Int32)}
      */
     static TE_GATHERDIGITS => 8388608

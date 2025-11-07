@@ -42,18 +42,18 @@ class VDS_HWPROVIDER_TYPE{
 
     /**
      * The type indicates a hardware provider for serial attached SCSI (SAS) storage array networks.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003 R2:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003 R2:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7.
      * @type {Integer (Int32)}
      */
     static VDS_HWT_SAS => 4
 
     /**
      * The type indicates a hybrid hardware provider. A hybrid provider is a provider that manages subsystems that support multiple interconnect types. This is not a valid value for the  
- *   <b>type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_path_info">VDS_PATH_INFO</a> 
- *   structure.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003 R2:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7.
+     *   <b>type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_path_info">VDS_PATH_INFO</a> 
+     *   structure.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003 R2:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7.
      * @type {Integer (Int32)}
      */
     static VDS_HWT_HYBRID => 5

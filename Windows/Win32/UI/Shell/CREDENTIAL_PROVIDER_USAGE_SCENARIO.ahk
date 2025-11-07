@@ -52,10 +52,10 @@ class CREDENTIAL_PROVIDER_USAGE_SCENARIO{
 
     /**
      * Pre-Logon-Access Provider. Credential providers responding to this usage scenario must register under:  
- * 
- *                 
- * 
- * <b>HKLM</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Authentication</b>&#92;<b>PLAP Providers</b>
+     * 
+     *                 
+     * 
+     * <b>HKLM</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Authentication</b>&#92;<b>PLAP Providers</b>
      * @type {Integer (Int32)}
      */
     static CPUS_PLAP => 5

@@ -30,21 +30,21 @@ class FsrmReportType{
 
     /**
      * Lists groups of files. Create a file group and use file name patterns to specify the members of the group. 
- *       Set the filter value to the name of the file group.
+     *       Set the filter value to the name of the file group.
      * @type {Integer (Int32)}
      */
     static FsrmReportType_FilesByType => 2
 
     /**
      * Lists files that have not been accessed in the last <i>n</i> days. Specify the filter 
- *       value in days.
+     *       value in days.
      * @type {Integer (Int32)}
      */
     static FsrmReportType_LeastRecentlyAccessed => 3
 
     /**
      * Lists files that have been accessed in the last <i>n</i> days. Specify the filter value 
- *       in days.
+     *       in days.
      * @type {Integer (Int32)}
      */
     static FsrmReportType_MostRecentlyAccessed => 4
@@ -57,26 +57,26 @@ class FsrmReportType{
 
     /**
      * Lists files grouped by their owner. Set the filter value to the list of owners whose files you want 
- *       included in the report.
+     *       included in the report.
      * @type {Integer (Int32)}
      */
     static FsrmReportType_FilesByOwner => 6
 
     /**
      * Lists all files in the scope of the report job; there is no filtering. You can specify the XML or CSV file 
- *        formats only for this report type. This report cannot be sent through email.
- * 
- * For an action report, the scope is based on the quota or file screen event that initiated the report.
+     *        formats only for this report type. This report cannot be sent through email.
+     * 
+     * For an action report, the scope is based on the quota or file screen event that initiated the report.
      * @type {Integer (Int32)}
      */
     static FsrmReportType_ExportReport => 7
 
     /**
      * Lists duplicate files. All files with the same file name, file size, and last modify time under the scope 
- *       of the report job are considered duplicates. For example, if the scope of the report is C:\ and 
- *       D:\ and file file1.txt exists in C:&#92;<i>folder1</i>\, 
- *       C:&#92;<i>folder2</i>\ and D:&#92;<i>folder1</i>\ with 
- *       the same modify time and file size, then the files are considered duplicates.
+     *       of the report job are considered duplicates. For example, if the scope of the report is C:\ and 
+     *       D:\ and file file1.txt exists in C:&#92;<i>folder1</i>\, 
+     *       C:&#92;<i>folder2</i>\ and D:&#92;<i>folder1</i>\ with 
+     *       the same modify time and file size, then the files are considered duplicates.
      * @type {Integer (Int32)}
      */
     static FsrmReportType_DuplicateFiles => 8
@@ -89,34 +89,34 @@ class FsrmReportType{
 
     /**
      * Lists files, grouped by property value, that contain the specified property (you can specify only one 
- *        property on which to report).
- * 
- * <b>Windows Server 2008:  </b>This report type is not supported before Windows Server 2008 R2.
+     *        property on which to report).
+     * 
+     * <b>Windows Server 2008:  </b>This report type is not supported before Windows Server 2008 R2.
      * @type {Integer (Int32)}
      */
     static FsrmReportType_FilesByProperty => 10
 
     /**
      * For internal use only; do not specify.
- * 
- * <b>Windows Server 2008:  </b>This report type is not supported before Windows Server 2008 R2.
+     * 
+     * <b>Windows Server 2008:  </b>This report type is not supported before Windows Server 2008 R2.
      * @type {Integer (Int32)}
      */
     static FsrmReportType_AutomaticClassification => 11
 
     /**
      * For internal use only; do not specify.
- * 
- * <b>Windows Server 2008:  </b>This report type is not supported before Windows Server 2008 R2.
+     * 
+     * <b>Windows Server 2008:  </b>This report type is not supported before Windows Server 2008 R2.
      * @type {Integer (Int32)}
      */
     static FsrmReportType_Expiration => 12
 
     /**
      * Lists folders, grouped by property value, that contain the specified property (you can specify only one 
- *        property on which to report).
- * 
- * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This report type is not supported before Windows Server 2012.
+     *        property on which to report).
+     * 
+     * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This report type is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmReportType_FoldersByProperty => 13

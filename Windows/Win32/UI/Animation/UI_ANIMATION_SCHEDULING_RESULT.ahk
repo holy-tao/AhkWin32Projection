@@ -21,16 +21,16 @@ class UI_ANIMATION_SCHEDULING_RESULT{
 
     /**
      * Scheduling failed because
- *                a scheduling conflict occurred and the currently scheduled storyboard has higher priority.
- *                
- *                For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationprioritycomparison-haspriority">IUIAnimationPriorityComparison::HasPriority</a>.
+     *                a scheduling conflict occurred and the currently scheduled storyboard has higher priority.
+     *                
+     *                For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationprioritycomparison-haspriority">IUIAnimationPriorityComparison::HasPriority</a>.
      * @type {Integer (Int32)}
      */
     static UI_ANIMATION_SCHEDULING_INSUFFICIENT_PRIORITY => 1
 
     /**
      * Scheduling failed because 
- *                the storyboard is already scheduled.
+     *                the storyboard is already scheduled.
      * @type {Integer (Int32)}
      */
     static UI_ANIMATION_SCHEDULING_ALREADY_SCHEDULED => 2

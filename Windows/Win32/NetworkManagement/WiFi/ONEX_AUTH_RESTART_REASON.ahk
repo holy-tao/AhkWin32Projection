@@ -29,14 +29,14 @@ class ONEX_AUTH_RESTART_REASON{
 
     /**
      * The 802.1X authentication restart was the result of a state timeout. The timer expiring is the heldWhile timer of the 802.1X supplicant state machine defined in IEEE 802.1X - 2004 standard for Port-Based Network Access Control. The heldWhile timer is used by the supplicant state machine to define periods of time during which it
- * will not attempt to acquire an authenticator.
+     * will not attempt to acquire an authenticator.
      * @type {Integer (Int32)}
      */
     static OneXRestartReasonOneXHeldStateTimeout => 2
 
     /**
      * The 802.1X authentication restart was the result of an state timeout. The timer expiring is the authWhile timer of the 802.1X supplicant port access entity defined in IEEE 802.1X - 2004 standard for Port-Based Network Access Control. The authWhile timer is used by the supplicant port access entity to determine how long to wait for a request from
- * the authenticator before timing it out.
+     * the authenticator before timing it out.
      * @type {Integer (Int32)}
      */
     static OneXRestartReasonOneXAuthTimeout => 3

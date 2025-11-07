@@ -15,7 +15,7 @@ class ROUTER_CONNECTION_STATE{
 
     /**
      * The interface is unreachable. For a list of possible reasons, see 
- * <a href="https://docs.microsoft.com/windows/desktop/RRAS/unreachability-reasons">Unreachability Reasons</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/unreachability-reasons">Unreachability Reasons</a>.
      * @type {Integer (Int32)}
      */
     static ROUTER_IF_STATE_UNREACHABLE => 0

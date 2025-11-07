@@ -16,9 +16,9 @@ class WBEM_SECURITY_FLAGS{
 
     /**
      * Allows the execution of methods. 
- * 
- * 
- *  Providers can perform additional access checks. This is a default access right for all users and corresponds to the Execute Methods permission on the Security tab of the WMI Control.
+     * 
+     * 
+     *  Providers can perform additional access checks. This is a default access right for all users and corresponds to the Execute Methods permission on the Security tab of the WMI Control.
      * @type {Integer (Int32)}
      */
     static WBEM_METHOD_EXECUTE => 2

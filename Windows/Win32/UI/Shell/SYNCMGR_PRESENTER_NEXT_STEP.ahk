@@ -10,7 +10,7 @@ class SYNCMGR_PRESENTER_NEXT_STEP{
 
     /**
      * The conflict has been resolved and subsequent
- * selected conflicts should continue to be resolved.
+     * selected conflicts should continue to be resolved.
      * @type {Integer (Int32)}
      */
     static SYNCMGR_PNS_CONTINUE => 0

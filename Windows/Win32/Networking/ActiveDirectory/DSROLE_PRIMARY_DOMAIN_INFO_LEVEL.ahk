@@ -16,14 +16,14 @@ class DSROLE_PRIMARY_DOMAIN_INFO_LEVEL{
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/nf-dsrole-dsrolegetprimarydomaininformation">DsRoleGetPrimaryDomainInformation</a> function retrieves from a 
- * <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/ns-dsrole-dsrole_upgrade_status_info">DSROLE_UPGRADE_STATUS_INFO</a> structure.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/ns-dsrole-dsrole_upgrade_status_info">DSROLE_UPGRADE_STATUS_INFO</a> structure.
      * @type {Integer (Int32)}
      */
     static DsRoleUpgradeStatus => 2
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/nf-dsrole-dsrolegetprimarydomaininformation">DsRoleGetPrimaryDomainInformation</a> function retrieves data from a 
- * <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/ns-dsrole-dsrole_operation_state_info">DSROLE_OPERATION_STATE_INFO</a> structure.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/ns-dsrole-dsrole_operation_state_info">DSROLE_OPERATION_STATE_INFO</a> structure.
      * @type {Integer (Int32)}
      */
     static DsRoleOperationState => 3

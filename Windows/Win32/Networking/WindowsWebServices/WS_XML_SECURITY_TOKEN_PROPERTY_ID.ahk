@@ -10,21 +10,21 @@ class WS_XML_SECURITY_TOKEN_PROPERTY_ID{
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a> that contains
- * the XML form of the reference to be used for this token (from a
- * signature, for example) when the token is attached to (for example, serialized
- * in) a message.  This is required if and only if the token is a
- * proof-of-possession token.  If specified, the XML buffer must have
- * exactly one top level XML element.
+     * the XML form of the reference to be used for this token (from a
+     * signature, for example) when the token is attached to (for example, serialized
+     * in) a message.  This is required if and only if the token is a
+     * proof-of-possession token.  If specified, the XML buffer must have
+     * exactly one top level XML element.
      * @type {Integer (Int32)}
      */
     static WS_XML_SECURITY_TOKEN_PROPERTY_ATTACHED_REFERENCE => 1
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a> that contains the XML form of the reference to be used for this token (from a
- * signature, for example) when the token is not attached to a message.  This
- * should be specified only if the token is a proof-of-possession token,
- * and is used without being serialized in the message.  If specified,
- * the XML buffer must have exactly one top level XML element.
+     * signature, for example) when the token is not attached to a message.  This
+     * should be specified only if the token is a proof-of-possession token,
+     * and is used without being serialized in the message.  If specified,
+     * the XML buffer must have exactly one top level XML element.
      * @type {Integer (Int32)}
      */
     static WS_XML_SECURITY_TOKEN_PROPERTY_UNATTACHED_REFERENCE => 2

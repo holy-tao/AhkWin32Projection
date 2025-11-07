@@ -33,16 +33,16 @@ class FsrmEnumOptions{
 
     /**
      * Include objects on all nodes in a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/windows-clustering">Windows cluster</a> 
- *       when enumerating report jobs 
- *       (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-enumreportjobs">IFsrmReportManager::EnumReportJobs</a>).
+     *       when enumerating report jobs 
+     *       (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-enumreportjobs">IFsrmReportManager::EnumReportJobs</a>).
      * @type {Integer (Int32)}
      */
     static FsrmEnumOptions_IncludeClusterNodes => 4
 
     /**
      * Include deprecated objects when enumerating.
- * 
- * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmEnumOptions_IncludeDeprecatedObjects => 8

@@ -25,28 +25,28 @@ class PenType{
 
     /**
      * Indicates that the pen draws with a hatch pattern that is specified by a 
- * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusbrush/nl-gdiplusbrush-hatchbrush">HatchBrush</a> object.
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusbrush/nl-gdiplusbrush-hatchbrush">HatchBrush</a> object.
      * @type {Integer (Int32)}
      */
     static PenTypeHatchFill => 1
 
     /**
      * Indicates that the pen draws with a texture that is specified by a 
- * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusbrush/nl-gdiplusbrush-texturebrush">TextureBrush</a> object.
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusbrush/nl-gdiplusbrush-texturebrush">TextureBrush</a> object.
      * @type {Integer (Int32)}
      */
     static PenTypeTextureFill => 2
 
     /**
      * Indicates that the pen draws with a color gradient that is specified by a 
- * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdipluspath/nl-gdipluspath-pathgradientbrush">PathGradientBrush</a> object.
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdipluspath/nl-gdipluspath-pathgradientbrush">PathGradientBrush</a> object.
      * @type {Integer (Int32)}
      */
     static PenTypePathGradient => 3
 
     /**
      * Indicates that the pen draws with a color gradient that is specified by a 
- * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusbrush/nl-gdiplusbrush-lineargradientbrush">LinearGradientBrush</a> object.
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusbrush/nl-gdiplusbrush-lineargradientbrush">LinearGradientBrush</a> object.
      * @type {Integer (Int32)}
      */
     static PenTypeLinearGradient => 4

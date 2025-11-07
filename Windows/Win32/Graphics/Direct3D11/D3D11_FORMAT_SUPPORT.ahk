@@ -64,19 +64,19 @@ class D3D11_FORMAT_SUPPORT{
 
     /**
      * The HLSL <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-sample">Sample</a> function for texture objects is supported.
- * 
- * <div class="alert"><b>Note</b>  If the device supports the format as a resource (1D, 2D, 3D, or cube map) but doesn't support this option, the resource can still use the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-sample">Sample</a> method but must use only the point filtering sampler state to perform the sample.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  If the device supports the format as a resource (1D, 2D, 3D, or cube map) but doesn't support this option, the resource can still use the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-sample">Sample</a> method but must use only the point filtering sampler state to perform the sample.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static D3D11_FORMAT_SUPPORT_SHADER_SAMPLE => 512
 
     /**
      * The HLSL <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-samplecmp">SampleCmp</a> and <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-samplecmplevelzero">SampleCmpLevelZero</a> functions for texture objects are supported.
- * 
- * <div class="alert"><b>Note</b>  Windows 8 and later might provide limited support for these functions on Direct3D <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a> 9_1, 9_2, and 9_3. For more info, see <a href="https://docs.microsoft.com/previous-versions/windows/apps/jj262110(v=win.10)">Implementing shadow buffers for Direct3D feature level 9</a>.
- * </div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Windows 8 and later might provide limited support for these functions on Direct3D <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a> 9_1, 9_2, and 9_3. For more info, see <a href="https://docs.microsoft.com/previous-versions/windows/apps/jj262110(v=win.10)">Implementing shadow buffers for Direct3D feature level 9</a>.
+     * </div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static D3D11_FORMAT_SUPPORT_SHADER_SAMPLE_COMPARISON => 1024
@@ -179,32 +179,32 @@ class D3D11_FORMAT_SUPPORT{
 
     /**
      * Format can be used with the decoder output.
- * 
- * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * 
+     * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
      * @type {Integer (Int32)}
      */
     static D3D11_FORMAT_SUPPORT_DECODER_OUTPUT => 134217728
 
     /**
      * Format can be used with the video processor output.
- * 
- * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * 
+     * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
      * @type {Integer (Int32)}
      */
     static D3D11_FORMAT_SUPPORT_VIDEO_PROCESSOR_OUTPUT => 268435456
 
     /**
      * Format can be used with the video processor input.
- * 
- * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * 
+     * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
      * @type {Integer (Int32)}
      */
     static D3D11_FORMAT_SUPPORT_VIDEO_PROCESSOR_INPUT => 536870912
 
     /**
      * Format can be used with the video encoder.
- * 
- * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * 
+     * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
      * @type {Integer (Int32)}
      */
     static D3D11_FORMAT_SUPPORT_VIDEO_ENCODER => 1073741824

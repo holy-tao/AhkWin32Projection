@@ -33,8 +33,8 @@ class D3D12_VIDEO_PROCESS_ALPHA_FILL_MODE{
 
     /**
      * Alpha values are taken from an input stream, scaled, and copied to the corresponding destination rectangle for that stream. The input stream is specified in the *AlphaFillModeSourceStreamIndex* member of <a href="ns-d3d12video-d3d12_video_process_input_stream_arguments.md">D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS</a>.
- * 
- * If the input stream does not have alpha data, the video processor sets the alpha values in the target rectangle to opaque. If the input stream is disabled or the source rectangle is empty, the alpha values in the target rectangle are not modified.
+     * 
+     * If the input stream does not have alpha data, the video processor sets the alpha values in the target rectangle to opaque. If the input stream is disabled or the source rectangle is empty, the alpha values in the target rectangle are not modified.
      * @type {Integer (Int32)}
      */
     static D3D12_VIDEO_PROCESS_ALPHA_FILL_MODE_SOURCE_STREAM => 3

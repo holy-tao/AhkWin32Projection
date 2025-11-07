@@ -23,14 +23,14 @@ class FILESHARE_CHANGE_ENUM{
 
     /**
      * A new file share resource has been created and will be included with the other file shares managed by the 
- *        File Server resource.
+     *        File Server resource.
      * @type {Integer (Int32)}
      */
     static FILESHARE_CHANGE_ADD => 1
 
     /**
      * A file share resource has been deleted and will be removed from the file shares managed by the File Server 
- *        resource.
+     *        resource.
      * @type {Integer (Int32)}
      */
     static FILESHARE_CHANGE_DEL => 2

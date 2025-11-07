@@ -75,128 +75,128 @@ class VDS_LUN_TYPE{
 
     /**
      * The LUN type is RAID level 2.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID2 => 15
 
     /**
      * The LUN type is RAID level 3.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID3 => 16
 
     /**
      * The LUN type is RAID level 4.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID4 => 17
 
     /**
      * The LUN type is RAID level 5.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID5 => 18
 
     /**
      * The LUN type is RAID level 6.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID6 => 19
 
     /**
      * The LUN type is RAID level 0+1.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID01 => 20
 
     /**
      * The LUN type is RAID level 0+3.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID03 => 21
 
     /**
      * The LUN type is RAID level 0+5.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID05 => 22
 
     /**
      * The LUN type is RAID level 1+0.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID10 => 23
 
     /**
      * The LUN type is RAID level 1+5.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID15 => 24
 
     /**
      * The LUN type is RAID level 3+0.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID30 => 25
 
     /**
      * The LUN type is RAID level 5+0.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID50 => 26
 
     /**
      * The LUN type is RAID level 5+1.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID51 => 27
 
     /**
      * The LUN type is RAID level 5+3.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID53 => 28
 
     /**
      * The LUN type is RAID level 6+0.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID60 => 29
 
     /**
      * The LUN type is RAID level 6+1.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_LT_RAID61 => 30

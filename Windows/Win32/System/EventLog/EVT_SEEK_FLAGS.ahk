@@ -88,12 +88,12 @@ class EVT_SEEK_FLAGS{
 
     /**
      * A bitmask that you can use to determine which of the following flags is set:
- * 
- * <ul>
- * <li>EvtSeekRelativeToFirst</li>
- * <li>EvtSeekRelativeToLast</li>
- * <li>EvtSeekRelativeToBookmark</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>EvtSeekRelativeToFirst</li>
+     * <li>EvtSeekRelativeToLast</li>
+     * <li>EvtSeekRelativeToBookmark</li>
+     * </ul>
      * @type {Integer (UInt32)}
      */
     static EvtSeekOriginMask => 7

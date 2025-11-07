@@ -33,16 +33,16 @@ class STORAGE_PROPERTY_ID{
 
     /**
      * **Intended for driver usage.** Indicates that the caller is querying for the unique device identifiers. Data is returned using the **STORAGE_DEVICE_UNIQUE_IDENTIFIER** structure (see the storduid.h header in the DDK).
- * 
- * **Windows Server 2003 and Windows XP:**  This value is not supported before Windows Vista and Windows Server 2008.
+     * 
+     * **Windows Server 2003 and Windows XP:**  This value is not supported before Windows Vista and Windows Server 2008.
      * @type {Integer (Int32)}
      */
     static StorageDeviceUniqueIdProperty => 3
 
     /**
      * Indicates that the caller is querying for the write cache property. Data is returned using the [STORAGE_WRITE_CACHE_PROPERTY](ns-winioctl-storage_write_cache_property.md) structure.
- * 
- * **Windows Server 2003 and Windows XP:**  This value is not supported before Windows Vista and Windows Server 2008.
+     * 
+     * **Windows Server 2003 and Windows XP:**  This value is not supported before Windows Vista and Windows Server 2008.
      * @type {Integer (Int32)}
      */
     static StorageDeviceWriteCacheProperty => 4
@@ -55,24 +55,24 @@ class STORAGE_PROPERTY_ID{
 
     /**
      * Indicates that the caller is querying for the access alignment descriptor, [STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR](ns-winioctl-storage_access_alignment_descriptor.md).
- * 
- * **Windows Server 2003 and Windows XP:**  This value is not supported before Windows Vista and Windows Server 2008.
+     * 
+     * **Windows Server 2003 and Windows XP:**  This value is not supported before Windows Vista and Windows Server 2008.
      * @type {Integer (Int32)}
      */
     static StorageAccessAlignmentProperty => 6
 
     /**
      * Indicates that the caller is querying for the seek penalty descriptor, [DEVICE_SEEK_PENALTY_DESCRIPTOR](ns-winioctl-device_seek_penalty_descriptor.md).
- * 
- * **Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:**  This value is not supported before Windows 7 and Windows Server 2008 R2.
+     * 
+     * **Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:**  This value is not supported before Windows 7 and Windows Server 2008 R2.
      * @type {Integer (Int32)}
      */
     static StorageDeviceSeekPenaltyProperty => 7
 
     /**
      * Indicates that the caller is querying for the trim descriptor, [DEVICE_TRIM_DESCRIPTOR](ns-winioctl-device_trim_descriptor.md).
- * 
- * **Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:**  This value is not supported before Windows 7 and Windows Server 2008 R2.
+     * 
+     * **Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:**  This value is not supported before Windows 7 and Windows Server 2008 R2.
      * @type {Integer (Int32)}
      */
     static StorageDeviceTrimProperty => 8
@@ -91,24 +91,24 @@ class STORAGE_PROPERTY_ID{
 
     /**
      * Indicates that the caller is querying for the logical block provisioning property. Data is returned using the [DEVICE_LB_PROVISIONING_DESCRIPTOR](ns-winioctl-device_lb_provisioning_descriptor.md) structure.
- * 
- * **Windows 7, Windows Server 2008 R2, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:**  This value is not supported before Windows 8 and Windows Server 2012.
+     * 
+     * **Windows 7, Windows Server 2008 R2, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:**  This value is not supported before Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static StorageDeviceLBProvisioningProperty => 11
 
     /**
      * Indicates that the caller is querying for the device power descriptor. Data is returned using the [DEVICE_POWER_DESCRIPTOR](ns-winioctl-device_power_descriptor.md) structure.
- * 
- * **Windows 7, Windows Server 2008 R2, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:**  This value is not supported before Windows 8 and Windows Server 2012.
+     * 
+     * **Windows 7, Windows Server 2008 R2, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:**  This value is not supported before Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static StorageDevicePowerProperty => 12
 
     /**
      * Indicates that the caller is querying for the copy offload  parameters property. Data is returned using the [DEVICE_COPY_OFFLOAD_DESCRIPTOR](ns-winioctl-device_copy_offload_descriptor.md) structure.
- * 
- * **Windows 7, Windows Server 2008 R2, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:**  This value is not supported before Windows 8 and Windows Server 2012.
+     * 
+     * **Windows 7, Windows Server 2008 R2, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:**  This value is not supported before Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static StorageDeviceCopyOffloadProperty => 13

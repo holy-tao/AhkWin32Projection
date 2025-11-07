@@ -39,8 +39,8 @@ class D3D11_MESSAGE_SEVERITY{
 
     /**
      * Defines a message other than corruption, error, warning, or information.
- * 
- * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * 
+     * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
      * @type {Integer (Int32)}
      */
     static D3D11_MESSAGE_SEVERITY_MESSAGE => 4

@@ -17,14 +17,14 @@ class POLICY_AUDIT_EVENT_TYPE{
 
     /**
      * Determines whether the operating system must audit any of the following attempts:
- * 
- * <ul>
- * <li>Attempted system time change.</li>
- * <li>Attempted security system startup, restart, or shutdown.</li>
- * <li>Attempt to load extensible authentication features.</li>
- * <li>Loss of audited events due to auditing system failure.</li>
- * <li>Security log size that exceeds a configurable warning threshold level.</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>Attempted system time change.</li>
+     * <li>Attempted security system startup, restart, or shutdown.</li>
+     * <li>Attempt to load extensible authentication features.</li>
+     * <li>Loss of audited events due to auditing system failure.</li>
+     * <li>Security log size that exceeds a configurable warning threshold level.</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static AuditCategorySystem => 0

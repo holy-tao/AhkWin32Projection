@@ -38,37 +38,37 @@ class VSS_FILE_RESTORE_STATUS{
 
     /**
      * The restore state is undefined. 
- *       
- * 
- * This value indicates an error, or indicates that a restore operation has not yet started.
- * 
- * This value is not supported for components that are owned by express writers.
+     *       
+     * 
+     * This value indicates an error, or indicates that a restore operation has not yet started.
+     * 
+     * This value is not supported for components that are owned by express writers.
      * @type {Integer (Int32)}
      */
     static VSS_RS_UNDEFINED => 0
 
     /**
      * No files were restored. 
- *       
- * 
- * This value indicates an error in restoration that did not leave any restored files on disk.
+     *       
+     * 
+     * This value indicates an error in restoration that did not leave any restored files on disk.
      * @type {Integer (Int32)}
      */
     static VSS_RS_NONE => 1
 
     /**
      * All files were restored. This value indicates success and should be set for each component that was 
- *       restored successfully.
+     *       restored successfully.
      * @type {Integer (Int32)}
      */
     static VSS_RS_ALL => 2
 
     /**
      * The restore process failed. 
- *       
- * 
- * This value indicates an error in restoration that did leave some restored files on disk. This means the 
- *        components on disk are now corrupt.
+     *       
+     * 
+     * This value indicates an error in restoration that did leave some restored files on disk. This means the 
+     *        components on disk are now corrupt.
      * @type {Integer (Int32)}
      */
     static VSS_RS_FAILED => 3

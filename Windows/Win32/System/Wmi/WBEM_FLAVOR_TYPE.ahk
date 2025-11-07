@@ -52,16 +52,16 @@ class WBEM_FLAVOR_TYPE{
 
     /**
      * For a class: the property belongs to the derived-most class.
- * 
- * For an instance: the property is modified at the instance level (that is, either a value was supplied or a qualifier was added/modified).
+     * 
+     * For an instance: the property is modified at the instance level (that is, either a value was supplied or a qualifier was added/modified).
      * @type {Integer (Int32)}
      */
     static WBEM_FLAVOR_ORIGIN_LOCAL => 0
 
     /**
      * For a class: The property was inherited from the parent class.
- * 
- * For an instance: The property, while inherited from the parent class, has not been modified at the instance level.
+     * 
+     * For an instance: The property, while inherited from the parent class, has not been modified at the instance level.
      * @type {Integer (Int32)}
      */
     static WBEM_FLAVOR_ORIGIN_PROPAGATED => 32

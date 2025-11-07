@@ -21,8 +21,8 @@ class KNOWN_FOLDER_FLAG{
 
     /**
      * 0x00080000. Introduced in Windows 10, version 1709. When called from a packaged app, <b>LocalAppData/RoamingAppData</b> folders are redirected to private app locations that match the paths returned from <a href="https://docs.microsoft.com/uwp/api/Windows.Storage.ApplicationData">Windows.Storage.ApplicationData.Current{LocalFolder|RoamingFolder}</a>. Other folders are redirected to subdirectories of <b>LocalAppData</b>
- * 
- * This flag is used with <b>FOLDERID_AppDataDesktop</b>, <b>FOLDERID_AppDataDocuments</b>, <b>FOLDERID_AppDataFavorites</b>, and <b>FOLDERID_AppDataProgramData</b>. It is also intended for compatibility with .NET applications, and not meant to be used directly from an application.
+     * 
+     * This flag is used with <b>FOLDERID_AppDataDesktop</b>, <b>FOLDERID_AppDataDocuments</b>, <b>FOLDERID_AppDataFavorites</b>, and <b>FOLDERID_AppDataProgramData</b>. It is also intended for compatibility with .NET applications, and not meant to be used directly from an application.
      * @type {Integer (Int32)}
      */
     static KF_FLAG_FORCE_APP_DATA_REDIRECTION => 524288
@@ -59,36 +59,36 @@ class KNOWN_FOLDER_FLAG{
 
     /**
      * 0x00008000. Forces the creation of the specified folder if that folder does not already exist. The security provisions predefined for that folder are applied. If the folder does not exist and cannot be created, the function returns a failure code and no path is returned. This value can be used only with the following functions and methods:
- *                         
- *                         
- * 
- * <ul>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath">SHGetKnownFolderPath</a>
- * </li>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderidlist">SHGetKnownFolderIDList</a>
- * </li>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getidlist">IKnownFolder::GetIDList</a>
- * </li>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getpath">IKnownFolder::GetPath</a>
- * </li>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getshellitem">IKnownFolder::GetShellItem</a>
- * </li>
- * </ul>
+     *                         
+     *                         
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath">SHGetKnownFolderPath</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderidlist">SHGetKnownFolderIDList</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getidlist">IKnownFolder::GetIDList</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getpath">IKnownFolder::GetPath</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getshellitem">IKnownFolder::GetShellItem</a>
+     * </li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static KF_FLAG_CREATE => 32768
 
     /**
      * 0x00004000. Do not verify the folder's existence before attempting to retrieve the path or IDList. If this flag is not set, an attempt is made to verify that the folder is truly present at the path. If that verification fails due to the folder being absent or inaccessible, the function returns a failure code and no path is returned.
- *               
- *                         
- * 
- * If the folder is located on a network, the function might take a longer time to execute. Setting this flag can reduce that lag time.
+     *               
+     *                         
+     * 
+     * If the folder is located on a network, the function might take a longer time to execute. Setting this flag can reduce that lag time.
      * @type {Integer (Int32)}
      */
     static KF_FLAG_DONT_VERIFY => 16384
@@ -107,10 +107,10 @@ class KNOWN_FOLDER_FLAG{
 
     /**
      * 0x00000800. Initializes the folder using its Desktop.ini settings. If the folder cannot be initialized, the function returns a failure code and no path is returned. This flag should always be combined with KF_FLAG_CREATE.
- *         
- *             			
- * 
- * If the folder is located on a network, the function might take a longer time to execute.
+     *         
+     *             			
+     * 
+     * If the folder is located on a network, the function might take a longer time to execute.
      * @type {Integer (Int32)}
      */
     static KF_FLAG_INIT => 2048

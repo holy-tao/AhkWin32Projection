@@ -34,7 +34,7 @@ class FWPM_VSWITCH_EVENT_TYPE{
 
     /**
      * The filter engine is being reordered and may not be in the
- *    required position to enforce committed filters.
+     *    required position to enforce committed filters.
      * @type {Integer (Int32)}
      */
     static FWPM_VSWITCH_EVENT_FILTER_ENGINE_REORDER => 4

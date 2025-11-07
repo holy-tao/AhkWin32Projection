@@ -46,9 +46,9 @@ class WCM_CONNECTION_COST{
 
     /**
      * The connection is outside of the home network.
- * 
- * <div class="alert"><b>Note</b>  The <b>WCM_CONNECTION_COST_ROAMING</b> value comes directly from  the connection source. Attempts to set it directly will fail.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  The <b>WCM_CONNECTION_COST_ROAMING</b> value comes directly from  the connection source. Attempts to set it directly will fail.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCM_CONNECTION_COST_ROAMING => 262144

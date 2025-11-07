@@ -46,17 +46,17 @@ class TARGET_INFORMATION_CLASS{
 
     /**
      * The flags associated with the target. The following table lists the flags that can be associated with a target.
- * 
- * <table>
- * <tr>
- * <th>Target Flag</th>
- * <th>Meaning</th>
- * </tr>
- * <tr>
- * <td>ISCSI_TARGET_FLAG_HIDE_STATIC_TARGET</td>
- * <td>The target will not be reported as discovered unless it is also discovered dynamically.</td>
- * </tr>
- * </table>
+     * 
+     * <table>
+     * <tr>
+     * <th>Target Flag</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>ISCSI_TARGET_FLAG_HIDE_STATIC_TARGET</td>
+     * <td>The target will not be reported as discovered unless it is also discovered dynamically.</td>
+     * </tr>
+     * </table>
      * @type {Integer (Int32)}
      */
     static TargetFlags => 6

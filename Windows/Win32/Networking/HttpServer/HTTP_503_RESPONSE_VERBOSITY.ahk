@@ -22,7 +22,7 @@ class HTTP_503_RESPONSE_VERBOSITY{
 
     /**
      * A 503 response is not sent; the connection is reset.
- *     This is the default HTTP Server API behavior.
+     *     This is the default HTTP Server API behavior.
      * @type {Integer (Int32)}
      */
     static Http503ResponseVerbosityBasic => 0

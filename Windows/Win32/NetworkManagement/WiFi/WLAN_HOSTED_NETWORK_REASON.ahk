@@ -31,8 +31,8 @@ class WLAN_HOSTED_NETWORK_REASON{
 
     /**
      * Bad parameters.
- * 
- * For example, this reason code is returned if an application failed to reference the client context from the correct handle (the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function).
+     * 
+     * For example, this reason code is returned if an application failed to reference the client context from the correct handle (the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function).
      * @type {Integer (Int32)}
      */
     static wlan_hosted_network_reason_bad_parameters => 2
@@ -93,8 +93,8 @@ class WLAN_HOSTED_NETWORK_REASON{
 
     /**
      * A wireless interface has become unavailable.
- * 
- * This reason code is returned by the wireless Hosted Network functions any time the network state of the wireless Hosted Network is <b>wlan_hosted_network_unavailable</b>. For example if the wireless Hosted Network is disabled by group policy on a domain, then the  network state of the wireless Hosted Network is <b>wlan_hosted_network_unavailable</b>. In this case, any calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworkstartusing">WlanHostedNetworkStartUsing</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworkforcestart">WlanHostedNetworkForceStart</a> function  would return this reason code.
+     * 
+     * This reason code is returned by the wireless Hosted Network functions any time the network state of the wireless Hosted Network is <b>wlan_hosted_network_unavailable</b>. For example if the wireless Hosted Network is disabled by group policy on a domain, then the  network state of the wireless Hosted Network is <b>wlan_hosted_network_unavailable</b>. In this case, any calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworkstartusing">WlanHostedNetworkStartUsing</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworkforcestart">WlanHostedNetworkForceStart</a> function  would return this reason code.
      * @type {Integer (Int32)}
      */
     static wlan_hosted_network_reason_interface_unavailable => 12
@@ -113,24 +113,24 @@ class WLAN_HOSTED_NETWORK_REASON{
 
     /**
      * An incompatible connection started.
- * 
- * An incompatible connection refers to one of the following cases:<ul>
- * <li>An ad hoc wireless connection is started on the primary station adapter.</li>
- * <li>Network monitoring is started on the primary station adapter by an application (Network Monitor, for example) that calls the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlansetinterface">WlanSetInterface</a> function with the <i>OpCode</i> parameter set to  <b>wlan_intf_opcode_current_operation_mode</b> and the <i>pData</i> parameter points to a ULONG that contains <b>DOT11_OPERATION_MODE_NETWORK_MONITOR</b>. </li>
- * <li>A wireless connection is started in FIPS safe mode on the primary station adapter. FIPS safe mode is specified in the profile of the wireless connection. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wlan-profileschema-fipsmode-authencryption-element">FIPSMode Element</a> .
- * </li>
- * </ul>
- * 
- * 
- * Windows will stop the wireless Hosted Network on  the software-based wireless access point (AP) adapter when an incompatible connection starts on the primary station adapter. The network state of the wireless Hosted Network state would become <b>wlan_hosted_network_unavailable</b>.
+     * 
+     * An incompatible connection refers to one of the following cases:<ul>
+     * <li>An ad hoc wireless connection is started on the primary station adapter.</li>
+     * <li>Network monitoring is started on the primary station adapter by an application (Network Monitor, for example) that calls the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlansetinterface">WlanSetInterface</a> function with the <i>OpCode</i> parameter set to  <b>wlan_intf_opcode_current_operation_mode</b> and the <i>pData</i> parameter points to a ULONG that contains <b>DOT11_OPERATION_MODE_NETWORK_MONITOR</b>. </li>
+     * <li>A wireless connection is started in FIPS safe mode on the primary station adapter. FIPS safe mode is specified in the profile of the wireless connection. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wlan-profileschema-fipsmode-authencryption-element">FIPSMode Element</a> .
+     * </li>
+     * </ul>
+     * 
+     * 
+     * Windows will stop the wireless Hosted Network on  the software-based wireless access point (AP) adapter when an incompatible connection starts on the primary station adapter. The network state of the wireless Hosted Network state would become <b>wlan_hosted_network_unavailable</b>.
      * @type {Integer (Int32)}
      */
     static wlan_hosted_network_reason_incompatible_connection_started => 15
 
     /**
      * An incompatible connection stopped.
- * 
- * An incompatible connection previously started on the primary station adapter (wlan_hosted_network_reason_incompatible_connection_started), but the incompatible connection has stopped. If the wireless Hosted Network was previously stopped as a result of an incompatible connection being started, Windows will not automatically restart the wireless Hosted Network. Applications can restart the wireless Hosted Network on the AP adapter by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworkstartusing">WlanHostedNetworkStartUsing</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworkforcestart">WlanHostedNetworkForceStart</a> function.
+     * 
+     * An incompatible connection previously started on the primary station adapter (wlan_hosted_network_reason_incompatible_connection_started), but the incompatible connection has stopped. If the wireless Hosted Network was previously stopped as a result of an incompatible connection being started, Windows will not automatically restart the wireless Hosted Network. Applications can restart the wireless Hosted Network on the AP adapter by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworkstartusing">WlanHostedNetworkStartUsing</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworkforcestart">WlanHostedNetworkForceStart</a> function.
      * @type {Integer (Int32)}
      */
     static wlan_hosted_network_reason_incompatible_connection_stopped => 16

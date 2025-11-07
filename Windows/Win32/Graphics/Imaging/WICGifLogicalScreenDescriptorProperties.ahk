@@ -46,8 +46,8 @@ class WICGifLogicalScreenDescriptorProperties{
 
     /**
      * [VT_UI1] Indicates the value used to calculate the number of bytes contained in the global color table. 
- * 
- * To calculate the actual size of the color table, raise 2 to the value of the field + 1.
+     * 
+     * To calculate the actual size of the color table, raise 2 to the value of the field + 1.
      * @type {Integer (Int32)}
      */
     static WICGifLogicalScreenDescriptorGlobalColorTableSize => 7

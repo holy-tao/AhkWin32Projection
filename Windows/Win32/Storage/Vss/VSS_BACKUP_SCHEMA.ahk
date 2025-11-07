@@ -32,112 +32,112 @@ class VSS_BACKUP_SCHEMA{
 
     /**
      * The writer supports a simple full backup and restoration of entire files (as defined by a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> value of 
- *       <b>VSS_BT_FULL</b>). This backup scheme can be used as the basis of an incremental or 
- *       differential backup. This is the default value.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> value of 
+     *       <b>VSS_BT_FULL</b>). This backup scheme can be used as the basis of an incremental or 
+     *       differential backup. This is the default value.
      * @type {Integer (Int32)}
      */
     static VSS_BS_UNDEFINED => 0
 
     /**
      * The writer supports differential backups (corresponding to the 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> value 
- *       <b>VSS_BT_DIFFERENTIAL</b>). Files created or changed since the last full backup are saved. 
- *       Files are not marked as having been backed up.
- *       
- * 
- * This setting does not preclude mixing of incremental and differential backups.
- * 
- * This value is not supported for express writers.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> value 
+     *       <b>VSS_BT_DIFFERENTIAL</b>). Files created or changed since the last full backup are saved. 
+     *       Files are not marked as having been backed up.
+     *       
+     * 
+     * This setting does not preclude mixing of incremental and differential backups.
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_BS_DIFFERENTIAL => 1
 
     /**
      * The writer supports incremental backups (corresponding to the 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> value 
- *       <b>VSS_BT_INCREMENTAL</b>). Files created or changed since the last full or incremental 
- *       backup are saved. Files are marked as having been backed up. 
- *       
- * 
- * This setting does not preclude mixing of incremental and differential backups.
- * 
- * This value is not supported for express writers.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> value 
+     *       <b>VSS_BT_INCREMENTAL</b>). Files created or changed since the last full or incremental 
+     *       backup are saved. Files are marked as having been backed up. 
+     *       
+     * 
+     * This setting does not preclude mixing of incremental and differential backups.
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_BS_INCREMENTAL => 2
 
     /**
      * The writer supports both differential and incremental backup schemas, but only exclusively: for example, 
- *       you cannot follow a differential backup with an incremental one. A writer cannot support this schema if it does 
- *       not support both incremental and differential schemas (<b>VSS_BS_DIFFERENTIAL</b> | 
- *       <b>VSS_BS_INCREMENTAL</b>).
- * 
- * This value is not supported for express writers.
+     *       you cannot follow a differential backup with an incremental one. A writer cannot support this schema if it does 
+     *       not support both incremental and differential schemas (<b>VSS_BS_DIFFERENTIAL</b> | 
+     *       <b>VSS_BS_INCREMENTAL</b>).
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_BS_EXCLUSIVE_INCREMENTAL_DIFFERENTIAL => 4
 
     /**
      * The writer supports backups that involve only the log files it manages (corresponding to a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> value of 
- *       <b>VSS_BT_LOG</b>). This schema requires a writer to have added at least one file to at 
- *       least one component using the 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-adddatabaselogfiles">IVssCreateWriterMetadata::AddDataBaseLogFiles</a> 
- *       method. Requesters retrieve log file information using the 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivsswmcomponent-getdatabaselogfile">IVssWMComponent::GetDatabaseLogFile</a> 
- *       method.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> value of 
+     *       <b>VSS_BT_LOG</b>). This schema requires a writer to have added at least one file to at 
+     *       least one component using the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-adddatabaselogfiles">IVssCreateWriterMetadata::AddDataBaseLogFiles</a> 
+     *       method. Requesters retrieve log file information using the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivsswmcomponent-getdatabaselogfile">IVssWMComponent::GetDatabaseLogFile</a> 
+     *       method.
      * @type {Integer (Int32)}
      */
     static VSS_BS_LOG => 8
 
     /**
      * Similar to the default backup schema (<b>VSS_BT_UNDEFINED</b>), the writer supports 
- *       copy backup operations (corresponding to <b>VSS_BT_COPY</b>) where file access information 
- *       (such as information as to when a file was last backed up) will not be updated either in the writer's own state 
- *       information or in the file system information. This type of backup cannot be used as the basis of an incremental 
- *       or differential backup.
+     *       copy backup operations (corresponding to <b>VSS_BT_COPY</b>) where file access information 
+     *       (such as information as to when a file was last backed up) will not be updated either in the writer's own state 
+     *       information or in the file system information. This type of backup cannot be used as the basis of an incremental 
+     *       or differential backup.
      * @type {Integer (Int32)}
      */
     static VSS_BS_COPY => 16
 
     /**
      * A writer supports using the VSS time-stamp mechanism when evaluating if a file should be included in 
- *       differential or incremental operations (corresponding to <b>VSS_BT_DIFFERENTIAL</b> and 
- *       <b>VSS_BT_INCREMENTAL</b>, respectively) using the 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getbackupstamp">IVssComponent::GetBackupStamp</a>, 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getpreviousbackupstamp">IVssComponent::GetPreviousBackupStamp</a>, 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-setbackupstamp">IVssComponent::SetBackupStamp</a>, and 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setpreviousbackupstamp">IVssBackupComponents::SetPreviousBackupStamp</a> 
- *       methods. 
- *       
- * 
- * A writer cannot support this schema if it does not support either differential or incremental backup schemas 
- *        (<b>VSS_BS_DIFFERENTIAL</b> or <b>VSS_BS_INCREMENTAL</b>).
- * 
- * This value is not supported for express writers.
+     *       differential or incremental operations (corresponding to <b>VSS_BT_DIFFERENTIAL</b> and 
+     *       <b>VSS_BT_INCREMENTAL</b>, respectively) using the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getbackupstamp">IVssComponent::GetBackupStamp</a>, 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getpreviousbackupstamp">IVssComponent::GetPreviousBackupStamp</a>, 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-setbackupstamp">IVssComponent::SetBackupStamp</a>, and 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setpreviousbackupstamp">IVssBackupComponents::SetPreviousBackupStamp</a> 
+     *       methods. 
+     *       
+     * 
+     * A writer cannot support this schema if it does not support either differential or incremental backup schemas 
+     *        (<b>VSS_BS_DIFFERENTIAL</b> or <b>VSS_BS_INCREMENTAL</b>).
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_BS_TIMESTAMPED => 32
 
     /**
      * When implementing incremental or differential backups with differenced files, a writer can provide last 
- *       modification time information for files (using 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-adddifferencedfilesbylastmodifytime">IVssComponent::AddDifferencedFilesByLastModifyTime</a>). 
- *       A requester then can use 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getdifferencedfile">IVssComponent::GetDifferencedFile</a> to 
- *       obtain candidate files and information about their last modification data. The requester can use this 
- *       information (along with any records about previous backup operations it maintains) to decide if a file should be 
- *       included in incremental and differential backups. 
- *       
- * 
- * This scheme does not apply to partial file implementations of incremental and differential backup 
- *        operations.
- * 
- * A writer cannot support this schema if it does not support either incremental or differential backup schemas 
- *        (<b>VSS_BS_DIFFERENTIAL</b> or <b>VSS_BS_INCREMENTAL</b>).
- * 
- * This value is not supported for express writers.
+     *       modification time information for files (using 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-adddifferencedfilesbylastmodifytime">IVssComponent::AddDifferencedFilesByLastModifyTime</a>). 
+     *       A requester then can use 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getdifferencedfile">IVssComponent::GetDifferencedFile</a> to 
+     *       obtain candidate files and information about their last modification data. The requester can use this 
+     *       information (along with any records about previous backup operations it maintains) to decide if a file should be 
+     *       included in incremental and differential backups. 
+     *       
+     * 
+     * This scheme does not apply to partial file implementations of incremental and differential backup 
+     *        operations.
+     * 
+     * A writer cannot support this schema if it does not support either incremental or differential backup schemas 
+     *        (<b>VSS_BS_DIFFERENTIAL</b> or <b>VSS_BS_INCREMENTAL</b>).
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_BS_LAST_MODIFY => 64
@@ -150,70 +150,70 @@ class VSS_BACKUP_SCHEMA{
 
     /**
      * The writer supports a requester changing the target for file restoration using 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-addnewtarget">IVssBackupComponents::AddNewTarget</a>. 
- *       (See <a href="https://docs.microsoft.com/windows/desktop/VSS/non-default-backup-and-restore-locations">Non-Default Backup And Restore 
- *       Locations</a> for more information.)
- * 
- * This value is not supported for express writers.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-addnewtarget">IVssBackupComponents::AddNewTarget</a>. 
+     *       (See <a href="https://docs.microsoft.com/windows/desktop/VSS/non-default-backup-and-restore-locations">Non-Default Backup And Restore 
+     *       Locations</a> for more information.)
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_BS_WRITER_SUPPORTS_NEW_TARGET => 256
 
     /**
      * The writer supports running multiple writer instances with the same class ID, and it supports a requester moving a component to a different writer instance at restore time using <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex-setselectedforrestoreex">IVssBackupComponentsEx::SetSelectedForRestoreEx</a>.
- *       
- * 
- * This value is not supported for express writers.
- * 
- * <b>Windows Server 2003:  </b>This value is not supported until Windows Server 2003 with SP1.
+     *       
+     * 
+     * This value is not supported for express writers.
+     * 
+     * <b>Windows Server 2003:  </b>This value is not supported until Windows Server 2003 with SP1.
      * @type {Integer (Int32)}
      */
     static VSS_BS_WRITER_SUPPORTS_RESTORE_WITH_MOVE => 512
 
     /**
      * The writer supports backing up data that is part of the system state, but that can also be backed up independently of the system state.
- * 
- * <b>Windows Server 2003:  </b>This value is not supported until Windows Vista.
+     * 
+     * <b>Windows Server 2003:  </b>This value is not supported until Windows Vista.
      * @type {Integer (Int32)}
      */
     static VSS_BS_INDEPENDENT_SYSTEM_STATE => 1024
 
     /**
      * The writer supports a requester setting a roll-forward restore point using <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex2-setrollforward">IVssBackupComponentsEx2::SetRollForward</a>.
- * 
- * This value is not supported for express writers.
- * 
- * <b>Windows Server 2003:  </b>This value is not supported until Windows Vista.
+     * 
+     * This value is not supported for express writers.
+     * 
+     * <b>Windows Server 2003:  </b>This value is not supported until Windows Vista.
      * @type {Integer (Int32)}
      */
     static VSS_BS_ROLLFORWARD_RESTORE => 4096
 
     /**
      * The writer supports a requester setting a restore name using <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex2-setrestorename">IVssBackupComponentsEx2::SetRestoreName</a>.
- * 
- * This value is not supported for express writers.
- * 
- * <b>Windows Server 2003:  </b>This value is not supported until Windows Vista.
+     * 
+     * This value is not supported for express writers.
+     * 
+     * <b>Windows Server 2003:  </b>This value is not supported until Windows Vista.
      * @type {Integer (Int32)}
      */
     static VSS_BS_RESTORE_RENAME => 8192
 
     /**
      * The writer supports a requester setting authoritative restore using <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex2-setauthoritativerestore">IVssBackupComponentsEx2::SetAuthoritativeRestore</a>.
- * 
- * This value is not supported for express writers.
- * 
- * <b>Windows Server 2003:  </b>This value is not supported until Windows Vista.
+     * 
+     * This value is not supported for express writers.
+     * 
+     * <b>Windows Server 2003:  </b>This value is not supported until Windows Vista.
      * @type {Integer (Int32)}
      */
     static VSS_BS_AUTHORITATIVE_RESTORE => 16384
 
     /**
      * The writer supports multiple unsynchronized restore events.
- * 
- * This value is not supported for express writers.
- * 
- * <b>Windows Vista and Windows Server 2003:  </b>This value is not supported until Windows Server 2008.
+     * 
+     * This value is not supported for express writers.
+     * 
+     * <b>Windows Vista and Windows Server 2003:  </b>This value is not supported until Windows Server 2008.
      * @type {Integer (Int32)}
      */
     static VSS_BS_WRITER_SUPPORTS_PARALLEL_RESTORES => 32768

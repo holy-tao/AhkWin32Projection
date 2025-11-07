@@ -20,23 +20,23 @@ class FsrmQuotaFlags{
 
     /**
      * If this flag is set, the server will fail an IO operation that causes the disk space usage to exceed the 
- *      quota limit. If this flag is not set, the server will not fail violating IO operations but will still run any 
- *      action associated with the quota thresholds.
+     *      quota limit. If this flag is not set, the server will not fail violating IO operations but will still run any 
+     *      action associated with the quota thresholds.
      * @type {Integer (Int32)}
      */
     static FsrmQuotaFlags_Enforce => 256
 
     /**
      * The server will not track quota data for the quota and will not run any action associated with quota 
- *      thresholds.
+     *      thresholds.
      * @type {Integer (Int32)}
      */
     static FsrmQuotaFlags_Disable => 512
 
     /**
      * The quota is defined on the server but the rebuilding procedure (see 
- *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-scan">IFsrmQuotaManager::Scan</a>) did not start or the scan 
- *      failed.
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-scan">IFsrmQuotaManager::Scan</a>) did not start or the scan 
+     *      failed.
      * @type {Integer (Int32)}
      */
     static FsrmQuotaFlags_StatusIncomplete => 65536

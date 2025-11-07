@@ -71,36 +71,36 @@ class MFVideoPrimaries{
 
     /**
      * ITU-R BT.2020 color primaries.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoPrimaries_BT2020 => 9
 
     /**
      * CIE 1931 XYZ (see: <a href="https://en.wikipedia.org/wiki/CIE_1931_color_space">CIE 1931 color space</a>).  Note that this color space is only well-defined for floating point representations.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoPrimaries_XYZ => 10
 
     /**
      * DCI-P3
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoPrimaries_DCI_P3 => 11
 
     /**
      * Academy Color Encoding System
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoPrimaries_ACES => 12

@@ -26,32 +26,32 @@ class VDS_DRIVE_FLAG{
 
     /**
      * The drive is assigned to a RAID group or <a href="https://docs.microsoft.com/windows/desktop/VDS/storage-pool-object">storage pool</a>.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_DRF_ASSIGNED => 2
 
     /**
      * The drive is not assigned to a RAID group or storage pool.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_DRF_UNASSIGNED => 4
 
     /**
      * The drive is in use as a hot spare.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_DRF_HOTSPARE_IN_USE => 8
 
     /**
      * The drive is on standby as a hot spare.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_DRF_HOTSPARE_STANDBY => 16

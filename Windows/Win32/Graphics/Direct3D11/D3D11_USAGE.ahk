@@ -132,8 +132,8 @@ class D3D11_USAGE{
 
     /**
      * A resource that is accessible by both the GPU (read only) and the CPU (write only). A dynamic resource is a good choice for a resource that will be updated by the CPU at least once per frame. To update a dynamic resource, use a <b>Map</b> method.
- * 
- * For info about how to use dynamic resources, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/how-to--use-dynamic-resources">How to: Use dynamic resources</a>.
+     * 
+     * For info about how to use dynamic resources, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/how-to--use-dynamic-resources">How to: Use dynamic resources</a>.
      * @type {Integer (Int32)}
      */
     static D3D11_USAGE_DYNAMIC => 2

@@ -33,16 +33,16 @@ class D3DCOMPILER_STRIP_FLAGS{
 
     /**
      * <div class="alert"><b>Note</b>  This value is supported by the D3dcompiler_44.dll or later version of the file.</div>
- * <div> </div>
- * Remove private data.
+     * <div> </div>
+     * Remove private data.
      * @type {Integer (Int32)}
      */
     static D3DCOMPILER_STRIP_PRIVATE_DATA => 8
 
     /**
      * <div class="alert"><b>Note</b>  This value is supported by the D3dcompiler_47.dll or later version of the file.</div>
- * <div> </div>
- * Remove the root signature. Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/specifying-root-signatures-in-hlsl">Specifying Root Signatures in HLSL</a> for more information on using Direct3D12 with HLSL.
+     * <div> </div>
+     * Remove the root signature. Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/specifying-root-signatures-in-hlsl">Specifying Root Signatures in HLSL</a> for more information on using Direct3D12 with HLSL.
      * @type {Integer (Int32)}
      */
     static D3DCOMPILER_STRIP_ROOT_SIGNATURE => 16

@@ -39,39 +39,39 @@ class CameraControlProperty{
 
     /**
      * Specifies the exposure setting, in log base 2 seconds. In other words, for values less than zero, the exposure time is 1/2^n seconds, and for values zero or above, the exposure time is 2^n seconds. For example:
- * 
- * <table>
- * <tr>
- * <th>Value
- *                 </th>
- * <th>Seconds
- *                 </th>
- * </tr>
- * <tr>
- * <td>-3</td>
- * <td>1/8</td>
- * </tr>
- * <tr>
- * <td>-2</td>
- * <td>1/4</td>
- * </tr>
- * <tr>
- * <td>-1</td>
- * <td>1/2</td>
- * </tr>
- * <tr>
- * <td>0</td>
- * <td>1</td>
- * </tr>
- * <tr>
- * <td>1</td>
- * <td>2</td>
- * </tr>
- * <tr>
- * <td>2</td>
- * <td>4</td>
- * </tr>
- * </table>
+     * 
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Seconds
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>-3</td>
+     * <td>1/8</td>
+     * </tr>
+     * <tr>
+     * <td>-2</td>
+     * <td>1/4</td>
+     * </tr>
+     * <tr>
+     * <td>-1</td>
+     * <td>1/2</td>
+     * </tr>
+     * <tr>
+     * <td>0</td>
+     * <td>1</td>
+     * </tr>
+     * <tr>
+     * <td>1</td>
+     * <td>2</td>
+     * </tr>
+     * <tr>
+     * <td>2</td>
+     * <td>4</td>
+     * </tr>
+     * </table>
      * @type {Integer (Int32)}
      */
     static CameraControl_Exposure => 4

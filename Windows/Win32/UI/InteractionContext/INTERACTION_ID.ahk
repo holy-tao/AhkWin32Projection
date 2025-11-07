@@ -28,12 +28,12 @@ class INTERACTION_ID{
 
     /**
      * A right click gesture (static), regardless of input device. Typically used for displaying a context menu.
- * 
- * <ul>
- * <li>Right mouse button click</li>
- * <li>Pen barrel button click</li>
- * <li>Touch or pen press and hold</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>Right mouse button click</li>
+     * <li>Pen barrel button click</li>
+     * <li>Touch or pen press and hold</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static INTERACTION_ID_SECONDARY_TAP => 3

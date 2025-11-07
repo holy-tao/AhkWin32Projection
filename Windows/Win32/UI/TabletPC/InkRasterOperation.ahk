@@ -91,8 +91,8 @@ class InkRasterOperation{
 
     /**
      * The pen color.
- * 
- * This is the default value.
+     * 
+     * This is the default value.
      * @type {Integer (Int32)}
      */
     static IRO_CopyPen => 13

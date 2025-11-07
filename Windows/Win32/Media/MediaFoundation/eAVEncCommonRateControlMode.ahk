@@ -39,24 +39,24 @@ class eAVEncCommonRateControlMode{
 
     /**
      * Low delay VBR encoding. H.264 extension.
- * 
- * Requires Windows 8.
+     * 
+     * Requires Windows 8.
      * @type {Integer (Int32)}
      */
     static eAVEncCommonRateControlMode_LowDelayVBR => 4
 
     /**
      * Global VBR encoding. H.264 extension.
- * 
- * Requires Windows 8.
+     * 
+     * Requires Windows 8.
      * @type {Integer (Int32)}
      */
     static eAVEncCommonRateControlMode_GlobalVBR => 5
 
     /**
      * Global low delay VBR encoding. H.264 extension.
- * 
- * Requires Windows 8.
+     * 
+     * Requires Windows 8.
      * @type {Integer (Int32)}
      */
     static eAVEncCommonRateControlMode_GlobalLowDelayVBR => 6

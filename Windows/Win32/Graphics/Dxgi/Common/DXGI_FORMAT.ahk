@@ -320,9 +320,9 @@ class DXGI_FORMAT{
 
     /**
      * Three partial-precision floating-point numbers encoded into a single 32-bit value (a variant of s10e5, which is sign bit, 10-bit mantissa, and 5-bit biased (15) exponent). 
- *         There are no sign bits, and there is a 5-bit biased (15) exponent for each channel, 6-bit mantissa  for R and G, and a 5-bit mantissa for B, as shown in the following illustration.<sup>5,7</sup>
- * 
- * <img alt="Illustration of the bits in the three partial-precision floating-point numbers" src="./images/R11G11B10_FLOAT.png"/>
+     *         There are no sign bits, and there is a 5-bit biased (15) exponent for each channel, 6-bit mantissa  for R and G, and a 5-bit mantissa for B, as shown in the following illustration.<sup>5,7</sup>
+     * 
+     * <img alt="Illustration of the bits in the three partial-precision floating-point numbers" src="./images/R11G11B10_FLOAT.png"/>
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_R11G11B10_FLOAT => 26
@@ -569,25 +569,25 @@ class DXGI_FORMAT{
 
     /**
      * Three partial-precision floating-point numbers encoded into a single 32-bit value all sharing the same 5-bit exponent (variant of s10e5, which is sign bit, 10-bit mantissa, and 5-bit biased (15) exponent). 
- *         There is no sign bit, and there is a shared 5-bit biased (15) exponent and a 9-bit mantissa for each channel, as shown in the following illustration. <sup>6,7</sup>.
- * 
- * <img alt="Illustration of the bits in the three partial-precision floating-point numbers" src="./images/RGBE.png"/>
+     *         There is no sign bit, and there is a shared 5-bit biased (15) exponent and a 9-bit mantissa for each channel, as shown in the following illustration. <sup>6,7</sup>.
+     * 
+     * <img alt="Illustration of the bits in the three partial-precision floating-point numbers" src="./images/RGBE.png"/>
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_R9G9B9E5_SHAREDEXP => 67
 
     /**
      * A four-component, 32-bit unsigned-normalized-integer format. This packed RGB format is analogous to the UYVY format. Each 32-bit block describes a pair of pixels: (R8, G8, B8) and (R8, G8, B8) where the R8/B8 values are repeated, and the G8 values are unique to each pixel. ³
- * 
- * Width must be even.
+     * 
+     * Width must be even.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_R8G8_B8G8_UNORM => 68
 
     /**
      * A four-component, 32-bit unsigned-normalized-integer format. This packed RGB format is analogous to the YUY2 format. Each 32-bit block describes a pair of pixels: (R8, G8, B8) and (R8, G8, B8) where the R8/B8 values are repeated, and the G8 values are unique to each pixel. ³
- * 
- * Width must be even.
+     * 
+     * Width must be even.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_G8R8_G8B8_UNORM => 69
@@ -684,20 +684,20 @@ class DXGI_FORMAT{
 
     /**
      * A three-component, 16-bit unsigned-normalized-integer format that supports 5 bits for blue, 6 bits for green, and 5 bits for red.
- * 
- * <b>Direct3D 10 through Direct3D 11:  </b>This value is defined for DXGI. However, Direct3D 10, 10.1, or 11 devices do not support this format.
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * 
+     * <b>Direct3D 10 through Direct3D 11:  </b>This value is defined for DXGI. However, Direct3D 10, 10.1, or 11 devices do not support this format.
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_B5G6R5_UNORM => 85
 
     /**
      * A four-component, 16-bit unsigned-normalized-integer format that supports 5 bits for each color channel and 1-bit alpha.
- * 
- * <b>Direct3D 10 through Direct3D 11:  </b>This value is defined for DXGI. However, Direct3D 10, 10.1, or 11 devices do not support this format.
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * 
+     * <b>Direct3D 10 through Direct3D 11:  </b>This value is defined for DXGI. However, Direct3D 10, 10.1, or 11 devices do not support this format.
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_B5G5R5A1_UNORM => 86
@@ -782,211 +782,211 @@ class DXGI_FORMAT{
 
     /**
      * Most common YUV 4:4:4 video resource format. Valid view formats for this video resource format are DXGI_FORMAT_R8G8B8A8_UNORM and DXGI_FORMAT_R8G8B8A8_UINT. For UAVs, an additional valid view format is DXGI_FORMAT_R32_UINT. By using DXGI_FORMAT_R32_UINT for UAVs, you can both read and write as opposed to just write for DXGI_FORMAT_R8G8B8A8_UNORM and DXGI_FORMAT_R8G8B8A8_UINT. Supported view types are SRV, RTV, and UAV. One view provides a straightforward mapping of the entire surface. The mapping to the view channel is V-&gt;R8, 
- * U-&gt;G8, 
- * Y-&gt;B8, 
- * and A-&gt;A8.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * U-&gt;G8, 
+     * Y-&gt;B8, 
+     * and A-&gt;A8.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_AYUV => 100
 
     /**
      * 10-bit per channel packed YUV 4:4:4 video resource format. Valid view formats for this video resource format are DXGI_FORMAT_R10G10B10A2_UNORM and DXGI_FORMAT_R10G10B10A2_UINT. For UAVs, an additional valid view format is DXGI_FORMAT_R32_UINT. By using DXGI_FORMAT_R32_UINT for UAVs, you can both read and write as opposed to just write for DXGI_FORMAT_R10G10B10A2_UNORM and DXGI_FORMAT_R10G10B10A2_UINT. Supported view types are SRV and UAV. One view provides a straightforward mapping of the entire surface. The mapping to the view channel is U-&gt;R10,
- * Y-&gt;G10,
- * V-&gt;B10,
- * and A-&gt;A2.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * Y-&gt;G10,
+     * V-&gt;B10,
+     * and A-&gt;A2.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_Y410 => 101
 
     /**
      * 16-bit per channel packed YUV 4:4:4 video resource format. Valid view formats for this video resource format are DXGI_FORMAT_R16G16B16A16_UNORM and DXGI_FORMAT_R16G16B16A16_UINT. Supported view types are SRV and UAV. One view provides a straightforward mapping of the entire surface. The mapping to the view channel is U-&gt;R16,
- * Y-&gt;G16,
- * V-&gt;B16,
- * and A-&gt;A16.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * Y-&gt;G16,
+     * V-&gt;B16,
+     * and A-&gt;A16.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_Y416 => 102
 
     /**
      * Most common YUV 4:2:0 video resource format. Valid luminance data view formats for this video resource format are DXGI_FORMAT_R8_UNORM and DXGI_FORMAT_R8_UINT. Valid chrominance data view formats (width and height are each 1/2 of luminance view) for this video resource format are DXGI_FORMAT_R8G8_UNORM and DXGI_FORMAT_R8G8_UINT. Supported view types are SRV, RTV, and UAV. For luminance data view, the mapping to the view channel is Y-&gt;R8. For chrominance data view, the mapping to the view channel is U-&gt;R8 and
- * V-&gt;G8.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * Width and height must be even. Direct3D 11 staging resources and initData parameters for this format use (rowPitch * (height + (height / 2))) bytes. The first (SysMemPitch * height) bytes are the Y plane, the remaining (SysMemPitch * (height / 2)) bytes are the UV plane.
- * 
- * An app using the YUY 4:2:0 formats  must map the luma (Y) plane separately from the chroma (UV) planes. Developers do this by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview">ID3D12Device::CreateShaderResourceView</a> twice for the same texture and passing in 1-channel and 2-channel formats. Passing in a 1-channel format compatible with the Y plane maps only the Y plane. Passing in a 2-channel format compatible with the UV planes (together) maps only the U and V planes as a single resource view.
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * V-&gt;G8.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * Width and height must be even. Direct3D 11 staging resources and initData parameters for this format use (rowPitch * (height + (height / 2))) bytes. The first (SysMemPitch * height) bytes are the Y plane, the remaining (SysMemPitch * (height / 2)) bytes are the UV plane.
+     * 
+     * An app using the YUY 4:2:0 formats  must map the luma (Y) plane separately from the chroma (UV) planes. Developers do this by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview">ID3D12Device::CreateShaderResourceView</a> twice for the same texture and passing in 1-channel and 2-channel formats. Passing in a 1-channel format compatible with the Y plane maps only the Y plane. Passing in a 2-channel format compatible with the UV planes (together) maps only the U and V planes as a single resource view.
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_NV12 => 103
 
     /**
      * 10-bit per channel planar YUV 4:2:0 video resource format. Valid luminance data view formats for this video resource format are DXGI_FORMAT_R16_UNORM and DXGI_FORMAT_R16_UINT. The runtime does not enforce whether the lowest 6 bits are 0 (given that this video resource format is a 10-bit format that uses 16 bits). If required, application shader code would have to enforce this manually.  From the runtime's point of view, DXGI_FORMAT_P010 is no different than DXGI_FORMAT_P016. Valid chrominance data view formats (width and height are each 1/2 of luminance view) for this video resource format are DXGI_FORMAT_R16G16_UNORM and DXGI_FORMAT_R16G16_UINT. For UAVs, an additional valid chrominance data view format is DXGI_FORMAT_R32_UINT. By using DXGI_FORMAT_R32_UINT for UAVs, you can both read and write as opposed to just write for DXGI_FORMAT_R16G16_UNORM and DXGI_FORMAT_R16G16_UINT. Supported view types are SRV, RTV, and UAV. For luminance data view, the mapping to the view channel is Y-&gt;R16. For chrominance data view, the mapping to the view channel is U-&gt;R16 and
- * V-&gt;G16.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * Width and height must be even. Direct3D 11 staging resources and initData parameters for this format use (rowPitch * (height + (height / 2))) bytes. The first (SysMemPitch * height) bytes are the Y plane, the remaining (SysMemPitch * (height / 2)) bytes are the UV plane.
- * 
- * An app using the YUY 4:2:0 formats  must map the luma (Y) plane separately from the chroma (UV) planes. Developers do this by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview">ID3D12Device::CreateShaderResourceView</a> twice for the same texture and passing in 1-channel and 2-channel formats. Passing in a 1-channel format compatible with the Y plane maps only the Y plane. Passing in a 2-channel format compatible with the UV planes (together) maps only the U and V planes as a single resource view.
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * V-&gt;G16.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * Width and height must be even. Direct3D 11 staging resources and initData parameters for this format use (rowPitch * (height + (height / 2))) bytes. The first (SysMemPitch * height) bytes are the Y plane, the remaining (SysMemPitch * (height / 2)) bytes are the UV plane.
+     * 
+     * An app using the YUY 4:2:0 formats  must map the luma (Y) plane separately from the chroma (UV) planes. Developers do this by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview">ID3D12Device::CreateShaderResourceView</a> twice for the same texture and passing in 1-channel and 2-channel formats. Passing in a 1-channel format compatible with the Y plane maps only the Y plane. Passing in a 2-channel format compatible with the UV planes (together) maps only the U and V planes as a single resource view.
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_P010 => 104
 
     /**
      * 16-bit per channel planar YUV 4:2:0 video resource format. Valid luminance data view formats for this video resource format are DXGI_FORMAT_R16_UNORM and DXGI_FORMAT_R16_UINT. Valid chrominance data view formats (width and height are each 1/2 of luminance view) for this video resource format are DXGI_FORMAT_R16G16_UNORM and DXGI_FORMAT_R16G16_UINT. For UAVs, an additional valid chrominance data view format is DXGI_FORMAT_R32_UINT. By using DXGI_FORMAT_R32_UINT for UAVs, you can both read and write as opposed to just write for DXGI_FORMAT_R16G16_UNORM and DXGI_FORMAT_R16G16_UINT. Supported view types are SRV, RTV, and UAV. For luminance data view, the mapping to the view channel is Y-&gt;R16. For chrominance data view, the mapping to the view channel is U-&gt;R16 and
- * V-&gt;G16.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * Width and height must be even. Direct3D 11 staging resources and initData parameters for this format use (rowPitch * (height + (height / 2))) bytes. The first (SysMemPitch * height) bytes are the Y plane, the remaining (SysMemPitch * (height / 2)) bytes are the UV plane.
- * 
- * An app using the YUY 4:2:0 formats  must map the luma (Y) plane separately from the chroma (UV) planes. Developers do this by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview">ID3D12Device::CreateShaderResourceView</a> twice for the same texture and passing in 1-channel and 2-channel formats. Passing in a 1-channel format compatible with the Y plane maps only the Y plane. Passing in a 2-channel format compatible with the UV planes (together) maps only the U and V planes as a single resource view.
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * V-&gt;G16.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * Width and height must be even. Direct3D 11 staging resources and initData parameters for this format use (rowPitch * (height + (height / 2))) bytes. The first (SysMemPitch * height) bytes are the Y plane, the remaining (SysMemPitch * (height / 2)) bytes are the UV plane.
+     * 
+     * An app using the YUY 4:2:0 formats  must map the luma (Y) plane separately from the chroma (UV) planes. Developers do this by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview">ID3D12Device::CreateShaderResourceView</a> twice for the same texture and passing in 1-channel and 2-channel formats. Passing in a 1-channel format compatible with the Y plane maps only the Y plane. Passing in a 2-channel format compatible with the UV planes (together) maps only the U and V planes as a single resource view.
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_P016 => 105
 
     /**
      * 8-bit per channel planar YUV 4:2:0 video resource format. This format is subsampled where each pixel has its own Y value, but each 2x2 pixel block shares a single U and V value. The runtime requires that the width and height of all resources that are created with this format are multiples of 2. The runtime also requires that the left, right, top, and bottom members of any RECT that are used for this format are multiples of 2. This format differs from DXGI_FORMAT_NV12 in that the layout of the data within the resource is completely opaque to applications. Applications cannot use the CPU to map the resource and then access the data within the resource. You cannot use shaders with this format. Because of this behavior, legacy hardware that supports a non-NV12 4:2:0 layout (for example, YV12, and so on) can be used. Also, new hardware that has a 4:2:0 implementation better than NV12 can be used when the application does not need the data to be in a standard layout. 
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * Width and height must be even. Direct3D 11 staging resources and initData parameters for this format use (rowPitch * (height + (height / 2))) bytes. 
- * 
- * An app using the YUY 4:2:0 formats  must map the luma (Y) plane separately from the chroma (UV) planes. Developers do this by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview">ID3D12Device::CreateShaderResourceView</a> twice for the same texture and passing in 1-channel and 2-channel formats. Passing in a 1-channel format compatible with the Y plane maps only the Y plane. Passing in a 2-channel format compatible with the UV planes (together) maps only the U and V planes as a single resource view.
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * Width and height must be even. Direct3D 11 staging resources and initData parameters for this format use (rowPitch * (height + (height / 2))) bytes. 
+     * 
+     * An app using the YUY 4:2:0 formats  must map the luma (Y) plane separately from the chroma (UV) planes. Developers do this by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview">ID3D12Device::CreateShaderResourceView</a> twice for the same texture and passing in 1-channel and 2-channel formats. Passing in a 1-channel format compatible with the Y plane maps only the Y plane. Passing in a 2-channel format compatible with the UV planes (together) maps only the U and V planes as a single resource view.
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_420_OPAQUE => 106
 
     /**
      * Most common YUV 4:2:2 video resource format. Valid view formats for this video resource format are DXGI_FORMAT_R8G8B8A8_UNORM and DXGI_FORMAT_R8G8B8A8_UINT. For UAVs, an additional valid view format is DXGI_FORMAT_R32_UINT. By using DXGI_FORMAT_R32_UINT for UAVs, you can both read and write as opposed to just write for DXGI_FORMAT_R8G8B8A8_UNORM and DXGI_FORMAT_R8G8B8A8_UINT. Supported view types are SRV and UAV. One view provides a straightforward mapping of the entire surface. The mapping to the view channel is Y0-&gt;R8, 
- * U0-&gt;G8, 
- * Y1-&gt;B8, 
- * and V0-&gt;A8.
- * 
- * A unique valid view format for this video resource format is DXGI_FORMAT_R8G8_B8G8_UNORM. With this view format, the width of the view appears to be twice what the DXGI_FORMAT_R8G8B8A8_UNORM or DXGI_FORMAT_R8G8B8A8_UINT view would be when hardware reconstructs RGBA automatically on read and before filtering.  This Direct3D hardware behavior is legacy and is likely not useful any more. With this view format, the mapping to the view channel is Y0-&gt;R8, 
- * U0-&gt;
- * G8[0], 
- * Y1-&gt;B8, 
- * and V0-&gt;
- * G8[1].
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * Width must be even.
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * U0-&gt;G8, 
+     * Y1-&gt;B8, 
+     * and V0-&gt;A8.
+     * 
+     * A unique valid view format for this video resource format is DXGI_FORMAT_R8G8_B8G8_UNORM. With this view format, the width of the view appears to be twice what the DXGI_FORMAT_R8G8B8A8_UNORM or DXGI_FORMAT_R8G8B8A8_UINT view would be when hardware reconstructs RGBA automatically on read and before filtering.  This Direct3D hardware behavior is legacy and is likely not useful any more. With this view format, the mapping to the view channel is Y0-&gt;R8, 
+     * U0-&gt;
+     * G8[0], 
+     * Y1-&gt;B8, 
+     * and V0-&gt;
+     * G8[1].
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * Width must be even.
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_YUY2 => 107
 
     /**
      * 10-bit per channel packed YUV 4:2:2 video resource format. Valid view formats for this video resource format are DXGI_FORMAT_R16G16B16A16_UNORM and DXGI_FORMAT_R16G16B16A16_UINT. The runtime does not enforce whether the lowest 6 bits are 0 (given that this video resource format is a 10-bit format that uses 16 bits). If required, application shader code would have to enforce this manually.  From the runtime's point of view, DXGI_FORMAT_Y210 is no different than DXGI_FORMAT_Y216. Supported view types are SRV and UAV. One view provides a straightforward mapping of the entire surface. The mapping to the view channel is Y0-&gt;R16,
- * U-&gt;G16,
- * Y1-&gt;B16,
- * and V-&gt;A16.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * Width must be even.
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * U-&gt;G16,
+     * Y1-&gt;B16,
+     * and V-&gt;A16.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * Width must be even.
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_Y210 => 108
 
     /**
      * 16-bit per channel packed YUV 4:2:2 video resource format. Valid view formats for this video resource format are DXGI_FORMAT_R16G16B16A16_UNORM and DXGI_FORMAT_R16G16B16A16_UINT. Supported view types are SRV and UAV. One view provides a straightforward mapping of the entire surface. The mapping to the view channel is Y0-&gt;R16,
- * U-&gt;G16,
- * Y1-&gt;B16,
- * and V-&gt;A16.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * Width must be even.
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * U-&gt;G16,
+     * Y1-&gt;B16,
+     * and V-&gt;A16.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * Width must be even.
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_Y216 => 109
 
     /**
      * Most common planar YUV 4:1:1 video resource format. Valid luminance data view formats for this video resource format are DXGI_FORMAT_R8_UNORM and DXGI_FORMAT_R8_UINT. Valid chrominance data view formats (width and height are each 1/4 of luminance view) for this video resource format are DXGI_FORMAT_R8G8_UNORM and DXGI_FORMAT_R8G8_UINT. Supported view types are SRV, RTV, and UAV. For luminance data view, the mapping to the view channel is Y-&gt;R8. For chrominance data view, the mapping to the view channel is U-&gt;R8 and
- * V-&gt;G8.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * Width must be a multiple of 4. Direct3D11 staging resources and initData parameters for this format use (rowPitch * height * 2) bytes. The first (SysMemPitch * height) bytes are the Y plane, the next ((SysMemPitch / 2) * height) bytes are the UV plane, and the remainder is padding. 
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * V-&gt;G8.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * Width must be a multiple of 4. Direct3D11 staging resources and initData parameters for this format use (rowPitch * height * 2) bytes. The first (SysMemPitch * height) bytes are the Y plane, the next ((SysMemPitch / 2) * height) bytes are the UV plane, and the remainder is padding. 
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_NV11 => 110
 
     /**
      * 4-bit palletized YUV format that is commonly used for DVD subpicture.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_AI44 => 111
 
     /**
      * 4-bit palletized YUV format that is commonly used for DVD subpicture.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_IA44 => 112
 
     /**
      * 8-bit palletized format that is used for palletized RGB data when the processor processes ISDB-T data and for palletized YUV data when the processor processes BluRay data.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_P8 => 113
 
     /**
      * 8-bit palletized format with 8 bits of alpha that is used for palletized YUV data when the processor processes BluRay data.
- * 
- * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * 
+     * For more info about YUV formats for video rendering, see <a href="https://docs.microsoft.com/windows/desktop/medfound/recommended-8-bit-yuv-formats-for-video-rendering">Recommended 8-Bit YUV Formats for Video Rendering</a>. 
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_A8P8 => 114
 
     /**
      * A four-component, 16-bit unsigned-normalized integer format that supports 4 bits for each channel including alpha.
- * 
- * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
+     * 
+     * <b>Direct3D 11.1:  </b>This value is not supported until Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_B4G4R4A4_UNORM => 115

@@ -28,14 +28,14 @@ class D2D1_HIGHLIGHTSANDSHADOWS_PROP{
 
     /**
      * The D2D1_HIGHLIGHTSANDSHADOWS_PROP_INPUT_GAMMA property is a <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects_2/ne-d2d1effects_2-d2d1_highlightsandshadows_input_gamma">D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA</a> enumeration value
- *           indicating the gamma of the input image.  The Highlights and Shadows effect works in linear gamma space, so if the input image is know to be linear, the D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA_LINEAR value should be used to prevent sRGB to linear conversions from being performed.
+     *           indicating the gamma of the input image.  The Highlights and Shadows effect works in linear gamma space, so if the input image is know to be linear, the D2D1_HIGHLIGHTSANDSHADOWS_INPUT_GAMMA_LINEAR value should be used to prevent sRGB to linear conversions from being performed.
      * @type {Integer (Int32)}
      */
     static D2D1_HIGHLIGHTSANDSHADOWS_PROP_INPUT_GAMMA => 3
 
     /**
      * The D2D1_HIGHLIGHTSANDSHADOWS_PROP_MASK_BLUR_RADIUS property is a float value controlling the size of the region used around a pixel to classify the pixel as highlight or shadow. Lower values result in more localized adjustments. 
- *           The allowed range is 0.0 to 10.0.  The default value is 1.25.
+     *           The allowed range is 0.0 to 10.0.  The default value is 1.25.
      * @type {Integer (Int32)}
      */
     static D2D1_HIGHLIGHTSANDSHADOWS_PROP_MASK_BLUR_RADIUS => 4

@@ -10,11 +10,11 @@ class D2D1_HUEROTATION_PROP{
 
     /**
      * The angle to rotate the hue, in degrees.
- *           
- * 
- * The type is FLOAT.
- * 
- * The default is 0.0f.
+     *           
+     * 
+     * The type is FLOAT.
+     * 
+     * The default is 0.0f.
      * @type {Integer (Int32)}
      */
     static D2D1_HUEROTATION_PROP_ANGLE => 0

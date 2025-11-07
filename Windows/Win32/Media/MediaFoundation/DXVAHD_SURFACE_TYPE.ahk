@@ -27,8 +27,8 @@ class DXVAHD_SURFACE_TYPE{
 
     /**
      * A surface for an output stream. This surface type is equivalent to an off-screen plain surface in Direct3D. The application can use the surface in Direct3D calls. 
- * 
- * This surface type is recommended for video processing applications that need to lock the surface and access the surface memory. For video playback with optimal performance, a render-target surface or swap chain is recommended instead.
+     * 
+     * This surface type is recommended for video processing applications that need to lock the surface and access the surface memory. For video playback with optimal performance, a render-target surface or swap chain is recommended instead.
      * @type {Integer (Int32)}
      */
     static DXVAHD_SURFACE_TYPE_VIDEO_OUTPUT => 2

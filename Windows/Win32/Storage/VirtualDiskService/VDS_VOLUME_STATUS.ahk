@@ -49,8 +49,8 @@ class VDS_VOLUME_STATUS{
 
     /**
      * The volume is offline.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported. If the volume is offline, the <b>VDS_VF_PERMANENTLY_DISMOUNTED</b> flag is set in the <b>ulFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop">VDS_VOLUME_PROP</a> or <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop2">VDS_VOLUME_PROP2</a> structure.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported. If the volume is offline, the <b>VDS_VF_PERMANENTLY_DISMOUNTED</b> flag is set in the <b>ulFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop">VDS_VOLUME_PROP</a> or <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_prop2">VDS_VOLUME_PROP2</a> structure.
      * @type {Integer (Int32)}
      */
     static VDS_VS_OFFLINE => 4

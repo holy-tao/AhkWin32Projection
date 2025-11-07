@@ -16,42 +16,42 @@ class RADIUS_CODE{
 
     /**
      * RADIUS Access-Request packet. See 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a> for more information.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a> for more information.
      * @type {Integer (Int32)}
      */
     static rcAccessRequest => 1
 
     /**
      * RADIUS Access-Accept packet. See 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a> for more information.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a> for more information.
      * @type {Integer (Int32)}
      */
     static rcAccessAccept => 2
 
     /**
      * RADIUS Access-Reject packet. See 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a> for more information.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a> for more information.
      * @type {Integer (Int32)}
      */
     static rcAccessReject => 3
 
     /**
      * RADIUS Accounting-Request packet. See 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a> for more information.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a> for more information.
      * @type {Integer (Int32)}
      */
     static rcAccountingRequest => 4
 
     /**
      * RADIUS Accounting-Response packet. See 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a> for more information.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a> for more information.
      * @type {Integer (Int32)}
      */
     static rcAccountingResponse => 5
 
     /**
      * RADIUS Access-Challenge packet. See 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a> for more information.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a> for more information.
      * @type {Integer (Int32)}
      */
     static rcAccessChallenge => 11

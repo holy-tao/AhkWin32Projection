@@ -35,59 +35,59 @@ class DXGI_SWAP_EFFECT{
 
     /**
      * Use this flag to specify the bit-block transfer (bitblt) model and to specify that DXGI discard the contents of the back buffer after you call <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">IDXGISwapChain1::Present1</a>.
- *             This flag is valid for a swap chain with more than one back buffer, although, applications only have read and write access to buffer 0.
- *             Use this flag to enable the display driver to select the most efficient presentation technique for the swap chain.
- *           
- * <b>Direct3D 12:  </b>This enumeration value is never supported. D3D12 apps must using <b>DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</b> or <b>DXGI_SWAP_EFFECT_FLIP_DISCARD</b>.
- * 
- * <div class="alert"><b>Note</b>  There are differences between full screen exclusive and full screen UWP. If you are porting a Direct3D 11 application to UWP on a Windows PC, be aware that the use of  <b>DXGI_SWAP_EFFECT_DISCARD</b> when creating swap chains does
- * not behave the same way in UWP as it does in Win32, and its use may be detrimental to GPU performance.
- * 
- * This is because UWP applications are forced into FLIP swap modes (even if other swap modes are set), because this reduces the computation 
- * time used by the memory copies originally done by the older bitblt model.
- * 
- * The recommended approach is to manually convert DX11 Discard swap chains to use flip models within UWP,  using <b>DXGI_SWAP_EFFECT_FLIP_DISCARD</b> instead of <b>DXGI_SWAP_EFFECT_DISCARD</b> where possible.
- *  Refer to the Example below, and see <a href="https://docs.microsoft.com/windows/win32/direct3ddxgi/for-best-performance--use-dxgi-flip-model">this article</a> for more information.</div>
- * <div> </div>
+     *             This flag is valid for a swap chain with more than one back buffer, although, applications only have read and write access to buffer 0.
+     *             Use this flag to enable the display driver to select the most efficient presentation technique for the swap chain.
+     *           
+     * <b>Direct3D 12:  </b>This enumeration value is never supported. D3D12 apps must using <b>DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</b> or <b>DXGI_SWAP_EFFECT_FLIP_DISCARD</b>.
+     * 
+     * <div class="alert"><b>Note</b>  There are differences between full screen exclusive and full screen UWP. If you are porting a Direct3D 11 application to UWP on a Windows PC, be aware that the use of  <b>DXGI_SWAP_EFFECT_DISCARD</b> when creating swap chains does
+     * not behave the same way in UWP as it does in Win32, and its use may be detrimental to GPU performance.
+     * 
+     * This is because UWP applications are forced into FLIP swap modes (even if other swap modes are set), because this reduces the computation 
+     * time used by the memory copies originally done by the older bitblt model.
+     * 
+     * The recommended approach is to manually convert DX11 Discard swap chains to use flip models within UWP,  using <b>DXGI_SWAP_EFFECT_FLIP_DISCARD</b> instead of <b>DXGI_SWAP_EFFECT_DISCARD</b> where possible.
+     *  Refer to the Example below, and see <a href="https://docs.microsoft.com/windows/win32/direct3ddxgi/for-best-performance--use-dxgi-flip-model">this article</a> for more information.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static DXGI_SWAP_EFFECT_DISCARD => 0
 
     /**
      * Use this flag to specify the bitblt model and to specify that DXGI persist the contents of the back buffer after you call <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">IDXGISwapChain1::Present1</a>.
- *               Use this option to present the contents of the swap chain in order, from the first buffer (buffer 0) to the last buffer.
- *               This flag cannot be used with multisampling.
- *               
- * <b>Direct3D 12:  </b>This enumeration value is never supported. D3D12 apps must using <b>DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</b> or <b>DXGI_SWAP_EFFECT_FLIP_DISCARD</b>.
- *             
- * 
- * <div class="alert"><b>Note</b>  For best performance, use <b>DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</b> instead of <b>DXGI_SWAP_EFFECT_SEQUENTIAL</b>. See <a href="https://docs.microsoft.com/windows/win32/direct3ddxgi/for-best-performance--use-dxgi-flip-model">this article</a> for more information.</div>
- * <div> </div>
+     *               Use this option to present the contents of the swap chain in order, from the first buffer (buffer 0) to the last buffer.
+     *               This flag cannot be used with multisampling.
+     *               
+     * <b>Direct3D 12:  </b>This enumeration value is never supported. D3D12 apps must using <b>DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</b> or <b>DXGI_SWAP_EFFECT_FLIP_DISCARD</b>.
+     *             
+     * 
+     * <div class="alert"><b>Note</b>  For best performance, use <b>DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</b> instead of <b>DXGI_SWAP_EFFECT_SEQUENTIAL</b>. See <a href="https://docs.microsoft.com/windows/win32/direct3ddxgi/for-best-performance--use-dxgi-flip-model">this article</a> for more information.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static DXGI_SWAP_EFFECT_SEQUENTIAL => 1
 
     /**
      * Use this flag to specify the flip presentation model and to specify that DXGI persist the contents of the back buffer after you call <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">IDXGISwapChain1::Present1</a>. This flag cannot be used with multisampling.
- *             
- * 
- * <b>Direct3D 11:  </b>This enumeration value is supported starting with Windows 8.
+     *             
+     * 
+     * <b>Direct3D 11:  </b>This enumeration value is supported starting with Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL => 3
 
     /**
      * Use this flag to specify the flip presentation model and to specify that DXGI discard the contents of the back buffer after you call <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">IDXGISwapChain1::Present1</a>.
- *               This flag cannot be used with multisampling and partial presentation.
- *               See <a href="https://docs.microsoft.com/windows/win32/direct3ddxgi/dxgi-1-4-improvements">DXGI 1.4 Improvements</a>.
- *             
- * 
- * <b>Direct3D 11:  </b>This enumeration value is supported starting with Windows 10.
- *               
- * 
- * <div class="alert"><b>Note</b>  Windows Store apps must use <b>DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</b> or <b>DXGI_SWAP_EFFECT_FLIP_DISCARD</b>.
- *             </div>
- * <div> </div>
+     *               This flag cannot be used with multisampling and partial presentation.
+     *               See <a href="https://docs.microsoft.com/windows/win32/direct3ddxgi/dxgi-1-4-improvements">DXGI 1.4 Improvements</a>.
+     *             
+     * 
+     * <b>Direct3D 11:  </b>This enumeration value is supported starting with Windows 10.
+     *               
+     * 
+     * <div class="alert"><b>Note</b>  Windows Store apps must use <b>DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</b> or <b>DXGI_SWAP_EFFECT_FLIP_DISCARD</b>.
+     *             </div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static DXGI_SWAP_EFFECT_FLIP_DISCARD => 4

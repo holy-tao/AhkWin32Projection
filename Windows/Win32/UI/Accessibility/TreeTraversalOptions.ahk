@@ -26,7 +26,7 @@ class TreeTraversalOptions{
 
     /**
      * Pre-order,
- *     visit children from first to last.
+     *     visit children from first to last.
      * @type {Integer (Int32)}
      */
     static TreeTraversalOptions_Default => 0

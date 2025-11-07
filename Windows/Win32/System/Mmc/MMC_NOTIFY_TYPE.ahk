@@ -58,7 +58,7 @@ class MMC_NOTIFY_TYPE{
 
     /**
      * Sent to 
- *      inform the snap-in that an object should be deleted.
+     *      inform the snap-in that an object should be deleted.
      * @type {Integer (Int32)}
      */
     static MMCN_DELETE => 32777

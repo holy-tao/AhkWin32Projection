@@ -18,7 +18,7 @@ class MMC_MENU_COMMAND_IDS{
 
     /**
      * Sent to a snap-in's 
- * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iextendcontextmenu-command">IExtendContextMenu::Command</a> method when the user switches from a custom result view to the standard list view.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iextendcontextmenu-command">IExtendContextMenu::Command</a> method when the user switches from a custom result view to the standard list view.
      * @type {Integer (Int32)}
      */
     static MMCC_STANDARD_VIEW_SELECT => -1

@@ -27,16 +27,16 @@ class ONEX_NOTIFICATION_TYPE{
 
     /**
      * Indicates that 802.1X authentication has a status change.
- * 
- * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure that contains 802.1X update data.
+     * 
+     * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to a  <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure that contains 802.1X update data.
      * @type {Integer (Int32)}
      */
     static OneXNotificationTypeResultUpdate => 1
 
     /**
      * Indicates that 802.1X authentication restarted.
- * 
- * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to an  <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ne-dot1x-onex_auth_restart_reason">ONEX_AUTH_RESTART_REASON</a> enumeration value that identifies the reason the authentication was restarted.
+     * 
+     * The <b>pData</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure points to an  <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ne-dot1x-onex_auth_restart_reason">ONEX_AUTH_RESTART_REASON</a> enumeration value that identifies the reason the authentication was restarted.
      * @type {Integer (Int32)}
      */
     static OneXNotificationTypeAuthRestarted => 2

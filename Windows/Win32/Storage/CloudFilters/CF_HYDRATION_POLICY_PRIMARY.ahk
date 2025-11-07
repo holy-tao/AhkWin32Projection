@@ -16,11 +16,11 @@ class CF_HYDRATION_POLICY_PRIMARY{
 
     /**
      * When <b>CF_HYDRATION_POLICY_PROGRESSIVE</b> is selected, the platform will allow a placeholder to be dehydrated. When the platform detects access to a dehydrated placeholder, it will complete the user IO request as soon as it determines that sufficient data is received from the sync provider. However, the platform will continue requesting the remaining content in the placeholder from the sync provider in the background until either the full content of the placeholder is available locally, or the last user handle on the placeholder is closed.
- * 
- * <div class="alert"><b>Note</b>  <p class="note">Sync providers who opt in for <b>CF_HYDRATION_POLICY_PROGRESSIVE</b> may not assume that hydration callbacks arrive sequentially from offset 0. In other words, sync providers with <b>CF_HYDRATION_POLICY_PROGRESSIVE</b> policy are expected to handle random seeks on the placeholder.
- * 
- * </div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  <p class="note">Sync providers who opt in for <b>CF_HYDRATION_POLICY_PROGRESSIVE</b> may not assume that hydration callbacks arrive sequentially from offset 0. In other words, sync providers with <b>CF_HYDRATION_POLICY_PROGRESSIVE</b> policy are expected to handle random seeks on the placeholder.
+     * 
+     * </div>
+     * <div> </div>
      * @type {Integer (UInt16)}
      */
     static CF_HYDRATION_POLICY_PROGRESSIVE => 1

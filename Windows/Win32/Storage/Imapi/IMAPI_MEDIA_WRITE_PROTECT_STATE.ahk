@@ -22,9 +22,9 @@ class IMAPI_MEDIA_WRITE_PROTECT_STATE{
 
     /**
      * The drive is disallowing writes for a media-specific reason. For example:  <ul>
- * <li>The media was originally in a cartridge and was set to disallow writes when the media is not in a cartridge.</li>
- * <li>The media has used all available spare areas for defect management and is preventing writes to protect the existing data.</li>
- * </ul>
+     * <li>The media was originally in a cartridge and was set to disallow writes when the media is not in a cartridge.</li>
+     * <li>The media has used all available spare areas for defect management and is preventing writes to protect the existing data.</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static IMAPI_WRITEPROTECTED_BY_MEDIA_SPECIFIC_REASON => 4
@@ -37,8 +37,8 @@ class IMAPI_MEDIA_WRITE_PROTECT_STATE{
 
     /**
      * A write-protect flag in the disc control block of a DVD+RW disc is set. DVD+RW media can persistently alter the write protect state of media by writing a device control block (DCB) to the media.  
- * 
- * This value has limited usefulness because some DVD+RW drives do not recognize or honor this setting.
+     * 
+     * This value has limited usefulness because some DVD+RW drives do not recognize or honor this setting.
      * @type {Integer (Int32)}
      */
     static IMAPI_WRITEPROTECTED_BY_DISC_CONTROL_BLOCK => 16

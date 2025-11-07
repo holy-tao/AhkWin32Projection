@@ -54,41 +54,41 @@ class VDS_SERVICE_FLAG{
 
     /**
      * If set, the auto-mount operation is turned off for the computer to prevent the operating system from 
- *       automatically mounting new partitions.
- * 
- * <div class="alert"><b>Note</b>  Beginning with Windows 8 and Windows Server 2012, this flag is deprecated. Instead, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_san_policy">VDS_SAN_POLICY</a> enumeration to control default disk mounting behavior.</div>
- * <div> </div>
+     *       automatically mounting new partitions.
+     * 
+     * <div class="alert"><b>Note</b>  Beginning with Windows 8 and Windows Server 2012, this flag is deprecated. Instead, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_san_policy">VDS_SAN_POLICY</a> enumeration to control default disk mounting behavior.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static VDS_SVF_AUTO_MOUNT_OFF => 32
 
     /**
      * If set, configuration changes to VDS have occurred. After a successful installation, the uninstall 
- *       operation is valid only if the configuration changes.
+     *       operation is valid only if the configuration changes.
      * @type {Integer (Int32)}
      */
     static VDS_SVF_OS_UNINSTALL_VALID => 64
 
     /**
      * If set, the machine boots from an EFI partition on a GPT disk.
- * 
- * <b>Windows Server 2003:  </b>This flag is not supported before Windows Server 2003 with SP1.
+     * 
+     * <b>Windows Server 2003:  </b>This flag is not supported before Windows Server 2003 with SP1.
      * @type {Integer (Int32)}
      */
     static VDS_SVF_EFI => 128
 
     /**
      * The service supports mirrored volumes.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDS_SVF_SUPPORT_MIRROR => 256
 
     /**
      * The service supports RAID-5 volumes.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDS_SVF_SUPPORT_RAID5 => 512

@@ -32,11 +32,11 @@ class UpdateAssessmentStatus{
 
     /**
      * The device is not on the latest update because the device's feature update is no longer supported by Microsoft. When Microsoft stops supporting a feature release, this status will be returned for both <b>assessmentForCurrent</b> and <b>assessmentForUpToDate</b>. 
- *  
- * 
- * 
- * <div class="alert"><b>Note</b>   When <b>UpdateAssessmentStatus_NotLatestEndOfSupport</b> is returned, the assessment's <b>UpdateImpactLevel</b> is always <b>UpdateImpactLevel_High</b>.</div>
- * <div> </div>
+     *  
+     * 
+     * 
+     * <div class="alert"><b>Note</b>   When <b>UpdateAssessmentStatus_NotLatestEndOfSupport</b> is returned, the assessment's <b>UpdateImpactLevel</b> is always <b>UpdateImpactLevel_High</b>.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static UpdateAssessmentStatus_NotLatestEndOfSupport => 3

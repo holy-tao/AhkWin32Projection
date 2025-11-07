@@ -37,7 +37,7 @@ class VDS_STORAGE_IDENTIFIER_TYPE{
 
     /**
      * The storage identifier type follows the Fibre Channel Physical and Signaling Interface (FC-PH) naming 
- *       convention.
+     *       convention.
      * @type {Integer (Int32)}
      */
     static VDSStorageIdTypeFCPHName => 3

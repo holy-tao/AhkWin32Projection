@@ -16,21 +16,21 @@ class NL_LINK_LOCAL_ADDRESS_BEHAVIOR{
 
     /**
      * A link local IP address should be used only if no other address is available. This setting is the
- *      default setting for an IPv4 interface.
+     *      default setting for an IPv4 interface.
      * @type {Integer (Int32)}
      */
     static LinkLocalDelayed => 1
 
     /**
      * A link local IP address should always be used. This setting is the default setting for an IPv6
- *      interface.
+     *      interface.
      * @type {Integer (Int32)}
      */
     static LinkLocalAlwaysOn => 2
 
     /**
      * When the properties of an IP interface are being set, the value for link local address behavior
- *      should be unchanged.
+     *      should be unchanged.
      * @type {Integer (Int32)}
      */
     static LinkLocalUnchanged => -1

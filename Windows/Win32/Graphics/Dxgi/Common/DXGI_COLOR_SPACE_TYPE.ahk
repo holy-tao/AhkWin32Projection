@@ -191,142 +191,142 @@ class DXGI_COLOR_SPACE_TYPE{
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>RGB</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>0-255</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.2</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Image</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.709</td>
- * </tr>
- * </table>
- *  
- * 
- * This is the standard definition for sRGB. 
- * 
- * 	  Note that this is often implemented with a linear segment, but in that case the exponent is corrected to stay aligned with a gamma 2.2 curve. 
- * 
- * 	  This is usually used with 8 or 10 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>RGB</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>0-255</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.2</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Image</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.709</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is the standard definition for sRGB. 
+     * 
+     * 	  Note that this is often implemented with a linear segment, but in that case the exponent is corrected to stay aligned with a gamma 2.2 curve. 
+     * 
+     * 	  This is usually used with 8 or 10 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_RGB_FULL_G22_NONE_P709 => 0
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>RGB</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>0-255</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>1.0</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Image</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.709</td>
- * </tr>
- * </table>
- *  
- * 
- * This is the standard definition for scRGB, and is usually used with 16 bit integer, 16 bit floating point, or 32 bit floating point color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>RGB</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>0-255</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>1.0</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Image</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.709</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is the standard definition for scRGB, and is usually used with 16 bit integer, 16 bit floating point, or 32 bit floating point color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_RGB_FULL_G10_NONE_P709 => 1
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>RGB</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.2</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Image</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.709</td>
- * </tr>
- * </table>
- *  
- * 
- * This is the standard definition for ITU-R Recommendation BT.709. Note that due to the inclusion of a linear segment, the transfer curve looks similar to a pure exponential gamma of 1.9. 
- * 
- * 	  This is usually used with 8 or 10 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>RGB</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.2</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Image</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.709</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is the standard definition for ITU-R Recommendation BT.709. Note that due to the inclusion of a linear segment, the transfer curve looks similar to a pure exponential gamma of 1.9. 
+     * 
+     * 	  This is usually used with 8 or 10 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_RGB_STUDIO_G22_NONE_P709 => 2
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>RGB</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.2</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Image</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>RGB</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.2</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Image</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_RGB_STUDIO_G22_NONE_P2020 => 3
@@ -339,684 +339,684 @@ class DXGI_COLOR_SPACE_TYPE{
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCbCr</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>0-255</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.2</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Image</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.709</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Transfer Matrix</a></td>
- * <td>BT.601</td>
- * </tr>
- * </table>
- *  
- * 
- * This definition is commonly used for JPG, and is usually used with 8, 10, or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCbCr</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>0-255</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.2</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Image</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.709</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Transfer Matrix</a></td>
+     * <td>BT.601</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This definition is commonly used for JPG, and is usually used with 8, 10, or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_FULL_G22_NONE_P709_X601 => 5
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCbCr</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.2</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.601</td>
- * </tr>
- * </table>
- *  
- * 
- * This definition is commonly used for MPEG2, and  is usually used with 8, 10, or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCbCr</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.2</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.601</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This definition is commonly used for MPEG2, and  is usually used with 8, 10, or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_LEFT_P601 => 6
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCbCr</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>0-255</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.2</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.601</td>
- * </tr>
- * </table>
- *  
- * 
- * This is sometimes used for H.264 camera capture, and is usually used with 8, 10, or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCbCr</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>0-255</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.2</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.601</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is sometimes used for H.264 camera capture, and is usually used with 8, 10, or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_FULL_G22_LEFT_P601 => 7
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCbCr</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.2</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.709</td>
- * </tr>
- * </table>
- *  
- * 
- * This definition is commonly used for H.264 and HEVC, and is usually used with 8, 10, or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCbCr</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.2</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.709</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This definition is commonly used for H.264 and HEVC, and is usually used with 8, 10, or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_LEFT_P709 => 8
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCbCr</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>0-255</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.2</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.709</td>
- * </tr>
- * </table>
- *  
- * 
- * This is sometimes used for H.264 camera capture, and is usually used with 8, 10, or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCbCr</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>0-255</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.2</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.709</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is sometimes used for H.264 camera capture, and is usually used with 8, 10, or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_FULL_G22_LEFT_P709 => 9
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCbCr</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.2</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This definition may be used by HEVC, and is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCbCr</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.2</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This definition may be used by HEVC, and is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_LEFT_P2020 => 10
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCbCr</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>0-255</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.2</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCbCr</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>0-255</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.2</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_FULL_G22_LEFT_P2020 => 11
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>RGB</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>0-255</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2084</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Image</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>RGB</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>0-255</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2084</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Image</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_RGB_FULL_G2084_NONE_P2020 => 12
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCbCr</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2084</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCbCr</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2084</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_STUDIO_G2084_LEFT_P2020 => 13
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>RGB</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2084</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Image</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>RGB</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2084</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Image</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_RGB_STUDIO_G2084_NONE_P2020 => 14
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCbCr</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.2</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCbCr</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.2</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_TOPLEFT_P2020 => 15
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCbCr</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2084</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCbCr</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2084</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_STUDIO_G2084_TOPLEFT_P2020 => 16
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>RGB</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>0-255</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.2</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Image</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>RGB</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>0-255</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.2</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Image</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_RGB_FULL_G22_NONE_P2020 => 17
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCBCR</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>HLG</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCBCR</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>HLG</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_STUDIO_GHLG_TOPLEFT_P2020 => 18
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCBCR</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>0-255</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>HLG</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCBCR</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>0-255</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>HLG</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_FULL_GHLG_TOPLEFT_P2020 => 19
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>RGB</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.4</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Image</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.709</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 8, 10, or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>RGB</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.4</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Image</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.709</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 8, 10, or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_RGB_STUDIO_G24_NONE_P709 => 20
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>RGB</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.4</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Image</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>RGB</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.4</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Image</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_RGB_STUDIO_G24_NONE_P2020 => 21
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCBCR</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.4</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.709</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 8, 10, or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCBCR</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.4</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.709</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 8, 10, or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_STUDIO_G24_LEFT_P709 => 22
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCBCR</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.4</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCBCR</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.4</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_STUDIO_G24_LEFT_P2020 => 23
 
     /**
      * <table>
- * <tr>
- * <td><b>Property</b></td>
- * <td><b>Value</b></td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
- * <td>YCBCR</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Range</a></td>
- * <td>16-235</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
- * <td>2.4</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Siting</a></td>
- * <td>Video</td>
- * </tr>
- * <tr>
- * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
- * <td>BT.2020</td>
- * </tr>
- * </table>
- *  
- * 
- * This is usually used with 10 or 12 bit color channels.
+     * <tr>
+     * <td><b>Property</b></td>
+     * <td><b>Value</b></td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>YCBCR</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>16-235</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>2.4</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Video</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>BT.2020</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This is usually used with 10 or 12 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_YCBCR_STUDIO_G24_TOPLEFT_P2020 => 24

@@ -74,34 +74,34 @@ class DWMWINDOWATTRIBUTE{
 
     /**
      * Use with <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute">DwmSetWindowAttribute</a>. The window will provide a bitmap for use by DWM as an iconic thumbnail or peek representation (a static bitmap) for the window. <b>DWMWA_HAS_ICONIC_BITMAP</b> can be specified with <b>DWMWA_FORCE_ICONIC_REPRESENTATION</b>. <b>DWMWA_HAS_ICONIC_BITMAP</b> normally is set during a window's creation and not changed throughout the window's lifetime. Some scenarios, however, might require the value to change over time. The <i>pvAttribute</i> parameter points to a value of type <b>BOOL</b>.  <b>TRUE</b> to inform DWM that the window will provide an iconic thumbnail or peek representation; otherwise, <b>FALSE</b>.
- * 
- * <b>Windows Vista and earlier: </b>This value is not supported.
+     * 
+     * <b>Windows Vista and earlier: </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static DWMWA_HAS_ICONIC_BITMAP => 10
 
     /**
      * Use with <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute">DwmSetWindowAttribute</a>. Do not show peek preview for the window. The peek view shows a full-sized preview of the window when the mouse hovers over the window's thumbnail in the taskbar. If this attribute is set, hovering the mouse pointer over the window's thumbnail dismisses peek (in case another window in the group has a peek preview showing). The <i>pvAttribute</i> parameter points to a value of type <b>BOOL</b>. <b>TRUE</b> to prevent peek functionality, or <b>FALSE</b> to allow it.
- * 
- * <b>Windows Vista and earlier: </b>This value is not supported.
+     * 
+     * <b>Windows Vista and earlier: </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static DWMWA_DISALLOW_PEEK => 11
 
     /**
      * Use with <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute">DwmSetWindowAttribute</a>. Prevents a window from fading to a glass sheet when peek is invoked. The <i>pvAttribute</i> parameter points to a value of type <b>BOOL</b>. <b>TRUE</b> to prevent the window from fading during another window's peek, or <b>FALSE</b> for normal behavior.
- * 
- * <b>Windows Vista and earlier: </b>This value is not supported.
+     * 
+     * <b>Windows Vista and earlier: </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static DWMWA_EXCLUDED_FROM_PEEK => 12
 
     /**
      * Use with <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute">DwmSetWindowAttribute</a>. Cloaks the window such that it is not visible to the user. The window is still composed by DWM.
- * 
- * <b>Using with DirectComposition: </b>Use the DWMWA_CLOAK flag to cloak the layered child window when animating a representation of the window's content via a DirectComposition visual that has been associated with the layered child window. For more details on this usage case, see <a href="https://docs.microsoft.com/windows/desktop/directcomp/how-to--animate-the-bitmap-of-a-layered-child-window">How to animate the bitmap of a layered child window</a>.
- * 
- * <b>Windows 7 and earlier: </b>This value is not supported.
+     * 
+     * <b>Using with DirectComposition: </b>Use the DWMWA_CLOAK flag to cloak the layered child window when animating a representation of the window's content via a DirectComposition visual that has been associated with the layered child window. For more details on this usage case, see <a href="https://docs.microsoft.com/windows/desktop/directcomp/how-to--animate-the-bitmap-of-a-layered-child-window">How to animate the bitmap of a layered child window</a>.
+     * 
+     * <b>Windows 7 and earlier: </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static DWMWA_CLOAK => 13
@@ -114,8 +114,8 @@ class DWMWINDOWATTRIBUTE{
 
     /**
      * Use with <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute">DwmSetWindowAttribute</a>. Freeze the window's thumbnail image with its current visuals. Do no further live updates on the thumbnail image to match the window's contents.
- * 
- * <b>Windows 7 and earlier: </b>This value is not supported.
+     * 
+     * <b>Windows 7 and earlier: </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static DWMWA_FREEZE_REPRESENTATION => 15

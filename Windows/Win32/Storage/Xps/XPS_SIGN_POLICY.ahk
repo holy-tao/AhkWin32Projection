@@ -27,11 +27,11 @@ class XPS_SIGN_POLICY{
 
     /**
      * The signature relationships  from the signature origin part are signed. <i>Signature relationships</i> are those relationships that have a <i>digital signature</i> relationship type.
- * 
- * <div class="alert"><b>Note</b>  <p class="note">Setting the <b>XPS_SIGN_POLICY_SIGNATURE_RELATIONSHIPS</b> flag will cause the signature relationships that start from the signature origin part to be signed. Signatures that are made with this flag set will break when new signatures are added later, because new  signatures  add new signature relationships.
- * 
- * </div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  <p class="note">Setting the <b>XPS_SIGN_POLICY_SIGNATURE_RELATIONSHIPS</b> flag will cause the signature relationships that start from the signature origin part to be signed. Signatures that are made with this flag set will break when new signatures are added later, because new  signatures  add new signature relationships.
+     * 
+     * </div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static XPS_SIGN_POLICY_SIGNATURE_RELATIONSHIPS => 2
@@ -50,11 +50,11 @@ class XPS_SIGN_POLICY{
 
     /**
      * The  CoreProperties part and the relationships that include it, the digital signature relationship type from the SignatureOrigin part, the PrintTicket part and the relationships that include it, and the DiscardControl part and the relationships that include it are all signed.
- * 
- * <div class="alert"><b>Note</b>  <p class="note">Setting the <b>XPS_SIGN_POLICY_ALL</b> sets the <b>XPS_SIGN_POLICY_SIGNATURE_RELATIONSHIPS</b> flag, which will cause the signature relationships that start from the signature origin part to be signed. Signatures that are made with this flag set will break when new signatures are added later, because new  signatures  add new signature relationships.
- * 
- * </div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  <p class="note">Setting the <b>XPS_SIGN_POLICY_ALL</b> sets the <b>XPS_SIGN_POLICY_SIGNATURE_RELATIONSHIPS</b> flag, which will cause the signature relationships that start from the signature origin part to be signed. Signatures that are made with this flag set will break when new signatures are added later, because new  signatures  add new signature relationships.
+     * 
+     * </div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static XPS_SIGN_POLICY_ALL => 15

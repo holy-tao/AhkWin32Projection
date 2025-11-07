@@ -35,7 +35,7 @@ class NL_ROUTER_DISCOVERY_BEHAVIOR{
 
     /**
      * When the properties of an IP interface are being set, the value for router discovery should be
- *      unchanged.
+     *      unchanged.
      * @type {Integer (Int32)}
      */
     static RouterDiscoveryUnchanged => -1

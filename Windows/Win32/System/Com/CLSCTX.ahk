@@ -271,31 +271,31 @@ class CLSCTX{
 
     /**
      * The CLSCTX_NO_FAILURE_LOG can be used to override the logging of failures in <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstanceex">CoCreateInstanceEx</a>.
- * 
- * If the ActivationFailureLoggingLevel is created, the following values can determine the status of event logging:
- * 
- * <ul>
- * <li>0 = Discretionary logging. Log by default, but clients can override by specifying CLSCTX_NO_FAILURE_LOG in <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstanceex">CoCreateInstanceEx</a>.</li>
- * <li>1 = Always log all failures no matter what the client specified.</li>
- * <li>2 = Never log any failures no matter what client specified. If the registry entry is missing, the default is 0. If you need to control customer applications, it is recommended that you set this value to 0 and write the client code to override failures. It is strongly recommended that you do not set the value to 2. If event logging is disabled, it is more difficult to diagnose problems.
- * </li>
- * </ul>
+     * 
+     * If the ActivationFailureLoggingLevel is created, the following values can determine the status of event logging:
+     * 
+     * <ul>
+     * <li>0 = Discretionary logging. Log by default, but clients can override by specifying CLSCTX_NO_FAILURE_LOG in <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstanceex">CoCreateInstanceEx</a>.</li>
+     * <li>1 = Always log all failures no matter what the client specified.</li>
+     * <li>2 = Never log any failures no matter what client specified. If the registry entry is missing, the default is 0. If you need to control customer applications, it is recommended that you set this value to 0 and write the client code to override failures. It is strongly recommended that you do not set the value to 2. If event logging is disabled, it is more difficult to diagnose problems.
+     * </li>
+     * </ul>
      * @type {Integer (UInt32)}
      */
     static CLSCTX_NO_FAILURE_LOG => 16384
 
     /**
      * Disables activate-as-activator (AAA) activations for this activation only. This flag overrides the setting of the EOAC_DISABLE_AAA flag from the EOLE_AUTHENTICATION_CAPABILITIES enumeration. This flag cannot be set at the same time as CLSCTX_ENABLE_AAA. Any activation where a server process would be launched under the caller's identity is known as an activate-as-activator (AAA) activation. Disabling AAA activations allows an application that runs under a privileged account (such as LocalSystem) to help prevent its identity from being used to launch untrusted components. Library applications that use activation calls should always set this flag during those calls. This helps prevent the library application from being used in an escalation-of-privilege security attack. This is the only way to disable AAA activations in a library application because the EOAC_DISABLE_AAA flag from the EOLE_AUTHENTICATION_CAPABILITIES enumeration is applied only to the server process and not to the library application.
- * 
- * <b>Windows 2000:  </b>This flag is not supported.
+     * 
+     * <b>Windows 2000:  </b>This flag is not supported.
      * @type {Integer (UInt32)}
      */
     static CLSCTX_DISABLE_AAA => 32768
 
     /**
      * Enables activate-as-activator (AAA) activations for this activation only. This flag overrides the setting of the EOAC_DISABLE_AAA flag from the EOLE_AUTHENTICATION_CAPABILITIES enumeration. This flag cannot be set at the same time as CLSCTX_DISABLE_AAA. Any activation where a server process would be launched under the caller's identity is known as an activate-as-activator (AAA) activation. Enabling this flag allows an application to transfer its identity to an activated component. 
- * 
- * <b>Windows 2000:  </b>This flag is not supported.
+     * 
+     * <b>Windows 2000:  </b>This flag is not supported.
      * @type {Integer (UInt32)}
      */
     static CLSCTX_ENABLE_AAA => 65536
@@ -326,37 +326,37 @@ class CLSCTX{
 
     /**
      * When this flag is specified, COM uses the impersonation token of the thread, if one is present, for the activation request made by the thread. When this flag is not specified or if the thread does not have an impersonation token, COM uses the process token of the thread's process for the activation request made by the thread.
- * 
- * 
- * <b>Windows Vista or later:  </b>This flag is supported.
+     * 
+     * 
+     * <b>Windows Vista or later:  </b>This flag is supported.
      * @type {Integer (UInt32)}
      */
     static CLSCTX_ENABLE_CLOAKING => 1048576
 
     /**
      * Indicates activation is for an app container.
- * 
- * 
- * <div class="alert"><b>Note</b>  This flag is reserved for internal use and is not intended to be used directly from your code.</div>
- * <div> </div>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  This flag is reserved for internal use and is not intended to be used directly from your code.</div>
+     * <div> </div>
      * @type {Integer (UInt32)}
      */
     static CLSCTX_APPCONTAINER => 4194304
 
     /**
      * Specify this flag for Interactive User activation behavior for As-Activator servers. A strongly named Medium IL Windows Store app can use this flag to launch an "As Activator" COM server without a strong name. Also, you can use this flag to bind to a running instance of the COM server that's launched by a desktop application.
- * 
- * The client must be Medium IL, it must be strongly named, which means that it has a SysAppID in the client token, it can't be in session 0,  and it must have the same user as the session ID's user in the client token.
- * 
- * If  the server is out-of-process and "As Activator", it launches the server with the token of the client token's session user. This token won't be strongly named.
- * 
- * If the server is out-of-process and RunAs "Interactive User", this flag has no effect.
- *         
- * If the server is out-of-process and is any other RunAs type, the activation fails.
- * 
- * This flag has no effect for in-process servers. 
- * 
- * Off-machine activations fail when they use this flag.
+     * 
+     * The client must be Medium IL, it must be strongly named, which means that it has a SysAppID in the client token, it can't be in session 0,  and it must have the same user as the session ID's user in the client token.
+     * 
+     * If  the server is out-of-process and "As Activator", it launches the server with the token of the client token's session user. This token won't be strongly named.
+     * 
+     * If the server is out-of-process and RunAs "Interactive User", this flag has no effect.
+     *         
+     * If the server is out-of-process and is any other RunAs type, the activation fails.
+     * 
+     * This flag has no effect for in-process servers. 
+     * 
+     * Off-machine activations fail when they use this flag.
      * @type {Integer (UInt32)}
      */
     static CLSCTX_ACTIVATE_AAA_AS_IU => 8388608
@@ -380,10 +380,10 @@ class CLSCTX{
 
     /**
      * Used for loading Proxy/Stub DLLs.
- * 
- * 
- * <div class="alert"><b>Note</b>  This flag is reserved for internal use and is not intended to be used directly from your code.</div>
- * <div> </div>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  This flag is reserved for internal use and is not intended to be used directly from your code.</div>
+     * <div> </div>
      * @type {Integer (UInt32)}
      */
     static CLSCTX_PS_DLL => 2147483648

@@ -17,8 +17,8 @@ class UpdateServiceOption{
 
     /**
      * Indicates that you must call the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservicemanager-removeservice">IUpdateServiceManager::RemoveService</a> method to remove the service registration. 
- * 
- * Failure to call the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservicemanager-removeservice">RemoveService</a> method before releasing the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateservice">IUpdateService</a> interface causes a resource leak.
+     * 
+     * Failure to call the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservicemanager-removeservice">RemoveService</a> method before releasing the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateservice">IUpdateService</a> interface causes a resource leak.
      * @type {Integer (Int32)}
      */
     static usoNonVolatileService => 1

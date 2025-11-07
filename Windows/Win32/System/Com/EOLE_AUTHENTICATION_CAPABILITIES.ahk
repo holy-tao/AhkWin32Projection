@@ -31,18 +31,18 @@ class EOLE_AUTHENTICATION_CAPABILITIES{
 
     /**
      * Sets static cloaking. When this flag is set, DCOM uses the thread token (if present) when determining the client's identity. However, the client's identity is determined on the first call on each proxy (if <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-setblanket">SetBlanket</a> is not called) and each time <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cosetproxyblanket">CoSetProxyBlanket</a> is called on the proxy. For more information about static cloaking, see <a href="https://docs.microsoft.com/windows/desktop/com/cloaking">Cloaking</a>.
- * 
- * 
- * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-setblanket">IClientSecurity::SetBlanket</a> return errors if both cloaking flags are set or if either flag is set when Schannel is the authentication service.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-setblanket">IClientSecurity::SetBlanket</a> return errors if both cloaking flags are set or if either flag is set when Schannel is the authentication service.
      * @type {Integer (Int32)}
      */
     static EOAC_STATIC_CLOAKING => 32
 
     /**
      * Sets dynamic cloaking. When this flag is set, DCOM uses the thread token (if present) when determining the client's identity. On each call to a proxy, the current thread token is examined to determine whether the client's identity has changed (incurring an additional performance cost) and the client is authenticated again only if necessary. Dynamic cloaking can be set by clients only. For more information about dynamic cloaking, see <a href="https://docs.microsoft.com/windows/desktop/com/cloaking">Cloaking</a>.
- * 
- * 
- * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-setblanket">IClientSecurity::SetBlanket</a> return errors if both cloaking flags are set or if either flag is set when Schannel is the authentication service.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-setblanket">IClientSecurity::SetBlanket</a> return errors if both cloaking flags are set or if either flag is set when Schannel is the authentication service.
      * @type {Integer (Int32)}
      */
     static EOAC_DYNAMIC_CLOAKING => 64
@@ -67,26 +67,26 @@ class EOLE_AUTHENTICATION_CAPABILITIES{
 
     /**
      * Authenticates distributed reference count calls to prevent malicious users from releasing objects that are still being used. If this flag is set, which can be done only in a call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> by the client, the authentication level (in <i>dwAuthnLevel</i>) cannot be set to none.
- * 
- * The server always authenticates Release calls. Setting this flag prevents an authenticated client from releasing the objects of another authenticated client. It is recommended that clients always set this flag, although performance is affected because of the overhead associated with the extra security.
+     * 
+     * The server always authenticates Release calls. Setting this flag prevents an authenticated client from releasing the objects of another authenticated client. It is recommended that clients always set this flag, although performance is affected because of the overhead associated with the extra security.
      * @type {Integer (Int32)}
      */
     static EOAC_SECURE_REFS => 2
 
     /**
      * Indicates that the <i>pSecDesc</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/iaccess/nn-iaccess-iaccesscontrol">IAccessControl</a> interface on an access control object. When DCOM makes security checks, it calls <a href="https://docs.microsoft.com/windows/desktop/api/iaccess/nf-iaccess-iaccesscontrol-isaccessallowed">IAccessControl::IsAccessAllowed</a>. This flag is set only by the server.
- * 
- * 
- * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> returns an error if both the EOAC_APPID and EOAC_ACCESS_CONTROL flags are set.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> returns an error if both the EOAC_APPID and EOAC_ACCESS_CONTROL flags are set.
      * @type {Integer (Int32)}
      */
     static EOAC_ACCESS_CONTROL => 4
 
     /**
      * Indicates that the <i>pSecDesc</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> is a pointer to a GUID that is an AppID. The <b>CoInitializeSecurity</b> function looks up the AppID in the registry and reads the security settings from there. If this flag is set, all other parameters to <b>CoInitializeSecurity</b> are ignored and must be zero. Only the server can set this flag.  For more information about this capability flag, see the Remarks section below.
- * 
- * 
- * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> returns an error if both the EOAC_APPID and EOAC_ACCESS_CONTROL flags are set.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> returns an error if both the EOAC_APPID and EOAC_ACCESS_CONTROL flags are set.
      * @type {Integer (Int32)}
      */
     static EOAC_APPID => 8
@@ -111,8 +111,8 @@ class EOLE_AUTHENTICATION_CAPABILITIES{
 
     /**
      * Causes any activation where a server process would be launched under the caller's identity (activate-as-activator) to fail with E_ACCESSDENIED. This value, which can be specified only in a call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> by the client, allows an application that runs under a privileged account (such as LocalSystem) to help prevent its identity from being used to launch untrusted components.
- * 
- * An activation call that uses CLSCTX_ENABLE_AAA of the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration will allow activate-as-activator activations for that call.
+     * 
+     * An activation call that uses CLSCTX_ENABLE_AAA of the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration will allow activate-as-activator activations for that call.
      * @type {Integer (Int32)}
      */
     static EOAC_DISABLE_AAA => 4096

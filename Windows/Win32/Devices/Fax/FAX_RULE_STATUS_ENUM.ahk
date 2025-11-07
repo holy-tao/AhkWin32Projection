@@ -28,10 +28,10 @@ class FAX_RULE_STATUS_ENUM{
 
     /**
      * The routing rule uses an existing outbound routing group for its destination but the group contains devices that are not valid for sending faxes.
- * 
- * 
- * 
- * This is a warning status. The rule can be applied to the valid devices in the routing group.
+     * 
+     * 
+     * 
+     * This is a warning status. The rule can be applied to the valid devices in the routing group.
      * @type {Integer (Int32)}
      */
     static frsSOME_GROUP_DEV_NOT_VALID => 3

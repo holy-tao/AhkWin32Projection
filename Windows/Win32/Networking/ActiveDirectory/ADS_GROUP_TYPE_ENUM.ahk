@@ -22,8 +22,8 @@ class ADS_GROUP_TYPE_ENUM{
 
     /**
      * Specifies a group that can contain accounts from any domain, other domain local groups from the same domain, global groups from any domain, and universal groups. This type of group should not be included in access-control lists of resources in other domains.
- * 
- * This type of group is intended for use with the LDAP provider.
+     * 
+     * This type of group is intended for use with the LDAP provider.
      * @type {Integer (Int32)}
      */
     static ADS_GROUP_TYPE_DOMAIN_LOCAL_GROUP => 4

@@ -33,12 +33,12 @@ class EVT_SUBSCRIBE_FLAGS{
 
     /**
      * A bitmask that you can use to determine which of the following flags is set:
- * 
- * <ul>
- * <li>EvtSubscribeToFutureEvents</li>
- * <li>EvtSubscribeStartAtOldestRecord</li>
- * <li>EvtSubscribeStartAfterBookmark</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>EvtSubscribeToFutureEvents</li>
+     * <li>EvtSubscribeStartAtOldestRecord</li>
+     * <li>EvtSubscribeStartAfterBookmark</li>
+     * </ul>
      * @type {Integer (UInt32)}
      */
     static EvtSubscribeOriginMask => 3

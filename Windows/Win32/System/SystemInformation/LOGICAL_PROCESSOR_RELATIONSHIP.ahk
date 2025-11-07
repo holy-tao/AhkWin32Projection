@@ -28,24 +28,24 @@ class LOGICAL_PROCESSOR_RELATIONSHIP{
 
     /**
      * The specified logical processors  share a cache. 
- * 
- * <b>Windows Server 2003:  </b>This value is not supported until Windows Server 2003 with SP1 and Windows XP Professional x64 Edition.
+     * 
+     * <b>Windows Server 2003:  </b>This value is not supported until Windows Server 2003 with SP1 and Windows XP Professional x64 Edition.
      * @type {Integer (Int32)}
      */
     static RelationCache => 2
 
     /**
      * The specified logical processors share a physical package (a single package socketed or soldered onto a motherboard may contain multiple processor cores or threads, each of which is treated as a separate processor by the operating system).
- * 
- * <b>Windows Server 2003:  </b>This value is not supported until Windows Server 2003 with SP1 and Windows XP Professional x64 Edition.
+     * 
+     * <b>Windows Server 2003:  </b>This value is not supported until Windows Server 2003 with SP1 and Windows XP Professional x64 Edition.
      * @type {Integer (Int32)}
      */
     static RelationProcessorPackage => 3
 
     /**
      * The specified logical processors share a single <a href="https://docs.microsoft.com/windows/desktop/ProcThread/processor-groups">processor group</a>.
- * 
- * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP Professional x64 Edition:  </b>This value is not supported until Windows Server 2008 R2.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP Professional x64 Edition:  </b>This value is not supported until Windows Server 2008 R2.
      * @type {Integer (Int32)}
      */
     static RelationGroup => 4
@@ -68,8 +68,8 @@ class LOGICAL_PROCESSOR_RELATIONSHIP{
 
     /**
      * On input, retrieves information about all possible relationship types. This value is not used on output.
- * 
- * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP Professional x64 Edition:  </b>This value is not supported  until Windows Server 2008 R2.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP Professional x64 Edition:  </b>This value is not supported  until Windows Server 2008 R2.
      * @type {Integer (Int32)}
      */
     static RelationAll => 65535

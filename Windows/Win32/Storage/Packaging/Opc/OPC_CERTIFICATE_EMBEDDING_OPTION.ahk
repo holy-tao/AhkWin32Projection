@@ -22,9 +22,9 @@ class OPC_CERTIFICATE_EMBEDDING_OPTION{
 
     /**
      * The certificate is not stored in the package.
- * 
- * <div class="alert"><b>Important</b>  The certificate is contextual and understood between the signer and the verifier.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Important</b>  The certificate is contextual and understood between the signer and the verifier.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static OPC_CERTIFICATE_NOT_EMBEDDED => 2

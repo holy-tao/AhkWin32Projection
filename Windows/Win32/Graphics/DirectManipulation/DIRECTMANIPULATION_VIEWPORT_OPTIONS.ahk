@@ -39,16 +39,16 @@ class DIRECTMANIPULATION_VIEWPORT_OPTIONS{
 
     /**
      * If set, all <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-pointerdown">WM_POINTERDOWN</a> messages are passed to the application for hit testing. Otherwise, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/directmanipulation/direct-manipulation-portal">Direct Manipulation</a> will process the messages for hit testing against the existing list of running viewports, and the application will not see the input.
- * 
- * Applies only when viewport state is <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_status">DIRECTMANIPULATION_RUNNING</a> or <b>DIRECTMANIPULATION_INERTIA</b>.
+     * 
+     * Applies only when viewport state is <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_status">DIRECTMANIPULATION_RUNNING</a> or <b>DIRECTMANIPULATION_INERTIA</b>.
      * @type {Integer (Int32)}
      */
     static DIRECTMANIPULATION_VIEWPORT_OPTIONS_EXPLICITHITTEST => 8
 
     /**
      * Specifies that pixel snapping during a manipulation is disabled.
- * 
- * Anti-aliasing can create irregular edge rendering. Artifacts, commonly seen as blurry, or semi-transparent, edges can occur when the location of an edge falls in the middle of a device pixel rather than between device pixels.
+     * 
+     * Anti-aliasing can create irregular edge rendering. Artifacts, commonly seen as blurry, or semi-transparent, edges can occur when the location of an edge falls in the middle of a device pixel rather than between device pixels.
      * @type {Integer (Int32)}
      */
     static DIRECTMANIPULATION_VIEWPORT_OPTIONS_DISABLEPIXELSNAPPING => 16

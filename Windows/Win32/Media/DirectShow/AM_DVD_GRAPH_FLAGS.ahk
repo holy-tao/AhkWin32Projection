@@ -55,7 +55,7 @@ class AM_DVD_GRAPH_FLAGS{
 
     /**
      * Do not clear the filter graph before building the DVD playback graph. By default, the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdgraphbuilder-renderdvdvideovolume">RenderDvdVideoVolume</a> method removes any existing filters from the graph before it builds the DVD playback graph. <div class="alert"><b>Note</b>  Applies to Windows Vista and later.</div>
- * <div> </div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static AM_DVD_DO_NOT_CLEAR => 512
@@ -68,7 +68,7 @@ class AM_DVD_GRAPH_FLAGS{
 
     /**
      * Use the Enhanced Video Renderer (EVR) for rendering; fail if the EVR is not available. <div class="alert"><b>Note</b>  Applies to Windows Vista and later.</div>
- * <div> </div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static AM_DVD_EVR_ONLY => 4096

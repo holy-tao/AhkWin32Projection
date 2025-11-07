@@ -39,16 +39,16 @@ class VDS_PROVIDER_TYPE{
 
     /**
      * The provider is a virtual disk provider.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDS_PT_VIRTUALDISK => 3
 
     /**
      * This value is reserved for system use.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDS_PT_MAX => 4

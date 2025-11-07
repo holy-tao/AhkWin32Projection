@@ -148,32 +148,32 @@ class CLUSGROUP_TYPE{
 
     /**
      * A cluster on a scale-out file server.
- * 
- * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This member is not supported until Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This member is not supported until Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static ClusGroupTypeScaleoutCluster => 118
 
     /**
      * A storage replica.
- * 
- * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This member is not supported until Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This member is not supported until Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static ClusGroupTypeStorageReplica => 119
 
     /**
      * A virtual machine replica coordinator.
- * 
- * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This member is not supported until Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This member is not supported until Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static ClusGroupTypeVMReplicaCoordinator => 120
 
     /**
      * A cross-cluster orchestrator.
- * 
- * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This member is not supported until Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This member is not supported until Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static ClusGroupTypeCrossClusterOrchestrator => 121

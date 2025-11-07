@@ -40,7 +40,7 @@ class TRUSTEE_TYPE{
 
     /**
      * Indicates a 
- * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">well-known group</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">well-known group</a>.
      * @type {Integer (Int32)}
      */
     static TRUSTEE_IS_WELL_KNOWN_GROUP => 5

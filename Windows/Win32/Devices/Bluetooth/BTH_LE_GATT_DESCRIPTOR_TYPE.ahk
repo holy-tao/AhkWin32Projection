@@ -16,21 +16,21 @@ class BTH_LE_GATT_DESCRIPTOR_TYPE{
 
     /**
      * The characteristic value contains a UTF-8 string of variable size that is a user textual
- * description.
+     * description.
      * @type {Integer (Int32)}
      */
     static CharacteristicUserDescription => 1
 
     /**
      * The characteristic value may be configured by the
- * client.
+     * client.
      * @type {Integer (Int32)}
      */
     static ClientCharacteristicConfiguration => 2
 
     /**
      * The characteristic value may be configured for the
- * server.
+     * server.
      * @type {Integer (Int32)}
      */
     static ServerCharacteristicConfiguration => 3

@@ -64,9 +64,9 @@ class CLUSTER_PROPERTY_FORMAT{
 
     /**
      * Data is a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> in 
- *           <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> 
- *           format. For more information about self-relative security descriptors, see 
- *           <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/absolute-and-self-relative-security-descriptors">Absolute and Self-Relative Security Descriptors</a>.
+     *           <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> 
+     *           format. For more information about self-relative security descriptors, see 
+     *           <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/absolute-and-self-relative-security-descriptors">Absolute and Self-Relative Security Descriptors</a>.
      * @type {Integer (Int32)}
      */
     static CLUSPROP_FORMAT_SECURITY_DESCRIPTOR => 9

@@ -15,21 +15,21 @@ class IMAPI_MODE_PAGE_TYPE{
 
     /**
      * The mode page specifies the error recovery parameters the
- * drive uses during any command that performs a data read or write operation from the media.
+     * drive uses during any command that performs a data read or write operation from the media.
      * @type {Integer (Int32)}
      */
     static IMAPI_MODE_PAGE_TYPE_READ_WRITE_ERROR_RECOVERY => 1
 
     /**
      * The mode page provides a method by which the host may control the special features of a
- * MRW CD-RW Drive.
+     * MRW CD-RW Drive.
      * @type {Integer (Int32)}
      */
     static IMAPI_MODE_PAGE_TYPE_MRW => 3
 
     /**
      * The mode page provides parameters that are often needed in the execution of
- * commands that write to the media.
+     * commands that write to the media.
      * @type {Integer (Int32)}
      */
     static IMAPI_MODE_PAGE_TYPE_WRITE_PARAMETERS => 5

@@ -58,29 +58,29 @@ class D3D11_FORMAT_SUPPORT2{
 
     /**
      * Format supports logic operations in blend state.
- * 
- * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
+     * 
+     * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.1.
      * @type {Integer (Int32)}
      */
     static D3D11_FORMAT_SUPPORT2_OUTPUT_MERGER_LOGIC_OP => 256
 
     /**
      * Format supports tiled resources.
- * 
- * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.2.
+     * 
+     * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.2.
      * @type {Integer (Int32)}
      */
     static D3D11_FORMAT_SUPPORT2_TILED => 512
 
     /**
      * Format supports shareable resources.
- *               <div class="alert"><b>Note</b>  <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT_R8G8B8A8_UNORM</a> and <b>DXGI_FORMAT_R8G8B8A8_UNORM_SRGB</b> are never shareable when using feature level 9, even if the device indicates optional feature support for <b>D3D11_FORMAT_SUPPORT_SHAREABLE</b>.
- *                 Attempting to create shared resources with DXGI formats <b>DXGI_FORMAT_R8G8B8A8_UNORM</b> and <b>DXGI_FORMAT_R8G8B8A8_UNORM_SRGB</b> will always fail unless the feature level is 10_0 or higher.
- *               </div>
- * <div> </div>
- * 
- * 
- * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.2.
+     *               <div class="alert"><b>Note</b>  <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT_R8G8B8A8_UNORM</a> and <b>DXGI_FORMAT_R8G8B8A8_UNORM_SRGB</b> are never shareable when using feature level 9, even if the device indicates optional feature support for <b>D3D11_FORMAT_SUPPORT_SHAREABLE</b>.
+     *                 Attempting to create shared resources with DXGI formats <b>DXGI_FORMAT_R8G8B8A8_UNORM</b> and <b>DXGI_FORMAT_R8G8B8A8_UNORM_SRGB</b> will always fail unless the feature level is 10_0 or higher.
+     *               </div>
+     * <div> </div>
+     * 
+     * 
+     * <b>Direct3D 11:  </b>This value is not supported until Direct3D 11.2.
      * @type {Integer (Int32)}
      */
     static D3D11_FORMAT_SUPPORT2_SHAREABLE => 1024

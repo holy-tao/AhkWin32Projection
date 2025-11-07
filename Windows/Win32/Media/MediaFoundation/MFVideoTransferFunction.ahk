@@ -72,72 +72,72 @@ class MFVideoTransferFunction{
 
     /**
      * Logarithmic transfer (100:1 range); for example, as used in H.264 video.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoTransFunc_Log_100 => 9
 
     /**
      * Logarithmic transfer (316.22777:1 range); for example, as used in H.264 video.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoTransFunc_Log_316 => 10
 
     /**
      * Symmetric ITU-R BT.709.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoTransFunc_709_sym => 11
 
     /**
      * Constant luminance ITU-R BT.2020.  See <a href="https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.2020-2-201510-I!!PDF-E.pdf">Recommendation  ITU-R  BT.2020-2</a>.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoTransFunc_2020_const => 12
 
     /**
      * Non-constant luminance ITU-R BT.2020.  See <a href="https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.2020-2-201510-I!!PDF-E.pdf">Recommendation  ITU-R  BT.2020-2</a>.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoTransFunc_2020 => 13
 
     /**
      * True 2.6 gamma, L’=L^1/2.6
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoTransFunc_26 => 14
 
     /**
      * SMPTE ST.2084 also known as PQ.  Also defined in ITU-R BT.2100
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoTransFunc_2084 => 15
 
     /**
      * Hybrid Log-Gamma, ARIB STD-B67
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoTransFunc_HLG => 16

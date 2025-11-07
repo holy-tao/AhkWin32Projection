@@ -45,8 +45,8 @@ class MF_MEDIA_ENGINE_ERR{
 
     /**
      * An error occurred while encrypting the media resource.
- * 
- * Supported in Windows 8.1 and later.
+     * 
+     * Supported in Windows 8.1 and later.
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_ERR_ENCRYPTED => 5

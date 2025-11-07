@@ -16,14 +16,14 @@ class RM_REBOOT_REASON{
 
     /**
      * The current user does not have
- *                                             sufficient privileges to shut down one or more processes.
+     *                                             sufficient privileges to shut down one or more processes.
      * @type {Integer (Int32)}
      */
     static RmRebootReasonPermissionDenied => 1
 
     /**
      * One or more processes are
- *                                             running in another Terminal Services session.
+     *                                             running in another Terminal Services session.
      * @type {Integer (Int32)}
      */
     static RmRebootReasonSessionMismatch => 2

@@ -10,7 +10,7 @@ class PROCESS_MEMORY_EXHAUSTION_TYPE{
 
     /**
      * Anytime memory management fails an allocation due to an inability to commit memory, it will cause the process to trigger a Windows Error Reporting report and then terminate immediately with <b>STATUS_COMMITMENT_LIMIT</b>. 
- * The failure cannot be caught and handled by the app.
+     * The failure cannot be caught and handled by the app.
      * @type {Integer (Int32)}
      */
     static PMETypeFailFastOnCommitFailure => 0

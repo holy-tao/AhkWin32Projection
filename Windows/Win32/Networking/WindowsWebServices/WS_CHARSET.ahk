@@ -10,7 +10,7 @@ class WS_CHARSET{
 
     /**
      * Specifies that the charset of a document should be determined automatically by inspecting
- *           the BOM (Byte Order Marks) of the document and the xml declaration if present.
+     *           the BOM (Byte Order Marks) of the document and the xml declaration if present.
      * @type {Integer (Int32)}
      */
     static WS_CHARSET_AUTO => 0

@@ -40,9 +40,9 @@ class INTERNET_SCHEME{
 
     /**
      * Gopher URL scheme (gopher:). 
- * 
- * <div class="alert"><b>Note</b>  Windows XP and Windows Server 2003 R2 and earlier only.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Windows XP and Windows Server 2003 R2 and earlier only.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static INTERNET_SCHEME_GOPHER => 2

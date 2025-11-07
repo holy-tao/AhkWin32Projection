@@ -10,96 +10,96 @@ class WS_WRITE_OPTION{
 
     /**
      * The storage specified contains the value.  The size of the storage 
- *                     specified should be the size of the value.
- *                 
- * 
- * This option specifies that the value will always be written to the XML content.
- *                 
- * 
- * <pre class="syntax" xml:space="preserve"><code>int value;
- * Api(..., &amp;value, sizeof(value), ...);</code></pre>
- * <pre class="syntax" xml:space="preserve"><code>// always written
- * &lt;element&gt;123&lt;/element&gt;</code></pre>
- * This option is not supported for pointer types
- *                     (<a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_WSZ_TYPE</a> and <b>WS_XML_BUFFER_TYPE</b>).  
- *                     The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_write_option">WS_WRITE_REQUIRED_POINTER</a> option should be used for these types.
+     *                     specified should be the size of the value.
+     *                 
+     * 
+     * This option specifies that the value will always be written to the XML content.
+     *                 
+     * 
+     * <pre class="syntax" xml:space="preserve"><code>int value;
+     * Api(..., &amp;value, sizeof(value), ...);</code></pre>
+     * <pre class="syntax" xml:space="preserve"><code>// always written
+     * &lt;element&gt;123&lt;/element&gt;</code></pre>
+     * This option is not supported for pointer types
+     *                     (<a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_WSZ_TYPE</a> and <b>WS_XML_BUFFER_TYPE</b>).  
+     *                     The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_write_option">WS_WRITE_REQUIRED_POINTER</a> option should be used for these types.
      * @type {Integer (Int32)}
      */
     static WS_WRITE_REQUIRED_VALUE => 1
 
     /**
      * The storage specified contains a pointer to the value.  The
- *                     size of the storage specified is always the size of a pointer, regardless
- *                     of the type being serialized.
- *                 
- * 
- * This option specifies that the value will always be written to the XML content.
- *                 
- * 
- * <pre class="syntax" xml:space="preserve"><code>int* valuePointer; // may not be NULL
- * Api(..., &amp;valuePointer, sizeof(valuePointer), ...);</code></pre>
- * <pre class="syntax" xml:space="preserve"><code>// always written
- * &lt;element&gt;123&lt;/element&gt;</code></pre>
- * If the pointer to the value specified in the storage is <b>NULL</b>, 
- *                     <b>E_INVALIDARG</b> is returned.
- *                 (See <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.)
+     *                     size of the storage specified is always the size of a pointer, regardless
+     *                     of the type being serialized.
+     *                 
+     * 
+     * This option specifies that the value will always be written to the XML content.
+     *                 
+     * 
+     * <pre class="syntax" xml:space="preserve"><code>int* valuePointer; // may not be NULL
+     * Api(..., &amp;valuePointer, sizeof(valuePointer), ...);</code></pre>
+     * <pre class="syntax" xml:space="preserve"><code>// always written
+     * &lt;element&gt;123&lt;/element&gt;</code></pre>
+     * If the pointer to the value specified in the storage is <b>NULL</b>, 
+     *                     <b>E_INVALIDARG</b> is returned.
+     *                 (See <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.)
      * @type {Integer (Int32)}
      */
     static WS_WRITE_REQUIRED_POINTER => 2
 
     /**
      * The storage specified contains a pointer to the value.  The
- *                     size of the storage specified is always the size of a pointer, regardless
- *                     of the type being serialized.
- *                 
- * 
- * If the value is nil, then a nil element is written in the XML content.
- *                     If non-nil, then the value is serialized normally.
- *                 
- * 
- * <pre class="syntax" xml:space="preserve"><code>WS_STRING value; // may contain a nil value (see WS_STRING_TYPE)
- * Api(..., &amp;value, sizeof(value), ...);</code></pre>
- * <pre class="syntax" xml:space="preserve"><code>// if value is non-nil
- * &lt;element&gt;hello&lt;/element&gt;
- * 
- * // if value is nil
- * &lt;element xsi:nil='true'/&gt;</code></pre>
- * This option is only supported for the following types, listed below,
- *                     which have a intrinsic way to represent a nil value.  See the documentation
- *                     for each type for information on how nil is represented.
- *                     <ul>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_STRING_TYPE</a>
- * </li>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_XML_STRING_TYPE</a>
- * </li>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_BYTES_TYPE</a>
- * </li>
- * </ul>
+     *                     size of the storage specified is always the size of a pointer, regardless
+     *                     of the type being serialized.
+     *                 
+     * 
+     * If the value is nil, then a nil element is written in the XML content.
+     *                     If non-nil, then the value is serialized normally.
+     *                 
+     * 
+     * <pre class="syntax" xml:space="preserve"><code>WS_STRING value; // may contain a nil value (see WS_STRING_TYPE)
+     * Api(..., &amp;value, sizeof(value), ...);</code></pre>
+     * <pre class="syntax" xml:space="preserve"><code>// if value is non-nil
+     * &lt;element&gt;hello&lt;/element&gt;
+     * 
+     * // if value is nil
+     * &lt;element xsi:nil='true'/&gt;</code></pre>
+     * This option is only supported for the following types, listed below,
+     *                     which have a intrinsic way to represent a nil value.  See the documentation
+     *                     for each type for information on how nil is represented.
+     *                     <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_STRING_TYPE</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_XML_STRING_TYPE</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_BYTES_TYPE</a>
+     * </li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static WS_WRITE_NILLABLE_VALUE => 3
 
     /**
      * For all types, the storage specified contains a pointer to the value.  The
- *                     size of the storage specified is always the size of a pointer, regardless
- *                     of the type being serialized.
- *                 
- * 
- * If the pointer to the value specified in the storage is <b>NULL</b>, then
- *                     a nil element is written in the XML content.
- *                 
- * 
- * <pre class="syntax" xml:space="preserve"><code>int* valuePointer; // may be NULL
- * Api(..., &amp;valuePointer, sizeof(valuePointer), ...);
- * </code></pre>
- * <pre class="syntax" xml:space="preserve"><code>// if value is non-NULL
- * &lt;element&gt;123&lt;/element&gt;
- * 
- * // if value is NULL
- * &lt;element xsi:nil='true'/&gt;</code></pre>
+     *                     size of the storage specified is always the size of a pointer, regardless
+     *                     of the type being serialized.
+     *                 
+     * 
+     * If the pointer to the value specified in the storage is <b>NULL</b>, then
+     *                     a nil element is written in the XML content.
+     *                 
+     * 
+     * <pre class="syntax" xml:space="preserve"><code>int* valuePointer; // may be NULL
+     * Api(..., &amp;valuePointer, sizeof(valuePointer), ...);
+     * </code></pre>
+     * <pre class="syntax" xml:space="preserve"><code>// if value is non-NULL
+     * &lt;element&gt;123&lt;/element&gt;
+     * 
+     * // if value is NULL
+     * &lt;element xsi:nil='true'/&gt;</code></pre>
      * @type {Integer (Int32)}
      */
     static WS_WRITE_NILLABLE_POINTER => 4

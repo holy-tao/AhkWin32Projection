@@ -21,11 +21,11 @@ class TDH_CONTEXT_TYPE{
 
     /**
      * Null-terminated Unicode string that contains the path to the .tmf file. You do not have to specify this path if the search path contains the file. Only specify this context information if you also specify the TDH_CONTEXT_WPP_TMFFILE context type. If the file is not found, TDH searches the following locations in the given order:
- * 
- * <ul>
- * <li>The path specified in the TRACE_FORMAT_SEARCH_PATH environment variable</li>
- * <li>The current folder</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>The path specified in the TRACE_FORMAT_SEARCH_PATH environment variable</li>
+     * <li>The current folder</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static TDH_CONTEXT_WPP_TMFSEARCHPATH => 1
@@ -38,17 +38,17 @@ class TDH_CONTEXT_TYPE{
 
     /**
      * Size, in bytes, of the pointer data types or size_t data types used in the event. Indicates if the event used 4-byte or 8-byte values. By default, the pointer size is the pointer size of the decoding computer.
- * 
- * To determine the size of the pointer or size_t value, use the <b>PointerSize</b> member of  <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-logfile-header">TRACE_LOGFILE_HEADER</a> (the first event you receive in your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback contains this header in the data section). However, this value may not be accurate. For example, on a 64-bit computer, a 32-bit application will log 4-byte pointers; however, the session will set <b>PointerSize</b> to 8.
+     * 
+     * To determine the size of the pointer or size_t value, use the <b>PointerSize</b> member of  <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-logfile-header">TRACE_LOGFILE_HEADER</a> (the first event you receive in your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback contains this header in the data section). However, this value may not be accurate. For example, on a 64-bit computer, a 32-bit application will log 4-byte pointers; however, the session will set <b>PointerSize</b> to 8.
      * @type {Integer (Int32)}
      */
     static TDH_CONTEXT_POINTERSIZE => 3
 
     /**
      * Null-terminated Unicode string that contains the name of the .pdb file for the binary that contains WPP messages. This parameter can be used as an alternative to <b>TDH_CONTEXT_WPP_TMFFILE</b> or <b>TDH_CONTEXT_WPP_TMFSEARCHPATH</b>.
- * 
- * <div class="alert"><b>Note</b>  Available only for Windows 8 and Windows Server 2012.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only for Windows 8 and Windows Server 2012.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static TDH_CONTEXT_PDB_PATH => 4

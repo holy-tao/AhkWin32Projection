@@ -10,40 +10,40 @@ class EVT_CHANNEL_CONFIG_PROPERTY_ID{
 
     /**
      * Identifies the <b>enabled</b> attribute of the channel.  The variant type for this property is <b>EvtVarTypeBoolean</b>.
- * 
- * You cannot set this property for the Application, System, and Security channels.
+     * 
+     * You cannot set this property for the Application, System, and Security channels.
      * @type {Integer (Int32)}
      */
     static EvtChannelConfigEnabled => 0
 
     /**
      * Identifies the <b>isolation</b> attribute of the channel.  The variant type for this property is <b>EvtVarTypeUInt32</b>. For possible isolation values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_channel_isolation_type">EVT_CHANNEL_ISOLATION_TYPE</a> enumeration.
- * 
- * You cannot set this property for the Application, System, and Security channels.
+     * 
+     * You cannot set this property for the Application, System, and Security channels.
      * @type {Integer (Int32)}
      */
     static EvtChannelConfigIsolation => 1
 
     /**
      * Identifies the <b>type</b> attribute of the channel.  The variant type for this property is <b>EvtVarTypeUInt32</b>. For possible isolation values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_channel_type">EVT_CHANNEL_TYPE</a> enumeration. 
- * 
- * You cannot set this property.
+     * 
+     * You cannot set this property.
      * @type {Integer (Int32)}
      */
     static EvtChannelConfigType => 2
 
     /**
      * Identifies the <b>name</b> attribute of the provider that defined the channel.  The variant type for this property is <b>EvtVarTypeString</b>. 
- * 
- * You cannot set this property.
+     * 
+     * You cannot set this property.
      * @type {Integer (Int32)}
      */
     static EvtChannelConfigOwningPublisher => 3
 
     /**
      * Identifies the configuration property that indicates whether the channel is a classic event channel (for example the Application or System log). The variant type for this property is <b>EvtVarTypeBoolean</b>. 
- * 
- * You cannot set this property.
+     * 
+     * You cannot set this property.
      * @type {Integer (Int32)}
      */
     static EvtChannelConfigClassicEventlog => 4
@@ -80,80 +80,80 @@ class EVT_CHANNEL_CONFIG_PROPERTY_ID{
 
     /**
      * Identifies the <b>level</b> publishing attribute of the channel.  The variant type for this property is <b>EvtVarTypeUInt32</b>. 
- * 
- * To set this property, you must first disable the debug or analytic channel.
+     * 
+     * To set this property, you must first disable the debug or analytic channel.
      * @type {Integer (Int32)}
      */
     static EvtChannelPublishingConfigLevel => 10
 
     /**
      * Identifies the <b>keywords</b> publishing attribute of the channel.  The variant type for this property is <b>EvtVarTypeUInt64</b>. 
- * 
- * To set this property, you must first disable the debug or analytic channel.
+     * 
+     * To set this property, you must first disable the debug or analytic channel.
      * @type {Integer (Int32)}
      */
     static EvtChannelPublishingConfigKeywords => 11
 
     /**
      * Identifies the <b>controlGuid</b> publishing attribute of the channel.  The variant type for this property is <b>EvtVarTypeGuid</b>. 
- * 
- * You cannot set this property.
+     * 
+     * You cannot set this property.
      * @type {Integer (Int32)}
      */
     static EvtChannelPublishingConfigControlGuid => 12
 
     /**
      * Identifies the <b>bufferSize</b> publishing attribute of the channel.  The variant type for this property is <b>EvtVarTypeUInt32</b>. 
- * 
- * You cannot set this property.
+     * 
+     * You cannot set this property.
      * @type {Integer (Int32)}
      */
     static EvtChannelPublishingConfigBufferSize => 13
 
     /**
      * Identifies the <b>minBuffers</b> publishing attribute of the channel.  The variant type for this property is <b>EvtVarTypeUInt32</b>. 
- * 
- * You cannot set this property.
+     * 
+     * You cannot set this property.
      * @type {Integer (Int32)}
      */
     static EvtChannelPublishingConfigMinBuffers => 14
 
     /**
      * Identifies the <b>maxBuffers</b> publishing attribute of the channel.  The variant type for this property is <b>EvtVarTypeUInt32</b>. 
- * 
- * You cannot set this property.
+     * 
+     * You cannot set this property.
      * @type {Integer (Int32)}
      */
     static EvtChannelPublishingConfigMaxBuffers => 15
 
     /**
      * Identifies the <b>latency</b> publishing attribute of the channel.  The variant type for this property is <b>EvtVarTypeUInt32</b>. 
- * 
- * You cannot set this property.
+     * 
+     * You cannot set this property.
      * @type {Integer (Int32)}
      */
     static EvtChannelPublishingConfigLatency => 16
 
     /**
      * Identifies the <b>clockType</b> publishing attribute of the channel.  The variant type for this property is <b>EvtVarTypeUInt32</b>. For possible clock type values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_channel_clock_type">EVT_CHANNEL_CLOCK_TYPE</a> enumeration. 
- * 
- * You cannot set this property.
+     * 
+     * You cannot set this property.
      * @type {Integer (Int32)}
      */
     static EvtChannelPublishingConfigClockType => 17
 
     /**
      * Identifies the <b>sidType</b> publishing attribute of the channel.  The variant type for this property is <b>EvtVarTypeUInt32</b>. For possible SID type values, see the  <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_channel_sid_type">EVT_CHANNEL_SID_TYPE</a> enumeration. 
- * 
- * You cannot set this property.
+     * 
+     * You cannot set this property.
      * @type {Integer (Int32)}
      */
     static EvtChannelPublishingConfigSidType => 18
 
     /**
      * Identifies the configuration property that contains the list of providers that import this channel.  The variant type for this property is <b>EvtVarTypeString | EVT_VARIANT_TYPE_ARRAY</b>. 
- * 
- * You cannot set this property.
+     * 
+     * You cannot set this property.
      * @type {Integer (Int32)}
      */
     static EvtChannelPublisherList => 19

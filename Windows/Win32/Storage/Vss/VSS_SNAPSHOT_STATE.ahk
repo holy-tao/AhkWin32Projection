@@ -35,108 +35,108 @@ class VSS_SNAPSHOT_STATE{
 
     /**
      * Reserved for system use. 
- *       
- * 
- * Unknown shadow copy state.
+     *       
+     * 
+     * Unknown shadow copy state.
      * @type {Integer (Int32)}
      */
     static VSS_SS_UNKNOWN => 0
 
     /**
      * Reserved for system use. 
- *       
- * 
- * Shadow copy is being prepared.
+     *       
+     * 
+     * Shadow copy is being prepared.
      * @type {Integer (Int32)}
      */
     static VSS_SS_PREPARING => 1
 
     /**
      * Reserved for system use. 
- *       
- * 
- * Processing of the shadow copy preparation is in progress.
+     *       
+     * 
+     * Processing of the shadow copy preparation is in progress.
      * @type {Integer (Int32)}
      */
     static VSS_SS_PROCESSING_PREPARE => 2
 
     /**
      * Reserved for system use. 
- *       
- * 
- * Shadow copy has been prepared.
+     *       
+     * 
+     * Shadow copy has been prepared.
      * @type {Integer (Int32)}
      */
     static VSS_SS_PREPARED => 3
 
     /**
      * Reserved for system use. 
- *       
- * 
- * Processing of the shadow copy precommit is in process.
+     *       
+     * 
+     * Processing of the shadow copy precommit is in process.
      * @type {Integer (Int32)}
      */
     static VSS_SS_PROCESSING_PRECOMMIT => 4
 
     /**
      * Reserved for system use. 
- *       
- * 
- * Shadow copy is precommitted.
+     *       
+     * 
+     * Shadow copy is precommitted.
      * @type {Integer (Int32)}
      */
     static VSS_SS_PRECOMMITTED => 5
 
     /**
      * Reserved for system use. 
- *       
- * 
- * Processing of the shadow copy commit is in process.
+     *       
+     * 
+     * Processing of the shadow copy commit is in process.
      * @type {Integer (Int32)}
      */
     static VSS_SS_PROCESSING_COMMIT => 6
 
     /**
      * Reserved for system use. 
- *       
- * 
- * Shadow copy is committed.
+     *       
+     * 
+     * Shadow copy is committed.
      * @type {Integer (Int32)}
      */
     static VSS_SS_COMMITTED => 7
 
     /**
      * Reserved for system use. 
- *       
- * 
- * Processing of the shadow copy postcommit is in process.
+     *       
+     * 
+     * Processing of the shadow copy postcommit is in process.
      * @type {Integer (Int32)}
      */
     static VSS_SS_PROCESSING_POSTCOMMIT => 8
 
     /**
      * Reserved for system use.
- *       
- * 
- * Processing of the shadow copy file commit operation is underway.
+     *       
+     * 
+     * Processing of the shadow copy file commit operation is underway.
      * @type {Integer (Int32)}
      */
     static VSS_SS_PROCESSING_PREFINALCOMMIT => 9
 
     /**
      * Reserved for system use. 
- *       
- * 
- * Processing of the shadow copy file commit operation is done.
+     *       
+     * 
+     * Processing of the shadow copy file commit operation is done.
      * @type {Integer (Int32)}
      */
     static VSS_SS_PREFINALCOMMITTED => 10
 
     /**
      * Reserved for system use.
- *       
- * 
- * Processing of the shadow copy following the final commit and prior to shadow copy create is underway.
+     *       
+     * 
+     * Processing of the shadow copy following the final commit and prior to shadow copy create is underway.
      * @type {Integer (Int32)}
      */
     static VSS_SS_PROCESSING_POSTFINALCOMMIT => 11
@@ -149,18 +149,18 @@ class VSS_SNAPSHOT_STATE{
 
     /**
      * Reserved for system use. 
- *       
- * 
- * Shadow copy creation is aborted.
+     *       
+     * 
+     * Shadow copy creation is aborted.
      * @type {Integer (Int32)}
      */
     static VSS_SS_ABORTED => 13
 
     /**
      * Reserved for system use. 
- *       
- * 
- * Shadow copy has been deleted.
+     *       
+     * 
+     * Shadow copy has been deleted.
      * @type {Integer (Int32)}
      */
     static VSS_SS_DELETED => 14

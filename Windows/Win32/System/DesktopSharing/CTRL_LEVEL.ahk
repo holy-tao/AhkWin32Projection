@@ -34,27 +34,27 @@ class CTRL_LEVEL{
 
     /**
      * The attendee can view and interact with the session. The local keyboard and mouse input is redirected to 
- *       the session.
+     *       the session.
      * @type {Integer (Int32)}
      */
     static CTRL_LEVEL_INTERACTIVE => 3
 
     /**
      * The attendee can view the session.
- * 
- * <b>Windows Server 2012, Windows 8, Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>This enumeration value is not supported.
+     * 
+     * <b>Windows Server 2012, Windows 8, Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>This enumeration value is not supported.
      * @type {Integer (Int32)}
      */
     static CTRL_LEVEL_REQCTRL_VIEW => 4
 
     /**
      * The attendee can view and interact with the session. The local keyboard and mouse input is redirected to the 
- *        session. Hosting applications that want to allow users to control the shared session must either define 
- *        <b>uiAccess</b> as "true" in their application manifest OR run at High Integrity 
- *        Level (elevated). For more information see 
- *        <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-securityoverview">Setting UIAccess in the Application Manifest File</a>.
- * 
- * <b>Windows Server 2012, Windows 8, Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>This enumeration value is not supported.
+     *        session. Hosting applications that want to allow users to control the shared session must either define 
+     *        <b>uiAccess</b> as "true" in their application manifest OR run at High Integrity 
+     *        Level (elevated). For more information see 
+     *        <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-securityoverview">Setting UIAccess in the Application Manifest File</a>.
+     * 
+     * <b>Windows Server 2012, Windows 8, Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>This enumeration value is not supported.
      * @type {Integer (Int32)}
      */
     static CTRL_LEVEL_REQCTRL_INTERACTIVE => 5

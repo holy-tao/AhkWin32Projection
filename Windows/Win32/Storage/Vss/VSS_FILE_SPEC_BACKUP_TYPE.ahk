@@ -58,81 +58,81 @@ class VSS_FILE_SPEC_BACKUP_TYPE{
 
     /**
      * A file set tagged with this value must be involved in all types of backup operations. 
- *      
- * 
- * A writer tags a file set with this value to indicate to the requester that it expects a copy of the current 
- *       version of the file set to be available following the restore of any backup operation with a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
- *       <b>VSS_BT_FULL</b>.
+     *      
+     * 
+     * A writer tags a file set with this value to indicate to the requester that it expects a copy of the current 
+     *       version of the file set to be available following the restore of any backup operation with a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
+     *       <b>VSS_BT_FULL</b>.
      * @type {Integer (Int32)}
      */
     static VSS_FSBT_FULL_BACKUP_REQUIRED => 1
 
     /**
      * A writer tags a file set with this value to indicate to the requester that it expects a copy of the current 
- *       version of the file set to be available following the restore of any backup operation with a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
- *       <b>VSS_BT_DIFFERENTIAL</b>.
- * 
- * This value is not supported for express writers.
+     *       version of the file set to be available following the restore of any backup operation with a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
+     *       <b>VSS_BT_DIFFERENTIAL</b>.
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_FSBT_DIFFERENTIAL_BACKUP_REQUIRED => 2
 
     /**
      * A writer tags a file set with this value to indicate to the requester that it expects a copy of the current 
- *       version of the file set to be available following the restore of any backup operation with a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
- *       <b>VSS_BT_INCREMENTAL</b>.
- * 
- * This value is not supported for express writers.
+     *       version of the file set to be available following the restore of any backup operation with a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
+     *       <b>VSS_BT_INCREMENTAL</b>.
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_FSBT_INCREMENTAL_BACKUP_REQUIRED => 4
 
     /**
      * A writer tags a file set with this value to indicate to the requester that it expects a copy of the current 
- *       version of the file set to be available following the restore of any backup operation with a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
- *       <b>VSS_BT_LOG</b>.
- * 
- * This value is not supported for express writers.
+     *       version of the file set to be available following the restore of any backup operation with a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
+     *       <b>VSS_BT_LOG</b>.
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_FSBT_LOG_BACKUP_REQUIRED => 8
 
     /**
      * A file set tagged with this value must be backed up from a shadow copy of a volume (and never from the 
- *       original volume) when participating in a backup operation with a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
- *       <b>VSS_BT_FULL</b>.
+     *       original volume) when participating in a backup operation with a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
+     *       <b>VSS_BT_FULL</b>.
      * @type {Integer (Int32)}
      */
     static VSS_FSBT_FULL_SNAPSHOT_REQUIRED => 256
 
     /**
      * A file set tagged with this value must be backed up from a shadow copy of a volume (and never from the 
- *       original volume) when participating in a backup operation with a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
- *       <b>VSS_BT_DIFFERENTIAL</b>.
+     *       original volume) when participating in a backup operation with a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
+     *       <b>VSS_BT_DIFFERENTIAL</b>.
      * @type {Integer (Int32)}
      */
     static VSS_FSBT_DIFFERENTIAL_SNAPSHOT_REQUIRED => 512
 
     /**
      * A file set tagged with this value must be backed up from a shadow copy of a volume (and never from the 
- *       original volume) when participating in a backup operation with a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
- *       <b>VSS_BT_INCREMENTAL</b>.
+     *       original volume) when participating in a backup operation with a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
+     *       <b>VSS_BT_INCREMENTAL</b>.
      * @type {Integer (Int32)}
      */
     static VSS_FSBT_INCREMENTAL_SNAPSHOT_REQUIRED => 1024
 
     /**
      * A file set tagged with this value must be backed up from a shadow copy of a volume (and never from the 
- *       original volume) when participating in a backup operation with a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
- *       <b>VSS_BT_LOG</b>).
+     *       original volume) when participating in a backup operation with a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_type">VSS_BACKUP_TYPE</a> of 
+     *       <b>VSS_BT_LOG</b>).
      * @type {Integer (Int32)}
      */
     static VSS_FSBT_LOG_SNAPSHOT_REQUIRED => 2048
@@ -145,14 +145,14 @@ class VSS_FILE_SPEC_BACKUP_TYPE{
 
     /**
      * The default file backup specification type. A file set tagged with this value must always participate in 
- *       backup and restore operations.
+     *       backup and restore operations.
      * @type {Integer (Int32)}
      */
     static VSS_FSBT_ALL_BACKUP_REQUIRED => 15
 
     /**
      * The shadow copy requirement for backup. A file set tagged with this value must always be backed up from a 
- *       shadow copy of a volume (and never from the original volume) when participating in a backup operation.
+     *       shadow copy of a volume (and never from the original volume) when participating in a backup operation.
      * @type {Integer (Int32)}
      */
     static VSS_FSBT_ALL_SNAPSHOT_REQUIRED => 3840

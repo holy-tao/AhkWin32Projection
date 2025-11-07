@@ -46,7 +46,7 @@ class WBEM_COMPARISON_FLAG{
 
     /**
      * Ignore qualifier flavors. This flag still takes qualifier values into account, but ignores flavor distinctions such as propagation rules and override restrictions (for more information, see 
- * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/qualifier-flavors">Qualifier Flavors</a>).
+     * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/qualifier-flavors">Qualifier Flavors</a>).
      * @type {Integer (Int32)}
      */
     static WBEM_FLAG_IGNORE_FLAVOR => 32

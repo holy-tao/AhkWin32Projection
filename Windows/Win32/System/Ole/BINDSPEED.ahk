@@ -27,16 +27,16 @@ class BINDSPEED{
 
     /**
      * The binding operation must be completed in a moderate amount of time. 
- * 
- * If this flag is specified, the implementation of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleitemcontainer-getobject">IOleItemContainer::GetObject</a> should return MK_E_EXCEEEDEDDEADLINE unless tone of the following is true:
- * 
- * <ul>
- * <li>The object is already in the running state.
- * </li>
- * <li>The object is a pseudo-object (an object internal to the item container, such as a cell-range in a spreadsheet or a character-range in a word processor).</li>
- * <li>The object is supported by an in-process server (so it is always in the running state when it is loaded). In this case, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleitemcontainer-getobject">GetObject</a> should load the designated object, and, if the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oleisrunning">OleIsRunning</a> function indicates that the object is running, return successfully. 
- * </li>
- * </ul>
+     * 
+     * If this flag is specified, the implementation of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleitemcontainer-getobject">IOleItemContainer::GetObject</a> should return MK_E_EXCEEEDEDDEADLINE unless tone of the following is true:
+     * 
+     * <ul>
+     * <li>The object is already in the running state.
+     * </li>
+     * <li>The object is a pseudo-object (an object internal to the item container, such as a cell-range in a spreadsheet or a character-range in a word processor).</li>
+     * <li>The object is supported by an in-process server (so it is always in the running state when it is loaded). In this case, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleitemcontainer-getobject">GetObject</a> should load the designated object, and, if the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oleisrunning">OleIsRunning</a> function indicates that the object is running, return successfully. 
+     * </li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static BINDSPEED_MODERATE => 2

@@ -29,8 +29,8 @@ class ADS_PROPERTY_OPERATION_ENUM{
 
     /**
      * Instructs the directory service to append the specified value(s) to the existing values(s).
- * 
- * When the <b>ADS_PROPERTY_APPEND</b> operation is specified, the new attribute value(s) are automatically committed to the directory service and removed from the local cache. This forces the local cache to be updated from the directory service the next time the attribute value(s) are retrieved.
+     * 
+     * When the <b>ADS_PROPERTY_APPEND</b> operation is specified, the new attribute value(s) are automatically committed to the directory service and removed from the local cache. This forces the local cache to be updated from the directory service the next time the attribute value(s) are retrieved.
      * @type {Integer (Int32)}
      */
     static ADS_PROPERTY_APPEND => 3

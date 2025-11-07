@@ -22,18 +22,18 @@ class IKEEXT_INTEGRITY_TYPE{
 
     /**
      * Specifies a 256-bit SHA encryption.
- * 
- * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IKEEXT_INTEGRITY_SHA_256 => 2
 
     /**
      * Specifies a 384-bit SHA encryption.
- * 
- * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IKEEXT_INTEGRITY_SHA_384 => 3

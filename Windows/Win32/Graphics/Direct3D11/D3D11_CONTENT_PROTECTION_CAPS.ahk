@@ -64,9 +64,9 @@ class D3D11_CONTENT_PROTECTION_CAPS{
 
     /**
      * The driver supports encrypted slice data, but does not support any other encrypted data in the compressed buffer.  The caller should not encrypt any data within the buffer other than the slice data.
- * 
- * <div class="alert"><b>Note</b>  The driver should only report this flag for the specific profiles that have this limitation.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  The driver should only report this flag for the specific profiles that have this limitation.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static D3D11_CONTENT_PROTECTION_CAPS_ENCRYPT_SLICEDATA_ONLY => 512
@@ -79,36 +79,36 @@ class D3D11_CONTENT_PROTECTION_CAPS{
 
     /**
      * The hardware supports the protection of specific resources. This means that:
- * 
- * <ul>
- * <li>The contents of a protected allocation can never be read by the CPU.</li>
- * <li>The hardware can ensure a protected resource cannot be copied to an unprotected resource.</li>
- * </ul>
- * <b>Note</b>  This enumeration value is supported starting with Windows 10.
+     * 
+     * <ul>
+     * <li>The contents of a protected allocation can never be read by the CPU.</li>
+     * <li>The hardware can ensure a protected resource cannot be copied to an unprotected resource.</li>
+     * </ul>
+     * <b>Note</b>  This enumeration value is supported starting with Windows 10.
      * @type {Integer (Int32)}
      */
     static D3D11_CONTENT_PROTECTION_CAPS_HARDWARE_PROTECT_UNCOMPRESSED => 2048
 
     /**
      * Physical pages of a protected resource can be evicted and potentially paged to disk in low memory conditions without losing the contents of the resource when paged back in. 
- * 
- * <b>Note</b>  This enumeration value is supported starting with Windows 10.
+     * 
+     * <b>Note</b>  This enumeration value is supported starting with Windows 10.
      * @type {Integer (Int32)}
      */
     static D3D11_CONTENT_PROTECTION_CAPS_HARDWARE_PROTECTED_MEMORY_PAGEABLE => 4096
 
     /**
      * The hardware supports an automatic teardown mechanism that could trigger hardware keys or protected content to become lost in some conditions.  The application can register to be notified when these events occur.
- * 
- * <b>Note</b>  This enumeration value is supported starting with Windows 10.
+     * 
+     * <b>Note</b>  This enumeration value is supported starting with Windows 10.
      * @type {Integer (Int32)}
      */
     static D3D11_CONTENT_PROTECTION_CAPS_HARDWARE_TEARDOWN => 8192
 
     /**
      * The secure environment is tightly coupled with the GPU and an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11cryptosession">ID3D11CryptoSession</a> should be used for communication between the user mode DRM component and the secure execution environment.
- * 
- * <b>Note</b>  This enumeration value is supported starting with Windows 10.
+     * 
+     * <b>Note</b>  This enumeration value is supported starting with Windows 10.
      * @type {Integer (Int32)}
      */
     static D3D11_CONTENT_PROTECTION_CAPS_HARDWARE_DRM_COMMUNICATION => 16384

@@ -166,7 +166,7 @@ class CALLINFOCHANGE_CAUSE{
 
     /**
      * The call 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a> has changed.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a> has changed.
      * @type {Integer (Int32)}
      */
     static CIC_MEDIATYPE => 26

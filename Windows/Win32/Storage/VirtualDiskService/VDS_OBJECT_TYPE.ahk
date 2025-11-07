@@ -110,8 +110,8 @@ class VDS_OBJECT_TYPE{
 
     /**
      * The object is a <a href="https://docs.microsoft.com/windows/desktop/VDS/storage-pool-object">storage pool</a>.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDS_OT_STORAGE_POOL => 39
@@ -148,16 +148,16 @@ class VDS_OBJECT_TYPE{
 
     /**
      * The object is a virtual disk.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDS_OT_VDISK => 200
 
     /**
      * This value is reserved.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDS_OT_OPEN_VDISK => 201

@@ -10,9 +10,9 @@ class WS_SECURITY_TOKEN_REFERENCE_MODE{
 
     /**
      * The id of the serialized security token is used to refer to it.  This
- * reference mechanism can be used only when the security token is
- * serialized in the same message as the item (such as a signature) that
- * needs to refer to the security token.
+     * reference mechanism can be used only when the security token is
+     * serialized in the same message as the item (such as a signature) that
+     * needs to refer to the security token.
      * @type {Integer (Int32)}
      */
     static WS_SECURITY_TOKEN_REFERENCE_MODE_LOCAL_ID => 1

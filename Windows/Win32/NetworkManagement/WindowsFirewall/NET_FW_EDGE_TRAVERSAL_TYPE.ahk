@@ -17,16 +17,16 @@ class NET_FW_EDGE_TRAVERSAL_TYPE{
 
     /**
      * Edge traversal traffic is always blocked.
- * 
- * This is the same as setting the EdgeTraversal property using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule">INetFwRule</a> to <b>VARIANT_FALSE</b>.
+     * 
+     * This is the same as setting the EdgeTraversal property using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule">INetFwRule</a> to <b>VARIANT_FALSE</b>.
      * @type {Integer (Int32)}
      */
     static NET_FW_EDGE_TRAVERSAL_TYPE_DENY => 0
 
     /**
      * Edge traversal traffic is always allowed.
- * 
- * This is the same as setting the EdgeTraversal property using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule">INetFwRule</a> to <b>VARIANT_TRUE</b>.
+     * 
+     * This is the same as setting the EdgeTraversal property using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule">INetFwRule</a> to <b>VARIANT_TRUE</b>.
      * @type {Integer (Int32)}
      */
     static NET_FW_EDGE_TRAVERSAL_TYPE_ALLOW => 1
@@ -39,10 +39,10 @@ class NET_FW_EDGE_TRAVERSAL_TYPE{
 
     /**
      * The user is prompted whether to allow edge traversal traffic when the application sets the IPV6_PROTECTION_LEVEL socket option to <b>PROTECTION_LEVEL_UNRESTRICTED</b>. If the user chooses to allow  edge traversal traffic, the rule is modified to defer to the application's settings.
- * 
- * If the application has not set the IPV6_PROTECTION_LEVEL socket option to <b>PROTECTION_LEVEL_UNRESTRICTED</b>, edge traversal traffic is blocked.
- * 
- * In order to use this option, the firewall rule must have both the application path and protocol scopes specified. This option cannot be used if port(s) are defined.
+     * 
+     * If the application has not set the IPV6_PROTECTION_LEVEL socket option to <b>PROTECTION_LEVEL_UNRESTRICTED</b>, edge traversal traffic is blocked.
+     * 
+     * In order to use this option, the firewall rule must have both the application path and protocol scopes specified. This option cannot be used if port(s) are defined.
      * @type {Integer (Int32)}
      */
     static NET_FW_EDGE_TRAVERSAL_TYPE_DEFER_TO_USER => 3

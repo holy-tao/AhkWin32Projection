@@ -45,10 +45,10 @@ class GROUPPROP{
 
     /**
      * Determines when the QMGR processes the group relative to other groups in the queue.
- * 
- * There is only one priority. You must specify a value of 1 when setting this property. The property always returns a value of 1.
- * 
- * Variant data type can be VT_I4, VT_I2, VT_UI4, VT_UI2, VT_INT, or VT_UINT.
+     * 
+     * There is only one priority. You must specify a value of 1 when setting this property. The property always returns a value of 1.
+     * 
+     * Variant data type can be VT_I4, VT_I2, VT_UI4, VT_UI2, VT_INT, or VT_UINT.
      * @type {Integer (Int32)}
      */
     static GROUPPROP_PRIORITY => 0
@@ -79,26 +79,26 @@ class GROUPPROP{
 
     /**
      * Specifies the protocol to use for the download.
- * 
- * You must specify QM_PROTOCOL_HTTP when setting this property.
- * 
- * Variant data type can be VT_I4, VT_I2, VT_UI4, VT_UI2, VT_INT, or VT_UINT.
+     * 
+     * You must specify QM_PROTOCOL_HTTP when setting this property.
+     * 
+     * Variant data type can be VT_I4, VT_I2, VT_UI4, VT_UI2, VT_INT, or VT_UINT.
      * @type {Integer (Int32)}
      */
     static GROUPPROP_PROTOCOLFLAGS => 5
 
     /**
      * Specifies the type of event notification to receive for the group. See Remarks.
- * 
- * Variant data type can be VT_I4, VT_I2, VT_UI4, VT_UI2, VT_INT, or VT_UINT.
+     * 
+     * Variant data type can be VT_I4, VT_I2, VT_UI4, VT_UI2, VT_INT, or VT_UINT.
      * @type {Integer (Int32)}
      */
     static GROUPPROP_NOTIFYFLAGS => 6
 
     /**
      * The 	CLSID to activate when an event specified by <b>GROUPPROP_NOTIFYFLAGS</b> occurs. For more details on CLSID activation, see <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/nn-qmgr-ibackgroundcopycallback1">IBackgroundCopyCallback1</a>.
- * 
- * Variant data type is VT_BSTR.
+     * 
+     * Variant data type is VT_BSTR.
      * @type {Integer (Int32)}
      */
     static GROUPPROP_NOTIFYCLSID => 7
@@ -123,16 +123,16 @@ class GROUPPROP{
 
     /**
      * Specifies a display name that can be used to identify the group in a user interface. The length of the string is limited to 256 characters, not including the null terminator.
- * 
- * Variant data type is VT_BSTR.
+     * 
+     * Variant data type is VT_BSTR.
      * @type {Integer (Int32)}
      */
     static GROUPPROP_DISPLAYNAME => 11
 
     /**
      * Specifies a description to associate with the group. The length of the string is limited to 1,024 characters, not including the null terminator.
- * 
- * Variant data type is VT_BSTR.
+     * 
+     * Variant data type is VT_BSTR.
      * @type {Integer (Int32)}
      */
     static GROUPPROP_DESCRIPTION => 12

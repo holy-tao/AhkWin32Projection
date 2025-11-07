@@ -70,7 +70,7 @@ class DEPENDENT_DISK_FLAG{
 
     /**
      * The virtual disk is not attached to the local host.
- *     For example, it is attached to a guest virtual machine.
+     *     For example, it is attached to a guest virtual machine.
      * @type {Integer (Int32)}
      */
     static DEPENDENT_DISK_FLAG_NO_HOST_DISK => 512

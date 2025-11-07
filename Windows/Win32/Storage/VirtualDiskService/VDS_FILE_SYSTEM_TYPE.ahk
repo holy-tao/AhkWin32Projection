@@ -60,8 +60,8 @@ class VDS_FILE_SYSTEM_TYPE{
 
     /**
      * The file system is extended file allocation table (exFAT).
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>The VDS_FST_EXFAT file type value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>The VDS_FST_EXFAT file type value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_FST_EXFAT => 7

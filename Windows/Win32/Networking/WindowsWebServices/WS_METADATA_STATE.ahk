@@ -23,16 +23,16 @@ class WS_METADATA_STATE{
 
     /**
      * All references between metadata documents have been
- *                     resolved and no more metadata documents may be added
- *                     to the metadata object.  See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmetadataendpoints">WsGetMetadataEndpoints</a> for
- *                     more information.
+     *                     resolved and no more metadata documents may be added
+     *                     to the metadata object.  See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmetadataendpoints">WsGetMetadataEndpoints</a> for
+     *                     more information.
      * @type {Integer (Int32)}
      */
     static WS_METADATA_STATE_RESOLVED => 2
 
     /**
      * The metadata object not usable due to a previous error.  See
- *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmetadataendpoints">WsGetMetadataEndpoints</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadmetadata">WsReadMetadata</a>for more information.
+     *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmetadataendpoints">WsGetMetadataEndpoints</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadmetadata">WsReadMetadata</a>for more information.
      * @type {Integer (Int32)}
      */
     static WS_METADATA_STATE_FAULTED => 3

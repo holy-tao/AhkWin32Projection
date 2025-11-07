@@ -51,9 +51,9 @@ class D2D1_BITMAP_OPTIONS{
 
     /**
      * The bitmap works with <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nf-d2d1-id2d1gdiinteroprendertarget-getdc">ID2D1GdiInteropRenderTarget::GetDC</a>.
- * 
- * <div class="alert"><b>Note</b>  This flag is not available in Windows Store apps.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This flag is not available in Windows Store apps.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static D2D1_BITMAP_OPTIONS_GDI_COMPATIBLE => 8

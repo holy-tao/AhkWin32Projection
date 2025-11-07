@@ -37,8 +37,8 @@ class VDS_STORAGE_IDENTIFIER_CODE_SET{
 
     /**
      * The storage identifier is encoded as UTF-8.
- * 
- * <b>Windows Vista and Windows Server 2003:  </b>Not supported before Windows Vista with SP1 and Windows Server 2008.
+     * 
+     * <b>Windows Vista and Windows Server 2003:  </b>Not supported before Windows Vista with SP1 and Windows Server 2008.
      * @type {Integer (Int32)}
      */
     static VDSStorageIdCodeSetUtf8 => 3

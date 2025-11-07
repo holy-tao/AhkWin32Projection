@@ -28,7 +28,7 @@ class VDS_PROVIDER_LBSUPPORT_FLAG{
 
     /**
      * The provider supports using primary paths in round robin fashion. The backup paths are used if all of the 
- *       primary paths fail.
+     *       primary paths fail.
      * @type {Integer (Int32)}
      */
     static VDS_LBF_ROUND_ROBIN_WITH_SUBSET => 4

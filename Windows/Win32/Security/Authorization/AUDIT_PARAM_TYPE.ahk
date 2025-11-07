@@ -40,12 +40,12 @@ class AUDIT_PARAM_TYPE{
 
     /**
      * The logon identifier (LUID) that results in three output parameters:
- * 
- * <ul>
- * <li>Account name</li>
- * <li>Authority name</li>
- * <li>LogonID""</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>Account name</li>
+     * <li>Authority name</li>
+     * <li>LogonID""</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static APT_LogonId => 6
@@ -88,13 +88,13 @@ class AUDIT_PARAM_TYPE{
 
     /**
      * Logon ID with SID that results in four output parameters:
- * 
- * <ul>
- * <li>SID</li>
- * <li>Account name</li>
- * <li>Authority name</li>
- * <li>LogonID</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>SID</li>
+     * <li>Account name</li>
+     * <li>Authority name</li>
+     * <li>LogonID</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static APT_LogonIdWithSid => 13

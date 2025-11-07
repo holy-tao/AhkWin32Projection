@@ -39,25 +39,25 @@ class IF_OPER_STATUS{
 
     /**
      * The interface is not
- *    in a condition to pass packets. The interface is  not up, but is
- *    in a pending state, waiting for some external event.  This state identifies the situation where the
- *    interface is waiting for events to place it in the up state.
+     *    in a condition to pass packets. The interface is  not up, but is
+     *    in a pending state, waiting for some external event.  This state identifies the situation where the
+     *    interface is waiting for events to place it in the up state.
      * @type {Integer (Int32)}
      */
     static IfOperStatusDormant => 5
 
     /**
      * This state is a refinement on the down state which
- *    indicates that the interface is down specifically because
- *    some component (for example, a hardware component) is not present in
- *    the system.
+     *    indicates that the interface is down specifically because
+     *    some component (for example, a hardware component) is not present in
+     *    the system.
      * @type {Integer (Int32)}
      */
     static IfOperStatusNotPresent => 6
 
     /**
      * This state is a refinement on the down state.
- *    The interface is operational, but a networking layer below the interface is not operational.
+     *    The interface is operational, but a networking layer below the interface is not operational.
      * @type {Integer (Int32)}
      */
     static IfOperStatusLowerLayerDown => 7

@@ -10,28 +10,28 @@ class D3D11_VIDEO_PROCESSOR_STEREO_CAPS{
 
     /**
      * The video processor supports the <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_MONO_OFFSET</b> 
- *  format.
+     *  format.
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_PROCESSOR_STEREO_CAPS_MONO_OFFSET => 1
 
     /**
      * The video processor supports the <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_ROW_INTERLEAVED</b> 
- *  format.
+     *  format.
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_PROCESSOR_STEREO_CAPS_ROW_INTERLEAVED => 2
 
     /**
      * The video processor supports the <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_COLUMN_INTERLEAVED</b> 
- *  format.
+     *  format.
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_PROCESSOR_STEREO_CAPS_COLUMN_INTERLEAVED => 4
 
     /**
      * The video processor supports the <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_CHECKERBOARD</b> 
- *  format.
+     *  format.
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_PROCESSOR_STEREO_CAPS_CHECKERBOARD => 8

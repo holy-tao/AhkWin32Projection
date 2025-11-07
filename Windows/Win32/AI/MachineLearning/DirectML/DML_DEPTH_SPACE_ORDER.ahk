@@ -15,18 +15,18 @@ class DML_DEPTH_SPACE_ORDER{
 
     /**
      * Causes tensors used in [DML_DEPTH_TO_SPACE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_depth_to_space1_operator_desc) and [DML_SPACE_TO_DEPTH1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_space_to_depth1_operator_desc) to be interpreted with the following layouts, where dimensions in parenthesis are flattened together.
- * 
- * - **Depth version**: [Batch, (BlockHeight, BlockWidth, Channels), Height, Width]
- * - **Space version**: [Batch, Channels, (Height, BlockHeight), (Width, BlockWidth)]
+     * 
+     * - **Depth version**: [Batch, (BlockHeight, BlockWidth, Channels), Height, Width]
+     * - **Space version**: [Batch, Channels, (Height, BlockHeight), (Width, BlockWidth)]
      * @type {Integer (Int32)}
      */
     static DML_DEPTH_SPACE_ORDER_DEPTH_COLUMN_ROW => 0
 
     /**
      * Causes tensors used in [DML_DEPTH_TO_SPACE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_depth_to_space1_operator_desc) and [DML_SPACE_TO_DEPTH1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_space_to_depth1_operator_desc) to be interpreted with the following layouts, where dimensions in parenthesis are flattened together.
- * 
- * - **Depth version**: [Batch, (Channels, BlockHeight, BlockWidth), Height, Width]
- * - **Space version**: [Batch, Channels, (Height, BlockHeight), (Width, BlockWidth)]
+     * 
+     * - **Depth version**: [Batch, (Channels, BlockHeight, BlockWidth), Height, Width]
+     * - **Space version**: [Batch, Channels, (Height, BlockHeight), (Width, BlockWidth)]
      * @type {Integer (Int32)}
      */
     static DML_DEPTH_SPACE_ORDER_COLUMN_ROW_DEPTH => 1

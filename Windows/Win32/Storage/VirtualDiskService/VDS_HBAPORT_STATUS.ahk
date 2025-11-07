@@ -16,72 +16,72 @@ class VDS_HBAPORT_STATUS{
 
     /**
      * The HBA port status is unknown.
- *      
- * 
- * HBA_PORTSTATE_UNKNOWN
+     *      
+     * 
+     * HBA_PORTSTATE_UNKNOWN
      * @type {Integer (Int32)}
      */
     static VDS_HPS_UNKNOWN => 1
 
     /**
      * The HBA port is operational.
- *      
- * 
- * HBA_PORTSTATE_ONLINE
+     *      
+     * 
+     * HBA_PORTSTATE_ONLINE
      * @type {Integer (Int32)}
      */
     static VDS_HPS_ONLINE => 2
 
     /**
      * The HBA port has been set offline by a user.
- *      
- * 
- * HBA_PORTSTATE_OFFLINE
+     *      
+     * 
+     * HBA_PORTSTATE_OFFLINE
      * @type {Integer (Int32)}
      */
     static VDS_HPS_OFFLINE => 3
 
     /**
      * The HBA port is bypassed.
- *      
- * 
- * HBA_PORTSTATE_BYPASSED
+     *      
+     * 
+     * HBA_PORTSTATE_BYPASSED
      * @type {Integer (Int32)}
      */
     static VDS_HPS_BYPASSED => 4
 
     /**
      * The HBA port is in diagnostics mode.
- *      
- * 
- * HBA_PORTSTATE_DIAGNOSTICS
+     *      
+     * 
+     * HBA_PORTSTATE_DIAGNOSTICS
      * @type {Integer (Int32)}
      */
     static VDS_HPS_DIAGNOSTICS => 5
 
     /**
      * The HBA port link is down.
- *      
- * 
- * HBA_PORTSTATE_LINKDOWN
+     *      
+     * 
+     * HBA_PORTSTATE_LINKDOWN
      * @type {Integer (Int32)}
      */
     static VDS_HPS_LINKDOWN => 6
 
     /**
      * The HBA port has an error.
- *      
- * 
- * HBA_PORTSTATE_ERROR
+     *      
+     * 
+     * HBA_PORTSTATE_ERROR
      * @type {Integer (Int32)}
      */
     static VDS_HPS_ERROR => 7
 
     /**
      * The HBA port is loopback.
- *      
- * 
- * HBA_PORTSTATE_LOOPBACK
+     *      
+     * 
+     * HBA_PORTSTATE_LOOPBACK
      * @type {Integer (Int32)}
      */
     static VDS_HPS_LOOPBACK => 8

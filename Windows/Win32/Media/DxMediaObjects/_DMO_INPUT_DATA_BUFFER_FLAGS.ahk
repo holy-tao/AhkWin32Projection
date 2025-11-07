@@ -16,8 +16,8 @@ class _DMO_INPUT_DATA_BUFFER_FLAGS{
 
     /**
      * The buffer's time stamp is valid.
- * 
- * The buffer's indicated time length is valid.
+     * 
+     * The buffer's indicated time length is valid.
      * @type {Integer (Int32)}
      */
     static DMO_INPUT_DATA_BUFFERF_TIME => 2

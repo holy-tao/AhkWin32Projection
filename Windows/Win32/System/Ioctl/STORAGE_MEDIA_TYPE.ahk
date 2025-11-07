@@ -375,16 +375,16 @@ class STORAGE_MEDIA_TYPE{
 
     /**
      * SAIT tape.
- * 
- * **Windows Server 2003:**  This is not supported before Windows Server 2003 with SP1.
+     * 
+     * **Windows Server 2003:**  This is not supported before Windows Server 2003 with SP1.
      * @type {Integer (Int32)}
      */
     static SAIT => 93
 
     /**
      * Exabyte VXA tape.
- * 
- * **Windows Server 2008:**  This is not supported before Windows Server 2008.
+     * 
+     * **Windows Server 2008:**  This is not supported before Windows Server 2008.
      * @type {Integer (Int32)}
      */
     static VXATape => 94

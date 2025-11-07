@@ -22,14 +22,14 @@ class VDS_ISCSI_AUTH_TYPE{
 
     /**
      * One-way CHAP authentication is performed (target authenticates initiator). The target CHAP secret must be 
- *      specified during login.
+     *      specified during login.
      * @type {Integer (Int32)}
      */
     static VDS_IAT_CHAP => 1
 
     /**
      * Mutual CHAP authentication is performed (target authenticates initiator and initiator authenticates 
- *      target). The target CHAP secret must be specified and the initiator CHAP secret must also have been set.
+     *      target). The target CHAP secret must be specified and the initiator CHAP secret must also have been set.
      * @type {Integer (Int32)}
      */
     static VDS_IAT_MUTUAL_CHAP => 2

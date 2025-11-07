@@ -32,8 +32,8 @@ class MFFrameSourceTypes{
 
     /**
      * The frame source provides image data.
- * 
- * <b>Note</b>  This value was added in Windows 10, version 1803.
+     * 
+     * <b>Note</b>  This value was added in Windows 10, version 1803.
      * @type {Integer (Int32)}
      */
     static MFFrameSourceTypes_Image => 8

@@ -28,12 +28,12 @@ class D3D12_RESOURCE_STATES{
 
     /**
      * Your application should transition to this state only for accessing a resource across different graphics engine types.
- * 
- * Specifically, a resource must be in the COMMON state before being used on a COPY queue (when previous used on DIRECT/COMPUTE), and before being used on DIRECT/COMPUTE (when previously used on COPY). This restriction does not exist when accessing data between DIRECT and COMPUTE queues.
- * 
- * The COMMON state can be used for all usages on a Copy queue using the implicit state transitions. For more info, in <a href="https://docs.microsoft.com/windows/win32/direct3d12/user-mode-heap-synchronization">Multi-engine synchronization</a>, find "common".          
- * 
- * Additionally, textures must be in the COMMON state for CPU access to be legal, assuming the texture was created in a CPU-visible heap in the first place.
+     * 
+     * Specifically, a resource must be in the COMMON state before being used on a COPY queue (when previous used on DIRECT/COMPUTE), and before being used on DIRECT/COMPUTE (when previously used on COPY). This restriction does not exist when accessing data between DIRECT and COMPUTE queues.
+     * 
+     * The COMMON state can be used for all usages on a Copy queue using the implicit state transitions. For more info, in <a href="https://docs.microsoft.com/windows/win32/direct3d12/user-mode-heap-synchronization">Multi-engine synchronization</a>, find "common".          
+     * 
+     * Additionally, textures must be in the COMMON state for CPU access to be legal, assuming the texture was created in a CPU-visible heap in the first place.
      * @type {Integer (Int32)}
      */
     static D3D12_RESOURCE_STATE_COMMON => 0
@@ -52,8 +52,8 @@ class D3D12_RESOURCE_STATES{
 
     /**
      * The resource is used as a render target. A subresource must be in this state when it is rendered to or when it is cleared with <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearrendertargetview">ID3D12GraphicsCommandList::ClearRenderTargetView</a>.
- * 
- * This is a write-only state. To read from a render target as a shader resource the resource must be in either  D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE or D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE.
+     * 
+     * This is a write-only state. To read from a render target as a shader resource the resource must be in either  D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE or D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE.
      * @type {Integer (Int32)}
      */
     static D3D12_RESOURCE_STATE_RENDER_TARGET => 4
@@ -96,24 +96,24 @@ class D3D12_RESOURCE_STATES{
 
     /**
      * The resource is used as an indirect argument.
- *             Subresources must be in this state when they are used as the argument buffer passed to the indirect drawing method <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect">ID3D12GraphicsCommandList::ExecuteIndirect</a>.
- *             This is a read-only state.
+     *             Subresources must be in this state when they are used as the argument buffer passed to the indirect drawing method <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect">ID3D12GraphicsCommandList::ExecuteIndirect</a>.
+     *             This is a read-only state.
      * @type {Integer (Int32)}
      */
     static D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT => 512
 
     /**
      * The resource is used as the destination in a copy operation.
- *             Subresources must be in this state when they are used as the destination of copy operation, or a blt operation.
- *             This is a write-only state.
+     *             Subresources must be in this state when they are used as the destination of copy operation, or a blt operation.
+     *             This is a write-only state.
      * @type {Integer (Int32)}
      */
     static D3D12_RESOURCE_STATE_COPY_DEST => 1024
 
     /**
      * The resource is used as the source in a copy operation.
- *             Subresources must be in this state when they are used as the source of copy operation, or a blt operation.
- *             This is a read-only state.
+     *             Subresources must be in this state when they are used as the source of copy operation, or a blt operation.
+     *             This is a read-only state.
      * @type {Integer (Int32)}
      */
     static D3D12_RESOURCE_STATE_COPY_SOURCE => 2048

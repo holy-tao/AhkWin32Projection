@@ -111,8 +111,8 @@ class eAVEncH264VLevel{
 
     /**
      * Level 5.2
- * 
- * Supported in Windows 8.1 and later.
+     * 
+     * Supported in Windows 8.1 and later.
      * @type {Integer (Int32)}
      */
     static eAVEncH264VLevel5_2 => 52

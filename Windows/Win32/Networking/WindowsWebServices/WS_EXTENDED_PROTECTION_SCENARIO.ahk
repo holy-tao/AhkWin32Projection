@@ -16,7 +16,7 @@ class WS_EXTENDED_PROTECTION_SCENARIO{
 
     /**
      * An SSL connection exists but is terminated at an intermediary. The connection between the intermediary and the server may or may not
- *                     use SSL. When this property is set, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_property_id">WS_SECURITY_PROPERTY_ID</a> must be set as well.
+     *                     use SSL. When this property is set, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_property_id">WS_SECURITY_PROPERTY_ID</a> must be set as well.
      * @type {Integer (Int32)}
      */
     static WS_EXTENDED_PROTECTION_SCENARIO_TERMINATED_SSL => 2

@@ -77,8 +77,8 @@ class EndpointFormFactor{
 
     /**
      * An audio endpoint device that connects to an audio adapter through a High-Definition Multimedia Interface (HDMI) connector or a display port.
- * 
- * In <b>Windows Vista</b>, this value was named HDMI.
+     * 
+     * In <b>Windows Vista</b>, this value was named HDMI.
      * @type {Integer (Int32)}
      */
     static DigitalAudioDisplayDevice => 9

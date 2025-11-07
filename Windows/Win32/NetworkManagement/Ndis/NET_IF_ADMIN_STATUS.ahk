@@ -16,23 +16,23 @@ class NET_IF_ADMIN_STATUS{
 
     /**
      * Specifies that the interface is initialized and enabled, but the interface is not necessarily
- *      ready to transmit and receive network data because that depends on the operational status of the
- *      interface. For more information about the operational status of an interface, see 
- *      <a href="https://docs.microsoft.com/windows-hardware/drivers/network/oid-gen-operational-status">OID_GEN_OPERATIONAL_STATUS</a>.
+     *      ready to transmit and receive network data because that depends on the operational status of the
+     *      interface. For more information about the operational status of an interface, see 
+     *      <a href="https://docs.microsoft.com/windows-hardware/drivers/network/oid-gen-operational-status">OID_GEN_OPERATIONAL_STATUS</a>.
      * @type {Integer (Int32)}
      */
     static NET_IF_ADMIN_STATUS_UP => 1
 
     /**
      * Specifies that the interface is down, and this interface cannot be used to transmit or receive
- *      network data.
+     *      network data.
      * @type {Integer (Int32)}
      */
     static NET_IF_ADMIN_STATUS_DOWN => 2
 
     /**
      * Specifies that the interface is in a test mode, and no network data can be transmitted or
- *      received.
+     *      received.
      * @type {Integer (Int32)}
      */
     static NET_IF_ADMIN_STATUS_TESTING => 3

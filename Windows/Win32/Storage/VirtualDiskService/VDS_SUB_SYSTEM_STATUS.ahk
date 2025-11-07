@@ -39,22 +39,22 @@ class VDS_SUB_SYSTEM_STATUS{
 
     /**
      * The subsystem is unavailable. This value indicates either that the subsystem is disconnected or that it has 
- *       failed so severely that it appears to be disconnected.
+     *       failed so severely that it appears to be disconnected.
      * @type {Integer (Int32)}
      */
     static VDS_SSS_OFFLINE => 4
 
     /**
      * The subsystem has failed. This value indicates that the subsystem is not merely 
- *       disconnected but rather that it has failed.
+     *       disconnected but rather that it has failed.
      * @type {Integer (Int32)}
      */
     static VDS_SSS_FAILED => 5
 
     /**
      * The subsystem is operating in a degraded state. This means that one or more of the subsystem's subcomponents, such as  disk drives or controllers, are in a failed state.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_SSS_PARTIALLY_MANAGED => 9

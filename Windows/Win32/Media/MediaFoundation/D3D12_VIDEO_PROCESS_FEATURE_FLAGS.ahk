@@ -31,8 +31,8 @@ class D3D12_VIDEO_PROCESS_FEATURE_FLAGS{
 
     /**
      * The video processor can support 3D stereo video. For more information, see <a href="ne-d3d12video-d3d12_video_frame_stereo_format.md">D3D12_VIDEO_FRAME_STEREO_FORMAT</a>.
- * 
- * All drivers setting this capability must support the following stereo formats: D3D12_VIDEO_PROCESS_STEREO_FORMAT_HORIZONTAL, D3D12_VIDEO_PROCESS_STEREO_FORMAT_VERTICAL, and D3D12_VIDEO_PROCESS_STEREO_FORMAT_SEPARATE.
+     * 
+     * All drivers setting this capability must support the following stereo formats: D3D12_VIDEO_PROCESS_STEREO_FORMAT_HORIZONTAL, D3D12_VIDEO_PROCESS_STEREO_FORMAT_VERTICAL, and D3D12_VIDEO_PROCESS_STEREO_FORMAT_SEPARATE.
      * @type {Integer (Int32)}
      */
     static D3D12_VIDEO_PROCESS_FEATURE_FLAG_STEREO => 4

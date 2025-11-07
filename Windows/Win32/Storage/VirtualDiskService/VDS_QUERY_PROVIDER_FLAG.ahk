@@ -30,8 +30,8 @@ class VDS_QUERY_PROVIDER_FLAG{
 
     /**
      * If set, the operation queries for virtual disk providers.
- * 
- * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>Not supported.
      * @type {Integer (Int32)}
      */
     static VDS_QUERY_VIRTUALDISK_PROVIDERS => 4

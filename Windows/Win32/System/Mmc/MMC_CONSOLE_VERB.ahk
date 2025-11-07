@@ -10,7 +10,7 @@ class MMC_CONSOLE_VERB{
 
     /**
      * No verbs specified. Snap-ins can use this verb in calls to 
- * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iconsoleverb-setdefaultverb">IConsoleVerb::SetDefaultVerb</a> to specify that the selected item does not have a default verb.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iconsoleverb-setdefaultverb">IConsoleVerb::SetDefaultVerb</a> to specify that the selected item does not have a default verb.
      * @type {Integer (Int32)}
      */
     static MMC_VERB_NONE => 0
@@ -41,8 +41,8 @@ class MMC_CONSOLE_VERB{
 
     /**
      * The console instructs the snap-in and all snap-in extensions to provide property pages for the currently selected item. When the user activates this verb, MMC calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa814847(v=vs.85)">IExtendPropertySheet2::CreatePropertyPages</a> method of all snap-ins (primary and extension) that add property pages for the selected item.
- * 
- * Be aware that primary snap-ins are responsible for enabling the <b>MMC_VERB_PROPERTIES</b> verb. Extensions snap-ins cannot do this, because they do not own the item for which the verb is enabled.
+     * 
+     * Be aware that primary snap-ins are responsible for enabling the <b>MMC_VERB_PROPERTIES</b> verb. Extensions snap-ins cannot do this, because they do not own the item for which the verb is enabled.
      * @type {Integer (Int32)}
      */
     static MMC_VERB_PROPERTIES => 32772

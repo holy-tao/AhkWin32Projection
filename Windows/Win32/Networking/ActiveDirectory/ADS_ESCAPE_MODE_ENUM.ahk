@@ -27,49 +27,49 @@ class ADS_ESCAPE_MODE_ENUM{
 
     /**
      * The default escape mode provides a convenient option to specify the escape mode. It has the effect of minimal escape operation appropriate for a chosen format. Thus, the default behavior depends on the value that  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_format_enum">ADS_FORMAT_ENUM</a> uses to retrieve the directory paths.
- * 
- * <table>
- * <tr>
- * <th>Retrieved path format</th>
- * <th>Default escaped mode</th>
- * </tr>
- * <tr>
- * <td><b>ADS_FORMAT_X500</b></td>
- * <td><b>ADS_ESCAPEDMODE_ON</b></td>
- * </tr>
- * <tr>
- * <td><b>ADS_FORMAT_X500_NO_SERVER</b></td>
- * <td><b>ADS_ESCAPEDMODE_ON</b></td>
- * </tr>
- * <tr>
- * <td><b>ADS_FORMAT_WINDOWS</b></td>
- * <td><b>ADS_ESCAPEDMODE_ON</b></td>
- * </tr>
- * <tr>
- * <td><b>ADS_FORMAT_WINDOWS_NO_SERVER</b></td>
- * <td><b>ADS_ESCAPEDMODE_ON</b></td>
- * </tr>
- * <tr>
- * <td><b>ADS_FORMAT_X500_DN</b></td>
- * <td><b>ADS_ESCAPEDMODE_OFF</b></td>
- * </tr>
- * <tr>
- * <td><b>ADS_FORMAT_X500_PARENT</b></td>
- * <td><b>ADS_ESCAPEDMODE_OFF</b></td>
- * </tr>
- * <tr>
- * <td><b>ADS_FORMAT_WINDOWS_DN</b></td>
- * <td><b>ADS_ESCAPEDMODE_OFF</b></td>
- * </tr>
- * <tr>
- * <td><b>ADS_FORMAT_WINDOWS_PARENT</b></td>
- * <td><b>ADS_ESCAPEDMODE_OFF</b></td>
- * </tr>
- * <tr>
- * <td><b>ADS_FORMAT_LEAF</b></td>
- * <td><b>ADS_ESCAPEDMODE_ON</b></td>
- * </tr>
- * </table>
+     * 
+     * <table>
+     * <tr>
+     * <th>Retrieved path format</th>
+     * <th>Default escaped mode</th>
+     * </tr>
+     * <tr>
+     * <td><b>ADS_FORMAT_X500</b></td>
+     * <td><b>ADS_ESCAPEDMODE_ON</b></td>
+     * </tr>
+     * <tr>
+     * <td><b>ADS_FORMAT_X500_NO_SERVER</b></td>
+     * <td><b>ADS_ESCAPEDMODE_ON</b></td>
+     * </tr>
+     * <tr>
+     * <td><b>ADS_FORMAT_WINDOWS</b></td>
+     * <td><b>ADS_ESCAPEDMODE_ON</b></td>
+     * </tr>
+     * <tr>
+     * <td><b>ADS_FORMAT_WINDOWS_NO_SERVER</b></td>
+     * <td><b>ADS_ESCAPEDMODE_ON</b></td>
+     * </tr>
+     * <tr>
+     * <td><b>ADS_FORMAT_X500_DN</b></td>
+     * <td><b>ADS_ESCAPEDMODE_OFF</b></td>
+     * </tr>
+     * <tr>
+     * <td><b>ADS_FORMAT_X500_PARENT</b></td>
+     * <td><b>ADS_ESCAPEDMODE_OFF</b></td>
+     * </tr>
+     * <tr>
+     * <td><b>ADS_FORMAT_WINDOWS_DN</b></td>
+     * <td><b>ADS_ESCAPEDMODE_OFF</b></td>
+     * </tr>
+     * <tr>
+     * <td><b>ADS_FORMAT_WINDOWS_PARENT</b></td>
+     * <td><b>ADS_ESCAPEDMODE_OFF</b></td>
+     * </tr>
+     * <tr>
+     * <td><b>ADS_FORMAT_LEAF</b></td>
+     * <td><b>ADS_ESCAPEDMODE_ON</b></td>
+     * </tr>
+     * </table>
      * @type {Integer (Int32)}
      */
     static ADS_ESCAPEDMODE_DEFAULT => 1

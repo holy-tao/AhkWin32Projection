@@ -508,8 +508,8 @@ class RESTRICTIONS{
 
     /**
      * If nonzero, the system administrator has restricted the programs the user can run.  Programs listed under the registry key 
- *                             
- *                                <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Policies</b>&#92;<b>Explorer</b>&#92;<b>DisallowRun</b>may not be run from the <b>Run</b> dialog box, by double-clicking, or by selecting from the <b>File</b> menu.  Programs are listed by their full path (for example, "C:\Windows\system32\cmd.exe"). Applications should prevent users from running programs listed under that key. Applications that use the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecutea">ShellExecute</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecuteexa">ShellExecuteEx</a> function to run programs do not need to take any special action because those functions will check the policy.
+     *                             
+     *                                <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Policies</b>&#92;<b>Explorer</b>&#92;<b>DisallowRun</b>may not be run from the <b>Run</b> dialog box, by double-clicking, or by selecting from the <b>File</b> menu.  Programs are listed by their full path (for example, "C:\Windows\system32\cmd.exe"). Applications should prevent users from running programs listed under that key. Applications that use the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecutea">ShellExecute</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecuteexa">ShellExecuteEx</a> function to run programs do not need to take any special action because those functions will check the policy.
      * @type {Integer (Int32)}
      */
     static REST_DISALLOWRUN => 1073741886
@@ -522,14 +522,14 @@ class RESTRICTIONS{
 
     /**
      * If nonzero, the system administrator has restricted the control panel applications the user can run.  In order to be run, a control panel application must be listed under the registry key 
- *                                <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Policies</b>&#92;<b>Explorer</b>&#92;<b>RestrictCpl</b>. The control panel application can be listed either under its display name (for example, "Mouse") or under its filename (for example, "main.cpl"). Applications that launch control panel applications should prevent users from running control panel applications not listed under that key.
+     *                                <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Policies</b>&#92;<b>Explorer</b>&#92;<b>RestrictCpl</b>. The control panel application can be listed either under its display name (for example, "Mouse") or under its filename (for example, "main.cpl"). Applications that launch control panel applications should prevent users from running control panel applications not listed under that key.
      * @type {Integer (Int32)}
      */
     static REST_RESTRICTCPL => 1073741888
 
     /**
      * If nonzero, the system administrator has restricted the control panel applications the user can run.  In order to be run, a control panel application must not be listed under the registry key 
- *                                <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Policies</b>&#92;<b>Explorer</b>&#92;<b>DisallowCpl</b>. The control panel application can be listed either under its display name (for example, "Mouse") or under its filename (for example, "main.cpl"). Applications that launch control panel applications should prevent users from running control panel applications listed under that key.
+     *                                <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Policies</b>&#92;<b>Explorer</b>&#92;<b>DisallowCpl</b>. The control panel application can be listed either under its display name (for example, "Mouse") or under its filename (for example, "main.cpl"). Applications that launch control panel applications should prevent users from running control panel applications listed under that key.
      * @type {Integer (Int32)}
      */
     static REST_DISALLOWCPL => 1073741889
@@ -560,28 +560,28 @@ class RESTRICTIONS{
 
     /**
      * If nonzero, the system administrator has disabled the execution of programs listed in the 
- *                    <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Run</b>registry key. Applications do not need to perform any special actions.
+     *                    <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Run</b>registry key. Applications do not need to perform any special actions.
      * @type {Integer (Int32)}
      */
     static REST_NOLOCALMACHINERUN => 1073741894
 
     /**
      * If nonzero, the system administrator has disabled the execution of programs listed in the 
- *                    <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Run</b>registry key. Applications do not need to perform any special actions.
+     *                    <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Run</b>registry key. Applications do not need to perform any special actions.
      * @type {Integer (Int32)}
      */
     static REST_NOCURRENTUSERRUN => 1073741895
 
     /**
      * If nonzero, the system administrator has disabled the execution of programs listed in the 
- *                    <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>RunOnce</b>registry key. Applications do not need to perform any special actions.
+     *                    <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>RunOnce</b>registry key. Applications do not need to perform any special actions.
      * @type {Integer (Int32)}
      */
     static REST_NOLOCALMACHINERUNONCE => 1073741896
 
     /**
      * If nonzero, the system administrator has disabled the execution of programs listed in the 
- *                    <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>RunOnce</b>registry key. Applications do not need to perform any special actions.
+     *                    <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>RunOnce</b>registry key. Applications do not need to perform any special actions.
      * @type {Integer (Int32)}
      */
     static REST_NOCURRENTUSERRUNONCE => 1073741897
@@ -666,21 +666,21 @@ class RESTRICTIONS{
 
     /**
      * <b>
- *               Windows 2000 SP3 or later.</b> If nonzero, the system administrator has disabled the <b>System Properties</b> dialog box. Applications should not launch the <b>System Properties</b> dialog box.
+     *               Windows 2000 SP3 or later.</b> If nonzero, the system administrator has disabled the <b>System Properties</b> dialog box. Applications should not launch the <b>System Properties</b> dialog box.
      * @type {Integer (Int32)}
      */
     static REST_MYCOMPNOPROP => 1073741912
 
     /**
      * <b>
- *               Windows 2000 SP3 or later.</b> If nonzero, the system administrator has disabled the ability to view properties of the <b>My Documents</b> folder. Applications should not redirect the <b>My Documents</b> folder.
+     *               Windows 2000 SP3 or later.</b> If nonzero, the system administrator has disabled the ability to view properties of the <b>My Documents</b> folder. Applications should not redirect the <b>My Documents</b> folder.
      * @type {Integer (Int32)}
      */
     static REST_MYDOCSNOPROP => 1073741913
 
     /**
      * <b>
- *               Windows XP or later.</b> If nonzero, the system administrator has disabled the Windows XP <b>Start</b> menu. Applications do not need to perform any special actions.
+     *               Windows XP or later.</b> If nonzero, the system administrator has disabled the Windows XP <b>Start</b> menu. Applications do not need to perform any special actions.
      * @type {Integer (Int32)}
      */
     static REST_NOSTARTPANEL => 1073741914
@@ -723,7 +723,7 @@ class RESTRICTIONS{
 
     /**
      * <b>
- *               Windows 2000 SP3 or later.</b> If nonzero, the default working directory for programs run from the Run dialog is not forced to the user's home directory. Applications do not need to perform any special actions.
+     *               Windows 2000 SP3 or later.</b> If nonzero, the default working directory for programs run from the Run dialog is not forced to the user's home directory. Applications do not need to perform any special actions.
      * @type {Integer (Int32)}
      */
     static REST_STARTRUNNOHOMEPATH => 1073741921
@@ -766,14 +766,14 @@ class RESTRICTIONS{
 
     /**
      * <b>
- *               Windows XP or later.</b> If nonzero, the system administrator has hidden the <b>All Programs</b> item on the Windows XP <b>Start</b> menu. Applications should not show the contents of the <b>Start</b> menu folder to the user.
+     *               Windows XP or later.</b> If nonzero, the system administrator has hidden the <b>All Programs</b> item on the Windows XP <b>Start</b> menu. Applications should not show the contents of the <b>Start</b> menu folder to the user.
      * @type {Integer (Int32)}
      */
     static REST_NOSMMOREPROGRAMS => 1073741928
 
     /**
      * <b>
- *               Windows XP or later.</b> If nonzero, the system administrator has hidden the list of most frequently used programs on the Windows XP <b>Start</b> menu. Applications do not need to perform any special actions.
+     *               Windows XP or later.</b> If nonzero, the system administrator has hidden the list of most frequently used programs on the Windows XP <b>Start</b> menu. Applications do not need to perform any special actions.
      * @type {Integer (Int32)}
      */
     static REST_NOSMMFUPROGRAMS => 1073741929
@@ -792,7 +792,7 @@ class RESTRICTIONS{
 
     /**
      * <b>
- *               Windows 2000 SP3 or later.</b> If nonzero, the system administrator has hidden the <b>Set Program Access</b> and <b>Defaults</b> shortcut on the <b>Start</b> menu. Applications that enumerate the contents of the <b>Start</b> menu should not show the <b>Set Program Access</b> and <b>Defaults</b> shortcut to the user.
+     *               Windows 2000 SP3 or later.</b> If nonzero, the system administrator has hidden the <b>Set Program Access</b> and <b>Defaults</b> shortcut on the <b>Start</b> menu. Applications that enumerate the contents of the <b>Start</b> menu should not show the <b>Set Program Access</b> and <b>Defaults</b> shortcut to the user.
      * @type {Integer (Int32)}
      */
     static REST_NOSMCONFIGUREPROGRAMS => 1073741935
@@ -883,37 +883,37 @@ class RESTRICTIONS{
 
     /**
      * <b>
- *               Windows XP SP1 or later, or IE_BACKCOMPAT_VERSION defined.</b>
- *              If nonzero, the system administrator has specified that filenames should be sorted with the <b>StringCompare</b> function instead of the <b>StrCmpLogical</b> function. Applications that sort filenames should sort accordingly.  (This policy does not apply to Windows 2000.)
+     *               Windows XP SP1 or later, or IE_BACKCOMPAT_VERSION defined.</b>
+     *              If nonzero, the system administrator has specified that filenames should be sorted with the <b>StringCompare</b> function instead of the <b>StrCmpLogical</b> function. Applications that sort filenames should sort accordingly.  (This policy does not apply to Windows 2000.)
      * @type {Integer (Int32)}
      */
     static REST_NOSTRCMPLOGICAL => 1073741950
 
     /**
      * <b>
- *               Windows XP SP1 or later service pack, Windows Server 2003 or IE_BACKCOMPAT_VERSION defined.</b> Disables the Windows Publishing Wizard (WPW).<b>Windows Vista or later</b>: Not used.
+     *               Windows XP SP1 or later service pack, Windows Server 2003 or IE_BACKCOMPAT_VERSION defined.</b> Disables the Windows Publishing Wizard (WPW).<b>Windows Vista or later</b>: Not used.
      * @type {Integer (Int32)}
      */
     static REST_NOPUBLISHWIZARD => 1073741951
 
     /**
      * <b>
- *               Windows XP SP1 or later, or IE_BACKCOMPAT_VERSION defined.</b> Disables the Online Prints Wizard (OPW). <b>Windows Vista or later</b>: Not used.
+     *               Windows XP SP1 or later, or IE_BACKCOMPAT_VERSION defined.</b> Disables the Online Prints Wizard (OPW). <b>Windows Vista or later</b>: Not used.
      * @type {Integer (Int32)}
      */
     static REST_NOONLINEPRINTSWIZARD => 1073741952
 
     /**
      * <b>
- *               Windows XP SP1 or later, or IE_BACKCOMPAT_VERSION defined.</b>
- *              Disables the web specified services for both the Online Prints Wizard (OPW) and the Windows Publishing Wizard (WPW).
+     *               Windows XP SP1 or later, or IE_BACKCOMPAT_VERSION defined.</b>
+     *              Disables the web specified services for both the Online Prints Wizard (OPW) and the Windows Publishing Wizard (WPW).
      * @type {Integer (Int32)}
      */
     static REST_NOWEBSERVICES => 1073741953
 
     /**
      * <b>
- *               Windows 2000 SP3 or later, Windows XP, or Windows Server 2003.</b> If nonzero, the system administrator has granted permission for unregistered web view templates to be displayed. Applications do not need to perform any special actions. <b>Windows Vista or later</b>: Not used.
+     *               Windows 2000 SP3 or later, Windows XP, or Windows Server 2003.</b> If nonzero, the system administrator has granted permission for unregistered web view templates to be displayed. Applications do not need to perform any special actions. <b>Windows Vista or later</b>: Not used.
      * @type {Integer (Int32)}
      */
     static REST_ALLOWUNHASHEDWEBVIEW => 1073741954
@@ -926,7 +926,7 @@ class RESTRICTIONS{
 
     /**
      * <b>
- *               Windows 2000 SP3 or later, Windows XP, or Windows Server 2003.</b> If nonzero, the system administrator has reduced web view security to the level that existed in Windows 2000 SP2 or earlier. Applications do not need to perform any special actions.  (This policy does not apply to Windows 2000 SP2 or earlier.) <b>Windows Vista or later</b>: Not used.
+     *               Windows 2000 SP3 or later, Windows XP, or Windows Server 2003.</b> If nonzero, the system administrator has reduced web view security to the level that existed in Windows 2000 SP2 or earlier. Applications do not need to perform any special actions.  (This policy does not apply to Windows 2000 SP2 or earlier.) <b>Windows Vista or later</b>: Not used.
      * @type {Integer (Int32)}
      */
     static REST_REVERTWEBVIEWSECURITY => 1073741956
@@ -939,49 +939,49 @@ class RESTRICTIONS{
 
     /**
      * <b>
- *               Windows XP SP2 or later.</b> Do not register network change events recursively. This helps to avoid network traffic.
+     *               Windows XP SP2 or later.</b> Do not register network change events recursively. This helps to avoid network traffic.
      * @type {Integer (Int32)}
      */
     static REST_NOREMOTERECURSIVEEVENTS => 1073741961
 
     /**
      * <b>
- *               Windows XP SP2 or later.</b> Do not notify for remote change notifications.
+     *               Windows XP SP2 or later.</b> Do not notify for remote change notifications.
      * @type {Integer (Int32)}
      */
     static REST_NOREMOTECHANGENOTIFY => 1073741969
 
     /**
      * <b>
- *               Windows XP SP2 or later.</b> Do not enumerate the entire network.
+     *               Windows XP SP2 or later.</b> Do not enumerate the entire network.
      * @type {Integer (Int32)}
      */
     static REST_NOENUMENTIRENETWORK => 1073741971
 
     /**
      * <b>
- *               Windows XP SP2 or later.</b> If nonzero, the system administrator has removed the ability to resolve file associations using the Internet. The option <b>Use the web service to find the appropriate program</b> is unavailable in the dialog displayed when the user selects <b>Open With</b> or double-clicks an unassociated file type.
+     *               Windows XP SP2 or later.</b> If nonzero, the system administrator has removed the ability to resolve file associations using the Internet. The option <b>Use the web service to find the appropriate program</b> is unavailable in the dialog displayed when the user selects <b>Open With</b> or double-clicks an unassociated file type.
      * @type {Integer (Int32)}
      */
     static REST_NOINTERNETOPENWITH => 1073741973
 
     /**
      * <b>
- *               Windows XP SP2 or later.</b> In <b>Network Places</b>, if the provider returns ERROR_BAD_NET_NAME, do not retry.
+     *               Windows XP SP2 or later.</b> In <b>Network Places</b>, if the provider returns ERROR_BAD_NET_NAME, do not retry.
      * @type {Integer (Int32)}
      */
     static REST_DONTRETRYBADNETNAME => 1073741979
 
     /**
      * <b>
- *               Windows XP SP2 or later, Windows Server 2003.</b> Re-enable legacy support for file.{guid} junctions in file system folders.
+     *               Windows XP SP2 or later, Windows Server 2003.</b> Re-enable legacy support for file.{guid} junctions in file system folders.
      * @type {Integer (Int32)}
      */
     static REST_ALLOWFILECLSIDJUNCTIONS => 1073741980
 
     /**
      * <b>
- *               Windows XP SP2 or later.</b> Disable the <b>Install Universal Plug and Play (UPnP)</b> task in <b>My Network Places</b>.
+     *               Windows XP SP2 or later.</b> Disable the <b>Install Universal Plug and Play (UPnP)</b> task in <b>My Network Places</b>.
      * @type {Integer (Int32)}
      */
     static REST_NOUPNPINSTALL => 1073741981
@@ -1018,7 +1018,7 @@ class RESTRICTIONS{
 
     /**
      * <b>
- *               Windows XP SP2 only. Not supported under Windows Vista or later.</b> Allows the user to toggle the position of the Comment and the Computer Name.
+     *               Windows XP SP2 only. Not supported under Windows Vista or later.</b> Allows the user to toggle the position of the Comment and the Computer Name.
      * @type {Integer (Int32)}
      */
     static REST_ALLOWCOMMENTTOGGLE => 1090519044

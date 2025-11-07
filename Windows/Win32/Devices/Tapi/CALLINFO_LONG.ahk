@@ -10,63 +10,63 @@ class CALLINFO_LONG{
 
     /**
      * The 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> available on the call.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> available on the call.
      * @type {Integer (Int32)}
      */
     static CIL_MEDIATYPESAVAILABLE => 0
 
     /**
      * The bearer mode of a call is described by the 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linebearermode--constants">LINEBEARERMODE_ Constants</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linebearermode--constants">LINEBEARERMODE_ Constants</a>.
      * @type {Integer (Int32)}
      */
     static CIL_BEARERMODE => 1
 
     /**
      * The 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">address type</a> of the caller.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">address type</a> of the caller.
      * @type {Integer (Int32)}
      */
     static CIL_CALLERIDADDRESSTYPE => 2
 
     /**
      * The 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">address type</a> of the called party.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">address type</a> of the called party.
      * @type {Integer (Int32)}
      */
     static CIL_CALLEDIDADDRESSTYPE => 3
 
     /**
      * The 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">address type</a> of the connected party.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">address type</a> of the connected party.
      * @type {Integer (Int32)}
      */
     static CIL_CONNECTEDIDADDRESSTYPE => 4
 
     /**
      * The 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">address type</a> of the destination to which a call has been redirected.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">address type</a> of the destination to which a call has been redirected.
      * @type {Integer (Int32)}
      */
     static CIL_REDIRECTIONIDADDRESSTYPE => 5
 
     /**
      * The 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">address type</a> of the location that redirected the call.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddresstype--constants">address type</a> of the location that redirected the call.
      * @type {Integer (Int32)}
      */
     static CIL_REDIRECTINGIDADDRESSTYPE => 6
 
     /**
      * The origin of a call is described by the 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linecallorigin--constants">LINECALLORIGIN_ Constants</a>, such as LINECALLORIGIN_EXTERNAL.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linecallorigin--constants">LINECALLORIGIN_ Constants</a>, such as LINECALLORIGIN_EXTERNAL.
      * @type {Integer (Int32)}
      */
     static CIL_ORIGIN => 7
 
     /**
      * The reason for a call is described by the 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linecallreason--constants">LINECALLREASON_ Constants</a>, such as LINECALLREASON_FWDUNCOND.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linecallreason--constants">LINECALLREASON_ Constants</a>, such as LINECALLREASON_FWDUNCOND.
      * @type {Integer (Int32)}
      */
     static CIL_REASON => 8
@@ -79,14 +79,14 @@ class CALLINFO_LONG{
 
     /**
      * Call parameter flags are described by 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linecallparamflags--constants">LINECALLPARAMFLAGS_ Constants</a>, such as LINECALLPARAMFLAGS_BLOCKID. These flags are normally set during the creation of an outgoing call.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linecallparamflags--constants">LINECALLPARAMFLAGS_ Constants</a>, such as LINECALLPARAMFLAGS_BLOCKID. These flags are normally set during the creation of an outgoing call.
      * @type {Integer (Int32)}
      */
     static CIL_CALLPARAMSFLAGS => 10
 
     /**
      * Call treatment identifies how a call that is on hold or unanswered gets handled, and is described by 
- * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linecalltreatment--constants">LINECALLTREATMENT_ Constants</a>, such as LINECALLTREATMENT_MUSIC.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linecalltreatment--constants">LINECALLTREATMENT_ Constants</a>, such as LINECALLTREATMENT_MUSIC.
      * @type {Integer (Int32)}
      */
     static CIL_CALLTREATMENT => 11

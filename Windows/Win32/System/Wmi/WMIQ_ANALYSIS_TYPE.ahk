@@ -28,8 +28,8 @@ class WMIQ_ANALYSIS_TYPE{
 
     /**
      * Used to return a text string that has the original query text. If this type of analysis is used,  <i>pAnalysis</i> points to a text string that contains the original query text.
- * 
- * You can use this parameter if  a parser object is passed to another method.
+     * 
+     * You can use this parameter if  a parser object is passed to another method.
      * @type {Integer (Int32)}
      */
     static WMIQ_ANALYSIS_QUERY_TEXT => 4

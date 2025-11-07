@@ -10,56 +10,56 @@ class PerfRegInfoType{
 
     /**
      * Gets the registration information for a counter set and all of the counters it contains as a <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_reg_info">PERF_COUNTERSET_REG_INFO</a> block.  The block includes a <b>PERF_COUNTERSET_REG_INFO</b> structure followed by one or  
- * 
- *         more <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_reg_info">PERF_COUNTER_REG_INFO</a> structures.
+     * 
+     *         more <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_reg_info">PERF_COUNTER_REG_INFO</a> structures.
      * @type {Integer (Int32)}
      */
     static PERF_REG_COUNTERSET_STRUCT => 1
 
     /**
      * Gets the registration information for a performance counter as  a <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_reg_info">PERF_COUNTER_REG_INFO</a> structure.  
- * 
- *         Use the <i>requestLangId</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function to specify the counter identifier.
+     * 
+     *         Use the <i>requestLangId</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function to specify the counter identifier.
      * @type {Integer (Int32)}
      */
     static PERF_REG_COUNTER_STRUCT => 2
 
     /**
      * Gets a null-terminated UTF16-LE string that indicates the name of the counter set.  
- * 
- *         Use the <i>requestLangId</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function  to specify the preferred locale of the result.
+     * 
+     *         Use the <i>requestLangId</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function  to specify the preferred locale of the result.
      * @type {Integer (Int32)}
      */
     static PERF_REG_COUNTERSET_NAME_STRING => 3
 
     /**
      * Gets a null-terminated UTF16-LE string that contains the help string for the counter set.  
- * 
- *         Use the <i>requestLangId</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function to specify the preferred locale of the result.
+     * 
+     *         Use the <i>requestLangId</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function to specify the preferred locale of the result.
      * @type {Integer (Int32)}
      */
     static PERF_REG_COUNTERSET_HELP_STRING => 4
 
     /**
      * Gets the names of the performance counters in the counter set as a <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_buffer_header">PERF_STRING_BUFFER_HEADER</a> block.  
- * 
- *         The block includes a <b>PERF_STRING_BUFFER_HEADER</b> structure, followed by one  
- * 
- *         or more <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_counter_header">PERF_STRING_COUNTER_HEADER</a> structures, followed by string data that indicates the counter names.  
- * 
- *         Use the <i>requestLangId</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function to specify the preferred locale of the result.
+     * 
+     *         The block includes a <b>PERF_STRING_BUFFER_HEADER</b> structure, followed by one  
+     * 
+     *         or more <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_counter_header">PERF_STRING_COUNTER_HEADER</a> structures, followed by string data that indicates the counter names.  
+     * 
+     *         Use the <i>requestLangId</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function to specify the preferred locale of the result.
      * @type {Integer (Int32)}
      */
     static PERF_REG_COUNTER_NAME_STRINGS => 5
 
     /**
      * Gets the help  strings for the performance counters in the counter set as a <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_buffer_header">PERF_STRING_BUFFER_HEADER</a> block.  
- * 
- *         The block includes a <b>PERF_STRING_BUFFER_HEADER</b> structure, followed by one  
- * 
- *         or more <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_counter_header">PERF_STRING_COUNTER_HEADER</a> structures, followed by string data that contains the help strings.  
- * 
- *         Use the <i>requestLangId</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function to specify the preferred locale of the result.
+     * 
+     *         The block includes a <b>PERF_STRING_BUFFER_HEADER</b> structure, followed by one  
+     * 
+     *         or more <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_counter_header">PERF_STRING_COUNTER_HEADER</a> structures, followed by string data that contains the help strings.  
+     * 
+     *         Use the <i>requestLangId</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function to specify the preferred locale of the result.
      * @type {Integer (Int32)}
      */
     static PERF_REG_COUNTER_HELP_STRINGS => 6
@@ -84,10 +84,10 @@ class PerfRegInfoType{
 
     /**
      * Gets the English  names of the performance counters in the counter set as a <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_buffer_header">PERF_STRING_BUFFER_HEADER</a> block.  
- * 
- *         The block includes a <b>PERF_STRING_BUFFER_HEADER</b> structure, followed by one  
- * 
- *         or more <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_counter_header">PERF_STRING_COUNTER_HEADER</a> structures, followed by string data that indicates the counter names. This value is equivalent to setting the <i>requestCode</i> parameter to  <b>PERF_REG_COUNTER_NAME_STRINGS</b>  and the  <i>requestLangId</i> parameter to 0 when you call the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function.
+     * 
+     *         The block includes a <b>PERF_STRING_BUFFER_HEADER</b> structure, followed by one  
+     * 
+     *         or more <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_counter_header">PERF_STRING_COUNTER_HEADER</a> structures, followed by string data that indicates the counter names. This value is equivalent to setting the <i>requestCode</i> parameter to  <b>PERF_REG_COUNTER_NAME_STRINGS</b>  and the  <i>requestLangId</i> parameter to 0 when you call the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function.
      * @type {Integer (Int32)}
      */
     static PERF_REG_COUNTER_ENGLISH_NAMES => 10

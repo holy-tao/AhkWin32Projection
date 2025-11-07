@@ -16,14 +16,14 @@ class ASSOCSTR{
 
     /**
      * An executable from a Shell verb command string. For example, this string is found as the (Default) value for a subkey such as 
- *                     
- *                         <b>HKEY_CLASSES_ROOT</b>&#92;<i>ApplicationName</i>&#92;<b>shell</b>&#92;<b>Open</b>&#92;<b>command</b>. If the command uses Rundll.exe, set the <b>ASSOCF_REMAPRUNDLL</b> flag in the <i>flags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getstring">IQueryAssociations::GetString</a> to retrieve the target executable.
- * 
- * <div class="alert"><b>Caution</b>  <p class="note">Not all app associations have executables. Do not assume that an executable will always be present.
- * 
- * </div>
- * <div> </div>
- * This type of string will identify the code that will be invoked in the implementation of the verb.
+     *                     
+     *                         <b>HKEY_CLASSES_ROOT</b>&#92;<i>ApplicationName</i>&#92;<b>shell</b>&#92;<b>Open</b>&#92;<b>command</b>. If the command uses Rundll.exe, set the <b>ASSOCF_REMAPRUNDLL</b> flag in the <i>flags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getstring">IQueryAssociations::GetString</a> to retrieve the target executable.
+     * 
+     * <div class="alert"><b>Caution</b>  <p class="note">Not all app associations have executables. Do not assume that an executable will always be present.
+     * 
+     * </div>
+     * <div> </div>
+     * This type of string will identify the code that will be invoked in the implementation of the verb.
      * @type {Integer (Int32)}
      */
     static ASSOCSTR_EXECUTABLE => 2
@@ -114,16 +114,16 @@ class ASSOCSTR{
 
     /**
      * <b>Introduced in Internet Explorer 8</b>.. For a verb invoked through COM and the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> interface, you can use this flag to retrieve the <b>IDropTarget</b> object's CLSID. This CLSID is registered in the <b>DropTarget</b> subkey. The verb is specified in the <i>pwszExtra</i> parameter in the call to <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getstring">IQueryAssociations::GetString</a>.
- * 
- * This type of string will identify the code that will be invoked in the implementation of the verb.
+     * 
+     * This type of string will identify the code that will be invoked in the implementation of the verb.
      * @type {Integer (Int32)}
      */
     static ASSOCSTR_DROPTARGET => 17
 
     /**
      * <b>Introduced in Internet Explorer 8</b>.. For a verb invoked through COM and the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iexecutecommand">IExecuteCommand</a> interface, you can use this flag to retrieve the <b>IExecuteCommand</b> object's CLSID. This CLSID is registered in the verb's <b>command</b> subkey as the DelegateExecute entry. The verb is specified in the <i>pwszExtra</i> parameter in the call to <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getstring">IQueryAssociations::GetString</a>.
- * 
- * This type of string will identify the code that will be invoked in the implementation of the verb.
+     * 
+     * This type of string will identify the code that will be invoked in the implementation of the verb.
      * @type {Integer (Int32)}
      */
     static ASSOCSTR_DELEGATEEXECUTE => 18

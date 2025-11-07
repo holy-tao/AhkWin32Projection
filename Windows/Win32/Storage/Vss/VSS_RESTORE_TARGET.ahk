@@ -52,60 +52,60 @@ class VSS_RESTORE_TARGET{
 
     /**
      * No target is defined. 
- *      
- * 
- * This value indicates an error on the part of the writer.
- * 
- * This value is not supported for express writers.
+     *      
+     * 
+     * This value indicates an error on the part of the writer.
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_RT_UNDEFINED => 0
 
     /**
      * This is the default restore target. 
- *       
- * 
- * This value indicates that the restoration of the files included in a selected component (or the component set 
- *        defined by that component) should proceed according to the original restore method specified at backup time by 
- *        a <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restoremethod_enum">VSS_RESTOREMETHOD_ENUM</a> value.
+     *       
+     * 
+     * This value indicates that the restoration of the files included in a selected component (or the component set 
+     *        defined by that component) should proceed according to the original restore method specified at backup time by 
+     *        a <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restoremethod_enum">VSS_RESTOREMETHOD_ENUM</a> value.
      * @type {Integer (Int32)}
      */
     static VSS_RT_ORIGINAL => 1
 
     /**
      * The files are restored to a location determined from an existing alternate location mapping. 
- *       
- * 
- * The restore target should be set to <b>VSS_RT_ALTERNATE</b> only when alternate location 
- *        mappings have been set for all the files managed by a selected component or component set.
- * 
- * This value is not supported for express writers.
+     *       
+     * 
+     * The restore target should be set to <b>VSS_RT_ALTERNATE</b> only when alternate location 
+     *        mappings have been set for all the files managed by a selected component or component set.
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_RT_ALTERNATE => 2
 
     /**
      * Use directed targeting by the writer at restore time to restore a file.
- *       
- * 
- * Directed targeting allows a writer to control, on a file-by-file basis, how a file is 
- *        restored—indicating how much of a file is to be restored and into which files the 
- *        backed-up file is to be restored.
- * 
- * This value is not supported for express writers.
+     *       
+     * 
+     * Directed targeting allows a writer to control, on a file-by-file basis, how a file is 
+     *        restored—indicating how much of a file is to be restored and into which files the 
+     *        backed-up file is to be restored.
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_RT_DIRECTED => 3
 
     /**
      * The files are restored to the location at which they were at backup time, even if the original 
- *       restore method that was specified at backup time was 
- *       <b>VSS_RME_RESTORE_TO_ALTERNATE_LOCATION</b>.
- *       
- * 
- * <b>Windows Server 2003 and Windows XP:  </b>This value is not supported.
- * 
- * This value is not supported for express writers.
+     *       restore method that was specified at backup time was 
+     *       <b>VSS_RME_RESTORE_TO_ALTERNATE_LOCATION</b>.
+     *       
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>This value is not supported.
+     * 
+     * This value is not supported for express writers.
      * @type {Integer (Int32)}
      */
     static VSS_RT_ORIGINAL_LOCATION => 4

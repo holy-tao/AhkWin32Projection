@@ -40,7 +40,7 @@ class D2D1_DISTANTSPECULAR_SCALE_MODE{
 
     /**
      * Uses a variable size high quality cubic kernel to perform a pre-downscale the image if downscaling is involved in the transform matrix. 
- *           Then uses the cubic interpolation mode for the final output.
+     *           Then uses the cubic interpolation mode for the final output.
      * @type {Integer (Int32)}
      */
     static D2D1_DISTANTSPECULAR_SCALE_MODE_HIGH_QUALITY_CUBIC => 5

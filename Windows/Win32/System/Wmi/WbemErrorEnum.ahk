@@ -52,7 +52,7 @@ class WbemErrorEnum{
 
     /**
      * The 
- * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemnamedvalue">SWbemNamedValue</a> object is not valid.
+     * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemnamedvalue">SWbemNamedValue</a> object is not valid.
      * @type {Integer (Int32)}
      */
     static wbemErrInvalidContext => -2147217401
@@ -71,7 +71,7 @@ class WbemErrorEnum{
 
     /**
      * An internal, critical, and unexpected error occurred. Report this error to Microsoft Technical 
- *      Support.
+     *      Support.
      * @type {Integer (Int32)}
      */
     static wbemErrCriticalError => -2147217398
@@ -120,27 +120,27 @@ class WbemErrorEnum{
 
     /**
      * A provider referenced in the schema has an incorrect or incomplete registration. This error may be caused by 
- *      a missing <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/pragma-namespace">pragma namespace</a> command in the MOF file used to 
- *      register the provider, resulting in the provider being registered in the wrong WMI namespace. This error may also 
- *      be caused by a corrupt repository, which may be fixed by deleting it and recompiling the MOF files.
+     *      a missing <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/pragma-namespace">pragma namespace</a> command in the MOF file used to 
+     *      register the provider, resulting in the provider being registered in the wrong WMI namespace. This error may also 
+     *      be caused by a corrupt repository, which may be fixed by deleting it and recompiling the MOF files.
      * @type {Integer (Int32)}
      */
     static wbemErrInvalidProviderRegistration => -2147217390
 
     /**
      * COM cannot locate a provider referenced in the schema. This error may be caused by any of the following:
- * 
- * The provider is using a WMI DLL that does not match the .lib fileused when the provider was built.
- * 
- * The provider's DLL or any of the DLLs on which it depends is corrupt.
- * 
- * The provider failed to export 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-dllregisterserver">DllRegisterServer</a>.
- * 
- * An in-process provider was not registered using /regsvr32.
- * 
- * An out-of-process provider was not registered 
- *       using /regserver.
+     * 
+     * The provider is using a WMI DLL that does not match the .lib fileused when the provider was built.
+     * 
+     * The provider's DLL or any of the DLLs on which it depends is corrupt.
+     * 
+     * The provider failed to export 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-dllregisterserver">DllRegisterServer</a>.
+     * 
+     * An in-process provider was not registered using /regsvr32.
+     * 
+     * An out-of-process provider was not registered 
+     *       using /regserver.
      * @type {Integer (Int32)}
      */
     static wbemErrProviderLoadFailure => -2147217389
@@ -159,14 +159,14 @@ class WbemErrorEnum{
 
     /**
      * The requested operation is not valid. This error usually applies to invalid attempts to delete classes or 
- *      properties.
+     *      properties.
      * @type {Integer (Int32)}
      */
     static wbemErrInvalidOperation => -2147217386
 
     /**
      * The requested operation is not valid. This error usually applies to invalid attempts to delete classes or 
- *      properties.
+     *      properties.
      * @type {Integer (Int32)}
      */
     static wbemErrInvalidQuery => -2147217385
@@ -179,36 +179,36 @@ class WbemErrorEnum{
 
     /**
      * In a put operation, the <b>wbemChangeFlagCreateOnly</b> flag was specified, but the 
- *      instance already exists.
+     *      instance already exists.
      * @type {Integer (Int32)}
      */
     static wbemErrAlreadyExists => -2147217383
 
     /**
      * It is not possible to perform the add operation on this qualifier because the owning object does not permit 
- *      overrides.
+     *      overrides.
      * @type {Integer (Int32)}
      */
     static wbemErrOverrideNotAllowed => -2147217382
 
     /**
      * The user attempted to delete a qualifier that was not owned. The qualifier was inherited from a parent 
- *      class.
+     *      class.
      * @type {Integer (Int32)}
      */
     static wbemErrPropagatedQualifier => -2147217381
 
     /**
      * The user attempted to delete a property that was not owned. The property was inherited from a parent 
- *      class.
+     *      class.
      * @type {Integer (Int32)}
      */
     static wbemErrPropagatedProperty => -2147217380
 
     /**
      * The client made an unexpected and illegal sequence of calls, such as calling 
- *      <b>EndEnumeration</b> before calling 
- *      <b>BeginEnumeration</b>.
+     *      <b>EndEnumeration</b> before calling 
+     *      <b>BeginEnumeration</b>.
      * @type {Integer (Int32)}
      */
     static wbemErrUnexpected => -2147217379
@@ -221,22 +221,22 @@ class WbemErrorEnum{
 
     /**
      * There was an illegal attempt to specify a key qualifier on a property that cannot be a key. The keys are 
- *      specified in the class definition for an object, and cannot be altered on a per-instance basis.
+     *      specified in the class definition for an object, and cannot be altered on a per-instance basis.
      * @type {Integer (Int32)}
      */
     static wbemErrCannotBeKey => -2147217377
 
     /**
      * The current object is not a valid class definition. Either it is incomplete, or it has not been registered 
- *      with WMI using <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemobject-put-">SWbemObject.Put_</a>.
+     *      with WMI using <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemobject-put-">SWbemObject.Put_</a>.
      * @type {Integer (Int32)}
      */
     static wbemErrIncompleteClass => -2147217376
 
     /**
      * The syntax of an input parameter is incorrect for the applicable data structure. For example, when a CIM 
- *      datetime structure does not have the correct format when passed to 
- *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemdatetime-setfiletime">SWbemDateTime.SetFileTime</a>.
+     *      datetime structure does not have the correct format when passed to 
+     *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemdatetime-setfiletime">SWbemDateTime.SetFileTime</a>.
      * @type {Integer (Int32)}
      */
     static wbemErrInvalidSyntax => -2147217375
@@ -255,7 +255,7 @@ class WbemErrorEnum{
 
     /**
      * The provider cannot perform the requested operation. This would include a query that is too complex, 
- *      retrieving an instance, creating or updating a class, deleting a class, or enumerating a class.
+     *      retrieving an instance, creating or updating a class, deleting a class, or enumerating a class.
      * @type {Integer (Int32)}
      */
     static wbemErrProviderNotCapable => -2147217372
@@ -280,8 +280,8 @@ class WbemErrorEnum{
 
     /**
      * A value of Nothing was specified for a property that may not be Nothing, such as one that is marked by a 
- *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/key-qualifier">Key</a>, <b>Indexed</b>, 
- *      or <b>Not_Null</b> qualifier.
+     *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/key-qualifier">Key</a>, <b>Indexed</b>, 
+     *      or <b>Not_Null</b> qualifier.
      * @type {Integer (Int32)}
      */
     static wbemErrIllegalNull => -2147217368
@@ -306,7 +306,7 @@ class WbemErrorEnum{
 
     /**
      * An illegal attempt was made to make a class singleton, such as when the class is derived from a 
- *      non-singleton class.
+     *      non-singleton class.
      * @type {Integer (Int32)}
      */
     static wbemErrCannotBeSingleton => -2147217364
@@ -343,7 +343,7 @@ class WbemErrorEnum{
 
     /**
      * An asynchronous process has been canceled internally or by the user. Note that due to the timing and nature 
- *      of the asynchronous operation the operation may not have been truly canceled.
+     *      of the asynchronous operation the operation may not have been truly canceled.
      * @type {Integer (Int32)}
      */
     static wbemErrCallCancelled => -2147217358
@@ -356,14 +356,14 @@ class WbemErrorEnum{
 
     /**
      * An attempt was made to reuse an existing method name from a parent class, and the signatures did not 
- *      match.
+     *      match.
      * @type {Integer (Int32)}
      */
     static wbemErrPropagatedMethod => -2147217356
 
     /**
      * One or more parameter values, such as a query text, is too complex or unsupported. WMI is therefore 
- *      requested to retry the operation with simpler parameters.
+     *      requested to retry the operation with simpler parameters.
      * @type {Integer (Int32)}
      */
     static wbemErrUnsupportedParameter => -2147217355
@@ -376,22 +376,22 @@ class WbemErrorEnum{
 
     /**
      * A method parameter has an <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/standard-wmi-qualifiers">ID</a> 
- *      qualifier that is not valid.
+     *      qualifier that is not valid.
      * @type {Integer (Int32)}
      */
     static wbemErrInvalidParameterId => -2147217353
 
     /**
      * One or more of the method parameters have 
- *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/standard-wmi-qualifiers">ID</a> qualifiers that are out of 
- *      sequence.
+     *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/standard-wmi-qualifiers">ID</a> qualifiers that are out of 
+     *      sequence.
      * @type {Integer (Int32)}
      */
     static wbemErrNonConsecutiveParameterIds => -2147217352
 
     /**
      * The return value for a method has an 
- *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/standard-wmi-qualifiers">ID</a> qualifier.
+     *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/standard-wmi-qualifiers">ID</a> qualifier.
      * @type {Integer (Int32)}
      */
     static wbemErrParameterIdOnRetval => -2147217351
@@ -410,7 +410,7 @@ class WbemErrorEnum{
 
     /**
      * The supplied buffer was too small to hold all the objects in the enumerator or to read a string 
- *      property.
+     *      property.
      * @type {Integer (Int32)}
      */
     static wbemErrBufferTooSmall => -2147217348
@@ -447,7 +447,7 @@ class WbemErrorEnum{
 
     /**
      * An attempt has been made to mismatch qualifiers, such as putting [key] on an object instead of a 
- *      property.
+     *      property.
      * @type {Integer (Int32)}
      */
     static wbemErrInvalidQualifier => -2147217342
@@ -466,7 +466,7 @@ class WbemErrorEnum{
 
     /**
      * A call to <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectsink-indicate">IWbemObjectSink::Indicate</a> has 
- *      failed. The provider may choose to refire the event.
+     *      failed. The provider may choose to refire the event.
      * @type {Integer (Int32)}
      */
     static wbemErrServerTooBusy => -2147217339
@@ -479,7 +479,7 @@ class WbemErrorEnum{
 
     /**
      * An attempt has been made to create a reference that is circular (for example, deriving a class from 
- *      itself).
+     *      itself).
      * @type {Integer (Int32)}
      */
     static wbemErrCircularReference => -2147217337
@@ -552,7 +552,7 @@ class WbemErrorEnum{
 
     /**
      * The FROM clause of a filtering query references a class that is not an event class (not derived from 
- *      __Event).
+     *      __Event).
      * @type {Integer (Int32)}
      */
     static wbemErrNotEventClass => -2147217319
@@ -583,8 +583,8 @@ class WbemErrorEnum{
 
     /**
      * An event provider registration query 
- *      (<a href="https://docs.microsoft.com/windows/desktop/WmiSdk/--eventproviderregistration">__EventProviderRegistration</a>) did not 
- *      specify the classes for which events were provided.
+     *      (<a href="https://docs.microsoft.com/windows/desktop/WmiSdk/--eventproviderregistration">__EventProviderRegistration</a>) did not 
+     *      specify the classes for which events were provided.
      * @type {Integer (Int32)}
      */
     static wbemErrUninterpretableProviderQuery => -2147217313
@@ -615,7 +615,7 @@ class WbemErrorEnum{
 
     /**
      * The user specified a username, password or authority for a local connection. The user must use a blank 
- *      username/password and rely on default security.
+     *      username/password and rely on default security.
      * @type {Integer (Int32)}
      */
     static wbemErrLocalCredentials => -2147217308
@@ -628,15 +628,15 @@ class WbemErrorEnum{
 
     /**
      * An amended object was put without the <b>wbemFlagUseAmendedQualifiers</b> flag being 
- *      specified.
+     *      specified.
      * @type {Integer (Int32)}
      */
     static wbemErrAmendedObject => -2147217306
 
     /**
      * The client was not retrieving objects quickly enough from an enumeration. This constant is returned when a 
- *        client creates an enumeration object but does not retrieve objects from the enumerator in a timely fashion, 
- *        causing the enumerator's object caches to get backed up.
+     *        client creates an enumeration object but does not retrieve objects from the enumerator in a timely fashion, 
+     *        causing the enumerator's object caches to get backed up.
      * @type {Integer (Int32)}
      */
     static wbemErrClientTooSlow => -2147217305
@@ -667,7 +667,7 @@ class WbemErrorEnum{
 
     /**
      * WMI is taking up too much memory. This could be caused either by low memory availability or excessive 
- *        memory consumption by WMI.
+     *        memory consumption by WMI.
      * @type {Integer (Int32)}
      */
     static wbemErrQuotaViolation => -2147217300
@@ -734,7 +734,7 @@ class WbemErrorEnum{
 
     /**
      * Indicates that an SQL command should be rerun because there is a deadlock in SQL. This can be returned 
- *        only when data is being stored in an SQL database.
+     *        only when data is being stored in an SQL database.
      * @type {Integer (Int32)}
      */
     static wbemErrRerunCommand => -2147217289
@@ -771,7 +771,7 @@ class WbemErrorEnum{
 
     /**
      * The object must be committed and retrieved again before the requested operation can succeed. This constant 
- *        is returned when an object must be committed and re-retrieved to see the property value.
+     *        is returned when an object must be committed and re-retrieved to see the property value.
      * @type {Integer (Int32)}
      */
     static wbemErrSynchronizationRequired => -2147217278
@@ -802,8 +802,8 @@ class WbemErrorEnum{
 
     /**
      * The client connection to WINMGMT must be encrypted for this operation. The 
- *        <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> proxy security settings should be adjusted 
- *        and the operation retried.
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> proxy security settings should be adjusted 
+     *        and the operation retried.
      * @type {Integer (Int32)}
      */
     static wbemErrEncryptedConnectionRequired => -2147217273
@@ -828,7 +828,7 @@ class WbemErrorEnum{
 
     /**
      * The user deleted an override default value for the current class. The default value for this property in 
- *        the parent class has been reactivated. An automation-specific error.
+     *        the parent class has been reactivated. An automation-specific error.
      * @type {Integer (Int32)}
      */
     static wbemErrResetToDefault => -2147209214

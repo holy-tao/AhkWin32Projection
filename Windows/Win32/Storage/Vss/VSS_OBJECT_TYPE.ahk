@@ -28,24 +28,24 @@ class VSS_OBJECT_TYPE{
 
     /**
      * The object type is not known.
- *       
- * 
- * This indicates an application error.
+     *       
+     * 
+     * This indicates an application error.
      * @type {Integer (Int32)}
      */
     static VSS_OBJECT_UNKNOWN => 0
 
     /**
      * The interpretation of this value depends on whether it is used as an input to a VSS method or returned as 
- *       an output from a VSS method. 
- *       
- * 
- * When used as an input to a VSS method, it indicates that the method is not restricted to any particular 
- *        object type, but should act on all appropriate objects. In this sense, 
- *        <b>VSS_OBJECT_NONE</b> can be thought of as a wildcard input.
- * 
- * When returned as an output, the object type is not known and means that there has been an application 
- *        error.
+     *       an output from a VSS method. 
+     *       
+     * 
+     * When used as an input to a VSS method, it indicates that the method is not restricted to any particular 
+     *        object type, but should act on all appropriate objects. In this sense, 
+     *        <b>VSS_OBJECT_NONE</b> can be thought of as a wildcard input.
+     * 
+     * When returned as an output, the object type is not known and means that there has been an application 
+     *        error.
      * @type {Integer (Int32)}
      */
     static VSS_OBJECT_NONE => 1

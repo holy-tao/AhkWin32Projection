@@ -75,64 +75,64 @@ class CLUSTER_REG_COMMAND{
 
     /**
      * A control command.
- * 
- * <b>Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2012 R2.
+     * 
+     * <b>Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2012 R2.
      * @type {Integer (Int32)}
      */
     static CLUSREG_CONTROL_COMMAND => 10
 
     /**
      * A condition that indicates that a value exists.
- * 
- * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSREG_CONDITION_EXISTS => 11
 
     /**
      * A condition that indicates that a value does not exist.
- * 
- * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSREG_CONDITION_NOT_EXISTS => 12
 
     /**
      * A condition that indicates that a value is equal to another.
- * 
- * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSREG_CONDITION_IS_EQUAL => 13
 
     /**
      * A condition that indicates that a value is not equal to another.
- * 
- * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSREG_CONDITION_IS_NOT_EQUAL => 14
 
     /**
      * A condition that indicates that a value is greater than another.
- * 
- * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSREG_CONDITION_IS_GREATER_THAN => 15
 
     /**
      * A condition that indicates that a value is less than another.
- * 
- * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSREG_CONDITION_IS_LESS_THAN => 16
 
     /**
      * A condition that indicates that a key exists.
- * 
- * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSREG_CONDITION_KEY_EXISTS => 17
@@ -145,8 +145,8 @@ class CLUSTER_REG_COMMAND{
 
     /**
      * This constant is not a valid command. It and the <b>CLUSREG_COMMAND_NONE</b> constant act as brackets  that contain the valid commands.
- * 
- * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>The value of this constant is lower before Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>The value of this constant is lower before Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSREG_LAST_COMMAND => 19

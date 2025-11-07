@@ -22,9 +22,9 @@ class WICComponentSigning{
 
     /**
      * A component is safe.
- *             
- * 
- * Components that do not have a binary component to sign, such as a pixel format, should return this value.
+     *             
+     * 
+     * Components that do not have a binary component to sign, such as a pixel format, should return this value.
      * @type {Integer (Int32)}
      */
     static WICComponentSafe => 4

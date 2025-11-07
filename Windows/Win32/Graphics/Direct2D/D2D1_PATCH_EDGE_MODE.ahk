@@ -22,7 +22,7 @@ class D2D1_PATCH_EDGE_MODE{
 
     /**
      * Render this patch edge aliased and also slightly inflated. Use this for the internal edges of your gradient mesh when there could be t-junctions among patches. 
- *           Inflating the internal edges mitigates seams that can appear along those junctions.
+     *           Inflating the internal edges mitigates seams that can appear along those junctions.
      * @type {Integer (Int32)}
      */
     static D2D1_PATCH_EDGE_MODE_ALIASED_INFLATED => 2

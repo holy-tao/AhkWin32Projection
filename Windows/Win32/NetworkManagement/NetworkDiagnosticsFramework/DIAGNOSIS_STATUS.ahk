@@ -40,11 +40,11 @@ class DIAGNOSIS_STATUS{
 
     /**
      * The helper class has identified hypotheses to investigate further, but did not identify any problems in its own component.
- * 
- * Equivalent to <b>DS_INDETERMINATE</b>, but is later updated to <b>DS_REJECTED</b> if no hypothesis is confirmed.
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows 7, Windows Server 2008 R2, and later.</div>
- * <div> </div>
+     * 
+     * Equivalent to <b>DS_INDETERMINATE</b>, but is later updated to <b>DS_REJECTED</b> if no hypothesis is confirmed.
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows 7, Windows Server 2008 R2, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static DS_PASSTHROUGH => 5

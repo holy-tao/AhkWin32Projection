@@ -107,8 +107,8 @@ class DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY{
 
     /**
      * Indicates that the VidPN target is  a Miracast wireless display device.
- * 
- * Supported starting in Windows 8.1.
+     * 
+     * Supported starting in Windows 8.1.
      * @type {Integer (Int32)}
      */
     static DISPLAYCONFIG_OUTPUT_TECHNOLOGY_MIRACAST => 15

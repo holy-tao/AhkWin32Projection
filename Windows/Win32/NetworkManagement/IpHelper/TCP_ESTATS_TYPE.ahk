@@ -25,74 +25,74 @@ class TCP_ESTATS_TYPE{
 
     /**
      * This value specifies SYN exchange information for a TCP connection.
- * 
- * Only read-only static information is available for this enumeration value.
+     * 
+     * Only read-only static information is available for this enumeration value.
      * @type {Integer (Int32)}
      */
     static TcpConnectionEstatsSynOpts => 0
 
     /**
      * This value specifies extended data transfer information for a TCP connection.
- * 
- * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * 
+     * Only read-only dynamic information and read/write information are available for this enumeration value.
      * @type {Integer (Int32)}
      */
     static TcpConnectionEstatsData => 1
 
     /**
      * This value specifies sender congestion for a TCP connection.
- * 
- * All three types of information (read-only static, read-only dynamic,  and read/write information) are available for this enumeration value.
+     * 
+     * All three types of information (read-only static, read-only dynamic,  and read/write information) are available for this enumeration value.
      * @type {Integer (Int32)}
      */
     static TcpConnectionEstatsSndCong => 2
 
     /**
      * This value specifies extended path measurement information for a TCP connection. This information is  used to infer segment
- *    reordering on the path from the local sender to the remote
- *    receiver.
- * 
- * Only read-only dynamic information and read/write information are available for this enumeration value.
+     *    reordering on the path from the local sender to the remote
+     *    receiver.
+     * 
+     * Only read-only dynamic information and read/write information are available for this enumeration value.
      * @type {Integer (Int32)}
      */
     static TcpConnectionEstatsPath => 3
 
     /**
      * This value specifies extended output-queuing information for a TCP connection.
- * 
- * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * 
+     * Only read-only dynamic information and read/write information are available for this enumeration value.
      * @type {Integer (Int32)}
      */
     static TcpConnectionEstatsSendBuff => 4
 
     /**
      * This value specifies extended local-receiver information for a TCP connection. 
- * 
- * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * 
+     * Only read-only dynamic information and read/write information are available for this enumeration value.
      * @type {Integer (Int32)}
      */
     static TcpConnectionEstatsRec => 5
 
     /**
      * This value specifies extended remote-receiver information for a TCP connection.
- * 
- * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * 
+     * Only read-only dynamic information and read/write information are available for this enumeration value.
      * @type {Integer (Int32)}
      */
     static TcpConnectionEstatsObsRec => 6
 
     /**
      * This value specifies bandwidth estimation statistics for a TCP connection on bandwidth.
- * 
- * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * 
+     * Only read-only dynamic information and read/write information are available for this enumeration value.
      * @type {Integer (Int32)}
      */
     static TcpConnectionEstatsBandwidth => 7
 
     /**
      * This value specifies fine-grained round-trip time (RTT) estimation statistics for a TCP connection.
- * 
- * Only read-only dynamic information and read/write information are available for this enumeration value.
+     * 
+     * Only read-only dynamic information and read/write information are available for this enumeration value.
      * @type {Integer (Int32)}
      */
     static TcpConnectionEstatsFineRtt => 8

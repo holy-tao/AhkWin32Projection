@@ -16,15 +16,15 @@ class FsrmExecutionOption{
 
     /**
      * The rule is applied as a default value to the file if the property is not set on the file (if none of the 
- *       storage modules returns the property).
+     *       storage modules returns the property).
      * @type {Integer (Int32)}
      */
     static FsrmExecutionOption_EvaluateUnset => 1
 
     /**
      * The rule is applied to the file considering default and existing values using aggregation rules (for 
- *       aggregation rules, see 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertydefinitiontype">FsrmPropertyDefinitionType</a>).
+     *       aggregation rules, see 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertydefinitiontype">FsrmPropertyDefinitionType</a>).
      * @type {Integer (Int32)}
      */
     static FsrmExecutionOption_ReEvaluate_ConsiderExistingValue => 2

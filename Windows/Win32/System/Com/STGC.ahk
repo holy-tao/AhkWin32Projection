@@ -23,19 +23,19 @@ class STGC{
 
     /**
      * The commit operation can overwrite existing data to reduce overall space requirements. This value is not recommended for typical usage because it is not as robust as the default value. In this case, it is possible for the commit operation to fail after the old data is overwritten, but before the new data is completely committed. Then, neither the old version nor the new version of the storage object will be intact. 
- * 
- * 
- * 
- * 						
- * 
- * You can use this value in the following cases:
- * 
- * <ul>
- * <li>The user is willing to risk losing the data.</li>
- * <li>The low-memory save sequence will be used to safely save the storage object to a smaller file.</li>
- * <li>A previous commit returned <b>STG_E_MEDIUMFULL</b>, but overwriting the existing data would provide enough space to commit changes to the storage object.</li>
- * </ul>
- * Be aware that the commit operation verifies that adequate space exists before any overwriting occurs. Thus, even with this value specified, if the commit operation fails due to space requirements, the old data is safe. It is possible, however, for data loss to occur with the <b>STGC_OVERWRITE</b> value specified if the commit operation fails for any reason other than lack of disk space.
+     * 
+     * 
+     * 
+     * 						
+     * 
+     * You can use this value in the following cases:
+     * 
+     * <ul>
+     * <li>The user is willing to risk losing the data.</li>
+     * <li>The low-memory save sequence will be used to safely save the storage object to a smaller file.</li>
+     * <li>A previous commit returned <b>STG_E_MEDIUMFULL</b>, but overwriting the existing data would provide enough space to commit changes to the storage object.</li>
+     * </ul>
+     * Be aware that the commit operation verifies that adequate space exists before any overwriting occurs. Thus, even with this value specified, if the commit operation fails due to space requirements, the old data is safe. It is possible, however, for data loss to occur with the <b>STGC_OVERWRITE</b> value specified if the commit operation fails for any reason other than lack of disk space.
      * @type {Integer (Int32)}
      */
     static STGC_OVERWRITE => 1
@@ -48,11 +48,11 @@ class STGC{
 
     /**
      * Commits the changes to a write-behind disk cache, but does not save the cache to the disk. In a write-behind disk cache, the operation that writes to disk actually writes to a disk cache, thus increasing performance. The cache is eventually written to the disk, but usually not until after the write operation has already returned. The performance increase comes at the expense of an increased risk of losing data if a problem occurs before the cache is saved and the data in the cache is lost. 
- * 
- * 
- * 
- * 
- * If you do not specify this value, then committing changes to root-level storage objects is robust even if a disk cache is used. The two-phase commit process ensures that data is stored on the disk and not just to the disk cache.
+     * 
+     * 
+     * 
+     * 
+     * If you do not specify this value, then committing changes to root-level storage objects is robust even if a disk cache is used. The two-phase commit process ensures that data is stored on the disk and not just to the disk cache.
      * @type {Integer (Int32)}
      */
     static STGC_DANGEROUSLYCOMMITMERELYTODISKCACHE => 4

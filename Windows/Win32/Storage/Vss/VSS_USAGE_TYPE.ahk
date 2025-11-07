@@ -22,9 +22,9 @@ class VSS_USAGE_TYPE{
 
     /**
      * The usage type is not known. 
- *       
- * 
- * This indicates an error on the part of the writer.
+     *       
+     * 
+     * This indicates an error on the part of the writer.
      * @type {Integer (Int32)}
      */
     static VSS_UT_UNDEFINED => 0

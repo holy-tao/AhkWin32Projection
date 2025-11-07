@@ -46,8 +46,8 @@ class TASK_LOGON_TYPE{
 
     /**
      * Not in use; currently identical to TASK_LOGON_PASSWORD.
- * 
- * <b>Windows 10, version 1511, Windows 10, version 1507, Windows 8.1, Windows Server 2012 R2, Windows 8, Windows Server 2012, Windows Vista and Windows Server 2008:  </b>First use the interactive token.  If the user is not logged on (no interactive token is available), then the password is used.  The password must be specified when a task is registered. This flag is not recommended for new tasks because it is less reliable than TASK_LOGON_PASSWORD.
+     * 
+     * <b>Windows 10, version 1511, Windows 10, version 1507, Windows 8.1, Windows Server 2012 R2, Windows 8, Windows Server 2012, Windows Vista and Windows Server 2008:  </b>First use the interactive token.  If the user is not logged on (no interactive token is available), then the password is used.  The password must be specified when a task is registered. This flag is not recommended for new tasks because it is less reliable than TASK_LOGON_PASSWORD.
      * @type {Integer (Int32)}
      */
     static TASK_LOGON_INTERACTIVE_TOKEN_OR_PASSWORD => 6

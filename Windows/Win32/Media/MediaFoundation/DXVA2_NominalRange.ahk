@@ -122,8 +122,8 @@ class DXVA2_NominalRange{
 
     /**
      * Unknown or unspecified nominal range.
- * 
- * If this value is used in the <b>DestFormat</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videoprocessbltparams">DXVA2_VideoProcessBltParams</a> structure, the driver will determine the optimal nominal range based on the destination color space. For example, the destination surface is usually sRGB, which has a nominal range of 0-255 per channel. However, a driver might use a technique such as automatic gain control to maximize the dynamic range while preserving values above reference white.
+     * 
+     * If this value is used in the <b>DestFormat</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videoprocessbltparams">DXVA2_VideoProcessBltParams</a> structure, the driver will determine the optimal nominal range based on the destination color space. For example, the destination surface is usually sRGB, which has a nominal range of 0-255 per channel. However, a driver might use a technique such as automatic gain control to maximize the dynamic range while preserving values above reference white.
      * @type {Integer (Int32)}
      */
     static DXVA2_NominalRange_Unknown => 0

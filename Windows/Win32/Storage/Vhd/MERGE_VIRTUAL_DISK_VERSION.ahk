@@ -22,8 +22,8 @@ class MERGE_VIRTUAL_DISK_VERSION{
 
     /**
      * The <b>Version2</b> member structure will be used.
- * 
- * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported until Windows 8 and Windows Server 2012.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported until Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static MERGE_VIRTUAL_DISK_VERSION_2 => 2

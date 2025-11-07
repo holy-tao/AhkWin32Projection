@@ -16,15 +16,15 @@ class InstallationImpact{
 
     /**
      * Installing or uninstalling an update results in an insignificant impact on the target computer.
- * 
- * The update must meet strict requirements to qualify for this rating. The requirements include, but are not limited to, the following requirements:
- * 
- * <ul>
- * <li>It must not perform or require a system restart.</li>
- * <li>It must not display a user interface.</li>
- * <li>The installation or uninstallation must succeed even if it affects an application or service that is currently being used.</li>
- * </ul>
- *  Updates that qualify for this rating may be eligible for special handling in Windows Update Agent (WUA). For example, they may be eligible for accelerated distribution.
+     * 
+     * The update must meet strict requirements to qualify for this rating. The requirements include, but are not limited to, the following requirements:
+     * 
+     * <ul>
+     * <li>It must not perform or require a system restart.</li>
+     * <li>It must not display a user interface.</li>
+     * <li>The installation or uninstallation must succeed even if it affects an application or service that is currently being used.</li>
+     * </ul>
+     *  Updates that qualify for this rating may be eligible for special handling in Windows Update Agent (WUA). For example, they may be eligible for accelerated distribution.
      * @type {Integer (Int32)}
      */
     static iiMinor => 1

@@ -16,7 +16,7 @@ class WNV_NOTIFICATION_TYPE{
 
     /**
      * A notification that an Internet Control Message Protocol
- * (ICMP) redirect message has been received.
+     * (ICMP) redirect message has been received.
      * @type {Integer (Int32)}
      */
     static WnvRedirectType => 1

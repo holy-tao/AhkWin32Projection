@@ -22,25 +22,25 @@ class DWRITE_WORD_WRAPPING{
 
     /**
      * <div class="alert"><b>Note</b>  Windows 8.1 and later only.</div>
- * <div> </div>
- * Words are broken across lines to avoid text overflowing the layout box.
- *     Emergency wrapping occurs if the word is larger than the maximum width.
+     * <div> </div>
+     * Words are broken across lines to avoid text overflowing the layout box.
+     *     Emergency wrapping occurs if the word is larger than the maximum width.
      * @type {Integer (Int32)}
      */
     static DWRITE_WORD_WRAPPING_EMERGENCY_BREAK => 2
 
     /**
      * <div class="alert"><b>Note</b>  Windows 8.1 and later only.</div>
- * <div> </div>
- * When emergency wrapping, only wrap whole words, never breaking words when the layout width is too small for even a single word.
+     * <div> </div>
+     * When emergency wrapping, only wrap whole words, never breaking words when the layout width is too small for even a single word.
      * @type {Integer (Int32)}
      */
     static DWRITE_WORD_WRAPPING_WHOLE_WORD => 3
 
     /**
      * <div class="alert"><b>Note</b>  Windows 8.1 and later only.</div>
- * <div> </div>
- * Wrap between any valid character clusters.
+     * <div> </div>
+     * Wrap between any valid character clusters.
      * @type {Integer (Int32)}
      */
     static DWRITE_WORD_WRAPPING_CHARACTER => 4

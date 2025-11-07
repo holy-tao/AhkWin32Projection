@@ -69,28 +69,28 @@ class USERPROPERTIES{
 
     /**
      * Specifies whether callback is enabled for this user. See 
- * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_user_1">RAS_USER_1</a> for more information about the possible values for this property.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_user_1">RAS_USER_1</a> for more information about the possible values for this property.
      * @type {Integer (Int32)}
      */
     static PROPERTY_USER_SERVICE_TYPE => 1033
 
     /**
      * Specifies routing information to be configured for
- *       the user on the NAS.  See the Framed-IPv6-Route section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a> for more information.
+     *       the user on the NAS.  See the Framed-IPv6-Route section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a> for more information.
      * @type {Integer (Int32)}
      */
     static PROPERTY_USER_RADIUS_FRAMED_IPV6_ROUTE => 1034
 
     /**
      * Specifies saved routing information for
- *       the user on the NAS.  See the Framed-IPv6-Route section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a> for more information.
+     *       the user on the NAS.  See the Framed-IPv6-Route section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a> for more information.
      * @type {Integer (Int32)}
      */
     static PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_ROUTE => 1035
 
     /**
      * Used for IPv6. Specifies the interface identifier to be
- *       configured for the user.  See the Framed-Interface-Id section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a> for more information.
+     *       configured for the user.  See the Framed-Interface-Id section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a> for more information.
      * @type {Integer (Int32)}
      */
     static PROPERTY_USER_RADIUS_FRAMED_INTERFACE_ID => 1036
@@ -103,14 +103,14 @@ class USERPROPERTIES{
 
     /**
      * Specifies an IPv6 prefix (and corresponding route)
- *       to be configured for the user.  See the Framed-IPv6-Prefix section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a> for more information.
+     *       to be configured for the user.  See the Framed-IPv6-Prefix section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a> for more information.
      * @type {Integer (Int32)}
      */
     static PROPERTY_USER_RADIUS_FRAMED_IPV6_PREFIX => 1038
 
     /**
      * Specifies an IPv6 prefix (and corresponding route)
- *       saved for the user.  See the Framed-IPv6-Prefix section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a> for more information.
+     *       saved for the user.  See the Framed-IPv6-Prefix section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a> for more information.
      * @type {Integer (Int32)}
      */
     static PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_PREFIX => 1039

@@ -54,8 +54,8 @@ class VDS_DISK_STATUS{
 
     /**
      * The disk is offline.
- * 
- * <b>Windows Vista and Windows Server 2003:  </b>This flag is not supported.
+     * 
+     * <b>Windows Vista and Windows Server 2003:  </b>This flag is not supported.
      * @type {Integer (Int32)}
      */
     static VDS_DS_OFFLINE => 4

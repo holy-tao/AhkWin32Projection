@@ -28,8 +28,8 @@ class DXGI_ADAPTER_FLAG{
 
     /**
      * Specifies a software adapter. For more info about this flag, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/d3d10-graphics-programming-guide-dxgi">new info in Windows 8 about enumerating adapters</a>.
- * 
- * <b>Direct3D 11:  </b>This enumeration value is supported starting with Windows 8.
+     * 
+     * <b>Direct3D 11:  </b>This enumeration value is supported starting with Windows 8.
      * @type {Integer (Int32)}
      */
     static DXGI_ADAPTER_FLAG_SOFTWARE => 2

@@ -10,49 +10,49 @@ class CLUSTER_RESOURCE_STATE_CHANGE_REASON{
 
     /**
      * This reason code is never sent by the cluster. 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">Resource DLLs</a> should use this value to initialize a local 
- *        <a href="https://docs.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusctl_resource_state_change_reason_struct">CLUSCTL_RESOURCE_STATE_CHANGE_REASON_STRUCT</a> structure and to reset the 
- *        <b>eReason</b> member of the 
- *        <b>CLUSCTL_RESOURCE_STATE_CHANGE_REASON_STRUCT</b> 
- *        structure before returning from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a> and 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a> entry point functions. For more information, 
- *        see 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-state-change-reason">CLUSCTL_RESOURCE_STATE_CHANGE_REASON</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">Resource DLLs</a> should use this value to initialize a local 
+     *        <a href="https://docs.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusctl_resource_state_change_reason_struct">CLUSCTL_RESOURCE_STATE_CHANGE_REASON_STRUCT</a> structure and to reset the 
+     *        <b>eReason</b> member of the 
+     *        <b>CLUSCTL_RESOURCE_STATE_CHANGE_REASON_STRUCT</b> 
+     *        structure before returning from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a> and 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a> entry point functions. For more information, 
+     *        see 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-state-change-reason">CLUSCTL_RESOURCE_STATE_CHANGE_REASON</a>.
      * @type {Integer (Int32)}
      */
     static eResourceStateChangeReasonUnknown => 0
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a> is about to be called because the 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource's</a> <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> is being moved.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource's</a> <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> is being moved.
      * @type {Integer (Int32)}
      */
     static eResourceStateChangeReasonMove => 1
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a> is about to be called because the resource's 
- *        group is being <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failover">failed over</a>.
+     *        group is being <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failover">failed over</a>.
      * @type {Integer (Int32)}
      */
     static eResourceStateChangeReasonFailover => 2
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Online</a> is about to be called because the resource's 
- *        group did not successfully complete a move operation.
+     *        group did not successfully complete a move operation.
      * @type {Integer (Int32)}
      */
     static eResourceStateChangeReasonFailedMove => 3
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a> is about to be called because the 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a> is being shut down.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a> is being shut down.
      * @type {Integer (Int32)}
      */
     static eResourceStateChangeReasonShutdown => 4
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a> is about to be called because the Cluster 
- *        service has stopped unexpectedly.
+     *        service has stopped unexpectedly.
      * @type {Integer (Int32)}
      */
     static eResourceStateChangeReasonRundown => 5

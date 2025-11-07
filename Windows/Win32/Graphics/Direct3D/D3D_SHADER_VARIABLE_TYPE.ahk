@@ -318,8 +318,8 @@ class D3D_SHADER_VARIABLE_TYPE{
 
     /**
      * The variable is a structured buffer. 
- * 
- * For more information about structured buffer, see the <b>Remarks</b> section.
+     * 
+     * For more information about structured buffer, see the <b>Remarks</b> section.
      * @type {Integer (Int32)}
      */
     static D3D_SVT_STRUCTURED_BUFFER => 48

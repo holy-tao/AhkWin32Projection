@@ -10,9 +10,9 @@ class CLIENTPROPERTIES{
 
     /**
      * Specifies whether the RADIUS server checks for a digital signature.
- * 
- * <div class="alert"><b>Note</b>  If client and server use Extensible Authentication Protocol (EAP), then they use digital signatures regardless of this property.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  If client and server use Extensible Authentication Protocol (EAP), then they use digital signatures regardless of this property.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static PROPERTY_CLIENT_REQUIRE_SIGNATURE => 1024

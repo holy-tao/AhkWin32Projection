@@ -16,18 +16,18 @@ class WCN_VALUE_TYPE_ENCRYPTION_TYPE{
 
     /**
      * Specifies support for the Wired Equivalent Privacy (WEP) encryption method.
- * 
- * <div class="alert"><b>Note</b>  Not available for WPS 2.0.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Not available for WPS 2.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_ET_WEP => 2
 
     /**
      * Specifies support for the Temporal Key Integrity Protocol (TKIP) encryption method.
- * 
- * <div class="alert"><b>Note</b>  Not available for WPS 2.0.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Not available for WPS 2.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_ET_TKIP => 4
@@ -40,9 +40,9 @@ class WCN_VALUE_TYPE_ENCRYPTION_TYPE{
 
     /**
      * Specifies support for WPAPSK/WPA2PSK mixed-mode encryption.
- * 
- * <div class="alert"><b>Note</b>  Not supported in WPS 1.0. Only available  in Windows 8.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Not supported in WPS 1.0. Only available  in Windows 8.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_ET_TKIP_AES_MIXED => 12

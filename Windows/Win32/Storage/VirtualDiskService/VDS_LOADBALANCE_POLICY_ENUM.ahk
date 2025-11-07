@@ -34,7 +34,7 @@ class VDS_LOADBALANCE_POLICY_ENUM{
 
     /**
      * The policy uses primary paths in round-robin fashion. The backup paths are used if all of the primary paths 
- *      fail.
+     *      fail.
      * @type {Integer (Int32)}
      */
     static VDS_LBP_ROUND_ROBIN_WITH_SUBSET => 3

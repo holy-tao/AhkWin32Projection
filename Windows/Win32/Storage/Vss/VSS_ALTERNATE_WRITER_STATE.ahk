@@ -10,7 +10,7 @@ class VSS_ALTERNATE_WRITER_STATE{
 
     /**
      * No information is available as to the existence of an alternate writer. This value indicates an application 
- *       error. This enumeration value is reserved for future use.
+     *       error. This enumeration value is reserved for future use.
      * @type {Integer (Int32)}
      */
     static VSS_AWS_UNDEFINED => 0
@@ -23,7 +23,7 @@ class VSS_ALTERNATE_WRITER_STATE{
 
     /**
      * An alternate writer exists. This alternate writer runs when the writer is not available. This enumeration 
- *       value is reserved for future use.
+     *       value is reserved for future use.
      * @type {Integer (Int32)}
      */
     static VSS_AWS_ALTERNATE_WRITER_EXISTS => 2

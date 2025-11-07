@@ -28,8 +28,8 @@ class UASFLAGS{
 
     /**
      * When checking for a normal state, use this value to mask unused bits in the <i>pdwState</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ioleparentundounit-getparentstate">IOleParentUndoUnit::GetParentState</a> method for future compatibility. For example:
- * 
- * <pre class="syntax" xml:space="preserve"><c>fNormal = ((pdwState &amp; UAS_MASK) == UAS_NORMAL)</c></pre>
+     * 
+     * <pre class="syntax" xml:space="preserve"><c>fNormal = ((pdwState &amp; UAS_MASK) == UAS_NORMAL)</c></pre>
      * @type {Integer (Int32)}
      */
     static UAS_MASK => 3

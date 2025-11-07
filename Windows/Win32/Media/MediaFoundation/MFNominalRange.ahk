@@ -54,9 +54,9 @@ class MFNominalRange{
 
     /**
      * The normalized range [0..1] maps to [64...127] for 8-bit samples or [256...508] for 10-bit samples. This range is used in the xRGB color space.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFNominalRange_64_127 => 4

@@ -10,29 +10,29 @@ class WICPngSrgbProperties{
 
     /**
      * [VT_UI1] Indicates the rendering intent for an sRGB color space image. The rendering intents have the following meaning.
- * 
- * <table>
- * <tr>
- * <th>Value</th>
- * <th>Meaning</th>
- * </tr>
- * <tr>
- * <td>0</td>
- * <td>Perceptual</td>
- * </tr>
- * <tr>
- * <td>1</td>
- * <td>Relative colorimetric</td>
- * </tr>
- * <tr>
- * <td>2</td>
- * <td>Saturation</td>
- * </tr>
- * <tr>
- * <td>3</td>
- * <td>Absolute colorimetric</td>
- * </tr>
- * </table>
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>0</td>
+     * <td>Perceptual</td>
+     * </tr>
+     * <tr>
+     * <td>1</td>
+     * <td>Relative colorimetric</td>
+     * </tr>
+     * <tr>
+     * <td>2</td>
+     * <td>Saturation</td>
+     * </tr>
+     * <tr>
+     * <td>3</td>
+     * <td>Absolute colorimetric</td>
+     * </tr>
+     * </table>
      * @type {Integer (Int32)}
      */
     static WICPngSrgbRenderingIntent => 1

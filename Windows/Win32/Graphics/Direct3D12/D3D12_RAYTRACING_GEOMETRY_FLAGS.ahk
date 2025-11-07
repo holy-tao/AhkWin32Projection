@@ -22,8 +22,8 @@ class D3D12_RAYTRACING_GEOMETRY_FLAGS{
 
     /**
      * By default, the system is free to trigger an any hit shader more than once for a given ray-primitive intersection. This flexibility helps improve the traversal efficiency of acceleration structures in certain cases.  For instance, if the acceleration structure is implemented internally with bounding volumes, the implementation may find it beneficial to store relatively long triangles in multiple bounding boxes rather than a larger single box. However, some application use cases require that intersections be reported to the any hit shader at most once. This flag enables that guarantee for the given geometry, potentially with some performance impact.
- * 
- * This flag applies to all geometry types.
+     * 
+     * This flag applies to all geometry types.
      * @type {Integer (Int32)}
      */
     static D3D12_RAYTRACING_GEOMETRY_FLAG_NO_DUPLICATE_ANYHIT_INVOCATION => 2

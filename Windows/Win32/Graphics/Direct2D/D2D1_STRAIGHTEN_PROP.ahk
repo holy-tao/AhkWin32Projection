@@ -16,7 +16,7 @@ class D2D1_STRAIGHTEN_PROP{
 
     /**
      * The D2D1_STRAIGHTEN_PROP_MAINTAIN_SIZE property is a boolean value that specifies whether the image will be scaled such that the original size is maintained without any invalid regions.
- *           The default value is True.
+     *           The default value is True.
      * @type {Integer (Int32)}
      */
     static D2D1_STRAIGHTEN_PROP_MAINTAIN_SIZE => 1

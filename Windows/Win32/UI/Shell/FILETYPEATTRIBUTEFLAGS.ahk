@@ -164,25 +164,25 @@ class FILETYPEATTRIBUTEFLAGS{
 
     /**
      * Prevents the <b>Never ask me</b> check box from being enabled. Use of this flag means <b>FTA_OpenIsSafe</b> is not respected and <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-associsdangerous">AssocIsDangerous</a> always returns TRUE.
- * If your file type can execute code, you should always use this flag or ensure that the file type handlers mitigate risks, for example, by producing warning prompts before running the code.
- * 
- * The user can override this attribute through the <b>File Type</b> dialog box.
+     * If your file type can execute code, you should always use this flag or ensure that the file type handlers mitigate risks, for example, by producing warning prompts before running the code.
+     * 
+     * The user can override this attribute through the <b>File Type</b> dialog box.
      * @type {Integer (Int32)}
      */
     static FTA_AlwaysUnsafe => 131072
 
     /**
      * Prohibits the addition of members of this file type to the <a href="https://docs.microsoft.com/windows/desktop/shell/manage">Recent Documents</a> folder. Additionally, in Windows 7 and later, prohibits the addition of members of this file type to the automatic <b>Recent</b> or <b>Frequent</b> category of an application's Jump List.
- * 
- * This flag does not restrict members of this file type from being added to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icustomdestinationlist">custom Jump List</a>. It also places no restriction on the file type being added to the automatic Jump Lists of other applications in the case that other applications use this file type.
+     * 
+     * This flag does not restrict members of this file type from being added to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icustomdestinationlist">custom Jump List</a>. It also places no restriction on the file type being added to the automatic Jump Lists of other applications in the case that other applications use this file type.
      * @type {Integer (Int32)}
      */
     static FTA_NoRecentDocs => 1048576
 
     /**
      * <b>Introduced in Windows 8</b>. Marks the file as safe to be passed from a low trust application to a full trust application. Files that originate from the Internet or an app container are examples where the file is considered untrusted. Untrusted files that contain code are especially dangerous, and appropriate security mitigations must be applied if the file is to be opened by a full trust application. File type owners for file formats that have the ability to execute code should specify this flag only if their program mitigates elevation-of-privilege threats that are associated with running code at a higher integrity level. Mitigations include prompting the user before code is executed or executing the code with reduced privileges.
- * 
- * By specifying this flag for an entire file type, an app running within an app container can pass files of this type to a program running at full trust. Some file types are recognized as inherently dangerous due to their ability to execute code and will be blocked if you don't specify this value.
+     * 
+     * By specifying this flag for an entire file type, an app running within an app container can pass files of this type to a program running at full trust. Some file types are recognized as inherently dangerous due to their ability to execute code and will be blocked if you don't specify this value.
      * @type {Integer (Int32)}
      */
     static FTA_SafeForElevation => 2097152
