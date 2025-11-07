@@ -1,0 +1,15 @@
+changelog:
+  exclode:
+    labels:
+      - chore
+      - ignore-for-release
+  categories:
+    - title: ⛓️‍💥 Breaking Changes
+      labels:
+        - breaking
+    - title: 🚀 Enhancements
+      labels:
+        - enhancement
+    - title: 🛠️ Fixes
+      labels:
+        - "*"
