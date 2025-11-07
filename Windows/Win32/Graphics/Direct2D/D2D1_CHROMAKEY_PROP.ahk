@@ -16,7 +16,7 @@ class D2D1_CHROMAKEY_PROP{
 
     /**
      * The D2D1_CHROMAKEY_PROP_TOLERANCE property is a float value indicating the tolerance for matching the color specified in the D2D1_CHROMAKEY_PROP_COLOR property.  
- *           The allowed range is 0.0 to 1.0.  The default value is 0.1.
+     *           The allowed range is 0.0 to 1.0.  The default value is 0.1.
      * @type {Integer (Int32)}
      */
     static D2D1_CHROMAKEY_PROP_TOLERANCE => 1
@@ -29,8 +29,8 @@ class D2D1_CHROMAKEY_PROP{
 
     /**
      * The D2D1_CHROMAKEY_PROP_FEATHER property is a boolean value whether the edges of the output should be softened in the alpha channel.
- *           When set to False, the alpha output by the effect is 1-bit: either fully opaque or fully transparent. Setting to True results in a softening of edges in the alpha channel of the Chroma Key output.
- *           The default value is False.
+     *           When set to False, the alpha output by the effect is 1-bit: either fully opaque or fully transparent. Setting to True results in a softening of edges in the alpha channel of the Chroma Key output.
+     *           The default value is False.
      * @type {Integer (Int32)}
      */
     static D2D1_CHROMAKEY_PROP_FEATHER => 3

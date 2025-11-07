@@ -8,16 +8,16 @@
  * Defines a module that is used to classify files or store and retrieve properties from files.
  * @remarks
  * 
-  * The name and module type identify a unique module (a classifier module and storage module can use the same 
-  *     name).
-  * 
-  * When de-registering a module programmatically (calling 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-delete">Delete</a> followed by 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">Commit</a>), the developer should ensure that there are no 
-  *     active classification rules that use that module. If this is not properly performed, the rules will produce errors 
-  *     during classification runs and the UI will reflect a module that is no longer available.
-  * 
-  * 
+ * The name and module type identify a unique module (a classifier module and storage module can use the same 
+ *     name).
+ * 
+ * When de-registering a module programmatically (calling 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-delete">Delete</a> followed by 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">Commit</a>), the developer should ensure that there are no 
+ *     active classification rules that use that module. If this is not properly performed, the rules will produce errors 
+ *     during classification runs and the UI will reflect a module that is no longer available.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduledefinition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

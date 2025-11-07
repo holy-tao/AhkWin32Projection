@@ -6,7 +6,7 @@
  * Represents data for a video decode statistics query invoked by calling ID3D12VideoDecodeCommandList::EndQuery.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_query_data_video_decode_statistics
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

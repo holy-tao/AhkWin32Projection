@@ -10,8 +10,8 @@ class XHR_COOKIE_FLAG{
 
     /**
      * The cookie is secure. 
- * 
- * When this flag is set, the client is only to return the cookie in subsequent requests if those requests use HTTPS.
+     * 
+     * When this flag is set, the client is only to return the cookie in subsequent requests if those requests use HTTPS.
      * @type {Integer (Int32)}
      */
     static XHR_COOKIE_IS_SECURE => 1
@@ -78,8 +78,8 @@ class XHR_COOKIE_FLAG{
 
     /**
      * Enables the retrieval of cookies that are marked as "HTTPOnly". 
- * 
- * Do not use this flag if you expose a scriptable interface, because this has security implications. If you expose a scriptable interface, you can become an attack vector for cross-site scripting attacks. It is imperative that you use this flag only if they can guarantee that you will never permit third-party code to set a cookie using this flag by way of an extensibility mechanism you provide.
+     * 
+     * Do not use this flag if you expose a scriptable interface, because this has security implications. If you expose a scriptable interface, you can become an attack vector for cross-site scripting attacks. It is imperative that you use this flag only if they can guarantee that you will never permit third-party code to set a cookie using this flag by way of an extensibility mechanism you provide.
      * @type {Integer (Int32)}
      */
     static XHR_COOKIE_HTTPONLY => 8192

@@ -7,9 +7,9 @@
  * Provides methods to define scope rules for crawling and indexing.
  * @remarks
  * 
-  * For a sample that demonstrates how to define command line options for Crawl Scope Manager (CSM) indexing operations, see the [CrawlScopeCommandLine](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/CrawlScopeCommandLine) sample.
-  * 
-  * 
+ * For a sample that demonstrates how to define command line options for Crawl Scope Manager (CSM) indexing operations, see the [CrawlScopeCommandLine](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/CrawlScopeCommandLine) sample.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-isearchscoperule
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319

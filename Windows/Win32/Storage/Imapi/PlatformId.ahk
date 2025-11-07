@@ -4,9 +4,9 @@
  * Defines values for the operating system architecture that the boot image supports.
  * @remarks
  * 
-  * Other values not defined here may exist. Consumers of this enumeration should not presume this list to be the only set of valid values.
-  * 
-  * 
+ * Other values not defined here may exist. Consumers of this enumeration should not presume this list to be the only set of valid values.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/ne-imapi2fs-platformid
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

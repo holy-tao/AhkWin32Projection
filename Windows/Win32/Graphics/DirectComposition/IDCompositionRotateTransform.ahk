@@ -7,13 +7,13 @@
  * Represents a 2D transformation that affects the rotation of a visual around the z-axis. The coordinate system is rotated around the specified center point.
  * @remarks
  * 
-  * A rotate transform represents the following 3-by-3 matrix:
-  * 
-  * <img alt="Three-by-three transformation matrix" src="./images/rotate_transform_3x3matrix.png"/>
-  * 
-  * The effect is to rotate the coordinate system clockwise or counter-clockwise, and to apply the corresponding translation such that the center point does not move.
-  * 
-  * 
+ * A rotate transform represents the following 3-by-3 matrix:
+ * 
+ * <img alt="Three-by-three transformation matrix" src="./images/rotate_transform_3x3matrix.png"/>
+ * 
+ * The effect is to rotate the coordinate system clockwise or counter-clockwise, and to apply the corresponding translation such that the center point does not move.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositionrotatetransform
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319

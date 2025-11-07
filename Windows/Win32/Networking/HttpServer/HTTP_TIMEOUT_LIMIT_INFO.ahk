@@ -6,63 +6,63 @@
  * Defines the application-specific connection timeout limits.
  * @remarks
  * 
-  * This structure is used in the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryserversessionproperty">HttpQueryServerSessionProperty</a>, and  <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a> functions to set or query the connection timeouts. The following table lists the default timeouts.
-  * 
-  * <table>
-  * <tr>
-  * <th>Timer</th>
-  * <th>HTTP Server API Default</th>
-  * <th>HTTP Server API  Wide Configuration</th>
-  * <th>Application Specific Configuration</th>
-  * </tr>
-  * <tr>
-  * <td>EntityBody</td>
-  * <td>2 Minutes</td>
-  * <td>No</td>
-  * <td>Yes</td>
-  * </tr>
-  * <tr>
-  * <td> DrainEntityBody</td>
-  * <td>2 Minutes</td>
-  * <td>No</td>
-  * <td>Yes</td>
-  * </tr>
-  * <tr>
-  * <td>RequestQueue</td>
-  * <td>2 Minutes</td>
-  * <td>No</td>
-  * <td>Yes</td>
-  * </tr>
-  * <tr>
-  * <td>IdleConnection</td>
-  * <td>2 Minutes</td>
-  * <td>Yes</td>
-  * <td>Limited</td>
-  * </tr>
-  * <tr>
-  * <td>HeaderWait</td>
-  * <td>2 Minutes</td>
-  * <td>Yes</td>
-  * <td>Limited</td>
-  * </tr>
-  * <tr>
-  * <td>MinSendRate</td>
-  * <td>150 bytes/second</td>
-  * <td>No</td>
-  * <td>Yes</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * Calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a> or <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpseturlgroupproperty">HttpSetUrlGroupProperty</a> to configure a connection timeout affects only the calling application and does not set driver wide timeout limits. The idle connection and header wait timers can be configured for all HTTP applications by calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a>. Administrative privileges are required to configure HTTP Server API wide timeouts. HTTP Server API wide configurations affect all HTTP applications on the computer and persist when the computer is shut down.
-  * 
-  * The application-specific <b>IdleConnection</b>  and <b>HeaderWait</b> timers are set on a limited basis. The HTTP Server API cannot determine the request queue or URL group that the request is associated with until the headers have been parsed. Therefore, the HTTP Server API enforces the default <b>IdleConnection</b>  and <b>HeaderWait</b> timers for the first request on a connection.  Subsequent requests on a Keep-Alive connection will use the application specific timeouts.
-  * 
-  * Setting a timeout on a server session affects all the URL Groups under the server session. However, if the URL Group has configured a timeout, the setting for the URL Group takes precedence over the server session configuration.
-  * 
-  * Setting a timeout to zero on a server session causes the HTTP Server API to revert to the default value for that timer. For timers set on a URL Group, the server session timeout is used if present, otherwise the HTTP Server API default is used.
-  * 
-  * 
+ * This structure is used in the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryserversessionproperty">HttpQueryServerSessionProperty</a>, and  <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a> functions to set or query the connection timeouts. The following table lists the default timeouts.
+ * 
+ * <table>
+ * <tr>
+ * <th>Timer</th>
+ * <th>HTTP Server API Default</th>
+ * <th>HTTP Server API  Wide Configuration</th>
+ * <th>Application Specific Configuration</th>
+ * </tr>
+ * <tr>
+ * <td>EntityBody</td>
+ * <td>2 Minutes</td>
+ * <td>No</td>
+ * <td>Yes</td>
+ * </tr>
+ * <tr>
+ * <td> DrainEntityBody</td>
+ * <td>2 Minutes</td>
+ * <td>No</td>
+ * <td>Yes</td>
+ * </tr>
+ * <tr>
+ * <td>RequestQueue</td>
+ * <td>2 Minutes</td>
+ * <td>No</td>
+ * <td>Yes</td>
+ * </tr>
+ * <tr>
+ * <td>IdleConnection</td>
+ * <td>2 Minutes</td>
+ * <td>Yes</td>
+ * <td>Limited</td>
+ * </tr>
+ * <tr>
+ * <td>HeaderWait</td>
+ * <td>2 Minutes</td>
+ * <td>Yes</td>
+ * <td>Limited</td>
+ * </tr>
+ * <tr>
+ * <td>MinSendRate</td>
+ * <td>150 bytes/second</td>
+ * <td>No</td>
+ * <td>Yes</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * Calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a> or <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpseturlgroupproperty">HttpSetUrlGroupProperty</a> to configure a connection timeout affects only the calling application and does not set driver wide timeout limits. The idle connection and header wait timers can be configured for all HTTP applications by calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a>. Administrative privileges are required to configure HTTP Server API wide timeouts. HTTP Server API wide configurations affect all HTTP applications on the computer and persist when the computer is shut down.
+ * 
+ * The application-specific <b>IdleConnection</b>  and <b>HeaderWait</b> timers are set on a limited basis. The HTTP Server API cannot determine the request queue or URL group that the request is associated with until the headers have been parsed. Therefore, the HTTP Server API enforces the default <b>IdleConnection</b>  and <b>HeaderWait</b> timers for the first request on a connection.  Subsequent requests on a Keep-Alive connection will use the application specific timeouts.
+ * 
+ * Setting a timeout on a server session affects all the URL Groups under the server session. However, if the URL Group has configured a timeout, the setting for the URL Group takes precedence over the server session configuration.
+ * 
+ * Setting a timeout to zero on a server session causes the HTTP Server API to revert to the default value for that timer. For timers set on a URL Group, the server session timeout is used if present, otherwise the HTTP Server API default is used.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_timeout_limit_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319

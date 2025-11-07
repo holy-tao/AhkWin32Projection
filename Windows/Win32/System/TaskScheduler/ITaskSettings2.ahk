@@ -7,10 +7,10 @@
  * Provides the extended settings that the Task Scheduler uses to run the task.
  * @remarks
  * 
-  * When reading or writing XML for a task, the task settings are defined in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-settings-tasktype-element">Settings</a> element of the Task Scheduler schema.
-  * 
-  * 
-  * 
+ * When reading or writing XML for a task, the task settings are defined in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-settings-tasktype-element">Settings</a> element of the Task Scheduler schema.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itasksettings2
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

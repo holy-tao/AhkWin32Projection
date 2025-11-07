@@ -7,9 +7,9 @@
  * The IMSVidDataServices interface represents the data services feature. The MSVidDataServices feature object exposes this interface.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidDataServices)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidDataServices)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsviddataservices
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

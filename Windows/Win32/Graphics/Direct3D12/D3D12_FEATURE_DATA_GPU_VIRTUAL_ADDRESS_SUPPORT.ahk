@@ -5,9 +5,9 @@
  * Details the adapter's GPU virtual address space limitations, including maximum address bits per resource and per process.
  * @remarks
  * 
-  * See the enumeration constant D3D12_FEATURE_GPU_VIRTUAL_ADDRESS_SUPPORT in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a> enumeration.
-  * 
-  * 
+ * See the enumeration constant D3D12_FEATURE_GPU_VIRTUAL_ADDRESS_SUPPORT in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a> enumeration.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_feature_data_gpu_virtual_address_support
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

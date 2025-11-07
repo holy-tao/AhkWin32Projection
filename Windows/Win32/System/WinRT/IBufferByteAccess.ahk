@@ -7,11 +7,11 @@
  * Represents a buffer as an array of bytes.
  * @remarks
  * 
-  * The client creates an [IBuffer](/uwp/api/Windows.Storage.Streams.IBuffer) object, and the buffer is provided by the [Buffer](nf-robuffer-ibufferbyteaccess-buffer.md) method.
-  * 
-  * When you implement the **IBuffer** interface, you must implement the **IBufferByteAccess** interface.
-  * 
-  * 
+ * The client creates an [IBuffer](/uwp/api/Windows.Storage.Streams.IBuffer) object, and the buffer is provided by the [Buffer](nf-robuffer-ibufferbyteaccess-buffer.md) method.
+ * 
+ * When you implement the **IBuffer** interface, you must implement the **IBufferByteAccess** interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//robuffer/ns-robuffer-ibufferbyteaccess
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

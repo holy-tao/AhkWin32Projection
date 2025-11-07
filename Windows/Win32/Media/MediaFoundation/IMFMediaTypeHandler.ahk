@@ -8,22 +8,22 @@
  * Gets and sets media types on an object, such as a media source or media sink.
  * @remarks
  * 
-  * This interface is exposed by <i>media-type handlers</i>.
-  * 
-  * <ul>
-  * <li> For media sources, get the media-type handler from the stream descriptor by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfstreamdescriptor-getmediatypehandler">IMFStreamDescriptor::GetMediaTypeHandler</a>.</li>
-  * <li>For media sinks, get the media-type handler by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfstreamsink-getmediatypehandler">IMFStreamSink::GetMediaTypeHandler</a>.</li>
-  * </ul>
-  * If you are implementing a custom media source or media sink, you can create a simple media-type handler by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatesimpletypehandler">MFCreateSimpleTypeHandler</a>, or you can provide your own implementation.
-  * 
-  * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
-  * 
-  * <ul>
-  * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
-  * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
-  * </ul>
-  * 
-  * 
+ * This interface is exposed by <i>media-type handlers</i>.
+ * 
+ * <ul>
+ * <li> For media sources, get the media-type handler from the stream descriptor by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfstreamdescriptor-getmediatypehandler">IMFStreamDescriptor::GetMediaTypeHandler</a>.</li>
+ * <li>For media sinks, get the media-type handler by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfstreamsink-getmediatypehandler">IMFStreamSink::GetMediaTypeHandler</a>.</li>
+ * </ul>
+ * If you are implementing a custom media source or media sink, you can create a simple media-type handler by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatesimpletypehandler">MFCreateSimpleTypeHandler</a>, or you can provide your own implementation.
+ * 
+ * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+ * 
+ * <ul>
+ * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+ * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfmediatypehandler
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

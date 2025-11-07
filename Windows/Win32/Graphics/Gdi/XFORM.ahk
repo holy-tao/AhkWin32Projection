@@ -5,47 +5,47 @@
  * The XFORM structure specifies a world-space to page-space transformation.
  * @remarks
  * 
-  * The following list describes how the members are used for each operation.
-  * 
-  * <table>
-  * <tr>
-  * <th>Operation</th>
-  * <th>eM11</th>
-  * <th>eM12</th>
-  * <th>eM21</th>
-  * <th>eM22</th>
-  * </tr>
-  * <tr>
-  * <td>Rotation</td>
-  * <td>Cosine</td>
-  * <td>Sine</td>
-  * <td>Negative sine</td>
-  * <td>Cosine</td>
-  * </tr>
-  * <tr>
-  * <td>Scaling</td>
-  * <td>Horizontal scaling component</td>
-  * <td>Not used</td>
-  * <td>Not used</td>
-  * <td>Vertical Scaling Component</td>
-  * </tr>
-  * <tr>
-  * <td>Shear</td>
-  * <td>Not used</td>
-  * <td>Horizontal Proportionality Constant</td>
-  * <td>Vertical Proportionality Constant</td>
-  * <td>Not used</td>
-  * </tr>
-  * <tr>
-  * <td>Reflection</td>
-  * <td>Horizontal Reflection Component</td>
-  * <td>Not used</td>
-  * <td>Not used</td>
-  * <td>Vertical Reflection Component</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * The following list describes how the members are used for each operation.
+ * 
+ * <table>
+ * <tr>
+ * <th>Operation</th>
+ * <th>eM11</th>
+ * <th>eM12</th>
+ * <th>eM21</th>
+ * <th>eM22</th>
+ * </tr>
+ * <tr>
+ * <td>Rotation</td>
+ * <td>Cosine</td>
+ * <td>Sine</td>
+ * <td>Negative sine</td>
+ * <td>Cosine</td>
+ * </tr>
+ * <tr>
+ * <td>Scaling</td>
+ * <td>Horizontal scaling component</td>
+ * <td>Not used</td>
+ * <td>Not used</td>
+ * <td>Vertical Scaling Component</td>
+ * </tr>
+ * <tr>
+ * <td>Shear</td>
+ * <td>Not used</td>
+ * <td>Horizontal Proportionality Constant</td>
+ * <td>Vertical Proportionality Constant</td>
+ * <td>Not used</td>
+ * </tr>
+ * <tr>
+ * <td>Reflection</td>
+ * <td>Horizontal Reflection Component</td>
+ * <td>Not used</td>
+ * <td>Not used</td>
+ * <td>Vertical Reflection Component</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-xform
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319

@@ -6,10 +6,10 @@
  * The PHONEINITIALIZEEXPARAMS structure contains parameters used to establish the association between an application and TAPI; for example, the application's selected event notification mechanism. The phoneInitializeEx function uses this structure.
  * @remarks
  * 
-  * See 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phoneinitializeexa">phoneInitializeEx</a> for further information on these options.
-  * 
-  * 
+ * See 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phoneinitializeexa">phoneInitializeEx</a> for further information on these options.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-phoneinitializeexparams
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

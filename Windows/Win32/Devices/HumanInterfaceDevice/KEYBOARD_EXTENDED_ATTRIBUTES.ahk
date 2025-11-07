@@ -5,11 +5,11 @@
  * KEYBOARD_EXTENDED_ATTRIBUTES specifies the extended attributes of a keyboard.
  * @remarks
  * 
-  * This structure is used with a [IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES](ni-ntddkbd-ioctl_keyboard_query_extended_attributes.md) request to return information about the extended attributes that a keyboard supports.
-  * 
-  * This information comes from HID Keyboard Report Descriptor described in [HID Usage Table Review Request 42: Consumer Page Keyboard Assist Controls](https://www.usb.org/sites/default/files/hutrr42c_0.pdf).
-  * 
-  * 
+ * This structure is used with a [IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES](ni-ntddkbd-ioctl_keyboard_query_extended_attributes.md) request to return information about the extended attributes that a keyboard supports.
+ * 
+ * This information comes from HID Keyboard Report Descriptor described in [HID Usage Table Review Request 42: Consumer Page Keyboard Assist Controls](https://www.usb.org/sites/default/files/hutrr42c_0.pdf).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ntddkbd/ns-ntddkbd-keyboard_extended_attributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319

@@ -10,15 +10,15 @@ class WTS_INFO_CLASS{
 
     /**
      * A null-terminated string that contains the name of the initial program that Remote Desktop Services runs when the 
- *       user logs on.
+     *       user logs on.
      * @type {Integer (Int32)}
      */
     static WTSInitialProgram => 0
 
     /**
      * A null-terminated string that contains the published name of the application that the session is running.
- * 
- * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>This value is not supported
+     * 
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>This value is not supported
      * @type {Integer (Int32)}
      */
     static WTSApplicationName => 1
@@ -49,13 +49,13 @@ class WTS_INFO_CLASS{
 
     /**
      * A null-terminated string that contains the name of the Remote Desktop Services session.
- * 
- * <div class="alert"><b>Note</b>  Despite its name, specifying this type does not return the window station name. Rather, it returns the 
- *        name of the Remote Desktop Services session. Each Remote Desktop Services session is associated with an interactive window 
- *        station. Because the only supported window station name for an interactive window station is 
- *        "WinSta0", each session is associated with its own "WinSta0" window station. For more information, see 
- *       <a href="https://docs.microsoft.com/windows/desktop/winstation/window-stations">Window Stations</a>.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Despite its name, specifying this type does not return the window station name. Rather, it returns the 
+     *        name of the Remote Desktop Services session. Each Remote Desktop Services session is associated with an interactive window 
+     *        station. Because the only supported window station name for an interactive window station is 
+     *        "WinSta0", each session is associated with its own "WinSta0" window station. For more information, see 
+     *       <a href="https://docs.microsoft.com/windows/desktop/winstation/window-stations">Window Stations</a>.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WTSWinStationName => 6
@@ -68,7 +68,7 @@ class WTS_INFO_CLASS{
 
     /**
      * The session's current connection state. For more information, see 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_connectstate_class">WTS_CONNECTSTATE_CLASS</a>.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_connectstate_class">WTS_CONNECTSTATE_CLASS</a>.
      * @type {Integer (Int32)}
      */
     static WTSConnectState => 8
@@ -105,17 +105,17 @@ class WTS_INFO_CLASS{
 
     /**
      * The network type and network address of the client. For more information, see 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_client_address">WTS_CLIENT_ADDRESS</a>.
- * 
- * The IP address is offset by two bytes from the start of the <b>Address</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_client_address">WTS_CLIENT_ADDRESS</a> 
- *          structure.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_client_address">WTS_CLIENT_ADDRESS</a>.
+     * 
+     * The IP address is offset by two bytes from the start of the <b>Address</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_client_address">WTS_CLIENT_ADDRESS</a> 
+     *          structure.
      * @type {Integer (Int32)}
      */
     static WTSClientAddress => 14
 
     /**
      * Information about the display resolution of the client. For more information, see 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_client_display">WTS_CLIENT_DISPLAY</a>.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_client_display">WTS_CLIENT_DISPLAY</a>.
      * @type {Integer (Int32)}
      */
     static WTSClientDisplay => 15
@@ -128,48 +128,48 @@ class WTS_INFO_CLASS{
 
     /**
      * This value returns <b>FALSE</b>. If you call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information, <b>GetLastError</b> returns <b>ERROR_NOT_SUPPORTED</b>.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
      * @type {Integer (Int32)}
      */
     static WTSIdleTime => 17
 
     /**
      * This value returns <b>FALSE</b>. If you call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information, <b>GetLastError</b> returns <b>ERROR_NOT_SUPPORTED</b>.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
      * @type {Integer (Int32)}
      */
     static WTSLogonTime => 18
 
     /**
      * This value returns <b>FALSE</b>. If you call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information, <b>GetLastError</b> returns <b>ERROR_NOT_SUPPORTED</b>.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
      * @type {Integer (Int32)}
      */
     static WTSIncomingBytes => 19
 
     /**
      * This value returns <b>FALSE</b>. If you call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information, <b>GetLastError</b> returns <b>ERROR_NOT_SUPPORTED</b>.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
      * @type {Integer (Int32)}
      */
     static WTSOutgoingBytes => 20
 
     /**
      * This value returns <b>FALSE</b>. If you call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information, <b>GetLastError</b> returns <b>ERROR_NOT_SUPPORTED</b>.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
      * @type {Integer (Int32)}
      */
     static WTSIncomingFrames => 21
 
     /**
      * This value returns <b>FALSE</b>. If you call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information, <b>GetLastError</b> returns <b>ERROR_NOT_SUPPORTED</b>.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
      * @type {Integer (Int32)}
      */
     static WTSOutgoingFrames => 22
@@ -188,16 +188,16 @@ class WTS_INFO_CLASS{
 
     /**
      * Extended information about a  session on a   RD Session Host server. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtsinfoexa">WTSINFOEX</a>.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static WTSSessionInfoEx => 25
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtsconfiginfoa">WTSCONFIGINFO</a> structure that contains information about the configuration of a RD Session Host server.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static WTSConfigInfo => 26
@@ -210,17 +210,17 @@ class WTS_INFO_CLASS{
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_address">WTS_SESSION_ADDRESS</a> structure that contains the IPv4 address assigned to the session.
- *      If the session does not have a virtual IP address, the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> function  returns <b>ERROR_NOT_SUPPORTED</b>.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported.
+     *      If the session does not have a virtual IP address, the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> function  returns <b>ERROR_NOT_SUPPORTED</b>.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static WTSSessionAddressV4 => 28
 
     /**
      * Determines whether the current session is a remote session. The <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> function returns a value of <b>TRUE</b> to indicate that the current session is a remote session, and <b>FALSE</b> to indicate that the current session is a local session. This value can only be used for the local machine, so the <i>hServer</i> parameter of the <b>WTSQuerySessionInformation</b> function must contain <b>WTS_CURRENT_SERVER_HANDLE</b>.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static WTSIsRemoteSession => 29

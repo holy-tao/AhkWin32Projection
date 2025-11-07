@@ -52,11 +52,11 @@ class KERB_PROTOCOL_MESSAGE_TYPE{
 
     /**
      * This message causes the use of Kerberos Password Change Protocol to change the user's password in a Windows domain or configured non-Windows Kerberos realm that supports this service. The caller must know the current password to change the password for an account. 
- * 
- * 
- * 
- * 
- * When changing the password of an account in a  non-Windows Kerberos realm, the local computer's registry is consulted to locate the Kerberos password service for the requested domain name.
+     * 
+     * 
+     * 
+     * 
+     * When changing the password of an account in a  non-Windows Kerberos realm, the local computer's registry is consulted to locate the Kerberos password service for the requested domain name.
      * @type {Integer (Int32)}
      */
     static KerbChangePasswordMessage => 7
@@ -81,11 +81,11 @@ class KERB_PROTOCOL_MESSAGE_TYPE{
 
     /**
      * This message uses a modified Kerberos Password Change Protocol to change the user's password in the domain or configured non-Windows Kerberos realm that supports this service. The caller must have permission  to set the password for the target account. The caller does not need to know the current password for the account. 
- * 
- * 
- * 
- * 
- * When changing the password for an account in a  non-Windows Kerberos realm, the local computer registry is used to locate the Kerberos password service for the requested domain name.
+     * 
+     * 
+     * 
+     * 
+     * When changing the password for an account in a  non-Windows Kerberos realm, the local computer registry is used to locate the Kerberos password service for the requested domain name.
      * @type {Integer (Int32)}
      */
     static KerbSetPasswordMessage => 11
@@ -133,93 +133,93 @@ class KERB_PROTOCOL_MESSAGE_TYPE{
 
     /**
      * The dispatch routine transfers credentials from one <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> to another <b>LUID</b>. The <b>SeTcbPrivilege</b> is required. 
- * 
- * 
- * <b>Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     * 
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbTransferCredentialsMessage => 19
 
     /**
      * The dispatch routine queries the Kerberos ticket cache for the specified logon session. The session key type and branch ID are returned in addition to the other information returned when using the  <b>KerbQueryTicketCacheMessage</b> message type. The <b>SeTcbPrivilege</b> is required. 
- * 
- * 
- * <b>Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     * 
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbQueryTicketCacheEx2Message => 20
 
     /**
      * The dispatch routine gets the tickets from the KDC and updates the ticket cache. The <b>SeTcbPrivilege</b> is required to access another logon account's ticket cache. 
- * 
- * 
- * <b>Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     * 
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbSubmitTicketMessage => 21
 
     /**
      * The dispatch routine adds, modifies, or deletes an extra credential in one or more <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">service principal names</a> (SPNs). The <b>SeTcbPrivilege</b> is required to change extra credentials in another user's logon session.
- * 
- * <b>Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbAddExtraCredentialsExMessage => 22
 
     /**
      * This message returned information about the KDC proxy cached tickets.
- * 
- * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbQueryKdcProxyCacheMessage => 23
 
     /**
      * This message allows selected KDC proxy tickets to be removed.
- * 
- * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbPurgeKdcProxyCacheMessage => 24
 
     /**
      * The dispatch routine queries the Kerberos ticket cache for the specified logon session. The number of tickets information is returned in addition to the other information returned when using the  <b>KerbQueryTicketCacheEx2Message</b> message type. The <b>SeTcbPrivilege</b> is required. 
- * 
- * 
- * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     * 
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbQueryTicketCacheEx3Message => 25
 
     /**
      * This message is to clean up and remove any PKINIT device credentials from the computer.
- * 
- * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbCleanupMachinePkinitCredsMessage => 26
 
     /**
      * This message is for adding a binding cache entry. The <b>SeTcbPrivilege</b> is required. 
- *  
- * 
- * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     *  
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbAddBindingCacheEntryExMessage => 27
 
     /**
      * This message queries the binding cache for the number of entries and their data.
- * 
- * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbQueryBindingCacheMessage => 28
 
     /**
      * This message is to clean up entries in the binding cache.
- * 
- * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbPurgeBindingCacheMessage => 29
@@ -238,16 +238,16 @@ class KERB_PROTOCOL_MESSAGE_TYPE{
 
     /**
      * This message queries for a list of the extended domain policies.
- * 
- * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbQueryDomainExtendedPoliciesMessage => 32
 
     /**
      * This message queries the proxy cache for the information about a service for user (S4U) logon.
- * 
- * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This constant is not supported.
      * @type {Integer (Int32)}
      */
     static KerbQueryS4U2ProxyCacheMessage => 33

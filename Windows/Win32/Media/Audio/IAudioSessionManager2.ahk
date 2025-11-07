@@ -8,21 +8,21 @@
  * The IAudioSessionManager2 interface enables an application to manage submixes for the audio device.
  * @remarks
  * 
-  * An application can use this interface to perform the following tasks:
-  * 
-  * <ul>
-  * <li>Register to receive ducking notifications.</li>
-  * <li>Register to receive a notification  when a  session is created.</li>
-  * <li>Enumerate sessions on the audio device that was used to get the interface pointer. </li>
-  * </ul>
-  * 
-  * 
-  * This interface supports  custom implementations for <i>stream attenuation</i> or <i>ducking</i>, a new feature in Windows 7. An application playing a media stream can make the it behave differently when a new communication stream is opened on the default communication device. For example, the original media stream can be paused while the new communication stream is open. For more information about this feature, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/using-the-communication-device">Using a Communication Device</a>.
-  * 
-  * An application that manages the media streams and wants to provide a custom ducking implementation, must register to receive notifications when session events occur. For stream attenuation, a session event is raised by the system when a communication stream is opened or closed on the default communication device. For more information, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/providing-a-custom-ducking-experience">Providing a Custom Ducking Behavior</a>.
-  * 
-  * 
-  * 
+ * An application can use this interface to perform the following tasks:
+ * 
+ * <ul>
+ * <li>Register to receive ducking notifications.</li>
+ * <li>Register to receive a notification  when a  session is created.</li>
+ * <li>Enumerate sessions on the audio device that was used to get the interface pointer. </li>
+ * </ul>
+ * 
+ * 
+ * This interface supports  custom implementations for <i>stream attenuation</i> or <i>ducking</i>, a new feature in Windows 7. An application playing a media stream can make the it behave differently when a new communication stream is opened on the default communication device. For example, the original media stream can be paused while the new communication stream is open. For more information about this feature, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/using-the-communication-device">Using a Communication Device</a>.
+ * 
+ * An application that manages the media streams and wants to provide a custom ducking implementation, must register to receive notifications when session events occur. For stream attenuation, a session event is raised by the system when a communication stream is opened or closed on the default communication device. For more information, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/providing-a-custom-ducking-experience">Providing a Custom Ducking Behavior</a>.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nn-audiopolicy-iaudiosessionmanager2
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319

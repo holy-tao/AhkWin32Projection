@@ -6,9 +6,9 @@
  * Specifies the DVD subpicture palette.
  * @remarks
  * 
-  * The AM_PROPERTY_DVDSUBPIC_PALETTE property uses this structure.
-  * 
-  * 
+ * The AM_PROPERTY_DVDSUBPIC_PALETTE property uses this structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-am_property_sppal
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

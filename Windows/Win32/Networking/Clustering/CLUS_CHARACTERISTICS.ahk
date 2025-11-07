@@ -16,7 +16,7 @@ class CLUS_CHARACTERISTICS{
 
     /**
      * Resources of this type are capable of being the 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/quorum-resource">quorum resource type</a> for a cluster.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/quorum-resource">quorum resource type</a> for a cluster.
      * @type {Integer (Int32)}
      */
     static CLUS_CHAR_QUORUM => 1
@@ -41,8 +41,8 @@ class CLUS_CHARACTERISTICS{
 
     /**
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLL</a> will receive the 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-state-change-reason">CLUSCTL_RESOURCE_STATE_CHANGE_REASON</a> 
- *        control code.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-state-change-reason">CLUSCTL_RESOURCE_STATE_CHANGE_REASON</a> 
+     *        control code.
      * @type {Integer (Int32)}
      */
     static CLUS_CHAR_REQUIRES_STATE_CHANGE_REASON => 16
@@ -73,8 +73,8 @@ class CLUS_CHARACTERISTICS{
 
     /**
      * The resource type can be queried to get more information about how many resources it uses. For example, in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/virtual-machine">virtual machine</a> resource type, information is returned about how much memory is required for the virtual machine to be started.
- * 
- * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static CLUS_CHAR_PLACEMENT_DATA => 512
@@ -105,32 +105,32 @@ class CLUS_CHARACTERISTICS{
 
     /**
      * The resource should not be preempted, even if the whole group is being preempted.
- * 
- * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static CLUS_CHAR_NOT_PREEMPTABLE => 16384
 
     /**
      * The resource can receive a new owner.
- * 
- * <b>Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2012 R2.
+     * 
+     * <b>Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2012 R2.
      * @type {Integer (Int32)}
      */
     static CLUS_CHAR_NOTIFY_NEW_OWNER => 32768
 
     /**
      * The resource can continue run in an unmonitored state when it losses cluster membership.
- * 
- * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUS_CHAR_SUPPORTS_UNMONITORED_STATE => 65536
 
     /**
      * This value is reserved for infrastructure.
- * 
- * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUS_CHAR_INFRASTRUCTURE => 131072

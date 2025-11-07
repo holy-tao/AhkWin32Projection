@@ -10,9 +10,9 @@ class SERVICE_TYPE{
 
     /**
      * The service is Internet Authentication Service (IAS) or Network Policy Server (NPS).
- * 
- * <div class="alert"><b>Note</b>  Internet Authentication Service was renamed Network Policy Server starting with Windows Server 2008.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Internet Authentication Service was renamed Network Policy Server starting with Windows Server 2008.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static SERVICE_TYPE_IAS => 0

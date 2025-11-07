@@ -8,9 +8,9 @@
  * Use this interface to enumerate a collection of progress items.
  * @remarks
  * 
-  * This is a <b>EnumProgressItems</b> object in script.
-  * 
-  * 
+ * This is a <b>EnumProgressItems</b> object in script.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ienumprogressitems
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

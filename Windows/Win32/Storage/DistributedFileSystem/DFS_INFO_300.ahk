@@ -5,10 +5,10 @@
  * Contains the name and type (domain-based or stand-alone) of a DFS namespace.
  * @remarks
  * 
-  * The DFS functions use the 
-  * <b>DFS_INFO_300</b> structure to enumerate DFS namespaces hosted on a machine.
-  * 
-  * 
+ * The DFS functions use the 
+ * <b>DFS_INFO_300</b> structure to enumerate DFS namespaces hosted on a machine.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_info_300
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319

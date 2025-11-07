@@ -16,14 +16,14 @@ class MBN_SMS_CAPS{
 
     /**
      * For GSM devices, this indicates that the device is capable of receiving PDU-type SMS. 
- * For CDMA devices, this indicates that the device is capable of reading the SMS in binary format as defined in section 3.4.2.1 “SMS Point-to-Point Message” in 3GPP2 specification C.S0015-A “Short Message Service (SMS) for Wideband Spread Spectrum Systems”.
+     * For CDMA devices, this indicates that the device is capable of reading the SMS in binary format as defined in section 3.4.2.1 “SMS Point-to-Point Message” in 3GPP2 specification C.S0015-A “Short Message Service (SMS) for Wideband Spread Spectrum Systems”.
      * @type {Integer (Int32)}
      */
     static MBN_SMS_CAPS_PDU_RECEIVE => 1
 
     /**
      * For GSM devices, this indicates that the device is capable of sending PDU-type SMS. 
- * For CDMA devices, this indicates that the device is capable of sending the SMS in binary format as defined in section 3.4.2.1 “SMS Point-to-Point Message” in 3GPP2 specification C.S0015-A “Short Message Service (SMS) for Wideband Spread Spectrum Systems”.
+     * For CDMA devices, this indicates that the device is capable of sending the SMS in binary format as defined in section 3.4.2.1 “SMS Point-to-Point Message” in 3GPP2 specification C.S0015-A “Short Message Service (SMS) for Wideband Spread Spectrum Systems”.
      * @type {Integer (Int32)}
      */
     static MBN_SMS_CAPS_PDU_SEND => 2

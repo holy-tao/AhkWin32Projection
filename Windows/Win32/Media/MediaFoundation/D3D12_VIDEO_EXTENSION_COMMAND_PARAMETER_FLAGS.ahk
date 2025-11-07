@@ -4,9 +4,9 @@
  * Specifies the usage of the associated video extension command parameter.
  * @remarks
  * 
-  * Values from this enumeration are used by the [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO](ns-d3d12video-d3d12_video_extension_command_parameter_info.md) structure.
-  * 
-  * 
+ * Values from this enumeration are used by the [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO](ns-d3d12video-d3d12_video_extension_command_parameter_info.md) structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_extension_command_parameter_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -7,42 +7,42 @@
  * The DEVINFO structure provides information about the driver and its private PDEV to the graphics engine.
  * @remarks
  * 
-  * The driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvenablepdev">DrvEnablePDEV</a> function fills in a DEVINFO structure; the driver should set only the members that are relevant to it. This structure is zero-initialized by GDI before <b>DrvEnablePDEV</b> is called. Applications do not have direct access to this structure.
-  * 
-  * If a driver sets GCAPS2_JPEGSRC or GCAPS2_PNGSRC in <b>flGraphicsCaps2</b>, the following rules apply:
-  * 
-  * <ul>
-  * <li>
-  * The driver must provide a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvquerydevicesupport">DrvQueryDeviceSupport</a> function.
-  * 
-  * </li>
-  * <li>
-  * Every driver-defined graphics DDI function that receives a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure as input must be able to either support the compressed format or return an error code. In the case of printer drivers, to support the compressed format, the driver must be able to perform either one of the following tasks:
-  * 
-  * 
-  * <ul>
-  * <li>If the print device can process the JPEG/PNG compressed format, the printer driver should pass the compressed format through to its page description language (PDL) output.</li>
-  * <li>If the print device cannot process the JPEG/PNG compressed format, the printer driver must first convert the compressed JPEG/PNG format into another image format that the print device can process. The printer driver can then make the image information available in the driver's PDL output.
-  * <div class="alert"><b>Note</b>  In the case of converting from JPEG/PNG to the bitmap format, the printer driver must not use GDI functions. For example, the driver can use the Windows Imaging Component (WIC)  APIs instead to do the conversion.</div>
-  * <div> </div>
-  * 
-  * 
-  * </li>
-  * </ul>
-  * 
-  * 
-  * </li>
-  * <li>
-  * The driver must be able to handle complex clip regions for images that use the compressed format.
-  * 
-  * </li>
-  * <li>
-  * For driver-defined graphics DDI functions that receive a ROP4 input argument, only 0xCCCC is used with JPEG and PNG formats.
-  * 
-  * </li>
-  * </ul>
-  * 
-  * 
+ * The driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvenablepdev">DrvEnablePDEV</a> function fills in a DEVINFO structure; the driver should set only the members that are relevant to it. This structure is zero-initialized by GDI before <b>DrvEnablePDEV</b> is called. Applications do not have direct access to this structure.
+ * 
+ * If a driver sets GCAPS2_JPEGSRC or GCAPS2_PNGSRC in <b>flGraphicsCaps2</b>, the following rules apply:
+ * 
+ * <ul>
+ * <li>
+ * The driver must provide a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvquerydevicesupport">DrvQueryDeviceSupport</a> function.
+ * 
+ * </li>
+ * <li>
+ * Every driver-defined graphics DDI function that receives a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure as input must be able to either support the compressed format or return an error code. In the case of printer drivers, to support the compressed format, the driver must be able to perform either one of the following tasks:
+ * 
+ * 
+ * <ul>
+ * <li>If the print device can process the JPEG/PNG compressed format, the printer driver should pass the compressed format through to its page description language (PDL) output.</li>
+ * <li>If the print device cannot process the JPEG/PNG compressed format, the printer driver must first convert the compressed JPEG/PNG format into another image format that the print device can process. The printer driver can then make the image information available in the driver's PDL output.
+ * <div class="alert"><b>Note</b>  In the case of converting from JPEG/PNG to the bitmap format, the printer driver must not use GDI functions. For example, the driver can use the Windows Imaging Component (WIC)  APIs instead to do the conversion.</div>
+ * <div> </div>
+ * 
+ * 
+ * </li>
+ * </ul>
+ * 
+ * 
+ * </li>
+ * <li>
+ * The driver must be able to handle complex clip regions for images that use the compressed format.
+ * 
+ * </li>
+ * <li>
+ * For driver-defined graphics DDI functions that receive a ROP4 input argument, only 0xCCCC is used with JPEG and PNG formats.
+ * 
+ * </li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-devinfo
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319

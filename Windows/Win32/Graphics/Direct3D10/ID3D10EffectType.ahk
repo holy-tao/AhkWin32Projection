@@ -6,9 +6,9 @@
  * The ID3D10EffectType interface accesses effect variables by type.
  * @remarks
  * 
-  * To get information about an effect type from an effect variable, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-gettype">ID3D10EffectVariable::GetType</a>.
-  * 
-  * 
+ * To get information about an effect type from an effect variable, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-gettype">ID3D10EffectVariable::GetType</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nn-d3d10effect-id3d10effecttype
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

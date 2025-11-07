@@ -5,19 +5,19 @@
  * The GCP_RESULTS structure contains information about characters in a string. This structure receives the results of the GetCharacterPlacement function. For some languages, the first element in the arrays may contain more, language-dependent information.
  * @remarks
  * 
-  * Whether the <b>lpGlyphs</b>, <b>lpOutString</b>, or neither is required depends on the results of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getfontlanguageinfo">GetFontLanguageInfo</a> call.
-  * 
-  * In the case of a font for a language such as English, in which none of the GCP_DBCS, GCP_REORDER, GCP_GLYPHSHAPE, GCP_LIGATE, GCP_DIACRITIC, or GCP_KASHIDA flags are returned, neither of the arrays is required for proper operation. (Though not required, they can still be used. If the <b>lpOutString</b> array is used, it will be exactly the same as the <i>lpInputString</i> passed to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a>.) Note, however, that if GCP_MAXEXTENT is used, then <b>lpOutString</b> will contain the truncated string if it is used, NOT an exact copy of the original.
-  * 
-  * In the case of fonts for languages such as Hebrew, which DO have reordering but do not typically have extra glyph shapes, <b>lpOutString</b> should be used. This will give the string on the screen-readable order. However, the <b>lpGlyphs</b> array is not typically needed. (Hebrew can have extra glyphs, if the font is a TrueType/Open font.)
-  * 
-  * In the case of languages such as Thai or Arabic, in which <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getfontlanguageinfo">GetFontLanguageInfo</a> returns the GCP_GLYPHSHAPE flag, the <b>lpOutString</b> will give the display-readable order of the string passed to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a>, but the values will still be the unshaped characters. For proper display, the <b>lpGlyphs</b> array must be used.
-  * 
-  * 
-  * > [!NOTE]
-  * > The wingdi.h header defines GCP_RESULTS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
-  * 
+ * Whether the <b>lpGlyphs</b>, <b>lpOutString</b>, or neither is required depends on the results of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getfontlanguageinfo">GetFontLanguageInfo</a> call.
+ * 
+ * In the case of a font for a language such as English, in which none of the GCP_DBCS, GCP_REORDER, GCP_GLYPHSHAPE, GCP_LIGATE, GCP_DIACRITIC, or GCP_KASHIDA flags are returned, neither of the arrays is required for proper operation. (Though not required, they can still be used. If the <b>lpOutString</b> array is used, it will be exactly the same as the <i>lpInputString</i> passed to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a>.) Note, however, that if GCP_MAXEXTENT is used, then <b>lpOutString</b> will contain the truncated string if it is used, NOT an exact copy of the original.
+ * 
+ * In the case of fonts for languages such as Hebrew, which DO have reordering but do not typically have extra glyph shapes, <b>lpOutString</b> should be used. This will give the string on the screen-readable order. However, the <b>lpGlyphs</b> array is not typically needed. (Hebrew can have extra glyphs, if the font is a TrueType/Open font.)
+ * 
+ * In the case of languages such as Thai or Arabic, in which <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getfontlanguageinfo">GetFontLanguageInfo</a> returns the GCP_GLYPHSHAPE flag, the <b>lpOutString</b> will give the display-readable order of the string passed to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a>, but the values will still be the unshaped characters. For proper display, the <b>lpGlyphs</b> array must be used.
+ * 
+ * 
+ * > [!NOTE]
+ * > The wingdi.h header defines GCP_RESULTS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-gcp_resultsw
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319

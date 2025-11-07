@@ -5,9 +5,9 @@
  * The DRM_ACTSERV_INFO structure stores information about the activation server.
  * @remarks
  * 
-  * This structure has a C++ default constructor that takes no parameters and sets members to the default values described above.
-  * 
-  * 
+ * This structure has a C++ default constructor that takes no parameters and sets members to the default values described above.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msdrmdefs/ns-msdrmdefs-drm_actserv_info
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319

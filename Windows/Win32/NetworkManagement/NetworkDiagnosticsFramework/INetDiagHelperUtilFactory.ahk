@@ -7,8 +7,8 @@
  * Provides a reserved method that is used by the Network Diagnostics Framework (NDF).
  * @remarks
  * 
-  * This interface is reserved for system use.
-  * 
+ * This interface is reserved for system use.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nn-ndhelper-inetdiaghelperutilfactory
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319

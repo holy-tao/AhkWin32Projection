@@ -7,11 +7,11 @@
  * The CLIPLINE structure gives the driver access to a portion of a line between two clip regions used for drawing.
  * @remarks
  * 
-  * The CLIPLINE structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-pathobj_benumcliplines">PATHOBJ_bEnumClipLines</a>. The CLIPLINE structure contains the original, unclipped control points of the line segment.
-  * 
-  * See <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a> for a description of the POINTFIX structure.
-  * 
-  * 
+ * The CLIPLINE structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-pathobj_benumcliplines">PATHOBJ_bEnumClipLines</a>. The CLIPLINE structure contains the original, unclipped control points of the line segment.
+ * 
+ * See <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a> for a description of the POINTFIX structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-clipline
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319

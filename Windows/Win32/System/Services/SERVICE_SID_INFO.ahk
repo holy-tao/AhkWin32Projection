@@ -5,35 +5,35 @@
  * Represents a service security identifier (SID).
  * @remarks
  * 
-  * The change takes effect the next time the system is started.
-  * 
-  * The SCM adds the specified service SIDs to the process token, plus the following additional SIDs.
-  * 
-  * <table>
-  * <tr>
-  * <th>SID</th>
-  * <th>Attributes</th>
-  * </tr>
-  * <tr>
-  * <td>Logon SID</td>
-  * <td>SE_GROUP_ENABLED | SE_GROUP_ENABLED_BY_DEFAULT | SE_GROUP_LOGON_ID | SE_GROUP_MANDATORY</td>
-  * </tr>
-  * <tr>
-  * <td>Local SID</td>
-  * <td>SE_GROUP_MANDATORY | SE_GROUP_ENABLED | SE_GROUP_ENABLED_BY_DEFAULT</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * This enables developers to control access to the objects a service uses, instead of relying on the use of the LocalSystem account to obtain access.
-  * 
-  * Use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountsida">LookupAccountSid</a> functions to convert between a service name and a service SID. The account name is of the following form:
-  * 
-  * NT SERVICE&#92;<i>SvcName</i>
-  * 
-  * Note that NT SERVICE is the domain name.
-  * 
-  * 
+ * The change takes effect the next time the system is started.
+ * 
+ * The SCM adds the specified service SIDs to the process token, plus the following additional SIDs.
+ * 
+ * <table>
+ * <tr>
+ * <th>SID</th>
+ * <th>Attributes</th>
+ * </tr>
+ * <tr>
+ * <td>Logon SID</td>
+ * <td>SE_GROUP_ENABLED | SE_GROUP_ENABLED_BY_DEFAULT | SE_GROUP_LOGON_ID | SE_GROUP_MANDATORY</td>
+ * </tr>
+ * <tr>
+ * <td>Local SID</td>
+ * <td>SE_GROUP_MANDATORY | SE_GROUP_ENABLED | SE_GROUP_ENABLED_BY_DEFAULT</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * This enables developers to control access to the objects a service uses, instead of relying on the use of the LocalSystem account to obtain access.
+ * 
+ * Use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountsida">LookupAccountSid</a> functions to convert between a service name and a service SID. The account name is of the following form:
+ * 
+ * NT SERVICE&#92;<i>SvcName</i>
+ * 
+ * Note that NT SERVICE is the domain name.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-service_sid_info
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319

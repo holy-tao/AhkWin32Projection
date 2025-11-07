@@ -7,9 +7,9 @@
  * The interface used to set parameters that control how head-related transfer function (HRTF) is applied to a sound.
  * @remarks
  * 
-  * Create instances of the XAPO interface by calling the <a href="https://docs.microsoft.com/windows/desktop/api/hrtfapoapi/nf-hrtfapoapi-createhrtfapo">CreateHrtfApo</a> function.
-  * 
-  * 
+ * Create instances of the XAPO interface by calling the <a href="https://docs.microsoft.com/windows/desktop/api/hrtfapoapi/nf-hrtfapoapi-createhrtfapo">CreateHrtfApo</a> function.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//hrtfapoapi/nn-hrtfapoapi-ixapohrtfparameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319

@@ -5,448 +5,448 @@
  * Contains read-only dynamic information for extended TCP statistics on network path measurement for a TCP connection.
  * @remarks
  * 
-  * The <b>TCP_ESTATS_PATH_ROD_v0</b> structure is used as part of the TCP extended statistics feature available on Windows Vista and later. 
-  * 
-  * The <b>TCP_ESTATS_PATH_ROD_v0</b> is defined as version 0 of the structure for  read-only dynamic information on network path measurementfor a TCP connection.  This information is available after the connection has been established.
-  * 
-  * The <b>TCP_ESTATS_PATH_ROD_v0</b> structure is retrieved by calls to  the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcp6connectionestats">GetPerTcp6ConnectionEStats</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcpconnectionestats">GetPerTcpConnectionEStats</a> functions when <b>TcpConnectionEstatsPath</b> is passed in the <i>EstatsType</i> parameter. Extended TCP statistics need to be enabled to retrieve this structure.
-  * 
-  * The path MTU discovery and maximum segment size are discussed in detail in the IETF RFC 1191 on Path MTU discovery. For more information, see <a href="http://tools.ietf.org/html/rfc1191">http://www.ietf.org/rfc/rfc1191.txt</a>.
-  * 
-  * TCP congestion control and congestion control algorithms are discussed in detail in the IETF RFC 2581 on TCP Congestion Control. For more information, see <a href="http://tools.ietf.org/html/rfc2581">http://www.ietf.org/rfc/rfc2581.txt</a>.
-  * 
-  * SACK and an extension to the SACK option are discussed in detail in the IETF RFC 2883 on An Extension to the Selective Acknowledgement
-  *            (SACK) Option for TCP. For more information, see <a href="http://tools.ietf.org/html/rfc2883">http://www.ietf.org/rfc/rfc2883.txt</a>.
-  * 
-  * The TCP retransmission timer (RTO) and the smoothed round-trip-time (RTT) are discussed in detail in the IETF RFC 2988 on Computing TCP's Retransmission Timer. For more information, see <a href="http://tools.ietf.org/html/rfc2988">http://www.ietf.org/rfc/rfc2988.txt</a>.
-  * 
-  * Explicit Congestion Notification in IP is discussed in detail in the IETF RFC 2581 on The Addition of Explicit Congestion Notification
-  *            (ECN) to IP. For more information, see <a href="http://tools.ietf.org/html/rfc3168">http://www.ietf.org/rfc/rfc3168.txt</a>.
-  * 
-  * The members of this structure are defined in the IETF RFC on the TCP Extended Statistics MIB. For more information, see <a href="http://tools.ietf.org/html/rfc4898">http://www.ietf.org/rfc/rfc4898.txt</a>.
-  * 
-  * 
-  * 
-  * 
-  * The following is the mapping of the members in the <b>TCP_ESTATS_PATH_ROD_v0</b> structure to the entries defined in RFC 4898 for extended TCP statistics:
-  * 
-  * 
-  * 
-  * <table>
-  * <tr>
-  * <th>Term</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="FastRetran"></a><a id="fastretran"></a><a id="FASTRETRAN"></a><b>FastRetran</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackFastRetran
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="Timeouts"></a><a id="timeouts"></a><a id="TIMEOUTS"></a><b>Timeouts</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPerfTimeouts
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="SubsequentTimeouts"></a><a id="subsequenttimeouts"></a><a id="SUBSEQUENTTIMEOUTS"></a><b>SubsequentTimeouts</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackSubsequentTimeouts
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="CurTimeoutCount"></a><a id="curtimeoutcount"></a><a id="CURTIMEOUTCOUNT"></a><b>CurTimeoutCount</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackCurTimeoutCount
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="AbruptTimeouts"></a><a id="abrupttimeouts"></a><a id="ABRUPTTIMEOUTS"></a><b>AbruptTimeouts</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackAbruptTimeouts
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="PktsRetrans"></a><a id="pktsretrans"></a><a id="PKTSRETRANS"></a><b>PktsRetrans</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPerfSegsRetrans
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="BytesRetrans"></a><a id="bytesretrans"></a><a id="BYTESRETRANS"></a><b>BytesRetrans</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPerfOctetsRetrans
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="DupAcksIn"></a><a id="dupacksin"></a><a id="DUPACKSIN"></a><b>DupAcksIn</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackDupAcksIn
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="SacksRcvd"></a><a id="sacksrcvd"></a><a id="SACKSRCVD"></a><b>SacksRcvd</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackSACKsRcvd
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="SackBlocksRcvd"></a><a id="sackblocksrcvd"></a><a id="SACKBLOCKSRCVD"></a><b>SackBlocksRcvd</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackSACKBlocksRcvd
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="CongSignals"></a><a id="congsignals"></a><a id="CONGSIGNALS"></a><b>CongSignals</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPerfCongSignals
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="PreCongSumCwnd"></a><a id="precongsumcwnd"></a><a id="PRECONGSUMCWND"></a><b>PreCongSumCwnd</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathPreCongSumCwnd
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="PreCongSumRtt"></a><a id="precongsumrtt"></a><a id="PRECONGSUMRTT"></a><b>PreCongSumRtt</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathPreCongSumRTT
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="PostCongSumRtt"></a><a id="postcongsumrtt"></a><a id="POSTCONGSUMRTT"></a><b>PostCongSumRtt</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathPostCongSumRTT
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="PostCongCountRtt"></a><a id="postcongcountrtt"></a><a id="POSTCONGCOUNTRTT"></a><b>PostCongCountRtt</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathPostCongCountRTT
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="EcnSignals"></a><a id="ecnsignals"></a><a id="ECNSIGNALS"></a><b>EcnSignals</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathECNsignals
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="EceRcvd"></a><a id="ecercvd"></a><a id="ECERCVD"></a><b>EceRcvd</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathCERcvd
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="SendStall"></a><a id="sendstall"></a><a id="SENDSTALL"></a><b>SendStall</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackSendStall
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="QuenchRcvd"></a><a id="quenchrcvd"></a><a id="QUENCHRCVD"></a><b>QuenchRcvd</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * No mapping to this member.
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="RetranThresh"></a><a id="retranthresh"></a><a id="RETRANTHRESH"></a><b>RetranThresh</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathRetranThresh
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="SndDupAckEpisodes"></a><a id="snddupackepisodes"></a><a id="SNDDUPACKEPISODES"></a><b>SndDupAckEpisodes</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathDupAckEpisodes
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="SumBytesReordered"></a><a id="sumbytesreordered"></a><a id="SUMBYTESREORDERED"></a><b>SumBytesReordered</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathSumOctetsReordered
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="NonRecovDa"></a><a id="nonrecovda"></a><a id="NONRECOVDA"></a><b>NonRecovDa</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathNonRecovDA
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="NonRecovDaEpisodes"></a><a id="nonrecovdaepisodes"></a><a id="NONRECOVDAEPISODES"></a><b>NonRecovDaEpisodes</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathNonRecovDAEpisodes
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="AckAfterFr"></a><a id="ackafterfr"></a><a id="ACKAFTERFR"></a><b>AckAfterFr</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * No mapping to this member.
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="DsackDups"></a><a id="dsackdups"></a><a id="DSACKDUPS"></a><b>DsackDups</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackDSACKDups
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="SampleRtt"></a><a id="samplertt"></a><a id="SAMPLERTT"></a><b>SampleRtt</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathSampleRTT
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="SmoothedRtt"></a><a id="smoothedrtt"></a><a id="SMOOTHEDRTT"></a><b>SmoothedRtt</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPerfSmoothedRTT
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="RttVar"></a><a id="rttvar"></a><a id="RTTVAR"></a><b>RttVar</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathRTTVar
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="MaxRtt"></a><a id="maxrtt"></a><a id="MAXRTT"></a><b>MaxRtt</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathMaxRTT
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="MinRtt"></a><a id="minrtt"></a><a id="MINRTT"></a><b>MinRtt</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathMinRTT
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="SumRtt"></a><a id="sumrtt"></a><a id="SUMRTT"></a><b>SumRtt</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathSumRTT
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="CountRtt"></a><a id="countrtt"></a><a id="COUNTRTT"></a><b>CountRtt</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathCountRTT
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="CurRto"></a><a id="currto"></a><a id="CURRTO"></a><b>CurRto</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPerfCurRTO
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="MaxRto"></a><a id="maxrto"></a><a id="MAXRTO"></a><b>MaxRto</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathMaxRTO
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="MinRto"></a><a id="minrto"></a><a id="MINRTO"></a><b>MinRto</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPathMinRTO
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="CurMss"></a><a id="curmss"></a><a id="CURMSS"></a><b>CurMss</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPerfCurMSS
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="MaxMss"></a><a id="maxmss"></a><a id="MAXMSS"></a><b>MaxMss</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackMaxMSS
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="MinMss"></a><a id="minmss"></a><a id="MINMSS"></a><b>MinMss</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackMinMSS
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="SpuriousRtoDetections"></a><a id="spuriousrtodetections"></a><a id="SPURIOUSRTODETECTIONS"></a><b>SpuriousRtoDetections</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackSpuriousRtoDetected
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * 
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/tcpestats/ns-tcpestats-tcp_estats_fine_rtt_rod_v0">TCP_ESTATS_FINE_RTT_ROD_v0</a> structure has members that provide similar data to the <b>RttVar</b>, <b>MaxRtt</b>, <b>MinRtt</b>, and <b>SumRtt</b> members of the <b>TCP_ESTATS_PATH_ROD_v0</b> structure. However, the time is reported in microseconds for the similar members of the <b>TCP_ESTATS_FINE_RTT_ROD_v0</b> structure.
-  * 
-  * 
+ * The <b>TCP_ESTATS_PATH_ROD_v0</b> structure is used as part of the TCP extended statistics feature available on Windows Vista and later. 
+ * 
+ * The <b>TCP_ESTATS_PATH_ROD_v0</b> is defined as version 0 of the structure for  read-only dynamic information on network path measurementfor a TCP connection.  This information is available after the connection has been established.
+ * 
+ * The <b>TCP_ESTATS_PATH_ROD_v0</b> structure is retrieved by calls to  the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcp6connectionestats">GetPerTcp6ConnectionEStats</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcpconnectionestats">GetPerTcpConnectionEStats</a> functions when <b>TcpConnectionEstatsPath</b> is passed in the <i>EstatsType</i> parameter. Extended TCP statistics need to be enabled to retrieve this structure.
+ * 
+ * The path MTU discovery and maximum segment size are discussed in detail in the IETF RFC 1191 on Path MTU discovery. For more information, see <a href="http://tools.ietf.org/html/rfc1191">http://www.ietf.org/rfc/rfc1191.txt</a>.
+ * 
+ * TCP congestion control and congestion control algorithms are discussed in detail in the IETF RFC 2581 on TCP Congestion Control. For more information, see <a href="http://tools.ietf.org/html/rfc2581">http://www.ietf.org/rfc/rfc2581.txt</a>.
+ * 
+ * SACK and an extension to the SACK option are discussed in detail in the IETF RFC 2883 on An Extension to the Selective Acknowledgement
+ *            (SACK) Option for TCP. For more information, see <a href="http://tools.ietf.org/html/rfc2883">http://www.ietf.org/rfc/rfc2883.txt</a>.
+ * 
+ * The TCP retransmission timer (RTO) and the smoothed round-trip-time (RTT) are discussed in detail in the IETF RFC 2988 on Computing TCP's Retransmission Timer. For more information, see <a href="http://tools.ietf.org/html/rfc2988">http://www.ietf.org/rfc/rfc2988.txt</a>.
+ * 
+ * Explicit Congestion Notification in IP is discussed in detail in the IETF RFC 2581 on The Addition of Explicit Congestion Notification
+ *            (ECN) to IP. For more information, see <a href="http://tools.ietf.org/html/rfc3168">http://www.ietf.org/rfc/rfc3168.txt</a>.
+ * 
+ * The members of this structure are defined in the IETF RFC on the TCP Extended Statistics MIB. For more information, see <a href="http://tools.ietf.org/html/rfc4898">http://www.ietf.org/rfc/rfc4898.txt</a>.
+ * 
+ * 
+ * 
+ * 
+ * The following is the mapping of the members in the <b>TCP_ESTATS_PATH_ROD_v0</b> structure to the entries defined in RFC 4898 for extended TCP statistics:
+ * 
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>Term</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="FastRetran"></a><a id="fastretran"></a><a id="FASTRETRAN"></a><b>FastRetran</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackFastRetran
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="Timeouts"></a><a id="timeouts"></a><a id="TIMEOUTS"></a><b>Timeouts</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPerfTimeouts
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="SubsequentTimeouts"></a><a id="subsequenttimeouts"></a><a id="SUBSEQUENTTIMEOUTS"></a><b>SubsequentTimeouts</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackSubsequentTimeouts
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="CurTimeoutCount"></a><a id="curtimeoutcount"></a><a id="CURTIMEOUTCOUNT"></a><b>CurTimeoutCount</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackCurTimeoutCount
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="AbruptTimeouts"></a><a id="abrupttimeouts"></a><a id="ABRUPTTIMEOUTS"></a><b>AbruptTimeouts</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackAbruptTimeouts
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="PktsRetrans"></a><a id="pktsretrans"></a><a id="PKTSRETRANS"></a><b>PktsRetrans</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPerfSegsRetrans
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="BytesRetrans"></a><a id="bytesretrans"></a><a id="BYTESRETRANS"></a><b>BytesRetrans</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPerfOctetsRetrans
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="DupAcksIn"></a><a id="dupacksin"></a><a id="DUPACKSIN"></a><b>DupAcksIn</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackDupAcksIn
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="SacksRcvd"></a><a id="sacksrcvd"></a><a id="SACKSRCVD"></a><b>SacksRcvd</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackSACKsRcvd
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="SackBlocksRcvd"></a><a id="sackblocksrcvd"></a><a id="SACKBLOCKSRCVD"></a><b>SackBlocksRcvd</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackSACKBlocksRcvd
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="CongSignals"></a><a id="congsignals"></a><a id="CONGSIGNALS"></a><b>CongSignals</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPerfCongSignals
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="PreCongSumCwnd"></a><a id="precongsumcwnd"></a><a id="PRECONGSUMCWND"></a><b>PreCongSumCwnd</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathPreCongSumCwnd
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="PreCongSumRtt"></a><a id="precongsumrtt"></a><a id="PRECONGSUMRTT"></a><b>PreCongSumRtt</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathPreCongSumRTT
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="PostCongSumRtt"></a><a id="postcongsumrtt"></a><a id="POSTCONGSUMRTT"></a><b>PostCongSumRtt</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathPostCongSumRTT
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="PostCongCountRtt"></a><a id="postcongcountrtt"></a><a id="POSTCONGCOUNTRTT"></a><b>PostCongCountRtt</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathPostCongCountRTT
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="EcnSignals"></a><a id="ecnsignals"></a><a id="ECNSIGNALS"></a><b>EcnSignals</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathECNsignals
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="EceRcvd"></a><a id="ecercvd"></a><a id="ECERCVD"></a><b>EceRcvd</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathCERcvd
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="SendStall"></a><a id="sendstall"></a><a id="SENDSTALL"></a><b>SendStall</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackSendStall
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="QuenchRcvd"></a><a id="quenchrcvd"></a><a id="QUENCHRCVD"></a><b>QuenchRcvd</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * No mapping to this member.
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="RetranThresh"></a><a id="retranthresh"></a><a id="RETRANTHRESH"></a><b>RetranThresh</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathRetranThresh
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="SndDupAckEpisodes"></a><a id="snddupackepisodes"></a><a id="SNDDUPACKEPISODES"></a><b>SndDupAckEpisodes</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathDupAckEpisodes
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="SumBytesReordered"></a><a id="sumbytesreordered"></a><a id="SUMBYTESREORDERED"></a><b>SumBytesReordered</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathSumOctetsReordered
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="NonRecovDa"></a><a id="nonrecovda"></a><a id="NONRECOVDA"></a><b>NonRecovDa</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathNonRecovDA
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="NonRecovDaEpisodes"></a><a id="nonrecovdaepisodes"></a><a id="NONRECOVDAEPISODES"></a><b>NonRecovDaEpisodes</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathNonRecovDAEpisodes
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="AckAfterFr"></a><a id="ackafterfr"></a><a id="ACKAFTERFR"></a><b>AckAfterFr</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * No mapping to this member.
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="DsackDups"></a><a id="dsackdups"></a><a id="DSACKDUPS"></a><b>DsackDups</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackDSACKDups
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="SampleRtt"></a><a id="samplertt"></a><a id="SAMPLERTT"></a><b>SampleRtt</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathSampleRTT
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="SmoothedRtt"></a><a id="smoothedrtt"></a><a id="SMOOTHEDRTT"></a><b>SmoothedRtt</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPerfSmoothedRTT
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="RttVar"></a><a id="rttvar"></a><a id="RTTVAR"></a><b>RttVar</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathRTTVar
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="MaxRtt"></a><a id="maxrtt"></a><a id="MAXRTT"></a><b>MaxRtt</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathMaxRTT
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="MinRtt"></a><a id="minrtt"></a><a id="MINRTT"></a><b>MinRtt</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathMinRTT
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="SumRtt"></a><a id="sumrtt"></a><a id="SUMRTT"></a><b>SumRtt</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathSumRTT
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="CountRtt"></a><a id="countrtt"></a><a id="COUNTRTT"></a><b>CountRtt</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathCountRTT
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="CurRto"></a><a id="currto"></a><a id="CURRTO"></a><b>CurRto</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPerfCurRTO
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="MaxRto"></a><a id="maxrto"></a><a id="MAXRTO"></a><b>MaxRto</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathMaxRTO
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="MinRto"></a><a id="minrto"></a><a id="MINRTO"></a><b>MinRto</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPathMinRTO
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="CurMss"></a><a id="curmss"></a><a id="CURMSS"></a><b>CurMss</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPerfCurMSS
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="MaxMss"></a><a id="maxmss"></a><a id="MAXMSS"></a><b>MaxMss</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackMaxMSS
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="MinMss"></a><a id="minmss"></a><a id="MINMSS"></a><b>MinMss</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackMinMSS
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="SpuriousRtoDetections"></a><a id="spuriousrtodetections"></a><a id="SPURIOUSRTODETECTIONS"></a><b>SpuriousRtoDetections</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackSpuriousRtoDetected
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/tcpestats/ns-tcpestats-tcp_estats_fine_rtt_rod_v0">TCP_ESTATS_FINE_RTT_ROD_v0</a> structure has members that provide similar data to the <b>RttVar</b>, <b>MaxRtt</b>, <b>MinRtt</b>, and <b>SumRtt</b> members of the <b>TCP_ESTATS_PATH_ROD_v0</b> structure. However, the time is reported in microseconds for the similar members of the <b>TCP_ESTATS_FINE_RTT_ROD_v0</b> structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tcpestats/ns-tcpestats-tcp_estats_path_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319

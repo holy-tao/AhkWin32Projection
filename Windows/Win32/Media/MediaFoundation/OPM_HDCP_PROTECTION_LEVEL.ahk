@@ -4,9 +4,9 @@
  * Specifies the protection level for High-Bandwidth Digital Content Protection (HDCP).
  * @remarks
  * 
-  * This enumeration is numerically equivalent to the <b>COPP_HDCP_Protection_Level</b> enumeration used in Certified Output Protection Protocol (COPP).
-  * 
-  * 
+ * This enumeration is numerically equivalent to the <b>COPP_HDCP_Protection_Level</b> enumeration used in Certified Output Protection Protocol (COPP).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//opmapi/ne-opmapi-opm_hdcp_protection_level
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Provides methods to read data from an Advanced Systems Format (ASF) file.
  * @remarks
  * 
-  * The ASF splitter accepts ASF packets and extracts the samples for individual streams from them. As with the other ASF base components, the ASF splitter object must be initialized with data from an ASF ContentInfo object before use.
-  * 
-  * 
+ * The ASF splitter accepts ASF packets and extracts the samples for individual streams from them. As with the other ASF base components, the ASF splitter object must be initialized with data from an ASF ContentInfo object before use.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nn-wmcontainer-imfasfsplitter
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

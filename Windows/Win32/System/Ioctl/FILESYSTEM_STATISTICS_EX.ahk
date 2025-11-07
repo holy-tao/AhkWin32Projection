@@ -5,12 +5,12 @@
  * Contains statistical information from the file system.Support for this structure started with Windows 10.
  * @remarks
  * 
-  * There are two types of files: user and metadata. User files are available for the user. Metadata files are 
-  *     system files that contain information, which the file system uses for its internal organization.
-  * 
-  * The number of read and write operations measured is the number of paging operations.
-  * 
-  * 
+ * There are two types of files: user and metadata. User files are available for the user. Metadata files are 
+ *     system files that contain information, which the file system uses for its internal organization.
+ * 
+ * The number of read and write operations measured is the number of paging operations.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-filesystem_statistics_ex
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319

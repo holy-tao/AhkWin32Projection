@@ -5,20 +5,20 @@
  * The DVD_TIMECODE structure contains DVD timecode in hours, minutes, seconds, and frames.
  * @remarks
  * 
-  * DVD timecode is binary coded decimal (BCD) encoded in the format 0xHhMmSsFf, where:
-  * 
-  * <ul>
-  * <li>H is tens of hours</li>
-  * <li>h is hours</li>
-  * <li>M is tens of minutes</li>
-  * <li>m is minutes</li>
-  * <li>S is tens of seconds</li>
-  * <li>s is seconds</li>
-  * <li>F is tens of frames</li>
-  * <li>f is frames</li>
-  * </ul>
-  * 
-  * 
+ * DVD timecode is binary coded decimal (BCD) encoded in the format 0xHhMmSsFf, where:
+ * 
+ * <ul>
+ * <li>H is tens of hours</li>
+ * <li>h is hours</li>
+ * <li>M is tens of minutes</li>
+ * <li>m is minutes</li>
+ * <li>S is tens of seconds</li>
+ * <li>s is seconds</li>
+ * <li>F is tens of frames</li>
+ * <li>f is frames</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-dvd_timecode
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

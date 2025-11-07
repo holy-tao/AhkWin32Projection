@@ -70,21 +70,21 @@ class VMRMixerPrefs{
 
     /**
      * The render target is a YUV 4:2:0 surface. <div class="alert"><b>Note</b>  Deprecated.</div>
- * <div> </div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MixerPref_RenderTargetYUV420 => 512
 
     /**
      * The render target is a YUV 4:2:2 surface. <div class="alert"><b>Note</b>  Deprecated.</div>
- * <div> </div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MixerPref_RenderTargetYUV422 => 1024
 
     /**
      * The render target is a YUV 4:4:4 surface. <div class="alert"><b>Note</b>  Deprecated.</div>
- * <div> </div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MixerPref_RenderTargetYUV444 => 2048

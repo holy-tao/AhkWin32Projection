@@ -7,14 +7,14 @@
  * Handles phrases that word breakers parse from query text during query time.
  * @remarks
  * 
-  * Indexing Service creates and initializes instances of the PhraseSink object. The PhraseSink receives the <i>fQuery</i> parameter during initialization and uses this parameter to determine the word-breaking context in which the object is being used.
-  * 
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-iwordbreaker">IWordBreaker</a> implementations receive a pointer to the PhraseSink object in the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nf-indexsrv-iwordbreaker-breaktext">BreakText</a> method.
-  * 
-  * 
+ * Indexing Service creates and initializes instances of the PhraseSink object. The PhraseSink receives the <i>fQuery</i> parameter during initialization and uses this parameter to determine the word-breaking context in which the object is being used.
+ * 
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-iwordbreaker">IWordBreaker</a> implementations receive a pointer to the PhraseSink object in the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nf-indexsrv-iwordbreaker-breaktext">BreakText</a> method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nn-indexsrv-iphrasesink
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319

@@ -7,11 +7,11 @@
  * The TRACE_LOGFILE_HEADER structure contains information about an event tracing session and its events.
  * @remarks
  * 
-  * Be sure to initialize the memory for this structure to zero before setting any members.
-  * 
-  * The first event from any log file contains the data defined in this structure. You can use this structure to access the  event data or you can use the <a href="https://docs.microsoft.com/windows/desktop/ETW/eventtrace-header">EventTrace_Header</a> MOF class to decode the event data. Using this structure to read the event data may return unexpected results if the consumer is on a different computer from the one that generated the log file or the log file was written in a WOW (32-bit) session on a 64-bit computer. This is because the <b>LoggerName</b> and <b>LogFileName</b> members are pointers and can vary in size depending on the <b>PointerSize</b> member.
-  * 
-  * 
+ * Be sure to initialize the memory for this structure to zero before setting any members.
+ * 
+ * The first event from any log file contains the data defined in this structure. You can use this structure to access the  event data or you can use the <a href="https://docs.microsoft.com/windows/desktop/ETW/eventtrace-header">EventTrace_Header</a> MOF class to decode the event data. Using this structure to read the event data may return unexpected results if the consumer is on a different computer from the one that generated the log file or the log file was written in a WOW (32-bit) session on a 64-bit computer. This is because the <b>LoggerName</b> and <b>LogFileName</b> members are pointers and can vary in size depending on the <b>PointerSize</b> member.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-trace_logfile_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

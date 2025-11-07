@@ -16,7 +16,7 @@ class TERMINAL_TYPE{
 
     /**
      * A terminal type that can be created. The application must call 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-createterminal">ITTerminalSupport::CreateTerminal</a> to use this type of terminal.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-createterminal">ITTerminalSupport::CreateTerminal</a> to use this type of terminal.
      * @type {Integer (Int32)}
      */
     static TT_DYNAMIC => 1

@@ -7,8 +7,8 @@
  * Exposes a method that represents a modal window. This interface is used in the Windows XP Passport Wizard.
  * @remarks
  * 
-  * <b>IModalWindow</b>'s IID is IID_IModalWindow.
-  * 
+ * <b>IModalWindow</b>'s IID is IID_IModalWindow.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-imodalwindow
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

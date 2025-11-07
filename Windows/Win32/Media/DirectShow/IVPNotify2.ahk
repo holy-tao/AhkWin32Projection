@@ -7,9 +7,9 @@
  * The IVPNotify2 interface inherits from IVPNotify and is implemented by the Overlay Mixer filter.
  * @remarks
  * 
-  * Include Vptype.h before Vpnotify.h.
-  * 
-  * 
+ * Include Vptype.h before Vpnotify.h.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nn-vpnotify-ivpnotify2
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

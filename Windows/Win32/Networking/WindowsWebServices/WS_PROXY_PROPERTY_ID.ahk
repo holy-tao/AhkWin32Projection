@@ -10,105 +10,105 @@ class WS_PROXY_PROPERTY_ID{
 
     /**
      * The maximum amount of time in milliseconds for a call to remain pending. 
- *                     Default is 30000 milliseconds(30 seconds).  It is of type <b>ULONG</b>.
- * 
- * If an application wishes to have no timeout associated with a call, it can set the value to INFINITE.
- *                 
- * 
- * This property is write only.
+     *                     Default is 30000 milliseconds(30 seconds).  It is of type <b>ULONG</b>.
+     * 
+     * If an application wishes to have no timeout associated with a call, it can set the value to INFINITE.
+     *                 
+     * 
+     * This property is write only.
      * @type {Integer (Int32)}
      */
     static WS_PROXY_PROPERTY_CALL_TIMEOUT => 0
 
     /**
      * This property allows the user to specify properties of the message
- *                     objects used by the service proxy to send and receive messages.
- *                 
- * 
- * This property may be specified when the service proxy is created.
- *                 
- * 
- * The value specified should be of type <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_message_properties">WS_MESSAGE_PROPERTIES</a>.
- *                 
- * 
- * The following message properties may be specified:
- *                 
- * 
- * <ul>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_property_id">WS_MESSAGE_PROPERTY_HEAP_PROPERTIES</a>
- * </li>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_property_id">WS_MESSAGE_PROPERTY_XML_READER_PROPERTIES</a>
- * </li>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_property_id">WS_MESSAGE_PROPERTY_XML_WRITER_PROPERTIES</a>
- * </li>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_property_id">WS_MESSAGE_PROPERTY_MAX_PROCESSED_HEADERS</a>
- * </li>
- * </ul>
+     *                     objects used by the service proxy to send and receive messages.
+     *                 
+     * 
+     * This property may be specified when the service proxy is created.
+     *                 
+     * 
+     * The value specified should be of type <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_message_properties">WS_MESSAGE_PROPERTIES</a>.
+     *                 
+     * 
+     * The following message properties may be specified:
+     *                 
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_property_id">WS_MESSAGE_PROPERTY_HEAP_PROPERTIES</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_property_id">WS_MESSAGE_PROPERTY_XML_READER_PROPERTIES</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_property_id">WS_MESSAGE_PROPERTY_XML_WRITER_PROPERTIES</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_property_id">WS_MESSAGE_PROPERTY_MAX_PROCESSED_HEADERS</a>
+     * </li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static WS_PROXY_PROPERTY_MESSAGE_PROPERTIES => 1
 
     /**
      * Each call in the service proxy is represented by an object internal to the service proxy. 
- *                     A call object is designed such that after every call it can be reused. 
- *                     This allows applications to scale better in scenarios where they expect 
- *                     large number of calls over the service proxy. The default value for this property is 5.
- *                  It is of type <b>USHORT</b>.
- * 
- * This property is write only.
+     *                     A call object is designed such that after every call it can be reused. 
+     *                     This allows applications to scale better in scenarios where they expect 
+     *                     large number of calls over the service proxy. The default value for this property is 5.
+     *                  It is of type <b>USHORT</b>.
+     * 
+     * This property is write only.
      * @type {Integer (Int32)}
      */
     static WS_PROXY_PROPERTY_MAX_CALL_POOL_SIZE => 2
 
     /**
      * The current state of the service proxy.
- *                 It is of type <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_service_proxy_state">WS_SERVICE_PROXY_STATE</a>.
- * 
- * This property is read only.
- *                 
- * 
- * The returned value is a snapshot of the current state, so it is
- *                     possible that the state may have changed before the caller has
- *                     had a chance to examine the value.
+     *                 It is of type <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_service_proxy_state">WS_SERVICE_PROXY_STATE</a>.
+     * 
+     * This property is read only.
+     *                 
+     * 
+     * The returned value is a snapshot of the current state, so it is
+     *                     possible that the state may have changed before the caller has
+     *                     had a chance to examine the value.
      * @type {Integer (Int32)}
      */
     static WS_PROXY_PROPERTY_STATE => 3
 
     /**
      * The maximum number of pending calls allowed on the service proxy. If the 
- *                     maximum number of calls pending on the service proxy reaches this limit, the
- *                     incoming calls will be rejected with <b>WS_E_QUOTA_EXCEEDED</b> (see <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>). The default value 
- *                     for this property is 100.
- *                  It is of type <b>ULONG</b>.
- * 
- * This property is write only.
+     *                     maximum number of calls pending on the service proxy reaches this limit, the
+     *                     incoming calls will be rejected with <b>WS_E_QUOTA_EXCEEDED</b> (see <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>). The default value 
+     *                     for this property is 100.
+     *                  It is of type <b>ULONG</b>.
+     * 
+     * This property is write only.
      * @type {Integer (Int32)}
      */
     static WS_PROXY_PROPERTY_MAX_PENDING_CALLS => 4
 
     /**
      * The amount of time in milliseconds the service proxy will wait for the pending calls to complete.
- *                     Once the timeout expires, the service proxy will abort itself.
- *                 
- * 
- * The default value for this property is 5000 (5 seconds).
- *                 
- * 
- * This property is write only.
- *                  It is of type <b>ULONG</b>.
+     *                     Once the timeout expires, the service proxy will abort itself.
+     *                 
+     * 
+     * The default value for this property is 5000 (5 seconds).
+     *                 
+     * 
+     * This property is write only.
+     *                  It is of type <b>ULONG</b>.
      * @type {Integer (Int32)}
      */
     static WS_PROXY_PROPERTY_MAX_CLOSE_TIMEOUT => 5
 
     /**
      * The LANGID that would be used for returning a fault. If none specified default user locale will be used. It is of type <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">LANGID</a>. 
- *                 
- * 
- * This property is write only.
+     *                 
+     * 
+     * This property is write only.
      * @type {Integer (Int32)}
      */
     static WS_PROXY_FAULT_LANG_ID => 6

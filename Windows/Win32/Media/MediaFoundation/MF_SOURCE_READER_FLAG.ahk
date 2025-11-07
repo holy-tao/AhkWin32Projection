@@ -22,11 +22,11 @@ class MF_SOURCE_READER_FLAG{
 
     /**
      * One or more new streams were created. Respond to this flag by doing at least one of the following:
- * 
- * <ul>
- * <li>Set the output types on the new streams.</li>
- * <li>Update the stream selection by selecting or deselecting streams.</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>Set the output types on the new streams.</li>
+     * <li>Update the stream selection by selecting or deselecting streams.</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static MF_SOURCE_READERF_NEWSTREAM => 4

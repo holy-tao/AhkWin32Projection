@@ -8,8 +8,8 @@
  * Provides access to the list of IME plug-in dictionaries.
  * @remarks
  * 
-  * This interface is implemented in classes of ProgID="ImePlugInDictDictionaryList1041" for Microsoft Japanese IME and ProgID="ImePlugInDictDictionaryList2052" for Microsoft Simplified Chinese IME.
-  * 
+ * This interface is implemented in classes of ProgID="ImePlugInDictDictionaryList1041" for Microsoft Japanese IME and ProgID="ImePlugInDictDictionaryList2052" for Microsoft Simplified Chinese IME.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msimeapi/nn-msimeapi-iimeplugindictdictionarylist
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319

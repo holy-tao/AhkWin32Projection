@@ -34,15 +34,15 @@ class WEB_SOCKET_CLOSE_STATUS{
 
     /**
      * No close status
- *       code was provided.
+     *       code was provided.
      * @type {Integer (Int32)}
      */
     static WEB_SOCKET_EMPTY_CLOSE_STATUS => 1005
 
     /**
      * The
- *       connection was closed without sending or
- *       receiving a close frame.
+     *       connection was closed without sending or
+     *       receiving a close frame.
      * @type {Integer (Int32)}
      */
     static WEB_SOCKET_ABORTED_CLOSE_STATUS => 1006
@@ -73,14 +73,14 @@ class WEB_SOCKET_CLOSE_STATUS{
 
     /**
      * An unexpected condition prevented the server from
- *       fulfilling the request.
+     *       fulfilling the request.
      * @type {Integer (Int32)}
      */
     static WEB_SOCKET_SERVER_ERROR_CLOSE_STATUS => 1011
 
     /**
      * The
- *       TLS handshake could not be completed.
+     *       TLS handshake could not be completed.
      * @type {Integer (Int32)}
      */
     static WEB_SOCKET_SECURE_HANDSHAKE_ERROR_CLOSE_STATUS => 1015

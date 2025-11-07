@@ -4,9 +4,9 @@
  * Defines values for the mode pages that are supported by CD and DVD devices.
  * @remarks
  * 
-  * Note that the range of mode page type values is 0x0000 to 0xFFFF. This enumeration contains those features defined in the Multmedia Commands - 5 (MMC) specification. For a complete definition of each feature, see Mode Parameters for Multi-Media Devices in the latest release of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
-  * 
-  * 
+ * Note that the range of mode page type values is 0x0000 to 0xFFFF. This enumeration contains those features defined in the Multmedia Commands - 5 (MMC) specification. For a complete definition of each feature, see Mode Parameters for Multi-Media Devices in the latest release of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_mode_page_type
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
@@ -15,21 +15,21 @@ class IMAPI_MODE_PAGE_TYPE{
 
     /**
      * The mode page specifies the error recovery parameters the
- * drive uses during any command that performs a data read or write operation from the media.
+     * drive uses during any command that performs a data read or write operation from the media.
      * @type {Integer (Int32)}
      */
     static IMAPI_MODE_PAGE_TYPE_READ_WRITE_ERROR_RECOVERY => 1
 
     /**
      * The mode page provides a method by which the host may control the special features of a
- * MRW CD-RW Drive.
+     * MRW CD-RW Drive.
      * @type {Integer (Int32)}
      */
     static IMAPI_MODE_PAGE_TYPE_MRW => 3
 
     /**
      * The mode page provides parameters that are often needed in the execution of
- * commands that write to the media.
+     * commands that write to the media.
      * @type {Integer (Int32)}
      */
     static IMAPI_MODE_PAGE_TYPE_WRITE_PARAMETERS => 5

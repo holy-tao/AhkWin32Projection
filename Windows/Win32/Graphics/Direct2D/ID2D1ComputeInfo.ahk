@@ -7,8 +7,8 @@
  * Enables specification of information for a compute-shader rendering pass.
  * @remarks
  * 
-  * The transform changes the state on this render information to specify the compute shader and its dependent resources.
-  * 
+ * The transform changes the state on this render information to specify the compute shader and its dependent resources.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1computeinfo
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

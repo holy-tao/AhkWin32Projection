@@ -4,9 +4,9 @@
  * Defines the action to take when committing changes to the data collector set.
  * @remarks
  * 
-  * All commit modes validate the set.
-  * 
-  * 
+ * All commit modes validate the set.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//pla/ne-pla-commitmode
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
@@ -15,8 +15,8 @@ class CommitMode{
 
     /**
      * Save the set. The set must not already exist. 
- * 
- * The set is not saved if it is a trace session.
+     * 
+     * The set is not saved if it is a trace session.
      * @type {Integer (Int32)}
      */
     static plaCreateNew => 1
@@ -29,8 +29,8 @@ class CommitMode{
 
     /**
      * Save the set. If the set already exists, update the set.
- * 
- * The set is not saved if it is a trace session.
+     * 
+     * The set is not saved if it is a trace session.
      * @type {Integer (Int32)}
      */
     static plaCreateOrModify => 3

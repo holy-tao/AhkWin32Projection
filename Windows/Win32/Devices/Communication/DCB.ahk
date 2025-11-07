@@ -5,17 +5,17 @@
  * Defines the control setting for a serial communications device.
  * @remarks
  * 
-  * When a <b>DCB</b> structure is used to configure the 8250, the 
-  *     following restrictions apply to the values specified for the <b>ByteSize</b> and 
-  *     <b>StopBits</b> members:
-  * 
-  * <ul>
-  * <li>The number of data bits must be 5 to 8 bits.</li>
-  * <li>The use of 5 data bits with 2 stop bits is an invalid combination, as is 6, 7, or 8 data bits with 1.5 stop 
-  *       bits.</li>
-  * </ul>
-  * 
-  * 
+ * When a <b>DCB</b> structure is used to configure the 8250, the 
+ *     following restrictions apply to the values specified for the <b>ByteSize</b> and 
+ *     <b>StopBits</b> members:
+ * 
+ * <ul>
+ * <li>The number of data bits must be 5 to 8 bits.</li>
+ * <li>The use of 5 data bits with 2 stop bits is an invalid combination, as is 6, 7, or 8 data bits with 1.5 stop 
+ *       bits.</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-dcb
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319

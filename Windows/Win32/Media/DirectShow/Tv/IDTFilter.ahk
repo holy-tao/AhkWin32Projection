@@ -7,9 +7,9 @@
  * The IDTFilter interface is exposed by the Decrypter/Detagger filter. Applications can use this interface to set the ratings permissions.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDTFilter)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDTFilter)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//encdec/nn-encdec-idtfilter
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

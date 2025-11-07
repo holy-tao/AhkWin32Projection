@@ -7,14 +7,14 @@
  * Represents a 3D transformation that affects the offset of a visual along the x-axis, y-axis, and z-axis.
  * @remarks
  * 
-  * A 3D translation transform represents the following 4-by-4 matrix:
-  *       
-  * 
-  * <img alt="Four-by-four translation matrix" src="./images/3D_translate_transform_4x4matrix.png"/>
-  * 
-  * The effect is to offset the blending position of the visual's subtree by <i>x</i>, <i>y</i>, and <i>z</i>.
-  * 
-  * 
+ * A 3D translation transform represents the following 4-by-4 matrix:
+ *       
+ * 
+ * <img alt="Four-by-four translation matrix" src="./images/3D_translate_transform_4x4matrix.png"/>
+ * 
+ * The effect is to offset the blending position of the visual's subtree by <i>x</i>, <i>y</i>, and <i>z</i>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositiontranslatetransform3d
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319

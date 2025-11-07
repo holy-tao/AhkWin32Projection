@@ -4,9 +4,9 @@
  * Describes how property values are displayed when multiple items are selected.
  * @remarks
  * 
-  * These values are defined in propsys.h and propsys.idl.
-  * 
-  * 
+ * These values are defined in propsys.h and propsys.idl.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-propdesc_aggregation_type
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319

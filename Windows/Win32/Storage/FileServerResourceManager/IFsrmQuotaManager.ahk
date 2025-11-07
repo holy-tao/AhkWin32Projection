@@ -11,22 +11,22 @@
  * Used to manage quotas.
  * @remarks
  * 
-  * A directory quota restricts the size of a specific directory to a configurable quota limit. In addition to 
-  *     the limit, a directory quota may be configured with one or more directory quota thresholds which define a set of 
-  *     actions that are initiated when the quota usage reaches the threshold value.
-  * 
-  * You can create a quota, an automatic quota, or a quota template. A quota applies to a specific directory. The 
-  *     automatic quota applies to the specified directory and automatically creates quotas for new and existing 
-  *     subdirectories of the specified directory. The quota template is used to modify properties in bulk by applying 
-  *     the changes to quotas that derive from the quota template.
-  * 
-  * Note that if the directory is renamed, the quota applies to the renamed directory. If the directory is 
-  *     deleted, the quota is deleted.
-  * 
-  * To create this object from a script, use the program identifier, 
-  *     "Fsrm.FsrmQuotaManager".
-  * 
-  * 
+ * A directory quota restricts the size of a specific directory to a configurable quota limit. In addition to 
+ *     the limit, a directory quota may be configured with one or more directory quota thresholds which define a set of 
+ *     actions that are initiated when the quota usage reaches the threshold value.
+ * 
+ * You can create a quota, an automatic quota, or a quota template. A quota applies to a specific directory. The 
+ *     automatic quota applies to the specified directory and automatically creates quotas for new and existing 
+ *     subdirectories of the specified directory. The quota template is used to modify properties in bulk by applying 
+ *     the changes to quotas that derive from the quota template.
+ * 
+ * Note that if the directory is renamed, the quota applies to the renamed directory. If the directory is 
+ *     deleted, the quota is deleted.
+ * 
+ * To create this object from a script, use the program identifier, 
+ *     "Fsrm.FsrmQuotaManager".
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nn-fsrmquota-ifsrmquotamanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

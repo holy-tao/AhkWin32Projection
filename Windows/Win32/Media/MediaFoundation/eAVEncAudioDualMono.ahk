@@ -4,9 +4,9 @@
  * Specifies whether 2-channel audio is encoded as stereo or dual mono. This enumeration is used with the AVEncAudioDualMono property.
  * @remarks
  * 
-  * In dual mono encoding, each channel is encoded separately. In stereo encoding, both channels are encoded together.
-  * 
-  * 
+ * In dual mono encoding, each channel is encoded separately. In stereo encoding, both channels are encoded together.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencaudiodualmono
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

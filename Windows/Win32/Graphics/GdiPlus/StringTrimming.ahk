@@ -4,9 +4,9 @@
  * The StringTrimming enumeration specifies how to trim characters from a string so that the string fits into a layout rectangle. The layout rectangle is used to position and size the display string.
  * @remarks
  * 
-  * Trimming affects only the last visible or partly visible (due to clipping) line of text.
-  * 
-  * 
+ * Trimming affects only the last visible or partly visible (due to clipping) line of text.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplusenums/ne-gdiplusenums-stringtrimming
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

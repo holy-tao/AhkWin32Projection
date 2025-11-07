@@ -5,13 +5,13 @@
  * The DIRECTX_AUDIO_ACTIVATION_PARAMS structure specifies the initialization parameters for a DirectSound stream.
  * @remarks
  * 
-  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-immdevice-activate">IMMDevice::Activate</a> method. When activating an <b>IDirectSound</b>, <b>IDirectSoundCapture</b>, or <b>IBaseFilter</b> interface on an audio endpoint device, the <b>DIRECTX_AUDIO_ACTIVATION_PARAMS</b> structure specifies the session GUID and stream-initialization flags for the audio stream that the DirectSound module creates and encapsulates in the interface instance. During the <b>Activate</b> call, DirectSound calls the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient-initialize">IAudioClient::Initialize</a> method and specifies the session GUID and stream-initialization flags from the <b>DIRECTX_AUDIO_ACTIVATION_PARAMS</b> structure as input parameters.
-  * 
-  * For more information about <b>IDirectSound</b>, <b>IDirectSoundCapture</b>, and <b>IBaseFilter</b>, see the Windows SDK documentation.
-  * 
-  * For a code example that uses the <b>DIRECTX_AUDIO_ACTIVATION_PARAMS</b> structure, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-roles-for-directshow-applications">Device Roles for DirectShow Applications</a>.
-  * 
-  * 
+ * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-immdevice-activate">IMMDevice::Activate</a> method. When activating an <b>IDirectSound</b>, <b>IDirectSoundCapture</b>, or <b>IBaseFilter</b> interface on an audio endpoint device, the <b>DIRECTX_AUDIO_ACTIVATION_PARAMS</b> structure specifies the session GUID and stream-initialization flags for the audio stream that the DirectSound module creates and encapsulates in the interface instance. During the <b>Activate</b> call, DirectSound calls the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient-initialize">IAudioClient::Initialize</a> method and specifies the session GUID and stream-initialization flags from the <b>DIRECTX_AUDIO_ACTIVATION_PARAMS</b> structure as input parameters.
+ * 
+ * For more information about <b>IDirectSound</b>, <b>IDirectSoundCapture</b>, and <b>IBaseFilter</b>, see the Windows SDK documentation.
+ * 
+ * For a code example that uses the <b>DIRECTX_AUDIO_ACTIVATION_PARAMS</b> structure, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-roles-for-directshow-applications">Device Roles for DirectShow Applications</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/ns-mmdeviceapi-directx_audio_activation_params
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319

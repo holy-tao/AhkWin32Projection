@@ -4,8 +4,8 @@
  * Specifies the capabilities of a handler regarding the actions that can be performed against it.
  * @remarks
  * 
-  * Sync Center queries the handler for its capabilities through <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandler-getcapabilities">ISyncMgrHandler::GetCapabilities</a> whenever the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrcontrol-updatehandler">ISyncMgrControl::UpdateHandler</a> or <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrcontrol-updatehandlercollection">ISyncMgrControl::UpdateHandlerCollection</a> method is called.
-  * 
+ * Sync Center queries the handler for its capabilities through <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandler-getcapabilities">ISyncMgrHandler::GetCapabilities</a> whenever the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrcontrol-updatehandler">ISyncMgrControl::UpdateHandler</a> or <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrcontrol-updatehandlercollection">ISyncMgrControl::UpdateHandlerCollection</a> method is called.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//syncmgr/ne-syncmgr-syncmgr_handler_capabilities
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

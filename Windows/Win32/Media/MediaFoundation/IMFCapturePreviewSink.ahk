@@ -7,9 +7,9 @@
  * Controls the preview sink.
  * @remarks
  * 
-  * To start preview, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-startpreview">IMFCaptureEngine::StartPreview</a>.
-  * 
-  * 
+ * To start preview, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-startpreview">IMFCaptureEngine::StartPreview</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nn-mfcaptureengine-imfcapturepreviewsink
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

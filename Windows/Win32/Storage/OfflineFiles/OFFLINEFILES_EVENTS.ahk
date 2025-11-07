@@ -214,24 +214,24 @@ class OFFLINEFILES_EVENTS{
 
     /**
      * Represents the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesevents3-transparentcacheitemnotify">IOfflineFilesEvents3::TransparentCacheItemNotify</a> event method.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported before Windows Server 2008 R2 and Windows 7.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported before Windows Server 2008 R2 and Windows 7.
      * @type {Integer (Int32)}
      */
     static OFFLINEFILES_EVENT_TRANSPARENTCACHEITEMNOTIFY => 34
 
     /**
      * Represents the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesevents3-prefetchfilebegin">IOfflineFilesEvents3::PrefetchFileBegin</a> event method.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported before Windows Server 2008 R2 and Windows 7.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported before Windows Server 2008 R2 and Windows 7.
      * @type {Integer (Int32)}
      */
     static OFFLINEFILES_EVENT_PREFETCHFILEBEGIN => 35
 
     /**
      * Represents the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesevents3-prefetchfileend">IOfflineFilesEvents3::PrefetchFileEnd</a> event method.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported before Windows Server 2008 R2 and Windows 7.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported before Windows Server 2008 R2 and Windows 7.
      * @type {Integer (Int32)}
      */
     static OFFLINEFILES_EVENT_PREFETCHFILEEND => 36

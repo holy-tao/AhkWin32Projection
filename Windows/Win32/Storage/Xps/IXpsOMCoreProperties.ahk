@@ -10,9 +10,9 @@
  * This interface provides access to the metadata that is stored in the Core Properties part of the XPS document.
  * @remarks
  * 
-  * The meaning and use of these properties is determined by the user or context.
-  * 
-  * 
+ * The meaning and use of these properties is determined by the user or context.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomcoreproperties
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

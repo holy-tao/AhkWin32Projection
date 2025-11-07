@@ -16,7 +16,7 @@ class ATTRIBUTEINFO{
 
     /**
      * The 
- * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-attributesyntax">syntax</a> of the attribute.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-attributesyntax">syntax</a> of the attribute.
      * @type {Integer (Int32)}
      */
     static SYNTAX => 2

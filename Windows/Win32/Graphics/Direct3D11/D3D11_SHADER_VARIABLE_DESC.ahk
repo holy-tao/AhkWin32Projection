@@ -5,12 +5,12 @@
  * Describes a shader variable.
  * @remarks
  * 
-  * Get a shader-variable description using reflection by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectionvariable-getdesc">ID3D11ShaderReflectionVariable::GetDesc</a>.
-  *         
-  * 
-  * As of the June 2010 update, <b>DefaultValue</b> emits default values for reflection.
-  * 
-  * 
+ * Get a shader-variable description using reflection by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectionvariable-getdesc">ID3D11ShaderReflectionVariable::GetDesc</a>.
+ *         
+ * 
+ * As of the June 2010 update, <b>DefaultValue</b> emits default values for reflection.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/ns-d3d11shader-d3d11_shader_variable_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

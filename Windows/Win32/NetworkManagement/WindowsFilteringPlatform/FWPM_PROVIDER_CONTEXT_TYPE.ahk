@@ -64,36 +64,36 @@ class FWPM_PROVIDER_CONTEXT_TYPE{
 
     /**
      * Specifies IKE v2 quick mode tunnel context type.
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows Server 2008 R2, Windows 7, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows Server 2008 R2, Windows 7, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_IPSEC_IKEV2_QM_TUNNEL_CONTEXT => 9
 
     /**
      * Specifies IKE v2 main mode tunnel context type.
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows Server 2008 R2, Windows 7, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows Server 2008 R2, Windows 7, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_IPSEC_IKEV2_MM_CONTEXT => 10
 
     /**
      * Specifies IPsec DoS Protection context type.
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows Server 2008 R2, Windows 7, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows Server 2008 R2, Windows 7, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_IPSEC_DOSP_CONTEXT => 11
 
     /**
      * Specifies IKE v2 quick mode transport context type.
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows 8.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows 8.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_IPSEC_IKEV2_QM_TRANSPORT_CONTEXT => 12

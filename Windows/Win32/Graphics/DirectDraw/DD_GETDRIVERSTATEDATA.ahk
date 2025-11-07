@@ -5,16 +5,16 @@
  * The DD_GETDRIVERSTATEDATA structure describes the state of the driver.
  * @remarks
  * 
-  * Applications can use the <b>IDirect3DDevice7::GetInfo</b> method and specify the D3DDEVINFOID_D3DTEXTUREMANAGER, D3DDEVINFOID_TEXTUREMANAGER, and D3DDEVINFOID_TEXTURING flags to retrieve texturing information. For more information about this method and the structures related to these flags, see the DirectX SDK documentation. The runtime then passes these flags to the driver.
-  * 
-  * <b>DirectX 8.1 versions only.</b>The Direct3D runtime specifies the D3DDEVINFOID_VCACHE flag in the <b>dwFlags</b> member to retrieve vertex-cache information from the driver specified at the <b>lpDD</b> member. The driver specifies this information in a D3DDEVINFO_VCACHE structure and returns it at the <b>lpdwStates</b> member. 
-  * 
-  * <b>DirectX 9.0 and later versions only.</b> The Direct3D runtime asynchronously queries the driver for vertex-cache information by using the D3DDP2OP_CREATEQUERY and D3DDP2OP_ISSUEQUERY commands and the D3DQUERYTYPE_VCACHE query type in calls to the driver's <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/d3dhal/nc-d3dhal-lpd3dhal_drawprimitives2cb">D3dDrawPrimitives2</a> callback. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/d3d9types/ns-d3d9types-_d3ddevinfo_vcache">D3DDEVINFO_VCACHE</a>.
-  * 
-  * <div class="alert"><b>Note</b>  The D3DDEVINFOID_VCACHE flag is defined in d3dhal.h; the other flags that can be set in <b>dwFlags</b> are defined in d3dtypes.h.</div>
-  * <div> </div>
-  * 
-  * 
+ * Applications can use the <b>IDirect3DDevice7::GetInfo</b> method and specify the D3DDEVINFOID_D3DTEXTUREMANAGER, D3DDEVINFOID_TEXTUREMANAGER, and D3DDEVINFOID_TEXTURING flags to retrieve texturing information. For more information about this method and the structures related to these flags, see the DirectX SDK documentation. The runtime then passes these flags to the driver.
+ * 
+ * <b>DirectX 8.1 versions only.</b>The Direct3D runtime specifies the D3DDEVINFOID_VCACHE flag in the <b>dwFlags</b> member to retrieve vertex-cache information from the driver specified at the <b>lpDD</b> member. The driver specifies this information in a D3DDEVINFO_VCACHE structure and returns it at the <b>lpdwStates</b> member. 
+ * 
+ * <b>DirectX 9.0 and later versions only.</b> The Direct3D runtime asynchronously queries the driver for vertex-cache information by using the D3DDP2OP_CREATEQUERY and D3DDP2OP_ISSUEQUERY commands and the D3DQUERYTYPE_VCACHE query type in calls to the driver's <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/d3dhal/nc-d3dhal-lpd3dhal_drawprimitives2cb">D3dDrawPrimitives2</a> callback. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/d3d9types/ns-d3d9types-_d3ddevinfo_vcache">D3DDEVINFO_VCACHE</a>.
+ * 
+ * <div class="alert"><b>Note</b>  The D3DDEVINFOID_VCACHE flag is defined in d3dhal.h; the other flags that can be set in <b>dwFlags</b> are defined in d3dtypes.h.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getdriverstatedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319

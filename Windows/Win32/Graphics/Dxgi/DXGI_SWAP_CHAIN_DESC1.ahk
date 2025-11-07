@@ -6,34 +6,34 @@
  * Describes a swap chain.
  * @remarks
  * 
-  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforhwnd">CreateSwapChainForHwnd</a>,  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcorewindow">CreateSwapChainForCoreWindow</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">CreateSwapChainForComposition</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createswapchainforcompositionsurfacehandle">CreateSwapChainForCompositionSurfaceHandle</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getdesc1">GetDesc1</a> methods.
-  * 
-  * <div class="alert"><b>Note</b>  You cannot cast a 
-  *      <b>DXGI_SWAP_CHAIN_DESC1</b> to a 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_swap_chain_desc">DXGI_SWAP_CHAIN_DESC</a> and vice versa. An 
-  *      application must explicitly use the 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getdesc1">IDXGISwapChain1::GetDesc1</a> method to 
-  *      retrieve the newer version of the swap-chain description structure.</div>
-  * <div> </div>
-  * In full-screen mode, there is a dedicated front buffer; in windowed mode, the desktop is the front buffer.
-  * 
-  * For a <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-flip-model">flip-model</a> swap chain (that is, a swap 
-  *      chain that has the 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_effect">DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</a> 
-  *      value set in the <b>SwapEffect</b> member), you must set the 
-  *      <b>Format</b> member to 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT_R16G16B16A16_FLOAT</a>, 
-  *      <b>DXGI_FORMAT_B8G8R8A8_UNORM</b>, or 
-  *      <b>DXGI_FORMAT_R8G8B8A8_UNORM</b>; you must set the 
-  *      <b>Count</b> member of the 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc">DXGI_SAMPLE_DESC</a> structure that the 
-  *      <b>SampleDesc</b> member specifies to one and the <b>Quality</b> member 
-  *      of <b>DXGI_SAMPLE_DESC</b> to zero because multiple 
-  *      sample antialiasing (MSAA) is not supported; you must set the <b>BufferCount</b> member to 
-  *      from two to sixteen. For more info about flip-model swap chain, see 
-  *      DXGI Flip Model.
-  * 
-  * 
+ * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforhwnd">CreateSwapChainForHwnd</a>,  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcorewindow">CreateSwapChainForCoreWindow</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">CreateSwapChainForComposition</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createswapchainforcompositionsurfacehandle">CreateSwapChainForCompositionSurfaceHandle</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getdesc1">GetDesc1</a> methods.
+ * 
+ * <div class="alert"><b>Note</b>  You cannot cast a 
+ *      <b>DXGI_SWAP_CHAIN_DESC1</b> to a 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_swap_chain_desc">DXGI_SWAP_CHAIN_DESC</a> and vice versa. An 
+ *      application must explicitly use the 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getdesc1">IDXGISwapChain1::GetDesc1</a> method to 
+ *      retrieve the newer version of the swap-chain description structure.</div>
+ * <div> </div>
+ * In full-screen mode, there is a dedicated front buffer; in windowed mode, the desktop is the front buffer.
+ * 
+ * For a <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-flip-model">flip-model</a> swap chain (that is, a swap 
+ *      chain that has the 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_effect">DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</a> 
+ *      value set in the <b>SwapEffect</b> member), you must set the 
+ *      <b>Format</b> member to 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT_R16G16B16A16_FLOAT</a>, 
+ *      <b>DXGI_FORMAT_B8G8R8A8_UNORM</b>, or 
+ *      <b>DXGI_FORMAT_R8G8B8A8_UNORM</b>; you must set the 
+ *      <b>Count</b> member of the 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc">DXGI_SAMPLE_DESC</a> structure that the 
+ *      <b>SampleDesc</b> member specifies to one and the <b>Quality</b> member 
+ *      of <b>DXGI_SAMPLE_DESC</b> to zero because multiple 
+ *      sample antialiasing (MSAA) is not supported; you must set the <b>BufferCount</b> member to 
+ *      from two to sixteen. For more info about flip-model swap chain, see 
+ *      DXGI Flip Model.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

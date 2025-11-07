@@ -7,9 +7,9 @@
  * The ICreatePropBagOnRegKey interface creates a property bag that can store information in the system registry.Use this interface to store the default tune request in the registry.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ICreatePropBagOnRegKey)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ICreatePropBagOnRegKey)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//regbag/nn-regbag-icreatepropbagonregkey
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

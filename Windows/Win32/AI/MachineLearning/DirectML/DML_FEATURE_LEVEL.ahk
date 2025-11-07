@@ -4,9 +4,9 @@
  * Defines constants that specify a DirectML *feature level*. A feature level defines a broad umbrella of functionality supported by DirectML.
  * @remarks
  * 
-  * The **DML_FEATURE_LEVEL_3_1** constant was introduced in `DML_FEATURE_LEVEL_3_1`. **DML_FEATURE_LEVEL_3_1** specifies feature level 3_1.
-  * 
-  * 
+ * The **DML_FEATURE_LEVEL_3_1** constant was introduced in `DML_FEATURE_LEVEL_3_1`. **DML_FEATURE_LEVEL_3_1** specifies feature level 3_1.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_feature_level
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319

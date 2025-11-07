@@ -7,8 +7,8 @@
  * Sends conditional access system (CAS) commands for Integrated Services Digital Broadcasting (ISDB).
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_ISDBConditionalAccess)</c>.
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_ISDBConditionalAccess)</c>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_isdbconditionalaccess
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

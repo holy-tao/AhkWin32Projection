@@ -4,71 +4,71 @@
  * Specifies the subtype of the color profile.
  * @remarks
  * 
-  * For a description of rendering intents, see [Rendering Intents](/windows/win32/wcs/rendering-intents).
-  * 
-  * The PCOLORPROFILESUBTYPE and LPCOLORPROFILESUBTYPE data types are defined as pointers to the **COLORPROFILESUBTYPE** enumeration:
-  * 
-  * `typedef COLORPROFILESUBTYPE *PCOLORPROFILESUBTYPE, *LPCOLORPROFILESUBTYPE;`
-  * 
-  * The valid profile type/subtype combinations are
-  * 
-  * ${ROWSPAN3}$ COLORPROFILETYPE<br/> ${REMOVE}$  
-  * 
-  * Valid COLORPROFILESUBTYPE<br/>
-  * 
-  * ${ROWSPAN3}$ Notes<br/> ${REMOVE}$  
-  * 
-  * default for a device<br/>
-  * 
-  * global default<br/>
-  * 
-  * Intended Usage<br/>
-  * 
-  * Intended Usage<br/>
-  * 
-  * CPT\_ICC<br/>
-  * 
-  * CPST\_NONE<br/>
-  * 
-  * Get/Set default ICC profile associated with a device<br/>
-  * 
-  * CPST\_RGBWorkingSpace or CPST\_CustomWorkingSpace<br/>
-  * 
-  * Get/Set ICC profile as global RGB or custom working space<br/>
-  * 
-  * CPT\_DMP<br/>
-  * 
-  * CPST\_NONE<br/>
-  * 
-  * Get/Set default DMP profile associated with a device<br/>
-  * 
-  * CPST\_RGBWorkingSpace or CPST\_CustomWorkingSpace<br/>
-  * 
-  * Get/Set DMP as global RGB or custom working space<br/>
-  * 
-  * CPT\_CAMP<br/>
-  * 
-  * CPST\_NONE<br/>
-  * 
-  * Get/Set default CAMP profile associated with a device<br/>
-  * 
-  * CPST\_NONE<br/>
-  * 
-  * Get/Set CAMP profile as global color appearance profile<br/>
-  * 
-  * CPT\_GMMP<br/>
-  * 
-  * CPST\_NONE<br/>
-  * 
-  * Get/Set default GMMP profile associated with a device<br/>
-  * 
-  * CPST\_Perceptual or<br/> CPST\_Absolute\_colorimetric or<br/> CPST\_Relative\_colorimetric or<br/> CPTS\_Saturation<br/>
-  * 
-  * Get/Set GMMP as global gamut map model profile for a specific rendering intent as described by that subtype to be used in CreateMultiProfileTransform API when resolving the rendering intent array in WCS transform.<br/>
-  * 
-  * COLORPROFILESUBTYPE Global default can be or?d with WCS\_DEFAULT to set this GMMP as the global default for use in OpenColorProfile or WcsOpenColorProfile where GMMP is **NULL**.<br/>
-  * 
-  * 
+ * For a description of rendering intents, see [Rendering Intents](/windows/win32/wcs/rendering-intents).
+ * 
+ * The PCOLORPROFILESUBTYPE and LPCOLORPROFILESUBTYPE data types are defined as pointers to the **COLORPROFILESUBTYPE** enumeration:
+ * 
+ * `typedef COLORPROFILESUBTYPE *PCOLORPROFILESUBTYPE, *LPCOLORPROFILESUBTYPE;`
+ * 
+ * The valid profile type/subtype combinations are
+ * 
+ * ${ROWSPAN3}$ COLORPROFILETYPE<br/> ${REMOVE}$  
+ * 
+ * Valid COLORPROFILESUBTYPE<br/>
+ * 
+ * ${ROWSPAN3}$ Notes<br/> ${REMOVE}$  
+ * 
+ * default for a device<br/>
+ * 
+ * global default<br/>
+ * 
+ * Intended Usage<br/>
+ * 
+ * Intended Usage<br/>
+ * 
+ * CPT\_ICC<br/>
+ * 
+ * CPST\_NONE<br/>
+ * 
+ * Get/Set default ICC profile associated with a device<br/>
+ * 
+ * CPST\_RGBWorkingSpace or CPST\_CustomWorkingSpace<br/>
+ * 
+ * Get/Set ICC profile as global RGB or custom working space<br/>
+ * 
+ * CPT\_DMP<br/>
+ * 
+ * CPST\_NONE<br/>
+ * 
+ * Get/Set default DMP profile associated with a device<br/>
+ * 
+ * CPST\_RGBWorkingSpace or CPST\_CustomWorkingSpace<br/>
+ * 
+ * Get/Set DMP as global RGB or custom working space<br/>
+ * 
+ * CPT\_CAMP<br/>
+ * 
+ * CPST\_NONE<br/>
+ * 
+ * Get/Set default CAMP profile associated with a device<br/>
+ * 
+ * CPST\_NONE<br/>
+ * 
+ * Get/Set CAMP profile as global color appearance profile<br/>
+ * 
+ * CPT\_GMMP<br/>
+ * 
+ * CPST\_NONE<br/>
+ * 
+ * Get/Set default GMMP profile associated with a device<br/>
+ * 
+ * CPST\_Perceptual or<br/> CPST\_Absolute\_colorimetric or<br/> CPST\_Relative\_colorimetric or<br/> CPTS\_Saturation<br/>
+ * 
+ * Get/Set GMMP as global gamut map model profile for a specific rendering intent as described by that subtype to be used in CreateMultiProfileTransform API when resolving the rendering intent array in WCS transform.<br/>
+ * 
+ * COLORPROFILESUBTYPE Global default can be or?d with WCS\_DEFAULT to set this GMMP as the global default for use in OpenColorProfile or WcsOpenColorProfile where GMMP is **NULL**.<br/>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//icm/ne-icm-colorprofilesubtype
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319

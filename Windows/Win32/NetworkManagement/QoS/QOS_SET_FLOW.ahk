@@ -22,9 +22,9 @@ class QOS_SET_FLOW{
 
     /**
      * Windows 7, Windows Server 2008 R2, and later: Indicates that the outgoing DSCP value will change.
- * 
- * <div class="alert"><b>Note</b>  This setting requires the calling application be a member of the Administrators or the  Network Configuration Operators group.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This setting requires the calling application be a member of the Administrators or the  Network Configuration Operators group.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static QOSSetOutgoingDSCPValue => 2

@@ -6,13 +6,13 @@
  * Contains Windows Sockets address information for a socket, network service, or namespace provider.
  * @remarks
  * 
-  * The 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/nf-nspapi-getaddressbynamea">GetAddressByName</a> function obtains Windows Sockets address information using 
-  * <b>CSADDR_INFO</b> structures. 
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> function called with the <a href="https://docs.microsoft.com/windows/desktop/WinSock/so-bsp-state">SO_BSP_STATE</a> socket option retrieves a <b>CSADDR_INFO</b> structure for the specified socket.
-  * 
-  * 
+ * The 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/nf-nspapi-getaddressbynamea">GetAddressByName</a> function obtains Windows Sockets address information using 
+ * <b>CSADDR_INFO</b> structures. 
+ * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> function called with the <a href="https://docs.microsoft.com/windows/desktop/WinSock/so-bsp-state">SO_BSP_STATE</a> socket option retrieves a <b>CSADDR_INFO</b> structure for the specified socket.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//nspapi/ns-nspapi-csaddr_info
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

@@ -70,16 +70,16 @@ class STORAGE_BUS_TYPE{
 
     /**
      * Serial Attached SCSI (SAS) bus.
- * 
- * **Windows Server 2003:**  This is not supported before Windows Server 2003 with SP1.
+     * 
+     * **Windows Server 2003:**  This is not supported before Windows Server 2003 with SP1.
      * @type {Integer (Int32)}
      */
     static BusTypeSas => 10
 
     /**
      * SATA bus.
- * 
- * **Windows Server 2003:**  This is not supported before Windows Server 2003 with SP1.
+     * 
+     * **Windows Server 2003:**  This is not supported before Windows Server 2003 with SP1.
      * @type {Integer (Int32)}
      */
     static BusTypeSata => 11

@@ -7,9 +7,9 @@
  * The ITfPreservedKeyNotifySink interface is implemented by an application or TSF text service to receive notifications when keys are preserved, unpreserved, or when a preserved key description changes.
  * @remarks
  * 
-  * Preserved keys are keyboard shortcuts that an application or TSF text service can register with the TSF manager.
-  * 
-  * 
+ * Preserved keys are keyboard shortcuts that an application or TSF text service can register with the TSF manager.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfpreservedkeynotifysink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

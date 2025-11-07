@@ -7,9 +7,9 @@
  * Manages a pipeline library, in particular loading and retrieving individual PSOs.
  * @remarks
  * 
-  * Refer to the remarks and examples for <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device1-createpipelinelibrary">CreatePipelineLibrary</a>.
-  * 
-  * 
+ * Refer to the remarks and examples for <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device1-createpipelinelibrary">CreatePipelineLibrary</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12pipelinelibrary
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

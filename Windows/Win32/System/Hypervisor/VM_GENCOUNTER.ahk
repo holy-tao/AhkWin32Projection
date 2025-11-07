@@ -5,9 +5,9 @@
  * Describes a virtual machine generation identifier.
  * @remarks
  * 
-  * For info about the virtual machine generation identifier, see <a href="https://docs.microsoft.com/windows/desktop/HyperV_v2/virtual-machine-generation-identifier">Virtual machine generation identifier</a>.
-  * 
-  * 
+ * For info about the virtual machine generation identifier, see <a href="https://docs.microsoft.com/windows/desktop/HyperV_v2/virtual-machine-generation-identifier">Virtual machine generation identifier</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vmgenerationcounter/ns-vmgenerationcounter-vm_gencounter
  * @namespace Windows.Win32.System.Hypervisor
  * @version v4.0.30319

@@ -8,9 +8,9 @@
  * Represents the result of an asynchronous operation. A client can use the interface to wait for the operation to complete and to get the result.
  * @remarks
  * 
-  * IDWriteAsyncResult is returned by <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-begindownload">IDWriteRemoteFontFileStream::BeginDownload</a> for signaling completion of a font download operation.
-  * 
-  * 
+ * IDWriteAsyncResult is returned by <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-begindownload">IDWriteRemoteFontFileStream::BeginDownload</a> for signaling completion of a font download operation.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwriteasyncresult
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

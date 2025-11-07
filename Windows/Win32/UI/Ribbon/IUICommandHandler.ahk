@@ -8,17 +8,17 @@
  * The IUICommandHandler interface is implemented by the application and defines the methods for gathering Command information and handling Command events from the Windows Ribbon framework.
  * @remarks
  * 
-  * For each Command in a View, the Ribbon framework requires a corresponding Command handler in 
-  * 				the host application. A new handler or an existing handler must be bound to the Command through 
-  * 				the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiapplication-oncreateuicommand">IUIApplication::OnCreateUICommand</a> notification method.
-  * 			
-  * 
-  * Any number of Commands can be bound to a Command handler.
-  * 			
-  * 
-  * The Command handler serves two purposes: respond to property update requests and respond to execute events on any Command to which it is bound.
-  * 
-  * 
+ * For each Command in a View, the Ribbon framework requires a corresponding Command handler in 
+ * 				the host application. A new handler or an existing handler must be bound to the Command through 
+ * 				the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiapplication-oncreateuicommand">IUIApplication::OnCreateUICommand</a> notification method.
+ * 			
+ * 
+ * Any number of Commands can be bound to a Command handler.
+ * 			
+ * 
+ * The Command handler serves two purposes: respond to property update requests and respond to execute events on any Command to which it is bound.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nn-uiribbon-iuicommandhandler
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319

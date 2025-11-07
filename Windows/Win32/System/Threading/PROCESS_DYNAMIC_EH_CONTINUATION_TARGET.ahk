@@ -5,7 +5,7 @@
  * Contains dynamic exception handling continuation targets.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-process_dynamic_eh_continuation_target
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319

@@ -4,24 +4,24 @@
  * Values that identify various data, texture, and buffer types that can be assigned to a shader variable.
  * @remarks
  * 
-  * A call to the
-  *           <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectiontype-getdesc">ID3D11ShaderReflectionType::GetDesc</a>method returns a
-  *           <b>D3D_SHADER_VARIABLE_TYPE</b>value in the <b>Type</b> member of a
-  *           <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_shader_type_desc">D3D11_SHADER_TYPE_DESC</a> structure.
-  *         
-  * 
-  * The types in a structured buffer describe the structure of the elements in the buffer.
-  *           The layout of these types generally match their C++ struct counterparts.
-  *           The following examples show structured buffers:
-  *         
-  * 
-  * 
-  * ```
-  * struct mystruct {float4 val; uint ind;}; RWStructuredBuffer<mystruct> rwbuf;
-  *                                          RWStructuredBuffer<float3> rwbuf2;
-  * ```
-  * 
-  * 
+ * A call to the
+ *           <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectiontype-getdesc">ID3D11ShaderReflectionType::GetDesc</a>method returns a
+ *           <b>D3D_SHADER_VARIABLE_TYPE</b>value in the <b>Type</b> member of a
+ *           <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_shader_type_desc">D3D11_SHADER_TYPE_DESC</a> structure.
+ *         
+ * 
+ * The types in a structured buffer describe the structure of the elements in the buffer.
+ *           The layout of these types generally match their C++ struct counterparts.
+ *           The following examples show structured buffers:
+ *         
+ * 
+ * 
+ * ```
+ * struct mystruct {float4 val; uint ind;}; RWStructuredBuffer<mystruct> rwbuf;
+ *                                          RWStructuredBuffer<float3> rwbuf2;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/ne-d3dcommon-d3d_shader_variable_type
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
@@ -318,8 +318,8 @@ class D3D_SHADER_VARIABLE_TYPE{
 
     /**
      * The variable is a structured buffer. 
- * 
- * For more information about structured buffer, see the <b>Remarks</b> section.
+     * 
+     * For more information about structured buffer, see the <b>Remarks</b> section.
      * @type {Integer (Int32)}
      */
     static D3D_SVT_STRUCTURED_BUFFER => 48

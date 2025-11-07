@@ -8,9 +8,9 @@
  * The IDTFilter3 interface extends the IDTFilter2 interface and is exposed by the Decrypter/Detagger filter.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDTFilter3)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDTFilter3)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//encdec/nn-encdec-idtfilter3
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

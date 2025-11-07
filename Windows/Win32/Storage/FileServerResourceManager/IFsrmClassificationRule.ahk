@@ -8,11 +8,11 @@
  * Defines a classification rule.
  * @remarks
  * 
-  * The rule runs when you call the 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-runclassification">IFsrmClassificationManager::RunClassification</a> 
-  *     method. You can also schedule the classification process to run on a specified schedule.
-  * 
-  * 
+ * The rule runs when you call the 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-runclassification">IFsrmClassificationManager::RunClassification</a> 
+ *     method. You can also schedule the classification process to run on a specified schedule.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmclassificationrule
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

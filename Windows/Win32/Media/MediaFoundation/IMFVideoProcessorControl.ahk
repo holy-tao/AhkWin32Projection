@@ -7,9 +7,9 @@
  * Configures the Video Processor MFT.
  * @remarks
  * 
-  * This interface controls how the <a href="https://docs.microsoft.com/windows/desktop/medfound/video-processor-mft">Video Processor MFT</a> generates output frames.
-  * 
-  * 
+ * This interface controls how the <a href="https://docs.microsoft.com/windows/desktop/medfound/video-processor-mft">Video Processor MFT</a> generates output frames.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfvideoprocessorcontrol
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

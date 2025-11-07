@@ -4,9 +4,9 @@
  * Represents the role of a provider, relative to the other provider in the synchronization session.
  * @remarks
  * 
-  * Changes flow from the source provider to the destination provider in a synchronization session.
-  * 
-  * 
+ * Changes flow from the source provider to the destination provider in a synchronization session.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/ne-winsync-sync_provider_role
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

@@ -8,8 +8,8 @@
  * Exposes methods that extract data from enumeration information. IPropertyEnumType gives access to the enum and enumRange elements in the property schema in a programmatic way at run time.
  * @remarks
  * 
-  * For additional information, see <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-enumeratedlist">enumeratedList</a>.
-  * 
+ * For additional information, see <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-enumeratedlist">enumeratedList</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-ipropertyenumtype
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319

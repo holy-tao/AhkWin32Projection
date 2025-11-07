@@ -7,15 +7,15 @@
  * The IWCWizardCallback interface is called by a Failover Cluster Administrator extension to add a property page to a Failover Cluster Administrator Wizard and to manage navigation.
  * @remarks
  * 
-  * Use the <i>piCallback</i> pointer that you receive when Failover Cluster Administrator calls 
-  *      your 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendwizard-createwizardpages">IWEExtendWizard::CreateWizardPages</a> 
-  *      method to call the methods of the <b>IWCWizardCallback</b> 
-  *      interface.
-  * 
-  * Use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iwcwizard97callback">IWCWizard97Callback</a> to add Wizard97 pages.
-  * 
-  * 
+ * Use the <i>piCallback</i> pointer that you receive when Failover Cluster Administrator calls 
+ *      your 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendwizard-createwizardpages">IWEExtendWizard::CreateWizardPages</a> 
+ *      method to call the methods of the <b>IWCWizardCallback</b> 
+ *      interface.
+ * 
+ * Use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iwcwizard97callback">IWCWizard97Callback</a> to add Wizard97 pages.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-iwcwizardcallback
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

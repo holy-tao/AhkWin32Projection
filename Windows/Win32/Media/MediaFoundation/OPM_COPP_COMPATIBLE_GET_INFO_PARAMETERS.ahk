@@ -6,9 +6,9 @@
  * Contains parameters for the IOPMVideoOutput::COPPCompatibleGetInformation method.
  * @remarks
  * 
-  * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-amcoppstatusinput">AMCOPPStatusInput</a> structure used in COPP.
-  * 
-  * 
+ * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-amcoppstatusinput">AMCOPPStatusInput</a> structure used in COPP.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_copp_compatible_get_info_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

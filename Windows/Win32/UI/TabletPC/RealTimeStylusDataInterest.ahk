@@ -4,25 +4,25 @@
  * Defines the values used by plug-ins to specify which event notifications the plug-ins receive.
  * @remarks
  * 
-  * The <b>RealTimeStylusDataInterest Enumeration</b> values are used in a bitwise combination that defines the set of data notifications. Use the <b>RealTimeStylusDataInterest Enumeration</b> to specify only the events for which you would like to receive notification. Thus, improving performance.
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> notifies plug-ins when it is retrieving packet data by calling into the respective plug-ins in a specified sequence. You control the sequence and types of plug-ins that receive these notifications. The packet data in the events can be modified by the plug-ins the <b>RealTimeStylus Class</b> object calls into.
-  * 
-  * You can control which methods are called on your plug-in by implementing the <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nn-rtscom-istylusplugin">IStylusPlugin Interface</a>:: <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nf-rtscom-istylusplugin-datainterest">IStylusPlugin::DataInterest Method</a> method.
-  * 
-  * The following events are the default events:
-  * 
-  * <ul>
-  * <li>RTSDI_RealTimeStylusEnabled</li>
-  * <li>RTSDI_RealTimeStylusDisabled</li>
-  * <li>RTSDI_StylusDown</li>
-  * <li>RTSDI_Packets</li>
-  * <li>RTSDI_StylusUp</li>
-  * <li>RTSDI_SystemEvents</li>
-  * <li>RTSDI_CustomStylusDataAdded</li>
-  * </ul>
-  * 
-  * 
+ * The <b>RealTimeStylusDataInterest Enumeration</b> values are used in a bitwise combination that defines the set of data notifications. Use the <b>RealTimeStylusDataInterest Enumeration</b> to specify only the events for which you would like to receive notification. Thus, improving performance.
+ * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> notifies plug-ins when it is retrieving packet data by calling into the respective plug-ins in a specified sequence. You control the sequence and types of plug-ins that receive these notifications. The packet data in the events can be modified by the plug-ins the <b>RealTimeStylus Class</b> object calls into.
+ * 
+ * You can control which methods are called on your plug-in by implementing the <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nn-rtscom-istylusplugin">IStylusPlugin Interface</a>:: <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nf-rtscom-istylusplugin-datainterest">IStylusPlugin::DataInterest Method</a> method.
+ * 
+ * The following events are the default events:
+ * 
+ * <ul>
+ * <li>RTSDI_RealTimeStylusEnabled</li>
+ * <li>RTSDI_RealTimeStylusDisabled</li>
+ * <li>RTSDI_StylusDown</li>
+ * <li>RTSDI_Packets</li>
+ * <li>RTSDI_StylusUp</li>
+ * <li>RTSDI_SystemEvents</li>
+ * <li>RTSDI_CustomStylusDataAdded</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//rtscom/ne-rtscom-realtimestylusdatainterest
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

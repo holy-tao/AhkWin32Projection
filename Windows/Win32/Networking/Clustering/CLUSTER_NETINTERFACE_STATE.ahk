@@ -10,7 +10,7 @@ class CLUSTER_NETINTERFACE_STATE{
 
     /**
      * The operation was not successful. For more information about the error, call the function 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @type {Integer (Int32)}
      */
     static ClusterNetInterfaceStateUnknown => -1
@@ -29,16 +29,16 @@ class CLUSTER_NETINTERFACE_STATE{
 
     /**
      * The network interface cannot communicate with at least one other network interface whose state is not 
- *       <b>ClusterNetInterfaceFailed</b> or 
- *       <b>ClusterNetInterfaceUnavailable</b>.
+     *       <b>ClusterNetInterfaceFailed</b> or 
+     *       <b>ClusterNetInterfaceUnavailable</b>.
      * @type {Integer (Int32)}
      */
     static ClusterNetInterfaceUnreachable => 2
 
     /**
      * The network interface can communicate with all other network interfaces whose state is not 
- *       <b>ClusterNetInterfaceFailed</b> or 
- *       <b>ClusterNetInterfaceUnavailable</b>.
+     *       <b>ClusterNetInterfaceFailed</b> or 
+     *       <b>ClusterNetInterfaceUnavailable</b>.
      * @type {Integer (Int32)}
      */
     static ClusterNetInterfaceUp => 3

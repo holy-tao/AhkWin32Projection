@@ -5,32 +5,32 @@
  * Contains inverse telecine (IVTC) statistics from a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
  * @remarks
  * 
-  * If the DXVA-HD device supports IVTC statistics, it can detect when the input video contains telecined frames. You can use this information to enable IVTC in the device.
-  * 
-  * To enable IVTC statistics, do the following:
-  * 
-  * <ol>
-  * <li>Allocate a <b>DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA</b> structure and set the <b>Enable</b> member to <b>TRUE</b>.</li>
-  * <li>Initialize a <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_private_data">DXVAHD_STREAM_STATE_PRIVATE_DATA</a> structure with these values:<ul>
-  * <li>Set <b>Guid</b>  to <b>DXVAHD_STREAM_STATE_PRIVATE_IVTC</b>.</li>
-  * <li>Set <b>DataSize</b> to <c>sizeof(DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA)</c>.</li>
-  * <li>Set <b>pData</b>  to point to the <b>DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA</b> structure.</li>
-  * </ul>
-  * </li>
-  * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-setvideoprocessstreamstate">IDXVAHD_VideoProcessor::SetVideoProcessStreamState</a> method. Set the <i>State</i> parameter of that method to <b>DXVAHD_STREAM_STATE_PRIVATE</b> and the <i>pData</i>  parameter to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_private_data">DXVAHD_STREAM_STATE_PRIVATE_DATA</a> structure.</li>
-  * </ol>
-  * To get the most recent IVTC statistics from the device, call the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-getvideoprocessstreamstate">IDXVAHD_VideoProcessor::GetVideoProcessStreamState</a> method. The state parameter and data buffer are the same.
-  * 
-  * Typically, an application would use this feature as follows:
-  * 
-  * <ol>
-  * <li>Enable IVTC statistics.</li>
-  * <li>Begin sending interlaced video frames to the DXVA-HD device.</li>
-  * <li>At some point, query the device for the current IVTC statistics.</li>
-  * <li>If the device detects telecined frames, use a custom frame rate to perform IVTC. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_custom_rate_data">DXVAHD_CUSTOM_RATE_DATA</a>.</li>
-  * </ol>
-  * 
-  * 
+ * If the DXVA-HD device supports IVTC statistics, it can detect when the input video contains telecined frames. You can use this information to enable IVTC in the device.
+ * 
+ * To enable IVTC statistics, do the following:
+ * 
+ * <ol>
+ * <li>Allocate a <b>DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA</b> structure and set the <b>Enable</b> member to <b>TRUE</b>.</li>
+ * <li>Initialize a <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_private_data">DXVAHD_STREAM_STATE_PRIVATE_DATA</a> structure with these values:<ul>
+ * <li>Set <b>Guid</b>  to <b>DXVAHD_STREAM_STATE_PRIVATE_IVTC</b>.</li>
+ * <li>Set <b>DataSize</b> to <c>sizeof(DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA)</c>.</li>
+ * <li>Set <b>pData</b>  to point to the <b>DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA</b> structure.</li>
+ * </ul>
+ * </li>
+ * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-setvideoprocessstreamstate">IDXVAHD_VideoProcessor::SetVideoProcessStreamState</a> method. Set the <i>State</i> parameter of that method to <b>DXVAHD_STREAM_STATE_PRIVATE</b> and the <i>pData</i>  parameter to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_private_data">DXVAHD_STREAM_STATE_PRIVATE_DATA</a> structure.</li>
+ * </ol>
+ * To get the most recent IVTC statistics from the device, call the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-getvideoprocessstreamstate">IDXVAHD_VideoProcessor::GetVideoProcessStreamState</a> method. The state parameter and data buffer are the same.
+ * 
+ * Typically, an application would use this feature as follows:
+ * 
+ * <ol>
+ * <li>Enable IVTC statistics.</li>
+ * <li>Begin sending interlaced video frames to the DXVA-HD device.</li>
+ * <li>At some point, query the device for the current IVTC statistics.</li>
+ * <li>If the device detects telecined frames, use a custom frame rate to perform IVTC. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_custom_rate_data">DXVAHD_CUSTOM_RATE_DATA</a>.</li>
+ * </ol>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_stream_state_private_ivtc_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

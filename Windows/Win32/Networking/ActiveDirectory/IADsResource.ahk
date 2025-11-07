@@ -8,10 +8,10 @@
  * The IADsResource interface is a dual interface that inherits from IADs. It is designed to manage an open resource for a file service across a network.
  * @remarks
  * 
-  * When a remote user opens a folder or a subfolder on a public share point on the target computer, ADSI considers this folder to be an open resource and represents it with a resource object that implements this interface.
-  * 
-  * 
-  * 
+ * When a remote user opens a folder or a subfolder on a public share point on the target computer, ADSI considers this folder to be an open resource and represents it with a resource object that implements this interface.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsresource
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

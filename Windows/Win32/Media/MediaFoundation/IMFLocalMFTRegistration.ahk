@@ -7,18 +7,18 @@
  * Registers Media Foundation transforms (MFTs) in the caller's process.
  * @remarks
  * 
-  * This interface requires the Media Session. If you are not using the Media Session for playback, call one of the following functions instead:
-  * 
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregisterlocal">MFTRegisterLocal</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregisterlocalbyclsid">MFTRegisterLocalByCLSID</a>
-  * </li>
-  * </ul>
-  * 
-  * 
+ * This interface requires the Media Session. If you are not using the Media Session for playback, call one of the following functions instead:
+ * 
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregisterlocal">MFTRegisterLocal</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregisterlocalbyclsid">MFTRegisterLocalByCLSID</a>
+ * </li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imflocalmftregistration
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

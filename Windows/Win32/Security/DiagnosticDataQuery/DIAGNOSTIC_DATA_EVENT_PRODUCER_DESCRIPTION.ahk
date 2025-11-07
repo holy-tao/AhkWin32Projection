@@ -5,7 +5,7 @@
  * A resource that represents a producer. A Producer is an OS component, application or service that emits events. For example, “Microsoft Edge” is the Producer ID for the Microsoft Edge browser.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_event_producer_description
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  * @version v4.0.30319

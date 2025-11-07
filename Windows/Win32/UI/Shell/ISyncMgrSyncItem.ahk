@@ -8,10 +8,10 @@
  * Exposes methods that act on and retrieve information from a single sync item, allowing handlers to manage sync items as independent objects.
  * @remarks
  * 
-  * A sync item typically represents a group of data, for example, a folder that contains several files. By representing this sync item as an interface, the item can be easily managed and implemented as an object. That object maintains the state of the item when the item is accessed.
-  * 
-  * Representing a sync item as <b>ISyncMgrSyncItem</b> also allows support for a sync item that contains other sync items.
-  * 
+ * A sync item typically represents a group of data, for example, a folder that contains several files. By representing this sync item as an interface, the item can be easily managed and implemented as an object. That object maintains the state of the item when the item is accessed.
+ * 
+ * Representing a sync item as <b>ISyncMgrSyncItem</b> also allows support for a sync item that contains other sync items.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgrsyncitem
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

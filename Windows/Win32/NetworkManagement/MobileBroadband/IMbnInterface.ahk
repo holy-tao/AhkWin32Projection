@@ -12,11 +12,11 @@
  * Represents a Mobile Broadband device.
  * @remarks
  * 
-  * <b>IMbnInterface</b> objects are provided by calls to the 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbninterfacemanager-getinterface">GetInterface</a> and 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbninterfacemanager-getinterfaces">GetInterfaces</a> methods of the 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterfacemanager">IMbnInterfaceManager</a> interface.
-  * 
+ * <b>IMbnInterface</b> objects are provided by calls to the 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbninterfacemanager-getinterface">GetInterface</a> and 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbninterfacemanager-getinterfaces">GetInterfaces</a> methods of the 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterfacemanager">IMbnInterfaceManager</a> interface.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nn-mbnapi-imbninterface
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319

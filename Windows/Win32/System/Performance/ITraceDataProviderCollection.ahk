@@ -10,8 +10,8 @@
  * Manages a collection of TraceDataProvider objects.To get this interface, access the ITraceDataCollector::TraceDataProviders property.You can also call the CoCreateInstance function to create a new instance of the TraceDataProviderCollection object.
  * @remarks
  * 
-  * To create the object from a script, use the Pla.TraceDataProviderCollection program identifier.
-  * 
+ * To create the object from a script, use the Pla.TraceDataProviderCollection program identifier.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//pla/nn-pla-itracedataprovidercollection
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319

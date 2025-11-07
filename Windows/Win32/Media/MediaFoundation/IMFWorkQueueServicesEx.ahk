@@ -7,12 +7,12 @@
  * Extends the IMFWorkQueueServices interface.
  * @remarks
  * 
-  * This interface allows applications to control
-  * both platform and topology work queues.
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfworkqueueservices">IMFWorkQueueServices</a> can be obtained from the session by querying     for the <b>MF_WORKQUEUE_SERVICES</b> service.
-  * 
-  * 
+ * This interface allows applications to control
+ * both platform and topology work queues.
+ * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfworkqueueservices">IMFWorkQueueServices</a> can be obtained from the session by querying     for the <b>MF_WORKQUEUE_SERVICES</b> service.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfworkqueueservicesex
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

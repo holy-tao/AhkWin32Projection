@@ -5,11 +5,11 @@
  * Defines the partition parameters of a partition style.
  * @remarks
  * 
-  * The 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-changeattributes">IVdsAdvancedDisk::ChangeAttributes</a> 
-  *     method takes this structure as a parameter.
-  * 
-  * 
+ * The 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-changeattributes">IVdsAdvancedDisk::ChangeAttributes</a> 
+ *     method takes this structure as a parameter.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-change_attributes_parameters
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

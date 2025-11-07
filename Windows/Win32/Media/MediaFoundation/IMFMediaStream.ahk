@@ -9,9 +9,9 @@
  * Represents one stream in a media source.
  * @remarks
  * 
-  * Streams are created when a media source is started. For each stream, the media source sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/menewstream">MENewStream</a> event with a pointer to the stream's <b>IMFMediaStream</b> interface.
-  * 
-  * 
+ * Streams are created when a media source is started. For each stream, the media source sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/menewstream">MENewStream</a> event with a pointer to the stream's <b>IMFMediaStream</b> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfmediastream
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

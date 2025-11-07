@@ -16,7 +16,7 @@ class UI_SWATCHCOLORMODE{
 
     /**
      * The swatch is monochrome. The swatch's RGB color value will be interpreted as a 1 bit-per-pixel
- *  pattern.
+     *  pattern.
      * @type {Integer (Int32)}
      */
     static UI_SWATCHCOLORMODE_MONOCHROME => 1

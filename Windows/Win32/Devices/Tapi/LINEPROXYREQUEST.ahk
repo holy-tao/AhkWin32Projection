@@ -15,9 +15,9 @@
  * The LINEPROXYREQUEST structure contains parameter values of the application making the proxy request. Multiple TAPI call center functions generate a LINE_PROXYREQUEST message that references a LINEPROXYREQUEST structure.
  * @remarks
  * 
-  * An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
-  * 
-  * 
+ * An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineproxyrequest
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

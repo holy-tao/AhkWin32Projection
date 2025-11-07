@@ -7,116 +7,116 @@
  * Used to enable server side logging on a URL Group or on a server session.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HttpServerLoggingProperty</a> property sets one of four types of server side logging: HttpLoggingTypeW3C, HttpLoggingTypeIIS, HttpLoggingTypeNCSA, or HttpLoggingTypeRaw. When this property is set on a server session it functions as centralized form of logging for all of the URL groups under that server session. Requests that are routed to one of the URL groups under the server session are logged in one centralized log file. The configuration parameters for the log file are passed in the  <b>HTTP_LOGGING_INFO</b> structure in the call to   <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a>.
-  * 
-  * When this property is set on a URL Group, logging is performed only on  requests that are routed to the URL Group. 
-  * Log files are created when the request arrives on the URL Group or server session, they are not created when logging is configured.
-  * 
-  * Applications must ensure that the directory specified in the <b>DirectoryName</b> member is unique.  
-  * 
-  * The log files names are based on the specified rollover type. The following table shows the naming conventions for log files.
-  * <table>
-  * <tr>
-  * <th>Format</th>
-  * <th>Rollover  type </th>
-  * <th>File name pattern</th>
-  * </tr>
-  * <tr>
-  * <td>Microsoft IIS Log Format</td>
-  * <td>Size</td>
-  * <td>inetsvnn.log</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Hourly</td>
-  * <td>inyymmddhh.log</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Daily</td>
-  * <td>inyymmdd.log</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Weekly</td>
-  * <td>inyymmww.log</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Monthly</td>
-  * <td>inyymm.log</td>
-  * </tr>
-  * <tr>
-  * <td>NCSA Common Log File Format</td>
-  * <td>Size</td>
-  * <td>ncsann.log
-  * </td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Hourly</td>
-  * <td>ncyymmddhh.log</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Daily</td>
-  * <td>ncyymmdd.log</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Weekly</td>
-  * <td>ncyymmww.log</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Monthly</td>
-  * <td>ncyymm.log</td>
-  * </tr>
-  * <tr>
-  * <td>W3C Extended Log File Format</td>
-  * <td>Size</td>
-  * <td>extendnn.log</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Hourly</td>
-  * <td>exyymmddhh.log</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Daily</td>
-  * <td>exyymmdd.log</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Weekly</td>
-  * <td>exyymmww.log</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Monthly</td>
-  * <td>exyymm.log</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * 
-  * 
-  * The letters yy, mm, ww, dd, hh, and nn in the table represent the following digits:<ul>
-  * <li>yy: The two digit representatton of the year.</li>
-  * <li>mm: The two digit representation of the month.</li>
-  * <li>ww: The two digit representation of the week.</li>
-  * <li>dd: The two digit representation of the day.</li>
-  * <li>hh: The two digit representation of the hour in 24 hour notation.</li>
-  * <li>nn: The two digit representation of the numerical sequence.</li>
-  * </ul>
-  * 
-  * 
-  * Please note that in the HTTP version 2.0 API, the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendhttpresponse">HttpSendHttpResponse</a> and <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendresponseentitybody">HttpSendResponseEntityBody</a> have been revisioned to allow applications to pass an <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_log_fields_data">HTTP_LOG_FIELDS_DATA</a> structure so the response can be logged. Setting the <b>HttpServerLoggingProperty</b>  property on a server session or a URL group does not mean that HTTP responses are logged. Logging on the URL group or the server session will not take place unless the calls to <b>HttpSendResponseEntityBody</b> and <b>HttpSendHttpResponse</b> include an optional <b>HTTP_LOG_FIELDS_DATA</b> structure. For more information, see the <b>HTTP_LOG_FIELDS_DATA</b> topic.
-  * 
-  * For information on the log file formats, see the <a href="https://docs.microsoft.com/previous-versions/iis/6.0-sdk/ms525807(v=vs.90)">IIS Log File Formats</a> topic.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HttpServerLoggingProperty</a> property sets one of four types of server side logging: HttpLoggingTypeW3C, HttpLoggingTypeIIS, HttpLoggingTypeNCSA, or HttpLoggingTypeRaw. When this property is set on a server session it functions as centralized form of logging for all of the URL groups under that server session. Requests that are routed to one of the URL groups under the server session are logged in one centralized log file. The configuration parameters for the log file are passed in the  <b>HTTP_LOGGING_INFO</b> structure in the call to   <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a>.
+ * 
+ * When this property is set on a URL Group, logging is performed only on  requests that are routed to the URL Group. 
+ * Log files are created when the request arrives on the URL Group or server session, they are not created when logging is configured.
+ * 
+ * Applications must ensure that the directory specified in the <b>DirectoryName</b> member is unique.  
+ * 
+ * The log files names are based on the specified rollover type. The following table shows the naming conventions for log files.
+ * <table>
+ * <tr>
+ * <th>Format</th>
+ * <th>Rollover  type </th>
+ * <th>File name pattern</th>
+ * </tr>
+ * <tr>
+ * <td>Microsoft IIS Log Format</td>
+ * <td>Size</td>
+ * <td>inetsvnn.log</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Hourly</td>
+ * <td>inyymmddhh.log</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Daily</td>
+ * <td>inyymmdd.log</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Weekly</td>
+ * <td>inyymmww.log</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Monthly</td>
+ * <td>inyymm.log</td>
+ * </tr>
+ * <tr>
+ * <td>NCSA Common Log File Format</td>
+ * <td>Size</td>
+ * <td>ncsann.log
+ * </td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Hourly</td>
+ * <td>ncyymmddhh.log</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Daily</td>
+ * <td>ncyymmdd.log</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Weekly</td>
+ * <td>ncyymmww.log</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Monthly</td>
+ * <td>ncyymm.log</td>
+ * </tr>
+ * <tr>
+ * <td>W3C Extended Log File Format</td>
+ * <td>Size</td>
+ * <td>extendnn.log</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Hourly</td>
+ * <td>exyymmddhh.log</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Daily</td>
+ * <td>exyymmdd.log</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Weekly</td>
+ * <td>exyymmww.log</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Monthly</td>
+ * <td>exyymm.log</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
+ * The letters yy, mm, ww, dd, hh, and nn in the table represent the following digits:<ul>
+ * <li>yy: The two digit representatton of the year.</li>
+ * <li>mm: The two digit representation of the month.</li>
+ * <li>ww: The two digit representation of the week.</li>
+ * <li>dd: The two digit representation of the day.</li>
+ * <li>hh: The two digit representation of the hour in 24 hour notation.</li>
+ * <li>nn: The two digit representation of the numerical sequence.</li>
+ * </ul>
+ * 
+ * 
+ * Please note that in the HTTP version 2.0 API, the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendhttpresponse">HttpSendHttpResponse</a> and <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendresponseentitybody">HttpSendResponseEntityBody</a> have been revisioned to allow applications to pass an <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_log_fields_data">HTTP_LOG_FIELDS_DATA</a> structure so the response can be logged. Setting the <b>HttpServerLoggingProperty</b>  property on a server session or a URL group does not mean that HTTP responses are logged. Logging on the URL group or the server session will not take place unless the calls to <b>HttpSendResponseEntityBody</b> and <b>HttpSendHttpResponse</b> include an optional <b>HTTP_LOG_FIELDS_DATA</b> structure. For more information, see the <b>HTTP_LOG_FIELDS_DATA</b> topic.
+ * 
+ * For information on the log file formats, see the <a href="https://docs.microsoft.com/previous-versions/iis/6.0-sdk/ms525807(v=vs.90)">IIS Log File Formats</a> topic.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_logging_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319

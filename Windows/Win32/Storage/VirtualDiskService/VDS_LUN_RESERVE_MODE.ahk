@@ -4,9 +4,9 @@
  * Not supported.This enumeration is reserved for future use.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_LUN_RESERVE_MODE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_LUN_RESERVE_MODE</b> enumeration constant.</div>
-  * <div> </div>
-  * 
+ * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_LUN_RESERVE_MODE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_LUN_RESERVE_MODE</b> enumeration constant.</div>
+ * <div> </div>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_lun_reserve_mode
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

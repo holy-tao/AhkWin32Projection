@@ -10,15 +10,15 @@ class _DMO_OUTPUT_DATA_BUFFER_FLAGS{
 
     /**
      * The beginning of the data is a synchronization point.
- *           A <i>synchronization point</i> is a random access point. For encoded video, this a sample that can be used as a decoding start point (key frame). For uncompressed audio or video, every sample is a synchronization point.
+     *           A <i>synchronization point</i> is a random access point. For encoded video, this a sample that can be used as a decoding start point (key frame). For uncompressed audio or video, every sample is a synchronization point.
      * @type {Integer (Int32)}
      */
     static DMO_OUTPUT_DATA_BUFFERF_SYNCPOINT => 1
 
     /**
      * The buffer's time stamp is valid.
- * 
- * The buffer's indicated time length is valid.
+     * 
+     * The buffer's indicated time length is valid.
      * @type {Integer (Int32)}
      */
     static DMO_OUTPUT_DATA_BUFFERF_TIME => 2

@@ -5,36 +5,36 @@
  * The RPC_CALL_ATTRIBUTES_V1 structure provides parameters to the RpcServerInqCallAttributes function. Implemented in ANSI and UNICODE versions for Windows XP and Windows Server 2003 operating systems.
  * @remarks
  * 
-  * The 
-  * <b>RPC_CALL_ATTRIBUTES</b> structure uses a versioning scheme to enable the 
-  * <b>RpcServerInqCallAttributes</b> function to incorporate new capabilities without having to introduce new functions with suffix identifiers. For example, a second version of the 
-  * <b>RPC_CALL_ATTRIBUTES</b>, identified with a simple #define in the header, can add new members to facilitate new functionality built into future versions of the 
-  * <b>RpcServerInqCallAttributes</b> function, without having to release a corresponding alternative function.
-  * 
-  * The <b>Version</b> member indicates the version of the 
-  * <b>RPC_CALL_ATTRIBUTES</b> structure (currently either <b>RPC_CALL_ATTRIBUTES_V1</b> or <b>RPC_CALL_ATTRIBUTES_V2</b>) being used by the calling application. This identification enables the RPC run time to provide backward compatibility for applications not using the most current version of the structure.
-  * 
-  * Specifying RPC_QUERY_SERVER_PRINCIPAL_NAME in the <b>Flags</b> member directs 
-  * <b>RpcServerInqCallAttributes</b> to return the server principal name in <b>ServerPrincipalName</b>. If RPC_QUERY_SERVER_PRINCIPAL_NAME is not specified, 
-  * <b>RpcServerInqCallAttributes</b> does not modify the pointer passed in <b>ServerPrincipalName</b> and does not store anything in that memory location. Specifying RPC_QUERY_CLIENT_PRINCIPAL_NAME in the <b>Flags</b> member directs 
-  * <b>RpcServerInqCallAttributes</b> to return the client principal name in <b>ClientPrincipalName</b>. If RPC_QUERY_CLIENT_PRINCIPAL_NAME is not specified, 
-  * <b>RpcServerInqCallAttributes</b> does not modify the pointer passed in <b>ClientPrincipalName</b> and does not store anything in that memory location.
-  * 
-  * The best processing mechanism when both client and server principal names are being retrieved is to store the length of <b>ClientPrincipalNameBufferLength</b> and <b>ServerPrincipalNameBufferLength</b>, and if ERROR_MORE_DATA is returned, compare the stored lengths with the lengths returned in those members. The member with a stored value smaller than or equal to the returned value has returned successfully, indicating that the other member had an insufficient buffer. In the subsequent call, omit the flag for the successfully returned principal name; this avoids processing associated with another retrieval and copy of the successfully returned principal name.
-  * 
-  * The 
-  * <b>RPC_CALL_ATTRIBUTES_V1</b> structure is usually called in two ways:
-  * 
-  * <ul>
-  * <li>First approach: zero is specified for the <b>ServerPrincipalNameBufferLength</b> or <b>ClientPrincipalNameBufferLength</b> member on the first 
-  * <b>RpcServerInqCallAttributes</b> function call to retrieve the required buffer length, or to determine whether the protocol supports returning the principal name. Upon retrieving the required buffer length, a buffer is allocated of the required length and a second call is made to get the real length of the buffer.</li>
-  * <li>Second approach: the caller begins with a reasonable buffer, often allocated on the stack, and if ERROR_MORE_DATA is returned, a buffer of the required length is allocated and the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcserverinqcallattributesa">RpcServerInqCallAttributes</a> function is called again.</li>
-  * </ul>
-  * The second method offers the best performance in most cases, since the caller does not need to perform a memory allocation.
-  * 
-  * 
-  * 
+ * The 
+ * <b>RPC_CALL_ATTRIBUTES</b> structure uses a versioning scheme to enable the 
+ * <b>RpcServerInqCallAttributes</b> function to incorporate new capabilities without having to introduce new functions with suffix identifiers. For example, a second version of the 
+ * <b>RPC_CALL_ATTRIBUTES</b>, identified with a simple #define in the header, can add new members to facilitate new functionality built into future versions of the 
+ * <b>RpcServerInqCallAttributes</b> function, without having to release a corresponding alternative function.
+ * 
+ * The <b>Version</b> member indicates the version of the 
+ * <b>RPC_CALL_ATTRIBUTES</b> structure (currently either <b>RPC_CALL_ATTRIBUTES_V1</b> or <b>RPC_CALL_ATTRIBUTES_V2</b>) being used by the calling application. This identification enables the RPC run time to provide backward compatibility for applications not using the most current version of the structure.
+ * 
+ * Specifying RPC_QUERY_SERVER_PRINCIPAL_NAME in the <b>Flags</b> member directs 
+ * <b>RpcServerInqCallAttributes</b> to return the server principal name in <b>ServerPrincipalName</b>. If RPC_QUERY_SERVER_PRINCIPAL_NAME is not specified, 
+ * <b>RpcServerInqCallAttributes</b> does not modify the pointer passed in <b>ServerPrincipalName</b> and does not store anything in that memory location. Specifying RPC_QUERY_CLIENT_PRINCIPAL_NAME in the <b>Flags</b> member directs 
+ * <b>RpcServerInqCallAttributes</b> to return the client principal name in <b>ClientPrincipalName</b>. If RPC_QUERY_CLIENT_PRINCIPAL_NAME is not specified, 
+ * <b>RpcServerInqCallAttributes</b> does not modify the pointer passed in <b>ClientPrincipalName</b> and does not store anything in that memory location.
+ * 
+ * The best processing mechanism when both client and server principal names are being retrieved is to store the length of <b>ClientPrincipalNameBufferLength</b> and <b>ServerPrincipalNameBufferLength</b>, and if ERROR_MORE_DATA is returned, compare the stored lengths with the lengths returned in those members. The member with a stored value smaller than or equal to the returned value has returned successfully, indicating that the other member had an insufficient buffer. In the subsequent call, omit the flag for the successfully returned principal name; this avoids processing associated with another retrieval and copy of the successfully returned principal name.
+ * 
+ * The 
+ * <b>RPC_CALL_ATTRIBUTES_V1</b> structure is usually called in two ways:
+ * 
+ * <ul>
+ * <li>First approach: zero is specified for the <b>ServerPrincipalNameBufferLength</b> or <b>ClientPrincipalNameBufferLength</b> member on the first 
+ * <b>RpcServerInqCallAttributes</b> function call to retrieve the required buffer length, or to determine whether the protocol supports returning the principal name. Upon retrieving the required buffer length, a buffer is allocated of the required length and a second call is made to get the real length of the buffer.</li>
+ * <li>Second approach: the caller begins with a reasonable buffer, often allocated on the stack, and if ERROR_MORE_DATA is returned, a buffer of the required length is allocated and the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcserverinqcallattributesa">RpcServerInqCallAttributes</a> function is called again.</li>
+ * </ul>
+ * The second method offers the best performance in most cases, since the caller does not need to perform a memory allocation.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ns-rpcasync-rpc_call_attributes_v1_w
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319

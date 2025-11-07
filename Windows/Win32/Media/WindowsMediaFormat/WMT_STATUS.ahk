@@ -4,9 +4,9 @@
  * The WMT_STATUS enumeration type defines a range of file status information.
  * @remarks
  * 
-  * For more information on how this enumeration type is used, see the Remarks section for the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">IWMStatusCallback::OnStatus</a> method.
-  * 
-  * 
+ * For more information on how this enumeration type is used, see the Remarks section for the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">IWMStatusCallback::OnStatus</a> method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_status
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
@@ -81,8 +81,8 @@ class WMT_STATUS{
 
     /**
      * The file loaded in the reader object contains compressed data for which no codec could be found. The <i>pValue</i> parameter in <b>OnStatus</b> contains a GUID. The first DWORD of this GUID contains the FOURCC or the format tag of the missing codec. The remaining bytes of the GUID can be ignored.
- * 
- * The <i>hr</i> parameter in <b>OnStatus</b> may equal S_OK, although a missing codec would normally be considered an error. Also, this event may be followed by WMT_STARTED with <i>hr</i> equal to S_OK, even if codecs are missing for every stream in the file. In that case, however, the application will not receive any decoded samples, and should stop the reader object.
+     * 
+     * The <i>hr</i> parameter in <b>OnStatus</b> may equal S_OK, although a missing codec would normally be considered an error. Also, this event may be followed by WMT_STARTED with <i>hr</i> equal to S_OK, even if codecs are missing for every stream in the file. In that case, however, the application will not receive any decoded samples, and should stop the reader object.
      * @type {Integer (Int32)}
      */
     static WMT_MISSING_CODEC => 10

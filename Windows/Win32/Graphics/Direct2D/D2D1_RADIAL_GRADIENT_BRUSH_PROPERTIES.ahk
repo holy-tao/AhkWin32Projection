@@ -6,14 +6,14 @@
  * Contains the gradient origin offset and the size and position of the gradient ellipse for an ID2D1RadialGradientBrush.
  * @remarks
  * 
-  * Different values for <i>center</i>,  <i>gradientOriginOffset</i>,  <i>radiusX</i> and/or <i>radiusY</i> produce different gradients.   The following illustration shows several radial gradients that have different gradient origin offsets, creating the appearance of the light illuminating the circles from different angles.
-  * 
-  * <img alt="Illustration of four circles with radial gradients that have different origin offsets" src="./images/RadialGradient.png"/>
-  * 
-  * For convenience, Direct2D provides the <a href="https://docs.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-radialgradientbrushproperties">D2D1::RadialGradientBrushProperties</a> function for creating new <b>D2D1_RADIAL_GRADIENT_BRUSH</b> structures.
-  * 
-  * 
-  * 
+ * Different values for <i>center</i>,  <i>gradientOriginOffset</i>,  <i>radiusX</i> and/or <i>radiusY</i> produce different gradients.   The following illustration shows several radial gradients that have different gradient origin offsets, creating the appearance of the light illuminating the circles from different angles.
+ * 
+ * <img alt="Illustration of four circles with radial gradients that have different origin offsets" src="./images/RadialGradient.png"/>
+ * 
+ * For convenience, Direct2D provides the <a href="https://docs.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-radialgradientbrushproperties">D2D1::RadialGradientBrushProperties</a> function for creating new <b>D2D1_RADIAL_GRADIENT_BRUSH</b> structures.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_radial_gradient_brush_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

@@ -16,160 +16,160 @@ class CERTENROLL_OBJECTID{
 
     /**
      * (1.2.840.113549)
- * 
- * Identifies the top level OID for RSA laboratories.
+     * 
+     * Identifies the top level OID for RSA laboratories.
      * @type {Integer (Int32)}
      */
     static XCN_OID_RSA => 1
 
     /**
      * (1.2.840.113549.1)
- * 
- * Identifies the top level public key cryptography standard (PKCS) OID.
+     * 
+     * Identifies the top level public key cryptography standard (PKCS) OID.
      * @type {Integer (Int32)}
      */
     static XCN_OID_PKCS => 2
 
     /**
      * (1.2.840.113549.2)
- * 
- * Identifies an RSA hashing algorithm.
+     * 
+     * Identifies an RSA hashing algorithm.
      * @type {Integer (Int32)}
      */
     static XCN_OID_RSA_HASH => 3
 
     /**
      * (1.2.840.113549.3)
- * 
- * Identifies an RSA encryption algorithm.
+     * 
+     * Identifies an RSA encryption algorithm.
      * @type {Integer (Int32)}
      */
     static XCN_OID_RSA_ENCRYPT => 4
 
     /**
      * (1.2.840.113549.1.1)
- * 
- * Identifies the PKCS #1 standard.
+     * 
+     * Identifies the PKCS #1 standard.
      * @type {Integer (Int32)}
      */
     static XCN_OID_PKCS_1 => 5
 
     /**
      * (1.2.840.113549.1.2)
- * 
- * Identifies the PKCS #2 standard.
+     * 
+     * Identifies the PKCS #2 standard.
      * @type {Integer (Int32)}
      */
     static XCN_OID_PKCS_2 => 6
 
     /**
      * (1.2.840.113549.1.3)
- * 
- * Identifies the PKCS #3 standard.
+     * 
+     * Identifies the PKCS #3 standard.
      * @type {Integer (Int32)}
      */
     static XCN_OID_PKCS_3 => 7
 
     /**
      * (1.2.840.113549.1.4)
- * 
- * Identifies the PKCS #4 standard.
+     * 
+     * Identifies the PKCS #4 standard.
      * @type {Integer (Int32)}
      */
     static XCN_OID_PKCS_4 => 8
 
     /**
      * (1.2.840.113549.1.5)
- * 
- * Identifies the PKCS #5 standard.
+     * 
+     * Identifies the PKCS #5 standard.
      * @type {Integer (Int32)}
      */
     static XCN_OID_PKCS_5 => 9
 
     /**
      * (1.2.840.113549.1.6)
- * 
- * Identifies the PKCS #6 standard.
+     * 
+     * Identifies the PKCS #6 standard.
      * @type {Integer (Int32)}
      */
     static XCN_OID_PKCS_6 => 10
 
     /**
      * (1.2.840.113549.1.7)
- * 
- * Identifies the PKCS #7 standard.
+     * 
+     * Identifies the PKCS #7 standard.
      * @type {Integer (Int32)}
      */
     static XCN_OID_PKCS_7 => 11
 
     /**
      * (1.2.840.113549.1.8)
- * 
- * Identifies the PKCS #8 standard.
+     * 
+     * Identifies the PKCS #8 standard.
      * @type {Integer (Int32)}
      */
     static XCN_OID_PKCS_8 => 12
 
     /**
      * (1.2.840.113549.1.9)
- * 
- * Identifies the PKCS #9 standard.
+     * 
+     * Identifies the PKCS #9 standard.
      * @type {Integer (Int32)}
      */
     static XCN_OID_PKCS_9 => 13
 
     /**
      * (1.2.840.113549.1.10)
- * 
- * Identifies the PKCS #10 standard.
+     * 
+     * Identifies the PKCS #10 standard.
      * @type {Integer (Int32)}
      */
     static XCN_OID_PKCS_10 => 14
 
     /**
      * (1.2.840.113549.1.12)
- * 
- * Identifies the PKCS #12 standard.
+     * 
+     * Identifies the PKCS #12 standard.
      * @type {Integer (Int32)}
      */
     static XCN_OID_PKCS_12 => 15
 
     /**
      * (1.2.840.113549.1.1.1)
- * 
- * Identifies an RSA encryption or signing algorithm.
+     * 
+     * Identifies an RSA encryption or signing algorithm.
      * @type {Integer (Int32)}
      */
     static XCN_OID_RSA_RSA => 16
 
     /**
      * (1.2.840.113549.1.1.2)
- * 
- * Identifies an RSA asymmetric algorithm combined with an MD2 hashing algorithm.
+     * 
+     * Identifies an RSA asymmetric algorithm combined with an MD2 hashing algorithm.
      * @type {Integer (Int32)}
      */
     static XCN_OID_RSA_MD2RSA => 17
 
     /**
      * (1.2.840.113549.1.1.3)
- * 
- * Identifies an RSA asymmetric algorithm combined with an MD4 hashing algorithm.
+     * 
+     * Identifies an RSA asymmetric algorithm combined with an MD4 hashing algorithm.
      * @type {Integer (Int32)}
      */
     static XCN_OID_RSA_MD4RSA => 18
 
     /**
      * (1.2.840.113549.1.1.4)
- * 
- * Identifies an RSA asymmetric algorithm combined with an MD5 hashing algorithm.
+     * 
+     * Identifies an RSA asymmetric algorithm combined with an MD5 hashing algorithm.
      * @type {Integer (Int32)}
      */
     static XCN_OID_RSA_MD5RSA => 19
 
     /**
      * (1.2.840.113549.1.1.5)
- * 
- * Identifies an RSA asymmetric algorithm combined with an MD5 hashing algorithm.
+     * 
+     * Identifies an RSA asymmetric algorithm combined with an MD5 hashing algorithm.
      * @type {Integer (Int32)}
      */
     static XCN_OID_RSA_SHA1RSA => 20
@@ -182,8 +182,8 @@ class CERTENROLL_OBJECTID{
 
     /**
      * (1.2.840.113549.1.3.1)
- * 
- * Identifies an Diffie-Hellman key exchange algorithm.
+     * 
+     * Identifies an Diffie-Hellman key exchange algorithm.
      * @type {Integer (Int32)}
      */
     static XCN_OID_RSA_DH => 22
@@ -910,7 +910,7 @@ class CERTENROLL_OBJECTID{
 
     /**
      * Contains one or more ISDN addresses, 
- *    as defined in ITU Recommendation E.164, for the entity requesting the certificate.
+     *    as defined in ITU Recommendation E.164, for the entity requesting the certificate.
      * @type {Integer (Int32)}
      */
     static XCN_OID_INTERNATIONAL_ISDN_NUMBER => 143
@@ -1349,8 +1349,8 @@ class CERTENROLL_OBJECTID{
 
     /**
      * (1.3.6.1.4.1.311.10.12.1)
- * 
- *  Identifies an EKU OID which indicates that there are no restrictions on the  applications that can use the certificate.
+     * 
+     *  Identifies an EKU OID which indicates that there are no restrictions on the  applications that can use the certificate.
      * @type {Integer (Int32)}
      */
     static XCN_OID_ANY_APPLICATION_POLICY => 216

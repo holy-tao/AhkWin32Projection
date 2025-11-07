@@ -7,8 +7,8 @@
  * The IConsoleVerb interface allows snap-ins to enable standard verbs including cut, copy, paste, delete, properties, rename, refresh, and print. When an item is selected, the snap-in can update the state of these verbs.
  * @remarks
  * 
-  * IID_IConsoleVerb is defined as E49F7A60-74AF-11D0-A286-00C04FD8FE93.
-  * 
+ * IID_IConsoleVerb is defined as E49F7A60-74AF-11D0-A286-00C04FD8FE93.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mmc/nn-mmc-iconsoleverb
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319

@@ -4,192 +4,192 @@
  * Defines event types for the IMFPMediaPlayerCallback interface.
  * @remarks
  * 
-  * For each event type, the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayercallback-onmediaplayerevent">IMFPMediaPlayerCallback::OnMediaPlayerEvent</a> callback receives a pointer to a data structure. The first part of the data structure is always an <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_event_header">MFP_EVENT_HEADER</a> structure. The following table lists the data structure for each event type.
-  * 
-  * In your implementation of <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayercallback-onmediaplayerevent">OnMediaPlayerEvent</a>, you must cast the <i>pEventHeader</i> parameter to the correct structure type. A set of macros is defined for this purpose. These macros check the value of the event type and return <b>NULL</b> if there is a mismatch; otherwise they return a pointer to the correct structure type.
-  * 
-  * <table>
-  * <tr>
-  * <td><b>Event type</b></td>
-  * <td>
-  * <b>Event structure</b>
-  * 
-  * <b>Pointer cast macro</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_PLAY</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_play_event">MFP_PLAY_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_play_event">MFP_GET_PLAY_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_PAUSE</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_pause_event">MFP_PAUSE_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_pause_event">MFP_GET_PAUSE_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_STOP</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_stop_event">MFP_STOP_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_stop_event">MFP_GET_STOP_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_POSITION_SET</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_position_set_event">MFP_POSITION_SET_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_position_set_event">MFP_GET_POSITION_SET_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_RATE_SET</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_rate_set_event">MFP_RATE_SET_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_rate_set_event">MFP_GET_RATE_SET_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_MEDIAITEM_CREATED</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_mediaitem_created_event">MFP_MEDIAITEM_CREATED_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_mediaitem_created_event">MFP_GET_MEDIAITEM_CREATED_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_MEDIAITEM_SET</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_mediaitem_set_event">MFP_MEDIAITEM_SET_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_mediaitem_set_event">MFP_GET_MEDIAITEM_SET_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_FRAME_STEP</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_frame_step_event">MFP_FRAME_STEP_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_frame_step_event">MFP_GET_FRAME_STEP_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_MEDIAITEM_CLEARED</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_mediaitem_cleared_event">MFP_MEDIAITEM_CLEARED_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_mediaitem_cleared_event">MFP_GET_MEDIAITEM_CLEARED_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_MF</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_mf_event">MFP_MF_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_mf_event">MFP_GET_MF_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_ERROR</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_error_event">MFP_ERROR_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_error_event">MFP_GET_ERROR_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_PLAYBACK_ENDED</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_playback_ended_event">MFP_PLAYBACK_ENDED_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_playback_ended_event">MFP_GET_PLAYBACK_ENDED_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>MFP_EVENT_TYPE_ACQUIRE_USER_CREDENTIAL</td>
-  * <td>
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_acquire_user_credential_event">MFP_ACQUIRE_USER_CREDENTIAL_EVENT</a>
-  * 
-  * 
-  * 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_acquire_user_credential_event">MFP_GET_ACQUIRE_USER_CREDENTIAL_EVENT</a>
-  * 
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * For each event type, the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayercallback-onmediaplayerevent">IMFPMediaPlayerCallback::OnMediaPlayerEvent</a> callback receives a pointer to a data structure. The first part of the data structure is always an <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_event_header">MFP_EVENT_HEADER</a> structure. The following table lists the data structure for each event type.
+ * 
+ * In your implementation of <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayercallback-onmediaplayerevent">OnMediaPlayerEvent</a>, you must cast the <i>pEventHeader</i> parameter to the correct structure type. A set of macros is defined for this purpose. These macros check the value of the event type and return <b>NULL</b> if there is a mismatch; otherwise they return a pointer to the correct structure type.
+ * 
+ * <table>
+ * <tr>
+ * <td><b>Event type</b></td>
+ * <td>
+ * <b>Event structure</b>
+ * 
+ * <b>Pointer cast macro</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_PLAY</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_play_event">MFP_PLAY_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_play_event">MFP_GET_PLAY_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_PAUSE</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_pause_event">MFP_PAUSE_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_pause_event">MFP_GET_PAUSE_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_STOP</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_stop_event">MFP_STOP_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_stop_event">MFP_GET_STOP_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_POSITION_SET</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_position_set_event">MFP_POSITION_SET_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_position_set_event">MFP_GET_POSITION_SET_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_RATE_SET</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_rate_set_event">MFP_RATE_SET_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_rate_set_event">MFP_GET_RATE_SET_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_MEDIAITEM_CREATED</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_mediaitem_created_event">MFP_MEDIAITEM_CREATED_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_mediaitem_created_event">MFP_GET_MEDIAITEM_CREATED_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_MEDIAITEM_SET</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_mediaitem_set_event">MFP_MEDIAITEM_SET_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_mediaitem_set_event">MFP_GET_MEDIAITEM_SET_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_FRAME_STEP</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_frame_step_event">MFP_FRAME_STEP_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_frame_step_event">MFP_GET_FRAME_STEP_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_MEDIAITEM_CLEARED</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_mediaitem_cleared_event">MFP_MEDIAITEM_CLEARED_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_mediaitem_cleared_event">MFP_GET_MEDIAITEM_CLEARED_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_MF</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_mf_event">MFP_MF_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_mf_event">MFP_GET_MF_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_ERROR</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_error_event">MFP_ERROR_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_error_event">MFP_GET_ERROR_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_PLAYBACK_ENDED</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_playback_ended_event">MFP_PLAYBACK_ENDED_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_playback_ended_event">MFP_GET_PLAYBACK_ENDED_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>MFP_EVENT_TYPE_ACQUIRE_USER_CREDENTIAL</td>
+ * <td>
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_acquire_user_credential_event">MFP_ACQUIRE_USER_CREDENTIAL_EVENT</a>
+ * 
+ * 
+ * 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_acquire_user_credential_event">MFP_GET_ACQUIRE_USER_CREDENTIAL_EVENT</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfplay/ne-mfplay-mfp_event_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

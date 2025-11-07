@@ -12,8 +12,8 @@
  * Deprecated.
  * @remarks
  * 
-  * In a direct inheritance scheme, these methods would be protected members. For that reason, it is recommended that this interface not be used directly by implementers. If it is used directly, existing data could be at risk.
-  * 
+ * In a direct inheritance scheme, these methods would be protected members. For that reason, it is recommended that this interface not be used directly by implementers. If it is used directly, existing data could be at risk.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nn-shdeprecated-ibrowserservice
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

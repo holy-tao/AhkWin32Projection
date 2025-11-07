@@ -10,9 +10,9 @@
  * .
  * @remarks
  * 
-  * Creating the InkCollector control behind a transparent control (such as a GroupBox with the WS_EX_TRANSPARENT property set) will prevent InkCollector from collecting ink.
-  * 
-  * 
+ * Creating the InkCollector control behind a transparent control (such as a GroupBox with the WS_EX_TRANSPARENT property set) will prevent InkCollector from collecting ink.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinktablets
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

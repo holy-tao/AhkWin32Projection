@@ -7,9 +7,9 @@
  * Exposes a method to handle events that occur when Microsoft UI Automation reports a text-changed event from text edit controls.
  * @remarks
  * 
-  * This interface is implemented by the application to handle events that it has subscribed to by using <b>AddTextEditTextChangedEventHandler</b>.
-  * 
-  * 
+ * This interface is implemented by the application to handle events that it has subscribed to by using <b>AddTextEditTextChangedEventHandler</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationtextedittextchangedeventhandler
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

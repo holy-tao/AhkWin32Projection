@@ -16,45 +16,45 @@ class OPEN_VIRTUAL_DISK_FLAG{
 
     /**
      * Open the VHD file (backing store) without opening any differencing-chain parents. Used to correct broken 
- *        parent links.
- * 
- * This flag is not supported for ISO virtual disks.
+     *        parent links.
+     * 
+     * This flag is not supported for ISO virtual disks.
      * @type {Integer (Int32)}
      */
     static OPEN_VIRTUAL_DISK_FLAG_NO_PARENTS => 1
 
     /**
      * Reserved.
- * 
- * This flag is not supported for ISO virtual disks.
+     * 
+     * This flag is not supported for ISO virtual disks.
      * @type {Integer (Int32)}
      */
     static OPEN_VIRTUAL_DISK_FLAG_BLANK_FILE => 2
 
     /**
      * Reserved.
- * 
- * This flag is not supported for ISO virtual disks.
+     * 
+     * This flag is not supported for ISO virtual disks.
      * @type {Integer (Int32)}
      */
     static OPEN_VIRTUAL_DISK_FLAG_BOOT_DRIVE => 4
 
     /**
      * Indicates that the virtual disk should be opened in cached mode. By default the virtual disks are opened 
- *        using <b>FILE_FLAG_NO_BUFFERING</b> and 
- *        <b>FILE_FLAG_WRITE_THROUGH</b>.
- * 
- * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
+     *        using <b>FILE_FLAG_NO_BUFFERING</b> and 
+     *        <b>FILE_FLAG_WRITE_THROUGH</b>.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static OPEN_VIRTUAL_DISK_FLAG_CACHED_IO => 8
 
     /**
      * Indicates the VHD file is to be opened without opening any differencing-chain parents and the parent chain is 
- *        to be created manually using the 
- *        <a href="https://docs.microsoft.com/windows/desktop/api/virtdisk/nf-virtdisk-addvirtualdiskparent">AddVirtualDiskParent</a> function.
- * 
- * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
+     *        to be created manually using the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/virtdisk/nf-virtdisk-addvirtualdiskparent">AddVirtualDiskParent</a> function.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static OPEN_VIRTUAL_DISK_FLAG_CUSTOM_DIFF_CHAIN => 16

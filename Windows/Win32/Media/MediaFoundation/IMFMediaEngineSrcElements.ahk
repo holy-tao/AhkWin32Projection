@@ -8,17 +8,17 @@
  * Provides the Media Engine with a list of media resources.
  * @remarks
  * 
-  * The <b>IMFMediaEngineSrcElements</b> interface represents an ordered list of media resources.
-  * 
-  * This interface enables the application to provide the same audio/video content in several different encoding formats, such as H.264 and Windows Media Video. If a particular codec is not present on the user's computer, the Media Engine will try the next URL in the list. To use this interface, do the following:
-  * 
-  * <ol>
-  * <li>Create an implementation of this interface.</li>
-  * <li>Initialize your implementation with a list of URLs. Optionally, provide MIME types and media query strings for each URL.</li>
-  * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setsourceelements">IMFMediaEngine::SetSourceElements</a> method.</li>
-  * </ol>
-  * 
-  * 
+ * The <b>IMFMediaEngineSrcElements</b> interface represents an ordered list of media resources.
+ * 
+ * This interface enables the application to provide the same audio/video content in several different encoding formats, such as H.264 and Windows Media Video. If a particular codec is not present on the user's computer, the Media Engine will try the next URL in the list. To use this interface, do the following:
+ * 
+ * <ol>
+ * <li>Create an implementation of this interface.</li>
+ * <li>Initialize your implementation with a list of URLs. Optionally, provide MIME types and media query strings for each URL.</li>
+ * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setsourceelements">IMFMediaEngine::SetSourceElements</a> method.</li>
+ * </ol>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfmediaenginesrcelements
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

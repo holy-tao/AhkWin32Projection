@@ -22,15 +22,15 @@ class ToggleState{
 
     /**
      * The UI Automation element is in an indeterminate state. 
- *             
- * 
- * The Indeterminate property can be used to indicate whether the user has acted 
- *             on a control. For example, a check box can appear checked and dimmed, indicating an indeterminate state.
- *             
- * 
- * Creating an indeterminate state is different from disabling the control. 
- *             Consequently, a check box in the indeterminate state can still receive the focus. 
- *             When the user clicks an indeterminate control the ToggleState cycles to its next value.
+     *             
+     * 
+     * The Indeterminate property can be used to indicate whether the user has acted 
+     *             on a control. For example, a check box can appear checked and dimmed, indicating an indeterminate state.
+     *             
+     * 
+     * Creating an indeterminate state is different from disabling the control. 
+     *             Consequently, a check box in the indeterminate state can still receive the focus. 
+     *             When the user clicks an indeterminate control the ToggleState cycles to its next value.
      * @type {Integer (Int32)}
      */
     static ToggleState_Indeterminate => 2

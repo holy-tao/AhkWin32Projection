@@ -9,81 +9,81 @@
  * Manages a picture object and its properties. Picture objects provide a language-neutral abstraction for bitmaps, icons, and metafiles.
  * @remarks
  * 
-  * Each property in the <b>IPicture</b> interface includes a <b>get_PropertyName</b> method if the property supports read access and a <b>put_PropertyName</b> method if the property supports write access.
-  * 
-  * <table>
-  * <tr>
-  * <th>Property</th>
-  * <th>Type</th>
-  * <th>Access</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>Handle</td>
-  * <td><b>OLE_HANDLE</b> (<b>int</b>)
-  * </td>
-  * <td>R</td>
-  * <td>The Windows GDI handle of the picture
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>hPal</td>
-  * <td><b>OLE_HANDLE</b> (<b>int</b>)
-  * </td>
-  * <td>RW</td>
-  * <td>The Windows handle of the palette used by the picture.
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>Type</td>
-  * <td><b>short</b></td>
-  * <td>R</td>
-  * <td>The type of picture (see <a href="https://docs.microsoft.com/windows/desktop/com/pictype-constants">PICTYPE</a>).
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>Width</td>
-  * <td><b>OLE_XSIZE_HIMETRIC</b> (<b>long</b>)
-  * </td>
-  * <td>R</td>
-  * <td>The width of the picture.
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>Height</td>
-  * <td><b>OLE_YSIZE_HIMETRIC</b> (<b>long</b>)
-  * </td>
-  * <td>R</td>
-  * <td>The height of the picture.
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>CurDC</td>
-  * <td><b>HDC</b></td>
-  * <td>R</td>
-  * <td>The current device context.</td>
-  * </tr>
-  * <tr>
-  * <td>KeepOriginalFormat</td>
-  * <td><b>BOOL</b></td>
-  * <td>RW</td>
-  * <td>If <b>TRUE</b>, the picture object maintains the entire original state of the picture in memory. If <b>FALSE</b>, any state not applicable to the user's computer is discarded.</td>
-  * </tr>
-  * <tr>
-  * <td>Attributes</td>
-  * <td><b>DWORD</b></td>
-  * <td>R</td>
-  * <td>Miscellaneous bit attributes of the picture.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * <h3><a id="OLE_Implementation"></a><a id="ole_implementation"></a><a id="OLE_IMPLEMENTATION"></a>OLE Implementation</h3>
-  * Picture objects provide a language-neutral abstraction for bitmaps, icons, and metafiles. As with the standard font object, the system provides a standard implementation of the picture object. Its primary interfaces are <b>IPicture</b> and <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ipicturedisp">IPictureDisp</a>. A picture object is created with <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-olecreatepictureindirect">OleCreatePictureIndirect</a> and supports both the <b>IPicture</b> and the <b>IPictureDisp</b> interfaces.
-  * 
-  * The OLE-provided picture object implements the complete semantics of the <b>IPicture</b> and <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ipicturedisp">IPictureDisp</a> interfaces.
-  * 
-  * 
+ * Each property in the <b>IPicture</b> interface includes a <b>get_PropertyName</b> method if the property supports read access and a <b>put_PropertyName</b> method if the property supports write access.
+ * 
+ * <table>
+ * <tr>
+ * <th>Property</th>
+ * <th>Type</th>
+ * <th>Access</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>Handle</td>
+ * <td><b>OLE_HANDLE</b> (<b>int</b>)
+ * </td>
+ * <td>R</td>
+ * <td>The Windows GDI handle of the picture
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>hPal</td>
+ * <td><b>OLE_HANDLE</b> (<b>int</b>)
+ * </td>
+ * <td>RW</td>
+ * <td>The Windows handle of the palette used by the picture.
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Type</td>
+ * <td><b>short</b></td>
+ * <td>R</td>
+ * <td>The type of picture (see <a href="https://docs.microsoft.com/windows/desktop/com/pictype-constants">PICTYPE</a>).
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Width</td>
+ * <td><b>OLE_XSIZE_HIMETRIC</b> (<b>long</b>)
+ * </td>
+ * <td>R</td>
+ * <td>The width of the picture.
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Height</td>
+ * <td><b>OLE_YSIZE_HIMETRIC</b> (<b>long</b>)
+ * </td>
+ * <td>R</td>
+ * <td>The height of the picture.
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>CurDC</td>
+ * <td><b>HDC</b></td>
+ * <td>R</td>
+ * <td>The current device context.</td>
+ * </tr>
+ * <tr>
+ * <td>KeepOriginalFormat</td>
+ * <td><b>BOOL</b></td>
+ * <td>RW</td>
+ * <td>If <b>TRUE</b>, the picture object maintains the entire original state of the picture in memory. If <b>FALSE</b>, any state not applicable to the user's computer is discarded.</td>
+ * </tr>
+ * <tr>
+ * <td>Attributes</td>
+ * <td><b>DWORD</b></td>
+ * <td>R</td>
+ * <td>Miscellaneous bit attributes of the picture.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * <h3><a id="OLE_Implementation"></a><a id="ole_implementation"></a><a id="OLE_IMPLEMENTATION"></a>OLE Implementation</h3>
+ * Picture objects provide a language-neutral abstraction for bitmaps, icons, and metafiles. As with the standard font object, the system provides a standard implementation of the picture object. Its primary interfaces are <b>IPicture</b> and <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ipicturedisp">IPictureDisp</a>. A picture object is created with <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-olecreatepictureindirect">OleCreatePictureIndirect</a> and supports both the <b>IPicture</b> and the <b>IPictureDisp</b> interfaces.
+ * 
+ * The OLE-provided picture object implements the complete semantics of the <b>IPicture</b> and <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ipicturedisp">IPictureDisp</a> interfaces.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-ipicture
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319

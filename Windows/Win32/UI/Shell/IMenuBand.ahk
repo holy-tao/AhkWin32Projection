@@ -7,32 +7,32 @@
  * Exposes methods that allow a Component Object Model (COM) object to receive and translate appropriate messages.
  * @remarks
  * 
-  *  An application can call <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">QueryService</a> with one of the following service IDs. If the <i>riid</i> parameter of <b>QueryService</b> is IAccessible or IDispatch, the call to <b>QueryService</b> creates a new accessibility object. Otherwise, the call to <b>QueryService</b> is equivalent to a call to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> with the service ID, as follows:
-  * 
-  * 
-  * 
-  * <table class="clsStd">
-  * <tr>
-  * <th>Service ID (SID)</th>
-  * <th>Meaning</th>
-  * </tr>
-  * <tr>
-  * <td>SID_SMenuBandChild</td>
-  * <td>Retrieves the pointer to the <b>IMenuBand</b> interface for the submenu.</td>
-  * </tr>
-  * <tr>
-  * <td>SID_SMenuBandParent</td>
-  * <td>Retrieves the pointer to the <b>IMenuBand</b> interface for the parent menu.</td>
-  * </tr>
-  * <tr>
-  * <td>SID_SMenuBandTop</td>
-  * <td>Retrieves the pointer to the <b>IMenuBand</b> interface for the top menu.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * In Windows 2000, this interface was implemented in browseui.dll. However, it is not recommended that this version be used.
-  * 
+ *  An application can call <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">QueryService</a> with one of the following service IDs. If the <i>riid</i> parameter of <b>QueryService</b> is IAccessible or IDispatch, the call to <b>QueryService</b> creates a new accessibility object. Otherwise, the call to <b>QueryService</b> is equivalent to a call to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> with the service ID, as follows:
+ * 
+ * 
+ * 
+ * <table class="clsStd">
+ * <tr>
+ * <th>Service ID (SID)</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td>SID_SMenuBandChild</td>
+ * <td>Retrieves the pointer to the <b>IMenuBand</b> interface for the submenu.</td>
+ * </tr>
+ * <tr>
+ * <td>SID_SMenuBandParent</td>
+ * <td>Retrieves the pointer to the <b>IMenuBand</b> interface for the parent menu.</td>
+ * </tr>
+ * <tr>
+ * <td>SID_SMenuBandTop</td>
+ * <td>Retrieves the pointer to the <b>IMenuBand</b> interface for the top menu.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * In Windows 2000, this interface was implemented in browseui.dll. However, it is not recommended that this version be used.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-imenuband
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

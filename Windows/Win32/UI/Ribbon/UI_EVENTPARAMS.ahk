@@ -6,17 +6,17 @@
  * Contains information about a Ribbon event.
  * @remarks
  * 
-  * For top-level events (application menu opened/closed, ribbon minimized/expanded/pinned), <b>Modes</b> is present but set to zero (and can be ignored by the application).
-  * 
-  * 
-  * 
-  * For the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_eventtype">UI_EVENTTYPE_ApplicationModeSwitched</a> event,  <b>Modes</b> specifies which modes have been set.  (This is the same integer value that is passed to <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiframework-setmodes">SetModes</a> to switch modes in the first place.)
-  * 
-  * 
-  * 
-  * For all other events, <b>Params</b> contains additional data about the event.
-  * 
-  * 
+ * For top-level events (application menu opened/closed, ribbon minimized/expanded/pinned), <b>Modes</b> is present but set to zero (and can be ignored by the application).
+ * 
+ * 
+ * 
+ * For the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_eventtype">UI_EVENTTYPE_ApplicationModeSwitched</a> event,  <b>Modes</b> specifies which modes have been set.  (This is the same integer value that is passed to <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiframework-setmodes">SetModes</a> to switch modes in the first place.)
+ * 
+ * 
+ * 
+ * For all other events, <b>Params</b> contains additional data about the event.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiribbon/ns-uiribbon-ui_eventparams
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319

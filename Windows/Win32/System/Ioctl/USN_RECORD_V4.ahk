@@ -8,20 +8,20 @@
  * Contains the information for an update sequence number (USN) change journal version 4.0 record. The version 2.0 and 3.0 records are defined by the USN_RECORD_V2 (also called USN_RECORD) and USN_RECORD_V3 structures respectively.
  * @remarks
  * 
-  * A <b>USN_RECORD_V4</b> record is only output when range tracking is turned on and the file size is equal or larger than the value of the <b>RangeTrackFileSizeThreshold</b> member. The user always receives one or more <b>USN_RECORD_V4</b> records followed by one <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_v3">USN_RECORD_V3</a> record.
-  * 
-  * To provide a path forward compatibility in change journal clients, Microsoft provides a major and minor version number of the change journal software in the <b>USN_RECORD_V4</b> structure. Your code should examine these values, examine its own compatibility with the change journal software, and gracefully handle any incompatibility if necessary.
-  * 
-  * A change in the minor version number indicates that the existing <b>USN_RECORD_V4</b> structure members are still valid, but that new members may have been added between the penultimate member and the last, which is a variable-length string.
-  * 
-  * To handle such a change gracefully, your code should not do any compile-time pointer arithmetic that relies on the location of the last member. For example, a change in the minor version number makes the <c>sizeof(USN_RECORD)</c> call unreliable. Instead, rely on run-time calculations that use the <b>RecordLength</b> member.
-  * 
-  * An increase in the major version number of the change journal software indicates that the <b>USN_RECORD_V4</b> structure may have undergone major changes, and that the current definition may not be reliable. If your code detects a change in the major version number of the change journal software, the code should not work with the change journal.
-  * 
-  * 
-  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-modifying-and-deleting-a-change-journal">Creating, Modifying, and Deleting a Change Journal</a>.
-  * 
-  * 
+ * A <b>USN_RECORD_V4</b> record is only output when range tracking is turned on and the file size is equal or larger than the value of the <b>RangeTrackFileSizeThreshold</b> member. The user always receives one or more <b>USN_RECORD_V4</b> records followed by one <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_v3">USN_RECORD_V3</a> record.
+ * 
+ * To provide a path forward compatibility in change journal clients, Microsoft provides a major and minor version number of the change journal software in the <b>USN_RECORD_V4</b> structure. Your code should examine these values, examine its own compatibility with the change journal software, and gracefully handle any incompatibility if necessary.
+ * 
+ * A change in the minor version number indicates that the existing <b>USN_RECORD_V4</b> structure members are still valid, but that new members may have been added between the penultimate member and the last, which is a variable-length string.
+ * 
+ * To handle such a change gracefully, your code should not do any compile-time pointer arithmetic that relies on the location of the last member. For example, a change in the minor version number makes the <c>sizeof(USN_RECORD)</c> call unreliable. Instead, rely on run-time calculations that use the <b>RecordLength</b> member.
+ * 
+ * An increase in the major version number of the change journal software indicates that the <b>USN_RECORD_V4</b> structure may have undergone major changes, and that the current definition may not be reliable. If your code detects a change in the major version number of the change journal software, the code should not work with the change journal.
+ * 
+ * 
+ * For more information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-modifying-and-deleting-a-change-journal">Creating, Modifying, and Deleting a Change Journal</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-usn_record_v4
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319

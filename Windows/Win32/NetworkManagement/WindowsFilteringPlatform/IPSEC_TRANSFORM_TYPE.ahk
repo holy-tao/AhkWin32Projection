@@ -34,12 +34,12 @@ class IPSEC_TRANSFORM_TYPE{
 
     /**
      * Specifies that the first packet should be sent twice: once with ESP/AH encapsulation, and once in clear text. The entire session is then sent in clear text.
- * 
- * The initial packet will allow the existing firewall rules to apply to the connection.  The subsequent clear text data stream allows  intermediaries to modify the stream.
- * 
- * 
- * <div class="alert"><b>Note</b>  Available only on Windows Server 2008 R2, Windows 7, or later.</div>
- * <div> </div>
+     * 
+     * The initial packet will allow the existing firewall rules to apply to the connection.  The subsequent clear text data stream allows  intermediaries to modify the stream.
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Available only on Windows Server 2008 R2, Windows 7, or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IPSEC_TRANSFORM_ESP_AUTH_FW => 5

@@ -5,9 +5,9 @@
  * Represents the implementation of a Component Object Model (COM) interface in a server process.
  * @remarks
  * 
-  * The <b>ServerInformation</b> structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codecodeproxy">CoDecodeProxy</a> function to enable native debuggers to locate the implementation of a COM interface in a server process, given a Windows Runtime interface on a proxy to the Windows Runtime object.
-  * 
-  * 
+ * The <b>ServerInformation</b> structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codecodeproxy">CoDecodeProxy</a> function to enable native debuggers to locate the implementation of a COM interface in a server process, given a Windows Runtime interface on a proxy to the Windows Runtime object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//combaseapi/ns-combaseapi-serverinformation
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

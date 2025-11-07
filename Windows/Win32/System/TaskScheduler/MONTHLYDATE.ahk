@@ -5,20 +5,20 @@
  * Defines the day of the month the task will run.
  * @remarks
  * 
-  *  The 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-trigger_type_union">TRIGGER_TYPE_UNION</a> union uses an instance of this structure as part of the <b>Type</b> member of the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure definition.
-  * 
-  * The following C++ example shows how to combine the flags.  The example runs a task quarterly.
-  * 
-  * 
-  * ```cpp
-  * MONTHLYDATE example;
-  * example.rgfDays = 1;
-  * example.rgfMonths = TASK_JANUARY | TASK_APRIL | TASK_JULY | TASK_OCTOBER;
-  * ```
-  * 
-  * 
+ *  The 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-trigger_type_union">TRIGGER_TYPE_UNION</a> union uses an instance of this structure as part of the <b>Type</b> member of the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure definition.
+ * 
+ * The following C++ example shows how to combine the flags.  The example runs a task quarterly.
+ * 
+ * 
+ * ```cpp
+ * MONTHLYDATE example;
+ * example.rgfDays = 1;
+ * example.rgfMonths = TASK_JANUARY | TASK_APRIL | TASK_JULY | TASK_OCTOBER;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mstask/ns-mstask-monthlydate
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

@@ -9,8 +9,8 @@
  * The DD_VIDEOPORT_LOCAL structure contains video port extensions (VPE)-related data that is unique to an individual Microsoft DirectDraw VPE object.
  * @remarks
  * 
-  * This structure is initialized and filled in by DirectDraw. Except for the <b>dwReserved1</b>, <b>dwReserved2</b>, and <b>dwReserved3</b> members, the driver must not modify any other members of the DD_VIDEOPORT_LOCAL structure.
-  * 
+ * This structure is initialized and filled in by DirectDraw. Except for the <b>dwReserved1</b>, <b>dwReserved2</b>, and <b>dwReserved3</b> members, the driver must not modify any other members of the DD_VIDEOPORT_LOCAL structure.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_videoport_local
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319

@@ -10,12 +10,12 @@ class DECIMATION_USAGE{
 
     /**
      * Decimate the video by taking the following steps, in the order listed, until one of them succeeds.
- * 
- * <ol>
- * <li>Try to use the overlay scaler on the VGA chip.</li>
- * <li>If the Overlay Mixer is connected through a video port, try to use the scaler on the video port.</li>
- * <li>Crop the video image.</li>
- * </ol>
+     * 
+     * <ol>
+     * <li>Try to use the overlay scaler on the VGA chip.</li>
+     * <li>If the Overlay Mixer is connected through a video port, try to use the scaler on the video port.</li>
+     * <li>Crop the video image.</li>
+     * </ol>
      * @type {Integer (Int32)}
      */
     static DECIMATION_LEGACY => 0
@@ -40,14 +40,14 @@ class DECIMATION_USAGE{
 
     /**
      * Decimate the video by taking the following steps, in the order listed, until one of them succeeds.
- * 
- * <ol>
- * <li>Try to use the scaler on the video decoder.</li>
- * <li>Try to use the overlay scaler on the VGA chip.</li>
- * <li>If the Overlay Mixer is connected through a video port, try to use the scaler on the video port.</li>
- * <li>Crop the video image.</li>
- * </ol>
- * This mode is the default decimation strategy.
+     * 
+     * <ol>
+     * <li>Try to use the scaler on the video decoder.</li>
+     * <li>Try to use the overlay scaler on the VGA chip.</li>
+     * <li>If the Overlay Mixer is connected through a video port, try to use the scaler on the video port.</li>
+     * <li>Crop the video image.</li>
+     * </ol>
+     * This mode is the default decimation strategy.
      * @type {Integer (Int32)}
      */
     static DECIMATION_DEFAULT => 4

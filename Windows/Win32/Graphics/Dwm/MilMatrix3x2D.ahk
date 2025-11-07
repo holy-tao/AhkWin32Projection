@@ -5,9 +5,9 @@
  * Specifies a 3x2 matrix that describes a transform.
  * @remarks
  * 
-  * In Windows Vista, this structure was named MIL_MATRIX3X2D. It was renamed in Windows 7.
-  * 
-  * 
+ * In Windows Vista, this structure was named MIL_MATRIX3X2D. It was renamed in Windows 7.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwmapi/ns-dwmapi-milmatrix3x2d
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319

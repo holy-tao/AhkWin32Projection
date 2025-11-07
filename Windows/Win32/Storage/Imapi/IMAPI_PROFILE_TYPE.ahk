@@ -4,11 +4,11 @@
  * Defines values for the possible profiles of a CD and DVD device. A profile defines the type of media and features that the device supports.
  * @remarks
  * 
-  * Note that the range of feature type values is 0x0000 to 0xFFFF. This enumeration contains those features defined in the Multmedia Commands - 5 (MMC) specification. For a complete definition of each profile, see Profile Definitions in the latest release of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
-  * 
-  * Other values not defined here may exist. Consumers of this enumeration should not presume this list to be the only set of valid values.
-  * 
-  * 
+ * Note that the range of feature type values is 0x0000 to 0xFFFF. This enumeration contains those features defined in the Multmedia Commands - 5 (MMC) specification. For a complete definition of each profile, see Profile Definitions in the latest release of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
+ * 
+ * Other values not defined here may exist. Consumers of this enumeration should not presume this list to be the only set of valid values.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_profile_type
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
@@ -125,27 +125,27 @@ class IMAPI_PROFILE_TYPE{
 
     /**
      * A double density CD drive.
- * 
- * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IMAPI_PROFILE_TYPE_DDCDROM => 32
 
     /**
      * A double density CD-R drive.
- * 
- * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IMAPI_PROFILE_TYPE_DDCD_RECORDABLE => 33
 
     /**
      * A double density CD-RW drive.
- * 
- * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This profile has been deprecated.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IMAPI_PROFILE_TYPE_DDCD_REWRITABLE => 34

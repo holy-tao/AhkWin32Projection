@@ -5,9 +5,9 @@
  * The AMVPSIZE structure specifies the width and height for a VP image.
  * @remarks
  * 
-  * The context could be anything such as scaling, cropping, and so on.
-  * 
-  * 
+ * The context could be anything such as scaling, cropping, and so on.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vptype/ns-vptype-amvpsize
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

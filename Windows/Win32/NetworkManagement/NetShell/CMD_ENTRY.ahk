@@ -5,11 +5,11 @@
  * Defines a helper command.
  * @remarks
  * 
-  * Macros are available that can simplify the creation of the 
-  * <b>CMD_ENTRY</b> structure, as follows:
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>#define CREATE_CMD_ENTRY_EX(t,f,i)       {CMD_##t, f, HLP_##t, HLP_##t##_EX, i, NULL}
-  * 
+ * Macros are available that can simplify the creation of the 
+ * <b>CMD_ENTRY</b> structure, as follows:
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>#define CREATE_CMD_ENTRY_EX(t,f,i)       {CMD_##t, f, HLP_##t, HLP_##t##_EX, i, NULL}
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netsh/ns-netsh-cmd_entry
  * @namespace Windows.Win32.NetworkManagement.NetShell
  * @version v4.0.30319

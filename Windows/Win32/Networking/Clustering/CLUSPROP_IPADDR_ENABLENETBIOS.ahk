@@ -10,22 +10,22 @@ class CLUSPROP_IPADDR_ENABLENETBIOS{
 
     /**
      * Disable the functionality of the 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-enablenetbios">EnableNetBIOS</a> property.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-enablenetbios">EnableNetBIOS</a> property.
      * @type {Integer (Int32)}
      */
     static CLUSPROP_IPADDR_ENABLENETBIOS_DISABLED => 0
 
     /**
      * Enable the functionality of the 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-enablenetbios">EnableNetBIOS</a> property.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-enablenetbios">EnableNetBIOS</a> property.
      * @type {Integer (Int32)}
      */
     static CLUSPROP_IPADDR_ENABLENETBIOS_ENABLED => 1
 
     /**
      * Enable the functionality of the 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-enablenetbios">EnableNetBIOS</a> property if the NIC to 
- *        which the IP Address resource is bound has enabled NetBIOS.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-enablenetbios">EnableNetBIOS</a> property if the NIC to 
+     *        which the IP Address resource is bound has enabled NetBIOS.
      * @type {Integer (Int32)}
      */
     static CLUSPROP_IPADDR_ENABLENETBIOS_TRACK_NIC => 2

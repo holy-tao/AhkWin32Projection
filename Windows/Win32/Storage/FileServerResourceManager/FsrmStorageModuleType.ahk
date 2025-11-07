@@ -16,7 +16,7 @@ class FsrmStorageModuleType{
 
     /**
      * The storage module caches classification properties for quick access. This type is reserved for use by FSRM 
- *       and should not be used by any third party providers.
+     *       and should not be used by any third party providers.
      * @type {Integer (Int32)}
      */
     static FsrmStorageModuleType_Cache => 1
@@ -35,9 +35,9 @@ class FsrmStorageModuleType{
 
     /**
      * The storage module stores classification properties in system data store. This type is reserved for use by 
- *        FSRM and should not be used by any third party providers.
- * 
- * <b>Windows Server 2008 R2:  </b>This storage module type is not supported before Windows Server 2012.
+     *        FSRM and should not be used by any third party providers.
+     * 
+     * <b>Windows Server 2008 R2:  </b>This storage module type is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmStorageModuleType_System => 100

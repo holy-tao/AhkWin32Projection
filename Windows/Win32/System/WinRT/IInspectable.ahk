@@ -8,9 +8,9 @@
  * Provides functionality required for all Windows Runtime classes.
  * @remarks
  * 
-  * <b>IInspectable</b> methods have no effect on COM apartments and are safe to call from user interface threads.
-  * 
-  * 
+ * <b>IInspectable</b> methods have no effect on COM apartments and are safe to call from user interface threads.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//inspectable/nn-inspectable-iinspectable
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

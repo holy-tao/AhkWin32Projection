@@ -6,15 +6,15 @@
  * A security binding constraint that can be used to extract information about how to obtain an issued token from an issuing party.
  * @remarks
  * 
-  * The information extracted using this binding constraint can be used
-  *                 with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsrequestsecuritytoken">WsRequestSecurityToken</a> to obtain an issued token.
-  *                 The issued token can then be used with the 
-  *                 <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_token_message_security_binding">WS_XML_TOKEN_MESSAGE_SECURITY_BINDING</a> security binding.
-  *             
-  * 
-  * This binding constraint is typically used in federated security
-  *                 scenarios.
-  * 
+ * The information extracted using this binding constraint can be used
+ *                 with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsrequestsecuritytoken">WsRequestSecurityToken</a> to obtain an issued token.
+ *                 The issued token can then be used with the 
+ *                 <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_token_message_security_binding">WS_XML_TOKEN_MESSAGE_SECURITY_BINDING</a> security binding.
+ *             
+ * 
+ * This binding constraint is typically used in federated security
+ *                 scenarios.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_issued_token_message_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

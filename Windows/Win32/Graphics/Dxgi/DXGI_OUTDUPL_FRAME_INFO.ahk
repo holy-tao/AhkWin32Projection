@@ -7,18 +7,18 @@
  * The DXGI_OUTDUPL_FRAME_INFO structure describes the current desktop image.
  * @remarks
  * 
-  * A non-zero <b>LastMouseUpdateTime</b> indicates an update to either a mouse pointer position or a mouse pointer position and shape. That is, the mouse pointer position is always valid for a non-zero <b>LastMouseUpdateTime</b>; however, the application must check the value of the <b>PointerShapeBufferSize</b> member to determine whether the shape was updated too.
-  * 
-  * If only the pointer was updated (that is, the desktop image was not updated), the <b>AccumulatedFrames</b>, <b>TotalMetadataBufferSize</b>, and <b>LastPresentTime</b> members are set to zero.
-  * 
-  * An <b>AccumulatedFrames</b> value of one indicates that the application completed processing the last frame before a new desktop image was presented.  If the <b>AccumulatedFrames</b> value is greater than one, more desktop image updates have occurred while the application processed the last desktop update. In this situation, the operating system accumulated the update regions. For more information about desktop updates, see Desktop Update Data.
-  * 
-  * A non-zero <b>TotalMetadataBufferSize</b> indicates the total size of the buffers that are required to store all the desktop update metadata.  An application cannot determine the size of each type of metadata.  The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframedirtyrects">IDXGIOutputDuplication::GetFrameDirtyRects</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframemoverects">IDXGIOutputDuplication::GetFrameMoveRects</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframepointershape">IDXGIOutputDuplication::GetFramePointerShape</a> method to obtain information about each type of metadata.
-  * 
-  * <div class="alert"><b>Note</b>  To correct visual effects, an application must process the move region data before it processes the dirty rectangles.</div>
-  * <div> </div>
-  * 
-  * 
+ * A non-zero <b>LastMouseUpdateTime</b> indicates an update to either a mouse pointer position or a mouse pointer position and shape. That is, the mouse pointer position is always valid for a non-zero <b>LastMouseUpdateTime</b>; however, the application must check the value of the <b>PointerShapeBufferSize</b> member to determine whether the shape was updated too.
+ * 
+ * If only the pointer was updated (that is, the desktop image was not updated), the <b>AccumulatedFrames</b>, <b>TotalMetadataBufferSize</b>, and <b>LastPresentTime</b> members are set to zero.
+ * 
+ * An <b>AccumulatedFrames</b> value of one indicates that the application completed processing the last frame before a new desktop image was presented.  If the <b>AccumulatedFrames</b> value is greater than one, more desktop image updates have occurred while the application processed the last desktop update. In this situation, the operating system accumulated the update regions. For more information about desktop updates, see Desktop Update Data.
+ * 
+ * A non-zero <b>TotalMetadataBufferSize</b> indicates the total size of the buffers that are required to store all the desktop update metadata.  An application cannot determine the size of each type of metadata.  The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframedirtyrects">IDXGIOutputDuplication::GetFrameDirtyRects</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframemoverects">IDXGIOutputDuplication::GetFrameMoveRects</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframepointershape">IDXGIOutputDuplication::GetFramePointerShape</a> method to obtain information about each type of metadata.
+ * 
+ * <div class="alert"><b>Note</b>  To correct visual effects, an application must process the move region data before it processes the dirty rectangles.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/ns-dxgi1_2-dxgi_outdupl_frame_info
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

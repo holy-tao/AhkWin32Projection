@@ -7,9 +7,9 @@
  * The IVMRVideoStreamControl9 interface is implemented on each input pin of the Video Mixing Renderer Filter 9.
  * @remarks
  * 
-  * Include DShow.h and D3d9.h before Vmr9.h.
-  * 
-  * 
+ * Include DShow.h and D3d9.h before Vmr9.h.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vmr9/nn-vmr9-ivmrvideostreamcontrol9
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

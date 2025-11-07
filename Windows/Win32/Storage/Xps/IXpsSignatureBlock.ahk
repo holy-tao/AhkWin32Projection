@@ -10,9 +10,9 @@
  * Represents a block of signature requests that are stored in a SignatureDefinitions part.
  * @remarks
  * 
-  * This interface cannot exist independently from the signature manager from which it was instantiated.
-  * 
-  * 
+ * This interface cannot exist independently from the signature manager from which it was instantiated.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignatureblock
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

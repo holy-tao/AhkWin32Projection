@@ -8,8 +8,8 @@
  * Represents a list of the keystroke sequences required to create a specified string.
  * @remarks
  * 
-  * This interface is used to store the results of the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfreverseconversion-doreverseconversion">ITfReverseConversionList::DoReverseConversion</a> method.
-  * 
+ * This interface is used to store the results of the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfreverseconversion-doreverseconversion">ITfReverseConversionList::DoReverseConversion</a> method.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfreverseconversionlist
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

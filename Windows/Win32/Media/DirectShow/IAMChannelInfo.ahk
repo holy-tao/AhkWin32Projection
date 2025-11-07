@@ -7,10 +7,10 @@
  * The IAMChannelInfo interface gets and sets channel information for Windows Media Station (.nsc) files.This interface is exposed by the Windows Media Source filter only when the filter is reading Windows Media Station (.nsc) files.
  * @remarks
  * 
-  * To define the interface identifier, include the header file Initguid.h before Qnetwork.h, but after Dshow.h and other header files:
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
-  * 
+ * To define the interface identifier, include the header file Initguid.h before Qnetwork.h, but after Dshow.h and other header files:
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nn-qnetwork-iamchannelinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

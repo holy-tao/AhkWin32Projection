@@ -7,9 +7,9 @@
  * The tracking interface sets reference tracking options.
  * @remarks
  * 
-  * These APIs require the Windows Software Development Kit (SDK) for Windows 8.
-  * 
-  * 
+ * These APIs require the Windows Software Development Kit (SDK) for Windows 8.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nn-d3d11sdklayers-id3d11reftrackingoptions
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

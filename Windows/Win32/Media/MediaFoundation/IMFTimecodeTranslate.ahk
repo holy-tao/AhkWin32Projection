@@ -8,11 +8,11 @@
  * Converts between Society of Motion Picture and Television Engineers (SMPTE) time codes and 100-nanosecond time units.
  * @remarks
  * 
-  * If an object supports this interface, it must expose the interface as a service. To get a pointer to the interface, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfgetservice-getservice">IMFGetService::GetService</a> with the service identifier <b>MF_TIMECODE_SERVICE</b>.
-  * 
-  * The Advanced Streaming Format (ASF) media source exposes this interface.
-  * 
-  * 
+ * If an object supports this interface, it must expose the interface as a service. To get a pointer to the interface, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfgetservice-getservice">IMFGetService::GetService</a> with the service identifier <b>MF_TIMECODE_SERVICE</b>.
+ * 
+ * The Advanced Streaming Format (ASF) media source exposes this interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imftimecodetranslate
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -5,24 +5,24 @@
  * Used as a header for an elliptic curve public key or private key BLOB in memory.
  * @remarks
  * 
-  * This structure is used as a header for a larger buffer. An elliptic curve <a href="https://docs.microsoft.com/windows/win32/secgloss/p-gly">public key BLOB</a> (BCRYPT_ECCPUBLIC_BLOB) has the following format in contiguous memory. The X and Y coordinates are unsigned integers encoded in big-endian format.
-  * 
-  * ```syntax
-  * BCRYPT_ECCKEY_BLOB
-  * BYTE X[cbKey] // Big-endian.
-  * BYTE Y[cbKey] // Big-endian.
-  * ```
-  * 
-  * An elliptic curve <a href="https://docs.microsoft.com/windows/desktop/secgloss/p-gly">private key BLOB</a> (BCRYPT_ECCPRIVATE_BLOB) has the following format in contiguous memory. The X and Y coordinates and d value are unsigned integers encoded in big-endian format.
-  * 
-  * ```syntax
-  * BCRYPT_ECCKEY_BLOB
-  * BYTE X[cbKey] // Big-endian.
-  * BYTE Y[cbKey] // Big-endian.
-  * BYTE d[cbKey] // Big-endian.
-  * ```
-  * 
-  * 
+ * This structure is used as a header for a larger buffer. An elliptic curve <a href="https://docs.microsoft.com/windows/win32/secgloss/p-gly">public key BLOB</a> (BCRYPT_ECCPUBLIC_BLOB) has the following format in contiguous memory. The X and Y coordinates are unsigned integers encoded in big-endian format.
+ * 
+ * ```syntax
+ * BCRYPT_ECCKEY_BLOB
+ * BYTE X[cbKey] // Big-endian.
+ * BYTE Y[cbKey] // Big-endian.
+ * ```
+ * 
+ * An elliptic curve <a href="https://docs.microsoft.com/windows/desktop/secgloss/p-gly">private key BLOB</a> (BCRYPT_ECCPRIVATE_BLOB) has the following format in contiguous memory. The X and Y coordinates and d value are unsigned integers encoded in big-endian format.
+ * 
+ * ```syntax
+ * BCRYPT_ECCKEY_BLOB
+ * BYTE X[cbKey] // Big-endian.
+ * BYTE Y[cbKey] // Big-endian.
+ * BYTE d[cbKey] // Big-endian.
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-bcrypt_ecckey_blob
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319

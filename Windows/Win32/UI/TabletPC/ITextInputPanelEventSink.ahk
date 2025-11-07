@@ -7,9 +7,9 @@
  * Defines methods that handle the ITextInputPanel Interface events.
  * @remarks
  * 
-  * This element is declared in Peninputpanel.h.
-  * 
-  * 
+ * This element is declared in Peninputpanel.h.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nn-peninputpanel-itextinputpaneleventsink
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

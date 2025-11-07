@@ -7,21 +7,21 @@
  * Applications use the methods of the IDirectDrawGammaControl interface to adjust the red, green, and blue gamma ramp levels of the primary surface. This section is a reference to the methods of this interface.
  * @remarks
  * 
-  * The <b>IDirectDrawGammaControl</b> interface is supported by DirectDrawSurface objects. That is, you can retrieve a pointer to the <b>IDirectDrawGammaControl</b> interface by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> method of a DirectDrawSurface object and by specifying the IID_IDirectDrawGammaControl reference identifier in the <i>riid</i> parameter.
-  * 
-  * 
-  * 
-  * You can use the LPDIRECTDRAWGAMMACONTROL data type to declare a variable that contains a pointer to an <b>IDirectDrawGammaControl</b> interface. The Ddraw.h header file declares the data type with the following code:
-  * 
-  * 
-  * 
-  * 
-  * ```
-  * 
-  * typedef struct IDirectDrawGammaControl    FAR *LPDIRECTDRAWGAMMACONTROL;
-  * 
-  * ```
-  * 
+ * The <b>IDirectDrawGammaControl</b> interface is supported by DirectDrawSurface objects. That is, you can retrieve a pointer to the <b>IDirectDrawGammaControl</b> interface by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> method of a DirectDrawSurface object and by specifying the IID_IDirectDrawGammaControl reference identifier in the <i>riid</i> parameter.
+ * 
+ * 
+ * 
+ * You can use the LPDIRECTDRAWGAMMACONTROL data type to declare a variable that contains a pointer to an <b>IDirectDrawGammaControl</b> interface. The Ddraw.h header file declares the data type with the following code:
+ * 
+ * 
+ * 
+ * 
+ * ```
+ * 
+ * typedef struct IDirectDrawGammaControl    FAR *LPDIRECTDRAWGAMMACONTROL;
+ * 
+ * ```
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddraw/nn-ddraw-idirectdrawgammacontrol
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319

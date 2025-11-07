@@ -15,45 +15,45 @@
  * Describes a graphics pipeline state object.
  * @remarks
  * 
-  * This structure is used by the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate">CreateGraphicsPipelineState</a> method.
-  *       
-  * 
-  * The runtime validates:
-  *           
-  * 
-  * <ul>
-  * <li>Whether the linkage between the shader stages is correct.
-  *           </li>
-  * <li>If the <b>HS</b> and <b>DS</b> members are specified, the <b>PrimitiveTopologyType</b> member for topology type must be set to <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_primitive_topology_type">D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH</a>.
-  *           </li>
-  * <li>Whether sample frequency execution isn't allowed with the center multi-sample anti-aliasing (MSAA) pattern.
-  *           </li>
-  * <li>Whether anti-aliasing lines aren't allowed with the center MSAA pattern.
-  *           </li>
-  * <li>
-  * If the <b>ForcedSampleCount</b> member of <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_rasterizer_desc">D3D12_RASTERIZER_DESC</a> that <b>RasterizerState</b> specifies isn't zero:
-  *               
-  * 
-  * <ul>
-  * <li>Depth/stencil must be disabled.
-  *               </li>
-  * <li>Pixel shader can't output depth.
-  *               </li>
-  * <li>Pixel shader can't run at sample frequency.
-  *               </li>
-  * <li>Render target sample count must be 1.
-  *               </li>
-  * </ul>
-  * </li>
-  * <li>Whether blend state is compatible with render target formats.
-  *           </li>
-  * <li>Whether pixel shader output type is compatible with render target format.
-  *           </li>
-  * <li>Whether the sample count and quality are supported for the render target/depth stencil formats.
-  *           </li>
-  * </ul>
-  * 
-  * 
+ * This structure is used by the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate">CreateGraphicsPipelineState</a> method.
+ *       
+ * 
+ * The runtime validates:
+ *           
+ * 
+ * <ul>
+ * <li>Whether the linkage between the shader stages is correct.
+ *           </li>
+ * <li>If the <b>HS</b> and <b>DS</b> members are specified, the <b>PrimitiveTopologyType</b> member for topology type must be set to <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_primitive_topology_type">D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH</a>.
+ *           </li>
+ * <li>Whether sample frequency execution isn't allowed with the center multi-sample anti-aliasing (MSAA) pattern.
+ *           </li>
+ * <li>Whether anti-aliasing lines aren't allowed with the center MSAA pattern.
+ *           </li>
+ * <li>
+ * If the <b>ForcedSampleCount</b> member of <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_rasterizer_desc">D3D12_RASTERIZER_DESC</a> that <b>RasterizerState</b> specifies isn't zero:
+ *               
+ * 
+ * <ul>
+ * <li>Depth/stencil must be disabled.
+ *               </li>
+ * <li>Pixel shader can't output depth.
+ *               </li>
+ * <li>Pixel shader can't run at sample frequency.
+ *               </li>
+ * <li>Render target sample count must be 1.
+ *               </li>
+ * </ul>
+ * </li>
+ * <li>Whether blend state is compatible with render target formats.
+ *           </li>
+ * <li>Whether pixel shader output type is compatible with render target format.
+ *           </li>
+ * <li>Whether the sample count and quality are supported for the render target/depth stencil formats.
+ *           </li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

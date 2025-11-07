@@ -5,69 +5,69 @@
  * Contains read-only dynamic information for extended TCP statistics observed on the remote receiver for a TCP connection.
  * @remarks
  * 
-  * The <b>TCP_ESTATS_OBS_REC_ROD_v0</b> structure is used as part of the TCP extended statistics feature available on Windows Vista and later. 
-  * 
-  * The <b>TCP_ESTATS_OBS_REC_ROD_v0</b> is defined as version 0 of the structure for  read-only dynamic information for extended TCP statistics on the local receiver for a TCP connection.  This information is available after the connection has been established.
-  * 
-  * The <b>TCP_ESTATS_OBS_REC_ROD_v0</b> structure is retrieved by calls to  the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcp6connectionestats">GetPerTcp6ConnectionEStats</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcpconnectionestats">GetPerTcpConnectionEStats</a> functions when <b>TcpConnectionEstatsObsRec</b> is passed in the <i>EstatsType</i> parameter. Extended TCP statistics need to be enabled to retrieve this structure.
-  * 
-  * The members of this structure are defined in the IETF RFC on the TCP Extended Statistics MIB. For more information, see <a href="http://tools.ietf.org/html/rfc4898">http://www.ietf.org/rfc/rfc4898.txt</a>.
-  * 
-  * 
-  * 
-  * 
-  * The following is the mapping of the members in the <b>TCP_ESTATS_OBS_REC_ROD_v0</b> structure to the entries defined in RFC 4898 for extended TCP statistics:
-  * 
-  * 
-  * 
-  * <table>
-  * <tr>
-  * <th>Term</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="CurRwinRcvd"></a><a id="currwinrcvd"></a><a id="CURRWINRCVD"></a><b>CurRwinRcvd</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPerfCurRwinRcvd
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="MaxRwinRcvd"></a><a id="maxrwinrcvd"></a><a id="MAXRWINRCVD"></a><b>MaxRwinRcvd</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsPerfMaxRwinRcvd
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="MinRwinRcvd"></a><a id="minrwinrcvd"></a><a id="MINRWINRCVD"></a><b>MinRwinRcvd</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * No mapping to this member.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="WinScaleRcvd"></a><a id="winscalercvd"></a><a id="WINSCALERCVD"></a><b>WinScaleRcvd</b>
-  * 
-  * </td>
-  * <td width="60%">
-  * tcpEStatsStackWinScaleRcvd
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * The <b>TCP_ESTATS_OBS_REC_ROD_v0</b> structure is used as part of the TCP extended statistics feature available on Windows Vista and later. 
+ * 
+ * The <b>TCP_ESTATS_OBS_REC_ROD_v0</b> is defined as version 0 of the structure for  read-only dynamic information for extended TCP statistics on the local receiver for a TCP connection.  This information is available after the connection has been established.
+ * 
+ * The <b>TCP_ESTATS_OBS_REC_ROD_v0</b> structure is retrieved by calls to  the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcp6connectionestats">GetPerTcp6ConnectionEStats</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcpconnectionestats">GetPerTcpConnectionEStats</a> functions when <b>TcpConnectionEstatsObsRec</b> is passed in the <i>EstatsType</i> parameter. Extended TCP statistics need to be enabled to retrieve this structure.
+ * 
+ * The members of this structure are defined in the IETF RFC on the TCP Extended Statistics MIB. For more information, see <a href="http://tools.ietf.org/html/rfc4898">http://www.ietf.org/rfc/rfc4898.txt</a>.
+ * 
+ * 
+ * 
+ * 
+ * The following is the mapping of the members in the <b>TCP_ESTATS_OBS_REC_ROD_v0</b> structure to the entries defined in RFC 4898 for extended TCP statistics:
+ * 
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>Term</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="CurRwinRcvd"></a><a id="currwinrcvd"></a><a id="CURRWINRCVD"></a><b>CurRwinRcvd</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPerfCurRwinRcvd
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="MaxRwinRcvd"></a><a id="maxrwinrcvd"></a><a id="MAXRWINRCVD"></a><b>MaxRwinRcvd</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsPerfMaxRwinRcvd
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="MinRwinRcvd"></a><a id="minrwinrcvd"></a><a id="MINRWINRCVD"></a><b>MinRwinRcvd</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * No mapping to this member.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="WinScaleRcvd"></a><a id="winscalercvd"></a><a id="WINSCALERCVD"></a><b>WinScaleRcvd</b>
+ * 
+ * </td>
+ * <td width="60%">
+ * tcpEStatsStackWinScaleRcvd
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tcpestats/ns-tcpestats-tcp_estats_obs_rec_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319

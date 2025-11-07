@@ -9,9 +9,9 @@
  * Controls one or more capture devices.
  * @remarks
  * 
-  * <b>IMFCaptureEngine</b> only supports one pass CBR encoding.
-  * 
-  * 
+ * <b>IMFCaptureEngine</b> only supports one pass CBR encoding.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nn-mfcaptureengine-imfcaptureengine
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -7,10 +7,10 @@
  * Implements event handling for devices that have registered to receive specific events derived from the IESEvent interface. In a Protected Broadcast Driver Architecture graph, Media Sink Devices implement this interface to register for events.
  * @remarks
  * 
-  * 
-  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESEvents)</c>.
-  * 
+ * 
+ * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESEvents)</c>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-iesevents
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

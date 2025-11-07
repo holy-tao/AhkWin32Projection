@@ -52,16 +52,16 @@ class DXVAHD_STREAM_STATE{
 
     /**
      * Specifies the color-palette entries. The state data is a  <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_palette_data">DXVAHD_STREAM_STATE_PALETTE_DATA</a> structure.
- * 
- *  This setting is used for palettized input formats, such as AI44 and IA44.
+     * 
+     *  This setting is used for palettized input formats, such as AI44 and IA44.
      * @type {Integer (Int32)}
      */
     static DXVAHD_STREAM_STATE_PALETTE => 7
 
     /**
      * Specifies the luma key. The state data is a  <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_luma_key_data">DXVAHD_STREAM_STATE_LUMA_KEY_DATA</a> structure.
- * 
- * This state is applicable only if the device supports luma keying. To find out if the device supports luma keying, check for the <b>DXVAHD_FEATURE_CAPS_LUMA_KEY</b> flag in the <b>FeatureCaps </b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps">DXVAHD_VPDEVCAPS</a> capabilities structure.
+     * 
+     * This state is applicable only if the device supports luma keying. To find out if the device supports luma keying, check for the <b>DXVAHD_FEATURE_CAPS_LUMA_KEY</b> flag in the <b>FeatureCaps </b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps">DXVAHD_VPDEVCAPS</a> capabilities structure.
      * @type {Integer (Int32)}
      */
     static DXVAHD_STREAM_STATE_LUMA_KEY => 8
@@ -116,8 +116,8 @@ class DXVAHD_STREAM_STATE{
 
     /**
      * Specifies that the state data contains a private DXVA-HD stream state.  The state data is a  <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_private_data">DXVAHD_STREAM_STATE_PRIVATE_DATA</a> structure.
- * 
- * Use this state for proprietary or device-specific parameters.
+     * 
+     * Use this state for proprietary or device-specific parameters.
      * @type {Integer (Int32)}
      */
     static DXVAHD_STREAM_STATE_PRIVATE => 1000

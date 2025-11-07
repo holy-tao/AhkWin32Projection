@@ -7,14 +7,14 @@
  * Provides access to controls that can be moved, resized, and/or rotated within a two-dimensional space.
  * @remarks
  * 
-  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtransform">Transform</a> control pattern.
-  *             
-  * 
-  * Support for this  control pattern is not limited to objects on the desktop. 
-  *             This  control pattern must also be implemented by the children of a 
-  *             container object as long as the children can be moved, resized, or rotated freely within the boundaries of the container.
-  * 
-  * 
+ * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtransform">Transform</a> control pattern.
+ *             
+ * 
+ * Support for this  control pattern is not limited to objects on the desktop. 
+ *             This  control pattern must also be implemented by the children of a 
+ *             container object as long as the children can be moved, resized, or rotated freely within the boundaries of the container.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-itransformprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

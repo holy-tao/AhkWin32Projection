@@ -10,7 +10,7 @@ class D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION{
 
     /**
      * Color bitmap glyph positions are snapped to the nearest pixel if the bitmap
- *           resolution matches that of the device context.
+     *           resolution matches that of the device context.
      * @type {Integer (Int32)}
      */
     static D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION_DEFAULT => 0

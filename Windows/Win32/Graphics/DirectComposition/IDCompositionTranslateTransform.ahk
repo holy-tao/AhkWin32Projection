@@ -7,13 +7,13 @@
  * Represents a 2D transformation that affects only the offset of a visual along the x-axis and y-axis.
  * @remarks
  * 
-  * A translation transform represents the following 3-by-2 matrix:
-  * 
-  * <img alt="Three-by-two translation matrix" src="./images/translate_transform_3x2matrix.png"/>
-  * 
-  * The effect is simply to offset the coordinate system by <i>x</i> and <i>y</i>.
-  * 
-  * 
+ * A translation transform represents the following 3-by-2 matrix:
+ * 
+ * <img alt="Three-by-two translation matrix" src="./images/translate_transform_3x2matrix.png"/>
+ * 
+ * The effect is simply to offset the coordinate system by <i>x</i> and <i>y</i>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositiontranslatetransform
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319

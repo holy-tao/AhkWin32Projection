@@ -16,9 +16,9 @@ class DWRITE_TEXT_ANTIALIAS_MODE{
 
     /**
      * Grayscale antialiasing computes one coverage value for each pixel. Because the alpha value of each pixel is well-defined, text can be rendered onto a transparent bitmap, which can then be composited with other content.
- * 
- * <div class="alert"><b>Note</b>  Grayscale rendering with <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritebitmaprendertarget1">IDWriteBitmapRenderTarget1</a> uses premultiplied alpha.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Grayscale rendering with <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritebitmaprendertarget1">IDWriteBitmapRenderTarget1</a> uses premultiplied alpha.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static DWRITE_TEXT_ANTIALIAS_MODE_GRAYSCALE => 1

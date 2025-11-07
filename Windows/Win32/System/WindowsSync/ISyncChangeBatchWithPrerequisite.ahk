@@ -9,9 +9,9 @@
  * Represents metadata about a change batch that is based on the prerequisite knowledge associated with the change batch.
  * @remarks
  * 
-  * An <b>ISyncChangeBatchWithPrerequisite</b> object can be obtained by passing <b>IID_ISyncChangeBatchWithPrerequisite</b> to the <b>QueryInterface</b> method of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchangebatchbase">ISyncChangeBatchBase</a> object.
-  * 
-  * 
+ * An <b>ISyncChangeBatchWithPrerequisite</b> object can be obtained by passing <b>IID_ISyncChangeBatchWithPrerequisite</b> to the <b>QueryInterface</b> method of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchangebatchbase">ISyncChangeBatchBase</a> object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncchangebatchwithprerequisite
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

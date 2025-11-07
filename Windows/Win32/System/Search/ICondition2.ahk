@@ -7,9 +7,9 @@
  * Extends the functionality of the ICondition interface. ICondition2 provides methods for retrieving information about a search condition.
  * @remarks
  * 
-  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
-  * 
-  * 
+ * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//structuredquerycondition/nn-structuredquerycondition-icondition2
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319

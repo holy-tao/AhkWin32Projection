@@ -8,17 +8,17 @@
  * The INetFwOpenPort interface provides access to the properties of a port that has been opened in the firewall.
  * @remarks
  * 
-  * Ports  with their <b>BuiltIn</b> property set to true (<b>VARIANT_TRUE</b>) are system specified and cannot be removed.
-  * 
-  * When creating new ports, this interface is supported by the
-  * <b>HNetCfg.FWOpenPort</b> COM object. 
-  * 
-  * For reading or modifying existing ports,
-  * instances of this interface are retrieved through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwopenports">INetFwOpenPorts</a>collection. 
-  * 
-  * All configuration changes take effect immediately.
-  * 
-  * 
+ * Ports  with their <b>BuiltIn</b> property set to true (<b>VARIANT_TRUE</b>) are system specified and cannot be removed.
+ * 
+ * When creating new ports, this interface is supported by the
+ * <b>HNetCfg.FWOpenPort</b> COM object. 
+ * 
+ * For reading or modifying existing ports,
+ * instances of this interface are retrieved through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwopenports">INetFwOpenPorts</a>collection. 
+ * 
+ * All configuration changes take effect immediately.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwopenport
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

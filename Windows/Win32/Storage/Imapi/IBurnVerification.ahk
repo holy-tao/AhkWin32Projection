@@ -7,11 +7,11 @@
  * Use this interface with IDiscFormat2Data or IDiscFormat2TrackAtOnce to get or set the Burn Verification Level property which dictates how burned media is verified for integrity after the write operation.
  * @remarks
  * 
-  * The following example function demonstrates how the burn verification level defined by <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_burn_verification_level">IMAPI_BURN_VERIFICATION_LEVEL</a>, can be implemented. Burn verification level should be set prior to a burn operation.
-  * 
-  * 
-  * ```cpp
-  * 
+ * The following example function demonstrates how the burn verification level defined by <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_burn_verification_level">IMAPI_BURN_VERIFICATION_LEVEL</a>, can be implemented. Burn verification level should be set prior to a burn operation.
+ * 
+ * 
+ * ```cpp
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-iburnverification
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

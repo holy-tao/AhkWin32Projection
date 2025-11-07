@@ -12,133 +12,133 @@
  * Provides a wrapper around a Windows font object.
  * @remarks
  * 
-  * Each property in the <b>IFont</b> interface includes a 
-  *      <b>get_<i>PropertyName</i></b> method if the property supports read 
-  *      access and a <b>put_<i>PropertyName</i></b> method if the property 
-  *      supports write access. Most of these properties support both read and write access.
-  * 
-  * <table>
-  * <tr>
-  * <th>Property</th>
-  * <th>Type</th>
-  * <th>Read Access Method</th>
-  * <th>Write Access Method</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td><b>Name</b></td>
-  * <td><b>BSTR</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_name">get_Name</a>
-  * </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_name">put_Name</a>
-  * </td>
-  * <td>The facename of the font, e.g. Arial.</td>
-  * </tr>
-  * <tr>
-  * <td><b>Size</b></td>
-  * <td><b>CY</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_size">get_Size</a>
-  * </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_size">put_Size</a>
-  * </td>
-  * <td>The point size of the font, expressed in a <b>CY</b> type to allow for fractional 
-  *        point sizes.</td>
-  * </tr>
-  * <tr>
-  * <td><b>Bold</b></td>
-  * <td><b>BOOL</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_bold">get_Bold</a>
-  * </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_bold">put_Bold</a>
-  * </td>
-  * <td>Indicates whether the font is boldfaced.</td>
-  * </tr>
-  * <tr>
-  * <td><b>Italic</b></td>
-  * <td><b>BOOL</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_italic">get_Italic</a>
-  * </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_italic">put_Italic</a>
-  * </td>
-  * <td>Indicates whether the font is italicized.</td>
-  * </tr>
-  * <tr>
-  * <td><b>Underline</b></td>
-  * <td><b>BOOL</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_underline">get_Underline</a>
-  * </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_underline">put_Underline</a>
-  * </td>
-  * <td>Indicates whether the font is underlined.</td>
-  * </tr>
-  * <tr>
-  * <td><b>Strikethrough</b></td>
-  * <td><b>BOOL</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_strikethrough">get_Strikethrough</a>
-  * </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_strikethrough">put_Strikethrough</a>
-  * </td>
-  * <td>Indicates whether the font is strikethrough.</td>
-  * </tr>
-  * <tr>
-  * <td><b>Weight</b></td>
-  * <td><b>short</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_weight">get_Weight</a>
-  * </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_weight">put_Weight</a>
-  * </td>
-  * <td>The boldness of the font.</td>
-  * </tr>
-  * <tr>
-  * <td><b>Charset</b></td>
-  * <td><b>short</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_charset">get_Charset</a>
-  * </td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_charset">put_Charset</a>
-  * </td>
-  * <td>The character set used in the font, such as <b>ANSI_CHARSET</b>, 
-  *        <b>DEFAULT_CHARSET</b>, or <b>SYMBOL_CHARSET</b>.</td>
-  * </tr>
-  * <tr>
-  * <td><b>hFont</b></td>
-  * <td><b>HFONT</b></td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_hfont">get_hFont</a>
-  * </td>
-  * <td></td>
-  * <td>The Windows font handle that can be selected into a device context for rendering.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * <h3><a id="OLE_Implementation"></a><a id="ole_implementation"></a><a id="OLE_IMPLEMENTATION"></a>OLE Implementation</h3>
-  * The system provides a standard implementation of a font object with the 
-  *       <b>IFont</b> interface on top of the underlying system font support. A 
-  *       font object is created through the function 
-  *       <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-olecreatefontindirect">OleCreateFontIndirect</a>. A font object supports a 
-  *       number of read/write properties as well as a set of methods through its 
-  *       <b>IFont</b> interface and supports the same set of properties (but not 
-  *       the methods) through a dispatch interface <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ifontdisp">IFontDisp</a> which is 
-  *       derived from <b>IDispatch</b> to provide access to the font's properties through 
-  *       Automation. The system implementation of the font object supplies both interfaces.
-  * 
-  * 
+ * Each property in the <b>IFont</b> interface includes a 
+ *      <b>get_<i>PropertyName</i></b> method if the property supports read 
+ *      access and a <b>put_<i>PropertyName</i></b> method if the property 
+ *      supports write access. Most of these properties support both read and write access.
+ * 
+ * <table>
+ * <tr>
+ * <th>Property</th>
+ * <th>Type</th>
+ * <th>Read Access Method</th>
+ * <th>Write Access Method</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td><b>Name</b></td>
+ * <td><b>BSTR</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_name">get_Name</a>
+ * </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_name">put_Name</a>
+ * </td>
+ * <td>The facename of the font, e.g. Arial.</td>
+ * </tr>
+ * <tr>
+ * <td><b>Size</b></td>
+ * <td><b>CY</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_size">get_Size</a>
+ * </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_size">put_Size</a>
+ * </td>
+ * <td>The point size of the font, expressed in a <b>CY</b> type to allow for fractional 
+ *        point sizes.</td>
+ * </tr>
+ * <tr>
+ * <td><b>Bold</b></td>
+ * <td><b>BOOL</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_bold">get_Bold</a>
+ * </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_bold">put_Bold</a>
+ * </td>
+ * <td>Indicates whether the font is boldfaced.</td>
+ * </tr>
+ * <tr>
+ * <td><b>Italic</b></td>
+ * <td><b>BOOL</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_italic">get_Italic</a>
+ * </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_italic">put_Italic</a>
+ * </td>
+ * <td>Indicates whether the font is italicized.</td>
+ * </tr>
+ * <tr>
+ * <td><b>Underline</b></td>
+ * <td><b>BOOL</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_underline">get_Underline</a>
+ * </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_underline">put_Underline</a>
+ * </td>
+ * <td>Indicates whether the font is underlined.</td>
+ * </tr>
+ * <tr>
+ * <td><b>Strikethrough</b></td>
+ * <td><b>BOOL</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_strikethrough">get_Strikethrough</a>
+ * </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_strikethrough">put_Strikethrough</a>
+ * </td>
+ * <td>Indicates whether the font is strikethrough.</td>
+ * </tr>
+ * <tr>
+ * <td><b>Weight</b></td>
+ * <td><b>short</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_weight">get_Weight</a>
+ * </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_weight">put_Weight</a>
+ * </td>
+ * <td>The boldness of the font.</td>
+ * </tr>
+ * <tr>
+ * <td><b>Charset</b></td>
+ * <td><b>short</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_charset">get_Charset</a>
+ * </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-put_charset">put_Charset</a>
+ * </td>
+ * <td>The character set used in the font, such as <b>ANSI_CHARSET</b>, 
+ *        <b>DEFAULT_CHARSET</b>, or <b>SYMBOL_CHARSET</b>.</td>
+ * </tr>
+ * <tr>
+ * <td><b>hFont</b></td>
+ * <td><b>HFONT</b></td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_hfont">get_hFont</a>
+ * </td>
+ * <td></td>
+ * <td>The Windows font handle that can be selected into a device context for rendering.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * <h3><a id="OLE_Implementation"></a><a id="ole_implementation"></a><a id="OLE_IMPLEMENTATION"></a>OLE Implementation</h3>
+ * The system provides a standard implementation of a font object with the 
+ *       <b>IFont</b> interface on top of the underlying system font support. A 
+ *       font object is created through the function 
+ *       <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-olecreatefontindirect">OleCreateFontIndirect</a>. A font object supports a 
+ *       number of read/write properties as well as a set of methods through its 
+ *       <b>IFont</b> interface and supports the same set of properties (but not 
+ *       the methods) through a dispatch interface <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ifontdisp">IFontDisp</a> which is 
+ *       derived from <b>IDispatch</b> to provide access to the font's properties through 
+ *       Automation. The system implementation of the font object supplies both interfaces.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-ifont
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319

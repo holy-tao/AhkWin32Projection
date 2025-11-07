@@ -28,20 +28,20 @@ class FsrmStorageModuleCaps{
 
     /**
      * The storage module is allowed to handle folders. Only secure properties 
- *        (<b>FsrmPropertyDefinitionFlags_Secure</b> flags set on the 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_propertydefinitionflags">PropertyDefinitionFlags</a> 
- *        property) can be stored unless <b>FsrmStorageModuleCaps_CanHandleFiles</b> is also 
- *        specified.
- * 
- * <b>Windows Server 2008 R2:  </b>This storage module capability is not supported before Windows Server 2012.
+     *        (<b>FsrmPropertyDefinitionFlags_Secure</b> flags set on the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_propertydefinitionflags">PropertyDefinitionFlags</a> 
+     *        property) can be stored unless <b>FsrmStorageModuleCaps_CanHandleFiles</b> is also 
+     *        specified.
+     * 
+     * <b>Windows Server 2008 R2:  </b>This storage module capability is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmStorageModuleCaps_CanHandleDirectories => 4
 
     /**
      * The storage module is allowed to handle files.
- * 
- * <b>Windows Server 2008 R2:  </b>This storage module capability is not supported before Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2:  </b>This storage module capability is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmStorageModuleCaps_CanHandleFiles => 8

@@ -5,32 +5,32 @@
  * Contains information about a communications driver.
  * @remarks
  * 
-  * The contents of the <b>dwProvSpec1</b>, <b>dwProvSpec2</b>, and 
-  *     <b>wcProvChar</b> members depend on the provider subtype (specified by the 
-  *     <b>dwProvSubType</b> member).
-  * 
-  * If the provider subtype is <b>PST_MODEM</b>, these members are used as follows.
-  * 
-  * <table>
-  * <tr>
-  * <th>Value</th>
-  * <th>Meaning</th>
-  * </tr>
-  * <tr>
-  * <td><b>dwProvSpec1</b></td>
-  * <td>Not used.</td>
-  * </tr>
-  * <tr>
-  * <td><b>dwProvSpec2</b></td>
-  * <td>Not used.</td>
-  * </tr>
-  * <tr>
-  * <td><b>wcProvChar</b></td>
-  * <td>Contains a <a href="https://docs.microsoft.com/windows/desktop/api/mcx/ns-mcx-modemdevcaps">MODEMDEVCAPS</a> structure.</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * The contents of the <b>dwProvSpec1</b>, <b>dwProvSpec2</b>, and 
+ *     <b>wcProvChar</b> members depend on the provider subtype (specified by the 
+ *     <b>dwProvSubType</b> member).
+ * 
+ * If the provider subtype is <b>PST_MODEM</b>, these members are used as follows.
+ * 
+ * <table>
+ * <tr>
+ * <th>Value</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td><b>dwProvSpec1</b></td>
+ * <td>Not used.</td>
+ * </tr>
+ * <tr>
+ * <td><b>dwProvSpec2</b></td>
+ * <td>Not used.</td>
+ * </tr>
+ * <tr>
+ * <td><b>wcProvChar</b></td>
+ * <td>Contains a <a href="https://docs.microsoft.com/windows/desktop/api/mcx/ns-mcx-modemdevcaps">MODEMDEVCAPS</a> structure.</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-commprop
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319

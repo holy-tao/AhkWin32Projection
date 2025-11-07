@@ -4,9 +4,9 @@
  * Defines values for the possible media states.
  * @remarks
  * 
-  * This enumeration should be treated as a bitmask. Nearly all of the values set one bit set to one and the other bits to  zero.  Three exceptions to this rule were added: unknown, unsupported media mask, and informational mask.  For example, to test for unsupported media, check the value against IMAPI_FORMAT2_DATA_MEDIA_STATE_UNSUPPORTED_MASK.
-  * 
-  * 
+ * This enumeration should be treated as a bitmask. Nearly all of the values set one bit set to one and the other bits to  zero.  Three exceptions to this rule were added: unknown, unsupported media mask, and informational mask.  For example, to test for unsupported media, check the value against IMAPI_FORMAT2_DATA_MEDIA_STATE_UNSUPPORTED_MASK.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_format2_data_media_state
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
@@ -39,9 +39,9 @@ class IMAPI_FORMAT2_DATA_MEDIA_STATE{
 
     /**
      * Media is randomly writable.  This indicates that a single session can be written to this disc.
- * 
- * <div class="alert"><b>Note</b>  This value is deprecated and superseded by <b>IMAPI_FORMAT2_DATA_MEDIA_STATE_OVERWRITE_ONLY</b>.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This value is deprecated and superseded by <b>IMAPI_FORMAT2_DATA_MEDIA_STATE_OVERWRITE_ONLY</b>.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IMAPI_FORMAT2_DATA_MEDIA_STATE_RANDOMLY_WRITABLE => 1

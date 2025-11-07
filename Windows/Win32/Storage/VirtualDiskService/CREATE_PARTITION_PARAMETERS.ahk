@@ -5,11 +5,11 @@
  * Defines the partition parameters of a partition style.
  * @remarks
  * 
-  * The 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-createpartition">IVdsAdvancedDisk::CreatePartition</a> 
-  *     method passes this structure as an argument to specify a set of parameters.
-  * 
-  * 
+ * The 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-createpartition">IVdsAdvancedDisk::CreatePartition</a> 
+ *     method passes this structure as an argument to specify a set of parameters.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-create_partition_parameters
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

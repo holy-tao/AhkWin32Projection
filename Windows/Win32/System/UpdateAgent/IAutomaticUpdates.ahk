@@ -8,9 +8,9 @@
  * Contains the functionality of Automatic Updates.
  * @remarks
  * 
-  * You can create an instance of this interface by using the AutomaticUpdates coclass. Use the Microsoft.Update.AutoUpdate program identifier to create the object.
-  * 
-  * 
+ * You can create an instance of this interface by using the AutomaticUpdates coclass. Use the Microsoft.Update.AutoUpdate program identifier to create the object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iautomaticupdates
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

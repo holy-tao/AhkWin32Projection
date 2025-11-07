@@ -28,8 +28,8 @@ class D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE{
 
     /**
      * Alpha values are taken from an  input stream, scaled, and copied to the corresponding destination rectangle for that stream. The input stream is specified in the <i>StreamIndex</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputalphafillmode">ID3D11VideoContext::VideoProcessorSetOutputAlphaFillMode</a> method. 
- * 
- * If the input stream does not have alpha data, the video processor sets the alpha values in the target rectangle to opaque. If the input stream is disabled or the source rectangle is empty, the alpha values in the target rectangle are not modified.
+     * 
+     * If the input stream does not have alpha data, the video processor sets the alpha values in the target rectangle to opaque. If the input stream is disabled or the source rectangle is empty, the alpha values in the target rectangle are not modified.
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE_SOURCE_STREAM => 3

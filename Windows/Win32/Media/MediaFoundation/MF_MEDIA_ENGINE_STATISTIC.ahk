@@ -40,24 +40,24 @@ class MF_MEDIA_ENGINE_STATISTIC{
 
     /**
      * The amount of playback jitter. (<b>DOUBLE</b>, <b>VT_R8</b>)
- * 
- * Supported in Windows 8.1 and later.
+     * 
+     * Supported in Windows 8.1 and later.
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_STATISTIC_PLAYBACK_JITTER => 5
 
     /**
      * The number of corrupted frames. (<b>ULONG</b>, <b>VT_UI4</b>)
- * 
- * Supported in Windows 8.1 and later.
+     * 
+     * Supported in Windows 8.1 and later.
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_STATISTIC_FRAMES_CORRUPTED => 6
 
     /**
      * The total amount of frame delay.  (<b>DOUBLE</b>, <b>VT_R8</b>)
- * 
- * Supported in Windows 8.1 and later.
+     * 
+     * Supported in Windows 8.1 and later.
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_STATISTIC_TOTAL_FRAME_DELAY => 7

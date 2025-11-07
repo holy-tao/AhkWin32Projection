@@ -5,13 +5,13 @@
  * The TimedLevel structure holds data returned from the spectrum filter.
  * @remarks
  * 
-  * The array dimension <b>SA_BUFFER_SIZE</b> is currently 1024.
-  * 
-  * The first dimension of each array corresponds to the channel: 0 is a monaural signal or the left channel of a stereo signal, and 1 is the right channel of a stereo signal. If the signal is monaural, the values in the array that would correspond to the right channel are undefined.
-  * 
-  * The second dimension contains the sampled levels. The frequency data ranges from 0 to 255. The waveform data represents -128 to 127 but is stored as 0 to 255, so subtract 128 to get the correct value.
-  * 
-  * 
+ * The array dimension <b>SA_BUFFER_SIZE</b> is currently 1024.
+ * 
+ * The first dimension of each array corresponds to the channel: 0 is a monaural signal or the left channel of a stereo signal, and 1 is the right channel of a stereo signal. If the signal is monaural, the values in the array that would correspond to the right channel are undefined.
+ * 
+ * The second dimension contains the sampled levels. The frequency data ranges from 0 to 255. The waveform data represents -128 to 127 but is stored as 0 to 255, so subtract 128 to get the correct value.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//effects/ns-effects-timedlevel
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319

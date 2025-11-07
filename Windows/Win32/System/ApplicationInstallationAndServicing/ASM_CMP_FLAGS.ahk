@@ -58,10 +58,10 @@ class ASM_CMP_FLAGS{
 
     /**
      * Compare all portions of the assembly names. This is equivalent to setting:
- * 
- * ```
- * ASM_CMPF_NAME | ASM_CMPF_MAJOR_VERSION | ASM_CMPF_MINOR_VERSION | ASM_CMPF_REVISION_NUMBER | ASM_CMPF_BUILD_NUMBER | ASM_CMPF_PUBLIC_KEY_TOKEN | ASM_CMPF_CULTURE | ASM_CMPF_CUSTOM
- * ```
+     * 
+     * ```
+     * ASM_CMPF_NAME | ASM_CMPF_MAJOR_VERSION | ASM_CMPF_MINOR_VERSION | ASM_CMPF_REVISION_NUMBER | ASM_CMPF_BUILD_NUMBER | ASM_CMPF_PUBLIC_KEY_TOKEN | ASM_CMPF_CULTURE | ASM_CMPF_CUSTOM
+     * ```
      * @type {Integer (Int32)}
      */
     static ASM_CMPF_ALL => 255

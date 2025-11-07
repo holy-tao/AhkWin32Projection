@@ -7,12 +7,12 @@
  * Exposes methods that enable clients to access items in a collection of objects that support IUnknown.
  * @remarks
  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * Clients do not need to implement this interface.
-  * 
-  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
-  * Use this interface to access generic objects in an array.
-  * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * Clients do not need to implement this interface.
+ * 
+ * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
+ * Use this interface to access generic objects in an array.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//objectarray/nn-objectarray-iobjectarray
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319

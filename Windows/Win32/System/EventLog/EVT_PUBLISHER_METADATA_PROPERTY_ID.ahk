@@ -4,35 +4,35 @@
  * Defines the identifiers that identify the metadata properties of a provider.
  * @remarks
  * 
-  * This list of identifiers in this enumeration are for those properties that cannot change. To get the configuration for a channel, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetchannelconfigproperty">EvtGetChannelConfigProperty</a> function.
-  * 
-  * You cannot use the following property identifiers when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetpublishermetadataproperty">EvtGetPublisherMetadataProperty</a> function: 
-  * 
-  * <ul>
-  * <li><b>EvtPublisherMetadataChannelReferencePath</b></li>
-  * <li><b>EvtPublisherMetadataChannelReferenceIndex</b></li>
-  * <li><b>EvtPublisherMetadataChannelReferenceID</b></li>
-  * <li><b>EvtPublisherMetadataChannelReferenceFlags</b></li>
-  * <li><b>EvtPublisherMetadataChannelReferenceMessageID</b></li>
-  * <li><b>EvtPublisherMetadataLevelName</b></li>
-  * <li><b>EvtPublisherMetadataLevelValue</b></li>
-  * <li><b>EvtPublisherMetadataLevelMessageID</b></li>
-  * <li><b>EvtPublisherMetadataTaskName</b></li>
-  * <li><b>EvtPublisherMetadataTaskEventGuid</b></li>
-  * <li><b>EvtPublisherMetadataTaskValue</b></li>
-  * <li><b>EvtPublisherMetadataTaskMessageID</b></li>
-  * <li><b>EvtPublisherMetadataOpcodeName</b></li>
-  * <li><b>EvtPublisherMetadataOpcodeValue</b></li>
-  * <li><b>EvtPublisherMetadataOpcodeMessageID</b></li>
-  * <li><b>EvtPublisherMetadataKeywordName</b></li>
-  * <li><b>EvtPublisherMetadataKeywordValue</b></li>
-  * <li><b>EvtPublisherMetadataKeywordMessageID</b></li>
-  * </ul>
-  * To use these identifiers, you must first retrieve the handle to the property's parent object.  To retrieve the channel properties, you must first retrieve the handle to the parent object using the <b>EvtPublisherMetadataChannelReferences</b> identifier; to retrieve the level properties, you must first retrieve the handle to the parent object using the <b>EvtPublisherMetadataLevels</b> identifier; to retrieve the task properties, you must first retrieve the handle to the parent object using the <b>EvtPublisherMetadataTasks</b> identifier; to retrieve the opcode properties, you must first retrieve the handle to the parent object using the <b>EvtPublisherMetadataOpcodes</b> identifier; and to retrieve the keyword properties, you must first retrieve the handle to the parent object using the <b>EvtPublisherMetadataKeywords</b> identifier. 
-  * 
-  * The handle points to an array of objects that contain the metadata for child type that the provider defines. To determine how many objects are in the array, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarraysize">EvtGetObjectArraySize</a> function. To access a property of one of the objects, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function and specify the identifier of the property that you want to retrieve.
-  * 
-  * 
+ * This list of identifiers in this enumeration are for those properties that cannot change. To get the configuration for a channel, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetchannelconfigproperty">EvtGetChannelConfigProperty</a> function.
+ * 
+ * You cannot use the following property identifiers when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetpublishermetadataproperty">EvtGetPublisherMetadataProperty</a> function: 
+ * 
+ * <ul>
+ * <li><b>EvtPublisherMetadataChannelReferencePath</b></li>
+ * <li><b>EvtPublisherMetadataChannelReferenceIndex</b></li>
+ * <li><b>EvtPublisherMetadataChannelReferenceID</b></li>
+ * <li><b>EvtPublisherMetadataChannelReferenceFlags</b></li>
+ * <li><b>EvtPublisherMetadataChannelReferenceMessageID</b></li>
+ * <li><b>EvtPublisherMetadataLevelName</b></li>
+ * <li><b>EvtPublisherMetadataLevelValue</b></li>
+ * <li><b>EvtPublisherMetadataLevelMessageID</b></li>
+ * <li><b>EvtPublisherMetadataTaskName</b></li>
+ * <li><b>EvtPublisherMetadataTaskEventGuid</b></li>
+ * <li><b>EvtPublisherMetadataTaskValue</b></li>
+ * <li><b>EvtPublisherMetadataTaskMessageID</b></li>
+ * <li><b>EvtPublisherMetadataOpcodeName</b></li>
+ * <li><b>EvtPublisherMetadataOpcodeValue</b></li>
+ * <li><b>EvtPublisherMetadataOpcodeMessageID</b></li>
+ * <li><b>EvtPublisherMetadataKeywordName</b></li>
+ * <li><b>EvtPublisherMetadataKeywordValue</b></li>
+ * <li><b>EvtPublisherMetadataKeywordMessageID</b></li>
+ * </ul>
+ * To use these identifiers, you must first retrieve the handle to the property's parent object.  To retrieve the channel properties, you must first retrieve the handle to the parent object using the <b>EvtPublisherMetadataChannelReferences</b> identifier; to retrieve the level properties, you must first retrieve the handle to the parent object using the <b>EvtPublisherMetadataLevels</b> identifier; to retrieve the task properties, you must first retrieve the handle to the parent object using the <b>EvtPublisherMetadataTasks</b> identifier; to retrieve the opcode properties, you must first retrieve the handle to the parent object using the <b>EvtPublisherMetadataOpcodes</b> identifier; and to retrieve the keyword properties, you must first retrieve the handle to the parent object using the <b>EvtPublisherMetadataKeywords</b> identifier. 
+ * 
+ * The handle points to an array of objects that contain the metadata for child type that the provider defines. To determine how many objects are in the array, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarraysize">EvtGetObjectArraySize</a> function. To access a property of one of the objects, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetobjectarrayproperty">EvtGetObjectArrayProperty</a> function and specify the identifier of the property that you want to retrieve.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_publisher_metadata_property_id
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319

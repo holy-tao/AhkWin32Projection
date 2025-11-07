@@ -7,9 +7,9 @@
  * Contains information that defines a split button (BS_SPLITBUTTON and BS_DEFSPLITBUTTON styles). Used with the BCM_GETSPLITINFO and BCM_SETSPLITINFO messages.
  * @remarks
  * 
-  * The glyph is the image that appears on the part of the button that activates the dropdown list. By default, this is an inverted triangle. Multiple images can be added to the image list to provide different glyphs for different states of the button, such as hot and pressed.
-  * 
-  * 
+ * The glyph is the image that appears on the part of the button that activates the dropdown list. By default, this is an inverted triangle. Multiple images can be added to the image list to provide different glyphs for different states of the button, such as hot and pressed.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-button_splitinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319

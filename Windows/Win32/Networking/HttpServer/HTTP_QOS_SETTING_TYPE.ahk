@@ -22,9 +22,9 @@ class HTTP_QOS_SETTING_TYPE{
 
     /**
      * A flow rate represented by <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_flowrate_info">HTTP_FLOWRATE_INFO</a>.
- * 
- * <div class="alert"><b>Note</b>  Windows Server 2008 R2 and Windows 7 only.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Windows Server 2008 R2 and Windows 7 only.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static HttpQosSettingTypeFlowRate => 2

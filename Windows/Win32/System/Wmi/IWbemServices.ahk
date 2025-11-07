@@ -10,16 +10,16 @@
  * Used by clients and providers to access WMI services. The interface is implemented by WMI and WMI providers, and is the primary WMI interface.
  * @remarks
  * 
-  * Providers that implement the 
-  * <b>IWbemServices</b> interface must follow the documented semantics of each method that they implement; and providers must support the specified error return codes. WMI implements all of the methods, and typically, each provider implements a small subset of the available functionality on the interface. Providers must return WBEM_E_PROVIDER_NOT_CAPABLE for any method that  they do not implement.
-  * 
-  * All outbound interface pointers from any 
-  * <b>IWbemServices</b> method should be initialized to <b>NULL</b> before calling the interface method. For example, 
-  * calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-getobject">IWbemServices::GetObject</a> method return an 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemclassobject">IWbemClassObject</a> interface pointer that should be pre-initialized to <b>NULL</b> before the <b>IWbemServices::GetObject</b> method  call.
-  * 
-  * 
-  * 
+ * Providers that implement the 
+ * <b>IWbemServices</b> interface must follow the documented semantics of each method that they implement; and providers must support the specified error return codes. WMI implements all of the methods, and typically, each provider implements a small subset of the available functionality on the interface. Providers must return WBEM_E_PROVIDER_NOT_CAPABLE for any method that  they do not implement.
+ * 
+ * All outbound interface pointers from any 
+ * <b>IWbemServices</b> method should be initialized to <b>NULL</b> before calling the interface method. For example, 
+ * calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-getobject">IWbemServices::GetObject</a> method return an 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemclassobject">IWbemClassObject</a> interface pointer that should be pre-initialized to <b>NULL</b> before the <b>IWbemServices::GetObject</b> method  call.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iwbemservices
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319

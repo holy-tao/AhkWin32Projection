@@ -5,9 +5,9 @@
  * The VMR9ProcAmpControl structure specifies the image adjustments to be performed on a video stream. This structure is used with the Video Mixing Renderer Filter 9 (VMR-9).
  * @remarks
  * 
-  * The valid range of values for each property depends on the graphics device driver. Call the <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrmixercontrol9-getprocampcontrolrange">IVMRMixerControl9::GetProcAmpControlRange</a> method to get the range for each property.
-  * 
-  * 
+ * The valid range of values for each property depends on the graphics device driver. Call the <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrmixercontrol9-getprocampcontrolrange">IVMRMixerControl9::GetProcAmpControlRange</a> method to get the range for each property.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vmr9/ns-vmr9-vmr9procampcontrol
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

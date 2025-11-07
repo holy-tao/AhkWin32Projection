@@ -4,9 +4,9 @@
  * Represents actions that are taken to resolve a specific concurrency conflict.
  * @remarks
  * 
-  * The members of <b>SYNC_RESOLVE_ACTION</b> specify the action that the change applier uses to resolve a concurrency conflict. Concurrency conflicts occur when the same item or change unit is changed on two different replicas that are later synchronized.
-  * 
-  * 
+ * The members of <b>SYNC_RESOLVE_ACTION</b> specify the action that the change applier uses to resolve a concurrency conflict. Concurrency conflicts occur when the same item or change unit is changed on two different replicas that are later synchronized.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/ne-winsync-sync_resolve_action
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

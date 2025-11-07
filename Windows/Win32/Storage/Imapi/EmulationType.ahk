@@ -4,11 +4,11 @@
  * Defines values for media types that the boot image is intended to emulate.
  * @remarks
  * 
-  * Other values not defined here may exist. Consumers of this enumeration should not presume this list to be the only set of valid values.
-  * 
-  * For complete details of these emulation types, see the "El Torito" Bootable CD-ROM format specification at  <a href="https://www.microsoft.com/?ref=go">http://www.phoenix.com/docs/specscdrom.pdf</a>.
-  * 
-  * 
+ * Other values not defined here may exist. Consumers of this enumeration should not presume this list to be the only set of valid values.
+ * 
+ * For complete details of these emulation types, see the "El Torito" Bootable CD-ROM format specification at  <a href="https://www.microsoft.com/?ref=go">http://www.phoenix.com/docs/specscdrom.pdf</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/ne-imapi2fs-emulationtype
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

@@ -8,11 +8,11 @@
  * Used to generate a report in response to a quota or file screen event.
  * @remarks
  * 
-  * You must set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactionreport-get_reporttypes">ReportTypes</a> property; 
-  *     the other property is optional.
-  * 
-  * 
-  * 
+ * You must set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactionreport-get_reporttypes">ReportTypes</a> property; 
+ *     the other property is optional.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmactionreport
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

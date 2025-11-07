@@ -7,18 +7,18 @@
  * Exposes a method which is called when the picture that represents a user account is changed.
  * @remarks
  * 
-  * Applications that want to notify users through this interface can add their class identifier (CLSID) strings as values under this key: 
-  * 
-  * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
-  *    <b>SOFTWARE</b>
-  *       <b>Microsoft</b>
-  *          <b>Windows</b>
-  *             <b>CurrentVersion</b>
-  *                <b>UserPictureChange</b></pre>
-  * 
-  * 
-  * The values under this key are enumerated to create this callback object.
-  * 
+ * Applications that want to notify users through this interface can add their class identifier (CLSID) strings as values under this key: 
+ * 
+ * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows</b>
+ *             <b>CurrentVersion</b>
+ *                <b>UserPictureChange</b></pre>
+ * 
+ * 
+ * The values under this key are enumerated to create this callback object.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iuseraccountchangecallback
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

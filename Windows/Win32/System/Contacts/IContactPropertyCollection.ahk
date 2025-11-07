@@ -7,10 +7,10 @@
  * Do not use. Used to filter contact data, based on a label or property set. Enumerates contact properties exposed with an IContactProperties object. For each property, the name, type, version, and modification date can be retrieved.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  Changing the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactproperties">IContactProperties</a> properties object 
-  * 		while enumerating properties with this interface results in undefined behavior.</div>
-  * <div> </div>
-  * 
+ * <div class="alert"><b>Note</b>  Changing the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactproperties">IContactProperties</a> properties object 
+ * 		while enumerating properties with this interface results in undefined behavior.</div>
+ * <div> </div>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//icontact/nn-icontact-icontactpropertycollection
  * @namespace Windows.Win32.System.Contacts
  * @version v4.0.30319

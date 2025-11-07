@@ -8,11 +8,11 @@
  * The IWMProximityDetection interface validates a playback device for receiving media data.
  * @remarks
  * 
-  * The validation state is stored in the device registration database. You can check the validation state for a device by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-isvalid">IWMRegisteredDevice::IsValid</a>.
-  * 
-  * Validation expires after 48 hours.
-  * 
-  * 
+ * The validation state is stored in the device registration database. You can check the validation state for a device by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-isvalid">IWMRegisteredDevice::IsValid</a>.
+ * 
+ * Validation expires after 48 hours.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmproximitydetection
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319

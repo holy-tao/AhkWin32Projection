@@ -28,9 +28,9 @@ class TextEditChangeType{
 
     /**
      * Change is from an IME composition going from active to finalized state within a control.
- * 
- * <div class="alert"><b>Note</b>  The finalized string may be empty if composition was canceled or deleted.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  The finalized string may be empty if composition was canceled or deleted.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static TextEditChangeType_CompositionFinalized => 3

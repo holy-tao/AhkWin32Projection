@@ -7,8 +7,8 @@
  * Exposes a method to initialize a handler, such as a property handler, thumbnail handler, or preview handler, with a file path.
  * @remarks
  * 
-  * Whenever possible, it is recommended that initialization be done through a stream using <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-iinitializewithstream">IInitializeWithStream</a>. Benefits of this include increased security and stability.
-  * 
+ * Whenever possible, it is recommended that initialization be done through a stream using <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-iinitializewithstream">IInitializeWithStream</a>. Benefits of this include increased security and stability.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-iinitializewithfile
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319

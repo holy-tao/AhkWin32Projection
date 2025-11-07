@@ -7,9 +7,9 @@
  * Describes a resource, such as a texture, including a mip region. This structure is used in several methods.
  * @remarks
  * 
-  * For remarks, see [D3D12_RESOURCE_DESC1](./ns-d3d12-d3d12_resource_desc.md).
-  * 
-  * 
+ * For remarks, see [D3D12_RESOURCE_DESC1](./ns-d3d12-d3d12_resource_desc.md).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_resource_desc1
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

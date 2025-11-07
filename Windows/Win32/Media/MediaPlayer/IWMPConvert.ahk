@@ -8,9 +8,9 @@
  * The IWMPConvert interface provides methods to enable Windows Media Player conversion plug-ins to convert digital media files that are created using technologies not provided by Microsoft, into Advanced Systems Format (ASF).
  * @remarks
  * 
-  * These methods are implemented by a conversion plug-in and called by Windows Media Player.
-  * 
-  * 
+ * These methods are implemented by a conversion plug-in and called by Windows Media Player.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nn-wmpservices-iwmpconvert
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319

@@ -8,14 +8,14 @@
  * Used to configure a file screen that blocks groups of files from being saved to the specified directory.
  * @remarks
  * 
-  * A file screen limits the types of files that the system or any user can store in a directory. When a 
-  *     restricted file is detected, the FSRM server performs the specified actions (see 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenbase-createaction">IFsrmFileScreenBase::CreateAction</a>).
-  * 
-  * The file screen applies to future files—the screen is not applied retroactively. To list 
-  *     the files in the directory that violate the screen, create a report job that lists files by type.
-  * 
-  * 
+ * A file screen limits the types of files that the system or any user can store in a directory. When a 
+ *     restricted file is detected, the FSRM server performs the specified actions (see 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenbase-createaction">IFsrmFileScreenBase::CreateAction</a>).
+ * 
+ * The file screen applies to future files—the screen is not applied retroactively. To list 
+ *     the files in the directory that violate the screen, create a report job that lists files by type.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nn-fsrmscreen-ifsrmfilescreen
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

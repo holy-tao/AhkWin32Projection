@@ -10,9 +10,9 @@ class FsrmTemplateApplyOptions{
 
     /**
      * Apply template changes to derived objects only if the object's properties match the template's properties.
- * 
- * Note that the comparison is made against the template as it exists in the database, not your local copy that 
- *        has not been committed yet.
+     * 
+     * Note that the comparison is made against the template as it exists in the database, not your local copy that 
+     *        has not been committed yet.
      * @type {Integer (Int32)}
      */
     static FsrmTemplateApplyOptions_ApplyToDerivedMatching => 1

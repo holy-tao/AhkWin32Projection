@@ -5,11 +5,11 @@
  * A logical container file may be stored in a single segment or multiple segments in the backup store.
  * @remarks
  * 
-  * For example, in an incremental backup scheme, the container may reside in the store either as one complete file 
-  *      generated in a full backup, or as multiple incremental files that contain changes in the file since the previous 
-  *      backup.
-  * 
-  * 
+ * For example, in an incremental backup scheme, the container may reside in the store either as one complete file 
+ *      generated in a full backup, or as multiple incremental files that contain changes in the file since the previous 
+ *      backup.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddpbackup/ns-ddpbackup-dedup_container_extent
  * @namespace Windows.Win32.Storage.DataDeduplication
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Represents a mapping between replica keys and replica IDs.
  * @remarks
  * 
-  * Because replica IDs repeatedly occur in the metadata for a replica and are suggested to be 16-byte GUIDs, Windows Sync represents replica IDs by using a map between replica IDs to 4-byte replica keys. Windows Sync then uses replica keys where references to particular replicas are required.
-  * 
-  * 
+ * Because replica IDs repeatedly occur in the metadata for a replica and are suggested to be 16-byte GUIDs, Windows Sync represents replica IDs by using a map between replica IDs to 4-byte replica keys. Windows Sync then uses replica keys where references to particular replicas are required.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ireplicakeymap
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

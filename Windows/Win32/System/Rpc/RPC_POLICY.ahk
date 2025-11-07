@@ -5,20 +5,20 @@
  * The RPC_POLICY structure contains flags that determine binding on multihomed computers, and port allocations when using the ncacn_ip_tcp and ncadg_ip_udp protocols.
  * @remarks
  * 
-  * You can use the <b>RPC_Policy</b> structure to set policies for remote procedure calls at run time. These policies include:
-  * 
-  * <ul>
-  * <li>Message queuing: Allows the server to specify message-queuing properties, such as security, quality of delivery, and the lifetime of the server-process queue. This policy is only effective for remote calls over the message-queuing transport (ncadg_mq).</li>
-  * <li>Port allocation for dynamic ports: Specifies whether the endpoint registered by this application should go to the Internet-available or intranet-available port set.</li>
-  * <li>Selective binding: Allows multihomed machines to bind selectively to NICs.</li>
-  * </ul>
-  * <div class="alert"><b>Note</b>  Port allocation and selective binding policies are effective only for remote calls over TCP (
-  * <a href="https://docs.microsoft.com/windows/desktop/Midl/ncacn-ip-tcp">ncacn_ip_tcp</a>) and UDP (
-  * <a href="https://docs.microsoft.com/windows/desktop/Midl/ncadg-ip-udp">ncadg_ip_udp</a>) connections. For more information, see 
-  * <a href="https://docs.microsoft.com/windows/desktop/Rpc/configuring-the-windows-xp-2000-nt-registry-for-port-allocations-and-selective-binding">Configuring the Registry for Port Allocations and Selective Binding</a>.</div>
-  * <div> </div>
-  * 
-  * 
+ * You can use the <b>RPC_Policy</b> structure to set policies for remote procedure calls at run time. These policies include:
+ * 
+ * <ul>
+ * <li>Message queuing: Allows the server to specify message-queuing properties, such as security, quality of delivery, and the lifetime of the server-process queue. This policy is only effective for remote calls over the message-queuing transport (ncadg_mq).</li>
+ * <li>Port allocation for dynamic ports: Specifies whether the endpoint registered by this application should go to the Internet-available or intranet-available port set.</li>
+ * <li>Selective binding: Allows multihomed machines to bind selectively to NICs.</li>
+ * </ul>
+ * <div class="alert"><b>Note</b>  Port allocation and selective binding policies are effective only for remote calls over TCP (
+ * <a href="https://docs.microsoft.com/windows/desktop/Midl/ncacn-ip-tcp">ncacn_ip_tcp</a>) and UDP (
+ * <a href="https://docs.microsoft.com/windows/desktop/Midl/ncadg-ip-udp">ncadg_ip_udp</a>) connections. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/Rpc/configuring-the-windows-xp-2000-nt-registry-for-port-allocations-and-selective-binding">Configuring the Registry for Port Allocations and Selective Binding</a>.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-rpc_policy
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319

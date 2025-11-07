@@ -6,53 +6,53 @@
  * Represents the optional header format.
  * @remarks
  * 
-  * The number of directories is not fixed. Check the <b>NumberOfRvaAndSizes</b> member before 
-  *     looking for a specific directory.
-  * 
-  * The actual structure in WinNT.h is named <b>IMAGE_OPTIONAL_HEADER32</b> 
-  *    and <b>IMAGE_OPTIONAL_HEADER</b> is defined as 
-  *    <b>IMAGE_OPTIONAL_HEADER32</b>. However, if <b>_WIN64</b> is 
-  *    defined, then <b>IMAGE_OPTIONAL_HEADER</b> is defined as 
-  *    <b>IMAGE_OPTIONAL_HEADER64</b>.
-  *    
-  * 
-  * 
-  * ```cpp
-  * typedef struct _IMAGE_OPTIONAL_HEADER64 {
-  *  WORD        Magic;
-  *  BYTE        MajorLinkerVersion;
-  *  BYTE        MinorLinkerVersion;
-  *  DWORD       SizeOfCode;
-  *  DWORD       SizeOfInitializedData;
-  *  DWORD       SizeOfUninitializedData;
-  *  DWORD       AddressOfEntryPoint;
-  *  DWORD       BaseOfCode;
-  *  ULONGLONG   ImageBase;
-  *  DWORD       SectionAlignment;
-  *  DWORD       FileAlignment;
-  *  WORD        MajorOperatingSystemVersion;
-  *  WORD        MinorOperatingSystemVersion;
-  *  WORD        MajorImageVersion;
-  *  WORD        MinorImageVersion;
-  *  WORD        MajorSubsystemVersion;
-  *  WORD        MinorSubsystemVersion;
-  *  DWORD       Win32VersionValue;
-  *  DWORD       SizeOfImage;
-  *  DWORD       SizeOfHeaders;
-  *  DWORD       CheckSum;
-  *  WORD        Subsystem;
-  *  WORD        DllCharacteristics;
-  *  ULONGLONG   SizeOfStackReserve;
-  *  ULONGLONG   SizeOfStackCommit;
-  *  ULONGLONG   SizeOfHeapReserve;
-  *  ULONGLONG   SizeOfHeapCommit;
-  *  DWORD       LoaderFlags;
-  *  DWORD       NumberOfRvaAndSizes;
-  *  IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
-  * } IMAGE_OPTIONAL_HEADER64, *PIMAGE_OPTIONAL_HEADER64;
-  * ```
-  * 
-  * 
+ * The number of directories is not fixed. Check the <b>NumberOfRvaAndSizes</b> member before 
+ *     looking for a specific directory.
+ * 
+ * The actual structure in WinNT.h is named <b>IMAGE_OPTIONAL_HEADER32</b> 
+ *    and <b>IMAGE_OPTIONAL_HEADER</b> is defined as 
+ *    <b>IMAGE_OPTIONAL_HEADER32</b>. However, if <b>_WIN64</b> is 
+ *    defined, then <b>IMAGE_OPTIONAL_HEADER</b> is defined as 
+ *    <b>IMAGE_OPTIONAL_HEADER64</b>.
+ *    
+ * 
+ * 
+ * ```cpp
+ * typedef struct _IMAGE_OPTIONAL_HEADER64 {
+ *  WORD        Magic;
+ *  BYTE        MajorLinkerVersion;
+ *  BYTE        MinorLinkerVersion;
+ *  DWORD       SizeOfCode;
+ *  DWORD       SizeOfInitializedData;
+ *  DWORD       SizeOfUninitializedData;
+ *  DWORD       AddressOfEntryPoint;
+ *  DWORD       BaseOfCode;
+ *  ULONGLONG   ImageBase;
+ *  DWORD       SectionAlignment;
+ *  DWORD       FileAlignment;
+ *  WORD        MajorOperatingSystemVersion;
+ *  WORD        MinorOperatingSystemVersion;
+ *  WORD        MajorImageVersion;
+ *  WORD        MinorImageVersion;
+ *  WORD        MajorSubsystemVersion;
+ *  WORD        MinorSubsystemVersion;
+ *  DWORD       Win32VersionValue;
+ *  DWORD       SizeOfImage;
+ *  DWORD       SizeOfHeaders;
+ *  DWORD       CheckSum;
+ *  WORD        Subsystem;
+ *  WORD        DllCharacteristics;
+ *  ULONGLONG   SizeOfStackReserve;
+ *  ULONGLONG   SizeOfStackCommit;
+ *  ULONGLONG   SizeOfHeapReserve;
+ *  ULONGLONG   SizeOfHeapCommit;
+ *  DWORD       LoaderFlags;
+ *  DWORD       NumberOfRvaAndSizes;
+ *  IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
+ * } IMAGE_OPTIONAL_HEADER64, *PIMAGE_OPTIONAL_HEADER64;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_optional_header64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319

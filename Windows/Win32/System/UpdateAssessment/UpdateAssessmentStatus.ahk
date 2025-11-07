@@ -4,8 +4,8 @@
  * Describes how up-to-date the OS on a device is.
  * @remarks
  * 
-  * This enumeration is used most often with the <a href="https://docs.microsoft.com/windows/desktop/api/waasapitypes/ns-waasapitypes-updateassessment">UpdateAssessment</a>  and <a href="https://docs.microsoft.com/windows/desktop/api/waasapitypes/ns-waasapitypes-osupdateassessment">OSUpdateAssessment</a> structures, which are in turn used with the <a href="https://docs.microsoft.com/windows/desktop/api/waasapi/nf-waasapi-iwaasassessor-getosupdateassessment">GetOSUpdateAssessment</a> method for <a href="https://docs.microsoft.com/windows/desktop/api/waasapi/nn-waasapi-iwaasassessor">IWaaSAssessor</a>.
-  * 
+ * This enumeration is used most often with the <a href="https://docs.microsoft.com/windows/desktop/api/waasapitypes/ns-waasapitypes-updateassessment">UpdateAssessment</a>  and <a href="https://docs.microsoft.com/windows/desktop/api/waasapitypes/ns-waasapitypes-osupdateassessment">OSUpdateAssessment</a> structures, which are in turn used with the <a href="https://docs.microsoft.com/windows/desktop/api/waasapi/nf-waasapi-iwaasassessor-getosupdateassessment">GetOSUpdateAssessment</a> method for <a href="https://docs.microsoft.com/windows/desktop/api/waasapi/nn-waasapi-iwaasassessor">IWaaSAssessor</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//waasapitypes/ne-waasapitypes-updateassessmentstatus
  * @namespace Windows.Win32.System.UpdateAssessment
  * @version v4.0.30319
@@ -32,11 +32,11 @@ class UpdateAssessmentStatus{
 
     /**
      * The device is not on the latest update because the device's feature update is no longer supported by Microsoft. When Microsoft stops supporting a feature release, this status will be returned for both <b>assessmentForCurrent</b> and <b>assessmentForUpToDate</b>. 
- *  
- * 
- * 
- * <div class="alert"><b>Note</b>   When <b>UpdateAssessmentStatus_NotLatestEndOfSupport</b> is returned, the assessment's <b>UpdateImpactLevel</b> is always <b>UpdateImpactLevel_High</b>.</div>
- * <div> </div>
+     *  
+     * 
+     * 
+     * <div class="alert"><b>Note</b>   When <b>UpdateAssessmentStatus_NotLatestEndOfSupport</b> is returned, the assessment's <b>UpdateImpactLevel</b> is always <b>UpdateImpactLevel_High</b>.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static UpdateAssessmentStatus_NotLatestEndOfSupport => 3

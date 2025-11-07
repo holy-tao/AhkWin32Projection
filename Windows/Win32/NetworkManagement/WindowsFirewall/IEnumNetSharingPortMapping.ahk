@@ -8,13 +8,13 @@
  * The IEnumNetSharingPortMapping interface provides methods to enumerate the port mappings for a particular connection.
  * @remarks
  * 
-  * To obtain an enumeration interface for port mappings, use the 
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingmanager-get_inetsharingconfigurationforinetconnection">INetSharingManager::get_INetSharingConfigurationForINetConnection</a> method to obtain an 
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingconfiguration">INetSharingConfiguration</a> interface. Then use the 
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingconfiguration-get_enumportmappings">INetSharingConfiguration::EnumPortMappings</a> method to obtain an 
-  * <b>IEnumNetSharingPortMapping</b> interface.
-  * 
-  * 
+ * To obtain an enumeration interface for port mappings, use the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingmanager-get_inetsharingconfigurationforinetconnection">INetSharingManager::get_INetSharingConfigurationForINetConnection</a> method to obtain an 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingconfiguration">INetSharingConfiguration</a> interface. Then use the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingconfiguration-get_enumportmappings">INetSharingConfiguration::EnumPortMappings</a> method to obtain an 
+ * <b>IEnumNetSharingPortMapping</b> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netcon/nn-netcon-ienumnetsharingportmapping
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

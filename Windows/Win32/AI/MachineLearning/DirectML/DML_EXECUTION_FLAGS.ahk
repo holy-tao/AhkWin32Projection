@@ -28,10 +28,10 @@ class DML_EXECUTION_FLAGS{
 
     /**
      * Allows changes to bindings after an operator's execution has been recorded in a command list, but before it has been submitted to the command queue. By default, without this flag set, you must set all bindings on the binding table before you record an operator into a command list.
- * 
- * This flag allows you to perform late binding—that is, to set (or to change) bindings on operators that you've already recorded into a command list. However, this may result in a performance penalty on some hardware, as it prohibits drivers from promoting static descriptor accesses to root descriptor accesses.
- * 
- * For more info, see <a href="https://docs.microsoft.com/windows/win32/direct3d12/root-signature-version-1-1#descriptors_volatile">DESCRIPTORS_VOLATILE</a>.
+     * 
+     * This flag allows you to perform late binding—that is, to set (or to change) bindings on operators that you've already recorded into a command list. However, this may result in a performance penalty on some hardware, as it prohibits drivers from promoting static descriptor accesses to root descriptor accesses.
+     * 
+     * For more info, see <a href="https://docs.microsoft.com/windows/win32/direct3d12/root-signature-version-1-1#descriptors_volatile">DESCRIPTORS_VOLATILE</a>.
      * @type {Integer (Int32)}
      */
     static DML_EXECUTION_FLAG_DESCRIPTORS_VOLATILE => 4

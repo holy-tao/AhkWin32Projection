@@ -6,8 +6,8 @@
  * The SYSTEM_ALARM_CALLBACK_ACE structure is reserved for future use.
  * @remarks
  * 
-  * ACE structures must be aligned on <b>DWORD</b> boundaries. All Windows memory-management functions return <b>DWORD</b>-aligned handles to memory.
-  * 
+ * ACE structures must be aligned on <b>DWORD</b> boundaries. All Windows memory-management functions return <b>DWORD</b>-aligned handles to memory.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_alarm_callback_ace
  * @namespace Windows.Win32.Security
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * A device-child interface accesses data used by a device.
  * @remarks
  * 
-  * There are several types of device child interfaces, all of which inherit this interface. They include shaders, state objects, and input layouts.
-  * 
-  * 
+ * There are several types of device child interfaces, all of which inherit this interface. They include shaders, state objects, and input layouts.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/nn-d3d10-id3d10devicechild
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

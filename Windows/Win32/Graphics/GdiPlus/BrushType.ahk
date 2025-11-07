@@ -16,15 +16,15 @@ class BrushType{
 
     /**
      * Indicates a brush of type <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusbrush/nl-gdiplusbrush-hatchbrush">HatchBrush</a>. A hatch brush paints a background and paints, over that background, a pattern of lines, dots, dashes, squares, crosshatch, or some variation of these. The hatch brush consists of two colors: one for the background and one for the pattern over the background. The color of the background is called the 
- * 				<i>background color</i>, and the color of the pattern is called the 
- * 				<i>foreground color</i>.
+     * 				<i>background color</i>, and the color of the pattern is called the 
+     * 				<i>foreground color</i>.
      * @type {Integer (Int32)}
      */
     static BrushTypeHatchFill => 1
 
     /**
      * Indicates a brush of type <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusbrush/nl-gdiplusbrush-texturebrush">TextureBrush</a>. A texture brush paints an image. The image or 
- * 				<i>texture</i> is either a portion of a specified image or a scaled version of a specified image. The type of image (metafile or nonmetafile) determines whether the texture is a portion of the image or a scaled version of the image.
+     * 				<i>texture</i> is either a portion of a specified image or a scaled version of a specified image. The type of image (metafile or nonmetafile) determines whether the texture is a portion of the image or a scaled version of the image.
      * @type {Integer (Int32)}
      */
     static BrushTypeTextureFill => 2

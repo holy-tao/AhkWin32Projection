@@ -4,123 +4,123 @@
  * Specifies preferences for an IDirectorySearch object.
  * @remarks
  * 
-  * To setup a search preference, assign appropriate values to the fields of an 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_searchpref_info">ADS_SEARCHPREF_INFO</a> structure passed to the server. The <b>vValue</b> member of the <b>ADS_SEARCHPREF_INFO</b> structure is an <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structure. The following list lists the <b>ADS_SEARCHPREF_ENUM</b> values, the corresponding values for the <b>dwType</b> member of the <b>ADSVALUE</b> structure, and the <b>ADSVALUE</b> member that is used for the specified type.
-  * 
-  * <table>
-  * <tr>
-  * <th><b>ADS_SEARCHPREF_ENUM</b> value</th>
-  * <th><b>dwType</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a>
-  * </th>
-  * <th>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> member</th>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_ASYNCHRONOUS</b></td>
-  * <td><b>ADSTYPE_BOOLEAN</b></td>
-  * <td><b>Boolean</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_DEREF_ALIASES</b></td>
-  * <td><b>ADSTYPE_INTEGER</b></td>
-  * <td><b>Integer</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_SIZE_LIMIT</b></td>
-  * <td><b>ADSTYPE_INTEGER</b></td>
-  * <td><b>Integer</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_TIME_LIMIT</b></td>
-  * <td><b>ADSTYPE_INTEGER</b></td>
-  * <td><b>Integer</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_ATTRIBTYPES_ONLY</b></td>
-  * <td><b>ADSTYPE_BOOLEAN</b></td>
-  * <td><b>Boolean</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_SEARCH_SCOPE</b></td>
-  * <td><b>ADSTYPE_INTEGER</b></td>
-  * <td><b>Integer</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_TIMEOUT</b></td>
-  * <td><b>ADSTYPE_INTEGER</b></td>
-  * <td><b>Integer</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_PAGESIZE</b></td>
-  * <td><b>ADSTYPE_INTEGER</b></td>
-  * <td><b>Integer</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_PAGED_TIME_LIMIT</b></td>
-  * <td><b>ADSTYPE_INTEGER</b></td>
-  * <td><b>Integer</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_CHASE_REFERRALS</b></td>
-  * <td><b>ADSTYPE_INTEGER</b></td>
-  * <td><b>Integer</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_SORT_ON</b></td>
-  * <td><b>ADSTYPE_PROV_SPECIFIC</b></td>
-  * <td><b>ProviderSpecific</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_CACHE_RESULTS</b></td>
-  * <td><b>ADSTYPE_BOOLEAN</b></td>
-  * <td><b>Boolean</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_DIRSYNC</b></td>
-  * <td><b>ADSTYPE_PROV_SPECIFIC</b></td>
-  * <td><b>ProviderSpecific</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_TOMBSTONE</b></td>
-  * <td><b>ADSTYPE_BOOLEAN</b></td>
-  * <td><b>Boolean</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_VLV</b></td>
-  * <td><b>ADSTYPE_PROV_SPECIFIC</b></td>
-  * <td><b>ProviderSpecific</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_ATTRIBUTE_QUERY</b></td>
-  * <td><b>ADSTYPE_CASE_IGNORE_STRING</b></td>
-  * <td><b>CaseIgnoreString</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_SECURITY_MASK</b></td>
-  * <td><b>ADSTYPE_INTEGER</b></td>
-  * <td><b>Integer</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_DIRSYNC_FLAG</b></td>
-  * <td><b>ADSTYPE_INTEGER</b></td>
-  * <td><b>Integer</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ADS_SEARCHPREF_EXTENDED_DN</b></td>
-  * <td><b>ADSTYPE_INTEGER</b></td>
-  * <td><b>Integer</b></td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * To setup multiple preferences, use an array of <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_searchpref_info">ADS_SEARCHPREF_INFO</a> structures. The member values of this enumeration are assigned to the <b>dwSearchPref</b> member of the <b>ADS_SEARCHPREF_INFO</b> structure.
-  * 
-  * All options are supported by the LDAP system provider.
-  * 
-  * Because VBScript cannot read data from a type library, VBScript applications do not recognize the symbolic constants as defined above. You should use the numerical constants, instead, to set the appropriate flags in your VBScript applications. To use the symbolic constants, as a good programming practice, explicitly declare such constants, as done here, in your VBScript applications.
-  * 
-  * 
-  * 
+ * To setup a search preference, assign appropriate values to the fields of an 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_searchpref_info">ADS_SEARCHPREF_INFO</a> structure passed to the server. The <b>vValue</b> member of the <b>ADS_SEARCHPREF_INFO</b> structure is an <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structure. The following list lists the <b>ADS_SEARCHPREF_ENUM</b> values, the corresponding values for the <b>dwType</b> member of the <b>ADSVALUE</b> structure, and the <b>ADSVALUE</b> member that is used for the specified type.
+ * 
+ * <table>
+ * <tr>
+ * <th><b>ADS_SEARCHPREF_ENUM</b> value</th>
+ * <th><b>dwType</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a>
+ * </th>
+ * <th>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> member</th>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_ASYNCHRONOUS</b></td>
+ * <td><b>ADSTYPE_BOOLEAN</b></td>
+ * <td><b>Boolean</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_DEREF_ALIASES</b></td>
+ * <td><b>ADSTYPE_INTEGER</b></td>
+ * <td><b>Integer</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_SIZE_LIMIT</b></td>
+ * <td><b>ADSTYPE_INTEGER</b></td>
+ * <td><b>Integer</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_TIME_LIMIT</b></td>
+ * <td><b>ADSTYPE_INTEGER</b></td>
+ * <td><b>Integer</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_ATTRIBTYPES_ONLY</b></td>
+ * <td><b>ADSTYPE_BOOLEAN</b></td>
+ * <td><b>Boolean</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_SEARCH_SCOPE</b></td>
+ * <td><b>ADSTYPE_INTEGER</b></td>
+ * <td><b>Integer</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_TIMEOUT</b></td>
+ * <td><b>ADSTYPE_INTEGER</b></td>
+ * <td><b>Integer</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_PAGESIZE</b></td>
+ * <td><b>ADSTYPE_INTEGER</b></td>
+ * <td><b>Integer</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_PAGED_TIME_LIMIT</b></td>
+ * <td><b>ADSTYPE_INTEGER</b></td>
+ * <td><b>Integer</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_CHASE_REFERRALS</b></td>
+ * <td><b>ADSTYPE_INTEGER</b></td>
+ * <td><b>Integer</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_SORT_ON</b></td>
+ * <td><b>ADSTYPE_PROV_SPECIFIC</b></td>
+ * <td><b>ProviderSpecific</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_CACHE_RESULTS</b></td>
+ * <td><b>ADSTYPE_BOOLEAN</b></td>
+ * <td><b>Boolean</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_DIRSYNC</b></td>
+ * <td><b>ADSTYPE_PROV_SPECIFIC</b></td>
+ * <td><b>ProviderSpecific</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_TOMBSTONE</b></td>
+ * <td><b>ADSTYPE_BOOLEAN</b></td>
+ * <td><b>Boolean</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_VLV</b></td>
+ * <td><b>ADSTYPE_PROV_SPECIFIC</b></td>
+ * <td><b>ProviderSpecific</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_ATTRIBUTE_QUERY</b></td>
+ * <td><b>ADSTYPE_CASE_IGNORE_STRING</b></td>
+ * <td><b>CaseIgnoreString</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_SECURITY_MASK</b></td>
+ * <td><b>ADSTYPE_INTEGER</b></td>
+ * <td><b>Integer</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_DIRSYNC_FLAG</b></td>
+ * <td><b>ADSTYPE_INTEGER</b></td>
+ * <td><b>Integer</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ADS_SEARCHPREF_EXTENDED_DN</b></td>
+ * <td><b>ADSTYPE_INTEGER</b></td>
+ * <td><b>Integer</b></td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * To setup multiple preferences, use an array of <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_searchpref_info">ADS_SEARCHPREF_INFO</a> structures. The member values of this enumeration are assigned to the <b>dwSearchPref</b> member of the <b>ADS_SEARCHPREF_INFO</b> structure.
+ * 
+ * All options are supported by the LDAP system provider.
+ * 
+ * Because VBScript cannot read data from a type library, VBScript applications do not recognize the symbolic constants as defined above. You should use the numerical constants, instead, to set the appropriate flags in your VBScript applications. To use the symbolic constants, as a good programming practice, explicitly declare such constants, as done here, in your VBScript applications.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_searchpref_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
@@ -129,10 +129,10 @@ class ADS_SEARCHPREF_ENUM{
 
     /**
      * Specifies that searches should be performed asynchronously. By default, searches are synchronous.
- * 
- * In a synchronous search, the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-getfirstrow">IDirectorySearch::GetFirstRow</a> and <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-getnextrow">IDirectorySearch::GetNextRow</a> methods do not return until the server returns the entire result, or for a paged search, the entire page.
- * 
- * An asynchronous search blocks until one row of the search results is available, or until the timeout interval specified by the <b>ADS_SEARCHPREF_TIMEOUT</b> search preference elapses.
+     * 
+     * In a synchronous search, the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-getfirstrow">IDirectorySearch::GetFirstRow</a> and <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-getnextrow">IDirectorySearch::GetNextRow</a> methods do not return until the server returns the entire result, or for a paged search, the entire page.
+     * 
+     * An asynchronous search blocks until one row of the search results is available, or until the timeout interval specified by the <b>ADS_SEARCHPREF_TIMEOUT</b> search preference elapses.
      * @type {Integer (Int32)}
      */
     static ADS_SEARCHPREF_ASYNCHRONOUS => 0
@@ -145,8 +145,8 @@ class ADS_SEARCHPREF_ENUM{
 
     /**
      * Specifies the size limit that the server should observe during a search. The server stops searching when the size limit is reached and returns the results accumulated to that point. If this value is zero, the size limit is determined by the directory service. The default  for this value is zero. If this value is greater than the size limit determined by the directory service, the directory service limit takes precedence.
- * 
- * For Active Directory, the size limit specifies the maximum number of objects to be returned by the search. Also for Active Directory, the maximum number of objects returned by a search is 1000 objects.
+     * 
+     * For Active Directory, the size limit specifies the maximum number of objects to be returned by the search. Also for Active Directory, the maximum number of objects returned by a search is 1000 objects.
      * @type {Integer (Int32)}
      */
     static ADS_SEARCHPREF_SIZE_LIMIT => 2
@@ -207,32 +207,32 @@ class ADS_SEARCHPREF_ENUM{
 
     /**
      * Specifies a directory synchronization (DirSync) search, which returns all changes since a specified state. In the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structure, set the <b>dwType</b> member to <a href="https://docs.microsoft.com/windows/win32/api/iads/ns-iads-ads_prov_specific">ADS_PROV_SPECIFIC</a>. The <b>ProviderSpecific</b> member is an  <b>ADS_PROV_SPECIFIC</b> structure whose <b>lpValue</b> member specifies a cookie that indicates the state from which changes are retrieved. The first time you use the DirSync control, set the <b>dwLength</b> and <b>lpValue</b> members of the <b>ADS_PROV_SPECIFIC</b> structure to zero and <b>NULL</b> respectively. After reading the results set returned by the search until  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-getnextrow">IDirectorySearch::GetNextRow</a> returns <b>S_ADS_NOMORE_ROWS</b>, call  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-getcolumn">IDirectorySearch::GetColumn</a> to retrieve the <b>ADS_DIRSYNC_COOKIE</b> attribute which contains a cookie to use in the next DirSync search. For more information, see <a href="https://docs.microsoft.com/windows/desktop/AD/polling-for-changes-using-the-dirsync-control">Polling for Changes Using the DirSync Control</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-server-dirsync-oid">LDAP_SERVER_DIRSYNC_OID</a>.
- * 
- * This flag cannot be combined with <b>ADS_SEARCHPREF_PAGESIZE</b>.
- * 
- * The caller must have the <b>SE_SYNC_AGENT_NAME</b> privilege.
+     * 
+     * This flag cannot be combined with <b>ADS_SEARCHPREF_PAGESIZE</b>.
+     * 
+     * The caller must have the <b>SE_SYNC_AGENT_NAME</b> privilege.
      * @type {Integer (Int32)}
      */
     static ADS_SEARCHPREF_DIRSYNC => 12
 
     /**
      * Specifies whether the search should also return deleted objects that match the search filter. When objects are deleted, Active Directory moves them to a "Deleted Objects" container. By default, deleted objects are not included in the search results. In the <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structure, set the <b>dwType</b> member to <b>ADSTYPE_BOOLEAN</b>. To include deleted objects, set the <b>Boolean</b> member of the <b>ADSVALUE</b> structure to <b>TRUE</b>.
- * 
- * Not all attributes are preserved when the object is deleted. You can retrieve the <b>objectGUID</b> and <b>RDN</b> attributes. The <b>distinguishedName</b> attribute is the DN of the object in the "Deleted Objects" container, not the previous DN. The <b>isDeleted</b> attribute is <b>TRUE</b> for a deleted object. For more information, see   <a href="https://docs.microsoft.com/windows/desktop/AD/retrieving-deleted-objects">Retrieving Deleted Objects</a>.
+     * 
+     * Not all attributes are preserved when the object is deleted. You can retrieve the <b>objectGUID</b> and <b>RDN</b> attributes. The <b>distinguishedName</b> attribute is the DN of the object in the "Deleted Objects" container, not the previous DN. The <b>isDeleted</b> attribute is <b>TRUE</b> for a deleted object. For more information, see   <a href="https://docs.microsoft.com/windows/desktop/AD/retrieving-deleted-objects">Retrieving Deleted Objects</a>.
      * @type {Integer (Int32)}
      */
     static ADS_SEARCHPREF_TOMBSTONE => 13
 
     /**
      * Specifies that the search should use the LDAP virtual list view (VLV) control. <b>ADS_SEARCHPREF_VLV</b> can be used to access both string-type and offset-type VLV searches, by setting the appropriate fields. These two options cannot be used simultaneously because it is not possible to set the VLV control to request a result set that is both located at a specific offset and follows a particular value in the sort sequence.
- * 
- * To perform a string search, set the <b>lpszTarget</b> field in <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_vlv">ADS_VLV</a> to the string to be searched for. To perform an offset type search, set the dwOffset field in <b>ADS_VLV</b>. If you use an offset search, you must set <b>lpszTarget</b> to <b>NULL</b>.
- * 
- * <b>ADS_SEARCHPREF_SORT_ON</b> must be set to <b>TRUE</b> when using <b>ADS_SEARCHPREF_VLV</b>. The sort order of the search results determines the order used for the VLV search. If performing an offset-type search, the offset is used as an index into the sorted list. If performing a string-type search, the server attempts to return the first entry which is greater-than-or-equal-to the string, based on the sort order.
- * 
- * Caching of search results is disabled when <b>ADS_SEARCHPREF_VLV</b> is specified.
- * 
- * If you assign <b>ADS_SEARCHPREF_CACHE_RESULTS</b> a <b>TRUE</b>, value when using <b>ADS_SEARCHPREF_VLV</b>, <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-setsearchpreference">SetSearchPreference</a> will fail and return the error <b>E_ADS_BAD_PARAMETER</b>.
+     * 
+     * To perform a string search, set the <b>lpszTarget</b> field in <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_vlv">ADS_VLV</a> to the string to be searched for. To perform an offset type search, set the dwOffset field in <b>ADS_VLV</b>. If you use an offset search, you must set <b>lpszTarget</b> to <b>NULL</b>.
+     * 
+     * <b>ADS_SEARCHPREF_SORT_ON</b> must be set to <b>TRUE</b> when using <b>ADS_SEARCHPREF_VLV</b>. The sort order of the search results determines the order used for the VLV search. If performing an offset-type search, the offset is used as an index into the sorted list. If performing a string-type search, the server attempts to return the first entry which is greater-than-or-equal-to the string, based on the sort order.
+     * 
+     * Caching of search results is disabled when <b>ADS_SEARCHPREF_VLV</b> is specified.
+     * 
+     * If you assign <b>ADS_SEARCHPREF_CACHE_RESULTS</b> a <b>TRUE</b>, value when using <b>ADS_SEARCHPREF_VLV</b>, <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-setsearchpreference">SetSearchPreference</a> will fail and return the error <b>E_ADS_BAD_PARAMETER</b>.
      * @type {Integer (Int32)}
      */
     static ADS_SEARCHPREF_VLV => 14

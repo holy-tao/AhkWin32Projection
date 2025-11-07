@@ -9,9 +9,9 @@
  * A constant-buffer interface accesses constant buffers or texture buffers.
  * @remarks
  * 
-  * Use constant buffers to store many effect constants; grouping constants into buffers based on their frequency of update. This allows you to minimize the number of state changes as well as make the fewest API calls to change state. Both of these factors lead to better performance.
-  * 
-  * 
+ * Use constant buffers to store many effect constants; grouping constants into buffers based on their frequency of update. This allows you to minimize the number of state changes as well as make the fewest API calls to change state. Both of these factors lead to better performance.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nn-d3d10effect-id3d10effectconstantbuffer
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

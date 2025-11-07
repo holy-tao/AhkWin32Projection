@@ -4,80 +4,80 @@
  * Specifies which standard command is to be executed. A single value from this enumeration is passed in the nCmdID argument of IOleCommandTarget::Exec.
  * @remarks
  * 
-  * In OLE Compound Documents technology, an object that is being edited in-place disables the <b>Zoom</b> control on its toolbar and the <b>Zoom</b> command on its <b>View</b> menu, because, the <b>Zoom</b> command applies logically to the container document, not to the object. The OLECMDID_ZOOM and OLECMDID_GETZOOMRANGE commands notify the container's frame object of the zoom range it should use to display a document object in its user interface. The container frame is the client-side object that implements <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceframe">IOleInPlaceFrame</a> and, optionally, <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-iolecommandtarget">IOleCommandTarget</a>.
-  * 
-  * 
-  * 
-  * The OLECMDID_ZOOM command takes one <b>LONG</b> argument as input and writes one <b>LONG</b> argument on output. This command is used for three purposes: 
-  * 
-  * 
-  * 
-  * <ul>
-  * <li>To query the current zoom value. The caller of <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-exec">IOleCommandTarget::Exec</a> passes OLECMDEXECOPT_DONTPROMPTUSER as the execute option in <i>nCmdExecOpt</i> and <b>NULL</b> for pvIn. The object returns the current zoom value in <i>pvaOut</i>. When the object goes UI active, it retrieves the current zoom value from the container's frame object using this same mechanism and updates its zoom control with the returned value. 
-  * </li>
-  * <li>To display the <b>Zoom</b> dialog box. The caller of <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-exec">IOleCommandTarget::Exec</a> passes OLECMDEXECOPT_PROMPTUSER in <i>nCmdExecOpt</i>. The caller can optionally pass the initial value for the dialog box through <i>pvaIn</i>; otherwise <i>pvaIn</i> must be <b>NULL</b>. If the user clicks <b>Cancel</b>, the object returns OLECMDERR_E_CANCELED. If the user clicks <b>OK</b>, the object passes the user-selected value in <i>pvaOut</i>. When user chooses the <b>Zoom</b> command from the <b>View</b> menu, the object calls the container's frame object in the same manner. The container then zooms the document to the user selected value, and the object updates its <b>Zoom</b> control with that value.
-  * </li>
-  * <li>To set a <b>Zoom</b> value. The caller of <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-exec">IOleCommandTarget::Exec</a> passes OLECMDEXECOPT_DONTPROMPTUSER in <i>nCmdExecOpt</i> and passes the zoom value to apply through <i>pvaIn</i>. The object validates and normalizes the new value and returns the validated value in <i>pvaOut</i>. When the user selects a new zoom value (using the <b>Zoom</b> control on the toolbar, for instance), the object calls the container's frame object in this manner. The container zooms the document to 100 percent, and the object updates the <b>Zoom</b> control with that value.</li>
-  * </ul>
-  * The OLECMDID_GETZOOMRANGE command is used to determine the range of valid zoom values from an object that implements <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-iolecommandtarget">IOleCommandTarget</a>. The caller passes MSOCMDEXECOPT_DONTPROMPTUSER in nCmdExecOpt and <b>NULL</b> for <i>pvaIn</i>. The object returns its zoom range in <i>pvaOut</i> where the HIWORD contains the maximum zoom value and the LOWORD contains the minimum zoom value. Typically this command is used when the user drops down the <b>Zoom</b> control on the toolbar of the UI-active object. The applications and objects that support this command are required to support all the integral zoom values that are within the (min,max) pair they return.
-  * 
-  * 
-  * 
-  * The OLECMDID_ACTIVEXINSTALLSCOPE command notifies Trident to use the indicated Install Scope to install the ActiveX Control specified by the indicated class ID. The Install Scope is passed in a VT_ARRAY in pvaIn of the <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-exec">IOleCommandTarget::Exec</a> method whose elements are as follows.
-  * 
-  * <table>
-  * <tr>
-  * <th>Data</th>
-  * <th>VARIANT Type</th>
-  * <th>Index</th>
-  * </tr>
-  * <tr>
-  * <td>Class ID</td>
-  * <td>VT_BSTR</td>
-  * <td>0</td>
-  * </tr>
-  * <tr>
-  * <td>Install Scope</td>
-  * <td>VT_UI4</td>
-  * <td>1</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * The Install Scope must be one of the following values.
-  * 
-  * <table>
-  * <tr>
-  * <th>Value</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>INSTALL_SCOPE_USERS</td>
-  * <td>The ActiveX control should register to HKCU and for the instant user only.
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>INSTALL_SCOPE_MACHINE</td>
-  * <td>The ActiveX control should register to HKLM and across the computer
-  * </td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * The following is an example use of the OLECMDID_ACTIVEXINSTALLSCOPE command.
-  * 
-  * 
-  * ```cpp
-  * IOleCommandTarget::Exec(
-  * NULL, // Pointer to command group
-  * OLECMDARGINDEX_ACTIVEXINSTALL_INSTALLSCOPE, // ID of command to execute
-  * NULL, // Options
-  * &varArgs, // pvain pointer to input arguments
-  * NULL) // pointer to command output
-  * 
-  * ```
-  * 
-  * 
+ * In OLE Compound Documents technology, an object that is being edited in-place disables the <b>Zoom</b> control on its toolbar and the <b>Zoom</b> command on its <b>View</b> menu, because, the <b>Zoom</b> command applies logically to the container document, not to the object. The OLECMDID_ZOOM and OLECMDID_GETZOOMRANGE commands notify the container's frame object of the zoom range it should use to display a document object in its user interface. The container frame is the client-side object that implements <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceframe">IOleInPlaceFrame</a> and, optionally, <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-iolecommandtarget">IOleCommandTarget</a>.
+ * 
+ * 
+ * 
+ * The OLECMDID_ZOOM command takes one <b>LONG</b> argument as input and writes one <b>LONG</b> argument on output. This command is used for three purposes: 
+ * 
+ * 
+ * 
+ * <ul>
+ * <li>To query the current zoom value. The caller of <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-exec">IOleCommandTarget::Exec</a> passes OLECMDEXECOPT_DONTPROMPTUSER as the execute option in <i>nCmdExecOpt</i> and <b>NULL</b> for pvIn. The object returns the current zoom value in <i>pvaOut</i>. When the object goes UI active, it retrieves the current zoom value from the container's frame object using this same mechanism and updates its zoom control with the returned value. 
+ * </li>
+ * <li>To display the <b>Zoom</b> dialog box. The caller of <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-exec">IOleCommandTarget::Exec</a> passes OLECMDEXECOPT_PROMPTUSER in <i>nCmdExecOpt</i>. The caller can optionally pass the initial value for the dialog box through <i>pvaIn</i>; otherwise <i>pvaIn</i> must be <b>NULL</b>. If the user clicks <b>Cancel</b>, the object returns OLECMDERR_E_CANCELED. If the user clicks <b>OK</b>, the object passes the user-selected value in <i>pvaOut</i>. When user chooses the <b>Zoom</b> command from the <b>View</b> menu, the object calls the container's frame object in the same manner. The container then zooms the document to the user selected value, and the object updates its <b>Zoom</b> control with that value.
+ * </li>
+ * <li>To set a <b>Zoom</b> value. The caller of <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-exec">IOleCommandTarget::Exec</a> passes OLECMDEXECOPT_DONTPROMPTUSER in <i>nCmdExecOpt</i> and passes the zoom value to apply through <i>pvaIn</i>. The object validates and normalizes the new value and returns the validated value in <i>pvaOut</i>. When the user selects a new zoom value (using the <b>Zoom</b> control on the toolbar, for instance), the object calls the container's frame object in this manner. The container zooms the document to 100 percent, and the object updates the <b>Zoom</b> control with that value.</li>
+ * </ul>
+ * The OLECMDID_GETZOOMRANGE command is used to determine the range of valid zoom values from an object that implements <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-iolecommandtarget">IOleCommandTarget</a>. The caller passes MSOCMDEXECOPT_DONTPROMPTUSER in nCmdExecOpt and <b>NULL</b> for <i>pvaIn</i>. The object returns its zoom range in <i>pvaOut</i> where the HIWORD contains the maximum zoom value and the LOWORD contains the minimum zoom value. Typically this command is used when the user drops down the <b>Zoom</b> control on the toolbar of the UI-active object. The applications and objects that support this command are required to support all the integral zoom values that are within the (min,max) pair they return.
+ * 
+ * 
+ * 
+ * The OLECMDID_ACTIVEXINSTALLSCOPE command notifies Trident to use the indicated Install Scope to install the ActiveX Control specified by the indicated class ID. The Install Scope is passed in a VT_ARRAY in pvaIn of the <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-exec">IOleCommandTarget::Exec</a> method whose elements are as follows.
+ * 
+ * <table>
+ * <tr>
+ * <th>Data</th>
+ * <th>VARIANT Type</th>
+ * <th>Index</th>
+ * </tr>
+ * <tr>
+ * <td>Class ID</td>
+ * <td>VT_BSTR</td>
+ * <td>0</td>
+ * </tr>
+ * <tr>
+ * <td>Install Scope</td>
+ * <td>VT_UI4</td>
+ * <td>1</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * The Install Scope must be one of the following values.
+ * 
+ * <table>
+ * <tr>
+ * <th>Value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>INSTALL_SCOPE_USERS</td>
+ * <td>The ActiveX control should register to HKCU and for the instant user only.
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>INSTALL_SCOPE_MACHINE</td>
+ * <td>The ActiveX control should register to HKLM and across the computer
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * The following is an example use of the OLECMDID_ACTIVEXINSTALLSCOPE command.
+ * 
+ * 
+ * ```cpp
+ * IOleCommandTarget::Exec(
+ * NULL, // Pointer to command group
+ * OLECMDARGINDEX_ACTIVEXINSTALL_INSTALLSCOPE, // ID of command to execute
+ * NULL, // Options
+ * &varArgs, // pvain pointer to input arguments
+ * NULL) // pointer to command output
+ * 
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//docobj/ne-docobj-olecmdid
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319

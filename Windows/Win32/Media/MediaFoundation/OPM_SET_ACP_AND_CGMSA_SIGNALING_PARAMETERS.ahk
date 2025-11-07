@@ -5,9 +5,9 @@
  * Contains information for the OPM_SET_ACP_AND_CGMSA_SIGNALING command in Output Protection Manager (OPM).
  * @remarks
  * 
-  * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/dxva9typ/ns-dxva9typ-dxva_coppsetsignalingcmddata">DXVA_COPPSetSignalingCmdData</a> structure used in Certified Output Protection Manager (COPP).
-  * 
-  * 
+ * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/dxva9typ/ns-dxva9typ-dxva_coppsetsignalingcmddata">DXVA_COPPSetSignalingCmdData</a> structure used in Certified Output Protection Manager (COPP).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_set_acp_and_cgmsa_signaling_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

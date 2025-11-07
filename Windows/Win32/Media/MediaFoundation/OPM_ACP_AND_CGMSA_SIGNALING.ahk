@@ -6,9 +6,9 @@
  * Contains the result from an OPM_GET_ACP_AND_CGMSA_SIGNALING query.
  * @remarks
  * 
-  * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/dxva9typ/ns-dxva9typ-dxva_coppstatussignalingcmddata">DXVA_COPPStatusSignalingCmdData</a> structure used in Certified Output Protection Protocol (COPP).
-  * 
-  * 
+ * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/dxva9typ/ns-dxva9typ-dxva_coppstatussignalingcmddata">DXVA_COPPStatusSignalingCmdData</a> structure used in Certified Output Protection Protocol (COPP).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_acp_and_cgmsa_signaling
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

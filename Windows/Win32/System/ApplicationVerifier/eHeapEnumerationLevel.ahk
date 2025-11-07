@@ -16,8 +16,8 @@ class eHeapEnumerationLevel{
 
     /**
      * A constant that specifies to the <a href="https://docs.microsoft.com/windows/desktop/api/avrfsdk/nf-avrfsdk-verifierenumerateresource">VerifierEnumerateResource</a> function when the enumeration operation should stop.
- * 
- * Codes from 0x1 to 0xFFFFFFE are reserved.
+     * 
+     * Codes from 0x1 to 0xFFFFFFE are reserved.
      * @type {Integer (Int32)}
      */
     static HeapEnumerationStop => -1

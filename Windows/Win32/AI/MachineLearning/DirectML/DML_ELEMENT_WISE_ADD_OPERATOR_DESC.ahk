@@ -5,8 +5,8 @@
  * Adds every element in *ATensor* to its corresponding element in *BTensor*, placing the result into the corresponding element of *OutputTensor*.
  * @remarks
  * A newer version of this operator, [DML_ELEMENT_WISE_ADD1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_add1_operator_desc), was introduced in `DML_FEATURE_LEVEL_2_0`.
-  * 
-  * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_element_wise_add_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319

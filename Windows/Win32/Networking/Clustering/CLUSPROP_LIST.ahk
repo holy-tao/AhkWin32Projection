@@ -8,8 +8,8 @@
  * Accesses the beginning of a property list.
  * @remarks
  * 
-  * For information about property lists, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">Property Lists</a>.
-  * 
+ * For information about property lists, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">Property Lists</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_list
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

@@ -5,7 +5,7 @@
  * 
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//heapapi/ns-heapapi-heap_summary
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319

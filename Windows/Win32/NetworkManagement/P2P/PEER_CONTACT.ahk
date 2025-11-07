@@ -6,9 +6,9 @@
  * The PEER_CONTACT structure contains information about a specific contact.
  * @remarks
  * 
-  * "Contacts" are peers participating in a peer collaboration network who publish presence information available to the local peer. This associated information enables the peer application to "watch" them for updates and peer application or object status changes. Lists of contacts are maintained by the peer collaboration infrastructure, and specific status change events are raised for each individual contact in the list.
-  * 
-  * 
+ * "Contacts" are peers participating in a peer collaboration network who publish presence information available to the local peer. This associated information enables the peer application to "watch" them for updates and peer application or object status changes. Lists of contacts are maintained by the peer collaboration infrastructure, and specific status change events are raised for each individual contact in the list.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_contact
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319

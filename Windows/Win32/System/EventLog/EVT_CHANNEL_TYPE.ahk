@@ -4,9 +4,9 @@
  * Defines the type of a channel.
  * @remarks
  * 
-  * For a description of each channel type, see the <b>type</b> attribute of the <a href="https://docs.microsoft.com/windows/desktop/WES/eventmanifestschema-channeltype-complextype">ChannelType</a> complex type.
-  * 
-  * 
+ * For a description of each channel type, see the <b>type</b> attribute of the <a href="https://docs.microsoft.com/windows/desktop/WES/eventmanifestschema-channeltype-complextype">ChannelType</a> complex type.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_channel_type
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319

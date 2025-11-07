@@ -8,42 +8,42 @@
  * Generates a thumbnail image resource.
  * @remarks
  * 
-  * To instantiate this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> as shown in the code example that follows.
-  * 
-  * 
-  * ```cpp
-  * 
-  * IXpsOMThumbnailGenerator    *newInterface;
-  * 
-  * // Note the implicit requirement that CoInitializeEx 
-  * //  has previously been called from this thread.
-  * 
-  * hr = CoCreateInstance(
-  *       __uuidof(XpsOMThumbnailGenerator),
-  *       NULL, 
-  *       CLSCTX_INPROC_SERVER,
-  *       __uuidof(IXpsOMThumbnailGenerator),
-  *       reinterpret_cast<LPVOID*>(&newInterface)
-  *       );
-  * 
-  * if (SUCCEEDED(hr))
-  * {
-  *     // use newInterface
-  *     newInterface->Release();
-  * }
-  * else
-  * {
-  *     // evaluate HRESULT error returned in hr
-  * }
-  *  
-  * 
-  * ```
-  * 
-  * 
-  * This interface requires XpsRasterService.dll. 
-  * If XpsRasterService.dll is not present when <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> is called to create an <b>IXpsOMThumbnailGenerator</b> instance, <b>CoCreateInstance</b> returns E_FAIL.
-  * 
-  * 
+ * To instantiate this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> as shown in the code example that follows.
+ * 
+ * 
+ * ```cpp
+ * 
+ * IXpsOMThumbnailGenerator    *newInterface;
+ * 
+ * // Note the implicit requirement that CoInitializeEx 
+ * //  has previously been called from this thread.
+ * 
+ * hr = CoCreateInstance(
+ *       __uuidof(XpsOMThumbnailGenerator),
+ *       NULL, 
+ *       CLSCTX_INPROC_SERVER,
+ *       __uuidof(IXpsOMThumbnailGenerator),
+ *       reinterpret_cast<LPVOID*>(&newInterface)
+ *       );
+ * 
+ * if (SUCCEEDED(hr))
+ * {
+ *     // use newInterface
+ *     newInterface->Release();
+ * }
+ * else
+ * {
+ *     // evaluate HRESULT error returned in hr
+ * }
+ *  
+ * 
+ * ```
+ * 
+ * 
+ * This interface requires XpsRasterService.dll. 
+ * If XpsRasterService.dll is not present when <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> is called to create an <b>IXpsOMThumbnailGenerator</b> instance, <b>CoCreateInstance</b> returns E_FAIL.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomthumbnailgenerator
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

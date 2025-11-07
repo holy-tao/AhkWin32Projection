@@ -7,9 +7,9 @@
  * The IMpeg2Stream interface represents a stream of MPEG-2 data. The IMpeg2Data::GetStreamOfSections method returns a pointer to this interface.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMpeg2Stream)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMpeg2Stream)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nn-mpeg2data-impeg2stream
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

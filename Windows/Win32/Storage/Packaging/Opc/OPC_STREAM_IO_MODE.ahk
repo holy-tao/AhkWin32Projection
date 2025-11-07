@@ -4,12 +4,12 @@
  * Describes the read/write status of a stream.
  * @remarks
  * 
-  * <div class="alert"><b>Important</b>  <p class="note">Reading and writing to the same package is not recommended and may result in undefined behavior.
-  * 
-  * </div>
-  * <div> </div>
-  * 
-  * 
+ * <div class="alert"><b>Important</b>  <p class="note">Reading and writing to the same package is not recommended and may result in undefined behavior.
+ * 
+ * </div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msopc/ne-msopc-opc_stream_io_mode
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319

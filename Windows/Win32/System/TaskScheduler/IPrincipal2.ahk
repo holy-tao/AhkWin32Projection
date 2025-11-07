@@ -8,10 +8,10 @@
  * Provides the extended settings applied to security credentials for a principal.
  * @remarks
  * 
-  * When reading or writing XML for a task, the security credentials for a principal are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-principal-principaltype-element">Principal</a> element of the Task Scheduler schema.
-  * 
-  * 
-  * 
+ * When reading or writing XML for a task, the security credentials for a principal are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-principal-principaltype-element">Principal</a> element of the Task Scheduler schema.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-iprincipal2
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

@@ -9,8 +9,8 @@
  * Contains information about a Business Rule (BizRule) operation.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">IAzClientContext::AccessCheck</a> method creates an <b>AzBizRuleContext</b> object before it calls a BizRule script.
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">IAzClientContext::AccessCheck</a> method creates an <b>AzBizRuleContext</b> object before it calls a BizRule script.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazbizrulecontext
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319

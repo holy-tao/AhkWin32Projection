@@ -8,21 +8,21 @@
  * Contains the information needed to create a drag image.
  * @remarks
  * 
-  * In Windows Vista this structure is defined in Shobjidl.idl. Prior to that, it was defined in Shlobj.h.
-  * 
-  * Use the following procedure to create the drag image.
-  * 
-  * <ol>
-  * <li>Create a bitmap of the size specified by <b>sizeDragImage</b> with a handle to a device context (HDC) that is compatible with the screen.</li>
-  * <li>Draw the bitmap.</li>
-  * <li>Select the bitmap out of the HDC it was created with.</li>
-  * <li>Destroy the HDC.</li>
-  * <li>Assign the bitmap handle to <b>hbmpDragImage</b>.</li>
-  * </ol>
-  * <div class="alert"><b>Note</b>  Turn off antialiasing when drawing text. Otherwise, artifacts could occur at the edges, between the text color and the color key.</div>
-  * <div> </div>
-  * 
-  * 
+ * In Windows Vista this structure is defined in Shobjidl.idl. Prior to that, it was defined in Shlobj.h.
+ * 
+ * Use the following procedure to create the drag image.
+ * 
+ * <ol>
+ * <li>Create a bitmap of the size specified by <b>sizeDragImage</b> with a handle to a device context (HDC) that is compatible with the screen.</li>
+ * <li>Draw the bitmap.</li>
+ * <li>Select the bitmap out of the HDC it was created with.</li>
+ * <li>Destroy the HDC.</li>
+ * <li>Assign the bitmap handle to <b>hbmpDragImage</b>.</li>
+ * </ol>
+ * <div class="alert"><b>Note</b>  Turn off antialiasing when drawing text. Otherwise, artifacts could occur at the edges, between the text color and the color key.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-shdragimage
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

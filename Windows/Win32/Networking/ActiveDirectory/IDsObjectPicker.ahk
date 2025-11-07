@@ -8,10 +8,10 @@
  * The IDsObjectPicker interface is used by an application to initialize and display an object picker dialog box. To create an instance of this interface, call CoCreateInstance with the CLSID_DsObjectPicker class identifier as shown below.
  * @remarks
  * 
-  * It is acceptable to create and initialize a single instance of the <b>IDsObjectPicker</b> interface and then make multiple 
-  * calls to <a href="https://docs.microsoft.com/windows/desktop/api/objsel/nf-objsel-idsobjectpicker-invokedialog">InvokeDialog</a> without having to reinitializing the interface.
-  * 
-  * 
+ * It is acceptable to create and initialize a single instance of the <b>IDsObjectPicker</b> interface and then make multiple 
+ * calls to <a href="https://docs.microsoft.com/windows/desktop/api/objsel/nf-objsel-idsobjectpicker-invokedialog">InvokeDialog</a> without having to reinitializing the interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//objsel/nn-objsel-idsobjectpicker
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

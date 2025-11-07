@@ -4,11 +4,11 @@
  * Describes the set of features targeted by a Direct3D device.
  * @remarks
  * 
-  * For an overview of the capabilities of each feature level, see [Direct3D feature levels](/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro).
-  * 
-  * For information about limitations creating non-hardware-type devices on certain feature levels, see [Limitations creating WARP and reference devices](/windows/desktop/direct3d11/overviews-direct3d-11-devices-limitations).
-  * 
-  * 
+ * For an overview of the capabilities of each feature level, see [Direct3D feature levels](/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro).
+ * 
+ * For information about limitations creating non-hardware-type devices on certain feature levels, see [Limitations creating WARP and reference devices](/windows/desktop/direct3d11/overviews-direct3d-11-devices-limitations).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/ne-d3dcommon-d3d_feature_level
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319

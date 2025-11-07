@@ -11,10 +11,10 @@
  * Creates objects for reading and writing app packages.
  * @remarks
  * 
-  * The <b>IAppxFactory</b> interface provides factory methods to create readers and writers of app packages as well as methods to create readers for block maps and manifests outside of a package.
-  * 
-  * 
-  * 
+ * The <b>IAppxFactory</b> interface provides factory methods to create readers and writers of app packages as well as methods to create readers for block maps and manifests outside of a package.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxfactory
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319

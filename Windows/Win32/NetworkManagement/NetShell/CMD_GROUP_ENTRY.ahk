@@ -5,11 +5,11 @@
  * Defines a group of helper commands.
  * @remarks
  * 
-  * Macros are available that can simplify the creation of the 
-  * <b>CMD_GROUP_ENTRY</b> structure, as follows:
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>#define CREATE_CMD_GROUP_ENTRY_EX(t,s,i)       {CMD_##t, HLP_##t, sizeof(s)/sizeof(CMD_ENTRY), i, s, NULL }
-  * 
+ * Macros are available that can simplify the creation of the 
+ * <b>CMD_GROUP_ENTRY</b> structure, as follows:
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>#define CREATE_CMD_GROUP_ENTRY_EX(t,s,i)       {CMD_##t, HLP_##t, sizeof(s)/sizeof(CMD_ENTRY), i, s, NULL }
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netsh/ns-netsh-cmd_group_entry
  * @namespace Windows.Win32.NetworkManagement.NetShell
  * @version v4.0.30319

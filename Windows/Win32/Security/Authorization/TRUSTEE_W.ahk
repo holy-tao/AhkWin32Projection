@@ -5,45 +5,45 @@
  * Identifies the user account, group account, or logon session to which an access control entry (ACE) applies.
  * @remarks
  * 
-  * A trustee name can have any of the following formats:
-  * 
-  * <ul>
-  * <li>A fully qualified name, such as "g:\remotedir\abc".</li>
-  * <li>A domain account, such as "domain1\xyz".</li>
-  * <li>One of the predefined group names, such as "EVERYONE" or "GUEST".</li>
-  * <li>One of the following special names. <table>
-  * <tr>
-  * <th>Name</th>
-  * <th>Meaning</th>
-  * </tr>
-  * <tr>
-  * <td>CREATOR GROUP</td>
-  * <td>The CREATOR_GROUP SID is a SID used in inheritable ACEs. When a new object is created, the system replaces this SID with the primary group SID of the user who created the object.</td>
-  * </tr>
-  * <tr>
-  * <td>CREATOR OWNER</td>
-  * <td>The CREATOR_OWNER SID is a SID used in inheritable ACEs. When a new object is created, the system replaces this SID with the SID of the user who created the object.</td>
-  * </tr>
-  * <tr>
-  * <td>CURRENT_USER</td>
-  * <td>The owner of the calling thread or process.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * </li>
-  * </ul>
-  * A trustee SID can be any user or group SID. It can also be any of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">universal, well-known SIDs</a>. For more information, see 
-  * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a>.
-  * 
-  * 
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The accctrl.h header defines TRUSTEE_ as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
-  * 
+ * A trustee name can have any of the following formats:
+ * 
+ * <ul>
+ * <li>A fully qualified name, such as "g:\remotedir\abc".</li>
+ * <li>A domain account, such as "domain1\xyz".</li>
+ * <li>One of the predefined group names, such as "EVERYONE" or "GUEST".</li>
+ * <li>One of the following special names. <table>
+ * <tr>
+ * <th>Name</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td>CREATOR GROUP</td>
+ * <td>The CREATOR_GROUP SID is a SID used in inheritable ACEs. When a new object is created, the system replaces this SID with the primary group SID of the user who created the object.</td>
+ * </tr>
+ * <tr>
+ * <td>CREATOR OWNER</td>
+ * <td>The CREATOR_OWNER SID is a SID used in inheritable ACEs. When a new object is created, the system replaces this SID with the SID of the user who created the object.</td>
+ * </tr>
+ * <tr>
+ * <td>CURRENT_USER</td>
+ * <td>The owner of the calling thread or process.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * </li>
+ * </ul>
+ * A trustee SID can be any user or group SID. It can also be any of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">universal, well-known SIDs</a>. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a>.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The accctrl.h header defines TRUSTEE_ as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//accctrl/ns-accctrl-trustee_w
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319

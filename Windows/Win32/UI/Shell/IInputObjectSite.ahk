@@ -7,12 +7,12 @@
  * Exposes a method that is used to communicate focus changes for a user input object contained in the Shell.
  * @remarks
  * 
-  * You do not typically implement this interface. <b>IInputObjectSite</b> is implemented by the Shell or the browser to properly maintain the input focus.
-  * 
-  * You use <b>IInputObjectSite</b> if you are implementing a Shell object that takes user input.
-  * 
-  * <b>IInputObjectSite</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. The listed method is specific to <b>IInputObjectSite</b>.
-  * 
+ * You do not typically implement this interface. <b>IInputObjectSite</b> is implemented by the Shell or the browser to properly maintain the input focus.
+ * 
+ * You use <b>IInputObjectSite</b> if you are implementing a Shell object that takes user input.
+ * 
+ * <b>IInputObjectSite</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. The listed method is specific to <b>IInputObjectSite</b>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iinputobjectsite
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

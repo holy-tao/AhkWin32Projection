@@ -6,81 +6,81 @@
  * Specifies settings for a time zone and dynamic daylight saving time.
  * @remarks
  * 
-  * Dynamic daylight saving time provides support for time zones whose boundaries for daylight saving time change 
-  *     from year to year. This feature enables easier updating of systems, especially for locales where the yearly DST 
-  *     boundaries are known in advance. After the time zone has been updated, the current time zone setting is applied to 
-  *     all time operations, even when the time in question occurred before the time zone changed. Therefore, it is best 
-  *     to store UTC times and convert them to the current local time zone.
-  * 
-  * You can set the transition dates for the current year using the 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-setdynamictimezoneinformation">SetDynamicTimeZoneInformation</a> function. 
-  *      To set future transition dates, you must add entries to the registry data. The settings for dynamic daylight time 
-  *      are stored in the following registry key:
-  * 
-  * 
-  * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
-  *    <b>SOFTWARE</b>
-  *       <b>Microsoft</b>
-  *          <b>Windows NT</b>
-  *             <b>CurrentVersion</b>
-  *                <b>Time Zones</b>
-  *                   <i>time_zone_name</i>
-  *                      <b>Dynamic DST</b></pre>
-  * 
-  * 
-  * Each <b>Dynamic DST</b> key includes the following registry values.
-  * 
-  * <table>
-  * <tr>
-  * <th>Registry value</th>
-  * <th>Type</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td><b>FirstEntry</b></td>
-  * <td><b>REG_DWORD</b></td>
-  * <td>The first year in the table.</td>
-  * </tr>
-  * <tr>
-  * <td><b>LastEntry</b></td>
-  * <td><b>REG_DWORD</b></td>
-  * <td>The last year in the table.</td>
-  * </tr>
-  * <tr>
-  * <td><i>year1</i></td>
-  * <td><b>REG_BINARY</b></td>
-  * <td>
-  * The following time zone information.
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>typedef struct _REG_TZI_FORMAT
-  * {
-  *     LONG Bias;
-  *     LONG StandardBias;
-  *     LONG DaylightBias;
-  *     SYSTEMTIME StandardDate;
-  *     SYSTEMTIME DaylightDate;
-  * } REG_TZI_FORMAT;</code></pre>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td><i>year2</i></td>
-  * <td><b>REG_BINARY</b></td>
-  * <td>A <b>REG_TZI_FORMAT</b> structure.</td>
-  * </tr>
-  * <tr>
-  * <td><i>yearN</i></td>
-  * <td><b>REG_BINARY</b></td>
-  * <td>A <b>REG_TZI_FORMAT</b> structure.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * For more information on other values in the <b>Time Zones</b> key, see 
-  *      <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a>.
-  * 
-  *  Both <b>StandardName</b> and <b>DaylightName</b> are localized according to the current user default UI language.
-  * 
-  * 
+ * Dynamic daylight saving time provides support for time zones whose boundaries for daylight saving time change 
+ *     from year to year. This feature enables easier updating of systems, especially for locales where the yearly DST 
+ *     boundaries are known in advance. After the time zone has been updated, the current time zone setting is applied to 
+ *     all time operations, even when the time in question occurred before the time zone changed. Therefore, it is best 
+ *     to store UTC times and convert them to the current local time zone.
+ * 
+ * You can set the transition dates for the current year using the 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-setdynamictimezoneinformation">SetDynamicTimeZoneInformation</a> function. 
+ *      To set future transition dates, you must add entries to the registry data. The settings for dynamic daylight time 
+ *      are stored in the following registry key:
+ * 
+ * 
+ * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>Time Zones</b>
+ *                   <i>time_zone_name</i>
+ *                      <b>Dynamic DST</b></pre>
+ * 
+ * 
+ * Each <b>Dynamic DST</b> key includes the following registry values.
+ * 
+ * <table>
+ * <tr>
+ * <th>Registry value</th>
+ * <th>Type</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td><b>FirstEntry</b></td>
+ * <td><b>REG_DWORD</b></td>
+ * <td>The first year in the table.</td>
+ * </tr>
+ * <tr>
+ * <td><b>LastEntry</b></td>
+ * <td><b>REG_DWORD</b></td>
+ * <td>The last year in the table.</td>
+ * </tr>
+ * <tr>
+ * <td><i>year1</i></td>
+ * <td><b>REG_BINARY</b></td>
+ * <td>
+ * The following time zone information.
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>typedef struct _REG_TZI_FORMAT
+ * {
+ *     LONG Bias;
+ *     LONG StandardBias;
+ *     LONG DaylightBias;
+ *     SYSTEMTIME StandardDate;
+ *     SYSTEMTIME DaylightDate;
+ * } REG_TZI_FORMAT;</code></pre>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td><i>year2</i></td>
+ * <td><b>REG_BINARY</b></td>
+ * <td>A <b>REG_TZI_FORMAT</b> structure.</td>
+ * </tr>
+ * <tr>
+ * <td><i>yearN</i></td>
+ * <td><b>REG_BINARY</b></td>
+ * <td>A <b>REG_TZI_FORMAT</b> structure.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * For more information on other values in the <b>Time Zones</b> key, see 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a>.
+ * 
+ *  Both <b>StandardName</b> and <b>DaylightName</b> are localized according to the current user default UI language.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/ns-timezoneapi-dynamic_time_zone_information
  * @namespace Windows.Win32.System.Time
  * @version v4.0.30319

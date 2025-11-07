@@ -5,14 +5,14 @@
  * The in_addr structure represents an IPv4 Internet address.
  * @remarks
  * 
-  * The <b>in_addr</b> structure is used with IPv4 addresses. 
-  * 
-  * The <b>in_addr</b> structure is the IPv4 equivalent of the IPv6-based <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms738560(v=vs.85)">in6_addr</a> structure.  
-  * 
-  * <div class="alert"><b>Note</b>  The <b>IN_ADDR</b>, <b>PIN_ADDR</b>, and  <b>LPIN_ADDR</b> derived structures are only defined on the Windows SDK released with Windows Vista and later. The <b>IN_ADDR</b>, <b>PIN_ADDR</b>, and  <b>LPIN_ADDR</b> derived structures are defined in the <i>Inaddr.h</i> header file. On earlier versions of the Windows SDK, variables of this type should be declared as <b>struct in_addr</b>. </div>
-  * <div> </div>
-  * 
-  * 
+ * The <b>in_addr</b> structure is used with IPv4 addresses. 
+ * 
+ * The <b>in_addr</b> structure is the IPv4 equivalent of the IPv6-based <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms738560(v=vs.85)">in6_addr</a> structure.  
+ * 
+ * <div class="alert"><b>Note</b>  The <b>IN_ADDR</b>, <b>PIN_ADDR</b>, and  <b>LPIN_ADDR</b> derived structures are only defined on the Windows SDK released with Windows Vista and later. The <b>IN_ADDR</b>, <b>PIN_ADDR</b>, and  <b>LPIN_ADDR</b> derived structures are defined in the <i>Inaddr.h</i> header file. On earlier versions of the Windows SDK, variables of this type should be declared as <b>struct in_addr</b>. </div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-in_addr
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

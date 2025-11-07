@@ -52,8 +52,8 @@ class D3D11_VIDEO_PROCESSOR_FILTER{
 
     /**
      * Stereo adjustment filter. When stereo 3D video is enabled, this filter adjusts the offset between the left and right views, allowing the user to reduce potential eye strain. 
- * 
- * The filter value indicates the amount by which the left and right views are adjusted.  A positive value shifts the images away from each other: the left image toward the left, and the right image toward the right. A negative value shifts the images in the opposite directions, closer to each other.
+     * 
+     * The filter value indicates the amount by which the left and right views are adjusted.  A positive value shifts the images away from each other: the left image toward the left, and the right image toward the right. A negative value shifts the images in the opposite directions, closer to each other.
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_PROCESSOR_FILTER_STEREO_ADJUSTMENT => 7

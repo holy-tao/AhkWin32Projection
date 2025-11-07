@@ -8,8 +8,8 @@
  * Allows applications to decrypt a key attestation challenge received from a server.
  * @remarks
  * 
-  * If the challenge is successfully decrypted, the decrypted secret needs to be sent back to the server so that an attested end entity certificate can be issued.
-  * 
+ * If the challenge is successfully decrypted, the decrypted secret needs to be sent back to the server so that an attested end entity certificate can be issued.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertificateattestationchallenge
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319

@@ -8,9 +8,9 @@
  * Represents a buffer which contains media data for a IMFMediaSourceExtension.
  * @remarks
  * 
-  * <b>IMFSourceBuffer</b> is used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediasourceextension">IMFMediaSourceExtension</a>.
-  * 
-  * 
+ * <b>IMFSourceBuffer</b> is used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediasourceextension">IMFMediaSourceExtension</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfsourcebuffer
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

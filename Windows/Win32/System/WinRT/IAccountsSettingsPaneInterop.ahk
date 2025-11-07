@@ -7,7 +7,7 @@
  * 
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//accountssettingspaneinterop/nn-accountssettingspaneinterop-iaccountssettingspaneinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

@@ -16,8 +16,8 @@ class _MFT_PROCESS_OUTPUT_FLAGS{
 
     /**
      * Regenerates the last output sample. This flag is only used by video processing MFTs.
- * 
- * <b>Note</b> Requires Windows 8.
+     * 
+     * <b>Note</b> Requires Windows 8.
      * @type {Integer (Int32)}
      */
     static MFT_PROCESS_OUTPUT_REGENERATE_LAST_OUTPUT => 2

@@ -8,9 +8,9 @@
  * Provides access to data relating to a specific event.
  * @remarks
  * 
-  * This interface is not supported on Windows 7 for the IA64 architecture.
-  * 
-  * 
+ * This interface is not supported on Windows 7 for the IA64 architecture.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//relogger/nn-relogger-itraceevent
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

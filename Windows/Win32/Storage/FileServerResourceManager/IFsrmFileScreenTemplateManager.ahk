@@ -10,12 +10,12 @@
  * Used to manage file screen templates.
  * @remarks
  * 
-  * Note that a new installation of the operating system includes FSRM-defined templates.
-  * 
-  * To create this object from a script, use the "Fsrm.FsrmFileScreenTemplateManager" program 
-  *     identifier.
-  * 
-  * 
+ * Note that a new installation of the operating system includes FSRM-defined templates.
+ * 
+ * To create this object from a script, use the "Fsrm.FsrmFileScreenTemplateManager" program 
+ *     identifier.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nn-fsrmscreen-ifsrmfilescreentemplatemanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

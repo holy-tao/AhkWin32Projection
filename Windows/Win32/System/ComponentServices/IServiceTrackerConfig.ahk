@@ -7,9 +7,9 @@
  * Configures the tracker property for the work that is done when calling either CoCreateActivity or CoEnterServiceDomain.
  * @remarks
  * 
-  * The tracker property is a reporting mechanism used by monitoring code to watch which code is running when. It is the reporting mechanism behind the spinning balls in the Component Services administrative tool.
-  * 
-  * 
+ * The tracker property is a reporting mechanism used by monitoring code to watch which code is running when. It is the reporting mechanism behind the spinning balls in the Component Services administrative tool.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iservicetrackerconfig
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319

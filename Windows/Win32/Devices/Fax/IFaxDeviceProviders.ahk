@@ -9,8 +9,8 @@
  * The IFaxDeviceProviders interface defines a configuration collection which contains the fax device providers on a connected fax server.
  * @remarks
  * 
-  * A default implementation of <b>IFaxDeviceProviders</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdeviceproviders">FaxDeviceProviders</a> object.
-  * 
+ * A default implementation of <b>IFaxDeviceProviders</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdeviceproviders">FaxDeviceProviders</a> object.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxdeviceproviders
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319

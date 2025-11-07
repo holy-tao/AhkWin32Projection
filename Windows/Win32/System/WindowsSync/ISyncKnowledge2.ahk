@@ -9,9 +9,9 @@
  * Represents additional information about the knowledge that a replica has about its item store.
  * @remarks
  * 
-  * An <b>ISyncKnowledge2</b> object can be obtained by passing <b>IID_ISyncKnowledge2</b> to the <b>QueryInterface</b> method of an <b>ISyncKnowledge</b> object.
-  * 
-  * 
+ * An <b>ISyncKnowledge2</b> object can be obtained by passing <b>IID_ISyncKnowledge2</b> to the <b>QueryInterface</b> method of an <b>ISyncKnowledge</b> object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncknowledge2
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

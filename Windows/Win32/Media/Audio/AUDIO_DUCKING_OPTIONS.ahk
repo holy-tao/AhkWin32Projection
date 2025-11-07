@@ -4,7 +4,7 @@
  * Specifies audio ducking options. Use values from this enumeration when calling IAudioClientDuckingControl::SetDuckingOptionsForCurrentStream
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audioclient/ne-audioclient-audio_ducking_options
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319

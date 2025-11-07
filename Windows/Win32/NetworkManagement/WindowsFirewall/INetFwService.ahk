@@ -9,13 +9,13 @@
  * The INetFwService interface provides access to the properties of a service that may be authorized to listen through the firewall.
  * @remarks
  * 
-  * Instances of this interface are retrieved
-  * through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwservices">INetFwServices</a> collection. 
-  * 
-  * All configuration changes take
-  * effect immediately.
-  * 
-  * 
+ * Instances of this interface are retrieved
+ * through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwservices">INetFwServices</a> collection. 
+ * 
+ * All configuration changes take
+ * effect immediately.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwservice
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

@@ -4,7 +4,7 @@
  * Specifies the scope of a profile management operation, such as associating a profile with a device.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//icm/ne-icm-wcs_profile_management_scope
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319

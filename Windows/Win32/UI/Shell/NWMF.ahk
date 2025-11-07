@@ -28,11 +28,11 @@ class NWMF{
 
     /**
      * The override key (ALT) was pressed. The override key is used to bypass the pop-up manager—allowing all pop-up windows to display—and must be held down at the time that <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-inewwindowmanager-evaluatenewwindow">INewWindowManager::EvaluateNewWindow</a> is called. 
- *             
- *                 
- * 
- * <div class="alert"><b>Note</b>  When <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-inewwindowmanager-evaluatenewwindow">INewWindowManager::EvaluateNewWindow</a> is implemented for a <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa752040(v=vs.85)">WebBrowser</a> control host, the implementer can choose to ignore the override key.</div>
- * <div> </div>
+     *             
+     *                 
+     * 
+     * <div class="alert"><b>Note</b>  When <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-inewwindowmanager-evaluatenewwindow">INewWindowManager::EvaluateNewWindow</a> is implemented for a <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa752040(v=vs.85)">WebBrowser</a> control host, the implementer can choose to ignore the override key.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static NWMF_OVERRIDEKEY => 8

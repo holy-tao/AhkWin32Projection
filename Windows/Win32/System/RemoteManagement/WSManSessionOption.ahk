@@ -118,9 +118,9 @@ class WSManSessionOption{
 
     /**
      * The redirect location.
- * 
- * <div class="alert"><b>Note</b>  It is recommended that all redirection use Secure Sockets Layer (SSL) and that all applications validate the redirected URI before creating a new session.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  It is recommended that all redirection use Secure Sockets Layer (SSL) and that all applications validate the redirected URI before creating a new session.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WSMAN_OPTION_REDIRECT_LOCATION => 30

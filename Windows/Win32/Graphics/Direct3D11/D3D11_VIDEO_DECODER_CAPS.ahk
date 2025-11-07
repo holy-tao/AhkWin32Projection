@@ -16,8 +16,8 @@ class D3D11_VIDEO_DECODER_CAPS{
 
     /**
      * Indicates that the decoding hardware cannot support the decode operation in real-time. Decoding is still supported for transcoding scenarios.
- * 
- * With this capability, it is possible that decoding can occur in real-time if downsampling is enabled.
+     * 
+     * With this capability, it is possible that decoding can occur in real-time if downsampling is enabled.
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_DECODER_CAPS_NON_REAL_TIME => 2

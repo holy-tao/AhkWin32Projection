@@ -28,8 +28,8 @@ class CF_CONNECT_FLAGS{
 
     /**
      * <b>Note</b>  This value is new for Windows 10, version 1803.
- * 
- * When this flag is specified, The implicit hydration, which is not performed via <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfhydrateplaceholder">CfHydratePlaceholder</a>, can happen when the anti-virus software scans a sync provider’s file system activities on non-hydrated cloud file placeholders. This kind of implicit hydration is not expected. If the sync provider never initiates implicit hydration operations, it can instruct the platform to block all such implicit hydration operations, as opposed to failing the <b>FETCH_DATA</b> callbacks later.
+     * 
+     * When this flag is specified, The implicit hydration, which is not performed via <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfhydrateplaceholder">CfHydratePlaceholder</a>, can happen when the anti-virus software scans a sync provider’s file system activities on non-hydrated cloud file placeholders. This kind of implicit hydration is not expected. If the sync provider never initiates implicit hydration operations, it can instruct the platform to block all such implicit hydration operations, as opposed to failing the <b>FETCH_DATA</b> callbacks later.
      * @type {Integer (Int32)}
      */
     static CF_CONNECT_FLAG_BLOCK_SELF_IMPLICIT_HYDRATION => 8

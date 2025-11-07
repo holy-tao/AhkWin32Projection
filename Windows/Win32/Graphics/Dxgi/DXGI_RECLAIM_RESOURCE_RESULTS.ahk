@@ -22,7 +22,7 @@ class DXGI_RECLAIM_RESOURCE_RESULTS{
 
     /**
      * Both the surface and its contents are lost and invalid. The surface must be 
- * recreated and the content regenerated in order to be used. All future use of that resource is invalid. Attempts to bind it to the pipeline or map a resource which returns this value will never succeed, and the resource cannot be reclaimed again.
+     * recreated and the content regenerated in order to be used. All future use of that resource is invalid. Attempts to bind it to the pipeline or map a resource which returns this value will never succeed, and the resource cannot be reclaimed again.
      * @type {Integer (Int32)}
      */
     static DXGI_RECLAIM_RESOURCE_RESULT_NOT_COMMITTED => 2

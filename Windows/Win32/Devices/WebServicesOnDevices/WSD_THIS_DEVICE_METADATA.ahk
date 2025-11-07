@@ -5,22 +5,22 @@
  * Specifies metadata that is unique to a specific device.
  * @remarks
  * 
-  * ThisDevice metadata follows this form:
-  * 
-  * 
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>&lt;wsd:ThisDevice&gt;
-  *     &lt;wsd:FriendlyName&gt;
-  *         A. Datum WebWeigh Scale
-  *     &lt;/wsd:FriendlyName&gt;
-  *     &lt;wsd:FirmwareVersion&gt;
-  *         2.53c
-  *     &lt;/wsd:FirmwareVersion&gt;
-  *     &lt;wsd:SerialNumber&gt;
-  *         923450982349058
-  *     &lt;/wsd:SerialNumber&gt;
-  *  &lt;/wsd:ThisDevice&gt;</code></pre>
-  * 
+ * ThisDevice metadata follows this form:
+ * 
+ * 
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>&lt;wsd:ThisDevice&gt;
+ *     &lt;wsd:FriendlyName&gt;
+ *         A. Datum WebWeigh Scale
+ *     &lt;/wsd:FriendlyName&gt;
+ *     &lt;wsd:FirmwareVersion&gt;
+ *         2.53c
+ *     &lt;/wsd:FirmwareVersion&gt;
+ *     &lt;wsd:SerialNumber&gt;
+ *         923450982349058
+ *     &lt;/wsd:SerialNumber&gt;
+ *  &lt;/wsd:ThisDevice&gt;</code></pre>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_this_device_metadata
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319

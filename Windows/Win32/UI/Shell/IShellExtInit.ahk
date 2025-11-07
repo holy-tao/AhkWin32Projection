@@ -7,12 +7,12 @@
  * Exposes a method that initializes Shell extensions for property sheets, shortcut menus, and drag-and-drop handlers (extensions that add items to shortcut menus during nondefault drag-and-drop operations).
  * @remarks
  * 
-  * Implement <b>IShellExtInit</b> when you are writing a handler based on the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellpropsheetext">IShellPropSheetExt</a> interface.
-  * 
-  * Note that Shell extensions based on other interfaces do not use this method of initialization.
-  * 
-  * You do not use this interface directly. The Shell calls it to initialize the handler.
-  * 
+ * Implement <b>IShellExtInit</b> when you are writing a handler based on the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellpropsheetext">IShellPropSheetExt</a> interface.
+ * 
+ * Note that Shell extensions based on other interfaces do not use this method of initialization.
+ * 
+ * You do not use this interface directly. The Shell calls it to initialize the handler.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ishellextinit
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

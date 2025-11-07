@@ -52,54 +52,54 @@ class IKEEXT_AUTHENTICATION_METHOD_TYPE{
 
     /**
      * Specifies Elliptic Curve Digital Signature Algorithm (ECDSA) 256 certificate authentication method. Available only for IKE and IKEv2.
- * 
- * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IKEEXT_CERTIFICATE_ECDSA_P256 => 7
 
     /**
      * Specifies ECDSA-384 certificate authentication method. Available only for IKE and IKEv2.
- * 
- * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IKEEXT_CERTIFICATE_ECDSA_P384 => 8
 
     /**
      * Specifies ECDSA-256 SSL authentication method. Available only for AuthIP.
- * 
- * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IKEEXT_SSL_ECDSA_P256 => 9
 
     /**
      * Specifies ECDSA-384 SSL authentication method. Available only for AuthIP.
- * 
- * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only on Windows Server 2008, Windows Vista with SP1, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IKEEXT_SSL_ECDSA_P384 => 10
 
     /**
      * Specifies Extensible Authentication Protocol (EAP) authentication method. Available only for IKEv2.
- * 
- * <div class="alert"><b>Note</b>  Available only on Windows Server 2008 R2, Windows 7, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only on Windows Server 2008 R2, Windows 7, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IKEEXT_EAP => 11
 
     /**
      * Reserved. Do not use.
- * 
- * <div class="alert"><b>Note</b>  Available only on Windows Server 2012, Windows 8, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only on Windows Server 2012, Windows 8, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IKEEXT_RESERVED => 12

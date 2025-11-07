@@ -10,11 +10,11 @@
  * The IMSVidGraphSegmentContainer interface is exposed by the Video Control and contains one supported method, get_Graph, which obtains a pointer to the Filter Graph Manager.
  * @remarks
  * 
-  * This interface has additional methods besides the one shown here, but they are not supported.
-  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidGraphSegmentContainer)</c>.
-  * 
-  * 
+ * This interface has additional methods besides the one shown here, but they are not supported.
+ * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidGraphSegmentContainer)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidgraphsegmentcontainer
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

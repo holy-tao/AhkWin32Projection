@@ -4,11 +4,11 @@
  * Defines the rights that may be specified in a DRM license.
  * @remarks
  * 
-  * These values are bit flags, so one or more can be set by combining them with the bitwise <b>OR</b> operator.
-  * 
-  * When using Windows Media DRM 10, <b>WMT_RIGHT_COPY_TO_NON_SDMI_DEVICE</b>, <b>WMT_RIGHT_COPY_TO_SDMI_DEVICE</b>, and <b>WMT_RIGHT_COPY_TO_CD</b> are superseded by <b>WMT_RIGHT_COPY</b>. Limitations on the devices to which the content may be copied are specified by using output protection levels (OPLs).
-  * 
-  * 
+ * These values are bit flags, so one or more can be set by combining them with the bitwise <b>OR</b> operator.
+ * 
+ * When using Windows Media DRM 10, <b>WMT_RIGHT_COPY_TO_NON_SDMI_DEVICE</b>, <b>WMT_RIGHT_COPY_TO_SDMI_DEVICE</b>, and <b>WMT_RIGHT_COPY_TO_CD</b> are superseded by <b>WMT_RIGHT_COPY</b>. Limitations on the devices to which the content may be copied are specified by using output protection levels (OPLs).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_rights
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319

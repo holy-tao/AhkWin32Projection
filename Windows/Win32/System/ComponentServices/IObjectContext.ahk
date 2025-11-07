@@ -8,9 +8,9 @@
  * Provides access to the current object's context. An object's context is primarily used when working with transactions or dealing with the security of an object.
  * @remarks
  * 
-  * As with any COM object, you must release an <b>IObjectContext</b> object when you are finished using it, unless it is a local variable.
-  * 
-  * 
+ * As with any COM object, you must release an <b>IObjectContext</b> object when you are finished using it, unless it is a local variable.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iobjectcontext
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319

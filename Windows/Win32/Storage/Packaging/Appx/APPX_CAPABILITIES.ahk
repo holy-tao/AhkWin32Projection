@@ -4,9 +4,9 @@
  * Specifies the capabilities or privileges requested by a package.
  * @remarks
  * 
-  * The <b>APPX_CAPABILITIES</b> enumeration specifies privileges that a package declares in the package manifest. If a capability is not explicitly declared, then the default is no access to that capability. If a capability is declared then  a package may still not have the particular capability for reasons such as the capability does not exist on the system or there are other security policies in place that limit the capability.
-  * 
-  * 
+ * The <b>APPX_CAPABILITIES</b> enumeration specifies privileges that a package declares in the package manifest. If a capability is not explicitly declared, then the default is no access to that capability. If a capability is declared then  a package may still not have the particular capability for reasons such as the capability does not exist on the system or there are other security policies in place that limit the capability.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/ne-appxpackaging-appx_capabilities
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319

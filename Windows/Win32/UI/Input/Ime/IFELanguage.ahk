@@ -8,8 +8,8 @@
  * The IFELanguage interface provides language processing services using the Microsoft IME.
  * @remarks
  * 
-  * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifelanguageinstance">CreateIFELanguageInstance</a> function.
-  * 
+ * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifelanguageinstance">CreateIFELanguageInstance</a> function.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msime/nn-msime-ifelanguage
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319

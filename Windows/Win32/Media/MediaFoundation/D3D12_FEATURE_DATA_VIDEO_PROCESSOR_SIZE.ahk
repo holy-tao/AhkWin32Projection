@@ -5,7 +5,7 @@
  * Describes the allocation size of a video decoder heap.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_feature_data_video_processor_size
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

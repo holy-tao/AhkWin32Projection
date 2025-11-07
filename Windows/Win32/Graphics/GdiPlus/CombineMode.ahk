@@ -28,8 +28,8 @@ class CombineMode{
 
     /**
      * Specifies that the existing region is replaced by the result of performing an 
- * 				<b>XOR</b> on the two regions. A point is in the 
- * 				<b>XOR</b> of two regions if it is in one region or the other but not in both regions.
+     * 				<b>XOR</b> on the two regions. A point is in the 
+     * 				<b>XOR</b> of two regions if it is in one region or the other but not in both regions.
      * @type {Integer (Int32)}
      */
     static CombineModeXor => 3

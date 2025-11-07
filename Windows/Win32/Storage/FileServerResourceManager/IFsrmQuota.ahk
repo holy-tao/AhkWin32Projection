@@ -8,9 +8,9 @@
  * Used to define a quota for a specified directory and to retrieve use statistics.
  * @remarks
  * 
-  * A quota limits the amount of data that the system or any user can store in a directory.
-  * 
-  * 
+ * A quota limits the amount of data that the system or any user can store in a directory.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nn-fsrmquota-ifsrmquota
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

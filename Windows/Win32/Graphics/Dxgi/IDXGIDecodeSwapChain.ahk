@@ -8,15 +8,15 @@
  * Represents a swap chain that is used by desktop media apps to decode video data and show it on a DirectComposition surface.
  * @remarks
  * 
-  * Decode swap chains are intended for use primarily with YUV surface formats. When using decode buffers created with an RGB surface format, the <i>TargetRect</i> and <i>DestSize</i> must be set equal to the buffer dimensions. <i>SourceRect</i> cannot exceed the buffer dimensions.
-  *       
-  * 
-  * In clone mode, the decode swap chain is only guaranteed to be shown on the primary output.
-  *       
-  * 
-  * Decode swap chains cannot be used with dirty rects.
-  * 
-  * 
+ * Decode swap chains are intended for use primarily with YUV surface formats. When using decode buffers created with an RGB surface format, the <i>TargetRect</i> and <i>DestSize</i> must be set equal to the buffer dimensions. <i>SourceRect</i> cannot exceed the buffer dimensions.
+ *       
+ * 
+ * In clone mode, the decode swap chain is only guaranteed to be shown on the primary output.
+ *       
+ * 
+ * Decode swap chains cannot be used with dirty rects.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nn-dxgi1_3-idxgidecodeswapchain
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

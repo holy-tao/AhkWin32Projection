@@ -7,9 +7,9 @@
  * Provides a timer that invokes a callback at a specified time.
  * @remarks
  * 
-  * The presentation clock exposes this interface. To get a pointer to the interface, call <b>QueryInterface</b>.
-  * 
-  * 
+ * The presentation clock exposes this interface. To get a pointer to the interface, call <b>QueryInterface</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imftimer
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

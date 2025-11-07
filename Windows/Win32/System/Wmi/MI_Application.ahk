@@ -5,9 +5,9 @@
  * Represents the initialized infrastructure.
  * @remarks
  * 
-  * This structure can be initialized to <b>MI_APPLICATION_NULL</b>.
-  * 
-  * 
+ * This structure can be initialized to <b>MI_APPLICATION_NULL</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_application
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319

@@ -4,9 +4,9 @@
  * Specifies how to output a 3D stereoscopic video stream.
  * @remarks
  * 
-  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-enable-3dvideo-output">MF_ENABLE_3DVIDEO_OUTPUT</a> attribute.
-  * 
-  * 
+ * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-enable-3dvideo-output">MF_ENABLE_3DVIDEO_OUTPUT</a> attribute.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mftransform/ne-mftransform-mf3dvideooutputtype
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

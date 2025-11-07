@@ -10,9 +10,9 @@
  * A shader-reflection interface accesses shader information.
  * @remarks
  * 
-  * This interface requires Windows Vista Service Pack 1.
-  * 
-  * 
+ * This interface requires Windows Vista Service Pack 1.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/nn-d3d10_1shader-id3d10shaderreflection1
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

@@ -4,7 +4,7 @@
  * Specifies the interlace type of coded video frames.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_frame_coded_interlace_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -7,25 +7,25 @@
  * An interface from which ID3D12GraphicsCommandList inherits from. It represents an ordered set of commands that the GPU executes, while allowing for extension to support other command lists than just those for graphics (such as compute and copy).
  * @remarks
  * 
-  * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandlist">ID3D12Device::CreateCommandList</a> to create a command list object.
-  *       
-  * 
-  * See also <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist">ID3D12GraphicsCommandList</a>, which derives from ID3D12CommandList.
-  *       
-  * 
-  * A command list corresponds to a set of commands that the graphics processing unit (GPU) executes.  Commands set state, draw, clear, copy, and so on.  
-  * 
-  * Direct3D 12 command lists only support these 2 levels of indirection:
-  *           
-  * 
-  * <ul>
-  * <li>A direct command list corresponds to a command buffer that the GPU can execute.
-  *           </li>
-  * <li>A bundle can be executed only directly via a direct command list.
-  *           </li>
-  * </ul>
-  * 
-  * 
+ * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandlist">ID3D12Device::CreateCommandList</a> to create a command list object.
+ *       
+ * 
+ * See also <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist">ID3D12GraphicsCommandList</a>, which derives from ID3D12CommandList.
+ *       
+ * 
+ * A command list corresponds to a set of commands that the graphics processing unit (GPU) executes.  Commands set state, draw, clear, copy, and so on.  
+ * 
+ * Direct3D 12 command lists only support these 2 levels of indirection:
+ *           
+ * 
+ * <ul>
+ * <li>A direct command list corresponds to a command buffer that the GPU can execute.
+ *           </li>
+ * <li>A bundle can be executed only directly via a direct command list.
+ *           </li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12commandlist
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

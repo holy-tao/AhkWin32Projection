@@ -8,11 +8,11 @@
  * Exposes methods that initialize, show, and get results from the common file dialog.
  * @remarks
  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * <b>IFileDialog</b> is implemented by the common file open dialog (CLSID_FileOpenDialog) and
-  * file save dialog (CLSID_FileSaveDialog).
-  * 
-  * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * <b>IFileDialog</b> is implemented by the common file open dialog (CLSID_FileOpenDialog) and
+ * file save dialog (CLSID_FileSaveDialog).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ifiledialog
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

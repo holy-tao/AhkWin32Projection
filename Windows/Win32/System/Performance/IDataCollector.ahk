@@ -10,54 +10,54 @@
  * Sets and retrieves collector properties using XML, specifies the log file name, and retrieves the location of the log file.This interface is an abstract class from which the following data collectors derive:IAlertDataCollectorIApiTracingDataCollectorIConfigurationDataCollectorIPerformanceCounterDataCollectorITraceDataCollector
  * @remarks
  * 
-  * The following example shows the XML that you can use to initialize this object if you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorcollection-createdatacollectorfromxml">IDataCollectorCollection::CreateDataCollectorFromXml</a> property to create one of the derived data collectors. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_xml">IDataCollector::Xml</a> property also returns this XML.
-  * 
-  * 
-  * ```xml
-  * 
-  *     <FileName/>
-  *     <FileNameFormat/>
-  *     <FileNameFormatPattern/>
-  *     <Index/>
-  *     <LatestOutputLocation/>
-  *     <LogAppend/>
-  *     <LogCircular/>
-  *     <LogOverwrite/>
-  *     <Name/>
-  *     <OutputLocation/>
-  * 
-  * ```
-  * 
-  * 
-  * Note that the example does not show the property elements of the derived data collector (see each data collector for its XML elements). Include these elements in the data collectors XML as appropriate. The following example shows the XML for the alert data collector. You can specify the elements in any order.
-  * 
-  * 
-  * ```xml
-  * <AlertDataCollector>
-  *     <FileName/>
-  *     <FileNameFormat/>
-  *     <FileNameFormatPattern/>
-  *     <Index/>
-  *     <LatestOutputLocation/>
-  *     <LogAppend/>
-  *     <LogCircular/>
-  *     <LogOverwrite/>
-  *     <Name/>
-  *     <OutputLocation/>
-  *     <Alert/>  <!-- Specify an <Alert> element for each alert -->
-  *     <EventLog/>
-  *     <SampleInterval/>
-  *     <Task/>
-  *     <TaskArguments/>
-  *     <TaskUserTextArguments/>
-  *     <TaskSetWorkingDirectory/>
-  *     <TriggerDataCollectorSet/>
-  * </AlertDataCollector>
-  * ```
-  * 
-  * 
-  * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <b>IDataCollector</b>.
-  * 
+ * The following example shows the XML that you can use to initialize this object if you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorcollection-createdatacollectorfromxml">IDataCollectorCollection::CreateDataCollectorFromXml</a> property to create one of the derived data collectors. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_xml">IDataCollector::Xml</a> property also returns this XML.
+ * 
+ * 
+ * ```xml
+ * 
+ *     <FileName/>
+ *     <FileNameFormat/>
+ *     <FileNameFormatPattern/>
+ *     <Index/>
+ *     <LatestOutputLocation/>
+ *     <LogAppend/>
+ *     <LogCircular/>
+ *     <LogOverwrite/>
+ *     <Name/>
+ *     <OutputLocation/>
+ * 
+ * ```
+ * 
+ * 
+ * Note that the example does not show the property elements of the derived data collector (see each data collector for its XML elements). Include these elements in the data collectors XML as appropriate. The following example shows the XML for the alert data collector. You can specify the elements in any order.
+ * 
+ * 
+ * ```xml
+ * <AlertDataCollector>
+ *     <FileName/>
+ *     <FileNameFormat/>
+ *     <FileNameFormatPattern/>
+ *     <Index/>
+ *     <LatestOutputLocation/>
+ *     <LogAppend/>
+ *     <LogCircular/>
+ *     <LogOverwrite/>
+ *     <Name/>
+ *     <OutputLocation/>
+ *     <Alert/>  <!-- Specify an <Alert> element for each alert -->
+ *     <EventLog/>
+ *     <SampleInterval/>
+ *     <Task/>
+ *     <TaskArguments/>
+ *     <TaskUserTextArguments/>
+ *     <TaskSetWorkingDirectory/>
+ *     <TriggerDataCollectorSet/>
+ * </AlertDataCollector>
+ * ```
+ * 
+ * 
+ * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <b>IDataCollector</b>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//pla/nn-pla-idatacollector
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319

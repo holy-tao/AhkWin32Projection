@@ -6,30 +6,30 @@
  * Contains the data for an Schannel credential.
  * @remarks
  * 
-  * The following certificate revocation flags are mutually exclusive.
-  * 
-  * 
-  * 
-  * 
-  * <ul>
-  * <li>SCH_CRED_REVOCATION_CHECK_CHAIN</li>
-  * <li>SCH_CRED_REVOCATION_CHECK_END_CERT</li>
-  * <li>SCH_CRED_REVOCATION_CHECK_CHAIN_EXCLUDE_ROOT</li>
-  * </ul>
-  * 
-  * 
-  * 
-  * To customize certificate revocation error reporting for Schannel, use the following flags:
-  * 
-  * <ul>
-  * <li>SCH_CRED_IGNORE_NO_REVOCATION_CHECK</li>
-  * <li>SCH_CRED_IGNORE_REVOCATION_OFFLINE</li>
-  * </ul>
-  * 
-  * 
-  * When Schannel checks the revocation status of a certificate chain, these flags instruct it to ignore any CRYPT_E_NO_REVOCATION_CHECK and CRYPT_E_REVOCATION_OFFLINE errors, respectively. These flags are ignored if no certificate revocation flag is set.
-  * 
-  * 
+ * The following certificate revocation flags are mutually exclusive.
+ * 
+ * 
+ * 
+ * 
+ * <ul>
+ * <li>SCH_CRED_REVOCATION_CHECK_CHAIN</li>
+ * <li>SCH_CRED_REVOCATION_CHECK_END_CERT</li>
+ * <li>SCH_CRED_REVOCATION_CHECK_CHAIN_EXCLUDE_ROOT</li>
+ * </ul>
+ * 
+ * 
+ * 
+ * To customize certificate revocation error reporting for Schannel, use the following flags:
+ * 
+ * <ul>
+ * <li>SCH_CRED_IGNORE_NO_REVOCATION_CHECK</li>
+ * <li>SCH_CRED_IGNORE_REVOCATION_OFFLINE</li>
+ * </ul>
+ * 
+ * 
+ * When Schannel checks the revocation status of a certificate chain, these flags instruct it to ignore any CRYPT_E_NO_REVOCATION_CHECK and CRYPT_E_REVOCATION_OFFLINE errors, respectively. These flags are ignored if no certificate revocation flag is set.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-schannel_cred
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319

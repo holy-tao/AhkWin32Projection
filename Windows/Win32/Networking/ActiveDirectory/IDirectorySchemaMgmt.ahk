@@ -7,8 +7,8 @@
  * Not currently implemented and should not be used.
  * @remarks
  * 
-  * The methods for this interface are not fully implemented at this time.
-  * 
+ * The methods for this interface are not fully implemented at this time.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-idirectoryschemamgmt
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

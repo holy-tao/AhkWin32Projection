@@ -7,9 +7,9 @@
  * Describes the caps, miter limit, line join, and dash information for a stroke.
  * @remarks
  * 
-  * This interface adds functionality to <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1strokestyle">ID2D1StrokeStyle</a>.
-  * 
-  * 
+ * This interface adds functionality to <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1strokestyle">ID2D1StrokeStyle</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1strokestyle1
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

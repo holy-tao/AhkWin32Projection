@@ -5,15 +5,15 @@
  * Contains information about a DFS namespace. This structure contains the version GUID for the metadata for the namespace.
  * @remarks
  * 
-  * This structure is used to detect when the metadata of a DFS namespace has changed. It is currently supported 
-  *      only for  domain-based DFS namespace servers.
-  * 
-  * If a DFS namespace server does not support generation <b>GUID</b>s, the 
-  *      <b>GUID</b> value returned by 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/lmdfs/nf-lmdfs-netdfsgetinfo">NetDfsGetInfo</a> contains a null 
-  *      <b>GUID</b> (all zeros). This structure cannot be used with 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/lmdfs/nf-lmdfs-netdfsgetclientinfo">NetDfsGetClientInfo</a>.
-  * 
+ * This structure is used to detect when the metadata of a DFS namespace has changed. It is currently supported 
+ *      only for  domain-based DFS namespace servers.
+ * 
+ * If a DFS namespace server does not support generation <b>GUID</b>s, the 
+ *      <b>GUID</b> value returned by 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/lmdfs/nf-lmdfs-netdfsgetinfo">NetDfsGetInfo</a> contains a null 
+ *      <b>GUID</b> (all zeros). This structure cannot be used with 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/lmdfs/nf-lmdfs-netdfsgetclientinfo">NetDfsGetClientInfo</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_info_7
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319

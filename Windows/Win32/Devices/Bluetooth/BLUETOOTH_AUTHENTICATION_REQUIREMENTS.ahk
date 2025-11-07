@@ -4,9 +4,9 @@
  * BLUETOOTH_AUTHENTICATION_REQUIREMENTS enumeration specifies the 'Man in the Middle' protection required for authentication.
  * @remarks
  * 
-  * The header file associated with this API is available at Microsoft Connect via the Windows Vista Feature Pack for Wireless Developers Supplement download. Access to this resource requires registration with the Microsoft Connect website. The header is also included in the comprehensive developer resource packages available via the Windows Driver Kit (WDK), Windows Logo Kit (WLK) and Windows Driver Framework (WDF) Connections at Microsoft Connect.
-  * 
-  * 
+ * The header file associated with this API is available at Microsoft Connect via the Windows Vista Feature Pack for Wireless Developers Supplement download. Access to this resource requires registration with the Microsoft Connect website. The header is also included in the comprehensive developer resource packages available via the Windows Driver Kit (WDK), Windows Logo Kit (WLK) and Windows Driver Framework (WDF) Connections at Microsoft Connect.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/ne-bluetoothapis-bluetooth_authentication_requirements
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319

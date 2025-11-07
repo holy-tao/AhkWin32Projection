@@ -7,8 +7,8 @@
  * Enables you to obtain the following information about the apartment and thread that the caller is executing in:\_apartment type, thread type, and thread GUID. It also allows you to specify a thread GUID.
  * @remarks
  * 
-  *  An instance of this interface for the current context can be obtained using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetobjectcontext">CoGetObjectContext</a>.
-  * 
+ *  An instance of this interface for the current context can be obtained using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetobjectcontext">CoGetObjectContext</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-icomthreadinginfo
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

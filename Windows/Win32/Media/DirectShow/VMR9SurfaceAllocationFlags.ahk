@@ -4,9 +4,9 @@
  * The VMR9SurfaceAllocationFlags enumeration type is used with the IVMRSurfaceAllocator9::InitializeDevice method to specify surface creation parameters (VMR-9 only).
  * @remarks
  * 
-  * The VMR9AllocFlag_TextureSurface flag can be combined with the VMR9AllocFlag_DXVATarget and VMR9AllocFlag_3DRenderTarget flags.
-  * 
-  * 
+ * The VMR9AllocFlag_TextureSurface flag can be combined with the VMR9AllocFlag_DXVATarget and VMR9AllocFlag_3DRenderTarget flags.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vmr9/ne-vmr9-vmr9surfaceallocationflags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

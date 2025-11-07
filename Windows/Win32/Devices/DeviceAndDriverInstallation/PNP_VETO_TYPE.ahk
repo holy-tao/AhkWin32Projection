@@ -4,144 +4,144 @@
  * If the PnP manager rejects a request to perform an operation, the PNP_VETO_TYPE enumeration is used to identify the reason for the rejection.
  * @remarks
  * 
-  * Text strings are associated with most of the veto types, and a function that receives a veto type value can typically request to also receive the value's associated text string. The following table identifies the text string associated with each value.
-  * 
-  * <table>
-  * <tr>
-  * <th>pVeto type value</th>
-  * <th>Text String</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>PNP_VetoTypeUnknown</b>
-  * 
-  * </td>
-  * <td>
-  * None.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>PNP_VetoLegacyDevice
-  *        </b>
-  * 
-  * </td>
-  * <td>
-  * A device instance path.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>PNP_VetoPendingClose
-  *        </b>
-  * 
-  * </td>
-  * <td>
-  * A device instance path.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>PNP_VetoWindowsApp</b>
-  * 
-  * </td>
-  * <td>
-  * An application module name.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>PNP_VetoWindowsService
-  *        </b>
-  * 
-  * </td>
-  * <td>
-  * A Windows service name.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>PNP_VetoOutstandingOpen
-  *        </b>
-  * 
-  * </td>
-  * <td>
-  * A device instance path.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>PNP_VetoDevice
-  *        </b>
-  * 
-  * </td>
-  * <td>
-  * A device instance path.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>PNP_VetoDriver
-  *        </b>
-  * 
-  * </td>
-  * <td>
-  * A driver name.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>PNP_VetoIllegalDeviceRequest</b>
-  * 
-  * </td>
-  * <td>
-  * A device instance path.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>PNP_VetoInsufficientPower
-  *        </b>
-  * 
-  * </td>
-  * <td>
-  * None.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>PNP_VetoNonDisableable</b>
-  * 
-  * </td>
-  * <td>
-  * A device instance path.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * <b>PNP_VetoLegacyDriver
-  *        </b>
-  * 
-  * </td>
-  * <td>
-  * A Windows service name.
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * Text strings are associated with most of the veto types, and a function that receives a veto type value can typically request to also receive the value's associated text string. The following table identifies the text string associated with each value.
+ * 
+ * <table>
+ * <tr>
+ * <th>pVeto type value</th>
+ * <th>Text String</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>PNP_VetoTypeUnknown</b>
+ * 
+ * </td>
+ * <td>
+ * None.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>PNP_VetoLegacyDevice
+ *        </b>
+ * 
+ * </td>
+ * <td>
+ * A device instance path.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>PNP_VetoPendingClose
+ *        </b>
+ * 
+ * </td>
+ * <td>
+ * A device instance path.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>PNP_VetoWindowsApp</b>
+ * 
+ * </td>
+ * <td>
+ * An application module name.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>PNP_VetoWindowsService
+ *        </b>
+ * 
+ * </td>
+ * <td>
+ * A Windows service name.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>PNP_VetoOutstandingOpen
+ *        </b>
+ * 
+ * </td>
+ * <td>
+ * A device instance path.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>PNP_VetoDevice
+ *        </b>
+ * 
+ * </td>
+ * <td>
+ * A device instance path.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>PNP_VetoDriver
+ *        </b>
+ * 
+ * </td>
+ * <td>
+ * A driver name.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>PNP_VetoIllegalDeviceRequest</b>
+ * 
+ * </td>
+ * <td>
+ * A device instance path.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>PNP_VetoInsufficientPower
+ *        </b>
+ * 
+ * </td>
+ * <td>
+ * None.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>PNP_VetoNonDisableable</b>
+ * 
+ * </td>
+ * <td>
+ * A device instance path.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * <b>PNP_VetoLegacyDriver
+ *        </b>
+ * 
+ * </td>
+ * <td>
+ * A Windows service name.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cfg/ne-cfg-pnp_veto_type
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319

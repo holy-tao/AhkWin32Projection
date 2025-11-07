@@ -7,10 +7,10 @@
  * Exposes methods for color management.
  * @remarks
  * 
-  * A Color Context is an abstraction for a color profile. The profile can either be loaded from a file (like "sRGB Color Space Profile.icm"), read from a memory buffer, or can be defined by an EXIF color space. The system color profile directory can be obtained by calling [GetColorDirectoryW](/windows/win32/api/icm/nf-icm-getcolordirectoryw).
-  * 
-  * Once a color context has been initialized, it cannot be re-initialized.
-  * 
+ * A Color Context is an abstraction for a color profile. The profile can either be loaded from a file (like "sRGB Color Space Profile.icm"), read from a memory buffer, or can be defined by an EXIF color space. The system color profile directory can be obtained by calling [GetColorDirectoryW](/windows/win32/api/icm/nf-icm-getcolordirectoryw).
+ * 
+ * Once a color context has been initialized, it cannot be re-initialized.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwiccolorcontext
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319

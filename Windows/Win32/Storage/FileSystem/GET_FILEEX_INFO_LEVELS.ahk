@@ -10,10 +10,10 @@ class GET_FILEEX_INFO_LEVELS{
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfileattributesexa">GetFileAttributesEx</a> or 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getfileattributestransacteda">GetFileAttributesTransacted</a> function 
- *       retrieves a standard set of attribute information. The data is returned in a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ns-fileapi-win32_file_attribute_data">WIN32_FILE_ATTRIBUTE_DATA</a> 
- *       structure.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getfileattributestransacteda">GetFileAttributesTransacted</a> function 
+     *       retrieves a standard set of attribute information. The data is returned in a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ns-fileapi-win32_file_attribute_data">WIN32_FILE_ATTRIBUTE_DATA</a> 
+     *       structure.
      * @type {Integer (Int32)}
      */
     static GetFileExInfoStandard => 0

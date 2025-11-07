@@ -7,7 +7,7 @@
  * Enables interoperability with a WinRT [Print3DManager](/uwp/api/windows.graphics.printing3d.print3dmanager) object.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//print3dmanagerinterop/nn-print3dmanagerinterop-iprinting3dmanagerinterop
  * @namespace Windows.Win32.System.WinRT.Printing
  * @version v4.0.30319

@@ -9,40 +9,40 @@
  * The IADsPrintQueue interface represents a printer on a network.
  * @remarks
  * 
-  * Use this interface to browse a collection of print jobs in the print queue. To control a printer across a network, use the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsprintqueueoperations">IADsPrintQueueOperations</a> interface. To obtain a collection of the print jobs, call the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadsprintqueueoperations-printjobs">IADsPrintQueueOperations::PrintJobs</a> method.
-  * 
-  * In Windows, a printer, or a print queue, is managed by a host computer. If the path to a print queue is known, bind to it as to any other ADSI objects.
-  * 
-  * The following Visual Basic code example shows the bind operation.
-  * 
-  * 
-  * ```vb
-  * Dim pq as IADsPrintQueue
-  * Set pq = GetObject("WinNT://aMachine/aPrinter")
-  * ```
-  * 
-  * 
-  * The following C++ code example shows the bind operation.
-  * 
-  * 
-  * ```cpp
-  * IADsPrintQueue *pq;
-  * LPWSTR adsPath = L"WinNT://aMachine/aPrinter";
-  * HRESULT hr = ADsGetObject(adsPath,
-  *                           IID_IADsPrintQueue,
-  *                           (void**)&pq);
-  * ```
-  * 
-  * 
-  * <p class="proch"><b>To enumerate all print queues on a given computer</b>
-  * 
-  * <ol>
-  * <li>Bind to the computer object.</li>
-  * <li>Determine if the computer contains any "PrintQueue" objects.</li>
-  * <li>Enumerate all the found printer objects.</li>
-  * </ol>
-  * 
-  * 
+ * Use this interface to browse a collection of print jobs in the print queue. To control a printer across a network, use the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsprintqueueoperations">IADsPrintQueueOperations</a> interface. To obtain a collection of the print jobs, call the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadsprintqueueoperations-printjobs">IADsPrintQueueOperations::PrintJobs</a> method.
+ * 
+ * In Windows, a printer, or a print queue, is managed by a host computer. If the path to a print queue is known, bind to it as to any other ADSI objects.
+ * 
+ * The following Visual Basic code example shows the bind operation.
+ * 
+ * 
+ * ```vb
+ * Dim pq as IADsPrintQueue
+ * Set pq = GetObject("WinNT://aMachine/aPrinter")
+ * ```
+ * 
+ * 
+ * The following C++ code example shows the bind operation.
+ * 
+ * 
+ * ```cpp
+ * IADsPrintQueue *pq;
+ * LPWSTR adsPath = L"WinNT://aMachine/aPrinter";
+ * HRESULT hr = ADsGetObject(adsPath,
+ *                           IID_IADsPrintQueue,
+ *                           (void**)&pq);
+ * ```
+ * 
+ * 
+ * <p class="proch"><b>To enumerate all print queues on a given computer</b>
+ * 
+ * <ol>
+ * <li>Bind to the computer object.</li>
+ * <li>Determine if the computer contains any "PrintQueue" objects.</li>
+ * <li>Enumerate all the found printer objects.</li>
+ * </ol>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsprintqueue
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

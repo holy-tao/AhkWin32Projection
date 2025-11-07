@@ -4,39 +4,39 @@
  * Specifies access rights assigned to an Active Directory object.
  * @remarks
  * 
-  * To assign access rights to an object, set the <b>AccessMask</b> field of an
-  *     access-control entry (ACE) to a combination of the constants defined in this enumeration. In addition to the 
-  *     <b>AccessMask</b> field, an ACE can have other fields, including 
-  *     <b>ACEType</b>, <b>ACEFlags</b>, 
-  *     <b>ObjectType</b>, <b>InheritedObjectType</b>, 
-  *     <b>Flags</b>, and <b>Trustee</b>. The 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsaccesscontrolentry">IADsAccessControlEntry</a> interface provides property 
-  *     methods to obtain and modify these fields.
-  * 
-  * The <b>ObjectType</b> field specifies a <b>GUID</b> that 
-  *     identifies the property set, property, extended right, or type of child object to which the ACE applies. The 
-  *     <b>InheritedObjectType</b> field specifies a <b>GUID</b> that 
-  *     identifies the type of child object that can inherit the ACE. The <b>Trustee</b> field 
-  *     identifies the security principal to whom the ACE allows or denies the specified access rights.
-  * 
-  * For more information about <b>ACEType</b>, <b>ACEFlags</b>, and 
-  *     <b>Flags</b>, see <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_acetype_enum">ADS_ACETYPE_ENUM</a>, 
-  *     <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_aceflag_enum">ADS_ACEFLAG_ENUM</a>.
-  * 
-  * <div class="alert"><b>Note</b>  Because VBScript cannot read data from a type library, VBScript applications do not recognize the symbolic 
-  *     constants as defined above. Instead, use the numerical constants to set the appropriate flags in your VBScript 
-  *     application. To use the symbolic constants as a good programming practice, write explicit declarations of such 
-  *     constants, as done here, in your VBScript applications.</div>
-  * <div> </div>
-  * The specific access rights granted by the four generic rights enumerations 
-  *     (<b>ADS_RIGHT_GENERIC_xxx</b>) is dependent on the specific ADSI service provider being 
-  *     accessed. For Active Directory, these generic rights are defined in the Ntdsapi.h header file as 
-  *     <b>DS_GENERIC_READ</b>, <b>DS_GENERIC_WRITE</b>, 
-  *     <b>DS_GENERIC_EXECUTE</b>, and <b>DS_GENERIC_ALL</b>. For more 
-  *     information about how to use the  Access Right and Access Masks, see 
-  *     <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
-  * 
-  * 
+ * To assign access rights to an object, set the <b>AccessMask</b> field of an
+ *     access-control entry (ACE) to a combination of the constants defined in this enumeration. In addition to the 
+ *     <b>AccessMask</b> field, an ACE can have other fields, including 
+ *     <b>ACEType</b>, <b>ACEFlags</b>, 
+ *     <b>ObjectType</b>, <b>InheritedObjectType</b>, 
+ *     <b>Flags</b>, and <b>Trustee</b>. The 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsaccesscontrolentry">IADsAccessControlEntry</a> interface provides property 
+ *     methods to obtain and modify these fields.
+ * 
+ * The <b>ObjectType</b> field specifies a <b>GUID</b> that 
+ *     identifies the property set, property, extended right, or type of child object to which the ACE applies. The 
+ *     <b>InheritedObjectType</b> field specifies a <b>GUID</b> that 
+ *     identifies the type of child object that can inherit the ACE. The <b>Trustee</b> field 
+ *     identifies the security principal to whom the ACE allows or denies the specified access rights.
+ * 
+ * For more information about <b>ACEType</b>, <b>ACEFlags</b>, and 
+ *     <b>Flags</b>, see <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_acetype_enum">ADS_ACETYPE_ENUM</a>, 
+ *     <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_aceflag_enum">ADS_ACEFLAG_ENUM</a>.
+ * 
+ * <div class="alert"><b>Note</b>  Because VBScript cannot read data from a type library, VBScript applications do not recognize the symbolic 
+ *     constants as defined above. Instead, use the numerical constants to set the appropriate flags in your VBScript 
+ *     application. To use the symbolic constants as a good programming practice, write explicit declarations of such 
+ *     constants, as done here, in your VBScript applications.</div>
+ * <div> </div>
+ * The specific access rights granted by the four generic rights enumerations 
+ *     (<b>ADS_RIGHT_GENERIC_xxx</b>) is dependent on the specific ADSI service provider being 
+ *     accessed. For Active Directory, these generic rights are defined in the Ntdsapi.h header file as 
+ *     <b>DS_GENERIC_READ</b>, <b>DS_GENERIC_WRITE</b>, 
+ *     <b>DS_GENERIC_EXECUTE</b>, and <b>DS_GENERIC_ALL</b>. For more 
+ *     information about how to use the  Access Right and Access Masks, see 
+ *     <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_rights_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

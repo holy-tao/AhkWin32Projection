@@ -28,46 +28,46 @@ class X500NameFlags{
 
     /**
      * OIDs are converted to their <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.500</a> key names. They are separated from their associated attribute value by using an equal sign (=). RDNs are separated by a comma followed by a space (, ). RDN attributes are separated by a plus sign followed by a space (+ ).
- * 
- * If an OID does not have a corresponding X.500 name, the OID is used with a prefix of OID. The RDN is enclosed within quotation marks (" ") if it contains leading or trailing white space or one of the following characters:<ul>
- * <li>Comma (,)</li>
- * <li>Plus sign (+)</li>
- * <li>Equal sign (=)</li>
- * <li>Inch mark (")</li>
- * <li>Line feed (\n)</li>
- * <li>Less than sign (&lt;)</li>
- * <li>Greater than sign (&gt;)</li>
- * <li>Number sign (#)</li>
- * <li>Semicolon (;)</li>
- * <li>Embedded quotation mark (")</li>
- * </ul>
+     * 
+     * If an OID does not have a corresponding X.500 name, the OID is used with a prefix of OID. The RDN is enclosed within quotation marks (" ") if it contains leading or trailing white space or one of the following characters:<ul>
+     * <li>Comma (,)</li>
+     * <li>Plus sign (+)</li>
+     * <li>Equal sign (=)</li>
+     * <li>Inch mark (")</li>
+     * <li>Line feed (\n)</li>
+     * <li>Less than sign (&lt;)</li>
+     * <li>Greater than sign (&gt;)</li>
+     * <li>Number sign (#)</li>
+     * <li>Semicolon (;)</li>
+     * <li>Embedded quotation mark (")</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static XCN_CERT_X500_NAME_STR => 3
 
     /**
      * OIDs are treated in the same manner as that used to convert XCN_CERT_X500_NAME_ST values except that they are formatted as a sequence of XML elements. This is shown in the following example.
- * 
- * <pre class="syntax" xml:space="preserve"><code>
- * &lt;CN&gt;cart.contoso.com&lt;/CN&gt;
- * &lt;OU&gt;Terms of use at www.verisign.com/rpa (c)00&lt;/OU&gt;
- * &lt;OU rDNAttribute="true"&gt;IT Operations&lt;/OU&gt;
- * &lt;O&gt;Contoso.com&lt;/O&gt;
- * &lt;L&gt;New York&lt;/L&gt;
- * &lt;S&gt;New York&lt;/S&gt;
- * &lt;C&gt;US&lt;/C&gt;
- * &lt;RDN oid="1.2.3.4" type="string"&gt;name&lt;/RDN&gt;
- * &lt;RDN rDNAttribute="true" oid="1.2.1.3" type="encoded"&gt;0500&lt;/RDN&gt;
- * &lt;RDN oid="1.2.1.4" type="encoded"&gt;020135&lt;/RDN&gt;
- * &lt;RDN oid="1.2.2.5.3" type="octet"&gt;01FF7F&lt;/RDN&gt;</code></pre>
- * The Unicode XML markup characters are escaped in the following manner. Characters greater than 0x7F are escaped by using character references (L"&amp;#xXXXX;").
- * <ul>
- * <li>&amp; becomes L"&amp;amp;"</li>
- * <li>&lt; becomes L"&amp;lt;"</li>
- * <li>&gt; becomes L"&amp;gt;"</li>
- * <li>\' becomes L"&amp;apos;"</li>
- * <li>\" becomes L"&amp;quot;"</li>
- * </ul>
+     * 
+     * <pre class="syntax" xml:space="preserve"><code>
+     * &lt;CN&gt;cart.contoso.com&lt;/CN&gt;
+     * &lt;OU&gt;Terms of use at www.verisign.com/rpa (c)00&lt;/OU&gt;
+     * &lt;OU rDNAttribute="true"&gt;IT Operations&lt;/OU&gt;
+     * &lt;O&gt;Contoso.com&lt;/O&gt;
+     * &lt;L&gt;New York&lt;/L&gt;
+     * &lt;S&gt;New York&lt;/S&gt;
+     * &lt;C&gt;US&lt;/C&gt;
+     * &lt;RDN oid="1.2.3.4" type="string"&gt;name&lt;/RDN&gt;
+     * &lt;RDN rDNAttribute="true" oid="1.2.1.3" type="encoded"&gt;0500&lt;/RDN&gt;
+     * &lt;RDN oid="1.2.1.4" type="encoded"&gt;020135&lt;/RDN&gt;
+     * &lt;RDN oid="1.2.2.5.3" type="octet"&gt;01FF7F&lt;/RDN&gt;</code></pre>
+     * The Unicode XML markup characters are escaped in the following manner. Characters greater than 0x7F are escaped by using character references (L"&amp;#xXXXX;").
+     * <ul>
+     * <li>&amp; becomes L"&amp;amp;"</li>
+     * <li>&lt; becomes L"&amp;lt;"</li>
+     * <li>&gt; becomes L"&amp;gt;"</li>
+     * <li>\' becomes L"&amp;apos;"</li>
+     * <li>\" becomes L"&amp;quot;"</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static XCN_CERT_XML_NAME_STR => 4
@@ -140,73 +140,73 @@ class X500NameFlags{
 
     /**
      * Forces the following X.500 keys to be encoded as UTF-8 strings rather than printable Unicode strings.
- * 
- * <table>
- * <tr>
- * <th>Key</th>
- * <th>OID</th>
- * </tr>
- * <tr>
- * <td>CN</td>
- * <td>XCN_OID_COMMON_NAME</td>
- * </tr>
- * <tr>
- * <td>G </td>
- * <td>XCN_OID_GIVEN_NAME</td>
- * </tr>
- * <tr>
- * <td>GivenName</td>
- * <td>XCN_OID_GIVEN_NAME</td>
- * </tr>
- * <tr>
- * <td>GN</td>
- * <td>XCN_OID_GIVEN_NAME</td>
- * </tr>
- * <tr>
- * <td>I</td>
- * <td>XCN_OID_INITIALS</td>
- * </tr>
- * <tr>
- * <td>Initials</td>
- * <td>XCN_OID_INITIALS</td>
- * </tr>
- * <tr>
- * <td>L</td>
- * <td>XCN_OID_LOCALITY_NAME</td>
- * </tr>
- * <tr>
- * <td>O</td>
- * <td>XCN_ORGANIZATION_NAME</td>
- * </tr>
- * <tr>
- * <td>OU </td>
- * <td>XCN_OID_ORGANIZATIONAL_UNIT_NAME</td>
- * </tr>
- * <tr>
- * <td>S</td>
- * <td>XCN_OID_STATE_OR_PROVINCE_NAME</td>
- * </tr>
- * <tr>
- * <td>SN</td>
- * <td>XCN_ID_SUR_NAME</td>
- * </tr>
- * <tr>
- * <td>ST</td>
- * <td>XCN_OID_STATE_OR_PROVINCE_NAME</td>
- * </tr>
- * <tr>
- * <td>STREET</td>
- * <td>XCN_OID_STREET_ADDRESS</td>
- * </tr>
- * <tr>
- * <td>T</td>
- * <td>XCN_OID_TITLE</td>
- * </tr>
- * <tr>
- * <td>Title</td>
- * <td>XCN_OID_TITLE</td>
- * </tr>
- * </table>
+     * 
+     * <table>
+     * <tr>
+     * <th>Key</th>
+     * <th>OID</th>
+     * </tr>
+     * <tr>
+     * <td>CN</td>
+     * <td>XCN_OID_COMMON_NAME</td>
+     * </tr>
+     * <tr>
+     * <td>G </td>
+     * <td>XCN_OID_GIVEN_NAME</td>
+     * </tr>
+     * <tr>
+     * <td>GivenName</td>
+     * <td>XCN_OID_GIVEN_NAME</td>
+     * </tr>
+     * <tr>
+     * <td>GN</td>
+     * <td>XCN_OID_GIVEN_NAME</td>
+     * </tr>
+     * <tr>
+     * <td>I</td>
+     * <td>XCN_OID_INITIALS</td>
+     * </tr>
+     * <tr>
+     * <td>Initials</td>
+     * <td>XCN_OID_INITIALS</td>
+     * </tr>
+     * <tr>
+     * <td>L</td>
+     * <td>XCN_OID_LOCALITY_NAME</td>
+     * </tr>
+     * <tr>
+     * <td>O</td>
+     * <td>XCN_ORGANIZATION_NAME</td>
+     * </tr>
+     * <tr>
+     * <td>OU </td>
+     * <td>XCN_OID_ORGANIZATIONAL_UNIT_NAME</td>
+     * </tr>
+     * <tr>
+     * <td>S</td>
+     * <td>XCN_OID_STATE_OR_PROVINCE_NAME</td>
+     * </tr>
+     * <tr>
+     * <td>SN</td>
+     * <td>XCN_ID_SUR_NAME</td>
+     * </tr>
+     * <tr>
+     * <td>ST</td>
+     * <td>XCN_OID_STATE_OR_PROVINCE_NAME</td>
+     * </tr>
+     * <tr>
+     * <td>STREET</td>
+     * <td>XCN_OID_STREET_ADDRESS</td>
+     * </tr>
+     * <tr>
+     * <td>T</td>
+     * <td>XCN_OID_TITLE</td>
+     * </tr>
+     * <tr>
+     * <td>Title</td>
+     * <td>XCN_OID_TITLE</td>
+     * </tr>
+     * </table>
      * @type {Integer (Int32)}
      */
     static XCN_CERT_NAME_STR_FORCE_UTF8_DIR_STR_FLAG => 524288

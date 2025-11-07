@@ -10,28 +10,28 @@ class WS_SECURITY_HEADER_LAYOUT{
 
     /**
      * The elements of the security header must follow a 'declare before use'
- * layout.  All security tokens must appear before their usage.
+     * layout.  All security tokens must appear before their usage.
      * @type {Integer (Int32)}
      */
     static WS_SECURITY_HEADER_LAYOUT_STRICT => 1
 
     /**
      * The elements of the security header can be in arbitrary order,
- * including security tokens appearing after usage.
+     * including security tokens appearing after usage.
      * @type {Integer (Int32)}
      */
     static WS_SECURITY_HEADER_LAYOUT_LAX => 2
 
     /**
      * The elements of the security header can be in arbitrary order as in <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_header_layout">WS_SECURITY_HEADER_LAYOUT_LAX</a>, but the timestamp element must
- * be the first element.
+     * be the first element.
      * @type {Integer (Int32)}
      */
     static WS_SECURITY_HEADER_LAYOUT_LAX_WITH_TIMESTAMP_FIRST => 3
 
     /**
      * The elements of the security header can be in arbitrary order as in <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_header_layout">WS_SECURITY_HEADER_LAYOUT_LAX</a>, but the timestamp element must
- * be the last element.
+     * be the last element.
      * @type {Integer (Int32)}
      */
     static WS_SECURITY_HEADER_LAYOUT_LAX_WITH_TIMESTAMP_LAST => 4

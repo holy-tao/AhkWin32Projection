@@ -8,9 +8,9 @@
  * Implements the asynchronous query for a function instance based on category and subcategory.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancequery-execute">Execute</a> method must be invoked by the client program before any data can be retrieved from the query object.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancequery-execute">Execute</a> method must be invoked by the client program before any data can be retrieved from the query object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancequery
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319

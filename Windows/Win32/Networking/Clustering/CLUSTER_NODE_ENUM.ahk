@@ -16,18 +16,18 @@ class CLUSTER_NODE_ENUM{
 
     /**
      * Cluster groups on the node.
- * 
- * <b>Windows Server 2008:  </b>This value is not supported before 
- *         Windows Server 2008 R2.
+     * 
+     * <b>Windows Server 2008:  </b>This value is not supported before 
+     *         Windows Server 2008 R2.
      * @type {Integer (Int32)}
      */
     static CLUSTER_NODE_ENUM_GROUPS => 2
 
     /**
      * Cluster groups that list this node as their preferred owner.
- * 
- * <b>Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is supported before 
- *         Windows Server 2012 R2.
+     * 
+     * <b>Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is supported before 
+     *         Windows Server 2012 R2.
      * @type {Integer (Int32)}
      */
     static CLUSTER_NODE_ENUM_PREFERRED_GROUPS => 4

@@ -5,9 +5,9 @@
  * The RAS_AUTH_ATTRIBUTE structure is used to pass authentication attributes, of type RAS_AUTH_ATTRIBUTE_TYPE, during an EAP session.
  * @remarks
  * 
-  * Often an array of these structures is used to store or obtain a set of attributes for a given user. Since the number of attributes for a session is unknown, the array must be dynamic. The array is terminated by a structure with an <b>raaType</b> member that has a value of <b>raatMinimum</b>.
-  * 
-  * 
+ * Often an array of these structures is used to store or obtain a set of attributes for a given user. Since the number of attributes for a session is unknown, the array must be dynamic. The array is terminated by a structure with an <b>raaType</b> member that has a value of <b>raatMinimum</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//raseapif/ns-raseapif-ras_auth_attribute
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319

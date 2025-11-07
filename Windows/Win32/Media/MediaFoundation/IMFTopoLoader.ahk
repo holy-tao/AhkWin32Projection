@@ -8,9 +8,9 @@
  * Converts a partial topology into a full topology.
  * @remarks
  * 
-  * To create the topology loader, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatetopoloader">MFCreateTopoLoader</a> function.
-  * 
-  * 
+ * To create the topology loader, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatetopoloader">MFCreateTopoLoader</a> function.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imftopoloader
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

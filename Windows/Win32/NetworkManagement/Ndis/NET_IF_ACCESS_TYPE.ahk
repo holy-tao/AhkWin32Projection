@@ -10,28 +10,28 @@ class NET_IF_ACCESS_TYPE{
 
     /**
      * Specifies the loopback access type. This access type indicates that the interface loops back
- *      transmit data as receive data.
+     *      transmit data as receive data.
      * @type {Integer (Int32)}
      */
     static NET_IF_ACCESS_LOOPBACK => 1
 
     /**
      * Specifies the LAN access type, which includes Ethernet. This access type indicates that the
- *      interface provides native support for multicast or broadcast services.
+     *      interface provides native support for multicast or broadcast services.
      * @type {Integer (Int32)}
      */
     static NET_IF_ACCESS_BROADCAST => 2
 
     /**
      * Specifies point-to-point access that supports CoNDIS and WAN, except for non-broadcast
- *      multi-access (NBMA) interfaces.
+     *      multi-access (NBMA) interfaces.
      * @type {Integer (Int32)}
      */
     static NET_IF_ACCESS_POINT_TO_POINT => 3
 
     /**
      * Specifies point-to-multipoint access that supports non-broadcast multi-access (NBMA) media,
- *      including the "RAS Internal" interface, and native (non-LANE) ATM.
+     *      including the "RAS Internal" interface, and native (non-LANE) ATM.
      * @type {Integer (Int32)}
      */
     static NET_IF_ACCESS_POINT_TO_MULTI_POINT => 4

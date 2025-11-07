@@ -4,20 +4,20 @@
  * The DitherType enumeration identifies the available algorithms for dithering when a bitmap is converted.
  * @remarks
  * 
-  * If you pass any of the ordered or spiral dither types (except <b>DitherTypeOrdered4x4</b>) to the <i>dithertype</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusheaders/nf-gdiplusheaders-bitmap-convertformat">Bitmap::ConvertFormat</a> method, you must pass one of the following fixed palette types to the <i>palettetype</i> parameter.
-  * 
-  * <ul>
-  * <li><b>PaletteTypeFixedBW</b></li>
-  * <li><b>PaletteTypeFixedHalftone8</b></li>
-  * <li><b>PaletteTypeFixedHalftone27</b></li>
-  * <li><b>PaletteTypeFixedHalftone64</b></li>
-  * <li><b>PaletteTypeFixedHalftone125</b></li>
-  * <li><b>PaletteTypeFixedHalftone216</b></li>
-  * <li><b>PaletteTypeFixedHalftone252</b></li>
-  * <li><b>PaletteTypeFixedHalftone256</b></li>
-  * </ul>
-  * The <b>DitherTypeOrdered4x4</b> algorithm is a special case. You can use it with the fixed palette types shown in the preceding list or you can use it to convert a bitmap to a 16-bits-per-pixel format.
-  * 
+ * If you pass any of the ordered or spiral dither types (except <b>DitherTypeOrdered4x4</b>) to the <i>dithertype</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusheaders/nf-gdiplusheaders-bitmap-convertformat">Bitmap::ConvertFormat</a> method, you must pass one of the following fixed palette types to the <i>palettetype</i> parameter.
+ * 
+ * <ul>
+ * <li><b>PaletteTypeFixedBW</b></li>
+ * <li><b>PaletteTypeFixedHalftone8</b></li>
+ * <li><b>PaletteTypeFixedHalftone27</b></li>
+ * <li><b>PaletteTypeFixedHalftone64</b></li>
+ * <li><b>PaletteTypeFixedHalftone125</b></li>
+ * <li><b>PaletteTypeFixedHalftone216</b></li>
+ * <li><b>PaletteTypeFixedHalftone252</b></li>
+ * <li><b>PaletteTypeFixedHalftone256</b></li>
+ * </ul>
+ * The <b>DitherTypeOrdered4x4</b> algorithm is a special case. You can use it with the fixed palette types shown in the preceding list or you can use it to convert a bitmap to a 16-bits-per-pixel format.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdipluspixelformats/ne-gdipluspixelformats-dithertype
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

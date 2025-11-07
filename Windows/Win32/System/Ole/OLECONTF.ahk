@@ -22,21 +22,21 @@ class OLECONTF{
 
     /**
      * Enumerates all objects in the container that are not OLE compound document objects (i.e., objects other than 
- *        linked or embedded objects). Use this flag to enumerate the container's pseudo-objects.
+     *        linked or embedded objects). Use this flag to enumerate the container's pseudo-objects.
      * @type {Integer (Int32)}
      */
     static OLECONTF_OTHERS => 4
 
     /**
      * Enumerates only those objects the user is aware of. For example, hidden named-ranges in Microsoft Excel would 
- *        not be enumerated using this value.
+     *        not be enumerated using this value.
      * @type {Integer (Int32)}
      */
     static OLECONTF_ONLYUSER => 8
 
     /**
      * Enumerates only those linked or embedded objects that are currently in the running state for this 
- *        container.
+     *        container.
      * @type {Integer (Int32)}
      */
     static OLECONTF_ONLYIFRUNNING => 16

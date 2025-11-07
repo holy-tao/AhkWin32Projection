@@ -4,9 +4,9 @@
  * Specifies algorithmic style simulations to be applied to the font face. Bold and oblique simulations can be combined via bitwise OR operation.
  * @remarks
  * 
-  * Style simulations are not recommended for good typographic quality.
-  * 
-  * 
+ * Style simulations are not recommended for good typographic quality.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_font_simulations
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

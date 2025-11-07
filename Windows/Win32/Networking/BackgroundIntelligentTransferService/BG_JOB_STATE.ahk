@@ -34,24 +34,24 @@ class BG_JOB_STATE{
 
     /**
      * Specifies that a nonrecoverable error occurred (the service is unable to transfer the file). If the error&mdash;such as an access-denied error&mdash;can be corrected, then call the 
- * [IBackgroundCopyJob::Resume method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-resume)<a href=""></a> after the error is fixed. However, if the error cannot be corrected, then call the 
- * [IBackgroundCopyJob::Cancel method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-cancel)<a href=""></a> to cancel the job, or call the 
- * [IBackgroundCopyJob::Complete method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-complete)<a href=""></a> to accept the portion of a download job that transferred successfully.
+     * [IBackgroundCopyJob::Resume method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-resume)<a href=""></a> after the error is fixed. However, if the error cannot be corrected, then call the 
+     * [IBackgroundCopyJob::Cancel method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-cancel)<a href=""></a> to cancel the job, or call the 
+     * [IBackgroundCopyJob::Complete method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-complete)<a href=""></a> to accept the portion of a download job that transferred successfully.
      * @type {Integer (Int32)}
      */
     static BG_JOB_STATE_ERROR => 4
 
     /**
      * Specifies that a recoverable error occurred. BITS will retry jobs in the transient error state based on the retry interval you specify (see [IBackgroundCopyJob::SetMinimumRetryDelay method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-setminimumretrydelay)<a href=""></a>). The state of the job changes to <strong>BG_JOB_STATE_ERROR</strong> if the job fails to make progress (see [IBackgroundCopyJob::SetNoProgressTimeout method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-setnoprogresstimeout)<a href=""></a>).
- * 
- * BITS does not retry the job if a network disconnect or a disk lock error occurred (for example, `chkdsk` is running), or the [MaxInternetBandwidth](/windows/desktop/Bits/group-policies)<a href=""></a> Group Policy is zero.
+     * 
+     * BITS does not retry the job if a network disconnect or a disk lock error occurred (for example, `chkdsk` is running), or the [MaxInternetBandwidth](/windows/desktop/Bits/group-policies)<a href=""></a> Group Policy is zero.
      * @type {Integer (Int32)}
      */
     static BG_JOB_STATE_TRANSIENT_ERROR => 5
 
     /**
      * Specifies that your job was successfully processed. You must call the 
- * [IBackgroundCopyJob::Complete method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-complete)<a href=""></a> to acknowledge completion of the job, and to make the files available to the client.
+     * [IBackgroundCopyJob::Complete method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-complete)<a href=""></a> to acknowledge completion of the job, and to make the files available to the client.
      * @type {Integer (Int32)}
      */
     static BG_JOB_STATE_TRANSFERRED => 6
@@ -64,7 +64,7 @@ class BG_JOB_STATE{
 
     /**
      * Specifies that you called the 
- * [IBackgroundCopyJob::Cancel method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-cancel)<a href=""></a> to cancel the job (that is, to remove the job from the transfer queue).
+     * [IBackgroundCopyJob::Cancel method](/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-cancel)<a href=""></a> to cancel the job (that is, to remove the job from the transfer queue).
      * @type {Integer (Int32)}
      */
     static BG_JOB_STATE_CANCELLED => 8

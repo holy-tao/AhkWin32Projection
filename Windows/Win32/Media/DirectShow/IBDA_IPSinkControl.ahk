@@ -7,9 +7,9 @@
  * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_IPSinkControl)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_IPSinkControl)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_ipsinkcontrol
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

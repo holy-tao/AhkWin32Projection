@@ -8,11 +8,11 @@
  * .
  * @remarks
  * 
-  * Printing is also done through the InkRenderer object.
-  * 
-  * This object can be instantiated by calling the [CoCreateInstance](../combaseapi/nf-combaseapi-cocreateinstance.md) method in C++.
-  * 
-  * 
+ * Printing is also done through the InkRenderer object.
+ * 
+ * This object can be instantiated by calling the [CoCreateInstance](../combaseapi/nf-combaseapi-cocreateinstance.md) method in C++.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkrenderer
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

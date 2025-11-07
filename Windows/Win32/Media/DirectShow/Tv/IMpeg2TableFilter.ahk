@@ -7,9 +7,9 @@
  * The IMpeg2TableFilter interface controls which tables are parsed by the MPEG-2 Sections and Tables filter. The BDA MPEG-2 Transport Information filter exposes this interface on its output pins.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMpeg2TableFilter)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMpeg2TableFilter)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nn-mpeg2data-impeg2tablefilter
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

@@ -5,15 +5,15 @@
  * The WinSNMP smiOCTETS structure passes context strings to multiple WinSNMP functions. The structure also describes and receives encoded SNMP messages.
  * @remarks
  * 
-  * The Microsoft WinSNMP implementation allocates and deallocates memory for all output 
-  * <b>smiOCTETS</b> structures. The WinSNMP application should not free memory that the implementation allocates for the <b>ptr</b> member of an 
-  * <b>smiOCTETS</b> structure. Instead, the application must call the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreedescriptor">SnmpFreeDescriptor</a> function to free the memory.
-  * 
-  * Because the WinSNMP application allocates memory for input descriptor objects with variable lengths, it must free that memory. For more information, see 
-  * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
-  * 
-  * 
+ * The Microsoft WinSNMP implementation allocates and deallocates memory for all output 
+ * <b>smiOCTETS</b> structures. The WinSNMP application should not free memory that the implementation allocates for the <b>ptr</b> member of an 
+ * <b>smiOCTETS</b> structure. Instead, the application must call the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreedescriptor">SnmpFreeDescriptor</a> function to free the memory.
+ * 
+ * Because the WinSNMP application allocates memory for input descriptor objects with variable lengths, it must free that memory. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsnmp/ns-winsnmp-smioctets
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319

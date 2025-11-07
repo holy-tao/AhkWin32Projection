@@ -7,8 +7,8 @@
  * Contains protocol cache statistics.
  * @remarks
  * 
-  * This structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_protocol_status">WTS_PROTOCOL_STATUS</a> structure.
-  * 
+ * This structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_protocol_status">WTS_PROTOCOL_STATUS</a> structure.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wts_cache_stats
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319

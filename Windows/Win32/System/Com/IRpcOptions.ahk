@@ -7,36 +7,36 @@
  * Enables callers to set or query the values of various properties that control how COM handles remote procedure calls (RPC).
  * @remarks
  * 
-  * Using this interface, callers can set or query the COMBND_RPCTIMEOUT property, which controls how long your machine will attempt to establish RPC communications with another before failing. The property can have any one of the values enumerated in the following table.
-  * 
-  * <table>
-  * <tr>
-  * <th>Value</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td>RPC_C_BINDING_INFINITE_TIMEOUT
-  * </td>
-  * <td>Keep trying to establish communications with no timeout.
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>RPC_C_BINDING_MIN_TIMEOUT
-  * </td>
-  * <td>Try to establish communications for the minimum time required by the protocol. This value favors performance over reliability.</td>
-  * </tr>
-  * <tr>
-  * <td>RPC_C_BINDING_DEFAULT_TIMEOUT
-  * </td>
-  * <td>Try to establish communications for the default time. The value strikes a balance between performance and reliability.</td>
-  * </tr>
-  * <tr>
-  * <td>RPC_C_BINDING_MAX_TIMEOUT
-  * </td>
-  * <td>Try to establish communications for the maximum time allowed by the protocol. This value favors reliability over performance.</td>
-  * </tr>
-  * </table>
-  * 
+ * Using this interface, callers can set or query the COMBND_RPCTIMEOUT property, which controls how long your machine will attempt to establish RPC communications with another before failing. The property can have any one of the values enumerated in the following table.
+ * 
+ * <table>
+ * <tr>
+ * <th>Value</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>RPC_C_BINDING_INFINITE_TIMEOUT
+ * </td>
+ * <td>Keep trying to establish communications with no timeout.
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>RPC_C_BINDING_MIN_TIMEOUT
+ * </td>
+ * <td>Try to establish communications for the minimum time required by the protocol. This value favors performance over reliability.</td>
+ * </tr>
+ * <tr>
+ * <td>RPC_C_BINDING_DEFAULT_TIMEOUT
+ * </td>
+ * <td>Try to establish communications for the default time. The value strikes a balance between performance and reliability.</td>
+ * </tr>
+ * <tr>
+ * <td>RPC_C_BINDING_MAX_TIMEOUT
+ * </td>
+ * <td>Try to establish communications for the maximum time allowed by the protocol. This value favors reliability over performance.</td>
+ * </tr>
+ * </table>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-irpcoptions
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

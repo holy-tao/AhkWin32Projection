@@ -5,28 +5,28 @@
  * Use this structure to specify one or more ALink names or KLink keywords that you want to search for.
  * @remarks
  * 
-  * <ul>
-  * <li>ALink name and KLink keyword lookups are case sensitive, and multiple keywords are delimited by a semicolon.</li>
-  * <li>If the lookup yields one or more matching topics, the topic titles appear in the Topics Found dialog box.</li>
-  * </ul>
-  * If the lookup yields no matching topics, <b>HtmlHelp()</b> checks the values of the following <b>HH_AKLINK</b> members to determine what alternative action to take: 
-  * 
-  * <ul>
-  * <li><i>fIndexOnFail</i>. If <i>fIndexOnFail</i> is TRUE, the Index tab is selected in the help window specified in <i>pszWindow</i>, and the keyword specified in <i>pszKeyword</i> is selected in the entry field. </li>
-  * <li><i>pszURL</i>. If <i>fIndexOnFail</i> is FALSE, the topic file specified in <i>pszURL</i> appears in the help window specified in <i>pszWindow</i>. </li>
-  * <li><i>pszMsgText</i> and <i>pszMsgTitle</i>. If <i>fIndexOnFail</i> is FALSE and <i>pszURL</i> is NULL, a message box appears using the text and caption specified in <i>pszMsgText</i> and <i>pszMsgTitle</i>. </li>
-  * </ul>
-  * <h3><a id="Used_by"></a><a id="used_by"></a><a id="USED_BY"></a>Used by</h3>
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/hh-alink-lookup-command">HH_ALINK_LOOKUP</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/hh-keyword-lookup-command">HH_KEYWORD_LOOKUP</a>
-  * </li>
-  * </ul>
-  * 
-  * 
+ * <ul>
+ * <li>ALink name and KLink keyword lookups are case sensitive, and multiple keywords are delimited by a semicolon.</li>
+ * <li>If the lookup yields one or more matching topics, the topic titles appear in the Topics Found dialog box.</li>
+ * </ul>
+ * If the lookup yields no matching topics, <b>HtmlHelp()</b> checks the values of the following <b>HH_AKLINK</b> members to determine what alternative action to take: 
+ * 
+ * <ul>
+ * <li><i>fIndexOnFail</i>. If <i>fIndexOnFail</i> is TRUE, the Index tab is selected in the help window specified in <i>pszWindow</i>, and the keyword specified in <i>pszKeyword</i> is selected in the entry field. </li>
+ * <li><i>pszURL</i>. If <i>fIndexOnFail</i> is FALSE, the topic file specified in <i>pszURL</i> appears in the help window specified in <i>pszWindow</i>. </li>
+ * <li><i>pszMsgText</i> and <i>pszMsgTitle</i>. If <i>fIndexOnFail</i> is FALSE and <i>pszURL</i> is NULL, a message box appears using the text and caption specified in <i>pszMsgText</i> and <i>pszMsgTitle</i>. </li>
+ * </ul>
+ * <h3><a id="Used_by"></a><a id="used_by"></a><a id="USED_BY"></a>Used by</h3>
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/hh-alink-lookup-command">HH_ALINK_LOOKUP</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/hh-keyword-lookup-command">HH_KEYWORD_LOOKUP</a>
+ * </li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//htmlhelp/ns-htmlhelp-hh_aklink
  * @namespace Windows.Win32.Data.HtmlHelp
  * @version v4.0.30319

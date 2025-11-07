@@ -10,16 +10,16 @@ class FlushIntention{
 
     /**
      * When passed to the 
- * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusgraphics/nf-gdiplusgraphics-graphics-flush">Graphics::Flush</a> method, specifies that pending rendering operations are executed as soon as possible. The 
- * 				<b>Graphics::Flush</b> method is not synchronized with the completion of the rendering operations and might return before the rendering operations are completed.
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusgraphics/nf-gdiplusgraphics-graphics-flush">Graphics::Flush</a> method, specifies that pending rendering operations are executed as soon as possible. The 
+     * 				<b>Graphics::Flush</b> method is not synchronized with the completion of the rendering operations and might return before the rendering operations are completed.
      * @type {Integer (Int32)}
      */
     static FlushIntentionFlush => 0
 
     /**
      * When passed to the 
- * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusgraphics/nf-gdiplusgraphics-graphics-flush">Graphics::Flush</a> method, specifies that pending rendering operations are executed as soon as possible. The 
- * 				<b>Graphics::Flush</b> method is synchronized with the completion of the rendering operations; that is, it will not return until after the rendering operations are completed.
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusgraphics/nf-gdiplusgraphics-graphics-flush">Graphics::Flush</a> method, specifies that pending rendering operations are executed as soon as possible. The 
+     * 				<b>Graphics::Flush</b> method is synchronized with the completion of the rendering operations; that is, it will not return until after the rendering operations are completed.
      * @type {Integer (Int32)}
      */
     static FlushIntentionSync => 1

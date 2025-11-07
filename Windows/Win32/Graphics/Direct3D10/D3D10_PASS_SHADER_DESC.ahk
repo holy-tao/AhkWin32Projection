@@ -5,9 +5,9 @@
  * Describes an effect variable that contains a shader.
  * @remarks
  * 
-  * To get a shader description, call a method like <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectpass-getvertexshaderdesc">ID3D10EffectPass::GetVertexShaderDesc</a>.
-  * 
-  * 
+ * To get a shader description, call a method like <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectpass-getvertexshaderdesc">ID3D10EffectPass::GetVertexShaderDesc</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/ns-d3d10effect-d3d10_pass_shader_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

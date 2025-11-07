@@ -13,46 +13,46 @@
  * Manages the digital signatures and digital signature requests of an XPS document.
  * @remarks
  * 
-  * To initialize the signature manager for use with an XPS document, instantiate an <b>IXpsSignatureManager</b> interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> as shown in the following example.
-  * 
-  * 
-  * ```cpp
-  * 
-  * IXpsSignatureManager    *newInterface;
-  * 
-  * // Note the implicit requirement that CoInitializeEx 
-  * //  has previously been called from this thread.
-  * 
-  * hr = CoCreateInstance(
-  *     __uuidof(XpsSignatureManager),
-  *     NULL, 
-  *     CLSCTX_INPROC_SERVER,
-  *     __uuidof(IXpsSignatureManager),
-  *     reinterpret_cast<LPVOID*>(&newInterface));
-  * 
-  * // make sure that you got a pointer 
-  * // to the interface
-  * if (SUCCEEDED(hr)) {
-  *     // Load document into signature manager from file.
-  *     //  xpsDocument is initialized with the file name
-  *     //  of the document to load outside of this example.
-  *     hr = newInterface->LoadPackageFile (xpsDocument);
-  * 
-  *     // Use newInterface
-  * 
-  *     // Release interface pointers when finished with them 
-  *     newInterface->Release();
-  * }    
-  * 
-  * ```
-  * 
-  * 
-  * The interface instantiated by <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> can be used by only one XPS document, which must be loaded by calling <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-loadpackagefile">LoadPackageFile</a> or <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-loadpackagestream">LoadPackageStream</a> before
-  * calling any other method.
-  * 
-  * After the <b>IXpsSignatureManager</b> interface has been instantiated and an XPS document has been loaded, the signature manager is ready for use.
-  * 
-  * 
+ * To initialize the signature manager for use with an XPS document, instantiate an <b>IXpsSignatureManager</b> interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> as shown in the following example.
+ * 
+ * 
+ * ```cpp
+ * 
+ * IXpsSignatureManager    *newInterface;
+ * 
+ * // Note the implicit requirement that CoInitializeEx 
+ * //  has previously been called from this thread.
+ * 
+ * hr = CoCreateInstance(
+ *     __uuidof(XpsSignatureManager),
+ *     NULL, 
+ *     CLSCTX_INPROC_SERVER,
+ *     __uuidof(IXpsSignatureManager),
+ *     reinterpret_cast<LPVOID*>(&newInterface));
+ * 
+ * // make sure that you got a pointer 
+ * // to the interface
+ * if (SUCCEEDED(hr)) {
+ *     // Load document into signature manager from file.
+ *     //  xpsDocument is initialized with the file name
+ *     //  of the document to load outside of this example.
+ *     hr = newInterface->LoadPackageFile (xpsDocument);
+ * 
+ *     // Use newInterface
+ * 
+ *     // Release interface pointers when finished with them 
+ *     newInterface->Release();
+ * }    
+ * 
+ * ```
+ * 
+ * 
+ * The interface instantiated by <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> can be used by only one XPS document, which must be loaded by calling <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-loadpackagefile">LoadPackageFile</a> or <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-loadpackagestream">LoadPackageStream</a> before
+ * calling any other method.
+ * 
+ * After the <b>IXpsSignatureManager</b> interface has been instantiated and an XPS document has been loaded, the signature manager is ready for use.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturemanager
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

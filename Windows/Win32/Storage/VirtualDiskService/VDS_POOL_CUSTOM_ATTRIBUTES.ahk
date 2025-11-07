@@ -5,14 +5,14 @@
  * Defines a custom attribute of a storage pool.
  * @remarks
  * 
-  * A custom attribute can be used to indicate, for example, the RAID types that can be created in the storage pool in  cases such as the following:
-  * 
-  * <ul>
-  * <li>The storage pool supports the creation of LUNs without any RAID type.</li>
-  * <li>The storage pool supports more than one RAID type. This can happen if the storage pool spans more than one subsystem.</li>
-  * </ul>
-  * 
-  * 
+ * A custom attribute can be used to indicate, for example, the RAID types that can be created in the storage pool in  cases such as the following:
+ * 
+ * <ul>
+ * <li>The storage pool supports the creation of LUNs without any RAID type.</li>
+ * <li>The storage pool supports more than one RAID type. This can happen if the storage pool spans more than one subsystem.</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_pool_custom_attributes
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

@@ -7,18 +7,18 @@
  * Controls the photo sink.
  * @remarks
  * 
-  * The photo sink can deliver samples to one of the following destinations:
-  * 
-  * <ul>
-  * <li>Byte stream.</li>
-  * <li>Output file.</li>
-  * <li>Application-provided callback interface.</li>
-  * </ul>
-  * The application must specify a single destination. Multiple destinations are not supported.
-  * 
-  * To capture an image, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-takephoto">IMFCaptureEngine::TakePhoto</a>.
-  * 
-  * 
+ * The photo sink can deliver samples to one of the following destinations:
+ * 
+ * <ul>
+ * <li>Byte stream.</li>
+ * <li>Output file.</li>
+ * <li>Application-provided callback interface.</li>
+ * </ul>
+ * The application must specify a single destination. Multiple destinations are not supported.
+ * 
+ * To capture an image, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-takephoto">IMFCaptureEngine::TakePhoto</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nn-mfcaptureengine-imfcapturephotosink
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -7,17 +7,17 @@
  * Enables a pipeline object to adjust its own audio or video quality, in response to quality messages.
  * @remarks
  * 
-  * This interface enables a pipeline object to respond to quality messages from the media sink. Currently, it is supported only for video decoders.
-  * 
-  * If a video decoder exposes <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfqualityadvise">IMFQualityAdvise</a> but not <b>IMFQualityAdvise2</b>, the quality manager controls quality adjustments for the decoder. In this case, the quality manager responds to <a href="https://docs.microsoft.com/windows/desktop/medfound/mequalitynotify">MEQualityNotify</a> events from the Enhanced Video Renderer (EVR) by calling <b>IMFQualityAdvise</b> methods on the decoder.
-  * 
-  * If the decoder exposes <b>IMFQualityAdvise2</b>, the quality manager forwards the <a href="https://docs.microsoft.com/windows/desktop/medfound/mequalitynotify">MEQualityNotify</a> events to the decoder and does not adjust the decoder's quality settings. The decoder should respond to these events by adjusting its own quality settings internally.
-  * 
-  * The preceding remarks apply to the default implementation of the quality manager; custom quality managers can implement other behaviors.
-  * 
-  * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
-  * 
-  * 
+ * This interface enables a pipeline object to respond to quality messages from the media sink. Currently, it is supported only for video decoders.
+ * 
+ * If a video decoder exposes <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfqualityadvise">IMFQualityAdvise</a> but not <b>IMFQualityAdvise2</b>, the quality manager controls quality adjustments for the decoder. In this case, the quality manager responds to <a href="https://docs.microsoft.com/windows/desktop/medfound/mequalitynotify">MEQualityNotify</a> events from the Enhanced Video Renderer (EVR) by calling <b>IMFQualityAdvise</b> methods on the decoder.
+ * 
+ * If the decoder exposes <b>IMFQualityAdvise2</b>, the quality manager forwards the <a href="https://docs.microsoft.com/windows/desktop/medfound/mequalitynotify">MEQualityNotify</a> events to the decoder and does not adjust the decoder's quality settings. The decoder should respond to these events by adjusting its own quality settings internally.
+ * 
+ * The preceding remarks apply to the default implementation of the quality manager; custom quality managers can implement other behaviors.
+ * 
+ * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfqualityadvise2
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

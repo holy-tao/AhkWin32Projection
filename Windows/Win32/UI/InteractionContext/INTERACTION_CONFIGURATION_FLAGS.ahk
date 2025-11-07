@@ -64,24 +64,24 @@ class INTERACTION_CONFIGURATION_FLAGS{
 
     /**
      * Interactions are constrained along the x-axis.
- * 
- * Rails indicate that slight motions off the primary axis of motion are ignored. This makes for a tighter experience for users; when they attempt to pan along a single axis, they are constrained  to the axis.
+     * 
+     * Rails indicate that slight motions off the primary axis of motion are ignored. This makes for a tighter experience for users; when they attempt to pan along a single axis, they are constrained  to the axis.
      * @type {Integer (UInt32)}
      */
     static INTERACTION_CONFIGURATION_FLAG_MANIPULATION_RAILS_X => 256
 
     /**
      * Interactions are constrained along the y-axis.
- * 
- * Rails indicate that slight motions off the primary axis of motion are ignored. This makes for a tighter experience for users; when they attempt to pan along a single axis, they are constrained  to the axis.
+     * 
+     * Rails indicate that slight motions off the primary axis of motion are ignored. This makes for a tighter experience for users; when they attempt to pan along a single axis, they are constrained  to the axis.
      * @type {Integer (UInt32)}
      */
     static INTERACTION_CONFIGURATION_FLAG_MANIPULATION_RAILS_Y => 512
 
     /**
      * Report exact distance from initial contact to end of the interaction.
- * 
- * By default, a small distance threshold is subtracted from the first manipulation delta reported by the system. This distance threshold is  intended to account for slight movements of the contact when processing a tap gesture. If this flag is set, the distance threshold is not subtracted from the first delta.
+     * 
+     * By default, a small distance threshold is subtracted from the first manipulation delta reported by the system. This distance threshold is  intended to account for slight movements of the contact when processing a tap gesture. If this flag is set, the distance threshold is not subtracted from the first delta.
      * @type {Integer (UInt32)}
      */
     static INTERACTION_CONFIGURATION_FLAG_MANIPULATION_EXACT => 1024
@@ -112,8 +112,8 @@ class INTERACTION_CONFIGURATION_FLAGS{
 
     /**
      * Speed bump effect.
- * 
- * A speed bump is a region in which the user experiences a slight drag (or friction) during the swipe or slide gesture.
+     * 
+     * A speed bump is a region in which the user experiences a slight drag (or friction) during the swipe or slide gesture.
      * @type {Integer (UInt32)}
      */
     static INTERACTION_CONFIGURATION_FLAG_CROSS_SLIDE_SPEED_BUMP => 8
@@ -126,8 +126,8 @@ class INTERACTION_CONFIGURATION_FLAGS{
 
     /**
      * Report exact distance from initial contact to end of the interaction.
- * 
- * By default, a small distance threshold is subtracted from the first cross-slide delta reported by the system. This distance threshold is  intended to account for slight movements of the contact when processing a tap gesture. If this flag is set, the distance threshold is not subtracted from the first delta.
+     * 
+     * By default, a small distance threshold is subtracted from the first cross-slide delta reported by the system. This distance threshold is  intended to account for slight movements of the contact when processing a tap gesture. If this flag is set, the distance threshold is not subtracted from the first delta.
      * @type {Integer (UInt32)}
      */
     static INTERACTION_CONFIGURATION_FLAG_CROSS_SLIDE_EXACT => 32

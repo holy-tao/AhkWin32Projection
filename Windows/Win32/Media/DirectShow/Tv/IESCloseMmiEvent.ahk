@@ -7,8 +7,8 @@
  * Receives CloseMMI events from a Media Sink Device (MSD) device under the Protected Broadcast Driver Architecture (PBDA).
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESCloseMmiEvent)</c>.
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESCloseMmiEvent)</c>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-iesclosemmievent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

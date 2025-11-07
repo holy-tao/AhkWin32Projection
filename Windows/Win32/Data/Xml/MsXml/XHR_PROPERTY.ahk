@@ -22,9 +22,9 @@ class XHR_PROPERTY{
 
     /**
      * Sets the connect, send, and receive timeouts for HTTP socket operations.
- * 
- * <div class="alert"><b>Note</b>  This value will not affect the timeout behavior of the entire request process.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This value will not affect the timeout behavior of the entire request process.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static XHR_PROP_TIMEOUT => 2

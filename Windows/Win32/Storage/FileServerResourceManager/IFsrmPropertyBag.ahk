@@ -10,21 +10,21 @@
  * Contains the classification properties for a file.
  * @remarks
  * 
-  * A property bag contains an in-memory copy of all the properties for a file. The list of properties in the 
-  *     property bag may include additional properties not defined in FSRM. These properties can be the result of other 
-  *     metadata in the file.
-  * 
-  * This interface can be sent to 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduleimplementation-doespropertyvalueapply">IFsrmClassifierModuleImplementation::DoesPropertyValueApply</a> 
-  *     and 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduleimplementation-getpropertyvaluetoapply">IFsrmClassifierModuleImplementation::GetPropertyValueToApply</a> 
-  *     if a classifier module is implemented, or to 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduleimplementation-loadproperties">IFsrmStorageModuleImplementation::LoadProperties</a> 
-  *     and 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduleimplementation-saveproperties">IFsrmStorageModuleImplementation::SaveProperties</a> 
-  *     if a storage module is implemented.
-  * 
-  * 
+ * A property bag contains an in-memory copy of all the properties for a file. The list of properties in the 
+ *     property bag may include additional properties not defined in FSRM. These properties can be the result of other 
+ *     metadata in the file.
+ * 
+ * This interface can be sent to 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduleimplementation-doespropertyvalueapply">IFsrmClassifierModuleImplementation::DoesPropertyValueApply</a> 
+ *     and 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduleimplementation-getpropertyvaluetoapply">IFsrmClassifierModuleImplementation::GetPropertyValueToApply</a> 
+ *     if a classifier module is implemented, or to 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduleimplementation-loadproperties">IFsrmStorageModuleImplementation::LoadProperties</a> 
+ *     and 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduleimplementation-saveproperties">IFsrmStorageModuleImplementation::SaveProperties</a> 
+ *     if a storage module is implemented.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmpropertybag
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

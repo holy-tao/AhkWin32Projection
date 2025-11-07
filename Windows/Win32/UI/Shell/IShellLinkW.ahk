@@ -7,16 +7,16 @@
  * Exposes methods that create, modify, and resolve Shell links.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  This interface cannot be used to create a link to a URL.</div>
-  * <div> </div>
-  * The <b>IShellLink</b> interface has an ANSI version (<b>IShellLinkA</b>) and a Unicode version (<b>IShellLinkW</b>). The version that will be used depends on whether you compile for ANSI or Unicode.
-  * 
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The shobjidl_core.h header defines IShellLink as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
+ * <div class="alert"><b>Note</b>  This interface cannot be used to create a link to a URL.</div>
+ * <div> </div>
+ * The <b>IShellLink</b> interface has an ANSI version (<b>IShellLinkA</b>) and a Unicode version (<b>IShellLinkW</b>). The version that will be used depends on whether you compile for ANSI or Unicode.
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The shobjidl_core.h header defines IShellLink as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ishelllinkw
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

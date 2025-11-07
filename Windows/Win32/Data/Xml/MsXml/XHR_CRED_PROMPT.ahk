@@ -10,8 +10,8 @@ class XHR_CRED_PROMPT{
 
     /**
      * Allow all credential prompts for authentication. 
- * 
- * This setting allows credential prompts in response to requests from the proxy or the server.
+     * 
+     * This setting allows credential prompts in response to requests from the proxy or the server.
      * @type {Integer (Int32)}
      */
     static XHR_CRED_PROMPT_ALL => 0
@@ -24,8 +24,8 @@ class XHR_CRED_PROMPT{
 
     /**
      * Allow credential prompts for authentication only in response to requests from the proxy.
- * 
- * This setting disables any credential prompts in response to requests from the server.
+     * 
+     * This setting disables any credential prompts in response to requests from the server.
      * @type {Integer (Int32)}
      */
     static XHR_CRED_PROMPT_PROXY => 2

@@ -28,8 +28,8 @@ class CLUSTER_MGMT_POINT_TYPE{
 
     /**
      * The management point type is cluster name object (CNO) only.
- * 
- * <b>Windows Server 2012 R2:  </b>This value is not supported before Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2:  </b>This value is not supported before Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSTER_MGMT_POINT_TYPE_CNO_ONLY => 3

@@ -7,16 +7,16 @@
  * The ITfCleanupContextSink interface is implemented by a text service to receive notifications when a context cleanup operation occurs. This notification sink is installed by calling ITfSourceSingle::AdviseSingleSink with IID_ITfCleanupContextSink.
  * @remarks
  * 
-  * A context cleanup occurs when:
-  * 
-  * <ul>
-  * <li>The text service is deactivated while a context is still on the context stack. This can occur when the active text service is changed or when the active language changes while the text service is active.</li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfthreadmgr-deactivate">ITfThreadMgr::Deactivate
-  *             </a> is called while a context is still on the context stack.</li>
-  * </ul>
-  * 
-  * 
+ * A context cleanup occurs when:
+ * 
+ * <ul>
+ * <li>The text service is deactivated while a context is still on the context stack. This can occur when the active text service is changed or when the active language changes while the text service is active.</li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfthreadmgr-deactivate">ITfThreadMgr::Deactivate
+ *             </a> is called while a context is still on the context stack.</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcleanupcontextsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

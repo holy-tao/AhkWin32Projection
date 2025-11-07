@@ -7,9 +7,9 @@
  * When implemented by a derived class, represents a source provider that supports filtered change enumeration, and that can negotiate the type of filter that is used.
  * @remarks
  * 
-  * <b>ISupportFilteredSync</b> is typically implemented by a source provider.
-  * 
-  * 
+ * <b>ISupportFilteredSync</b> is typically implemented by a source provider.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isupportfilteredsync
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

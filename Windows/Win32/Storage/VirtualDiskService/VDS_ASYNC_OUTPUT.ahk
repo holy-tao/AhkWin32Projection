@@ -5,11 +5,11 @@
  * Defines the output of an async object. Output elements vary depending on the operation type.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsasync-wait">IVdsAsync::Wait</a> method returns this structure 
-  *     and adds a reference to any contained object produced by each method. 
-  *     Callers must release the reference to the contained object.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsasync-wait">IVdsAsync::Wait</a> method returns this structure 
+ *     and adds a reference to any contained object produced by each method. 
+ *     Callers must release the reference to the contained object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_async_output
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

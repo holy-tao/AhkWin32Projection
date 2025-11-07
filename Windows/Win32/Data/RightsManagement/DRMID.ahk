@@ -5,36 +5,36 @@
  * Identifies an object.
  * @remarks
  * 
-  * In a C++ application, this structure will have a default constructor that initializes the members to the following values.
-  * 
-  * 
-  * ```cpp
-  * uVersion = DRMIDVERSION
-  * wszIDType = NULL
-  * wszID = NULL
-  * 
-  * ```
-  * 
-  * 
-  * An overloaded C++ constructor is also defined as follows.
-  * 
-  * 
-  * ```cpp
-  * DRMID(PWSTR wszIDType, PWSTR wszID)
-  * ```
-  * 
-  * 
-  *  This constructor will initialize the members to the following values.
-  * 
-  * 
-  * ```cpp
-  * uVersion = DRMIDVERSION
-  * wszIDType = wszTypein
-  * wszID = wszIDin
-  * 
-  * ```
-  * 
-  * 
+ * In a C++ application, this structure will have a default constructor that initializes the members to the following values.
+ * 
+ * 
+ * ```cpp
+ * uVersion = DRMIDVERSION
+ * wszIDType = NULL
+ * wszID = NULL
+ * 
+ * ```
+ * 
+ * 
+ * An overloaded C++ constructor is also defined as follows.
+ * 
+ * 
+ * ```cpp
+ * DRMID(PWSTR wszIDType, PWSTR wszID)
+ * ```
+ * 
+ * 
+ *  This constructor will initialize the members to the following values.
+ * 
+ * 
+ * ```cpp
+ * uVersion = DRMIDVERSION
+ * wszIDType = wszTypein
+ * wszID = wszIDin
+ * 
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msdrmdefs/ns-msdrmdefs-drmid
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319

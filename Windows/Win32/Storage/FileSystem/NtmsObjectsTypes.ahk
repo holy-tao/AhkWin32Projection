@@ -4,128 +4,128 @@
  * The NtmsObjectsTypes enumeration type specifies the types of RSM objects.
  * @remarks
  * 
-  * The following table show the relationship of RSM objects.
-  * 
-  * <table>
-  * <tr>
-  * <th>Container</th>
-  * <th>Object</th>
-  * </tr>
-  * <tr>
-  * <td>Library</td>
-  * <td>Changer</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Door</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Drive</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Library request</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Media type</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Physical media</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Port</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Slot</td>
-  * </tr>
-  * <tr>
-  * <td>Logical media</td>
-  * <td>Side</td>
-  * </tr>
-  * <tr>
-  * <td>Media pool</td>
-  * <td>Logical media</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Media pool</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Physical media</td>
-  * </tr>
-  * <tr>
-  * <td>NULL</td>
-  * <td>Changer</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Changer type</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Computer</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Door</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Drive</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Drive type</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Library</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Library request</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Logical media</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Media pool (free, unrecognized, import, and application root)</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Media type</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Operator request</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Port</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Physical media</td>
-  * </tr>
-  * <tr>
-  * <td></td>
-  * <td>Side</td>
-  * </tr>
-  * <tr>
-  * <td>Physical Media</td>
-  * <td>Side</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * The following table show the relationship of RSM objects.
+ * 
+ * <table>
+ * <tr>
+ * <th>Container</th>
+ * <th>Object</th>
+ * </tr>
+ * <tr>
+ * <td>Library</td>
+ * <td>Changer</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Door</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Drive</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Library request</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Media type</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Physical media</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Port</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Slot</td>
+ * </tr>
+ * <tr>
+ * <td>Logical media</td>
+ * <td>Side</td>
+ * </tr>
+ * <tr>
+ * <td>Media pool</td>
+ * <td>Logical media</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Media pool</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Physical media</td>
+ * </tr>
+ * <tr>
+ * <td>NULL</td>
+ * <td>Changer</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Changer type</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Computer</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Door</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Drive</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Drive type</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Library</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Library request</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Logical media</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Media pool (free, unrecognized, import, and application root)</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Media type</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Operator request</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Port</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Physical media</td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td>Side</td>
+ * </tr>
+ * <tr>
+ * <td>Physical Media</td>
+ * <td>Side</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ntmsapi/ne-ntmsapi-ntmsobjectstypes
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319

@@ -16,7 +16,7 @@ class BaseValueSource{
 
     /**
      * The value has not been set locally or by any styles, so it has the
- * default value defined in generic.xaml.
+     * default value defined in generic.xaml.
      * @type {Integer (Int32)}
      */
     static BaseValueSourceDefault => 1

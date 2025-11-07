@@ -7,9 +7,9 @@
  * The IBDA_EasMessage interface represents an ATSC emergency alert system (EAS) message table.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_EasMessage)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_EasMessage)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_easmessage
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

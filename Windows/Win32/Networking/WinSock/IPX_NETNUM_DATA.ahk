@@ -5,9 +5,9 @@
  * The IPX_NETNUM_DATA structure provides information about a specified IPX network number. Used in conjunction with getsockopt function calls that specify IPX_GETNETINFO in the optname parameter.
  * @remarks
  * 
-  * If information about the IPX network is in the computer's IPX cache, the call will return immediately. If not, RIP requests are used to resolve the information.
-  * 
-  * 
+ * If information about the IPX network is in the computer's IPX cache, the call will return immediately. If not, RIP requests are used to resolve the information.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wsnwlink/ns-wsnwlink-ipx_netnum_data
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

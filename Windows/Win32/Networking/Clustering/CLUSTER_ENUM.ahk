@@ -51,18 +51,18 @@ class CLUSTER_ENUM{
 
     /**
      * The cluster shared volumes (CSV) in the cluster.
- * 
- * <b>Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not supported before 
- *         Windows Server 2012 R2.
+     * 
+     * <b>Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not supported before 
+     *         Windows Server 2012 R2.
      * @type {Integer (Int32)}
      */
     static CLUSTER_ENUM_SHARED_VOLUME_GROUP => 536870912
 
     /**
      * The cluster shared volumes in the cluster.
- * 
- * <b>Windows Server 2008:  </b>This value is not supported before 
- *         Windows Server 2008 R2.
+     * 
+     * <b>Windows Server 2008:  </b>This value is not supported before 
+     *         Windows Server 2008 R2.
      * @type {Integer (Int32)}
      */
     static CLUSTER_ENUM_SHARED_VOLUME_RESOURCE => 1073741824

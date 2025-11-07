@@ -8,11 +8,11 @@
  * Use this interface to identify the file size and data stream of the file contents.
  * @remarks
  * 
-  * Data streams for files contained within the file system image are read-only.  File data can only be replaced by overwriting an existing file item.
-  * 
-  * This is an <b>FsiFileItem</b> object in script.
-  * 
-  * 
+ * Data streams for files contained within the file system image are read-only.  File data can only be replaced by overwriting an existing file item.
+ * 
+ * This is an <b>FsiFileItem</b> object in script.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ifsifileitem
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

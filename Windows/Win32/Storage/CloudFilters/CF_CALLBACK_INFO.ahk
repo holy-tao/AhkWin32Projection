@@ -6,21 +6,21 @@
  * Contains common callback information.
  * @remarks
  * 
-  * A file name is considered normalized if all of the following are true:
-  * 
-  * <ul>
-  * <li>It contains the full directory path for the file, including the volume name, unless the user opened the file by file ID but does not have traverse privilege for the entire path. (For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltgetfilenameinformation">FltGetFileNameInformation</a>.)
-  * </li>
-  * <li>The volume name is the volume's non-persistent device object name (for example, "\Device\HarddiskVolume1").
-  * </li>
-  * <li>All short names are expanded to the equivalent long names.
-  * </li>
-  * <li>Any trailing ":$DATA" or "::$DATA" strings are removed from the stream name.
-  * </li>
-  * <li>	All mount points are resolved.
-  * </li>
-  * </ul>
-  * 
+ * A file name is considered normalized if all of the following are true:
+ * 
+ * <ul>
+ * <li>It contains the full directory path for the file, including the volume name, unless the user opened the file by file ID but does not have traverse privilege for the entire path. (For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltgetfilenameinformation">FltGetFileNameInformation</a>.)
+ * </li>
+ * <li>The volume name is the volume's non-persistent device object name (for example, "\Device\HarddiskVolume1").
+ * </li>
+ * <li>All short names are expanded to the equivalent long names.
+ * </li>
+ * <li>Any trailing ":$DATA" or "::$DATA" strings are removed from the stream name.
+ * </li>
+ * <li>	All mount points are resolved.
+ * </li>
+ * </ul>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_callback_info
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319

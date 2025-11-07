@@ -8,9 +8,9 @@
  * Used to construct a collection of fonts given a particular type of key.
  * @remarks
  * 
-  * The font collection loader interface is recommended to be implemented by a singleton object. Note that font collection loader implementations must not register themselves with DirectWrite factory inside their constructors and must not unregister themselves in their destructors, because registration and unregistraton operations increment and decrement the object reference count respectively. Instead, registration and unregistration of font file loaders with DirectWrite factory should be performed outside of the font file loader implementation as a separate step.
-  * 
-  * 
+ * The font collection loader interface is recommended to be implemented by a singleton object. Note that font collection loader implementations must not register themselves with DirectWrite factory inside their constructors and must not unregister themselves in their destructors, because registration and unregistraton operations increment and decrement the object reference count respectively. Instead, registration and unregistration of font file loaders with DirectWrite factory should be performed outside of the font file loader implementation as a separate step.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritefontcollectionloader
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

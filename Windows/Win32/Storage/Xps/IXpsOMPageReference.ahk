@@ -16,52 +16,52 @@
  * Enables virtualization of pages in an XPS document.
  * @remarks
  * 
-  * The code example that follows illustrates how to create an instance of  this interface.
-  * 
-  * 
-  * ```cpp
-  * 
-  * IXpsOMPageReference    *newInterface;
-  * // The following value is defined outside of 
-  * // this example.
-  * XPS_SIZE        advisoryPageDimensions;
-  * 
-  * // Note the implicit requirement that CoInitializeEx 
-  * //  has previously been called from this thread.
-  * 
-  * hr = CoCreateInstance(
-  *     __uuidof(XpsOMObjectFactory),
-  *     NULL,
-  *     CLSCTX_INPROC_SERVER,
-  *     _uuidof(IXpsOMObjectFactory),
-  *     reinterpret_cast<LPVOID*>(&xpsFactory)
-  *     );
-  * 
-  * if (SUCCEEDED(hr))
-  * {
-  *     hr = xpsFactory->CreatePageReference (
-  *         &advisoryPageDimensions,
-  *         &newInterface);
-  * 
-  *     if (SUCCEEDED(hr))
-  *     {
-  *         // use newInterface
-  * 
-  *         newInterface->Release();
-  *     }
-  *     xpsFactory->Release();
-  * }
-  * else
-  * {
-  *     // evaluate HRESULT error returned in hr
-  * }
-  * 
-  * ```
-  * 
-  * 
-  * For information about using this interface in a program, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd316970(v=vs.85)">Create a Blank XPS OM</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372917(v=vs.85)">Navigate the XPS OM</a>.
-  * 
-  * 
+ * The code example that follows illustrates how to create an instance of  this interface.
+ * 
+ * 
+ * ```cpp
+ * 
+ * IXpsOMPageReference    *newInterface;
+ * // The following value is defined outside of 
+ * // this example.
+ * XPS_SIZE        advisoryPageDimensions;
+ * 
+ * // Note the implicit requirement that CoInitializeEx 
+ * //  has previously been called from this thread.
+ * 
+ * hr = CoCreateInstance(
+ *     __uuidof(XpsOMObjectFactory),
+ *     NULL,
+ *     CLSCTX_INPROC_SERVER,
+ *     _uuidof(IXpsOMObjectFactory),
+ *     reinterpret_cast<LPVOID*>(&xpsFactory)
+ *     );
+ * 
+ * if (SUCCEEDED(hr))
+ * {
+ *     hr = xpsFactory->CreatePageReference (
+ *         &advisoryPageDimensions,
+ *         &newInterface);
+ * 
+ *     if (SUCCEEDED(hr))
+ *     {
+ *         // use newInterface
+ * 
+ *         newInterface->Release();
+ *     }
+ *     xpsFactory->Release();
+ * }
+ * else
+ * {
+ *     // evaluate HRESULT error returned in hr
+ * }
+ * 
+ * ```
+ * 
+ * 
+ * For information about using this interface in a program, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd316970(v=vs.85)">Create a Blank XPS OM</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372917(v=vs.85)">Navigate the XPS OM</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsompagereference
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

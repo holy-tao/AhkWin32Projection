@@ -6,9 +6,9 @@
  * Specifies a custom rate for frame-rate conversion or inverse telecine (IVTC).
  * @remarks
  * 
-  * The <b>CustomRate</b> member gives the rate conversion factor, while the remaining members define the pattern of input and output samples.
-  * 
-  * 
+ * The <b>CustomRate</b> member gives the rate conversion factor, while the remaining members define the pattern of input and output samples.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_video_processor_custom_rate
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

@@ -8,8 +8,8 @@
  * Enables clients to enumerate through a collection of class IDs for COM classes.
  * @remarks
  * 
-  * Alternate names for this interface are <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd542667(v=vs.85)">IEnumCLSID</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd542661(v=vs.85)">IEnumCATID</a>.
-  * 
+ * Alternate names for this interface are <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd542667(v=vs.85)">IEnumCLSID</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd542661(v=vs.85)">IEnumCATID</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//comcat/nn-comcat-ienumguid
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

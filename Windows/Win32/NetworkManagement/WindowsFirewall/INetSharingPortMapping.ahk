@@ -8,12 +8,12 @@
  * The INetSharingPortMapping interface provides methods for managing a particular port mapping.
  * @remarks
  * 
-  * Use the 
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingconfiguration-addportmapping">INetSharingConfiguration::AddPortMapping</a> and 
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingconfiguration-get_enumportmappings">INetSharingConfiguration::EnumPortMappings</a> methods to obtain 
-  * <b>INetSharingPortMapping</b> interfaces.
-  * 
-  * 
+ * Use the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingconfiguration-addportmapping">INetSharingConfiguration::AddPortMapping</a> and 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingconfiguration-get_enumportmappings">INetSharingConfiguration::EnumPortMappings</a> methods to obtain 
+ * <b>INetSharingPortMapping</b> interfaces.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netcon/nn-netcon-inetsharingportmapping
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319

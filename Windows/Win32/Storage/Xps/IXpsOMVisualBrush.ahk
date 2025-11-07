@@ -9,56 +9,56 @@
  * A brush that uses a visual element as a source.
  * @remarks
  * 
-  * The code example that follows illustrates how to create an instance of  this interface.
-  * 
-  * 
-  * ```cpp
-  * 
-  * IXpsOMVisualBrush        *newInterface;
-  * 
-  * // Note the implicit requirement that CoInitializeEx 
-  * //  has previously been called from this thread.
-  * 
-  * hr = CoCreateInstance(
-  *     __uuidof(XpsOMObjectFactory),
-  *     NULL,
-  *     CLSCTX_INPROC_SERVER,
-  *     _uuidof(IXpsOMObjectFactory),
-  *     reinterpret_cast<LPVOID*>(&xpsFactory)
-  *     );
-  * 
-  * if (SUCCEEDED(hr))
-  * {
-  *     hr = xpsFactory->CreateVisualBrush (
-  *         &viewBox,
-  *         &viewPort,
-  *         &newInterface);
-  * 
-  *     if (SUCCEEDED(hr))
-  *     {
-  *         // assign visual using one of the following:
-  *         newInterface->SetVisualLocal (localVisual);
-  *         // or
-  *         newInterface->SetVisualLookup (visualLookupKey);
-  *         // use newInterface
-  * 
-  *         newInterface->Release();
-  *     }
-  *     xpsFactory->Release();
-  * }
-  * else
-  * {
-  *     // evaluate HRESULT error returned in hr
-  * }
-  * // use newInterface
-  * 
-  * newInterface->Release();
-  * xpsFactory->Release();
-  * 
-  * 
-  * ```
-  * 
-  * 
+ * The code example that follows illustrates how to create an instance of  this interface.
+ * 
+ * 
+ * ```cpp
+ * 
+ * IXpsOMVisualBrush        *newInterface;
+ * 
+ * // Note the implicit requirement that CoInitializeEx 
+ * //  has previously been called from this thread.
+ * 
+ * hr = CoCreateInstance(
+ *     __uuidof(XpsOMObjectFactory),
+ *     NULL,
+ *     CLSCTX_INPROC_SERVER,
+ *     _uuidof(IXpsOMObjectFactory),
+ *     reinterpret_cast<LPVOID*>(&xpsFactory)
+ *     );
+ * 
+ * if (SUCCEEDED(hr))
+ * {
+ *     hr = xpsFactory->CreateVisualBrush (
+ *         &viewBox,
+ *         &viewPort,
+ *         &newInterface);
+ * 
+ *     if (SUCCEEDED(hr))
+ *     {
+ *         // assign visual using one of the following:
+ *         newInterface->SetVisualLocal (localVisual);
+ *         // or
+ *         newInterface->SetVisualLookup (visualLookupKey);
+ *         // use newInterface
+ * 
+ *         newInterface->Release();
+ *     }
+ *     xpsFactory->Release();
+ * }
+ * else
+ * {
+ *     // evaluate HRESULT error returned in hr
+ * }
+ * // use newInterface
+ * 
+ * newInterface->Release();
+ * xpsFactory->Release();
+ * 
+ * 
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisualbrush
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

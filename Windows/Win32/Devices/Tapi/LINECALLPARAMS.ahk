@@ -6,19 +6,19 @@
  * The LINECALLPARAMS structure describes parameters supplied when making calls using the lineMakeCall and TSPI_lineMakeCall functions. The LINECALLPARAMS structure is also used as a parameter in other operations, such as the lineOpen function.
  * @remarks
  * 
-  * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
-  * 
-  * This structure is used as a parameter to 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linemakecall">lineMakeCall</a> when setting up a call. Its fields allow the application to specify the quality of service requested from the network as well as a variety of ISDN call-setup parameters. If no 
-  * <b>LINECALLPARAMS</b> structure is supplied to 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linemakecall">lineMakeCall</a>, a default POTS voice-grade call is requested with the default values listed above.
-  * 
-  * <div class="alert"><b>Note</b>  The fields <b>DialParams</b> through <b>dwDevSpecificOffset</b> are ignored when an <i>lpCallParams</i> parameter is specified with the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineopen">lineOpen</a> function.</div>
-  * <div> </div>
-  * The members <b>dwPredictiveAutoTransferStates</b> through <b>dwCallingPartyIDOffset</b> are available only to applications that open the line device with an API version of 2.0 or later.
-  * 
-  * 
+ * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
+ * 
+ * This structure is used as a parameter to 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linemakecall">lineMakeCall</a> when setting up a call. Its fields allow the application to specify the quality of service requested from the network as well as a variety of ISDN call-setup parameters. If no 
+ * <b>LINECALLPARAMS</b> structure is supplied to 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linemakecall">lineMakeCall</a>, a default POTS voice-grade call is requested with the default values listed above.
+ * 
+ * <div class="alert"><b>Note</b>  The fields <b>DialParams</b> through <b>dwDevSpecificOffset</b> are ignored when an <i>lpCallParams</i> parameter is specified with the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineopen">lineOpen</a> function.</div>
+ * <div> </div>
+ * The members <b>dwPredictiveAutoTransferStates</b> through <b>dwCallingPartyIDOffset</b> are available only to applications that open the line device with an API version of 2.0 or later.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linecallparams
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

@@ -22,22 +22,22 @@ class MFVideoAspectRatioMode{
 
     /**
      * <div class="alert"><b>Note</b>  Currently the EVR ignores this flag.</div>
- * <div> </div>
- * Correct the aspect ratio if the physical size of the display device does not match the display resolution. For example, if the native resolution of the monitor is 1600 by 1200 (4:3) but the display resolution is 1280 by 1024 (5:4), the monitor will display non-square pixels.
- * 
- * If this flag is set, you must also set the <b>MFVideoARMode_PreservePicture</b> flag.
+     * <div> </div>
+     * Correct the aspect ratio if the physical size of the display device does not match the display resolution. For example, if the native resolution of the monitor is 1600 by 1200 (4:3) but the display resolution is 1280 by 1024 (5:4), the monitor will display non-square pixels.
+     * 
+     * If this flag is set, you must also set the <b>MFVideoARMode_PreservePicture</b> flag.
      * @type {Integer (Int32)}
      */
     static MFVideoARMode_PreservePixel => 2
 
     /**
      * Apply a non-linear horizontal stretch if the aspect ratio of the destination rectangle does not match the aspect ratio of the source rectangle.
- * 
- * The non-linear stretch algorithm preserves the aspect ratio in the middle of the picture and stretches (or shrinks) the image progressively more toward the left and right. This mode is useful when viewing 4:3 content full-screen on a 16:9 display, instead of pillar-boxing. Non-linear vertical stretch is not supported, because the visual results are generally poor.
- * 
- * This mode may cause performance degradation.
- * 
- * If this flag is set, you must also set the <b>MFVideoARMode_PreservePixel</b> and <b>MFVideoARMode_PreservePicture</b> flags.
+     * 
+     * The non-linear stretch algorithm preserves the aspect ratio in the middle of the picture and stretches (or shrinks) the image progressively more toward the left and right. This mode is useful when viewing 4:3 content full-screen on a 16:9 display, instead of pillar-boxing. Non-linear vertical stretch is not supported, because the visual results are generally poor.
+     * 
+     * This mode may cause performance degradation.
+     * 
+     * If this flag is set, you must also set the <b>MFVideoARMode_PreservePixel</b> and <b>MFVideoARMode_PreservePicture</b> flags.
      * @type {Integer (Int32)}
      */
     static MFVideoARMode_NonLinearStretch => 4

@@ -5,26 +5,26 @@
  * Used to build or parse a property list or, a value list.
  * @remarks
  * 
-  * The <b>CLUSPROP_BUFFER_HELPER</b> structure is useful 
-  *      in working with property and value lists. Applications can use a generic 
-  *      <b>CLUSPROP_BUFFER_HELPER</b> pointer to advance by 
-  *      offsets through the entries of a property list or value list, retrieving or setting values without having to cast 
-  *      to the appropriate data type.
-  * 
-  * An alternate structure, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a>, 
-  *      can also be used to work with multiple properties.
-  * 
-  * Use caution when referencing large integer values in <b>DWORD</b>-aligned structures 
-  *      such as value lists, property lists, and 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/parameter-blocks">parameter blocks</a>. For Windows Server for Itanium-based 
-  *      systems, a naturally-aligned large integer value always begins on an address ending in 0 or 8h. 
-  *      <b>DWORD</b> alignment can cause large values to begin on unaligned boundaries (addresses 
-  *      ending in 4h or C), which will cause an alignment fault when the data is read or written. You can avoid alignment 
-  *      faults by handling the high and low parts of large values separately, or by using local variables, which are 
-  *      guaranteed to be naturally aligned.
-  * 
-  * 
-  * 
+ * The <b>CLUSPROP_BUFFER_HELPER</b> structure is useful 
+ *      in working with property and value lists. Applications can use a generic 
+ *      <b>CLUSPROP_BUFFER_HELPER</b> pointer to advance by 
+ *      offsets through the entries of a property list or value list, retrieving or setting values without having to cast 
+ *      to the appropriate data type.
+ * 
+ * An alternate structure, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a>, 
+ *      can also be used to work with multiple properties.
+ * 
+ * Use caution when referencing large integer values in <b>DWORD</b>-aligned structures 
+ *      such as value lists, property lists, and 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/parameter-blocks">parameter blocks</a>. For Windows Server for Itanium-based 
+ *      systems, a naturally-aligned large integer value always begins on an address ending in 0 or 8h. 
+ *      <b>DWORD</b> alignment can cause large values to begin on unaligned boundaries (addresses 
+ *      ending in 4h or C), which will cause an alignment fault when the data is read or written. You can avoid alignment 
+ *      faults by handling the high and low parts of large values separately, or by using local variables, which are 
+ *      guaranteed to be naturally aligned.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_buffer_helper
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

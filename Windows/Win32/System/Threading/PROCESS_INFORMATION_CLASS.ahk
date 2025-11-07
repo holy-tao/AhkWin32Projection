@@ -4,7 +4,7 @@
  * Indicates a specific class of process information.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/ne-processthreadsapi-process_information_class
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319

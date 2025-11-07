@@ -7,15 +7,15 @@
  * The EVENT_TRACE_PROPERTIES_V2 structure contains information about an event tracing session.
  * @remarks
  * 
-  * This structure behaves similarly to <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-properties">EVENT_TRACE_PROPERTIES</a> with a few exceptions.
-  * 
-  * The beginning of the structure is defined exactly as <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-properties">EVENT_TRACE_PROPERTIES</a> to allow this new structure to be compatible with systems running versions of Windows before Windows 10, version 1703 and will be treated as <b>EVENT_TRACE_PROPERTIES</b>.
-  * 
-  * When using this structure, be sure to include WNODE_FLAG_VERSIONED_PROPERTIES in Wnode.Flags to indicate that this is the version two structure.
-  * 
-  * Note that the filters  passed into <a href="https://docs.microsoft.com/windows/desktop/ETW/controltrace">ControlTrace</a>, <a href="https://docs.microsoft.com/windows/desktop/ETW/querytrace">QueryTrace</a>, <a href="https://docs.microsoft.com/windows/desktop/ETW/starttrace">StartTrace</a>, and <a href="https://docs.microsoft.com/windows/desktop/ETW/stoptrace">StopTrace</a> by this structure are the same format as filters consumed by the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex2">EnableTraceEx2</a> function.
-  * 
-  * 
+ * This structure behaves similarly to <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-properties">EVENT_TRACE_PROPERTIES</a> with a few exceptions.
+ * 
+ * The beginning of the structure is defined exactly as <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-properties">EVENT_TRACE_PROPERTIES</a> to allow this new structure to be compatible with systems running versions of Windows before Windows 10, version 1703 and will be treated as <b>EVENT_TRACE_PROPERTIES</b>.
+ * 
+ * When using this structure, be sure to include WNODE_FLAG_VERSIONED_PROPERTIES in Wnode.Flags to indicate that this is the version two structure.
+ * 
+ * Note that the filters  passed into <a href="https://docs.microsoft.com/windows/desktop/ETW/controltrace">ControlTrace</a>, <a href="https://docs.microsoft.com/windows/desktop/ETW/querytrace">QueryTrace</a>, <a href="https://docs.microsoft.com/windows/desktop/ETW/starttrace">StartTrace</a>, and <a href="https://docs.microsoft.com/windows/desktop/ETW/stoptrace">StopTrace</a> by this structure are the same format as filters consumed by the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex2">EnableTraceEx2</a> function.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-event_trace_properties_v2
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

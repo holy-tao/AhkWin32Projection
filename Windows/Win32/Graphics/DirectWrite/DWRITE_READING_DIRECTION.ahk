@@ -22,16 +22,16 @@ class DWRITE_READING_DIRECTION{
 
     /**
      * <div class="alert"><b>Note</b>  Windows 8.1 and later only.</div>
- * <div> </div>
- * Indicates that reading progresses from top to bottom.
+     * <div> </div>
+     * Indicates that reading progresses from top to bottom.
      * @type {Integer (Int32)}
      */
     static DWRITE_READING_DIRECTION_TOP_TO_BOTTOM => 2
 
     /**
      * <div class="alert"><b>Note</b>  Windows 8.1 and later only.</div>
- * <div> </div>
- *  Indicates that reading progresses from bottom to top.
+     * <div> </div>
+     *  Indicates that reading progresses from bottom to top.
      * @type {Integer (Int32)}
      */
     static DWRITE_READING_DIRECTION_BOTTOM_TO_TOP => 3

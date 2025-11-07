@@ -5,52 +5,52 @@
  * Used by many of the store provider callback functions.
  * @remarks
  * 
-  * The <b>dwFindFlags</b> member is used to modify the criteria of some search types.
-  * 
-  * The <b>dwFindFlags</b> value of CERT_UNICODE_IS_RDN_ATTRS_FLAG is used only with the CERT_FIND_SUBJECT_ATTR and CERT_FIND_ISSUER_ATTR values for <b>dwFindType</b>. CERT_UNICODE_IS_RDN_ATTRS_FLAG must be set if the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_rdn_attr">CERT_RDN_ATTR</a> structure pointed to by <b>pvFindPara</b> was initialized with Unicode strings. Before any comparison is made, the string to be matched is converted by using X509_UNICODE_NAME to provide for Unicode comparisons.
-  * 
-  * The following <b>dwFindFlags</b> values are used only with the CERT_FIND_ENKEY_USAGE value for <b>dwFindType</b>.
-  * 
-  * <table>
-  * <tr>
-  * <th>Value</th>
-  * <th>Meaning</th>
-  * </tr>
-  * <tr>
-  * <td>CERT_FIND_OR_ENHKEY_USAGE_FLAG</td>
-  * <td>The search criteria can be altered by setting one or more flags. By default, if the <b>pszUsageIdentifier</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CERT_ENHKEY_USAGE</a> structure pointed to by <b>pvFindPara</b> is to be matched, each identifier must be matched to satisfy the search criteria. However, if CERT_FIND_OR_ENHKEY_USAGE_FLAG is set, a match can be made to all identifiers combined by using a bitwise-<b>OR</b> operation; thus, matching any one of the identifiers is sufficient.</td>
-  * </tr>
-  * <tr>
-  * <td>CERT_FIND_OPTIONAL_ENHKEY_USAGE_FLAG</td>
-  * <td>When this flag is set, in addition to usual matches, any certificate that has neither the enhanced key usage extension nor the enhanced key usage property meets the search criteria.</td>
-  * </tr>
-  * <tr>
-  * <td>CERT_FIND_NO_ENHKEY_USAGE_FLAG</td>
-  * <td>When this flag is set, only those certificates that have neither an enhanced key usage nor the enhanced key usage property are matches. This flag setting takes precedence over <b>pvFindPara</b> being <b>NULL</b>.</td>
-  * </tr>
-  * <tr>
-  * <td>CERT_FIND_VALID_ENHKEY_USAGE_FLAG</td>
-  * <td>When this flag is set, the function only matches those certificates that are valid for the specified usage. By default, in order to match, a certificate must be valid for all usages. 
-  * 
-  * 
-  * CERT_FIND_OR_ENHKEY_USAGE_FLAG can also be set if the certificate only needs to be valid for one of the specified usages. Note that <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetvalidusages">CertGetValidUsages</a> is called to get the list of valid uses for the certificate. Only CERT_FIND_OR_ENHKEY_USAGE_FLAG can also apply when CERT_FIND_VALID_ENHKEY_USAGE_FLAG is set.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>CERT_FIND_EXT_ONLY_ENHKEY_USAGE_FLAG</td>
-  * <td>When this flag is set, the matching process involves only the extension usage identifiers. If <b>pvFindPara</b> is <b>NULL</b> or the <b>cUsageIdentifier</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CERT_ENHKEY_USAGE</a> structure pointed to by <b>pvFindPara</b> is zero, any certificate having an enhanced key usage extension is a match. If CERT_FIND_OPTIONAL_ENHKEY_USAGE_FLAG is also set, any certificate without the enhanced key usage extension is also a match. If CERT_FIND_NO_ENHKEY_USAGE_FLAG is also set, only certificates without the enhanced key usage extension are matches.</td>
-  * </tr>
-  * <tr>
-  * <td>CERT_FIND_EXT_PROP_ENHKEY_USAGE_FLAG</td>
-  * <td>When this flag is set, the matching process involves only usage identifiers that are properties. If <b>pvFindPara</b> is <b>NULL</b> or <b>cUsageIdentifier</b> is set to zero, any certificate having an enhanced key usage property is a match. If CERT_FIND_OPTIONAL_ENHKEY_USAGE_FLAG is also set, any certificate without the enhanced key usage property is also a match. If CERT_FIND_NO_ENHKEY_USAGE_FLAG is set, only certificates without the enhanced key usage property are matches.</td>
-  * </tr>
-  * <tr>
-  * <td>CERT_CASE_INSENSITIVE_IS_RDN_ATTRS_FLAG</td>
-  * <td>Used only with CERT_FIND_SUBJECT_ATTR and CERT_FIND_ISSUER-ATTR values of <b>dwFindType</b>. By default, a case-sensitive, exact match is made. If this flag is set, the match is case-insensitive.</td>
-  * </tr>
-  * </table>
-  * 
+ * The <b>dwFindFlags</b> member is used to modify the criteria of some search types.
+ * 
+ * The <b>dwFindFlags</b> value of CERT_UNICODE_IS_RDN_ATTRS_FLAG is used only with the CERT_FIND_SUBJECT_ATTR and CERT_FIND_ISSUER_ATTR values for <b>dwFindType</b>. CERT_UNICODE_IS_RDN_ATTRS_FLAG must be set if the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_rdn_attr">CERT_RDN_ATTR</a> structure pointed to by <b>pvFindPara</b> was initialized with Unicode strings. Before any comparison is made, the string to be matched is converted by using X509_UNICODE_NAME to provide for Unicode comparisons.
+ * 
+ * The following <b>dwFindFlags</b> values are used only with the CERT_FIND_ENKEY_USAGE value for <b>dwFindType</b>.
+ * 
+ * <table>
+ * <tr>
+ * <th>Value</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td>CERT_FIND_OR_ENHKEY_USAGE_FLAG</td>
+ * <td>The search criteria can be altered by setting one or more flags. By default, if the <b>pszUsageIdentifier</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CERT_ENHKEY_USAGE</a> structure pointed to by <b>pvFindPara</b> is to be matched, each identifier must be matched to satisfy the search criteria. However, if CERT_FIND_OR_ENHKEY_USAGE_FLAG is set, a match can be made to all identifiers combined by using a bitwise-<b>OR</b> operation; thus, matching any one of the identifiers is sufficient.</td>
+ * </tr>
+ * <tr>
+ * <td>CERT_FIND_OPTIONAL_ENHKEY_USAGE_FLAG</td>
+ * <td>When this flag is set, in addition to usual matches, any certificate that has neither the enhanced key usage extension nor the enhanced key usage property meets the search criteria.</td>
+ * </tr>
+ * <tr>
+ * <td>CERT_FIND_NO_ENHKEY_USAGE_FLAG</td>
+ * <td>When this flag is set, only those certificates that have neither an enhanced key usage nor the enhanced key usage property are matches. This flag setting takes precedence over <b>pvFindPara</b> being <b>NULL</b>.</td>
+ * </tr>
+ * <tr>
+ * <td>CERT_FIND_VALID_ENHKEY_USAGE_FLAG</td>
+ * <td>When this flag is set, the function only matches those certificates that are valid for the specified usage. By default, in order to match, a certificate must be valid for all usages. 
+ * 
+ * 
+ * CERT_FIND_OR_ENHKEY_USAGE_FLAG can also be set if the certificate only needs to be valid for one of the specified usages. Note that <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetvalidusages">CertGetValidUsages</a> is called to get the list of valid uses for the certificate. Only CERT_FIND_OR_ENHKEY_USAGE_FLAG can also apply when CERT_FIND_VALID_ENHKEY_USAGE_FLAG is set.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>CERT_FIND_EXT_ONLY_ENHKEY_USAGE_FLAG</td>
+ * <td>When this flag is set, the matching process involves only the extension usage identifiers. If <b>pvFindPara</b> is <b>NULL</b> or the <b>cUsageIdentifier</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CERT_ENHKEY_USAGE</a> structure pointed to by <b>pvFindPara</b> is zero, any certificate having an enhanced key usage extension is a match. If CERT_FIND_OPTIONAL_ENHKEY_USAGE_FLAG is also set, any certificate without the enhanced key usage extension is also a match. If CERT_FIND_NO_ENHKEY_USAGE_FLAG is also set, only certificates without the enhanced key usage extension are matches.</td>
+ * </tr>
+ * <tr>
+ * <td>CERT_FIND_EXT_PROP_ENHKEY_USAGE_FLAG</td>
+ * <td>When this flag is set, the matching process involves only usage identifiers that are properties. If <b>pvFindPara</b> is <b>NULL</b> or <b>cUsageIdentifier</b> is set to zero, any certificate having an enhanced key usage property is a match. If CERT_FIND_OPTIONAL_ENHKEY_USAGE_FLAG is also set, any certificate without the enhanced key usage property is also a match. If CERT_FIND_NO_ENHKEY_USAGE_FLAG is set, only certificates without the enhanced key usage property are matches.</td>
+ * </tr>
+ * <tr>
+ * <td>CERT_CASE_INSENSITIVE_IS_RDN_ATTRS_FLAG</td>
+ * <td>Used only with CERT_FIND_SUBJECT_ATTR and CERT_FIND_ISSUER-ATTR values of <b>dwFindType</b>. By default, a case-sensitive, exact match is made. If this flag is set, the match is case-insensitive.</td>
+ * </tr>
+ * </table>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_store_prov_find_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319

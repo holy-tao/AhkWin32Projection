@@ -7,11 +7,11 @@
  * The IVMRWindowlessControl9 interface controls how the Video Mixing Renderer Filter 9 (VMR-9) renders a video stream within a container window.
  * @remarks
  * 
-  * The VMR-9 supports this interface in windowless and renderless modes only. In windowed mode, <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> returns <b>E_NOINTERFACE</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/vmr-modes-of-operation">VMR Modes of Operation</a>.
-  * 
-  * Include DShow.h and D3d9.h before Vmr9.h.
-  * 
-  * 
+ * The VMR-9 supports this interface in windowless and renderless modes only. In windowed mode, <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> returns <b>E_NOINTERFACE</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/vmr-modes-of-operation">VMR Modes of Operation</a>.
+ * 
+ * Include DShow.h and D3d9.h before Vmr9.h.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vmr9/nn-vmr9-ivmrwindowlesscontrol9
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

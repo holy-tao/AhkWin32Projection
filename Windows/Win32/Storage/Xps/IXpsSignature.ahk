@@ -11,11 +11,11 @@
  * Represents a single digital signature.
  * @remarks
  * 
-  * This interface is linked to the signature manager from which it was instantiated and it cannot exist independently.
-  * 
-  * An <b>IXpsSignature</b> interface may represent a signature that is not XPS compliant. For example, it could represent a signature that includes only custom parts, which is not allowed by the <a href="https://www.ecma-international.org/activities/XML%20Paper%20Specification/XPS%20Standard%20WD%201.6.pdf">XML Paper Specification</a>.
-  * 
-  * 
+ * This interface is linked to the signature manager from which it was instantiated and it cannot exist independently.
+ * 
+ * An <b>IXpsSignature</b> interface may represent a signature that is not XPS compliant. For example, it could represent a signature that includes only custom parts, which is not allowed by the <a href="https://www.ecma-international.org/activities/XML%20Paper%20Specification/XPS%20Standard%20WD%201.6.pdf">XML Paper Specification</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignature
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Initializes a video mixer or presenter.
  * @remarks
  * 
-  * When the EVR loads the video mixer and the video presenter, the EVR queries the object for this interface and calls <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imftopologyservicelookupclient-initservicepointers">InitServicePointers</a>. Inside the <b>InitServicePointers</b> method, the object can query the EVR for interface pointers.
-  * 
-  * 
+ * When the EVR loads the video mixer and the video presenter, the EVR queries the object for this interface and calls <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imftopologyservicelookupclient-initservicepointers">InitServicePointers</a>. Inside the <b>InitServicePointers</b> method, the object can query the EVR for interface pointers.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evr/nn-evr-imftopologyservicelookupclient
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

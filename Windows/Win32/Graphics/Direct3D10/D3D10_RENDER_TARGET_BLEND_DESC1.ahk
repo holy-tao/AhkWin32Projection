@@ -5,50 +5,50 @@
  * Describes the blend state for a render target for a Direct3D 10.1 device
  * @remarks
  * 
-  * To see how blending is done, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">Output-Merger Stage (Direct3D 10)</a>.
-  * 
-  * These are the default values for blend state.
-  * 
-  * <table>
-  * <tr>
-  * <th>State</th>
-  * <th>Default Value</th>
-  * </tr>
-  * <tr>
-  * <td>BlendEnable</td>
-  * <td>FALSE</td>
-  * </tr>
-  * <tr>
-  * <td>SrcBlend</td>
-  * <td>D3D10_BLEND_ONE</td>
-  * </tr>
-  * <tr>
-  * <td>DestBlend</td>
-  * <td>D3D10_BLEND_ZERO</td>
-  * </tr>
-  * <tr>
-  * <td>BlendOp</td>
-  * <td>D3D10_BLEND_OP_ADD</td>
-  * </tr>
-  * <tr>
-  * <td>SrcBlendAlpha</td>
-  * <td>D3D10_BLEND_ONE</td>
-  * </tr>
-  * <tr>
-  * <td>DestBlendAlpha</td>
-  * <td>D3D10_BLEND_ZERO</td>
-  * </tr>
-  * <tr>
-  * <td>BlendOpAlpha</td>
-  * <td>D3D10_BLEND_OP_ADD</td>
-  * </tr>
-  * <tr>
-  * <td>RenderTargetWriteMask</td>
-  * <td>D3D10_COLOR_WRITE_ENABLE_ALL</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * To see how blending is done, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">Output-Merger Stage (Direct3D 10)</a>.
+ * 
+ * These are the default values for blend state.
+ * 
+ * <table>
+ * <tr>
+ * <th>State</th>
+ * <th>Default Value</th>
+ * </tr>
+ * <tr>
+ * <td>BlendEnable</td>
+ * <td>FALSE</td>
+ * </tr>
+ * <tr>
+ * <td>SrcBlend</td>
+ * <td>D3D10_BLEND_ONE</td>
+ * </tr>
+ * <tr>
+ * <td>DestBlend</td>
+ * <td>D3D10_BLEND_ZERO</td>
+ * </tr>
+ * <tr>
+ * <td>BlendOp</td>
+ * <td>D3D10_BLEND_OP_ADD</td>
+ * </tr>
+ * <tr>
+ * <td>SrcBlendAlpha</td>
+ * <td>D3D10_BLEND_ONE</td>
+ * </tr>
+ * <tr>
+ * <td>DestBlendAlpha</td>
+ * <td>D3D10_BLEND_ZERO</td>
+ * </tr>
+ * <tr>
+ * <td>BlendOpAlpha</td>
+ * <td>D3D10_BLEND_OP_ADD</td>
+ * </tr>
+ * <tr>
+ * <td>RenderTargetWriteMask</td>
+ * <td>D3D10_COLOR_WRITE_ENABLE_ALL</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10_1/ns-d3d10_1-d3d10_render_target_blend_desc1
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

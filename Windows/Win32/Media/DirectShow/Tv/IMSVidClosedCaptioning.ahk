@@ -7,9 +7,9 @@
  * The IMSVidClosedCaptioning interface enables or disables closed captions.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidClosedCaptioning)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidClosedCaptioning)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidclosedcaptioning
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

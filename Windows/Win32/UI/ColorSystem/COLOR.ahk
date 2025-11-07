@@ -14,19 +14,19 @@
  * Description of the COLOR union.
  * @remarks
  * 
-  * A variable of type COLOR may be accessed as any of the supported color space colors by accessing the appropriate member of the union. For instance, given the following variable declaration:
-  * 
-  * `COLOR aColor;`
-  * 
-  * the red, green and blue values could be set in the following manner:
-  * 
-  * `aColor.rgb.red=100;`
-  * 
-  * `aColor.rgb.green=50;`
-  * 
-  * `aColor.rgb.blue=2;`
-  * 
-  * 
+ * A variable of type COLOR may be accessed as any of the supported color space colors by accessing the appropriate member of the union. For instance, given the following variable declaration:
+ * 
+ * `COLOR aColor;`
+ * 
+ * the red, green and blue values could be set in the following manner:
+ * 
+ * `aColor.rgb.red=100;`
+ * 
+ * `aColor.rgb.green=50;`
+ * 
+ * `aColor.rgb.blue=2;`
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//icm/ns-icm-color
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319

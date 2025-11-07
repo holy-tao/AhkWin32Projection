@@ -5,43 +5,43 @@
  * The JOYINFOEX structure contains extended information about the joystick position, point-of-view position, and button state.
  * @remarks
  * 
-  * The value of the <b>dwSize</b> member is also used to identify the version number for the structure when it's passed to the <a href="https://docs.microsoft.com/previous-versions/dd757108(v=vs.85)">joyGetPosEx</a> function.
-  * 
-  * Most devices with a point-of-view control have only five positions. When the JOY_RETURNPOV flag is set, these positions are reported by using the following constants:
-  * 
-  * <table>
-  * <tr>
-  * <th>Point-Of-View Flag
-  *             </th>
-  * <th>Description
-  *             </th>
-  * </tr>
-  * <tr>
-  * <td>JOY_POVBACKWARD</td>
-  * <td>Point-of-view hat is pressed backward. The value 18,000 represents an orientation of 180.00 degrees (to the rear).</td>
-  * </tr>
-  * <tr>
-  * <td>JOY_POVCENTERED</td>
-  * <td>Point-of-view hat is in the neutral position. The value -1 means the point-of-view hat has no angle to report.</td>
-  * </tr>
-  * <tr>
-  * <td>JOY_POVFORWARD</td>
-  * <td>Point-of-view hat is pressed forward. The value 0 represents an orientation of 0.00 degrees (straight ahead).</td>
-  * </tr>
-  * <tr>
-  * <td>JOY_POVLEFT</td>
-  * <td>Point-of-view hat is being pressed to the left. The value 27,000 represents an orientation of 270.00 degrees (90.00 degrees to the left).</td>
-  * </tr>
-  * <tr>
-  * <td>JOY_POVRIGHT</td>
-  * <td>Point-of-view hat is pressed to the right. The value 9,000 represents an orientation of 90.00 degrees (to the right).</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * The default joystick driver currently supports these five discrete directions. If an application can accept only the defined point-of-view values, it must use the JOY_RETURNPOV flag. If an application can accept other degree readings, it should use the JOY_RETURNPOVCTS flag to obtain continuous data if it is available. The JOY_RETURNPOVCTS flag also supports the JOY_POV constants used with the JOY_RETURNPOV flag.
-  * 
-  * 
+ * The value of the <b>dwSize</b> member is also used to identify the version number for the structure when it's passed to the <a href="https://docs.microsoft.com/previous-versions/dd757108(v=vs.85)">joyGetPosEx</a> function.
+ * 
+ * Most devices with a point-of-view control have only five positions. When the JOY_RETURNPOV flag is set, these positions are reported by using the following constants:
+ * 
+ * <table>
+ * <tr>
+ * <th>Point-Of-View Flag
+ *             </th>
+ * <th>Description
+ *             </th>
+ * </tr>
+ * <tr>
+ * <td>JOY_POVBACKWARD</td>
+ * <td>Point-of-view hat is pressed backward. The value 18,000 represents an orientation of 180.00 degrees (to the rear).</td>
+ * </tr>
+ * <tr>
+ * <td>JOY_POVCENTERED</td>
+ * <td>Point-of-view hat is in the neutral position. The value -1 means the point-of-view hat has no angle to report.</td>
+ * </tr>
+ * <tr>
+ * <td>JOY_POVFORWARD</td>
+ * <td>Point-of-view hat is pressed forward. The value 0 represents an orientation of 0.00 degrees (straight ahead).</td>
+ * </tr>
+ * <tr>
+ * <td>JOY_POVLEFT</td>
+ * <td>Point-of-view hat is being pressed to the left. The value 27,000 represents an orientation of 270.00 degrees (90.00 degrees to the left).</td>
+ * </tr>
+ * <tr>
+ * <td>JOY_POVRIGHT</td>
+ * <td>Point-of-view hat is pressed to the right. The value 9,000 represents an orientation of 90.00 degrees (to the right).</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * The default joystick driver currently supports these five discrete directions. If an application can accept only the defined point-of-view values, it must use the JOY_RETURNPOV flag. If an application can accept other degree readings, it should use the JOY_RETURNPOVCTS flag to obtain continuous data if it is available. The JOY_RETURNPOVCTS flag also supports the JOY_POV constants used with the JOY_RETURNPOV flag.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//joystickapi/ns-joystickapi-joyinfoex
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319

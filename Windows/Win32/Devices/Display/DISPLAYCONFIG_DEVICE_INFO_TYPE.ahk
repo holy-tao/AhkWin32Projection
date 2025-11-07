@@ -40,8 +40,8 @@ class DISPLAYCONFIG_DEVICE_INFO_TYPE{
 
     /**
      * Specifies how to set the base output technology for a given target ID. If the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-displayconfiggetdeviceinfo">DisplayConfigGetDeviceInfo</a> function is successful, <b>DisplayConfigGetDeviceInfo</b> returns base output technology info in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_target_base_type">DISPLAYCONFIG_TARGET_BASE_TYPE</a> structure.
- * 
- * Supported by WDDM 1.3 and later user-mode display drivers running on Windows 8.1 and later.
+     * 
+     * Supported by WDDM 1.3 and later user-mode display drivers running on Windows 8.1 and later.
      * @type {Integer (Int32)}
      */
     static DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_BASE_TYPE => 6

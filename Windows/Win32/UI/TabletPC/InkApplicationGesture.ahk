@@ -4,15 +4,15 @@
  * Defines values that set the interest in a set of application-specific gesture.Application gestures are gestures that you can choose to have your application support.
  * @remarks
  * 
-  * The default value is <b>NoGesture</b>, which is actually a cutoff line that represents the Microsoft gesture recognizer minimum suggested confidence. It does not actually represent a gesture or lack of gesture, just the point at which the gesture recognizer lacks enough confidence in the result accuracy to recommend anything following that point.
-  * 
-  * For example, assume that a gesture array consists of the following values: <b>Circle</b>, <b>LeftRight</b>, <b>NoGesture</b>, <b>RightLeft</b>, and <b>Triangle</b>. In this case, the gesture recognizer has a great degree of confidence in <b>Circle</b> and less confidence in <b>LeftRight</b>. The recognizer has very low confidence in <b>RightLeft</b> and <b>Triangle</b> because they come after <b>NoGesture</b> in the array order.
-  * 
-  * The confidence level at which the gesture recognizer returns <b>NoGesture</b> cannot be changed.
-  * 
-  * If <b>NoGesture</b> is the first element in the array (which means that every recognized gesture is below the suggested confidence threshold), then the platform alters the default value of the <i>Cancel</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event handler from <b>FALSE</b> to <b>TRUE</b>. This causes the ink to be considered a stroke and not be deleted from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object by default.
-  * 
-  * 
+ * The default value is <b>NoGesture</b>, which is actually a cutoff line that represents the Microsoft gesture recognizer minimum suggested confidence. It does not actually represent a gesture or lack of gesture, just the point at which the gesture recognizer lacks enough confidence in the result accuracy to recommend anything following that point.
+ * 
+ * For example, assume that a gesture array consists of the following values: <b>Circle</b>, <b>LeftRight</b>, <b>NoGesture</b>, <b>RightLeft</b>, and <b>Triangle</b>. In this case, the gesture recognizer has a great degree of confidence in <b>Circle</b> and less confidence in <b>LeftRight</b>. The recognizer has very low confidence in <b>RightLeft</b> and <b>Triangle</b> because they come after <b>NoGesture</b> in the array order.
+ * 
+ * The confidence level at which the gesture recognizer returns <b>NoGesture</b> cannot be changed.
+ * 
+ * If <b>NoGesture</b> is the first element in the array (which means that every recognized gesture is below the suggested confidence threshold), then the platform alters the default value of the <i>Cancel</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event handler from <b>FALSE</b> to <b>TRUE</b>. This causes the ink to be considered a stroke and not be deleted from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object by default.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkapplicationgesture
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
@@ -27,8 +27,8 @@ class InkApplicationGesture{
 
     /**
      * No application-specific gestures. See the following "Remarks" section for more details on this member.
- * 
- * This is the default value.
+     * 
+     * This is the default value.
      * @type {Integer (Int32)}
      */
     static IAG_NoGesture => 61440
@@ -149,32 +149,32 @@ class InkApplicationGesture{
 
     /**
      * This gesture must be drawn as a single fast flick in the upward direction.
- * 
- * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
+     * 
+     * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
      * @type {Integer (Int32)}
      */
     static IAG_Up => 61528
 
     /**
      * This gesture must be drawn as a single fast flick in the downward direction.
- * 
- * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
+     * 
+     * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
      * @type {Integer (Int32)}
      */
     static IAG_Down => 61529
 
     /**
      * This gesture must be drawn as a single fast flick to the left.
- * 
- * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
+     * 
+     * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
      * @type {Integer (Int32)}
      */
     static IAG_Left => 61530
 
     /**
      * This gesture must be drawn as a single fast flick to the right.
- * 
- * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
+     * 
+     * This gesture is used by <a href="https://docs.microsoft.com/windows/desktop/tablet/flicks-gestures">Flicks Gestures</a>.
      * @type {Integer (Int32)}
      */
     static IAG_Right => 61531
@@ -283,16 +283,16 @@ class InkApplicationGesture{
 
     /**
      * A mouse click.
- * 
- * For the least amount of slipping across the digitizer surface, tap quickly.
+     * 
+     * For the least amount of slipping across the digitizer surface, tap quickly.
      * @type {Integer (Int32)}
      */
     static IAG_Tap => 61680
 
     /**
      * A mouse double-click.
- * 
- * Tap quickly and in as close to the same place for best results.
+     * 
+     * Tap quickly and in as close to the same place for best results.
      * @type {Integer (Int32)}
      */
     static IAG_DoubleTap => 61681

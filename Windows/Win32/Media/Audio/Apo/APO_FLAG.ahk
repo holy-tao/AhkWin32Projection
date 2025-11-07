@@ -46,8 +46,8 @@ class APO_FLAG{
 
     /**
      * The value of this member is determined by the logical OR result of the three preceding members. In other words:
- * 
- * APO_FLAG_DEFAULT = ( APO_FLAG_SAMPLESPERFRAME_MUST_MATCH | APO_FLAG_FRAMESPERSECOND_MUST_MATCH | APO_FLAG_BITSPERSAMPLE_MUST_MATCH ).
+     * 
+     * APO_FLAG_DEFAULT = ( APO_FLAG_SAMPLESPERFRAME_MUST_MATCH | APO_FLAG_FRAMESPERSECOND_MUST_MATCH | APO_FLAG_BITSPERSAMPLE_MUST_MATCH ).
      * @type {Integer (Int32)}
      */
     static APO_FLAG_DEFAULT => 14

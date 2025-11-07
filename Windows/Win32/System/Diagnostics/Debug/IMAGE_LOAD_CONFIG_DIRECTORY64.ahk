@@ -6,35 +6,35 @@
  * Contains the load configuration data of an image.
  * @remarks
  * 
-  * If <b>_WIN64</b> is defined, then <b>IMAGE_LOAD_CONFIG_DIRECTORY</b> is defined as <b>IMAGE_LOAD_CONFIG_DIRECTORY64</b>. However, if <b>_WIN64</b> is not defined,  then <b>IMAGE_LOAD_CONFIG_DIRECTORY</b> is defined as <b>IMAGE_LOAD_CONFIG_DIRECTORY32</b>. 
-  * 
-  * 
-  * ```cpp
-  * typedef struct {
-  *     DWORD   Size;
-  *     DWORD   TimeDateStamp;
-  *     WORD    MajorVersion;
-  *     WORD    MinorVersion;
-  *     DWORD   GlobalFlagsClear;
-  *     DWORD   GlobalFlagsSet;
-  *     DWORD   CriticalSectionDefaultTimeout;
-  *     DWORD   DeCommitFreeBlockThreshold;
-  *     DWORD   DeCommitTotalFreeThreshold;
-  *     DWORD   LockPrefixTable;            // VA
-  *     DWORD   MaximumAllocationSize;
-  *     DWORD   VirtualMemoryThreshold;
-  *     DWORD   ProcessHeapFlags;
-  *     DWORD   ProcessAffinityMask;
-  *     WORD    CSDVersion;
-  *     WORD    DependentLoadFlags;
-  *     DWORD   EditList;                   // VA
-  *     DWORD   SecurityCookie;             // VA
-  *     DWORD   SEHandlerTable;             // VA
-  *     DWORD   SEHandlerCount;
-  * } IMAGE_LOAD_CONFIG_DIRECTORY32, *PIMAGE_LOAD_CONFIG_DIRECTORY32;
-  * ```
-  * 
-  * 
+ * If <b>_WIN64</b> is defined, then <b>IMAGE_LOAD_CONFIG_DIRECTORY</b> is defined as <b>IMAGE_LOAD_CONFIG_DIRECTORY64</b>. However, if <b>_WIN64</b> is not defined,  then <b>IMAGE_LOAD_CONFIG_DIRECTORY</b> is defined as <b>IMAGE_LOAD_CONFIG_DIRECTORY32</b>. 
+ * 
+ * 
+ * ```cpp
+ * typedef struct {
+ *     DWORD   Size;
+ *     DWORD   TimeDateStamp;
+ *     WORD    MajorVersion;
+ *     WORD    MinorVersion;
+ *     DWORD   GlobalFlagsClear;
+ *     DWORD   GlobalFlagsSet;
+ *     DWORD   CriticalSectionDefaultTimeout;
+ *     DWORD   DeCommitFreeBlockThreshold;
+ *     DWORD   DeCommitTotalFreeThreshold;
+ *     DWORD   LockPrefixTable;            // VA
+ *     DWORD   MaximumAllocationSize;
+ *     DWORD   VirtualMemoryThreshold;
+ *     DWORD   ProcessHeapFlags;
+ *     DWORD   ProcessAffinityMask;
+ *     WORD    CSDVersion;
+ *     WORD    DependentLoadFlags;
+ *     DWORD   EditList;                   // VA
+ *     DWORD   SecurityCookie;             // VA
+ *     DWORD   SEHandlerTable;             // VA
+ *     DWORD   SEHandlerCount;
+ * } IMAGE_LOAD_CONFIG_DIRECTORY32, *PIMAGE_LOAD_CONFIG_DIRECTORY32;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_load_config_directory64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319

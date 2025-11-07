@@ -7,10 +7,10 @@
  * Implement the IWEExtendWizard interface to add wizard pages to Failover Cluster Administrator's New Resource Wizard or Cluster Application Wizard.
  * @remarks
  * 
-  * To support Wizard97 wizards and wizard pages, implement the 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweextendwizard97">IWEExtendWizard97</a> interface.
-  * 
-  * 
+ * To support Wizard97 wizards and wizard pages, implement the 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweextendwizard97">IWEExtendWizard97</a> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-iweextendwizard
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

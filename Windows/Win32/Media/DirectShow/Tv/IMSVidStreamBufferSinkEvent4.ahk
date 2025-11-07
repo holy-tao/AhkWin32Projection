@@ -7,9 +7,9 @@
  * The IMSVidStreamBufferSinkEvent4 interface receives events from the MSVidStreamBufferSink object.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSinkEvent4)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSinkEvent4)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambuffersinkevent4
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

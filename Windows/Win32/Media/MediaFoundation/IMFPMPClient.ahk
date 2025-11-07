@@ -7,9 +7,9 @@
  * Enables a media source to receive a pointer to the IMFPMPHost interface.
  * @remarks
  * 
-  * If a media source exposes this interface, the Protected Media Path (PMP) Media Session calls <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpmpclient-setpmphost">SetPMPHost</a> with a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpmphost">IMFPMPHost</a> interface. The media source can use the <b>IMFPMPHost</b> interface to create objects in the PMP process.
-  * 
-  * 
+ * If a media source exposes this interface, the Protected Media Path (PMP) Media Session calls <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpmpclient-setpmphost">SetPMPHost</a> with a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpmphost">IMFPMPHost</a> interface. The media source can use the <b>IMFPMPHost</b> interface to create objects in the PMP process.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfpmpclient
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

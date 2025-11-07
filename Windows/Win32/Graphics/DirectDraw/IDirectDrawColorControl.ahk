@@ -7,17 +7,17 @@
  * Applications use the methods of the IDirectDrawColorControl interface to get and set color controls.
  * @remarks
  * 
-  * You can use the LPDIRECTDRAWCOLORCONTROL data type to declare a variable that contains a pointer to an <b>IDirectDrawColorControl</b> interface. The Ddraw.h header file declares this data type with the following code:
-  * 
-  * 
-  * 
-  * 
-  * ```
-  * 
-  * typedef struct IDirectDrawColorControl    FAR *LPDIRECTDRAWCOLORCONTROL;
-  * 
-  * ```
-  * 
+ * You can use the LPDIRECTDRAWCOLORCONTROL data type to declare a variable that contains a pointer to an <b>IDirectDrawColorControl</b> interface. The Ddraw.h header file declares this data type with the following code:
+ * 
+ * 
+ * 
+ * 
+ * ```
+ * 
+ * typedef struct IDirectDrawColorControl    FAR *LPDIRECTDRAWCOLORCONTROL;
+ * 
+ * ```
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddraw/nn-ddraw-idirectdrawcolorcontrol
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319

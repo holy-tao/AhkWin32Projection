@@ -5,15 +5,15 @@
  * Contains the Statement of Health (SoH) data.
  * @remarks
  * 
-  * SoH packets are collections of attributes, stored as type-length-value objects (TLVs). The attribute type is specified by <a href="https://docs.microsoft.com/windows/desktop/NAP/sohattributetype-enum">SoHAttributeType</a>, and the attribute value is specified by <a href="https://docs.microsoft.com/windows/desktop/NAP/sohattributevalue-union">SoHAttributeValue</a>. The TLVs are ordered
-  * such that certain TLVs (such as the <b>sohAttributeTypeSystemHealthId</b> TLV or the 
-  * <b>sohAttributeTypeHealthClass</b> TLV) separate groups or 
-  * sub-groups of TLVs.
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/NAP/sohattributetype-enum">sohAttributeTypeSystemHealthId</a> TLV must be the first TLV in both <b>SoHRequest</b> and <b>SoHResponse</b> packets.
-  * A <b>SoHResponse</b> packet can have at most one <b>sohAttributeTypeIpv4FixupServers</b> or <b>sohAttributeTypeIpv6FixupServers</b> TLV.
-  * 
-  * 
+ * SoH packets are collections of attributes, stored as type-length-value objects (TLVs). The attribute type is specified by <a href="https://docs.microsoft.com/windows/desktop/NAP/sohattributetype-enum">SoHAttributeType</a>, and the attribute value is specified by <a href="https://docs.microsoft.com/windows/desktop/NAP/sohattributevalue-union">SoHAttributeValue</a>. The TLVs are ordered
+ * such that certain TLVs (such as the <b>sohAttributeTypeSystemHealthId</b> TLV or the 
+ * <b>sohAttributeTypeHealthClass</b> TLV) separate groups or 
+ * sub-groups of TLVs.
+ * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/NAP/sohattributetype-enum">sohAttributeTypeSystemHealthId</a> TLV must be the first TLV in both <b>SoHRequest</b> and <b>SoHResponse</b> packets.
+ * A <b>SoHResponse</b> packet can have at most one <b>sohAttributeTypeIpv4FixupServers</b> or <b>sohAttributeTypeIpv6FixupServers</b> TLV.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//naptypes/ns-naptypes-soh
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319

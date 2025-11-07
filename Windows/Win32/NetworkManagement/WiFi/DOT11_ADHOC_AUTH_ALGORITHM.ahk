@@ -4,32 +4,32 @@
  * Specifies the authentication algorithm for user or machine authentication on an ad hoc network.
  * @remarks
  * 
-  * Authentication and cipher algorithms are used in pairs. The following table shows valid algorithm pairs for use on an ad hoc network.
-  * 
-  * <table>
-  * <tr>
-  * <th>Pair Name</th>
-  * <th>DOT11_ADHOC_AUTH_ALGORITHM value</th>
-  * <th>DOT11_ADHOC_CIPHER_ALGORITHM value</th>
-  * </tr>
-  * <tr>
-  * <td>Open-None</td>
-  * <td>DOT11_ADHOC_AUTH_ALGO_80211_OPEN</td>
-  * <td>DOT11_ADHOC_CIPHER_ALGO_NONE</td>
-  * </tr>
-  * <tr>
-  * <td>Open-WEP</td>
-  * <td>DOT11_ADHOC_AUTH_ALGO_80211_OPEN</td>
-  * <td>DOT11_ADHOC_CIPHER_ALGO_WEP</td>
-  * </tr>
-  * <tr>
-  * <td>WPA2PSK</td>
-  * <td>DOT11_ADHOC_AUTH_ALGO_RSNA_PSK</td>
-  * <td>DOT11_ADHOC_CIPHER_ALGO_CCMP</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * Authentication and cipher algorithms are used in pairs. The following table shows valid algorithm pairs for use on an ad hoc network.
+ * 
+ * <table>
+ * <tr>
+ * <th>Pair Name</th>
+ * <th>DOT11_ADHOC_AUTH_ALGORITHM value</th>
+ * <th>DOT11_ADHOC_CIPHER_ALGORITHM value</th>
+ * </tr>
+ * <tr>
+ * <td>Open-None</td>
+ * <td>DOT11_ADHOC_AUTH_ALGO_80211_OPEN</td>
+ * <td>DOT11_ADHOC_CIPHER_ALGO_NONE</td>
+ * </tr>
+ * <tr>
+ * <td>Open-WEP</td>
+ * <td>DOT11_ADHOC_AUTH_ALGO_80211_OPEN</td>
+ * <td>DOT11_ADHOC_CIPHER_ALGO_WEP</td>
+ * </tr>
+ * <tr>
+ * <td>WPA2PSK</td>
+ * <td>DOT11_ADHOC_AUTH_ALGO_RSNA_PSK</td>
+ * <td>DOT11_ADHOC_CIPHER_ALGO_CCMP</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//adhoc/ne-adhoc-dot11_adhoc_auth_algorithm
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319

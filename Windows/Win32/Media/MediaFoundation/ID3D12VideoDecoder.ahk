@@ -7,11 +7,11 @@
  * Represents a Direct3D 12 video decoder.
  * @remarks
  * 
-  * Get an instance of this class by calling [ID3D12VideoDevice::CreateVideoDecoder](nf-d3d12video-id3d12videodevice-createvideodecoder.md).
-  * 
-  * It is not necessary to recreate this object during a resolution change.
-  * 
-  * 
+ * Get an instance of this class by calling [ID3D12VideoDevice::CreateVideoDecoder](nf-d3d12video-id3d12videodevice-createvideodecoder.md).
+ * 
+ * It is not necessary to recreate this object during a resolution change.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videodecoder
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

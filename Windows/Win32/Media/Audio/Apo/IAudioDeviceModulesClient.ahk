@@ -7,7 +7,7 @@
  * Audio Processing Objects (APOs) implement this interface to obtain a reference to an **IAudioDeviceModulesManager** instance.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nn-audioenginebaseapo-iaudiodevicemodulesclient
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319

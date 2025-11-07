@@ -7,9 +7,9 @@
  * The IDigitalCableLocator interface provides tuning information for a digital cable network.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDigitalCableLocator)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDigitalCableLocator)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-idigitalcablelocator
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

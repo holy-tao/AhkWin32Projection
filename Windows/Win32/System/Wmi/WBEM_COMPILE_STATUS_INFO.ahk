@@ -5,9 +5,9 @@
  * Describes an error for the IMofCompiler interface.
  * @remarks
  * 
-  * The   <i>ObjectNum</i>, <i>FirstLine</i>, and <i>LastLine</i> parameters only contain values for errors that relate to a particular class or instance in the file.
-  * 
-  * 
+ * The   <i>ObjectNum</i>, <i>FirstLine</i>, and <i>LastLine</i> parameters only contain values for errors that relate to a particular class or instance in the file.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wbemcli/ns-wbemcli-wbem_compile_status_info
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319

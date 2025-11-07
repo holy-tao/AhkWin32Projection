@@ -4,9 +4,9 @@
  * Specifies the rate control mode for an encoder. This enumeration is used with the AVEncCommonRateControlMode codec property.
  * @remarks
  * 
-  * This enumeration is also used with <a href="https://docs.microsoft.com/windows/desktop/medfound/camera-encoder-h264-uvc-1-5">H.264 UVC 1.5 camera encoders</a>.
-  * 
-  * 
+ * This enumeration is also used with <a href="https://docs.microsoft.com/windows/desktop/medfound/camera-encoder-h264-uvc-1-5">H.264 UVC 1.5 camera encoders</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavenccommonratecontrolmode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
@@ -39,24 +39,24 @@ class eAVEncCommonRateControlMode{
 
     /**
      * Low delay VBR encoding. H.264 extension.
- * 
- * Requires Windows 8.
+     * 
+     * Requires Windows 8.
      * @type {Integer (Int32)}
      */
     static eAVEncCommonRateControlMode_LowDelayVBR => 4
 
     /**
      * Global VBR encoding. H.264 extension.
- * 
- * Requires Windows 8.
+     * 
+     * Requires Windows 8.
      * @type {Integer (Int32)}
      */
     static eAVEncCommonRateControlMode_GlobalVBR => 5
 
     /**
      * Global low delay VBR encoding. H.264 extension.
- * 
- * Requires Windows 8.
+     * 
+     * Requires Windows 8.
      * @type {Integer (Int32)}
      */
     static eAVEncCommonRateControlMode_GlobalLowDelayVBR => 6

@@ -8,29 +8,29 @@
  * Used to manage scheduled tasks for report jobs and file management jobs.
  * @remarks
  * 
-  * To enumerate the schedules for reports, call the 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-enumreportjobs">IFsrmReportManager::EnumReportJobs</a> 
-  *     method. Use the task name in the 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_task">IFsrmReportJob::Task</a> property to retrieve the 
-  *     schedule from the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-start-page">Task Scheduler</a>. To 
-  *     retrieve the schedule, call the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-activate">ITaskScheduler::Activate</a> method. (FSRM 
-  *     supports only Task Scheduler version 1.0, not version 2.0.) Note that some report jobs may not have an associated 
-  *     schedule.
-  * 
-  * To enumerate the schedules for file management jobs, call the 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-enumfilemanagementjobs">IFsrmFileManagementJobManager::EnumFileManagementJobs</a> 
-  *     method. Use the task name in the 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_task">IFsrmFileManagementJob::Task</a> property to 
-  *     retrieve the schedule from the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-start-page">Task Scheduler</a>. To retrieve the 
-  *     schedule, call the <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-activate">ITaskScheduler::Activate</a> 
-  *     method.
-  * 
-  * To create this object from a script, use the "Fsrm.FsrmReportScheduler" program 
-  *     identifier.
-  * 
-  * 
+ * To enumerate the schedules for reports, call the 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-enumreportjobs">IFsrmReportManager::EnumReportJobs</a> 
+ *     method. Use the task name in the 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_task">IFsrmReportJob::Task</a> property to retrieve the 
+ *     schedule from the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-start-page">Task Scheduler</a>. To 
+ *     retrieve the schedule, call the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-activate">ITaskScheduler::Activate</a> method. (FSRM 
+ *     supports only Task Scheduler version 1.0, not version 2.0.) Note that some report jobs may not have an associated 
+ *     schedule.
+ * 
+ * To enumerate the schedules for file management jobs, call the 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-enumfilemanagementjobs">IFsrmFileManagementJobManager::EnumFileManagementJobs</a> 
+ *     method. Use the task name in the 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_task">IFsrmFileManagementJob::Task</a> property to 
+ *     retrieve the schedule from the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-start-page">Task Scheduler</a>. To retrieve the 
+ *     schedule, call the <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-activate">ITaskScheduler::Activate</a> 
+ *     method.
+ * 
+ * To create this object from a script, use the "Fsrm.FsrmReportScheduler" program 
+ *     identifier.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nn-fsrmreports-ifsrmreportscheduler
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Scans documents for text and properties (also called attributes).
  * @remarks
  * 
-  * <b>IFilter</b> components for Indexing Service run in the Local Security context and should be written to manage buffers and to stack correctly. All string copies must have explicit checks to guard against buffer overruns. You should always verify the allocated size of the buffer and test the size of the data against the size of the buffer.
-  * 
-  * 
+ * <b>IFilter</b> components for Indexing Service run in the Local Security context and should be written to manage buffers and to stack correctly. All string copies must have explicit checks to guard against buffer overruns. You should always verify the allocated size of the buffer and test the size of the data against the size of the buffer.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//filter/nn-filter-ifilter
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319

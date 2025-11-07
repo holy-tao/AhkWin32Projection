@@ -22,8 +22,8 @@ class IKEEXT_KEY_MODULE_TYPE{
 
     /**
      * Specifies Internet Key Exchange version 2 (IKEv2) keying module.
- * 
- * Available only on Windows 7, Windows Server 2008 R2, and later.
+     * 
+     * Available only on Windows 7, Windows Server 2008 R2, and later.
      * @type {Integer (Int32)}
      */
     static IKEEXT_KEY_MODULE_IKEV2 => 2

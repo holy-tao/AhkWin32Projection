@@ -16,7 +16,7 @@ class ASF_STATUSFLAGS{
 
     /**
      * One or more non-critical errors
- *         occurred while parsing the ASF data.
+     *         occurred while parsing the ASF data.
      * @type {Integer (Int32)}
      */
     static ASF_STATUSFLAGS_NONFATAL_ERROR => 2

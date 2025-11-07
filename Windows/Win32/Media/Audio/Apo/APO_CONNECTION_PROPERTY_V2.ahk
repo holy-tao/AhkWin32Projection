@@ -6,10 +6,10 @@
  * Contains the dynamically changing connection properties. Version two of this structure introduces a time stamp that can be used to synchronize an auxiliary reference stream initialized with IApoAuxiliaryInputConfiguration.
  * @remarks
  * If the **u32Signature** field of the [APO_CONNECTION_PROPERTY](ns-audioapotypes-apo_connection_property.md) structure passed into [IAudioProcessingObjectRT::APOProcess](../audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-apoprocess.md) is equal to **APO_CONNECTION_PROPERTY_V2_SIGNATURE**, the structure can be safely typecast to a **APO_CONNECTION_PROPERTY_V2**.
-  * 
-  * This structure was introduced to support acoustic echo cancellation scenarios. For more information, see [IApoAcousticEchoCancellation](../audioenginebaseapo/nn-audioenginebaseapo-iapoacousticechocancellation.md).
-  * 
-  * 
+ * 
+ * This structure was introduced to support acoustic echo cancellation scenarios. For more information, see [IApoAcousticEchoCancellation](../audioenginebaseapo/nn-audioenginebaseapo-iapoacousticechocancellation.md).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audioapotypes/ns-audioapotypes-apo_connection_property_v2
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319

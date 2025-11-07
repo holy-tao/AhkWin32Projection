@@ -7,20 +7,20 @@
  * Restricts access to methods and properties of objects that implements the method of this interface.
  * @remarks
  * 
-  * The <b>IUpdateLockdown</b> interface is derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>, not <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>. It cannot be accessed by using a script. This interface restricts access to the Windows Update  website.
-  * 
-  * The following classes implement the <b>IUpdateLockdown</b> interface:
-  * 
-  * 
-  * 
-  * <ul>
-  * <li>AutomaticUpdates</li>
-  * <li>UpdateDownloader</li>
-  * <li>UpdateInstaller</li>
-  * <li>UpdateServiceManager</li>
-  * <li>WebProxy</li>
-  * </ul>
-  * 
+ * The <b>IUpdateLockdown</b> interface is derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>, not <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>. It cannot be accessed by using a script. This interface restricts access to the Windows Update  website.
+ * 
+ * The following classes implement the <b>IUpdateLockdown</b> interface:
+ * 
+ * 
+ * 
+ * <ul>
+ * <li>AutomaticUpdates</li>
+ * <li>UpdateDownloader</li>
+ * <li>UpdateInstaller</li>
+ * <li>UpdateServiceManager</li>
+ * <li>WebProxy</li>
+ * </ul>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatelockdown
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

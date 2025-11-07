@@ -4,42 +4,42 @@
  * Contains flags that are used to configure how the enhanced video renderer (EVR) performs deinterlacing.
  * @remarks
  * 
-  * To set these flags, call the <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imfvideomixercontrol2-setmixingprefs">IMFVideoMixerControl2::SetMixingPrefs</a> method.
-  * 
-  * These flags control some trade-offs between video quality and rendering speed. The constants named "MFVideoMixPrefs_Allow..." enable lower-quality settings, but only when the quality manager requests a drop in quality.  The constants named "MFVideoMixPrefs_Force..." force the EVR to use lower-quality settings regardless of  what the quality manager requests. (For more information about the quality manager, see <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfqualityadvise">IMFQualityAdvise</a>.)
-  * 
-  * Currently two lower-quality modes are supported, as described in the following table. Either is preferable to dropping an entire frame.
-  * 
-  * 
-  * 
-  * <table>
-  * <tr>
-  * <th>Mode</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="Half_interface"></a><a id="half_interface"></a><a id="HALF_INTERFACE"></a>Half interface
-  * 
-  * </td>
-  * <td width="60%">
-  * The EVR's video mixer skips the second field (relative to temporal order) of each interlaced frame. The video mixer still deinterlaces the first field, and this operation typically interpolates data from the second field. The overall frame rate is unaffected.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td width="40%">
-  * <a id="Bob_deinterlacing"></a><a id="bob_deinterlacing"></a><a id="BOB_DEINTERLACING"></a>Bob deinterlacing
-  * 
-  * </td>
-  * <td width="60%">
-  * The video mixer uses bob deinterlacing, even if the driver supports  a higher-quality deinterlacing algorithm.
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * To set these flags, call the <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imfvideomixercontrol2-setmixingprefs">IMFVideoMixerControl2::SetMixingPrefs</a> method.
+ * 
+ * These flags control some trade-offs between video quality and rendering speed. The constants named "MFVideoMixPrefs_Allow..." enable lower-quality settings, but only when the quality manager requests a drop in quality.  The constants named "MFVideoMixPrefs_Force..." force the EVR to use lower-quality settings regardless of  what the quality manager requests. (For more information about the quality manager, see <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfqualityadvise">IMFQualityAdvise</a>.)
+ * 
+ * Currently two lower-quality modes are supported, as described in the following table. Either is preferable to dropping an entire frame.
+ * 
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>Mode</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="Half_interface"></a><a id="half_interface"></a><a id="HALF_INTERFACE"></a>Half interface
+ * 
+ * </td>
+ * <td width="60%">
+ * The EVR's video mixer skips the second field (relative to temporal order) of each interlaced frame. The video mixer still deinterlaces the first field, and this operation typically interpolates data from the second field. The overall frame rate is unaffected.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%">
+ * <a id="Bob_deinterlacing"></a><a id="bob_deinterlacing"></a><a id="BOB_DEINTERLACING"></a>Bob deinterlacing
+ * 
+ * </td>
+ * <td width="60%">
+ * The video mixer uses bob deinterlacing, even if the driver supports  a higher-quality deinterlacing algorithm.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evr/ne-evr-mfvideomixprefs
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

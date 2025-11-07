@@ -10,15 +10,15 @@ class STREAM_INFO_LEVELS{
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirststreamw">FindFirstStreamW</a> function retrieves standard 
- *       stream information. The data is returned in a 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ns-fileapi-win32_find_stream_data">WIN32_FIND_STREAM_DATA</a> structure.
+     *       stream information. The data is returned in a 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ns-fileapi-win32_find_stream_data">WIN32_FIND_STREAM_DATA</a> structure.
      * @type {Integer (Int32)}
      */
     static FindStreamInfoStandard => 0
 
     /**
      * Used to determine valid enumeration values. All supported enumeration values are less than 
- *       <b>FindStreamInfoMaxInfoLevel</b>.
+     *       <b>FindStreamInfoMaxInfoLevel</b>.
      * @type {Integer (Int32)}
      */
     static FindStreamInfoMaxInfoLevel => 1

@@ -16,55 +16,55 @@ class ACCESS_MODE{
 
     /**
      * Indicates an 
- * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_ace">ACCESS_ALLOWED_ACE</a> structure. The new ACE combines the specified rights with any existing allowed or denied rights of the trustee.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_ace">ACCESS_ALLOWED_ACE</a> structure. The new ACE combines the specified rights with any existing allowed or denied rights of the trustee.
      * @type {Integer (Int32)}
      */
     static GRANT_ACCESS => 1
 
     /**
      * Indicates an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_ace">ACCESS_ALLOWED_ACE</a>structure that allows the specified rights. 
- * 
- * 
- * 
- * 
- * On input, this value discards any existing access control information for the trustee.
+     * 
+     * 
+     * 
+     * 
+     * On input, this value discards any existing access control information for the trustee.
      * @type {Integer (Int32)}
      */
     static SET_ACCESS => 2
 
     /**
      * Indicates an 
- * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_denied_ace">ACCESS_DENIED_ACE</a>structure that denies the specified rights. 
- * 
- * 
- * 
- * 
- * On input, this value denies the specified rights in addition to any currently denied rights of the trustee.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_denied_ace">ACCESS_DENIED_ACE</a>structure that denies the specified rights. 
+     * 
+     * 
+     * 
+     * 
+     * On input, this value denies the specified rights in addition to any currently denied rights of the trustee.
      * @type {Integer (Int32)}
      */
     static DENY_ACCESS => 3
 
     /**
      * Indicates that all existing <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_ace">ACCESS_ALLOWED_ACE</a> or 
- * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a> structures for the specified trustee are removed.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a> structures for the specified trustee are removed.
      * @type {Integer (Int32)}
      */
     static REVOKE_ACCESS => 4
 
     /**
      * Indicates a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a>structure that generates audit messages for successful attempts to use the specified access rights. 
- * 						
- * 
- * On input, this value combines the specified rights with any existing audited access rights for the trustee.
+     * 						
+     * 
+     * On input, this value combines the specified rights with any existing audited access rights for the trustee.
      * @type {Integer (Int32)}
      */
     static SET_AUDIT_SUCCESS => 5
 
     /**
      * Indicates a 
- * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a>structure that generates audit messages for failed attempts to use the specified access rights.  
- * 
- * On input, this value combines the specified rights with any existing audited access rights for the trustee.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a>structure that generates audit messages for failed attempts to use the specified access rights.  
+     * 
+     * On input, this value combines the specified rights with any existing audited access rights for the trustee.
      * @type {Integer (Int32)}
      */
     static SET_AUDIT_FAILURE => 6

@@ -4,9 +4,9 @@
  * Specifies how to access a resource used in a render-target view.
  * @remarks
  * 
-  * This enumeration is used in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_render_target_view_desc">D3D10_RENDER_TARGET_VIEW_DESC</a> to create a render-target view.
-  * 
-  * 
+ * This enumeration is used in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_render_target_view_desc">D3D10_RENDER_TARGET_VIEW_DESC</a> to create a render-target view.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_rtv_dimension
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

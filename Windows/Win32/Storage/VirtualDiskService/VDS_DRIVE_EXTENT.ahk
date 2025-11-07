@@ -5,15 +5,15 @@
  * Defines the properties of a drive extent.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsdrive-queryextents">IVdsDrive::QueryExtents</a> 
-  *     method returns this structure to report the properties of a drive extent. It is also returned by the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslunplex-queryextents">IVdsLunPlex::QueryExtents</a> method to report 
-  *     the details of a drive extent that is allocated to a plex.
-  * 
-  * A disk extent is a contiguous set of blocks on a single disk or LUN handled by a software provider. A drive 
-  *     extent is not required to be a contiguous set of blocks.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsdrive-queryextents">IVdsDrive::QueryExtents</a> 
+ *     method returns this structure to report the properties of a drive extent. It is also returned by the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslunplex-queryextents">IVdsLunPlex::QueryExtents</a> method to report 
+ *     the details of a drive extent that is allocated to a plex.
+ * 
+ * A disk extent is a contiguous set of blocks on a single disk or LUN handled by a software provider. A drive 
+ *     extent is not required to be a contiguous set of blocks.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_drive_extent
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

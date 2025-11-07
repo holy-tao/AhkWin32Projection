@@ -8,7 +8,7 @@
  * A factory interface for creating IMFContentDecryptionModuleAccess objects.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmodulefactory
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

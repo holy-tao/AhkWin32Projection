@@ -4,9 +4,9 @@
  * The WMPStringCollectionChangeEventType enumeration type defines the types of changes that can occur in a string collection.
  * @remarks
  * 
-  * Windows Media Player 10 Mobile: This enumeration is not supported.
-  * 
-  * 
+ * Windows Media Player 10 Mobile: This enumeration is not supported.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmp/ne-wmp-wmpstringcollectionchangeeventtype
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319

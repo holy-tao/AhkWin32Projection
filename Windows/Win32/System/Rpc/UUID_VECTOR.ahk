@@ -5,11 +5,11 @@
  * The UUID_VECTOR structure contains a list of UUIDs.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> vector contains a count member containing the total number of <b>UUID</b>s in the vector, followed by an array of pointers to <b>UUID</b>s.
-  * 
-  * An application constructs a <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> vector to contain object <b>UUID</b>s to be exported or unexported from the name service.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> vector contains a count member containing the total number of <b>UUID</b>s in the vector, followed by an array of pointers to <b>UUID</b>s.
+ * 
+ * An application constructs a <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> vector to contain object <b>UUID</b>s to be exported or unexported from the name service.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-uuid_vector
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319

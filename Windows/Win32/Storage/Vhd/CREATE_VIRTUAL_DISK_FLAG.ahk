@@ -4,9 +4,9 @@
  * Contains virtual hard disk (VHD) creation flags.
  * @remarks
  * 
-  * The <b>CREATE_VIRTUAL_DISK_FLAG_FULL_PHYSICAL_ALLOCATION</b> flag is used for the creation of a fixed VHD.
-  * 
-  * 
+ * The <b>CREATE_VIRTUAL_DISK_FLAG_FULL_PHYSICAL_ALLOCATION</b> flag is used for the creation of a fixed VHD.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ne-virtdisk-create_virtual_disk_flag
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
@@ -27,24 +27,24 @@ class CREATE_VIRTUAL_DISK_FLAG{
 
     /**
      * Take ownership of the source disk during create from source disk, to insure the source disk does not change 
- *        during the create operation. The source disk must also already be offline or read-only (or both). Ownership is 
- *        released when create is done. This also has a side-effect of disallowing concurrent create from same source 
- *        disk. Create will fail if ownership cannot be obtained or if the source disk is not already offline or 
- *        read-only. This flag is optional, but highly recommended for creates from source disk. No effect for other 
- *        types of create (no effect for create from source VHD; no effect for create without SourcePath).
- * 
- * <b>Windows 7 and Windows Server 2008 R2:  </b>This flag is not supported for opening ISO virtual disks until Windows 8 and 
- *         Windows Server 2012.
+     *        during the create operation. The source disk must also already be offline or read-only (or both). Ownership is 
+     *        released when create is done. This also has a side-effect of disallowing concurrent create from same source 
+     *        disk. Create will fail if ownership cannot be obtained or if the source disk is not already offline or 
+     *        read-only. This flag is optional, but highly recommended for creates from source disk. No effect for other 
+     *        types of create (no effect for create from source VHD; no effect for create without SourcePath).
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>This flag is not supported for opening ISO virtual disks until Windows 8 and 
+     *         Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static CREATE_VIRTUAL_DISK_FLAG_PREVENT_WRITES_TO_SOURCE_DISK => 2
 
     /**
      * Do not copy initial virtual disk metadata or block states from the parent VHD; this is useful if the parent 
- *        VHD is a stand-in file and the real parent will be explicitly set later.
- * 
- * <b>Windows 7 and Windows Server 2008 R2:  </b>This flag is not supported for opening ISO virtual disks until Windows 8 and 
- *         Windows Server 2012.
+     *        VHD is a stand-in file and the real parent will be explicitly set later.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>This flag is not supported for opening ISO virtual disks until Windows 8 and 
+     *         Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static CREATE_VIRTUAL_DISK_FLAG_DO_NOT_COPY_METADATA_FROM_PARENT => 4

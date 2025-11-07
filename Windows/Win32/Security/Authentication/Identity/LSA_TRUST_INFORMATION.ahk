@@ -6,12 +6,12 @@
  * Identifies a domain.
  * @remarks
  * 
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms722475(v=vs.85)">TRUSTED_DOMAIN_INFORMATION_BASIC</a> is an alias for this structure.
-  * 
-  * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms722475(v=vs.85)">TRUSTED_DOMAIN_INFORMATION_BASIC</a> structure identifies a domain. This structure is used by the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaquerytrusteddomaininfo">LsaQueryTrustedDomainInfo</a> function when its <i>InformationClass</i> parameter is set to <b>TrustedDomainInformationBasic</b>.
-  * 
-  * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms722475(v=vs.85)">TRUSTED_DOMAIN_INFORMATION_BASIC</a> is an alias for this structure.
+ * 
+ * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms722475(v=vs.85)">TRUSTED_DOMAIN_INFORMATION_BASIC</a> structure identifies a domain. This structure is used by the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaquerytrusteddomaininfo">LsaQueryTrustedDomainInfo</a> function when its <i>InformationClass</i> parameter is set to <b>TrustedDomainInformationBasic</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//lsalookup/ns-lsalookup-lsa_trust_information
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319

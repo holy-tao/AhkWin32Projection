@@ -5,15 +5,15 @@
  * A description of the detail element of a fault message.
  * @remarks
  * 
-  * The fault description defines the action of the fault message
-  *                 along with a description of the detail element that is
-  *                 contained within the fault.
-  *             
-  * 
-  * The fault description can be used to set and get the
-  *                 fault detail element stored within a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object
-  *                 using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetfaulterrordetail">WsSetFaultErrorDetail</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetfaulterrordetail">WsGetFaultErrorDetail</a>.
-  * 
+ * The fault description defines the action of the fault message
+ *                 along with a description of the detail element that is
+ *                 contained within the fault.
+ *             
+ * 
+ * The fault description can be used to set and get the
+ *                 fault detail element stored within a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object
+ *                 using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetfaulterrordetail">WsSetFaultErrorDetail</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetfaulterrordetail">WsGetFaultErrorDetail</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_fault_detail_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

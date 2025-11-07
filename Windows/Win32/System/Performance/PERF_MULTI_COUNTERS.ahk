@@ -5,10 +5,10 @@
  * Provides information about the PERF_MULTI_COUNTERS block that contains the structure.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycounterdata">PerfQueryCounterData</a> function gets a <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_data_header">PERF_DATA_HEADER</a> block that may
-  * contain a <b>PERF_MULTI_COUNTERS</b> block within the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_header">PERF_COUNTER_HEADER</a> block.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycounterdata">PerfQueryCounterData</a> function gets a <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_data_header">PERF_DATA_HEADER</a> block that may
+ * contain a <b>PERF_MULTI_COUNTERS</b> block within the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_header">PERF_COUNTER_HEADER</a> block.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//perflib/ns-perflib-perf_multi_counters
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319

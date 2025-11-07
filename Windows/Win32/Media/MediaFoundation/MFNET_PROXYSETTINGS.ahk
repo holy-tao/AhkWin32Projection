@@ -16,21 +16,21 @@ class MFNET_PROXYSETTINGS{
 
     /**
      * The proxy locator uses manual settings. The application must set the following properties:
- * 
- * <ul>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-proxyhostname-property">MFNETSOURCE_PROXYHOSTNAME</a>
- * </li>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-proxyport-property">MFNETSOURCE_PROXYPORT</a>
- * </li>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-proxybypassforlocal-property">MFNETSOURCE_PROXYBYPASSFORLOCAL</a>
- * </li>
- * <li>
- * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-proxyexceptionlist-property">MFNETSOURCE_PROXYEXCEPTIONLIST</a>
- * </li>
- * </ul>
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-proxyhostname-property">MFNETSOURCE_PROXYHOSTNAME</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-proxyport-property">MFNETSOURCE_PROXYPORT</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-proxybypassforlocal-property">MFNETSOURCE_PROXYBYPASSFORLOCAL</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-proxyexceptionlist-property">MFNETSOURCE_PROXYEXCEPTIONLIST</a>
+     * </li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static MFNET_PROXYSETTING_MANUAL => 1

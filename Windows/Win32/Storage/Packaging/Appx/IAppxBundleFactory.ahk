@@ -10,10 +10,10 @@
  * Creates objects for reading and writing bundle packages.
  * @remarks
  * 
-  * The <b>IAppxBundleFactory</b> interface provides factory methods to create readers and writers of bundle packages as well as methods to create readers for manifests outside of a bundle. 
-  * 
-  * The <b>IAppxBundleFactory</b> interface is the main entry point to the Appx Bundle APIs.
-  * 
+ * The <b>IAppxBundleFactory</b> interface provides factory methods to create readers and writers of bundle packages as well as methods to create readers for manifests outside of a bundle. 
+ * 
+ * The <b>IAppxBundleFactory</b> interface is the main entry point to the Appx Bundle APIs.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxbundlefactory
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319

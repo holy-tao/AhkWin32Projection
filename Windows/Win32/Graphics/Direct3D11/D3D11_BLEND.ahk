@@ -4,9 +4,9 @@
  * Blend factors, which modulate values for the pixel shader and render target.
  * @remarks
  * 
-  * Blend operations are specified in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_blend_desc">blend description</a>.
-  * 
-  * 
+ * Blend operations are specified in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_blend_desc">blend description</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_blend
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
@@ -75,7 +75,7 @@ class D3D11_BLEND{
 
     /**
      * The blend factor is (f, f, f, 1); where f = min(Aₛ, 1
- *     - A<sub>d</sub>). The pre-blend operation clamps the data to 1 or less.
+     *     - A<sub>d</sub>). The pre-blend operation clamps the data to 1 or less.
      * @type {Integer (Int32)}
      */
     static D3D11_BLEND_SRC_ALPHA_SAT => 11

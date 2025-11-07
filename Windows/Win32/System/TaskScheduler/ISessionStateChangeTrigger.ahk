@@ -8,9 +8,9 @@
  * Triggers tasks for console connect or disconnect, remote connect or disconnect, or workstation lock or unlock notifications.
  * @remarks
  * 
-  * When reading or writing your own XML for a task, a session state change trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-sessionstatechangetrigger-triggergroup-element">SessionStateChangeTrigger</a> element of the Task Scheduler schema.
-  * 
-  * 
+ * When reading or writing your own XML for a task, a session state change trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-sessionstatechangetrigger-triggergroup-element">SessionStateChangeTrigger</a> element of the Task Scheduler schema.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-isessionstatechangetrigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

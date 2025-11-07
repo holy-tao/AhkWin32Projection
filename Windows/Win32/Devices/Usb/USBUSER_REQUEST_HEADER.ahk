@@ -5,9 +5,9 @@
  * The USBUSER_REQUEST_HEADER structure is used with the IOCTL_USB_USER_REQUEST I/O control request to send a user-mode request to the USB host controller driver.
  * @remarks
  * 
-  * The <b>USBUSER_REQUEST_HEADER</b> structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a> I/O control request to send a user-mode request to the USB port driver.
-  * 
-  * 
+ * The <b>USBUSER_REQUEST_HEADER</b> structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a> I/O control request to send a user-mode request to the USB port driver.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//usbuser/ns-usbuser-usbuser_request_header
  * @namespace Windows.Win32.Devices.Usb
  * @version v4.0.30319

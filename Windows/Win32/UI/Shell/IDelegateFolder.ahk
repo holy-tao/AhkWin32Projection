@@ -7,8 +7,8 @@
  * Exposes a method through which a delegate folder is given the IMalloc interface required to allocate and free item IDs.
  * @remarks
  * 
-  * The IDs allocated by the delegate folder are in the form of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-delegateitemid">DELEGATEITEMID</a> structures. It is the delegate's job to pack its data into the pointer to an item identifier list (PIDL) in the <b>DELEGATEITEMID</b> format.
-  * 
+ * The IDs allocated by the delegate folder are in the form of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-delegateitemid">DELEGATEITEMID</a> structures. It is the delegate's job to pack its data into the pointer to an item identifier list (PIDL) in the <b>DELEGATEITEMID</b> format.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-idelegatefolder
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

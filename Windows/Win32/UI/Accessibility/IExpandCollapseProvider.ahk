@@ -7,9 +7,9 @@
  * Provides access to a control that visually expands to display content, and collapses to hide content.
  * @remarks
  * 
-  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingexpandcollapse">ExpandCollapse</a> control pattern.
-  * 
-  * 
+ * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingexpandcollapse">ExpandCollapse</a> control pattern.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-iexpandcollapseprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

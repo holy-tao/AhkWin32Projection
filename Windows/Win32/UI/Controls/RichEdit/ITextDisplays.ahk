@@ -7,9 +7,9 @@
  * Represents the displays collection for this Text Object Model (TOM) engine instance.
  * @remarks
  * 
-  * This interface is currently undefined.
-  * 
-  * 
+ * This interface is currently undefined.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextdisplays
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319

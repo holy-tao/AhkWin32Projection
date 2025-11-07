@@ -8,9 +8,9 @@
  * The IMSVidRect interface represents a rectangle with an associated window handle.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidRect)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidRect)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidrect
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

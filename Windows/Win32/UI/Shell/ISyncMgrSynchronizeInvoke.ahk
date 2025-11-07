@@ -7,12 +7,12 @@
  * Exposes methods that enable a registered application to invoke the synchronization manager to update items.
  * @remarks
  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * This interface is implemented by the synchronization manager.
-  * 
-  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
-  * A registered application calls the methods of this interface to update all items or to update specific items.
-  * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * This interface is implemented by the synchronization manager.
+ * 
+ * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
+ * A registered application calls the methods of this interface to update all items or to update specific items.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mobsync/nn-mobsync-isyncmgrsynchronizeinvoke
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

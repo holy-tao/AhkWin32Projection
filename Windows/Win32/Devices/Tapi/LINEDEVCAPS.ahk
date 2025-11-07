@@ -6,28 +6,28 @@
  * The LINEDEVCAPS structure describes the capabilities of a line device. The lineGetDevCaps function and the TSPI_lineGetDevCaps function return the LINEDEVCAPS structure.
  * @remarks
  * 
-  * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
-  * 
-  * Older applications are compiled without new members in the 
-  * <b>LINEDEVCAPS</b> structure, and using a SIZEOF LINEDEVCAPS smaller than the new size. The application passes in a <i>dwAPIVersion</i> parameter with the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevcaps">lineGetDevCaps</a> function, which can be used for guidance by TAPI in handling this situation. If the application passes in a <b>dwTotalSize</b> member less than the size of the fixed portion of the structure as defined in the specified <b>dwAPIVersion</b>, LINEERR_STRUCTURETOOSMALL is returned. If sufficient memory has been allocated by the application, before calling 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tspi/nf-tspi-tspi_linegetdevcaps">TSPI_lineGetDevCaps</a>, TAPI sets the <b>dwNeededSize</b> and <b>dwUsedSize</b> members to the fixed size of the structure as it existed in the specified API version.
-  * 
-  * New applications must be cognizant of the API version negotiated, and not examine the contents of members in the fixed portion beyond the original end of the fixed portion of the structure for the negotiated API version.
-  * 
-  * If the LINEBEARERMODE_DATA bit is set in the <b>dwBearerModes</b> member, the <b>dwMaxRate</b> member indicates the maximum rate of digital transmission on the bearer channel. The <b>dwMaxRate</b> member of the 
-  * <b>LINEDEVCAPS</b> structure can contain valid values even if the <b>dwBearerModes</b> member of the 
-  * <b>LINEDEVCAPS</b> structure is not set to LINEBEARERMODE_DATA.
-  * 
-  * If LINEBEARERMODE_DATA is not set in <b>dwBearerModes</b>, but the LINEBEARERMODE_VOICE value is set and the LINEMEDIAMODE_DATAMODEM value is set in the <b>dwMediaModes</b> member, the <b>dwMaxRate</b> member indicates the maximum SYNCHRONOUS (DCE) bit rate on the phone line for the attached modem or functional equivalent. For example, if the modem's fastest modulation speed is V.32bis at 14,400bps, <b>dwMaxRate</b> equals 14400. This is not the fastest DTE port rate (which would most likely be 38400, 57600, or 115200), but the fastest bit rate the modem supports on the phone line.
-  * 
-  * The application must be careful to check to see that LINEBEARERMODE_DATA is not set, to avoid misinterpreting the <b>dwMaxRate</b> member. It is likely to be 64000 or higher if LINEBEARERMODE_DATA is set.
-  * 
-  * It should also be noted that if the modem has not been specifically identified (for example, it is a "generic" modem), the figure indicated is a "best guess" based on examination of the modem.
-  * 
-  * The members <b>dwSettableDevStatus</b> through <b>dwDeviceClassesOffset</b> are available only to applications that open the line device with a TAPI version of 2.0 or later.
-  * 
-  * 
+ * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
+ * 
+ * Older applications are compiled without new members in the 
+ * <b>LINEDEVCAPS</b> structure, and using a SIZEOF LINEDEVCAPS smaller than the new size. The application passes in a <i>dwAPIVersion</i> parameter with the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevcaps">lineGetDevCaps</a> function, which can be used for guidance by TAPI in handling this situation. If the application passes in a <b>dwTotalSize</b> member less than the size of the fixed portion of the structure as defined in the specified <b>dwAPIVersion</b>, LINEERR_STRUCTURETOOSMALL is returned. If sufficient memory has been allocated by the application, before calling 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tspi/nf-tspi-tspi_linegetdevcaps">TSPI_lineGetDevCaps</a>, TAPI sets the <b>dwNeededSize</b> and <b>dwUsedSize</b> members to the fixed size of the structure as it existed in the specified API version.
+ * 
+ * New applications must be cognizant of the API version negotiated, and not examine the contents of members in the fixed portion beyond the original end of the fixed portion of the structure for the negotiated API version.
+ * 
+ * If the LINEBEARERMODE_DATA bit is set in the <b>dwBearerModes</b> member, the <b>dwMaxRate</b> member indicates the maximum rate of digital transmission on the bearer channel. The <b>dwMaxRate</b> member of the 
+ * <b>LINEDEVCAPS</b> structure can contain valid values even if the <b>dwBearerModes</b> member of the 
+ * <b>LINEDEVCAPS</b> structure is not set to LINEBEARERMODE_DATA.
+ * 
+ * If LINEBEARERMODE_DATA is not set in <b>dwBearerModes</b>, but the LINEBEARERMODE_VOICE value is set and the LINEMEDIAMODE_DATAMODEM value is set in the <b>dwMediaModes</b> member, the <b>dwMaxRate</b> member indicates the maximum SYNCHRONOUS (DCE) bit rate on the phone line for the attached modem or functional equivalent. For example, if the modem's fastest modulation speed is V.32bis at 14,400bps, <b>dwMaxRate</b> equals 14400. This is not the fastest DTE port rate (which would most likely be 38400, 57600, or 115200), but the fastest bit rate the modem supports on the phone line.
+ * 
+ * The application must be careful to check to see that LINEBEARERMODE_DATA is not set, to avoid misinterpreting the <b>dwMaxRate</b> member. It is likely to be 64000 or higher if LINEBEARERMODE_DATA is set.
+ * 
+ * It should also be noted that if the modem has not been specifically identified (for example, it is a "generic" modem), the figure indicated is a "best guess" based on examination of the modem.
+ * 
+ * The members <b>dwSettableDevStatus</b> through <b>dwDeviceClassesOffset</b> are available only to applications that open the line device with a TAPI version of 2.0 or later.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linedevcaps
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

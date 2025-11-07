@@ -7,20 +7,20 @@
  * Controls the recording sink.
  * @remarks
  * 
-  * The recording sink can deliver samples to one of the following destinations:
-  * 
-  * <ul>
-  * <li>Byte stream.</li>
-  * <li>Output file.</li>
-  * <li>Application-provided callback interface.</li>
-  * </ul>
-  * The application must specify a single destination. Multiple destinations are not supported. (However, if a callback is used, you can provide a separate callback for each stream.)
-  * 
-  * If the destination is a byte stream or an output file, the application specifies a container type, such as MP4 or ASF. The capture engine then multiplexes the audio and video to produce the format defined by the container type. If the destination is a callback interface, however, the capture engine does not multiplex or otherwise interleave the samples. The callback option gives you the most control over the recorded output, but requires more work by the application.
-  * 
-  * To start the recording, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-startrecord">IMFCaptureEngine::StartRecord</a>.
-  * 
-  * 
+ * The recording sink can deliver samples to one of the following destinations:
+ * 
+ * <ul>
+ * <li>Byte stream.</li>
+ * <li>Output file.</li>
+ * <li>Application-provided callback interface.</li>
+ * </ul>
+ * The application must specify a single destination. Multiple destinations are not supported. (However, if a callback is used, you can provide a separate callback for each stream.)
+ * 
+ * If the destination is a byte stream or an output file, the application specifies a container type, such as MP4 or ASF. The capture engine then multiplexes the audio and video to produce the format defined by the container type. If the destination is a callback interface, however, the capture engine does not multiplex or otherwise interleave the samples. The callback option gives you the most control over the recorded output, but requires more work by the application.
+ * 
+ * To start the recording, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-startrecord">IMFCaptureEngine::StartRecord</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nn-mfcaptureengine-imfcapturerecordsink
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

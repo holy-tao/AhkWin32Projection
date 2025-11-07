@@ -6,10 +6,10 @@
  * The LINEINITIZALIZEEXPARAMS structure describes parameters supplied when making calls using LINEINITIALIZEEX.
  * @remarks
  * 
-  * See 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineinitializeexa">lineInitializeEx</a> for further information on these options.
-  * 
-  * 
+ * See 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineinitializeexa">lineInitializeEx</a> for further information on these options.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineinitializeexparams
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

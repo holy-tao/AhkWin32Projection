@@ -7,9 +7,9 @@
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IAttributeGet interface gets key/value pairs from an object, where the key is a GUID and the value is any binary data.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAttributeGet)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAttributeGet)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dsattrib/nn-dsattrib-iattributeget
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

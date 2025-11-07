@@ -7,9 +7,9 @@
  * Represents additional information about a filter that can be used to control which changes are included in an ISyncChangeBatch object.
  * @remarks
  * 
-  * <b>ISyncFilterInfo2</b> can obtained by calling <b>QueryInterface</b> on an <b>ISyncFilterInfo</b> object or an object derived from <b>ISyncFilterInfo</b>, such as an <b>IChangeUnitListFilterInfo</b> object.
-  * 
-  * 
+ * <b>ISyncFilterInfo2</b> can obtained by calling <b>QueryInterface</b> on an <b>ISyncFilterInfo</b> object or an object derived from <b>ISyncFilterInfo</b>, such as an <b>IChangeUnitListFilterInfo</b> object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncfilterinfo2
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

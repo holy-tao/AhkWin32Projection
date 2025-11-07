@@ -6,11 +6,11 @@
  * Contains a list of a router's scoped IPv4 multicast address boundaries.
  * @remarks
  * 
-  * This structure does not have a fixed size. Use the <b>SIZEOF_BOUNDARY_TABLE(X)</b> macro to determine the size of this structure. This macro is defined in the <i>Iprtrmib.h</i> header file.
-  * 
-  * Note that the <i>Iprtrmib.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Iprtrmib.h</i> header file should never be used directly.
-  * 
-  * 
+ * This structure does not have a fixed size. Use the <b>SIZEOF_BOUNDARY_TABLE(X)</b> macro to determine the size of this structure. This macro is defined in the <i>Iprtrmib.h</i> header file.
+ * 
+ * Note that the <i>Iprtrmib.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Iprtrmib.h</i> header file should never be used directly.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iprtrmib/ns-iprtrmib-mib_ipmcast_boundary_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319

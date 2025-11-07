@@ -7,21 +7,21 @@
  * Extends the IFileDialog interface by providing methods that allow the caller to name a specific, restricted location that can be browsed in the common file dialog as well as to specify alternate text to display as a label on the Cancel button.
  * @remarks
  * 
-  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialog">IFileDialog</a> interface, from which it inherits.
-  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * An implementation of this interface is provided with Windows. Third parties do not provide custom implementations.
-  * 
-  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
-  * Use the methods of this interface in two instances:
-  *             
-  *                 
-  * 
-  * <ul>
-  * <li>When you want to restrict the dialog's navigation to a specific namespace.</li>
-  * <li>When you need the dialog's <b>Cancel</b> button to be labeled differently in keeping with your functionality.</li>
-  * </ul>
-  * 
+ * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialog">IFileDialog</a> interface, from which it inherits.
+ * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * An implementation of this interface is provided with Windows. Third parties do not provide custom implementations.
+ * 
+ * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
+ * Use the methods of this interface in two instances:
+ *             
+ *                 
+ * 
+ * <ul>
+ * <li>When you want to restrict the dialog's navigation to a specific namespace.</li>
+ * <li>When you need the dialog's <b>Cancel</b> button to be labeled differently in keeping with your functionality.</li>
+ * </ul>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ifiledialog2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

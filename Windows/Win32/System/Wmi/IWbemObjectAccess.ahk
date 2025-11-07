@@ -7,21 +7,21 @@
  * Provides access to the methods and properties of an object.
  * @remarks
  * 
-  * The 
-  * <b>IWbemObjectAccess</b> methods that read and write data perform very little data validation. Because 
-  * <b>IWbemObjectAccess</b> methods directly access properties, you can get and set properties much more rapidly than you can using standard object access techniques such as 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemclassobject-get">IWbemClassObject::Get</a> and 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemclassobject-put">IWbemClassObject::Put</a>.
-  * 
-  * <div class="alert"><b>Note</b>  To maximize its speed, 
-  * <b>IWbemObjectAccess</b> is completely unchecked. It is the responsibility of the user to ensure that all handles are proper, and that write buffers are correctly sized. Read and write operations are not intrinsically thread-safe. You should call the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectaccess-lock">IWbemObjectAccess::Lock</a> and 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectaccess-unlock">IWbemObjectAccess::Unlock</a> methods to prevent 
-  * <b>IWbemObjectAccess</b> objects from concurrent access on multiple threads.</div>
-  * <div> </div>
-  * Property handles are the same for all instances of a class. Therefore, it is only necessary to retrieve a handle one time.
-  * 
-  * 
+ * The 
+ * <b>IWbemObjectAccess</b> methods that read and write data perform very little data validation. Because 
+ * <b>IWbemObjectAccess</b> methods directly access properties, you can get and set properties much more rapidly than you can using standard object access techniques such as 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemclassobject-get">IWbemClassObject::Get</a> and 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemclassobject-put">IWbemClassObject::Put</a>.
+ * 
+ * <div class="alert"><b>Note</b>  To maximize its speed, 
+ * <b>IWbemObjectAccess</b> is completely unchecked. It is the responsibility of the user to ensure that all handles are proper, and that write buffers are correctly sized. Read and write operations are not intrinsically thread-safe. You should call the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectaccess-lock">IWbemObjectAccess::Lock</a> and 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectaccess-unlock">IWbemObjectAccess::Unlock</a> methods to prevent 
+ * <b>IWbemObjectAccess</b> objects from concurrent access on multiple threads.</div>
+ * <div> </div>
+ * Property handles are the same for all instances of a class. Therefore, it is only necessary to retrieve a handle one time.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iwbemobjectaccess
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319

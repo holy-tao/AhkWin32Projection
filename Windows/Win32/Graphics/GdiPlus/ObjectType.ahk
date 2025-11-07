@@ -4,8 +4,8 @@
  * The ObjectType enumeration indicates the object type value of an EMF+ record.
  * @remarks
  * 
-  * To determine whether the object type value of an EMF+ record is valid, call <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusenums/nf-gdiplusenums-objecttypeisvalid">ObjectTypeIsValid</a>.
-  * 
+ * To determine whether the object type value of an EMF+ record is valid, call <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusenums/nf-gdiplusenums-objecttypeisvalid">ObjectTypeIsValid</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplusenums/ne-gdiplusenums-objecttype
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

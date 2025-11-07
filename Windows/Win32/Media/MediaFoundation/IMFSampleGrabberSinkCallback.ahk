@@ -7,31 +7,31 @@
  * Callback interface to get media data from the sample-grabber sink.
  * @remarks
  * 
-  * The sample-grabber sink enables an application to get data from the Media Foundation pipeline without implementing a custom media sink. To use the sample-grabber sink, the application must perform the following steps:
-  * 
-  * <ol>
-  * <li>
-  * Implement the <b>IMFSampleGrabberSinkCallback</b> interface.
-  * 
-  * </li>
-  * <li>
-  * Call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatesamplegrabbersinkactivate">MFCreateSampleGrabberSinkActivate</a>, passing in the <b>IMFSampleGrabberSinkCallback</b> interface pointer. This function returns an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> object.
-  * 
-  * </li>
-  * <li>
-  * Create a topology that includes an output node with the sink's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> object.
-  * 
-  * </li>
-  * <li>
-  * Pass this topology to the Media Session.
-  * 
-  * </li>
-  * </ol>
-  * During playback, the sample-grabber sink calls methods on the application's callback.
-  * 
-  * You cannot use the sample-grabber sink to get protected content.
-  * 
-  * 
+ * The sample-grabber sink enables an application to get data from the Media Foundation pipeline without implementing a custom media sink. To use the sample-grabber sink, the application must perform the following steps:
+ * 
+ * <ol>
+ * <li>
+ * Implement the <b>IMFSampleGrabberSinkCallback</b> interface.
+ * 
+ * </li>
+ * <li>
+ * Call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatesamplegrabbersinkactivate">MFCreateSampleGrabberSinkActivate</a>, passing in the <b>IMFSampleGrabberSinkCallback</b> interface pointer. This function returns an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> object.
+ * 
+ * </li>
+ * <li>
+ * Create a topology that includes an output node with the sink's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> object.
+ * 
+ * </li>
+ * <li>
+ * Pass this topology to the Media Session.
+ * 
+ * </li>
+ * </ol>
+ * During playback, the sample-grabber sink calls methods on the application's callback.
+ * 
+ * You cannot use the sample-grabber sink to get protected content.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsamplegrabbersinkcallback
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

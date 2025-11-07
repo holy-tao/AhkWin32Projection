@@ -5,11 +5,11 @@
  * Structure that holds all callback function pointers for carrying out operations.
  * @remarks
  * 
-  * All PowerShell Semantics and streamed result callbacks are optional;  include the callbacks 
-  *  you want to receive. If the associated operation callback for the operation
-  * is not set, i.e. set to <b>NULL</b>, the operation will be carried out synchronously. The client must call into the appropriate MI_Operation function to receive the results. The result callbacks will continue to be called until the moreResults field is equal to MI_FALSE.
-  * 
-  * 
+ * All PowerShell Semantics and streamed result callbacks are optional;  include the callbacks 
+ *  you want to receive. If the associated operation callback for the operation
+ * is not set, i.e. set to <b>NULL</b>, the operation will be carried out synchronously. The client must call into the appropriate MI_Operation function to receive the results. The result callbacks will continue to be called until the moreResults field is equal to MI_FALSE.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_operationcallbacks
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319

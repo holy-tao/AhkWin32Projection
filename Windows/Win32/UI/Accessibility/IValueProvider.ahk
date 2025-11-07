@@ -8,12 +8,12 @@
  * Provides access to controls that have an intrinsic value that does not span a range, and that can be represented as a string.
  * @remarks
  * 
-  * The value of the control may or may not be editable depending on the control and its settings.
-  *         
-  * 
-  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingvalue">Value</a> control pattern.
-  * 
-  * 
+ * The value of the control may or may not be editable depending on the control and its settings.
+ *         
+ * 
+ * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingvalue">Value</a> control pattern.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-ivalueprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

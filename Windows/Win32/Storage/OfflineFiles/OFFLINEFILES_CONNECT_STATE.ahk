@@ -4,9 +4,9 @@
  * Describes the connection state of an item in the Offline Files cache.
  * @remarks
  * 
-  * Transparently cached data is accessible only when the client is connected to the server.
-  * 
-  * 
+ * Transparently cached data is accessible only when the client is connected to the server.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_connect_state
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
@@ -33,16 +33,16 @@ class OFFLINEFILES_CONNECT_STATE{
 
     /**
      * Returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-getconnectstate">IOfflineFilesConnectionInfo::GetConnectState</a> if the item is transparently cached.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported before Windows Server 2008 R2 and Windows 7.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported before Windows Server 2008 R2 and Windows 7.
      * @type {Integer (Int32)}
      */
     static OFFLINEFILES_CONNECT_STATE_TRANSPARENTLY_CACHED => 3
 
     /**
      * Returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-getconnectstate">IOfflineFilesConnectionInfo::GetConnectState</a> if the item contains both transparently cached data and data that can be made available offline.
- * 
- * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported before Windows Server 2008 R2 and Windows 7.
+     * 
+     * <b>Windows Server 2008 and Windows Vista:  </b>This value is not supported before Windows Server 2008 R2 and Windows 7.
      * @type {Integer (Int32)}
      */
     static OFFLINEFILES_CONNECT_STATE_PARTLY_TRANSPARENTLY_CACHED => 4

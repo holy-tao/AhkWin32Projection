@@ -10,8 +10,8 @@
  * Exposes methods used to view and manipulate nodes in a tree of Shell items.
  * @remarks
  * 
-  * To implement this interface use class ID CLSID_NameSpaceTreeControl.
-  * 
+ * To implement this interface use class ID CLSID_NameSpaceTreeControl.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-inamespacetreecontrol
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

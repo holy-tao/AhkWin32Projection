@@ -8,8 +8,8 @@
  * Exposes methods that retrieves information about what input and output pins are exposed by the bitmap effect.
  * @remarks
  * 
-  * If this interface is not implemented when creating a custom bitmap effect, a single input and output pin implementation with a 32bit RGBA format is assumes.
-  * 
+ * If this interface is not implemented when creating a custom bitmap effect, a single input and output pin implementation with a 32bit RGBA format is assumes.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectconnectionsinfo
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319

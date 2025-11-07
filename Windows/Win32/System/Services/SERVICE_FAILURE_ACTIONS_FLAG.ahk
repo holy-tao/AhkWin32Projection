@@ -5,11 +5,11 @@
  * Contains the failure actions flag setting of a service. This setting determines when failure actions are to be executed.
  * @remarks
  * 
-  * The change takes effect the next time the system is started.
-  * 
-  * It can be useful to set this flag if your service has common failure paths where is it possible that the service could recover.
-  * 
-  * 
+ * The change takes effect the next time the system is started.
+ * 
+ * It can be useful to set this flag if your service has common failure paths where is it possible that the service could recover.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-service_failure_actions_flag
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319

@@ -7,8 +7,8 @@
  * Exposes methods that find a version of the current item to be used to get display properties, such as the item name, that will be displayed in the UI.
  * @remarks
  * 
-  * This interface provides only the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-irelateditem">IRelatedItem</a> interface, from which it inherits.
-  * 
+ * This interface provides only the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-irelateditem">IRelatedItem</a> interface, from which it inherits.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-idisplayitem
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

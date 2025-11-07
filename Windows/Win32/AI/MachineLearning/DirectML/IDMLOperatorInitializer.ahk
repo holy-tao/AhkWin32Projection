@@ -7,18 +7,18 @@
  * Represents a specialized object whose purpose is to initialize compiled operators. To create an instance of this object, call IDMLDevice::CreateOperatorInitializer.
  * @remarks
  * 
-  * Operator initializers are reusable: once an instance has been used to initialize a set of operators, you can reset it with a different set of compiled operators as targets.
-  * 
-  * When executing an initializer, the expected bindings are as follows:
-  * 
-  * - Inputs should be one buffer array binding for each target operator, in the order that you originally specified the operators when creating or resetting the initializer. Each buffer array binding itself should have a size equal to the inputs of its respective operator. Alternatively, you may specify NONE for a binding to bind no inputs for initialization of that target operator.
-  * - Outputs should be the persistent resources for each target operator, in the order that you originally specified the operators when creating or resetting the initializer.
-  * - As with any dispatchable object (an operator initializer, or a compiled operator), the initializer may require a temporary resource. Call [IDMLDispatchable::GetBindingProperties](/windows/win32/api/directml/nf-directml-idmldispatchable-getbindingproperties) to determine the require size of the temporary resource.
-  * - Operator initializers don't ever require persistent resources. Therefore, calling [IDMLDispatchable::GetBindingProperties](/windows/win32/api/directml/nf-directml-idmldispatchable-getbindingproperties) on an operator initializer always returns a <b>PersistentResourceSize</b> of 0.
-  * 
-  * The operator initializer itself doesn't need to be initialized—GPU initialization only applies to compiled operators.
-  * 
-  * 
+ * Operator initializers are reusable: once an instance has been used to initialize a set of operators, you can reset it with a different set of compiled operators as targets.
+ * 
+ * When executing an initializer, the expected bindings are as follows:
+ * 
+ * - Inputs should be one buffer array binding for each target operator, in the order that you originally specified the operators when creating or resetting the initializer. Each buffer array binding itself should have a size equal to the inputs of its respective operator. Alternatively, you may specify NONE for a binding to bind no inputs for initialization of that target operator.
+ * - Outputs should be the persistent resources for each target operator, in the order that you originally specified the operators when creating or resetting the initializer.
+ * - As with any dispatchable object (an operator initializer, or a compiled operator), the initializer may require a temporary resource. Call [IDMLDispatchable::GetBindingProperties](/windows/win32/api/directml/nf-directml-idmldispatchable-getbindingproperties) to determine the require size of the temporary resource.
+ * - Operator initializers don't ever require persistent resources. Therefore, calling [IDMLDispatchable::GetBindingProperties](/windows/win32/api/directml/nf-directml-idmldispatchable-getbindingproperties) on an operator initializer always returns a <b>PersistentResourceSize</b> of 0.
+ * 
+ * The operator initializer itself doesn't need to be initialized—GPU initialization only applies to compiled operators.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//directml/nn-directml-idmloperatorinitializer
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319

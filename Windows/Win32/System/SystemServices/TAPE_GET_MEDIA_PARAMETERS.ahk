@@ -5,10 +5,10 @@
  * Describes the tape in the tape drive. It is used by the GetTapeParametersfunction.
  * @remarks
  * 
-  * The 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-gettapeparameters">GetTapeParameters</a> function fills the <b>Remaining</b> and <b>Capacity</b> members with estimates of the tape remaining in the current tape partition and the total capacity of the current tape partition.
-  * 
-  * 
+ * The 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-gettapeparameters">GetTapeParameters</a> function fills the <b>Remaining</b> and <b>Capacity</b> members with estimates of the tape remaining in the current tape partition and the total capacity of the current tape partition.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-tape_get_media_parameters
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319

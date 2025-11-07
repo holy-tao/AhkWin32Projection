@@ -7,9 +7,9 @@
  * Enables an input source on a Windows application's core input object.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.coreindependentinputsource">CoreIndependentInputSource</a> or <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.corecomponentinputsource">CoreComponentInputSource</a> object defines the basic keyboard and pointer input events  for a Windows Store app.
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.coreindependentinputsource">CoreIndependentInputSource</a> or <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.corecomponentinputsource">CoreComponentInputSource</a> object defines the basic keyboard and pointer input events  for a Windows Store app.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//corewindow/nn-corewindow-icoreinputinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

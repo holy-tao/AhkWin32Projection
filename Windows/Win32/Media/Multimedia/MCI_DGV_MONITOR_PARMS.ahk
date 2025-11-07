@@ -5,9 +5,9 @@
  * The MCI_DGV_MONITOR_PARMS structure contains parameters for the MCI_MONITOR command.
  * @remarks
  * 
-  * When assigning data to the members of this structure, set the corresponding flags in the <i>fdwCommand</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/dd757160(v=vs.85)">mciSendCommand</a> function to validate the members.
-  * 
-  * 
+ * When assigning data to the members of this structure, set the corresponding flags in the <i>fdwCommand</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/dd757160(v=vs.85)">mciSendCommand</a> function to validate the members.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//digitalv/ns-digitalv-mci_dgv_monitor_parms
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319

@@ -5,60 +5,60 @@
  * Contains information about a file, related to its use with MUI.
  * @remarks
  * 
-  * All offsets are from the base of the structure. An offset of 0 indicates that the data is not available.
-  * 
-  * The following is an example showing how to access data for the position in the structure that is described by an offset. This example accesses the language name string with the position defined by <i>dwLanguageNameOffset</i>.
-  * 
-  * 
-  * ```cpp
-  * PFILEMUIINFO pFileMUIInfo = NULL;
-  * 
-  * Allocate_pFileMUIInfo_AndPassTo_GetFileMUIInfo(&pFileMUIInfo);
-  * 
-  * LPWSTR lpszLang = reinterpret_cast<LPWSTR>(reinterpret_cast<BYTE*>(pFileMUIInfo) + pFileMUIInfo->dwLanguageNameOffset);
-  * 
-  * ```
-  * 
-  * 
-  * This example uses two reinterpret casts. First the code casts to BYTE* so the pointer arithmetic for the offset will be done in bytes. Then the code casts the resulting pointer to the desired type.
-  * 
-  * Alternatively, the code can be written as shown below. The effect is the same; the choice is strictly one of style.
-  * 
-  * 
-  * ```cpp
-  * PFILEMUIINFO pFileMUIInfo = NULL;
-  * 
-  * Allocate_pFileMUIInfo_AndPassTo_GetFileMUIInfo(&pFileMUIInfo);
-  * 
-  * DWORD ix = pFileMUIInfo->dwLanguageNameOffset - offsetof(struct _FILEMUIINFO, abBuffer);
-  * LPWSTR lpszLang = reinterpret_cast<LPWSTR>(&(pFileMUIInfo->abBuffer[ix]));
-  * 
-  * ```
-  * 
-  * 
-  * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-  * 
-  * ```cpp
-  * unsafe public struct FILEMUIINFO
-  *         {
-  *             public System.UInt32 dwSize;
-  *             public System.UInt32 dwVersion;
-  *             public System.UInt32 dwFileType;
-  *             public fixed System.Byte pChecksum[16];
-  *             public fixed System.Byte pServiceChecksum[16];
-  *             public System.UInt32 dwLanguageNameOffset;
-  *             public System.UInt32 dwTypeIDMainSize;
-  *             public System.UInt32 dwTypeIDMainOffset;
-  *             public System.UInt32 dwTypeNameMainOffset;
-  *             public System.UInt32 dwTypeIDMUISize;
-  *             public System.UInt32 dwTypeIDMUIOffset;
-  *             public System.UInt32 dwTypeNameMUIOffset;
-  *             public fixed System.Byte abBuffer[8];
-  *         }
-  * 
-  * ```
-  * 
-  * 
+ * All offsets are from the base of the structure. An offset of 0 indicates that the data is not available.
+ * 
+ * The following is an example showing how to access data for the position in the structure that is described by an offset. This example accesses the language name string with the position defined by <i>dwLanguageNameOffset</i>.
+ * 
+ * 
+ * ```cpp
+ * PFILEMUIINFO pFileMUIInfo = NULL;
+ * 
+ * Allocate_pFileMUIInfo_AndPassTo_GetFileMUIInfo(&pFileMUIInfo);
+ * 
+ * LPWSTR lpszLang = reinterpret_cast<LPWSTR>(reinterpret_cast<BYTE*>(pFileMUIInfo) + pFileMUIInfo->dwLanguageNameOffset);
+ * 
+ * ```
+ * 
+ * 
+ * This example uses two reinterpret casts. First the code casts to BYTE* so the pointer arithmetic for the offset will be done in bytes. Then the code casts the resulting pointer to the desired type.
+ * 
+ * Alternatively, the code can be written as shown below. The effect is the same; the choice is strictly one of style.
+ * 
+ * 
+ * ```cpp
+ * PFILEMUIINFO pFileMUIInfo = NULL;
+ * 
+ * Allocate_pFileMUIInfo_AndPassTo_GetFileMUIInfo(&pFileMUIInfo);
+ * 
+ * DWORD ix = pFileMUIInfo->dwLanguageNameOffset - offsetof(struct _FILEMUIINFO, abBuffer);
+ * LPWSTR lpszLang = reinterpret_cast<LPWSTR>(&(pFileMUIInfo->abBuffer[ix]));
+ * 
+ * ```
+ * 
+ * 
+ * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
+ * 
+ * ```cpp
+ * unsafe public struct FILEMUIINFO
+ *         {
+ *             public System.UInt32 dwSize;
+ *             public System.UInt32 dwVersion;
+ *             public System.UInt32 dwFileType;
+ *             public fixed System.Byte pChecksum[16];
+ *             public fixed System.Byte pServiceChecksum[16];
+ *             public System.UInt32 dwLanguageNameOffset;
+ *             public System.UInt32 dwTypeIDMainSize;
+ *             public System.UInt32 dwTypeIDMainOffset;
+ *             public System.UInt32 dwTypeNameMainOffset;
+ *             public System.UInt32 dwTypeIDMUISize;
+ *             public System.UInt32 dwTypeIDMUIOffset;
+ *             public System.UInt32 dwTypeNameMUIOffset;
+ *             public fixed System.Byte abBuffer[8];
+ *         }
+ * 
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnls/ns-winnls-filemuiinfo
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319

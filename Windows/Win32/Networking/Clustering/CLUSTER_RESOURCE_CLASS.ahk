@@ -16,7 +16,7 @@ class CLUSTER_RESOURCE_CLASS{
 
     /**
      * Resource is a storage device, such as a 
- *            <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/p-gly">Physical Disk resource</a>.
+     *            <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/p-gly">Physical Disk resource</a>.
      * @type {Integer (Int32)}
      */
     static CLUS_RESCLASS_STORAGE => 1

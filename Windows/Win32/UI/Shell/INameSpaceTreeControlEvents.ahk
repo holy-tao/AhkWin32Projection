@@ -7,9 +7,9 @@
  * Exposes methods for handling INameSpaceTreeControl events.
  * @remarks
  * 
-  * This interface is implemented by a client of namespace control (CLSID_NameSpaceTreeControl) to be advised of namespace control events so that the client may process these events and if not, allow the namespace control to process them.
-  * 
-  * 
+ * This interface is implemented by a client of namespace control (CLSID_NameSpaceTreeControl) to be advised of namespace control events so that the client may process these events and if not, allow the namespace control to process them.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-inamespacetreecontrolevents
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

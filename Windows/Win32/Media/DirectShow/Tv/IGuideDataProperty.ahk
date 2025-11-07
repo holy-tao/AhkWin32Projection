@@ -9,9 +9,9 @@
  * The IGuideDataProperty interface represents the name, value, and language of a property associated with a service, program or schedule entry object.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IGuideDataProperty)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IGuideDataProperty)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bdatif/nn-bdatif-iguidedataproperty
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

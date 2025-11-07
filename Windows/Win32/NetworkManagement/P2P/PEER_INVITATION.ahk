@@ -6,9 +6,9 @@
  * The PEER_INVITATION structure contains a request to initiate or join a peer collaboration activity.
  * @remarks
  * 
-  * An invitation request is typically sent by a peer after a contact appears online within the peer collaboration network and a call to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabenumapplications">PeerCollabEnumApplications</a> returns a common software application (represented as a application GUID) available on the contact's endpoint.
-  * 
-  * 
+ * An invitation request is typically sent by a peer after a contact appears online within the peer collaboration network and a call to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabenumapplications">PeerCollabEnumApplications</a> returns a common software application (represented as a application GUID) available on the contact's endpoint.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_invitation
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319

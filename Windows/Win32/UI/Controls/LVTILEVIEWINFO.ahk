@@ -7,9 +7,9 @@
  * Provides information about a list-view control when it is displayed in tile view.
  * @remarks
  * 
-  * By default, the dimensions of tiles are determined automatically. To apply a fixed size, supply the correct value or values in <b>sizeTile</b> and set the appropriate flag in <b>dwFlags</b>. Allow enough vertical space for all lines of the label to be displayed. If a line does not fit in the allowed horizontal space, it is terminated with an ellipsis.
-  * 
-  * 
+ * By default, the dimensions of tiles are determined automatically. To apply a fixed size, supply the correct value or values in <b>sizeTile</b> and set the appropriate flag in <b>dwFlags</b>. Allow enough vertical space for all lines of the label to be displayed. If a line does not fit in the allowed horizontal space, it is terminated with an ellipsis.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-lvtileviewinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319

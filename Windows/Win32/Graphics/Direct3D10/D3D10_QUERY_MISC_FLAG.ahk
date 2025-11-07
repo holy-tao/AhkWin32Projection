@@ -4,9 +4,9 @@
  * Flags that describe miscellaneous query behavior.
  * @remarks
  * 
-  * This flag is part of a query description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_query_desc">D3D10_QUERY_DESC</a>).
-  * 
-  * 
+ * This flag is part of a query description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_query_desc">D3D10_QUERY_DESC</a>).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_query_misc_flag
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

@@ -22,16 +22,16 @@ class CALLFRAME_FREE{
 
     /**
      * The data referenced by [in, out] parameters are freed. However, the top-level pointers, which are the actual parameter values, are not freed.
- * 
- * On the server side, this is typically used post-call, as in CALLFRAME_FREE_IN. On the client side, this is typically used when the server was not actually invoked (and so unmarshaling of return values was not attempted) or when unmarshaling of the return values failed.
+     * 
+     * On the server side, this is typically used post-call, as in CALLFRAME_FREE_IN. On the client side, this is typically used when the server was not actually invoked (and so unmarshaling of return values was not attempted) or when unmarshaling of the return values failed.
      * @type {Integer (Int32)}
      */
     static CALLFRAME_FREE_INOUT => 2
 
     /**
      * The data referenced by [out] parameters are freed. However, the top-level pointers, which are the actual parameter values, are not freed.
- * 
- * On the server side, this is typically used post-call, as in CALLFRAME_FREE_IN. On the client side, this is typically only used when unmarshaling of return values failed.
+     * 
+     * On the server side, this is typically used post-call, as in CALLFRAME_FREE_IN. On the client side, this is typically only used when unmarshaling of return values failed.
      * @type {Integer (Int32)}
      */
     static CALLFRAME_FREE_OUT => 4

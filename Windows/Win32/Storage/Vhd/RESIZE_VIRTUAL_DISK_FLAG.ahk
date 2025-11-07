@@ -16,16 +16,16 @@ class RESIZE_VIRTUAL_DISK_FLAG{
 
     /**
      * If this flag is set, skip checking the virtual disk's partition table to ensure that this truncation is 
- *       safe. Setting this flag can cause unrecoverable data loss; use with care.
+     *       safe. Setting this flag can cause unrecoverable data loss; use with care.
      * @type {Integer (Int32)}
      */
     static RESIZE_VIRTUAL_DISK_FLAG_ALLOW_UNSAFE_VIRTUAL_SIZE => 1
 
     /**
      * If this flag is set, resize the disk to the smallest virtual size possible without truncating past any 
- *       existing partitions. If this is set, the <b>NewSize</b> member in the 
- *       <a href="https://docs.microsoft.com/windows/desktop/api/virtdisk/ns-virtdisk-resize_virtual_disk_parameters">RESIZE_VIRTUAL_DISK_PARAMETERS</a> 
- *       structure must be zero.
+     *       existing partitions. If this is set, the <b>NewSize</b> member in the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/virtdisk/ns-virtdisk-resize_virtual_disk_parameters">RESIZE_VIRTUAL_DISK_PARAMETERS</a> 
+     *       structure must be zero.
      * @type {Integer (Int32)}
      */
     static RESIZE_VIRTUAL_DISK_FLAG_RESIZE_TO_SMALLEST_SAFE_VIRTUAL_SIZE => 2

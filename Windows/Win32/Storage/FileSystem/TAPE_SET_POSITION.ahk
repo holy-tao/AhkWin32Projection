@@ -5,9 +5,9 @@
  * Describes how and where to position the tape.
  * @remarks
  * 
-  * If the positioning is relative, a positive offset moves the tape forward (toward the end of the tape) and a negative offset moves the tape backward (toward the beginning of the tape).
-  * 
-  * 
+ * If the positioning is relative, a positive offset moves the tape forward (toward the end of the tape) and a negative offset moves the tape backward (toward the beginning of the tape).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-tape_set_position
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319

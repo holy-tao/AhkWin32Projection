@@ -7,10 +7,10 @@
  * Allows a custom effect's interface and behavior to be specified by the effect author.
  * @remarks
  * 
-  * This interface is created by the effect author from a static factory registered through 
-  *       the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1factory1-registereffectfromstring">ID2D1Factory::RegisterEffect</a>  method.
-  * 
-  * 
+ * This interface is created by the effect author from a static factory registered through 
+ *       the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1factory1-registereffectfromstring">ID2D1Factory::RegisterEffect</a>  method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1effectimpl
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

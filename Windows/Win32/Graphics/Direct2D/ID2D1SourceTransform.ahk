@@ -7,9 +7,9 @@
  * Represents a CPU-based rasterization stage in the transform pipeline graph.
  * @remarks
  * 
-  * <b>ID2D1SourceTransform</b> specializes an implementation of the Shantzis calculations to a transform implemented as the source of an effect graph with the data being provided from sytem memory.
-  * 
-  * 
+ * <b>ID2D1SourceTransform</b> specializes an implementation of the Shantzis calculations to a transform implemented as the source of an effect graph with the data being provided from sytem memory.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1sourcetransform
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

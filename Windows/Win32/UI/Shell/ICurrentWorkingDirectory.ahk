@@ -7,10 +7,10 @@
  * Exposes methods that enable a client to retrieve or set an object's current working directory.
  * @remarks
  * 
-  * Implement this interface if your object allows clients to retrieve or set the current working directory.
-  * 
-  * Use this interface to retrieve or set the working directory of the object that exports it.
-  * 
+ * Implement this interface if your object allows clients to retrieve or set the current working directory.
+ * 
+ * Use this interface to retrieve or set the working directory of the object that exports it.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-icurrentworkingdirectory
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

@@ -5,35 +5,35 @@
  * Describes a single block of data, including its name, location, and length.
  * @remarks
  * 
-  * An array of 
-  * <b>StorageLayout</b> structures might appear as follows.
-  * 
-  * 
-  * ```cpp
-  * StorageLayout arrScript[]=
-  *     // Read first 2k of "WordDocument" stream
-  *     {STGTY_STREAM,L"WordDocument",{0,0},{0,2048}},
-  *  
-  *     //Test if "ObjectPool\88112233" storage exists
-  *     {STGTY_STORAGE,L"ObjectPool\\88112233",{0,0},{0,0}},
-  *  
-  *     //Read 2k at offset 1048 of "WordDocument" stream
-  *     {STGTY_STREAM,L"WordDocument",{0,10480},{0,2048}},
-  *  
-  *     //Interlace "Audio", "Video", and "Caption" streams
-  *     {STGTY_REPEAT,NULL,0,STG_TOEND},
-  *         {STGTY_STREAM,L"Audio", {0,0},{0,2048}},    // 2k of Audio
-  *         {STGTY_STREAM,L"Video", {0,0},{0,65536}},   // 64k of Video
-  *         {STGTY_STREAM,L"Caption", {0,0},{0,128}},   // 128b of text
-  *     {STGTY_REPEAT,NULL, {0,0},{0,0}}
-  * };
-  * ```
-  * 
-  * 
-  * <div class="alert"><b>Note</b>  The parameters <i>cOffset</i> and <i>cBytes</i> are <b>LARGE_INTEGER</b> structures, used to represent a 64-bit signed integer value as a union of two 32-bit members. The two 32-bit members must be represented as a <b>LARGE_INTEGER</b> structure with <b>DWORD</b> LowPart and <b>LONG</b> HighPart as the structure members. (LowPart specifies the low-order 32 bits and HighPart specifies the high-order 32 bits.) If your compiler has built-in support for 64-bit integers, use the <b>QuadPart</b> member of the <b>LARGE_INTEGER</b> structure to store the 64-bit integer.</div>
-  * <div> </div>
-  * 
-  * 
+ * An array of 
+ * <b>StorageLayout</b> structures might appear as follows.
+ * 
+ * 
+ * ```cpp
+ * StorageLayout arrScript[]=
+ *     // Read first 2k of "WordDocument" stream
+ *     {STGTY_STREAM,L"WordDocument",{0,0},{0,2048}},
+ *  
+ *     //Test if "ObjectPool\88112233" storage exists
+ *     {STGTY_STORAGE,L"ObjectPool\\88112233",{0,0},{0,0}},
+ *  
+ *     //Read 2k at offset 1048 of "WordDocument" stream
+ *     {STGTY_STREAM,L"WordDocument",{0,10480},{0,2048}},
+ *  
+ *     //Interlace "Audio", "Video", and "Caption" streams
+ *     {STGTY_REPEAT,NULL,0,STG_TOEND},
+ *         {STGTY_STREAM,L"Audio", {0,0},{0,2048}},    // 2k of Audio
+ *         {STGTY_STREAM,L"Video", {0,0},{0,65536}},   // 64k of Video
+ *         {STGTY_STREAM,L"Caption", {0,0},{0,128}},   // 128b of text
+ *     {STGTY_REPEAT,NULL, {0,0},{0,0}}
+ * };
+ * ```
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  The parameters <i>cOffset</i> and <i>cBytes</i> are <b>LARGE_INTEGER</b> structures, used to represent a 64-bit signed integer value as a union of two 32-bit members. The two 32-bit members must be represented as a <b>LARGE_INTEGER</b> structure with <b>DWORD</b> LowPart and <b>LONG</b> HighPart as the structure members. (LowPart specifies the low-order 32 bits and HighPart specifies the high-order 32 bits.) If your compiler has built-in support for 64-bit integers, use the <b>QuadPart</b> member of the <b>LARGE_INTEGER</b> structure to store the 64-bit integer.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//objidl/ns-objidl-storagelayout
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319

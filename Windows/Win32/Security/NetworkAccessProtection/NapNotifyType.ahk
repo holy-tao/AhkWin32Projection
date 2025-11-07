@@ -16,16 +16,16 @@ class NapNotifyType{
 
     /**
      * NapAgent service state change notifications. 
- * 
- * A notification of type <b>napNotifyTypeServiceState</b> is sent whenever the NapAgent service stops or starts.
+     * 
+     * A notification of type <b>napNotifyTypeServiceState</b> is sent whenever the NapAgent service stops or starts.
      * @type {Integer (Int32)}
      */
     static napNotifyTypeServiceState => 1
 
     /**
      * Quarantine state change notifications. 
- * 
- * A notification of type <b>napNotifyTypeQuarState</b>  is sent whenever the isolation state changes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ne-naptypes-isolationstate">IsolationState</a>.
+     * 
+     * A notification of type <b>napNotifyTypeQuarState</b>  is sent whenever the isolation state changes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ne-naptypes-isolationstate">IsolationState</a>.
      * @type {Integer (Int32)}
      */
     static napNotifyTypeQuarState => 2

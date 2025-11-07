@@ -64,14 +64,14 @@ class D2D1_SVG_PATH_COMMAND{
 
     /**
      * Draws an elliptical arc (rx ry x-axis-rotation large-arc-flag sweep-flag x y). The curve ends at (x, y) and is defined by the arc parameters. The two flags are
- *           considered set if their values are non-zero. Uses 7 floats of segment data.
+     *           considered set if their values are non-zero. Uses 7 floats of segment data.
      * @type {Integer (Int32)}
      */
     static D2D1_SVG_PATH_COMMAND_ARC_ABSOLUTE => 9
 
     /**
      * Draws an elliptical arc (rx ry x-axis-rotation large-arc-flag sweep-flag x y). The curve ends at (x, y) and is defined by the arc parameters. The two flags are
- *           considered set if their values are non-zero. Uses 7 floats of segment data.
+     *           considered set if their values are non-zero. Uses 7 floats of segment data.
      * @type {Integer (Int32)}
      */
     static D2D1_SVG_PATH_COMMAND_ARC_RELATIVE => 10

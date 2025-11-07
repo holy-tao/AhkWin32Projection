@@ -5,21 +5,21 @@
  * Contains a major and minor version number used in the engine, sensor, and storage adapter interface tables.
  * @remarks
  * 
-  * This structure is used by the following structures:
-  * 
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_engine_interface">WINBIO_ENGINE_INTERFACE</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_sensor_interface">WINBIO_SENSOR_INTERFACE</a>
-  * </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_storage_interface">WINBIO_STORAGE_INTERFACE</a>
-  * </li>
-  * </ul>
-  * 
-  * 
+ * This structure is used by the following structures:
+ * 
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_engine_interface">WINBIO_ENGINE_INTERFACE</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_sensor_interface">WINBIO_SENSOR_INTERFACE</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_storage_interface">WINBIO_STORAGE_INTERFACE</a>
+ * </li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winbio_adapter/ns-winbio_adapter-winbio_adapter_interface_version
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319

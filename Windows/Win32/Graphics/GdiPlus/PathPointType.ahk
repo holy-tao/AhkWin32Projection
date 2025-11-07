@@ -4,9 +4,9 @@
  * The PathPointType enumeration indicates point types and flags for the data points in a path.
  * @remarks
  * 
-  * A <a href="https://docs.microsoft.com/windows/desktop/api/gdipluspath/nl-gdipluspath-graphicspath">GraphicsPath</a> object has an array of points and an array of types. Each element in the array of types is a byte that specifies the point type and a set of flags for the corresponding element in the array of points.
-  * 
-  * 
+ * A <a href="https://docs.microsoft.com/windows/desktop/api/gdipluspath/nl-gdipluspath-graphicspath">GraphicsPath</a> object has an array of points and an array of types. Each element in the array of types is a byte that specifies the point type and a set of flags for the corresponding element in the array of points.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplusenums/ne-gdiplusenums-pathpointtype
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

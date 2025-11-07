@@ -8,8 +8,8 @@
  * Exposes methods used by a wizard extension to navigate the borders between itself and the rest of the wizard.
  * @remarks
  * 
-  * When the user backs out or cancels the extension, or when the extension finishes displaying its pages, the extension then communicates to the wizard that it must navigate in and out of the stack of pages.
-  * 
+ * When the user backs out or cancels the extension, or when the extension finishes displaying its pages, the extension then communicates to the wizard that it must navigate in and out of the stack of pages.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iwizardsite
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

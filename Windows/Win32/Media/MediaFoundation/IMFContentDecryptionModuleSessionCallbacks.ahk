@@ -7,9 +7,9 @@
  * Provides a callback mechanism for receiving key status change updates from an IMFContentDecryptionModuleSession.
  * @remarks
  * 
-  * **IMFContentDecryptionModuleSessionCallbacks** is based on the Encrypted Media Extension specification's  [keystatuseschange event](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-evt-keystatuseschange).
-  * 
-  * 
+ * **IMFContentDecryptionModuleSessionCallbacks** is based on the Encrypted Media Extension specification's  [keystatuseschange event](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-evt-keystatuseschange).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmodulesessioncallbacks
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

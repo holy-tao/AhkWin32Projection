@@ -7,9 +7,9 @@
  * The IAnalogLocator interface provides tuning information for an analog television network.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAnalogLocator)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAnalogLocator)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ianaloglocator
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

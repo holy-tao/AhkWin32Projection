@@ -7,9 +7,9 @@
  * The IMSVidFeatureEvent interface is the base interface for events from Video Control feature objects.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidFeatureEvent)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidFeatureEvent)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidfeatureevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

@@ -4,10 +4,10 @@
  * The Status enumeration indicates the result of a Windows GDI+ method call.
  * @remarks
  * 
-  * If you construct a GDI+ object and then immediately call the 
-  * 				<b>GetLastStatus</b> method of that object, you can determine whether the constructor succeeded or failed. In such cases, 
-  * 				<b>GetLastStatus</b> might return <b><b>OutOfMemory</b></b> even though there was plenty of memory available to create the object. Several GDI+ constructors set the status to <b><b>OutOfMemory</b></b> when they fail regardless of the reason for failure.
-  * 
+ * If you construct a GDI+ object and then immediately call the 
+ * 				<b>GetLastStatus</b> method of that object, you can determine whether the constructor succeeded or failed. In such cases, 
+ * 				<b>GetLastStatus</b> might return <b><b>OutOfMemory</b></b> even though there was plenty of memory available to create the object. Several GDI+ constructors set the status to <b><b>OutOfMemory</b></b> when they fail regardless of the reason for failure.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/ne-gdiplustypes-status
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
@@ -64,7 +64,7 @@ class Status{
 
     /**
      * Indicates that the object is in an invalid state to satisfy the API call. For example, calling 
- * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdipluspen/nf-gdipluspen-pen-getcolor">Pen::GetColor</a> from a pen that is not a single, solid color results in a <a href="https://docs.microsoft.com/windows/desktop/api/gdiplustypes/ne-gdiplustypes-status">WrongState</a> status.
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdipluspen/nf-gdipluspen-pen-getcolor">Pen::GetColor</a> from a pen that is not a single, solid color results in a <a href="https://docs.microsoft.com/windows/desktop/api/gdiplustypes/ne-gdiplustypes-status">WrongState</a> status.
      * @type {Integer (Int32)}
      */
     static WrongState => 8
@@ -113,8 +113,8 @@ class Status{
 
     /**
      * Indicates that the font retrieved from an 
- * 				<b>HDC</b> or 
- * 				<b>LOGFONT</b> is not a TrueType font and cannot be used with GDI+.
+     * 				<b>HDC</b> or 
+     * 				<b>LOGFONT</b> is not a TrueType font and cannot be used with GDI+.
      * @type {Integer (Int32)}
      */
     static NotTrueTypeFont => 16
@@ -127,7 +127,7 @@ class Status{
 
     /**
      * Indicates that the GDI+API is not in an initialized state. To function, all GDI+ objects require that GDI+ be in an initialized state. Initialize GDI+ by calling 
- * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/nf-gdiplusinit-gdiplusstartup">GdiplusStartup</a>.
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/nf-gdiplusinit-gdiplusstartup">GdiplusStartup</a>.
      * @type {Integer (Int32)}
      */
     static GdiplusNotInitialized => 18

@@ -7,16 +7,16 @@
  * Use this interface to combine several data streams into a single stream.
  * @remarks
  * 
-  * To create the  MsftStreamConcatenate object in a script, use IMAPI2.MsftStreamConcatenate as the program identifier when calling CreateObject.
-  * 
-  * When using this interface, the following  scenarios will result in undefined behaviors, and should be avoided:
-  * 
-  * <ul>
-  * <li>Each partial stream composing the MsftStreamConcatenate object is actually the same stream.</li>
-  * <li>Any of the concatenated streams are modified (read from, written to, or seeked on) outside of IMAPI.</li>
-  * </ul>
-  * 
-  * 
+ * To create the  MsftStreamConcatenate object in a script, use IMAPI2.MsftStreamConcatenate as the program identifier when calling CreateObject.
+ * 
+ * When using this interface, the following  scenarios will result in undefined behaviors, and should be avoided:
+ * 
+ * <ul>
+ * <li>Each partial stream composing the MsftStreamConcatenate object is actually the same stream.</li>
+ * <li>Any of the concatenated streams are modified (read from, written to, or seeked on) outside of IMAPI.</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-istreamconcatenate
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

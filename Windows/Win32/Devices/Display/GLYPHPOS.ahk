@@ -6,7 +6,7 @@
  * The GLYPHPOS structure is used by GDI to provide a graphics driver with a glyph's description and position.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-glyphpos
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319

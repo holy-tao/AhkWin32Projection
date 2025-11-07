@@ -4,15 +4,15 @@
  * Defines the set of the valid target types (subjects) of a VDS notification.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_notification">VDS_NOTIFICATION</a> structure includes a <b>VDS_NOTIFICATION_TARGET_TYPE</b> 
-  *     value as a member to indicate a notification type. Some values in the <b>VDS_NOTIFICATION_TARGET_TYPE</b> correspond to values in the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration. For the integer value of a VDS object type, 
-  *     such as a volume or LUN object, see the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
-  * 
-  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_NOTIFICATION_TARGET_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_NOTIFICATION_TARGET_TYPE</b> enumeration constant.</div>
-  * <div> </div>
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_notification">VDS_NOTIFICATION</a> structure includes a <b>VDS_NOTIFICATION_TARGET_TYPE</b> 
+ *     value as a member to indicate a notification type. Some values in the <b>VDS_NOTIFICATION_TARGET_TYPE</b> correspond to values in the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration. For the integer value of a VDS object type, 
+ *     such as a volume or LUN object, see the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
+ * 
+ * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_NOTIFICATION_TARGET_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_NOTIFICATION_TARGET_TYPE</b> enumeration constant.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_notification_target_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
@@ -93,40 +93,40 @@ class VDS_NOTIFICATION_TARGET_TYPE{
 
     /**
      * The target is a controller port.
- *        This value corresponds to the <b>VDS_OT_PORT</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
- * 
- * <div class="alert"><b>Note</b>  This value is not supported on VDS 1.0.</div>
- * <div> </div>
+     *        This value corresponds to the <b>VDS_OT_PORT</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
+     * 
+     * <div class="alert"><b>Note</b>  This value is not supported on VDS 1.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static VDS_NTT_PORT => 35
 
     /**
      * The target is an iSCSI portal.
- *        This value corresponds to the <b>VDS_OT_PORTAL</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
- * 
- * <div class="alert"><b>Note</b>  This value is not supported on VDS 1.0.</div>
- * <div> </div>
+     *        This value corresponds to the <b>VDS_OT_PORTAL</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
+     * 
+     * <div class="alert"><b>Note</b>  This value is not supported on VDS 1.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static VDS_NTT_PORTAL => 36
 
     /**
      * The target is a target.
- *        This value corresponds to the <b>VDS_OT_TARGET</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
- * 
- * <div class="alert"><b>Note</b>  This value is not supported on VDS 1.0.</div>
- * <div> </div>
+     *        This value corresponds to the <b>VDS_OT_TARGET</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
+     * 
+     * <div class="alert"><b>Note</b>  This value is not supported on VDS 1.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static VDS_NTT_TARGET => 37
 
     /**
      * The target is an iSCSI portal group.
- *        This value corresponds to the <b>VDS_PORTAL_GROUP</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
- * 
- * <div class="alert"><b>Note</b>  This value is not supported on VDS 1.0.</div>
- * <div> </div>
+     *        This value corresponds to the <b>VDS_PORTAL_GROUP</b> value in the  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration.
+     * 
+     * <div class="alert"><b>Note</b>  This value is not supported on VDS 1.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static VDS_NTT_PORTAL_GROUP => 38

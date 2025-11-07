@@ -5,14 +5,14 @@
  * An array of Unicode characters and a length.
  * @remarks
  * 
-  * The string is not required to be zero terminated.  If it is
-  *                 zero terminated, then the terminating character is not included
-  *                 in the length.
-  *             
-  * 
-  * The macro <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-ws_string_value">WS_STRING_VALUE</a> can be used to initialize
-  *                 this structure if the string is a constant string.
-  * 
+ * The string is not required to be zero terminated.  If it is
+ *                 zero terminated, then the terminating character is not included
+ *                 in the length.
+ *             
+ * 
+ * The macro <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-ws_string_value">WS_STRING_VALUE</a> can be used to initialize
+ *                 this structure if the string is a constant string.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_string
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

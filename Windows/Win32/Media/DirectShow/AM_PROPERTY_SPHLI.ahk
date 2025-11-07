@@ -6,9 +6,9 @@
  * Describes the currently selected button from the DVD highlight information.
  * @remarks
  * 
-  * The <b>AM_PROPERTY_DVDSUBPIC_HLI</b> property uses this structure.
-  * 
-  * 
+ * The <b>AM_PROPERTY_DVDSUBPIC_HLI</b> property uses this structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-am_property_sphli
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

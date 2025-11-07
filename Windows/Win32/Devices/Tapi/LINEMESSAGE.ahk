@@ -5,10 +5,10 @@
  * The LINEMESSAGE structure contains parameter values specifying a change in status of the line the application currently has open. The lineGetMessage function returns the LINEMESSAGE structure.
  * @remarks
  * 
-  * For information about parameter values passed in this structure, see 
-  * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-device-messages">Line Device Messages</a>.
-  * 
-  * 
+ * For information about parameter values passed in this structure, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-device-messages">Line Device Messages</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linemessage
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

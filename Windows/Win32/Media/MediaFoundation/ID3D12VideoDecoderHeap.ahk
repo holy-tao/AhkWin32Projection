@@ -7,9 +7,9 @@
  * Represents a Direct3D 12 video decoder heap.
  * @remarks
  * 
-  * Get an instance of this class by calling [ID3D12VideoDevice::CreateVideoDecoderHeap](nf-d3d12video-id3d12videodevice-createvideodecoderheap.md).
-  * 
-  * 
+ * Get an instance of this class by calling [ID3D12VideoDevice::CreateVideoDecoderHeap](nf-d3d12video-id3d12videodevice-createvideodecoderheap.md).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videodecoderheap
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

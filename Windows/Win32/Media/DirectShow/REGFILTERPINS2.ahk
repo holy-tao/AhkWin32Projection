@@ -5,9 +5,9 @@
  * The REGFILTERPINS2 structure contains information for registering a filter through the IFilterMapper2 interface.
  * @remarks
  * 
-  * If you use this structure, set the <b>dwVersion</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-regfilter2">REGFILTER2</a> structure to 2.
-  * 
-  * 
+ * If you use this structure, set the <b>dwVersion</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-regfilter2">REGFILTER2</a> structure to 2.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-regfilterpins2
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

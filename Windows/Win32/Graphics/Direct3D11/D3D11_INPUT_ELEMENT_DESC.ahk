@@ -5,10 +5,10 @@
  * A description of a single element for the input-assembler stage.
  * @remarks
  * 
-  * An input-layout object contains an array of structures, each structure defines one element being read from an input slot. Create an input-layout 
-  *       object by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createinputlayout">ID3D11Device::CreateInputLayout</a>. For an example, see the "Create the Input-Layout Object" subtopic under the  <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">Getting Started with the Input-Assembler Stage</a> topic.
-  * 
-  * 
+ * An input-layout object contains an array of structures, each structure defines one element being read from an input slot. Create an input-layout 
+ *       object by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createinputlayout">ID3D11Device::CreateInputLayout</a>. For an example, see the "Create the Input-Layout Object" subtopic under the  <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">Getting Started with the Input-Assembler Stage</a> topic.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_input_element_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

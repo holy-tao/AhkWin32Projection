@@ -22,112 +22,112 @@ class ATTRIBUTEID{
 
     /**
      * Specifies the name of the user to be authenticated. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_USER_NAME => 1
 
     /**
      * Specifies the password of the user to be authenticated. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_USER_PASSWORD => 2
 
     /**
      * Specifies the password provided by the user in response to an MD5 Challenge Handshake Authentication Protocol (CHAP) challenge. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_CHAP_PASSWORD => 3
 
     /**
      * Specifies the Network Access Server (NAS) IP address. An Access-Request should specify either an NAS IP address or an NAS identifier. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_NAS_IP_ADDRESS => 4
 
     /**
      * Specifies the physical or virtual private network (VPN) through which the user is connecting to the NAS. Note that this value is not a port number in the sense of TCP or UDP. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_NAS_PORT => 5
 
     /**
      * Specifies the type of service the user has requested or the type of service to be provided. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_SERVICE_TYPE => 6
 
     /**
      * Specifies the type of framed protocol to use for framed access, for example SLIP, PPP, or ARAP (AppleTalk Remote Access Protocol). For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_PROTOCOL => 7
 
     /**
      * Specifies the IP address that is configured for the user requesting authentication. This attribute is typically returned by the authentication provider. However, the NAS may use it in an authentication request to specify a preferred IP address. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_IP_ADDRESS => 8
 
     /**
      * Specifies the IP network mask for a user that is a router to a network. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_IP_NETMASK => 9
 
     /**
      * Specifies the routing method for a user that is a router to a network. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_ROUTING => 10
 
     /**
      * Specifies the filter list for the user requesting authentication. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FILTER_ID => 11
 
     /**
      * Specifies the Maximum Transmission Unit (MTU) for the user. This attribute is used in cases where the MTU is not negotiated through some other means, such as PPP. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_MTU => 12
 
     /**
      * Specifies a compression protocol to use for the connection. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_COMPRESSION => 13
 
     /**
      * Specifies the system with which to connect the user. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_LOGIN_IP_HOST => 14
 
     /**
      * Specifies the service to use to connect the user to the host specified by <b>raatLoginIPHost</b>. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_LOGIN_SERVICE => 15
 
     /**
      * Specifies the port to which to connect the user. This attribute is present only if the <b>raatLoginService</b> attribute is present. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_LOGIN_TCP_PORT => 16
@@ -140,21 +140,21 @@ class ATTRIBUTEID{
 
     /**
      * Specifies a message to display to the user. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_REPLY_MESSAGE => 18
 
     /**
      * Specifies a callback number. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_CALLBACK_NUMBER => 19
 
     /**
      * Specifies a location to call back. The value of this attribute is interpreted by the NAS. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_CALLBACK_ID => 20
@@ -167,372 +167,372 @@ class ATTRIBUTEID{
 
     /**
      * Specifies routing information to configure on the NAS for the user. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_ROUTE => 22
 
     /**
      * Specifies the IPX network number to configure for the user. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_IPX_NETWORK => 23
 
     /**
      * Specifies state information provided to the client by the server. Refer to 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a> for detailed information about this value. The value field in for this type is a pointer.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a> for detailed information about this value. The value field in for this type is a pointer.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_STATE => 24
 
     /**
      * Specifies a value that is provided to the NAS by the authentication provider. The NAS should use this value when communicating with the accounting provider. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_CLASS => 25
 
     /**
      * Specifies a field for vendor-supplied extended attributes. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_VENDOR_SPECIFIC => 26
 
     /**
      * Specifies the maximum number of seconds for which to provide service to the user. After this time, the session is terminated. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_SESSION_TIMEOUT => 27
 
     /**
      * Specifies the maximum number of consecutive seconds the session can be idle. If the idle time exceeds this value, the session is terminated. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_IDLE_TIMEOUT => 28
 
     /**
      * Specifies an action the server performs when time the connection terminates. Refer to the above-referenced files for detailed information about this value. The value field in for this type is 32-bit integral value. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_TERMINATION_ACTION => 29
 
     /**
      * Specifies the number that the user dialed to connect to the NAS. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_CALLED_STATION_ID => 30
 
     /**
      * Specifies the number from which the user is calling. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_CALLING_STATION_ID => 31
 
     /**
      * Specifies the NAS identifier. An Access-Request should specify either an NAS identifier or an NAS IP address. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_NAS_IDENTIFIER => 32
 
     /**
      * Specifies a value that a proxy server includes when forwarding an authentication request. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_PROXY_STATE => 33
 
     /**
      * Specifies an attribute that is not currently used for authentication on Windows. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_LOGIN_LAT_SERVICE => 34
 
     /**
      * Specifies an attribute that is not currently used for authentication on Windows. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_LOGIN_LAT_NODE => 35
 
     /**
      * Specifies an attribute that is not currently used for authentication on Windows. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_LOGIN_LAT_GROUP => 36
 
     /**
      * Specifies the AppleTalk network number for the user when the user is another router. The value field in for this type is 32-bit integral value. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_APPLETALK_LINK => 37
 
     /**
      * Specifies the AppleTalk network number that the NAS should use to allocate an AppleTalk node for the user. This attribute is used only when the user is not another router. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_APPLETALK_NET => 38
 
     /**
      * Specifies the AppleTalk default zone for the user. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_APPLETALK_ZONE => 39
 
     /**
      * Specifies whether the accounting provider should start or stop accounting for the user. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_STATUS_TYPE => 40
 
     /**
      * Specifies the length of time that the client has been attempting to send the current request. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_DELAY_TIME => 41
 
     /**
      * Specifies the number of octets that have been received during the current accounting session. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_INPUT_OCTETS => 42
 
     /**
      * Specifies the number of octets that were sent during the current accounting session. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_OUTPUT_OCTETS => 43
 
     /**
      * Specifies a value to enable the identification of matching start and stop records within a log file. The start and stop records are sent in the <b>raatAcctStatusType</b> attribute. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_SESSION_ID => 44
 
     /**
      * Specifies, to the accounting provider, how the user was authenticated; for example by Windows Directory Services, RADIUS, or some other authentication provider. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_AUTHENTIC => 45
 
     /**
      * Specifies the number of seconds that have elapsed in the current accounting session. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_SESSION_TIME => 46
 
     /**
      * Specifies the number of packets that are received during the current accounting session. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_INPUT_PACKETS => 47
 
     /**
      * Specifies the number of packets that are sent during the current accounting session. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_OUTPUT_PACKETS => 48
 
     /**
      * Specifies how the current accounting session was terminated. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_TERMINATE_CAUSE => 49
 
     /**
      * Specifies a value to enable the identification of related accounting sessions within a log file. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_MULTI_SSN_ID => 50
 
     /**
      * Specifies the number of links if the current accounting session is using a multilink connection. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_LINK_COUNT => 51
 
     /**
      * Specifies the CHAP challenge sent by the NAS to a CHAP user. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_CHAP_CHALLENGE => 60
 
     /**
      * Specifies the type of the port through which the user is connecting, for example, asynchronous, ISDN, virtual. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_NAS_PORT_TYPE => 61
 
     /**
      * Specifies the number of ports the NAS should make available to the user for multilink sessions. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_PORT_LIMIT => 62
 
     /**
      * Specifies an attribute that is not currently used for authentication on Windows. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2865.txt">RFC 2865</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_LOGIN_LAT_PORT => 63
 
     /**
      * Specifies the tunneling protocol used. The following list lists valid tunnel types.
- * 
- * <table>
- * <tr>
- * <th>Tunnel type value</th>
- * <th>Description</th>
- * </tr>
- * <tr>
- * <td>1</td>
- * <td>Point-to-Point Tunneling Protocol (PPTP)</td>
- * </tr>
- * <tr>
- * <td>2</td>
- * <td>Layer Two Forwarding (L2F)</td>
- * </tr>
- * <tr>
- * <td>3</td>
- * <td>Layer Two Tunneling Protocol (L2TP)</td>
- * </tr>
- * <tr>
- * <td>4</td>
- * <td>Ascend Tunnel Management Protocol (ATMP)</td>
- * </tr>
- * <tr>
- * <td>5</td>
- * <td>Virtual Tunneling Protocol (VTP)</td>
- * </tr>
- * <tr>
- * <td>6</td>
- * <td>IP Authentication Header in the Tunnel-mode</td>
- * </tr>
- * <tr>
- * <td>7</td>
- * <td>IP-in-IP Encapsulation (IP-IP)</td>
- * </tr>
- * <tr>
- * <td>8</td>
- * <td>Minimal IP-in-IP Encapsulation (MIN-IP-IP)</td>
- * </tr>
- * <tr>
- * <td>9</td>
- * <td>IP Encapsulating Security Payload in the Tunnel-mode (ESP)</td>
- * </tr>
- * <tr>
- * <td>10</td>
- * <td>Generic Route Encapsulation (GRE)</td>
- * </tr>
- * <tr>
- * <td>11</td>
- * <td>Bay Dial Virtual Services (DVS)</td>
- * </tr>
- * <tr>
- * <td>12</td>
- * <td>IP-in-IP Tunneling</td>
- * </tr>
- * </table>
+     * 
+     * <table>
+     * <tr>
+     * <th>Tunnel type value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>1</td>
+     * <td>Point-to-Point Tunneling Protocol (PPTP)</td>
+     * </tr>
+     * <tr>
+     * <td>2</td>
+     * <td>Layer Two Forwarding (L2F)</td>
+     * </tr>
+     * <tr>
+     * <td>3</td>
+     * <td>Layer Two Tunneling Protocol (L2TP)</td>
+     * </tr>
+     * <tr>
+     * <td>4</td>
+     * <td>Ascend Tunnel Management Protocol (ATMP)</td>
+     * </tr>
+     * <tr>
+     * <td>5</td>
+     * <td>Virtual Tunneling Protocol (VTP)</td>
+     * </tr>
+     * <tr>
+     * <td>6</td>
+     * <td>IP Authentication Header in the Tunnel-mode</td>
+     * </tr>
+     * <tr>
+     * <td>7</td>
+     * <td>IP-in-IP Encapsulation (IP-IP)</td>
+     * </tr>
+     * <tr>
+     * <td>8</td>
+     * <td>Minimal IP-in-IP Encapsulation (MIN-IP-IP)</td>
+     * </tr>
+     * <tr>
+     * <td>9</td>
+     * <td>IP Encapsulating Security Payload in the Tunnel-mode (ESP)</td>
+     * </tr>
+     * <tr>
+     * <td>10</td>
+     * <td>Generic Route Encapsulation (GRE)</td>
+     * </tr>
+     * <tr>
+     * <td>11</td>
+     * <td>Bay Dial Virtual Services (DVS)</td>
+     * </tr>
+     * <tr>
+     * <td>12</td>
+     * <td>IP-in-IP Tunneling</td>
+     * </tr>
+     * </table>
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_TUNNEL_TYPE => 64
 
     /**
      * Specifies which transport medium to use when creating a tunnel for those protocols (such as L2TP) that can operate over multiple transports. The following list lists valid medium types.
- * 
- * <table>
- * <tr>
- * <th>Medium type value</th>
- * <th>Description</th>
- * </tr>
- * <tr>
- * <td>1</td>
- * <td>IPv4 (IP version 4)</td>
- * </tr>
- * <tr>
- * <td>2</td>
- * <td>IPv6 (IP version 6)</td>
- * </tr>
- * <tr>
- * <td>3</td>
- * <td>OSI Network Service Access Points (NSAP) Signaling Protocol (see ISO 8348 and ITU-T X.213).</td>
- * </tr>
- * <tr>
- * <td>4</td>
- * <td>High-Level Data Link Control (HDLC) Protocol (8-bit multidrop)</td>
- * </tr>
- * <tr>
- * <td>5</td>
- * <td>Bolt Beranek and Newman, Inc. (BBN) Report 1822</td>
- * </tr>
- * <tr>
- * <td>6</td>
- * <td>IEEE 802 (includes all 802 media plus Ethernet "canonical format")</td>
- * </tr>
- * <tr>
- * <td>7</td>
- * <td>E.163 Plain Old Telephone Service (POTS)</td>
- * </tr>
- * <tr>
- * <td>8</td>
- * <td>E.164 Switched Multimegabit Data Service (SMDS), Frame Relay, Asynchronous Transfer Mode (ATM)</td>
- * </tr>
- * <tr>
- * <td>9</td>
- * <td>F.69 (Telex)</td>
- * </tr>
- * <tr>
- * <td>10</td>
- * <td>X.121 (X.25, Frame Relay)</td>
- * </tr>
- * <tr>
- * <td>11</td>
- * <td>Internetwork Packet Exchange (IPX)</td>
- * </tr>
- * <tr>
- * <td>12</td>
- * <td>AppleTalk</td>
- * </tr>
- * <tr>
- * <td>13</td>
- * <td>Decnet IV</td>
- * </tr>
- * <tr>
- * <td>14</td>
- * <td>Banyan Vines</td>
- * </tr>
- * <tr>
- * <td>15</td>
- * <td>E.164 with NSAP format subaddress</td>
- * </tr>
- * </table>
+     * 
+     * <table>
+     * <tr>
+     * <th>Medium type value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>1</td>
+     * <td>IPv4 (IP version 4)</td>
+     * </tr>
+     * <tr>
+     * <td>2</td>
+     * <td>IPv6 (IP version 6)</td>
+     * </tr>
+     * <tr>
+     * <td>3</td>
+     * <td>OSI Network Service Access Points (NSAP) Signaling Protocol (see ISO 8348 and ITU-T X.213).</td>
+     * </tr>
+     * <tr>
+     * <td>4</td>
+     * <td>High-Level Data Link Control (HDLC) Protocol (8-bit multidrop)</td>
+     * </tr>
+     * <tr>
+     * <td>5</td>
+     * <td>Bolt Beranek and Newman, Inc. (BBN) Report 1822</td>
+     * </tr>
+     * <tr>
+     * <td>6</td>
+     * <td>IEEE 802 (includes all 802 media plus Ethernet "canonical format")</td>
+     * </tr>
+     * <tr>
+     * <td>7</td>
+     * <td>E.163 Plain Old Telephone Service (POTS)</td>
+     * </tr>
+     * <tr>
+     * <td>8</td>
+     * <td>E.164 Switched Multimegabit Data Service (SMDS), Frame Relay, Asynchronous Transfer Mode (ATM)</td>
+     * </tr>
+     * <tr>
+     * <td>9</td>
+     * <td>F.69 (Telex)</td>
+     * </tr>
+     * <tr>
+     * <td>10</td>
+     * <td>X.121 (X.25, Frame Relay)</td>
+     * </tr>
+     * <tr>
+     * <td>11</td>
+     * <td>Internetwork Packet Exchange (IPX)</td>
+     * </tr>
+     * <tr>
+     * <td>12</td>
+     * <td>AppleTalk</td>
+     * </tr>
+     * <tr>
+     * <td>13</td>
+     * <td>Decnet IV</td>
+     * </tr>
+     * <tr>
+     * <td>14</td>
+     * <td>Banyan Vines</td>
+     * </tr>
+     * <tr>
+     * <td>15</td>
+     * <td>E.164 with NSAP format subaddress</td>
+     * </tr>
+     * </table>
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_TUNNEL_MEDIUM_TYPE => 65
@@ -551,8 +551,8 @@ class ATTRIBUTEID{
 
     /**
      * Specifies an identifier assigned to the tunnel
- *          session. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2867.txt">RFC 2867</a>.
+     *          session. For more information, see 
+     * <a href="https://www.ietf.org/rfc/rfc2867.txt">RFC 2867</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_TUNNEL_CONN => 68
@@ -565,35 +565,35 @@ class ATTRIBUTEID{
 
     /**
      * Specifies a password to use for AppleTalk Remote Access Protocol (ARAP) authentication. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ARAP_PASSWORD => 70
 
     /**
      * Specifies information that an NAS should send back to the user in an ARAP "feature flags" packet. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ARAP_FEATURES => 71
 
     /**
      * Specifies how to use the ARAP zone list for the user. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ARAP_ZONE_ACCESS => 72
 
     /**
      * Specifies an ARAP security module to use during a secondary authentication phase between the NAS and the user. The value field for this type is a 32-bit integral. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ARAP_SECURITY => 73
 
     /**
      * Specifies the data to use with an ARAP security module. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ARAP_SECURITY_DATA => 74
@@ -606,35 +606,35 @@ class ATTRIBUTEID{
 
     /**
      * Specifies whether the NAS should echo the user response to a challenge. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_PROMPT => 76
 
     /**
      * Specifies information about the type of connection the user is using. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_CONNECT_INFO => 77
 
     /**
      * Specifies user-profile information in communications between RADIUS Proxy Servers and RADIUS Proxy Clients. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_CONFIGURATION_TOKEN => 78
 
     /**
      * Specifies that EAP information be sent directly between the user and the authentication provider. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_EAP_MESSAGE => 79
 
     /**
      * Specifies a signature to include with CHAP, EAP, or ARAP packets. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_SIGNATURE => 80
@@ -659,14 +659,14 @@ class ATTRIBUTEID{
 
     /**
      * Specifies the response to a Apple Remote Access Protocol (ARAP) challenge. In ARAP, either the server or the client responds to challenges. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2869.txt">RFC 2869</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ARAP_CHALLENGE_RESPONSE => 84
 
     /**
      * Indicates the number of seconds between each interim update for this specific session. This value can only appear in the Access-Accept message. For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_ACCT_INTERIM_INTERVAL => 85
@@ -679,44 +679,44 @@ class ATTRIBUTEID{
 
     /**
      * Specifies the IPv6 interface identifier to be
- *       configured for the user.  It may be used in an Access-Accept packet.
- *       For more information, see the Framed-Interface-Id section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a>.
+     *       configured for the user.  It may be used in an Access-Accept packet.
+     *       For more information, see the Framed-Interface-Id section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_INTERFACE_ID => 96
 
     /**
      * Specifies an IPv6 prefix (and corresponding route)
- *       to be configured for the user.  It may be used in an Access-Accept
- *       packet and can appear multiple times.  For more information, see the Framed-IPv6-Prefix section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a>.
+     *       to be configured for the user.  It may be used in an Access-Accept
+     *       packet and can appear multiple times.  For more information, see the Framed-IPv6-Prefix section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_IPv6_PREFIX => 97
 
     /**
      * Specifies the system with which to connect the
- *       user, when the ratLoginService attribute is included.  It may be
- *       used in an Access-Accept packet.
- * For more information, see the Login-IPv6-Host section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a>.
+     *       user, when the ratLoginService attribute is included.  It may be
+     *       used in an Access-Accept packet.
+     * For more information, see the Login-IPv6-Host section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_LOGIN_IPv6_HOST => 98
 
     /**
      * Specifies routing information to be configured for
- *       the user on the NAS.  It is used in an Access-Accept packet and
- *       can appear multiple times.
- * For more information, see the Framed-IPv6-Route section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a>.
+     *       the user on the NAS.  It is used in an Access-Accept packet and
+     *       can appear multiple times.
+     * For more information, see the Framed-IPv6-Route section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_IPv6_ROUTE => 99
 
     /**
      * Specifies the name of an assigned pool that should
- *       be used to assign an IPv6 prefix for the user.  If a NAS does not
- *       support multiple prefix pools, the NAS must ignore this attribute.
- * 
- * For more information, see the Framed-IPv6-Pool section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a>.
+     *       be used to assign an IPv6 prefix for the user.  If a NAS does not
+     *       support multiple prefix pools, the NAS must ignore this attribute.
+     * 
+     * For more information, see the Framed-IPv6-Pool section in <a href="https://www.ietf.org/rfc/rfc3162.txt">RFC 3162</a>.
      * @type {Integer (UInt32)}
      */
     static RADIUS_ATTRIBUTE_FRAMED_IPv6_POOL => 100
@@ -999,14 +999,14 @@ class ATTRIBUTEID{
 
     /**
      * Specifies an MS-CHAP reason-for-failure code. This attribute is returned in the Failure packet Message field. For more information, see Request for Comments (RFC) 
- * <a href="https://www.ietf.org/rfc/rfc2433.txt">2433</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2433.txt">2433</a>.
      * @type {Integer (UInt32)}
      */
     static IAS_ATTRIBUTE_REASON_CODE => 4142
 
     /**
      * See Request for Comments (RFC) 
- * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
+     * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
      * @type {Integer (UInt32)}
      */
     static MS_ATTRIBUTE_FILTER => 4143
@@ -1031,14 +1031,14 @@ class ATTRIBUTEID{
 
     /**
      * See Request for Comments (RFC) 
- * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
+     * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
      * @type {Integer (UInt32)}
      */
     static MS_ATTRIBUTE_RAS_VENDOR => 4147
 
     /**
      * See Request for Comments (RFC) 
- * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
+     * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
      * @type {Integer (UInt32)}
      */
     static MS_ATTRIBUTE_RAS_VERSION => 4148
@@ -1051,28 +1051,28 @@ class ATTRIBUTEID{
 
     /**
      * See Request for Comments (RFC) 
- * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
+     * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
      * @type {Integer (UInt32)}
      */
     static MS_ATTRIBUTE_PRIMARY_DNS_SERVER => 4150
 
     /**
      * See Request for Comments (RFC) 
- * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
+     * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
      * @type {Integer (UInt32)}
      */
     static MS_ATTRIBUTE_SECONDARY_DNS_SERVER => 4151
 
     /**
      * See Request for Comments (RFC) 
- * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
+     * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
      * @type {Integer (UInt32)}
      */
     static MS_ATTRIBUTE_PRIMARY_NBNS_SERVER => 4152
 
     /**
      * See Request for Comments (RFC) 
- * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
+     * <a href="https://www.ietf.org/rfc/rfc2548.txt">2548</a>, Microsoft Vendor-specific RADIUS Attributes.
      * @type {Integer (UInt32)}
      */
     static MS_ATTRIBUTE_SECONDARY_NBNS_SERVER => 4153
@@ -1331,7 +1331,7 @@ class ATTRIBUTEID{
 
     /**
      * This attribute is reserved for system 
- * use.
+     * use.
      * @type {Integer (UInt32)}
      */
     static IAS_ATTRIBUTE_QUARANTINE_URL => 8121
@@ -1548,7 +1548,7 @@ class ATTRIBUTEID{
 
     /**
      * Multiple instances of this attribute 
- * can be present at one time.
+     * can be present at one time.
      * @type {Integer (UInt32)}
      */
     static IAS_ATTRIBUTE_POLICY_EVALUATED_SHV => 8157
@@ -1573,7 +1573,7 @@ class ATTRIBUTEID{
 
     /**
      * SID for IAS_ATTRIBUTE_NT4_ACCOUNT_NAME or IAS_ATTRIBUTE_NT4_HCAP_ACCOUNT_NAME 
- *       regardless of whether the later is a user account or a machine account.
+     *       regardless of whether the later is a user account or a machine account.
      * @type {Integer (UInt32)}
      */
     static IAS_ATTRIBUTE_USER_TOKEN_SID => 8161
@@ -1663,7 +1663,7 @@ class ATTRIBUTEID{
 
     /**
      * Specifies the whether encryption is Allowed, Required, or None (disallowed). For more information, see 
- * <a href="https://www.ietf.org/rfc/rfc2548.txt">RFC 2548</a>.
+     * <a href="https://www.ietf.org/rfc/rfc2548.txt">RFC 2548</a>.
      * @type {Integer (UInt32)}
      */
     static RAS_ATTRIBUTE_ENCRYPTION_POLICY => 4294967207

@@ -5,133 +5,133 @@
  * Information about the choices within a union type. This is used with WS_UNION_TYPE.
  * @remarks
  * 
-  * This description assumes a structure which contains both the 
-  *                 selector value (an integer enumerated value) and a union which
-  *                 contains a field which corresponds to each of the possible
-  *                 choices, for example:
-  *             
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>// Enumeration of choices of different values
-  * enum Choice
-  * {
-  *     ChoiceA = 20,
-  *     ChoiceB = 10,
-  *     None = 0,
-  * };
-  * 
-  * // Struct containing union of values, and enum "selector"
-  * struct StructType
-  * {
-  *     Choice choice;
-  *     union
-  *     {
-  *         int a;
-  *         WS_STRING b;
-  *     } value;
-  * };</code></pre>
-  * The following examples illustrates initializing a union description
-  *                 for the previous example.  This example fills out the nameIndices 
-  *                 field, but this field could be <b>NULL</b> instead.
-  *             
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>WS_XML_STRING choiceAString = WS_XML_STRING_VALUE("choiceA");
-  * WS_XML_STRING choiceANs = WS_XML_STRING_VALUE("http://examples.org/a");
-  * 
-  * WS_UNION_FIELD_DESCRIPTION fieldA = { };
-  * fieldA.value = ChoiceA;
-  * fieldA.field.localName = &amp;choiceAString;
-  * fieldA.field.ns = &amp;choiceANs;
-  * fieldA.field.type = WS_INT32_TYPE;
-  * fieldA.field.offset = WsOffsetOf(StructType, value.a);
-  * 
-  * WS_XML_STRING choiceBString = WS_XML_STRING_VALUE("choiceB");
-  * WS_XML_STRING choiceBNs = WS_XML_STRING_VALUE("http://examples.org/b");
-  * 
-  * WS_UNION_FIELD_DESCRIPTION fieldB = { };
-  * fieldB.value = ChoiceB;
-  * fieldB.field.localName = &amp;choiceBString;
-  * fieldB.field.ns = &amp;choiceBNs;
-  * fieldB.field.type = WS_STRING_TYPE;
-  * fieldB.field.offset = WsOffsetOf(StructType, value.b);
-  * 
-  * // Sorted by ascending element name (first ns, then localName)
-  * WS_UNION_FIELD_DESCRIPTION* fieldsArray[] =
-  * {
-  *     &amp;fieldA, // "http://example.com/a", "choiceA"
-  *     &amp;fieldB, // "http://example.com/b", "choiceB"
-  * };
-  * 
-  * // Sorted by ascending enum value
-  * ULONG valueIndices[] =
-  * {
-  *     1, // ChoiceB (10)
-  *     0, // ChoiceA (20)
-  * };
-  * 
-  * WS_UNION_DESCRIPTION unionDescription;
-  * unionDescription.size = sizeof(StructType);
-  * unionDescription.alignment = __alignof(StructType);
-  * unionDescription.fields = fieldsArray;
-  * unionDescription.fieldCount = WsCountOf(fieldsArray);
-  * unionDescription.enumOffset = WsOffsetOf(StructType, choice);
-  * unionDescription.noneEnumValue = None;
-  * unionDescription.valueIndices = valueIndices;
-  * </code></pre>
-  * The above would allow either of the following elements to
-  *                 appear:
-  *             
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>
-  * &lt;choiceA xmlns="http://example.com/a"&gt;123&lt;/choiceA&gt;
-  * &lt;choiceB xmlns="http://example.com/b"&gt;hello&lt;/choiceB&gt;
-  * </code></pre>
-  * The following is an example of setting values:
-  *             
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>StructType structType;
-  * 
-  * // Set ChoiceA
-  * structType.choice = ChoiceA;
-  * structType.value.a = 123;
-  * 
-  * // Set ChoiceB
-  * static const WS_STRING = WS_STRING_VALUE(L"hello");
-  * structType.choice = ChoiceB;
-  * structType.value.b = helloString;
-  * 
-  * // Set "none" choice
-  * structType.choice = None;
-  * </code></pre>
-  * The following is the grammar describing the order of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a>that make up a <b>WS_UNION_DESCRIPTION</b>.  The order is defined based on the
-  *                 mapping field of the <b>WS_FIELD_DESCRIPTION</b>.
-  *             
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>
-  * Fields := ElementContentFields AnyElementField?
-  * ElementContentFields := (ElementField | RepeatingElementField)*
-  * ElementField := WS_ELEMENT_FIELD_MAPPING
-  * RepeatingElementField := WS_REPEATING_ELEMENT_FIELD_MAPPING
-  * AnyElementField := WS_ANY_ELEMENT_FIELD_MAPPING</code></pre>
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_ELEMENT_FIELD_MAPPING</a> and <b>WS_REPEATING_ELEMENT_FIELD_MAPPING</b>represent the element choices and their corresponding fields in the union.
-  *             
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_ANY_ELEMENT_FIELD_MAPPING</a> is the field used when none of the
-  *                 other elements matched.
-  *             
-  * 
-  * The following restrictions apply to the field descriptions:
-  *             
-  * 
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_REPEATING_ELEMENT_FIELD_MAPPING</a> may only be used when 
-  *                 a wrapper element name and namespace has been specified.
-  *                 </li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_OPTIONAL</a> may not be used.
-  *             </li>
-  * </ul>
-  * 
+ * This description assumes a structure which contains both the 
+ *                 selector value (an integer enumerated value) and a union which
+ *                 contains a field which corresponds to each of the possible
+ *                 choices, for example:
+ *             
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>// Enumeration of choices of different values
+ * enum Choice
+ * {
+ *     ChoiceA = 20,
+ *     ChoiceB = 10,
+ *     None = 0,
+ * };
+ * 
+ * // Struct containing union of values, and enum "selector"
+ * struct StructType
+ * {
+ *     Choice choice;
+ *     union
+ *     {
+ *         int a;
+ *         WS_STRING b;
+ *     } value;
+ * };</code></pre>
+ * The following examples illustrates initializing a union description
+ *                 for the previous example.  This example fills out the nameIndices 
+ *                 field, but this field could be <b>NULL</b> instead.
+ *             
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>WS_XML_STRING choiceAString = WS_XML_STRING_VALUE("choiceA");
+ * WS_XML_STRING choiceANs = WS_XML_STRING_VALUE("http://examples.org/a");
+ * 
+ * WS_UNION_FIELD_DESCRIPTION fieldA = { };
+ * fieldA.value = ChoiceA;
+ * fieldA.field.localName = &amp;choiceAString;
+ * fieldA.field.ns = &amp;choiceANs;
+ * fieldA.field.type = WS_INT32_TYPE;
+ * fieldA.field.offset = WsOffsetOf(StructType, value.a);
+ * 
+ * WS_XML_STRING choiceBString = WS_XML_STRING_VALUE("choiceB");
+ * WS_XML_STRING choiceBNs = WS_XML_STRING_VALUE("http://examples.org/b");
+ * 
+ * WS_UNION_FIELD_DESCRIPTION fieldB = { };
+ * fieldB.value = ChoiceB;
+ * fieldB.field.localName = &amp;choiceBString;
+ * fieldB.field.ns = &amp;choiceBNs;
+ * fieldB.field.type = WS_STRING_TYPE;
+ * fieldB.field.offset = WsOffsetOf(StructType, value.b);
+ * 
+ * // Sorted by ascending element name (first ns, then localName)
+ * WS_UNION_FIELD_DESCRIPTION* fieldsArray[] =
+ * {
+ *     &amp;fieldA, // "http://example.com/a", "choiceA"
+ *     &amp;fieldB, // "http://example.com/b", "choiceB"
+ * };
+ * 
+ * // Sorted by ascending enum value
+ * ULONG valueIndices[] =
+ * {
+ *     1, // ChoiceB (10)
+ *     0, // ChoiceA (20)
+ * };
+ * 
+ * WS_UNION_DESCRIPTION unionDescription;
+ * unionDescription.size = sizeof(StructType);
+ * unionDescription.alignment = __alignof(StructType);
+ * unionDescription.fields = fieldsArray;
+ * unionDescription.fieldCount = WsCountOf(fieldsArray);
+ * unionDescription.enumOffset = WsOffsetOf(StructType, choice);
+ * unionDescription.noneEnumValue = None;
+ * unionDescription.valueIndices = valueIndices;
+ * </code></pre>
+ * The above would allow either of the following elements to
+ *                 appear:
+ *             
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>
+ * &lt;choiceA xmlns="http://example.com/a"&gt;123&lt;/choiceA&gt;
+ * &lt;choiceB xmlns="http://example.com/b"&gt;hello&lt;/choiceB&gt;
+ * </code></pre>
+ * The following is an example of setting values:
+ *             
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>StructType structType;
+ * 
+ * // Set ChoiceA
+ * structType.choice = ChoiceA;
+ * structType.value.a = 123;
+ * 
+ * // Set ChoiceB
+ * static const WS_STRING = WS_STRING_VALUE(L"hello");
+ * structType.choice = ChoiceB;
+ * structType.value.b = helloString;
+ * 
+ * // Set "none" choice
+ * structType.choice = None;
+ * </code></pre>
+ * The following is the grammar describing the order of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a>that make up a <b>WS_UNION_DESCRIPTION</b>.  The order is defined based on the
+ *                 mapping field of the <b>WS_FIELD_DESCRIPTION</b>.
+ *             
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>
+ * Fields := ElementContentFields AnyElementField?
+ * ElementContentFields := (ElementField | RepeatingElementField)*
+ * ElementField := WS_ELEMENT_FIELD_MAPPING
+ * RepeatingElementField := WS_REPEATING_ELEMENT_FIELD_MAPPING
+ * AnyElementField := WS_ANY_ELEMENT_FIELD_MAPPING</code></pre>
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_ELEMENT_FIELD_MAPPING</a> and <b>WS_REPEATING_ELEMENT_FIELD_MAPPING</b>represent the element choices and their corresponding fields in the union.
+ *             
+ * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_ANY_ELEMENT_FIELD_MAPPING</a> is the field used when none of the
+ *                 other elements matched.
+ *             
+ * 
+ * The following restrictions apply to the field descriptions:
+ *             
+ * 
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_REPEATING_ELEMENT_FIELD_MAPPING</a> may only be used when 
+ *                 a wrapper element name and namespace has been specified.
+ *                 </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_OPTIONAL</a> may not be used.
+ *             </li>
+ * </ul>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_union_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

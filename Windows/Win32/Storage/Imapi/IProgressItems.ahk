@@ -11,9 +11,9 @@
  * Use this interface to enumerate the progress items in a result image.
  * @remarks
  * 
-  * This is a <b>ProgressItems</b> object in script.
-  * 
-  * 
+ * This is a <b>ProgressItems</b> object in script.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-iprogressitems
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

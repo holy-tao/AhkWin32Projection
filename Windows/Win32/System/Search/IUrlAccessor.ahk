@@ -10,13 +10,13 @@
  * Provides methods for processing an individual item in a content source whose URL is provided by the gatherer to the filter host.
  * @remarks
  * 
-  * This is the main interface for pulling data from the content source. The Get... methods are for properties that are required by or useful to the filter host. Not all data sources have these properties. If the property returned by one of these methods is not meaningful for your data source, your protocol handler should return E_NOTIMPL.
-  * 
-  * The Bind... methods provide access to the data.
-  * 
-  * Although the protocol handler runs in the protocol host's multithreaded environment, each protocol handler runs in its own thread, employing one <b>IUrlAccessor</b> object at a time.
-  * 
-  * 
+ * This is the main interface for pulling data from the content source. The Get... methods are for properties that are required by or useful to the filter host. Not all data sources have these properties. If the property returned by one of these methods is not meaningful for your data source, your protocol handler should return E_NOTIMPL.
+ * 
+ * The Bind... methods provide access to the data.
+ * 
+ * Although the protocol handler runs in the protocol host's multithreaded environment, each protocol handler runs in its own thread, employing one <b>IUrlAccessor</b> object at a time.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-iurlaccessor
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319

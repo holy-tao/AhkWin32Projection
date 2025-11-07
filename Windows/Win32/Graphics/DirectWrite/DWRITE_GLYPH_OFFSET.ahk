@@ -5,9 +5,9 @@
  * The optional adjustment to a glyph's position.
  * @remarks
  * 
-  * An glyph offset changes the position of a glyph without affecting the pen position. Offsets are in logical, pre-transform units.
-  * 
-  * 
+ * An glyph offset changes the position of a glyph without affecting the pen position. Offsets are in logical, pre-transform units.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_glyph_offset
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319

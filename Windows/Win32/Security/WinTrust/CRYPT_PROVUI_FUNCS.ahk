@@ -5,11 +5,11 @@
  * Provides information about the user interface (UI) functions of a provider. This structure is used by the CRYPT_PROVIDER_FUNCTIONS structure.
  * @remarks
  * 
-  * The prototype for PFN_PROVUI_CALL is defined as:
-  * 
-  * 
-  * ```cpp
-  * 
+ * The prototype for PFN_PROVUI_CALL is defined as:
+ * 
+ * 
+ * ```cpp
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-crypt_provui_funcs
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319

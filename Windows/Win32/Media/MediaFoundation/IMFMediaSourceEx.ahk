@@ -8,9 +8,9 @@
  * Extends the IMFMediaSource interface to provide additional capabilities for a media source.
  * @remarks
  * 
-  * Implementations of this interface can return <b>E_NOTIMPL</b> for any methods that are not required by the media source.
-  * 
-  * 
+ * Implementations of this interface can return <b>E_NOTIMPL</b> for any methods that are not required by the media source.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfmediasourceex
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

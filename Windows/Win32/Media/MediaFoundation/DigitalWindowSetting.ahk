@@ -5,9 +5,9 @@
  * Represents the bounds settings of the digital window for video capture.
  * @remarks
  * 
-  * This struct is used with the [MF_CAPTURE_METADATA_DIGITALWINDOW](/windows/win32/medfound/mf-capture-metadata-digitalwindow) attribute.
-  * 
-  * 
+ * This struct is used with the [MF_CAPTURE_METADATA_DIGITALWINDOW](/windows/win32/medfound/mf-capture-metadata-digitalwindow) attribute.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-digitalwindowsetting
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

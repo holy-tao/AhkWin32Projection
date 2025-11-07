@@ -8,10 +8,10 @@
  * Represents a factory that can instantiate a WPD Automation Device object in a Windows Store app.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  This interface can only be used in Windows Store apps.</div>
-  * <div> </div>
-  * 
-  * 
+ * <div class="alert"><b>Note</b>  This interface can only be used in Windows Store apps.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nn-portabledeviceapi-iportabledevicewebcontrol
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319

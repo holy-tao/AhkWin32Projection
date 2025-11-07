@@ -10,14 +10,14 @@ class VSS_SNAPSHOT_COMPATIBILITY{
 
     /**
      * The provider managing the shadow copies for a specified volume does not support defragmentation operations 
- *       on that volume.
+     *       on that volume.
      * @type {Integer (Int32)}
      */
     static VSS_SC_DISABLE_DEFRAG => 1
 
     /**
      * The provider managing the shadow copies for a specified volume does not support content index operations on 
- *       that volume.
+     *       that volume.
      * @type {Integer (Int32)}
      */
     static VSS_SC_DISABLE_CONTENTINDEX => 2

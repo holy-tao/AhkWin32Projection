@@ -4,11 +4,11 @@
  * Specifies the color primaries of a video source.
  * @remarks
  * 
-  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-primaries-attribute">MF_MT_VIDEO_PRIMARIES</a> attribute.
-  * 
-  * For more information about these values, see the remarks for the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ne-dxva2api-dxva2_videoprimaries">DXVA2_VideoPrimaries</a> enumeration, which is the DirectX Video Acceleration (DXVA) equivalent of this enumeration.
-  * 
-  * 
+ * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-primaries-attribute">MF_MT_VIDEO_PRIMARIES</a> attribute.
+ * 
+ * For more information about these values, see the remarks for the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ne-dxva2api-dxva2_videoprimaries">DXVA2_VideoPrimaries</a> enumeration, which is the DirectX Video Acceleration (DXVA) equivalent of this enumeration.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mfvideoprimaries
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
@@ -71,36 +71,36 @@ class MFVideoPrimaries{
 
     /**
      * ITU-R BT.2020 color primaries.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoPrimaries_BT2020 => 9
 
     /**
      * CIE 1931 XYZ (see: <a href="https://en.wikipedia.org/wiki/CIE_1931_color_space">CIE 1931 color space</a>).  Note that this color space is only well-defined for floating point representations.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoPrimaries_XYZ => 10
 
     /**
      * DCI-P3
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoPrimaries_DCI_P3 => 11
 
     /**
      * Academy Color Encoding System
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 10, version 1703 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFVideoPrimaries_ACES => 12

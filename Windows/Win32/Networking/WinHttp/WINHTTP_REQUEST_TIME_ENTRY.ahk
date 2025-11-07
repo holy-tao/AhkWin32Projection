@@ -4,9 +4,9 @@
  * The WINHTTP_REQUEST_TIME_ENTRY enumeration lists the available types of request timing information.
  * @remarks
  * 
-  * This structure is used with [WinHttpQueryOption](/windows/desktop/api/winhttp/nf-winhttp-winhttpqueryoption) to retrieve timing information for a request by specifying the **WINHTTP\_OPTION\_REQUEST\_TIMES** flag.
-  * 
-  * 
+ * This structure is used with [WinHttpQueryOption](/windows/desktop/api/winhttp/nf-winhttp-winhttpqueryoption) to retrieve timing information for a request by specifying the **WINHTTP\_OPTION\_REQUEST\_TIMES** flag.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winhttp/ne-winhttp-winhttp_request_time_entry
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319

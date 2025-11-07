@@ -19,9 +19,9 @@
  * Contains information used by the MiniDumpCallback function.
  * @remarks
  * 
-  * If <b>CallbackType</b> is <b>CancelCallback</b> or <b>MemoryCallback</b>, the <b>ProcessId</b>, <b>ProcessHandle</b>, and <b>CallbackType</b> members are valid but no other input is specified.
-  * 
-  * 
+ * If <b>CallbackType</b> is <b>CancelCallback</b> or <b>MemoryCallback</b>, the <b>ProcessId</b>, <b>ProcessHandle</b>, and <b>CallbackType</b> members are valid but no other input is specified.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_callback_input
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319

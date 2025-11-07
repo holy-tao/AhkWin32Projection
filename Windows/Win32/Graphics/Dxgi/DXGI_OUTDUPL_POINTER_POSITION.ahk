@@ -6,9 +6,9 @@
  * The DXGI_OUTDUPL_POINTER_POSITION structure describes the position of the hardware cursor.
  * @remarks
  * 
-  * The <b>Position</b> member is valid only if the <b>Visible</b> member’s value is set to <b>TRUE</b>.
-  * 
-  * 
+ * The <b>Position</b> member is valid only if the <b>Visible</b> member’s value is set to <b>TRUE</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/ns-dxgi1_2-dxgi_outdupl_pointer_position
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

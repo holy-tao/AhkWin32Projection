@@ -7,8 +7,8 @@
  * Defines methods that detect user activity in a Protected Broadcast Driver Architecture (PBDA) media graph.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_UserActivityService)</c>.
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_UserActivityService)</c>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_useractivityservice
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

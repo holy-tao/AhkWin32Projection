@@ -7,9 +7,9 @@
  * Allows applications to read MIME-encoded attachment data from an incoming message.
  * @remarks
  * 
-  * WSDAPI will provide an object implementing this interface when an attachment stream is received as part of a message.
-  * 
-  * 
+ * WSDAPI will provide an object implementing this interface when an attachment stream is received as part of a message.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wsdattachment/nn-wsdattachment-iwsdinboundattachment
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319

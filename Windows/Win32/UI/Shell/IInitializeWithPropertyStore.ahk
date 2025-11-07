@@ -7,10 +7,10 @@
  * Exposes a method that initializes a handler, such as a property handler, thumbnail handler, or preview handler, with a property store.
  * @remarks
  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * Use this interface when initializing a handler for OpenSearch result sets, which are returned as RSS or Atom feeds.
-  * 
-  * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * Use this interface when initializing a handler for OpenSearch result sets, which are returned as RSS or Atom feeds.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iinitializewithpropertystore
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

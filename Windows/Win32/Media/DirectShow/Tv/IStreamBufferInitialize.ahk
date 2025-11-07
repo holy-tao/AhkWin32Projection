@@ -7,9 +7,9 @@
  * The IStreamBufferInitialize interface is used to configure the stream buffer filters. The Stream Buffer Source filter, Stream Buffer Sink filter, and StreamBufferConfig object all expose this interface.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferInitialize)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferInitialize)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-istreambufferinitialize
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

@@ -5,10 +5,10 @@
  * The IPX_ADDRESS_DATA structure provides information about a specific adapter to which IPX is bound. Used in conjunction with getsockopt function calls that specify IPX_ADDRESS in the optname parameter.
  * @remarks
  * 
-  * Adapter numbers are base zero, so if there are eight adapters on a given computer, they are numbered 0-7. To determine the number of adapters present on the computer, call the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> function with IPX_MAX_ADAPTER_NUM.
-  * 
-  * 
+ * Adapter numbers are base zero, so if there are eight adapters on a given computer, they are numbered 0-7. To determine the number of adapters present on the computer, call the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> function with IPX_MAX_ADAPTER_NUM.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wsnwlink/ns-wsnwlink-ipx_address_data
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

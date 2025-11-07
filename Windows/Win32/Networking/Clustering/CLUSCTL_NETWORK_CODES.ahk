@@ -16,7 +16,7 @@ class CLUSCTL_NETWORK_CODES{
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-characteristics">CLUSCTL_NETWORK_GET_CHARACTERISTICS</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-characteristics">CLUSCTL_NETWORK_GET_CHARACTERISTICS</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_GET_CHARACTERISTICS => 83886085
@@ -41,84 +41,84 @@ class CLUSCTL_NETWORK_CODES{
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-enum-common-properties">CLUSCTL_NETWORK_ENUM_COMMON_PROPERTIES</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-enum-common-properties">CLUSCTL_NETWORK_ENUM_COMMON_PROPERTIES</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_ENUM_COMMON_PROPERTIES => 83886161
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-ro-common-properties">CLUSCTL_NETWORK_GET_RO_COMMON_PROPERTIES</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-ro-common-properties">CLUSCTL_NETWORK_GET_RO_COMMON_PROPERTIES</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_GET_RO_COMMON_PROPERTIES => 83886165
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-common-properties">CLUSCTL_NETWORK_GET_COMMON_PROPERTIES</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-common-properties">CLUSCTL_NETWORK_GET_COMMON_PROPERTIES</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_GET_COMMON_PROPERTIES => 83886169
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-set-common-properties">CLUSCTL_NETWORK_SET_COMMON_PROPERTIES</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-set-common-properties">CLUSCTL_NETWORK_SET_COMMON_PROPERTIES</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_SET_COMMON_PROPERTIES => 88080478
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-validate-common-properties">CLUSCTL_NETWORK_VALIDATE_COMMON_PROPERTIES</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-validate-common-properties">CLUSCTL_NETWORK_VALIDATE_COMMON_PROPERTIES</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_VALIDATE_COMMON_PROPERTIES => 83886177
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-enum-private-properties">CLUSCTL_NETWORK_ENUM_PRIVATE_PROPERTIES</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-enum-private-properties">CLUSCTL_NETWORK_ENUM_PRIVATE_PROPERTIES</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_ENUM_PRIVATE_PROPERTIES => 83886201
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-ro-private-properties">CLUSCTL_NETWORK_GET_RO_PRIVATE_PROPERTIES</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-ro-private-properties">CLUSCTL_NETWORK_GET_RO_PRIVATE_PROPERTIES</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_GET_RO_PRIVATE_PROPERTIES => 83886205
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-private-properties">CLUSCTL_NETWORK_GET_PRIVATE_PROPERTIES</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-private-properties">CLUSCTL_NETWORK_GET_PRIVATE_PROPERTIES</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_GET_PRIVATE_PROPERTIES => 83886209
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-set-private-properties">CLUSCTL_NETWORK_SET_PRIVATE_PROPERTIES</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-set-private-properties">CLUSCTL_NETWORK_SET_PRIVATE_PROPERTIES</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_SET_PRIVATE_PROPERTIES => 88080518
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-validate-private-properties">CLUSCTL_NETWORK_VALIDATE_PRIVATE_PROPERTIES</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-validate-private-properties">CLUSCTL_NETWORK_VALIDATE_PRIVATE_PROPERTIES</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_VALIDATE_PRIVATE_PROPERTIES => 83886217
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-common-property-fmts">CLUSCTL_NETWORK_GET_COMMON_PROPERTY_FMTS</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-common-property-fmts">CLUSCTL_NETWORK_GET_COMMON_PROPERTY_FMTS</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_GET_COMMON_PROPERTY_FMTS => 83886181
 
     /**
      * See 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-private-property-fmts">CLUSCTL_NETWORK_GET_PRIVATE_PROPERTY_FMTS</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-get-private-property-fmts">CLUSCTL_NETWORK_GET_PRIVATE_PROPERTY_FMTS</a>.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_NETWORK_GET_PRIVATE_PROPERTY_FMTS => 83886221

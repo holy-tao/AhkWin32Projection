@@ -8,15 +8,15 @@
  * The IUIFramework interface is implemented by the Windows Ribbon framework and defines the methods that provide the core functionality for the framework.
  * @remarks
  * 
-  * This interface is used to initialize and dismantle the Ribbon framework.
-  * 
-  * Ribbon framework UI functionality is differentiated by Views, which are essentially 
-  * 				built-in core controls, such as the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-ribbon">Ribbon</a> and <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-contextpopup">ContextPopup</a>.
-  * 
-  * To get an interface pointer to the implementation of IUIFramework, use <a href="https://docs.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a>to 
-  * 			create a COM object with the class identifier (CLSID) of CLSID_UIRibbonFramework.
-  * 
-  * 
+ * This interface is used to initialize and dismantle the Ribbon framework.
+ * 
+ * Ribbon framework UI functionality is differentiated by Views, which are essentially 
+ * 				built-in core controls, such as the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-ribbon">Ribbon</a> and <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-contextpopup">ContextPopup</a>.
+ * 
+ * To get an interface pointer to the implementation of IUIFramework, use <a href="https://docs.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a>to 
+ * 			create a COM object with the class identifier (CLSID) of CLSID_UIRibbonFramework.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nn-uiribbon-iuiframework
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319

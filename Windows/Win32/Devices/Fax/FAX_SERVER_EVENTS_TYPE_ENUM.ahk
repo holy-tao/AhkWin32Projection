@@ -4,310 +4,310 @@
  * The FAX_SERVER_EVENTS_TYPE_ENUM enumeration defines the types of events the fax service sends to client applications that are listening for events. The members of this enumeration are bit values and can be used in combination.
  * @remarks
  * 
-  * The following table lists the <a href="https://docs.microsoft.com/windows/desktop/api/faxcomex/nn-faxcomex-ifaxservernotify2">IFaxServerNotify</a> methods called by each member.
-  * 
-  * <table class="clsStd">
-  * <tr>
-  * <th>Name</th>
-  * <th>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/faxcomex/nn-faxcomex-ifaxservernotify2">IFaxServerNotify</a> method called</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetNONE
-  * 
-  * </td>
-  * <td>
-  * None
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetIN_QUEUE
-  * 
-  * </td>
-  * <td>
-  * <b>OnIncomingJobAdded</b>
-  * 
-  * <b>OnIncomingJobRemoved</b>
-  * 
-  * <b>OnIncomingJobChanged</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetOUT_QUEUE
-  * 
-  * </td>
-  * <td>
-  * <b>OnOutgoingJobAdded</b>
-  * 
-  * <b>OnOutgoingJobRemoved</b>
-  * 
-  * <b>OnOutgoingJobChanged</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetCONFIG
-  * 
-  * </td>
-  * <td>
-  * <b>OnReceiptOptionsChange</b>
-  * 
-  * <b>OnActivityLoggingConfigChange</b>
-  * 
-  * <b>OnSecurityConfigChange</b>
-  * 
-  * <b>OnEventLoggingConfigChange</b>
-  * 
-  * <b>OnOutgoingQueueConfigChange</b>
-  * 
-  * <b>OnOutgoingArchiveConfigChange</b>
-  * 
-  * <b>OnIncomingArchiveConfigChange</b>
-  * 
-  * <b>OnDevicesConfigChange</b>
-  * 
-  * <b>OnOutboundRoutingGroupsConfigChange</b>
-  * 
-  * <b>OnOutboundRoutingRulesConfigChange</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetACTIVITY
-  * 
-  * </td>
-  * <td>
-  * <b>OnServerActivityChange</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetQUEUE_STATE
-  * 
-  * </td>
-  * <td>
-  * <b>OnQueuesStatusChange</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetIN_ARCHIVE
-  * 
-  * </td>
-  * <td>
-  * <b>OnIncomingMessageAdded</b>
-  * 
-  * <b>OnIncomingMessageRemoved</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetOUT_ARCHIVE
-  * 
-  * </td>
-  * <td>
-  * <b>OnOutgoingMessageAdded</b>
-  * 
-  * <b>OnOutgoingMessageRemoved</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetFXSSVC_ENDED
-  * 
-  * </td>
-  * <td>
-  * <b>OnServerShutDown</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetDEVICE_STATUS
-  * 
-  * </td>
-  * <td>
-  * <b>OnDeviceStatusChange</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetINCOMING_CALL
-  * 
-  * </td>
-  * <td>
-  * <b>OnNewCall</b>
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * The following table lists the <a href="https://docs.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-_ifaxservernotify2">IFaxServerNotify2</a> methods called by each member.
-  * 
-  * <table class="clsStd">
-  * <tr>
-  * <th>Name</th>
-  * <th>
-  * <a href="https://docs.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-_ifaxservernotify2">IFaxServerNotify2</a> method called</th>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetNONE
-  * 
-  * </td>
-  * <td>
-  * None
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetIN_QUEUE
-  * 
-  * </td>
-  * <td>
-  * <b>OnIncomingJobAdded</b>
-  * 
-  * <b>OnIncomingJobRemoved</b>
-  * 
-  * <b>OnIncomingJobChanged</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetOUT_QUEUE
-  * 
-  * </td>
-  * <td>
-  * <b>OnOutgoingJobAdded</b>
-  * 
-  * <b>OnOutgoingJobRemoved</b>
-  * 
-  * <b>OnOutgoingJobChanged</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetCONFIG
-  * 
-  * </td>
-  * <td>
-  * <b>OnReceiptOptionsChange</b>
-  * 
-  * <b>OnActivityLoggingConfigChange</b>
-  * 
-  * <b>OnSecurityConfigChange</b>
-  * 
-  * <b>OnEventLoggingConfigChange</b>
-  * 
-  * <b>OnOutgoingQueueConfigChange</b>
-  * 
-  * <b>OnOutgoingArchiveConfigChange</b>
-  * 
-  * <b>OnIncomingArchiveConfigChange</b>
-  * 
-  * <b>OnDevicesConfigChange</b>
-  * 
-  * <b>OnOutboundRoutingGroupsConfigChange</b>
-  * 
-  * <b>OnOutboundRoutingRulesConfigChange</b>
-  * 
-  * <b>OnGeneralServerConfigChanged</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetACTIVITY
-  * 
-  * </td>
-  * <td>
-  * <b>OnServerActivityChange</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetQUEUE_STATE
-  * 
-  * </td>
-  * <td>
-  * <b>OnQueuesStatusChange</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetIN_ARCHIVE
-  * 
-  * </td>
-  * <td>
-  * <b>OnIncomingMessageAdded</b>
-  * 
-  * <b>OnIncomingMessageRemoved</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetOUT_ARCHIVE
-  * 
-  * </td>
-  * <td>
-  * <b>OnOutgoingMessageAdded</b>
-  * 
-  * <b>OnOutgoingMessageRemoved</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetFXSSVC_ENDED
-  * 
-  * </td>
-  * <td>
-  * <b>OnServerShutDown</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetDEVICE_STATUS
-  * 
-  * </td>
-  * <td>
-  * <b>OnDeviceStatusChange</b>
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>
-  * fsetINCOMING_CALL
-  * 
-  * </td>
-  * <td>
-  * <b>OnNewCall</b>
-  * 
-  * </td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * The following table lists the <a href="https://docs.microsoft.com/windows/desktop/api/faxcomex/nn-faxcomex-ifaxservernotify2">IFaxServerNotify</a> methods called by each member.
+ * 
+ * <table class="clsStd">
+ * <tr>
+ * <th>Name</th>
+ * <th>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/faxcomex/nn-faxcomex-ifaxservernotify2">IFaxServerNotify</a> method called</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetNONE
+ * 
+ * </td>
+ * <td>
+ * None
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetIN_QUEUE
+ * 
+ * </td>
+ * <td>
+ * <b>OnIncomingJobAdded</b>
+ * 
+ * <b>OnIncomingJobRemoved</b>
+ * 
+ * <b>OnIncomingJobChanged</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetOUT_QUEUE
+ * 
+ * </td>
+ * <td>
+ * <b>OnOutgoingJobAdded</b>
+ * 
+ * <b>OnOutgoingJobRemoved</b>
+ * 
+ * <b>OnOutgoingJobChanged</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetCONFIG
+ * 
+ * </td>
+ * <td>
+ * <b>OnReceiptOptionsChange</b>
+ * 
+ * <b>OnActivityLoggingConfigChange</b>
+ * 
+ * <b>OnSecurityConfigChange</b>
+ * 
+ * <b>OnEventLoggingConfigChange</b>
+ * 
+ * <b>OnOutgoingQueueConfigChange</b>
+ * 
+ * <b>OnOutgoingArchiveConfigChange</b>
+ * 
+ * <b>OnIncomingArchiveConfigChange</b>
+ * 
+ * <b>OnDevicesConfigChange</b>
+ * 
+ * <b>OnOutboundRoutingGroupsConfigChange</b>
+ * 
+ * <b>OnOutboundRoutingRulesConfigChange</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetACTIVITY
+ * 
+ * </td>
+ * <td>
+ * <b>OnServerActivityChange</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetQUEUE_STATE
+ * 
+ * </td>
+ * <td>
+ * <b>OnQueuesStatusChange</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetIN_ARCHIVE
+ * 
+ * </td>
+ * <td>
+ * <b>OnIncomingMessageAdded</b>
+ * 
+ * <b>OnIncomingMessageRemoved</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetOUT_ARCHIVE
+ * 
+ * </td>
+ * <td>
+ * <b>OnOutgoingMessageAdded</b>
+ * 
+ * <b>OnOutgoingMessageRemoved</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetFXSSVC_ENDED
+ * 
+ * </td>
+ * <td>
+ * <b>OnServerShutDown</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetDEVICE_STATUS
+ * 
+ * </td>
+ * <td>
+ * <b>OnDeviceStatusChange</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetINCOMING_CALL
+ * 
+ * </td>
+ * <td>
+ * <b>OnNewCall</b>
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * The following table lists the <a href="https://docs.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-_ifaxservernotify2">IFaxServerNotify2</a> methods called by each member.
+ * 
+ * <table class="clsStd">
+ * <tr>
+ * <th>Name</th>
+ * <th>
+ * <a href="https://docs.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-_ifaxservernotify2">IFaxServerNotify2</a> method called</th>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetNONE
+ * 
+ * </td>
+ * <td>
+ * None
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetIN_QUEUE
+ * 
+ * </td>
+ * <td>
+ * <b>OnIncomingJobAdded</b>
+ * 
+ * <b>OnIncomingJobRemoved</b>
+ * 
+ * <b>OnIncomingJobChanged</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetOUT_QUEUE
+ * 
+ * </td>
+ * <td>
+ * <b>OnOutgoingJobAdded</b>
+ * 
+ * <b>OnOutgoingJobRemoved</b>
+ * 
+ * <b>OnOutgoingJobChanged</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetCONFIG
+ * 
+ * </td>
+ * <td>
+ * <b>OnReceiptOptionsChange</b>
+ * 
+ * <b>OnActivityLoggingConfigChange</b>
+ * 
+ * <b>OnSecurityConfigChange</b>
+ * 
+ * <b>OnEventLoggingConfigChange</b>
+ * 
+ * <b>OnOutgoingQueueConfigChange</b>
+ * 
+ * <b>OnOutgoingArchiveConfigChange</b>
+ * 
+ * <b>OnIncomingArchiveConfigChange</b>
+ * 
+ * <b>OnDevicesConfigChange</b>
+ * 
+ * <b>OnOutboundRoutingGroupsConfigChange</b>
+ * 
+ * <b>OnOutboundRoutingRulesConfigChange</b>
+ * 
+ * <b>OnGeneralServerConfigChanged</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetACTIVITY
+ * 
+ * </td>
+ * <td>
+ * <b>OnServerActivityChange</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetQUEUE_STATE
+ * 
+ * </td>
+ * <td>
+ * <b>OnQueuesStatusChange</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetIN_ARCHIVE
+ * 
+ * </td>
+ * <td>
+ * <b>OnIncomingMessageAdded</b>
+ * 
+ * <b>OnIncomingMessageRemoved</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetOUT_ARCHIVE
+ * 
+ * </td>
+ * <td>
+ * <b>OnOutgoingMessageAdded</b>
+ * 
+ * <b>OnOutgoingMessageRemoved</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetFXSSVC_ENDED
+ * 
+ * </td>
+ * <td>
+ * <b>OnServerShutDown</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetDEVICE_STATUS
+ * 
+ * </td>
+ * <td>
+ * <b>OnDeviceStatusChange</b>
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>
+ * fsetINCOMING_CALL
+ * 
+ * </td>
+ * <td>
+ * <b>OnNewCall</b>
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//faxcomex/ne-faxcomex-fax_server_events_type_enum
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319

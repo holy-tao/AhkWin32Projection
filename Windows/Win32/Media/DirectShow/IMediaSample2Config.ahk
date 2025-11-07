@@ -7,9 +7,9 @@
  * The IMediaSample2Config interface returns a pointer to a Direct3D surface representing a VRAM capture buffer.
  * @remarks
  * 
-  * If a display driver supports VRAM capture, the KsProxy filter allocates samples that expose this interface. Downstream filters can use this interface to access the video data in video memory, without requiring the data to be copied into system memory. The display driver must support the Windows Vista Display Driver Model (WDDM).
-  * 
-  * 
+ * If a display driver supports VRAM capture, the KsProxy filter allocates samples that expose this interface. Downstream filters can use this interface to access the video data in video memory, without requiring the data to be copied into system memory. The display driver must support the Windows Vista Display Driver Model (WDDM).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-imediasample2config
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

@@ -7,13 +7,13 @@
  * Gets the input buffer for each processing pass.
  * @remarks
  * 
-  * <b>IAudioInputEndpointRT</b> methods can be called 
-  *      from a real-time processing thread. The implementation of the methods of this interface must not block, access 
-  *      paged memory, or call any blocking system routines.
-  * 
-  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client 
-  *     applications.
-  * 
+ * <b>IAudioInputEndpointRT</b> methods can be called 
+ *      from a real-time processing thread. The implementation of the methods of this interface must not block, access 
+ *      paged memory, or call any blocking system routines.
+ * 
+ * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client 
+ *     applications.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nn-audioengineendpoint-iaudioinputendpointrt
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319

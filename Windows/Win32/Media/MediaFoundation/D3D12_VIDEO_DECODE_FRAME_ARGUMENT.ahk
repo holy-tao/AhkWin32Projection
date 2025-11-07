@@ -5,7 +5,7 @@
  * Represents the decode parameters for a frame.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_decode_frame_argument
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

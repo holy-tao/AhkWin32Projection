@@ -10,32 +10,32 @@ class WbemImpersonationLevelEnum{
 
     /**
      * Short name: Anonymous
- * 
- * Hides the credentials of the caller. Calls to WMI may fail with this impersonation level.
+     * 
+     * Hides the credentials of the caller. Calls to WMI may fail with this impersonation level.
      * @type {Integer (Int32)}
      */
     static wbemImpersonationLevelAnonymous => 1
 
     /**
      * Short name: Identify
- * 
- * Allows objects to query the credentials of the caller. Calls to WMI may fail with this impersonation level.
+     * 
+     * Allows objects to query the credentials of the caller. Calls to WMI may fail with this impersonation level.
      * @type {Integer (Int32)}
      */
     static wbemImpersonationLevelIdentify => 2
 
     /**
      * Short name: Impersonate
- * 
- * Allows objects to use the credentials of the caller. This is the recommended impersonation level for Scripting API for WMI calls.
+     * 
+     * Allows objects to use the credentials of the caller. This is the recommended impersonation level for Scripting API for WMI calls.
      * @type {Integer (Int32)}
      */
     static wbemImpersonationLevelImpersonate => 3
 
     /**
      * Short name: Delegate
- * 
- * Allows objects to permit other objects to use the credentials of the caller. This impersonation will work with Scripting API for WMI calls but may constitute an unnecessary security risk.
+     * 
+     * Allows objects to permit other objects to use the credentials of the caller. This impersonation will work with Scripting API for WMI calls but may constitute an unnecessary security risk.
      * @type {Integer (Int32)}
      */
     static wbemImpersonationLevelDelegate => 4

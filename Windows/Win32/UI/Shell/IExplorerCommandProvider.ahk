@@ -7,10 +7,10 @@
  * Exposes methods to create Explorer commands and command enumerators.
  * @remarks
  * 
-  * None of the methods of this interface should communicate with network resources; they are called on the UI thread and doing so would cause the UI to stop responding.
-  * 
-  * Each command should have its own unique GUID; the command provider is expected to create a command instance on a per-GUID basis.
-  * 
+ * None of the methods of this interface should communicate with network resources; they are called on the UI thread and doing so would cause the UI to stop responding.
+ * 
+ * Each command should have its own unique GUID; the command provider is expected to create a command instance on a per-GUID basis.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iexplorercommandprovider
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

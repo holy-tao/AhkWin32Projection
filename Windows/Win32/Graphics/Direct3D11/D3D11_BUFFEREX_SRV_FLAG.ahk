@@ -4,9 +4,9 @@
  * Identifies how to view a buffer resource.
  * @remarks
  * 
-  * This enumeration is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_bufferex_srv">D3D11_BUFFEREX_SRV</a>
-  * 
-  * 
+ * This enumeration is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_bufferex_srv">D3D11_BUFFEREX_SRV</a>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_bufferex_srv_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

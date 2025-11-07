@@ -5,9 +5,9 @@
  * Contains a thermal event.
  * @remarks
  * 
-  *  Drivers use the <b>THERMAL_EVENT</b> structure to specify a thermal event. By calling the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerreportthermalevent">PowerReportThermalEvent</a> routine, the operating system can record the thermal event in the system event log.
-  * 
-  * 
+ *  Drivers use the <b>THERMAL_EVENT</b> structure to specify a thermal event. By calling the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerreportthermalevent">PowerReportThermalEvent</a> routine, the operating system can record the thermal event in the system event log.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//powrprof/ns-powrprof-thermal_event
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319

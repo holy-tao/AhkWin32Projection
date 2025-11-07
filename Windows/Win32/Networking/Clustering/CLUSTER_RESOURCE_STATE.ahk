@@ -10,7 +10,7 @@ class CLUSTER_RESOURCE_STATE{
 
     /**
      * The operation was not successful. For more information about the error, call the function 
- *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @type {Integer (Int32)}
      */
     static ClusterResourceStateUnknown => -1
@@ -47,7 +47,7 @@ class CLUSTER_RESOURCE_STATE{
 
     /**
      * The resource is in the process of coming online or going 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/o-gly">offline</a>.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/o-gly">offline</a>.
      * @type {Integer (Int32)}
      */
     static ClusterResourcePending => 128

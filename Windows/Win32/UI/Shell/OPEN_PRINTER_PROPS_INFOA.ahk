@@ -5,14 +5,14 @@
  * Identifies a particular property sheet in a printer's property pages and whether that property sheet should be modal. Optionally used with the SHInvokePrinterCommand function.
  * @remarks
  * 
-  * This structure can be passed in the <i>lpBuf2</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shinvokeprintercommanda">SHInvokePrinterCommand</a> function when that function's <i>uAction</i> parameter is set to PRINTACTION_PROPERTIES.
-  * 
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The shellapi.h header defines OPEN_PRINTER_PROPS_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
+ * This structure can be passed in the <i>lpBuf2</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shinvokeprintercommanda">SHInvokePrinterCommand</a> function when that function's <i>uAction</i> parameter is set to PRINTACTION_PROPERTIES.
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The shellapi.h header defines OPEN_PRINTER_PROPS_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shellapi/ns-shellapi-open_printer_props_infoa
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

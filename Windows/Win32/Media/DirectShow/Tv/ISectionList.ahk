@@ -7,9 +7,9 @@
  * The ISectionList interface represents a list of MPEG-2 table sections.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISectionList)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISectionList)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nn-mpeg2data-isectionlist
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

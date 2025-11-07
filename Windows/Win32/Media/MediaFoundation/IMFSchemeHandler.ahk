@@ -7,9 +7,9 @@
  * Creates a media source or a byte stream from a URL.
  * @remarks
  * 
-  * Applications do not use this interface. This interface is exposed by scheme handlers, which are used by the source resolver. A scheme handler is designed to parse one type of URL scheme. When the scheme handler is given a URL, it parses the resource that is located at that URL and creates either a media source or a byte stream.
-  * 
-  * 
+ * Applications do not use this interface. This interface is exposed by scheme handlers, which are used by the source resolver. A scheme handler is designed to parse one type of URL scheme. When the scheme handler is given a URL, it parses the resource that is located at that URL and creates either a media source or a byte stream.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfschemehandler
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

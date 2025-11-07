@@ -13,9 +13,9 @@
  * Describes the subresources from a resource that are accessible by using an unordered-access view.
  * @remarks
  * 
-  * Pass an unordered-access-view description into <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createunorderedaccessview">ID3D12Device::CreateUnorderedAccessView</a> to create a view.
-  * 
-  * 
+ * Pass an unordered-access-view description into <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createunorderedaccessview">ID3D12Device::CreateUnorderedAccessView</a> to create a view.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_unordered_access_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

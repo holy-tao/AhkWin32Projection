@@ -22,7 +22,7 @@ class FsrmPropertyValueType{
 
     /**
      * The type assigned to the property value is a date expression containing a date variable and an optional 
- *       date offset.
+     *       date offset.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyValueType_DateOffset => 2

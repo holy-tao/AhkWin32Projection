@@ -8,13 +8,13 @@
  * Represents a stream of results returned from operations such as a WS-Management protocol WS-Enumeration:Enumerate operation.
  * @remarks
  * 
-  * The corresponding scripting object is <a href="https://docs.microsoft.com/windows/desktop/WinRM/enumerator">Enumerator</a>.
-  * 
-  * To limit the number of items that are read, set the <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nf-wsmandisp-iwsmansession-get_batchitems">IWSManSession::BatchItems</a> property.
-  * 
-  * Be aware that freeing the enumeration object clears pending enumeration requests.
-  * 
-  * 
+ * The corresponding scripting object is <a href="https://docs.microsoft.com/windows/desktop/WinRM/enumerator">Enumerator</a>.
+ * 
+ * To limit the number of items that are read, set the <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nf-wsmandisp-iwsmansession-get_batchitems">IWSManSession::BatchItems</a> property.
+ * 
+ * Be aware that freeing the enumeration object clears pending enumeration requests.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nn-wsmandisp-iwsmanenumerator
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319

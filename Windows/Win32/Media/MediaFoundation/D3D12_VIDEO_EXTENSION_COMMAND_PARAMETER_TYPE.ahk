@@ -4,9 +4,9 @@
  * Specifies the types of parameters for video extension commands.
  * @remarks
  * 
-  * Values from this enumeration are used by the [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO](ns-d3d12video-d3d12_video_extension_command_parameter_info.md) structure.
-  * 
-  * 
+ * Values from this enumeration are used by the [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO](ns-d3d12video-d3d12_video_extension_command_parameter_info.md) structure.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_extension_command_parameter_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
@@ -75,12 +75,12 @@ class D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE{
 
     /**
      * A D3D12DDI_HRESOURCE handle.  The caller must use resource barriers to transition to the state appropriate for the parameter.
- * 
- * | D3D12_COMMAND_LIST_SUPPORT_FLAGS value        | Read                      | Write                  |
- * |-------------------|---------------------------|------------------------|
- * | D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_DECODE | D3D12_RESOURCE_STATE_VIDEO_DECODE_READ | D3D12_RESOURCE_STATE_VIDEO_DECODE_WRITE |
- * | D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_PROCESS | D3D12_RESOURCE_STATE_VIDEO_PROCESS_READ | D3D12_RESOURCE_STATE_VIDEO_PROCESS_WRITE |
- * | D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_ENCODE | D3D12_RESOURCE_STATE_VIDEO_ENCODE_READ | D3D12_RESOURCE_STATE_VIDEO_ENCODE_WRITE |
+     * 
+     * | D3D12_COMMAND_LIST_SUPPORT_FLAGS value        | Read                      | Write                  |
+     * |-------------------|---------------------------|------------------------|
+     * | D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_DECODE | D3D12_RESOURCE_STATE_VIDEO_DECODE_READ | D3D12_RESOURCE_STATE_VIDEO_DECODE_WRITE |
+     * | D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_PROCESS | D3D12_RESOURCE_STATE_VIDEO_PROCESS_READ | D3D12_RESOURCE_STATE_VIDEO_PROCESS_WRITE |
+     * | D3D12_COMMAND_LIST_SUPPORT_FLAG_VIDEO_ENCODE | D3D12_RESOURCE_STATE_VIDEO_ENCODE_READ | D3D12_RESOURCE_STATE_VIDEO_ENCODE_WRITE |
      * @type {Integer (Int32)}
      */
     static D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE_RESOURCE => 10

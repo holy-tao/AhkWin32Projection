@@ -8,9 +8,9 @@
  * Provides methods for a protocol handler's IUrlAccessor object to query the Filter Daemon for the appropriate filter for the URL item.
  * @remarks
  * 
-  * When a protocol handler encounters items with embedded documents, the protocol handler requests additional filters from the Filter Daemon by calling the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nf-searchapi-iprotocolhandlersite-getfilter">IProtocolHandlerSite::GetFilter</a> method.
-  * 
-  * 
+ * When a protocol handler encounters items with embedded documents, the protocol handler requests additional filters from the Filter Daemon by calling the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nf-searchapi-iprotocolhandlersite-getfilter">IProtocolHandlerSite::GetFilter</a> method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-iprotocolhandlersite
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319

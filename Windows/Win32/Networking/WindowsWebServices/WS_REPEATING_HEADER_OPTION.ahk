@@ -16,9 +16,9 @@ class WS_REPEATING_HEADER_OPTION{
 
     /**
      * The header may appear at most once in the message.
- *                     When this option is specified, the function 
- *                     ensures that the specified header appears
- *                     at most once in the message.
+     *                     When this option is specified, the function 
+     *                     ensures that the specified header appears
+     *                     at most once in the message.
      * @type {Integer (Int32)}
      */
     static WS_SINGLETON_HEADER => 2

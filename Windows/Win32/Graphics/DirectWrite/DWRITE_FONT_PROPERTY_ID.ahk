@@ -40,7 +40,7 @@ class DWRITE_FONT_PROPERTY_ID{
 
     /**
      * GDI-compatible family name. Because GDI allows a maximum of four fonts per family, fonts in the same family may have different GDI-compatible family names,
- *           for example "Arial", "Arial Narrow", "Arial Black".
+     *           for example "Arial", "Arial Narrow", "Arial Black".
      * @type {Integer (Int32)}
      */
     static DWRITE_FONT_PROPERTY_ID_WIN32_FAMILY_NAME => 5
@@ -107,7 +107,7 @@ class DWRITE_FONT_PROPERTY_ID{
 
     /**
      * Family name preferred by the designer. This enables font designers to group more than four fonts in a single family without losing compatibility with
- *           GDI. This name is typically only present if it differs from the GDI-compatible family name.
+     *           GDI. This name is typically only present if it differs from the GDI-compatible family name.
      * @type {Integer (Int32)}
      */
     static DWRITE_FONT_PROPERTY_ID_PREFERRED_FAMILY_NAME => 2

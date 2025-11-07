@@ -8,10 +8,10 @@
  * Provides methods that enable apps to be informed of state changes and location for the input pane.
  * @remarks
  * 
-  * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
-  * Do not implement this interface; the implementation is supplied with Windows as CLSID_FrameworkInputPane.
-  * 
-  * 
+ * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
+ * Do not implement this interface; the implementation is supplied with Windows as CLSID_FrameworkInputPane.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iframeworkinputpane
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

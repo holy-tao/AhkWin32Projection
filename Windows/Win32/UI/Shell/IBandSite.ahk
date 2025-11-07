@@ -7,9 +7,9 @@
  * Exposes methods that control band objects.
  * @remarks
  * 
-  * <b>IBandSite</b> is used to host band objects, such as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ideskband">IDeskBand</a>.
-  * 
-  * 
+ * <b>IBandSite</b> is used to host band objects, such as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ideskband">IDeskBand</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ibandsite
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

@@ -5,23 +5,23 @@
  * Used by the GetAddrInfoW function to hold host address information.
  * @remarks
  * 
-  * The 
-  * <b>addrinfoW</b> structure is used by the 
-  * Unicode <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a> function to hold host address information.
-  * 
-  *  The <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">addrinfo</a> structure is ANSI version of this structure used by the ANSI <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfo">getaddrinfo</a> function.
-  * 
-  * Macros in the <i>Ws2tcpip.h</i> header file define a <b>ADDRINFOT</b> structure and a mixed-case function name of <b>GetAddrInfo</b>. The <b>GetAddrInfo</b> function should be called with the <i>nodename</i> and <i>servname</i> parameters of a pointer of type  <b>TCHAR</b> and the <i>hints</i> and <i>res</i> parameters of a pointer of type <b>ADDRINFOT</b>. When UNICODE or _UNICODE is defined, <b>ADDRINFOT</b> is defined to the <b>addrinfoW</b> structure and <b>GetAddrInfo</b> is defined to <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a>, the Unicode version of this function. When UNICODE or _UNICODE is not defined, <b>ADDRINFOT</b> is defined to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">addrinfo</a> structure and <b>GetAddrInfo</b> is defined to <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfo">getaddrinfo</a>, the ANSI version of this function.
-  * 
-  * Upon a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a>, a linked list of 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">ADDRINFOW</a> structures is returned in the <i>ppResult</i> parameter passed to the <b>GetAddrInfoW</b> function. The list can be processed by following the pointer provided in the <b>ai_next</b> member of each returned 
-  * <b>ADDRINFOW</b> structure until a <b>NULL</b> pointer is encountered. In each returned 
-  * <b>ADDRINFOW</b> structure, the <b>ai_family</b>, <b>ai_socktype</b>, and <b>ai_protocol</b> members correspond to respective arguments in a 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-socket">socket</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasocketa">WSASocket</a> function call. Also, the <b>ai_addr</b> member in each returned 
-  * <b>ADDRINFOW</b> structure points to a filled-in socket address structure, the length of which is specified in its <b>ai_addrlen</b> member.
-  * 
-  * 
-  * 
+ * The 
+ * <b>addrinfoW</b> structure is used by the 
+ * Unicode <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a> function to hold host address information.
+ * 
+ *  The <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">addrinfo</a> structure is ANSI version of this structure used by the ANSI <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfo">getaddrinfo</a> function.
+ * 
+ * Macros in the <i>Ws2tcpip.h</i> header file define a <b>ADDRINFOT</b> structure and a mixed-case function name of <b>GetAddrInfo</b>. The <b>GetAddrInfo</b> function should be called with the <i>nodename</i> and <i>servname</i> parameters of a pointer of type  <b>TCHAR</b> and the <i>hints</i> and <i>res</i> parameters of a pointer of type <b>ADDRINFOT</b>. When UNICODE or _UNICODE is defined, <b>ADDRINFOT</b> is defined to the <b>addrinfoW</b> structure and <b>GetAddrInfo</b> is defined to <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a>, the Unicode version of this function. When UNICODE or _UNICODE is not defined, <b>ADDRINFOT</b> is defined to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">addrinfo</a> structure and <b>GetAddrInfo</b> is defined to <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfo">getaddrinfo</a>, the ANSI version of this function.
+ * 
+ * Upon a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a>, a linked list of 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">ADDRINFOW</a> structures is returned in the <i>ppResult</i> parameter passed to the <b>GetAddrInfoW</b> function. The list can be processed by following the pointer provided in the <b>ai_next</b> member of each returned 
+ * <b>ADDRINFOW</b> structure until a <b>NULL</b> pointer is encountered. In each returned 
+ * <b>ADDRINFOW</b> structure, the <b>ai_family</b>, <b>ai_socktype</b>, and <b>ai_protocol</b> members correspond to respective arguments in a 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-socket">socket</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasocketa">WSASocket</a> function call. Also, the <b>ai_addr</b> member in each returned 
+ * <b>ADDRINFOW</b> structure points to a filled-in socket address structure, the length of which is specified in its <b>ai_addrlen</b> member.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ws2def/ns-ws2def-addrinfow
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

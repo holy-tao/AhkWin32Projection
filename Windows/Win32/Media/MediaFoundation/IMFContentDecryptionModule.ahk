@@ -10,7 +10,7 @@
  * Represents a Content Decryption Module (CDM) for a DRM key system.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmodule
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

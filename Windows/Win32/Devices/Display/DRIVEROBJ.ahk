@@ -7,13 +7,13 @@
  * The DRIVEROBJ structure is used to track a resource, allocated by a driver, that requires use GDI services.
  * @remarks
  * 
-  * A DRIVEROBJ structure allows a display driver to request the GDI service in managing per-process resources. By creating a DRIVEROBJ structure, a display driver can ensure that resources will be released when an application terminates.
-  * 
-  * Some drivers, in their Escape support, allocate resources on behalf of applications. In such cases, the DRIVEROBJ structure provides a means for the application to notify the driver when it terminates. GDI will call the driver's cleanup function for each DRIVEROBJ structure allocated in an application's context that is not deleted before the application terminates.
-  * 
-  * This structure provides a locking mechanism for exclusive access to the associated resource.
-  * 
-  * 
+ * A DRIVEROBJ structure allows a display driver to request the GDI service in managing per-process resources. By creating a DRIVEROBJ structure, a display driver can ensure that resources will be released when an application terminates.
+ * 
+ * Some drivers, in their Escape support, allocate resources on behalf of applications. In such cases, the DRIVEROBJ structure provides a means for the application to notify the driver when it terminates. GDI will call the driver's cleanup function for each DRIVEROBJ structure allocated in an application's context that is not deleted before the application terminates.
+ * 
+ * This structure provides a locking mechanism for exclusive access to the associated resource.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-driverobj
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319

@@ -5,26 +5,26 @@
  * Contains the properties of a shadow copy or shadow copy set.
  * @remarks
  * 
-  * Requesters typically obtain a pointer to a <b>VSS_SNAPSHOT_PROP</b> structure by using the <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getsnapshotproperties">IVssBackupComponents::GetSnapshotProperties</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-getsnapshotproperties">IVssSoftwareSnapshotProvider::GetSnapshotProperties</a> method. When this structure is no longer needed, the caller is responsible for freeing it by using the <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-vssfreesnapshotproperties">VssFreeSnapshotProperties</a> function.
-  * 
-  * The shadow copy device object contained in <b>m_pwszSnapshotDeviceObject</b> is used to 
-  *     address files on the shadow copy of the volume. For instance, if the original volume has a file with a path of 
-  *     "\topleveldir\File.html", then the path to the shadow copy of the file is 
-  *     "<b>m_pwszSnapshotDeviceObject</b>"+"\topleveldir\File.html".
-  * 
-  * When a shadow copy is exposed as a share, the value of 
-  *     <b>m_pwszExposedName</b> will be the share name. When the shadow copy is exposed as a drive letter or mounted folder, the shadow copy <b>m_pwszExposedName</b> is a 
-  *     drive letter followed by a colon—for example, "X:" or a mounted folder path 
-  *     (for example, "Y:\MountX").
-  * 
-  * If a shadow copy is exposed as a drive letter or mounted folder, then (as with mounting 
-  *     any device) the entire shadow copy starting at its root will be exposed at the mount point. In this case, 
-  *     <b>m_pwszExposedPath</b> will be null.
-  * 
-  * If the shadow copy is exposed as a share, the value of 
-  *     <b>m_pwszExposedPath</b> will be the path to the portion of the volume that is shared.
-  * 
-  * 
+ * Requesters typically obtain a pointer to a <b>VSS_SNAPSHOT_PROP</b> structure by using the <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getsnapshotproperties">IVssBackupComponents::GetSnapshotProperties</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-getsnapshotproperties">IVssSoftwareSnapshotProvider::GetSnapshotProperties</a> method. When this structure is no longer needed, the caller is responsible for freeing it by using the <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-vssfreesnapshotproperties">VssFreeSnapshotProperties</a> function.
+ * 
+ * The shadow copy device object contained in <b>m_pwszSnapshotDeviceObject</b> is used to 
+ *     address files on the shadow copy of the volume. For instance, if the original volume has a file with a path of 
+ *     "\topleveldir\File.html", then the path to the shadow copy of the file is 
+ *     "<b>m_pwszSnapshotDeviceObject</b>"+"\topleveldir\File.html".
+ * 
+ * When a shadow copy is exposed as a share, the value of 
+ *     <b>m_pwszExposedName</b> will be the share name. When the shadow copy is exposed as a drive letter or mounted folder, the shadow copy <b>m_pwszExposedName</b> is a 
+ *     drive letter followed by a colon—for example, "X:" or a mounted folder path 
+ *     (for example, "Y:\MountX").
+ * 
+ * If a shadow copy is exposed as a drive letter or mounted folder, then (as with mounting 
+ *     any device) the entire shadow copy starting at its root will be exposed at the mount point. In this case, 
+ *     <b>m_pwszExposedPath</b> will be null.
+ * 
+ * If the shadow copy is exposed as a share, the value of 
+ *     <b>m_pwszExposedPath</b> will be the path to the portion of the volume that is shared.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vss/ns-vss-vss_snapshot_prop
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319

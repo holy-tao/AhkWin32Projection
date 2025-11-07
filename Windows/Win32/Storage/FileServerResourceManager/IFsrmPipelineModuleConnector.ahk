@@ -9,23 +9,23 @@
  * Creates the communication channel between FSRM and your pipeline module implementation.
  * @remarks
  * 
-  * Your 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onload">IFsrmPipelineModuleImplementation::OnLoad</a> 
-  *     implementation must create an instance of an object implementing this interface. To create this instance, call the 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstanceex">CoCreateInstanceEx</a> function. Use 
-  *     <b>CLSID_FsrmPipelineModuleConnector</b> as the class identifier and 
-  *     <c>__uuidof(IFsrmPipelineModuleConnector)</c> as the interface identifier. Use 
-  *     the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX_INPROC_SERVER</a> class context to create the instance.
-  * 
-  * After the instance has been created, 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-bind">IFsrmPipelineModuleConnector::Bind</a> must 
-  *     be called before you can return the instance in your 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onload">OnLoad</a> implementation.
-  * 
-  * For more information on how to create and bind an instance, see 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fsrm/initializing-and-binding-a-pipeline-module">Initializing and Binding a Pipeline Module</a>.
-  * 
-  * 
+ * Your 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onload">IFsrmPipelineModuleImplementation::OnLoad</a> 
+ *     implementation must create an instance of an object implementing this interface. To create this instance, call the 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstanceex">CoCreateInstanceEx</a> function. Use 
+ *     <b>CLSID_FsrmPipelineModuleConnector</b> as the class identifier and 
+ *     <c>__uuidof(IFsrmPipelineModuleConnector)</c> as the interface identifier. Use 
+ *     the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX_INPROC_SERVER</a> class context to create the instance.
+ * 
+ * After the instance has been created, 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-bind">IFsrmPipelineModuleConnector::Bind</a> must 
+ *     be called before you can return the instance in your 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onload">OnLoad</a> implementation.
+ * 
+ * For more information on how to create and bind an instance, see 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fsrm/initializing-and-binding-a-pipeline-module">Initializing and Binding a Pipeline Module</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduleconnector
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

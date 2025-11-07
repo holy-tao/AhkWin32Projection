@@ -40,45 +40,45 @@ class FWPM_NET_EVENT_TYPE{
 
     /**
      * An IPsec DoS Protection drop event has occurred.
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows 7, Windows Server 2008 R2, and later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows 7, Windows Server 2008 R2, and later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_NET_EVENT_TYPE_IPSEC_DOSP_DROP => 5
 
     /**
      * An allow event has occurred.
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_NET_EVENT_TYPE_CLASSIFY_ALLOW => 6
 
     /**
      * An app container network capability drop event has occurred.
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_NET_EVENT_TYPE_CAPABILITY_DROP => 7
 
     /**
      * An app container network capability allow event has occurred.
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_NET_EVENT_TYPE_CAPABILITY_ALLOW => 8
 
     /**
      * A MAC layer drop event has occurred.
- * 
- * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only in Windows 8 and Windows Server 2012.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static FWPM_NET_EVENT_TYPE_CLASSIFY_DROP_MAC => 9

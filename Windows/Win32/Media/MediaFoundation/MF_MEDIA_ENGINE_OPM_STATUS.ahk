@@ -34,7 +34,7 @@ class MF_MEDIA_ENGINE_OPM_STATUS{
 
     /**
      * OPM failed because the graphics 
- * driver is not PE signed, falling back to WARP.
+     * driver is not PE signed, falling back to WARP.
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_OPM_FAILED_UNSIGNED_DRIVER => 4

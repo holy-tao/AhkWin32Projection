@@ -10,8 +10,8 @@
  * Manages a collection of DataCollectorSet objects.To get this interface, call the CoCreateInstance function, passing __uuidof(DataCollectorSetCollection) as the class identifier and __uuidof(IDataCollectorSetCollection) as the interface identifier.Then, to populate the collection, call the IDataCollectorSetCollection::GetDataCollectorSets method.
  * @remarks
  * 
-  * To create the object from a script, use the Pla.DataCollectorSetCollection program identifier.
-  * 
+ * To create the object from a script, use the Pla.DataCollectorSetCollection program identifier.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//pla/nn-pla-idatacollectorsetcollection
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319

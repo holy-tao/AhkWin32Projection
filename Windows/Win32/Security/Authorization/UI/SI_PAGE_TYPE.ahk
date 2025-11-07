@@ -10,28 +10,28 @@ class SI_PAGE_TYPE{
 
     /**
      * The 
- * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/basic-security-property-page">basic security property page</a> for editing the object's DACL.
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/basic-security-property-page">basic security property page</a> for editing the object's DACL.
      * @type {Integer (Int32)}
      */
     static SI_PAGE_PERM => 0
 
     /**
      * The 
- * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/permissions-property-page">Permissions</a> tab for advanced editing of the object's DACL, such as editing object-specific ACEs.
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/permissions-property-page">Permissions</a> tab for advanced editing of the object's DACL, such as editing object-specific ACEs.
      * @type {Integer (Int32)}
      */
     static SI_PAGE_ADVPERM => 1
 
     /**
      * The 
- * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/auditing-property-page">Auditing</a> tab for editing the object's SACL.
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/auditing-property-page">Auditing</a> tab for editing the object's SACL.
      * @type {Integer (Int32)}
      */
     static SI_PAGE_AUDIT => 2
 
     /**
      * The 
- * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/owner-property-page">Owner</a> tab for editing the object's owner.
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/owner-property-page">Owner</a> tab for editing the object's owner.
      * @type {Integer (Int32)}
      */
     static SI_PAGE_OWNER => 3

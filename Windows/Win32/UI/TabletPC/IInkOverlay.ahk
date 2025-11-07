@@ -15,9 +15,9 @@
  * .
  * @remarks
  * 
-  * Creating the InkOverlay control behind a transparent control (such as a GroupBox with the WS_EX_TRANSPARENT property set) will prevent InkOverlay from collecting ink.
-  * 
-  * 
+ * Creating the InkOverlay control behind a transparent control (such as a GroupBox with the WS_EX_TRANSPARENT property set) will prevent InkOverlay from collecting ink.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkoverlay
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

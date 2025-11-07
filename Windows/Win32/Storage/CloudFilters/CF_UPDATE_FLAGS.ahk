@@ -58,16 +58,16 @@ class CF_UPDATE_FLAGS{
 
     /**
      * <b>Note</b>  This value is new for Windows 10, version 1803.
- * 
- * The platform removes all existing extrinsic properties on the placeholder.
+     * 
+     * The platform removes all existing extrinsic properties on the placeholder.
      * @type {Integer (Int32)}
      */
     static CF_UPDATE_FLAG_REMOVE_PROPERTY => 128
 
     /**
      * <b>Note</b>  This value is new for Windows 10, version 1803.
- * 
- * The platform passes <b>CF_FS_METADATA</b> to the file system without any filtering; otherwise, the platform skips setting any fields whose value is 0.
+     * 
+     * The platform passes <b>CF_FS_METADATA</b> to the file system without any filtering; otherwise, the platform skips setting any fields whose value is 0.
      * @type {Integer (Int32)}
      */
     static CF_UPDATE_FLAG_PASSTHROUGH_FS_METADATA => 256

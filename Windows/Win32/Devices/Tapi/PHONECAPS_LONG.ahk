@@ -10,7 +10,7 @@ class PHONECAPS_LONG{
 
     /**
      * Specifies the hookswitch devices available using one or more members of the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_hook_switch_device">PHONE_HOOK_SWITCH_DEVICE</a> enum.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_hook_switch_device">PHONE_HOOK_SWITCH_DEVICE</a> enum.
      * @type {Integer (Int32)}
      */
     static PCL_HOOKSWITCHES => 0
@@ -47,11 +47,11 @@ class PHONECAPS_LONG{
 
     /**
      * Specifies the number of ring modes. 
- * 
- * 
- * 
- * 
- * If a USB phone returns zero for this value, the phone typically does not have a ringer device. The ringing sound plays on the default audio device for the system; for example, on sound card speakers.
+     * 
+     * 
+     * 
+     * 
+     * If a USB phone returns zero for this value, the phone typically does not have a ringer device. The ringing sound plays on the default audio device for the system; for example, on sound card speakers.
      * @type {Integer (Int32)}
      */
     static PCL_NUMRINGMODES => 6
@@ -64,11 +64,11 @@ class PHONECAPS_LONG{
 
     /**
      * Specifies whether the phone is generic: a value of one indicates it is, a value of zero indicates it is not. 
- * 
- * 
- * 
- * 
- * A generic phone is a phone device that declares itself as available on all addresses that support audio terminals. For example, a USB phone is generic, because it is not tied to a specific TAPI address.
+     * 
+     * 
+     * 
+     * 
+     * A generic phone is a phone device that declares itself as available on all addresses that support audio terminals. For example, a USB phone is generic, because it is not tied to a specific TAPI address.
      * @type {Integer (Int32)}
      */
     static PCL_GENERICPHONE => 8

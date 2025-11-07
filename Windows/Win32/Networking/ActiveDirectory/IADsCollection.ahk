@@ -10,9 +10,9 @@
  * The IADsCollection interface is a dual interface that enables its hosting ADSI object to define and manage an arbitrary set of named data elements for a directory service.
  * @remarks
  * 
-  * Of the ADSI system providers, only the WinNT provider supports this interface to handle active file service sessions, resources and print jobs.
-  * 
-  * 
+ * Of the ADSI system providers, only the WinNT provider supports this interface to handle active file service sessions, resources and print jobs.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadscollection
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

@@ -5,29 +5,29 @@
  * A MapiFileDescW structure contains information about a file containing a message attachment stored as a temporary file. That file can contain a static OLE object, an embedded OLE object, an embedded message, and other types of files.
  * @remarks
  * 
-  * Simple MAPI works with three kinds of embedded attachments:  
-  * 
-  * <ul>
-  * <li>
-  * Data file attachments
-  * 
-  * </li>
-  * <li>
-  * Editable OLE object file attachments
-  * 
-  * </li>
-  * <li>
-  * Static OLE object file attachments
-  * 
-  * </li>
-  * </ul>
-  * Data file attachments are simply data files. OLE object file attachments are OLE objects that are displayed in the message text. If the OLE attachment is editable, the recipient can double-click it and its source application will be started to handle the edit session. If the OLE attachment is static, the object cannot be edited. The flag set in the <b>flFlags</b> member of the <b>MapiFileDescW</b> structure determines the kind of a particular attachment. Embedded messages can be identified by a .MSG extension in the <b>lpszFileName</b> member.
-  * 
-  * OLE object files are file representations of OLE object streams. The client application can re-create an OLE object from the file by calling the OLE function <a href="https://docs.microsoft.com/windows/desktop/api/ole/nf-ole-oleloadfromstream">OleLoadFromStream</a> with an OLESTREAM object that reads the file contents. If an OLE file attachment is included in an outbound message, the OLE object stream should be written directly to the file used as the attachment. 
-  * 
-  * When using the <b>MapiFileDescW</b> member <b>nPosition</b>, the client application should not place two attachments in the same location. Client applications might not display file attachments at positions beyond the end of the message text.
-  * 
-  * 
+ * Simple MAPI works with three kinds of embedded attachments:  
+ * 
+ * <ul>
+ * <li>
+ * Data file attachments
+ * 
+ * </li>
+ * <li>
+ * Editable OLE object file attachments
+ * 
+ * </li>
+ * <li>
+ * Static OLE object file attachments
+ * 
+ * </li>
+ * </ul>
+ * Data file attachments are simply data files. OLE object file attachments are OLE objects that are displayed in the message text. If the OLE attachment is editable, the recipient can double-click it and its source application will be started to handle the edit session. If the OLE attachment is static, the object cannot be edited. The flag set in the <b>flFlags</b> member of the <b>MapiFileDescW</b> structure determines the kind of a particular attachment. Embedded messages can be identified by a .MSG extension in the <b>lpszFileName</b> member.
+ * 
+ * OLE object files are file representations of OLE object streams. The client application can re-create an OLE object from the file by calling the OLE function <a href="https://docs.microsoft.com/windows/desktop/api/ole/nf-ole-oleloadfromstream">OleLoadFromStream</a> with an OLESTREAM object that reads the file contents. If an OLE file attachment is included in an outbound message, the OLE object stream should be written directly to the file used as the attachment. 
+ * 
+ * When using the <b>MapiFileDescW</b> member <b>nPosition</b>, the client application should not place two attachments in the same location. Client applications might not display file attachments at positions beyond the end of the message text.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mapi/ns-mapi-mapifiledescw
  * @namespace Windows.Win32.System.Mapi
  * @version v4.0.30319

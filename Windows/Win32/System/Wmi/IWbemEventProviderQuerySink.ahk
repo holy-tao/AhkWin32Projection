@@ -7,15 +7,15 @@
  * The IWbemEventProviderQuerySink interface is optionally implemented by event providers who want to know what kinds of event query filters are currently active to optimize performance.
  * @remarks
  * 
-  * Although WMI calls the methods of 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemprov/nn-wbemprov-iwbemeventprovider">IWbemEventProvider</a> only one time after an event provider becomes active, WMI calls the methods of 
-  * <b>IWbemEventProviderQuerySink</b> continuously, as appropriate. The provider can ignore all calls to 
-  * <b>IWbemEventProviderQuerySink</b> methods as needed. This point is very important; supporting 
-  * <b>IWbemEventProviderQuerySink</b> indicates that a provider will supply at least the events requested by queries.
-  * 
-  * A provider can also generate more events than requested, which WMI filters as appropriate. This functionality means you can implement 
-  * <b>IWbemEventProviderQuerySink</b> and optimize processing without addressing all parts of the WMI Query Language (WQL). For instance, if a provider does not specifically handle a particular query, the provider can generate all possible events for the query.
-  * 
+ * Although WMI calls the methods of 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/wbemprov/nn-wbemprov-iwbemeventprovider">IWbemEventProvider</a> only one time after an event provider becomes active, WMI calls the methods of 
+ * <b>IWbemEventProviderQuerySink</b> continuously, as appropriate. The provider can ignore all calls to 
+ * <b>IWbemEventProviderQuerySink</b> methods as needed. This point is very important; supporting 
+ * <b>IWbemEventProviderQuerySink</b> indicates that a provider will supply at least the events requested by queries.
+ * 
+ * A provider can also generate more events than requested, which WMI filters as appropriate. This functionality means you can implement 
+ * <b>IWbemEventProviderQuerySink</b> and optimize processing without addressing all parts of the WMI Query Language (WQL). For instance, if a provider does not specifically handle a particular query, the provider can generate all possible events for the query.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nn-wbemprov-iwbemeventproviderquerysink
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319

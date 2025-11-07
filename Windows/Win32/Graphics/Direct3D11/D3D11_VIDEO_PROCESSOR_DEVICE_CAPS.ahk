@@ -34,8 +34,8 @@ class D3D11_VIDEO_PROCESSOR_DEVICE_CAPS{
 
     /**
      * The video processor supports YUV nominal range . 
- * 
- * Supported in Windows 8.1 and later.
+     * 
+     * Supported in Windows 8.1 and later.
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_PROCESSOR_DEVICE_CAPS_NOMINAL_RANGE => 16

@@ -5,9 +5,9 @@
  * Contains data for a specific WebSocket action.
  * @remarks
  * 
-  * Application must use the <b>Data</b> struct for all buffer types except <b>WEB_SOCKET_CLOSE_BUFFER_TYPE</b>. The <b>CloseStatus</b> struct is used for <b>WEB_SOCKET_CLOSE_BUFFER_TYPE</b>.
-  * 
-  * 
+ * Application must use the <b>Data</b> struct for all buffer types except <b>WEB_SOCKET_CLOSE_BUFFER_TYPE</b>. The <b>CloseStatus</b> struct is used for <b>WEB_SOCKET_CLOSE_BUFFER_TYPE</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//websocket/ns-websocket-web_socket_buffer
  * @namespace Windows.Win32.Networking.WebSocket
  * @version v4.0.30319

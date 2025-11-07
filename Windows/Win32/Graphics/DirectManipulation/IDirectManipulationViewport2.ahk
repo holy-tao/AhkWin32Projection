@@ -7,14 +7,14 @@
  * Provides management of behaviors on a viewport. A behavior affects the functionality of a particular part of the Direct Manipulation workflow.
  * @remarks
  * 
-  * <b>IDirectManipulationViewport2</b> can be used in place of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationviewport">IDirectManipulationViewport</a>.
-  * 
-  * 
-  * Behaviors are created using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationmanager2">IDirectManipulationManager2</a> and an appropriate class ID.
-  * 
-  * A behavior can be attached or removed at any time and takes effect immediately (even during an active manipulation or inertia animation).
-  * 
-  * 
+ * <b>IDirectManipulationViewport2</b> can be used in place of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationviewport">IDirectManipulationViewport</a>.
+ * 
+ * 
+ * Behaviors are created using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationmanager2">IDirectManipulationManager2</a> and an appropriate class ID.
+ * 
+ * A behavior can be attached or removed at any time and takes effect immediately (even during an active manipulation or inertia animation).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nn-directmanipulation-idirectmanipulationviewport2
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319

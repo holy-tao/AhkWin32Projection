@@ -8,10 +8,10 @@
  * Provides methods for retrieving information about the source application.
  * @remarks
  * 
-  * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
-  * --&gt;
-  * 
-  * 
+ * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
+ * --&gt;
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ilaunchsourceviewsizepreference
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

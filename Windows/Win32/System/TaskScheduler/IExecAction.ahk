@@ -8,14 +8,14 @@
  * Represents an action that executes a command-line operation.
  * @remarks
  * 
-  * This action performs a command-line operation. For example, the action could run a script or launch an executable.
-  * 
-  * When reading or writing XML, an execution action is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-exec-actiongroup-element">Exec</a> element of the Task Scheduler schema.
-  * 
-  * If environment variables are used in the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iexecaction-get_path">Path</a>, <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iexecaction-get_arguments">Arguments</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iexecaction-get_workingdirectory">WorkingDirectory</a> properties, then the values of the environment variables are cached and used when the Taskeng.exe (the task engine) is launched. Changes to the environment variables that occur after the task engine is launched will not be used by the task engine.
-  * 
-  * 
-  * 
+ * This action performs a command-line operation. For example, the action could run a script or launch an executable.
+ * 
+ * When reading or writing XML, an execution action is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-exec-actiongroup-element">Exec</a> element of the Task Scheduler schema.
+ * 
+ * If environment variables are used in the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iexecaction-get_path">Path</a>, <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iexecaction-get_arguments">Arguments</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iexecaction-get_workingdirectory">WorkingDirectory</a> properties, then the values of the environment variables are cached and used when the Taskeng.exe (the task engine) is launched. Changes to the environment variables that occur after the task engine is launched will not be used by the task engine.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-iexecaction
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

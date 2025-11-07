@@ -7,13 +7,13 @@
  * Represents a 2D transformation that affects the skew of a visual along the x-axis and y-axis. The coordinate system is skewed around the specified center point.
  * @remarks
  * 
-  * A skew transform represents the following 3-by-3 matrix: 
-  * 
-  * <img alt="Three-by-three skew matrix" src="./images/skew_transform_3x3matrix.png"/>
-  * 
-  * The effect is to slant the coordinate system along the x-axis and y-axis such that a rectangle becomes a parallelogram, and to apply the corresponding translation such that the center point does not move.
-  * 
-  * 
+ * A skew transform represents the following 3-by-3 matrix: 
+ * 
+ * <img alt="Three-by-three skew matrix" src="./images/skew_transform_3x3matrix.png"/>
+ * 
+ * The effect is to slant the coordinate system along the x-axis and y-axis such that a rectangle becomes a parallelogram, and to apply the corresponding translation such that the center point does not move.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositionskewtransform
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319

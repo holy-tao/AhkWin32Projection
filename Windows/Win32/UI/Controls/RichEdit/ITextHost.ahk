@@ -9,11 +9,11 @@
  * The ITextHost interface is used by a text services object to obtain text host services.
  * @remarks
  * 
-  * You must implement the <b>ITextHost</b> interface before you call the <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-createtextservices">CreateTextServices</a> function.
-  * 
-  * Applications do not call the <b>ITextHost</b> methods. A text services object created by the <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-createtextservices">CreateTextServices</a> function calls the interface methods.
-  * 
-  * 
+ * You must implement the <b>ITextHost</b> interface before you call the <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-createtextservices">CreateTextServices</a> function.
+ * 
+ * Applications do not call the <b>ITextHost</b> methods. A text services object created by the <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-createtextservices">CreateTextServices</a> function calls the interface methods.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//textserv/nl-textserv-itexthost
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319

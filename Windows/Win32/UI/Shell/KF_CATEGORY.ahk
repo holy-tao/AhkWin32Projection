@@ -4,16 +4,16 @@
  * Value that represent a category by which a folder registered with the Known Folder system can be classified.
  * @remarks
  * 
-  * The <b>KF_CATEGORY</b> type is defined in Shobjidl.h as shown here.
-  * 
-  *                 
-  * 
-  * 
-  * ```
-  * typedef DWORD KF_CATEGORY;
-  * ```
-  * 
-  * 
+ * The <b>KF_CATEGORY</b> type is defined in Shobjidl.h as shown here.
+ * 
+ *                 
+ * 
+ * 
+ * ```
+ * typedef DWORD KF_CATEGORY;
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-kf_category
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
@@ -40,13 +40,13 @@ class KF_CATEGORY{
 
     /**
      * Per-user folders are those stored under each user's profile and accessible only by that user. For example, <c>%USERPROFILE%\Pictures</c>. This category of folder usually supports many features including aliasing, redirection and customization. 
- *                 
- *                 
- * 
- * 
- * 
- * <div class="alert"><b>Note</b>  The user profile root folder (<a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_Profile</a>) does not support redirection.</div>
- * <div> </div>
+     *                 
+     *                 
+     * 
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  The user profile root folder (<a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_Profile</a>) does not support redirection.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static KF_CATEGORY_PERUSER => 4

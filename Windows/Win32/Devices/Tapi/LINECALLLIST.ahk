@@ -5,9 +5,9 @@
  * The LINECALLLIST structure describes a list of call handles. A structure of this type is returned by the lineGetNewCalls and lineGetConfRelatedCalls functions.
  * @remarks
  * 
-  * This structure may not be extended.
-  * 
-  * 
+ * This structure may not be extended.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linecalllist
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

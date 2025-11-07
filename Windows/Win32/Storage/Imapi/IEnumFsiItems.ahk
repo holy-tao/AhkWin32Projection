@@ -8,9 +8,9 @@
  * Use this interface to enumerate the child directory and file items for a FsiDirectoryItem object.
  * @remarks
  * 
-  * This is a <b>EnumFsiItems</b> object in script.
-  * 
-  * 
+ * This is a <b>EnumFsiItems</b> object in script.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ienumfsiitems
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

@@ -6,19 +6,19 @@
  * The LINECALLINFO structure contains information about a call.
  * @remarks
  * 
-  * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
-  * 
-  * The 
-  * <b>LINECALLINFO</b> data structure contains relatively fixed information about a call. This structure is returned with 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetcallinfo">lineGetCallInfo</a>. When information items in this data structure have changed, a LINE_CALLINFO message is sent to the application. A parameter to this message is the information item or field that changed.
-  * 
-  * The members <b>dwCallTreatment</b> through <b>dwReceivingFlowspecOffset</b> are available only to applications that open the line device with an API version of 2.0 or later.
-  * 
-  * <div class="alert"><b>Note</b>  The preferred format for specification of the contents of the <b>dwCallID</b> field and the other five similar fields (<b>dwCallerIDFlag</b>, <b>dwCallerIDSize</b>, <b>dwCallerIDOffset</b>, <b>dwCallerIDNameSize</b>, and <b>dwCallerIDNameOffset</b>) is the TAPI canonical number format. For example, a ICLID of "4258828080" received from the switch should be converted to "+1 (425) 8828080" before being placed in the 
-  * <b>LINECALLINFO</b> structure. This standardized format facilitates searching of databases and callback functions implemented in applications.</div>
-  * <div> </div>
-  * 
-  * 
+ * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
+ * 
+ * The 
+ * <b>LINECALLINFO</b> data structure contains relatively fixed information about a call. This structure is returned with 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetcallinfo">lineGetCallInfo</a>. When information items in this data structure have changed, a LINE_CALLINFO message is sent to the application. A parameter to this message is the information item or field that changed.
+ * 
+ * The members <b>dwCallTreatment</b> through <b>dwReceivingFlowspecOffset</b> are available only to applications that open the line device with an API version of 2.0 or later.
+ * 
+ * <div class="alert"><b>Note</b>  The preferred format for specification of the contents of the <b>dwCallID</b> field and the other five similar fields (<b>dwCallerIDFlag</b>, <b>dwCallerIDSize</b>, <b>dwCallerIDOffset</b>, <b>dwCallerIDNameSize</b>, and <b>dwCallerIDNameOffset</b>) is the TAPI canonical number format. For example, a ICLID of "4258828080" received from the switch should be converted to "+1 (425) 8828080" before being placed in the 
+ * <b>LINECALLINFO</b> structure. This standardized format facilitates searching of databases and callback functions implemented in applications.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linecallinfo
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319

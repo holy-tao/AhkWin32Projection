@@ -16,9 +16,9 @@ class D2D1_SPRITE_OPTIONS{
 
     /**
      * Interpolation of bitmap pixels will be clamped to the sprite’s source rectangle. 
- *           If the sub-images in your source bitmap have no pixels separating them, then you may see color bleeding when drawing them with D2D1_SPRITE_OPTIONS_NONE. 
- *           In that case, consider adding borders between them with your sprite-packing tool, or use this option.
- *           Note that drawing sprites with this option enabled is slower than using D2D1_SPRITE_OPTIONS_NONE.
+     *           If the sub-images in your source bitmap have no pixels separating them, then you may see color bleeding when drawing them with D2D1_SPRITE_OPTIONS_NONE. 
+     *           In that case, consider adding borders between them with your sprite-packing tool, or use this option.
+     *           Note that drawing sprites with this option enabled is slower than using D2D1_SPRITE_OPTIONS_NONE.
      * @type {Integer (Int32)}
      */
     static D2D1_SPRITE_OPTIONS_CLAMP_TO_SOURCE_RECTANGLE => 1

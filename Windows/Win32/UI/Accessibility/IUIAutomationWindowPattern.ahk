@@ -7,9 +7,9 @@
  * Provides access to the fundamental functionality of a window.
  * @remarks
  * 
-  * Examples of controls that support this control pattern include top-level application windows, multiple-document interface (MDI) child windows, and modal dialog boxes.
-  * 
-  * 
+ * Examples of controls that support this control pattern include top-level application windows, multiple-document interface (MDI) child windows, and modal dialog boxes.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationwindowpattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

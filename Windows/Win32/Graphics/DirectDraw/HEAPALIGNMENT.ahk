@@ -7,9 +7,9 @@
  * The HEAPALIGNMENT structure contains data specifying the alignment requirements for a given display memory heap.
  * @remarks
  * 
-  * The driver should verify that the <b>dwSize</b> member is at least as large as <b>sizeof</b>(HEAPALIGNMENT).
-  * 
-  * 
+ * The driver should verify that the <b>dwSize</b> member is at least as large as <b>sizeof</b>(HEAPALIGNMENT).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dmemmgr/ns-dmemmgr-heapalignment
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319

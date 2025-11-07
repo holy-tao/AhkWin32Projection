@@ -4,11 +4,11 @@
  * Defines event codes for the Media Engine.
  * @remarks
  * 
-  * The application receives Media Engine events through the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaenginenotify-eventnotify">IMFMediaEngineNotify::EventNotify</a> method. The <b>EventNotify</b> method includes two event parameters, <i>param1</i> and <i>param2</i>. The meaning of the parameters depends on the event code. If the event description does not list any parameters, ignore the values of <i>param1</i> and <i>param2</i>.
-  * 
-  * Values below 1000 correspond to events defined in HTML 5 for media elements.
-  * 
-  * 
+ * The application receives Media Engine events through the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaenginenotify-eventnotify">IMFMediaEngineNotify::EventNotify</a> method. The <b>EventNotify</b> method includes two event parameters, <i>param1</i> and <i>param2</i>. The meaning of the parameters depends on the event code. If the event description does not list any parameters, ignore the values of <i>param1</i> and <i>param2</i>.
+ * 
+ * Values below 1000 correspond to events defined in HTML 5 for media elements.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_media_engine_event
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
@@ -41,21 +41,21 @@ class MF_MEDIA_ENGINE_EVENT{
 
     /**
      * An error occurred.
- * 
- * <table>
- * <tr>
- * <th>Event Parameter</th>
- * <th>Description</th>
- * </tr>
- * <tr>
- * <td><i>param1</i></td>
- * <td>A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_err">MF_MEDIA_ENGINE_ERR</a> enumeration.</td>
- * </tr>
- * <tr>
- * <td><i>param2</i></td>
- * <td>An <b>HRESULT</b> error code, or zero.</td>
- * </tr>
- * </table>
+     * 
+     * <table>
+     * <tr>
+     * <th>Event Parameter</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><i>param1</i></td>
+     * <td>A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_err">MF_MEDIA_ENGINE_ERR</a> enumeration.</td>
+     * </tr>
+     * <tr>
+     * <td><i>param2</i></td>
+     * <td>An <b>HRESULT</b> error code, or zero.</td>
+     * </tr>
+     * </table>
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_EVENT_ERROR => 5
@@ -164,21 +164,21 @@ class MF_MEDIA_ENGINE_EVENT{
 
     /**
      * The output format of the media source has changed.
- * 
- * <table>
- * <tr>
- * <th>Event Parameter</th>
- * <th>Description</th>
- * </tr>
- * <tr>
- * <td><i>param1</i></td>
- * <td>Zero if the video format changed, 1 if the audio format changed.</td>
- * </tr>
- * <tr>
- * <td><i>param2</i></td>
- * <td>Zero.</td>
- * </tr>
- * </table>
+     * 
+     * <table>
+     * <tr>
+     * <th>Event Parameter</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><i>param1</i></td>
+     * <td>Zero if the video format changed, 1 if the audio format changed.</td>
+     * </tr>
+     * <tr>
+     * <td><i>param2</i></td>
+     * <td>Zero.</td>
+     * </tr>
+     * </table>
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_EVENT_FORMATCHANGE => 1000
@@ -227,26 +227,26 @@ class MF_MEDIA_ENGINE_EVENT{
 
     /**
      * The Media Engine's <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-load">Load</a> algorithm is waiting to start.
- * 
- * <table>
- * <tr>
- * <th>Event Parameter</th>
- * <th>Description</th>
- * </tr>
- * <tr>
- * <td><i>param1</i></td>
- * <td>A handle to a waitable event, of type <b>HANDLE</b>.</td>
- * </tr>
- * <tr>
- * <td><i>param2</i></td>
- * <td>Zero.</td>
- * </tr>
- * </table>
- *  
- * 
- * If Media Engine is created with the <b>MF_MEDIA_ENGINE_WAITFORSTABLE_STATE</b> flag, the Media Engine sends the <b>MF_MEDIA_ENGINE_EVENT_NOTIFYSTABLESTATE</b> event at the start of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-load">Load</a> algorithm. The <i>param1</i> parameter is a handle to a waitable event. The <b>Load</b> thread waits for the application to signal the event by calling <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-setevent">SetEvent</a>.
- * 
- * If the Media Engine is not created with the <b>MF_MEDIA_ENGINE_WAITFORSTABLE_STATE</b>, it does not send this event, and the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-load">Load</a> thread does not wait to be signalled.
+     * 
+     * <table>
+     * <tr>
+     * <th>Event Parameter</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><i>param1</i></td>
+     * <td>A handle to a waitable event, of type <b>HANDLE</b>.</td>
+     * </tr>
+     * <tr>
+     * <td><i>param2</i></td>
+     * <td>Zero.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * If Media Engine is created with the <b>MF_MEDIA_ENGINE_WAITFORSTABLE_STATE</b> flag, the Media Engine sends the <b>MF_MEDIA_ENGINE_EVENT_NOTIFYSTABLESTATE</b> event at the start of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-load">Load</a> algorithm. The <i>param1</i> parameter is a handle to a waitable event. The <b>Load</b> thread waits for the application to signal the event by calling <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-setevent">SetEvent</a>.
+     * 
+     * If the Media Engine is not created with the <b>MF_MEDIA_ENGINE_WAITFORSTABLE_STATE</b>, it does not send this event, and the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-load">Load</a> thread does not wait to be signalled.
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_EVENT_NOTIFYSTABLESTATE => 1008
@@ -259,20 +259,20 @@ class MF_MEDIA_ENGINE_EVENT{
 
     /**
      * Raised when a new track is added or removed.
- * 
- * Supported in Windows 8.1 and later.
+     * 
+     * Supported in Windows 8.1 and later.
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_EVENT_TRACKSCHANGE => 1010
 
     /**
      * Raised when there is new information about the <a href="https://docs.microsoft.com/windows/desktop/medfound/output-protection-manager">Output Protection Manager</a>  (OPM). 
- * 
- * This event will be raised when an OPM failure occurs, but ITA allows fallback without the OPM. In this case, constriction can be applied. 
- * 
- * This event will not be raised when there is an OPM failure and the fallback also fails. For example, if ITA blocks playback entirely when OPM cannot be established.
- * 
- * Supported in Windows 8.1 and later.
+     * 
+     * This event will be raised when an OPM failure occurs, but ITA allows fallback without the OPM. In this case, constriction can be applied. 
+     * 
+     * This event will not be raised when there is an OPM failure and the fallback also fails. For example, if ITA blocks playback entirely when OPM cannot be established.
+     * 
+     * Supported in Windows 8.1 and later.
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_EVENT_OPMINFO => 1011

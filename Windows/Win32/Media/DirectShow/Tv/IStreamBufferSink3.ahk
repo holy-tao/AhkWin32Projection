@@ -7,9 +7,9 @@
  * The IStreamBufferSink3 interface is exposed by the Stream Buffer Sink filter.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferSink3)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferSink3)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-istreambuffersink3
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

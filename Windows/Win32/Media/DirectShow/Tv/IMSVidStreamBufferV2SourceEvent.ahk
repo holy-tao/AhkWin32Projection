@@ -8,8 +8,8 @@
  * Implements an event system for the Stream Buffer Engine, version 2 (SBE2) source filter that is wrapped in the Video Control. Each event corresponds to an event that the SBE2 source filter receives inside a DirectShow graph.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferV2SourceEvent)</c>.
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferV2SourceEvent)</c>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambufferv2sourceevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

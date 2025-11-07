@@ -5,11 +5,11 @@
  * Defines the properties of a port on a controller object.
  * @remarks
  * 
-  * The 
-  *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdscontroller-getportproperties">IVdsController::GetPortProperties</a> 
-  *     method returns this structure to report the property details of a port on a controller object.
-  * 
-  * 
+ * The 
+ *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdscontroller-getportproperties">IVdsController::GetPortProperties</a> 
+ *     method returns this structure to report the property details of a port on a controller object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_port_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319

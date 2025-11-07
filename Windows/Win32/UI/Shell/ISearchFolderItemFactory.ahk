@@ -7,8 +7,8 @@
  * Exposes methods that create and modify search folders.
  * @remarks
  * 
-  * To implement this interface use class ID <b>CLSID_SearchFolderItemFactory</b>.
-  * 
+ * To implement this interface use class ID <b>CLSID_SearchFolderItemFactory</b>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-isearchfolderitemfactory
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

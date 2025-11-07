@@ -34,9 +34,9 @@ class MFNETSOURCE_PROTOCOL_TYPE{
 
     /**
      * The protocol type is multicast.
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MFNETSOURCE_MULTICAST => 4

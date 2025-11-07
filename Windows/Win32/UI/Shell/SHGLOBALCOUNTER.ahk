@@ -4,37 +4,37 @@
  * Identifiers for various global counters, or shared variables. Each global counter can be incremented or decremented using SHGlobalCounterIncrement and SHGlobalCounterDecrement.
  * @remarks
  * 
-  * These global counters are shared variables that can help identify whether the state of a Windows component has changed over time. They can be used with these functions: <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shglobalcounterdecrement">SHGlobalCounterDecrement</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shglobalcounterincrement">SHGlobalCounterIncrement</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shglobalcountergetvalue">SHGlobalCounterGetValue</a>.
-  * 
-  * <h3><a id="Example"></a><a id="example"></a><a id="EXAMPLE"></a>Example</h3>
-  * The following pseudocode example shows how a global counter can be used.
-  * 
-  * 
-  * ```
-  * void ValidateSomeSettings()
-  *     {
-  *         // Get the current GLOBALCOUNTER_SHELLSETTINGSCHANGED value.
-  *         long lGlobalSettingsCounter = SHGlobalCounterGetValue(GLOBALCOUNTER_SHELLSETTINGSCHANGED);
-  *             
-  *         // Do some other work
-  *         ...
-  *     
-  *         // Verify whether the Shell settings have changed since entering this method.
-  *         if (lGlobalSettingsCounter == SHGlobalCounterGetValue(GLOBALCOUNTER_SHELLSETTINGSCHANGED))
-  *         {
-  *             // Commit the work that was done earlier 
-  *             ...
-  *         }
-  *     
-  *         else
-  *         {
-  *             // Shell settings have changed. Rollback and redo.
-  *             ...
-  *         }
-  *     }
-  * ```
-  * 
-  * 
+ * These global counters are shared variables that can help identify whether the state of a Windows component has changed over time. They can be used with these functions: <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shglobalcounterdecrement">SHGlobalCounterDecrement</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shglobalcounterincrement">SHGlobalCounterIncrement</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shglobalcountergetvalue">SHGlobalCounterGetValue</a>.
+ * 
+ * <h3><a id="Example"></a><a id="example"></a><a id="EXAMPLE"></a>Example</h3>
+ * The following pseudocode example shows how a global counter can be used.
+ * 
+ * 
+ * ```
+ * void ValidateSomeSettings()
+ *     {
+ *         // Get the current GLOBALCOUNTER_SHELLSETTINGSCHANGED value.
+ *         long lGlobalSettingsCounter = SHGlobalCounterGetValue(GLOBALCOUNTER_SHELLSETTINGSCHANGED);
+ *             
+ *         // Do some other work
+ *         ...
+ *     
+ *         // Verify whether the Shell settings have changed since entering this method.
+ *         if (lGlobalSettingsCounter == SHGlobalCounterGetValue(GLOBALCOUNTER_SHELLSETTINGSCHANGED))
+ *         {
+ *             // Commit the work that was done earlier 
+ *             ...
+ *         }
+ *     
+ *         else
+ *         {
+ *             // Shell settings have changed. Rollback and redo.
+ *             ...
+ *         }
+ *     }
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shlwapi/ne-shlwapi-shglobalcounter
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

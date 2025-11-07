@@ -4,9 +4,9 @@
  * Defines the properties that are configured by the HTTP Server API on a URL group, server session, or request queue.
  * @remarks
  * 
-  * The <b>HTTP_SERVER_PROPERTY</b> enumeration types are used to set or query the configurations on a server session, URL group, or request queue. A member of this enumeration together with the  associated configuration structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryrequestqueueproperty">HttpQueryRequestQueueProperty</a>, <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryserversessionproperty">HttpQueryServerSessionProperty</a>, <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryurlgroupproperty">HttpQueryUrlGroupProperty</a>, <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetrequestqueueproperty">HttpSetRequestQueueProperty</a>, <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpseturlgroupproperty">HttpSetUrlGroupProperty</a> to define the configuration parameters.
-  * 
-  * 
+ * The <b>HTTP_SERVER_PROPERTY</b> enumeration types are used to set or query the configurations on a server session, URL group, or request queue. A member of this enumeration together with the  associated configuration structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryrequestqueueproperty">HttpQueryRequestQueueProperty</a>, <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryserversessionproperty">HttpQueryServerSessionProperty</a>, <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryurlgroupproperty">HttpQueryUrlGroupProperty</a>, <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetrequestqueueproperty">HttpSetRequestQueueProperty</a>, <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpseturlgroupproperty">HttpSetUrlGroupProperty</a> to define the configuration parameters.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_server_property
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
@@ -15,32 +15,32 @@ class HTTP_SERVER_PROPERTY{
 
     /**
      * The authentication property enables server-side authentication for a URL group, or  server session using the Basic, NTLM, Negotiate, and Digest authentication schemes.
- * 
- *  The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_server_authentication_info">HTTP_SERVER_AUTHENTICATION_INFO</a>  structure contains the configuration data for this property.
+     * 
+     *  The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_server_authentication_info">HTTP_SERVER_AUTHENTICATION_INFO</a>  structure contains the configuration data for this property.
      * @type {Integer (Int32)}
      */
     static HttpServerAuthenticationProperty => 0
 
     /**
      * The logging property enables logging for a server session or URL group.
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_logging_info">HTTP_LOGGING_INFO</a> structure contains the configuration data for this property.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_logging_info">HTTP_LOGGING_INFO</a> structure contains the configuration data for this property.
      * @type {Integer (Int32)}
      */
     static HttpServerLoggingProperty => 1
 
     /**
      * The QOS property enables settings affecting quality of service, such as limiting the maximum number of outstanding connections served for a URL group at any given time or limiting the response send bandwidth for a server session or URL group.
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_qos_setting_info">HTTP_QOS_SETTING_INFO</a> structure contains the configuration data for this property.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_qos_setting_info">HTTP_QOS_SETTING_INFO</a> structure contains the configuration data for this property.
      * @type {Integer (Int32)}
      */
     static HttpServerQosProperty => 2
 
     /**
      * The timeouts property  configures timeouts for a server session or URL group.
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_timeout_limit_info">HTTP_TIMEOUT_LIMIT_INFO</a> structure contains the configuration data for this property.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_timeout_limit_info">HTTP_TIMEOUT_LIMIT_INFO</a> structure contains the configuration data for this property.
      * @type {Integer (Int32)}
      */
     static HttpServerTimeoutsProperty => 3
@@ -53,32 +53,32 @@ class HTTP_SERVER_PROPERTY{
 
     /**
      * The connections property configures the state of a URL group, server session, or request queue.
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_state_info">HTTP_STATE_INFO</a> structure contains the configuration data for this property for the URL group or server session. The request queue uses the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_enabled_state">HTTP_ENABLED_STATE</a> enumeration to configure this property.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_state_info">HTTP_STATE_INFO</a> structure contains the configuration data for this property for the URL group or server session. The request queue uses the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_enabled_state">HTTP_ENABLED_STATE</a> enumeration to configure this property.
      * @type {Integer (Int32)}
      */
     static HttpServerStateProperty => 5
 
     /**
      * The 503 verbosity  property configures the verbosity level of 503 responses generated by the HTTP Server API for a request queue.
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_503_response_verbosity">HTTP_503_RESPONSE_VERBOSITY</a> enumeration contains the configuration data for this property.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_503_response_verbosity">HTTP_503_RESPONSE_VERBOSITY</a> enumeration contains the configuration data for this property.
      * @type {Integer (Int32)}
      */
     static HttpServer503VerbosityProperty => 6
 
     /**
      * The binding property associates a URL group with a  request queue.
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_binding_info">HTTP_BINDING_INFO</a> structure contains the configuration data for this property.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_binding_info">HTTP_BINDING_INFO</a> structure contains the configuration data for this property.
      * @type {Integer (Int32)}
      */
     static HttpServerBindingProperty => 7
 
     /**
      * The extended authentication property enables server-side authentication for a URL group, or  server session using the Kerberos authentication scheme.
- * 
- *  The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_server_authentication_info">HTTP_SERVER_AUTHENTICATION_INFO</a>  structure contains the configuration data for this property.
+     * 
+     *  The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_server_authentication_info">HTTP_SERVER_AUTHENTICATION_INFO</a>  structure contains the configuration data for this property.
      * @type {Integer (Int32)}
      */
     static HttpServerExtendedAuthenticationProperty => 8
@@ -91,8 +91,8 @@ class HTTP_SERVER_PROPERTY{
 
     /**
      * This property implements authorization channel binding.
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_channel_bind_info">HTTP_CHANNEL_BIND_INFO</a> structure contains the authorization details.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_channel_bind_info">HTTP_CHANNEL_BIND_INFO</a> structure contains the authorization details.
      * @type {Integer (Int32)}
      */
     static HttpServerChannelBindProperty => 10

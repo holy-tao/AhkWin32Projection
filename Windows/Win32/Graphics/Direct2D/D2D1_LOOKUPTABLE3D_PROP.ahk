@@ -16,7 +16,7 @@ class D2D1_LOOKUPTABLE3D_PROP{
 
     /**
      * The D2D1_LOOKUPTABLE3D_PROP_ALPHA_MODE property is a <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-d2d1_alpha_mode">D2D1_ALPHA_MODE</a> value indicating the alpha mode of the input file.
- *           See the About Alpha Modes section of the <a href="https://docs.microsoft.com/windows/desktop/Direct2D/supported-pixel-formats-and-alpha-modes">Supported Pixel Formats and Alpha Modes</a> topic for additional information.
+     *           See the About Alpha Modes section of the <a href="https://docs.microsoft.com/windows/desktop/Direct2D/supported-pixel-formats-and-alpha-modes">Supported Pixel Formats and Alpha Modes</a> topic for additional information.
      * @type {Integer (Int32)}
      */
     static D2D1_LOOKUPTABLE3D_PROP_ALPHA_MODE => 1

@@ -7,7 +7,7 @@
  * Adds support for protected resources.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videodevice2
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

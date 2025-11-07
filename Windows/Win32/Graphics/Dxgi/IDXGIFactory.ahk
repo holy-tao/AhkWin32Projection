@@ -10,31 +10,31 @@
  * An IDXGIFactory interface implements methods for generating DXGI objects (which handle full screen transitions).
  * @remarks
  * 
-  * Create a factory by calling <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-createdxgifactory">CreateDXGIFactory</a>.
-  *         
-  * 
-  * Because you can create a Direct3D device without creating a swap chain, you might need to retrieve the factory that is used to create the device in order to create a swap chain.
-  *           You can request the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgidevice">IDXGIDevice</a> interface from the Direct3D device and then use the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiobject-getparent">IDXGIObject::GetParent</a> method to locate
-  *           the factory.  The following code shows how.
-  *         
-  * 
-  * 
-  * ```
-  * IDXGIDevice * pDXGIDevice = nullptr;
-  * hr = g_pd3dDevice->QueryInterface(__uuidof(IDXGIDevice), (void **)&pDXGIDevice);
-  * 
-  * IDXGIAdapter * pDXGIAdapter = nullptr;
-  * hr = pDXGIDevice->GetAdapter( &pDXGIAdapter );
-  * 
-  * IDXGIFactory * pIDXGIFactory = nullptr;
-  * pDXGIAdapter->GetParent(__uuidof(IDXGIFactory), (void **)&pIDXGIFactory);
-  * ```
-  * 
-  * 
-  * <b>Windows Phone 8:
-  *         </b> This API is supported.
-  * 
-  * 
+ * Create a factory by calling <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-createdxgifactory">CreateDXGIFactory</a>.
+ *         
+ * 
+ * Because you can create a Direct3D device without creating a swap chain, you might need to retrieve the factory that is used to create the device in order to create a swap chain.
+ *           You can request the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgidevice">IDXGIDevice</a> interface from the Direct3D device and then use the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiobject-getparent">IDXGIObject::GetParent</a> method to locate
+ *           the factory.  The following code shows how.
+ *         
+ * 
+ * 
+ * ```
+ * IDXGIDevice * pDXGIDevice = nullptr;
+ * hr = g_pd3dDevice->QueryInterface(__uuidof(IDXGIDevice), (void **)&pDXGIDevice);
+ * 
+ * IDXGIAdapter * pDXGIAdapter = nullptr;
+ * hr = pDXGIDevice->GetAdapter( &pDXGIAdapter );
+ * 
+ * IDXGIFactory * pIDXGIFactory = nullptr;
+ * pDXGIAdapter->GetParent(__uuidof(IDXGIFactory), (void **)&pIDXGIFactory);
+ * ```
+ * 
+ * 
+ * <b>Windows Phone 8:
+ *         </b> This API is supported.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxgi/nn-dxgi-idxgifactory
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

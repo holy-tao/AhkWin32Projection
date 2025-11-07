@@ -9,13 +9,13 @@
  * Provides the methods for managing specific work items.
  * @remarks
  * 
-  * The <b>IScheduledWorkItem</b> interface is the base interface for the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-itask">ITask</a> interface. All methods provided by 
-  * <b>IScheduledWorkItem</b> are inherited by the 
-  * <b>ITask</b> interface and are typically called through that interface.
-  * 
-  * 
-  * 
+ * The <b>IScheduledWorkItem</b> interface is the base interface for the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-itask">ITask</a> interface. All methods provided by 
+ * <b>IScheduledWorkItem</b> are inherited by the 
+ * <b>ITask</b> interface and are typically called through that interface.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mstask/nn-mstask-ischeduledworkitem
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

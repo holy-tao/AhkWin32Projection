@@ -7,21 +7,21 @@
  * Contains core methods for obtaining tokens from web account providers.
  * @remarks
  * 
-  * This interface is implemented by WebAuthenticationCoreManager's [activation factory](../activation/nn-activation-iactivationfactory.md).
-  * To get an object of this interface, get a reference to the activation factory
-  * and then call [IUnknown::QueryInterface](../unknwn/nf-unknwn-iunknown-queryinterface%28refiid_void%29.md)
-  * on it:
-  * 
-  * ```cppwinrt
-  * using winrt::Windows::Security::Authentication::Web::Core::WebAuthenticationCoreManager;
-  * 
-  * auto managerFactory = winrt::get_activation_factory<WebAuthenticationCoreManager>();
-  * winrt::com_ptr<IWebAuthenticationCoreManagerInterop> managerInterop{ managerFactory.as<IWebAuthenticationCoreManagerInterop>() };
-  * 
-  * managerInterop->RequestTokenForWindowAsync(// ... )
-  * ```
-  * 
-  * 
+ * This interface is implemented by WebAuthenticationCoreManager's [activation factory](../activation/nn-activation-iactivationfactory.md).
+ * To get an object of this interface, get a reference to the activation factory
+ * and then call [IUnknown::QueryInterface](../unknwn/nf-unknwn-iunknown-queryinterface%28refiid_void%29.md)
+ * on it:
+ * 
+ * ```cppwinrt
+ * using winrt::Windows::Security::Authentication::Web::Core::WebAuthenticationCoreManager;
+ * 
+ * auto managerFactory = winrt::get_activation_factory<WebAuthenticationCoreManager>();
+ * winrt::com_ptr<IWebAuthenticationCoreManagerInterop> managerInterop{ managerFactory.as<IWebAuthenticationCoreManagerInterop>() };
+ * 
+ * managerInterop->RequestTokenForWindowAsync(// ... )
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//webauthenticationcoremanagerinterop/nn-webauthenticationcoremanagerinterop-iwebauthenticationcoremanagerinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

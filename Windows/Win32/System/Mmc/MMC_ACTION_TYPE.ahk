@@ -16,22 +16,22 @@ class MMC_ACTION_TYPE{
 
     /**
      * When the user clicks the task, MMC calls 
- * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iextendtaskpad-tasknotify">IExtendTaskPad::TaskNotify</a> and returns the command ID specified in the nCommandID member of the 
- * MMC_TASK structure that was filled in when MMC called <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-ienumtask-next">IEnumTASK::Next</a> to add the task to the taskpad.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iextendtaskpad-tasknotify">IExtendTaskPad::TaskNotify</a> and returns the command ID specified in the nCommandID member of the 
+     * MMC_TASK structure that was filled in when MMC called <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-ienumtask-next">IEnumTASK::Next</a> to add the task to the taskpad.
      * @type {Integer (Int32)}
      */
     static MMC_ACTION_ID => 0
 
     /**
      * When the user clicks the task, MMC activates the link specified by the szActionURL member of the 
- * MMC_TASK structure.
+     * MMC_TASK structure.
      * @type {Integer (Int32)}
      */
     static MMC_ACTION_LINK => 1
 
     /**
      * When the user clicks the task, MMC executes the script contained in the szScript member of 
- * MMC_TASK using the window.execScript method on the taskpad DHTML page.
+     * MMC_TASK using the window.execScript method on the taskpad DHTML page.
      * @type {Integer (Int32)}
      */
     static MMC_ACTION_SCRIPT => 2

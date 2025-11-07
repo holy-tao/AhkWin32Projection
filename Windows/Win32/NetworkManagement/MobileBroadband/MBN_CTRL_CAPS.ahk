@@ -34,8 +34,8 @@ class MBN_CTRL_CAPS{
 
     /**
      * The Mobile Broadband device is configured for Simple IP support.  This field is applicable only to CDMA devices.
- * 
- * If this field is set in conjunction with <b>MBN_CTRL_CAPS_MOBILE_IP</b>, then this indicates that the device is configured for Mobile IP with Simple IP as a fallback option.
+     * 
+     * If this field is set in conjunction with <b>MBN_CTRL_CAPS_MOBILE_IP</b>, then this indicates that the device is configured for Mobile IP with Simple IP as a fallback option.
      * @type {Integer (Int32)}
      */
     static MBN_CTRL_CAPS_CDMA_SIMPLE_IP => 8

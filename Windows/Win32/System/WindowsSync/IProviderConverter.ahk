@@ -7,9 +7,9 @@
  * When implemented by a derived class, represents an object that can convert an ISyncProvider object to an IKnowledgeSyncProvider object.
  * @remarks
  * 
-  * <b>IProviderConverter</b> is typically implemented by the developer of the custom provider that it converts.
-  * 
-  * 
+ * <b>IProviderConverter</b> is typically implemented by the developer of the custom provider that it converts.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-iproviderconverter
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

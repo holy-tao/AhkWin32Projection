@@ -4,80 +4,80 @@
  * The CALL_STATE enum is used by the ITCallInfo::get_CallState and ITCallStateEvent::get_State methods.
  * @remarks
  * 
-  * Following is a table of all valid call state transitions.
-  * 
-  * <table>
-  * <tr>
-  * <th>From state</th>
-  * <th>To state</th>
-  * </tr>
-  * <tr>
-  * <td>CS_IDLE</td>
-  * <td>
-  * <dl>
-  * <dt>INPROGRESS</dt>
-  * <dt>CONNECTED</dt>
-  * <dt>DISCONNECTED</dt>
-  * <dt>OFFERING</dt>
-  * <dt>HOLD</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>CS_INPROGRESS</td>
-  * <td>
-  * <dl>
-  * <dt>CONNECTED</dt>
-  * <dt>DISCONNECTED</dt>
-  * <dt>HOLD</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>CS_CONNECTED</td>
-  * <td>
-  * <dl>
-  * <dt>HOLD</dt>
-  * <dt>DISCONNECTED</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>CS_DISCONNECTED</td>
-  * <td>Nothing—call should be freed</td>
-  * </tr>
-  * <tr>
-  * <td>CS_OFFERING</td>
-  * <td>
-  * <dl>
-  * <dt>CONNECTED</dt>
-  * <dt>DISCONNECTED</dt>
-  * <dt>HOLD</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>CS_HOLD</td>
-  * <td>
-  * <dl>
-  * <dt>CONNECTED</dt>
-  * <dt>DISCONNECTED</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>CS_QUEUED</td>
-  * <td>
-  * <dl>
-  * <dt>CONNECTED</dt>
-  * <dt>DISCONNECTED</dt>
-  * <dt>HOLD</dt>
-  * </dl>
-  * </td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * Following is a table of all valid call state transitions.
+ * 
+ * <table>
+ * <tr>
+ * <th>From state</th>
+ * <th>To state</th>
+ * </tr>
+ * <tr>
+ * <td>CS_IDLE</td>
+ * <td>
+ * <dl>
+ * <dt>INPROGRESS</dt>
+ * <dt>CONNECTED</dt>
+ * <dt>DISCONNECTED</dt>
+ * <dt>OFFERING</dt>
+ * <dt>HOLD</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>CS_INPROGRESS</td>
+ * <td>
+ * <dl>
+ * <dt>CONNECTED</dt>
+ * <dt>DISCONNECTED</dt>
+ * <dt>HOLD</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>CS_CONNECTED</td>
+ * <td>
+ * <dl>
+ * <dt>HOLD</dt>
+ * <dt>DISCONNECTED</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>CS_DISCONNECTED</td>
+ * <td>Nothing—call should be freed</td>
+ * </tr>
+ * <tr>
+ * <td>CS_OFFERING</td>
+ * <td>
+ * <dl>
+ * <dt>CONNECTED</dt>
+ * <dt>DISCONNECTED</dt>
+ * <dt>HOLD</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>CS_HOLD</td>
+ * <td>
+ * <dl>
+ * <dt>CONNECTED</dt>
+ * <dt>DISCONNECTED</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>CS_QUEUED</td>
+ * <td>
+ * <dl>
+ * <dt>CONNECTED</dt>
+ * <dt>DISCONNECTED</dt>
+ * <dt>HOLD</dt>
+ * </dl>
+ * </td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-call_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
@@ -86,7 +86,7 @@ class CALL_STATE{
 
     /**
      * The call has been created, but 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-connect">Connect</a> has not been called yet. A call can never transition into the idle state. This is the initial state for both incoming and outgoing calls.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-connect">Connect</a> has not been called yet. A call can never transition into the idle state. This is the initial state for both incoming and outgoing calls.
      * @type {Integer (Int32)}
      */
     static CS_IDLE => 0
@@ -111,9 +111,9 @@ class CALL_STATE{
 
     /**
      * A new call has appeared, and is being offered to an application. If the application has owner privileges on the call, it can either call 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-answer">Answer</a> or 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-disconnect">Disconnect</a> while the call is in the offering state. Current call privilege can be determined by calling 
- * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itcallinfo-get_privilege">ITCallInfo::get_Privilege</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-answer">Answer</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-disconnect">Disconnect</a> while the call is in the offering state. Current call privilege can be determined by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itcallinfo-get_privilege">ITCallInfo::get_Privilege</a>.
      * @type {Integer (Int32)}
      */
     static CS_OFFERING => 4

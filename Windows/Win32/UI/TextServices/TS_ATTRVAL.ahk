@@ -9,9 +9,9 @@
  * The TS_ATTRVAL structure contains document attribute values.
  * @remarks
  * 
-  * An application uses attributes to expose its data to TSF, whereas text services use properties to expose their data to TSF. <b>TS_ATTRVAL</b> is used in <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nn-textstor-itextstoreacp">ITextStoreACP</a> and <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nn-textstor-itextstoreanchor">ITextStoreAnchor</a> methods.
-  * 
-  * 
+ * An application uses attributes to expose its data to TSF, whereas text services use properties to expose their data to TSF. <b>TS_ATTRVAL</b> is used in <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nn-textstor-itextstoreacp">ITextStoreACP</a> and <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nn-textstor-itextstoreanchor">ITextStoreAnchor</a> methods.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//textstor/ns-textstor-ts_attrval
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

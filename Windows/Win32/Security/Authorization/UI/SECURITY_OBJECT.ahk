@@ -5,9 +5,9 @@
  * Contains the security object information.
  * @remarks
  * 
-  * When the <b>Id</b> member the <b>SECURITY_OBJECT</b> structure is set to SECURITY_OBJECT_ID_CENTRAL_ACCESS_RULE, the <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-ieffectivepermission2-computeeffectivepermissionwithsecondarysecurity">ComputeEffectivePermissionWithSecondarySecurity</a> method must use the <b>pData2</b> member of  first and only then evaluate the access  using the  <b>pData</b> member.
-  * 
-  * 
+ * When the <b>Id</b> member the <b>SECURITY_OBJECT</b> structure is set to SECURITY_OBJECT_ID_CENTRAL_ACCESS_RULE, the <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-ieffectivepermission2-computeeffectivepermissionwithsecondarysecurity">ComputeEffectivePermissionWithSecondarySecurity</a> method must use the <b>pData2</b> member of  first and only then evaluate the access  using the  <b>pData</b> member.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//aclui/ns-aclui-security_object
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319

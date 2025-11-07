@@ -88,9 +88,9 @@ class FsrmPropertyConditionType{
 
     /**
      * The property condition is met if the property value matches the specified pattern. The pattern format is a 
- *        semicolon-separated list of wildcard patterns. For example "*.exe;*.com"
- * 
- * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
+     *        semicolon-separated list of wildcard patterns. For example "*.exe;*.com"
+     * 
+     * <b>Windows Server 2008 R2:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyConditionType_MatchesPattern => 13

@@ -8,17 +8,17 @@
  * Provides access to controls that act as containers for a collection of child elements organized in a two-dimensional logical coordinate system that can be traversed (that is, a Microsoft UI Automation client can move to adjacent controls) by using the keyboard.
  * @remarks
  * 
-  * The <b>IGridProvider</b> interface exposes methods and properties to support UI Automation client access to controls 
-  * 		that act as containers for a collection of child elements. The children of this element must implement <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-igriditemprovider">IGridItemProvider</a>and be organized in a two-dimensional logical coordinate system that can be traversed (that is, a UI Automation client can move to adjacent controls) by using the keyboard.
-  * 		
-  * 
-  * Implemented on a UI Automation provider that must support 
-  *         the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementinggrid">Grid</a> control pattern.
-  * 
-  * <b>IGridProvider</b> does not enable active manipulation of a grid; 
-  *         <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itransformprovider">ITransformProvider</a> must be implemented for this.
-  * 
-  * 
+ * The <b>IGridProvider</b> interface exposes methods and properties to support UI Automation client access to controls 
+ * 		that act as containers for a collection of child elements. The children of this element must implement <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-igriditemprovider">IGridItemProvider</a>and be organized in a two-dimensional logical coordinate system that can be traversed (that is, a UI Automation client can move to adjacent controls) by using the keyboard.
+ * 		
+ * 
+ * Implemented on a UI Automation provider that must support 
+ *         the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementinggrid">Grid</a> control pattern.
+ * 
+ * <b>IGridProvider</b> does not enable active manipulation of a grid; 
+ *         <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itransformprovider">ITransformProvider</a> must be implemented for this.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-igridprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319

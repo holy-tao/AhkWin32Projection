@@ -5,11 +5,11 @@
  * Specifies a range of a file that is to be trimmed.
  * @remarks
  * 
-  * Before the trim operation is passed to the underlying storage system the input ranges are reduced to be 
-  *     aligned to page boundaries (4,096 bytes on 32-bit and x64-based editions of Windows, 8,192 bytes on Itanium-Based 
-  *     editions of Windows).
-  * 
-  * 
+ * Before the trim operation is passed to the underlying storage system the input ranges are reduced to be 
+ *     aligned to page boundaries (4,096 bytes on 32-bit and x64-based editions of Windows, 8,192 bytes on Itanium-Based 
+ *     editions of Windows).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-file_level_trim_range
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319

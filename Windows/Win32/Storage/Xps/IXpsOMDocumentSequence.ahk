@@ -10,51 +10,51 @@
  * The root object that has the XPS document content.
  * @remarks
  * 
-  * The code example that follows illustrates how to create an instance of  this interface.
-  * 
-  * 
-  * ```cpp
-  * 
-  * IXpsOMDocumentSequence    *newInterface;
-  * IOpcPartUri               *partUri;
-  * 
-  * // Note the implicit requirement that CoInitializeEx 
-  * //  has previously been called from this thread.
-  * 
-  * hr = CoCreateInstance(
-  *     __uuidof(XpsOMObjectFactory),
-  *     NULL,
-  *     CLSCTX_INPROC_SERVER,
-  *     _uuidof(IXpsOMObjectFactory),
-  *     reinterpret_cast<LPVOID*>(&xpsFactory)
-  *     );
-  * 
-  * if (SUCCEEDED(hr))
-  * {
-  *     hr = xpsFactory->CreatePartUri(partUriString, &partUri);
-  *     
-  *     if (SUCCEEDED(hr))
-  *     {
-  *         hr = xpsFactory->CreateDocumentSequence (partUri, &newInterface);
-  * 
-  *         if (SUCCEEDED(hr))
-  *         {
-  *             // use newInterface
-  * 
-  *             newInterface->Release();
-  *         }
-  *         partUri->Release();
-  *     }
-  *     xpsFactory->Release();
-  * }
-  * else
-  * {
-  *     // evaluate HRESULT error returned in hr
-  * }
-  * 
-  * ```
-  * 
-  * 
+ * The code example that follows illustrates how to create an instance of  this interface.
+ * 
+ * 
+ * ```cpp
+ * 
+ * IXpsOMDocumentSequence    *newInterface;
+ * IOpcPartUri               *partUri;
+ * 
+ * // Note the implicit requirement that CoInitializeEx 
+ * //  has previously been called from this thread.
+ * 
+ * hr = CoCreateInstance(
+ *     __uuidof(XpsOMObjectFactory),
+ *     NULL,
+ *     CLSCTX_INPROC_SERVER,
+ *     _uuidof(IXpsOMObjectFactory),
+ *     reinterpret_cast<LPVOID*>(&xpsFactory)
+ *     );
+ * 
+ * if (SUCCEEDED(hr))
+ * {
+ *     hr = xpsFactory->CreatePartUri(partUriString, &partUri);
+ *     
+ *     if (SUCCEEDED(hr))
+ *     {
+ *         hr = xpsFactory->CreateDocumentSequence (partUri, &newInterface);
+ * 
+ *         if (SUCCEEDED(hr))
+ *         {
+ *             // use newInterface
+ * 
+ *             newInterface->Release();
+ *         }
+ *         partUri->Release();
+ *     }
+ *     xpsFactory->Release();
+ * }
+ * else
+ * {
+ *     // evaluate HRESULT error returned in hr
+ * }
+ * 
+ * ```
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocumentsequence
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

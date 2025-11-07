@@ -7,9 +7,9 @@
  * Represents a clock vector element of a knowledge structure.
  * @remarks
  * 
-  * The clock vector elements of a clock vector represent the changes that are contained in a knowledge structure. A change that is made by a particular replica is defined to be contained in the knowledge when the tick count for the change occurs between zero and the tick count contained in the <b>IClockVectorElement</b> that tracks that replica.
-  * 
-  * 
+ * The clock vector elements of a clock vector represent the changes that are contained in a knowledge structure. A change that is made by a particular replica is defined to be contained in the knowledge when the tick count for the change occurs between zero and the tick count contained in the <b>IClockVectorElement</b> that tracks that replica.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-iclockvectorelement
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

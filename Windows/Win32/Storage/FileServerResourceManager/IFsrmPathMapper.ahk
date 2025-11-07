@@ -8,9 +8,9 @@
  * Used to retrieve the network share paths that are mapped to a local path.
  * @remarks
  * 
-  * To create this object from a script, use the program identifier, "Fsrm.FsrmPathMapper".
-  * 
-  * 
+ * To create this object from a script, use the program identifier, "Fsrm.FsrmPathMapper".
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmpathmapper
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

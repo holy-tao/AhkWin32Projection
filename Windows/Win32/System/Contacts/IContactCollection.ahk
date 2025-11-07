@@ -8,8 +8,8 @@
  * Do not use. Enumerates the contacts known by the IContactManager.
  * @remarks
  * 
-  * This interface does not support deletion of contacts during an enumeration. Adding or removing contacts by other means during an enumeration results in undefined behavior. Modifying contact properties during enumeration is allowed.
-  * 
+ * This interface does not support deletion of contacts during an enumeration. Adding or removing contacts by other means during an enumeration results in undefined behavior. Modifying contact properties during enumeration is allowed.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//icontact/nn-icontact-icontactcollection
  * @namespace Windows.Win32.System.Contacts
  * @version v4.0.30319

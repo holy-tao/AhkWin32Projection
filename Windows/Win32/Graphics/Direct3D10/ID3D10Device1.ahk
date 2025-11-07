@@ -9,11 +9,11 @@
  * The device interface represents a virtual adapter for Direct3D 10.1; it is used to perform rendering and create Direct3D resources.
  * @remarks
  * 
-  * A device is created using <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/nf-d3d10_1-d3d10createdevice1">D3D10CreateDevice1</a>.
-  * 
-  * This method requires Windows Vista Service Pack 1.
-  * 
-  * 
+ * A device is created using <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/nf-d3d10_1-d3d10createdevice1">D3D10CreateDevice1</a>.
+ * 
+ * This method requires Windows Vista Service Pack 1.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10_1/nn-d3d10_1-id3d10device1
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

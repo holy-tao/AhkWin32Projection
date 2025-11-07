@@ -10,28 +10,28 @@ class CLUSTER_NETWORK_STATE{
 
     /**
      * The operation was not successful. For more information about the error, call the function 
- *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @type {Integer (Int32)}
      */
     static ClusterNetworkStateUnknown => -1
 
     /**
      * All of the network interfaces on the network are unavailable, which means that the nodes that own the network 
- *        interfaces are down.
+     *        interfaces are down.
      * @type {Integer (Int32)}
      */
     static ClusterNetworkUnavailable => 0
 
     /**
      * The network is not operational; none of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">nodes</a> on the network 
- *        can communicate.
+     *        can communicate.
      * @type {Integer (Int32)}
      */
     static ClusterNetworkDown => 1
 
     /**
      * The network is operational, but two or more nodes on the network cannot communicate. Typically a 
- *        path-specific problem has occurred.
+     *        path-specific problem has occurred.
      * @type {Integer (Int32)}
      */
     static ClusterNetworkPartitioned => 2

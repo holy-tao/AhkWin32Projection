@@ -4,10 +4,10 @@
  * Defines the flags used with the nScheme member of the URL_COMPONENTS structure.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
-  * <div> </div>
-  * 
-  * 
+ * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wininet/ne-wininet-internet_scheme
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
@@ -40,9 +40,9 @@ class INTERNET_SCHEME{
 
     /**
      * Gopher URL scheme (gopher:). 
- * 
- * <div class="alert"><b>Note</b>  Windows XP and Windows Server 2003 R2 and earlier only.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Windows XP and Windows Server 2003 R2 and earlier only.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static INTERNET_SCHEME_GOPHER => 2

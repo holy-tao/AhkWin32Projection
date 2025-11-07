@@ -5,37 +5,37 @@
  * Used as a header for an RSA public key or private key BLOB in memory.
  * @remarks
  * 
-  * This structure is used as a header for a larger buffer. An RSA <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key BLOB</a> (BCRYPT_RSAPUBLIC_BLOB) has the following format in contiguous memory. All of the numbers following the structure are in big-endian format.
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>
-  * BCRYPT_RSAKEY_BLOB
-  * PublicExponent[cbPublicExp] // Big-endian.
-  * Modulus[cbModulus] // Big-endian.
-  * </code></pre>
-  * An RSA <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key BLOB</a> (BCRYPT_RSAPRIVATE_BLOB) has the following format in contiguous memory. All of the numbers following the structure are in big-endian format.
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>
-  * BCRYPT_RSAKEY_BLOB
-  * PublicExponent[cbPublicExp] // Big-endian.
-  * Modulus[cbModulus] // Big-endian.
-  * Prime1[cbPrime1] // Big-endian.
-  * Prime2[cbPrime2] // Big-endian.
-  * </code></pre>
-  * A full RSA private key BLOB (BCRYPT_RSAFULLPRIVATE_BLOB) has the following format in contiguous memory. All of the numbers following the structure are in big-endian format.
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>
-  * BCRYPT_RSAKEY_BLOB
-  * PublicExponent[cbPublicExp] // Big-endian.
-  * Modulus[cbModulus] // Big-endian.
-  * Prime1[cbPrime1] // Big-endian.
-  * Prime2[cbPrime2] // Big-endian.
-  * Exponent1[cbPrime1] // Big-endian.
-  * Exponent2[cbPrime2] // Big-endian.
-  * Coefficient[cbPrime1] // Big-endian.
-  * PrivateExponent[cbModulus] // Big-endian.
-  * </code></pre>
-  * 
-  * 
+ * This structure is used as a header for a larger buffer. An RSA <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key BLOB</a> (BCRYPT_RSAPUBLIC_BLOB) has the following format in contiguous memory. All of the numbers following the structure are in big-endian format.
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>
+ * BCRYPT_RSAKEY_BLOB
+ * PublicExponent[cbPublicExp] // Big-endian.
+ * Modulus[cbModulus] // Big-endian.
+ * </code></pre>
+ * An RSA <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key BLOB</a> (BCRYPT_RSAPRIVATE_BLOB) has the following format in contiguous memory. All of the numbers following the structure are in big-endian format.
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>
+ * BCRYPT_RSAKEY_BLOB
+ * PublicExponent[cbPublicExp] // Big-endian.
+ * Modulus[cbModulus] // Big-endian.
+ * Prime1[cbPrime1] // Big-endian.
+ * Prime2[cbPrime2] // Big-endian.
+ * </code></pre>
+ * A full RSA private key BLOB (BCRYPT_RSAFULLPRIVATE_BLOB) has the following format in contiguous memory. All of the numbers following the structure are in big-endian format.
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>
+ * BCRYPT_RSAKEY_BLOB
+ * PublicExponent[cbPublicExp] // Big-endian.
+ * Modulus[cbModulus] // Big-endian.
+ * Prime1[cbPrime1] // Big-endian.
+ * Prime2[cbPrime2] // Big-endian.
+ * Exponent1[cbPrime1] // Big-endian.
+ * Exponent2[cbPrime2] // Big-endian.
+ * Coefficient[cbPrime1] // Big-endian.
+ * PrivateExponent[cbModulus] // Big-endian.
+ * </code></pre>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-bcrypt_rsakey_blob
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319

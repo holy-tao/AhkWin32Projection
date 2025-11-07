@@ -8,9 +8,9 @@
  * The ITfLangBarItemBitmap interface is implemented by an application or text service and used by the language bar manager to obtain information specific to a bitmap item on the language bar.
  * @remarks
  * 
-  * A language bar bitmap functions as a static item on the language bar that displays a bitmap.
-  * 
-  * 
+ * A language bar bitmap functions as a static item on the language bar that displays a bitmap.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nn-ctfutb-itflangbaritembitmap
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

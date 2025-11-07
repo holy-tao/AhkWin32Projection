@@ -8,14 +8,14 @@
  * Implements a generic event interface that can deliver and encapsulate events that are raised by devices that work with the Protected Broadcast Driver Interface (PBDA).
  * @remarks
  * 
-  * 
-  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESEvent)</c>.
-  * 
-  * 
-  * 
-  * 
-  * 
+ * 
+ * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESEvent)</c>.
+ * 
+ * 
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-iesevent
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

@@ -7,7 +7,7 @@
  * Encapsulates a list of graphics commands for rendering, extending the interface to support variable-rate shading (VRS).
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12graphicscommandlist5
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

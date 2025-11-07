@@ -5,24 +5,24 @@
  * Contains information about the Windows Sockets implementation.
  * @remarks
  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> function initiates the use of the Windows Sockets DLL by a process.  The <b>WSAStartup</b> function returns a pointer to the  
-  * <b>WSADATA</b> structure in the <i>lpWSAData</i>parameter.
-  * 		
-  * 
-  * The current version of the Windows Sockets specification returned in the <b>wHighVersion</b> member of the  
-  * <b>WSADATA</b> structure is version 2.2 encoded with the major version number in the low-byte and the minor version number in the high-byte. This version of the current Winsock DLL, <i>Ws2_32.dll</i>, supports applications that request  any of the following  versions of the Windows Sockets specification:<ul>
-  * <li>1.0</li>
-  * <li>1.1</li>
-  * <li>2.0</li>
-  * <li>2.1</li>
-  * <li>2.2</li>
-  * </ul>Depending on the version requested by the application, one of the above version numbers is the value encoded as the major version number in the low-byte and the minor version number in the high-byte that is returned in the <b>wVersion</b> member of the <b>WSADATA</b> structure. 
-  * 
-  * <div class="alert"><b>Note</b>  An application should ignore the <b>iMaxsockets</b>, <b>iMaxUdpDg</b>, and <b>lpVendorInfo</b> members in <b>WSADATA</b> if the value in <b>wVersion</b> after a successful call to 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> is at least 2. This is because the architecture of Windows Sockets changed in version 2 to support multiple providers, and <b>WSADATA</b> no longer applies to a single vendor's stack. Two new socket options are introduced to supply provider-specific information: SO_MAX_MSG_SIZE (replaces the <b>iMaxUdpDg</b> member) and PVD_CONFIG (allows any other provider-specific configuration to occur).</div>
-  * <div> </div>
-  * 
-  * 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> function initiates the use of the Windows Sockets DLL by a process.  The <b>WSAStartup</b> function returns a pointer to the  
+ * <b>WSADATA</b> structure in the <i>lpWSAData</i>parameter.
+ * 		
+ * 
+ * The current version of the Windows Sockets specification returned in the <b>wHighVersion</b> member of the  
+ * <b>WSADATA</b> structure is version 2.2 encoded with the major version number in the low-byte and the minor version number in the high-byte. This version of the current Winsock DLL, <i>Ws2_32.dll</i>, supports applications that request  any of the following  versions of the Windows Sockets specification:<ul>
+ * <li>1.0</li>
+ * <li>1.1</li>
+ * <li>2.0</li>
+ * <li>2.1</li>
+ * <li>2.2</li>
+ * </ul>Depending on the version requested by the application, one of the above version numbers is the value encoded as the major version number in the low-byte and the minor version number in the high-byte that is returned in the <b>wVersion</b> member of the <b>WSADATA</b> structure. 
+ * 
+ * <div class="alert"><b>Note</b>  An application should ignore the <b>iMaxsockets</b>, <b>iMaxUdpDg</b>, and <b>lpVendorInfo</b> members in <b>WSADATA</b> if the value in <b>wVersion</b> after a successful call to 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> is at least 2. This is because the architecture of Windows Sockets changed in version 2 to support multiple providers, and <b>WSADATA</b> no longer applies to a single vendor's stack. Two new socket options are introduced to supply provider-specific information: SO_MAX_MSG_SIZE (replaces the <b>iMaxUdpDg</b> member) and PVD_CONFIG (allows any other provider-specific configuration to occur).</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsock/ns-winsock-wsadata
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

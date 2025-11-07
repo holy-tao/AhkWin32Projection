@@ -4,7 +4,7 @@
  * This resource represents the privilege level for a Diagnostic Data Query session
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquerytypes/ne-diagnosticdataquerytypes-ddqaccesslevel
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  * @version v4.0.30319

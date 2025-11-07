@@ -5,13 +5,13 @@
  * Specifies the headers that are included in an HTTP response when more than one header is required.
  * @remarks
  * 
-  * The HTTP version 1.0 API allows applications to send only one known response header with the response. Starting with the HTTP version 2.0 API, applications are enabled to send multiple known response headers.
-  * 
-  * The <b>pInfo</b>  member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_response_info">HTTP_RESPONSE_INFO</a> structure points to this structure when the application provides multiple known headers on a response. The <b>HTTP_RESPONSE_INFO</b> structure extends the <a href="https://docs.microsoft.com/windows/desktop/Http/http-response">HTTP_RESPONSE</a> structure starting with HTTP version 2.0.
-  * 
-  * The <b>HTTP_MULTIPLE_KNOWN_HEADERS</b> structure enables server applications to send multiple authentication challenges to the client.
-  * 
-  * 
+ * The HTTP version 1.0 API allows applications to send only one known response header with the response. Starting with the HTTP version 2.0 API, applications are enabled to send multiple known response headers.
+ * 
+ * The <b>pInfo</b>  member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_response_info">HTTP_RESPONSE_INFO</a> structure points to this structure when the application provides multiple known headers on a response. The <b>HTTP_RESPONSE_INFO</b> structure extends the <a href="https://docs.microsoft.com/windows/desktop/Http/http-response">HTTP_RESPONSE</a> structure starting with HTTP version 2.0.
+ * 
+ * The <b>HTTP_MULTIPLE_KNOWN_HEADERS</b> structure enables server applications to send multiple authentication challenges to the client.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_multiple_known_headers
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319

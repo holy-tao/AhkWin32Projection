@@ -7,25 +7,25 @@
  * Controls the volume levels of individual audio channels.
  * @remarks
  * 
-  * If your application does not require channel-level volume control, you can use the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsimpleaudiovolume">IMFSimpleAudioVolume</a> interface to control the master volume level of the audio session.
-  * 
-  * Volume is expressed as an attenuation level, where 0.0 indicates silence and 1.0 indicates full volume (no attenuation). For each channel, the attenuation level is the product of:
-  * 
-  * <ul>
-  * <li>The master volume level of the audio session.
-  *           </li>
-  * <li>The volume level of the channel.
-  *           </li>
-  * </ul>
-  * For example, if the master volume is 0.8 and the channel volume is 0.5, the attenuation for that channel is 0.8 × 0.5 = 0.4. Volume levels can exceed 1.0 (positive gain), but the audio engine clips any audio samples that exceed zero decibels.
-  * 
-  * Use the following formula to convert the volume level to the decibel (dB) scale:
-  * 
-  * Attenuation (dB) = 20 * log10(<i>Level</i>)
-  * 
-  * For example, a volume level of 0.50 represents 6.02 dB of attenuation.
-  * 
-  * 
+ * If your application does not require channel-level volume control, you can use the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsimpleaudiovolume">IMFSimpleAudioVolume</a> interface to control the master volume level of the audio session.
+ * 
+ * Volume is expressed as an attenuation level, where 0.0 indicates silence and 1.0 indicates full volume (no attenuation). For each channel, the attenuation level is the product of:
+ * 
+ * <ul>
+ * <li>The master volume level of the audio session.
+ *           </li>
+ * <li>The volume level of the channel.
+ *           </li>
+ * </ul>
+ * For example, if the master volume is 0.8 and the channel volume is 0.5, the attenuation for that channel is 0.8 × 0.5 = 0.4. Volume levels can exceed 1.0 (positive gain), but the audio engine clips any audio samples that exceed zero decibels.
+ * 
+ * Use the following formula to convert the volume level to the decibel (dB) scale:
+ * 
+ * Attenuation (dB) = 20 * log10(<i>Level</i>)
+ * 
+ * For example, a volume level of 0.50 represents 6.02 dB of attenuation.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfaudiostreamvolume
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -7,23 +7,23 @@
  * Represents the capabilities of the hardware exposed through the Direct3D object.
  * @remarks
  * 
-  * The MaxTextureBlendStages and MaxSimultaneousTextures members might seem similar, but they contain different information. The MaxTextureBlendStages member contains the total number of texture-blending stages supported by the current device, and the MaxSimultaneousTextures member describes how many of those stages can have textures bound to them by using the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-settexture">SetTexture</a> method.
-  * 
-  * When the driver fills this structure, it can set values for execute-buffer capabilities, even when the interface being used to retrieve the capabilities (such as <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a>) does not support execute buffers.
-  * 
-  * In general, performance problems may occur if you use a texture and then modify it during a scene. Ensure that no texture used in the current <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-beginscene">BeginScene</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-endscene">EndScene</a> block is evicted unless absolutely necessary. In the case of extremely high texture usage within a scene, the results are undefined. This occurs when you modify a texture that you have used in the scene and there is no spare texture memory available. For such systems, the contents of the z-buffer become invalid at EndScene. Applications should not call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-updatesurface">UpdateSurface</a> to or from the back buffer on this type of hardware inside a BeginScene/EndScene pair. In addition, applications should not try to access the z-buffer if the D3DPRASTERCAPS_ZBUFFERLESSHSR capability flag is set. Finally, applications should not lock the back buffer or the z-buffer inside a BeginScene/EndScene pair.
-  * 
-  * The following flags concerning mipmapped textures are not supported in Direct3D 9. 
-  * 
-  * <ul>
-  * <li>D3DPTFILTERCAPS_LINEAR</li>
-  * <li>D3DPTFILTERCAPS_LINEARMIPLINEAR</li>
-  * <li>D3DPTFILTERCAPS_LINEARMIPNEAREST</li>
-  * <li>D3DPTFILTERCAPS_MIPNEAREST</li>
-  * <li>D3DPTFILTERCAPS_NEAREST</li>
-  * </ul>
-  * 
-  * 
+ * The MaxTextureBlendStages and MaxSimultaneousTextures members might seem similar, but they contain different information. The MaxTextureBlendStages member contains the total number of texture-blending stages supported by the current device, and the MaxSimultaneousTextures member describes how many of those stages can have textures bound to them by using the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-settexture">SetTexture</a> method.
+ * 
+ * When the driver fills this structure, it can set values for execute-buffer capabilities, even when the interface being used to retrieve the capabilities (such as <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a>) does not support execute buffers.
+ * 
+ * In general, performance problems may occur if you use a texture and then modify it during a scene. Ensure that no texture used in the current <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-beginscene">BeginScene</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-endscene">EndScene</a> block is evicted unless absolutely necessary. In the case of extremely high texture usage within a scene, the results are undefined. This occurs when you modify a texture that you have used in the scene and there is no spare texture memory available. For such systems, the contents of the z-buffer become invalid at EndScene. Applications should not call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-updatesurface">UpdateSurface</a> to or from the back buffer on this type of hardware inside a BeginScene/EndScene pair. In addition, applications should not try to access the z-buffer if the D3DPRASTERCAPS_ZBUFFERLESSHSR capability flag is set. Finally, applications should not lock the back buffer or the z-buffer inside a BeginScene/EndScene pair.
+ * 
+ * The following flags concerning mipmapped textures are not supported in Direct3D 9. 
+ * 
+ * <ul>
+ * <li>D3DPTFILTERCAPS_LINEAR</li>
+ * <li>D3DPTFILTERCAPS_LINEARMIPLINEAR</li>
+ * <li>D3DPTFILTERCAPS_LINEARMIPNEAREST</li>
+ * <li>D3DPTFILTERCAPS_MIPNEAREST</li>
+ * <li>D3DPTFILTERCAPS_NEAREST</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d9caps/ns-d3d9caps-d3dcaps9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

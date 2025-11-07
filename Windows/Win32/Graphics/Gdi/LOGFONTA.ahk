@@ -5,18 +5,18 @@
  * Defines the attributes of a font.
  * @remarks
  * 
-  * The following situations do not support ClearType antialiasing:
-  * 
-  * <ul>
-  * <li>Text is rendered on a printer.</li>
-  * <li>Display set for 256 colors or less.</li>
-  * <li>Text is rendered to a terminal server client.</li>
-  * <li>The font is not a TrueType font or an Microsoft OpenType font with TrueType outlines. For example, the following do not support ClearType antialiasing: Type 1 fonts, Postscript OpenType fonts without TrueType outlines, bitmap fonts, vector fonts, and device fonts.</li>
-  * <li>The font has tuned embedded bitmaps, for any font sizes that contain the embedded bitmaps. For example, this occurs commonly in East Asian fonts.</li>
-  * </ul>
-  * This structure first appeared in Shtypes.idl and Shtypes.h in Windows Vista, for ease of use with members of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-ivisualproperties">IVisualProperties</a> interface. However, the identical structure is defined in Wingdi.h and Windows.h in earlier versions of Windows.
-  * 
-  * 
+ * The following situations do not support ClearType antialiasing:
+ * 
+ * <ul>
+ * <li>Text is rendered on a printer.</li>
+ * <li>Display set for 256 colors or less.</li>
+ * <li>Text is rendered to a terminal server client.</li>
+ * <li>The font is not a TrueType font or an Microsoft OpenType font with TrueType outlines. For example, the following do not support ClearType antialiasing: Type 1 fonts, Postscript OpenType fonts without TrueType outlines, bitmap fonts, vector fonts, and device fonts.</li>
+ * <li>The font has tuned embedded bitmaps, for any font sizes that contain the embedded bitmaps. For example, this occurs commonly in East Asian fonts.</li>
+ * </ul>
+ * This structure first appeared in Shtypes.idl and Shtypes.h in Windows Vista, for ease of use with members of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-ivisualproperties">IVisualProperties</a> interface. However, the identical structure is defined in Wingdi.h and Windows.h in earlier versions of Windows.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shtypes/ns-shtypes-logfonta
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319

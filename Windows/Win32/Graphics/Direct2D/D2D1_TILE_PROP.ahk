@@ -10,11 +10,11 @@ class D2D1_TILE_PROP{
 
     /**
      * The region of the image to be tiled. This property is a <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_4f">D2D1_VECTOR_4F</a> defined as: (left, top, right, bottom). The units are in DIPs.
- *             
- * 
- * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_4f">D2D1_VECTOR_4F</a>.
- * 
- * The default is {0.0f, 0.0f, 100.0f, 100.0f}.
+     *             
+     * 
+     * The type is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_4f">D2D1_VECTOR_4F</a>.
+     * 
+     * The default is {0.0f, 0.0f, 100.0f, 100.0f}.
      * @type {Integer (Int32)}
      */
     static D2D1_TILE_PROP_RECT => 0

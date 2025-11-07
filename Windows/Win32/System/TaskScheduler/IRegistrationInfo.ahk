@@ -8,12 +8,12 @@
  * Provides the administrative information that can be used to describe the task.
  * @remarks
  * 
-  * Registration information can be used to identify a task through the Task Scheduler UI, or as search criteria when enumerating over the registered tasks.
-  * 
-  * When reading or writing XML for a task, registration information for the task is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-registrationinfo-tasktype-element">RegistrationInfo</a> element of the Task Scheduler schema.
-  * 
-  * 
-  * 
+ * Registration information can be used to identify a task through the Task Scheduler UI, or as search criteria when enumerating over the registered tasks.
+ * 
+ * When reading or writing XML for a task, registration information for the task is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-registrationinfo-tasktype-element">RegistrationInfo</a> element of the Task Scheduler schema.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-iregistrationinfo
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

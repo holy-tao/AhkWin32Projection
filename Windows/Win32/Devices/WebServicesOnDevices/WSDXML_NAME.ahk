@@ -5,8 +5,8 @@
  * Specifies an XML qualified name.
  * @remarks
  * 
-  * <b>WSDXML_NAME</b> represents a single name within a namespace. The relationship between the name and namespace is circular, in that the <b>Space</b> pointer of the name points to the namespace the name belongs to, and the <b>Names</b> array of the namespace will have an entry for the name.
-  * 
+ * <b>WSDXML_NAME</b> represents a single name within a namespace. The relationship between the name and namespace is circular, in that the <b>Space</b> pointer of the name points to the namespace the name belongs to, and the <b>Names</b> array of the namespace will have an entry for the name.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wsdxmldom/ns-wsdxmldom-wsdxml_name
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319

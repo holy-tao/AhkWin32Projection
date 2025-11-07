@@ -5,8 +5,8 @@
  * Contains information on a footer item.
  * @remarks
  * 
-  * This structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-listview_getfooteritem">ListView_GetFooterItem</a> macro and the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-getfooteritem">LVM_GETFOOTERITEM</a> message.
-  * 
+ * This structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-listview_getfooteritem">ListView_GetFooterItem</a> macro and the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-getfooteritem">LVM_GETFOOTERITEM</a> message.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-lvfooteritem
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319

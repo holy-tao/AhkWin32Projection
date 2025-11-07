@@ -40,54 +40,54 @@ class WCN_VALUE_TYPE_CONFIGURATION_ERROR{
 
     /**
      * The wireless signal is not strong enough to initiate a connection. 
- * 
- * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_CE_SIGNAL_TOO_WEAK => 5
 
     /**
      * Network authentication failed.
- * 
- * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_CE_NETWORK_AUTHENTICATION_FAILURE => 6
 
     /**
      * Network association failed.
- * 
- * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_CE_NETWORK_ASSOCIATION_FAILURE => 7
 
     /**
      * The DHCP server did not respond.
- * 
- * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_CE_NO_DHCP_RESPONSE => 8
 
     /**
      * DHCP configuration failed.
- * 
- * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_CE_FAILED_DHCP_CONFIG => 9
 
     /**
      * There was an IP address conflict.
- * 
- * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_CE_IP_ADDRESS_CONFLICT => 10
@@ -124,18 +124,18 @@ class WCN_VALUE_TYPE_CONFIGURATION_ERROR{
 
     /**
      * The message timed out.
- * 
- * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_CE_MESSAGE_TIMEOUT => 16
 
     /**
      * The registration session timed out.
- * 
- * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Not supported in WPS 2.0.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static WCN_VALUE_CE_REGISTRATION_SESSION_TIMEOUT => 17

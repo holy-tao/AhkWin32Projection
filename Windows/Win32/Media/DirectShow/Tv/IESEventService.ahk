@@ -7,9 +7,9 @@
  * Implements an event service that includes methods that raise events derived from the IESEvent interface.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESEventService)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESEventService)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ieseventservice
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

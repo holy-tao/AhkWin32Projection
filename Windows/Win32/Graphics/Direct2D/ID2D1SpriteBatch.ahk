@@ -7,16 +7,16 @@
  * Represents a single group of sprites with their associated drawing properties.
  * @remarks
  * 
-  * Create a new sprite batch using <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1devicecontext3-createspritebatch">ID2D1DeviceContext3::CreateSpriteBatch</a>. 
-  *           Use [ID2D1DeviceContext3::DrawSpriteBatch](./nf-d2d1_3-id2d1devicecontext3-createspritebatch.md) to draw them.
-  *         
-  * 
-  * Sprites are a way for apps to draw a large number of images very efficiently. 
-  *         They are commonly used to render characters and backgrounds in 2D games, or to render particle systems such as smoke and flames. 
-  *         If your app has performance demands and needs to draw hundreds or thousands of images every frame, then consider taking advantage of sprite batches and the fine-grained control they offer, 
-  *         instead of the general-purpose DrawImage method.
-  * 
-  * 
+ * Create a new sprite batch using <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1devicecontext3-createspritebatch">ID2D1DeviceContext3::CreateSpriteBatch</a>. 
+ *           Use [ID2D1DeviceContext3::DrawSpriteBatch](./nf-d2d1_3-id2d1devicecontext3-createspritebatch.md) to draw them.
+ *         
+ * 
+ * Sprites are a way for apps to draw a large number of images very efficiently. 
+ *         They are commonly used to render characters and backgrounds in 2D games, or to render particle systems such as smoke and flames. 
+ *         If your app has performance demands and needs to draw hundreds or thousands of images every frame, then consider taking advantage of sprite batches and the fine-grained control they offer, 
+ *         instead of the general-purpose DrawImage method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1spritebatch
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

@@ -28,9 +28,9 @@ class InstallResponseRestrictionFlags{
 
     /**
      * Performs the same action as the <b>AllowUntrustedCertificate</b> flag but also installs the certificate even if the certificate chain cannot be built because the root is not trusted.
- * 
- * <div class="alert"><b>Note</b>  On Windows Vista, the behavior of this flag is the same as that defined for the <b>AllowUntrustedCertificate</b> flag. You can install an untrusted root beginning with Windows Vista with SP1.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  On Windows Vista, the behavior of this flag is the same as that defined for the <b>AllowUntrustedCertificate</b> flag. You can install an untrusted root beginning with Windows Vista with SP1.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static AllowUntrustedRoot => 4

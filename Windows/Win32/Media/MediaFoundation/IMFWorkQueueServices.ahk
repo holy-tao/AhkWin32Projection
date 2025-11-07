@@ -7,9 +7,9 @@
  * Controls the work queues created by the Media Session.
  * @remarks
  * 
-  * If the application is using the protected media path (PMP) session, the methods in this interface automatically marshal the calls to the PMP process.
-  * 
-  * 
+ * If the application is using the protected media path (PMP) session, the methods in this interface automatically marshal the calls to the PMP process.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfworkqueueservices
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

@@ -5,9 +5,9 @@
  * Describes info that PnP uses to create the software device.
  * @remarks
  * 
-  * You can only specify this info at creation time, and you can't later call the Software Device API to modify this info, by setting properties, for example.
-  * 
-  * 
+ * You can only specify this info at creation time, and you can't later call the Software Device API to modify this info, by setting properties, for example.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//swdevicedef/ns-swdevicedef-sw_device_create_info
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319

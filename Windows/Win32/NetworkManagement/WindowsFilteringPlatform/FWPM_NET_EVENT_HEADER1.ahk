@@ -9,11 +9,11 @@
  * Information common to all events. Reserved.
  * @remarks
  * 
-  * The unnamed struct specifies details related to Ethernet traffic. It's available when **addressFamily** is **FWP_AF_ETHER**.
-  * 
-  * This structure is reserved for system use. [FWPM_NET_EVENT_HEADER2](ns-fwpmtypes-fwpm_net_event_header2.md) should be used in place of **FWPM_NET_EVENT_HEADER1**.
-  * 
-  * 
+ * The unnamed struct specifies details related to Ethernet traffic. It's available when **addressFamily** is **FWP_AF_ETHER**.
+ * 
+ * This structure is reserved for system use. [FWPM_NET_EVENT_HEADER2](ns-fwpmtypes-fwpm_net_event_header2.md) should be used in place of **FWPM_NET_EVENT_HEADER1**.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_net_event_header1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319

@@ -5,20 +5,20 @@
  * Defines the range of supported values for an image filter.
  * @remarks
  * 
-  * The multiplier enables the filter range to have a fractional step value.
-  * 
-  * For example, a hue filter might have an actual range of [–180.0 ... +180.0] with a step size of 0.25. The device would report the following range and multiplier:
-  * 
-  * <ul>
-  * <li>Minimum: –720</li>
-  * <li>Maximum: +720</li>
-  * <li>Multiplier: 0.25</li>
-  * </ul>
-  * In this case,  a filter value of 2 would be interpreted by the device as 0.50 (or 2 × 0.25).
-  * 
-  * The device should use  a multiplier that can be represented exactly as a base-2 fraction.
-  * 
-  * 
+ * The multiplier enables the filter range to have a fractional step value.
+ * 
+ * For example, a hue filter might have an actual range of [–180.0 ... +180.0] with a step size of 0.25. The device would report the following range and multiplier:
+ * 
+ * <ul>
+ * <li>Minimum: –720</li>
+ * <li>Maximum: +720</li>
+ * <li>Multiplier: 0.25</li>
+ * </ul>
+ * In this case,  a filter value of 2 would be interpreted by the device as 0.50 (or 2 × 0.25).
+ * 
+ * The device should use  a multiplier that can be represented exactly as a base-2 fraction.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_video_processor_filter_range
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

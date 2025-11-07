@@ -76,8 +76,8 @@ class CLUSTER_OBJECT_TYPE{
 
     /**
      * The notification is for a groupset.
- * 
- * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This value is unavailable prior to Windows Server 2016.
+     * 
+     * <b>Windows Server 2012 R2 and Windows Server 2012:  </b>This value is unavailable prior to Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSTER_OBJECT_TYPE_GROUPSET => 13

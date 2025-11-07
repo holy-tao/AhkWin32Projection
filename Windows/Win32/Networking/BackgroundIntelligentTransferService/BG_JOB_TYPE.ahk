@@ -16,16 +16,16 @@ class BG_JOB_TYPE{
 
     /**
      * Specifies that the job uploads a file to the server. 
- * 
- * **BITS 1.2 and earlier:** not supported.
+     * 
+     * **BITS 1.2 and earlier:** not supported.
      * @type {Integer (Int32)}
      */
     static BG_JOB_TYPE_UPLOAD => 1
 
     /**
      * Specifies that the job uploads a file to the server, and receives a reply file from the server application. 
- * 
- * **BITS 1.2 and earlier:** not supported.
+     * 
+     * **BITS 1.2 and earlier:** not supported.
      * @type {Integer (Int32)}
      */
     static BG_JOB_TYPE_UPLOAD_REPLY => 2

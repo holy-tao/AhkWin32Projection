@@ -7,8 +7,8 @@
  * Contains information about the completion of an installation and acts as a parameter to the IInstallationCompletedCallback delegate. The download and installation of the update is asynchronous.
  * @remarks
  * 
-  * The <b>IInstallationCompletedCallbackArgs</b> interface is reserved for future use. It  has no properties or methods.
-  * 
+ * The <b>IInstallationCompletedCallbackArgs</b> interface is reserved for future use. It  has no properties or methods.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iinstallationcompletedcallbackargs
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

@@ -7,7 +7,7 @@
  * A client-implemented interface that allows developers to supply their own credentials dynamically at run time to authenticate non-domain joined containers with Active Directory.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ccgplugins/nn-ccgplugins-iccgdomainauthcredentials
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319

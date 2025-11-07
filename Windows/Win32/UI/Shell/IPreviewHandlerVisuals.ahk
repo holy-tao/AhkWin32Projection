@@ -7,9 +7,9 @@
  * Exposes methods for applying color and font information to preview handlers.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  These are suggestions. It is not compulsory for this interface to be called. The preview handlers must be able to make their own decisions.</div>
-  * <div> </div>
-  * 
+ * <div class="alert"><b>Note</b>  These are suggestions. It is not compulsory for this interface to be called. The preview handlers must be able to make their own decisions.</div>
+ * <div> </div>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ipreviewhandlervisuals
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

@@ -6,9 +6,9 @@
  * ID3DInclude is an include interface that the user implements to allow an application to call user-overridable methods for opening and closing shader
  * @remarks
  * 
-  * To use this interface, create an interface that inherits from <b>ID3DInclude</b> and implement custom behavior for the methods.
-  * 
-  * 
+ * To use this interface, create an interface that inherits from <b>ID3DInclude</b> and implement custom behavior for the methods.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/nn-d3dcommon-id3dinclude
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319

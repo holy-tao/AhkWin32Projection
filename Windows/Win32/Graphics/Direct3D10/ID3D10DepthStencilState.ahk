@@ -7,11 +7,11 @@
  * A depth-stencil-state interface accesses depth-stencil state which sets up the depth-stencil test for the output-merger stage.
  * @remarks
  * 
-  * Create a depth-stencil state object by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createdepthstencilstate">ID3D10Device::CreateDepthStencilState</a>.
-  * 
-  * To initialize depth-stencil state, bind the depth-stencil-state object to the pipeline by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-omsetdepthstencilstate">ID3D10Device::OMSetDepthStencilState</a>.
-  * 
-  * 
+ * Create a depth-stencil state object by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createdepthstencilstate">ID3D10Device::CreateDepthStencilState</a>.
+ * 
+ * To initialize depth-stencil state, bind the depth-stencil-state object to the pipeline by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-omsetdepthstencilstate">ID3D10Device::OMSetDepthStencilState</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/nn-d3d10-id3d10depthstencilstate
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

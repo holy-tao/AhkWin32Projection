@@ -8,9 +8,9 @@
  * Enables apps to obtain the window handle of the window (CoreWindow) associated with this interface.
  * @remarks
  * 
-  * Windows Store apps can have multiple <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.corewindow">CoreWindow</a> instances. Each <b>CoreWindow</b> instance also has a native interface for accessing the underlying HWND, represented as an instance of <b>ICoreWindowInterop</b>.
-  * 
-  * 
+ * Windows Store apps can have multiple <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.corewindow">CoreWindow</a> instances. Each <b>CoreWindow</b> instance also has a native interface for accessing the underlying HWND, represented as an instance of <b>ICoreWindowInterop</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//corewindow/nn-corewindow-icorewindowinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

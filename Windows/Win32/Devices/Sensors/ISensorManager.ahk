@@ -9,11 +9,11 @@
  * Provides methods for discovering and retrieving available sensors and a method to request sensor manager events.
  * @remarks
  * 
-  * You retrieve a pointer to this interface by calling the COM <b>CoCreateInstance</b> method. If group policy does not allow creation of this object, <b>CoCreateInstance</b> will return <b>HRESULT_FROM_WIN32
-  * (ERROR_ACCESS_DISABLED_BY_POLICY)</b>.
-  * 
-  * 
-  * 
+ * You retrieve a pointer to this interface by calling the COM <b>CoCreateInstance</b> method. If group policy does not allow creation of this object, <b>CoCreateInstance</b> will return <b>HRESULT_FROM_WIN32
+ * (ERROR_ACCESS_DISABLED_BY_POLICY)</b>.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nn-sensorsapi-isensormanager
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319

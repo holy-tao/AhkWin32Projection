@@ -10,9 +10,9 @@ class D2D1_PRINT_FONT_SUBSET_MODE{
 
     /**
      * Uses a heuristic strategy to decide when to subset fonts. 
- * 
- * > [!NOTE]
- * > If the print driver has requested archive-optimized content, then Direct2D will subset fonts once, for the entire document.
+     * 
+     * > [!NOTE]
+     * > If the print driver has requested archive-optimized content, then Direct2D will subset fonts once, for the entire document.
      * @type {Integer (Int32)}
      */
     static D2D1_PRINT_FONT_SUBSET_MODE_DEFAULT => 0

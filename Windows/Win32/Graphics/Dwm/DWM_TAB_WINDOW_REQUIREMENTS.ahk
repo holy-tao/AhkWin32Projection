@@ -28,16 +28,16 @@ class DWM_TAB_WINDOW_REQUIREMENTS{
 
     /**
      * The window has one or more styles that make it ineligible for tabbing.
- * 
- * 
- * To be eligible for tabbing, a window must:
- * 
- * <ul>
- * <li>Have the <b>WS_OVERLAPPEDWINDOW</b> (such as <b>WS_CAPTION</b>, <b>WS_THICKFRAME</b>, etc.) styles set.</li>
- * <li>Not have <b>WS_POPUP</b>, <b>WS_CHILD</b> or <b>WS_DLGFRAME</b> set.</li>
- * <li>Not have <b>WS_EX_TOPMOST</b> or <b>WS_EX_TOOLWINDOW</b> set.
- * </li>
- * </ul>
+     * 
+     * 
+     * To be eligible for tabbing, a window must:
+     * 
+     * <ul>
+     * <li>Have the <b>WS_OVERLAPPEDWINDOW</b> (such as <b>WS_CAPTION</b>, <b>WS_THICKFRAME</b>, etc.) styles set.</li>
+     * <li>Not have <b>WS_POPUP</b>, <b>WS_CHILD</b> or <b>WS_DLGFRAME</b> set.</li>
+     * <li>Not have <b>WS_EX_TOPMOST</b> or <b>WS_EX_TOOLWINDOW</b> set.
+     * </li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static DWMTWR_WINDOW_STYLES => 4
@@ -50,16 +50,16 @@ class DWM_TAB_WINDOW_REQUIREMENTS{
 
     /**
      * The window is ineligible due to its Dwm configuration.
- * 
- * To resolve this issue, the window must not extended its client area into the title bar using <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmextendframeintoclientarea">DwmExtendFrameIntoClientArea</a>. In addition, the window must not have <b>DWMWA_NCRENDERING_POLICY</b> set to <b>DWMNCRP_ENABLED</b>.
+     * 
+     * To resolve this issue, the window must not extended its client area into the title bar using <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmextendframeintoclientarea">DwmExtendFrameIntoClientArea</a>. In addition, the window must not have <b>DWMWA_NCRENDERING_POLICY</b> set to <b>DWMNCRP_ENABLED</b>.
      * @type {Integer (Int32)}
      */
     static DWMTWR_WINDOW_DWM_ATTRIBUTES => 16
 
     /**
      * The window is ineligible due to its margins, most likely due to custom handling in <b>WM_NCCALCSIZE</b>. 
- * 
- * To resolve this issue, the window must use the default window margins for the non-client area.
+     * 
+     * To resolve this issue, the window must use the default window margins for the non-client area.
      * @type {Integer (Int32)}
      */
     static DWMTWR_WINDOW_MARGINS => 32

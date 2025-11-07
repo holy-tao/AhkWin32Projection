@@ -8,14 +8,14 @@
  * The ITfInputScope interface is used by the text input processors to get the InputScope value that represents a document context associated with a window.
  * @remarks
  * 
-  * To use this interface with window-less controls, an application has two options.
-  * 
-  * <ol>
-  * <li><b>Make the application TSF-aware:  </b>A TSF-aware application must implement either <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nn-textstor-itextstoreacp">ITextStoreACP</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontextowner">ITfContextOwner</a> to get a pointer to <b>ITfInputScope</b>.</li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/inputscope/nf-inputscope-setinputscopes">SetInputScopes</a>  This is not recommended, but if the application is not TSF-aware, there is no other way to maintain the association between the input scope and the application. In this case, the application must call SetInputScopes whenever focus changes among window-less controls.</li>
-  * </ol>
-  * 
+ * To use this interface with window-less controls, an application has two options.
+ * 
+ * <ol>
+ * <li><b>Make the application TSF-aware:  </b>A TSF-aware application must implement either <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nn-textstor-itextstoreacp">ITextStoreACP</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontextowner">ITfContextOwner</a> to get a pointer to <b>ITfInputScope</b>.</li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/inputscope/nf-inputscope-setinputscopes">SetInputScopes</a>  This is not recommended, but if the application is not TSF-aware, there is no other way to maintain the association between the input scope and the application. In this case, the application must call SetInputScopes whenever focus changes among window-less controls.</li>
+ * </ol>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//inputscope/nn-inputscope-itfinputscope
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

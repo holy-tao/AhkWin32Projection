@@ -5,35 +5,35 @@
  * The DD_D3DBUFCALLBACKS structure is used only by drivers that implement driver level allocation of command and vertex buffers.
  * @remarks
  * 
-  * Drivers that manage their own command and vertex buffers must fill out a DD_D3DBUFCALLBACKS structure and point the <b>lpD3DBufCallbacks</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_halinfo">DD_HALINFO</a> to it. 
-  * 
-  * The driver must also support the callback functions reported in the DD_D3DBUFCALLBACKS structure. These <i>XxxD3DBuffer</i> callbacks are each analogous to the <i>DdXxxSurface</i> callback of similar name; they have the same prototypes and are called with the same input parameters. These new callbacks are called only when the surface in question has the DDSCAPS_EXECUTEBUFFER flag set in the surface caps. The buffer creation flags are DDSCAPS_WRITEONLY, DDSCAPS2_VERTEXBUFFER and DDSCAPS2_COMMANDBUFFER. 
-  * 
-  * The driver determines the type of buffer being requested by checking the <b>ddsCaps</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_surface_local">DD_SURFACE_LOCAL</a> structure that is passed to <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_cancreatesurface">CanCreateD3DBuffer</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_createsurface">CreateD3DBuffer</a> for the following flags:
-  * 
-  * <ul>
-  * <li>
-  * DDSCAPS_VERTEXBUFFER
-  * 
-  * Indicates that the driver should allocate an explicit vertex buffer.
-  * 
-  * </li>
-  * <li>
-  * DDSCAPS_COMMANDBUFFER
-  * 
-  * Indicates that the driver should allocate a command buffer. 
-  * 
-  * </li>
-  * <li>
-  * The absence of both these flags 
-  * 
-  * Indicates that the driver should allocate an implicit vertex buffer.
-  * 
-  * </li>
-  * </ul>
-  * Implicit vertex buffers should not be placed in video memory because they are expected to be read/write. Only explicit vertex buffers with the DDSCAPS_WRITEONLY flag set can be safely placed in video memory.
-  * 
-  * 
+ * Drivers that manage their own command and vertex buffers must fill out a DD_D3DBUFCALLBACKS structure and point the <b>lpD3DBufCallbacks</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_halinfo">DD_HALINFO</a> to it. 
+ * 
+ * The driver must also support the callback functions reported in the DD_D3DBUFCALLBACKS structure. These <i>XxxD3DBuffer</i> callbacks are each analogous to the <i>DdXxxSurface</i> callback of similar name; they have the same prototypes and are called with the same input parameters. These new callbacks are called only when the surface in question has the DDSCAPS_EXECUTEBUFFER flag set in the surface caps. The buffer creation flags are DDSCAPS_WRITEONLY, DDSCAPS2_VERTEXBUFFER and DDSCAPS2_COMMANDBUFFER. 
+ * 
+ * The driver determines the type of buffer being requested by checking the <b>ddsCaps</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_surface_local">DD_SURFACE_LOCAL</a> structure that is passed to <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_cancreatesurface">CanCreateD3DBuffer</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_createsurface">CreateD3DBuffer</a> for the following flags:
+ * 
+ * <ul>
+ * <li>
+ * DDSCAPS_VERTEXBUFFER
+ * 
+ * Indicates that the driver should allocate an explicit vertex buffer.
+ * 
+ * </li>
+ * <li>
+ * DDSCAPS_COMMANDBUFFER
+ * 
+ * Indicates that the driver should allocate a command buffer. 
+ * 
+ * </li>
+ * <li>
+ * The absence of both these flags 
+ * 
+ * Indicates that the driver should allocate an implicit vertex buffer.
+ * 
+ * </li>
+ * </ul>
+ * Implicit vertex buffers should not be placed in video memory because they are expected to be read/write. Only explicit vertex buffers with the DDSCAPS_WRITEONLY flag set can be safely placed in video memory.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_d3dbufcallbacks
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319

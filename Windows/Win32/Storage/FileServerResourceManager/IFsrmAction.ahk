@@ -7,10 +7,10 @@
  * The base class for all FSRM action interfaces.
  * @remarks
  * 
-  * The FSRM server starts the action in response to quota or file screen event (for example, a directory size 
-  *     exceeds a directory quota threshold or detection of a restricted file).
-  * 
-  * 
+ * The FSRM server starts the action in response to quota or file screen event (for example, a directory size 
+ *     exceeds a directory quota threshold or detection of a restricted file).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmaction
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

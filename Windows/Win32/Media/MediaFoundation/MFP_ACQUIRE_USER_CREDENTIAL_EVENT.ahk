@@ -6,25 +6,25 @@
  * Event structure for the MFP_EVENT_TYPE_ACQUIRE_USER_CREDENTIAL event.
  * @remarks
  * 
-  * To get a pointer to this structure, cast the <i>pEventHeader</i>parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayercallback-onmediaplayerevent">IMFPMediaPlayerCallback::OnMediaPlayerEvent</a>  callback method.  You can use the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_acquire_user_credential_event">MFP_GET_ACQUIRE_USER_CREDENTIAL_EVENT</a> macro for this purpose.
-  * 
-  * If the <b>flags</b> member contains the <b>MFP_CREDENTIAL_PROMPT</b> flag, the application should do the following:
-  * 
-  * <ol>
-  * <li>Prompt the user to enter a user name and password.</li>
-  * <li>Store the user name in the credentials object by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfnetcredential-setuser">IMFNetCredential::SetUser</a> on the <b>pCredential</b> pointer.</li>
-  * <li>Store the password by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfnetcredential-setpassword">IMFNetCredential::SetPassword</a> on the <b>pCredential</b> pointer.</li>
-  * </ol>
-  * To cancel authentication, set <b>fProceedWithAuthentication</b> equal to <b>FALSE</b>.
-  * 
-  * By default, MFPlay uses the network source's implementation of <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfnetcredentialmanager">IMFNetCredentialManager</a> to manage credentials. An application can provide its own implementation of this interface as follows:
-  * 
-  * <ol>
-  * <li>Call <b>QueryInterface</b> on the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayer">IMFPMediaPlayer</a> pointer to get the <b>IPropertyStore</b> interface.</li>
-  * <li>Call <b>IPropertyStore::SetValue</b> to set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-credential-manager-property">MFNETSOURCE_CREDENTIAL_MANAGER</a> property.</li>
-  * </ol>
-  * 
-  * 
+ * To get a pointer to this structure, cast the <i>pEventHeader</i>parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayercallback-onmediaplayerevent">IMFPMediaPlayerCallback::OnMediaPlayerEvent</a>  callback method.  You can use the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-mfp_get_acquire_user_credential_event">MFP_GET_ACQUIRE_USER_CREDENTIAL_EVENT</a> macro for this purpose.
+ * 
+ * If the <b>flags</b> member contains the <b>MFP_CREDENTIAL_PROMPT</b> flag, the application should do the following:
+ * 
+ * <ol>
+ * <li>Prompt the user to enter a user name and password.</li>
+ * <li>Store the user name in the credentials object by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfnetcredential-setuser">IMFNetCredential::SetUser</a> on the <b>pCredential</b> pointer.</li>
+ * <li>Store the password by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfnetcredential-setpassword">IMFNetCredential::SetPassword</a> on the <b>pCredential</b> pointer.</li>
+ * </ol>
+ * To cancel authentication, set <b>fProceedWithAuthentication</b> equal to <b>FALSE</b>.
+ * 
+ * By default, MFPlay uses the network source's implementation of <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfnetcredentialmanager">IMFNetCredentialManager</a> to manage credentials. An application can provide its own implementation of this interface as follows:
+ * 
+ * <ol>
+ * <li>Call <b>QueryInterface</b> on the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayer">IMFPMediaPlayer</a> pointer to get the <b>IPropertyStore</b> interface.</li>
+ * <li>Call <b>IPropertyStore::SetValue</b> to set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-credential-manager-property">MFNETSOURCE_CREDENTIAL_MANAGER</a> property.</li>
+ * </ol>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfplay/ns-mfplay-mfp_acquire_user_credential_event
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

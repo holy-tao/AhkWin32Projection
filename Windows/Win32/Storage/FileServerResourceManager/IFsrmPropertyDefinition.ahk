@@ -8,22 +8,22 @@
  * Defines a property that you want to use to classify files.
  * @remarks
  * 
-  * The name and type properties define a unique property; you cannot rename a property or change its type.
-  * 
-  * You cannot delete a property definition that is referenced by a classification rule or report. The 
-  *     classification rule uses the 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_propertyaffected">IFsrmRule::PropertyAffected</a> 
-  *     property to reference the property definition.
-  * 
-  * You cannot delete a property  that is referenced by a file management job property condition. To determine if 
-  *     a property condition is holding a reference, look for property conditions that have the "name" 
-  *     property of the condition equal to the name of the property definition that is being deleted.
-  * 
-  * Reports use the property definition only as a filter in the report type 
-  *     <b>FsrmReportType_FilesByProperty</b>.
-  * 
-  * 
-  * 
+ * The name and type properties define a unique property; you cannot rename a property or change its type.
+ * 
+ * You cannot delete a property definition that is referenced by a classification rule or report. The 
+ *     classification rule uses the 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_propertyaffected">IFsrmRule::PropertyAffected</a> 
+ *     property to reference the property definition.
+ * 
+ * You cannot delete a property  that is referenced by a file management job property condition. To determine if 
+ *     a property condition is holding a reference, look for property conditions that have the "name" 
+ *     property of the condition equal to the name of the property definition that is being deleted.
+ * 
+ * Reports use the property definition only as a filter in the report type 
+ *     <b>FsrmReportType_FilesByProperty</b>.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmpropertydefinition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

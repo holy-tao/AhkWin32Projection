@@ -9,10 +9,10 @@
  * Use this interface to enumerate the CD and DVD devices installed on the computer.
  * @remarks
  * 
-  * To create the <b>MsftDiscMaster2</b> object in a script, use IMAPI2.MsftDiscMaster2 as the program identifier when calling <b>CreateObject</b>.
-  * 
-  * To receive notification when a device is added or removed from the computer, implement the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-ddiscmaster2events">DDiscMaster2Events</a> interface.
-  * 
+ * To create the <b>MsftDiscMaster2</b> object in a script, use IMAPI2.MsftDiscMaster2 as the program identifier when calling <b>CreateObject</b>.
+ * 
+ * To receive notification when a device is added or removed from the computer, implement the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-ddiscmaster2events">DDiscMaster2Events</a> interface.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-idiscmaster2
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

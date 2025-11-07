@@ -8,9 +8,9 @@
  * The IEnumTuneRequests interface provides access to a collection of tune requests returned from a call to IGuideData::GetServices. This collection of tune requests represents all the services available in the tuning space.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IEnumTuneRequests)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IEnumTuneRequests)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bdatif/nn-bdatif-ienumtunerequests
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

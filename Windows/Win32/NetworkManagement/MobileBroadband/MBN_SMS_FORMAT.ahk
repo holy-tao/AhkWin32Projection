@@ -16,8 +16,8 @@ class MBN_SMS_FORMAT{
 
     /**
      * For GSM devices, SMS, messages will be read in PDU format. 
- * 
- * For CDMA devices, SMS messages will be read in binary CDMA format.
+     * 
+     * For CDMA devices, SMS messages will be read in binary CDMA format.
      * @type {Integer (Int32)}
      */
     static MBN_SMS_FORMAT_PDU => 1

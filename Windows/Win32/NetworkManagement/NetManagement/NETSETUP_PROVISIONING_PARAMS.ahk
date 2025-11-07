@@ -5,23 +5,23 @@
  * The NETSETUP_PROVISIONING_PARAMS structure contains information that is used when creating a provisioning package using the NetCreateProvisionPackage function.
  * @remarks
  * 
-  * The <b>NETSETUP_PROVISIONING_PARAMS</b> structure  provides flags for the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netcreateprovisioningpackage">NetCreateProvisioningPackage</a> function which is supported on Windows 8 and  Windows Server 2012 for offline join operations.
-  * 
-  * In addition to domain joins, the provisioning package can provide certificates and policies to the machine. The provisioning package can be used in four ways:<ul>
-  * <li>Domain join</li>
-  * <li>Domain join and installation of certificates</li>
-  * <li>Domain join and installation of policies</li>
-  * <li>Domain join and installation of certificates and policies</li>
-  * </ul>
-  * 
-  * When certificates need to be added to the package, this structure provides the <b>aCertTemplateNames</b> member as an array of <b>NULL</b>-terminated certificate template names.  The  <b>aCertTemplateNames</b> member requires the <b>cCertTemplateNames</b> member to provide an explicit count of the number of items in the array.
-  * 
-  * There are two different ways to add policies. You can use one or both methods:<ul>
-  * <li>Policy name—An array of <b>NULL</b>-terminated policy names is provided in the <b>aMachinePolicyNames</b> member. During runtime, the policy name is mapped to the policy name in AD and the GUID that represents the policy in the enterprise space is retrieved. The <b>aMachinePolicyNames</b> member requires the <b>cMachinePolicyNames</b> member to provide an explicit count of the number of items in the array.</li>
-  * <li>Policy path—A pointer to an array of  <b>NULL</b>-terminated character strings provided in the <b>aMachinePolicyPaths</b> member which specify the path to a file in the Registry Policy File format. For more information on the Registry Policy File Format , see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/registry-policy-file-format">Registry Policy File Format</a>. The policy path is a full or relative path to the policy file.</li>
-  * </ul>
-  * 
-  * 
+ * The <b>NETSETUP_PROVISIONING_PARAMS</b> structure  provides flags for the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netcreateprovisioningpackage">NetCreateProvisioningPackage</a> function which is supported on Windows 8 and  Windows Server 2012 for offline join operations.
+ * 
+ * In addition to domain joins, the provisioning package can provide certificates and policies to the machine. The provisioning package can be used in four ways:<ul>
+ * <li>Domain join</li>
+ * <li>Domain join and installation of certificates</li>
+ * <li>Domain join and installation of policies</li>
+ * <li>Domain join and installation of certificates and policies</li>
+ * </ul>
+ * 
+ * When certificates need to be added to the package, this structure provides the <b>aCertTemplateNames</b> member as an array of <b>NULL</b>-terminated certificate template names.  The  <b>aCertTemplateNames</b> member requires the <b>cCertTemplateNames</b> member to provide an explicit count of the number of items in the array.
+ * 
+ * There are two different ways to add policies. You can use one or both methods:<ul>
+ * <li>Policy name—An array of <b>NULL</b>-terminated policy names is provided in the <b>aMachinePolicyNames</b> member. During runtime, the policy name is mapped to the policy name in AD and the GUID that represents the policy in the enterprise space is retrieved. The <b>aMachinePolicyNames</b> member requires the <b>cMachinePolicyNames</b> member to provide an explicit count of the number of items in the array.</li>
+ * <li>Policy path—A pointer to an array of  <b>NULL</b>-terminated character strings provided in the <b>aMachinePolicyPaths</b> member which specify the path to a file in the Registry Policy File format. For more information on the Registry Policy File Format , see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/registry-policy-file-format">Registry Policy File Format</a>. The policy path is a full or relative path to the policy file.</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//lmjoin/ns-lmjoin-netsetup_provisioning_params
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319

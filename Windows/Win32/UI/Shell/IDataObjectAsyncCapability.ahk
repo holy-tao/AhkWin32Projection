@@ -7,12 +7,12 @@
  * Enables interfaces that are usually synchronous to function asynchronously.
  * @remarks
  * 
-  * <b>IDataObjectAsyncCapability</b> is an optional interface that is implemented by a data object. It allows the drop target to negotiate with the drop source to extract data from the data object asynchronously.
-  * 
-  * This interface is primarily exported by the data objects used with drag-and-drop and Clipboard operations. Typically, such operations are synchronous. However, if data rendering will be time-consuming, <b>IDataObjectAsyncCapability</b> can be used to allow data extraction to take place on a background thread. See the <i>Dragging and Dropping Shell Objects Asynchronously</i> section of <a href="https://docs.microsoft.com/windows/desktop/shell/datascenarios">Handling Shell Data Transfer Scenarios</a> for a detailed discussion of how to use this interface.
-  * 
-  * Drop sources and targets use this interface when they wish to have a lengthy data extraction process handled by a background thread.
-  * 
+ * <b>IDataObjectAsyncCapability</b> is an optional interface that is implemented by a data object. It allows the drop target to negotiate with the drop source to extract data from the data object asynchronously.
+ * 
+ * This interface is primarily exported by the data objects used with drag-and-drop and Clipboard operations. Typically, such operations are synchronous. However, if data rendering will be time-consuming, <b>IDataObjectAsyncCapability</b> can be used to allow data extraction to take place on a background thread. See the <i>Dragging and Dropping Shell Objects Asynchronously</i> section of <a href="https://docs.microsoft.com/windows/desktop/shell/datascenarios">Handling Shell Data Transfer Scenarios</a> for a detailed discussion of how to use this interface.
+ * 
+ * Drop sources and targets use this interface when they wish to have a lengthy data extraction process handled by a background thread.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shldisp/nn-shldisp-idataobjectasynccapability
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

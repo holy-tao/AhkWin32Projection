@@ -7,35 +7,35 @@
  * The IWMHeaderInfo interface sets and retrieves information in the header section of an ASF file.
  * @remarks
  * 
-  * Although the <b>IWMHeaderInfo</b> interface is accessible from four different objects, not all of the features are available in all cases. The following table summarizes the differences in implementation for the various objects.
-  * 
-  * <table>
-  * <tr>
-  * <th>Object
-  *             </th>
-  * <th>Description
-  *             </th>
-  * </tr>
-  * <tr>
-  * <td>Metadata editor</td>
-  * <td>Full functionality is implemented.</td>
-  * </tr>
-  * <tr>
-  * <td>Writer</td>
-  * <td>All methods that alter header items (those whose names begin with Add, Set, or Remove) are supported only before the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriter-beginwriting">IWMWriter::BeginWriting</a> method is called.All marker methods return E_NOTIMPL.
-  * 
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>Reader and synchronous reader</td>
-  * <td>All methods that alter header items (those whose names begin with Add, Set, or Remove) return E_NOTIMPL.</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * For information about using the writer for metadata editing, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/to-edit-metadata-with-the-writer">To Edit Metadata with the Writer</a>.
-  * 
-  * 
+ * Although the <b>IWMHeaderInfo</b> interface is accessible from four different objects, not all of the features are available in all cases. The following table summarizes the differences in implementation for the various objects.
+ * 
+ * <table>
+ * <tr>
+ * <th>Object
+ *             </th>
+ * <th>Description
+ *             </th>
+ * </tr>
+ * <tr>
+ * <td>Metadata editor</td>
+ * <td>Full functionality is implemented.</td>
+ * </tr>
+ * <tr>
+ * <td>Writer</td>
+ * <td>All methods that alter header items (those whose names begin with Add, Set, or Remove) are supported only before the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriter-beginwriting">IWMWriter::BeginWriting</a> method is called.All marker methods return E_NOTIMPL.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Reader and synchronous reader</td>
+ * <td>All methods that alter header items (those whose names begin with Add, Set, or Remove) return E_NOTIMPL.</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * For information about using the writer for metadata editing, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/to-edit-metadata-with-the-writer">To Edit Metadata with the Writer</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmheaderinfo
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319

@@ -7,8 +7,8 @@
  * Provides a method to handle the completion of calls to the DeviceIoControlAsyncmethod.
  * @remarks
  * 
-  * Callers that want  to use asynchronous operations on an instance that's created by CreateDeviceAccessInstance should implement the <b>IDeviceRequestCompletionCallback</b> interface.
-  * 
+ * Callers that want  to use asynchronous operations on an instance that's created by CreateDeviceAccessInstance should implement the <b>IDeviceRequestCompletionCallback</b> interface.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//deviceaccess/nn-deviceaccess-idevicerequestcompletioncallback
  * @namespace Windows.Win32.Devices.DeviceAccess
  * @version v4.0.30319

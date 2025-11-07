@@ -10,8 +10,8 @@
  * Represents an ordered list of strings.
  * @remarks
  * 
-  * This interface can be instantiated by using the StringCollection coclass. Use the Microsoft.Update.StringColl program identifier to create the object.
-  * 
+ * This interface can be instantiated by using the StringCollection coclass. Use the Microsoft.Update.StringColl program identifier to create the object.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-istringcollection
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

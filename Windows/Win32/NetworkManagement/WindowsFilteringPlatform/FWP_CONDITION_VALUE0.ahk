@@ -5,15 +5,15 @@
  * Contains values that are used in filter conditions when testing for matching filters.
  * @remarks
  * 
-  * The data type of 
-  * **FWP_CONDITION_VALUE0** must be compatible with the data type of the
-  * [FWP_VALUE0](ns-fwptypes-fwp_value0.md) to which it is being compared. However, this does not mean the data types
-  * necessarily need to be the same. For example, an FWP_V4_ADDR_MASK can be
-  * compared to an FWP_UINT32 containing an IPv4 address. See [FWP_MATCH_TYPE](ne-fwptypes-fwp_match_type.md) for detailed information about **FWP_CONDITION_VALUE0** and **FWP_VALUE0** compatibility rules.
-  * 
-  * **FWP_CONDITION_VALUE0** is a specific implementation of FWP_CONDITION_VALUE. See [WFP Version-Independent Names and Targeting Specific Versions of Windows](/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows)  for more information.
-  * 
-  * 
+ * The data type of 
+ * **FWP_CONDITION_VALUE0** must be compatible with the data type of the
+ * [FWP_VALUE0](ns-fwptypes-fwp_value0.md) to which it is being compared. However, this does not mean the data types
+ * necessarily need to be the same. For example, an FWP_V4_ADDR_MASK can be
+ * compared to an FWP_UINT32 containing an IPv4 address. See [FWP_MATCH_TYPE](ne-fwptypes-fwp_match_type.md) for detailed information about **FWP_CONDITION_VALUE0** and **FWP_VALUE0** compatibility rules.
+ * 
+ * **FWP_CONDITION_VALUE0** is a specific implementation of FWP_CONDITION_VALUE. See [WFP Version-Independent Names and Targeting Specific Versions of Windows](/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows)  for more information.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ns-fwptypes-fwp_condition_value0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319

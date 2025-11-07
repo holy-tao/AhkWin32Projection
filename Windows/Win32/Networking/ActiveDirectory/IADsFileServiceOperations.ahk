@@ -8,36 +8,36 @@
  * The IADsFileServiceOperations interface is a dual interface that inherits from IADsServiceOperations.
  * @remarks
  * 
-  * To bind to a file service operations object, use the ADsPath string that identifies the "LanmanServer" service on the host computer, as shown in the following code example.
-  * 
-  * 
-  * ```vb
-  * Dim fso As IADsFileServiceOperations
-  * On Error Resume Next
-  * 
-  * ' Replace aDomain with the domain that the computer is located on.
-  * ' Replace aComputer with the name of the computer.
-  * Set fso = GetObject("WinNT://aDomain/aComputer/LanmanServer")
-  * ```
-  * 
-  * 
-  * From this point, you can handle the file service object as just a service object, applying any of the methods of <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsserviceoperations">IADsServiceOperations</a> to the file service object. For example, you can examine the operational status of the file service, start or stop the file service, or change its password.
-  * 
-  * However, the <b>IADsFileServiceOperations</b> interface allows you to work with open resources and active sessions of the file service. See the following example.
-  * 
-  * 
-  * ```vb
-  * For Each r in fso.Resources
-  * MsgBox r.User
-  * MsgBox r.Path
-  * MsgBox r.LockCount
-  * Next
-  * ```
-  * 
-  * 
-  * For more information about active sessions and open resources, see  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadssession">IADsSession</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsresource">IADsResource</a>.
-  * 
-  * 
+ * To bind to a file service operations object, use the ADsPath string that identifies the "LanmanServer" service on the host computer, as shown in the following code example.
+ * 
+ * 
+ * ```vb
+ * Dim fso As IADsFileServiceOperations
+ * On Error Resume Next
+ * 
+ * ' Replace aDomain with the domain that the computer is located on.
+ * ' Replace aComputer with the name of the computer.
+ * Set fso = GetObject("WinNT://aDomain/aComputer/LanmanServer")
+ * ```
+ * 
+ * 
+ * From this point, you can handle the file service object as just a service object, applying any of the methods of <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsserviceoperations">IADsServiceOperations</a> to the file service object. For example, you can examine the operational status of the file service, start or stop the file service, or change its password.
+ * 
+ * However, the <b>IADsFileServiceOperations</b> interface allows you to work with open resources and active sessions of the file service. See the following example.
+ * 
+ * 
+ * ```vb
+ * For Each r in fso.Resources
+ * MsgBox r.User
+ * MsgBox r.Path
+ * MsgBox r.LockCount
+ * Next
+ * ```
+ * 
+ * 
+ * For more information about active sessions and open resources, see  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadssession">IADsSession</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsresource">IADsResource</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsfileserviceoperations
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

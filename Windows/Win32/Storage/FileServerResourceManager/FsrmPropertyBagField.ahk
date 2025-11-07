@@ -10,14 +10,14 @@ class FsrmPropertyBagField{
 
     /**
      * Indicates if the property bag should include the name of the volume being accessed, which may be a 
- *       snapshot.
+     *       snapshot.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyBagField_AccessVolume => 0
 
     /**
      * Indicates if the property bag should include the volume <b>GUID</b> name of the 
- *       original volume.
+     *       original volume.
      * @type {Integer (Int32)}
      */
     static FsrmPropertyBagField_VolumeGuidName => 1

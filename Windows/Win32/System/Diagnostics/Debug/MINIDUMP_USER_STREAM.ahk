@@ -5,9 +5,9 @@
  * Contains user-defined information stored in a data stream.
  * @remarks
  * 
-  * In this context, a data stream refers to a block of data within a minidump file.
-  * 
-  * 
+ * In this context, a data stream refers to a block of data within a minidump file.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_user_stream
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319

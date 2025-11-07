@@ -46,15 +46,15 @@ class X509RequestInheritOptions{
 
     /**
      * Prevents use of the following inheritance values:
- * 
- * <ul>
- * <li><b>InheritRenewalCertificateFlag</b></li>
- * <li><b>InheritTemplateFlag</b></li>
- * <li><b>InheritSubjectFlag</b></li>
- * <li><b>InheritExtensionsFlag</b></li>
- * <li><b>InheritSubjectAltNameFlag</b></li>
- * <li><b>InheritValidityPeriodFlag</b></li>
- * </ul>
+     * 
+     * <ul>
+     * <li><b>InheritRenewalCertificateFlag</b></li>
+     * <li><b>InheritTemplateFlag</b></li>
+     * <li><b>InheritSubjectFlag</b></li>
+     * <li><b>InheritExtensionsFlag</b></li>
+     * <li><b>InheritSubjectAltNameFlag</b></li>
+     * <li><b>InheritValidityPeriodFlag</b></li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static InheritNone => 16
@@ -79,16 +79,16 @@ class X509RequestInheritOptions{
 
     /**
      * Inherits the relevant extensions from the certificate. Extension values associated with the following <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifiers</a> are not inherited:
- * 
- * <ul>
- * <li>XCN_OID_CERTSRV_CA_VERSION</li>
- * <li>XCN_OID_AUTHORITY_INFO_ACCESS</li>
- * <li>XCN_OID_CRL_DIST_POINTS</li>
- * <li>XCN_OID_AUTHORITY_KEY_IDENTIFIER2</li>
- * <li>XCN_OID_CERTSRV_PREVIOUS_CERT_HASH</li>
- * <li>XCN_OID_ENROLL_CERTTYPE_EXTENSION</li>
- * <li>XCN_OID_CERTIFICATE_TEMPLATE</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>XCN_OID_CERTSRV_CA_VERSION</li>
+     * <li>XCN_OID_AUTHORITY_INFO_ACCESS</li>
+     * <li>XCN_OID_CRL_DIST_POINTS</li>
+     * <li>XCN_OID_AUTHORITY_KEY_IDENTIFIER2</li>
+     * <li>XCN_OID_CERTSRV_PREVIOUS_CERT_HASH</li>
+     * <li>XCN_OID_ENROLL_CERTTYPE_EXTENSION</li>
+     * <li>XCN_OID_CERTIFICATE_TEMPLATE</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static InheritExtensionsFlag => 256

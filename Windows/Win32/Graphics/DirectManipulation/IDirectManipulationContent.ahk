@@ -8,9 +8,9 @@
  * Encapsulates content inside a viewport, where content represents a visual surface clipped inside the viewport.
  * @remarks
  * 
-  * The system provides an implementation of <b>IDirectManipulationContent</b>.
-  * 
-  * 
+ * The system provides an implementation of <b>IDirectManipulationContent</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nn-directmanipulation-idirectmanipulationcontent
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319

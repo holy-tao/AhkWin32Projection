@@ -8,11 +8,11 @@
  * A state-block interface encapsulates render states.
  * @remarks
  * 
-  * To create a state-block interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-d3d10createstateblock">D3D10CreateStateBlock</a>.
-  * 
-  * This interface can be used to save and restore pipeline state. It can also be used to capture the current state.
-  * 
-  * 
+ * To create a state-block interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-d3d10createstateblock">D3D10CreateStateBlock</a>.
+ * 
+ * This interface can be used to save and restore pipeline state. It can also be used to capture the current state.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nn-d3d10effect-id3d10stateblock
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

@@ -5,11 +5,11 @@
  * Indicates the level of support that the adapter provides for depth-bounds tests and programmable sample positions.
  * @remarks
  * 
-  * Use this structure with <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport">CheckFeatureSupport</a> to determine the level of support offered for the optional Depth-bounds test and programmable sample positions features.
-  * 
-  * See the enumeration constant D3D12_FEATURE_D3D12_OPTIONS2 in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a> enumeration.
-  * 
-  * 
+ * Use this structure with <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport">CheckFeatureSupport</a> to determine the level of support offered for the optional Depth-bounds test and programmable sample positions features.
+ * 
+ * See the enumeration constant D3D12_FEATURE_D3D12_OPTIONS2 in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a> enumeration.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_feature_data_d3d12_options2
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

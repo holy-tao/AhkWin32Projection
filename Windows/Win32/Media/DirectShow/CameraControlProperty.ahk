@@ -4,9 +4,9 @@
  * The CameraControlProperty enumeration specifies a setting on a camera.
  * @remarks
  * 
-  * For a given property, a particular device might implement only a subset of the listed range.
-  * 
-  * 
+ * For a given property, a particular device might implement only a subset of the listed range.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-cameracontrolproperty
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
@@ -39,39 +39,39 @@ class CameraControlProperty{
 
     /**
      * Specifies the exposure setting, in log base 2 seconds. In other words, for values less than zero, the exposure time is 1/2^n seconds, and for values zero or above, the exposure time is 2^n seconds. For example:
- * 
- * <table>
- * <tr>
- * <th>Value
- *                 </th>
- * <th>Seconds
- *                 </th>
- * </tr>
- * <tr>
- * <td>-3</td>
- * <td>1/8</td>
- * </tr>
- * <tr>
- * <td>-2</td>
- * <td>1/4</td>
- * </tr>
- * <tr>
- * <td>-1</td>
- * <td>1/2</td>
- * </tr>
- * <tr>
- * <td>0</td>
- * <td>1</td>
- * </tr>
- * <tr>
- * <td>1</td>
- * <td>2</td>
- * </tr>
- * <tr>
- * <td>2</td>
- * <td>4</td>
- * </tr>
- * </table>
+     * 
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Seconds
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>-3</td>
+     * <td>1/8</td>
+     * </tr>
+     * <tr>
+     * <td>-2</td>
+     * <td>1/4</td>
+     * </tr>
+     * <tr>
+     * <td>-1</td>
+     * <td>1/2</td>
+     * </tr>
+     * <tr>
+     * <td>0</td>
+     * <td>1</td>
+     * </tr>
+     * <tr>
+     * <td>1</td>
+     * <td>2</td>
+     * </tr>
+     * <tr>
+     * <td>2</td>
+     * <td>4</td>
+     * </tr>
+     * </table>
      * @type {Integer (Int32)}
      */
     static CameraControl_Exposure => 4

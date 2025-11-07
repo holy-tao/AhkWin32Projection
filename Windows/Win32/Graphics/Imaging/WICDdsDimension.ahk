@@ -4,9 +4,9 @@
  * Specifies the dimension type of the data contained in DDS image.
  * @remarks
  * 
-  * Both <b>WICDdsTexture2d</b> and <b>WICDdsTextureCube</b> correspond to <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_resource_dimension">D3D11_RESOURCE_DIMENSION_TEXTURE2D</a>. When using <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createtexture2d">ID3D11Device::CreateTexture2D</a>, they are distinguished by the flag <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_resource_misc_flag">D3D11_RESOURCE_MISC_TEXTURECUBE</a> in the structure <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_texture2d_desc">D3D11_TEXTURE2D_DESC</a>.
-  * 
-  * 
+ * Both <b>WICDdsTexture2d</b> and <b>WICDdsTextureCube</b> correspond to <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_resource_dimension">D3D11_RESOURCE_DIMENSION_TEXTURE2D</a>. When using <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createtexture2d">ID3D11Device::CreateTexture2D</a>, they are distinguished by the flag <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_resource_misc_flag">D3D11_RESOURCE_MISC_TEXTURECUBE</a> in the structure <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_texture2d_desc">D3D11_TEXTURE2D_DESC</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicddsdimension
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319

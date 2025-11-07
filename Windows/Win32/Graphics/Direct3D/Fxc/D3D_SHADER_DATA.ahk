@@ -5,9 +5,9 @@
  * Describes shader data.
  * @remarks
  * 
-  * An array of <b>D3D_SHADER_DATA</b> structures is passed to <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompressshaders">D3DCompressShaders</a> to compress the shader data into a more compact form.
-  * 
-  * 
+ * An array of <b>D3D_SHADER_DATA</b> structures is passed to <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompressshaders">D3DCompressShaders</a> to compress the shader data into a more compact form.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/ns-d3dcompiler-d3d_shader_data
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc
  * @version v4.0.30319

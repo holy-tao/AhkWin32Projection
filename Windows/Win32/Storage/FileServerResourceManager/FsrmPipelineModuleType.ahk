@@ -16,14 +16,14 @@ class FsrmPipelineModuleType{
 
     /**
      * The module is a storage module. A storage module persists property values for the files that it 
- *       supports.
+     *       supports.
      * @type {Integer (Int32)}
      */
     static FsrmPipelineModuleType_Storage => 1
 
     /**
      * The module is a classifier module. A classifier module assigns property values to files based on 
- *       classification rules.
+     *       classification rules.
      * @type {Integer (Int32)}
      */
     static FsrmPipelineModuleType_Classifier => 2

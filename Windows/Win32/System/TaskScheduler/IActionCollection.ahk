@@ -10,10 +10,10 @@
  * Contains the actions that are performed by the task.
  * @remarks
  * 
-  * When reading or writing XML for a task, the actions of the task are specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-actions-tasktype-element">Actions</a> element of the Task Scheduler schema.
-  * 
-  * 
-  * 
+ * When reading or writing XML for a task, the actions of the task are specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-actions-tasktype-element">Actions</a> element of the Task Scheduler schema.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-iactioncollection
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319

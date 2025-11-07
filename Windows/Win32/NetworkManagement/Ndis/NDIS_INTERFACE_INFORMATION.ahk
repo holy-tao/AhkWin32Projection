@@ -5,15 +5,15 @@
  * The NDIS_INTERFACE_INFORMATION structure provides information about a network interface for the OID_GEN_INTERFACE_INFO OID.
  * @remarks
  * 
-  * NDIS interface providers populate an NDIS_INTERFACE_INFORMATION structure in response to a query of
-  *     the 
-  *     <a href="https://docs.microsoft.com/windows-hardware/drivers/network/oid-gen-interface-info">OID_GEN_INTERFACE_INFO</a> OID. This
-  *     structure contains information that changes during the lifetime of the interface.
-  * 
-  * To register as an interface provider, an NDIS driver calls the 
-  *     <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ndis/nf-ndis-ndisifregisterprovider">NdisIfRegisterProvider</a> function.
-  * 
-  * 
+ * NDIS interface providers populate an NDIS_INTERFACE_INFORMATION structure in response to a query of
+ *     the 
+ *     <a href="https://docs.microsoft.com/windows-hardware/drivers/network/oid-gen-interface-info">OID_GEN_INTERFACE_INFO</a> OID. This
+ *     structure contains information that changes during the lifetime of the interface.
+ * 
+ * To register as an interface provider, an NDIS driver calls the 
+ *     <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ndis/nf-ndis-ndisifregisterprovider">NdisIfRegisterProvider</a> function.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ifdef/ns-ifdef-ndis_interface_information
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319

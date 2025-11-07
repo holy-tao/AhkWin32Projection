@@ -7,13 +7,13 @@
  * The IWCPropertySheetCallback interface is called by a Failover Cluster Administrator extension to add property pages to a Failover Cluster Administrator property sheet.
  * @remarks
  * 
-  * Use the <i>piCallback</i> pointer that you receive when Failover Cluster Administrator calls 
-  *      your 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendpropertysheet-createpropertysheetpages">IWEExtendPropertySheet::CreatePropertySheetPages</a> 
-  *      method to call the <b>IWCPropertySheetCallback</b> 
-  *      interface.
-  * 
-  * 
+ * Use the <i>piCallback</i> pointer that you receive when Failover Cluster Administrator calls 
+ *      your 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendpropertysheet-createpropertysheetpages">IWEExtendPropertySheet::CreatePropertySheetPages</a> 
+ *      method to call the <b>IWCPropertySheetCallback</b> 
+ *      interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-iwcpropertysheetcallback
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

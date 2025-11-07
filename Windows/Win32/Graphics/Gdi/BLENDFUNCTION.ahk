@@ -5,120 +5,120 @@
  * The BLENDFUNCTION structure controls blending by specifying the blending functions for source and destination bitmaps.
  * @remarks
  * 
-  * When the <b>AlphaFormat</b> member is AC_SRC_ALPHA, the source bitmap must be 32 bpp. If it is not, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-alphablend">AlphaBlend</a> function will fail.
-  * 
-  * When the <b>BlendOp</b> member is AC_SRC_OVER, the source bitmap is placed over the destination bitmap based on the alpha values of the source pixels.
-  * 
-  * If the source bitmap has no per-pixel alpha value (that is, AC_SRC_ALPHA is not set), the <b>SourceConstantAlpha</b> value determines the blend of the source and destination bitmaps, as shown in the following table. Note that SCA is used for <b>SourceConstantAlpha</b> here. Also, SCA is divided by 255 because it has a value that ranges from 0 to 255.
-  * 
-  * <table>
-  * <tr>
-  * <td>Dst.Red</td>
-  * <td>= Src.Red * (SCA/255.0)</td>
-  * <td>+ Dst.Red * (1.0 - (SCA/255.0))</td>
-  * </tr>
-  * <tr>
-  * <td>Dst.Green</td>
-  * <td>= Src.Green * (SCA/255.0)</td>
-  * <td>+ Dst.Green * (1.0 - (SCA/255.0))</td>
-  * </tr>
-  * <tr>
-  * <td>Dst.Blue</td>
-  * <td>= Src.Blue * (SCA/255.0)</td>
-  * <td>+ Dst.Blue * (1.0 - (SCA/255.0))</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * If the destination bitmap has an alpha channel, then the blend is as follows.
-  * 
-  * <table>
-  * <tr>
-  * <td>Dst.Alpha</td>
-  * <td>= Src.Alpha * (SCA/255.0)</td>
-  * <td>+ Dst.Alpha * (1.0 - (SCA/255.0))</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * If the source bitmap does not use <b>SourceConstantAlpha</b> (that is, it equals 0xFF), the per-pixel alpha determines the blend of the source and destination bitmaps, as shown in the following table.
-  * 
-  * <table>
-  * <tr>
-  * <td>Dst.Red</td>
-  * <td>= Src.Red</td>
-  * <td>+ (1 - Src.Alpha) * Dst.Red</td>
-  * </tr>
-  * <tr>
-  * <td>Dst.Green</td>
-  * <td>= Src.Green</td>
-  * <td>+ (1 - Src.Alpha) * Dst.Green</td>
-  * </tr>
-  * <tr>
-  * <td>Dst.Blue</td>
-  * <td>= Src.Blue</td>
-  * <td>+ (1 - Src.Alpha) * Dst.Blue</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * If the destination bitmap has an alpha channel, then the blend is as follows.
-  * 
-  * <table>
-  * <tr>
-  * <td>Dest.alpha</td>
-  * <td>= Src.Alpha</td>
-  * <td>+ (1 - SrcAlpha) * Dst.Alpha</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * If the source has both the <b>SourceConstantAlpha</b> (that is, it is not 0xFF) and per-pixel alpha, the source is pre-multiplied by the <b>SourceConstantAlpha</b> and then the blend is based on the per-pixel alpha. The following tables show this. Note that <b>SourceConstantAlpha</b> is divided by 255 because it has a value that ranges from 0 to 255.
-  * 
-  * <table>
-  * <tr>
-  * <td>Src.Red</td>
-  * <td>= Src.Red</td>
-  * <td>* SourceConstantAlpha / 255.0;</td>
-  * </tr>
-  * <tr>
-  * <td>Src.Green</td>
-  * <td>= Src.Green</td>
-  * <td>* SourceConstantAlpha / 255.0;</td>
-  * </tr>
-  * <tr>
-  * <td>Src.Blue</td>
-  * <td>= Src.Blue</td>
-  * <td>* SourceConstantAlpha / 255.0;</td>
-  * </tr>
-  * <tr>
-  * <td>Src.Alpha</td>
-  * <td>= Src.Alpha</td>
-  * <td>* SourceConstantAlpha / 255.0;</td>
-  * </tr>
-  * <tr>
-  * <td>Dst.Red</td>
-  * <td>= Src.Red</td>
-  * <td>+ (1 - Src.Alpha) * Dst.Red</td>
-  * </tr>
-  * <tr>
-  * <td>Dst.Green</td>
-  * <td>= Src.Green</td>
-  * <td>+ (1 - Src.Alpha) * Dst.Green</td>
-  * </tr>
-  * <tr>
-  * <td>Dst.Blue</td>
-  * <td>= Src.Blue</td>
-  * <td>+ (1 - Src.Alpha) * Dst.Blue</td>
-  * </tr>
-  * <tr>
-  * <td>Dst.Alpha</td>
-  * <td>= Src.Alpha</td>
-  * <td>+ (1 - Src.Alpha) * Dst.Alpha</td>
-  * </tr>
-  * </table>
-  * 
-  * 
+ * When the <b>AlphaFormat</b> member is AC_SRC_ALPHA, the source bitmap must be 32 bpp. If it is not, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-alphablend">AlphaBlend</a> function will fail.
+ * 
+ * When the <b>BlendOp</b> member is AC_SRC_OVER, the source bitmap is placed over the destination bitmap based on the alpha values of the source pixels.
+ * 
+ * If the source bitmap has no per-pixel alpha value (that is, AC_SRC_ALPHA is not set), the <b>SourceConstantAlpha</b> value determines the blend of the source and destination bitmaps, as shown in the following table. Note that SCA is used for <b>SourceConstantAlpha</b> here. Also, SCA is divided by 255 because it has a value that ranges from 0 to 255.
+ * 
+ * <table>
+ * <tr>
+ * <td>Dst.Red</td>
+ * <td>= Src.Red * (SCA/255.0)</td>
+ * <td>+ Dst.Red * (1.0 - (SCA/255.0))</td>
+ * </tr>
+ * <tr>
+ * <td>Dst.Green</td>
+ * <td>= Src.Green * (SCA/255.0)</td>
+ * <td>+ Dst.Green * (1.0 - (SCA/255.0))</td>
+ * </tr>
+ * <tr>
+ * <td>Dst.Blue</td>
+ * <td>= Src.Blue * (SCA/255.0)</td>
+ * <td>+ Dst.Blue * (1.0 - (SCA/255.0))</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * If the destination bitmap has an alpha channel, then the blend is as follows.
+ * 
+ * <table>
+ * <tr>
+ * <td>Dst.Alpha</td>
+ * <td>= Src.Alpha * (SCA/255.0)</td>
+ * <td>+ Dst.Alpha * (1.0 - (SCA/255.0))</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * If the source bitmap does not use <b>SourceConstantAlpha</b> (that is, it equals 0xFF), the per-pixel alpha determines the blend of the source and destination bitmaps, as shown in the following table.
+ * 
+ * <table>
+ * <tr>
+ * <td>Dst.Red</td>
+ * <td>= Src.Red</td>
+ * <td>+ (1 - Src.Alpha) * Dst.Red</td>
+ * </tr>
+ * <tr>
+ * <td>Dst.Green</td>
+ * <td>= Src.Green</td>
+ * <td>+ (1 - Src.Alpha) * Dst.Green</td>
+ * </tr>
+ * <tr>
+ * <td>Dst.Blue</td>
+ * <td>= Src.Blue</td>
+ * <td>+ (1 - Src.Alpha) * Dst.Blue</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * If the destination bitmap has an alpha channel, then the blend is as follows.
+ * 
+ * <table>
+ * <tr>
+ * <td>Dest.alpha</td>
+ * <td>= Src.Alpha</td>
+ * <td>+ (1 - SrcAlpha) * Dst.Alpha</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * If the source has both the <b>SourceConstantAlpha</b> (that is, it is not 0xFF) and per-pixel alpha, the source is pre-multiplied by the <b>SourceConstantAlpha</b> and then the blend is based on the per-pixel alpha. The following tables show this. Note that <b>SourceConstantAlpha</b> is divided by 255 because it has a value that ranges from 0 to 255.
+ * 
+ * <table>
+ * <tr>
+ * <td>Src.Red</td>
+ * <td>= Src.Red</td>
+ * <td>* SourceConstantAlpha / 255.0;</td>
+ * </tr>
+ * <tr>
+ * <td>Src.Green</td>
+ * <td>= Src.Green</td>
+ * <td>* SourceConstantAlpha / 255.0;</td>
+ * </tr>
+ * <tr>
+ * <td>Src.Blue</td>
+ * <td>= Src.Blue</td>
+ * <td>* SourceConstantAlpha / 255.0;</td>
+ * </tr>
+ * <tr>
+ * <td>Src.Alpha</td>
+ * <td>= Src.Alpha</td>
+ * <td>* SourceConstantAlpha / 255.0;</td>
+ * </tr>
+ * <tr>
+ * <td>Dst.Red</td>
+ * <td>= Src.Red</td>
+ * <td>+ (1 - Src.Alpha) * Dst.Red</td>
+ * </tr>
+ * <tr>
+ * <td>Dst.Green</td>
+ * <td>= Src.Green</td>
+ * <td>+ (1 - Src.Alpha) * Dst.Green</td>
+ * </tr>
+ * <tr>
+ * <td>Dst.Blue</td>
+ * <td>= Src.Blue</td>
+ * <td>+ (1 - Src.Alpha) * Dst.Blue</td>
+ * </tr>
+ * <tr>
+ * <td>Dst.Alpha</td>
+ * <td>= Src.Alpha</td>
+ * <td>+ (1 - Src.Alpha) * Dst.Alpha</td>
+ * </tr>
+ * </table>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-blendfunction
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319

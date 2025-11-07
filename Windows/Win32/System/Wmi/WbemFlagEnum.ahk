@@ -28,17 +28,17 @@ class WbemFlagEnum{
 
     /**
      * Causes a forward-only enumerator to be returned. Use this flag in combination with 
- *       <b>wbemFlagReturnImmediately</b> to request semisynchronous access. For more information, see 
- *       <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/calling-a-method">Calling a Method</a>.
- * 
- * You can only iterate (as in a VBScript For Each statement) through a forward-only enumerator one time. The 
- *       memory containing the instances is released by WMI so that the enumerator cannot be rewound. Therefore, the 
- *       <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemobjectset-count">SWbemObjectSet.Count</a> method cannot be used since 
- *       it requires rewinding the enumerator.
- * 
- * Forward-only enumerators are generally much faster and use less 
- *       memory than conventional enumerators, but they do not allow calls to 
- *       <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemobject-clone-">SWbemObject.Clone</a>.
+     *       <b>wbemFlagReturnImmediately</b> to request semisynchronous access. For more information, see 
+     *       <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/calling-a-method">Calling a Method</a>.
+     * 
+     * You can only iterate (as in a VBScript For Each statement) through a forward-only enumerator one time. The 
+     *       memory containing the instances is released by WMI so that the enumerator cannot be rewound. Therefore, the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemobjectset-count">SWbemObjectSet.Count</a> method cannot be used since 
+     *       it requires rewinding the enumerator.
+     * 
+     * Forward-only enumerators are generally much faster and use less 
+     *       memory than conventional enumerators, but they do not allow calls to 
+     *       <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemobject-clone-">SWbemObject.Clone</a>.
      * @type {Integer (Int32)}
      */
     static wbemFlagForwardOnly => 32
@@ -57,16 +57,16 @@ class WbemFlagEnum{
 
     /**
      * Causes asynchronous calls to send status updates to the 
- *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemsink-onprogress">SWbemSink.OnProgress</a> event handler for your object 
- *      sink.
+     *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemsink-onprogress">SWbemSink.OnProgress</a> event handler for your object 
+     *      sink.
      * @type {Integer (Int32)}
      */
     static wbemFlagSendStatus => 128
 
     /**
      * Prevents asynchronous calls from sending status updates to the 
- *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemsink-onprogress">SWbemSink.OnProgress</a> event handler for your object 
- *      sink.
+     *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/swbemsink-onprogress">SWbemSink.OnProgress</a> event handler for your object 
+     *      sink.
      * @type {Integer (Int32)}
      */
     static wbemFlagDontSendStatus => 0
@@ -91,8 +91,8 @@ class WbemFlagEnum{
 
     /**
      * Causes WMI to return class amendment data along with the base class definition. For more information about 
- *      amended qualifiers, see 
- *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/localizing-wmi-class-information">Localizing WMI Class Information</a>.
+     *      amended qualifiers, see 
+     *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/localizing-wmi-class-information">Localizing WMI Class Information</a>.
      * @type {Integer (Int32)}
      */
     static wbemFlagUseAmendedQualifiers => 131072

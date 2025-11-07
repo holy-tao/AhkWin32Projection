@@ -4,9 +4,9 @@
  * The PenAlignment enumeration specifies the alignment of a pen relative to the stroke that is being drawn.
  * @remarks
  * 
-  * If you set the alignment of a 
-  * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdipluspen/nl-gdipluspen-pen">Pen</a> object to <b><b>PenAlignmentInset</b></b>, you cannot use that pen to draw compound lines or triangular dash caps.
-  * 
+ * If you set the alignment of a 
+ * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdipluspen/nl-gdipluspen-pen">Pen</a> object to <b><b>PenAlignmentInset</b></b>, you cannot use that pen to draw compound lines or triangular dash caps.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplusenums/ne-gdiplusenums-penalignment
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

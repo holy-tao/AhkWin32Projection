@@ -5,9 +5,9 @@
  * KEYBOARD_UNIT_ID_PARAMETER specifies the unit ID that Kbdclass assigns to a keyboard.
  * @remarks
  * 
-  * Although this structure is used with IOCTL_KEYBOARD_QUERY_Xxx requests, Kbdclass does not use the <b>UnitId</b> value.
-  * 
-  * 
+ * Although this structure is used with IOCTL_KEYBOARD_QUERY_Xxx requests, Kbdclass does not use the <b>UnitId</b> value.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ntddkbd/ns-ntddkbd-keyboard_unit_id_parameter
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319

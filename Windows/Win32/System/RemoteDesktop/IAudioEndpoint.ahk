@@ -7,10 +7,10 @@
  * Provides information to the audio engine about an audio endpoint. This interface is implemented by an audio endpoint.
  * @remarks
  * 
-  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client 
-  *     applications.
-  * 
-  * 
+ * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client 
+ *     applications.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nn-audioengineendpoint-iaudioendpoint
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319

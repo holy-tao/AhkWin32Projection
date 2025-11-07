@@ -7,17 +7,17 @@
  * The IAMStreamSelect interface selects from the available streams on a parser filter.
  * @remarks
  * 
-  * The following filters implement this interface:
-  * 
-  * <ul>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/DirectShow/mpeg-1-stream-splitter-filter">MPEG-1 Stream Splitter</a> filter</li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/DirectShow/mpeg-2-splitter">MPEG-2 Splitter</a> filter</li>
-  * <li>
-  * <a href="https://docs.microsoft.com/windows/desktop/DirectShow/sami--cc--parser-filter">SAMI (CC) Parser</a> filter</li>
-  * </ul>
-  * 
+ * The following filters implement this interface:
+ * 
+ * <ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/DirectShow/mpeg-1-stream-splitter-filter">MPEG-1 Stream Splitter</a> filter</li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/DirectShow/mpeg-2-splitter">MPEG-2 Splitter</a> filter</li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/DirectShow/sami--cc--parser-filter">SAMI (CC) Parser</a> filter</li>
+ * </ul>
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamstreamselect
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

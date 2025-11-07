@@ -4,9 +4,9 @@
  * Defines values that specify the state of a cursor button.
  * @remarks
  * 
-  * The CursorButton state for the mouse is always <b>CursorUnavailable</b> when the mouse buttons are up.
-  * 
-  * 
+ * The CursorButton state for the mouse is always <b>CursorUnavailable</b> when the mouse buttons are up.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkcursorbuttonstate
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

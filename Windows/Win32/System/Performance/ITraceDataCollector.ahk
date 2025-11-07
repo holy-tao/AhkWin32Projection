@@ -9,62 +9,62 @@
  * Collects trace events from registered providers.This interface defines the trace session.
  * @remarks
  * 
-  * The following example shows the XML that you can use to initialize this object if you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorcollection-createdatacollectorfromxml">IDataCollectorCollection::CreateDataCollectorFromXml</a> method to create it. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_xml">The IDataCollector::Xml</a> property also returns this XML.
-  * 
-  * 
-  * ```xml
-  * <TraceDataCollector>
-  *     <BufferSize/>
-  *     <BuffersLost/>  <!-- Output only -->
-  *     <BuffersWritten/>  <!-- Output only -->
-  *     <ClockType/>
-  *     <EventsLost/>  <!-- Output only -->
-  *     <ExtendedMode/>
-  *     <FlushTimer/>
-  *     <FreeBuffers/>  <!-- Output only -->
-  *     <Guid/>
-  *     <IsKernelTrace/>
-  *     <MaximumBuffers/>
-  *     <MinimumBuffers/>
-  *     <NumberOfBuffers/>
-  *     <PreallocateFile/>
-  *     <ProcessMode/>
-  *     <RealTimeBuffersLost/>  <!-- Output only -->
-  *     <SessionId/>  <!-- Output only -->
-  *     <SessionName/>
-  *     <SessionThreadId/>  <!-- Output only -->
-  *     <StreamMode/>
-  *     <TraceDataProvider>  <!-- Specify for each provider -->
-  *         <DisplayName/>
-  *         <FilterData/>
-  *         <FilterType/>
-  *         <Guid/>
-  *         <KeywordsAll>
-  *             <Description/>
-  *             <ValueMapType/>
-  *             <Value/>
-  *         </KeywordsAll>
-  *         <KeywordsAny>
-  *             <Description/>
-  *             <ValueMapType/>
-  *             <Value/>
-  *         <KeywordsAny/>
-  *         <Level>
-  *             <Description/>
-  *             <ValueMapType/>
-  *             <Value/>
-  *         <Level/>
-  *         <Properties/>
-  *     </TraceDataProvider>
-  * </TraceDataCollector>
-  * ```
-  * 
-  * 
-  * Note that the example does not show the property elements inherited from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a> that you also need to specify.
-  * 
-  * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a>.
-  * 
-  * 
+ * The following example shows the XML that you can use to initialize this object if you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorcollection-createdatacollectorfromxml">IDataCollectorCollection::CreateDataCollectorFromXml</a> method to create it. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_xml">The IDataCollector::Xml</a> property also returns this XML.
+ * 
+ * 
+ * ```xml
+ * <TraceDataCollector>
+ *     <BufferSize/>
+ *     <BuffersLost/>  <!-- Output only -->
+ *     <BuffersWritten/>  <!-- Output only -->
+ *     <ClockType/>
+ *     <EventsLost/>  <!-- Output only -->
+ *     <ExtendedMode/>
+ *     <FlushTimer/>
+ *     <FreeBuffers/>  <!-- Output only -->
+ *     <Guid/>
+ *     <IsKernelTrace/>
+ *     <MaximumBuffers/>
+ *     <MinimumBuffers/>
+ *     <NumberOfBuffers/>
+ *     <PreallocateFile/>
+ *     <ProcessMode/>
+ *     <RealTimeBuffersLost/>  <!-- Output only -->
+ *     <SessionId/>  <!-- Output only -->
+ *     <SessionName/>
+ *     <SessionThreadId/>  <!-- Output only -->
+ *     <StreamMode/>
+ *     <TraceDataProvider>  <!-- Specify for each provider -->
+ *         <DisplayName/>
+ *         <FilterData/>
+ *         <FilterType/>
+ *         <Guid/>
+ *         <KeywordsAll>
+ *             <Description/>
+ *             <ValueMapType/>
+ *             <Value/>
+ *         </KeywordsAll>
+ *         <KeywordsAny>
+ *             <Description/>
+ *             <ValueMapType/>
+ *             <Value/>
+ *         <KeywordsAny/>
+ *         <Level>
+ *             <Description/>
+ *             <ValueMapType/>
+ *             <Value/>
+ *         <Level/>
+ *         <Properties/>
+ *     </TraceDataProvider>
+ * </TraceDataCollector>
+ * ```
+ * 
+ * 
+ * Note that the example does not show the property elements inherited from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a> that you also need to specify.
+ * 
+ * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//pla/nn-pla-itracedatacollector
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319

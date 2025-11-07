@@ -5,11 +5,11 @@
  * The SNodeID2 structure is introduced in MMC 1.2, and replaces the SNodeID structure.
  * @remarks
  * 
-  * For details on using the 
-  * <b>SNodeID2</b> structure with the CCF_NODEID2 clipboard format, see 
-  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/ccf-nodeid2">CCF_NODEID2</a>.
-  * 
-  * 
+ * For details on using the 
+ * <b>SNodeID2</b> structure with the CCF_NODEID2 clipboard format, see 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/ccf-nodeid2">CCF_NODEID2</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-snodeid2
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319

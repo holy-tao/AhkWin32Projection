@@ -9,16 +9,16 @@
  * Used to export and import FSRM objects.
  * @remarks
  * 
-  * Typically, these methods are used to move objects from one computer to another. These methods differ from the 
-  *     import and export methods on the objects (for example, 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-exportfilegroups">IFsrmFileGroupManager::ExportFileGroups</a>) 
-  *     in that they write to and read from a file whereas the object methods write to and read from a string.
-  * 
-  * The file that the export methods create is written in the context of the user.
-  * 
-  * To create this object from a script, use the <c>Fsrm.FsrmExportImport</c> 
-  *     program identifier.
-  * 
+ * Typically, these methods are used to move objects from one computer to another. These methods differ from the 
+ *     import and export methods on the objects (for example, 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-exportfilegroups">IFsrmFileGroupManager::ExportFileGroups</a>) 
+ *     in that they write to and read from a file whereas the object methods write to and read from a string.
+ * 
+ * The file that the export methods create is written in the context of the user.
+ * 
+ * To create this object from a script, use the <c>Fsrm.FsrmExportImport</c> 
+ *     program identifier.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmexportimport
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319

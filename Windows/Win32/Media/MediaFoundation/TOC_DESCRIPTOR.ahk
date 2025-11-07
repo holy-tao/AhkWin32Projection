@@ -5,9 +5,9 @@
  * The TOC_DESCRIPTOR structure holds descriptive information for a table of contents.
  * @remarks
  * 
-  * You might want to design several different type of tables of contents. In that case, you can distinguish between types by creating a <b>GUID</b> that represents each type. You can identify a table of contents as a particular type by setting the <b>guidType</b> member of a <b>TOC_DESCRIPTOR</b> structure and then passing the structure to <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nf-wmcodecdsp-itoc-setdescriptor">IToc::SetDescriptor</a>.
-  * 
-  * 
+ * You might want to design several different type of tables of contents. In that case, you can distinguish between types by creating a <b>GUID</b> that represents each type. You can identify a table of contents as a particular type by setting the <b>guidType</b> member of a <b>TOC_DESCRIPTOR</b> structure and then passing the structure to <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nf-wmcodecdsp-itoc-setdescriptor">IToc::SetDescriptor</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/ns-wmcodecdsp-toc_descriptor
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

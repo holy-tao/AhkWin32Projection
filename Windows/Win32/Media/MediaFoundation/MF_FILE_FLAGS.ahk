@@ -22,11 +22,11 @@ class MF_FILE_FLAGS{
 
     /**
      * Subsequent open operations can have write access to the file.
- * 
- * 
- * 
- * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
- * <div> </div>
+     * 
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static MF_FILEFLAGS_ALLOW_WRITE_SHARING => 2

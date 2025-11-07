@@ -5,9 +5,9 @@
  * Describes the subresources from an array of 1D textures to use in a depth-stencil view.
  * @remarks
  * 
-  * Use this structure with a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencil_view_desc">D3D12_DEPTH_STENCIL_VIEW_DESC</a> structure to view the resource as an array of 1D textures.
-  * 
-  * 
+ * Use this structure with a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencil_view_desc">D3D12_DEPTH_STENCIL_VIEW_DESC</a> structure to view the resource as an array of 1D textures.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_tex1d_array_dsv
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

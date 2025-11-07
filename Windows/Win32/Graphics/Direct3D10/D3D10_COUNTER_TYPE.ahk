@@ -4,9 +4,9 @@
  * Data type of a performance counter.
  * @remarks
  * 
-  * These flags are an output parameter in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-checkcounter">ID3D10Device::CheckCounter</a>.
-  * 
-  * 
+ * These flags are an output parameter in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-checkcounter">ID3D10Device::CheckCounter</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_counter_type
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319

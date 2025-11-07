@@ -22,7 +22,7 @@ class MMC_FILTER_CHANGE_CODE{
 
     /**
      * The filter value of a column in a result view filter list has changed. The <i>param</i> parameter of the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-notify">IComponent::Notify</a> method contains the column ID.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-notify">IComponent::Notify</a> method contains the column ID.
      * @type {Integer (Int32)}
      */
     static MFCC_VALUE_CHANGE => 2

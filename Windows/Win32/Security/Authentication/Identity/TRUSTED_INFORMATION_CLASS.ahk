@@ -10,7 +10,7 @@ class TRUSTED_INFORMATION_CLASS{
 
     /**
      * Query or set the name of a trusted domain. Use the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_name_info">TRUSTED_DOMAIN_NAME_INFO</a> structure.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_name_info">TRUSTED_DOMAIN_NAME_INFO</a> structure.
      * @type {Integer (Int32)}
      */
     static TrustedDomainNameInformation => 1
@@ -23,7 +23,7 @@ class TRUSTED_INFORMATION_CLASS{
 
     /**
      * Query or set the value used to generate Posix user and group identifiers. Use the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_posix_offset_info">TRUSTED_POSIX_OFFSET_INFO</a> structure.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_posix_offset_info">TRUSTED_POSIX_OFFSET_INFO</a> structure.
      * @type {Integer (Int32)}
      */
     static TrustedPosixOffsetInformation => 3
@@ -42,21 +42,21 @@ class TRUSTED_INFORMATION_CLASS{
 
     /**
      * Query extended information for a trusted domain. Use the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_information_ex">TRUSTED_DOMAIN_INFORMATION_EX</a> structure.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_information_ex">TRUSTED_DOMAIN_INFORMATION_EX</a> structure.
      * @type {Integer (Int32)}
      */
     static TrustedDomainInformationEx => 6
 
     /**
      * Query authentication information for a trusted domain. Use the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_auth_information">TRUSTED_DOMAIN_AUTH_INFORMATION</a> structure.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_auth_information">TRUSTED_DOMAIN_AUTH_INFORMATION</a> structure.
      * @type {Integer (Int32)}
      */
     static TrustedDomainAuthInformation => 7
 
     /**
      * Query complete information for a trusted domain. This information includes the Posix offset information, authentication information, and the extended information returned for the <b>TrustedDomainInformationEx</b> value. Use the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_full_information">TRUSTED_DOMAIN_FULL_INFORMATION</a> structure.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_full_information">TRUSTED_DOMAIN_FULL_INFORMATION</a> structure.
      * @type {Integer (Int32)}
      */
     static TrustedDomainFullInformation => 8

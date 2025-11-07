@@ -34,8 +34,8 @@ class PLAYTO_SOURCE_CREATEFLAGS{
 
     /**
      * Share DRM protected media.
- * 
- * Supported in Windows 8.1 and later.
+     * 
+     * Supported in Windows 8.1 and later.
      * @type {Integer (Int32)}
      */
     static PLAYTO_SOURCE_PROTECTED => 8

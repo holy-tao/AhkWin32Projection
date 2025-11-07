@@ -8,9 +8,9 @@
  * Use this interface to receives notifications regarding the current file system import operation.
  * @remarks
  * 
-  * This interface supports import notifications for ISO9660, Joliet and UDF file systems.
-  * 
-  * 
+ * This interface supports import notifications for ISO9660, Joliet and UDF file systems.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-dfilesystemimageimportevents
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Use this interface to combine several data streams into a single stream by alternately interspersing portions of each.
  * @remarks
  * 
-  * To create the <b>MsftStreamInterleave</b> object in a script, use IMAPI2.MsftStreamInterleave as the program identifier when calling <b>CreateObject</b>.
-  * 
-  * 
+ * To create the <b>MsftStreamInterleave</b> object in a script, use IMAPI2.MsftStreamInterleave as the program identifier when calling <b>CreateObject</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-istreaminterleave
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

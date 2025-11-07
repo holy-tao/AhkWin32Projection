@@ -4,8 +4,8 @@
  * Contains information about the drain state of the Remote Desktop Session Host (RD Session Host) server.
  * @remarks
  * 
-  * This enumeration type is used by the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_service_state">WTS_SERVICE_STATE</a> structure.
-  * 
+ * This enumeration type is used by the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_service_state">WTS_SERVICE_STATE</a> structure.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ne-wtsdefs-wts_rcm_drain_state
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319

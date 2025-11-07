@@ -7,13 +7,13 @@
  * Provides an asynchronous callback mechanism used by a credential provider to notify it of changes in the list of credentials or their fields.
  * @remarks
  * 
-  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
-  * An implementation of <b>ICredentialProviderEvents</b> is provided for use by outside parties implementing a credential provider.
-  * 
-  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
-  * Outside parties do not need to implement <b>ICredentialProviderEvents</b> themselves.
-  * 
-  * 
+ * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
+ * An implementation of <b>ICredentialProviderEvents</b> is provided for use by outside parties implementing a credential provider.
+ * 
+ * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+ * Outside parties do not need to implement <b>ICredentialProviderEvents</b> themselves.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nn-credentialprovider-icredentialproviderevents
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

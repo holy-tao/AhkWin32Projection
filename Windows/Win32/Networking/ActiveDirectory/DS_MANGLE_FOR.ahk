@@ -10,7 +10,7 @@ class DS_MANGLE_FOR{
 
     /**
      * Indicates that the relative distinguished name is  not mangled or that the type of mangling is 
- *       unknown.
+     *       unknown.
      * @type {Integer (Int32)}
      */
     static DS_MANGLE_UNKNOWN => 0

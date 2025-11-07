@@ -7,8 +7,8 @@
  * The IFECommon interface provides IME-related services that are common for different languages.
  * @remarks
  * 
-  * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifecommoninstance">CreateIFECommonInstance</a> function.
-  * 
+ * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifecommoninstance">CreateIFECommonInstance</a> function.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msime/nn-msime-ifecommon
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319

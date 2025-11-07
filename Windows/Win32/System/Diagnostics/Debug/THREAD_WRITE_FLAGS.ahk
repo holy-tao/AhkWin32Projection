@@ -40,16 +40,16 @@ class THREAD_WRITE_FLAGS{
 
     /**
      * When the minidump type includes <b>MiniDumpWithProcessThreadData</b>, this flag is set. The callback function can clear this flag to control which threads provide complete thread data in the minidump file.
- * 
- * <b>DbgHelp 5.1:  </b>This value is not supported.
+     * 
+     * <b>DbgHelp 5.1:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static ThreadWriteThreadData => 32
 
     /**
      * When the minidump type includes <b>MiniDumpWithThreadInfo</b>, this flag is set. The callback function can clear this flag to control which threads provide thread state information in the minidump file. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ns-minidumpapiset-minidump_thread_info">MINIDUMP_THREAD_INFO</a>.
- * 
- * <b>DbgHelp 6.1 and earlier:  </b>This value is not supported.
+     * 
+     * <b>DbgHelp 6.1 and earlier:  </b>This value is not supported.
      * @type {Integer (Int32)}
      */
     static ThreadWriteThreadInfo => 64

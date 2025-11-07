@@ -7,10 +7,10 @@
  * Provides the status of the system setting that allows users to change location settings.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  <b>ILocationPermissions</b> is available in Windows 8.</div>
-  * <div> </div>
-  * For more information on location settings in Windows 8 see <a href="https://docs.microsoft.com/previous-versions/windows">Location settings</a>.
-  * 
+ * <div class="alert"><b>Note</b>  <b>ILocationPermissions</b> is available in Windows 8.</div>
+ * <div> </div>
+ * For more information on location settings in Windows 8 see <a href="https://docs.microsoft.com/previous-versions/windows">Location settings</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nn-sensorsapi-ilocationpermissions
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319

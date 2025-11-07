@@ -7,11 +7,11 @@
  * Stores the state associated with a provider context.
  * @remarks
  * 
-  * The first seven elements of the union are information supplied when adding objects.
-  * 
-  * The last element is additional information returned when getting/enumerating objects.
-  * 
-  * 
+ * The first seven elements of the union are information supplied when adding objects.
+ * 
+ * The last element is additional information returned when getting/enumerating objects.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_provider_context1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319

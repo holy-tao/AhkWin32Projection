@@ -8,12 +8,12 @@
  * The IWCContextMenuCallback interface is called by a Failover Cluster Administrator extension to add items to a Failover Cluster Administrator context menu.
  * @remarks
  * 
-  * Use the <i>piCallback</i> pointer that you receive when Failover Cluster Administrator calls 
-  *      your 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendcontextmenu-addcontextmenuitems">IWEExtendContextMenu::AddContextMenuItems</a> 
-  *      method to call the <b>IWCContextMenuCallback</b> interface.
-  * 
-  * 
+ * Use the <i>piCallback</i> pointer that you receive when Failover Cluster Administrator calls 
+ *      your 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendcontextmenu-addcontextmenuitems">IWEExtendContextMenu::AddContextMenuItems</a> 
+ *      method to call the <b>IWCContextMenuCallback</b> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-iwccontextmenucallback
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

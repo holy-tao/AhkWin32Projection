@@ -7,39 +7,39 @@
  * Specifies completion notification settings for I/O control calls made to a registered namespace.
  * @remarks
  * 
-  * The <b>WSACOMPLETION</b> structure enables callbacks to be provided in any of the following formats, based on the value provided in <b>Type</b>:
-  * 
-  * <table>
-  * <tr>
-  * <th>Callback Format</th>
-  * <th>Type value</th>
-  * </tr>
-  * <tr>
-  * <td>Polling </td>
-  * <td>NSP_NOTIFY_IMMEDIATELY</td>
-  * </tr>
-  * <tr>
-  * <td>Window Message</td>
-  * <td>NSP_NOTIFY_HWND</td>
-  * </tr>
-  * <tr>
-  * <td>Event</td>
-  * <td>NSP_NOTIFY_EVENT</td>
-  * </tr>
-  * <tr>
-  * <td>APC</td>
-  * <td>NSP_NOTIFY_APC</td>
-  * </tr>
-  * <tr>
-  * <td>Completion Port</td>
-  * <td>NSP_NOTIFY_PORT</td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * For a blocking function, set the <b>WSACOMPLETION</b> structure to null.
-  * 
-  * 
+ * The <b>WSACOMPLETION</b> structure enables callbacks to be provided in any of the following formats, based on the value provided in <b>Type</b>:
+ * 
+ * <table>
+ * <tr>
+ * <th>Callback Format</th>
+ * <th>Type value</th>
+ * </tr>
+ * <tr>
+ * <td>Polling </td>
+ * <td>NSP_NOTIFY_IMMEDIATELY</td>
+ * </tr>
+ * <tr>
+ * <td>Window Message</td>
+ * <td>NSP_NOTIFY_HWND</td>
+ * </tr>
+ * <tr>
+ * <td>Event</td>
+ * <td>NSP_NOTIFY_EVENT</td>
+ * </tr>
+ * <tr>
+ * <td>APC</td>
+ * <td>NSP_NOTIFY_APC</td>
+ * </tr>
+ * <tr>
+ * <td>Completion Port</td>
+ * <td>NSP_NOTIFY_PORT</td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * For a blocking function, set the <b>WSACOMPLETION</b> structure to null.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-wsacompletion
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

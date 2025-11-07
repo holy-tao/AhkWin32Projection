@@ -5,20 +5,20 @@
  * Specifies or receives the attributes of a list-view item. This structure has been updated to support a new mask value (LVIF_INDENT) that enables item indenting. This structure supersedes the LV_ITEM structure.
  * @remarks
  * 
-  * The <b>LVITEM</b> structure is used with several messages, including <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-getitem">LVM_GETITEM</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-setitem">LVM_SETITEM</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-insertitem">LVM_INSERTITEM</a>, and <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-deleteitem">LVM_DELETEITEM</a>.
-  * 
-  * In tile view, the item name is displayed to the right of the icon. You can specify additional subitems (corresponding to columns in the details view), to be displayed on lines below the item name. The <b>puColumns</b> array contains the indices of subitems to be displayed. Indices should be greater than 0, because subitem 0, the item name, is already displayed. Column information can also be set in the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvtileinfo">LVTILEINFO</a> structure when modifying the list item.
-  * 
-  * For example code, see <a href="https://docs.microsoft.com/windows/desktop/Controls/using-list-view-controls">Using List-View Controls</a>.
-  * 
-  * <div class="alert"><b>Note</b>  Comctl32.dll version 6 is not redistributable but it is included in Windows or later. To use Comctl32.dll version 6, specify it in a manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.</div>
-  * <div> </div>
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The commctrl.h header defines LVITEM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
+ * The <b>LVITEM</b> structure is used with several messages, including <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-getitem">LVM_GETITEM</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-setitem">LVM_SETITEM</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-insertitem">LVM_INSERTITEM</a>, and <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-deleteitem">LVM_DELETEITEM</a>.
+ * 
+ * In tile view, the item name is displayed to the right of the icon. You can specify additional subitems (corresponding to columns in the details view), to be displayed on lines below the item name. The <b>puColumns</b> array contains the indices of subitems to be displayed. Indices should be greater than 0, because subitem 0, the item name, is already displayed. Column information can also be set in the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvtileinfo">LVTILEINFO</a> structure when modifying the list item.
+ * 
+ * For example code, see <a href="https://docs.microsoft.com/windows/desktop/Controls/using-list-view-controls">Using List-View Controls</a>.
+ * 
+ * <div class="alert"><b>Note</b>  Comctl32.dll version 6 is not redistributable but it is included in Windows or later. To use Comctl32.dll version 6, specify it in a manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.</div>
+ * <div> </div>
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The commctrl.h header defines LVITEM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-lvitema
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319

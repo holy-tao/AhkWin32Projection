@@ -8,8 +8,8 @@
  * Exposes methods that notify the Remote Desktop Services service that a client has connected.
  * @remarks
  * 
-  * To avoid a possible deadlock when calling any of the methods on this interface, you should not make any function or method calls that will directly or indirectly result in a Remote Desktop Services API being called. If you need to make any outbound call, you should start a new thread and make the outbound call from the new thread.
-  * 
+ * To avoid a possible deadlock when calling any of the methods on this interface, you should not make any function or method calls that will directly or indirectly result in a Remote Desktop Services API being called. If you need to make any outbound call, you should start a new thread and make the outbound call from the new thread.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nn-wtsprotocol-iwrdsprotocollistenercallback
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319

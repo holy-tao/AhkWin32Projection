@@ -5,8 +5,8 @@
  * Used in a CF_OPERATION_INFO structure to describe the status of a specified sync root.
  * @remarks
  * 
-  * If a null pointer is set in the <b>SyncStatus</b> field of a  <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/ns-cfapi-cf_operation_info">CF_OPERATION_INFO</a> structure, the platform will clear the previously set sync status, if there is one.
-  * 
+ * If a null pointer is set in the <b>SyncStatus</b> field of a  <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/ns-cfapi-cf_operation_info">CF_OPERATION_INFO</a> structure, the platform will clear the previously set sync status, if there is one.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_sync_status
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319

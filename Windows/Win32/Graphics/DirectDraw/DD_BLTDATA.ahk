@@ -9,9 +9,9 @@
  * The DD_BLTDATA structure contains the information relevant to the driver for doing bit block transfers.
  * @remarks
  * 
-  * For more information about the DDBLT_PRESENTATION and DDBLT_LAST_PRESENTATION flags, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/presentation">Presentation</a>.
-  * 
-  * 
+ * For more information about the DDBLT_PRESENTATION and DDBLT_LAST_PRESENTATION flags, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/presentation">Presentation</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_bltdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319

@@ -7,9 +7,9 @@
  * Supports a private communication mechanism between the Overlay Mixer filter and a VPE decoder filter that represents a hardware decoder.Only the Overlay Mixer filter implements this interface. Applications should never use it.
  * @remarks
  * 
-  * Include Vptype.h before Vpnotify.h.
-  * 
-  * 
+ * Include Vptype.h before Vpnotify.h.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nn-vpnotify-ivpnotify
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

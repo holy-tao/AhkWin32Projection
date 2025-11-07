@@ -7,9 +7,9 @@
  * Enables the quality manager to adjust the audio or video quality of a component in the pipeline.
  * @remarks
  * 
-  * The quality manager typically obtains this interface when the quality manager's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfqualitymanager-notifytopology">IMFQualityManager::NotifyTopology</a> method is called.
-  * 
-  * 
+ * The quality manager typically obtains this interface when the quality manager's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfqualitymanager-notifytopology">IMFQualityManager::NotifyTopology</a> method is called.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfqualityadvise
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

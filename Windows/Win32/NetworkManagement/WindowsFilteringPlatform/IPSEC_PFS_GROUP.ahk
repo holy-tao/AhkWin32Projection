@@ -34,11 +34,11 @@ class IPSEC_PFS_GROUP{
 
     /**
      * Specifies Diffie Hellman group 14.
- * 
- * <div class="alert"><b>Note</b>  This group was called Diffie Hellman group 2048 when it was introduced.  The name has since been changed to match standard terminology.</div>
- * <div> </div>
- * <div class="alert"><b>Note</b>  Available only for Windows 8 and Windows Server 2012. </div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  This group was called Diffie Hellman group 2048 when it was introduced.  The name has since been changed to match standard terminology.</div>
+     * <div> </div>
+     * <div class="alert"><b>Note</b>  Available only for Windows 8 and Windows Server 2012. </div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IPSEC_PFS_14 => 3
@@ -63,9 +63,9 @@ class IPSEC_PFS_GROUP{
 
     /**
      * Specifies Diffie Hellman group 24.
- * 
- * <div class="alert"><b>Note</b>  Available only for Windows 8 and Windows Server 2012.</div>
- * <div> </div>
+     * 
+     * <div class="alert"><b>Note</b>  Available only for Windows 8 and Windows Server 2012.</div>
+     * <div> </div>
      * @type {Integer (Int32)}
      */
     static IPSEC_PFS_24 => 7

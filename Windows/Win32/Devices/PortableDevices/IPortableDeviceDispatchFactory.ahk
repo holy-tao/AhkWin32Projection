@@ -8,18 +8,18 @@
  * Represents a factory that can instantiate a WPD Automation Device object.
  * @remarks
  * 
-  * The <b>IPortableDeviceDispatchFactory</b> interface can be CoCreated directly using <b>CLSID_PortableDeviceDispatchFactory</b> as in the following code.
-  * 
-  * 
-  * ```cpp
-  * IPortableDeviceDispatchFactgory* pDeviceDispatchFactory = NULL;
-  * HRESULT hr = CoCreateInstance(CLSID_PortableDeviceDispatchFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pDeviceDispatchFactory));   
-  * 
-  * ```
-  * 
-  * 
-  * 
-  * 
+ * The <b>IPortableDeviceDispatchFactory</b> interface can be CoCreated directly using <b>CLSID_PortableDeviceDispatchFactory</b> as in the following code.
+ * 
+ * 
+ * ```cpp
+ * IPortableDeviceDispatchFactgory* pDeviceDispatchFactory = NULL;
+ * HRESULT hr = CoCreateInstance(CLSID_PortableDeviceDispatchFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pDeviceDispatchFactory));   
+ * 
+ * ```
+ * 
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nn-portabledeviceapi-iportabledevicedispatchfactory
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319

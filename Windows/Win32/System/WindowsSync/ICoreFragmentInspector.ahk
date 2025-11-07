@@ -8,9 +8,9 @@
  * Enumerates the ICoreFragment objects that are contained in a knowledge object.
  * @remarks
  * 
-  * An <b>ICoreFragmentInspector</b> object can be obtained by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncknowledge2-getinspector">ISyncKnowledge2::GetInspector</a> on a knowledge object.
-  * 
-  * 
+ * An <b>ICoreFragmentInspector</b> object can be obtained by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncknowledge2-getinspector">ISyncKnowledge2::GetInspector</a> on a knowledge object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-icorefragmentinspector
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319

@@ -16,7 +16,7 @@ class PSS_DUPLICATE_FLAGS{
 
     /**
      * Free the source handle. This will only succeed if you set the  <b>PSS_CREATE_USE_VM_ALLOCATIONS</b> flag when you called <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psscapturesnapshot">PssCaptureSnapshot</a> to create the snapshot and handle. The handle will be freed  even if duplication fails.
- * The close operation does not protect against concurrent access to the same descriptor.
+     * The close operation does not protect against concurrent access to the same descriptor.
      * @type {Integer (Int32)}
      */
     static PSS_DUPLICATE_CLOSE_SOURCE => 1

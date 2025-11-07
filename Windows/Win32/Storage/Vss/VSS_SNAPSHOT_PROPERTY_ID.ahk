@@ -10,8 +10,8 @@ class VSS_SNAPSHOT_PROPERTY_ID{
 
     /**
      * The property is not known.
- * 
- * This value indicates an application error.
+     * 
+     * This value indicates an application error.
      * @type {Integer (Int32)}
      */
     static VSS_SPROPID_UNKNOWN => 0
@@ -30,14 +30,14 @@ class VSS_SNAPSHOT_PROPERTY_ID{
 
     /**
      * The number of volumes included with the shadow copy in the shadow copy set when it was created. For more
- *      information, see the <b>m_lSnapshotsCount</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
+     *      information, see the <b>m_lSnapshotsCount</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
      * @type {Integer (Int32)}
      */
     static VSS_SPROPID_SNAPSHOTS_COUNT => 3
 
     /**
      * Null-terminated wide character string that specifies the name of the device object for the shadow copy of the 
- *       volume. For more information, see the <b>m_pwszSnapshotDeviceObject</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
+     *       volume. For more information, see the <b>m_pwszSnapshotDeviceObject</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
      * @type {Integer (Int32)}
      */
     static VSS_SPROPID_SNAPSHOT_DEVICE => 4
@@ -50,14 +50,14 @@ class VSS_SNAPSHOT_PROPERTY_ID{
 
     /**
      * A null-terminated wide character string that specifies the name of the machine that contains the original 
- *       volume. For more information, see the <b>m_pwszOriginatingMachine</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
+     *       volume. For more information, see the <b>m_pwszOriginatingMachine</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
      * @type {Integer (Int32)}
      */
     static VSS_SPROPID_ORIGINATING_MACHINE => 6
 
     /**
      * A null-terminated wide character string that specifies the name of the machine that is running the Volume Shadow Copy 
- *       Service that created the shadow copy. For more information, see the <b>m_pwszServiceMachine</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
+     *       Service that created the shadow copy. For more information, see the <b>m_pwszServiceMachine</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
      * @type {Integer (Int32)}
      */
     static VSS_SPROPID_SERVICE_MACHINE => 7
@@ -70,7 +70,7 @@ class VSS_SNAPSHOT_PROPERTY_ID{
 
     /**
      * A null-terminated wide character string that specifies the portion of the volume that is made available 
- *       when the shadow copy is exposed as a file share. For more information, see the <b>m_pwszExposedPath</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
+     *       when the shadow copy is exposed as a file share. For more information, see the <b>m_pwszExposedPath</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
      * @type {Integer (Int32)}
      */
     static VSS_SPROPID_EXPOSED_PATH => 9

@@ -16,8 +16,8 @@ class INPUT_MESSAGE_ORIGIN_ID{
 
     /**
      * The input message is from a hardware device or has been  injected into the message queue by an application that has the <b>UIAccess</b> attribute set to TRUE in its manifest file. 
- * 
- * For more information about the <b>UIAccess</b> attribute and application manifests, see <a href="https://docs.microsoft.com/previous-versions/bb756883(v=msdn.10)">UAC References</a>.
+     * 
+     * For more information about the <b>UIAccess</b> attribute and application manifests, see <a href="https://docs.microsoft.com/previous-versions/bb756883(v=msdn.10)">UAC References</a>.
      * @type {Integer (Int32)}
      */
     static IMO_HARDWARE => 1

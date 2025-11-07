@@ -5,9 +5,9 @@
  * The TRACE_GUID_PROPERTIES structure contains information about an event trace provider.
  * @remarks
  * 
-  * Be sure to initialize the memory for this structure to zero before setting any members or passing to any functions.
-  * 
-  * 
+ * Be sure to initialize the memory for this structure to zero before setting any members or passing to any functions.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-trace_guid_properties
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

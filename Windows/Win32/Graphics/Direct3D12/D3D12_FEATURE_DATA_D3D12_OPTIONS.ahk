@@ -5,9 +5,9 @@
  * Describes Direct3D 12 feature options in the current graphics driver.
  * @remarks
  * 
-  * See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a>.
-  * 
-  * 
+ * See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_feature_data_d3d12_options
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

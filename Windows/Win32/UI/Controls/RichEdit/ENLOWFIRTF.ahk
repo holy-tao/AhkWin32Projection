@@ -7,9 +7,9 @@
  * Contains information about an unsupported Rich Text Format (RTF) keyword in a Microsoft Rich Edit control.
  * @remarks
  * 
-  * This structure is used with the <a href="https://msdn.microsoft.com/3b18320b-ebc3-44f2-a93c-e967a028c522">EN_LOWFIRTF</a> message.
-  * 
-  * 
+ * This structure is used with the <a href="https://msdn.microsoft.com/3b18320b-ebc3-44f2-a93c-e967a028c522">EN_LOWFIRTF</a> message.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-enlowfirtf
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319

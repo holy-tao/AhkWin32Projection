@@ -9,8 +9,8 @@
  * Exposes methods that define an an out IMILBitmapEffect object.
  * @remarks
  * 
-  * This interface must be implemented if a custom effect also exposes <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a>.
-  * 
+ * This interface must be implemented if a custom effect also exposes <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a>.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectimpl
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319

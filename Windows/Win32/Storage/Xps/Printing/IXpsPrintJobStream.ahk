@@ -7,10 +7,10 @@
  * A write-only stream interface into which an application writes print job data.
  * @remarks
  * 
-  * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nf-xpsprint-ixpsprintjobstream-close">Close</a> method must be called before this interface is released.</div>
-  * <div> </div>
-  * 
-  * 
+ * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nf-xpsprint-ixpsprintjobstream-close">Close</a> method must be called before this interface is released.</div>
+ * <div> </div>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsprint/nn-xpsprint-ixpsprintjobstream
  * @namespace Windows.Win32.Storage.Xps.Printing
  * @version v4.0.30319

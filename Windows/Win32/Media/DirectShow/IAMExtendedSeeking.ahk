@@ -7,10 +7,10 @@
  * The IAMExtendedSeeking interface seeks to a marker in a Windows Media stream or changes the playback rate for a Windows Media file. This interface is implemented by the Windows Media Source filter and the WM ASF Reader filter.
  * @remarks
  * 
-  * To define the interface identifier, include the header file Initguid.h before Qnetwork.h, but after Dshow.h and other header files:
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
-  * 
+ * To define the interface identifier, include the header file Initguid.h before Qnetwork.h, but after Dshow.h and other header files:
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nn-qnetwork-iamextendedseeking
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319

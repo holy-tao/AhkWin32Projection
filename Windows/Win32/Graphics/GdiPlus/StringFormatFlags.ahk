@@ -4,16 +4,16 @@
  * The StringFormatFlags enumeration specifies text layout information (such as orientation and clipping) and display manipulations (such as ellipsis insertion, digit substitution, and representation of characters that are not supported by a font).
  * @remarks
  * 
-  * Multiple flags set can produce combined effects: 
-  * 
-  * <ul>
-  * <li>When both <b><b>StringFormatFlagsDirectionVertical</b></b> and <b><b>StringFormatFlagsDirectionRightToLeft</b></b> are set, individual lines of text are drawn vertically. The first line starts at the right edge of the layout rectangle; the second line of text is to the left of the first line, and so on. </li>
-  * <li>When <b><b>StringFormatFlagsDirectionVertical</b></b> is set and <b><b>StringFormatFlagsDirectionRightToLeft</b></b> is not set, individual lines of text are drawn vertically. The first line starts at the left edge of the layout rectangle; the second line of text is to the right of the first line. </li>
-  * <li>When <b><b>StringFormatFlagsDirectionRightToLeft</b></b> is set and <b><b>StringFormatFlagsDirectionVertical</b></b> is not set, the individual lines of text are horizontal and the reading order is from right to left. This setting does not change the order in which characters are displayed, it simply specifies the order in which characters can be read. </li>
-  * </ul>
-  * The <b><b>StringFormatFlagsDirectionVertical</b></b> and <b><b>StringFormatFlagsDirectionRightToLeft</b></b> flags can affect string alignment.
-  * 
-  * 
+ * Multiple flags set can produce combined effects: 
+ * 
+ * <ul>
+ * <li>When both <b><b>StringFormatFlagsDirectionVertical</b></b> and <b><b>StringFormatFlagsDirectionRightToLeft</b></b> are set, individual lines of text are drawn vertically. The first line starts at the right edge of the layout rectangle; the second line of text is to the left of the first line, and so on. </li>
+ * <li>When <b><b>StringFormatFlagsDirectionVertical</b></b> is set and <b><b>StringFormatFlagsDirectionRightToLeft</b></b> is not set, individual lines of text are drawn vertically. The first line starts at the left edge of the layout rectangle; the second line of text is to the right of the first line. </li>
+ * <li>When <b><b>StringFormatFlagsDirectionRightToLeft</b></b> is set and <b><b>StringFormatFlagsDirectionVertical</b></b> is not set, the individual lines of text are horizontal and the reading order is from right to left. This setting does not change the order in which characters are displayed, it simply specifies the order in which characters can be read. </li>
+ * </ul>
+ * The <b><b>StringFormatFlagsDirectionVertical</b></b> and <b><b>StringFormatFlagsDirectionRightToLeft</b></b> flags can affect string alignment.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gdiplusenums/ne-gdiplusenums-stringformatflags
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
@@ -34,7 +34,7 @@ class StringFormatFlags{
 
     /**
      * Specifies that parts of characters are allowed to overhang the string's layout rectangle. By default, characters are first aligned inside the rectangle's boundaries, then any characters which still overhang the boundaries are repositioned to avoid any overhang and thereby avoid affecting pixels outside the layout rectangle. An italic, lowercase letter F (
- * 				<i>f</i>) is an example of a character that may have overhanging parts. Setting this flag ensures that the character aligns visually with the lines above and below but may cause parts of characters, which lie outside the layout rectangle, to be clipped or painted.
+     * 				<i>f</i>) is an example of a character that may have overhanging parts. Setting this flag ensures that the character aligns visually with the lines above and below but may cause parts of characters, which lie outside the layout rectangle, to be clipped or painted.
      * @type {Integer (Int32)}
      */
     static StringFormatFlagsNoFitBlackBox => 4
@@ -53,7 +53,7 @@ class StringFormatFlags{
 
     /**
      * Specifies that the space at the end of each line is included in a string measurement. By default, the boundary rectangle returned by the 
- * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusgraphics/nf-gdiplusgraphics-graphics-measurestring(inconstwchar_inint_inconstfont_inconstpointf__inconststringformat_outrectf)">Graphics::MeasureString</a> method excludes the space at the end of each line. Set this flag to include that space in the measurement.
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusgraphics/nf-gdiplusgraphics-graphics-measurestring(inconstwchar_inint_inconstfont_inconstpointf__inconststringformat_outrectf)">Graphics::MeasureString</a> method excludes the space at the end of each line. Set this flag to include that space in the measurement.
      * @type {Integer (Int32)}
      */
     static StringFormatFlagsMeasureTrailingSpaces => 2048

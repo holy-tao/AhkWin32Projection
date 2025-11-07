@@ -22,9 +22,9 @@ class FILE_ID_TYPE{
 
     /**
      * Use the <b>ExtendedFileId</b> member of the union.
- *       
- * 
- * <b>Windows XP, Windows Server 2003, Windows Vista, Windows Server 2008, Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
+     *       
+     * 
+     * <b>Windows XP, Windows Server 2003, Windows Vista, Windows Server 2008, Windows 7 and Windows Server 2008 R2:  </b>This value is not supported before Windows 8 and Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static ExtendedFileIdType => 2

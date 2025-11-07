@@ -6,82 +6,82 @@
  * Specifies settings for a time zone.
  * @remarks
  * 
-  * Settings for each time zone are stored in the following registry key:
-  * 
-  * 
-  * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
-  *    <b>SOFTWARE</b>
-  *       <b>Microsoft</b>
-  *          <b>Windows NT</b>
-  *             <b>CurrentVersion</b>
-  *                <b>Time Zones</b>
-  *                   <i>time_zone_name</i></pre>
-  * 
-  * 
-  * Each time zone entry includes the following registry values.
-  * 
-  * <table>
-  * <tr>
-  * <th>Registry value</th>
-  * <th>Type</th>
-  * <th>Description</th>
-  * </tr>
-  * <tr>
-  * <td><b>Display</b></td>
-  * <td>REG_SZ</td>
-  * <td>The display name.</td>
-  * </tr>
-  * <tr>
-  * <td><b>Dlt</b></td>
-  * <td>REG_SZ</td>
-  * <td>The description for daylight time.</td>
-  * </tr>
-  * <tr>
-  * <td><b>MUI_Display</b></td>
-  * <td>REG_SZ</td>
-  * <td>The display name as a string of the form @<i>path</i>,<i>-stringID</i>[;<i>comment</i>]. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/multilingual-user-interface">MUI</a>.</td>
-  * </tr>
-  * <tr>
-  * <td><b>MUI_Dlt</b></td>
-  * <td>REG_SZ</td>
-  * <td>The description for daylight time as a string of the form @<i>path</i>,<i>-stringID</i>[;<i>comment</i>].</td>
-  * </tr>
-  * <tr>
-  * <td><b>MUI_Std</b></td>
-  * <td>REG_SZ</td>
-  * <td>The description for standard time as a string of the form @<i>path</i>,<i>-stringID</i>[;<i>comment</i>].</td>
-  * </tr>
-  * <tr>
-  * <td><b>Std</b></td>
-  * <td>REG_SZ</td>
-  * <td>The description for standard time.</td>
-  * </tr>
-  * <tr>
-  * <td><b>TZI</b></td>
-  * <td>REG_BINARY</td>
-  * <td>
-  * The following time zone information.
-  * 
-  * <pre class="syntax" xml:space="preserve"><code>typedef struct _REG_TZI_FORMAT
-  * {
-  *     LONG Bias;
-  *     LONG StandardBias;
-  *     LONG DaylightBias;
-  *     SYSTEMTIME StandardDate;
-  *     SYSTEMTIME DaylightDate;
-  * } REG_TZI_FORMAT;
-  * </code></pre>
-  * </td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * For more information about the <b>Dynamic DST</b> key, see <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a>.
-  * 
-  *  Both <b>StandardName</b> and <b>DaylightName</b> are localized according to the current user default UI language.
-  * 
-  * 
-  * 
+ * Settings for each time zone are stored in the following registry key:
+ * 
+ * 
+ * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
+ *    <b>SOFTWARE</b>
+ *       <b>Microsoft</b>
+ *          <b>Windows NT</b>
+ *             <b>CurrentVersion</b>
+ *                <b>Time Zones</b>
+ *                   <i>time_zone_name</i></pre>
+ * 
+ * 
+ * Each time zone entry includes the following registry values.
+ * 
+ * <table>
+ * <tr>
+ * <th>Registry value</th>
+ * <th>Type</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td><b>Display</b></td>
+ * <td>REG_SZ</td>
+ * <td>The display name.</td>
+ * </tr>
+ * <tr>
+ * <td><b>Dlt</b></td>
+ * <td>REG_SZ</td>
+ * <td>The description for daylight time.</td>
+ * </tr>
+ * <tr>
+ * <td><b>MUI_Display</b></td>
+ * <td>REG_SZ</td>
+ * <td>The display name as a string of the form @<i>path</i>,<i>-stringID</i>[;<i>comment</i>]. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/multilingual-user-interface">MUI</a>.</td>
+ * </tr>
+ * <tr>
+ * <td><b>MUI_Dlt</b></td>
+ * <td>REG_SZ</td>
+ * <td>The description for daylight time as a string of the form @<i>path</i>,<i>-stringID</i>[;<i>comment</i>].</td>
+ * </tr>
+ * <tr>
+ * <td><b>MUI_Std</b></td>
+ * <td>REG_SZ</td>
+ * <td>The description for standard time as a string of the form @<i>path</i>,<i>-stringID</i>[;<i>comment</i>].</td>
+ * </tr>
+ * <tr>
+ * <td><b>Std</b></td>
+ * <td>REG_SZ</td>
+ * <td>The description for standard time.</td>
+ * </tr>
+ * <tr>
+ * <td><b>TZI</b></td>
+ * <td>REG_BINARY</td>
+ * <td>
+ * The following time zone information.
+ * 
+ * <pre class="syntax" xml:space="preserve"><code>typedef struct _REG_TZI_FORMAT
+ * {
+ *     LONG Bias;
+ *     LONG StandardBias;
+ *     LONG DaylightBias;
+ *     SYSTEMTIME StandardDate;
+ *     SYSTEMTIME DaylightDate;
+ * } REG_TZI_FORMAT;
+ * </code></pre>
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * For more information about the <b>Dynamic DST</b> key, see <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a>.
+ * 
+ *  Both <b>StandardName</b> and <b>DaylightName</b> are localized according to the current user default UI language.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/ns-timezoneapi-time_zone_information
  * @namespace Windows.Win32.System.Time
  * @version v4.0.30319

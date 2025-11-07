@@ -5,25 +5,25 @@
  * The GROUP_POLICY_OBJECT structure provides information about a GPO in a GPO list.
  * @remarks
  * 
-  * Each GPO could contain data that must be processed by multiple snap-in extensions. Therefore, the data in the <b>lpExtensions</b> member is organized as a series of <b>GUID</b>s that identify the extensions and snap-in extensions. The data format is as follows:
-  * 
-  * 
-  * ```cpp
-  * [ext_guid1, snap_in_guid1, snap_in_guid2, ...] 
-  * [ext_guid2, snap_in_guid3, snap_in_guid4, ...] 
-  * ```
-  * 
-  * 
-  * First, there is an opening bracket, "[", followed by the <b>GUID</b> of the extension. Next, you'll find one or more <b>GUID</b>s identifying the snap-in extensions that have stored data in the GPO. After the last snap-in <b>GUID</b> for an extension, there is a closing bracket, "]". This pattern is repeated for the next extension.
-  * 
-  * 
-  * 
-  * 
-  * 
-  * > [!NOTE]
-  * > The userenv.h header defines GROUP_POLICY_OBJECT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-  * 
-  * 
+ * Each GPO could contain data that must be processed by multiple snap-in extensions. Therefore, the data in the <b>lpExtensions</b> member is organized as a series of <b>GUID</b>s that identify the extensions and snap-in extensions. The data format is as follows:
+ * 
+ * 
+ * ```cpp
+ * [ext_guid1, snap_in_guid1, snap_in_guid2, ...] 
+ * [ext_guid2, snap_in_guid3, snap_in_guid4, ...] 
+ * ```
+ * 
+ * 
+ * First, there is an opening bracket, "[", followed by the <b>GUID</b> of the extension. Next, you'll find one or more <b>GUID</b>s identifying the snap-in extensions that have stored data in the GPO. After the last snap-in <b>GUID</b> for an extension, there is a closing bracket, "]". This pattern is repeated for the next extension.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * > [!NOTE]
+ * > The userenv.h header defines GROUP_POLICY_OBJECT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//userenv/ns-userenv-group_policy_objecta
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319

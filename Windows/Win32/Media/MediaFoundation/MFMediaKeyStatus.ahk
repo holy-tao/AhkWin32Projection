@@ -5,11 +5,11 @@
  * Reporesents the status of a Content Decryption Module (CDM) session key.
  * @remarks
  * 
-  * This structure is used as the output parameter for the [IMFContentDecryptionModuleSession::GetKeyStatuses](../mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-getkeystatuses.md) method.
-  * 
-  * **MFMediaKeyStatus** is based on the Encrypted Media Extension specification's [MediaKeyStatusMap](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeysession-sessionid).
-  * 
-  * 
+ * This structure is used as the output parameter for the [IMFContentDecryptionModuleSession::GetKeyStatuses](../mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-getkeystatuses.md) method.
+ * 
+ * **MFMediaKeyStatus** is based on the Encrypted Media Extension specification's [MediaKeyStatusMap](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeysession-sessionid).
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-mfmediakeystatus
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

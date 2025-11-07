@@ -7,9 +7,9 @@
  * This interface is used to configure the capture device's extended properties.
  * @remarks
  * 
-  * Get an instance of this interface by calling [IMFExtendedCameraController::GetExtendedCameraControl](nf-mfidl-imfextendedcameracontroller-getextendedcameracontrol.md)
-  * 
-  * 
+ * Get an instance of this interface by calling [IMFExtendedCameraController::GetExtendedCameraControl](nf-mfidl-imfextendedcameracontroller-getextendedcameracontrol.md)
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfextendedcameracontrol
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

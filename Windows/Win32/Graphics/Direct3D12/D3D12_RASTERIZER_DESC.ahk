@@ -5,103 +5,103 @@
  * Describes rasterizer state.
  * @remarks
  * 
-  * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc">D3D12_GRAPHICS_PIPELINE_STATE_DESC</a> contains a rasterizer-state structure.
-  *       
-  * 
-  * Rasterizer state defines the behavior of the rasterizer stage.
-  *         
-  * 
-  * If you do not specify some rasterizer state,  the Direct3D runtime uses the following default values for rasterizer state.
-  *         
-  * 
-  * <table>
-  * <tr>
-  * <th>State</th>
-  * <th>Default Value</th>
-  * </tr>
-  * <tr>
-  * <td><b>FillMode</b></td>
-  * <td>D3D12_FILL_MODE_SOLID</td>
-  * </tr>
-  * <tr>
-  * <td><b>CullMode</b></td>
-  * <td>D3D12_CULL_MODE_BACK</td>
-  * </tr>
-  * <tr>
-  * <td><b>FrontCounterClockwise</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>DepthBias</b></td>
-  * <td>0</td>
-  * </tr>
-  * <tr>
-  * <td><b>DepthBiasClamp</b></td>
-  * <td>0.0f</td>
-  * </tr>
-  * <tr>
-  * <td><b>SlopeScaledDepthBias</b></td>
-  * <td>0.0f</td>
-  * </tr>
-  * <tr>
-  * <td><b>DepthClipEnable</b></td>
-  * <td><b>TRUE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>MultisampleEnable</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>AntialiasedLineEnable</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td><b>ForcedSampleCount</b></td>
-  * <td>0</td>
-  * </tr>
-  * <tr>
-  * <td><b>ConservativeRaster</b></td>
-  * <td><b>D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF</b></td>
-  * </tr>
-  * </table>
-  *  
-  * <div class="alert"><b>Note</b>  For <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a> 9.1, 9.2, 9.3, and 10.0, if you set <b>MultisampleEnable</b> to <b>FALSE</b>, the runtime renders all points, lines, and triangles without anti-aliasing even for render targets with a sample count greater than 1. For feature levels 10.1 and higher, the setting of <b>MultisampleEnable</b> has no effect on points and triangles with regard to MSAA and impacts only the selection of the line-rendering algorithm as shown in this table:</div>
-  * <div> </div>
-  * 
-  * <table>
-  * <tr>
-  * <th>Line-rendering algorithm</th>
-  * <th><b>MultisampleEnable</b></th>
-  * <th><b>AntialiasedLineEnable</b></th>
-  * </tr>
-  * <tr>
-  * <td>Aliased</td>
-  * <td><b>FALSE</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td>Alpha antialiased</td>
-  * <td><b>FALSE</b></td>
-  * <td><b>TRUE</b></td>
-  * </tr>
-  * <tr>
-  * <td>Quadrilateral</td>
-  * <td><b>TRUE</b></td>
-  * <td><b>FALSE</b></td>
-  * </tr>
-  * <tr>
-  * <td>Quadrilateral</td>
-  * <td><b>TRUE</b></td>
-  * <td><b>TRUE</b></td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * 
-  * 
-  * The settings of the <b>MultisampleEnable</b> and <b>AntialiasedLineEnable</b> members apply only to multisample antialiasing (MSAA) render targets (that is, render targets with sample counts greater than 1). Because of the differences in <a href="https://docs.microsoft.com/windows/win32/direct3d12/hardware-feature-levels">feature-level</a> behavior and as long as you aren’t performing any line drawing or don’t mind that lines render as quadrilaterals, we recommend that you always set <b>MultisampleEnable</b> to <b>TRUE</b> whenever you render on MSAA render targets.
-  * 
-  * 
+ * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc">D3D12_GRAPHICS_PIPELINE_STATE_DESC</a> contains a rasterizer-state structure.
+ *       
+ * 
+ * Rasterizer state defines the behavior of the rasterizer stage.
+ *         
+ * 
+ * If you do not specify some rasterizer state,  the Direct3D runtime uses the following default values for rasterizer state.
+ *         
+ * 
+ * <table>
+ * <tr>
+ * <th>State</th>
+ * <th>Default Value</th>
+ * </tr>
+ * <tr>
+ * <td><b>FillMode</b></td>
+ * <td>D3D12_FILL_MODE_SOLID</td>
+ * </tr>
+ * <tr>
+ * <td><b>CullMode</b></td>
+ * <td>D3D12_CULL_MODE_BACK</td>
+ * </tr>
+ * <tr>
+ * <td><b>FrontCounterClockwise</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>DepthBias</b></td>
+ * <td>0</td>
+ * </tr>
+ * <tr>
+ * <td><b>DepthBiasClamp</b></td>
+ * <td>0.0f</td>
+ * </tr>
+ * <tr>
+ * <td><b>SlopeScaledDepthBias</b></td>
+ * <td>0.0f</td>
+ * </tr>
+ * <tr>
+ * <td><b>DepthClipEnable</b></td>
+ * <td><b>TRUE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>MultisampleEnable</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>AntialiasedLineEnable</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td><b>ForcedSampleCount</b></td>
+ * <td>0</td>
+ * </tr>
+ * <tr>
+ * <td><b>ConservativeRaster</b></td>
+ * <td><b>D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF</b></td>
+ * </tr>
+ * </table>
+ *  
+ * <div class="alert"><b>Note</b>  For <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a> 9.1, 9.2, 9.3, and 10.0, if you set <b>MultisampleEnable</b> to <b>FALSE</b>, the runtime renders all points, lines, and triangles without anti-aliasing even for render targets with a sample count greater than 1. For feature levels 10.1 and higher, the setting of <b>MultisampleEnable</b> has no effect on points and triangles with regard to MSAA and impacts only the selection of the line-rendering algorithm as shown in this table:</div>
+ * <div> </div>
+ * 
+ * <table>
+ * <tr>
+ * <th>Line-rendering algorithm</th>
+ * <th><b>MultisampleEnable</b></th>
+ * <th><b>AntialiasedLineEnable</b></th>
+ * </tr>
+ * <tr>
+ * <td>Aliased</td>
+ * <td><b>FALSE</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td>Alpha antialiased</td>
+ * <td><b>FALSE</b></td>
+ * <td><b>TRUE</b></td>
+ * </tr>
+ * <tr>
+ * <td>Quadrilateral</td>
+ * <td><b>TRUE</b></td>
+ * <td><b>FALSE</b></td>
+ * </tr>
+ * <tr>
+ * <td>Quadrilateral</td>
+ * <td><b>TRUE</b></td>
+ * <td><b>TRUE</b></td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
+ * The settings of the <b>MultisampleEnable</b> and <b>AntialiasedLineEnable</b> members apply only to multisample antialiasing (MSAA) render targets (that is, render targets with sample counts greater than 1). Because of the differences in <a href="https://docs.microsoft.com/windows/win32/direct3d12/hardware-feature-levels">feature-level</a> behavior and as long as you aren’t performing any line drawing or don’t mind that lines render as quadrilaterals, we recommend that you always set <b>MultisampleEnable</b> to <b>TRUE</b> whenever you render on MSAA render targets.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_rasterizer_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319

@@ -7,36 +7,36 @@
  * Stores interface management information for a particular IP address family on a network interface.
  * @remarks
  * 
-  * The <b>MIB_IPINTERFACE_ROW</b> structure is defined on Windows Vista and later. 
-  * 
-  * The <b>Family</b>, <b>InterfaceLuid</b>, and <b>InterfaceIndex</b> members uniquely identify a <b>MIB_IPINTERFACE_ROW</b> entry.
-  * 
-  * When a unicast packet arrives at a host, IP must determine whether the packet is locally destined (its destination matches an address that is assigned to an interface of the host). IP implementations that follow a weak host model accept any locally destined packet, regardless of the interface on which the packet was received. IP implementations that follow the strong host model only accept locally destined packets if the destination address in the packet matches an address assigned to the interface on which the packet was received. The weak host model provides better network connectivity. However, it also makes hosts susceptible to multihome-based network attacks.
-  * 
-  * 
-  * The current IPv4 implementation in Windows Server 2003 and Windows XP uses the weak host model. In this case, all unicast packets are sent out the  interface with the lowest metric for a route. 
-  * 
-  * The TCP/IP stack on Windows Vista and later supports the strong host model for both IPv4 and IPv6 and is configured to use the strong host mode by default (the <b>WeakHostReceive</b> and <b>WeakHostSend</b> members are set to <b>FALSE</b>). With the strong host mode, a unicast packet can be sent out a specific interface that does not have the lowest metric for a route by binding the socket  to the source address of the specific interface. 
-  * 
-  * The TCP/IP stack on Windows Vista and later can be configured to use a weak host model. 
-  * 
-  * A metric is a value that is assigned to an IP route for a particular network interface that identifies the cost that is associated with using that route. For example, the metric can be valued in terms of link speed, hop count, or time delay. Automatic metric is a feature on Windows XP and later that automatically configures the metric for the local routes that are based on link speed. The automatic metric feature is enabled by default (the <b>UseAutomaticMetric</b> is set to <b>TRUE</b>) on Windows XP and later. It can also be manually configured to assign a specific metric to an IP route.
-  * 
-  * 
-  * 
-  * The automatic metric feature can be useful when the routing table contains multiple routes for the same destination. For example, a computer with a 10 megabit network interface and a 100 megabit network interface has a default gateway that is configured on both network interfaces. When <b>UseAutomaticMetric</b> is <b>TRUE</b>, this feature can force all of the traffic that is destined for the Internet, for example, to use the fastest network interface that is available.
-  * 
-  * 
-  * The interface metric specified in the <b>Metric</b> member represents just the metric for the interface. The complete routing metric is a combination of this interface metric  added to the route metric offset specified in the <b>Metric</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> structure of a route entry specified on this interface.  
-  * 
-  * Unprivileged simultaneous access to multiple networks of different security requirements creates a security hole and allows an unprivileged application to accidentally relay data between the two networks. A typical example is simultaneous access to a virtual private network (VPN) and the internet. Windows Server 2003 and Windows XP use a weak host model, where RAS prevents such simultaneous access by increasing the route metric of all default routes over other interfaces. Thus all traffic is routed through the VPN interface, disrupting other network connectivity. 
-  * 
-  * On Windows Vista and later, a strong host model is used by default. If a source IP address is specified in the route lookup using <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getbestroute2">GetBestRoute2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getbestroute">GetBestRoute</a>, the route lookup is restricted to the interface of the source IP address. The route metric modification by RAS has no effect as the list of potential routes does not even have the route for the VPN interface thereby allowing traffic to the internet. The <b>DisableDefaultRoutes</b> member of the <b>MIB_IPINTERFACE_ROW</b> structure can be used to disable using the default route on an interface. This member can be used as a security measure by VPN clients to restrict split tunneling when split tunneling is not required by the VPN client. A VPN client can call the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-setipinterfaceentry">SetIpInterfaceEntry</a> function to set the <b>DisableDefaultRoutes</b> member to <b>TRUE</b> when required. A VPN client can query the current state of the <b>DisableDefaultRoutes</b> member by calling  the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipinterfaceentry">GetIpInterfaceEntry</a> function. 
-  * 
-  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
-  * 
-  * 
-  * 
+ * The <b>MIB_IPINTERFACE_ROW</b> structure is defined on Windows Vista and later. 
+ * 
+ * The <b>Family</b>, <b>InterfaceLuid</b>, and <b>InterfaceIndex</b> members uniquely identify a <b>MIB_IPINTERFACE_ROW</b> entry.
+ * 
+ * When a unicast packet arrives at a host, IP must determine whether the packet is locally destined (its destination matches an address that is assigned to an interface of the host). IP implementations that follow a weak host model accept any locally destined packet, regardless of the interface on which the packet was received. IP implementations that follow the strong host model only accept locally destined packets if the destination address in the packet matches an address assigned to the interface on which the packet was received. The weak host model provides better network connectivity. However, it also makes hosts susceptible to multihome-based network attacks.
+ * 
+ * 
+ * The current IPv4 implementation in Windows Server 2003 and Windows XP uses the weak host model. In this case, all unicast packets are sent out the  interface with the lowest metric for a route. 
+ * 
+ * The TCP/IP stack on Windows Vista and later supports the strong host model for both IPv4 and IPv6 and is configured to use the strong host mode by default (the <b>WeakHostReceive</b> and <b>WeakHostSend</b> members are set to <b>FALSE</b>). With the strong host mode, a unicast packet can be sent out a specific interface that does not have the lowest metric for a route by binding the socket  to the source address of the specific interface. 
+ * 
+ * The TCP/IP stack on Windows Vista and later can be configured to use a weak host model. 
+ * 
+ * A metric is a value that is assigned to an IP route for a particular network interface that identifies the cost that is associated with using that route. For example, the metric can be valued in terms of link speed, hop count, or time delay. Automatic metric is a feature on Windows XP and later that automatically configures the metric for the local routes that are based on link speed. The automatic metric feature is enabled by default (the <b>UseAutomaticMetric</b> is set to <b>TRUE</b>) on Windows XP and later. It can also be manually configured to assign a specific metric to an IP route.
+ * 
+ * 
+ * 
+ * The automatic metric feature can be useful when the routing table contains multiple routes for the same destination. For example, a computer with a 10 megabit network interface and a 100 megabit network interface has a default gateway that is configured on both network interfaces. When <b>UseAutomaticMetric</b> is <b>TRUE</b>, this feature can force all of the traffic that is destined for the Internet, for example, to use the fastest network interface that is available.
+ * 
+ * 
+ * The interface metric specified in the <b>Metric</b> member represents just the metric for the interface. The complete routing metric is a combination of this interface metric  added to the route metric offset specified in the <b>Metric</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> structure of a route entry specified on this interface.  
+ * 
+ * Unprivileged simultaneous access to multiple networks of different security requirements creates a security hole and allows an unprivileged application to accidentally relay data between the two networks. A typical example is simultaneous access to a virtual private network (VPN) and the internet. Windows Server 2003 and Windows XP use a weak host model, where RAS prevents such simultaneous access by increasing the route metric of all default routes over other interfaces. Thus all traffic is routed through the VPN interface, disrupting other network connectivity. 
+ * 
+ * On Windows Vista and later, a strong host model is used by default. If a source IP address is specified in the route lookup using <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getbestroute2">GetBestRoute2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getbestroute">GetBestRoute</a>, the route lookup is restricted to the interface of the source IP address. The route metric modification by RAS has no effect as the list of potential routes does not even have the route for the VPN interface thereby allowing traffic to the internet. The <b>DisableDefaultRoutes</b> member of the <b>MIB_IPINTERFACE_ROW</b> structure can be used to disable using the default route on an interface. This member can be used as a security measure by VPN clients to restrict split tunneling when split tunneling is not required by the VPN client. A VPN client can call the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-setipinterfaceentry">SetIpInterfaceEntry</a> function to set the <b>DisableDefaultRoutes</b> member to <b>TRUE</b> when required. A VPN client can query the current state of the <b>DisableDefaultRoutes</b> member by calling  the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipinterfaceentry">GetIpInterfaceEntry</a> function. 
+ * 
+ * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_ipinterface_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319

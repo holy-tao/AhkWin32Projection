@@ -7,9 +7,9 @@
  * Contains object position information.
  * @remarks
  * 
-  * This is used in the <a href="https://msdn.microsoft.com/1965185f-8a13-4989-8574-af8b9b30f6b0">EN_OBJECTPOSITIONS</a> notification.
-  * 
-  * 
+ * This is used in the <a href="https://msdn.microsoft.com/1965185f-8a13-4989-8574-af8b9b30f6b0">EN_OBJECTPOSITIONS</a> notification.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-objectpositions
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319

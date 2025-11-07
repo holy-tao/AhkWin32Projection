@@ -4,9 +4,9 @@
  * Used by the IRowsetPrioritization interface to sets or retrieve the current indexer prioritization level for the scope specified by a query.
  * @remarks
  * 
-  * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
-  * 
-  * 
+ * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//searchapi/ne-searchapi-priority_level
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319

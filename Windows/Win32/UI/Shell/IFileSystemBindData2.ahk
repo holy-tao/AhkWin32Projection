@@ -7,33 +7,33 @@
  * Extends IFileSystemBindData, which stores file system information for optimizing calls to IShellFolder::ParseDisplayName. This interface adds the ability set or get file ID or junction class identifier (CLSID).
  * @remarks
  * 
-  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifilesystembinddata">IFileSystemBindData</a> interface, from which it inherits.
-  * 
-  * To pass the information expressed in this interface to a data source <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname">IShellFolder::ParseDisplayName</a>, an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> object is created (use <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-createbindctx">CreateBindCtx</a>) and populated with an object that implements <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifilesystembinddata">IFileSystemBindData</a> by calling the following:
-  *   
-  * 
-  * 
-  * ```cpp
-  * IBindCtx::RegisterObjectParam(STR_FILE_SYS_BIND_DATA, pfsbd)
-  * 
-  * ```
-  * 
-  * 
-  *  Where <i>pfsbd</i> is the object that implements <b>IFileSystemBindData</b>.
-  * 
-  * Implementers of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname">IShellFolder::ParseDisplayName</a> first make the following call.
-  *               
-  * 
-  * 
-  * ```cpp
-  * IUnknown *punk;
-  * pbc->GetObjectParam(STR_FILE_SYS_BIND_DATA, &punk);
-  * 
-  * ```
-  * 
-  * 
-  *  Next the implementer calls one of the <b>Get</b> methods listed above to retrieve the parameters.
-  * 
+ * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifilesystembinddata">IFileSystemBindData</a> interface, from which it inherits.
+ * 
+ * To pass the information expressed in this interface to a data source <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname">IShellFolder::ParseDisplayName</a>, an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> object is created (use <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-createbindctx">CreateBindCtx</a>) and populated with an object that implements <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifilesystembinddata">IFileSystemBindData</a> by calling the following:
+ *   
+ * 
+ * 
+ * ```cpp
+ * IBindCtx::RegisterObjectParam(STR_FILE_SYS_BIND_DATA, pfsbd)
+ * 
+ * ```
+ * 
+ * 
+ *  Where <i>pfsbd</i> is the object that implements <b>IFileSystemBindData</b>.
+ * 
+ * Implementers of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname">IShellFolder::ParseDisplayName</a> first make the following call.
+ *               
+ * 
+ * 
+ * ```cpp
+ * IUnknown *punk;
+ * pbc->GetObjectParam(STR_FILE_SYS_BIND_DATA, &punk);
+ * 
+ * ```
+ * 
+ * 
+ *  Next the implementer calls one of the <b>Get</b> methods listed above to retrieve the parameters.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ifilesystembinddata2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

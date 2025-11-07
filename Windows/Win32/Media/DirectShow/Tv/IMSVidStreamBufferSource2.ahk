@@ -8,9 +8,9 @@
  * The IMSVidStreamBufferSource2 interface represents the Stream Buffer Source filter within the Video Control.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSource2)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSource2)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambuffersource2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

@@ -7,21 +7,21 @@
  * The EVENT_TRACE_PROPERTIES structure contains information about an event tracing session. You use this structure when you define a session, change the properties of a session, or query for the properties of a session.
  * @remarks
  * 
-  * Be sure to initialize the memory for this structure to zero before setting any members.
-  * 
-  * Events from providers are written to a session's buffers. When a buffer is full, the session flushes the buffer either by writing the events to a log file, delivering them to a real-time consumer, or both. If the session's buffers are filled faster than they can be flushed, new buffers are allocated and added to the session's buffer pool, up to the maximum number specified. Beyond this limit, the session discards incoming events until a buffer becomes available. Each session keeps a record of the number of events discarded (see the <b>EventsLost</b> member).
-  * 
-  * ETW does not free unused buffers.
-  * 
-  * <b>Windows 2000:  </b>ETW frees unused buffers based on the <b>AgeLimit</b> member value.
-  * 
-  * You use the <b>BufferSize</b>, <b>MinimumBuffers</b>, and <b>MaximumBuffers</b> members to configure the buffers for an event tracing session when you define the session or anytime during the tracing session. ETW uses the physical memory and number of processors available on the computer to determine if the values are reasonable. If ETW determines the values are not reasonable, ETW will determine the correct size and overwrite the values.   
-  * 
-  * Typically, you should not set these values and instead let ETW determine the size and number of buffers. 
-  * 
-  * To view session statistics, such as <b>EventsLost</b> while the session is running, call the <a href="https://docs.microsoft.com/windows/desktop/ETW/controltrace">ControlTrace</a> function and set the <i>ControlCode</i> parameter to EVENT_TRACE_CONTROL_QUERY.
-  * 
-  * 
+ * Be sure to initialize the memory for this structure to zero before setting any members.
+ * 
+ * Events from providers are written to a session's buffers. When a buffer is full, the session flushes the buffer either by writing the events to a log file, delivering them to a real-time consumer, or both. If the session's buffers are filled faster than they can be flushed, new buffers are allocated and added to the session's buffer pool, up to the maximum number specified. Beyond this limit, the session discards incoming events until a buffer becomes available. Each session keeps a record of the number of events discarded (see the <b>EventsLost</b> member).
+ * 
+ * ETW does not free unused buffers.
+ * 
+ * <b>Windows 2000:  </b>ETW frees unused buffers based on the <b>AgeLimit</b> member value.
+ * 
+ * You use the <b>BufferSize</b>, <b>MinimumBuffers</b>, and <b>MaximumBuffers</b> members to configure the buffers for an event tracing session when you define the session or anytime during the tracing session. ETW uses the physical memory and number of processors available on the computer to determine if the values are reasonable. If ETW determines the values are not reasonable, ETW will determine the correct size and overwrite the values.   
+ * 
+ * Typically, you should not set these values and instead let ETW determine the size and number of buffers. 
+ * 
+ * To view session statistics, such as <b>EventsLost</b> while the session is running, call the <a href="https://docs.microsoft.com/windows/desktop/ETW/controltrace">ControlTrace</a> function and set the <i>ControlCode</i> parameter to EVENT_TRACE_CONTROL_QUERY.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-event_trace_properties
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

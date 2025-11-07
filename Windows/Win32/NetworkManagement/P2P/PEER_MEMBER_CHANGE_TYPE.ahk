@@ -28,12 +28,12 @@ class PEER_MEMBER_CHANGE_TYPE{
 
     /**
      * New membership information is published for a group member. The peer name of a peer group member is obtained from the <b>pwzIdentity</b> field of the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_event_member_change_data">PEER_EVENT_MEMBER_CHANGE_DATA</a>  structure. New membership information is published in one of the following three scenarios: 
- * 
- * <ul>
- * <li>An administrator calls <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupissuecredentials">PeerGroupIssueCredentials</a> with the PEER_GROUP_STORE_CREDENTIALS flag set.</li>
- * <li>A user connects to a peer group for the first time, and the PEER_MEMBER_DATA_OPTIONAL flag is not set.</li>
- * <li>A peer group member performs an operation (for example, issuing an invitation or credentials, or publishing a record), but membership information for the peer group member does not exist in the group.</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>An administrator calls <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupissuecredentials">PeerGroupIssueCredentials</a> with the PEER_GROUP_STORE_CREDENTIALS flag set.</li>
+     * <li>A user connects to a peer group for the first time, and the PEER_MEMBER_DATA_OPTIONAL flag is not set.</li>
+     * <li>A peer group member performs an operation (for example, issuing an invitation or credentials, or publishing a record), but membership information for the peer group member does not exist in the group.</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static PEER_MEMBER_JOINED => 4

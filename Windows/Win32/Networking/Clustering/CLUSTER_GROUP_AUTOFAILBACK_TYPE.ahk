@@ -22,7 +22,7 @@ class CLUSTER_GROUP_AUTOFAILBACK_TYPE{
 
     /**
      * Defines a maximum group property value. It is not supported by the 
- *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups-autofailbacktype">AutoFailbackType</a> group property.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups-autofailbacktype">AutoFailbackType</a> group property.
      * @type {Integer (Int32)}
      */
     static ClusterGroupFailbackTypeCount => 2

@@ -5,19 +5,19 @@
  * A set of callback routines to where the provider stores its implementation of the callback.
  * @remarks
  * 
-  * The provider must supply implementations for StartDirectoryEnumerationCallback, EndDirectoryEnumerationCallback, GetDirectoryEnumerationCallback, GetPlaceholderInformationCallback, and GetFileDataCallback. 
-  * 
-  * 
-  * 
-  * The QueryFileNameCallback, NotifyOperationCallback, and CancelCommandCallback callbacks are optional.
-  * 
-  * <ul>
-  * <li>If the provider does not supply an implementation of QueryFileNameCallback, ProjFS will invoke the directory enumeration callbacks to determine the existence of a file path in the provider's store.</li>
-  * <li>If the provider does not supply an implementation of NotifyOperationCallback, it will not get any notifications from ProjFS.</li>
-  * <li>If the provider does not supply an implementation of CancelCommandCallback, none of the other callbacks will be cancellable. The provider will process all callbacks synchronously.</li>
-  * </ul>
-  * 
-  * 
+ * The provider must supply implementations for StartDirectoryEnumerationCallback, EndDirectoryEnumerationCallback, GetDirectoryEnumerationCallback, GetPlaceholderInformationCallback, and GetFileDataCallback. 
+ * 
+ * 
+ * 
+ * The QueryFileNameCallback, NotifyOperationCallback, and CancelCommandCallback callbacks are optional.
+ * 
+ * <ul>
+ * <li>If the provider does not supply an implementation of QueryFileNameCallback, ProjFS will invoke the directory enumeration callbacks to determine the existence of a file path in the provider's store.</li>
+ * <li>If the provider does not supply an implementation of NotifyOperationCallback, it will not get any notifications from ProjFS.</li>
+ * <li>If the provider does not supply an implementation of CancelCommandCallback, none of the other callbacks will be cancellable. The provider will process all callbacks synchronously.</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ns-projectedfslib-prj_callbacks
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319

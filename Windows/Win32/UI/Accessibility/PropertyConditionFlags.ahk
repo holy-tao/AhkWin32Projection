@@ -22,8 +22,8 @@ class PropertyConditionFlags{
 
     /**
      * [Windows 10 October 2018 Update (version 1809) and newer]
- * 
- * Comparison of substring properties is enabled.
+     * 
+     * Comparison of substring properties is enabled.
      * @type {Integer (Int32)}
      */
     static PropertyConditionFlags_MatchSubstring => 2

@@ -4,11 +4,11 @@
  * Specifies the possible reasons that 802.1X authentication was restarted.
  * @remarks
  * 
-  * The <b>ONEX_AUTH_RESTART_REASON</b> enumerated type is used by the 802.1X module, a new wireless configuration component supported on Windows Vista and  later.  
-  * 
-  * The <b>ONEX_AUTH_RESTART_REASON</b> specifies the possible values for the reason that 802.1X authentication was restarted. A value from this enumeration is returned  when  the <b>NotificationSource</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure is <b>WLAN_NOTIFICATION_SOURCE_ONEX</b>  and the <b>NotificationCode</b> member of the <b>WLAN_NOTIFICATION_DATA</b> structure for received notifications  is <b>OneXNotificationTypeAuthRestarted</b>. For this notification, the <b>pData</b> member of the <b>WLAN_NOTIFICATION_DATA</b> structure points to an  <b>ONEX_AUTH_RESTART_REASON</b> enumeration value that identifies the reason the authentication was restarted.
-  * 
-  * 
+ * The <b>ONEX_AUTH_RESTART_REASON</b> enumerated type is used by the 802.1X module, a new wireless configuration component supported on Windows Vista and  later.  
+ * 
+ * The <b>ONEX_AUTH_RESTART_REASON</b> specifies the possible values for the reason that 802.1X authentication was restarted. A value from this enumeration is returned  when  the <b>NotificationSource</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure is <b>WLAN_NOTIFICATION_SOURCE_ONEX</b>  and the <b>NotificationCode</b> member of the <b>WLAN_NOTIFICATION_DATA</b> structure for received notifications  is <b>OneXNotificationTypeAuthRestarted</b>. For this notification, the <b>pData</b> member of the <b>WLAN_NOTIFICATION_DATA</b> structure points to an  <b>ONEX_AUTH_RESTART_REASON</b> enumeration value that identifies the reason the authentication was restarted.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dot1x/ne-dot1x-onex_auth_restart_reason
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
@@ -29,14 +29,14 @@ class ONEX_AUTH_RESTART_REASON{
 
     /**
      * The 802.1X authentication restart was the result of a state timeout. The timer expiring is the heldWhile timer of the 802.1X supplicant state machine defined in IEEE 802.1X - 2004 standard for Port-Based Network Access Control. The heldWhile timer is used by the supplicant state machine to define periods of time during which it
- * will not attempt to acquire an authenticator.
+     * will not attempt to acquire an authenticator.
      * @type {Integer (Int32)}
      */
     static OneXRestartReasonOneXHeldStateTimeout => 2
 
     /**
      * The 802.1X authentication restart was the result of an state timeout. The timer expiring is the authWhile timer of the 802.1X supplicant port access entity defined in IEEE 802.1X - 2004 standard for Port-Based Network Access Control. The authWhile timer is used by the supplicant port access entity to determine how long to wait for a request from
- * the authenticator before timing it out.
+     * the authenticator before timing it out.
      * @type {Integer (Int32)}
      */
     static OneXRestartReasonOneXAuthTimeout => 3

@@ -34,7 +34,7 @@ class WS_CHANNEL_BINDING{
 
     /**
      * Windows 8 or later:
- *                     SOAP over named pipes.
+     *                     SOAP over named pipes.
      * @type {Integer (Int32)}
      */
     static WS_NAMEDPIPE_CHANNEL_BINDING => 4

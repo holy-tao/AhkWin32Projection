@@ -5,22 +5,22 @@
  * Contains information about files in the specified directory.
  * @remarks
  * 
-  * No specific access rights are required to query this information.
-  * 
-  * File reference numbers, also called file IDs, are guaranteed to be unique only within a static file system. 
-  *     They are not guaranteed to be unique over time, because file systems are free to reuse them. Nor are they 
-  *     guaranteed to remain constant. For example, the FAT file system generates the file reference number for a file 
-  *     from the byte offset of the file's directory entry record (DIRENT) on the disk. Defragmentation can change this 
-  *     byte offset. Thus a FAT file reference number can change over time.
-  * 
-  * All dates and times are in absolute system-time format. Absolute system time is the number of 100-nanosecond 
-  *     intervals since the start of the year 1601.
-  * 
-  * This <b>FILE_ID_BOTH_DIR_INFO</b> structure must be 
-  *     aligned on a <b>DWORDLONG</b> (8-byte) boundary. If a buffer contains two or more of these structures, the 
-  *     <b>NextEntryOffset</b> value in each entry, except the last, falls on an 8-byte boundary.
-  * 
-  * 
+ * No specific access rights are required to query this information.
+ * 
+ * File reference numbers, also called file IDs, are guaranteed to be unique only within a static file system. 
+ *     They are not guaranteed to be unique over time, because file systems are free to reuse them. Nor are they 
+ *     guaranteed to remain constant. For example, the FAT file system generates the file reference number for a file 
+ *     from the byte offset of the file's directory entry record (DIRENT) on the disk. Defragmentation can change this 
+ *     byte offset. Thus a FAT file reference number can change over time.
+ * 
+ * All dates and times are in absolute system-time format. Absolute system time is the number of 100-nanosecond 
+ *     intervals since the start of the year 1601.
+ * 
+ * This <b>FILE_ID_BOTH_DIR_INFO</b> structure must be 
+ *     aligned on a <b>DWORDLONG</b> (8-byte) boundary. If a buffer contains two or more of these structures, the 
+ *     <b>NextEntryOffset</b> value in each entry, except the last, falls on an 8-byte boundary.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_id_both_dir_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319

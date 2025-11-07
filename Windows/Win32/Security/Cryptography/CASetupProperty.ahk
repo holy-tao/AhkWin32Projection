@@ -16,20 +16,20 @@ class CASetupProperty{
 
     /**
      * A <b>VT_I4</b> value that specifies a value of the <a href="https://docs.microsoft.com/windows/desktop/api/certsrv/ne-certsrv-enum_catypes">ENUM_CATYPES</a> enumeration.
- * 
- * If the computer is not joined to a domain, or the caller
- * 
- * is not an Enterprise or Domain administrator but is a local administrator, the default value is <b>ENUM_STANDALONE_ROOTCA</b>. If the computer is joined to a domain, the caller is an Enterprise or Domain administrator, and an enterprise root CA already exists, the default is <b>ENUM_ENTERPRISE_SUBCA</b>, or if no enterprise root CA exists, the default value is <b>ENUM_ENTERPRISE_ROOTCA</b>.
+     * 
+     * If the computer is not joined to a domain, or the caller
+     * 
+     * is not an Enterprise or Domain administrator but is a local administrator, the default value is <b>ENUM_STANDALONE_ROOTCA</b>. If the computer is joined to a domain, the caller is an Enterprise or Domain administrator, and an enterprise root CA already exists, the default is <b>ENUM_ENTERPRISE_SUBCA</b>, or if no enterprise root CA exists, the default value is <b>ENUM_ENTERPRISE_ROOTCA</b>.
      * @type {Integer (Int32)}
      */
     static ENUM_SETUPPROP_CATYPE => 0
 
     /**
      * A <b>VT_DISPATCH</b> value, in the form of a <b>CCertSrvSetupKeyInformation</b>  object, that specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> information used for a CA certificate. By default, setup generates a new key
- * 
- * with a 2048-bit key length for root and subordinate CAs using "Microsoft
- * 
- * Strong Cryptographic Provider."
+     * 
+     * with a 2048-bit key length for root and subordinate CAs using "Microsoft
+     * 
+     * Strong Cryptographic Provider."
      * @type {Integer (Int32)}
      */
     static ENUM_SETUPPROP_CAKEYINFORMATION => 1
@@ -42,8 +42,8 @@ class CASetupProperty{
 
     /**
      * A <b>VT_BSTR</b> value that contains the common name for the CA. By default, the common 
- * 
- * name is <i>DomainName</i>-<i>LocalComputerName</i>-<i>CAName</i>.
+     * 
+     * name is <i>DomainName</i>-<i>LocalComputerName</i>-<i>CAName</i>.
      * @type {Integer (Int32)}
      */
     static ENUM_SETUPPROP_CANAME => 3
@@ -68,22 +68,22 @@ class CASetupProperty{
 
     /**
      * A <b>VT_BSTR</b> value that specifies the expected expiration date of the root CA certificate based on the current time, validity period, and validity period unit. For a subordinate CA, the expiration date is
- * 
- * determined by its parent CA.
+     * 
+     * determined by its parent CA.
      * @type {Integer (Int32)}
      */
     static ENUM_SETUPPROP_EXPIRATIONDATE => 7
 
     /**
      * A <b>VT_BOOL</b> value that specifies whether to preserve an existing database. This is relevant under the following conditions:
- * 
- * <ul>
- * <li>A CA 
- * 
- * was previously installed (and later uninstalled) on this computer.</li>
- * <li>An existing key (and its associated certificate) is being used for installation.</li>
- * <li>A database exists in the given database directory.</li>
- * </ul>
+     * 
+     * <ul>
+     * <li>A CA 
+     * 
+     * was previously installed (and later uninstalled) on this computer.</li>
+     * <li>An existing key (and its associated certificate) is being used for installation.</li>
+     * <li>A database exists in the given database directory.</li>
+     * </ul>
      * @type {Integer (Int32)}
      */
     static ENUM_SETUPPROP_PRESERVEDATABASE => 8

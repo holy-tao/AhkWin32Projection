@@ -8,11 +8,11 @@
  * A collection of IXpsSignatureBlock interfaces.
  * @remarks
  * 
-  * This interface cannot exist independently from the signature manager from which it was instantiated.
-  * 
-  * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
-  * 
-  * 
+ * This interface cannot exist independently from the signature manager from which it was instantiated.
+ * 
+ * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignatureblockcollection
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319

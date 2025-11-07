@@ -4,11 +4,11 @@
  * Specifies the formats used for representing distinguished names.
  * @remarks
  * 
-  * Code examples written in C++, Visual Basic, and VBS/ASP can be found in the discussions of the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsnametranslate">IADsNameTranslate</a> interface.
-  * 
-  * Because VBScript cannot read data from a type library, an application must use the appropriate numeric constants, instead of the symbolic constants, to set the appropriate flags. To use the symbolic constants as a good programming practice, write explicit declarations of such constants, as done here, in  VBScript applications.
-  * 
-  * 
+ * Code examples written in C++, Visual Basic, and VBS/ASP can be found in the discussions of the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsnametranslate">IADsNameTranslate</a> interface.
+ * 
+ * Because VBScript cannot read data from a type library, an application must use the appropriate numeric constants, instead of the symbolic constants, to set the appropriate flags. To use the symbolic constants as a good programming practice, write explicit declarations of such constants, as done here, in  VBScript applications.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_name_type_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

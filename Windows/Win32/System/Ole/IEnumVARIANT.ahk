@@ -8,8 +8,8 @@
  * Provides a method for enumerating a collection of variants, including heterogeneous collections of objects and intrinsic types.
  * @remarks
  * 
-  * To see how to implement a collection of objects using <b>IEnumVARIANT</b>, refer to the file Enumvar.cpp in the Lines sample code.
-  * 
+ * To see how to implement a collection of objects using <b>IEnumVARIANT</b>, refer to the file Enumvar.cpp in the Lines sample code.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-ienumvariant
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319

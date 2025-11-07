@@ -5,10 +5,10 @@
  * Contains the data format and alpha mode for a bitmap or render target.
  * @remarks
  * 
-  * For more information about the pixel formats and alpha modes supported by each render target, see <a href="https://docs.microsoft.com/windows/desktop/Direct2D/supported-pixel-formats-and-alpha-modes">Supported Pixel Formats and Alpha Modes</a>.
-  * 
-  * 
-  * 
+ * For more information about the pixel formats and alpha modes supported by each render target, see <a href="https://docs.microsoft.com/windows/desktop/Direct2D/supported-pixel-formats-and-alpha-modes">Supported Pixel Formats and Alpha Modes</a>.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dcommon/ns-dcommon-d2d1_pixel_format
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319

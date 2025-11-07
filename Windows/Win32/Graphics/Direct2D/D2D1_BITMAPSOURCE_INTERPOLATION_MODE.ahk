@@ -34,7 +34,7 @@ class D2D1_BITMAPSOURCE_INTERPOLATION_MODE{
 
     /**
      * Generates mipmap chain in system memory using bilinear interpolation. For each mipmap the effect scales to the nearest multiple of 0.5 using bilinear interpolation 
- *           and then scales the remaining amount using linear interpolation.
+     *           and then scales the remaining amount using linear interpolation.
      * @type {Integer (Int32)}
      */
     static D2D1_BITMAPSOURCE_INTERPOLATION_MODE_MIPMAP_LINEAR => 7

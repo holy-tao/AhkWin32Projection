@@ -7,9 +7,9 @@
  * Represents a basic image-processing construct in Direct2D.
  * @remarks
  * 
-  * An effect takes zero or more input images, and has an output image. The images that are input into and output from an effect are lazily evaluated. This definition is sufficient to allow an arbitrary graph of effects to be created from the application by feeding output images into the input image of the next effect in the chain.
-  * 
-  * 
+ * An effect takes zero or more input images, and has an output image. The images that are input into and output from an effect are lazily evaluated. This definition is sufficient to allow an arbitrary graph of effects to be created from the application by feeding output images into the input image of the next effect in the chain.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1effect
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319

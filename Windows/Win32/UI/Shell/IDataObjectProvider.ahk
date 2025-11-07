@@ -8,10 +8,10 @@
  * Provides methods that enable you to set or retrieve a DataPackage object's IDataObject interface, which the DataPackage uses to support interoperability. The DataPackage object is used by an app to provide data to another app.
  * @remarks
  * 
-  * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
-  * Do not implement this interface. An implementation is provided as part of the DataPackage object.
-  * 
-  * 
+ * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
+ * Do not implement this interface. An implementation is provided as part of the DataPackage object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-idataobjectprovider
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

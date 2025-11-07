@@ -7,24 +7,24 @@
  * The IGPMAsyncProgress interface can be implemented by the client and passed as an input parameter to the Group Policy Management Console (GPMC) methods that can execute asynchronously.
  * @remarks
  * 
-  * Complex GPMC operations, such as backup, restore, import, and copy operations, can execute asynchronously. To 
-  *     use this interface with asynchronous operations, follow these steps.
-  * 
-  * <p class="proch"><b>To use this interface with asynchronous operations</b>
-  * 
-  * <ol>
-  * <li>Implement the <b>IGPMAsyncProgress</b> interface.</li>
-  * <li>Pass the <b>IGPMAsyncProgress</b> interface pointer to the GPMC method. For example, 
-  *       pass the interface pointer to the 
-  *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmdomain-restoregpo">RestoreGPO</a> method or to the 
-  *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmgpo-import">Import</a> method.</li>
-  * </ol>
-  * The server will call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmasyncprogress-status">Status</a> method to 
-  *     notify the client about the progress of the operation. This method also returns an 
-  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface pointer so that the caller can cancel the 
-  *     operation by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmasynccancel-cancel">Cancel</a> method.
-  * 
-  * 
+ * Complex GPMC operations, such as backup, restore, import, and copy operations, can execute asynchronously. To 
+ *     use this interface with asynchronous operations, follow these steps.
+ * 
+ * <p class="proch"><b>To use this interface with asynchronous operations</b>
+ * 
+ * <ol>
+ * <li>Implement the <b>IGPMAsyncProgress</b> interface.</li>
+ * <li>Pass the <b>IGPMAsyncProgress</b> interface pointer to the GPMC method. For example, 
+ *       pass the interface pointer to the 
+ *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmdomain-restoregpo">RestoreGPO</a> method or to the 
+ *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmgpo-import">Import</a> method.</li>
+ * </ol>
+ * The server will call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmasyncprogress-status">Status</a> method to 
+ *     notify the client about the progress of the operation. This method also returns an 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface pointer so that the caller can cancel the 
+ *     operation by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmasynccancel-cancel">Cancel</a> method.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmasyncprogress
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319

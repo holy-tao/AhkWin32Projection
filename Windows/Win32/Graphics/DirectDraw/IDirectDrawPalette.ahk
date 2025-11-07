@@ -7,45 +7,45 @@
  * Applications use the methods of the IDirectDrawPalette interface to create DirectDrawPalette objects and work with system-level variables. This section is a reference to the methods of this interface.
  * @remarks
  * 
-  * The methods of the <b>IDirectDrawPalette</b> interface can be organized into the following groups:<table>
-  * <tr>
-  * <th>Group</th>
-  * <th>Methods</th>
-  * </tr>
-  * <tr>
-  * <td>Allocating memory</td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawpalette-initialize">Initialize</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>Palette capabilities</td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawpalette-getcaps">GetCaps</a>
-  * </td>
-  * </tr>
-  * <tr>
-  * <td>Palette entries</td>
-  * <td>
-  * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawpalette-getentries">GetEntries</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawpalette-setentries">SetEntries</a>
-  * </td>
-  * </tr>
-  * </table>
-  *  
-  * 
-  * 
-  * 
-  * You can use the LPDIRECTDRAWPALETTE data type to declare a variable that contains a pointer to an <b>IDirectDrawPalette</b> interface. The Ddraw.h header file declares the data type with the following code:
-  * 
-  * 
-  * 
-  * 
-  * ```
-  * 
-  * typedef struct IDirectDrawPalette    FAR *LPDIRECTDRAWPALETTE;
-  * 
-  * ```
-  * 
+ * The methods of the <b>IDirectDrawPalette</b> interface can be organized into the following groups:<table>
+ * <tr>
+ * <th>Group</th>
+ * <th>Methods</th>
+ * </tr>
+ * <tr>
+ * <td>Allocating memory</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawpalette-initialize">Initialize</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Palette capabilities</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawpalette-getcaps">GetCaps</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Palette entries</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawpalette-getentries">GetEntries</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawpalette-setentries">SetEntries</a>
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
+ * You can use the LPDIRECTDRAWPALETTE data type to declare a variable that contains a pointer to an <b>IDirectDrawPalette</b> interface. The Ddraw.h header file declares the data type with the following code:
+ * 
+ * 
+ * 
+ * 
+ * ```
+ * 
+ * typedef struct IDirectDrawPalette    FAR *LPDIRECTDRAWPALETTE;
+ * 
+ * ```
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ddraw/nn-ddraw-idirectdrawpalette
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319

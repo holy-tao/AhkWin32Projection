@@ -10,8 +10,8 @@ class D2D1_RGBTOHUE_PROP{
 
     /**
      * The D2D1_RGBTOHUE_PROP_OUTPUT_COLOR_SPACE property is an enumeration value which indicates the color space to convert to. 
- *           The default value for the property is D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE_HUE_SATURATION_VALUE.
- *           See the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects_2/ne-d2d1effects_2-d2d1_rgbtohue_output_color_space">D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE</a> enumeration for more information.
+     *           The default value for the property is D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE_HUE_SATURATION_VALUE.
+     *           See the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effects_2/ne-d2d1effects_2-d2d1_rgbtohue_output_color_space">D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE</a> enumeration for more information.
      * @type {Integer (Int32)}
      */
     static D2D1_RGBTOHUE_PROP_OUTPUT_COLOR_SPACE => 0

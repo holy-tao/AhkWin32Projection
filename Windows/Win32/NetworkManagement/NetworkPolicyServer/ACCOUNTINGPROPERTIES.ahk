@@ -28,14 +28,14 @@ class ACCOUNTINGPROPERTIES{
 
     /**
      * Specifies how frequently a new log file is created. This property takes a value from the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-new_log_file_frequency">NEW_LOG_FILE_FREQUENCY</a> enumeration type.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-new_log_file_frequency">NEW_LOG_FILE_FREQUENCY</a> enumeration type.
      * @type {Integer (Int32)}
      */
     static PROPERTY_ACCOUNTING_LOG_OPEN_NEW_FREQUENCY => 1029
 
     /**
      * Specifies a file size. The system creates a new log file if the current log file reaches this size, and the <b>PROPERTY_ACCOUNTING_LOG_OPEN_NEW_FREQUENCY</b> property is set to the value 
- * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-new_log_file_frequency">IAS_LOGGING_WHEN_FILE_SIZE_REACHES</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-new_log_file_frequency">IAS_LOGGING_WHEN_FILE_SIZE_REACHES</a>.
      * @type {Integer (Int32)}
      */
     static PROPERTY_ACCOUNTING_LOG_OPEN_NEW_SIZE => 1030
@@ -48,21 +48,21 @@ class ACCOUNTINGPROPERTIES{
 
     /**
      * Specifies whether the log should be in NPS format or database convertible format. This property can have the following values.
- * 
- * <table>
- * <tr>
- * <th>Value</th>
- * <th>Meaning</th>
- * </tr>
- * <tr>
- * <td>0 (<b>VARIANT_FALSE</b>)</td>
- * <td>NPS Format</td>
- * </tr>
- * <tr>
- * <td>0xFFFF (<b>VARIANT_TRUE</b>)</td>
- * <td>Database Convertible Format</td>
- * </tr>
- * </table>
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>0 (<b>VARIANT_FALSE</b>)</td>
+     * <td>NPS Format</td>
+     * </tr>
+     * <tr>
+     * <td>0xFFFF (<b>VARIANT_TRUE</b>)</td>
+     * <td>Database Convertible Format</td>
+     * </tr>
+     * </table>
      * @type {Integer (Int32)}
      */
     static PROPERTY_ACCOUNTING_LOG_IAS1_FORMAT => 1032

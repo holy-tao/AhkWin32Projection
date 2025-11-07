@@ -8,9 +8,9 @@
  * The ITuneRequestInfo interface is implemented on the BDA MPEG2 Transport Information Filter (TIF) and is used by the Network Provider.
  * @remarks
  * 
-  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ITuneRequestInfo)</c>.
-  * 
-  * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ITuneRequestInfo)</c>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bdatif/nn-bdatif-itunerequestinfo
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319

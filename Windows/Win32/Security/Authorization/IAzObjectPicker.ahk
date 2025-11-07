@@ -8,8 +8,8 @@
  * Displays a dialog box that allows users to select one or more principals from a list.
  * @remarks
  * 
-  * Implement this interface when you need a custom dialog box that allows users to choose principals.
-  * 
+ * Implement this interface when you need a custom dialog box that allows users to choose principals.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazobjectpicker
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319

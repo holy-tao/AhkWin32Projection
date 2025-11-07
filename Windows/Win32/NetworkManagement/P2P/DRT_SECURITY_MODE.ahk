@@ -4,8 +4,8 @@
  * The DRT_SECURITY_MODE enumeration defines possible security modes for the DRT. The security mode is specified by a field of the DRT_SETTINGS structure.
  * @remarks
  * 
-  * The more secure a DRT security mode, the more of a computational load exists for nodes participating in the DRT. More bandwidth is also consumed.
-  * 
+ * The more secure a DRT security mode, the more of a computational load exists for nodes participating in the DRT. More bandwidth is also consumed.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//drt/ne-drt-drt_security_mode
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319

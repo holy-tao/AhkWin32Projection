@@ -8,9 +8,9 @@
  * Contains information about the specified computer. This information is relevant to the Windows Update Agent (WUA).
  * @remarks
  * 
-  * You can create an instance of this interface by using the SystemInformation coclass. Use the Microsoft.Update.SystemInfo program identifier to create the object.
-  * 
-  * 
+ * You can create an instance of this interface by using the SystemInformation coclass. Use the Microsoft.Update.SystemInfo program identifier to create the object.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-isysteminformation
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319

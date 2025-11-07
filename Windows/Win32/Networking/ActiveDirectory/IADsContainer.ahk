@@ -10,51 +10,51 @@
  * The IADsContainer interface enables an ADSI container object to create, delete, and manage contained ADSI objects. Container objects represent hierarchical directory trees, such as in a file system, and to organize the directory hierarchy.
  * @remarks
  * 
-  * To determine if an object is a container, use the <a href="https://docs.microsoft.com/windows/desktop/ADSI/iadsclass-property-methods">IADsClass.Container</a> property of the object.
-  * 
-  * When you bind to a container object using its GUID (or SID), you can only perform specific operations on the container object. These operations include examination of the object attributes and enumeration of the object's immediate children. These operations are shown in the following code example.
-  * 
-  * 
-  * ```vb
-  * Dim con As IADsContainer
-  * Dim obj As IADs
-  * Set con = GetObject("LDAP://svr01/<GUID=xxxx>")
-  * con.Filter = Array("user")
-  * For Each item In con
-  *     debug.print item.Name " &  " of " & item.Class
-  * Next
-  * ```
-  * 
-  * 
-  * All other operations, that is, <b>GetObject</b>, <b>Create</b>, <b>Delete</b>, <b>CopyHere</b>, and <b>MoveHere</b> are not supported in the container's GUID representation. For example, the last line of the following code example will result in an error.
-  * 
-  * 
-  * ```vb
-  * Dim con As IADsContainer
-  * Dim obj As IADs
-  * Set con = GetObject("LDAP://svr01/<GUID=xxxx>")
-  * Set obj = con.GetObject("user", "CN=Jeff Smith")
-  * ```
-  * 
-  * 
-  * Binding, using GUID (or SID), is intended for low overhead and, thus, fast binds, which are often used for object introspection.
-  * 
-  * To call these methods of the container bound with its GUID (or SID), rebind to the object using its distinguished name.
-  * 
-  * 
-  * ```vb
-  * Dim conGUID, conDN As IADsContainer
-  * Dim obj As IADs
-  * Set conGUID = GetObject("LDAP://svr/<GUID=xxxx>")
-  * Set conDN=GetObject("LDAP://svr/" & conGUID.Get("distinguishedName"))
-  * Set obj = conDN.GetObject("user", "CN=Jeff Smith")
-  * ```
-  * 
-  * 
-  * For more information about object GUID representation, see <a href="https://docs.microsoft.com/windows/desktop/ADSI/iads-property-methods">IADs.GUID</a>.
-  * 
-  * 
-  * 
+ * To determine if an object is a container, use the <a href="https://docs.microsoft.com/windows/desktop/ADSI/iadsclass-property-methods">IADsClass.Container</a> property of the object.
+ * 
+ * When you bind to a container object using its GUID (or SID), you can only perform specific operations on the container object. These operations include examination of the object attributes and enumeration of the object's immediate children. These operations are shown in the following code example.
+ * 
+ * 
+ * ```vb
+ * Dim con As IADsContainer
+ * Dim obj As IADs
+ * Set con = GetObject("LDAP://svr01/<GUID=xxxx>")
+ * con.Filter = Array("user")
+ * For Each item In con
+ *     debug.print item.Name " &  " of " & item.Class
+ * Next
+ * ```
+ * 
+ * 
+ * All other operations, that is, <b>GetObject</b>, <b>Create</b>, <b>Delete</b>, <b>CopyHere</b>, and <b>MoveHere</b> are not supported in the container's GUID representation. For example, the last line of the following code example will result in an error.
+ * 
+ * 
+ * ```vb
+ * Dim con As IADsContainer
+ * Dim obj As IADs
+ * Set con = GetObject("LDAP://svr01/<GUID=xxxx>")
+ * Set obj = con.GetObject("user", "CN=Jeff Smith")
+ * ```
+ * 
+ * 
+ * Binding, using GUID (or SID), is intended for low overhead and, thus, fast binds, which are often used for object introspection.
+ * 
+ * To call these methods of the container bound with its GUID (or SID), rebind to the object using its distinguished name.
+ * 
+ * 
+ * ```vb
+ * Dim conGUID, conDN As IADsContainer
+ * Dim obj As IADs
+ * Set conGUID = GetObject("LDAP://svr/<GUID=xxxx>")
+ * Set conDN=GetObject("LDAP://svr/" & conGUID.Get("distinguishedName"))
+ * Set obj = conDN.GetObject("user", "CN=Jeff Smith")
+ * ```
+ * 
+ * 
+ * For more information about object GUID representation, see <a href="https://docs.microsoft.com/windows/desktop/ADSI/iads-property-methods">IADs.GUID</a>.
+ * 
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadscontainer
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

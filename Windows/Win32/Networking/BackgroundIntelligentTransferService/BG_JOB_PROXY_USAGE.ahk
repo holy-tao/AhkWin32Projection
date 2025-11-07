@@ -28,8 +28,8 @@ class BG_JOB_PROXY_USAGE{
 
     /**
      * Automatically detect proxy settings. BITS detects proxy settings for each file in the job.
- * 
- * **BITS 1.5 and earlier:** **BG_JOB_PROXY_USAGE_AUTODETECT** is not available.
+     * 
+     * **BITS 1.5 and earlier:** **BG_JOB_PROXY_USAGE_AUTODETECT** is not available.
      * @type {Integer (Int32)}
      */
     static BG_JOB_PROXY_USAGE_AUTODETECT => 3

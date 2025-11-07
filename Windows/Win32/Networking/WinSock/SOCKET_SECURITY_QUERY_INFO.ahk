@@ -5,11 +5,11 @@
  * Contains security information returned by the WSAQuerySocketSecurity function.
  * @remarks
  * 
-  * The <b>SOCKET_SECURITY_QUERY_INFO</b> structure  is supported on Windows Vistaand later.
-  * 
-  * The <b>SOCKET_SECURITY_QUERY_INFO</b> structure  is used by the <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-wsaquerysocketsecurity">WSAQuerySocketSecurity</a> function to return information about the security applied to a connection on a socket.
-  * 
-  * 
+ * The <b>SOCKET_SECURITY_QUERY_INFO</b> structure  is supported on Windows Vistaand later.
+ * 
+ * The <b>SOCKET_SECURITY_QUERY_INFO</b> structure  is used by the <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-wsaquerysocketsecurity">WSAQuerySocketSecurity</a> function to return information about the security applied to a connection on a socket.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mstcpip/ns-mstcpip-socket_security_query_info
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

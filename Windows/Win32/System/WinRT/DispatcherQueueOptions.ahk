@@ -5,9 +5,9 @@
  * Specifies the threading and apartment type for a new DispatcherQueueController.
  * @remarks
  * 
-  * Introduced in Windows 10, version 1709.
-  * 
-  * 
+ * Introduced in Windows 10, version 1709.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dispatcherqueue/ns-dispatcherqueue-dispatcherqueueoptions
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

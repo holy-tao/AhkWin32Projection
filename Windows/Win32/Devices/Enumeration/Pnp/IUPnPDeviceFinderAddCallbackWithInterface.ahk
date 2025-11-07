@@ -7,9 +7,9 @@
  * The IUPnPDeviceFinderAddCallbackWithInterface interface allows the UPnP framework to communicate to an application
  * @remarks
  * 
-  * If you implement this interface, you must also implement the <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevicefindercallback">IUPnPDeviceFinderCallback</a> interface.
-  * 
-  * 
+ * If you implement this interface, you must also implement the <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevicefindercallback">IUPnPDeviceFinderCallback</a> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//upnp/nn-upnp-iupnpdevicefinderaddcallbackwithinterface
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319

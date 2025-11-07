@@ -5,10 +5,10 @@
  * Contains profile information for a network logon.
  * @remarks
  * 
-  * The service ticket must be for the host SPN of the computer. If the ticket includes a Windows Privilege Attribute Certificate (PAC), it will be used to construct the user's logon token. Otherwise, an anonymous token will be created using the client principal name in the ticket.
-  * 
-  * If a ticket-granting ticket (TGT) is supplied as a KRB_CRED message, it is placed in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> credentials cache. If the TGT is omitted, the logon will be only for the local machine.
-  * 
+ * The service ticket must be for the host SPN of the computer. If the ticket includes a Windows Privilege Attribute Certificate (PAC), it will be used to construct the user's logon token. Otherwise, an anonymous token will be created using the client principal name in the ticket.
+ * 
+ * If a ticket-granting ticket (TGT) is supplied as a KRB_CRED message, it is placed in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> credentials cache. If the TGT is omitted, the logon will be only for the local machine.
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_ticket_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319

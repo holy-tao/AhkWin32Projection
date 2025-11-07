@@ -9,11 +9,11 @@
  * Use the ISdoCollection interface to manipulate a collection of SDO objects.
  * @remarks
  * 
-  * To obtain a collection, call 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/nf-sdoias-isdo-getproperty">ISdo::GetProperty</a>, specifying a collection's property. For more information, see 
-  * <a href="https://docs.microsoft.com/windows/desktop/Nps/sdo-retrieving-a-collection">Retrieving a Collection</a>.
-  * 
-  * 
+ * To obtain a collection, call 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/nf-sdoias-isdo-getproperty">ISdo::GetProperty</a>, specifying a collection's property. For more information, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/Nps/sdo-retrieving-a-collection">Retrieving a Collection</a>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sdoias/nn-sdoias-isdocollection
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319

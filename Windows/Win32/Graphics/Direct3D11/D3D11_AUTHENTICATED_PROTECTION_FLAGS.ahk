@@ -5,7 +5,7 @@
  * Specifies the protection level for video content.
  * @remarks
  * 
-  * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_authenticated_protection_flags
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319

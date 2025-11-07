@@ -5,11 +5,11 @@
  * Contains data for a private stream state, for a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) input stream.
  * @remarks
  * 
-  * Use this structure for proprietary or device-specific state parameters.
-  * 
-  * The caller allocates the <b>pData</b> array. Set the <b>DataSize</b> member to the size of the array in bytes. When retrieving the state data, you can set the <b>pData</b> member to <b>NULL</b> to get the size of the data. The device will return the size in the <b>DataSize</b> member.
-  * 
-  * 
+ * Use this structure for proprietary or device-specific state parameters.
+ * 
+ * The caller allocates the <b>pData</b> array. Set the <b>DataSize</b> member to the size of the array in bytes. When retrieving the state data, you can set the <b>pData</b> member to <b>NULL</b> to get the size of the data. The device will return the size in the <b>DataSize</b> member.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_stream_state_private_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

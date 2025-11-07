@@ -10,7 +10,7 @@ class FsrmAccountType{
 
     /**
      * The account type is unknown. Do not use this value to set the 
- *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactioncommand-get_account">IFsrmActionCommand::Account</a> property.
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactioncommand-get_account">IFsrmActionCommand::Account</a> property.
      * @type {Integer (Int32)}
      */
     static FsrmAccountType_Unknown => 0
@@ -41,17 +41,17 @@ class FsrmAccountType{
 
     /**
      * Run the classifier or storage module in a separate process from FSRM (FSRM uses 
- *       <b>CLSCTX_LOCAL_SERVER</b> to instantiate the module). The module's COM registration 
- *       specifies the account used to run the module. If the registration does not specify the account, the module is 
- *       run using the user's account.
+     *       <b>CLSCTX_LOCAL_SERVER</b> to instantiate the module). The module's COM registration 
+     *       specifies the account used to run the module. If the registration does not specify the account, the module is 
+     *       run using the user's account.
      * @type {Integer (Int32)}
      */
     static FsrmAccountType_External => 5
 
     /**
      * Run the command or pipeline module under the account that FSRM selects. This is the recommended value.
- * 
- * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2012.
+     * 
+     * <b>Windows Server 2008 R2 and Windows Server 2008:  </b>This enumeration value is not supported before Windows Server 2012.
      * @type {Integer (Int32)}
      */
     static FsrmAccountType_Automatic => 500

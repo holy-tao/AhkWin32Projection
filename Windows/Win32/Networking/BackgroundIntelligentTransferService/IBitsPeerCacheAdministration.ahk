@@ -10,11 +10,11 @@
  * Use IBitsPeerCacheAdministration to manage the pool of peers from which you can download content.
  * @remarks
  * 
-  *  You should never have to manage the peer cache; BITS manages the cache for you.
-  * 
-  * You must have administrator privileges to modify the cache.
-  * 
-  * 
+ *  You should never have to manage the peer cache; BITS manages the cache for you.
+ * 
+ * You must have administrator privileges to modify the cache.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nn-bits3_0-ibitspeercacheadministration
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319

@@ -10,8 +10,8 @@ class SYSGEOTYPE{
 
     /**
      * The geographical location identifier (GEOID) of a nation. This value is stored in a long integer.
- * 
- * <b>Starting with Windows 10, version 1709:</b> This value is not supported for the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getgeoinfoex">GetGeoInfoEx</a> function, and should not be used.
+     * 
+     * <b>Starting with Windows 10, version 1709:</b> This value is not supported for the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getgeoinfoex">GetGeoInfoEx</a> function, and should not be used.
      * @type {Integer (Int32)}
      */
     static GEO_NATION => 1
@@ -42,16 +42,16 @@ class SYSGEOTYPE{
 
     /**
      * The name for a string, compliant with RFC 4646 (starting with Windows Vista), that is derived from the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getgeoinfoa">GetGeoInfo</a> parameters <i>language</i> and <i>GeoId</i>.
- * 
- * <b>Starting with Windows 10, version 1709:</b> This value is not supported for the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getgeoinfoex">GetGeoInfoEx</a> function, and should not be used.
+     * 
+     * <b>Starting with Windows 10, version 1709:</b> This value is not supported for the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getgeoinfoex">GetGeoInfoEx</a> function, and should not be used.
      * @type {Integer (Int32)}
      */
     static GEO_RFC1766 => 6
 
     /**
      * A locale identifier derived using <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getgeoinfoa">GetGeoInfo</a>.
- * 
- * <b>Starting with Windows 10, version 1709:</b> This value is not supported for the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getgeoinfoex">GetGeoInfoEx</a> function, and should not be used.
+     * 
+     * <b>Starting with Windows 10, version 1709:</b> This value is not supported for the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getgeoinfoex">GetGeoInfoEx</a> function, and should not be used.
      * @type {Integer (Int32)}
      */
     static GEO_LCID => 7
@@ -112,8 +112,8 @@ class SYSGEOTYPE{
 
     /**
      * <b>Starting with Windows 10, version 1709:</b> The two-letter International Organization for Standardization (ISO) 3166-1 code or numeric United Nations (UN) Series M, Number 49  (M.49) code for the geographic region.
- * 
- * For information about two-letter ISO 3166-1 codes, see <a href="https://www.iso.org/iso-3166-country-codes.html">Country Codes - ISO 3166</a>.  For information about numeric UN M.49 codes, see <a href="https://unstats.un.org/unsd/methodology/m49/">Standard country or area codes for statistical use (M49)</a>.
+     * 
+     * For information about two-letter ISO 3166-1 codes, see <a href="https://www.iso.org/iso-3166-country-codes.html">Country Codes - ISO 3166</a>.  For information about numeric UN M.49 codes, see <a href="https://unstats.un.org/unsd/methodology/m49/">Standard country or area codes for statistical use (M49)</a>.
      * @type {Integer (Int32)}
      */
     static GEO_NAME => 17

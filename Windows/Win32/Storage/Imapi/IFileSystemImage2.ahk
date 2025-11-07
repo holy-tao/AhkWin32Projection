@@ -7,11 +7,11 @@
  * Use this interface to write multiple boot entries or boot images required for the EFI/UEFI support. For example, boot media with boot straps for both Windows XP and Windows Vista.
  * @remarks
  * 
-  *  Boot entries are limited by the interface to 32 per disc.	The boot image must be supplied to IMAPIv2FS by outside applications who invoke IMAPIv2FS to build the bootable disc.
-  * 
-  * Section Entry Extension is not supported by IMAPIv2FS at this time.
-  * 
-  * 
+ *  Boot entries are limited by the interface to 32 per disc.	The boot image must be supplied to IMAPIv2FS by outside applications who invoke IMAPIv2FS to build the bootable disc.
+ * 
+ * Section Entry Extension is not supported by IMAPIv2FS at this time.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ifilesystemimage2
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319

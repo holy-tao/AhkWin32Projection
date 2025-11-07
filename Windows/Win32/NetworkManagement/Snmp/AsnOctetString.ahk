@@ -5,13 +5,13 @@
  * The AsnOctetString structure contains octet quantities, usually bytes. This structure is used by multiple SNMP functions. This structure is not used by the WinSNMP API functions.
  * @remarks
  * 
-  * Use the 
-  * <b>AsnOctetString</b> structure to transfer string values. For example, use it to transfer the string that represents a computer name as a MIB object value.
-  * 
-  * You must check the flag specified in the <b>dynamic</b> member before you release the data stream of an octet string. Call the 
-  * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemfree">SnmpUtilMemFree</a> function only if the <b>dynamic</b> member is set to <b>TRUE</b>.
-  * 
-  * 
+ * Use the 
+ * <b>AsnOctetString</b> structure to transfer string values. For example, use it to transfer the string that represents a computer name as a MIB object value.
+ * 
+ * You must check the flag specified in the <b>dynamic</b> member before you release the data stream of an octet string. Call the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemfree">SnmpUtilMemFree</a> function only if the <b>dynamic</b> member is set to <b>TRUE</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//snmp/ns-snmp-asnoctetstring
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319

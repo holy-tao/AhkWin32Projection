@@ -5,9 +5,9 @@
  * Contains information about a Certificate Trust List (CTL) returned by CertVerifyCTLUsage.
  * @remarks
  * 
-  * The members <b>dwError</b>, <b>dwFlags</b>, <b>dwCtlEntryIndex</b>, and <b>dwSignerIndex</b> should be initialized to zero by the calling application.
-  * 
-  * 
+ * The members <b>dwError</b>, <b>dwFlags</b>, <b>dwCtlEntryIndex</b>, and <b>dwSignerIndex</b> should be initialized to zero by the calling application.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ctl_verify_usage_status
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319

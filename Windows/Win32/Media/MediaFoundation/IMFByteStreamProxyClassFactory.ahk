@@ -7,9 +7,9 @@
  * Creates a proxy to a byte stream.
  * @remarks
  * 
-  * This interface provides a factory object for creating a proxy to an existing Microsoft Media Foundation byte stream. The CLSID of the factory object is <b>CLSID_MFByteStreamProxyClassFactory</b>.
-  * 
-  * 
+ * This interface provides a factory object for creating a proxy to an existing Microsoft Media Foundation byte stream. The CLSID of the factory object is <b>CLSID_MFByteStreamProxyClassFactory</b>.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfbytestreamproxyclassfactory
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

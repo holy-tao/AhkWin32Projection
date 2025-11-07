@@ -16,8 +16,8 @@ class DIRECTMANIPULATION_CONFIGURATION{
 
     /**
      * An interaction is defined. To enable interactions, this value must be included.
- * 
- * Required when setting a configuration other than <b>DIRECTMANIPULATION_CONFIGURATION_NONE</b>.
+     * 
+     * Required when setting a configuration other than <b>DIRECTMANIPULATION_CONFIGURATION_NONE</b>.
      * @type {Integer (Int32)}
      */
     static DIRECTMANIPULATION_CONFIGURATION_INTERACTION => 1

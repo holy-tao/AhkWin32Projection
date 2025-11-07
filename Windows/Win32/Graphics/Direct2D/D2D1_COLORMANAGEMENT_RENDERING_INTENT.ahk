@@ -10,7 +10,7 @@ class D2D1_COLORMANAGEMENT_RENDERING_INTENT{
 
     /**
      * The effect compresses or expands the full color gamut of the image to fill the color gamut of the device, 
- *           so that gray balance is preserved but colorimetric accuracy may not be preserved.
+     *           so that gray balance is preserved but colorimetric accuracy may not be preserved.
      * @type {Integer (Int32)}
      */
     static D2D1_COLORMANAGEMENT_RENDERING_INTENT_PERCEPTUAL => 0

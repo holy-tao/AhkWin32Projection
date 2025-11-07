@@ -9,21 +9,21 @@
  * The ITfInputProcessorProfileMgr interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.
  * @remarks
  * 
-  * Unlike <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfinputprocessorprofiles">ITfInputProcessorProfiles</a>, ITfInputProcessorProfileMgr
-  *  can manage both keyboard layout and text services seamlessly. In Windows Vista, it is recommended to use this interface instead of using the following methods:
-  * 
-  * <ul>
-  * <li>ITfInputProcessorProfiles::Register</li>
-  * <li>ITfInputProcessorProfiles::Unregister</li>
-  * <li>ITfInputProcessorProfiles::AddLanguageProfile</li>
-  * <li>ITfInputProcessorProfiles::RemoveLanguageProfile</li>
-  * <li>ITfInputProcessorProfiles::EnumInputProcessorInfo</li>
-  * <li>ITfInputProcessorProfiles::ActivateLanguageProfile</li>
-  * <li>ITfInputProcessorProfiles::GetActiveLanguageProfile</li>
-  * <li>ITfInputProcessorProfiles::EnumLanguageProfiles</li>
-  * </ul>
-  * 
-  * 
+ * Unlike <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfinputprocessorprofiles">ITfInputProcessorProfiles</a>, ITfInputProcessorProfileMgr
+ *  can manage both keyboard layout and text services seamlessly. In Windows Vista, it is recommended to use this interface instead of using the following methods:
+ * 
+ * <ul>
+ * <li>ITfInputProcessorProfiles::Register</li>
+ * <li>ITfInputProcessorProfiles::Unregister</li>
+ * <li>ITfInputProcessorProfiles::AddLanguageProfile</li>
+ * <li>ITfInputProcessorProfiles::RemoveLanguageProfile</li>
+ * <li>ITfInputProcessorProfiles::EnumInputProcessorInfo</li>
+ * <li>ITfInputProcessorProfiles::ActivateLanguageProfile</li>
+ * <li>ITfInputProcessorProfiles::GetActiveLanguageProfile</li>
+ * <li>ITfInputProcessorProfiles::EnumLanguageProfiles</li>
+ * </ul>
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfinputprocessorprofilemgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319

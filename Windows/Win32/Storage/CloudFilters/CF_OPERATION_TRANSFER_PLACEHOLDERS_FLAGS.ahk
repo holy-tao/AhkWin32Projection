@@ -22,8 +22,8 @@ class CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS{
 
     /**
      * The transferred child placeholder directory is considered to have all of its children present locally.
- * 
- * Applicable to a child placeholder directory only.
+     * 
+     * Applicable to a child placeholder directory only.
      * @type {Integer (Int32)}
      */
     static CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_DISABLE_ON_DEMAND_POPULATION => 2

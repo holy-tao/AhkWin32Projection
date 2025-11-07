@@ -7,10 +7,10 @@
  * Implement the IWEExtendContextMenu interface to extend a Failover Cluster Administrator context menu for a cluster object.
  * @remarks
  * 
-  * To add code that executes when your context menu items are selected, implement the 
-  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweinvokecommand">IWEInvokeCommand</a> interface.
-  * 
-  * 
+ * To add code that executes when your context menu items are selected, implement the 
+ *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweinvokecommand">IWEInvokeCommand</a> interface.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-iweextendcontextmenu
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319

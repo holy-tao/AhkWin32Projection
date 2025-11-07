@@ -70,7 +70,7 @@ class D3D10_FORMAT_SUPPORT{
 
     /**
      * The intrinsic HLSL functions <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-samplecmp">SampleCmp</a> 
- *         and <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-samplecmplevelzero">SampleCmpLevelZero</a> are supported.
+     *         and <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-samplecmplevelzero">SampleCmpLevelZero</a> are supported.
      * @type {Integer (Int32)}
      */
     static D3D10_FORMAT_SUPPORT_SHADER_SAMPLE_COMPARISON => 1024

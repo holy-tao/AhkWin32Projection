@@ -22,9 +22,9 @@ class ImageLockMode{
 
     /**
      * Specifies that the buffer used for reading or writing pixel data is allocated by the user. If this flag is set, then the 
- * 				<i>lockedBitmapData</i> parameter of the 
- * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusheaders/nf-gdiplusheaders-bitmap-lockbits">Bitmap::LockBits</a> method serves as an input parameter (and possibly as an output parameter). If this flag is cleared, then the 
- * 				<i>lockedBitmapData</i> parameter serves only as an output parameter.
+     * 				<i>lockedBitmapData</i> parameter of the 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/gdiplusheaders/nf-gdiplusheaders-bitmap-lockbits">Bitmap::LockBits</a> method serves as an input parameter (and possibly as an output parameter). If this flag is cleared, then the 
+     * 				<i>lockedBitmapData</i> parameter serves only as an output parameter.
      * @type {Integer (Int32)}
      */
     static ImageLockModeUserInputBuf => 4

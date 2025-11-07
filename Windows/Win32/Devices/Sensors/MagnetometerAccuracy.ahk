@@ -4,9 +4,9 @@
  * Specifies the accuracy of the magnetometer.
  * @remarks
  * 
-  * Apps that need calibration may periodically ask the user to calibrate the device. We suggest doing this no more than once every 10 minutes.
-  * 
-  * 
+ * Apps that need calibration may periodically ask the user to calibrate the device. We suggest doing this no more than once every 10 minutes.
+ * 
+ * 
  * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/ne-sensorsapi-magnetometeraccuracy
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319
