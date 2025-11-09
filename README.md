@@ -89,7 +89,6 @@ Namespaces can be unintuitive and they aren't really mapped to headers, so a few
   - [`Windows\Win32\System\LibraryLoader`](./Windows/Win32/System/LibraryLoader): Functions for loading and working with DLL and EXE files, including accessing resources in them.
     - Note that for whatever reason, [`FreeLibrary`](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-freelibrary) is in the Foundations namespace
   - [`Windows\Win32\Networking\WinHttp`](./Windows/Win32/Networking/WinHttp): WinHTTP-related items (see also: [About WinHTTP - Win32 apps | Microsoft Learn](https://learn.microsoft.com/en-us/windows/win32/winhttp/about-winhttp)).
-    - Note that COM objects are not included in the bindings, but you can still use the WinHttpRequest COM object. The namespace provides structs and Apis for additional functionality.
   - [`Windows\Win32\System\Memory`](./Windows/Win32/System/Memory): Contains Apis for direct memory manipulation, including the direct allocation and freeing of heap resources, for advanced users.
   - [`Windows\Win32\System\Com`](./Windows/Win32/System/Com): Foundational COM interfaces and APIs, including `IUnknown` itself and methods like `CoCreateInstance`
 </details>
@@ -193,7 +192,6 @@ See the [wiki](https://github.com/holy-tao/AhkWin32Projection/wiki/Functions) fo
 - Some structs and methods have ANSI and Unicode variants, both are generated. However, AutoHotkey V2 uses UTF-16 by default, and you will save yourself many headaches by sticking to Unicode (-W) variants whenever possible.
     - See also [native encoding](https://www.autohotkey.com/docs/v2/Concepts.htm#native-encoding) (AutoHotkey documentation)
 - Only structs with fixed layouts are supported. This means flexible arrays are **not** supported in structs.
-- In string constants with unprintable characters, those characters are encoded (e.g. a null character becomes `\0000`) and may need to be decoded before use.
 - Macros are not included in the win32metadata project, and so are not included in the generated AutoHotkey code. While many macros have corresponding functions, not all of them do. 
   - See [this issue](https://github.com/microsoft/win32metadata/issues/436) on the win32metadata project page for details.
 - Code examples in the documentation are generally in `C++`.
