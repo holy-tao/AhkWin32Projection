@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\HBLUETOOTH_RADIO_FIND.ahk
 #Include .\HBLUETOOTH_DEVICE_FIND.ahk
 
@@ -22,54 +23,54 @@ class Bluetooth {
     static BTH_MINORVERSION => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BTHPORT_DEVICE_INTERFACE => "{0850302a-b344-4fda-9be9-90576b8d46f0}"
+    static GUID_BTHPORT_DEVICE_INTERFACE => Guid("{0850302a-b344-4fda-9be9-90576b8d46f0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BTH_RFCOMM_SERVICE_DEVICE_INTERFACE => "{b142fc3e-fa4e-460b-8abc-072b628b3c70}"
+    static GUID_BTH_RFCOMM_SERVICE_DEVICE_INTERFACE => Guid("{b142fc3e-fa4e-460b-8abc-072b628b3c70}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BLUETOOTH_RADIO_IN_RANGE => "{ea3b5b82-26ee-450e-b0d8-d26fe30a3869}"
+    static GUID_BLUETOOTH_RADIO_IN_RANGE => Guid("{ea3b5b82-26ee-450e-b0d8-d26fe30a3869}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BLUETOOTH_RADIO_OUT_OF_RANGE => "{e28867c9-c2aa-4ced-b969-4570866037c4}"
+    static GUID_BLUETOOTH_RADIO_OUT_OF_RANGE => Guid("{e28867c9-c2aa-4ced-b969-4570866037c4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BLUETOOTH_L2CAP_EVENT => "{7eae4030-b709-4aa8-ac55-e953829c9daa}"
+    static GUID_BLUETOOTH_L2CAP_EVENT => Guid("{7eae4030-b709-4aa8-ac55-e953829c9daa}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BLUETOOTH_HCI_EVENT => "{fc240062-1541-49be-b463-84c4dcd7bf7f}"
+    static GUID_BLUETOOTH_HCI_EVENT => Guid("{fc240062-1541-49be-b463-84c4dcd7bf7f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BLUETOOTH_AUTHENTICATION_REQUEST => "{5dc9136d-996c-46db-84f5-32c0a3f47352}"
+    static GUID_BLUETOOTH_AUTHENTICATION_REQUEST => Guid("{5dc9136d-996c-46db-84f5-32c0a3f47352}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BLUETOOTH_KEYPRESS_EVENT => "{d668dfcd-0f4e-4efc-bfe0-392eeec5109c}"
+    static GUID_BLUETOOTH_KEYPRESS_EVENT => Guid("{d668dfcd-0f4e-4efc-bfe0-392eeec5109c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BLUETOOTH_HCI_VENDOR_EVENT => "{547247e6-45bb-4c33-af8c-c00efe15a71d}"
+    static GUID_BLUETOOTH_HCI_VENDOR_EVENT => Guid("{547247e6-45bb-4c33-af8c-c00efe15a71d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Bluetooth_Base_UUID => "{00000000-0000-1000-8000-00805f9b34fb}"
+    static Bluetooth_Base_UUID => Guid("{00000000-0000-1000-8000-00805f9b34fb}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2972,19 +2973,19 @@ class Bluetooth {
     static BLUETOOTH_SERVICE_ENABLE => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BLUETOOTHLE_DEVICE_INTERFACE => "{781aee18-7733-4ce4-add0-91f41c67b592}"
+    static GUID_BLUETOOTHLE_DEVICE_INTERFACE => Guid("{781aee18-7733-4ce4-add0-91f41c67b592}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BLUETOOTH_GATT_SERVICE_DEVICE_INTERFACE => "{6e3bb679-4372-40c8-9eaa-4509df260cd8}"
+    static GUID_BLUETOOTH_GATT_SERVICE_DEVICE_INTERFACE => Guid("{6e3bb679-4372-40c8-9eaa-4509df260cd8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BTH_LE_ATT_BLUETOOTH_BASE_GUID => "{00000000-0000-1000-8000-00805f9b34fb}"
+    static BTH_LE_ATT_BLUETOOTH_BASE_GUID => Guid("{00000000-0000-1000-8000-00805f9b34fb}")
 
     /**
      * @type {Integer (UInt32)}
@@ -3802,9 +3803,9 @@ class Bluetooth {
     static NS_BTH => 16
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SVCID_BTH_PROVIDER => "{06aa63e0-7d60-41ff-afb2-3ee6d2d9392d}"
+    static SVCID_BTH_PROVIDER => Guid("{06aa63e0-7d60-41ff-afb2-3ee6d2d9392d}")
 
     /**
      * @type {Integer (UInt32)}

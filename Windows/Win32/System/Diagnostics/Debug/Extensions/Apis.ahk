@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
 #Include .\IDataModelManager.ahk
 
 /**
@@ -3831,34 +3832,34 @@ class Extensions {
     static FAILURE_ANALYSIS_XSLT_FILE_OUTPUT => 536870912
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DebugFailureAnalysisBasic => "{b74eed7f-1c7d-4c1b-959f-b96dd9175aa4}"
+    static CLSID_DebugFailureAnalysisBasic => Guid("{b74eed7f-1c7d-4c1b-959f-b96dd9175aa4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DebugFailureAnalysisTarget => "{ba9bfb05-ef75-4bbd-a745-a6b5529458b8}"
+    static CLSID_DebugFailureAnalysisTarget => Guid("{ba9bfb05-ef75-4bbd-a745-a6b5529458b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DebugFailureAnalysisUser => "{e60b0c93-cf49-4a32-8147-0362202dc56b}"
+    static CLSID_DebugFailureAnalysisUser => Guid("{e60b0c93-cf49-4a32-8147-0362202dc56b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DebugFailureAnalysisKernel => "{ee433078-64af-4c33-ab2f-ecad7f2a002d}"
+    static CLSID_DebugFailureAnalysisKernel => Guid("{ee433078-64af-4c33-ab2f-ecad7f2a002d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DebugFailureAnalysisWinCE => "{67d5e86f-f5e2-462a-9233-1bd616fcc7e8}"
+    static CLSID_DebugFailureAnalysisWinCE => Guid("{67d5e86f-f5e2-462a-9233-1bd616fcc7e8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DebugFailureAnalysisXBox360 => "{901625bb-95f1-4318-ac80-9d733cee8c8b}"
+    static CLSID_DebugFailureAnalysisXBox360 => Guid("{901625bb-95f1-4318-ac80-9d733cee8c8b}")
 
     /**
      * @type {Integer (UInt32)}

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -10,9 +11,9 @@ class ActiveScript {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_ActiveScriptAuthor => "{0aee2a92-bcbb-11d0-8c72-00c04fc2b085}"
+    static CATID_ActiveScriptAuthor => Guid("{0aee2a92-bcbb-11d0-8c72-00c04fc2b085}")
 
     /**
      * @type {Integer (UInt32)}
@@ -170,34 +171,34 @@ class ActiveScript {
     static THREAD_OUT_OF_CONTEXT => 8
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_ActiveScript => "{f0b7a1a1-9847-11cf-8f20-00805f2cd064}"
+    static CATID_ActiveScript => Guid("{f0b7a1a1-9847-11cf-8f20-00805f2cd064}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_ActiveScriptParse => "{f0b7a1a2-9847-11cf-8f20-00805f2cd064}"
+    static CATID_ActiveScriptParse => Guid("{f0b7a1a2-9847-11cf-8f20-00805f2cd064}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_ActiveScriptEncode => "{f0b7a1a3-9847-11cf-8f20-00805f2cd064}"
+    static CATID_ActiveScriptEncode => Guid("{f0b7a1a3-9847-11cf-8f20-00805f2cd064}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static OID_VBSSIP => "{1629f04e-2799-4db5-8fe5-ace10f17ebab}"
+    static OID_VBSSIP => Guid("{1629f04e-2799-4db5-8fe5-ace10f17ebab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static OID_JSSIP => "{06c9e010-38ce-11d4-a2a3-00104bd35090}"
+    static OID_JSSIP => Guid("{06c9e010-38ce-11d4-a2a3-00104bd35090}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static OID_WSFSIP => "{1a610570-38ce-11d4-a2a3-00104bd35090}"
+    static OID_WSFSIP => Guid("{1a610570-38ce-11d4-a2a3-00104bd35090}")
 
     /**
      * @type {Integer (UInt32)}

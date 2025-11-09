@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SC_HANDLE.ahk
 #Include .\SERVICE_STATUS_HANDLE.ahk
 
@@ -602,59 +603,59 @@ class Services {
     static SERVICE_LAUNCH_PROTECTED_ANTIMALWARE_LIGHT => 3
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NETWORK_MANAGER_FIRST_IP_ADDRESS_ARRIVAL_GUID => "{4f27f2de-14e2-430b-a549-7cd48cbc8245}"
+    static NETWORK_MANAGER_FIRST_IP_ADDRESS_ARRIVAL_GUID => Guid("{4f27f2de-14e2-430b-a549-7cd48cbc8245}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NETWORK_MANAGER_LAST_IP_ADDRESS_REMOVAL_GUID => "{cc4ba62a-162e-4648-847a-b6bdf993e335}"
+    static NETWORK_MANAGER_LAST_IP_ADDRESS_REMOVAL_GUID => Guid("{cc4ba62a-162e-4648-847a-b6bdf993e335}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DOMAIN_JOIN_GUID => "{1ce20aba-9851-4421-9430-1ddeb766e809}"
+    static DOMAIN_JOIN_GUID => Guid("{1ce20aba-9851-4421-9430-1ddeb766e809}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DOMAIN_LEAVE_GUID => "{ddaf516e-58c2-4866-9574-c3b615d42ea1}"
+    static DOMAIN_LEAVE_GUID => Guid("{ddaf516e-58c2-4866-9574-c3b615d42ea1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FIREWALL_PORT_OPEN_GUID => "{b7569e07-8421-4ee0-ad10-86915afdad09}"
+    static FIREWALL_PORT_OPEN_GUID => Guid("{b7569e07-8421-4ee0-ad10-86915afdad09}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FIREWALL_PORT_CLOSE_GUID => "{a144ed38-8e12-4de4-9d96-e64740b1a524}"
+    static FIREWALL_PORT_CLOSE_GUID => Guid("{a144ed38-8e12-4de4-9d96-e64740b1a524}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MACHINE_POLICY_PRESENT_GUID => "{659fcae6-5bdb-4da9-b1ff-ca2a178d46e0}"
+    static MACHINE_POLICY_PRESENT_GUID => Guid("{659fcae6-5bdb-4da9-b1ff-ca2a178d46e0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static USER_POLICY_PRESENT_GUID => "{54fb46c8-f089-464c-b1fd-59d1b62c3b50}"
+    static USER_POLICY_PRESENT_GUID => Guid("{54fb46c8-f089-464c-b1fd-59d1b62c3b50}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RPC_INTERFACE_EVENT_GUID => "{bc90d167-9470-4139-a9ba-be0bbbf5b74d}"
+    static RPC_INTERFACE_EVENT_GUID => Guid("{bc90d167-9470-4139-a9ba-be0bbbf5b74d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NAMED_PIPE_EVENT_GUID => "{1f81d131-3fac-4537-9e0c-7e7b0c2f4b55}"
+    static NAMED_PIPE_EVENT_GUID => Guid("{1f81d131-3fac-4537-9e0c-7e7b0c2f4b55}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CUSTOM_SYSTEM_STATE_CHANGE_EVENT_GUID => "{2d7a2816-0c5e-45fc-9ce7-570e5ecde9c9}"
+    static CUSTOM_SYSTEM_STATE_CHANGE_EVENT_GUID => Guid("{2d7a2816-0c5e-45fc-9ce7-570e5ecde9c9}")
 
     /**
      * @type {String}

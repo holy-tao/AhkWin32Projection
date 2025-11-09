@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\ROPARAMIIDHANDLE.ahk
 
 /**
@@ -806,124 +807,124 @@ class Metadata {
     static CMOD_CALLCONV_NAME_FASTCALL => "CallConvFastcall"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LIBID_ComPlusRuntime => "{bed7f4ea-1a96-11d2-8f08-00a0c9a6186d}"
+    static LIBID_ComPlusRuntime => Guid("{bed7f4ea-1a96-11d2-8f08-00a0c9a6186d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ExportedFromComPlus => "{90883f05-3d28-11d2-8f17-00a0c9a6186d}"
+    static GUID_ExportedFromComPlus => Guid("{90883f05-3d28-11d2-8f17-00a0c9a6186d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ManagedName => "{0f21f359-ab84-41e8-9a78-36d110e6d2f9}"
+    static GUID_ManagedName => Guid("{0f21f359-ab84-41e8-9a78-36d110e6d2f9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Function2Getter => "{54fc8f55-38de-4703-9c4e-250351302b1c}"
+    static GUID_Function2Getter => Guid("{54fc8f55-38de-4703-9c4e-250351302b1c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CorMetaDataDispenserRuntime => "{1ec2de53-75cc-11d2-9775-00a0c9b4d50c}"
+    static CLSID_CorMetaDataDispenserRuntime => Guid("{1ec2de53-75cc-11d2-9775-00a0c9b4d50c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DispIdOverride => "{cd2bc5c9-f452-4326-b714-f9c539d4da58}"
+    static GUID_DispIdOverride => Guid("{cd2bc5c9-f452-4326-b714-f9c539d4da58}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ForceIEnumerable => "{b64784eb-d8d4-4d9b-9acd-0e30806426f7}"
+    static GUID_ForceIEnumerable => Guid("{b64784eb-d8d4-4d9b-9acd-0e30806426f7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PropGetCA => "{2941ff83-88d8-4f73-b6a9-bdf8712d000d}"
+    static GUID_PropGetCA => Guid("{2941ff83-88d8-4f73-b6a9-bdf8712d000d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PropPutCA => "{29533527-3683-4364-abc0-db1add822fa2}"
+    static GUID_PropPutCA => Guid("{29533527-3683-4364-abc0-db1add822fa2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CLR_v1_MetaData => "{005023ca-72b1-11d3-9fc4-00c04f79a0a3}"
+    static CLSID_CLR_v1_MetaData => Guid("{005023ca-72b1-11d3-9fc4-00c04f79a0a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CLR_v2_MetaData => "{efea471a-44fd-4862-9292-0c58d46e1f3a}"
+    static CLSID_CLR_v2_MetaData => Guid("{efea471a-44fd-4862-9292-0c58d46e1f3a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataCheckDuplicatesFor => "{30fe7be8-d7d9-11d2-9f80-00c04f79a0a3}"
+    static MetaDataCheckDuplicatesFor => Guid("{30fe7be8-d7d9-11d2-9f80-00c04f79a0a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataRefToDefCheck => "{de3856f8-d7d9-11d2-9f80-00c04f79a0a3}"
+    static MetaDataRefToDefCheck => Guid("{de3856f8-d7d9-11d2-9f80-00c04f79a0a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataNotificationForTokenMovement => "{e5d71a4c-d7da-11d2-9f80-00c04f79a0a3}"
+    static MetaDataNotificationForTokenMovement => Guid("{e5d71a4c-d7da-11d2-9f80-00c04f79a0a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataSetUpdate => "{2eee315c-d7db-11d2-9f80-00c04f79a0a3}"
+    static MetaDataSetUpdate => Guid("{2eee315c-d7db-11d2-9f80-00c04f79a0a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataImportOption => "{79700f36-4aac-11d3-84c3-009027868cb1}"
+    static MetaDataImportOption => Guid("{79700f36-4aac-11d3-84c3-009027868cb1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataThreadSafetyOptions => "{f7559806-f266-42ea-8c63-0adb45e8b234}"
+    static MetaDataThreadSafetyOptions => Guid("{f7559806-f266-42ea-8c63-0adb45e8b234}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataErrorIfEmitOutOfOrder => "{1547872d-dc03-11d2-9420-0000f8083460}"
+    static MetaDataErrorIfEmitOutOfOrder => Guid("{1547872d-dc03-11d2-9420-0000f8083460}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataGenerateTCEAdapters => "{dcc9de90-4151-11d3-88d6-00902754c43a}"
+    static MetaDataGenerateTCEAdapters => Guid("{dcc9de90-4151-11d3-88d6-00902754c43a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataTypeLibImportNamespace => "{f17ff889-5a63-11d3-9ff2-00c04ff7431a}"
+    static MetaDataTypeLibImportNamespace => Guid("{f17ff889-5a63-11d3-9ff2-00c04ff7431a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataLinkerOptions => "{47e099b6-ae7c-4797-8317-b48aa645b8f9}"
+    static MetaDataLinkerOptions => Guid("{47e099b6-ae7c-4797-8317-b48aa645b8f9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataRuntimeVersion => "{47e099b7-ae7c-4797-8317-b48aa645b8f9}"
+    static MetaDataRuntimeVersion => Guid("{47e099b7-ae7c-4797-8317-b48aa645b8f9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataMergerOptions => "{132d3a6e-b35d-464e-951a-42efb9fb6601}"
+    static MetaDataMergerOptions => Guid("{132d3a6e-b35d-464e-951a-42efb9fb6601}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MetaDataPreserveLocalRefs => "{a55c0354-e91b-468b-8648-7cc31035d533}"
+    static MetaDataPreserveLocalRefs => Guid("{a55c0354-e91b-468b-8648-7cc31035d533}")
 
     /**
      * @type {Integer (Int32)}
@@ -936,24 +937,24 @@ class Metadata {
     static DESCR_GROUP_METHODIMPL => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_Cor => "{bee00010-ee77-11d0-a015-00c04fbbb884}"
+    static CLSID_Cor => Guid("{bee00010-ee77-11d0-a015-00c04fbbb884}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CorMetaDataDispenser => "{e5cb7a31-7512-11d2-89ce-0080c792e5d8}"
+    static CLSID_CorMetaDataDispenser => Guid("{e5cb7a31-7512-11d2-89ce-0080c792e5d8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CorMetaDataDispenserReg => "{435755ff-7397-11d2-9771-00a0c9b4d50c}"
+    static CLSID_CorMetaDataDispenserReg => Guid("{435755ff-7397-11d2-9771-00a0c9b4d50c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CorMetaDataReg => "{87f3a1f5-7397-11d2-9771-00a0c9b4d50c}"
+    static CLSID_CorMetaDataReg => Guid("{87f3a1f5-7397-11d2-9771-00a0c9b4d50c}")
 
     /**
      * @type {Integer (Int32)}

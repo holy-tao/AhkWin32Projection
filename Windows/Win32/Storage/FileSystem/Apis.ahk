@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\HIORING.ahk
 
@@ -522,129 +523,129 @@ class FileSystem {
     static CSV_BLOCK_AND_FILE_CACHE_CALLBACK_VERSION => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_BASIC_DATA_GUID => "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}"
+    static PARTITION_BASIC_DATA_GUID => Guid("{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_BSP_GUID => "{57434f53-4df9-45b9-8e9e-2370f006457c}"
+    static PARTITION_BSP_GUID => Guid("{57434f53-4df9-45b9-8e9e-2370f006457c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_CLUSTER_GUID => "{db97dba9-0840-4bae-97f0-ffb9a327c7e1}"
+    static PARTITION_CLUSTER_GUID => Guid("{db97dba9-0840-4bae-97f0-ffb9a327c7e1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_DPP_GUID => "{57434f53-94cb-43f0-a533-d73c10cfa57d}"
+    static PARTITION_DPP_GUID => Guid("{57434f53-94cb-43f0-a533-d73c10cfa57d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_ENTRY_UNUSED_GUID => "{00000000-0000-0000-0000-000000000000}"
+    static PARTITION_ENTRY_UNUSED_GUID => Guid("{00000000-0000-0000-0000-000000000000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_LDM_DATA_GUID => "{af9b60a0-1431-4f62-bc68-3311714a69ad}"
+    static PARTITION_LDM_DATA_GUID => Guid("{af9b60a0-1431-4f62-bc68-3311714a69ad}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_LDM_METADATA_GUID => "{5808c8aa-7e8f-42e0-85d2-e1e90434cfb3}"
+    static PARTITION_LDM_METADATA_GUID => Guid("{5808c8aa-7e8f-42e0-85d2-e1e90434cfb3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_MAIN_OS_GUID => "{57434f53-8f45-405e-8a23-186d8a4330d3}"
+    static PARTITION_MAIN_OS_GUID => Guid("{57434f53-8f45-405e-8a23-186d8a4330d3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_MSFT_RECOVERY_GUID => "{de94bba4-06d1-4d40-a16a-bfd50179d6ac}"
+    static PARTITION_MSFT_RECOVERY_GUID => Guid("{de94bba4-06d1-4d40-a16a-bfd50179d6ac}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_MSFT_RESERVED_GUID => "{e3c9e316-0b5c-4db8-817d-f92df00215ae}"
+    static PARTITION_MSFT_RESERVED_GUID => Guid("{e3c9e316-0b5c-4db8-817d-f92df00215ae}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_MSFT_SNAPSHOT_GUID => "{caddebf1-4400-4de8-b103-12117dcf3ccf}"
+    static PARTITION_MSFT_SNAPSHOT_GUID => Guid("{caddebf1-4400-4de8-b103-12117dcf3ccf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_OS_DATA_GUID => "{57434f53-23f2-44d5-a830-67bbdaa609f9}"
+    static PARTITION_OS_DATA_GUID => Guid("{57434f53-23f2-44d5-a830-67bbdaa609f9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_PATCH_GUID => "{8967a686-96aa-6aa8-9589-a84256541090}"
+    static PARTITION_PATCH_GUID => Guid("{8967a686-96aa-6aa8-9589-a84256541090}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_PRE_INSTALLED_GUID => "{57434f53-7fe0-4196-9b42-427b51643484}"
+    static PARTITION_PRE_INSTALLED_GUID => Guid("{57434f53-7fe0-4196-9b42-427b51643484}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_SBL_CACHE_SSD_GUID => "{eeff8352-dd2a-44db-ae83-bee1cf7481dc}"
+    static PARTITION_SBL_CACHE_SSD_GUID => Guid("{eeff8352-dd2a-44db-ae83-bee1cf7481dc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_SBL_CACHE_SSD_RESERVED_GUID => "{dcc0c7c1-55ad-4f17-9d43-4bc776e0117e}"
+    static PARTITION_SBL_CACHE_SSD_RESERVED_GUID => Guid("{dcc0c7c1-55ad-4f17-9d43-4bc776e0117e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_SBL_CACHE_HDD_GUID => "{03aaa829-ebfc-4e7e-aac9-c4d76c63b24b}"
+    static PARTITION_SBL_CACHE_HDD_GUID => Guid("{03aaa829-ebfc-4e7e-aac9-c4d76c63b24b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_SERVICING_FILES_GUID => "{57434f53-432e-4014-ae4c-8deaa9c0006a}"
+    static PARTITION_SERVICING_FILES_GUID => Guid("{57434f53-432e-4014-ae4c-8deaa9c0006a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_SERVICING_METADATA_GUID => "{57434f53-c691-4a05-bb4e-703dafd229ce}"
+    static PARTITION_SERVICING_METADATA_GUID => Guid("{57434f53-c691-4a05-bb4e-703dafd229ce}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_SERVICING_RESERVE_GUID => "{57434f53-4b81-460b-a319-ffb6fe136d14}"
+    static PARTITION_SERVICING_RESERVE_GUID => Guid("{57434f53-4b81-460b-a319-ffb6fe136d14}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_SERVICING_STAGING_ROOT_GUID => "{57434f53-e84d-4e84-aaf3-ecbbbd04b9df}"
+    static PARTITION_SERVICING_STAGING_ROOT_GUID => Guid("{57434f53-e84d-4e84-aaf3-ecbbbd04b9df}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_SPACES_GUID => "{e75caf8f-f680-4cee-afa3-b001e56efc2d}"
+    static PARTITION_SPACES_GUID => Guid("{e75caf8f-f680-4cee-afa3-b001e56efc2d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_SPACES_DATA_GUID => "{e7addcb4-dc34-4539-9a76-ebbd07be6f7e}"
+    static PARTITION_SPACES_DATA_GUID => Guid("{e7addcb4-dc34-4539-9a76-ebbd07be6f7e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_SYSTEM_GUID => "{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}"
+    static PARTITION_SYSTEM_GUID => Guid("{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PARTITION_WINDOWS_SYSTEM_GUID => "{57434f53-e3e3-4631-a5c5-26d2243873aa}"
+    static PARTITION_WINDOWS_SYSTEM_GUID => Guid("{57434f53-e3e3-4631-a5c5-26d2243873aa}")
 
     /**
      * @type {Integer (UInt32)}
@@ -672,9 +673,9 @@ class FileSystem {
     static CLFS_MGMT_CLIENT_REGISTRATION_VERSION => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DiskQuotaControl => "{7988b571-ec89-11cf-9c00-00aa00a14f56}"
+    static CLSID_DiskQuotaControl => Guid("{7988b571-ec89-11cf-9c00-00aa00a14f56}")
 
     /**
      * @type {Integer (UInt32)}

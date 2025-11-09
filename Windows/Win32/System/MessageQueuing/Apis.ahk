@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\DistributedTransactionCoordinator\ITransaction.ahk
 
@@ -607,14 +608,14 @@ class MessageQueuing {
     static PROPID_Q_ADS_PATH => 126
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MQ_QTYPE_REPORT => "{55ee8f32-cce9-11cf-b108-0020afd61ce9}"
+    static MQ_QTYPE_REPORT => Guid("{55ee8f32-cce9-11cf-b108-0020afd61ce9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MQ_QTYPE_TEST => "{55ee8f33-cce9-11cf-b108-0020afd61ce9}"
+    static MQ_QTYPE_TEST => Guid("{55ee8f33-cce9-11cf-b108-0020afd61ce9}")
 
     /**
      * @type {Integer (UInt32)}

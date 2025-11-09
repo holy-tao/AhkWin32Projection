@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -939,6 +941,45 @@ class KernelStreaming {
      * @type {Integer (UInt32)}
      */
     static KSDSOUND_BUFFER_CTRL_POSITIONNOTIFY => 16
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_KsAudio_PacketSize_Constraints {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{13e004d6-b066-43bd-913b-a415cd13da87}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_KsAudio_Controller_DeviceInterface_Path {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{13e004d6-b066-43bd-913b-a415cd13da87}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_KsAudio_PacketSize_Constraints2 {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{9404f781-7191-409b-8b0b-80bf6ec229ae}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
      * @type {Integer (Int32)}

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -470,24 +472,24 @@ class HumanInterfaceDevice {
     static DIJU_GAMEPORTEMULATOR => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_KeyboardClass => "{4d36e96b-e325-11ce-bfc1-08002be10318}"
+    static GUID_KeyboardClass => Guid("{4d36e96b-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MediaClass => "{4d36e96c-e325-11ce-bfc1-08002be10318}"
+    static GUID_MediaClass => Guid("{4d36e96c-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MouseClass => "{4d36e96f-e325-11ce-bfc1-08002be10318}"
+    static GUID_MouseClass => Guid("{4d36e96f-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HIDClass => "{745a17a0-74d3-11d0-b6fe-00a0c90f57da}"
+    static GUID_HIDClass => Guid("{745a17a0-74d3-11d0-b6fe-00a0c90f57da}")
 
     /**
      * @type {String}
@@ -685,19 +687,123 @@ class HumanInterfaceDevice {
     static DIDIFT_DELETE => 16777216
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_HID => "{4d1e55b2-f16f-11cf-88cb-001111000030}"
+    static GUID_DEVINTERFACE_HID => Guid("{4d1e55b2-f16f-11cf-88cb-001111000030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HID_INTERFACE_NOTIFY => "{2c4e2e88-25e6-4c33-882f-3d82e6073681}"
+    static GUID_HID_INTERFACE_NOTIFY => Guid("{2c4e2e88-25e6-4c33-882f-3d82e6073681}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HID_INTERFACE_HIDPARSE => "{f5c315a5-69ac-4bc2-9279-d0b64576f44b}"
+    static GUID_HID_INTERFACE_HIDPARSE => Guid("{f5c315a5-69ac-4bc2-9279-d0b64576f44b}")
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DeviceInterface_HID_UsagePage {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DeviceInterface_HID_UsageId {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DeviceInterface_HID_IsReadOnly {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DeviceInterface_HID_VendorId {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DeviceInterface_HID_ProductId {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DeviceInterface_HID_VersionNumber {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DeviceInterface_HID_BackgroundAccess {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DeviceInterface_HID_WakeScreenOnInputCapable {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
 
     /**
      * @type {Integer (UInt32)}
@@ -14925,9 +15031,9 @@ class HumanInterfaceDevice {
     static IOCTL_KEYBOARD_SET_IME_STATUS => 724996
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_KEYBOARD => "{884b96c3-56ef-11d1-bc8c-00a0c91405dd}"
+    static GUID_DEVINTERFACE_KEYBOARD => Guid("{884b96c3-56ef-11d1-bc8c-00a0c91405dd}")
 
     /**
      * @type {Integer (UInt32)}
@@ -15050,9 +15156,9 @@ class HumanInterfaceDevice {
     static IOCTL_MOUSE_INSERT_DATA => 983044
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_MOUSE => "{378de44c-56ef-11d1-bc8c-00a0c91405dd}"
+    static GUID_DEVINTERFACE_MOUSE => Guid("{378de44c-56ef-11d1-bc8c-00a0c91405dd}")
 
     /**
      * @type {Integer (UInt32)}
@@ -15210,174 +15316,174 @@ class HumanInterfaceDevice {
     static DIRECTINPUT_HEADER_VERSION => 2048
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectInput => "{25e609e0-b259-11cf-bfc7-444553540000}"
+    static CLSID_DirectInput => Guid("{25e609e0-b259-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectInputDevice => "{25e609e1-b259-11cf-bfc7-444553540000}"
+    static CLSID_DirectInputDevice => Guid("{25e609e1-b259-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectInput8 => "{25e609e4-b259-11cf-bfc7-444553540000}"
+    static CLSID_DirectInput8 => Guid("{25e609e4-b259-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectInputDevice8 => "{25e609e5-b259-11cf-bfc7-444553540000}"
+    static CLSID_DirectInputDevice8 => Guid("{25e609e5-b259-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_XAxis => "{a36d02e0-c9f3-11cf-bfc7-444553540000}"
+    static GUID_XAxis => Guid("{a36d02e0-c9f3-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_YAxis => "{a36d02e1-c9f3-11cf-bfc7-444553540000}"
+    static GUID_YAxis => Guid("{a36d02e1-c9f3-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ZAxis => "{a36d02e2-c9f3-11cf-bfc7-444553540000}"
+    static GUID_ZAxis => Guid("{a36d02e2-c9f3-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_RxAxis => "{a36d02f4-c9f3-11cf-bfc7-444553540000}"
+    static GUID_RxAxis => Guid("{a36d02f4-c9f3-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_RyAxis => "{a36d02f5-c9f3-11cf-bfc7-444553540000}"
+    static GUID_RyAxis => Guid("{a36d02f5-c9f3-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_RzAxis => "{a36d02e3-c9f3-11cf-bfc7-444553540000}"
+    static GUID_RzAxis => Guid("{a36d02e3-c9f3-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Slider => "{a36d02e4-c9f3-11cf-bfc7-444553540000}"
+    static GUID_Slider => Guid("{a36d02e4-c9f3-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Button => "{a36d02f0-c9f3-11cf-bfc7-444553540000}"
+    static GUID_Button => Guid("{a36d02f0-c9f3-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Key => "{55728220-d33c-11cf-bfc7-444553540000}"
+    static GUID_Key => Guid("{55728220-d33c-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_POV => "{a36d02f2-c9f3-11cf-bfc7-444553540000}"
+    static GUID_POV => Guid("{a36d02f2-c9f3-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Unknown => "{a36d02f3-c9f3-11cf-bfc7-444553540000}"
+    static GUID_Unknown => Guid("{a36d02f3-c9f3-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SysMouse => "{6f1d2b60-d5a0-11cf-bfc7-444553540000}"
+    static GUID_SysMouse => Guid("{6f1d2b60-d5a0-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SysKeyboard => "{6f1d2b61-d5a0-11cf-bfc7-444553540000}"
+    static GUID_SysKeyboard => Guid("{6f1d2b61-d5a0-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Joystick => "{6f1d2b70-d5a0-11cf-bfc7-444553540000}"
+    static GUID_Joystick => Guid("{6f1d2b70-d5a0-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SysMouseEm => "{6f1d2b80-d5a0-11cf-bfc7-444553540000}"
+    static GUID_SysMouseEm => Guid("{6f1d2b80-d5a0-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SysMouseEm2 => "{6f1d2b81-d5a0-11cf-bfc7-444553540000}"
+    static GUID_SysMouseEm2 => Guid("{6f1d2b81-d5a0-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SysKeyboardEm => "{6f1d2b82-d5a0-11cf-bfc7-444553540000}"
+    static GUID_SysKeyboardEm => Guid("{6f1d2b82-d5a0-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SysKeyboardEm2 => "{6f1d2b83-d5a0-11cf-bfc7-444553540000}"
+    static GUID_SysKeyboardEm2 => Guid("{6f1d2b83-d5a0-11cf-bfc7-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ConstantForce => "{13541c20-8e33-11d0-9ad0-00a0c9a06e35}"
+    static GUID_ConstantForce => Guid("{13541c20-8e33-11d0-9ad0-00a0c9a06e35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_RampForce => "{13541c21-8e33-11d0-9ad0-00a0c9a06e35}"
+    static GUID_RampForce => Guid("{13541c21-8e33-11d0-9ad0-00a0c9a06e35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Square => "{13541c22-8e33-11d0-9ad0-00a0c9a06e35}"
+    static GUID_Square => Guid("{13541c22-8e33-11d0-9ad0-00a0c9a06e35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Sine => "{13541c23-8e33-11d0-9ad0-00a0c9a06e35}"
+    static GUID_Sine => Guid("{13541c23-8e33-11d0-9ad0-00a0c9a06e35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Triangle => "{13541c24-8e33-11d0-9ad0-00a0c9a06e35}"
+    static GUID_Triangle => Guid("{13541c24-8e33-11d0-9ad0-00a0c9a06e35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SawtoothUp => "{13541c25-8e33-11d0-9ad0-00a0c9a06e35}"
+    static GUID_SawtoothUp => Guid("{13541c25-8e33-11d0-9ad0-00a0c9a06e35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SawtoothDown => "{13541c26-8e33-11d0-9ad0-00a0c9a06e35}"
+    static GUID_SawtoothDown => Guid("{13541c26-8e33-11d0-9ad0-00a0c9a06e35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Spring => "{13541c27-8e33-11d0-9ad0-00a0c9a06e35}"
+    static GUID_Spring => Guid("{13541c27-8e33-11d0-9ad0-00a0c9a06e35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Damper => "{13541c28-8e33-11d0-9ad0-00a0c9a06e35}"
+    static GUID_Damper => Guid("{13541c28-8e33-11d0-9ad0-00a0c9a06e35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Inertia => "{13541c29-8e33-11d0-9ad0-00a0c9a06e35}"
+    static GUID_Inertia => Guid("{13541c29-8e33-11d0-9ad0-00a0c9a06e35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Friction => "{13541c2a-8e33-11d0-9ad0-00a0c9a06e35}"
+    static GUID_Friction => Guid("{13541c2a-8e33-11d0-9ad0-00a0c9a06e35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_CustomForce => "{13541c2b-8e33-11d0-9ad0-00a0c9a06e35}"
+    static GUID_CustomForce => Guid("{13541c2b-8e33-11d0-9ad0-00a0c9a06e35}")
 
     /**
      * @type {Integer (UInt32)}
@@ -16525,14 +16631,14 @@ class HumanInterfaceDevice {
     static MAXCPOINTSNUM => 8
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_BUFFERSIZE => "{00000000-0000-0000-0000-000000000001}"
+    static DIPROP_BUFFERSIZE => Guid("{00000000-0000-0000-0000-000000000001}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_AXISMODE => "{00000000-0000-0000-0000-000000000002}"
+    static DIPROP_AXISMODE => Guid("{00000000-0000-0000-0000-000000000002}")
 
     /**
      * @type {Integer (UInt32)}
@@ -16545,39 +16651,39 @@ class HumanInterfaceDevice {
     static DIPROPAXISMODE_REL => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_GRANULARITY => "{00000000-0000-0000-0000-000000000003}"
+    static DIPROP_GRANULARITY => Guid("{00000000-0000-0000-0000-000000000003}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_RANGE => "{00000000-0000-0000-0000-000000000004}"
+    static DIPROP_RANGE => Guid("{00000000-0000-0000-0000-000000000004}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_DEADZONE => "{00000000-0000-0000-0000-000000000005}"
+    static DIPROP_DEADZONE => Guid("{00000000-0000-0000-0000-000000000005}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_SATURATION => "{00000000-0000-0000-0000-000000000006}"
+    static DIPROP_SATURATION => Guid("{00000000-0000-0000-0000-000000000006}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_FFGAIN => "{00000000-0000-0000-0000-000000000007}"
+    static DIPROP_FFGAIN => Guid("{00000000-0000-0000-0000-000000000007}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_FFLOAD => "{00000000-0000-0000-0000-000000000008}"
+    static DIPROP_FFLOAD => Guid("{00000000-0000-0000-0000-000000000008}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_AUTOCENTER => "{00000000-0000-0000-0000-000000000009}"
+    static DIPROP_AUTOCENTER => Guid("{00000000-0000-0000-0000-000000000009}")
 
     /**
      * @type {Integer (UInt32)}
@@ -16590,9 +16696,9 @@ class HumanInterfaceDevice {
     static DIPROPAUTOCENTER_ON => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_CALIBRATIONMODE => "{00000000-0000-0000-0000-00000000000a}"
+    static DIPROP_CALIBRATIONMODE => Guid("{00000000-0000-0000-0000-00000000000a}")
 
     /**
      * @type {Integer (UInt32)}
@@ -16605,79 +16711,79 @@ class HumanInterfaceDevice {
     static DIPROPCALIBRATIONMODE_RAW => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_CALIBRATION => "{00000000-0000-0000-0000-00000000000b}"
+    static DIPROP_CALIBRATION => Guid("{00000000-0000-0000-0000-00000000000b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_GUIDANDPATH => "{00000000-0000-0000-0000-00000000000c}"
+    static DIPROP_GUIDANDPATH => Guid("{00000000-0000-0000-0000-00000000000c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_INSTANCENAME => "{00000000-0000-0000-0000-00000000000d}"
+    static DIPROP_INSTANCENAME => Guid("{00000000-0000-0000-0000-00000000000d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_PRODUCTNAME => "{00000000-0000-0000-0000-00000000000e}"
+    static DIPROP_PRODUCTNAME => Guid("{00000000-0000-0000-0000-00000000000e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_JOYSTICKID => "{00000000-0000-0000-0000-00000000000f}"
+    static DIPROP_JOYSTICKID => Guid("{00000000-0000-0000-0000-00000000000f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_GETPORTDISPLAYNAME => "{00000000-0000-0000-0000-000000000010}"
+    static DIPROP_GETPORTDISPLAYNAME => Guid("{00000000-0000-0000-0000-000000000010}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_PHYSICALRANGE => "{00000000-0000-0000-0000-000000000012}"
+    static DIPROP_PHYSICALRANGE => Guid("{00000000-0000-0000-0000-000000000012}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_LOGICALRANGE => "{00000000-0000-0000-0000-000000000013}"
+    static DIPROP_LOGICALRANGE => Guid("{00000000-0000-0000-0000-000000000013}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_KEYNAME => "{00000000-0000-0000-0000-000000000014}"
+    static DIPROP_KEYNAME => Guid("{00000000-0000-0000-0000-000000000014}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_CPOINTS => "{00000000-0000-0000-0000-000000000015}"
+    static DIPROP_CPOINTS => Guid("{00000000-0000-0000-0000-000000000015}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_APPDATA => "{00000000-0000-0000-0000-000000000016}"
+    static DIPROP_APPDATA => Guid("{00000000-0000-0000-0000-000000000016}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_SCANCODE => "{00000000-0000-0000-0000-000000000017}"
+    static DIPROP_SCANCODE => Guid("{00000000-0000-0000-0000-000000000017}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_VIDPID => "{00000000-0000-0000-0000-000000000018}"
+    static DIPROP_VIDPID => Guid("{00000000-0000-0000-0000-000000000018}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_USERNAME => "{00000000-0000-0000-0000-000000000019}"
+    static DIPROP_USERNAME => Guid("{00000000-0000-0000-0000-000000000019}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIPROP_TYPENAME => "{00000000-0000-0000-0000-00000000001a}"
+    static DIPROP_TYPENAME => Guid("{00000000-0000-0000-0000-00000000001a}")
 
     /**
      * @type {Integer (UInt32)}

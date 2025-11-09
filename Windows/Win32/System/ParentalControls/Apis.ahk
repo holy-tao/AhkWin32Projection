@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.ParentalControls
@@ -520,9 +521,9 @@ class ParentalControls {
     static FACILITY_WPC => 2457
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPCPROV => "{01090065-b467-4503-9b28-533766761087}"
+    static WPCPROV => Guid("{01090065-b467-4503-9b28-533766761087}")
 ;@endregion Constants
 
 ;@region Methods

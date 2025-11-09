@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Gdi\HPALETTE.ahk
 
 /**
@@ -21,164 +22,164 @@ class GdiPlus {
     static GDIP_WMF_RECORD_BASE => 65536
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatUndefined => "{b96b3ca9-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatUndefined => Guid("{b96b3ca9-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatMemoryBMP => "{b96b3caa-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatMemoryBMP => Guid("{b96b3caa-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatBMP => "{b96b3cab-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatBMP => Guid("{b96b3cab-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatEMF => "{b96b3cac-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatEMF => Guid("{b96b3cac-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatWMF => "{b96b3cad-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatWMF => Guid("{b96b3cad-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatJPEG => "{b96b3cae-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatJPEG => Guid("{b96b3cae-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatPNG => "{b96b3caf-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatPNG => Guid("{b96b3caf-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatGIF => "{b96b3cb0-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatGIF => Guid("{b96b3cb0-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatTIFF => "{b96b3cb1-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatTIFF => Guid("{b96b3cb1-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatEXIF => "{b96b3cb2-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatEXIF => Guid("{b96b3cb2-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatIcon => "{b96b3cb5-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatIcon => Guid("{b96b3cb5-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatHEIF => "{b96b3cb6-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatHEIF => Guid("{b96b3cb6-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageFormatWEBP => "{b96b3cb7-0728-11d3-9d7b-0000f81ef32e}"
+    static ImageFormatWEBP => Guid("{b96b3cb7-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FrameDimensionTime => "{6aedbd6d-3fb5-418a-83a6-7f45229dc872}"
+    static FrameDimensionTime => Guid("{6aedbd6d-3fb5-418a-83a6-7f45229dc872}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FrameDimensionResolution => "{84236f7b-3bd3-428f-8dab-4ea1439ca315}"
+    static FrameDimensionResolution => Guid("{84236f7b-3bd3-428f-8dab-4ea1439ca315}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FrameDimensionPage => "{7462dc86-6180-4c7e-8e3f-ee7333a7a483}"
+    static FrameDimensionPage => Guid("{7462dc86-6180-4c7e-8e3f-ee7333a7a483}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FormatIDImageInformation => "{e5836cbe-5eef-4f1d-acde-ae4c43b608ce}"
+    static FormatIDImageInformation => Guid("{e5836cbe-5eef-4f1d-acde-ae4c43b608ce}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FormatIDJpegAppHeaders => "{1c4afdcd-6177-43cf-abc7-5f51af39ee85}"
+    static FormatIDJpegAppHeaders => Guid("{1c4afdcd-6177-43cf-abc7-5f51af39ee85}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderCompression => "{e09d739d-ccd4-44ee-8eba-3fbf8be4fc58}"
+    static EncoderCompression => Guid("{e09d739d-ccd4-44ee-8eba-3fbf8be4fc58}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderColorDepth => "{66087055-ad66-4c7c-9a18-38a2310b8337}"
+    static EncoderColorDepth => Guid("{66087055-ad66-4c7c-9a18-38a2310b8337}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderScanMethod => "{3a4e2661-3109-4e56-8536-42c156e7dcfa}"
+    static EncoderScanMethod => Guid("{3a4e2661-3109-4e56-8536-42c156e7dcfa}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderVersion => "{24d18c76-814a-41a4-bf53-1c219cccf797}"
+    static EncoderVersion => Guid("{24d18c76-814a-41a4-bf53-1c219cccf797}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderRenderMethod => "{6d42c53a-229a-4825-8bb7-5c99e2b9a8b8}"
+    static EncoderRenderMethod => Guid("{6d42c53a-229a-4825-8bb7-5c99e2b9a8b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderQuality => "{1d5be4b5-fa4a-452d-9cdd-5db35105e7eb}"
+    static EncoderQuality => Guid("{1d5be4b5-fa4a-452d-9cdd-5db35105e7eb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderTransformation => "{8d0eb2d1-a58e-4ea8-aa14-108074b7b6f9}"
+    static EncoderTransformation => Guid("{8d0eb2d1-a58e-4ea8-aa14-108074b7b6f9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderLuminanceTable => "{edb33bce-0266-4a77-b904-27216099e717}"
+    static EncoderLuminanceTable => Guid("{edb33bce-0266-4a77-b904-27216099e717}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderChrominanceTable => "{f2e455dc-09b3-4316-8260-676ada32481c}"
+    static EncoderChrominanceTable => Guid("{f2e455dc-09b3-4316-8260-676ada32481c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderSaveFlag => "{292266fc-ac40-47bf-8cfc-a85b89a655de}"
+    static EncoderSaveFlag => Guid("{292266fc-ac40-47bf-8cfc-a85b89a655de}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderColorSpace => "{ae7a62a0-ee2c-49d8-9d07-1ba8a927596e}"
+    static EncoderColorSpace => Guid("{ae7a62a0-ee2c-49d8-9d07-1ba8a927596e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderImageItems => "{63875e13-1f1d-45ab-9195-a29b6066a650}"
+    static EncoderImageItems => Guid("{63875e13-1f1d-45ab-9195-a29b6066a650}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EncoderSaveAsCMYK => "{a219bbc9-0a9d-4005-a3ee-3a421b8bb06c}"
+    static EncoderSaveAsCMYK => Guid("{a219bbc9-0a9d-4005-a3ee-3a421b8bb06c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CodecIImageBytes => "{025d1823-6c7d-447b-bbdb-a3cbc3dfa2fc}"
+    static CodecIImageBytes => Guid("{025d1823-6c7d-447b-bbdb-a3cbc3dfa2fc}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1466,64 +1467,64 @@ class GdiPlus {
     static PixelFormatMax => 16
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FlatnessDefault => 0.25
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BlurEffectGuid => "{633c80a4-1843-482b-9ef2-be2834c5fdd4}"
+    static BlurEffectGuid => Guid("{633c80a4-1843-482b-9ef2-be2834c5fdd4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SharpenEffectGuid => "{63cbf3ee-c526-402c-8f71-62c540bf5142}"
+    static SharpenEffectGuid => Guid("{63cbf3ee-c526-402c-8f71-62c540bf5142}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ColorMatrixEffectGuid => "{718f2615-7933-40e3-a511-5f68fe14dd74}"
+    static ColorMatrixEffectGuid => Guid("{718f2615-7933-40e3-a511-5f68fe14dd74}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ColorLUTEffectGuid => "{a7ce72a9-0f7f-40d7-b3cc-d0c02d5c3212}"
+    static ColorLUTEffectGuid => Guid("{a7ce72a9-0f7f-40d7-b3cc-d0c02d5c3212}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BrightnessContrastEffectGuid => "{d3a1dbe1-8ec4-4c17-9f4c-ea97ad1c343d}"
+    static BrightnessContrastEffectGuid => Guid("{d3a1dbe1-8ec4-4c17-9f4c-ea97ad1c343d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HueSaturationLightnessEffectGuid => "{8b2dd6c3-eb07-4d87-a5f0-7108e26a9c5f}"
+    static HueSaturationLightnessEffectGuid => Guid("{8b2dd6c3-eb07-4d87-a5f0-7108e26a9c5f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LevelsEffectGuid => "{99c354ec-2a31-4f3a-8c34-17a803b33a25}"
+    static LevelsEffectGuid => Guid("{99c354ec-2a31-4f3a-8c34-17a803b33a25}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static TintEffectGuid => "{1077af00-2848-4441-9489-44ad4c2d7a2c}"
+    static TintEffectGuid => Guid("{1077af00-2848-4441-9489-44ad4c2d7a2c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ColorBalanceEffectGuid => "{537e597d-251e-48da-9664-29ca496b70f8}"
+    static ColorBalanceEffectGuid => Guid("{537e597d-251e-48da-9664-29ca496b70f8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RedEyeCorrectionEffectGuid => "{74d29d05-69a4-4266-9549-3cc52836b632}"
+    static RedEyeCorrectionEffectGuid => Guid("{74d29d05-69a4-4266-9549-3cc52836b632}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ColorCurveEffectGuid => "{dd6a0022-58e4-4a67-9d9b-d48eb881a53d}"
+    static ColorCurveEffectGuid => Guid("{dd6a0022-58e4-4a67-9d9b-d48eb881a53d}")
 ;@endregion Constants
 
 ;@region Methods

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -40,99 +42,203 @@ class Ioctl {
     static FILE_DEVICE_UNKNOWN => 34
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_DISK => "{53f56307-b6bf-11d0-94f2-00a0c91efb8b}"
+    static GUID_DEVINTERFACE_DISK => Guid("{53f56307-b6bf-11d0-94f2-00a0c91efb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_CDROM => "{53f56308-b6bf-11d0-94f2-00a0c91efb8b}"
+    static GUID_DEVINTERFACE_CDROM => Guid("{53f56308-b6bf-11d0-94f2-00a0c91efb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_PARTITION => "{53f5630a-b6bf-11d0-94f2-00a0c91efb8b}"
+    static GUID_DEVINTERFACE_PARTITION => Guid("{53f5630a-b6bf-11d0-94f2-00a0c91efb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_TAPE => "{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}"
+    static GUID_DEVINTERFACE_TAPE => Guid("{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_WRITEONCEDISK => "{53f5630c-b6bf-11d0-94f2-00a0c91efb8b}"
+    static GUID_DEVINTERFACE_WRITEONCEDISK => Guid("{53f5630c-b6bf-11d0-94f2-00a0c91efb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_VOLUME => "{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}"
+    static GUID_DEVINTERFACE_VOLUME => Guid("{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_MEDIUMCHANGER => "{53f56310-b6bf-11d0-94f2-00a0c91efb8b}"
+    static GUID_DEVINTERFACE_MEDIUMCHANGER => Guid("{53f56310-b6bf-11d0-94f2-00a0c91efb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_FLOPPY => "{53f56311-b6bf-11d0-94f2-00a0c91efb8b}"
+    static GUID_DEVINTERFACE_FLOPPY => Guid("{53f56311-b6bf-11d0-94f2-00a0c91efb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_CDCHANGER => "{53f56312-b6bf-11d0-94f2-00a0c91efb8b}"
+    static GUID_DEVINTERFACE_CDCHANGER => Guid("{53f56312-b6bf-11d0-94f2-00a0c91efb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_STORAGEPORT => "{2accfe60-c130-11d2-b082-00a0c91efb8b}"
+    static GUID_DEVINTERFACE_STORAGEPORT => Guid("{2accfe60-c130-11d2-b082-00a0c91efb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_VMLUN => "{6f416619-9f29-42a5-b20b-37e219ca02b0}"
+    static GUID_DEVINTERFACE_VMLUN => Guid("{6f416619-9f29-42a5-b20b-37e219ca02b0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_SES => "{1790c9ec-47d5-4df3-b5af-9adf3cf23e48}"
+    static GUID_DEVINTERFACE_SES => Guid("{1790c9ec-47d5-4df3-b5af-9adf3cf23e48}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_ZNSDISK => "{b87941c5-ffdb-43c7-b6b1-20b632f0b109}"
+    static GUID_DEVINTERFACE_ZNSDISK => Guid("{b87941c5-ffdb-43c7-b6b1-20b632f0b109}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_HIDDEN_DISK => "{7fccc86c-228a-40ad-8a58-f590af7bfdce}"
+    static GUID_DEVINTERFACE_HIDDEN_DISK => Guid("{7fccc86c-228a-40ad-8a58-f590af7bfdce}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_SERVICE_VOLUME => "{6ead3d82-25ec-46bc-b7fd-c1f0df8f5037}"
+    static GUID_DEVINTERFACE_SERVICE_VOLUME => Guid("{6ead3d82-25ec-46bc-b7fd-c1f0df8f5037}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_HIDDEN_VOLUME => "{7f108a28-9833-4b3b-b780-2c6b5fa5c062}"
+    static GUID_DEVINTERFACE_HIDDEN_VOLUME => Guid("{7f108a28-9833-4b3b-b780-2c6b5fa5c062}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_UNIFIED_ACCESS_RPMB => "{27447c21-bcc3-4d07-a05b-a3395bb4eee7}"
+    static GUID_DEVINTERFACE_UNIFIED_ACCESS_RPMB => Guid("{27447c21-bcc3-4d07-a05b-a3395bb4eee7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICEDUMP_STORAGE_DEVICE => "{d8e2592f-1aab-4d56-a746-1f7585df40f4}"
+    static GUID_DEVICEDUMP_STORAGE_DEVICE => Guid("{d8e2592f-1aab-4d56-a746-1f7585df40f4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICEDUMP_DRIVER_STORAGE_PORT => "{da82441d-7142-4bc1-b844-0807c5a4b67f}"
+    static GUID_DEVICEDUMP_DRIVER_STORAGE_PORT => Guid("{da82441d-7142-4bc1-b844-0807c5a4b67f}")
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Storage_Portable {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Storage_Removable_Media {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Storage_System_Critical {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Storage_Disk_Number {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Storage_Partition_Number {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Storage_Mbr_Type {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Storage_Gpt_Type {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Storage_Gpt_Name {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
 
     /**
      * @type {Integer (UInt32)}
@@ -1105,29 +1211,29 @@ class Ioctl {
     static STORAGE_SUPPORTED_FEATURES_MASK => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_SCM_PHYSICAL_DEVICE => "{4283609d-4dc2-43be-bbb4-4f15dfce2c61}"
+    static GUID_DEVINTERFACE_SCM_PHYSICAL_DEVICE => Guid("{4283609d-4dc2-43be-bbb4-4f15dfce2c61}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SCM_PD_HEALTH_NOTIFICATION => "{9da2d386-72f5-4ee3-8155-eca0678e3b06}"
+    static GUID_SCM_PD_HEALTH_NOTIFICATION => Guid("{9da2d386-72f5-4ee3-8155-eca0678e3b06}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SCM_PD_PASSTHROUGH_INVDIMM => "{4309ac30-0d11-11e4-9191-0800200c9a66}"
+    static GUID_SCM_PD_PASSTHROUGH_INVDIMM => Guid("{4309ac30-0d11-11e4-9191-0800200c9a66}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_COMPORT => "{86e0d1e0-8089-11d0-9ce4-08003e301f73}"
+    static GUID_DEVINTERFACE_COMPORT => Guid("{86e0d1e0-8089-11d0-9ce4-08003e301f73}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_SERENUM_BUS_ENUMERATOR => "{4d36e978-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVINTERFACE_SERENUM_BUS_ENUMERATOR => Guid("{4d36e978-e325-11ce-bfc1-08002be10318}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2135,9 +2241,9 @@ class Ioctl {
     static PARTITION_NTFT => 128
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WMI_DISK_GEOMETRY_GUID => "{25007f51-57c2-11d1-a528-00a0c9062910}"
+    static WMI_DISK_GEOMETRY_GUID => Guid("{25007f51-57c2-11d1-a528-00a0c9062910}")
 
     /**
      * @type {Integer (UInt64)}
@@ -4810,19 +4916,19 @@ class Ioctl {
     static FILE_TYPE_NOTIFICATION_FLAG_USAGE_END => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE => "{0d0a64a1-38fc-4db8-9fe7-3f4352cd7c5c}"
+    static FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE => Guid("{0d0a64a1-38fc-4db8-9fe7-3f4352cd7c5c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE => "{b7624d64-b9a3-4cf8-8011-5b86c940e7b7}"
+    static FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE => Guid("{b7624d64-b9a3-4cf8-8011-5b86c940e7b7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE => "{9d453eb7-d2a6-4dbd-a2e3-fbd0ed9109a9}"
+    static FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE => Guid("{9d453eb7-d2a6-4dbd-a2e3-fbd0ed9109a9}")
 
     /**
      * @type {Integer (UInt32)}

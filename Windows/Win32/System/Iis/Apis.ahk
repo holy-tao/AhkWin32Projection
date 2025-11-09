@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -45,9 +46,9 @@ class Iis {
     static ADMINDATA_MAX_NAME_LEN => 256
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MSAdminBase_W => "{a9e69610-b80d-11d0-b9b9-00a0c922e750}"
+    static CLSID_MSAdminBase_W => Guid("{a9e69610-b80d-11d0-b9b9-00a0c922e750}")
 
     /**
      * @type {Integer (UInt32)}
@@ -170,9 +171,9 @@ class Iis {
     static DWN_MIRRORIMAGE => 512
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IImgCtx => "{3050f3d6-98b5-11cf-bb82-00aa00bdce0b}"
+    static CLSID_IImgCtx => Guid("{3050f3d6-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * @type {String}
@@ -3620,14 +3621,14 @@ class Iis {
     static IIS_CLASS_COMPRESS_SCHEME_W => "IIsCompressionScheme"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IisServiceControl => "{e8fb8621-588f-11d2-9d61-00c04f79c5fe}"
+    static CLSID_IisServiceControl => Guid("{e8fb8621-588f-11d2-9d61-00c04f79c5fe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LIBID_IISRSTALib => "{e8fb8614-588f-11d2-9d61-00c04f79c5fe}"
+    static LIBID_IISRSTALib => Guid("{e8fb8614-588f-11d2-9d61-00c04f79c5fe}")
 
     /**
      * @type {String}
@@ -3640,14 +3641,14 @@ class Iis {
     static IIS_WEBSOCKET_SERVER_VARIABLE => "IIS_WEBSOCK"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LIBID_WAMREGLib => "{29822aa8-f302-11d0-9953-00c04fd919c1}"
+    static LIBID_WAMREGLib => Guid("{29822aa8-f302-11d0-9953-00c04fd919c1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WamAdmin => "{61738644-f196-11d0-9953-00c04fd919c1}"
+    static CLSID_WamAdmin => Guid("{61738644-f196-11d0-9953-00c04fd919c1}")
 
     /**
      * @type {Integer (UInt32)}
@@ -3920,34 +3921,34 @@ class Iis {
     static MD_ERROR_NO_SESSION_KEY => -2146645987
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LIBID_ASPTypeLibrary => "{d97a6da0-a85c-11cf-83ae-00a0c90c2bd8}"
+    static LIBID_ASPTypeLibrary => Guid("{d97a6da0-a85c-11cf-83ae-00a0c90c2bd8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_Request => "{920c25d0-25d9-11d0-a55f-00a0c90c2091}"
+    static CLSID_Request => Guid("{920c25d0-25d9-11d0-a55f-00a0c90c2091}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_Response => "{46e19ba0-25dd-11d0-a55f-00a0c90c2091}"
+    static CLSID_Response => Guid("{46e19ba0-25dd-11d0-a55f-00a0c90c2091}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_Session => "{509f8f20-25de-11d0-a55f-00a0c90c2091}"
+    static CLSID_Session => Guid("{509f8f20-25de-11d0-a55f-00a0c90c2091}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_Server => "{a506d160-25e0-11d0-a55f-00a0c90c2091}"
+    static CLSID_Server => Guid("{a506d160-25e0-11d0-a55f-00a0c90c2091}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ScriptingContext => "{d97a6da0-a868-11cf-83ae-11b0c90c2bd8}"
+    static CLSID_ScriptingContext => Guid("{d97a6da0-a868-11cf-83ae-11b0c90c2bd8}")
 
     /**
      * @type {Integer (UInt32)}
@@ -4605,39 +4606,39 @@ class Iis {
     static HTTP_TRACE_LEVEL_END => 7
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IIS_ALL_TRACE_PROVIDERS => "{00000000-0000-0000-0000-000000000000}"
+    static GUID_IIS_ALL_TRACE_PROVIDERS => Guid("{00000000-0000-0000-0000-000000000000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IIS_WWW_SERVER_TRACE_PROVIDER => "{3a2a4e84-4c21-4981-ae10-3fda0d9b0f83}"
+    static GUID_IIS_WWW_SERVER_TRACE_PROVIDER => Guid("{3a2a4e84-4c21-4981-ae10-3fda0d9b0f83}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IIS_WWW_SERVER_V2_TRACE_PROVIDER => "{de4649c9-15e8-4fea-9d85-1cdda520c334}"
+    static GUID_IIS_WWW_SERVER_V2_TRACE_PROVIDER => Guid("{de4649c9-15e8-4fea-9d85-1cdda520c334}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IIS_ASPNET_TRACE_PROVIDER => "{aff081fe-0247-4275-9c4e-021f3dc1da35}"
+    static GUID_IIS_ASPNET_TRACE_PROVIDER => Guid("{aff081fe-0247-4275-9c4e-021f3dc1da35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IIS_ASP_TRACE_TRACE_PROVIDER => "{06b94d9a-b15e-456e-a4ef-37c984a2cb4b}"
+    static GUID_IIS_ASP_TRACE_TRACE_PROVIDER => Guid("{06b94d9a-b15e-456e-a4ef-37c984a2cb4b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IIS_WWW_GLOBAL_TRACE_PROVIDER => "{d55d3bc9-cba9-44df-827e-132d3a4596c2}"
+    static GUID_IIS_WWW_GLOBAL_TRACE_PROVIDER => Guid("{d55d3bc9-cba9-44df-827e-132d3a4596c2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IIS_ISAPI_TRACE_PROVIDER => "{a1c2040e-8840-4c31-ba11-9871031a19ea}"
+    static GUID_IIS_ISAPI_TRACE_PROVIDER => Guid("{a1c2040e-8840-4c31-ba11-9871031a19ea}")
 
     /**
      * @type {String}

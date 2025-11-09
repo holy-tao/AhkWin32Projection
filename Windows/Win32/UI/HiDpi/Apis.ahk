@@ -12,29 +12,29 @@ class HiDpi {
 ;@region Constants
 
     /**
-     * @type {Integer (Int32)}
+     * @type {DPI_AWARENESS_CONTEXT}
      */
-    static DPI_AWARENESS_CONTEXT_UNAWARE => -1
+    static DPI_AWARENESS_CONTEXT_UNAWARE => DPI_AWARENESS_CONTEXT({Value: -1}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {DPI_AWARENESS_CONTEXT}
      */
-    static DPI_AWARENESS_CONTEXT_SYSTEM_AWARE => -2
+    static DPI_AWARENESS_CONTEXT_SYSTEM_AWARE => DPI_AWARENESS_CONTEXT({Value: -2}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {DPI_AWARENESS_CONTEXT}
      */
-    static DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE => -3
+    static DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE => DPI_AWARENESS_CONTEXT({Value: -3}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {DPI_AWARENESS_CONTEXT}
      */
-    static DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 => -4
+    static DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 => DPI_AWARENESS_CONTEXT({Value: -4}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {DPI_AWARENESS_CONTEXT}
      */
-    static DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED => -5
+    static DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED => DPI_AWARENESS_CONTEXT({Value: -5}, false)
 ;@endregion Constants
 
 ;@region Methods

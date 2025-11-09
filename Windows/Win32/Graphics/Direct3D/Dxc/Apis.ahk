@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -10,9 +11,9 @@ class Dxc {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DxcUtils => "{6245d6af-66e0-48fd-80b4-4d271796748c}"
+    static CLSID_DxcUtils => Guid("{6245d6af-66e0-48fd-80b4-4d271796748c}")
 
     /**
      * @type {Integer (UInt32)}
@@ -165,59 +166,59 @@ class Dxc {
     static DxcVersionInfoFlags_Internal => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DxcCompiler => "{73e22d93-e6ce-47f3-b5bf-f0664f39c1b0}"
+    static CLSID_DxcCompiler => Guid("{73e22d93-e6ce-47f3-b5bf-f0664f39c1b0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DxcLinker => "{ef6a8087-b0ea-4d56-9e45-d07e1a8b7806}"
+    static CLSID_DxcLinker => Guid("{ef6a8087-b0ea-4d56-9e45-d07e1a8b7806}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DxcDiaDataSource => "{cd1f6b73-2ab0-484d-8edc-ebe7a43ca09f}"
+    static CLSID_DxcDiaDataSource => Guid("{cd1f6b73-2ab0-484d-8edc-ebe7a43ca09f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DxcCompilerArgs => "{3e56ae82-224d-470f-a1a1-fe3016ee9f9d}"
+    static CLSID_DxcCompilerArgs => Guid("{3e56ae82-224d-470f-a1a1-fe3016ee9f9d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DxcLibrary => "{6245d6af-66e0-48fd-80b4-4d271796748c}"
+    static CLSID_DxcLibrary => Guid("{6245d6af-66e0-48fd-80b4-4d271796748c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DxcValidator => "{8ca3e215-f728-4cf3-8cdd-88af917587a1}"
+    static CLSID_DxcValidator => Guid("{8ca3e215-f728-4cf3-8cdd-88af917587a1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DxcAssembler => "{d728db68-f903-4f80-94cd-dccf76ec7151}"
+    static CLSID_DxcAssembler => Guid("{d728db68-f903-4f80-94cd-dccf76ec7151}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DxcContainerReflection => "{b9f54489-55b8-400c-ba3a-1675e4728b91}"
+    static CLSID_DxcContainerReflection => Guid("{b9f54489-55b8-400c-ba3a-1675e4728b91}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DxcOptimizer => "{ae2cd79f-cc22-453f-9b6b-b124e7a5204c}"
+    static CLSID_DxcOptimizer => Guid("{ae2cd79f-cc22-453f-9b6b-b124e7a5204c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DxcContainerBuilder => "{94134294-411f-4574-b4d0-8741e25240d2}"
+    static CLSID_DxcContainerBuilder => Guid("{94134294-411f-4574-b4d0-8741e25240d2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DxcPdbUtils => "{54621dfb-f2ce-457e-ae8c-ec355faeec7c}"
+    static CLSID_DxcPdbUtils => Guid("{54621dfb-f2ce-457e-ae8c-ec355faeec7c}")
 ;@endregion Constants
 
 ;@region Methods

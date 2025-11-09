@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -530,27 +531,27 @@ class Direct3D12 {
     static D3D12_CS_THREAD_LOCAL_TEMP_REGISTER_POOL => 16384
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_DEFAULT_BLEND_FACTOR_ALPHA => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_DEFAULT_BLEND_FACTOR_BLUE => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_DEFAULT_BLEND_FACTOR_GREEN => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_DEFAULT_BLEND_FACTOR_RED => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_DEFAULT_BORDER_COLOR_COMPONENT => 0
 
@@ -560,7 +561,7 @@ class Direct3D12 {
     static D3D12_DEFAULT_DEPTH_BIAS => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_DEFAULT_DEPTH_BIAS_CLAMP => 0
 
@@ -570,7 +571,7 @@ class Direct3D12 {
     static D3D12_DEFAULT_MAX_ANISOTROPY => 16
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_DEFAULT_MIP_LOD_BIAS => 0
 
@@ -615,7 +616,7 @@ class Direct3D12 {
     static D3D12_DEFAULT_SCISSOR_STARTY => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_DEFAULT_SLOPE_SCALED_DEPTH_BIAS => 0
 
@@ -645,12 +646,12 @@ class Direct3D12 {
     static D3D12_DEFAULT_VIEWPORT_HEIGHT => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_DEFAULT_VIEWPORT_MAX_DEPTH => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_DEFAULT_VIEWPORT_MIN_DEPTH => 0
 
@@ -805,67 +806,67 @@ class Direct3D12 {
     static D3D12_DS_OUTPUT_REGISTER_COUNT => 32
 
     /**
-     * @type {Integer (Double)}
+     * @type {Float}
      */
     static D3D12_FLOAT16_FUSED_TOLERANCE_IN_ULP => 0.6
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_FLOAT32_MAX => 3.4028235E+38
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_FLOAT32_TO_INTEGER_TOLERANCE_IN_ULP => 0.6
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_FLOAT_TO_SRGB_EXPONENT_DENOMINATOR => 2.4
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_FLOAT_TO_SRGB_EXPONENT_NUMERATOR => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_FLOAT_TO_SRGB_OFFSET => 0.055
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_FLOAT_TO_SRGB_SCALE_1 => 12.92
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_FLOAT_TO_SRGB_SCALE_2 => 1.055
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_FLOAT_TO_SRGB_THRESHOLD => 0.0031308
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_FTOI_INSTRUCTION_MAX_INPUT => 2.1474836E+09
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_FTOI_INSTRUCTION_MIN_INPUT => -2.1474836E+09
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_FTOU_INSTRUCTION_MAX_INPUT => 4.2949673E+09
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_FTOU_INSTRUCTION_MIN_INPUT => 0
 
@@ -1095,12 +1096,12 @@ class Direct3D12 {
     static D3D12_HS_JOIN_PHASE_INSTANCE_COUNT_UPPER_BOUND => 4294967295
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_HS_MAXTESSFACTOR_LOWER_BOUND => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_HS_MAXTESSFACTOR_UPPER_BOUND => 64
 
@@ -1245,7 +1246,7 @@ class Direct3D12 {
     static D3D12_KEEP_UNORDERED_ACCESS_VIEWS => 4294967295
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_LINEAR_GAMMA => 1
 
@@ -1255,12 +1256,12 @@ class Direct3D12 {
     static D3D12_MAJOR_VERSION => 12
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_MAX_BORDER_COLOR_COMPONENT => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_MAX_DEPTH => 1
 
@@ -1280,7 +1281,7 @@ class Direct3D12 {
     static D3D12_MAX_MULTISAMPLE_SAMPLE_COUNT => 32
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_MAX_POSITION_VALUE => 3.4028236E+34
 
@@ -1320,12 +1321,12 @@ class Direct3D12 {
     static D3D12_MINOR_VERSION => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_MIN_BORDER_COLOR_COMPONENT => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_MIN_DEPTH => 0
 
@@ -1335,12 +1336,12 @@ class Direct3D12 {
     static D3D12_MIN_MAXANISOTROPY => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_MIP_LOD_BIAS_MAX => 15.99
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_MIP_LOD_BIAS_MIN => -16
 
@@ -1355,7 +1356,7 @@ class Direct3D12 {
     static D3D12_MIP_LOD_RANGE_BIT_COUNT => 8
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_MULTISAMPLE_ANTIALIAS_LINE_WIDTH => 1.4
 
@@ -1455,7 +1456,7 @@ class Direct3D12 {
     static D3D12_PS_INPUT_REGISTER_READ_PORTS => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_PS_LEGACY_PIXEL_CENTER_FRACTIONAL_COMPONENT => 0
 
@@ -1505,7 +1506,7 @@ class Direct3D12 {
     static D3D12_PS_OUTPUT_REGISTER_COUNT => 8
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_PS_PIXEL_CENTER_FRACTIONAL_COMPONENT => 0.5
 
@@ -1665,7 +1666,7 @@ class Direct3D12 {
     static D3D12_REQ_RESOURCE_SIZE_IN_MEGABYTES_EXPRESSION_A_TERM => 128
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_REQ_RESOURCE_SIZE_IN_MEGABYTES_EXPRESSION_B_TERM => 0.25
 
@@ -1850,42 +1851,42 @@ class Direct3D12 {
     static D3D12_SPEC_DATE_YEAR => 2014
 
     /**
-     * @type {Integer (Double)}
+     * @type {Float}
      */
     static D3D12_SPEC_VERSION => 1.16
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_SRGB_GAMMA => 2.2
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_SRGB_TO_FLOAT_DENOMINATOR_1 => 12.92
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_SRGB_TO_FLOAT_DENOMINATOR_2 => 1.055
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_SRGB_TO_FLOAT_EXPONENT => 2.4
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_SRGB_TO_FLOAT_OFFSET => 0.055
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_SRGB_TO_FLOAT_THRESHOLD => 0.04045
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D12_SRGB_TO_FLOAT_TOLERANCE_IN_ULP => 0.5
 
@@ -2230,44 +2231,44 @@ class Direct3D12 {
     static D3D12_ANISOTROPIC_FILTERING_BIT => 64
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D12_PROTECTED_RESOURCES_SESSION_HARDWARE_PROTECTED => "{62b0084e-c70e-4daa-a109-30ff8d5a0482}"
+    static D3D12_PROTECTED_RESOURCES_SESSION_HARDWARE_PROTECTED => Guid("{62b0084e-c70e-4daa-a109-30ff8d5a0482}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_D3D12Debug => "{f2352aeb-dd84-49fe-b97b-a9dcfdcc1b4f}"
+    static CLSID_D3D12Debug => Guid("{f2352aeb-dd84-49fe-b97b-a9dcfdcc1b4f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_D3D12Tools => "{e38216b1-3c8c-4833-aa09-0a06b65d96c8}"
+    static CLSID_D3D12Tools => Guid("{e38216b1-3c8c-4833-aa09-0a06b65d96c8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_D3D12DeviceRemovedExtendedData => "{4a75bbc4-9ff4-4ad8-9f18-abae84dc5ff2}"
+    static CLSID_D3D12DeviceRemovedExtendedData => Guid("{4a75bbc4-9ff4-4ad8-9f18-abae84dc5ff2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_D3D12SDKConfiguration => "{7cda6aca-a03e-49c8-9458-0334d20e07ce}"
+    static CLSID_D3D12SDKConfiguration => Guid("{7cda6aca-a03e-49c8-9458-0334d20e07ce}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_D3D12DeviceFactory => "{114863bf-c386-4aee-b39d-8f0bbb062955}"
+    static CLSID_D3D12DeviceFactory => Guid("{114863bf-c386-4aee-b39d-8f0bbb062955}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_D3D12DSRDeviceFactory => "{bb6dd27e-94a9-41a6-9f1b-133772172428}"
+    static CLSID_D3D12DSRDeviceFactory => Guid("{bb6dd27e-94a9-41a6-9f1b-133772172428}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_D3D12StateObjectFactory => "{54e1c9f3-1303-4112-bf8e-7bf2bb606a73}"
+    static CLSID_D3D12StateObjectFactory => Guid("{54e1c9f3-1303-4112-bf8e-7bf2bb606a73}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2280,14 +2281,14 @@ class Direct3D12 {
     static D3D12_SHADING_RATE_VALID_MASK => 3
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WKPDID_D3DAutoDebugObjectNameW => "{d4902e36-757a-4942-9594-b6769afa43cd}"
+    static WKPDID_D3DAutoDebugObjectNameW => Guid("{d4902e36-757a-4942-9594-b6769afa43cd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DXGI_DEBUG_D3D12 => "{cf59a98c-a950-4326-91ef-9bbaa17bfd95}"
+    static DXGI_DEBUG_D3D12 => Guid("{cf59a98c-a950-4326-91ef-9bbaa17bfd95}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2410,19 +2411,19 @@ class Direct3D12 {
     static D3D_SHADER_REQUIRES_SAMPLE_CMP_GRADIENT_OR_BIAS => 2147483648
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D12ExperimentalShaderModels => "{76f5573e-f13a-40f5-b297-81ce9e18933f}"
+    static D3D12ExperimentalShaderModels => Guid("{76f5573e-f13a-40f5-b297-81ce9e18933f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D12TiledResourceTier4 => "{c9c4725f-a81a-4f56-8c5b-c51039d694fb}"
+    static D3D12TiledResourceTier4 => Guid("{c9c4725f-a81a-4f56-8c5b-c51039d694fb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D12GPUUploadHeapsOnUnsupportedOS => "{45dc51f3-767f-4588-b206-0baa2b16fbae}"
+    static D3D12GPUUploadHeapsOnUnsupportedOS => Guid("{45dc51f3-767f-4588-b206-0baa2b16fbae}")
 ;@endregion Constants
 
 ;@region Methods

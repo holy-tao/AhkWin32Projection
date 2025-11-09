@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ICreateDeviceAccessAsync.ahk
 
 /**
@@ -231,9 +232,9 @@ class DeviceAccess {
     static ED_VIDEO => 33554432
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DeviceIoControl => "{12d3e372-874b-457d-9fdf-73977778686c}"
+    static CLSID_DeviceIoControl => Guid("{12d3e372-874b-457d-9fdf-73977778686c}")
 ;@endregion Constants
 
 ;@region Methods

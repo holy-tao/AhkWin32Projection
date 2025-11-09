@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include .\HSURF.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
 #Include .\HSEMAPHORE.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -15,29 +17,81 @@ class Display {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_DISPLAY_ADAPTER => "{5b45201d-f2f2-4f3b-85bb-30ff1f953599}"
+    static GUID_DEVINTERFACE_DISPLAY_ADAPTER => Guid("{5b45201d-f2f2-4f3b-85bb-30ff1f953599}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_MONITOR => "{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+    static GUID_DEVINTERFACE_MONITOR => Guid("{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DISPLAY_DEVICE_ARRIVAL => "{1ca05180-a699-450a-9a0c-de4fbe3ddd89}"
+    static GUID_DISPLAY_DEVICE_ARRIVAL => Guid("{1ca05180-a699-450a-9a0c-de4fbe3ddd89}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_VIDEO_OUTPUT_ARRIVAL => "{1ad9e4f0-f88d-4360-bab9-4c2d55e564cd}"
+    static GUID_DEVINTERFACE_VIDEO_OUTPUT_ARRIVAL => Guid("{1ad9e4f0-f88d-4360-bab9-4c2d55e564cd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_DISPLAYMUX => "{93c33929-3180-46d3-8aab-008c84ad1e6e}"
+    static GUID_DEVINTERFACE_DISPLAYMUX => Guid("{93c33929-3180-46d3-8aab-008c84ad1e6e}")
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_IndirectDisplay {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Device_TerminalLuid {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Device_AdapterLuid {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_Device_ActivityId {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
 
     /**
      * @type {Integer (UInt32)}
@@ -48,6 +102,71 @@ class Display {
      * @type {Integer (UInt32)}
      */
     static INDIRECT_DISPLAY_INFO_FLAGS_SUPPORT_FP16 => 2
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DisplayMux_InitStatus {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DisplayMux_SupportLevel {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DisplayMux_MuxTarget1 {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DisplayMux_MuxTarget2 {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_DisplayMux_CurrentTarget {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
 
     /**
      * @type {String}
@@ -830,14 +949,14 @@ class Display {
     static HOST_DSI_BAD_TRANSMISSION_MODE => 4096
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MONITOR_OVERRIDE_PSEUDO_SPECIALIZED => "{f196c02f-f86f-4f9a-aa15-e9cebdfe3b96}"
+    static GUID_MONITOR_OVERRIDE_PSEUDO_SPECIALIZED => Guid("{f196c02f-f86f-4f9a-aa15-e9cebdfe3b96}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MONITOR_OVERRIDE_TEST_SPECIALIZED => "{0457e531-3cb9-4a07-83c1-a79146c64db3}"
+    static GUID_MONITOR_OVERRIDE_TEST_SPECIALIZED => Guid("{0457e531-3cb9-4a07-83c1-a79146c64db3}")
 
     /**
      * @type {Integer (UInt32)}

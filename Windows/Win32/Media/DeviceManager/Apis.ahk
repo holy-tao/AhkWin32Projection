@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.DeviceManager
@@ -60,24 +61,24 @@ class DeviceManager {
     static SAC_CERT_V1 => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WMDM_DEVICE_PROTOCOL_MTP => "{979e54e5-0afc-4604-8d93-dc798a4bcf45}"
+    static WMDM_DEVICE_PROTOCOL_MTP => Guid("{979e54e5-0afc-4604-8d93-dc798a4bcf45}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WMDM_DEVICE_PROTOCOL_RAPI => "{2a11ed91-8c8f-41e4-82d1-8386e003561c}"
+    static WMDM_DEVICE_PROTOCOL_RAPI => Guid("{2a11ed91-8c8f-41e4-82d1-8386e003561c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WMDM_DEVICE_PROTOCOL_MSC => "{a4d2c26c-a881-44bb-bd5d-1f703c71f7a9}"
+    static WMDM_DEVICE_PROTOCOL_MSC => Guid("{a4d2c26c-a881-44bb-bd5d-1f703c71f7a9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WMDM_SERVICE_PROVIDER_VENDOR_MICROSOFT => "{7de8686d-78ee-43ea-a496-c625ac91cc5d}"
+    static WMDM_SERVICE_PROVIDER_VENDOR_MICROSOFT => Guid("{7de8686d-78ee-43ea-a496-c625ac91cc5d}")
 
     /**
      * @type {Integer (UInt32)}
@@ -850,24 +851,24 @@ class DeviceManager {
     static WMDM_SCP_DRMINFO_V2HEADER => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SCP_EVENTID_ACQSECURECLOCK => "{86248cc9-4a59-43e2-9146-48a7f3f4140c}"
+    static SCP_EVENTID_ACQSECURECLOCK => Guid("{86248cc9-4a59-43e2-9146-48a7f3f4140c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SCP_EVENTID_NEEDTOINDIV => "{87a507c7-b469-4386-b976-d5d1ce538a6f}"
+    static SCP_EVENTID_NEEDTOINDIV => Guid("{87a507c7-b469-4386-b976-d5d1ce538a6f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SCP_EVENTID_DRMINFO => "{213dd287-41d2-432b-9e3f-3b4f7b3581dd}"
+    static SCP_EVENTID_DRMINFO => Guid("{213dd287-41d2-432b-9e3f-3b4f7b3581dd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SCP_PARAMID_DRMVERSION => "{41d0155d-7cc7-4217-ada9-005074624da4}"
+    static SCP_PARAMID_DRMVERSION => Guid("{41d0155d-7cc7-4217-ada9-005074624da4}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1375,9 +1376,9 @@ class DeviceManager {
     static g_wszWPDPassthroughPropertyValues => "WPD/PassthroughPropertyValues"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENT_WMDM_CONTENT_TRANSFER => "{339c9bf4-bcfe-4ed8-94df-eaf8c26ab61b}"
+    static EVENT_WMDM_CONTENT_TRANSFER => Guid("{339c9bf4-bcfe-4ed8-94df-eaf8c26ab61b}")
 
     /**
      * @type {Integer (UInt32)}

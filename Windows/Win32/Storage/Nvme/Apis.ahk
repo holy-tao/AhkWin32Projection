@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
@@ -95,124 +96,124 @@ class Nvme {
     static NVME_VENDOR_SPECIFIC_LOG_PAGE_MAX_IDENTIFIER => 255
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_SMART_INFORMATIONGuid => "{2810afc5-bfea-a4f2-9c4f-6f7cc914d5af}"
+    static GUID_OCP_DEVICE_SMART_INFORMATIONGuid => Guid("{2810afc5-bfea-a4f2-9c4f-6f7cc914d5af}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_SMART_INFORMATION => "{2810afc5-bfea-a4f2-9c4f-6f7cc914d5af}"
+    static GUID_OCP_DEVICE_SMART_INFORMATION => Guid("{2810afc5-bfea-a4f2-9c4f-6f7cc914d5af}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WCS_DEVICE_SMART_ATTRIBUTESGuid => "{2810afc5-bfea-a4f2-9c4f-6f7cc914d5af}"
+    static GUID_WCS_DEVICE_SMART_ATTRIBUTESGuid => Guid("{2810afc5-bfea-a4f2-9c4f-6f7cc914d5af}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WCS_DEVICE_SMART_ATTRIBUTES => "{2810afc5-bfea-a4f2-9c4f-6f7cc914d5af}"
+    static GUID_WCS_DEVICE_SMART_ATTRIBUTES => Guid("{2810afc5-bfea-a4f2-9c4f-6f7cc914d5af}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_ERROR_RECOVERYGuid => "{2131d944-30fe-ae34-ab4d-fd3dba83195a}"
+    static GUID_OCP_DEVICE_ERROR_RECOVERYGuid => Guid("{2131d944-30fe-ae34-ab4d-fd3dba83195a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_ERROR_RECOVERY => "{2131d944-30fe-ae34-ab4d-fd3dba83195a}"
+    static GUID_OCP_DEVICE_ERROR_RECOVERY => Guid("{2131d944-30fe-ae34-ab4d-fd3dba83195a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WCS_DEVICE_ERROR_RECOVERYGuid => "{2131d944-30fe-ae34-ab4d-fd3dba83195a}"
+    static GUID_WCS_DEVICE_ERROR_RECOVERYGuid => Guid("{2131d944-30fe-ae34-ab4d-fd3dba83195a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WCS_DEVICE_ERROR_RECOVERY => "{2131d944-30fe-ae34-ab4d-fd3dba83195a}"
+    static GUID_WCS_DEVICE_ERROR_RECOVERY => Guid("{2131d944-30fe-ae34-ab4d-fd3dba83195a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORYGuid => "{769a796d-dab4-a3f6-e24d-b28aacf31cd1}"
+    static GUID_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORYGuid => Guid("{769a796d-dab4-a3f6-e24d-b28aacf31cd1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY => "{769a796d-dab4-a3f6-e24d-b28aacf31cd1}"
+    static GUID_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY => Guid("{769a796d-dab4-a3f6-e24d-b28aacf31cd1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_LATENCY_MONITORGuid => "{8cc07a92-84d0-9c6c-7043-e6d4585ed485}"
+    static GUID_OCP_DEVICE_LATENCY_MONITORGuid => Guid("{8cc07a92-84d0-9c6c-7043-e6d4585ed485}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_LATENCY_MONITOR => "{8cc07a92-84d0-9c6c-7043-e6d4585ed485}"
+    static GUID_OCP_DEVICE_LATENCY_MONITOR => Guid("{8cc07a92-84d0-9c6c-7043-e6d4585ed485}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_DEVICE_CAPABILITIESGuid => "{0d054297-e1d1-98c9-5d49-584b913c05b7}"
+    static GUID_OCP_DEVICE_DEVICE_CAPABILITIESGuid => Guid("{0d054297-e1d1-98c9-5d49-584b913c05b7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_DEVICE_CAPABILITIES => "{0d054297-e1d1-98c9-5d49-584b913c05b7}"
+    static GUID_OCP_DEVICE_DEVICE_CAPABILITIES => Guid("{0d054297-e1d1-98c9-5d49-584b913c05b7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_UNSUPPORTED_REQUIREMENTSGuid => "{0e9c722f-2399-bb2c-6348-32d0b798bbc7}"
+    static GUID_OCP_DEVICE_UNSUPPORTED_REQUIREMENTSGuid => Guid("{0e9c722f-2399-bb2c-6348-32d0b798bbc7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_UNSUPPORTED_REQUIREMENTS => "{0e9c722f-2399-bb2c-6348-32d0b798bbc7}"
+    static GUID_OCP_DEVICE_UNSUPPORTED_REQUIREMENTS => Guid("{0e9c722f-2399-bb2c-6348-32d0b798bbc7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_TCG_CONFIGURATIONGuid => "{bd244006-e07e-83e6-c047-54fa9d2ae054}"
+    static GUID_OCP_DEVICE_TCG_CONFIGURATIONGuid => Guid("{bd244006-e07e-83e6-c047-54fa9d2ae054}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_TCG_CONFIGURATION => "{bd244006-e07e-83e6-c047-54fa9d2ae054}"
+    static GUID_OCP_DEVICE_TCG_CONFIGURATION => Guid("{bd244006-e07e-83e6-c047-54fa9d2ae054}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_TCG_HISTORYGuid => "{704b513e-09c6-9490-274e-d0969690d788}"
+    static GUID_OCP_DEVICE_TCG_HISTORYGuid => Guid("{704b513e-09c6-9490-274e-d0969690d788}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OCP_DEVICE_TCG_HISTORY => "{704b513e-09c6-9490-274e-d0969690d788}"
+    static GUID_OCP_DEVICE_TCG_HISTORY => Guid("{704b513e-09c6-9490-274e-d0969690d788}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MFND_CHILD_CONTROLLER_EVENT_LOG_PAGEGuid => "{98bcce18-a5f0-bf35-a544-d97f259d669c}"
+    static GUID_MFND_CHILD_CONTROLLER_EVENT_LOG_PAGEGuid => Guid("{98bcce18-a5f0-bf35-a544-d97f259d669c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MFND_CHILD_CONTROLLER_EVENT_LOG_PAGE => "{98bcce18-a5f0-bf35-a544-d97f259d669c}"
+    static GUID_MFND_CHILD_CONTROLLER_EVENT_LOG_PAGE => Guid("{98bcce18-a5f0-bf35-a544-d97f259d669c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MFND_CHILD_CONTROLLER_QOS_STAT_LOG_PAGEGuid => "{9cb5fa26-0652-4644-873e-400084575f0f}"
+    static GUID_MFND_CHILD_CONTROLLER_QOS_STAT_LOG_PAGEGuid => Guid("{9cb5fa26-0652-4644-873e-400084575f0f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MFND_CHILD_CONTROLLER_QOS_STAT_LOG_PAGE => "{9cb5fa26-0652-4644-873e-400084575f0f}"
+    static GUID_MFND_CHILD_CONTROLLER_QOS_STAT_LOG_PAGE => Guid("{9cb5fa26-0652-4644-873e-400084575f0f}")
 
     /**
      * @type {Integer (UInt32)}

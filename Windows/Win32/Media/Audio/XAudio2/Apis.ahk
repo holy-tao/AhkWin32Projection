@@ -23,62 +23,62 @@ class XAudio2 {
     static FXEQ_MAX_FRAMERATE => 48000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXEQ_MIN_FREQUENCY_CENTER => 20
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXEQ_MAX_FREQUENCY_CENTER => 20000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXEQ_DEFAULT_FREQUENCY_CENTER_0 => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXEQ_DEFAULT_FREQUENCY_CENTER_1 => 800
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXEQ_DEFAULT_FREQUENCY_CENTER_2 => 2000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXEQ_DEFAULT_FREQUENCY_CENTER_3 => 10000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXEQ_MIN_GAIN => 0.126
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXEQ_MAX_GAIN => 7.94
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXEQ_DEFAULT_GAIN => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXEQ_MIN_BANDWIDTH => 0.1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXEQ_MAX_BANDWIDTH => 2
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXEQ_DEFAULT_BANDWIDTH => 1
 
@@ -113,32 +113,32 @@ class XAudio2 {
     static FXMASTERINGLIMITER_DEFAULT_LOUDNESS => 1000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXREVERB_MIN_DIFFUSION => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXREVERB_MAX_DIFFUSION => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXREVERB_DEFAULT_DIFFUSION => 0.9
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXREVERB_MIN_ROOMSIZE => 0.0001
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXREVERB_MAX_ROOMSIZE => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXREVERB_DEFAULT_ROOMSIZE => 0.6
 
@@ -153,47 +153,47 @@ class XAudio2 {
     static FXLOUDNESS_DEFAULT_SHORTTERM_MS => 3000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXECHO_MIN_WETDRYMIX => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXECHO_MAX_WETDRYMIX => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXECHO_DEFAULT_WETDRYMIX => 0.5
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXECHO_MIN_FEEDBACK => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXECHO_MAX_FEEDBACK => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXECHO_DEFAULT_FEEDBACK => 0.5
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXECHO_MIN_DELAY => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXECHO_MAX_DELAY => 2000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static FXECHO_DEFAULT_DELAY => 500
 
@@ -258,27 +258,27 @@ class XAudio2 {
     static XAUDIO2_MAX_SAMPLE_RATE => 200000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2_MAX_VOLUME_LEVEL => 16777216
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2_MAX_FREQ_RATIO => 1024
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2_DEFAULT_FREQ_RATIO => 2
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2_MAX_FILTER_ONEOVERQ => 1.5
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2_MAX_FILTER_FREQUENCY => 1
 
@@ -388,12 +388,12 @@ class XAudio2 {
     static XAUDIO2_NO_VIRTUAL_AUDIO_CLIENT => 65536
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2_DEFAULT_FILTER_FREQUENCY => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2_DEFAULT_FILTER_ONEOVERQ => 1
 
@@ -668,7 +668,7 @@ class XAudio2 {
     static XAUDIO2FX_REVERB_MAX_FRAMERATE => 48000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MIN_WET_DRY_MIX => 0
 
@@ -728,47 +728,47 @@ class XAudio2 {
     static XAUDIO2FX_REVERB_MIN_HIGH_EQ_CUTOFF => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MIN_ROOM_FILTER_FREQ => 20
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MIN_ROOM_FILTER_MAIN => -100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MIN_ROOM_FILTER_HF => -100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MIN_REFLECTIONS_GAIN => -100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MIN_REVERB_GAIN => -100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MIN_DECAY_TIME => 0.1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MIN_DENSITY => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MIN_ROOM_SIZE => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MAX_WET_DRY_MIX => 100
 
@@ -828,42 +828,42 @@ class XAudio2 {
     static XAUDIO2FX_REVERB_MAX_HIGH_EQ_CUTOFF => 14
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MAX_ROOM_FILTER_FREQ => 20000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MAX_ROOM_FILTER_MAIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MAX_ROOM_FILTER_HF => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MAX_REFLECTIONS_GAIN => 20
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MAX_REVERB_GAIN => 20
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MAX_DENSITY => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_MAX_ROOM_SIZE => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_DEFAULT_WET_DRY_MIX => 100
 
@@ -933,42 +933,42 @@ class XAudio2 {
     static XAUDIO2FX_REVERB_DEFAULT_HIGH_EQ_CUTOFF => 4
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_DEFAULT_ROOM_FILTER_FREQ => 5000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_DEFAULT_ROOM_FILTER_MAIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_DEFAULT_ROOM_FILTER_HF => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_DEFAULT_REFLECTIONS_GAIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_DEFAULT_REVERB_GAIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_DEFAULT_DECAY_TIME => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_DEFAULT_DENSITY => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static XAUDIO2FX_REVERB_DEFAULT_ROOM_SIZE => 100
 
@@ -978,22 +978,22 @@ class XAudio2 {
     static XAUDIO2FX_REVERB_DEFAULT_DISABLE_LATE_FIELD => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static HRTF_MAX_GAIN_LIMIT => 12
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static HRTF_MIN_GAIN_LIMIT => -96
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static HRTF_MIN_UNITY_GAIN_DISTANCE => 0.05
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static HRTF_DEFAULT_UNITY_GAIN_DISTANCE => 1
 
@@ -1073,17 +1073,17 @@ class XAudio2 {
     static X3DAUDIO_HANDLE_BYTESIZE => 20
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static X3DAUDIO_PI => 3.1415927
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static X3DAUDIO_2PI => 6.2831855
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static X3DAUDIO_SPEED_OF_SOUND => 343.5
 

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
@@ -950,274 +951,274 @@ class ExtensibleAuthenticationProtocol {
     static RAS_EAP_FLAG_SERVER_VALIDATION_REQUIRED => 33554432
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Default => "{00000000-0000-0000-0000-000000000000}"
+    static GUID_EapHost_Default => Guid("{00000000-0000-0000-0000-000000000000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_MethodDLLNotFound => "{9612fc67-6150-4209-a85e-a8d800000001}"
+    static GUID_EapHost_Cause_MethodDLLNotFound => Guid("{9612fc67-6150-4209-a85e-a8d800000001}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactSysadmin => "{9612fc67-6150-4209-a85e-a8d800000002}"
+    static GUID_EapHost_Repair_ContactSysadmin => Guid("{9612fc67-6150-4209-a85e-a8d800000002}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_CertStoreInaccessible => "{9612fc67-6150-4209-a85e-a8d800000004}"
+    static GUID_EapHost_Cause_CertStoreInaccessible => Guid("{9612fc67-6150-4209-a85e-a8d800000004}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_Generic_AuthFailure => "{9612fc67-6150-4209-a85e-a8d800000104}"
+    static GUID_EapHost_Cause_Generic_AuthFailure => Guid("{9612fc67-6150-4209-a85e-a8d800000104}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_IdentityUnknown => "{9612fc67-6150-4209-a85e-a8d800000204}"
+    static GUID_EapHost_Cause_IdentityUnknown => Guid("{9612fc67-6150-4209-a85e-a8d800000204}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_SimNotValid => "{9612fc67-6150-4209-a85e-a8d800000304}"
+    static GUID_EapHost_Cause_SimNotValid => Guid("{9612fc67-6150-4209-a85e-a8d800000304}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_Server_CertExpired => "{9612fc67-6150-4209-a85e-a8d800000005}"
+    static GUID_EapHost_Cause_Server_CertExpired => Guid("{9612fc67-6150-4209-a85e-a8d800000005}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_Server_CertInvalid => "{9612fc67-6150-4209-a85e-a8d800000006}"
+    static GUID_EapHost_Cause_Server_CertInvalid => Guid("{9612fc67-6150-4209-a85e-a8d800000006}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_Server_CertNotFound => "{9612fc67-6150-4209-a85e-a8d800000007}"
+    static GUID_EapHost_Cause_Server_CertNotFound => Guid("{9612fc67-6150-4209-a85e-a8d800000007}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_Server_CertRevoked => "{9612fc67-6150-4209-a85e-a8d800000008}"
+    static GUID_EapHost_Cause_Server_CertRevoked => Guid("{9612fc67-6150-4209-a85e-a8d800000008}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_Server_CertOtherError => "{9612fc67-6150-4209-a85e-a8d800000108}"
+    static GUID_EapHost_Cause_Server_CertOtherError => Guid("{9612fc67-6150-4209-a85e-a8d800000108}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_User_CertExpired => "{9612fc67-6150-4209-a85e-a8d800000009}"
+    static GUID_EapHost_Cause_User_CertExpired => Guid("{9612fc67-6150-4209-a85e-a8d800000009}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_User_CertInvalid => "{9612fc67-6150-4209-a85e-a8d80000000a}"
+    static GUID_EapHost_Cause_User_CertInvalid => Guid("{9612fc67-6150-4209-a85e-a8d80000000a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_User_CertNotFound => "{9612fc67-6150-4209-a85e-a8d80000000b}"
+    static GUID_EapHost_Cause_User_CertNotFound => Guid("{9612fc67-6150-4209-a85e-a8d80000000b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_User_CertOtherError => "{9612fc67-6150-4209-a85e-a8d80000000c}"
+    static GUID_EapHost_Cause_User_CertOtherError => Guid("{9612fc67-6150-4209-a85e-a8d80000000c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_User_CertRejected => "{9612fc67-6150-4209-a85e-a8d80000000d}"
+    static GUID_EapHost_Cause_User_CertRejected => Guid("{9612fc67-6150-4209-a85e-a8d80000000d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_User_CertRevoked => "{9612fc67-6150-4209-a85e-a8d80000000e}"
+    static GUID_EapHost_Cause_User_CertRevoked => Guid("{9612fc67-6150-4209-a85e-a8d80000000e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_User_Account_OtherProblem => "{9612fc67-6150-4209-a85e-a8d80000010e}"
+    static GUID_EapHost_Cause_User_Account_OtherProblem => Guid("{9612fc67-6150-4209-a85e-a8d80000010e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_User_CredsRejected => "{9612fc67-6150-4209-a85e-a8d80000020e}"
+    static GUID_EapHost_Cause_User_CredsRejected => Guid("{9612fc67-6150-4209-a85e-a8d80000020e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_User_Root_CertExpired => "{9612fc67-6150-4209-a85e-a8d80000000f}"
+    static GUID_EapHost_Cause_User_Root_CertExpired => Guid("{9612fc67-6150-4209-a85e-a8d80000000f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_User_Root_CertInvalid => "{9612fc67-6150-4209-a85e-a8d800000010}"
+    static GUID_EapHost_Cause_User_Root_CertInvalid => Guid("{9612fc67-6150-4209-a85e-a8d800000010}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_User_Root_CertNotFound => "{9612fc67-6150-4209-a85e-a8d800000011}"
+    static GUID_EapHost_Cause_User_Root_CertNotFound => Guid("{9612fc67-6150-4209-a85e-a8d800000011}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_Server_Root_CertNameRequired => "{9612fc67-6150-4209-a85e-a8d800000012}"
+    static GUID_EapHost_Cause_Server_Root_CertNameRequired => Guid("{9612fc67-6150-4209-a85e-a8d800000012}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_Server_Root_CertNotFound => "{9612fc67-6150-4209-a85e-a8d800000112}"
+    static GUID_EapHost_Cause_Server_Root_CertNotFound => Guid("{9612fc67-6150-4209-a85e-a8d800000112}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_ThirdPartyMethod_Host_Reset => "{9612fc67-6150-4209-a85e-a8d800000212}"
+    static GUID_EapHost_Cause_ThirdPartyMethod_Host_Reset => Guid("{9612fc67-6150-4209-a85e-a8d800000212}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_EapQecInaccessible => "{9612fc67-6150-4209-a85e-a8d800000312}"
+    static GUID_EapHost_Cause_EapQecInaccessible => Guid("{9612fc67-6150-4209-a85e-a8d800000312}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_Server_ClientSelectServerCert => "{9612fc67-6150-4209-a85e-a8d800000018}"
+    static GUID_EapHost_Repair_Server_ClientSelectServerCert => Guid("{9612fc67-6150-4209-a85e-a8d800000018}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_User_AuthFailure => "{9612fc67-6150-4209-a85e-a8d800000019}"
+    static GUID_EapHost_Repair_User_AuthFailure => Guid("{9612fc67-6150-4209-a85e-a8d800000019}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_User_GetNewCert => "{9612fc67-6150-4209-a85e-a8d80000001a}"
+    static GUID_EapHost_Repair_User_GetNewCert => Guid("{9612fc67-6150-4209-a85e-a8d80000001a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_User_SelectValidCert => "{9612fc67-6150-4209-a85e-a8d80000001b}"
+    static GUID_EapHost_Repair_User_SelectValidCert => Guid("{9612fc67-6150-4209-a85e-a8d80000001b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_Retry_Authentication => "{9612fc67-6150-4209-a85e-a8d80000011b}"
+    static GUID_EapHost_Repair_Retry_Authentication => Guid("{9612fc67-6150-4209-a85e-a8d80000011b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_EapNegotiationFailed => "{9612fc67-6150-4209-a85e-a8d80000001c}"
+    static GUID_EapHost_Cause_EapNegotiationFailed => Guid("{9612fc67-6150-4209-a85e-a8d80000001c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_XmlMalformed => "{9612fc67-6150-4209-a85e-a8d80000001d}"
+    static GUID_EapHost_Cause_XmlMalformed => Guid("{9612fc67-6150-4209-a85e-a8d80000001d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_MethodDoesNotSupportOperation => "{9612fc67-6150-4209-a85e-a8d80000001e}"
+    static GUID_EapHost_Cause_MethodDoesNotSupportOperation => Guid("{9612fc67-6150-4209-a85e-a8d80000001e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactAdmin_AuthFailure => "{9612fc67-6150-4209-a85e-a8d80000001f}"
+    static GUID_EapHost_Repair_ContactAdmin_AuthFailure => Guid("{9612fc67-6150-4209-a85e-a8d80000001f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactAdmin_IdentityUnknown => "{9612fc67-6150-4209-a85e-a8d800000020}"
+    static GUID_EapHost_Repair_ContactAdmin_IdentityUnknown => Guid("{9612fc67-6150-4209-a85e-a8d800000020}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactAdmin_NegotiationFailed => "{9612fc67-6150-4209-a85e-a8d800000021}"
+    static GUID_EapHost_Repair_ContactAdmin_NegotiationFailed => Guid("{9612fc67-6150-4209-a85e-a8d800000021}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactAdmin_MethodNotFound => "{9612fc67-6150-4209-a85e-a8d800000022}"
+    static GUID_EapHost_Repair_ContactAdmin_MethodNotFound => Guid("{9612fc67-6150-4209-a85e-a8d800000022}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_RestartNap => "{9612fc67-6150-4209-a85e-a8d800000023}"
+    static GUID_EapHost_Repair_RestartNap => Guid("{9612fc67-6150-4209-a85e-a8d800000023}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactAdmin_CertStoreInaccessible => "{9612fc67-6150-4209-a85e-a8d800000024}"
+    static GUID_EapHost_Repair_ContactAdmin_CertStoreInaccessible => Guid("{9612fc67-6150-4209-a85e-a8d800000024}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactAdmin_InvalidUserAccount => "{9612fc67-6150-4209-a85e-a8d800000025}"
+    static GUID_EapHost_Repair_ContactAdmin_InvalidUserAccount => Guid("{9612fc67-6150-4209-a85e-a8d800000025}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactAdmin_RootCertInvalid => "{9612fc67-6150-4209-a85e-a8d800000026}"
+    static GUID_EapHost_Repair_ContactAdmin_RootCertInvalid => Guid("{9612fc67-6150-4209-a85e-a8d800000026}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactAdmin_RootCertNotFound => "{9612fc67-6150-4209-a85e-a8d800000027}"
+    static GUID_EapHost_Repair_ContactAdmin_RootCertNotFound => Guid("{9612fc67-6150-4209-a85e-a8d800000027}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactAdmin_RootExpired => "{9612fc67-6150-4209-a85e-a8d800000028}"
+    static GUID_EapHost_Repair_ContactAdmin_RootExpired => Guid("{9612fc67-6150-4209-a85e-a8d800000028}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactAdmin_CertNameAbsent => "{9612fc67-6150-4209-a85e-a8d800000029}"
+    static GUID_EapHost_Repair_ContactAdmin_CertNameAbsent => Guid("{9612fc67-6150-4209-a85e-a8d800000029}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactAdmin_NoSmartCardReader => "{9612fc67-6150-4209-a85e-a8d80000002a}"
+    static GUID_EapHost_Repair_ContactAdmin_NoSmartCardReader => Guid("{9612fc67-6150-4209-a85e-a8d80000002a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_No_SmartCardReader_Found => "{9612fc67-6150-4209-a85e-a8d80000002b}"
+    static GUID_EapHost_Cause_No_SmartCardReader_Found => Guid("{9612fc67-6150-4209-a85e-a8d80000002b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_ContactAdmin_InvalidUserCert => "{9612fc67-6150-4209-a85e-a8d80000002c}"
+    static GUID_EapHost_Repair_ContactAdmin_InvalidUserCert => Guid("{9612fc67-6150-4209-a85e-a8d80000002c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_Method_Not_Support_Sso => "{9612fc67-6150-4209-a85e-a8d80000002d}"
+    static GUID_EapHost_Repair_Method_Not_Support_Sso => Guid("{9612fc67-6150-4209-a85e-a8d80000002d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Repair_No_ValidSim_Found => "{9612fc67-6150-4209-a85e-a8d80000002e}"
+    static GUID_EapHost_Repair_No_ValidSim_Found => Guid("{9612fc67-6150-4209-a85e-a8d80000002e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Help_ObtainingCerts => "{f535eea3-1bdd-46ca-a2fc-a6655939b7e8}"
+    static GUID_EapHost_Help_ObtainingCerts => Guid("{f535eea3-1bdd-46ca-a2fc-a6655939b7e8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Help_Troubleshooting => "{33307acf-0698-41ba-b014-ea0a2eb8d0a8}"
+    static GUID_EapHost_Help_Troubleshooting => Guid("{33307acf-0698-41ba-b014-ea0a2eb8d0a8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EapHost_Cause_Method_Config_Does_Not_Support_Sso => "{da18bd32-004f-41fa-ae08-0bc85e5845ac}"
+    static GUID_EapHost_Cause_Method_Config_Does_Not_Support_Sso => Guid("{da18bd32-004f-41fa-ae08-0bc85e5845ac}")
 ;@endregion Constants
 
 ;@region Methods

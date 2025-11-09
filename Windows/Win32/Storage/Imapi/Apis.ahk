@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Imapi
@@ -1140,114 +1141,114 @@ class Imapi {
     static NMP_PROCESS_MODERATOR => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SMTP_SOURCE_TYPE => "{fb65c4dc-e468-11d1-aa67-00c04fa345f6}"
+    static GUID_SMTP_SOURCE_TYPE => Guid("{fb65c4dc-e468-11d1-aa67-00c04fa345f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SMTPSVC_SOURCE => "{1b3c0666-e470-11d1-aa67-00c04fa345f6}"
+    static GUID_SMTPSVC_SOURCE => Guid("{1b3c0666-e470-11d1-aa67-00c04fa345f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_ON_INBOUND_COMMAND => "{f6628c8d-0d5e-11d2-aa68-00c04fa35b82}"
+    static CATID_SMTP_ON_INBOUND_COMMAND => Guid("{f6628c8d-0d5e-11d2-aa68-00c04fa35b82}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_ON_SERVER_RESPONSE => "{f6628c8e-0d5e-11d2-aa68-00c04fa35b82}"
+    static CATID_SMTP_ON_SERVER_RESPONSE => Guid("{f6628c8e-0d5e-11d2-aa68-00c04fa35b82}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_ON_SESSION_START => "{f6628c8f-0d5e-11d2-aa68-00c04fa35b82}"
+    static CATID_SMTP_ON_SESSION_START => Guid("{f6628c8f-0d5e-11d2-aa68-00c04fa35b82}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_ON_MESSAGE_START => "{f6628c90-0d5e-11d2-aa68-00c04fa35b82}"
+    static CATID_SMTP_ON_MESSAGE_START => Guid("{f6628c90-0d5e-11d2-aa68-00c04fa35b82}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_ON_PER_RECIPIENT => "{f6628c91-0d5e-11d2-aa68-00c04fa35b82}"
+    static CATID_SMTP_ON_PER_RECIPIENT => Guid("{f6628c91-0d5e-11d2-aa68-00c04fa35b82}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_ON_BEFORE_DATA => "{f6628c92-0d5e-11d2-aa68-00c04fa35b82}"
+    static CATID_SMTP_ON_BEFORE_DATA => Guid("{f6628c92-0d5e-11d2-aa68-00c04fa35b82}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_ON_SESSION_END => "{f6628c93-0d5e-11d2-aa68-00c04fa35b82}"
+    static CATID_SMTP_ON_SESSION_END => Guid("{f6628c93-0d5e-11d2-aa68-00c04fa35b82}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_STORE_DRIVER => "{59175850-e533-11d1-aa67-00c04fa345f6}"
+    static CATID_SMTP_STORE_DRIVER => Guid("{59175850-e533-11d1-aa67-00c04fa345f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_TRANSPORT_SUBMISSION => "{ff3caa23-00b9-11d2-9dfb-00c04fa322ba}"
+    static CATID_SMTP_TRANSPORT_SUBMISSION => Guid("{ff3caa23-00b9-11d2-9dfb-00c04fa322ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_TRANSPORT_PRECATEGORIZE => "{a3acfb0d-83ff-11d2-9e14-00c04fa322ba}"
+    static CATID_SMTP_TRANSPORT_PRECATEGORIZE => Guid("{a3acfb0d-83ff-11d2-9e14-00c04fa322ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_TRANSPORT_CATEGORIZE => "{960252a3-0a3a-11d2-9e00-00c04fa322ba}"
+    static CATID_SMTP_TRANSPORT_CATEGORIZE => Guid("{960252a3-0a3a-11d2-9e00-00c04fa322ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_TRANSPORT_POSTCATEGORIZE => "{76719654-05a6-11d2-9dfd-00c04fa322ba}"
+    static CATID_SMTP_TRANSPORT_POSTCATEGORIZE => Guid("{76719654-05a6-11d2-9dfd-00c04fa322ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_TRANSPORT_ROUTER => "{283430c9-1850-11d2-9e03-00c04fa322ba}"
+    static CATID_SMTP_TRANSPORT_ROUTER => Guid("{283430c9-1850-11d2-9e03-00c04fa322ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_MSGTRACKLOG => "{c6df52aa-7db0-11d2-94f4-00c04f79f1d6}"
+    static CATID_SMTP_MSGTRACKLOG => Guid("{c6df52aa-7db0-11d2-94f4-00c04f79f1d6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_DNSRESOLVERRECORDSINK => "{bd0b4366-8e03-11d2-94f6-00c04f79f1d6}"
+    static CATID_SMTP_DNSRESOLVERRECORDSINK => Guid("{bd0b4366-8e03-11d2-94f6-00c04f79f1d6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_MAXMSGSIZE => "{ebf159de-a67e-11d2-94f7-00c04f79f1d6}"
+    static CATID_SMTP_MAXMSGSIZE => Guid("{ebf159de-a67e-11d2-94f7-00c04f79f1d6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_LOG => "{93d0a538-2c1e-4b68-a7c9-d73a8aa6ee97}"
+    static CATID_SMTP_LOG => Guid("{93d0a538-2c1e-4b68-a7c9-d73a8aa6ee97}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_GET_AUX_DOMAIN_INFO_FLAGS => "{84ff368a-fab3-43d7-bcdf-692c5b46e6b1}"
+    static CATID_SMTP_GET_AUX_DOMAIN_INFO_FLAGS => Guid("{84ff368a-fab3-43d7-bcdf-692c5b46e6b1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_SmtpCat => "{b23c35b7-9219-11d2-9e17-00c04fa322ba}"
+    static CLSID_SmtpCat => Guid("{b23c35b7-9219-11d2-9e17-00c04fa322ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SMTP_DSN => "{22b55731-f5f8-4d23-bd8f-87b52371a73a}"
+    static CATID_SMTP_DSN => Guid("{22b55731-f5f8-4d23-bd8f-87b52371a73a}")
 
     /**
      * @type {String}

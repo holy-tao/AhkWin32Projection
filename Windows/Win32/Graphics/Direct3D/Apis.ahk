@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
@@ -245,24 +246,24 @@ class Direct3D {
     static D3D_SHADER_FEATURE_SAMPLE_CMP_GRADIENT_OR_BIAS => 2147483648
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WKPDID_D3DDebugObjectName => "{429b8c22-9188-4b0c-8742-acb0bf85c200}"
+    static WKPDID_D3DDebugObjectName => Guid("{429b8c22-9188-4b0c-8742-acb0bf85c200}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WKPDID_D3DDebugObjectNameW => "{4cca5fd8-921f-42c8-8566-70caf2a9b741}"
+    static WKPDID_D3DDebugObjectNameW => Guid("{4cca5fd8-921f-42c8-8566-70caf2a9b741}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WKPDID_CommentStringW => "{d0149dc0-90e8-4ec8-8144-e900ad266bb2}"
+    static WKPDID_CommentStringW => Guid("{d0149dc0-90e8-4ec8-8144-e900ad266bb2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WKPDID_D3D12UniqueObjectId => "{1b39de15-ec04-4bae-ba4d-8cef79fc04c1}"
+    static WKPDID_D3D12UniqueObjectId => Guid("{1b39de15-ec04-4bae-ba4d-8cef79fc04c1}")
 
     /**
      * @type {Integer (UInt32)}
@@ -285,19 +286,19 @@ class Direct3D {
     static D3D_COMPONENT_MASK_W => 8
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D_TEXTURE_LAYOUT_ROW_MAJOR => "{b5dc234f-72bb-4bec-9705-8cf258df6b6c}"
+    static D3D_TEXTURE_LAYOUT_ROW_MAJOR => Guid("{b5dc234f-72bb-4bec-9705-8cf258df6b6c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE => "{4c0f29e3-3f5f-4d35-84c9-bc0983b62c28}"
+    static D3D_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE => Guid("{4c0f29e3-3f5f-4d35-84c9-bc0983b62c28}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_D3DShaderCacheInstallerFactory => "{16195a0b-607c-41f1-bf03-c7694d60a8d4}"
+    static CLSID_D3DShaderCacheInstallerFactory => Guid("{16195a0b-607c-41f1-bf03-c7694d60a8d4}")
 ;@endregion Constants
 
 ;@region Methods

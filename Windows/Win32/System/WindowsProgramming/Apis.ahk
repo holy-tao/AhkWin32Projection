@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include .\HWINWATCH.ahk
@@ -2798,9 +2799,9 @@ class WindowsProgramming {
     static DELAYLOAD_GPA_FAILURE => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_DeleteBrowsingHistory => "{31caf6e4-d6aa-4090-a050-a5ac8972e9ef}"
+    static CATID_DeleteBrowsingHistory => Guid("{31caf6e4-d6aa-4090-a050-a5ac8972e9ef}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2838,49 +2839,49 @@ class WindowsProgramming {
     static DELETE_BROWSING_HISTORY_DOWNLOADHISTORY => 64
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WLDP_HOST_CMD => "{5baea1d6-6f1c-488e-8490-347fa5c5067f}"
+    static WLDP_HOST_CMD => Guid("{5baea1d6-6f1c-488e-8490-347fa5c5067f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WLDP_HOST_POWERSHELL => "{8e9aaa7c-198b-4879-ae41-a50d47ad6458}"
+    static WLDP_HOST_POWERSHELL => Guid("{8e9aaa7c-198b-4879-ae41-a50d47ad6458}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WLDP_HOST_PYTHON => "{bfd557ef-2448-42ec-810b-0d9f09352d4a}"
+    static WLDP_HOST_PYTHON => Guid("{bfd557ef-2448-42ec-810b-0d9f09352d4a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WLDP_HOST_WINDOWS_SCRIPT_HOST => "{d30b84c5-29ce-4ff3-86ec-a30007a82e49}"
+    static WLDP_HOST_WINDOWS_SCRIPT_HOST => Guid("{d30b84c5-29ce-4ff3-86ec-a30007a82e49}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WLDP_HOST_JAVASCRIPT => "{5629f0d5-1cca-4fed-a1a3-36a8c18d74c0}"
+    static WLDP_HOST_JAVASCRIPT => Guid("{5629f0d5-1cca-4fed-a1a3-36a8c18d74c0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WLDP_HOST_HTML => "{b35a71b6-fe56-48d6-9543-2dff0ecded66}"
+    static WLDP_HOST_HTML => Guid("{b35a71b6-fe56-48d6-9543-2dff0ecded66}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WLDP_HOST_XML => "{5594be58-c6bf-4295-82f4-d494d20e3a36}"
+    static WLDP_HOST_XML => Guid("{5594be58-c6bf-4295-82f4-d494d20e3a36}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WLDP_HOST_MSI => "{624eb611-6e7e-4eec-9bfe-f0ecdbfcf390}"
+    static WLDP_HOST_MSI => Guid("{624eb611-6e7e-4eec-9bfe-f0ecdbfcf390}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WLDP_HOST_OTHER => "{626cbec3-e1fa-4227-9800-ed210274cf7c}"
+    static WLDP_HOST_OTHER => Guid("{626cbec3-e1fa-4227-9800-ed210274cf7c}")
 ;@endregion Constants
 
 ;@region Methods

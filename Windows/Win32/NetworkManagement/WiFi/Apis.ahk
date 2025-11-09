@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -2440,6 +2442,851 @@ class WiFi {
     static DOT11_OI_MIN_LENGTH => 3
 
     /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_SecondaryInterface {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_CurrentSpeedAndMode {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_SupportedSpeedsAndModes {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_DeviceIDMessagingCapable {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_SecondaryBusWidth {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_ExtendedConfigAvailable {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_ExtendedPCIConfigOpRegionSupport {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_ASPMSupport {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_ClockPowerManagementSupport {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_PCISegmentGroupsSupport {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_MSISupport {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_PCIExpressNativeHotPlugControl {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_SHPCNativeHotPlugControl {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_PCIExpressNativePMEControl {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 14
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_PCIExpressAERControl {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 15
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_PCIExpressCapabilityControl {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 16
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_NativePciExpressControl {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 17
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciRootBus_SystemMsiSupport {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{d817fc28-793e-4b9e-9970-469d8be63073}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 18
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_DeviceType {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_CurrentSpeedAndMode {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_BaseClass {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_SubClass {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_ProgIf {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_CurrentPayloadSize {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_MaxPayloadSize {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_MaxReadRequestSize {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_CurrentLinkSpeed {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_CurrentLinkWidth {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_MaxLinkSpeed {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_MaxLinkWidth {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_ExpressSpecVersion {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_InterruptSupport {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 14
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_InterruptMessageMaximum {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 15
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_BarTypes {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 16
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_AERCapabilityPresent {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 17
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_FirmwareErrorHandling {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 18
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_Uncorrectable_Error_Mask {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 19
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_Uncorrectable_Error_Severity {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 20
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_Correctable_Error_Mask {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 21
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_ECRC_Errors {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 22
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_Error_Reporting {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 23
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_RootError_Reporting {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 24
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_S0WakeupSupported {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 25
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_SriovSupport {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 26
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_Label_Id {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 27
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_Label_String {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 28
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_AcsSupport {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 29
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_AriSupport {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 30
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_AcsCompatibleUpHierarchy {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 31
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_AcsCapabilityRegister {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 32
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_AtsSupport {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 33
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_RequiresReservedMemoryRegion {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 34
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_AtomicsSupported {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 35
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_SupportedLinkSubState {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 36
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_OnPostPath {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 37
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_D3ColdSupport {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 38
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_VirtualChannelControlRegisters {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 39
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_SerialNumber {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 40
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_UsbDvsecPortType {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 41
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_UsbDvsecPortSpecificAttributes {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 42
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_UsbComponentRelation {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 43
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_UsbHostRouterName {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 44
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_ParentSerialNumber {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 45
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_SupportsDmwrOnEntireDeviceTree {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 46
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_IsTunneledDevice {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 47
+            return value
+        }
+    }
+
+    /**
      * @type {Integer (UInt32)}
      */
     static WLAN_API_VERSION_1_0 => 1
@@ -3300,19 +4147,526 @@ class WiFi {
     static WLAN_UI_API_INITIAL_VERSION => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_WIFIDIRECT_DEVICE => "{439b20af-8955-405b-99f0-a62af0c68d43}"
+    static GUID_DEVINTERFACE_WIFIDIRECT_DEVICE => Guid("{439b20af-8955-405b-99f0-a62af0c68d43}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_AEPSERVICE_WIFIDIRECT_DEVICE => "{cc29827c-9caf-4928-99a9-18f7c2381389}"
+    static GUID_AEPSERVICE_WIFIDIRECT_DEVICE => Guid("{cc29827c-9caf-4928-99a9-18f7c2381389}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_ASP_INFRA_DEVICE => "{ff823995-7a72-4c80-8757-c67ee13d1a49}"
+    static GUID_DEVINTERFACE_ASP_INFRA_DEVICE => Guid("{ff823995-7a72-4c80-8757-c67ee13d1a49}")
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_DeviceAddress {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_InterfaceAddress {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_InterfaceGuid {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_GroupId {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_IsConnected {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_IsVisible {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_IsLegacyDevice {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_MiracastVersion {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_IsMiracastLCPSupported {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_Services {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_SupportedChannelList {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_InformationElements {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_DeviceAddressCopy {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_IsRecentlyAssociated {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 14
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_Service_Aeps {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 15
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_NoMiracastAutoProject {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 16
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_InfraCast_Supported {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 17
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_InfraCast_StreamSecuritySupported {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 18
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_InfraCast_AccessPointBssid {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 19
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_InfraCast_SinkHostName {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 20
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_InfraCast_ChallengeAep {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 21
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_IsDMGCapable {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 22
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_InfraCast_DevnodeAep {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 23
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_FoundWsbService {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 24
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_InfraCast_HostName_ResolutionMode {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 25
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_InfraCast_SinkIpAddress {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 26
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_TransientAssociation {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 27
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_LinkQuality {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 28
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_InfraCast_PinSupported {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 29
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_InfraCast_RtspTcpConnectionParametersSupported {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 30
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_Miracast_SessionMgmtControlPort {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 31
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirect_RtspTcpConnectionParametersSupported {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{1506935d-e3e7-450f-8637-82233ebe5f6e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 32
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirectServices_ServiceAddress {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{31b37743-7c5e-4005-93e6-e953f92b82e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirectServices_ServiceName {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{31b37743-7c5e-4005-93e6-e953f92b82e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirectServices_ServiceInformation {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{31b37743-7c5e-4005-93e6-e953f92b82e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirectServices_AdvertisementId {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{31b37743-7c5e-4005-93e6-e953f92b82e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirectServices_ServiceConfigMethods {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{31b37743-7c5e-4005-93e6-e953f92b82e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFiDirectServices_RequestServiceInformation {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{31b37743-7c5e-4005-93e6-e953f92b82e9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WiFi_InterfaceGuid {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{ef1167eb-cbfc-4341-a568-a7c91a68982c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
      * @type {Integer (UInt32)}

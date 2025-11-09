@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IDirectDraw.ahk
 #Include .\IDirectDrawClipper.ahk
 
@@ -22,19 +23,19 @@ class DirectDraw {
     static _FACDD => 2166
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectDraw => "{d7b70ee0-4340-11cf-b063-0020afc2cd35}"
+    static CLSID_DirectDraw => Guid("{d7b70ee0-4340-11cf-b063-0020afc2cd35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectDraw7 => "{3c305196-50db-11d3-9cfe-00c04fd930c5}"
+    static CLSID_DirectDraw7 => Guid("{3c305196-50db-11d3-9cfe-00c04fd930c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectDrawClipper => "{593817a0-7db3-11cf-a2de-00aa00b93356}"
+    static CLSID_DirectDrawClipper => Guid("{593817a0-7db3-11cf-a2de-00aa00b93356}")
 
     /**
      * @type {Integer (Int32)}
@@ -2202,104 +2203,104 @@ class DirectDraw {
     static DDUNSUPPORTEDMODE => 4294967295
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MiscellaneousCallbacks => "{efd60cc0-49e7-11d0-889d-00aa00bbb76a}"
+    static GUID_MiscellaneousCallbacks => Guid("{efd60cc0-49e7-11d0-889d-00aa00bbb76a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VideoPortCallbacks => "{efd60cc1-49e7-11d0-889d-00aa00bbb76a}"
+    static GUID_VideoPortCallbacks => Guid("{efd60cc1-49e7-11d0-889d-00aa00bbb76a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ColorControlCallbacks => "{efd60cc2-49e7-11d0-889d-00aa00bbb76a}"
+    static GUID_ColorControlCallbacks => Guid("{efd60cc2-49e7-11d0-889d-00aa00bbb76a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VideoPortCaps => "{efd60cc3-49e7-11d0-889d-00aa00bbb76a}"
+    static GUID_VideoPortCaps => Guid("{efd60cc3-49e7-11d0-889d-00aa00bbb76a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_D3DCallbacks2 => "{0ba584e1-70b6-11d0-889d-00aa00bbb76a}"
+    static GUID_D3DCallbacks2 => Guid("{0ba584e1-70b6-11d0-889d-00aa00bbb76a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_D3DCallbacks3 => "{ddf41230-ec0a-11d0-a9b6-00aa00c0993e}"
+    static GUID_D3DCallbacks3 => Guid("{ddf41230-ec0a-11d0-a9b6-00aa00c0993e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NonLocalVidMemCaps => "{86c4fa80-8d84-11d0-94e8-00c04fc34137}"
+    static GUID_NonLocalVidMemCaps => Guid("{86c4fa80-8d84-11d0-94e8-00c04fc34137}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_KernelCallbacks => "{80863800-6b06-11d0-9b06-00a0c903a3b8}"
+    static GUID_KernelCallbacks => Guid("{80863800-6b06-11d0-9b06-00a0c903a3b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_KernelCaps => "{ffaa7540-7aa8-11d0-9b06-00a0c903a3b8}"
+    static GUID_KernelCaps => Guid("{ffaa7540-7aa8-11d0-9b06-00a0c903a3b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_D3DExtendedCaps => "{7de41f80-9d93-11d0-89ab-00a0c9054129}"
+    static GUID_D3DExtendedCaps => Guid("{7de41f80-9d93-11d0-89ab-00a0c9054129}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ZPixelFormats => "{93869880-36cf-11d1-9b1b-00aa00bbb8ae}"
+    static GUID_ZPixelFormats => Guid("{93869880-36cf-11d1-9b1b-00aa00bbb8ae}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DDMoreSurfaceCaps => "{3b8a0466-f269-11d1-880b-00c04fd930c5}"
+    static GUID_DDMoreSurfaceCaps => Guid("{3b8a0466-f269-11d1-880b-00c04fd930c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DDStereoMode => "{f828169c-a8e8-11d2-a1f2-00a0c983eaf6}"
+    static GUID_DDStereoMode => Guid("{f828169c-a8e8-11d2-a1f2-00a0c983eaf6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OptSurfaceKmodeInfo => "{e05c8472-51d4-11d1-8cce-00a0c90629a8}"
+    static GUID_OptSurfaceKmodeInfo => Guid("{e05c8472-51d4-11d1-8cce-00a0c90629a8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OptSurfaceUmodeInfo => "{9d792804-5fa8-11d1-8cd0-00a0c90629a8}"
+    static GUID_OptSurfaceUmodeInfo => Guid("{9d792804-5fa8-11d1-8cd0-00a0c90629a8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_UserModeDriverInfo => "{f0b0e8e2-5f97-11d1-8cd0-00a0c90629a8}"
+    static GUID_UserModeDriverInfo => Guid("{f0b0e8e2-5f97-11d1-8cd0-00a0c90629a8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_UserModeDriverPassword => "{97f861b6-60a1-11d1-8cd0-00a0c90629a8}"
+    static GUID_UserModeDriverPassword => Guid("{97f861b6-60a1-11d1-8cd0-00a0c90629a8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_D3DParseUnknownCommandCallback => "{2e04ffa0-98e4-11d1-8ce1-00a0c90629a8}"
+    static GUID_D3DParseUnknownCommandCallback => Guid("{2e04ffa0-98e4-11d1-8ce1-00a0c90629a8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MotionCompCallbacks => "{b1122b40-5da5-11d1-8fcf-00c04fc29b4e}"
+    static GUID_MotionCompCallbacks => Guid("{b1122b40-5da5-11d1-8fcf-00c04fc29b4e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_Miscellaneous2Callbacks => "{406b2f00-3e5a-11d1-b640-00aa00a1f96a}"
+    static GUID_Miscellaneous2Callbacks => Guid("{406b2f00-3e5a-11d1-b640-00aa00a1f96a}")
 
     /**
      * @type {Integer (Int32)}
@@ -3752,44 +3753,44 @@ class DirectDraw {
     static DDMCQUERY_READ => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_D3DCaps => "{7bf06991-8794-11d0-9139-080036d2ef02}"
+    static GUID_D3DCaps => Guid("{7bf06991-8794-11d0-9139-080036d2ef02}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_D3DCallbacks => "{7bf06990-8794-11d0-9139-080036d2ef02}"
+    static GUID_D3DCallbacks => Guid("{7bf06990-8794-11d0-9139-080036d2ef02}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DDMoreCaps => "{880baf30-b030-11d0-8ea7-00609797ea5b}"
+    static GUID_DDMoreCaps => Guid("{880baf30-b030-11d0-8ea7-00609797ea5b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NTCallbacks => "{6fe9ecde-df89-11d1-9db0-0060082771ba}"
+    static GUID_NTCallbacks => Guid("{6fe9ecde-df89-11d1-9db0-0060082771ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_GetHeapAlignment => "{42e02f16-7b41-11d2-8bff-00a0c983eaf6}"
+    static GUID_GetHeapAlignment => Guid("{42e02f16-7b41-11d2-8bff-00a0c983eaf6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_UpdateNonLocalHeap => "{42e02f17-7b41-11d2-8bff-00a0c983eaf6}"
+    static GUID_UpdateNonLocalHeap => Guid("{42e02f17-7b41-11d2-8bff-00a0c983eaf6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NTPrivateDriverCaps => "{fad16a23-7b66-11d2-83d7-00c04f7ce58c}"
+    static GUID_NTPrivateDriverCaps => Guid("{fad16a23-7b66-11d2-83d7-00c04f7ce58c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VPE2Callbacks => "{52882147-2d47-469a-a0d1-03455890f6c8}"
+    static GUID_VPE2Callbacks => Guid("{52882147-2d47-469a-a0d1-03455890f6c8}")
 
     /**
      * @type {Integer (Int32)}
@@ -4067,39 +4068,39 @@ class DirectDraw {
     static VMEMHEAP_ALIGNMENT => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DDVPTYPE_E_HREFH_VREFH => "{54f39980-da60-11cf-9b06-00a0c903a3b8}"
+    static DDVPTYPE_E_HREFH_VREFH => Guid("{54f39980-da60-11cf-9b06-00a0c903a3b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DDVPTYPE_E_HREFH_VREFL => "{92783220-da60-11cf-9b06-00a0c903a3b8}"
+    static DDVPTYPE_E_HREFH_VREFL => Guid("{92783220-da60-11cf-9b06-00a0c903a3b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DDVPTYPE_E_HREFL_VREFH => "{a07a02e0-da60-11cf-9b06-00a0c903a3b8}"
+    static DDVPTYPE_E_HREFL_VREFH => Guid("{a07a02e0-da60-11cf-9b06-00a0c903a3b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DDVPTYPE_E_HREFL_VREFL => "{e09c77e0-da60-11cf-9b06-00a0c903a3b8}"
+    static DDVPTYPE_E_HREFL_VREFL => Guid("{e09c77e0-da60-11cf-9b06-00a0c903a3b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DDVPTYPE_CCIR656 => "{fca326a0-da60-11cf-9b06-00a0c903a3b8}"
+    static DDVPTYPE_CCIR656 => Guid("{fca326a0-da60-11cf-9b06-00a0c903a3b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DDVPTYPE_BROOKTREE => "{1352a560-da61-11cf-9b06-00a0c903a3b8}"
+    static DDVPTYPE_BROOKTREE => Guid("{1352a560-da61-11cf-9b06-00a0c903a3b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DDVPTYPE_PHILIPS => "{332cf160-da61-11cf-9b06-00a0c903a3b8}"
+    static DDVPTYPE_PHILIPS => Guid("{332cf160-da61-11cf-9b06-00a0c903a3b8}")
 
     /**
      * @type {Integer (Int32)}
@@ -4542,9 +4543,9 @@ class DirectDraw {
     static DDVPSTATUS_VIDEOONLY => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DxApi => "{8a79bef0-b915-11d0-9144-080036d2ef02}"
+    static GUID_DxApi => Guid("{8a79bef0-b915-11d0-9144-080036d2ef02}")
 
     /**
      * @type {Integer (UInt32)}

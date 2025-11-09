@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Security.ConfigurationSnapin
@@ -10,19 +11,19 @@ class ConfigurationSnapin {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static cNodetypeSceTemplateServices => "{24a7f717-1f0c-11d1-affb-00c04fb984f9}"
+    static cNodetypeSceTemplateServices => Guid("{24a7f717-1f0c-11d1-affb-00c04fb984f9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static cNodetypeSceAnalysisServices => "{678050c7-1ff8-11d1-affb-00c04fb984f9}"
+    static cNodetypeSceAnalysisServices => Guid("{678050c7-1ff8-11d1-affb-00c04fb984f9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static cNodetypeSceEventLog => "{2ce06698-4bf3-11d1-8c30-00c04fb984f9}"
+    static cNodetypeSceEventLog => Guid("{2ce06698-4bf3-11d1-8c30-00c04fb984f9}")
 
     /**
      * @type {Integer (Int32)}

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.UI.TabletPC
@@ -1540,109 +1541,109 @@ class TabletPC {
     static FACILITY_INK => 40
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_X => "{598a6a8f-52c0-4ba0-93af-af357411a561}"
+    static GUID_PACKETPROPERTY_GUID_X => Guid("{598a6a8f-52c0-4ba0-93af-af357411a561}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_Y => "{b53f9f75-04e0-4498-a7ee-c30dbb5a9011}"
+    static GUID_PACKETPROPERTY_GUID_Y => Guid("{b53f9f75-04e0-4498-a7ee-c30dbb5a9011}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_Z => "{735adb30-0ebb-4788-a0e4-0f316490055d}"
+    static GUID_PACKETPROPERTY_GUID_Z => Guid("{735adb30-0ebb-4788-a0e4-0f316490055d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_PACKET_STATUS => "{6e0e07bf-afe7-4cf7-87d1-af6446208418}"
+    static GUID_PACKETPROPERTY_GUID_PACKET_STATUS => Guid("{6e0e07bf-afe7-4cf7-87d1-af6446208418}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_TIMER_TICK => "{436510c5-fed3-45d1-8b76-71d3ea7a829d}"
+    static GUID_PACKETPROPERTY_GUID_TIMER_TICK => Guid("{436510c5-fed3-45d1-8b76-71d3ea7a829d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_SERIAL_NUMBER => "{78a81b56-0935-4493-baae-00541a8a16c4}"
+    static GUID_PACKETPROPERTY_GUID_SERIAL_NUMBER => Guid("{78a81b56-0935-4493-baae-00541a8a16c4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_NORMAL_PRESSURE => "{7307502d-f9f4-4e18-b3f2-2ce1b1a3610c}"
+    static GUID_PACKETPROPERTY_GUID_NORMAL_PRESSURE => Guid("{7307502d-f9f4-4e18-b3f2-2ce1b1a3610c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_TANGENT_PRESSURE => "{6da4488b-5244-41ec-905b-32d89ab80809}"
+    static GUID_PACKETPROPERTY_GUID_TANGENT_PRESSURE => Guid("{6da4488b-5244-41ec-905b-32d89ab80809}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_BUTTON_PRESSURE => "{8b7fefc4-96aa-4bfe-ac26-8a5f0be07bf5}"
+    static GUID_PACKETPROPERTY_GUID_BUTTON_PRESSURE => Guid("{8b7fefc4-96aa-4bfe-ac26-8a5f0be07bf5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_X_TILT_ORIENTATION => "{a8d07b3a-8bf0-40b0-95a9-b80a6bb787bf}"
+    static GUID_PACKETPROPERTY_GUID_X_TILT_ORIENTATION => Guid("{a8d07b3a-8bf0-40b0-95a9-b80a6bb787bf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_Y_TILT_ORIENTATION => "{0e932389-1d77-43af-ac00-5b950d6d4b2d}"
+    static GUID_PACKETPROPERTY_GUID_Y_TILT_ORIENTATION => Guid("{0e932389-1d77-43af-ac00-5b950d6d4b2d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_AZIMUTH_ORIENTATION => "{029123b4-8828-410b-b250-a0536595e5dc}"
+    static GUID_PACKETPROPERTY_GUID_AZIMUTH_ORIENTATION => Guid("{029123b4-8828-410b-b250-a0536595e5dc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_ALTITUDE_ORIENTATION => "{82dec5c7-f6ba-4906-894f-66d68dfc456c}"
+    static GUID_PACKETPROPERTY_GUID_ALTITUDE_ORIENTATION => Guid("{82dec5c7-f6ba-4906-894f-66d68dfc456c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_TWIST_ORIENTATION => "{0d324960-13b2-41e4-ace6-7ae9d43d2d3b}"
+    static GUID_PACKETPROPERTY_GUID_TWIST_ORIENTATION => Guid("{0d324960-13b2-41e4-ace6-7ae9d43d2d3b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_PITCH_ROTATION => "{7f7e57b7-be37-4be1-a356-7a84160e1893}"
+    static GUID_PACKETPROPERTY_GUID_PITCH_ROTATION => Guid("{7f7e57b7-be37-4be1-a356-7a84160e1893}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_ROLL_ROTATION => "{5d5d5e56-6ba9-4c5b-9fb0-851c91714e56}"
+    static GUID_PACKETPROPERTY_GUID_ROLL_ROTATION => Guid("{5d5d5e56-6ba9-4c5b-9fb0-851c91714e56}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_YAW_ROTATION => "{6a849980-7c3a-45b7-aa82-90a262950e89}"
+    static GUID_PACKETPROPERTY_GUID_YAW_ROTATION => Guid("{6a849980-7c3a-45b7-aa82-90a262950e89}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_WIDTH => "{baabe94d-2712-48f5-be9d-8f8b5ea0711a}"
+    static GUID_PACKETPROPERTY_GUID_WIDTH => Guid("{baabe94d-2712-48f5-be9d-8f8b5ea0711a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_HEIGHT => "{e61858d2-e447-4218-9d3f-18865c203df4}"
+    static GUID_PACKETPROPERTY_GUID_HEIGHT => Guid("{e61858d2-e447-4218-9d3f-18865c203df4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_FINGERCONTACTCONFIDENCE => "{e706c804-57f0-4f00-8a0c-853d57789be9}"
+    static GUID_PACKETPROPERTY_GUID_FINGERCONTACTCONFIDENCE => Guid("{e706c804-57f0-4f00-8a0c-853d57789be9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PACKETPROPERTY_GUID_DEVICE_CONTACT_ID => "{02585b91-049b-4750-9615-df8948ab3c9c}"
+    static GUID_PACKETPROPERTY_GUID_DEVICE_CONTACT_ID => Guid("{02585b91-049b-4750-9615-df8948ab3c9c}")
 
     /**
      * @type {Integer (Int32)}
@@ -1665,14 +1666,14 @@ class TabletPC {
     static InkCollectorDefaultMargin => -2147483648
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_GESTURE_DATA => "{41e4ec0f-26aa-455a-9aa5-2cd36cf63fb9}"
+    static GUID_GESTURE_DATA => Guid("{41e4ec0f-26aa-455a-9aa5-2cd36cf63fb9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DYNAMIC_RENDERER_CACHED_DATA => "{bf531b92-25bf-4a95-89ad-0e476b34b4f5}"
+    static GUID_DYNAMIC_RENDERER_CACHED_DATA => Guid("{bf531b92-25bf-4a95-89ad-0e476b34b4f5}")
 ;@endregion Constants
 
 ;@region Methods

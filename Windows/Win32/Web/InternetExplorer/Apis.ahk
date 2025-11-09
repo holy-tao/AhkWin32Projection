@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Registry\HKEY.ahk
 #Include .\IMapMIMEToCLSID.ahk
@@ -2035,9 +2036,9 @@ class InternetExplorer {
     static IECMDID_ARG_CLEAR_FORMS_PASSWORDS_ONLY => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_MSOfficeAntiVirus => "{56ffcc30-d398-11d0-b2ae-00a0c908fa49}"
+    static CATID_MSOfficeAntiVirus => Guid("{56ffcc30-d398-11d0-b2ae-00a0c908fa49}")
 
     /**
      * @type {Integer (UInt32)}

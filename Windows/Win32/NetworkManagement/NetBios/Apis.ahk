@@ -92,7 +92,7 @@ class NetBios {
     /**
      * @type {String}
      */
-    static ALL_TRANSPORTS => "M\u0000\u0000\u0000"
+    static ALL_TRANSPORTS => "M" Chr(0) "" Chr(0) "" Chr(0) ""
 
     /**
      * @type {String}

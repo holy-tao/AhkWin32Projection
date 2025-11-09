@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IndexServer
@@ -50,14 +51,14 @@ class IndexServer {
     static LIFF_FORCE_TEXT_FILTER_FALLBACK => 3
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_INDEX_SERVER_DSO => "{f9ae8980-7e52-11d0-8964-00c04fd611d7}"
+    static CLSID_INDEX_SERVER_DSO => Guid("{f9ae8980-7e52-11d0-8964-00c04fd611d7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_FILENAME => "{41cf5ae0-f75a-4806-bd87-59c7d9248eb9}"
+    static PSGUID_FILENAME => Guid("{41cf5ae0-f75a-4806-bd87-59c7d9248eb9}")
 
     /**
      * @type {Integer (UInt32)}
@@ -65,9 +66,9 @@ class IndexServer {
     static PID_FILENAME => 100
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_FSCIFRMWRK_EXT => "{a9bd1526-6a80-11d0-8c9d-0020af1d740e}"
+    static DBPROPSET_FSCIFRMWRK_EXT => Guid("{a9bd1526-6a80-11d0-8c9d-0020af1d740e}")
 
     /**
      * @type {Integer (UInt32)}
@@ -125,9 +126,9 @@ class IndexServer {
     static CI_PROVIDER_ALL => 4294967295
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_SESS_QUERYEXT => "{63623309-2d8b-4d17-b152-6e2956c26a70}"
+    static DBPROPSET_SESS_QUERYEXT => Guid("{63623309-2d8b-4d17-b152-6e2956c26a70}")
 
     /**
      * @type {Integer (UInt32)}
@@ -135,9 +136,9 @@ class IndexServer {
     static DBPROP_DEFAULT_EQUALS_BEHAVIOR => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_QUERYEXT => "{a7ac77ed-f8d7-11ce-a798-0020f8008025}"
+    static DBPROPSET_QUERYEXT => Guid("{a7ac77ed-f8d7-11ce-a798-0020f8008025}")
 
     /**
      * @type {Integer (UInt32)}
@@ -215,9 +216,9 @@ class IndexServer {
     static DBPROP_ENABLEROWSETEVENTS => 16
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_CIFRMWRKCORE_EXT => "{afafaca5-b5d1-11d0-8c62-00c04fc2db8d}"
+    static DBPROPSET_CIFRMWRKCORE_EXT => Guid("{afafaca5-b5d1-11d0-8c62-00c04fc2db8d}")
 
     /**
      * @type {Integer (UInt32)}
@@ -230,9 +231,9 @@ class IndexServer {
     static DBPROP_CLIENT_CLSID => 3
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_MSIDXS_ROWSETEXT => "{aa6ee6b0-e828-11d0-b23e-00aa0047fc01}"
+    static DBPROPSET_MSIDXS_ROWSETEXT => Guid("{aa6ee6b0-e828-11d0-b23e-00aa0047fc01}")
 
     /**
      * @type {Integer (UInt32)}

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
@@ -11,19 +14,32 @@ class PortableDevices {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {DEVPROPKEY}
      */
-    static GUID_DEVINTERFACE_WPD => "{6ac27878-a6fa-4155-ba85-f98f491d4f33}"
+    static DEVPKEY_MTPBTH_IsConnected {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{ea1237fa-589d-4472-84e4-0abe36fd62ef}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_WPD_PRIVATE => "{ba0c718f-4ded-49b7-bdd3-fabe28661211}"
+    static GUID_DEVINTERFACE_WPD => Guid("{6ac27878-a6fa-4155-ba85-f98f491d4f33}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_WPD_SERVICE => "{9ef44f80-3d64-4246-a6aa-206f328d1edc}"
+    static GUID_DEVINTERFACE_WPD_PRIVATE => Guid("{ba0c718f-4ded-49b7-bdd3-fabe28661211}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_DEVINTERFACE_WPD_SERVICE => Guid("{9ef44f80-3d64-4246-a6aa-206f328d1edc}")
 
     /**
      * @type {Integer (UInt32)}
@@ -161,894 +177,7992 @@ class PortableDevices {
     static E_WPD_SERVICE_BAD_PARAMETER_ORDER => -2144730932
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_EVENT_NOTIFICATION => "{2ba2e40a-6b4c-4295-bb43-26322b99aeb2}"
+    static WPD_EVENT_NOTIFICATION => Guid("{2ba2e40a-6b4c-4295-bb43-26322b99aeb2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_EVENT_OBJECT_ADDED => "{a726da95-e207-4b02-8d44-bef2e86cbffc}"
+    static WPD_EVENT_OBJECT_ADDED => Guid("{a726da95-e207-4b02-8d44-bef2e86cbffc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_EVENT_OBJECT_REMOVED => "{be82ab88-a52c-4823-96e5-d0272671fc38}"
+    static WPD_EVENT_OBJECT_REMOVED => Guid("{be82ab88-a52c-4823-96e5-d0272671fc38}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_EVENT_OBJECT_UPDATED => "{1445a759-2e01-485d-9f27-ff07dae697ab}"
+    static WPD_EVENT_OBJECT_UPDATED => Guid("{1445a759-2e01-485d-9f27-ff07dae697ab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_EVENT_DEVICE_RESET => "{7755cf53-c1ed-44f3-b5a2-451e2c376b27}"
+    static WPD_EVENT_DEVICE_RESET => Guid("{7755cf53-c1ed-44f3-b5a2-451e2c376b27}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_EVENT_DEVICE_CAPABILITIES_UPDATED => "{36885aa1-cd54-4daa-b3d0-afb3e03f5999}"
+    static WPD_EVENT_DEVICE_CAPABILITIES_UPDATED => Guid("{36885aa1-cd54-4daa-b3d0-afb3e03f5999}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_EVENT_STORAGE_FORMAT => "{3782616b-22bc-4474-a251-3070f8d38857}"
+    static WPD_EVENT_STORAGE_FORMAT => Guid("{3782616b-22bc-4474-a251-3070f8d38857}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_EVENT_OBJECT_TRANSFER_REQUESTED => "{8d16a0a1-f2c6-41da-8f19-5e53721adbf2}"
+    static WPD_EVENT_OBJECT_TRANSFER_REQUESTED => Guid("{8d16a0a1-f2c6-41da-8f19-5e53721adbf2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_EVENT_DEVICE_REMOVED => "{e4cbca1b-6918-48b9-85ee-02be7c850af9}"
+    static WPD_EVENT_DEVICE_REMOVED => Guid("{e4cbca1b-6918-48b9-85ee-02be7c850af9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_EVENT_SERVICE_METHOD_COMPLETE => "{8a33f5f8-0acc-4d9b-9cc4-112d353b86ca}"
+    static WPD_EVENT_SERVICE_METHOD_COMPLETE => Guid("{8a33f5f8-0acc-4d9b-9cc4-112d353b86ca}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_FUNCTIONAL_OBJECT => "{99ed0160-17ff-4c44-9d98-1d7a6f941921}"
+    static WPD_CONTENT_TYPE_FUNCTIONAL_OBJECT => Guid("{99ed0160-17ff-4c44-9d98-1d7a6f941921}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_FOLDER => "{27e2e392-a111-48e0-ab0c-e17705a05f85}"
+    static WPD_CONTENT_TYPE_FOLDER => Guid("{27e2e392-a111-48e0-ab0c-e17705a05f85}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_IMAGE => "{ef2107d5-a52a-4243-a26b-62d4176d7603}"
+    static WPD_CONTENT_TYPE_IMAGE => Guid("{ef2107d5-a52a-4243-a26b-62d4176d7603}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_DOCUMENT => "{680adf52-950a-4041-9b41-65e393648155}"
+    static WPD_CONTENT_TYPE_DOCUMENT => Guid("{680adf52-950a-4041-9b41-65e393648155}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_CONTACT => "{eaba8313-4525-4707-9f0e-87c6808e9435}"
+    static WPD_CONTENT_TYPE_CONTACT => Guid("{eaba8313-4525-4707-9f0e-87c6808e9435}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_CONTACT_GROUP => "{346b8932-4c36-40d8-9415-1828291f9de9}"
+    static WPD_CONTENT_TYPE_CONTACT_GROUP => Guid("{346b8932-4c36-40d8-9415-1828291f9de9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_AUDIO => "{4ad2c85e-5e2d-45e5-8864-4f229e3c6cf0}"
+    static WPD_CONTENT_TYPE_AUDIO => Guid("{4ad2c85e-5e2d-45e5-8864-4f229e3c6cf0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_VIDEO => "{9261b03c-3d78-4519-85e3-02c5e1f50bb9}"
+    static WPD_CONTENT_TYPE_VIDEO => Guid("{9261b03c-3d78-4519-85e3-02c5e1f50bb9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_TELEVISION => "{60a169cf-f2ae-4e21-9375-9677f11c1c6e}"
+    static WPD_CONTENT_TYPE_TELEVISION => Guid("{60a169cf-f2ae-4e21-9375-9677f11c1c6e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_PLAYLIST => "{1a33f7e4-af13-48f5-994e-77369dfe04a3}"
+    static WPD_CONTENT_TYPE_PLAYLIST => Guid("{1a33f7e4-af13-48f5-994e-77369dfe04a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_MIXED_CONTENT_ALBUM => "{00f0c3ac-a593-49ac-9219-24abca5a2563}"
+    static WPD_CONTENT_TYPE_MIXED_CONTENT_ALBUM => Guid("{00f0c3ac-a593-49ac-9219-24abca5a2563}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_AUDIO_ALBUM => "{aa18737e-5009-48fa-ae21-85f24383b4e6}"
+    static WPD_CONTENT_TYPE_AUDIO_ALBUM => Guid("{aa18737e-5009-48fa-ae21-85f24383b4e6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_IMAGE_ALBUM => "{75793148-15f5-4a30-a813-54ed8a37e226}"
+    static WPD_CONTENT_TYPE_IMAGE_ALBUM => Guid("{75793148-15f5-4a30-a813-54ed8a37e226}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_VIDEO_ALBUM => "{012b0db7-d4c1-45d6-b081-94b87779614f}"
+    static WPD_CONTENT_TYPE_VIDEO_ALBUM => Guid("{012b0db7-d4c1-45d6-b081-94b87779614f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_MEMO => "{9cd20ecf-3b50-414f-a641-e473ffe45751}"
+    static WPD_CONTENT_TYPE_MEMO => Guid("{9cd20ecf-3b50-414f-a641-e473ffe45751}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_EMAIL => "{8038044a-7e51-4f8f-883d-1d0623d14533}"
+    static WPD_CONTENT_TYPE_EMAIL => Guid("{8038044a-7e51-4f8f-883d-1d0623d14533}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_APPOINTMENT => "{0fed060e-8793-4b1e-90c9-48ac389ac631}"
+    static WPD_CONTENT_TYPE_APPOINTMENT => Guid("{0fed060e-8793-4b1e-90c9-48ac389ac631}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_TASK => "{63252f2c-887f-4cb6-b1ac-d29855dcef6c}"
+    static WPD_CONTENT_TYPE_TASK => Guid("{63252f2c-887f-4cb6-b1ac-d29855dcef6c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_PROGRAM => "{d269f96a-247c-4bff-98fb-97f3c49220e6}"
+    static WPD_CONTENT_TYPE_PROGRAM => Guid("{d269f96a-247c-4bff-98fb-97f3c49220e6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_GENERIC_FILE => "{0085e0a6-8d34-45d7-bc5c-447e59c73d48}"
+    static WPD_CONTENT_TYPE_GENERIC_FILE => Guid("{0085e0a6-8d34-45d7-bc5c-447e59c73d48}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_CALENDAR => "{a1fd5967-6023-49a0-9df1-f8060be751b0}"
+    static WPD_CONTENT_TYPE_CALENDAR => Guid("{a1fd5967-6023-49a0-9df1-f8060be751b0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_GENERIC_MESSAGE => "{e80eaaf8-b2db-4133-b67e-1bef4b4a6e5f}"
+    static WPD_CONTENT_TYPE_GENERIC_MESSAGE => Guid("{e80eaaf8-b2db-4133-b67e-1bef4b4a6e5f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_NETWORK_ASSOCIATION => "{031da7ee-18c8-4205-847e-89a11261d0f3}"
+    static WPD_CONTENT_TYPE_NETWORK_ASSOCIATION => Guid("{031da7ee-18c8-4205-847e-89a11261d0f3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_CERTIFICATE => "{dc3876e8-a948-4060-9050-cbd77e8a3d87}"
+    static WPD_CONTENT_TYPE_CERTIFICATE => Guid("{dc3876e8-a948-4060-9050-cbd77e8a3d87}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_WIRELESS_PROFILE => "{0bac070a-9f5f-4da4-a8f6-3de44d68fd6c}"
+    static WPD_CONTENT_TYPE_WIRELESS_PROFILE => Guid("{0bac070a-9f5f-4da4-a8f6-3de44d68fd6c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_MEDIA_CAST => "{5e88b3cc-3e65-4e62-bfff-229495253ab0}"
+    static WPD_CONTENT_TYPE_MEDIA_CAST => Guid("{5e88b3cc-3e65-4e62-bfff-229495253ab0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_SECTION => "{821089f5-1d91-4dc9-be3c-bbb1b35b18ce}"
+    static WPD_CONTENT_TYPE_SECTION => Guid("{821089f5-1d91-4dc9-be3c-bbb1b35b18ce}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_UNSPECIFIED => "{28d8d31e-249c-454e-aabc-34883168e634}"
+    static WPD_CONTENT_TYPE_UNSPECIFIED => Guid("{28d8d31e-249c-454e-aabc-34883168e634}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CONTENT_TYPE_ALL => "{80e170d2-1055-4a3e-b952-82cc4f8a8689}"
+    static WPD_CONTENT_TYPE_ALL => Guid("{80e170d2-1055-4a3e-b952-82cc4f8a8689}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_FUNCTIONAL_CATEGORY_DEVICE => "{08ea466b-e3a4-4336-a1f3-a44d2b5c438c}"
+    static WPD_FUNCTIONAL_CATEGORY_DEVICE => Guid("{08ea466b-e3a4-4336-a1f3-a44d2b5c438c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_FUNCTIONAL_CATEGORY_STORAGE => "{23f05bbc-15de-4c2a-a55b-a9af5ce412ef}"
+    static WPD_FUNCTIONAL_CATEGORY_STORAGE => Guid("{23f05bbc-15de-4c2a-a55b-a9af5ce412ef}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_FUNCTIONAL_CATEGORY_STILL_IMAGE_CAPTURE => "{613ca327-ab93-4900-b4fa-895bb5874b79}"
+    static WPD_FUNCTIONAL_CATEGORY_STILL_IMAGE_CAPTURE => Guid("{613ca327-ab93-4900-b4fa-895bb5874b79}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_FUNCTIONAL_CATEGORY_AUDIO_CAPTURE => "{3f2a1919-c7c2-4a00-855d-f57cf06debbb}"
+    static WPD_FUNCTIONAL_CATEGORY_AUDIO_CAPTURE => Guid("{3f2a1919-c7c2-4a00-855d-f57cf06debbb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_FUNCTIONAL_CATEGORY_VIDEO_CAPTURE => "{e23e5f6b-7243-43aa-8df1-0eb3d968a918}"
+    static WPD_FUNCTIONAL_CATEGORY_VIDEO_CAPTURE => Guid("{e23e5f6b-7243-43aa-8df1-0eb3d968a918}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_FUNCTIONAL_CATEGORY_SMS => "{0044a0b1-c1e9-4afd-b358-a62c6117c9cf}"
+    static WPD_FUNCTIONAL_CATEGORY_SMS => Guid("{0044a0b1-c1e9-4afd-b358-a62c6117c9cf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_FUNCTIONAL_CATEGORY_RENDERING_INFORMATION => "{08600ba4-a7ba-4a01-ab0e-0065d0a356d3}"
+    static WPD_FUNCTIONAL_CATEGORY_RENDERING_INFORMATION => Guid("{08600ba4-a7ba-4a01-ab0e-0065d0a356d3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_FUNCTIONAL_CATEGORY_NETWORK_CONFIGURATION => "{48f4db72-7c6a-4ab0-9e1a-470e3cdbf26a}"
+    static WPD_FUNCTIONAL_CATEGORY_NETWORK_CONFIGURATION => Guid("{48f4db72-7c6a-4ab0-9e1a-470e3cdbf26a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_FUNCTIONAL_CATEGORY_ALL => "{2d8a6512-a74c-448e-ba8a-f4ac07c49399}"
+    static WPD_FUNCTIONAL_CATEGORY_ALL => Guid("{2d8a6512-a74c-448e-ba8a-f4ac07c49399}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_ICON => "{077232ed-102c-4638-9c22-83f142bfc822}"
+    static WPD_OBJECT_FORMAT_ICON => Guid("{077232ed-102c-4638-9c22-83f142bfc822}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_M4A => "{30aba7ac-6ffd-4c23-a359-3e9b52f3f1c8}"
+    static WPD_OBJECT_FORMAT_M4A => Guid("{30aba7ac-6ffd-4c23-a359-3e9b52f3f1c8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_NETWORK_ASSOCIATION => "{b1020000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_OBJECT_FORMAT_NETWORK_ASSOCIATION => Guid("{b1020000-ae6c-4804-98ba-c57b46965fe7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_X509V3CERTIFICATE => "{b1030000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_OBJECT_FORMAT_X509V3CERTIFICATE => Guid("{b1030000-ae6c-4804-98ba-c57b46965fe7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_MICROSOFT_WFC => "{b1040000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_OBJECT_FORMAT_MICROSOFT_WFC => Guid("{b1040000-ae6c-4804-98ba-c57b46965fe7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_3GPA => "{e5172730-f971-41ef-a10b-2271a0019d7a}"
+    static WPD_OBJECT_FORMAT_3GPA => Guid("{e5172730-f971-41ef-a10b-2271a0019d7a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_3G2A => "{1a11202d-8759-4e34-ba5e-b1211087eee4}"
+    static WPD_OBJECT_FORMAT_3G2A => Guid("{1a11202d-8759-4e34-ba5e-b1211087eee4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_ALL => "{c1f62eb2-4bb3-479c-9cfa-05b5f3a57b22}"
+    static WPD_OBJECT_FORMAT_ALL => Guid("{c1f62eb2-4bb3-479c-9cfa-05b5f3a57b22}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CATEGORY_NULL => "{00000000-0000-0000-0000-000000000000}"
+    static WPD_CATEGORY_NULL => Guid("{00000000-0000-0000-0000-000000000000}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_PROPERTIES_V1 => "{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}"
+    static WPD_PROPERTY_NULL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{00000000-0000-0000-0000-000000000000}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_PROPERTIES_V2 => "{0373cd3d-4a46-40d7-b4d8-73e8da74e775}"
+    static WPD_OBJECT_PROPERTIES_V1 => Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_FUNCTIONAL_OBJECT_PROPERTIES_V1 => "{8f052d93-abca-4fc5-a5ac-b01df4dbe598}"
+    static WPD_OBJECT_CONTENT_TYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_STORAGE_OBJECT_PROPERTIES_V1 => "{01a3057a-74d6-4e80-bea7-dc4c212ce50a}"
+    static WPD_OBJECT_REFERENCES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 14
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_NETWORK_ASSOCIATION_PROPERTIES_V1 => "{e4c93c1f-b203-43f1-a100-5a07d11b0274}"
+    static WPD_OBJECT_CONTAINER_FUNCTIONAL_OBJECT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 23
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_STILL_IMAGE_CAPTURE_OBJECT_PROPERTIES_V1 => "{58c571ec-1bcb-42a7-8ac5-bb291573a260}"
+    static WPD_OBJECT_GENERATE_THUMBNAIL_FROM_RESOURCE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 24
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_RENDERING_INFORMATION_OBJECT_PROPERTIES_V1 => "{c53d039f-ee23-4a31-8590-7639879870b4}"
+    static WPD_OBJECT_HINT_LOCATION_DISPLAY_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 25
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CLIENT_INFORMATION_PROPERTIES_V1 => "{204d9f0c-2292-4080-9f42-40664e70f859}"
+    static WPD_OBJECT_PROPERTIES_V2 => Guid("{0373cd3d-4a46-40d7-b4d8-73e8da74e775}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_PROPERTY_ATTRIBUTES_V1 => "{ab7943d8-6332-445f-a00d-8d5ef1e96f37}"
+    static WPD_OBJECT_SUPPORTED_UNITS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0373cd3d-4a46-40d7-b4d8-73e8da74e775}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_PROPERTY_ATTRIBUTES_V2 => "{5d9da160-74ae-43cc-85a9-fe555a80798e}"
+    static WPD_FUNCTIONAL_OBJECT_PROPERTIES_V1 => Guid("{8f052d93-abca-4fc5-a5ac-b01df4dbe598}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CLASS_EXTENSION_OPTIONS_V1 => "{6309ffef-a87c-4ca7-8434-797576e40a96}"
+    static WPD_FUNCTIONAL_OBJECT_CATEGORY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{8f052d93-abca-4fc5-a5ac-b01df4dbe598}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CLASS_EXTENSION_OPTIONS_V2 => "{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}"
+    static WPD_STORAGE_OBJECT_PROPERTIES_V1 => Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CLASS_EXTENSION_OPTIONS_V3 => "{65c160f8-1367-4ce2-939d-8310839f0d30}"
+    static WPD_STORAGE_TYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_RESOURCE_ATTRIBUTES_V1 => "{1eb6f604-9278-429f-93cc-5bb8c06656b6}"
+    static WPD_STORAGE_FILE_SYSTEM_TYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_DEVICE_PROPERTIES_V1 => "{26d4979a-e643-4626-9e2b-736dc0c92fdc}"
+    static WPD_STORAGE_CAPACITY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_DEVICE_PROPERTIES_V2 => "{463dd662-7fc4-4291-911c-7f4c9cca9799}"
+    static WPD_STORAGE_FREE_SPACE_IN_BYTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_DEVICE_PROPERTIES_V3 => "{6c2b878c-c2ec-490d-b425-d7a75e23e5ed}"
+    static WPD_STORAGE_FREE_SPACE_IN_OBJECTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_SERVICE_PROPERTIES_V1 => "{7510698a-cb54-481c-b8db-0d75c93f1c06}"
+    static WPD_STORAGE_DESCRIPTION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_EVENT_PROPERTIES_V1 => "{15ab1953-f817-4fef-a921-5676e838f6e0}"
+    static WPD_STORAGE_SERIAL_NUMBER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_EVENT_PROPERTIES_V2 => "{52807b8a-4914-4323-9b9a-74f654b2b846}"
+    static WPD_STORAGE_MAX_OBJECT_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_EVENT_OPTIONS_V1 => "{b3d8dad7-a361-4b83-8a48-5b02ce10713b}"
+    static WPD_STORAGE_CAPACITY_IN_OBJECTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_EVENT_ATTRIBUTES_V1 => "{10c96578-2e81-4111-adde-e08ca6138f6d}"
+    static WPD_STORAGE_ACCESS_CAPABILITY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_API_OPTIONS_V1 => "{10e54a3e-052d-4777-a13c-de7614be2bc4}"
+    static WPD_NETWORK_ASSOCIATION_PROPERTIES_V1 => Guid("{e4c93c1f-b203-43f1-a100-5a07d11b0274}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_FORMAT_ATTRIBUTES_V1 => "{a0a02000-bcaf-4be8-b3f5-233f231cf58f}"
+    static WPD_NETWORK_ASSOCIATION_HOST_NETWORK_IDENTIFIERS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e4c93c1f-b203-43f1-a100-5a07d11b0274}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_METHOD_ATTRIBUTES_V1 => "{f17a5071-f039-44af-8efe-432cf32e432a}"
+    static WPD_NETWORK_ASSOCIATION_X509V3SEQUENCE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e4c93c1f-b203-43f1-a100-5a07d11b0274}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_PARAMETER_ATTRIBUTES_V1 => "{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}"
+    static WPD_STILL_IMAGE_CAPTURE_OBJECT_PROPERTIES_V1 => Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_COMMON => "{f0422a9c-5dc8-4440-b5bd-5df28835658a}"
+    static WPD_STILL_IMAGE_CAPTURE_RESOLUTION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_OBJECT_ENUMERATION => "{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}"
+    static WPD_STILL_IMAGE_CAPTURE_FORMAT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_OBJECT_PROPERTIES => "{9e5582e4-0814-44e6-981a-b2998d583804}"
+    static WPD_STILL_IMAGE_COMPRESSION_SETTING {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_OBJECT_PROPERTIES_BULK => "{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}"
+    static WPD_STILL_IMAGE_WHITE_BALANCE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_OBJECT_RESOURCES => "{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}"
+    static WPD_STILL_IMAGE_RGB_GAIN {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_OBJECT_MANAGEMENT => "{ef1e43dd-a9ed-4341-8bcc-186192aea089}"
+    static WPD_STILL_IMAGE_FNUMBER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_CAPABILITIES => "{0cabec78-6b74-41c6-9216-2639d1fce356}"
+    static WPD_STILL_IMAGE_FOCAL_LENGTH {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_STORAGE => "{d8f907a6-34cc-45fa-97fb-d007fa47ec94}"
+    static WPD_STILL_IMAGE_FOCUS_DISTANCE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_SMS => "{afc25d66-fe0d-4114-9097-970c93e920d1}"
+    static WPD_STILL_IMAGE_FOCUS_MODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_STILL_IMAGE_CAPTURE => "{4fcd6982-22a2-4b05-a48b-62d38bf27b32}"
+    static WPD_STILL_IMAGE_EXPOSURE_METERING_MODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_MEDIA_CAPTURE => "{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}"
+    static WPD_STILL_IMAGE_FLASH_MODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_DEVICE_HINTS => "{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}"
+    static WPD_STILL_IMAGE_EXPOSURE_TIME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CLASS_EXTENSION_V1 => "{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}"
+    static WPD_STILL_IMAGE_EXPOSURE_PROGRAM_MODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 14
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CLASS_EXTENSION_V2 => "{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}"
+    static WPD_STILL_IMAGE_EXPOSURE_INDEX {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 15
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_NETWORK_CONFIGURATION => "{78f9c6fc-79b8-473c-9060-6bd23dd072c4}"
+    static WPD_STILL_IMAGE_EXPOSURE_BIAS_COMPENSATION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 16
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_SERVICE_COMMON => "{322f071d-36ef-477f-b4b5-6f52d734baee}"
+    static WPD_STILL_IMAGE_CAPTURE_DELAY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 17
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_SERVICE_CAPABILITIES => "{24457e74-2e9f-44f9-8c57-1d1bcb170b89}"
+    static WPD_STILL_IMAGE_CAPTURE_MODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 18
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CATEGORY_SERVICE_METHODS => "{2d521ca8-c1b0-4268-a342-cf19321569bc}"
+    static WPD_STILL_IMAGE_CONTRAST {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 19
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_PROPERTIES_ONLY => "{30010000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_STILL_IMAGE_SHARPNESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 20
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_UNSPECIFIED => "{30000000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_STILL_IMAGE_DIGITAL_ZOOM {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 21
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_SCRIPT => "{30020000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_STILL_IMAGE_EFFECT_MODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 22
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_EXECUTABLE => "{30030000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_STILL_IMAGE_BURST_NUMBER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 23
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_TEXT => "{30040000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_STILL_IMAGE_BURST_INTERVAL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 24
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_HTML => "{30050000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_STILL_IMAGE_TIMELAPSE_NUMBER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 25
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_DPOF => "{30060000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_STILL_IMAGE_TIMELAPSE_INTERVAL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 26
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_AIFF => "{30070000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_STILL_IMAGE_FOCUS_METERING_MODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 27
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_WAVE => "{30080000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_STILL_IMAGE_UPLOAD_URL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 28
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_MP3 => "{30090000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_STILL_IMAGE_ARTIST {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 29
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_AVI => "{300a0000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_STILL_IMAGE_CAMERA_MODEL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 30
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_MPEG => "{300b0000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_STILL_IMAGE_CAMERA_MANUFACTURER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 31
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_ASF => "{300c0000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_RENDERING_INFORMATION_OBJECT_PROPERTIES_V1 => Guid("{c53d039f-ee23-4a31-8590-7639879870b4}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_EXIF => "{38010000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_RENDERING_INFORMATION_PROFILES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{c53d039f-ee23-4a31-8590-7639879870b4}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_TIFFEP => "{38020000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_RENDERING_INFORMATION_PROFILE_ENTRY_TYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{c53d039f-ee23-4a31-8590-7639879870b4}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_FLASHPIX => "{38030000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_RENDERING_INFORMATION_PROFILE_ENTRY_CREATABLE_RESOURCES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{c53d039f-ee23-4a31-8590-7639879870b4}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_BMP => "{38040000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_INFORMATION_PROPERTIES_V1 => Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_CIFF => "{38050000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_GIF => "{38070000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_MAJOR_VERSION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_JFIF => "{38080000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_MINOR_VERSION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_PCD => "{38090000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_REVISION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_PICT => "{380a0000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_WMDRM_APPLICATION_PRIVATE_KEY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_PNG => "{380b0000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_WMDRM_APPLICATION_CERTIFICATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_TIFF => "{380d0000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_SECURITY_QUALITY_OF_SERVICE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_TIFFIT => "{380e0000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_DESIRED_ACCESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_JP2 => "{380f0000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_SHARE_MODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_JPX => "{38100000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_EVENT_COOKIE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_WBMP => "{b8030000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_MINIMUM_RESULTS_BUFFER_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_JPEGXR => "{b8040000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLIENT_MANUAL_CLOSE_ON_DISCONNECT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_WINDOWSIMAGEFORMAT => "{b8810000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTES_V1 => Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_WMA => "{b9010000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_FORM {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_WMV => "{b9810000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_CAN_READ {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_WPLPLAYLIST => "{ba100000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_CAN_WRITE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_M3UPLAYLIST => "{ba110000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_CAN_DELETE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_MPLPLAYLIST => "{ba120000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_DEFAULT_VALUE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_ASXPLAYLIST => "{ba130000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_FAST_PROPERTY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_PLSPLAYLIST => "{ba140000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_RANGE_MIN {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_ABSTRACT_CONTACT_GROUP => "{ba060000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_RANGE_MAX {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_ABSTRACT_MEDIA_CAST => "{ba0b0000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_RANGE_STEP {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_VCALENDAR1 => "{be020000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_ENUMERATION_ELEMENTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_ICALENDAR => "{be030000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_REGULAR_EXPRESSION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_ABSTRACT_CONTACT => "{bb810000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_MAX_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_VCARD2 => "{bb820000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTES_V2 => Guid("{5d9da160-74ae-43cc-85a9-fe555a80798e}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_VCARD3 => "{bb830000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{5d9da160-74ae-43cc-85a9-fe555a80798e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_XML => "{ba820000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_PROPERTY_ATTRIBUTE_VARTYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{5d9da160-74ae-43cc-85a9-fe555a80798e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_AAC => "{b9030000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLASS_EXTENSION_OPTIONS_V1 => Guid("{6309ffef-a87c-4ca7-8434-797576e40a96}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_AUDIBLE => "{b9040000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLASS_EXTENSION_OPTIONS_SUPPORTED_CONTENT_TYPES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{6309ffef-a87c-4ca7-8434-797576e40a96}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_FLAC => "{b9060000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLASS_EXTENSION_OPTIONS_DONT_REGISTER_WPD_DEVICE_INTERFACE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{6309ffef-a87c-4ca7-8434-797576e40a96}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_QCELP => "{b9070000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLASS_EXTENSION_OPTIONS_REGISTER_WPD_PRIVATE_DEVICE_INTERFACE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{6309ffef-a87c-4ca7-8434-797576e40a96}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_AMR => "{b9080000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLASS_EXTENSION_OPTIONS_V2 => Guid("{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_OGG => "{b9020000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLASS_EXTENSION_OPTIONS_MULTITRANSPORT_MODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_MP4 => "{b9820000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLASS_EXTENSION_OPTIONS_DEVICE_IDENTIFICATION_VALUES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_MP2 => "{b9830000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLASS_EXTENSION_OPTIONS_TRANSPORT_BANDWIDTH {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_MICROSOFT_WORD => "{ba830000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLASS_EXTENSION_OPTIONS_V3 => Guid("{65c160f8-1367-4ce2-939d-8310839f0d30}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_MHT_COMPILED_HTML => "{ba840000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_CLASS_EXTENSION_OPTIONS_SILENCE_AUTOPLAY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{65c160f8-1367-4ce2-939d-8310839f0d30}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_OBJECT_FORMAT_MICROSOFT_EXCEL => "{ba850000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_RESOURCE_ATTRIBUTES_V1 => Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_MICROSOFT_POWERPOINT => "{ba860000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_RESOURCE_ATTRIBUTE_TOTAL_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_3GP => "{b9840000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_RESOURCE_ATTRIBUTE_CAN_READ {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_3G2 => "{b9850000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_RESOURCE_ATTRIBUTE_CAN_WRITE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_AVCHD => "{b9860000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_RESOURCE_ATTRIBUTE_CAN_DELETE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_ATSCTS => "{b9870000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_RESOURCE_ATTRIBUTE_OPTIMAL_READ_BUFFER_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_DVBTS => "{b9880000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_RESOURCE_ATTRIBUTE_OPTIMAL_WRITE_BUFFER_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_OBJECT_FORMAT_MKV => "{b9900000-ae6c-4804-98ba-c57b46965fe7}"
+    static WPD_RESOURCE_ATTRIBUTE_FORMAT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_FOLDER_OBJECT_PROPERTIES_V1 => "{7e9a7abf-e568-4b34-aa2f-13bb12ab177d}"
+    static WPD_RESOURCE_ATTRIBUTE_RESOURCE_KEY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_IMAGE_OBJECT_PROPERTIES_V1 => "{63d64908-9fa1-479f-85ba-9952216447db}"
+    static WPD_DEVICE_PROPERTIES_V1 => Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_DOCUMENT_OBJECT_PROPERTIES_V1 => "{0b110203-eb95-4f02-93e0-97c631493ad5}"
+    static WPD_DEVICE_SYNC_PARTNER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_MEDIA_PROPERTIES_V1 => "{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}"
+    static WPD_DEVICE_FIRMWARE_VERSION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_CONTACT_OBJECT_PROPERTIES_V1 => "{fbd4fdab-987d-4777-b3f9-726185a9312b}"
+    static WPD_DEVICE_POWER_LEVEL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_MUSIC_OBJECT_PROPERTIES_V1 => "{b324f56a-dc5d-46e5-b6df-d2ea414888c6}"
+    static WPD_DEVICE_POWER_SOURCE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_VIDEO_OBJECT_PROPERTIES_V1 => "{346f2163-f998-4146-8b01-d19b4c00de9a}"
+    static WPD_DEVICE_PROTOCOL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_COMMON_INFORMATION_OBJECT_PROPERTIES_V1 => "{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}"
+    static WPD_DEVICE_MANUFACTURER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_MEMO_OBJECT_PROPERTIES_V1 => "{5ffbfc7b-7483-41ad-afb9-da3f4e592b8d}"
+    static WPD_DEVICE_MODEL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_EMAIL_OBJECT_PROPERTIES_V1 => "{41f8f65a-5484-4782-b13d-4740dd7c37c5}"
+    static WPD_DEVICE_SERIAL_NUMBER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_APPOINTMENT_OBJECT_PROPERTIES_V1 => "{f99efd03-431d-40d8-a1c9-4e220d9c88d3}"
+    static WPD_DEVICE_SUPPORTS_NON_CONSUMABLE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_TASK_OBJECT_PROPERTIES_V1 => "{e354e95e-d8a0-4637-a03a-0cb26838dbc7}"
+    static WPD_DEVICE_DATETIME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_SMS_OBJECT_PROPERTIES_V1 => "{7e1074cc-50ff-4dd1-a742-53be6f093a0d}"
+    static WPD_DEVICE_FRIENDLY_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_SECTION_OBJECT_PROPERTIES_V1 => "{516afd2b-c64e-44f0-98dc-bee1c88f7d66}"
+    static WPD_DEVICE_SUPPORTED_DRM_SCHEMES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_DEVICE_SUPPORTED_FORMATS_ARE_ORDERED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 14
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_DEVICE_TYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 15
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_DEVICE_NETWORK_IDENTIFIER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 16
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_DEVICE_PROPERTIES_V2 => Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_DEVICE_FUNCTIONAL_UNIQUE_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_DEVICE_MODEL_UNIQUE_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_DEVICE_TRANSPORT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_DEVICE_USE_DEVICE_STAGE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_DEVICE_PROPERTIES_V3 => Guid("{6c2b878c-c2ec-490d-b425-d7a75e23e5ed}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_DEVICE_EDP_IDENTITY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{6c2b878c-c2ec-490d-b425-d7a75e23e5ed}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_SERVICE_PROPERTIES_V1 => Guid("{7510698a-cb54-481c-b8db-0d75c93f1c06}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_SERVICE_VERSION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{7510698a-cb54-481c-b8db-0d75c93f1c06}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_EVENT_PROPERTIES_V1 => Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_PARAMETER_PNP_DEVICE_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_PARAMETER_EVENT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_PARAMETER_OPERATION_STATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_PARAMETER_OPERATION_PROGRESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_PARAMETER_OBJECT_PARENT_PERSISTENT_UNIQUE_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_PARAMETER_OBJECT_CREATION_COOKIE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_PARAMETER_CHILD_HIERARCHY_CHANGED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_EVENT_PROPERTIES_V2 => Guid("{52807b8a-4914-4323-9b9a-74f654b2b846}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_PARAMETER_SERVICE_METHOD_CONTEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{52807b8a-4914-4323-9b9a-74f654b2b846}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_EVENT_OPTIONS_V1 => Guid("{b3d8dad7-a361-4b83-8a48-5b02ce10713b}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_OPTION_IS_BROADCAST_EVENT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3d8dad7-a361-4b83-8a48-5b02ce10713b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_OPTION_IS_AUTOPLAY_EVENT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3d8dad7-a361-4b83-8a48-5b02ce10713b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_EVENT_ATTRIBUTES_V1 => Guid("{10c96578-2e81-4111-adde-e08ca6138f6d}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_ATTRIBUTE_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{10c96578-2e81-4111-adde-e08ca6138f6d}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_ATTRIBUTE_PARAMETERS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{10c96578-2e81-4111-adde-e08ca6138f6d}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EVENT_ATTRIBUTE_OPTIONS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{10c96578-2e81-4111-adde-e08ca6138f6d}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_API_OPTIONS_V1 => Guid("{10e54a3e-052d-4777-a13c-de7614be2bc4}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_API_OPTION_USE_CLEAR_DATA_STREAM {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{10e54a3e-052d-4777-a13c-de7614be2bc4}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_API_OPTION_IOCTL_ACCESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{10e54a3e-052d-4777-a13c-de7614be2bc4}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_FORMAT_ATTRIBUTES_V1 => Guid("{a0a02000-bcaf-4be8-b3f5-233f231cf58f}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_FORMAT_ATTRIBUTE_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{a0a02000-bcaf-4be8-b3f5-233f231cf58f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_FORMAT_ATTRIBUTE_MIMETYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{a0a02000-bcaf-4be8-b3f5-233f231cf58f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_METHOD_ATTRIBUTES_V1 => Guid("{f17a5071-f039-44af-8efe-432cf32e432a}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_METHOD_ATTRIBUTE_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f17a5071-f039-44af-8efe-432cf32e432a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_METHOD_ATTRIBUTE_ASSOCIATED_FORMAT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f17a5071-f039-44af-8efe-432cf32e432a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_METHOD_ATTRIBUTE_ACCESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f17a5071-f039-44af-8efe-432cf32e432a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_METHOD_ATTRIBUTE_PARAMETERS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f17a5071-f039-44af-8efe-432cf32e432a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_PARAMETER_ATTRIBUTES_V1 => Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PARAMETER_ATTRIBUTE_ORDER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PARAMETER_ATTRIBUTE_USAGE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PARAMETER_ATTRIBUTE_FORM {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PARAMETER_ATTRIBUTE_DEFAULT_VALUE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PARAMETER_ATTRIBUTE_RANGE_MIN {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PARAMETER_ATTRIBUTE_RANGE_MAX {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PARAMETER_ATTRIBUTE_RANGE_STEP {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PARAMETER_ATTRIBUTE_ENUMERATION_ELEMENTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PARAMETER_ATTRIBUTE_REGULAR_EXPRESSION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PARAMETER_ATTRIBUTE_MAX_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PARAMETER_ATTRIBUTE_VARTYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PARAMETER_ATTRIBUTE_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_COMMON => Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_COMMON_RESET_DEVICE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_COMMON_GET_OBJECT_IDS_FROM_PERSISTENT_UNIQUE_IDS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_COMMON_SAVE_CLIENT_INFORMATION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_COMMON_COMMAND_CATEGORY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_COMMON_COMMAND_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_COMMON_HRESULT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1003
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_COMMON_DRIVER_ERROR_CODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1004
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_COMMON_COMMAND_TARGET {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1006
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_COMMON_PERSISTENT_UNIQUE_IDS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1007
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_COMMON_OBJECT_IDS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1008
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_COMMON_CLIENT_INFORMATION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1009
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_COMMON_CLIENT_INFORMATION_CONTEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1010
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_COMMON_ACTIVITY_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1011
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OPTION_VALID_OBJECT_IDS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5001
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_OBJECT_ENUMERATION => Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_ENUMERATION_START_FIND {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_ENUMERATION_FIND_NEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_ENUMERATION_END_FIND {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_ENUMERATION_PARENT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_ENUMERATION_FILTER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_ENUMERATION_OBJECT_IDS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1003
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_ENUMERATION_CONTEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1004
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_ENUMERATION_NUM_OBJECTS_REQUESTED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1005
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_OBJECT_PROPERTIES => Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_GET_SUPPORTED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_GET_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_GET {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_SET {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_GET_ALL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_DELETE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_OBJECT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_KEYS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1003
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_VALUES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1004
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_WRITE_RESULTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1005
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_DELETE_RESULTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1006
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_OBJECT_PROPERTIES_BULK => Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_LIST_START {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_LIST_NEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_LIST_END {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_FORMAT_START {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_FORMAT_NEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_FORMAT_END {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_BULK_SET_VALUES_BY_OBJECT_LIST_START {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_BULK_SET_VALUES_BY_OBJECT_LIST_NEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_PROPERTIES_BULK_SET_VALUES_BY_OBJECT_LIST_END {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_OBJECT_IDS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_CONTEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_VALUES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1003
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_PROPERTY_KEYS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1004
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_DEPTH {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1005
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_PARENT_OBJECT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1006
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_OBJECT_FORMAT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1007
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_WRITE_RESULTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1008
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_OBJECT_RESOURCES => Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_RESOURCES_GET_SUPPORTED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_RESOURCES_GET_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_RESOURCES_OPEN {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_RESOURCES_READ {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_RESOURCES_WRITE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_RESOURCES_CLOSE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_RESOURCES_DELETE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_RESOURCES_CREATE_RESOURCE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_RESOURCES_REVERT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_RESOURCES_SEEK {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_RESOURCES_COMMIT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_RESOURCES_SEEK_IN_UNITS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_OBJECT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_ACCESS_MODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_RESOURCE_KEYS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1003
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_RESOURCE_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1004
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_CONTEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1005
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_TO_READ {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1006
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_READ {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1007
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_TO_WRITE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1008
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_WRITTEN {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1009
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_DATA {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1010
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_OPTIMAL_TRANSFER_BUFFER_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1011
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_SEEK_OFFSET {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1012
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_SEEK_ORIGIN_FLAG {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1013
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_POSITION_FROM_START {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1014
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_SUPPORTS_UNITS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1015
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_RESOURCES_STREAM_UNITS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1016
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OPTION_OBJECT_RESOURCES_SEEK_ON_READ_SUPPORTED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OPTION_OBJECT_RESOURCES_SEEK_ON_WRITE_SUPPORTED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OPTION_OBJECT_RESOURCES_NO_INPUT_BUFFER_ON_READ {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5003
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_OBJECT_MANAGEMENT => Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_MANAGEMENT_CREATE_OBJECT_WITH_PROPERTIES_ONLY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_MANAGEMENT_CREATE_OBJECT_WITH_PROPERTIES_AND_DATA {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_MANAGEMENT_WRITE_OBJECT_DATA {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_MANAGEMENT_COMMIT_OBJECT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_MANAGEMENT_REVERT_OBJECT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_MANAGEMENT_DELETE_OBJECTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_MANAGEMENT_MOVE_OBJECTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_MANAGEMENT_COPY_OBJECTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_OBJECT_MANAGEMENT_UPDATE_OBJECT_WITH_PROPERTIES_AND_DATA {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_CREATION_PROPERTIES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_CONTEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_NUM_BYTES_TO_WRITE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1003
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_NUM_BYTES_WRITTEN {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1004
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_DATA {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1005
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_OBJECT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1006
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_DELETE_OPTIONS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1007
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_OPTIMAL_TRANSFER_BUFFER_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1008
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_OBJECT_IDS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1009
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_DELETE_RESULTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1010
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_DESTINATION_FOLDER_OBJECT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1011
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_MOVE_RESULTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1012
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_COPY_RESULTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1013
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_UPDATE_PROPERTIES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1014
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_PROPERTY_KEYS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1015
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_OBJECT_MANAGEMENT_OBJECT_FORMAT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1016
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OPTION_OBJECT_MANAGEMENT_RECURSIVE_DELETE_SUPPORTED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5001
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_CAPABILITIES => Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_COMMANDS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CAPABILITIES_GET_COMMAND_OPTIONS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_FUNCTIONAL_CATEGORIES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CAPABILITIES_GET_FUNCTIONAL_OBJECTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_CONTENT_TYPES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_FORMATS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_FORMAT_PROPERTIES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CAPABILITIES_GET_FIXED_PROPERTY_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_EVENTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CAPABILITIES_GET_EVENT_OPTIONS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_SUPPORTED_COMMANDS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_COMMAND {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_COMMAND_OPTIONS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1003
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_FUNCTIONAL_CATEGORIES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1004
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_FUNCTIONAL_CATEGORY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1005
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_FUNCTIONAL_OBJECTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1006
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_CONTENT_TYPES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1007
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_CONTENT_TYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1008
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_FORMATS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1009
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_FORMAT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1010
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_PROPERTY_KEYS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1011
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_PROPERTY_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1012
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_SUPPORTED_EVENTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1013
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_EVENT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1014
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CAPABILITIES_EVENT_OPTIONS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1015
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_STORAGE => Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_STORAGE_FORMAT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_STORAGE_EJECT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_STORAGE_OBJECT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_STORAGE_DESTINATION_OBJECT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_SMS => Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SMS_SEND {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SMS_RECIPIENT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SMS_MESSAGE_TYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SMS_TEXT_MESSAGE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1003
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SMS_BINARY_MESSAGE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1004
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OPTION_SMS_BINARY_MESSAGE_SUPPORTED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5001
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_STILL_IMAGE_CAPTURE => Guid("{4fcd6982-22a2-4b05-a48b-62d38bf27b32}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_STILL_IMAGE_CAPTURE_INITIATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4fcd6982-22a2-4b05-a48b-62d38bf27b32}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_MEDIA_CAPTURE => Guid("{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_MEDIA_CAPTURE_START {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_MEDIA_CAPTURE_STOP {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_MEDIA_CAPTURE_PAUSE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_DEVICE_HINTS => Guid("{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_DEVICE_HINTS_GET_CONTENT_LOCATION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_DEVICE_HINTS_CONTENT_TYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_DEVICE_HINTS_CONTENT_LOCATIONS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CLASS_EXTENSION_V1 => Guid("{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CLASS_EXTENSION_WRITE_DEVICE_INFORMATION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CLASS_EXTENSION_DEVICE_INFORMATION_VALUES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CLASS_EXTENSION_DEVICE_INFORMATION_WRITE_RESULTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CLASS_EXTENSION_V2 => Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CLASS_EXTENSION_REGISTER_SERVICE_INTERFACES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_CLASS_EXTENSION_UNREGISTER_SERVICE_INTERFACES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CLASS_EXTENSION_SERVICE_OBJECT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CLASS_EXTENSION_SERVICE_INTERFACES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_CLASS_EXTENSION_SERVICE_REGISTRATION_RESULTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1003
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_NETWORK_CONFIGURATION => Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_GENERATE_KEYPAIR {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_COMMIT_KEYPAIR {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_PROCESS_WIRELESS_PROFILE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_PUBLIC_KEY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_SERVICE_COMMON => Guid("{322f071d-36ef-477f-b4b5-6f52d734baee}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_COMMON_GET_SERVICE_OBJECT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{322f071d-36ef-477f-b4b5-6f52d734baee}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_OBJECT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{322f071d-36ef-477f-b4b5-6f52d734baee}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_SERVICE_CAPABILITIES => Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_METHODS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_METHODS_BY_FORMAT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_METHOD_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_METHOD_PARAMETER_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_FORMATS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_FORMAT_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_FORMAT_PROPERTIES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_FORMAT_PROPERTY_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_EVENTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_EVENT_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_EVENT_PARAMETER_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_INHERITED_SERVICES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_FORMAT_RENDERING_PROFILES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 14
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_COMMANDS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 15
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_CAPABILITIES_GET_COMMAND_OPTIONS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 16
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_SUPPORTED_METHODS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_FORMAT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_METHOD {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1003
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_METHOD_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1004
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_PARAMETER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1005
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_PARAMETER_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1006
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_FORMATS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1007
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_FORMAT_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1008
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_PROPERTY_KEYS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1009
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_PROPERTY_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1010
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_SUPPORTED_EVENTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1011
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_EVENT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1012
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_EVENT_ATTRIBUTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1013
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_INHERITANCE_TYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1014
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_INHERITED_SERVICES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1015
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_RENDERING_PROFILES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1016
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_SUPPORTED_COMMANDS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1017
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_COMMAND {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1018
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_CAPABILITIES_COMMAND_OPTIONS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1019
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CATEGORY_SERVICE_METHODS => Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_METHODS_START_INVOKE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_METHODS_CANCEL_INVOKE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_SERVICE_METHODS_END_INVOKE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_METHOD {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_METHOD_PARAMETER_VALUES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_METHOD_RESULT_VALUES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1003
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_METHOD_CONTEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1004
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_SERVICE_METHOD_HRESULT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1005
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_RESOURCE_DEFAULT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e81e79be-34f0-41bf-b53f-f1a06ae87842}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_RESOURCE_CONTACT_PHOTO {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2c4d6803-80ea-4580-af9a-5be1a23eddcb}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_RESOURCE_THUMBNAIL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{c7c407ba-98fa-46b5-9960-23fec124cfde}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_RESOURCE_ICON {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f195fed8-aa28-4ee3-b153-e182dd5edc39}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_RESOURCE_AUDIO_CLIP {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{3bc13982-85b1-48e0-95a6-8d3ad06be117}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_RESOURCE_ALBUM_ART {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f02aa354-2300-4e2d-a1b9-3b6730f7fa21}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_RESOURCE_GENERIC {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b9b9f515-ba70-4647-94dc-fa4925e95a07}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_RESOURCE_VIDEO_CLIP {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b566ee42-6368-4290-8662-70182fb79f20}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_RESOURCE_BRANDING_ART {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b633b1ae-6caf-4a87-9589-22ded6dd5899}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_PROPERTIES_ONLY => Guid("{30010000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_UNSPECIFIED => Guid("{30000000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_SCRIPT => Guid("{30020000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_EXECUTABLE => Guid("{30030000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_TEXT => Guid("{30040000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_HTML => Guid("{30050000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_DPOF => Guid("{30060000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_AIFF => Guid("{30070000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_WAVE => Guid("{30080000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_MP3 => Guid("{30090000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_AVI => Guid("{300a0000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_MPEG => Guid("{300b0000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_ASF => Guid("{300c0000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_EXIF => Guid("{38010000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_TIFFEP => Guid("{38020000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_FLASHPIX => Guid("{38030000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_BMP => Guid("{38040000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_CIFF => Guid("{38050000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_GIF => Guid("{38070000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_JFIF => Guid("{38080000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_PCD => Guid("{38090000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_PICT => Guid("{380a0000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_PNG => Guid("{380b0000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_TIFF => Guid("{380d0000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_TIFFIT => Guid("{380e0000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_JP2 => Guid("{380f0000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_JPX => Guid("{38100000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_WBMP => Guid("{b8030000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_JPEGXR => Guid("{b8040000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_WINDOWSIMAGEFORMAT => Guid("{b8810000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_WMA => Guid("{b9010000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_WMV => Guid("{b9810000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_WPLPLAYLIST => Guid("{ba100000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_M3UPLAYLIST => Guid("{ba110000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_MPLPLAYLIST => Guid("{ba120000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_ASXPLAYLIST => Guid("{ba130000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_PLSPLAYLIST => Guid("{ba140000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_ABSTRACT_CONTACT_GROUP => Guid("{ba060000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_ABSTRACT_MEDIA_CAST => Guid("{ba0b0000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_VCALENDAR1 => Guid("{be020000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_ICALENDAR => Guid("{be030000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_ABSTRACT_CONTACT => Guid("{bb810000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_VCARD2 => Guid("{bb820000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_VCARD3 => Guid("{bb830000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_XML => Guid("{ba820000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_AAC => Guid("{b9030000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_AUDIBLE => Guid("{b9040000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_FLAC => Guid("{b9060000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_QCELP => Guid("{b9070000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_AMR => Guid("{b9080000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_OGG => Guid("{b9020000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_MP4 => Guid("{b9820000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_MP2 => Guid("{b9830000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_MICROSOFT_WORD => Guid("{ba830000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_MHT_COMPILED_HTML => Guid("{ba840000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_MICROSOFT_EXCEL => Guid("{ba850000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_MICROSOFT_POWERPOINT => Guid("{ba860000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_3GP => Guid("{b9840000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_3G2 => Guid("{b9850000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_AVCHD => Guid("{b9860000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_ATSCTS => Guid("{b9870000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_DVBTS => Guid("{b9880000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_OBJECT_FORMAT_MKV => Guid("{b9900000-ae6c-4804-98ba-c57b46965fe7}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_PARENT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_PERSISTENT_UNIQUE_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_FORMAT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_ISHIDDEN {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_ISSYSTEM {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_ORIGINAL_FILE_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_NON_CONSUMABLE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_KEYWORDS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 15
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_SYNC_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 16
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_IS_DRM_PROTECTED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 17
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_DATE_CREATED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 18
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_DATE_MODIFIED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 19
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_DATE_AUTHORED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 20
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_BACK_REFERENCES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 21
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_CAN_DELETE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 26
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_OBJECT_LANGUAGE_LOCALE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 27
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_FOLDER_OBJECT_PROPERTIES_V1 => Guid("{7e9a7abf-e568-4b34-aa2f-13bb12ab177d}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_FOLDER_CONTENT_TYPES_ALLOWED {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{7e9a7abf-e568-4b34-aa2f-13bb12ab177d}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_IMAGE_OBJECT_PROPERTIES_V1 => Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_IMAGE_BITDEPTH {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_IMAGE_CROPPED_STATUS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_IMAGE_COLOR_CORRECTED_STATUS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_IMAGE_FNUMBER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_IMAGE_EXPOSURE_TIME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_IMAGE_EXPOSURE_INDEX {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_IMAGE_HORIZONTAL_RESOLUTION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_IMAGE_VERTICAL_RESOLUTION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_DOCUMENT_OBJECT_PROPERTIES_V1 => Guid("{0b110203-eb95-4f02-93e0-97c631493ad5}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_MEDIA_PROPERTIES_V1 => Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_TOTAL_BITRATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_BITRATE_TYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_COPYRIGHT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_SUBSCRIPTION_CONTENT_ID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_USE_COUNT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_SKIP_COUNT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_LAST_ACCESSED_TIME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_PARENTAL_RATING {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_META_GENRE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_COMPOSER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_EFFECTIVE_RATING {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_SUB_TITLE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_RELEASE_DATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 14
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_SAMPLE_RATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 15
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_STAR_RATING {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 16
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_USER_EFFECTIVE_RATING {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 17
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_TITLE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 18
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_DURATION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 19
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_BUY_NOW {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 20
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_ENCODING_PROFILE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 21
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_WIDTH {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 22
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_HEIGHT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 23
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_ARTIST {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 24
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_ALBUM_ARTIST {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 25
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_OWNER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 26
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_MANAGING_EDITOR {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 27
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_WEBMASTER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 28
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_SOURCE_URL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 29
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_DESTINATION_URL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 30
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_DESCRIPTION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 31
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_GENRE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 32
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_TIME_BOOKMARK {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 33
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_OBJECT_BOOKMARK {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 34
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_LAST_BUILD_DATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 35
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_BYTE_BOOKMARK {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 36
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_TIME_TO_LIVE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 37
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_GUID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 38
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_SUB_DESCRIPTION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 39
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MEDIA_AUDIO_ENCODING_PROFILE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 49
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_CONTACT_OBJECT_PROPERTIES_V1 => Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_DISPLAY_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_FIRST_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_MIDDLE_NAMES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_LAST_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PREFIX {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_SUFFIX {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PHONETIC_FIRST_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PHONETIC_LAST_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_FULL_POSTAL_ADDRESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_LINE1 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_LINE2 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_CITY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_REGION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 14
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_POSTAL_CODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 15
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_COUNTRY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 16
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_FULL_POSTAL_ADDRESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 17
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_LINE1 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 18
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_LINE2 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 19
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_CITY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 20
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_REGION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 21
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_POSTAL_CODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 22
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_COUNTRY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 23
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_OTHER_FULL_POSTAL_ADDRESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 24
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_OTHER_POSTAL_ADDRESS_LINE1 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 25
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_OTHER_POSTAL_ADDRESS_LINE2 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 26
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_OTHER_POSTAL_ADDRESS_CITY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 27
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_OTHER_POSTAL_ADDRESS_REGION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 28
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_OTHER_POSTAL_ADDRESS_POSTAL_CODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 29
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_OTHER_POSTAL_ADDRESS_POSTAL_COUNTRY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 30
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PRIMARY_EMAIL_ADDRESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 31
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_EMAIL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 32
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_EMAIL2 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 33
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_EMAIL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 34
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_EMAIL2 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 35
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_OTHER_EMAILS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 36
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PRIMARY_PHONE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 37
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_PHONE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 38
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_PHONE2 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 39
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_PHONE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 40
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_PHONE2 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 41
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_MOBILE_PHONE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 42
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_MOBILE_PHONE2 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 43
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_FAX {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 44
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_FAX {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 45
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PAGER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 46
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_OTHER_PHONES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 47
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PRIMARY_WEB_ADDRESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 48
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PERSONAL_WEB_ADDRESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 49
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BUSINESS_WEB_ADDRESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 50
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_INSTANT_MESSENGER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 51
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_INSTANT_MESSENGER2 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 52
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_INSTANT_MESSENGER3 {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 53
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_COMPANY_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 54
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PHONETIC_COMPANY_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 55
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_ROLE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 56
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_BIRTHDATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 57
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_PRIMARY_FAX {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 58
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_SPOUSE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 59
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_CHILDREN {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 60
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_ASSISTANT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 61
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_ANNIVERSARY_DATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 62
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_CONTACT_RINGTONE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 63
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_MUSIC_OBJECT_PROPERTIES_V1 => Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MUSIC_ALBUM {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MUSIC_TRACK {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MUSIC_LYRICS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_MUSIC_MOOD {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_AUDIO_BITRATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_AUDIO_CHANNEL_COUNT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_AUDIO_FORMAT_CODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_AUDIO_BIT_DEPTH {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_AUDIO_BLOCK_ALIGNMENT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_VIDEO_OBJECT_PROPERTIES_V1 => Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_VIDEO_AUTHOR {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_VIDEO_RECORDEDTV_STATION_NAME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_VIDEO_RECORDEDTV_CHANNEL_NUMBER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_VIDEO_RECORDEDTV_REPEAT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_VIDEO_BUFFER_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_VIDEO_CREDITS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_VIDEO_KEY_FRAME_DISTANCE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_VIDEO_QUALITY_SETTING {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_VIDEO_SCAN_TYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_VIDEO_BITRATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_VIDEO_FOURCC_CODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 14
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_VIDEO_FRAMERATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 15
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_COMMON_INFORMATION_OBJECT_PROPERTIES_V1 => Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMON_INFORMATION_SUBJECT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMON_INFORMATION_BODY_TEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMON_INFORMATION_PRIORITY {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMON_INFORMATION_START_DATETIME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMON_INFORMATION_END_DATETIME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMON_INFORMATION_NOTES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_MEMO_OBJECT_PROPERTIES_V1 => Guid("{5ffbfc7b-7483-41ad-afb9-da3f4e592b8d}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_EMAIL_OBJECT_PROPERTIES_V1 => Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EMAIL_TO_LINE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EMAIL_CC_LINE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EMAIL_BCC_LINE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EMAIL_HAS_BEEN_READ {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EMAIL_RECEIVED_TIME {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EMAIL_HAS_ATTACHMENTS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_EMAIL_SENDER_ADDRESS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_APPOINTMENT_OBJECT_PROPERTIES_V1 => Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_APPOINTMENT_LOCATION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_APPOINTMENT_TYPE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_APPOINTMENT_REQUIRED_ATTENDEES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_APPOINTMENT_OPTIONAL_ATTENDEES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_APPOINTMENT_ACCEPTED_ATTENDEES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_APPOINTMENT_RESOURCES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_APPOINTMENT_TENTATIVE_ATTENDEES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_APPOINTMENT_DECLINED_ATTENDEES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_TASK_OBJECT_PROPERTIES_V1 => Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_TASK_STATUS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_TASK_PERCENT_COMPLETE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_TASK_REMINDER_DATE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 10
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_TASK_OWNER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_SMS_OBJECT_PROPERTIES_V1 => Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_SMS_PROVIDER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_SMS_TIMEOUT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_SMS_MAX_PAYLOAD {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_SMS_ENCODING {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_SECTION_OBJECT_PROPERTIES_V1 => Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_SECTION_DATA_OFFSET {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_SECTION_DATA_LENGTH {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_SECTION_DATA_UNITS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_SECTION_DATA_REFERENCED_OBJECT_RESOURCE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
 
     /**
      * @type {String}
@@ -2581,34 +9695,411 @@ class PortableDevices {
     static NAME_TaskObj_EndDate => "EndDate"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WPD_CATEGORY_MTP_EXT_VENDOR_OPERATIONS => "{4d545058-1a2e-4106-a357-771e0819fc56}"
+    static WPD_CATEGORY_MTP_EXT_VENDOR_OPERATIONS => Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_PROPERTIES_MTP_VENDOR_EXTENDED_OBJECT_PROPS => "{4d545058-4fce-4578-95c8-8698a9bc0f49}"
+    static WPD_COMMAND_MTP_EXT_GET_SUPPORTED_VENDOR_OPCODES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 11
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_PROPERTIES_MTP_VENDOR_EXTENDED_DEVICE_PROPS => "{4d545058-8900-40b3-8f1d-dc246e1e8370}"
+    static WPD_COMMAND_MTP_EXT_EXECUTE_COMMAND_WITHOUT_DATA_PHASE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 12
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPD_EVENT_MTP_VENDOR_EXTENDED_EVENTS => "{00000000-5738-4ff2-8445-be3126691059}"
+    static WPD_COMMAND_MTP_EXT_EXECUTE_COMMAND_WITH_DATA_TO_READ {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 13
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static CLSID_WPD_NAMESPACE_EXTENSION => "{35786d3c-b075-49b9-88dd-029876e11c01}"
+    static WPD_COMMAND_MTP_EXT_EXECUTE_COMMAND_WITH_DATA_TO_WRITE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 14
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static WPDNSE_OBJECT_PROPERTIES_V1 => "{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}"
+    static WPD_COMMAND_MTP_EXT_READ_DATA {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 15
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_MTP_EXT_WRITE_DATA {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 16
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_MTP_EXT_END_DATA_TRANSFER {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 17
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_COMMAND_MTP_EXT_GET_VENDOR_EXTENSION_DESCRIPTION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 18
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_OPERATION_CODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1001
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_OPERATION_PARAMS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1002
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_RESPONSE_CODE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1003
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_RESPONSE_PARAMS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1004
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_VENDOR_OPERATION_CODES {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1005
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_TRANSFER_CONTEXT {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1006
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_TRANSFER_TOTAL_DATA_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1007
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_TO_READ {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1008
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_READ {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1009
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_TO_WRITE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1010
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_WRITTEN {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1011
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_TRANSFER_DATA {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1012
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_OPTIMAL_TRANSFER_BUFFER_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1013
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_VENDOR_EXTENSION_DESCRIPTION {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1014
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_PROPERTIES_MTP_VENDOR_EXTENDED_OBJECT_PROPS => Guid("{4d545058-4fce-4578-95c8-8698a9bc0f49}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_PROPERTIES_MTP_VENDOR_EXTENDED_DEVICE_PROPS => Guid("{4d545058-8900-40b3-8f1d-dc246e1e8370}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPD_EVENT_MTP_VENDOR_EXTENDED_EVENTS => Guid("{00000000-5738-4ff2-8445-be3126691059}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPD_PROPERTY_MTP_EXT_EVENT_PARAMS {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{4d545058-ef88-4e4d-95c3-4f327f728a96}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1011
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static CLSID_WPD_NAMESPACE_EXTENSION => Guid("{35786d3c-b075-49b9-88dd-029876e11c01}")
+
+    /**
+     * @type {Guid}
+     */
+    static WPDNSE_OBJECT_PROPERTIES_V1 => Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPDNSE_OBJECT_HAS_CONTACT_PHOTO {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPDNSE_OBJECT_HAS_THUMBNAIL {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPDNSE_OBJECT_HAS_ICON {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPDNSE_OBJECT_HAS_AUDIO_CLIP {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPDNSE_OBJECT_HAS_ALBUM_ART {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static WPDNSE_OBJECT_OPTIMAL_READ_BLOCK_SIZE {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
 
     /**
      * @type {Integer (UInt32)}

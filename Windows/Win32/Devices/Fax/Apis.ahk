@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IStillImageW.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -636,19 +638,19 @@ class Fax {
     static FAX_JOB_MANAGE => 64
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FAXSRV_DEVICE_NODETYPE_GUID => "{3115a19a-6251-46ac-9425-14782858b8c9}"
+    static FAXSRV_DEVICE_NODETYPE_GUID => Guid("{3115a19a-6251-46ac-9425-14782858b8c9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FAXSRV_DEVICE_PROVIDER_NODETYPE_GUID => "{bd38e2ac-b926-4161-8640-0f6956ee2ba3}"
+    static FAXSRV_DEVICE_PROVIDER_NODETYPE_GUID => Guid("{bd38e2ac-b926-4161-8640-0f6956ee2ba3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FAXSRV_ROUTING_METHOD_NODETYPE_GUID => "{220d2cb0-85a9-4a43-b6e8-9d66b44f1af5}"
+    static FAXSRV_ROUTING_METHOD_NODETYPE_GUID => Guid("{220d2cb0-85a9-4a43-b6e8-9d66b44f1af5}")
 
     /**
      * @type {String}
@@ -681,44 +683,44 @@ class Fax {
     static STI_UNICODE => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_Sti => "{b323f8e0-2e68-11d0-90ea-00aa0060f86c}"
+    static CLSID_Sti => Guid("{b323f8e0-2e68-11d0-90ea-00aa0060f86c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DeviceArrivedLaunch => "{740d9ee6-70f1-11d1-ad10-00a02438ad48}"
+    static GUID_DeviceArrivedLaunch => Guid("{740d9ee6-70f1-11d1-ad10-00a02438ad48}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ScanImage => "{a6c5a715-8c6e-11d2-977a-0000f87a926f}"
+    static GUID_ScanImage => Guid("{a6c5a715-8c6e-11d2-977a-0000f87a926f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ScanPrintImage => "{b441f425-8c6e-11d2-977a-0000f87a926f}"
+    static GUID_ScanPrintImage => Guid("{b441f425-8c6e-11d2-977a-0000f87a926f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ScanFaxImage => "{c00eb793-8c6e-11d2-977a-0000f87a926f}"
+    static GUID_ScanFaxImage => Guid("{c00eb793-8c6e-11d2-977a-0000f87a926f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_STIUserDefined1 => "{c00eb795-8c6e-11d2-977a-0000f87a926f}"
+    static GUID_STIUserDefined1 => Guid("{c00eb795-8c6e-11d2-977a-0000f87a926f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_STIUserDefined2 => "{c77ae9c5-8c6e-11d2-977a-0000f87a926f}"
+    static GUID_STIUserDefined2 => Guid("{c77ae9c5-8c6e-11d2-977a-0000f87a926f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_STIUserDefined3 => "{c77ae9c6-8c6e-11d2-977a-0000f87a926f}"
+    static GUID_STIUserDefined3 => Guid("{c77ae9c6-8c6e-11d2-977a-0000f87a926f}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1319,6 +1321,32 @@ class Fax {
      * @type {String}
      */
     static REGSTR_VAL_BAUDRATE_A => "BaudRate"
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WIA_DeviceType {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{6bdd1fc6-810f-11d0-bec7-08002be2092f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_WIA_USDClassId {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{6bdd1fc6-810f-11d0-bec7-08002be2092f}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
 
     /**
      * @type {Integer (UInt32)}

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\Apis.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
@@ -11,14 +13,14 @@ class RemoteDesktop {
 ;@region Constants
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HANDLE}
      */
-    static WTS_CURRENT_SERVER => 0
+    static WTS_CURRENT_SERVER => HANDLE({Value: 0}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HANDLE}
      */
-    static WTS_CURRENT_SERVER_HANDLE => 0
+    static WTS_CURRENT_SERVER_HANDLE => HANDLE({Value: 0}, false)
 
     /**
      * @type {String}
@@ -1211,64 +1213,64 @@ class RemoteDesktop {
     static DISPID_AX_TOUCHPOINTERCURSORMOVED => 800
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RDCLIENT_BITMAP_RENDER_SERVICE => "{e4cc08cb-942e-4b19-8504-bd5a89a747f5}"
+    static RDCLIENT_BITMAP_RENDER_SERVICE => Guid("{e4cc08cb-942e-4b19-8504-bd5a89a747f5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WTS_QUERY_ALLOWED_INITIAL_APP => "{c77d1b30-5be1-4c6b-a0e1-bd6d2e5c9fcc}"
+    static WTS_QUERY_ALLOWED_INITIAL_APP => Guid("{c77d1b30-5be1-4c6b-a0e1-bd6d2e5c9fcc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WTS_QUERY_LOGON_SCREEN_SIZE => "{8b8e0fe7-0804-4a0e-b279-8660b1df0049}"
+    static WTS_QUERY_LOGON_SCREEN_SIZE => Guid("{8b8e0fe7-0804-4a0e-b279-8660b1df0049}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WTS_QUERY_AUDIOENUM_DLL => "{9bf4fa97-c883-4c2a-80ab-5a39c9af00db}"
+    static WTS_QUERY_AUDIOENUM_DLL => Guid("{9bf4fa97-c883-4c2a-80ab-5a39c9af00db}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WTS_QUERY_MF_FORMAT_SUPPORT => "{41869ad0-6332-4dc8-95d5-db749e2f1d94}"
+    static WTS_QUERY_MF_FORMAT_SUPPORT => Guid("{41869ad0-6332-4dc8-95d5-db749e2f1d94}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WRDS_SERVICE_ID_GRAPHICS_GUID => "{d2993f4d-02cf-4280-8c48-1624b44f8706}"
+    static WRDS_SERVICE_ID_GRAPHICS_GUID => Guid("{d2993f4d-02cf-4280-8c48-1624b44f8706}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPERTY_DYNAMIC_TIME_ZONE_INFORMATION => "{0cdfd28e-d0b9-4c1f-a5eb-6d1f6c6535b9}"
+    static PROPERTY_DYNAMIC_TIME_ZONE_INFORMATION => Guid("{0cdfd28e-d0b9-4c1f-a5eb-6d1f6c6535b9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPERTY_TYPE_GET_FAST_RECONNECT => "{6212d757-0043-4862-99c3-9f3059ac2a3b}"
+    static PROPERTY_TYPE_GET_FAST_RECONNECT => Guid("{6212d757-0043-4862-99c3-9f3059ac2a3b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPERTY_TYPE_GET_FAST_RECONNECT_USER_SID => "{197c427a-0135-4b6d-9c5e-e6579a0ab625}"
+    static PROPERTY_TYPE_GET_FAST_RECONNECT_USER_SID => Guid("{197c427a-0135-4b6d-9c5e-e6579a0ab625}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPERTY_TYPE_ENABLE_UNIVERSAL_APPS_FOR_CUSTOM_SHELL => "{ed2c3fda-338d-4d3f-81a3-e767310d908e}"
+    static PROPERTY_TYPE_ENABLE_UNIVERSAL_APPS_FOR_CUSTOM_SHELL => Guid("{ed2c3fda-338d-4d3f-81a3-e767310d908e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CONNECTION_PROPERTY_IDLE_TIME_WARNING => "{693f7ff5-0c4e-4d17-b8e0-1f70325e5d58}"
+    static CONNECTION_PROPERTY_IDLE_TIME_WARNING => Guid("{693f7ff5-0c4e-4d17-b8e0-1f70325e5d58}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CONNECTION_PROPERTY_CURSOR_BLINK_DISABLED => "{4b150580-fea4-4d3c-9de4-7433a66618f7}"
+    static CONNECTION_PROPERTY_CURSOR_BLINK_DISABLED => Guid("{4b150580-fea4-4d3c-9de4-7433a66618f7}")
 ;@endregion Constants
 
 ;@region Methods

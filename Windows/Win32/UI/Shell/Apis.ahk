@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\Apis.ahk
 #Include ..\..\System\LibraryLoader\Apis.ahk
 #Include .\IShellItemArray.ahk
@@ -123,764 +124,764 @@ class Shell {
     static HLINK_S_DONTHIDE => 262400
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_NetworkFolder => "{d20beec4-5ca8-4905-ae3b-bf251ea09b53}"
+    static FOLDERID_NetworkFolder => Guid("{d20beec4-5ca8-4905-ae3b-bf251ea09b53}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ComputerFolder => "{0ac0837c-bbf8-452a-850d-79d08e667ca7}"
+    static FOLDERID_ComputerFolder => Guid("{0ac0837c-bbf8-452a-850d-79d08e667ca7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_InternetFolder => "{4d9f7874-4e0c-4904-967b-40b0d20c3e4b}"
+    static FOLDERID_InternetFolder => Guid("{4d9f7874-4e0c-4904-967b-40b0d20c3e4b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ControlPanelFolder => "{82a74aeb-aeb4-465c-a014-d097ee346d63}"
+    static FOLDERID_ControlPanelFolder => Guid("{82a74aeb-aeb4-465c-a014-d097ee346d63}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PrintersFolder => "{76fc4e2d-d6ad-4519-a663-37bd56068185}"
+    static FOLDERID_PrintersFolder => Guid("{76fc4e2d-d6ad-4519-a663-37bd56068185}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SyncManagerFolder => "{43668bf8-c14e-49b2-97c9-747784d784b7}"
+    static FOLDERID_SyncManagerFolder => Guid("{43668bf8-c14e-49b2-97c9-747784d784b7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SyncSetupFolder => "{0f214138-b1d3-4a90-bba9-27cbc0c5389a}"
+    static FOLDERID_SyncSetupFolder => Guid("{0f214138-b1d3-4a90-bba9-27cbc0c5389a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ConflictFolder => "{4bfefb45-347d-4006-a5be-ac0cb0567192}"
+    static FOLDERID_ConflictFolder => Guid("{4bfefb45-347d-4006-a5be-ac0cb0567192}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SyncResultsFolder => "{289a9a43-be44-4057-a41b-587a76d7e7f9}"
+    static FOLDERID_SyncResultsFolder => Guid("{289a9a43-be44-4057-a41b-587a76d7e7f9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_RecycleBinFolder => "{b7534046-3ecb-4c18-be4e-64cd4cb7d6ac}"
+    static FOLDERID_RecycleBinFolder => Guid("{b7534046-3ecb-4c18-be4e-64cd4cb7d6ac}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ConnectionsFolder => "{6f0cd92b-2e97-45d1-88ff-b0d186b8dedd}"
+    static FOLDERID_ConnectionsFolder => Guid("{6f0cd92b-2e97-45d1-88ff-b0d186b8dedd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Fonts => "{fd228cb7-ae11-4ae3-864c-16f3910ab8fe}"
+    static FOLDERID_Fonts => Guid("{fd228cb7-ae11-4ae3-864c-16f3910ab8fe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Desktop => "{b4bfcc3a-db2c-424c-b029-7fe99a87c641}"
+    static FOLDERID_Desktop => Guid("{b4bfcc3a-db2c-424c-b029-7fe99a87c641}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Startup => "{b97d20bb-f46a-4c97-ba10-5e3608430854}"
+    static FOLDERID_Startup => Guid("{b97d20bb-f46a-4c97-ba10-5e3608430854}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Programs => "{a77f5d77-2e2b-44c3-a6a2-aba601054a51}"
+    static FOLDERID_Programs => Guid("{a77f5d77-2e2b-44c3-a6a2-aba601054a51}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_StartMenu => "{625b53c3-ab48-4ec1-ba1f-a1ef4146fc19}"
+    static FOLDERID_StartMenu => Guid("{625b53c3-ab48-4ec1-ba1f-a1ef4146fc19}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Recent => "{ae50c081-ebd2-438a-8655-8a092e34987a}"
+    static FOLDERID_Recent => Guid("{ae50c081-ebd2-438a-8655-8a092e34987a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SendTo => "{8983036c-27c0-404b-8f08-102d10dcfd74}"
+    static FOLDERID_SendTo => Guid("{8983036c-27c0-404b-8f08-102d10dcfd74}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Documents => "{fdd39ad0-238f-46af-adb4-6c85480369c7}"
+    static FOLDERID_Documents => Guid("{fdd39ad0-238f-46af-adb4-6c85480369c7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Favorites => "{1777f761-68ad-4d8a-87bd-30b759fa33dd}"
+    static FOLDERID_Favorites => Guid("{1777f761-68ad-4d8a-87bd-30b759fa33dd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_NetHood => "{c5abbf53-e17f-4121-8900-86626fc2c973}"
+    static FOLDERID_NetHood => Guid("{c5abbf53-e17f-4121-8900-86626fc2c973}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PrintHood => "{9274bd8d-cfd1-41c3-b35e-b13f55a758f4}"
+    static FOLDERID_PrintHood => Guid("{9274bd8d-cfd1-41c3-b35e-b13f55a758f4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Templates => "{a63293e8-664e-48db-a079-df759e0509f7}"
+    static FOLDERID_Templates => Guid("{a63293e8-664e-48db-a079-df759e0509f7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_CommonStartup => "{82a5ea35-d9cd-47c5-9629-e15d2f714e6e}"
+    static FOLDERID_CommonStartup => Guid("{82a5ea35-d9cd-47c5-9629-e15d2f714e6e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_CommonPrograms => "{0139d44e-6afe-49f2-8690-3dafcae6ffb8}"
+    static FOLDERID_CommonPrograms => Guid("{0139d44e-6afe-49f2-8690-3dafcae6ffb8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_CommonStartMenu => "{a4115719-d62e-491d-aa7c-e74b8be3b067}"
+    static FOLDERID_CommonStartMenu => Guid("{a4115719-d62e-491d-aa7c-e74b8be3b067}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PublicDesktop => "{c4aa340d-f20f-4863-afef-f87ef2e6ba25}"
+    static FOLDERID_PublicDesktop => Guid("{c4aa340d-f20f-4863-afef-f87ef2e6ba25}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ProgramData => "{62ab5d82-fdc1-4dc3-a9dd-070d1d495d97}"
+    static FOLDERID_ProgramData => Guid("{62ab5d82-fdc1-4dc3-a9dd-070d1d495d97}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_CommonTemplates => "{b94237e7-57ac-4347-9151-b08c6c32d1f7}"
+    static FOLDERID_CommonTemplates => Guid("{b94237e7-57ac-4347-9151-b08c6c32d1f7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PublicDocuments => "{ed4824af-dce4-45a8-81e2-fc7965083634}"
+    static FOLDERID_PublicDocuments => Guid("{ed4824af-dce4-45a8-81e2-fc7965083634}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_RoamingAppData => "{3eb685db-65f9-4cf6-a03a-e3ef65729f3d}"
+    static FOLDERID_RoamingAppData => Guid("{3eb685db-65f9-4cf6-a03a-e3ef65729f3d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_LocalAppData => "{f1b32785-6fba-4fcf-9d55-7b8e7f157091}"
+    static FOLDERID_LocalAppData => Guid("{f1b32785-6fba-4fcf-9d55-7b8e7f157091}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_LocalAppDataLow => "{a520a1a4-1780-4ff6-bd18-167343c5af16}"
+    static FOLDERID_LocalAppDataLow => Guid("{a520a1a4-1780-4ff6-bd18-167343c5af16}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_InternetCache => "{352481e8-33be-4251-ba85-6007caedcf9d}"
+    static FOLDERID_InternetCache => Guid("{352481e8-33be-4251-ba85-6007caedcf9d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Cookies => "{2b0f765d-c0e9-4171-908e-08a611b84ff6}"
+    static FOLDERID_Cookies => Guid("{2b0f765d-c0e9-4171-908e-08a611b84ff6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_History => "{d9dc8a3b-b784-432e-a781-5a1130a75963}"
+    static FOLDERID_History => Guid("{d9dc8a3b-b784-432e-a781-5a1130a75963}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_System => "{1ac14e77-02e7-4e5d-b744-2eb1ae5198b7}"
+    static FOLDERID_System => Guid("{1ac14e77-02e7-4e5d-b744-2eb1ae5198b7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SystemX86 => "{d65231b0-b2f1-4857-a4ce-a8e7c6ea7d27}"
+    static FOLDERID_SystemX86 => Guid("{d65231b0-b2f1-4857-a4ce-a8e7c6ea7d27}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Windows => "{f38bf404-1d43-42f2-9305-67de0b28fc23}"
+    static FOLDERID_Windows => Guid("{f38bf404-1d43-42f2-9305-67de0b28fc23}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Profile => "{5e6c858f-0e22-4760-9afe-ea3317b67173}"
+    static FOLDERID_Profile => Guid("{5e6c858f-0e22-4760-9afe-ea3317b67173}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Pictures => "{33e28130-4e1e-4676-835a-98395c3bc3bb}"
+    static FOLDERID_Pictures => Guid("{33e28130-4e1e-4676-835a-98395c3bc3bb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ProgramFilesX86 => "{7c5a40ef-a0fb-4bfc-874a-c0f2e0b9fa8e}"
+    static FOLDERID_ProgramFilesX86 => Guid("{7c5a40ef-a0fb-4bfc-874a-c0f2e0b9fa8e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ProgramFilesCommonX86 => "{de974d24-d9c6-4d3e-bf91-f4455120b917}"
+    static FOLDERID_ProgramFilesCommonX86 => Guid("{de974d24-d9c6-4d3e-bf91-f4455120b917}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ProgramFilesX64 => "{6d809377-6af0-444b-8957-a3773f02200e}"
+    static FOLDERID_ProgramFilesX64 => Guid("{6d809377-6af0-444b-8957-a3773f02200e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ProgramFilesCommonX64 => "{6365d5a7-0f0d-45e5-87f6-0da56b6a4f7d}"
+    static FOLDERID_ProgramFilesCommonX64 => Guid("{6365d5a7-0f0d-45e5-87f6-0da56b6a4f7d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ProgramFiles => "{905e63b6-c1bf-494e-b29c-65b732d3d21a}"
+    static FOLDERID_ProgramFiles => Guid("{905e63b6-c1bf-494e-b29c-65b732d3d21a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ProgramFilesCommon => "{f7f1ed05-9f6d-47a2-aaae-29d317c6f066}"
+    static FOLDERID_ProgramFilesCommon => Guid("{f7f1ed05-9f6d-47a2-aaae-29d317c6f066}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_UserProgramFiles => "{5cd7aee2-2219-4a67-b85d-6c9ce15660cb}"
+    static FOLDERID_UserProgramFiles => Guid("{5cd7aee2-2219-4a67-b85d-6c9ce15660cb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_UserProgramFilesCommon => "{bcbd3057-ca5c-4622-b42d-bc56db0ae516}"
+    static FOLDERID_UserProgramFilesCommon => Guid("{bcbd3057-ca5c-4622-b42d-bc56db0ae516}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_AdminTools => "{724ef170-a42d-4fef-9f26-b60e846fba4f}"
+    static FOLDERID_AdminTools => Guid("{724ef170-a42d-4fef-9f26-b60e846fba4f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_CommonAdminTools => "{d0384e7d-bac3-4797-8f14-cba229b392b5}"
+    static FOLDERID_CommonAdminTools => Guid("{d0384e7d-bac3-4797-8f14-cba229b392b5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Music => "{4bd8d571-6d19-48d3-be97-422220080e43}"
+    static FOLDERID_Music => Guid("{4bd8d571-6d19-48d3-be97-422220080e43}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Videos => "{18989b1d-99b5-455b-841c-ab7c74e4ddfc}"
+    static FOLDERID_Videos => Guid("{18989b1d-99b5-455b-841c-ab7c74e4ddfc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Ringtones => "{c870044b-f49e-4126-a9c3-b52a1ff411e8}"
+    static FOLDERID_Ringtones => Guid("{c870044b-f49e-4126-a9c3-b52a1ff411e8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PublicPictures => "{b6ebfb86-6907-413c-9af7-4fc2abf07cc5}"
+    static FOLDERID_PublicPictures => Guid("{b6ebfb86-6907-413c-9af7-4fc2abf07cc5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PublicMusic => "{3214fab5-9757-4298-bb61-92a9deaa44ff}"
+    static FOLDERID_PublicMusic => Guid("{3214fab5-9757-4298-bb61-92a9deaa44ff}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PublicVideos => "{2400183a-6185-49fb-a2d8-4a392a602ba3}"
+    static FOLDERID_PublicVideos => Guid("{2400183a-6185-49fb-a2d8-4a392a602ba3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PublicRingtones => "{e555ab60-153b-4d17-9f04-a5fe99fc15ec}"
+    static FOLDERID_PublicRingtones => Guid("{e555ab60-153b-4d17-9f04-a5fe99fc15ec}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ResourceDir => "{8ad10c31-2adb-4296-a8f7-e4701232c972}"
+    static FOLDERID_ResourceDir => Guid("{8ad10c31-2adb-4296-a8f7-e4701232c972}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_LocalizedResourcesDir => "{2a00375e-224c-49de-b8d1-440df7ef3ddc}"
+    static FOLDERID_LocalizedResourcesDir => Guid("{2a00375e-224c-49de-b8d1-440df7ef3ddc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_CommonOEMLinks => "{c1bae2d0-10df-4334-bedd-7aa20b227a9d}"
+    static FOLDERID_CommonOEMLinks => Guid("{c1bae2d0-10df-4334-bedd-7aa20b227a9d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_CDBurning => "{9e52ab10-f80d-49df-acb8-4330f5687855}"
+    static FOLDERID_CDBurning => Guid("{9e52ab10-f80d-49df-acb8-4330f5687855}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_UserProfiles => "{0762d272-c50a-4bb0-a382-697dcd729b80}"
+    static FOLDERID_UserProfiles => Guid("{0762d272-c50a-4bb0-a382-697dcd729b80}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Playlists => "{de92c1c7-837f-4f69-a3bb-86e631204a23}"
+    static FOLDERID_Playlists => Guid("{de92c1c7-837f-4f69-a3bb-86e631204a23}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SamplePlaylists => "{15ca69b3-30ee-49c1-ace1-6b5ec372afb5}"
+    static FOLDERID_SamplePlaylists => Guid("{15ca69b3-30ee-49c1-ace1-6b5ec372afb5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SampleMusic => "{b250c668-f57d-4ee1-a63c-290ee7d1aa1f}"
+    static FOLDERID_SampleMusic => Guid("{b250c668-f57d-4ee1-a63c-290ee7d1aa1f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SamplePictures => "{c4900540-2379-4c75-844b-64e6faf8716b}"
+    static FOLDERID_SamplePictures => Guid("{c4900540-2379-4c75-844b-64e6faf8716b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SampleVideos => "{859ead94-2e85-48ad-a71a-0969cb56a6cd}"
+    static FOLDERID_SampleVideos => Guid("{859ead94-2e85-48ad-a71a-0969cb56a6cd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PhotoAlbums => "{69d2cf90-fc33-4fb7-9a0c-ebb0f0fcb43c}"
+    static FOLDERID_PhotoAlbums => Guid("{69d2cf90-fc33-4fb7-9a0c-ebb0f0fcb43c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Public => "{dfdf76a2-c82a-4d63-906a-5644ac457385}"
+    static FOLDERID_Public => Guid("{dfdf76a2-c82a-4d63-906a-5644ac457385}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ChangeRemovePrograms => "{df7266ac-9274-4867-8d55-3bd661de872d}"
+    static FOLDERID_ChangeRemovePrograms => Guid("{df7266ac-9274-4867-8d55-3bd661de872d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_AppUpdates => "{a305ce99-f527-492b-8b1a-7e76fa98d6e4}"
+    static FOLDERID_AppUpdates => Guid("{a305ce99-f527-492b-8b1a-7e76fa98d6e4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_AddNewPrograms => "{de61d971-5ebc-4f02-a3a9-6c82895e5c04}"
+    static FOLDERID_AddNewPrograms => Guid("{de61d971-5ebc-4f02-a3a9-6c82895e5c04}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Downloads => "{374de290-123f-4565-9164-39c4925e467b}"
+    static FOLDERID_Downloads => Guid("{374de290-123f-4565-9164-39c4925e467b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PublicDownloads => "{3d644c9b-1fb8-4f30-9b45-f670235f79c0}"
+    static FOLDERID_PublicDownloads => Guid("{3d644c9b-1fb8-4f30-9b45-f670235f79c0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SavedSearches => "{7d1d3a04-debb-4115-95cf-2f29da2920da}"
+    static FOLDERID_SavedSearches => Guid("{7d1d3a04-debb-4115-95cf-2f29da2920da}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_QuickLaunch => "{52a4f021-7b75-48a9-9f6b-4b87a210bc8f}"
+    static FOLDERID_QuickLaunch => Guid("{52a4f021-7b75-48a9-9f6b-4b87a210bc8f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Contacts => "{56784854-c6cb-462b-8169-88e350acb882}"
+    static FOLDERID_Contacts => Guid("{56784854-c6cb-462b-8169-88e350acb882}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SidebarParts => "{a75d362e-50fc-4fb7-ac2c-a8beaa314493}"
+    static FOLDERID_SidebarParts => Guid("{a75d362e-50fc-4fb7-ac2c-a8beaa314493}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SidebarDefaultParts => "{7b396e54-9ec5-4300-be0a-2482ebae1a26}"
+    static FOLDERID_SidebarDefaultParts => Guid("{7b396e54-9ec5-4300-be0a-2482ebae1a26}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PublicGameTasks => "{debf2536-e1a8-4c59-b6a2-414586476aea}"
+    static FOLDERID_PublicGameTasks => Guid("{debf2536-e1a8-4c59-b6a2-414586476aea}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_GameTasks => "{054fae61-4dd8-4787-80b6-090220c4b700}"
+    static FOLDERID_GameTasks => Guid("{054fae61-4dd8-4787-80b6-090220c4b700}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SavedGames => "{4c5c32ff-bb9d-43b0-b5b4-2d72e54eaaa4}"
+    static FOLDERID_SavedGames => Guid("{4c5c32ff-bb9d-43b0-b5b4-2d72e54eaaa4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Games => "{cac52c1a-b53d-4edc-92d7-6b2e8ac19434}"
+    static FOLDERID_Games => Guid("{cac52c1a-b53d-4edc-92d7-6b2e8ac19434}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SEARCH_MAPI => "{98ec0e18-2098-4d44-8644-66979315a281}"
+    static FOLDERID_SEARCH_MAPI => Guid("{98ec0e18-2098-4d44-8644-66979315a281}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SEARCH_CSC => "{ee32e446-31ca-4aba-814f-a5ebd2fd6d5e}"
+    static FOLDERID_SEARCH_CSC => Guid("{ee32e446-31ca-4aba-814f-a5ebd2fd6d5e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Links => "{bfb9d5e0-c6a9-404c-b2b2-ae6db6af4968}"
+    static FOLDERID_Links => Guid("{bfb9d5e0-c6a9-404c-b2b2-ae6db6af4968}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_UsersFiles => "{f3ce0f7c-4901-4acc-8648-d5d44b04ef8f}"
+    static FOLDERID_UsersFiles => Guid("{f3ce0f7c-4901-4acc-8648-d5d44b04ef8f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_UsersLibraries => "{a302545d-deff-464b-abe8-61c8648d939b}"
+    static FOLDERID_UsersLibraries => Guid("{a302545d-deff-464b-abe8-61c8648d939b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SearchHome => "{190337d1-b8ca-4121-a639-6d472d16972a}"
+    static FOLDERID_SearchHome => Guid("{190337d1-b8ca-4121-a639-6d472d16972a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_OriginalImages => "{2c36c0aa-5812-4b87-bfd0-4cd0dfb19b39}"
+    static FOLDERID_OriginalImages => Guid("{2c36c0aa-5812-4b87-bfd0-4cd0dfb19b39}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_DocumentsLibrary => "{7b0db17d-9cd2-4a93-9733-46cc89022e7c}"
+    static FOLDERID_DocumentsLibrary => Guid("{7b0db17d-9cd2-4a93-9733-46cc89022e7c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_MusicLibrary => "{2112ab0a-c86a-4ffe-a368-0de96e47012e}"
+    static FOLDERID_MusicLibrary => Guid("{2112ab0a-c86a-4ffe-a368-0de96e47012e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PicturesLibrary => "{a990ae9f-a03b-4e80-94bc-9912d7504104}"
+    static FOLDERID_PicturesLibrary => Guid("{a990ae9f-a03b-4e80-94bc-9912d7504104}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_VideosLibrary => "{491e922f-5643-4af4-a7eb-4e7a138d8174}"
+    static FOLDERID_VideosLibrary => Guid("{491e922f-5643-4af4-a7eb-4e7a138d8174}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_RecordedTVLibrary => "{1a6fdba2-f42d-4358-a798-b74d745926c5}"
+    static FOLDERID_RecordedTVLibrary => Guid("{1a6fdba2-f42d-4358-a798-b74d745926c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_HomeGroup => "{52528a6b-b9e3-4add-b60d-588c2dba842d}"
+    static FOLDERID_HomeGroup => Guid("{52528a6b-b9e3-4add-b60d-588c2dba842d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_HomeGroupCurrentUser => "{9b74b6a3-0dfd-4f11-9e78-5f7800f2e772}"
+    static FOLDERID_HomeGroupCurrentUser => Guid("{9b74b6a3-0dfd-4f11-9e78-5f7800f2e772}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_DeviceMetadataStore => "{5ce4a5e9-e4eb-479d-b89f-130c02886155}"
+    static FOLDERID_DeviceMetadataStore => Guid("{5ce4a5e9-e4eb-479d-b89f-130c02886155}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Libraries => "{1b3ea5dc-b587-4786-b4ef-bd1dc332aeae}"
+    static FOLDERID_Libraries => Guid("{1b3ea5dc-b587-4786-b4ef-bd1dc332aeae}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PublicLibraries => "{48daf80b-e6cf-4f4e-b800-0e69d84ee384}"
+    static FOLDERID_PublicLibraries => Guid("{48daf80b-e6cf-4f4e-b800-0e69d84ee384}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_UserPinned => "{9e3995ab-1f9c-4f13-b827-48b24b6c7174}"
+    static FOLDERID_UserPinned => Guid("{9e3995ab-1f9c-4f13-b827-48b24b6c7174}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ImplicitAppShortcuts => "{bcb5256f-79f6-4cee-b725-dc34e402fd46}"
+    static FOLDERID_ImplicitAppShortcuts => Guid("{bcb5256f-79f6-4cee-b725-dc34e402fd46}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_AccountPictures => "{008ca0b1-55b4-4c56-b8a8-4de4b299d3be}"
+    static FOLDERID_AccountPictures => Guid("{008ca0b1-55b4-4c56-b8a8-4de4b299d3be}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_PublicUserTiles => "{0482af6c-08f1-4c34-8c90-e17ec98b1e17}"
+    static FOLDERID_PublicUserTiles => Guid("{0482af6c-08f1-4c34-8c90-e17ec98b1e17}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_AppsFolder => "{1e87508d-89c2-42f0-8a7e-645a0f50ca58}"
+    static FOLDERID_AppsFolder => Guid("{1e87508d-89c2-42f0-8a7e-645a0f50ca58}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_StartMenuAllPrograms => "{f26305ef-6948-40b9-b255-81453d09c785}"
+    static FOLDERID_StartMenuAllPrograms => Guid("{f26305ef-6948-40b9-b255-81453d09c785}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_CommonStartMenuPlaces => "{a440879f-87a0-4f7d-b700-0207b966194a}"
+    static FOLDERID_CommonStartMenuPlaces => Guid("{a440879f-87a0-4f7d-b700-0207b966194a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_ApplicationShortcuts => "{a3918781-e5f2-4890-b3d9-a7e54332328c}"
+    static FOLDERID_ApplicationShortcuts => Guid("{a3918781-e5f2-4890-b3d9-a7e54332328c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_RoamingTiles => "{00bcfc5a-ed94-4e48-96a1-3f6217f21990}"
+    static FOLDERID_RoamingTiles => Guid("{00bcfc5a-ed94-4e48-96a1-3f6217f21990}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_RoamedTileImages => "{aaa8d5a5-f1d6-4259-baa8-78e7ef60835e}"
+    static FOLDERID_RoamedTileImages => Guid("{aaa8d5a5-f1d6-4259-baa8-78e7ef60835e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Screenshots => "{b7bede81-df94-4682-a7d8-57a52620b86f}"
+    static FOLDERID_Screenshots => Guid("{b7bede81-df94-4682-a7d8-57a52620b86f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_CameraRoll => "{ab5fb87b-7ce2-4f83-915d-550846c9537b}"
+    static FOLDERID_CameraRoll => Guid("{ab5fb87b-7ce2-4f83-915d-550846c9537b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SkyDrive => "{a52bba46-e9e1-435f-b3d9-28daa648c0f6}"
+    static FOLDERID_SkyDrive => Guid("{a52bba46-e9e1-435f-b3d9-28daa648c0f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_OneDrive => "{a52bba46-e9e1-435f-b3d9-28daa648c0f6}"
+    static FOLDERID_OneDrive => Guid("{a52bba46-e9e1-435f-b3d9-28daa648c0f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SkyDriveDocuments => "{24d89e24-2f19-4534-9dde-6a6671fbb8fe}"
+    static FOLDERID_SkyDriveDocuments => Guid("{24d89e24-2f19-4534-9dde-6a6671fbb8fe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SkyDrivePictures => "{339719b5-8c47-4894-94c2-d8f77add44a6}"
+    static FOLDERID_SkyDrivePictures => Guid("{339719b5-8c47-4894-94c2-d8f77add44a6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SkyDriveMusic => "{c3f2459e-80d6-45dc-bfef-1f769f2be730}"
+    static FOLDERID_SkyDriveMusic => Guid("{c3f2459e-80d6-45dc-bfef-1f769f2be730}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SkyDriveCameraRoll => "{767e6811-49cb-4273-87c2-20f355e1085b}"
+    static FOLDERID_SkyDriveCameraRoll => Guid("{767e6811-49cb-4273-87c2-20f355e1085b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SearchHistory => "{0d4c3db6-03a3-462f-a0e6-08924c41b5d4}"
+    static FOLDERID_SearchHistory => Guid("{0d4c3db6-03a3-462f-a0e6-08924c41b5d4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SearchTemplates => "{7e636bfe-dfa9-4d5e-b456-d7b39851d8a9}"
+    static FOLDERID_SearchTemplates => Guid("{7e636bfe-dfa9-4d5e-b456-d7b39851d8a9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_CameraRollLibrary => "{2b20df75-1eda-4039-8097-38798227d5b7}"
+    static FOLDERID_CameraRollLibrary => Guid("{2b20df75-1eda-4039-8097-38798227d5b7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SavedPictures => "{3b193882-d3ad-4eab-965a-69829d1fb59f}"
+    static FOLDERID_SavedPictures => Guid("{3b193882-d3ad-4eab-965a-69829d1fb59f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_SavedPicturesLibrary => "{e25b5812-be88-4bd9-94b0-29233477b6c3}"
+    static FOLDERID_SavedPicturesLibrary => Guid("{e25b5812-be88-4bd9-94b0-29233477b6c3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_RetailDemo => "{12d4c69e-24ad-4923-be19-31321c43a767}"
+    static FOLDERID_RetailDemo => Guid("{12d4c69e-24ad-4923-be19-31321c43a767}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Device => "{1c2ac1dc-4358-4b6c-9733-af21156576f0}"
+    static FOLDERID_Device => Guid("{1c2ac1dc-4358-4b6c-9733-af21156576f0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_DevelopmentFiles => "{dbe8e08e-3053-4bbc-b183-2a7b2b191e59}"
+    static FOLDERID_DevelopmentFiles => Guid("{dbe8e08e-3053-4bbc-b183-2a7b2b191e59}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_Objects3D => "{31c0dd25-9439-4f12-bf41-7ff4eda38722}"
+    static FOLDERID_Objects3D => Guid("{31c0dd25-9439-4f12-bf41-7ff4eda38722}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_AppCaptures => "{edc0fe71-98d8-4f4a-b920-c8dc133cb165}"
+    static FOLDERID_AppCaptures => Guid("{edc0fe71-98d8-4f4a-b920-c8dc133cb165}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_LocalDocuments => "{f42ee2d3-909f-4907-8871-4c22fc0bf756}"
+    static FOLDERID_LocalDocuments => Guid("{f42ee2d3-909f-4907-8871-4c22fc0bf756}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_LocalPictures => "{0ddd015d-b06c-45d5-8c4c-f59713854639}"
+    static FOLDERID_LocalPictures => Guid("{0ddd015d-b06c-45d5-8c4c-f59713854639}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_LocalVideos => "{35286a68-3c57-41a1-bbb1-0eae73d76c95}"
+    static FOLDERID_LocalVideos => Guid("{35286a68-3c57-41a1-bbb1-0eae73d76c95}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_LocalMusic => "{a0c69a99-21c8-4671-8703-7934162fcf1d}"
+    static FOLDERID_LocalMusic => Guid("{a0c69a99-21c8-4671-8703-7934162fcf1d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_LocalDownloads => "{7d83ee9b-2244-4e70-b1f5-5393042af1e4}"
+    static FOLDERID_LocalDownloads => Guid("{7d83ee9b-2244-4e70-b1f5-5393042af1e4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_RecordedCalls => "{2f8b40c2-83ed-48ee-b383-a1f157ec6f9a}"
+    static FOLDERID_RecordedCalls => Guid("{2f8b40c2-83ed-48ee-b383-a1f157ec6f9a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_AllAppMods => "{7ad67899-66af-43ba-9156-6aad42e6c596}"
+    static FOLDERID_AllAppMods => Guid("{7ad67899-66af-43ba-9156-6aad42e6c596}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_CurrentAppMods => "{3db40b20-2a30-4dbe-917e-771dd21dd099}"
+    static FOLDERID_CurrentAppMods => Guid("{3db40b20-2a30-4dbe-917e-771dd21dd099}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_AppDataDesktop => "{b2c5e279-7add-439f-b28c-c41fe1bbf672}"
+    static FOLDERID_AppDataDesktop => Guid("{b2c5e279-7add-439f-b28c-c41fe1bbf672}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_AppDataDocuments => "{7be16610-1f7f-44ac-bff0-83e15f2ffca1}"
+    static FOLDERID_AppDataDocuments => Guid("{7be16610-1f7f-44ac-bff0-83e15f2ffca1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_AppDataFavorites => "{7cfbefbc-de1f-45aa-b843-a542ac536cc9}"
+    static FOLDERID_AppDataFavorites => Guid("{7cfbefbc-de1f-45aa-b843-a542ac536cc9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_AppDataProgramData => "{559d40a3-a036-40fa-af61-84cb430a4d34}"
+    static FOLDERID_AppDataProgramData => Guid("{559d40a3-a036-40fa-af61-84cb430a4d34}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERID_LocalStorage => "{b3eb08d3-a1f3-496b-865a-42b536cda0ec}"
+    static FOLDERID_LocalStorage => Guid("{b3eb08d3-a1f3-496b-865a-42b536cda0ec}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_InternetShortcut => "{fbf23b40-e3f0-101b-8488-00aa003e56f8}"
+    static CLSID_InternetShortcut => Guid("{fbf23b40-e3f0-101b-8488-00aa003e56f8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_NetworkDomain => "{46e06680-4bf0-11d1-83ee-00a0c90dc849}"
+    static CLSID_NetworkDomain => Guid("{46e06680-4bf0-11d1-83ee-00a0c90dc849}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_NetworkServer => "{c0542a90-4bf0-11d1-83ee-00a0c90dc849}"
+    static CLSID_NetworkServer => Guid("{c0542a90-4bf0-11d1-83ee-00a0c90dc849}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_NetworkShare => "{54a754c0-4bf0-11d1-83ee-00a0c90dc849}"
+    static CLSID_NetworkShare => Guid("{54a754c0-4bf0-11d1-83ee-00a0c90dc849}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MyComputer => "{20d04fe0-3aea-1069-a2d8-08002b30309d}"
+    static CLSID_MyComputer => Guid("{20d04fe0-3aea-1069-a2d8-08002b30309d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_Internet => "{871c5380-42a0-1069-a2ea-08002b30309d}"
+    static CLSID_Internet => Guid("{871c5380-42a0-1069-a2ea-08002b30309d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_RecycleBin => "{645ff040-5081-101b-9f08-00aa002f954e}"
+    static CLSID_RecycleBin => Guid("{645ff040-5081-101b-9f08-00aa002f954e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ControlPanel => "{21ec2020-3aea-1069-a2dd-08002b30309d}"
+    static CLSID_ControlPanel => Guid("{21ec2020-3aea-1069-a2dd-08002b30309d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_Printers => "{2227a280-3aea-1069-a2de-08002b30309d}"
+    static CLSID_Printers => Guid("{2227a280-3aea-1069-a2de-08002b30309d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MyDocuments => "{450d8fba-ad25-11d0-98a8-0800361b1103}"
+    static CLSID_MyDocuments => Guid("{450d8fba-ad25-11d0-98a8-0800361b1103}")
 
     /**
      * @type {String}
@@ -888,249 +889,249 @@ class Shell {
     static STR_MYDOCS_CLSID => "{450D8FBA-AD25-11D0-98A8-0800361B1103}"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_BrowsableShellExt => "{00021490-0000-0000-c000-000000000046}"
+    static CATID_BrowsableShellExt => Guid("{00021490-0000-0000-c000-000000000046}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_BrowseInPlace => "{00021491-0000-0000-c000-000000000046}"
+    static CATID_BrowseInPlace => Guid("{00021491-0000-0000-c000-000000000046}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_DeskBand => "{00021492-0000-0000-c000-000000000046}"
+    static CATID_DeskBand => Guid("{00021492-0000-0000-c000-000000000046}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_InfoBand => "{00021493-0000-0000-c000-000000000046}"
+    static CATID_InfoBand => Guid("{00021493-0000-0000-c000-000000000046}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_CommBand => "{00021494-0000-0000-c000-000000000046}"
+    static CATID_CommBand => Guid("{00021494-0000-0000-c000-000000000046}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_Intshcut => "{000214a0-0000-0000-c000-000000000046}"
+    static FMTID_Intshcut => Guid("{000214a0-0000-0000-c000-000000000046}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_InternetSite => "{000214a1-0000-0000-c000-000000000046}"
+    static FMTID_InternetSite => Guid("{000214a1-0000-0000-c000-000000000046}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CGID_Explorer => "{000214d0-0000-0000-c000-000000000046}"
+    static CGID_Explorer => Guid("{000214d0-0000-0000-c000-000000000046}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CGID_ShellDocView => "{000214d1-0000-0000-c000-000000000046}"
+    static CGID_ShellDocView => Guid("{000214d1-0000-0000-c000-000000000046}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CGID_ShellServiceObject => "{000214d2-0000-0000-c000-000000000046}"
+    static CGID_ShellServiceObject => Guid("{000214d2-0000-0000-c000-000000000046}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CGID_ExplorerBarDoc => "{000214d3-0000-0000-c000-000000000046}"
+    static CGID_ExplorerBarDoc => Guid("{000214d3-0000-0000-c000-000000000046}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_FolderShortcut => "{0afaced1-e828-11d1-9187-b532f1e9575d}"
+    static CLSID_FolderShortcut => Guid("{0afaced1-e828-11d1-9187-b532f1e9575d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CFSIconOverlayManager => "{63b51f81-c868-11d0-999c-00c04fd655e1}"
+    static CLSID_CFSIconOverlayManager => Guid("{63b51f81-c868-11d0-999c-00c04fd655e1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ShellThumbnailDiskCache => "{1ebdcf80-a200-11d0-a3a4-00c04fd706ec}"
+    static CLSID_ShellThumbnailDiskCache => Guid("{1ebdcf80-a200-11d0-a3a4-00c04fd706ec}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_DefView => "{6d12fe80-7911-11cf-9534-0000c05bae0b}"
+    static SID_DefView => Guid("{6d12fe80-7911-11cf-9534-0000c05bae0b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CGID_DefView => "{4af07f10-d231-11d0-b942-00a0c90312e1}"
+    static CGID_DefView => Guid("{4af07f10-d231-11d0-b942-00a0c90312e1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MenuBand => "{5b4dae26-b807-11d0-9815-00c04fd91972}"
+    static CLSID_MenuBand => Guid("{5b4dae26-b807-11d0-9815-00c04fd91972}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static VID_LargeIcons => "{0057d0e0-3573-11cf-ae69-08002b2e1262}"
+    static VID_LargeIcons => Guid("{0057d0e0-3573-11cf-ae69-08002b2e1262}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static VID_SmallIcons => "{089000c0-3573-11cf-ae69-08002b2e1262}"
+    static VID_SmallIcons => Guid("{089000c0-3573-11cf-ae69-08002b2e1262}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static VID_List => "{0e1fa5e0-3573-11cf-ae69-08002b2e1262}"
+    static VID_List => Guid("{0e1fa5e0-3573-11cf-ae69-08002b2e1262}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static VID_Details => "{137e7700-3573-11cf-ae69-08002b2e1262}"
+    static VID_Details => Guid("{137e7700-3573-11cf-ae69-08002b2e1262}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static VID_Tile => "{65f125e5-7be1-4810-ba9d-d271c8432ce3}"
+    static VID_Tile => Guid("{65f125e5-7be1-4810-ba9d-d271c8432ce3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static VID_Content => "{30c2c434-0889-4c8d-985d-a9f71830b0a9}"
+    static VID_Content => Guid("{30c2c434-0889-4c8d-985d-a9f71830b0a9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static VID_Thumbnails => "{8bebb290-52d0-11d0-b7f4-00c04fd706ec}"
+    static VID_Thumbnails => Guid("{8bebb290-52d0-11d0-b7f4-00c04fd706ec}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static VID_ThumbStrip => "{8eefa624-d1e9-445b-94b7-74fbce2ea11a}"
+    static VID_ThumbStrip => Guid("{8eefa624-d1e9-445b-94b7-74fbce2ea11a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SInPlaceBrowser => "{1d2ae02b-3655-46cc-b63a-285988153bca}"
+    static SID_SInPlaceBrowser => Guid("{1d2ae02b-3655-46cc-b63a-285988153bca}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SSearchBoxInfo => "{142daa61-516b-4713-b49c-fb985ef82998}"
+    static SID_SSearchBoxInfo => Guid("{142daa61-516b-4713-b49c-fb985ef82998}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_CommandsPropertyBag => "{6e043250-4416-485c-b143-e62a760d9fe5}"
+    static SID_CommandsPropertyBag => Guid("{6e043250-4416-485c-b143-e62a760d9fe5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CURLSearchHook => "{cfbfae00-17a6-11d0-99cb-00c04fd64497}"
+    static CLSID_CURLSearchHook => Guid("{cfbfae00-17a6-11d0-99cb-00c04fd64497}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_AutoComplete => "{00bb2763-6a77-11d0-a535-00c04fd7d062}"
+    static CLSID_AutoComplete => Guid("{00bb2763-6a77-11d0-a535-00c04fd7d062}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ACLHistory => "{00bb2764-6a77-11d0-a535-00c04fd7d062}"
+    static CLSID_ACLHistory => Guid("{00bb2764-6a77-11d0-a535-00c04fd7d062}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ACListISF => "{03c036f1-a186-11d0-824a-00aa005b4383}"
+    static CLSID_ACListISF => Guid("{03c036f1-a186-11d0-824a-00aa005b4383}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ACLMRU => "{6756a641-de71-11d0-831b-00aa005b4383}"
+    static CLSID_ACLMRU => Guid("{6756a641-de71-11d0-831b-00aa005b4383}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ACLMulti => "{00bb2765-6a77-11d0-a535-00c04fd7d062}"
+    static CLSID_ACLMulti => Guid("{00bb2765-6a77-11d0-a535-00c04fd7d062}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ACLCustomMRU => "{6935db93-21e8-4ccc-beb9-9fe3c77a297a}"
+    static CLSID_ACLCustomMRU => Guid("{6935db93-21e8-4ccc-beb9-9fe3c77a297a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ProgressDialog => "{f8383852-fcd3-11d1-a6b9-006097df5bd4}"
+    static CLSID_ProgressDialog => Guid("{f8383852-fcd3-11d1-a6b9-006097df5bd4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_STopLevelBrowser => "{4c96be40-915c-11cf-99d3-00aa004ae837}"
+    static SID_STopLevelBrowser => Guid("{4c96be40-915c-11cf-99d3-00aa004ae837}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_FileTypes => "{b091e540-83e3-11cf-a713-0020afd79762}"
+    static CLSID_FileTypes => Guid("{b091e540-83e3-11cf-a713-0020afd79762}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ActiveDesktop => "{75048700-ef1f-11d0-9888-006097deacf9}"
+    static CLSID_ActiveDesktop => Guid("{75048700-ef1f-11d0-9888-006097deacf9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_QueryAssociations => "{a07034fd-6caa-4954-ac3f-97a27216f98a}"
+    static CLSID_QueryAssociations => Guid("{a07034fd-6caa-4954-ac3f-97a27216f98a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_LinkColumnProvider => "{24f14f02-7b1c-11d1-838f-0000f80461cf}"
+    static CLSID_LinkColumnProvider => Guid("{24f14f02-7b1c-11d1-838f-0000f80461cf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CGID_ShortCut => "{93a68750-951a-11d1-946f-000000000000}"
+    static CGID_ShortCut => Guid("{93a68750-951a-11d1-946f-000000000000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_InternetButtons => "{1e796980-9cc5-11d1-a83f-00c04fc99d61}"
+    static CLSID_InternetButtons => Guid("{1e796980-9cc5-11d1-a83f-00c04fc99d61}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MSOButtons => "{178f34b8-a282-11d2-86c5-00c04f8eea99}"
+    static CLSID_MSOButtons => Guid("{178f34b8-a282-11d2-86c5-00c04f8eea99}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ToolbarExtButtons => "{2ce4b5d8-a28f-11d2-86c5-00c04f8eea99}"
+    static CLSID_ToolbarExtButtons => Guid("{2ce4b5d8-a28f-11d2-86c5-00c04f8eea99}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DarwinAppPublisher => "{cfccc7a0-a282-11d1-9082-006008059382}"
+    static CLSID_DarwinAppPublisher => Guid("{cfccc7a0-a282-11d1-9082-006008059382}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DocHostUIHandler => "{7057e952-bd1b-11d1-8919-00c04fc2c836}"
+    static CLSID_DocHostUIHandler => Guid("{7057e952-bd1b-11d1-8919-00c04fc2c836}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_SHELLDETAILS => "{28636aa6-953d-11d2-b5d6-00c04fd918d0}"
+    static PSGUID_SHELLDETAILS => Guid("{28636aa6-953d-11d2-b5d6-00c04fd918d0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_ShellDetails => "{28636aa6-953d-11d2-b5d6-00c04fd918d0}"
+    static FMTID_ShellDetails => Guid("{28636aa6-953d-11d2-b5d6-00c04fd918d0}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1163,49 +1164,49 @@ class Shell {
     static PID_COMPUTERNAME => 5
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_Storage => "{b725f130-47ef-101a-a5f1-02608c9eebac}"
+    static FMTID_Storage => Guid("{b725f130-47ef-101a-a5f1-02608c9eebac}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_IMAGEPROPERTIES => "{14b81da1-0135-4d31-96d9-6cbfc9671a99}"
+    static PSGUID_IMAGEPROPERTIES => Guid("{14b81da1-0135-4d31-96d9-6cbfc9671a99}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_ImageProperties => "{14b81da1-0135-4d31-96d9-6cbfc9671a99}"
+    static FMTID_ImageProperties => Guid("{14b81da1-0135-4d31-96d9-6cbfc9671a99}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_CUSTOMIMAGEPROPERTIES => "{7ecd8b0e-c136-4a9b-9411-4ebd6673ccc3}"
+    static PSGUID_CUSTOMIMAGEPROPERTIES => Guid("{7ecd8b0e-c136-4a9b-9411-4ebd6673ccc3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_CustomImageProperties => "{7ecd8b0e-c136-4a9b-9411-4ebd6673ccc3}"
+    static FMTID_CustomImageProperties => Guid("{7ecd8b0e-c136-4a9b-9411-4ebd6673ccc3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_LIBRARYPROPERTIES => "{5d76b67f-9b3d-44bb-b6ae-25da4f638a67}"
+    static PSGUID_LIBRARYPROPERTIES => Guid("{5d76b67f-9b3d-44bb-b6ae-25da4f638a67}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_LibraryProperties => "{5d76b67f-9b3d-44bb-b6ae-25da4f638a67}"
+    static FMTID_LibraryProperties => Guid("{5d76b67f-9b3d-44bb-b6ae-25da4f638a67}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_DISPLACED => "{9b174b33-40ff-11d2-a27e-00c04fc30871}"
+    static PSGUID_DISPLACED => Guid("{9b174b33-40ff-11d2-a27e-00c04fc30871}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_Displaced => "{9b174b33-40ff-11d2-a27e-00c04fc30871}"
+    static FMTID_Displaced => Guid("{9b174b33-40ff-11d2-a27e-00c04fc30871}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1218,14 +1219,14 @@ class Shell {
     static PID_DISPLACED_DATE => 3
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_BRIEFCASE => "{328d8b21-7729-4bfc-954c-902b329d56b0}"
+    static PSGUID_BRIEFCASE => Guid("{328d8b21-7729-4bfc-954c-902b329d56b0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_Briefcase => "{328d8b21-7729-4bfc-954c-902b329d56b0}"
+    static FMTID_Briefcase => Guid("{328d8b21-7729-4bfc-954c-902b329d56b0}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1233,14 +1234,14 @@ class Shell {
     static PID_SYNC_COPY_IN => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_MISC => "{9b174b34-40ff-11d2-a27e-00c04fc30871}"
+    static PSGUID_MISC => Guid("{9b174b34-40ff-11d2-a27e-00c04fc30871}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_Misc => "{9b174b34-40ff-11d2-a27e-00c04fc30871}"
+    static FMTID_Misc => Guid("{9b174b34-40ff-11d2-a27e-00c04fc30871}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1268,14 +1269,14 @@ class Shell {
     static PID_MISC_PICS => 6
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_WEBVIEW => "{f2275480-f782-4291-bd94-f13693513aec}"
+    static PSGUID_WEBVIEW => Guid("{f2275480-f782-4291-bd94-f13693513aec}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_WebView => "{f2275480-f782-4291-bd94-f13693513aec}"
+    static FMTID_WebView => Guid("{f2275480-f782-4291-bd94-f13693513aec}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1288,14 +1289,14 @@ class Shell {
     static PID_INTROTEXT => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_MUSIC => "{56a3372e-ce9c-11d2-9f0e-006097c686f6}"
+    static PSGUID_MUSIC => Guid("{56a3372e-ce9c-11d2-9f0e-006097c686f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_MUSIC => "{56a3372e-ce9c-11d2-9f0e-006097c686f6}"
+    static FMTID_MUSIC => Guid("{56a3372e-ce9c-11d2-9f0e-006097c686f6}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1338,14 +1339,14 @@ class Shell {
     static PIDSI_LYRICS => 12
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_DRM => "{aeac19e4-89ae-4508-b9b7-bb867abee2ed}"
+    static PSGUID_DRM => Guid("{aeac19e4-89ae-4508-b9b7-bb867abee2ed}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_DRM => "{aeac19e4-89ae-4508-b9b7-bb867abee2ed}"
+    static FMTID_DRM => Guid("{aeac19e4-89ae-4508-b9b7-bb867abee2ed}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1373,9 +1374,9 @@ class Shell {
     static PIDDRSI_PLAYEXPIRES => 6
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_VIDEO => "{64440491-4c8b-11d1-8b70-080036b11a03}"
+    static PSGUID_VIDEO => Guid("{64440491-4c8b-11d1-8b70-080036b11a03}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1428,9 +1429,9 @@ class Shell {
     static PIDVSI_STREAM_NUMBER => 11
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_AUDIO => "{64440490-4c8b-11d1-8b70-080036b11a03}"
+    static PSGUID_AUDIO => Guid("{64440490-4c8b-11d1-8b70-080036b11a03}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1478,9 +1479,9 @@ class Shell {
     static PIDASI_COMPRESSION => 10
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_CONTROLPANEL => "{305ca226-d286-468e-b848-2b2e8e697b74}"
+    static PSGUID_CONTROLPANEL => Guid("{305ca226-d286-468e-b848-2b2e8e697b74}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1488,14 +1489,14 @@ class Shell {
     static PID_CONTROLPANEL_CATEGORY => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_VOLUME => "{9b174b35-40ff-11d2-a27e-00c04fc30871}"
+    static PSGUID_VOLUME => Guid("{9b174b35-40ff-11d2-a27e-00c04fc30871}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_Volume => "{9b174b35-40ff-11d2-a27e-00c04fc30871}"
+    static FMTID_Volume => Guid("{9b174b35-40ff-11d2-a27e-00c04fc30871}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1513,9 +1514,9 @@ class Shell {
     static PID_VOLUME_FILESYSTEM => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_SHARE => "{d8c3986f-813b-449c-845d-87b95d674ade}"
+    static PSGUID_SHARE => Guid("{d8c3986f-813b-449c-845d-87b95d674ade}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1523,9 +1524,9 @@ class Shell {
     static PID_SHARE_CSC_STATUS => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_LINK => "{b9b4b3fc-2b51-4a42-b5d8-324146afcf25}"
+    static PSGUID_LINK => Guid("{b9b4b3fc-2b51-4a42-b5d8-324146afcf25}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1538,14 +1539,14 @@ class Shell {
     static PID_LINK_TARGET_TYPE => 3
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_QUERY_D => "{49691c90-7e17-101a-a91c-08002b2ecda9}"
+    static PSGUID_QUERY_D => Guid("{49691c90-7e17-101a-a91c-08002b2ecda9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_Query => "{49691c90-7e17-101a-a91c-08002b2ecda9}"
+    static FMTID_Query => Guid("{49691c90-7e17-101a-a91c-08002b2ecda9}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1553,609 +1554,609 @@ class Shell {
     static PID_QUERY_RANK => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_SUMMARYINFORMATION => "{f29f85e0-4ff9-1068-ab91-08002b27b3d9}"
+    static PSGUID_SUMMARYINFORMATION => Guid("{f29f85e0-4ff9-1068-ab91-08002b27b3d9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_DOCUMENTSUMMARYINFORMATION => "{d5cdd502-2e9c-101b-9397-08002b2cf9ae}"
+    static PSGUID_DOCUMENTSUMMARYINFORMATION => Guid("{d5cdd502-2e9c-101b-9397-08002b2cf9ae}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_MEDIAFILESUMMARYINFORMATION => "{64440492-4c8b-11d1-8b70-080036b11a03}"
+    static PSGUID_MEDIAFILESUMMARYINFORMATION => Guid("{64440492-4c8b-11d1-8b70-080036b11a03}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_IMAGESUMMARYINFORMATION => "{6444048f-4c8b-11d1-8b70-080036b11a03}"
+    static PSGUID_IMAGESUMMARYINFORMATION => Guid("{6444048f-4c8b-11d1-8b70-080036b11a03}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_HWShellExecute => "{ffb8655f-81b9-4fce-b89c-9a6ba76d13e7}"
+    static CLSID_HWShellExecute => Guid("{ffb8655f-81b9-4fce-b89c-9a6ba76d13e7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DragDropHelper => "{4657278a-411b-11d2-839a-00c04fd918d0}"
+    static CLSID_DragDropHelper => Guid("{4657278a-411b-11d2-839a-00c04fd918d0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CAnchorBrowsePropertyPage => "{3050f3bb-98b5-11cf-bb82-00aa00bdce0b}"
+    static CLSID_CAnchorBrowsePropertyPage => Guid("{3050f3bb-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CImageBrowsePropertyPage => "{3050f3b3-98b5-11cf-bb82-00aa00bdce0b}"
+    static CLSID_CImageBrowsePropertyPage => Guid("{3050f3b3-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CDocBrowsePropertyPage => "{3050f3b4-98b5-11cf-bb82-00aa00bdce0b}"
+    static CLSID_CDocBrowsePropertyPage => Guid("{3050f3b4-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_STopWindow => "{49e1b500-4636-11d3-97f7-00c04f45d0b3}"
+    static SID_STopWindow => Guid("{49e1b500-4636-11d3-97f7-00c04f45d0b3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SGetViewFromViewDual => "{889a935d-971e-4b12-b90c-24dfc9e1e5e8}"
+    static SID_SGetViewFromViewDual => Guid("{889a935d-971e-4b12-b90c-24dfc9e1e5e8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_FolderItemsMultiLevel => "{53c74826-ab99-4d33-aca4-3117f51d3788}"
+    static CLSID_FolderItemsMultiLevel => Guid("{53c74826-ab99-4d33-aca4-3117f51d3788}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_NewMenu => "{d969a300-e7ff-11d0-a93b-00a0c90f2719}"
+    static CLSID_NewMenu => Guid("{d969a300-e7ff-11d0-a93b-00a0c90f2719}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_SFObject => "{3981e224-f559-11d3-8e3a-00c04f6837d5}"
+    static BHID_SFObject => Guid("{3981e224-f559-11d3-8e3a-00c04f6837d5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_SFUIObject => "{3981e225-f559-11d3-8e3a-00c04f6837d5}"
+    static BHID_SFUIObject => Guid("{3981e225-f559-11d3-8e3a-00c04f6837d5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_SFViewObject => "{3981e226-f559-11d3-8e3a-00c04f6837d5}"
+    static BHID_SFViewObject => Guid("{3981e226-f559-11d3-8e3a-00c04f6837d5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_Storage => "{3981e227-f559-11d3-8e3a-00c04f6837d5}"
+    static BHID_Storage => Guid("{3981e227-f559-11d3-8e3a-00c04f6837d5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_Stream => "{1cebb3ab-7c10-499a-a417-92ca16c4cb83}"
+    static BHID_Stream => Guid("{1cebb3ab-7c10-499a-a417-92ca16c4cb83}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_RandomAccessStream => "{f16fc93b-77ae-4cfe-bda7-a866eea6878d}"
+    static BHID_RandomAccessStream => Guid("{f16fc93b-77ae-4cfe-bda7-a866eea6878d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_LinkTargetItem => "{3981e228-f559-11d3-8e3a-00c04f6837d5}"
+    static BHID_LinkTargetItem => Guid("{3981e228-f559-11d3-8e3a-00c04f6837d5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_StorageEnum => "{4621a4e3-f0d6-4773-8a9c-46e77b174840}"
+    static BHID_StorageEnum => Guid("{4621a4e3-f0d6-4773-8a9c-46e77b174840}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_Transfer => "{d5e346a1-f753-4932-b403-4574800e2498}"
+    static BHID_Transfer => Guid("{d5e346a1-f753-4932-b403-4574800e2498}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_PropertyStore => "{0384e1a4-1523-439c-a4c8-ab911052f586}"
+    static BHID_PropertyStore => Guid("{0384e1a4-1523-439c-a4c8-ab911052f586}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_ThumbnailHandler => "{7b2e650a-8e20-4f4a-b09e-6597afc72fb0}"
+    static BHID_ThumbnailHandler => Guid("{7b2e650a-8e20-4f4a-b09e-6597afc72fb0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_EnumItems => "{94f60519-2850-4924-aa5a-d15e84868039}"
+    static BHID_EnumItems => Guid("{94f60519-2850-4924-aa5a-d15e84868039}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_DataObject => "{b8c0bd9f-ed24-455c-83e6-d5390c4fe8c4}"
+    static BHID_DataObject => Guid("{b8c0bd9f-ed24-455c-83e6-d5390c4fe8c4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_AssociationArray => "{bea9ef17-82f1-4f60-9284-4f8db75c3be9}"
+    static BHID_AssociationArray => Guid("{bea9ef17-82f1-4f60-9284-4f8db75c3be9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_Filter => "{38d08778-f557-4690-9ebf-ba54706ad8f7}"
+    static BHID_Filter => Guid("{38d08778-f557-4690-9ebf-ba54706ad8f7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_EnumAssocHandlers => "{b8ab0b9c-c2ec-4f7a-918d-314900e6280a}"
+    static BHID_EnumAssocHandlers => Guid("{b8ab0b9c-c2ec-4f7a-918d-314900e6280a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_StorageItem => "{404e2109-77d2-4699-a5a0-4fdf10db9837}"
+    static BHID_StorageItem => Guid("{404e2109-77d2-4699-a5a0-4fdf10db9837}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BHID_FilePlaceholder => "{8677dceb-aae0-4005-8d3d-547fa852f825}"
+    static BHID_FilePlaceholder => Guid("{8677dceb-aae0-4005-8d3d-547fa852f825}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_FilePlaceholderMergeHandler => "{3e9c9a51-d4aa-4870-b47c-7424b491f1cc}"
+    static CATID_FilePlaceholderMergeHandler => Guid("{3e9c9a51-d4aa-4870-b47c-7424b491f1cc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_CtxQueryAssociations => "{faadfc40-b777-4b69-aa81-77035ef0e6e8}"
+    static SID_CtxQueryAssociations => Guid("{faadfc40-b777-4b69-aa81-77035ef0e6e8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_QuickLinks => "{0e5cbf21-d15f-11d0-8301-00aa005b4383}"
+    static CLSID_QuickLinks => Guid("{0e5cbf21-d15f-11d0-8301-00aa005b4383}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ISFBand => "{d82be2b0-5764-11d0-a96e-00c04fd705a2}"
+    static CLSID_ISFBand => Guid("{d82be2b0-5764-11d0-a96e-00c04fd705a2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ShellFldSetExt => "{6d5313c0-8c62-11d1-b2cd-006097df8c11}"
+    static CLSID_ShellFldSetExt => Guid("{6d5313c0-8c62-11d1-b2cd-006097df8c11}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SMenuBandChild => "{ed9cc020-08b9-11d1-9823-00c04fd91972}"
+    static SID_SMenuBandChild => Guid("{ed9cc020-08b9-11d1-9823-00c04fd91972}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SMenuBandParent => "{8c278eec-3eab-11d1-8cb0-00c04fd918d0}"
+    static SID_SMenuBandParent => Guid("{8c278eec-3eab-11d1-8cb0-00c04fd918d0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SMenuPopup => "{d1e7afeb-6a2e-11d0-8c78-00c04fd918b4}"
+    static SID_SMenuPopup => Guid("{d1e7afeb-6a2e-11d0-8c78-00c04fd918b4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SMenuBandBottomSelected => "{165ebaf4-6d51-11d2-83ad-00c04fd918d0}"
+    static SID_SMenuBandBottomSelected => Guid("{165ebaf4-6d51-11d2-83ad-00c04fd918d0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SMenuBandBottom => "{743ca664-0deb-11d1-9825-00c04fd91972}"
+    static SID_SMenuBandBottom => Guid("{743ca664-0deb-11d1-9825-00c04fd91972}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_MenuShellFolder => "{a6c17eb4-2d65-11d2-838f-00c04fd918d0}"
+    static SID_MenuShellFolder => Guid("{a6c17eb4-2d65-11d2-838f-00c04fd918d0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SMenuBandContextMenuModifier => "{39545874-7162-465e-b783-2aa1874fef81}"
+    static SID_SMenuBandContextMenuModifier => Guid("{39545874-7162-465e-b783-2aa1874fef81}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SMenuBandBKContextMenu => "{164bbd86-1d0d-4de0-9a3b-d9729647c2b8}"
+    static SID_SMenuBandBKContextMenu => Guid("{164bbd86-1d0d-4de0-9a3b-d9729647c2b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CGID_MENUDESKBAR => "{5c9f0a12-959e-11d0-a3a4-00a0c9082636}"
+    static CGID_MENUDESKBAR => Guid("{5c9f0a12-959e-11d0-a3a4-00a0c9082636}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SMenuBandTop => "{9493a810-ec38-11d0-bc46-00aa006ce2f5}"
+    static SID_SMenuBandTop => Guid("{9493a810-ec38-11d0-bc46-00aa006ce2f5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MenuToolbarBase => "{40b96610-b522-11d1-b3b4-00aa006efde7}"
+    static CLSID_MenuToolbarBase => Guid("{40b96610-b522-11d1-b3b4-00aa006efde7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MenuBandSite => "{e13ef4e4-d2f2-11d0-9816-00c04fd91972}"
+    static CLSID_MenuBandSite => Guid("{e13ef4e4-d2f2-11d0-9816-00c04fd91972}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SCommDlgBrowser => "{80f30233-b7df-11d2-a33b-006097df5bd4}"
+    static SID_SCommDlgBrowser => Guid("{80f30233-b7df-11d2-a33b-006097df5bd4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CPFG_LOGON_USERNAME => "{da15bbe8-954d-4fd3-b0f4-1fb5b90b174b}"
+    static CPFG_LOGON_USERNAME => Guid("{da15bbe8-954d-4fd3-b0f4-1fb5b90b174b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CPFG_LOGON_PASSWORD => "{60624cfa-a477-47b1-8a8e-3a4a19981827}"
+    static CPFG_LOGON_PASSWORD => Guid("{60624cfa-a477-47b1-8a8e-3a4a19981827}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CPFG_SMARTCARD_USERNAME => "{3e1ecf69-568c-4d96-9d59-46444174e2d6}"
+    static CPFG_SMARTCARD_USERNAME => Guid("{3e1ecf69-568c-4d96-9d59-46444174e2d6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CPFG_SMARTCARD_PIN => "{4fe5263b-9181-46c1-b0a4-9dedd4db7dea}"
+    static CPFG_SMARTCARD_PIN => Guid("{4fe5263b-9181-46c1-b0a4-9dedd4db7dea}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CPFG_CREDENTIAL_PROVIDER_LOGO => "{2d837775-f6cd-464e-a745-482fd0b47493}"
+    static CPFG_CREDENTIAL_PROVIDER_LOGO => Guid("{2d837775-f6cd-464e-a745-482fd0b47493}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CPFG_CREDENTIAL_PROVIDER_LABEL => "{286bbff3-bad4-438f-b007-79b7267c3d48}"
+    static CPFG_CREDENTIAL_PROVIDER_LABEL => Guid("{286bbff3-bad4-438f-b007-79b7267c3d48}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CPFG_STANDALONE_SUBMIT_BUTTON => "{0b7b0ad8-cc36-4d59-802b-82f714fa7022}"
+    static CPFG_STANDALONE_SUBMIT_BUTTON => Guid("{0b7b0ad8-cc36-4d59-802b-82f714fa7022}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CPFG_STYLE_LINK_AS_BUTTON => "{088fa508-94a6-4430-a4cb-6fc6e3c0b9e2}"
+    static CPFG_STYLE_LINK_AS_BUTTON => Guid("{088fa508-94a6-4430-a4cb-6fc6e3c0b9e2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_Invalid => "{57807898-8c4f-4462-bb63-71042380b109}"
+    static FOLDERTYPEID_Invalid => Guid("{57807898-8c4f-4462-bb63-71042380b109}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_Generic => "{5c4f28b5-f869-4e84-8e60-f11db97c5cc7}"
+    static FOLDERTYPEID_Generic => Guid("{5c4f28b5-f869-4e84-8e60-f11db97c5cc7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_GenericSearchResults => "{7fde1a1e-8b31-49a5-93b8-6be14cfa4943}"
+    static FOLDERTYPEID_GenericSearchResults => Guid("{7fde1a1e-8b31-49a5-93b8-6be14cfa4943}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_GenericLibrary => "{5f4eab9a-6833-4f61-899d-31cf46979d49}"
+    static FOLDERTYPEID_GenericLibrary => Guid("{5f4eab9a-6833-4f61-899d-31cf46979d49}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_Documents => "{7d49d726-3c21-4f05-99aa-fdc2c9474656}"
+    static FOLDERTYPEID_Documents => Guid("{7d49d726-3c21-4f05-99aa-fdc2c9474656}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_Pictures => "{b3690e58-e961-423b-b687-386ebfd83239}"
+    static FOLDERTYPEID_Pictures => Guid("{b3690e58-e961-423b-b687-386ebfd83239}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_Music => "{94d6ddcc-4a68-4175-a374-bd584a510b78}"
+    static FOLDERTYPEID_Music => Guid("{94d6ddcc-4a68-4175-a374-bd584a510b78}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_Videos => "{5fa96407-7e77-483c-ac93-691d05850de8}"
+    static FOLDERTYPEID_Videos => Guid("{5fa96407-7e77-483c-ac93-691d05850de8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_Downloads => "{885a186e-a440-4ada-812b-db871b942259}"
+    static FOLDERTYPEID_Downloads => Guid("{885a186e-a440-4ada-812b-db871b942259}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_UserFiles => "{cd0fc69b-71e2-46e5-9690-5bcd9f57aab3}"
+    static FOLDERTYPEID_UserFiles => Guid("{cd0fc69b-71e2-46e5-9690-5bcd9f57aab3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_UsersLibraries => "{c4d98f09-6124-4fe0-9942-826416082da9}"
+    static FOLDERTYPEID_UsersLibraries => Guid("{c4d98f09-6124-4fe0-9942-826416082da9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_OtherUsers => "{b337fd00-9dd5-4635-a6d4-da33fd102b7a}"
+    static FOLDERTYPEID_OtherUsers => Guid("{b337fd00-9dd5-4635-a6d4-da33fd102b7a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_PublishedItems => "{7f2f5b96-ff74-41da-afd8-1c78a5f3aea2}"
+    static FOLDERTYPEID_PublishedItems => Guid("{7f2f5b96-ff74-41da-afd8-1c78a5f3aea2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_Communications => "{91475fe5-586b-4eba-8d75-d17434b8cdf6}"
+    static FOLDERTYPEID_Communications => Guid("{91475fe5-586b-4eba-8d75-d17434b8cdf6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_Contacts => "{de2b70ec-9bf7-4a93-bd3d-243f7881d492}"
+    static FOLDERTYPEID_Contacts => Guid("{de2b70ec-9bf7-4a93-bd3d-243f7881d492}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_StartMenu => "{ef87b4cb-f2ce-4785-8658-4ca6c63e38c6}"
+    static FOLDERTYPEID_StartMenu => Guid("{ef87b4cb-f2ce-4785-8658-4ca6c63e38c6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_RecordedTV => "{5557a28f-5da6-4f83-8809-c2c98a11a6fa}"
+    static FOLDERTYPEID_RecordedTV => Guid("{5557a28f-5da6-4f83-8809-c2c98a11a6fa}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_SavedGames => "{d0363307-28cb-4106-9f23-2956e3e5e0e7}"
+    static FOLDERTYPEID_SavedGames => Guid("{d0363307-28cb-4106-9f23-2956e3e5e0e7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_OpenSearch => "{8faf9629-1980-46ff-8023-9dceab9c3ee3}"
+    static FOLDERTYPEID_OpenSearch => Guid("{8faf9629-1980-46ff-8023-9dceab9c3ee3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_SearchConnector => "{982725ee-6f47-479e-b447-812bfa7d2e8f}"
+    static FOLDERTYPEID_SearchConnector => Guid("{982725ee-6f47-479e-b447-812bfa7d2e8f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_AccountPictures => "{db2a5d8f-06e6-4007-aba6-af877d526ea6}"
+    static FOLDERTYPEID_AccountPictures => Guid("{db2a5d8f-06e6-4007-aba6-af877d526ea6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_Games => "{b689b0d0-76d3-4cbb-87f7-585d0e0ce070}"
+    static FOLDERTYPEID_Games => Guid("{b689b0d0-76d3-4cbb-87f7-585d0e0ce070}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_ControlPanelCategory => "{de4f0660-fa10-4b8f-a494-068b20b22307}"
+    static FOLDERTYPEID_ControlPanelCategory => Guid("{de4f0660-fa10-4b8f-a494-068b20b22307}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_ControlPanelClassic => "{0c3794f3-b545-43aa-a329-c37430c58d2a}"
+    static FOLDERTYPEID_ControlPanelClassic => Guid("{0c3794f3-b545-43aa-a329-c37430c58d2a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_Printers => "{2c7bbec6-c844-4a0a-91fa-cef6f59cfda1}"
+    static FOLDERTYPEID_Printers => Guid("{2c7bbec6-c844-4a0a-91fa-cef6f59cfda1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_RecycleBin => "{d6d9e004-cd87-442b-9d57-5e0aeb4f6f72}"
+    static FOLDERTYPEID_RecycleBin => Guid("{d6d9e004-cd87-442b-9d57-5e0aeb4f6f72}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_SoftwareExplorer => "{d674391b-52d9-4e07-834e-67c98610f39d}"
+    static FOLDERTYPEID_SoftwareExplorer => Guid("{d674391b-52d9-4e07-834e-67c98610f39d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_CompressedFolder => "{80213e82-bcfd-4c4f-8817-bb27601267a9}"
+    static FOLDERTYPEID_CompressedFolder => Guid("{80213e82-bcfd-4c4f-8817-bb27601267a9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_NetworkExplorer => "{25cc242b-9a7c-4f51-80e0-7a2928febe42}"
+    static FOLDERTYPEID_NetworkExplorer => Guid("{25cc242b-9a7c-4f51-80e0-7a2928febe42}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_Searches => "{0b0ba2e3-405f-415e-a6ee-cad625207853}"
+    static FOLDERTYPEID_Searches => Guid("{0b0ba2e3-405f-415e-a6ee-cad625207853}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_SearchHome => "{834d8a44-0974-4ed6-866e-f203d80b3810}"
+    static FOLDERTYPEID_SearchHome => Guid("{834d8a44-0974-4ed6-866e-f203d80b3810}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_StorageProviderGeneric => "{4f01ebc5-2385-41f2-a28e-2c5c91fb56e0}"
+    static FOLDERTYPEID_StorageProviderGeneric => Guid("{4f01ebc5-2385-41f2-a28e-2c5c91fb56e0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_StorageProviderDocuments => "{dd61bd66-70e8-48dd-9655-65c5e1aac2d1}"
+    static FOLDERTYPEID_StorageProviderDocuments => Guid("{dd61bd66-70e8-48dd-9655-65c5e1aac2d1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_StorageProviderPictures => "{71d642a9-f2b1-42cd-ad92-eb9300c7cc0a}"
+    static FOLDERTYPEID_StorageProviderPictures => Guid("{71d642a9-f2b1-42cd-ad92-eb9300c7cc0a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_StorageProviderMusic => "{672ecd7e-af04-4399-875c-0290845b6247}"
+    static FOLDERTYPEID_StorageProviderMusic => Guid("{672ecd7e-af04-4399-875c-0290845b6247}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_StorageProviderVideos => "{51294da1-d7b1-485b-9e9a-17cffe33e187}"
+    static FOLDERTYPEID_StorageProviderVideos => Guid("{51294da1-d7b1-485b-9e9a-17cffe33e187}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FOLDERTYPEID_VersionControl => "{69f1e26b-ec64-4280-bc83-f1eb887ec35a}"
+    static FOLDERTYPEID_VersionControl => Guid("{69f1e26b-ec64-4280-bc83-f1eb887ec35a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SYNCMGR_OBJECTID_Icon => "{6dbc85c3-5d07-4c72-a777-7fec78072c06}"
+    static SYNCMGR_OBJECTID_Icon => Guid("{6dbc85c3-5d07-4c72-a777-7fec78072c06}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SYNCMGR_OBJECTID_EventStore => "{4bef34b9-a786-4075-ba88-0c2b9d89a98f}"
+    static SYNCMGR_OBJECTID_EventStore => Guid("{4bef34b9-a786-4075-ba88-0c2b9d89a98f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SYNCMGR_OBJECTID_ConflictStore => "{d78181f4-2389-47e4-a960-60bcc2ed930b}"
+    static SYNCMGR_OBJECTID_ConflictStore => Guid("{d78181f4-2389-47e4-a960-60bcc2ed930b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SYNCMGR_OBJECTID_BrowseContent => "{57cbb584-e9b4-47ae-a120-c4df3335dee2}"
+    static SYNCMGR_OBJECTID_BrowseContent => Guid("{57cbb584-e9b4-47ae-a120-c4df3335dee2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SYNCMGR_OBJECTID_ShowSchedule => "{edc6f3e3-8441-4109-adf3-6c1ca0b7de47}"
+    static SYNCMGR_OBJECTID_ShowSchedule => Guid("{edc6f3e3-8441-4109-adf3-6c1ca0b7de47}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SYNCMGR_OBJECTID_QueryBeforeActivate => "{d882d80b-e7aa-49ed-86b7-e6e1f714cdfe}"
+    static SYNCMGR_OBJECTID_QueryBeforeActivate => Guid("{d882d80b-e7aa-49ed-86b7-e6e1f714cdfe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SYNCMGR_OBJECTID_QueryBeforeDeactivate => "{a0efc282-60e0-460e-9374-ea88513cfc80}"
+    static SYNCMGR_OBJECTID_QueryBeforeDeactivate => Guid("{a0efc282-60e0-460e-9374-ea88513cfc80}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SYNCMGR_OBJECTID_QueryBeforeEnable => "{04cbf7f0-5beb-4de1-bc90-908345c480f6}"
+    static SYNCMGR_OBJECTID_QueryBeforeEnable => Guid("{04cbf7f0-5beb-4de1-bc90-908345c480f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SYNCMGR_OBJECTID_QueryBeforeDisable => "{bb5f64aa-f004-4eb5-8e4d-26751966344c}"
+    static SYNCMGR_OBJECTID_QueryBeforeDisable => Guid("{bb5f64aa-f004-4eb5-8e4d-26751966344c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SYNCMGR_OBJECTID_QueryBeforeDelete => "{f76c3397-afb3-45d7-a59f-5a49e905437e}"
+    static SYNCMGR_OBJECTID_QueryBeforeDelete => Guid("{f76c3397-afb3-45d7-a59f-5a49e905437e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SYNCMGR_OBJECTID_EventLinkClick => "{2203bdc1-1af1-4082-8c30-28399f41384c}"
+    static SYNCMGR_OBJECTID_EventLinkClick => Guid("{2203bdc1-1af1-4082-8c30-28399f41384c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EP_NavPane => "{cb316b22-25f7-42b8-8a09-540d23a43c2f}"
+    static EP_NavPane => Guid("{cb316b22-25f7-42b8-8a09-540d23a43c2f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EP_Commands => "{d9745868-ca5f-4a76-91cd-f5a129fbb076}"
+    static EP_Commands => Guid("{d9745868-ca5f-4a76-91cd-f5a129fbb076}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EP_Commands_Organize => "{72e81700-e3ec-4660-bf24-3c3b7b648806}"
+    static EP_Commands_Organize => Guid("{72e81700-e3ec-4660-bf24-3c3b7b648806}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EP_Commands_View => "{21f7c32d-eeaa-439b-bb51-37b96fd6a943}"
+    static EP_Commands_View => Guid("{21f7c32d-eeaa-439b-bb51-37b96fd6a943}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EP_DetailsPane => "{43abf98b-89b8-472d-b9ce-e69b8229f019}"
+    static EP_DetailsPane => Guid("{43abf98b-89b8-472d-b9ce-e69b8229f019}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EP_PreviewPane => "{893c63d1-45c8-4d17-be19-223be71be365}"
+    static EP_PreviewPane => Guid("{893c63d1-45c8-4d17-be19-223be71be365}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EP_QueryPane => "{65bcde4f-4f07-4f27-83a7-1afca4df7ddd}"
+    static EP_QueryPane => Guid("{65bcde4f-4f07-4f27-83a7-1afca4df7ddd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EP_AdvQueryPane => "{b4e9db8b-34ba-4c39-b5cc-16a1bd2c411c}"
+    static EP_AdvQueryPane => Guid("{b4e9db8b-34ba-4c39-b5cc-16a1bd2c411c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EP_StatusBar => "{65fe56ce-5cfe-4bc4-ad8a-7ae3fe7e8f7c}"
+    static EP_StatusBar => Guid("{65fe56ce-5cfe-4bc4-ad8a-7ae3fe7e8f7c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EP_Ribbon => "{d27524a8-c9f2-4834-a106-df8889fd4f37}"
+    static EP_Ribbon => Guid("{d27524a8-c9f2-4834-a106-df8889fd4f37}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_LocationFactory => "{965c4d51-8b76-4e57-80b7-564d2ea4b55e}"
+    static CATID_LocationFactory => Guid("{965c4d51-8b76-4e57-80b7-564d2ea4b55e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_LocationProvider => "{1b3ca474-2614-414b-b813-1aceca3e3dd8}"
+    static CATID_LocationProvider => Guid("{1b3ca474-2614-414b-b813-1aceca3e3dd8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ItemCount_Property_GUID => "{abbf5c45-5ccc-47b7-bb4e-87cb87bbd162}"
+    static ItemCount_Property_GUID => Guid("{abbf5c45-5ccc-47b7-bb4e-87cb87bbd162}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SelectedItemCount_Property_GUID => "{8fe316d2-0e52-460a-9c1e-48f273d470a3}"
+    static SelectedItemCount_Property_GUID => Guid("{8fe316d2-0e52-460a-9c1e-48f273d470a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ItemIndex_Property_GUID => "{92a053da-2969-4021-bf27-514cfc2e4a69}"
+    static ItemIndex_Property_GUID => Guid("{92a053da-2969-4021-bf27-514cfc2e4a69}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_SearchableApplication => "{366c292a-d9b3-4dbf-bb70-e62ec3d0bbbf}"
+    static CATID_SearchableApplication => Guid("{366c292a-d9b3-4dbf-bb70-e62ec3d0bbbf}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2208,9 +2209,9 @@ class Shell {
     static PROPSTR_EXTENSIONCOMPLETIONSTATE => "ExtensionCompletionState"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SCommandBarState => "{b99eaa5c-3850-4400-bc33-2ce534048bf8}"
+    static SID_SCommandBarState => Guid("{b99eaa5c-3850-4400-bc33-2ce534048bf8}")
 
     /**
      * @type {Integer (Int32)}
@@ -5458,9 +5459,9 @@ class Shell {
     static PROP_CONTRACT_DELEGATE => "ContractDelegate"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_URLExecutionContext => "{fb5f8ebc-bbb6-4d10-a461-777291a09030}"
+    static SID_URLExecutionContext => Guid("{fb5f8ebc-bbb6-4d10-a461-777291a09030}")
 
     /**
      * @type {String}
@@ -5473,24 +5474,24 @@ class Shell {
     static STR_REFERRER_IDENTIFIER => "Referrer Identifier"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_LaunchSourceViewSizePreference => "{80605492-67d9-414f-af89-a1cdf1242bc1}"
+    static SID_LaunchSourceViewSizePreference => Guid("{80605492-67d9-414f-af89-a1cdf1242bc1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_LaunchTargetViewSizePreference => "{26db2472-b7b7-406b-9702-730a4e20d3bf}"
+    static SID_LaunchTargetViewSizePreference => Guid("{26db2472-b7b7-406b-9702-730a4e20d3bf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_LaunchSourceAppUserModelId => "{2ce78010-74db-48bc-9c6a-10f372495723}"
+    static SID_LaunchSourceAppUserModelId => Guid("{2ce78010-74db-48bc-9c6a-10f372495723}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_ShellExecuteNamedPropertyStore => "{eb84ada2-00ff-4992-8324-ed5ce061cb29}"
+    static SID_ShellExecuteNamedPropertyStore => Guid("{eb84ada2-00ff-4992-8324-ed5ce061cb29}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6038,9 +6039,9 @@ class Shell {
     static CREDENTIAL_PROVIDER_NO_DEFAULT => 4294967295
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Identity_LocalUserProvider => "{a198529b-730f-4089-b646-a12557f5665e}"
+    static Identity_LocalUserProvider => Guid("{a198529b-730f-4089-b646-a12557f5665e}")
 
     /**
      * @type {Integer (UInt32)}
@@ -7903,14 +7904,14 @@ class Shell {
     static E_IMAGEFEED_CHANGEDISABLED => -2144926960
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CUrlHistory => "{3c374a40-bae4-11cf-bf7d-00aa006946ee}"
+    static CLSID_CUrlHistory => Guid("{3c374a40-bae4-11cf-bf7d-00aa006946ee}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CUrlHistoryBoth => "{6659983c-8476-4eb4-b78c-e5968f326ba0}"
+    static CLSID_CUrlHistoryBoth => Guid("{6659983c-8476-4eb4-b78c-e5968f326ba0}")
 
     /**
      * @type {Integer (Int32)}

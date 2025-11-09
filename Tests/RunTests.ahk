@@ -11,6 +11,7 @@
 #Include ./GeneratedStructSmokeTests.ahk
 #Include ./GeneratedApiSmokeTests.ahk
 #Include ./GeneratedComInterfaceSmokeTests.ahk
+#Include ./GeneratedConstantSmokeTests.ahk
 #Include ./CStyleArrayTests.ahk
 #Include ./Win32Handle.test.ahk
 #Include ./Win32ComInterface.test.ahk
@@ -24,6 +25,7 @@ tester := Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter).Test(
     GeneratedStructSmokeTests, 
     GeneratedApiSmokeTests,
     GeneratedComInterfaceTests,
+    GeneratedConstantSmokeTests,
     CStyleArrayListTests, 
     Win32HandleTests,
     Win32ComInterfaceTests,

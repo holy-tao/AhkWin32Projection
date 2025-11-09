@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
@@ -345,9 +346,9 @@ class Geolocation {
     static LOCATION_API_VERSION => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_GNSS => "{3336e5e4-018a-4669-84c5-bd05f3bd368b}"
+    static GUID_DEVINTERFACE_GNSS => Guid("{3336e5e4-018a-4669-84c5-bd05f3bd368b}")
 ;@endregion Constants
 
 ;@region Methods

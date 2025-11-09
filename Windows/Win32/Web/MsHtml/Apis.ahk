@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -31425,29 +31426,29 @@ class MsHtml {
     static SZ_HTML_CLIENTSITE_OBJECTPARAM => "{d4db6850-5385-11d0-89e9-00a0c90a90ac}"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CGID_DocHostCommandHandler => "{f38bc242-b950-11d1-8918-00c04fc2c836}"
+    static CGID_DocHostCommandHandler => Guid("{f38bc242-b950-11d1-8918-00c04fc2c836}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SEditCommandTarget => "{3050f4b5-98b5-11cf-bb82-00aa00bdce0b}"
+    static SID_SEditCommandTarget => Guid("{3050f4b5-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CGID_EditStateCommands => "{3050f4b6-98b5-11cf-bb82-00aa00bdce0b}"
+    static CGID_EditStateCommands => Guid("{3050f4b6-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SHTMLEditHost => "{3050f6a0-98b5-11cf-bb82-00aa00bdce0b}"
+    static SID_SHTMLEditHost => Guid("{3050f6a0-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_SHTMLEditServices => "{3050f7f9-98b5-11cf-bb82-00aa00bdce0b}"
+    static SID_SHTMLEditServices => Guid("{3050f7f9-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * @type {Integer (UInt32)}

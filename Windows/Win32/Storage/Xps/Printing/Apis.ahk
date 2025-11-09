@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Xps.Printing
@@ -10,19 +11,19 @@ class Printing {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ID_DOCUMENTPACKAGETARGET_MSXPS => "{9cae40a8-ded1-41c9-a9fd-d735ef33aeda}"
+    static ID_DOCUMENTPACKAGETARGET_MSXPS => Guid("{9cae40a8-ded1-41c9-a9fd-d735ef33aeda}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ID_DOCUMENTPACKAGETARGET_OPENXPS => "{0056bb72-8c9c-4612-bd0f-93012a87099d}"
+    static ID_DOCUMENTPACKAGETARGET_OPENXPS => Guid("{0056bb72-8c9c-4612-bd0f-93012a87099d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ID_DOCUMENTPACKAGETARGET_OPENXPS_WITH_3D => "{63dbd720-8b14-4577-b074-7bb11b596d28}"
+    static ID_DOCUMENTPACKAGETARGET_OPENXPS_WITH_3D => Guid("{63dbd720-8b14-4577-b074-7bb11b596d28}")
 ;@endregion Constants
 
 ;@region Methods

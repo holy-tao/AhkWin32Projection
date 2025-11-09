@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\NCRYPT_PROV_HANDLE.ahk
 #Include .\NCRYPT_KEY_HANDLE.ahk
 #Include .\NCRYPT_SECRET_HANDLE.ahk
@@ -8,6 +9,8 @@
 #Include ..\NCRYPT_STREAM_HANDLE.ahk
 #Include .\BCRYPT_KEY_HANDLE.ahk
 #Include .\NCRYPT_HASH_HANDLE.ahk
+#Include .\Apis.ahk
+#Include .\BCRYPT_ALG_HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -1203,354 +1206,354 @@ class Cryptography {
     static BCRYPT_KEY_DERIVATION_INTERFACE => 7
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_MD2_ALG_HANDLE => 1
+    static BCRYPT_MD2_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_MD4_ALG_HANDLE => 17
+    static BCRYPT_MD4_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 17}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_MD5_ALG_HANDLE => 33
+    static BCRYPT_MD5_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 33}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_SHA1_ALG_HANDLE => 49
+    static BCRYPT_SHA1_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 49}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_SHA256_ALG_HANDLE => 65
+    static BCRYPT_SHA256_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 65}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_SHA384_ALG_HANDLE => 81
+    static BCRYPT_SHA384_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 81}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_SHA512_ALG_HANDLE => 97
+    static BCRYPT_SHA512_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 97}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_RC4_ALG_HANDLE => 113
+    static BCRYPT_RC4_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 113}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_RNG_ALG_HANDLE => 129
+    static BCRYPT_RNG_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 129}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_HMAC_MD5_ALG_HANDLE => 145
+    static BCRYPT_HMAC_MD5_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 145}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_HMAC_SHA1_ALG_HANDLE => 161
+    static BCRYPT_HMAC_SHA1_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 161}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_HMAC_SHA256_ALG_HANDLE => 177
+    static BCRYPT_HMAC_SHA256_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 177}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_HMAC_SHA384_ALG_HANDLE => 193
+    static BCRYPT_HMAC_SHA384_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 193}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_HMAC_SHA512_ALG_HANDLE => 209
+    static BCRYPT_HMAC_SHA512_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 209}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_RSA_ALG_HANDLE => 225
+    static BCRYPT_RSA_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 225}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_ECDSA_ALG_HANDLE => 241
+    static BCRYPT_ECDSA_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 241}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_AES_CMAC_ALG_HANDLE => 257
+    static BCRYPT_AES_CMAC_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 257}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_AES_GMAC_ALG_HANDLE => 273
+    static BCRYPT_AES_GMAC_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 273}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_HMAC_MD2_ALG_HANDLE => 289
+    static BCRYPT_HMAC_MD2_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 289}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_HMAC_MD4_ALG_HANDLE => 305
+    static BCRYPT_HMAC_MD4_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 305}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_3DES_CBC_ALG_HANDLE => 321
+    static BCRYPT_3DES_CBC_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 321}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_3DES_ECB_ALG_HANDLE => 337
+    static BCRYPT_3DES_ECB_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 337}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_3DES_CFB_ALG_HANDLE => 353
+    static BCRYPT_3DES_CFB_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 353}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_3DES_112_CBC_ALG_HANDLE => 369
+    static BCRYPT_3DES_112_CBC_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 369}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_3DES_112_ECB_ALG_HANDLE => 385
+    static BCRYPT_3DES_112_ECB_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 385}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_3DES_112_CFB_ALG_HANDLE => 401
+    static BCRYPT_3DES_112_CFB_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 401}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_AES_CBC_ALG_HANDLE => 417
+    static BCRYPT_AES_CBC_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 417}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_AES_ECB_ALG_HANDLE => 433
+    static BCRYPT_AES_ECB_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 433}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_AES_CFB_ALG_HANDLE => 449
+    static BCRYPT_AES_CFB_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 449}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_AES_CCM_ALG_HANDLE => 465
+    static BCRYPT_AES_CCM_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 465}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_AES_GCM_ALG_HANDLE => 481
+    static BCRYPT_AES_GCM_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 481}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_DES_CBC_ALG_HANDLE => 497
+    static BCRYPT_DES_CBC_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 497}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_DES_ECB_ALG_HANDLE => 513
+    static BCRYPT_DES_ECB_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 513}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_DES_CFB_ALG_HANDLE => 529
+    static BCRYPT_DES_CFB_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 529}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_DESX_CBC_ALG_HANDLE => 545
+    static BCRYPT_DESX_CBC_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 545}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_DESX_ECB_ALG_HANDLE => 561
+    static BCRYPT_DESX_ECB_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 561}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_DESX_CFB_ALG_HANDLE => 577
+    static BCRYPT_DESX_CFB_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 577}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_RC2_CBC_ALG_HANDLE => 593
+    static BCRYPT_RC2_CBC_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 593}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_RC2_ECB_ALG_HANDLE => 609
+    static BCRYPT_RC2_ECB_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 609}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_RC2_CFB_ALG_HANDLE => 625
+    static BCRYPT_RC2_CFB_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 625}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_DH_ALG_HANDLE => 641
+    static BCRYPT_DH_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 641}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_ECDH_ALG_HANDLE => 657
+    static BCRYPT_ECDH_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 657}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_ECDH_P256_ALG_HANDLE => 673
+    static BCRYPT_ECDH_P256_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 673}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_ECDH_P384_ALG_HANDLE => 689
+    static BCRYPT_ECDH_P384_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 689}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_ECDH_P521_ALG_HANDLE => 705
+    static BCRYPT_ECDH_P521_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 705}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_DSA_ALG_HANDLE => 721
+    static BCRYPT_DSA_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 721}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_ECDSA_P256_ALG_HANDLE => 737
+    static BCRYPT_ECDSA_P256_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 737}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_ECDSA_P384_ALG_HANDLE => 753
+    static BCRYPT_ECDSA_P384_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 753}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_ECDSA_P521_ALG_HANDLE => 769
+    static BCRYPT_ECDSA_P521_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 769}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_RSA_SIGN_ALG_HANDLE => 785
+    static BCRYPT_RSA_SIGN_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 785}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_CAPI_KDF_ALG_HANDLE => 801
+    static BCRYPT_CAPI_KDF_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 801}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_PBKDF2_ALG_HANDLE => 817
+    static BCRYPT_PBKDF2_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 817}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_SP800108_CTR_HMAC_ALG_HANDLE => 833
+    static BCRYPT_SP800108_CTR_HMAC_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 833}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_SP80056A_CONCAT_ALG_HANDLE => 849
+    static BCRYPT_SP80056A_CONCAT_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 849}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_TLS1_1_KDF_ALG_HANDLE => 865
+    static BCRYPT_TLS1_1_KDF_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 865}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_TLS1_2_KDF_ALG_HANDLE => 881
+    static BCRYPT_TLS1_2_KDF_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 881}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_XTS_AES_ALG_HANDLE => 897
+    static BCRYPT_XTS_AES_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 897}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_HKDF_ALG_HANDLE => 913
+    static BCRYPT_HKDF_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 913}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_CHACHA20_POLY1305_ALG_HANDLE => 929
+    static BCRYPT_CHACHA20_POLY1305_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 929}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_SHA3_256_ALG_HANDLE => 945
+    static BCRYPT_SHA3_256_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 945}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_SHA3_384_ALG_HANDLE => 961
+    static BCRYPT_SHA3_384_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 961}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_SHA3_512_ALG_HANDLE => 977
+    static BCRYPT_SHA3_512_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 977}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_HMAC_SHA3_256_ALG_HANDLE => 993
+    static BCRYPT_HMAC_SHA3_256_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 993}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_HMAC_SHA3_384_ALG_HANDLE => 1009
+    static BCRYPT_HMAC_SHA3_384_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1009}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_HMAC_SHA3_512_ALG_HANDLE => 1025
+    static BCRYPT_HMAC_SHA3_512_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1025}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_CSHAKE128_ALG_HANDLE => 1041
+    static BCRYPT_CSHAKE128_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1041}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_CSHAKE256_ALG_HANDLE => 1057
+    static BCRYPT_CSHAKE256_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1057}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_KMAC128_ALG_HANDLE => 1073
+    static BCRYPT_KMAC128_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1073}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_KMAC256_ALG_HANDLE => 1089
+    static BCRYPT_KMAC256_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1089}, false)
 
     /**
-     * @type {Integer (UInt32)}
+     * @type {BCRYPT_ALG_HANDLE}
      */
-    static BCRYPT_AES_KWP_ALG_HANDLE => 1105
+    static BCRYPT_AES_KWP_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1105}, false)
 
     /**
      * @type {Integer (UInt32)}
@@ -2008,9 +2011,9 @@ class Cryptography {
     static dwFORCE_KEY_PROTECTION_HIGH => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CRYPTPROTECT_DEFAULT_PROVIDER => "{df9d8cd0-1501-11d1-8c7a-00c04fc297eb}"
+    static CRYPTPROTECT_DEFAULT_PROVIDER => Guid("{df9d8cd0-1501-11d1-8c7a-00c04fc297eb}")
 
     /**
      * @type {Integer (UInt32)}

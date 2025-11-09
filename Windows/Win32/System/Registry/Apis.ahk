@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\Apis.ahk
+#Include .\HKEY.ahk
 
 /**
  * @namespace Windows.Win32.System.Registry
@@ -10,54 +12,54 @@ class Registry {
 ;@region Constants
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HKEY}
      */
-    static HKEY_CLASSES_ROOT => -2147483648
+    static HKEY_CLASSES_ROOT => HKEY({Value: -2147483648}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HKEY}
      */
-    static HKEY_CURRENT_USER => -2147483647
+    static HKEY_CURRENT_USER => HKEY({Value: -2147483647}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HKEY}
      */
-    static HKEY_LOCAL_MACHINE => -2147483646
+    static HKEY_LOCAL_MACHINE => HKEY({Value: -2147483646}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HKEY}
      */
-    static HKEY_USERS => -2147483645
+    static HKEY_USERS => HKEY({Value: -2147483645}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HKEY}
      */
-    static HKEY_PERFORMANCE_DATA => -2147483644
+    static HKEY_PERFORMANCE_DATA => HKEY({Value: -2147483644}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HKEY}
      */
-    static HKEY_PERFORMANCE_TEXT => -2147483568
+    static HKEY_PERFORMANCE_TEXT => HKEY({Value: -2147483568}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HKEY}
      */
-    static HKEY_PERFORMANCE_NLSTEXT => -2147483552
+    static HKEY_PERFORMANCE_NLSTEXT => HKEY({Value: -2147483552}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HKEY}
      */
-    static HKEY_CURRENT_CONFIG => -2147483643
+    static HKEY_CURRENT_CONFIG => HKEY({Value: -2147483643}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HKEY}
      */
-    static HKEY_DYN_DATA => -2147483642
+    static HKEY_DYN_DATA => HKEY({Value: -2147483642}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HKEY}
      */
-    static HKEY_CURRENT_USER_LOCAL_SETTINGS => -2147483641
+    static HKEY_CURRENT_USER_LOCAL_SETTINGS => HKEY({Value: -2147483641}, false)
 
     /**
      * @type {Integer (UInt32)}

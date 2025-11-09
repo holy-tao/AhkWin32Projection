@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WHV_PARTITION_HANDLE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
@@ -97,44 +98,44 @@ class Hypervisor {
     static HDV_PCI_BAR_COUNT => 6
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HV_GUID_ZERO => "{00000000-0000-0000-0000-000000000000}"
+    static HV_GUID_ZERO => Guid("{00000000-0000-0000-0000-000000000000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HV_GUID_BROADCAST => "{ffffffff-ffff-ffff-ffff-ffffffffffff}"
+    static HV_GUID_BROADCAST => Guid("{ffffffff-ffff-ffff-ffff-ffffffffffff}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HV_GUID_CHILDREN => "{90db8b89-0d35-4f79-8ce9-49ea0ac8b7cd}"
+    static HV_GUID_CHILDREN => Guid("{90db8b89-0d35-4f79-8ce9-49ea0ac8b7cd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HV_GUID_LOOPBACK => "{e0e16197-dd56-4a10-9195-5ee7a155a838}"
+    static HV_GUID_LOOPBACK => Guid("{e0e16197-dd56-4a10-9195-5ee7a155a838}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HV_GUID_PARENT => "{a42e7cda-d03f-480c-9cc2-a4de20abb878}"
+    static HV_GUID_PARENT => Guid("{a42e7cda-d03f-480c-9cc2-a4de20abb878}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HV_GUID_SILOHOST => "{36bd0c5c-7276-4223-88ba-7d03b654c568}"
+    static HV_GUID_SILOHOST => Guid("{36bd0c5c-7276-4223-88ba-7d03b654c568}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HV_GUID_VSOCK_TEMPLATE => "{00000000-facb-11e6-bd58-64006a7986d3}"
+    static HV_GUID_VSOCK_TEMPLATE => Guid("{00000000-facb-11e6-bd58-64006a7986d3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_VM_GENCOUNTER => "{3ff2c92b-6598-4e60-8e1c-0ccf4927e319}"
+    static GUID_DEVINTERFACE_VM_GENCOUNTER => Guid("{3ff2c92b-6598-4e60-8e1c-0ccf4927e319}")
 ;@endregion Constants
 
 ;@region Methods

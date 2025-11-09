@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\MSIHANDLE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
@@ -247,9 +248,9 @@ class ApplicationInstallationAndServicing {
     static TXTLOG_VENDOR => 2147483648
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_EvalCom2 => "{6e5e1910-8053-4660-b795-6b612e29bc58}"
+    static CLSID_EvalCom2 => Guid("{6e5e1910-8053-4660-b795-6b612e29bc58}")
 
     /**
      * @type {Integer (UInt32)}
@@ -257,14 +258,14 @@ class ApplicationInstallationAndServicing {
     static _WIN32_MSM => 100
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LIBID_MsmMergeTypeLib => "{0adda82f-2c26-11d2-ad65-00a0c9af11a6}"
+    static LIBID_MsmMergeTypeLib => Guid("{0adda82f-2c26-11d2-ad65-00a0c9af11a6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MsmMerge2 => "{f94985d5-29f9-4743-9805-99bc3f35b678}"
+    static CLSID_MsmMerge2 => Guid("{f94985d5-29f9-4743-9805-99bc3f35b678}")
 
     /**
      * @type {Integer (UInt32)}
@@ -542,19 +543,19 @@ class ApplicationInstallationAndServicing {
     static IASSEMBLYCACHEITEM_COMMIT_DISPOSITION_ALREADY_INSTALLED => 3
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FUSION_REFCOUNT_UNINSTALL_SUBKEY_GUID => "{8cedc215-ac4b-488b-93c0-a50a49cb2fb8}"
+    static FUSION_REFCOUNT_UNINSTALL_SUBKEY_GUID => Guid("{8cedc215-ac4b-488b-93c0-a50a49cb2fb8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FUSION_REFCOUNT_FILEPATH_GUID => "{b02f9d65-fb77-4f7a-afa5-b391309f11c9}"
+    static FUSION_REFCOUNT_FILEPATH_GUID => Guid("{b02f9d65-fb77-4f7a-afa5-b391309f11c9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FUSION_REFCOUNT_OPAQUE_STRING_GUID => "{2ec93463-b0c3-45e1-8364-327e96aea856}"
+    static FUSION_REFCOUNT_OPAQUE_STRING_GUID => Guid("{2ec93463-b0c3-45e1-8364-327e96aea856}")
 
     /**
      * @type {Integer (UInt32)}

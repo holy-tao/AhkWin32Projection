@@ -230,7 +230,7 @@ class GeneratedApiSmokeTests {
     class ReturnValueMarshalling {
 
         ComLikeApis_OnSuccess_ReturnLogicalValue(){
-            pFolderPath := Shell.SHGetKnownFolderPath(Guid(Shell.FOLDERID_Documents), 0, 0)
+            pFolderPath := Shell.SHGetKnownFolderPath(Shell.FOLDERID_Documents, 0, 0)
             pFolderStr := StrGet(pFolderPath, , "UTF-16")
 
             try{

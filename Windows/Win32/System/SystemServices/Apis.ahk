@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -5835,374 +5836,374 @@ class SystemServices {
     static NETWORK_APP_INSTANCE_CSV_FLAGS_VALID_ONLY_IF_CSV_COORDINATOR => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MAX_POWER_SAVINGS => "{a1841308-3541-4fab-bc81-f71556f20b4a}"
+    static GUID_MAX_POWER_SAVINGS => Guid("{a1841308-3541-4fab-bc81-f71556f20b4a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MIN_POWER_SAVINGS => "{8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c}"
+    static GUID_MIN_POWER_SAVINGS => Guid("{8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_TYPICAL_POWER_SAVINGS => "{381b4222-f694-41f0-9685-ff5bb260df2e}"
+    static GUID_TYPICAL_POWER_SAVINGS => Guid("{381b4222-f694-41f0-9685-ff5bb260df2e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NO_SUBGROUP_GUID => "{fea3413e-7e05-4911-9a71-700331f1c294}"
+    static NO_SUBGROUP_GUID => Guid("{fea3413e-7e05-4911-9a71-700331f1c294}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ALL_POWERSCHEMES_GUID => "{68a1e95e-13ea-41e1-8011-0c496ca490b0}"
+    static ALL_POWERSCHEMES_GUID => Guid("{68a1e95e-13ea-41e1-8011-0c496ca490b0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_POWERSCHEME_PERSONALITY => "{245d8541-3943-4422-b025-13a784f679b7}"
+    static GUID_POWERSCHEME_PERSONALITY => Guid("{245d8541-3943-4422-b025-13a784f679b7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ACTIVE_POWERSCHEME => "{31f9f286-5084-42fe-b720-2b0264993763}"
+    static GUID_ACTIVE_POWERSCHEME => Guid("{31f9f286-5084-42fe-b720-2b0264993763}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_POWER_MODE_BEST_EFFICIENCY => "{961cc777-2547-4f9d-8174-7d86181b8a7a}"
+    static GUID_POWER_MODE_BEST_EFFICIENCY => Guid("{961cc777-2547-4f9d-8174-7d86181b8a7a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_POWER_MODE_NONE => "{00000000-0000-0000-0000-000000000000}"
+    static GUID_POWER_MODE_NONE => Guid("{00000000-0000-0000-0000-000000000000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_POWER_MODE_PERFORMANCE => "{3af9b8d9-7c97-431d-ad78-34a8bfea439f}"
+    static GUID_POWER_MODE_PERFORMANCE => Guid("{3af9b8d9-7c97-431d-ad78-34a8bfea439f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_POWER_MODE_BEST_PERFORMANCE => "{ded574b5-45a0-4f42-8737-46345c09c238}"
+    static GUID_POWER_MODE_BEST_PERFORMANCE => Guid("{ded574b5-45a0-4f42-8737-46345c09c238}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IDLE_RESILIENCY_SUBGROUP => "{2e601130-5351-4d9d-8e04-252966bad054}"
+    static GUID_IDLE_RESILIENCY_SUBGROUP => Guid("{2e601130-5351-4d9d-8e04-252966bad054}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IDLE_RESILIENCY_PERIOD => "{c42b79aa-aa3a-484b-a98f-2cf32aa90a28}"
+    static GUID_IDLE_RESILIENCY_PERIOD => Guid("{c42b79aa-aa3a-484b-a98f-2cf32aa90a28}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEEP_SLEEP_ENABLED => "{d502f7ee-1dc7-4efd-a55d-f04b6f5c0545}"
+    static GUID_DEEP_SLEEP_ENABLED => Guid("{d502f7ee-1dc7-4efd-a55d-f04b6f5c0545}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEEP_SLEEP_PLATFORM_STATE => "{d23f2fb8-9536-4038-9c94-1ce02e5c2152}"
+    static GUID_DEEP_SLEEP_PLATFORM_STATE => Guid("{d23f2fb8-9536-4038-9c94-1ce02e5c2152}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DISK_COALESCING_POWERDOWN_TIMEOUT => "{c36f0eb4-2988-4a70-8eee-0884fc2c2433}"
+    static GUID_DISK_COALESCING_POWERDOWN_TIMEOUT => Guid("{c36f0eb4-2988-4a70-8eee-0884fc2c2433}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT => "{3166bc41-7e98-4e03-b34e-ec0f5f2b218e}"
+    static GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT => Guid("{3166bc41-7e98-4e03-b34e-ec0f5f2b218e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VIDEO_SUBGROUP => "{7516b95f-f776-4464-8c53-06167f40cc99}"
+    static GUID_VIDEO_SUBGROUP => Guid("{7516b95f-f776-4464-8c53-06167f40cc99}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VIDEO_POWERDOWN_TIMEOUT => "{3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e}"
+    static GUID_VIDEO_POWERDOWN_TIMEOUT => Guid("{3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VIDEO_ANNOYANCE_TIMEOUT => "{82dbcf2d-cd67-40c5-bfdc-9f1a5ccd4663}"
+    static GUID_VIDEO_ANNOYANCE_TIMEOUT => Guid("{82dbcf2d-cd67-40c5-bfdc-9f1a5ccd4663}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE => "{eed904df-b142-4183-b10b-5a1197a37864}"
+    static GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE => Guid("{eed904df-b142-4183-b10b-5a1197a37864}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VIDEO_DIM_TIMEOUT => "{17aaa29b-8b43-4b94-aafe-35f64daaf1ee}"
+    static GUID_VIDEO_DIM_TIMEOUT => Guid("{17aaa29b-8b43-4b94-aafe-35f64daaf1ee}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VIDEO_ADAPTIVE_POWERDOWN => "{90959d22-d6a1-49b9-af93-bce885ad335b}"
+    static GUID_VIDEO_ADAPTIVE_POWERDOWN => Guid("{90959d22-d6a1-49b9-af93-bce885ad335b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MONITOR_POWER_ON => "{02731015-4510-4526-99e6-e5a17ebd1aea}"
+    static GUID_MONITOR_POWER_ON => Guid("{02731015-4510-4526-99e6-e5a17ebd1aea}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS => "{aded5e82-b909-4619-9949-f5d71dac0bcb}"
+    static GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS => Guid("{aded5e82-b909-4619-9949-f5d71dac0bcb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS => "{f1fbfde2-a960-4165-9f88-50667911ce96}"
+    static GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS => Guid("{f1fbfde2-a960-4165-9f88-50667911ce96}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS => "{8ffee2c6-2d01-46be-adb9-398addc5b4ff}"
+    static GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS => Guid("{8ffee2c6-2d01-46be-adb9-398addc5b4ff}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS => "{fbd9aa66-9553-4097-ba44-ed6e9d65eab8}"
+    static GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS => Guid("{fbd9aa66-9553-4097-ba44-ed6e9d65eab8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_CONSOLE_DISPLAY_STATE => "{6fe69556-704a-47a0-8f24-c28d936fda47}"
+    static GUID_CONSOLE_DISPLAY_STATE => Guid("{6fe69556-704a-47a0-8f24-c28d936fda47}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ALLOW_DISPLAY_REQUIRED => "{a9ceb8da-cd46-44fb-a98b-02af69de4623}"
+    static GUID_ALLOW_DISPLAY_REQUIRED => Guid("{a9ceb8da-cd46-44fb-a98b-02af69de4623}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VIDEO_CONSOLE_LOCK_TIMEOUT => "{8ec4b3a5-6868-48c2-be75-4f3044be88a7}"
+    static GUID_VIDEO_CONSOLE_LOCK_TIMEOUT => Guid("{8ec4b3a5-6868-48c2-be75-4f3044be88a7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ADVANCED_COLOR_QUALITY_BIAS => "{684c3e69-a4f7-4014-8754-d45179a56167}"
+    static GUID_ADVANCED_COLOR_QUALITY_BIAS => Guid("{684c3e69-a4f7-4014-8754-d45179a56167}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP => "{8619b916-e004-4dd8-9b66-dae86f806698}"
+    static GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP => Guid("{8619b916-e004-4dd8-9b66-dae86f806698}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NON_ADAPTIVE_INPUT_TIMEOUT => "{5adbbfbc-074e-4da1-ba38-db8b36b2c8f3}"
+    static GUID_NON_ADAPTIVE_INPUT_TIMEOUT => Guid("{5adbbfbc-074e-4da1-ba38-db8b36b2c8f3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ADAPTIVE_INPUT_CONTROLLER_STATE => "{0e98fae9-f45a-4de1-a757-6031f197f6ea}"
+    static GUID_ADAPTIVE_INPUT_CONTROLLER_STATE => Guid("{0e98fae9-f45a-4de1-a757-6031f197f6ea}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DISK_SUBGROUP => "{0012ee47-9041-4b5d-9b77-535fba8b1442}"
+    static GUID_DISK_SUBGROUP => Guid("{0012ee47-9041-4b5d-9b77-535fba8b1442}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DISK_MAX_POWER => "{51dea550-bb38-4bc4-991b-eacf37be5ec8}"
+    static GUID_DISK_MAX_POWER => Guid("{51dea550-bb38-4bc4-991b-eacf37be5ec8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DISK_POWERDOWN_TIMEOUT => "{6738e2c4-e8a5-4a42-b16a-e040e769756e}"
+    static GUID_DISK_POWERDOWN_TIMEOUT => Guid("{6738e2c4-e8a5-4a42-b16a-e040e769756e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DISK_IDLE_TIMEOUT => "{58e39ba8-b8e6-4ef6-90d0-89ae32b258d6}"
+    static GUID_DISK_IDLE_TIMEOUT => Guid("{58e39ba8-b8e6-4ef6-90d0-89ae32b258d6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DISK_BURST_IGNORE_THRESHOLD => "{80e3c60e-bb94-4ad8-bbe0-0d3195efc663}"
+    static GUID_DISK_BURST_IGNORE_THRESHOLD => Guid("{80e3c60e-bb94-4ad8-bbe0-0d3195efc663}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DISK_ADAPTIVE_POWERDOWN => "{396a32e1-499a-40b2-9124-a96afe707667}"
+    static GUID_DISK_ADAPTIVE_POWERDOWN => Guid("{396a32e1-499a-40b2-9124-a96afe707667}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DISK_NVME_NOPPME => "{fc7372b6-ab2d-43ee-8797-15e9841f2cca}"
+    static GUID_DISK_NVME_NOPPME => Guid("{fc7372b6-ab2d-43ee-8797-15e9841f2cca}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SLEEP_SUBGROUP => "{238c9fa8-0aad-41ed-83f4-97be242c8f20}"
+    static GUID_SLEEP_SUBGROUP => Guid("{238c9fa8-0aad-41ed-83f4-97be242c8f20}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SLEEP_IDLE_THRESHOLD => "{81cd32e0-7833-44f3-8737-7081f38d1f70}"
+    static GUID_SLEEP_IDLE_THRESHOLD => Guid("{81cd32e0-7833-44f3-8737-7081f38d1f70}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_STANDBY_TIMEOUT => "{29f6c1db-86da-48c5-9fdb-f2b67b1f44da}"
+    static GUID_STANDBY_TIMEOUT => Guid("{29f6c1db-86da-48c5-9fdb-f2b67b1f44da}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_UNATTEND_SLEEP_TIMEOUT => "{7bc4a2f9-d8fc-4469-b07b-33eb785aaca0}"
+    static GUID_UNATTEND_SLEEP_TIMEOUT => Guid("{7bc4a2f9-d8fc-4469-b07b-33eb785aaca0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HIBERNATE_TIMEOUT => "{9d7815a6-7ee4-497e-8888-515a05f02364}"
+    static GUID_HIBERNATE_TIMEOUT => Guid("{9d7815a6-7ee4-497e-8888-515a05f02364}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HIBERNATE_FASTS4_POLICY => "{94ac6d29-73ce-41a6-809f-6363ba21b47e}"
+    static GUID_HIBERNATE_FASTS4_POLICY => Guid("{94ac6d29-73ce-41a6-809f-6363ba21b47e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_CRITICAL_POWER_TRANSITION => "{b7a27025-e569-46c2-a504-2b96cad225a1}"
+    static GUID_CRITICAL_POWER_TRANSITION => Guid("{b7a27025-e569-46c2-a504-2b96cad225a1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SYSTEM_AWAYMODE => "{98a7f580-01f7-48aa-9c0f-44352c29e5c0}"
+    static GUID_SYSTEM_AWAYMODE => Guid("{98a7f580-01f7-48aa-9c0f-44352c29e5c0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ALLOW_AWAYMODE => "{25dfa149-5dd1-4736-b5ab-e8a37b5b8187}"
+    static GUID_ALLOW_AWAYMODE => Guid("{25dfa149-5dd1-4736-b5ab-e8a37b5b8187}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_USER_PRESENCE_PREDICTION => "{82011705-fb95-4d46-8d35-4042b1d20def}"
+    static GUID_USER_PRESENCE_PREDICTION => Guid("{82011705-fb95-4d46-8d35-4042b1d20def}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_STANDBY_BUDGET_GRACE_PERIOD => "{60c07fe1-0556-45cf-9903-d56e32210242}"
+    static GUID_STANDBY_BUDGET_GRACE_PERIOD => Guid("{60c07fe1-0556-45cf-9903-d56e32210242}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_STANDBY_BUDGET_PERCENT => "{9fe527be-1b70-48da-930d-7bcf17b44990}"
+    static GUID_STANDBY_BUDGET_PERCENT => Guid("{9fe527be-1b70-48da-930d-7bcf17b44990}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_STANDBY_BUDGET_REFRESH_COUNT => "{aca8648e-c4b1-4baa-8cce-9390ad647f8c}"
+    static GUID_STANDBY_BUDGET_REFRESH_COUNT => Guid("{aca8648e-c4b1-4baa-8cce-9390ad647f8c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_STANDBY_BUDGET_REFRESH_INTERVAL => "{61f45dfe-1919-4180-bb46-8cc70e0b38f1}"
+    static GUID_STANDBY_BUDGET_REFRESH_INTERVAL => Guid("{61f45dfe-1919-4180-bb46-8cc70e0b38f1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_STANDBY_RESERVE_GRACE_PERIOD => "{c763ee92-71e8-4127-84eb-f6ed043a3e3d}"
+    static GUID_STANDBY_RESERVE_GRACE_PERIOD => Guid("{c763ee92-71e8-4127-84eb-f6ed043a3e3d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_STANDBY_RESERVE_TIME => "{468fe7e5-1158-46ec-88bc-5b96c9e44fd0}"
+    static GUID_STANDBY_RESERVE_TIME => Guid("{468fe7e5-1158-46ec-88bc-5b96c9e44fd0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_STANDBY_RESET_PERCENT => "{49cb11a5-56e2-4afb-9d38-3df47872e21b}"
+    static GUID_STANDBY_RESET_PERCENT => Guid("{49cb11a5-56e2-4afb-9d38-3df47872e21b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HUPR_ADAPTIVE_AWAY_DISPLAY_TIMEOUT => "{0a7d6ab6-ac83-4ad1-8282-eca5b58308f3}"
+    static GUID_HUPR_ADAPTIVE_AWAY_DISPLAY_TIMEOUT => Guid("{0a7d6ab6-ac83-4ad1-8282-eca5b58308f3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HUPR_ADAPTIVE_INATTENTIVE_DIM_TIMEOUT => "{cf8c6097-12b8-4279-bbdd-44601ee5209d}"
+    static GUID_HUPR_ADAPTIVE_INATTENTIVE_DIM_TIMEOUT => Guid("{cf8c6097-12b8-4279-bbdd-44601ee5209d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HUPR_ADAPTIVE_INATTENTIVE_DISPLAY_TIMEOUT => "{ee16691e-6ab3-4619-bb48-1c77c9357e5a}"
+    static GUID_HUPR_ADAPTIVE_INATTENTIVE_DISPLAY_TIMEOUT => Guid("{ee16691e-6ab3-4619-bb48-1c77c9357e5a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HUPR_ADAPTIVE_AWAY_DIM_TIMEOUT => "{a79c8e0e-f271-482d-8f8a-5db9a18312de}"
+    static GUID_HUPR_ADAPTIVE_AWAY_DIM_TIMEOUT => Guid("{a79c8e0e-f271-482d-8f8a-5db9a18312de}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ALLOW_STANDBY_STATES => "{abfc2519-3608-4c2a-94ea-171b0ed546ab}"
+    static GUID_ALLOW_STANDBY_STATES => Guid("{abfc2519-3608-4c2a-94ea-171b0ed546ab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ALLOW_RTC_WAKE => "{bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d}"
+    static GUID_ALLOW_RTC_WAKE => Guid("{bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_LEGACY_RTC_MITIGATION => "{1a34bdc3-7e6b-442e-a9d0-64b6ef378e84}"
+    static GUID_LEGACY_RTC_MITIGATION => Guid("{1a34bdc3-7e6b-442e-a9d0-64b6ef378e84}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ALLOW_SYSTEM_REQUIRED => "{a4b195f5-8225-47d8-8012-9d41369786e2}"
+    static GUID_ALLOW_SYSTEM_REQUIRED => Guid("{a4b195f5-8225-47d8-8012-9d41369786e2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_POWER_SAVING_STATUS => "{e00958c0-c213-4ace-ac77-fecced2eeea5}"
+    static GUID_POWER_SAVING_STATUS => Guid("{e00958c0-c213-4ace-ac77-fecced2eeea5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ENERGY_SAVER_STATUS => "{550e8400-e29b-41d4-a716-446655440000}"
+    static GUID_ENERGY_SAVER_STATUS => Guid("{550e8400-e29b-41d4-a716-446655440000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ENERGY_SAVER_SUBGROUP => "{de830923-a562-41af-a086-e3a2c6bad2da}"
+    static GUID_ENERGY_SAVER_SUBGROUP => Guid("{de830923-a562-41af-a086-e3a2c6bad2da}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ENERGY_SAVER_BATTERY_THRESHOLD => "{e69653ca-cf7f-4f05-aa73-cb833fa90ad4}"
+    static GUID_ENERGY_SAVER_BATTERY_THRESHOLD => Guid("{e69653ca-cf7f-4f05-aa73-cb833fa90ad4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ENERGY_SAVER_BRIGHTNESS => "{13d09884-f74e-474a-a852-b6bde8ad03a8}"
+    static GUID_ENERGY_SAVER_BRIGHTNESS => Guid("{13d09884-f74e-474a-a852-b6bde8ad03a8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ENERGY_SAVER_POLICY => "{5c5bb349-ad29-4ee2-9d0b-2b25270f7a81}"
+    static GUID_ENERGY_SAVER_POLICY => Guid("{5c5bb349-ad29-4ee2-9d0b-2b25270f7a81}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SYSTEM_BUTTON_SUBGROUP => "{4f971e89-eebd-4455-a8de-9e59040e7347}"
+    static GUID_SYSTEM_BUTTON_SUBGROUP => Guid("{4f971e89-eebd-4455-a8de-9e59040e7347}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6255,104 +6256,104 @@ class SystemServices {
     static POWERBUTTON_ACTION_VALUE_TURN_OFF_THE_DISPLAY => 8
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_POWERBUTTON_ACTION => "{7648efa3-dd9c-4e3e-b566-50f929386280}"
+    static GUID_POWERBUTTON_ACTION => Guid("{7648efa3-dd9c-4e3e-b566-50f929386280}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SLEEPBUTTON_ACTION => "{96996bc0-ad50-47ec-923b-6f41874dd9eb}"
+    static GUID_SLEEPBUTTON_ACTION => Guid("{96996bc0-ad50-47ec-923b-6f41874dd9eb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_USERINTERFACEBUTTON_ACTION => "{a7066653-8d6c-40a8-910e-a1f54b84c7e5}"
+    static GUID_USERINTERFACEBUTTON_ACTION => Guid("{a7066653-8d6c-40a8-910e-a1f54b84c7e5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_LIDCLOSE_ACTION => "{5ca83367-6e45-459f-a27b-476b1d01c936}"
+    static GUID_LIDCLOSE_ACTION => Guid("{5ca83367-6e45-459f-a27b-476b1d01c936}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_LIDOPEN_POWERSTATE => "{99ff10e7-23b1-4c07-a9d1-5c3206d741b4}"
+    static GUID_LIDOPEN_POWERSTATE => Guid("{99ff10e7-23b1-4c07-a9d1-5c3206d741b4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_SUBGROUP => "{e73a048d-bf27-4f12-9731-8b2076e8891f}"
+    static GUID_BATTERY_SUBGROUP => Guid("{e73a048d-bf27-4f12-9731-8b2076e8891f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_DISCHARGE_ACTION_0 => "{637ea02f-bbcb-4015-8e2c-a1c7b9c0b546}"
+    static GUID_BATTERY_DISCHARGE_ACTION_0 => Guid("{637ea02f-bbcb-4015-8e2c-a1c7b9c0b546}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_DISCHARGE_LEVEL_0 => "{9a66d8d7-4ff7-4ef9-b5a2-5a326ca2a469}"
+    static GUID_BATTERY_DISCHARGE_LEVEL_0 => Guid("{9a66d8d7-4ff7-4ef9-b5a2-5a326ca2a469}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_DISCHARGE_FLAGS_0 => "{5dbb7c9f-38e9-40d2-9749-4f8a0e9f640f}"
+    static GUID_BATTERY_DISCHARGE_FLAGS_0 => Guid("{5dbb7c9f-38e9-40d2-9749-4f8a0e9f640f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_DISCHARGE_ACTION_1 => "{d8742dcb-3e6a-4b3c-b3fe-374623cdcf06}"
+    static GUID_BATTERY_DISCHARGE_ACTION_1 => Guid("{d8742dcb-3e6a-4b3c-b3fe-374623cdcf06}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_DISCHARGE_LEVEL_1 => "{8183ba9a-e910-48da-8769-14ae6dc1170a}"
+    static GUID_BATTERY_DISCHARGE_LEVEL_1 => Guid("{8183ba9a-e910-48da-8769-14ae6dc1170a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_DISCHARGE_FLAGS_1 => "{bcded951-187b-4d05-bccc-f7e51960c258}"
+    static GUID_BATTERY_DISCHARGE_FLAGS_1 => Guid("{bcded951-187b-4d05-bccc-f7e51960c258}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_DISCHARGE_ACTION_2 => "{421cba38-1a8e-4881-ac89-e33a8b04ece4}"
+    static GUID_BATTERY_DISCHARGE_ACTION_2 => Guid("{421cba38-1a8e-4881-ac89-e33a8b04ece4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_DISCHARGE_LEVEL_2 => "{07a07ca2-adaf-40d7-b077-533aaded1bfa}"
+    static GUID_BATTERY_DISCHARGE_LEVEL_2 => Guid("{07a07ca2-adaf-40d7-b077-533aaded1bfa}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_DISCHARGE_FLAGS_2 => "{7fd2f0c4-feb7-4da3-8117-e3fbedc46582}"
+    static GUID_BATTERY_DISCHARGE_FLAGS_2 => Guid("{7fd2f0c4-feb7-4da3-8117-e3fbedc46582}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_DISCHARGE_ACTION_3 => "{80472613-9780-455e-b308-72d3003cf2f8}"
+    static GUID_BATTERY_DISCHARGE_ACTION_3 => Guid("{80472613-9780-455e-b308-72d3003cf2f8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_DISCHARGE_LEVEL_3 => "{58afd5a6-c2dd-47d2-9fbf-ef70cc5c5965}"
+    static GUID_BATTERY_DISCHARGE_LEVEL_3 => Guid("{58afd5a6-c2dd-47d2-9fbf-ef70cc5c5965}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_DISCHARGE_FLAGS_3 => "{73613ccf-dbfa-4279-8356-4935f6bf62f3}"
+    static GUID_BATTERY_DISCHARGE_FLAGS_3 => Guid("{73613ccf-dbfa-4279-8356-4935f6bf62f3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_SETTINGS_SUBGROUP => "{54533251-82be-4824-96c1-47b60b740d00}"
+    static GUID_PROCESSOR_SETTINGS_SUBGROUP => Guid("{54533251-82be-4824-96c1-47b60b740d00}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_THROTTLE_POLICY => "{57027304-4af6-4104-9260-e3d95248fc36}"
+    static GUID_PROCESSOR_THROTTLE_POLICY => Guid("{57027304-4af6-4104-9260-e3d95248fc36}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6385,39 +6386,39 @@ class SystemServices {
     static PERFSTATE_POLICY_CHANGE_INCREASE_MAX => 3
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_THROTTLE_MAXIMUM => "{bc5038f7-23e0-4960-96da-33abaf5935ec}"
+    static GUID_PROCESSOR_THROTTLE_MAXIMUM => Guid("{bc5038f7-23e0-4960-96da-33abaf5935ec}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_THROTTLE_MAXIMUM_1 => "{bc5038f7-23e0-4960-96da-33abaf5935ed}"
+    static GUID_PROCESSOR_THROTTLE_MAXIMUM_1 => Guid("{bc5038f7-23e0-4960-96da-33abaf5935ed}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_THROTTLE_MINIMUM => "{893dee8e-2bef-41e0-89c6-b55d0929964c}"
+    static GUID_PROCESSOR_THROTTLE_MINIMUM => Guid("{893dee8e-2bef-41e0-89c6-b55d0929964c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_THROTTLE_MINIMUM_1 => "{893dee8e-2bef-41e0-89c6-b55d0929964d}"
+    static GUID_PROCESSOR_THROTTLE_MINIMUM_1 => Guid("{893dee8e-2bef-41e0-89c6-b55d0929964d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_FREQUENCY_LIMIT => "{75b0ae3f-bce0-45a7-8c89-c9611c25e100}"
+    static GUID_PROCESSOR_FREQUENCY_LIMIT => Guid("{75b0ae3f-bce0-45a7-8c89-c9611c25e100}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_FREQUENCY_LIMIT_1 => "{75b0ae3f-bce0-45a7-8c89-c9611c25e101}"
+    static GUID_PROCESSOR_FREQUENCY_LIMIT_1 => Guid("{75b0ae3f-bce0-45a7-8c89-c9611c25e101}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_ALLOW_THROTTLING => "{3b04d4fd-1cc7-4f23-ab1c-d1337819c4bb}"
+    static GUID_PROCESSOR_ALLOW_THROTTLING => Guid("{3b04d4fd-1cc7-4f23-ab1c-d1337819c4bb}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6435,84 +6436,84 @@ class SystemServices {
     static PROCESSOR_THROTTLE_AUTOMATIC => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_IDLESTATE_POLICY => "{68f262a7-f621-4069-b9a5-4874169be23c}"
+    static GUID_PROCESSOR_IDLESTATE_POLICY => Guid("{68f262a7-f621-4069-b9a5-4874169be23c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERFSTATE_POLICY => "{bbdc3814-18e9-4463-8a55-d197327c45c0}"
+    static GUID_PROCESSOR_PERFSTATE_POLICY => Guid("{bbdc3814-18e9-4463-8a55-d197327c45c0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_INCREASE_THRESHOLD => "{06cadf0e-64ed-448a-8927-ce7bf90eb35d}"
+    static GUID_PROCESSOR_PERF_INCREASE_THRESHOLD => Guid("{06cadf0e-64ed-448a-8927-ce7bf90eb35d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1 => "{06cadf0e-64ed-448a-8927-ce7bf90eb35e}"
+    static GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1 => Guid("{06cadf0e-64ed-448a-8927-ce7bf90eb35e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_DECREASE_THRESHOLD => "{12a0ab44-fe28-4fa9-b3bd-4b64f44960a6}"
+    static GUID_PROCESSOR_PERF_DECREASE_THRESHOLD => Guid("{12a0ab44-fe28-4fa9-b3bd-4b64f44960a6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1 => "{12a0ab44-fe28-4fa9-b3bd-4b64f44960a7}"
+    static GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1 => Guid("{12a0ab44-fe28-4fa9-b3bd-4b64f44960a7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_INCREASE_POLICY => "{465e1f50-b610-473a-ab58-00d1077dc418}"
+    static GUID_PROCESSOR_PERF_INCREASE_POLICY => Guid("{465e1f50-b610-473a-ab58-00d1077dc418}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_INCREASE_POLICY_1 => "{465e1f50-b610-473a-ab58-00d1077dc419}"
+    static GUID_PROCESSOR_PERF_INCREASE_POLICY_1 => Guid("{465e1f50-b610-473a-ab58-00d1077dc419}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_DECREASE_POLICY => "{40fbefc7-2e9d-4d25-a185-0cfd8574bac6}"
+    static GUID_PROCESSOR_PERF_DECREASE_POLICY => Guid("{40fbefc7-2e9d-4d25-a185-0cfd8574bac6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_DECREASE_POLICY_1 => "{40fbefc7-2e9d-4d25-a185-0cfd8574bac7}"
+    static GUID_PROCESSOR_PERF_DECREASE_POLICY_1 => Guid("{40fbefc7-2e9d-4d25-a185-0cfd8574bac7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_INCREASE_TIME => "{984cf492-3bed-4488-a8f9-4286c97bf5aa}"
+    static GUID_PROCESSOR_PERF_INCREASE_TIME => Guid("{984cf492-3bed-4488-a8f9-4286c97bf5aa}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_INCREASE_TIME_1 => "{984cf492-3bed-4488-a8f9-4286c97bf5ab}"
+    static GUID_PROCESSOR_PERF_INCREASE_TIME_1 => Guid("{984cf492-3bed-4488-a8f9-4286c97bf5ab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_DECREASE_TIME => "{d8edeb9b-95cf-4f95-a73c-b061973693c8}"
+    static GUID_PROCESSOR_PERF_DECREASE_TIME => Guid("{d8edeb9b-95cf-4f95-a73c-b061973693c8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_DECREASE_TIME_1 => "{d8edeb9b-95cf-4f95-a73c-b061973693c9}"
+    static GUID_PROCESSOR_PERF_DECREASE_TIME_1 => Guid("{d8edeb9b-95cf-4f95-a73c-b061973693c9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_TIME_CHECK => "{4d2b0152-7d5c-498b-88e2-34345392a2c5}"
+    static GUID_PROCESSOR_PERF_TIME_CHECK => Guid("{4d2b0152-7d5c-498b-88e2-34345392a2c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_BOOST_POLICY => "{45bcc044-d885-43e2-8605-ee0ec6e96b59}"
+    static GUID_PROCESSOR_PERF_BOOST_POLICY => Guid("{45bcc044-d885-43e2-8605-ee0ec6e96b59}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6525,9 +6526,9 @@ class SystemServices {
     static PROCESSOR_PERF_BOOST_POLICY_MAX => 100
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_BOOST_MODE => "{be337238-0d82-4146-a960-4f3749d470c7}"
+    static GUID_PROCESSOR_PERF_BOOST_MODE => Guid("{be337238-0d82-4146-a960-4f3749d470c7}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6570,9 +6571,9 @@ class SystemServices {
     static PROCESSOR_PERF_BOOST_MODE_MAX => 6
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_AUTONOMOUS_MODE => "{8baa4a8a-14c6-4451-8e8b-14bdbd197537}"
+    static GUID_PROCESSOR_PERF_AUTONOMOUS_MODE => Guid("{8baa4a8a-14c6-4451-8e8b-14bdbd197537}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6585,14 +6586,14 @@ class SystemServices {
     static PROCESSOR_PERF_AUTONOMOUS_MODE_ENABLED => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE => "{36687f9e-e3a5-4dbf-b1dc-15eb381c6863}"
+    static GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE => Guid("{36687f9e-e3a5-4dbf-b1dc-15eb381c6863}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1 => "{36687f9e-e3a5-4dbf-b1dc-15eb381c6864}"
+    static GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1 => Guid("{36687f9e-e3a5-4dbf-b1dc-15eb381c6864}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6605,9 +6606,9 @@ class SystemServices {
     static PROCESSOR_PERF_ENERGY_PREFERENCE => 0
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW => "{cfeda3d0-7697-4566-a922-a9086cd49dfa}"
+    static GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW => Guid("{cfeda3d0-7697-4566-a922-a9086cd49dfa}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6620,9 +6621,9 @@ class SystemServices {
     static PROCESSOR_PERF_MAXIMUM_ACTIVITY_WINDOW => 1270000000
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_DUTY_CYCLING => "{4e4450b3-6179-4e91-b8f1-5bb9938f81a1}"
+    static GUID_PROCESSOR_DUTY_CYCLING => Guid("{4e4450b3-6179-4e91-b8f1-5bb9938f81a1}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6635,49 +6636,49 @@ class SystemServices {
     static PROCESSOR_DUTY_CYCLING_ENABLED => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_IDLE_ALLOW_SCALING => "{6c2993b0-8f48-481f-bcc6-00dd2742aa06}"
+    static GUID_PROCESSOR_IDLE_ALLOW_SCALING => Guid("{6c2993b0-8f48-481f-bcc6-00dd2742aa06}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_IDLE_DISABLE => "{5d76a2ca-e8c0-402f-a133-2158492d58ad}"
+    static GUID_PROCESSOR_IDLE_DISABLE => Guid("{5d76a2ca-e8c0-402f-a133-2158492d58ad}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_IDLE_STATE_MAXIMUM => "{9943e905-9a30-4ec1-9b99-44dd3b76f7a2}"
+    static GUID_PROCESSOR_IDLE_STATE_MAXIMUM => Guid("{9943e905-9a30-4ec1-9b99-44dd3b76f7a2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_IDLE_TIME_CHECK => "{c4581c31-89ab-4597-8e2b-9c9cab440e6b}"
+    static GUID_PROCESSOR_IDLE_TIME_CHECK => Guid("{c4581c31-89ab-4597-8e2b-9c9cab440e6b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD => "{4b92d758-5a24-4851-a470-815d78aee119}"
+    static GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD => Guid("{4b92d758-5a24-4851-a470-815d78aee119}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD => "{7b224883-b3cc-4d79-819f-8374152cbe7c}"
+    static GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD => Guid("{7b224883-b3cc-4d79-819f-8374152cbe7c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD => "{df142941-20f3-4edf-9a4a-9c83d3d717d1}"
+    static GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD => Guid("{df142941-20f3-4edf-9a4a-9c83d3d717d1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD => "{68dd2f27-a4ce-4e11-8487-3794e4135dfa}"
+    static GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD => Guid("{68dd2f27-a4ce-4e11-8487-3794e4135dfa}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY => "{c7be0679-2817-4d69-9d02-519a537ed0c6}"
+    static GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY => Guid("{c7be0679-2817-4d69-9d02-519a537ed0c6}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6705,179 +6706,179 @@ class SystemServices {
     static CORE_PARKING_POLICY_CHANGE_MAX => 3
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY => "{71021b41-c749-4d21-be74-a00f335d582b}"
+    static GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY => Guid("{71021b41-c749-4d21-be74-a00f335d582b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_MAX_CORES => "{ea062031-0e34-4ff1-9b6d-eb1059334028}"
+    static GUID_PROCESSOR_CORE_PARKING_MAX_CORES => Guid("{ea062031-0e34-4ff1-9b6d-eb1059334028}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1 => "{ea062031-0e34-4ff1-9b6d-eb1059334029}"
+    static GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1 => Guid("{ea062031-0e34-4ff1-9b6d-eb1059334029}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_MIN_CORES => "{0cc5b647-c1df-4637-891a-dec35c318583}"
+    static GUID_PROCESSOR_CORE_PARKING_MIN_CORES => Guid("{0cc5b647-c1df-4637-891a-dec35c318583}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1 => "{0cc5b647-c1df-4637-891a-dec35c318584}"
+    static GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1 => Guid("{0cc5b647-c1df-4637-891a-dec35c318584}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME => "{2ddd5a84-5a71-437e-912a-db0b8c788732}"
+    static GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME => Guid("{2ddd5a84-5a71-437e-912a-db0b8c788732}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME => "{dfd10d17-d5eb-45dd-877a-9a34ddd15c82}"
+    static GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME => Guid("{dfd10d17-d5eb-45dd-877a-9a34ddd15c82}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR => "{8f7b45e3-c393-480a-878c-f67ac3d07082}"
+    static GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR => Guid("{8f7b45e3-c393-480a-878c-f67ac3d07082}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD => "{5b33697b-e89d-4d38-aa46-9e7dfb7cd2f9}"
+    static GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD => Guid("{5b33697b-e89d-4d38-aa46-9e7dfb7cd2f9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING => "{e70867f1-fa2f-4f4e-aea1-4d8a0ba23b20}"
+    static GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING => Guid("{e70867f1-fa2f-4f4e-aea1-4d8a0ba23b20}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR => "{1299023c-bc28-4f0a-81ec-d3295a8d815d}"
+    static GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR => Guid("{1299023c-bc28-4f0a-81ec-d3295a8d815d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD => "{9ac18e92-aa3c-4e27-b307-01ae37307129}"
+    static GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD => Guid("{9ac18e92-aa3c-4e27-b307-01ae37307129}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING => "{8809c2d8-b155-42d4-bcda-0d345651b1db}"
+    static GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING => Guid("{8809c2d8-b155-42d4-bcda-0d345651b1db}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD => "{943c8cb6-6f93-4227-ad87-e9a3feec08d1}"
+    static GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD => Guid("{943c8cb6-6f93-4227-ad87-e9a3feec08d1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PARKING_CORE_OVERRIDE => "{a55612aa-f624-42c6-a443-7397d064c04f}"
+    static GUID_PROCESSOR_PARKING_CORE_OVERRIDE => Guid("{a55612aa-f624-42c6-a443-7397d064c04f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PARKING_PERF_STATE => "{447235c7-6a8d-4cc0-8e24-9eaf70b96e2b}"
+    static GUID_PROCESSOR_PARKING_PERF_STATE => Guid("{447235c7-6a8d-4cc0-8e24-9eaf70b96e2b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PARKING_PERF_STATE_1 => "{447235c7-6a8d-4cc0-8e24-9eaf70b96e2c}"
+    static GUID_PROCESSOR_PARKING_PERF_STATE_1 => Guid("{447235c7-6a8d-4cc0-8e24-9eaf70b96e2c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD => "{2430ab6f-a520-44a2-9601-f7f23b5134b1}"
+    static GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD => Guid("{2430ab6f-a520-44a2-9601-f7f23b5134b1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD => "{f735a673-2066-4f80-a0c5-ddee0cf1bf5d}"
+    static GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD => Guid("{f735a673-2066-4f80-a0c5-ddee0cf1bf5d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD => "{4bdaf4e9-d103-46d7-a5f0-6280121616ef}"
+    static GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD => Guid("{4bdaf4e9-d103-46d7-a5f0-6280121616ef}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_SOFT_PARKING_LATENCY => "{97cfac41-2217-47eb-992d-618b1977c907}"
+    static GUID_PROCESSOR_SOFT_PARKING_LATENCY => Guid("{97cfac41-2217-47eb-992d-618b1977c907}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_HISTORY => "{7d24baa7-0b84-480f-840c-1b0743c00f5f}"
+    static GUID_PROCESSOR_PERF_HISTORY => Guid("{7d24baa7-0b84-480f-840c-1b0743c00f5f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_HISTORY_1 => "{7d24baa7-0b84-480f-840c-1b0743c00f60}"
+    static GUID_PROCESSOR_PERF_HISTORY_1 => Guid("{7d24baa7-0b84-480f-840c-1b0743c00f60}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_INCREASE_HISTORY => "{99b3ef01-752f-46a1-80fb-7730011f2354}"
+    static GUID_PROCESSOR_PERF_INCREASE_HISTORY => Guid("{99b3ef01-752f-46a1-80fb-7730011f2354}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_DECREASE_HISTORY => "{0300f6f8-abd6-45a9-b74f-4908691a40b5}"
+    static GUID_PROCESSOR_PERF_DECREASE_HISTORY => Guid("{0300f6f8-abd6-45a9-b74f-4908691a40b5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY => "{77d7f282-8f1a-42cd-8537-45450a839be8}"
+    static GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY => Guid("{77d7f282-8f1a-42cd-8537-45450a839be8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_LATENCY_HINT => "{0822df31-9c83-441c-a079-0de4cf009c7b}"
+    static GUID_PROCESSOR_PERF_LATENCY_HINT => Guid("{0822df31-9c83-441c-a079-0de4cf009c7b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_LATENCY_HINT_PERF => "{619b7505-003b-4e82-b7a6-4dd29c300971}"
+    static GUID_PROCESSOR_PERF_LATENCY_HINT_PERF => Guid("{619b7505-003b-4e82-b7a6-4dd29c300971}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1 => "{619b7505-003b-4e82-b7a6-4dd29c300972}"
+    static GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1 => Guid("{619b7505-003b-4e82-b7a6-4dd29c300972}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_LATENCY_HINT_EPP => "{4b70f900-cdd9-4e66-aa26-ae8417f98173}"
+    static GUID_PROCESSOR_PERF_LATENCY_HINT_EPP => Guid("{4b70f900-cdd9-4e66-aa26-ae8417f98173}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PERF_LATENCY_HINT_EPP_1 => "{4b70f900-cdd9-4e66-aa26-ae8417f98174}"
+    static GUID_PROCESSOR_PERF_LATENCY_HINT_EPP_1 => Guid("{4b70f900-cdd9-4e66-aa26-ae8417f98174}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK => "{616cdaa5-695e-4545-97ad-97dc2d1bdd88}"
+    static GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK => Guid("{616cdaa5-695e-4545-97ad-97dc2d1bdd88}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1 => "{616cdaa5-695e-4545-97ad-97dc2d1bdd89}"
+    static GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1 => Guid("{616cdaa5-695e-4545-97ad-97dc2d1bdd89}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_MODULE_PARKING_POLICY => "{b0deaf6b-59c0-4523-8a45-ca7f40244114}"
+    static GUID_PROCESSOR_MODULE_PARKING_POLICY => Guid("{b0deaf6b-59c0-4523-8a45-ca7f40244114}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_COMPLEX_PARKING_POLICY => "{b669a5e9-7b1d-4132-baaa-49190abcfeb6}"
+    static GUID_PROCESSOR_COMPLEX_PARKING_POLICY => Guid("{b669a5e9-7b1d-4132-baaa-49190abcfeb6}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6895,9 +6896,9 @@ class SystemServices {
     static PARKING_TOPOLOGY_POLICY_SEQUENTIAL => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_SMT_UNPARKING_POLICY => "{b28a6829-c5f7-444e-8f61-10e24e85c532}"
+    static GUID_PROCESSOR_SMT_UNPARKING_POLICY => Guid("{b28a6829-c5f7-444e-8f61-10e24e85c532}")
 
     /**
      * @type {Integer (UInt32)}
@@ -6920,204 +6921,204 @@ class SystemServices {
     static SMT_UNPARKING_POLICY_LP_SEQUENTIAL => 3
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESTRICTION_COUNT => "{1a98ad09-af22-42ca-8e61-f0a5802c270a}"
+    static GUID_PROCESSOR_RESTRICTION_COUNT => Guid("{1a98ad09-af22-42ca-8e61-f0a5802c270a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_DISTRIBUTE_UTILITY => "{e0007330-f589-42ed-a401-5ddb10e785d3}"
+    static GUID_PROCESSOR_DISTRIBUTE_UTILITY => Guid("{e0007330-f589-42ed-a401-5ddb10e785d3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESOURCE_PRIORITY => "{603fe9ce-8d01-4b48-a968-1d706c28fd5c}"
+    static GUID_PROCESSOR_RESOURCE_PRIORITY => Guid("{603fe9ce-8d01-4b48-a968-1d706c28fd5c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESOURCE_PRIORITY_1 => "{603fe9ce-8d01-4b48-a968-1d706c28fd5d}"
+    static GUID_PROCESSOR_RESOURCE_PRIORITY_1 => Guid("{603fe9ce-8d01-4b48-a968-1d706c28fd5d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_HETEROGENEOUS_POLICY => "{7f2f5cfa-f10c-4823-b5e1-e93ae85f46b5}"
+    static GUID_PROCESSOR_HETEROGENEOUS_POLICY => Guid("{7f2f5cfa-f10c-4823-b5e1-e93ae85f46b5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_HETERO_DECREASE_TIME => "{7f2492b6-60b1-45e5-ae55-773f8cd5caec}"
+    static GUID_PROCESSOR_HETERO_DECREASE_TIME => Guid("{7f2492b6-60b1-45e5-ae55-773f8cd5caec}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_HETERO_INCREASE_TIME => "{4009efa7-e72d-4cba-9edf-91084ea8cbc3}"
+    static GUID_PROCESSOR_HETERO_INCREASE_TIME => Guid("{4009efa7-e72d-4cba-9edf-91084ea8cbc3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_HETERO_CONTAINMENT_DECREASE_TIME => "{6ff13aeb-7897-4356-9999-dd9930af065f}"
+    static GUID_PROCESSOR_HETERO_CONTAINMENT_DECREASE_TIME => Guid("{6ff13aeb-7897-4356-9999-dd9930af065f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_HETERO_CONTAINMENT_INCREASE_TIME => "{64fcee6b-5b1f-45a4-a76a-19b2c36ee290}"
+    static GUID_PROCESSOR_HETERO_CONTAINMENT_INCREASE_TIME => Guid("{64fcee6b-5b1f-45a4-a76a-19b2c36ee290}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_HETERO_CONTAINMENT_EFFICIENCY_THRESHOLD => "{69439b22-221b-4830-bd34-f7bcece24583}"
+    static GUID_PROCESSOR_HETERO_CONTAINMENT_EFFICIENCY_THRESHOLD => Guid("{69439b22-221b-4830-bd34-f7bcece24583}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_HETERO_CONTAINMENT_HYBRID_THRESHOLD => "{6788488b-1b90-4d11-8fa7-973e470dff47}"
+    static GUID_PROCESSOR_HETERO_CONTAINMENT_HYBRID_THRESHOLD => Guid("{6788488b-1b90-4d11-8fa7-973e470dff47}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_HETERO_CONTAINMENT_POLICY => "{60fbe21b-efd9-49f2-b066-8674d8e9f423}"
+    static GUID_PROCESSOR_HETERO_CONTAINMENT_POLICY => Guid("{60fbe21b-efd9-49f2-b066-8674d8e9f423}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD => "{f8861c27-95e7-475c-865b-13c0cb3f9d6b}"
+    static GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD => Guid("{f8861c27-95e7-475c-865b-13c0cb3f9d6b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD_1 => "{f8861c27-95e7-475c-865b-13c0cb3f9d6c}"
+    static GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD_1 => Guid("{f8861c27-95e7-475c-865b-13c0cb3f9d6c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD => "{b000397d-9b0b-483d-98c9-692a6060cfbf}"
+    static GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD => Guid("{b000397d-9b0b-483d-98c9-692a6060cfbf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD_1 => "{b000397d-9b0b-483d-98c9-692a6060cfc0}"
+    static GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD_1 => Guid("{b000397d-9b0b-483d-98c9-692a6060cfc0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CLASS0_FLOOR_PERF => "{fddc842b-8364-4edc-94cf-c17f60de1c80}"
+    static GUID_PROCESSOR_CLASS0_FLOOR_PERF => Guid("{fddc842b-8364-4edc-94cf-c17f60de1c80}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_CLASS1_INITIAL_PERF => "{1facfc65-a930-4bc5-9f38-504ec097bbc0}"
+    static GUID_PROCESSOR_CLASS1_INITIAL_PERF => Guid("{1facfc65-a930-4bc5-9f38-504ec097bbc0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_THREAD_SCHEDULING_POLICY => "{93b8b6dc-0698-4d1c-9ee4-0644e900c85d}"
+    static GUID_PROCESSOR_THREAD_SCHEDULING_POLICY => Guid("{93b8b6dc-0698-4d1c-9ee4-0644e900c85d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY => "{bae08b81-2d5e-4688-ad6a-13243356654b}"
+    static GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY => Guid("{bae08b81-2d5e-4688-ad6a-13243356654b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD => "{d92998c2-6a48-49ca-85d4-8cceec294570}"
+    static GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD => Guid("{d92998c2-6a48-49ca-85d4-8cceec294570}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_SHORT_THREAD_ARCH_CLASS_UPPER_THRESHOLD => "{828423eb-8662-4344-90f7-52bf15870f5a}"
+    static GUID_PROCESSOR_SHORT_THREAD_ARCH_CLASS_UPPER_THRESHOLD => Guid("{828423eb-8662-4344-90f7-52bf15870f5a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_SHORT_THREAD_ARCH_CLASS_LOWER_THRESHOLD => "{53824d46-87bd-4739-aa1b-aa793fac36d6}"
+    static GUID_PROCESSOR_SHORT_THREAD_ARCH_CLASS_LOWER_THRESHOLD => Guid("{53824d46-87bd-4739-aa1b-aa793fac36d6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_LONG_THREAD_ARCH_CLASS_UPPER_THRESHOLD => "{bf903d33-9d24-49d3-a468-e65e0325046a}"
+    static GUID_PROCESSOR_LONG_THREAD_ARCH_CLASS_UPPER_THRESHOLD => Guid("{bf903d33-9d24-49d3-a468-e65e0325046a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_LONG_THREAD_ARCH_CLASS_LOWER_THRESHOLD => "{43f278bc-0f8a-46d0-8b31-9a23e615d713}"
+    static GUID_PROCESSOR_LONG_THREAD_ARCH_CLASS_LOWER_THRESHOLD => Guid("{43f278bc-0f8a-46d0-8b31-9a23e615d713}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SYSTEM_COOLING_POLICY => "{94d3a615-a899-4ac5-ae2b-e4d8f634367f}"
+    static GUID_SYSTEM_COOLING_POLICY => Guid("{94d3a615-a899-4ac5-ae2b-e4d8f634367f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD => "{38b8383d-cce0-4c79-9e3e-56a4f17cc480}"
+    static GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD => Guid("{38b8383d-cce0-4c79-9e3e-56a4f17cc480}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1 => "{38b8383d-cce0-4c79-9e3e-56a4f17cc481}"
+    static GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1 => Guid("{38b8383d-cce0-4c79-9e3e-56a4f17cc481}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD => "{3d44e256-7222-4415-a9ed-9c45fa3dd830}"
+    static GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD => Guid("{3d44e256-7222-4415-a9ed-9c45fa3dd830}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1 => "{3d44e256-7222-4415-a9ed-9c45fa3dd831}"
+    static GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1 => Guid("{3d44e256-7222-4415-a9ed-9c45fa3dd831}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME => "{f565999f-3fb0-411a-a226-3f0198dec130}"
+    static GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME => Guid("{f565999f-3fb0-411a-a226-3f0198dec130}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1 => "{f565999f-3fb0-411a-a226-3f0198dec131}"
+    static GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1 => Guid("{f565999f-3fb0-411a-a226-3f0198dec131}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME => "{3d915188-7830-49ae-a79a-0fb0a1e5a200}"
+    static GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME => Guid("{3d915188-7830-49ae-a79a-0fb0a1e5a200}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1 => "{3d915188-7830-49ae-a79a-0fb0a1e5a201}"
+    static GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1 => Guid("{3d915188-7830-49ae-a79a-0fb0a1e5a201}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING => "{4427c73b-9756-4a5c-b84b-c7bda79c7320}"
+    static GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING => Guid("{4427c73b-9756-4a5c-b84b-c7bda79c7320}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1 => "{4427c73b-9756-4a5c-b84b-c7bda79c7321}"
+    static GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1 => Guid("{4427c73b-9756-4a5c-b84b-c7bda79c7321}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR => "{ce8e92ee-6a86-4572-bfe0-20c21d03cd40}"
+    static GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR => Guid("{ce8e92ee-6a86-4572-bfe0-20c21d03cd40}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1 => "{ce8e92ee-6a86-4572-bfe0-20c21d03cd41}"
+    static GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1 => Guid("{ce8e92ee-6a86-4572-bfe0-20c21d03cd41}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_LOCK_CONSOLE_ON_WAKE => "{0e796bdb-100d-47d6-a2d5-f7d2daa51f51}"
+    static GUID_LOCK_CONSOLE_ON_WAKE => Guid("{0e796bdb-100d-47d6-a2d5-f7d2daa51f51}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_IDLE_POLICY => "{4faab71a-92e5-4726-b531-224559672d19}"
+    static GUID_DEVICE_IDLE_POLICY => Guid("{4faab71a-92e5-4726-b531-224559672d19}")
 
     /**
      * @type {Integer (UInt32)}
@@ -7130,9 +7131,9 @@ class SystemServices {
     static POWER_DEVICE_IDLE_POLICY_CONSERVATIVE => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_CONNECTIVITY_IN_STANDBY => "{f15576e8-98b7-4186-b944-eafa664402d9}"
+    static GUID_CONNECTIVITY_IN_STANDBY => Guid("{f15576e8-98b7-4186-b944-eafa664402d9}")
 
     /**
      * @type {Integer (UInt32)}
@@ -7150,9 +7151,9 @@ class SystemServices {
     static POWER_CONNECTIVITY_IN_STANDBY_SYSTEM_MANAGED => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DISCONNECTED_STANDBY_MODE => "{68afb2d9-ee95-47a8-8f50-4115088073b1}"
+    static GUID_DISCONNECTED_STANDBY_MODE => Guid("{68afb2d9-ee95-47a8-8f50-4115088073b1}")
 
     /**
      * @type {Integer (UInt32)}
@@ -7165,114 +7166,114 @@ class SystemServices {
     static POWER_DISCONNECTED_STANDBY_MODE_AGGRESSIVE => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ACDC_POWER_SOURCE => "{5d3e9a59-e9d5-4b00-a6bd-ff34ff516548}"
+    static GUID_ACDC_POWER_SOURCE => Guid("{5d3e9a59-e9d5-4b00-a6bd-ff34ff516548}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_LIDSWITCH_STATE_CHANGE => "{ba3e0f4d-b817-4094-a2d1-d56379e6a0f3}"
+    static GUID_LIDSWITCH_STATE_CHANGE => Guid("{ba3e0f4d-b817-4094-a2d1-d56379e6a0f3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_LIDSWITCH_STATE_RELIABILITY => "{ae4c4ff1-d361-43f4-80aa-bbb6eb03de94}"
+    static GUID_LIDSWITCH_STATE_RELIABILITY => Guid("{ae4c4ff1-d361-43f4-80aa-bbb6eb03de94}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_PERCENTAGE_REMAINING => "{a7ad8041-b45a-4cae-87a3-eecbb468a9e1}"
+    static GUID_BATTERY_PERCENTAGE_REMAINING => Guid("{a7ad8041-b45a-4cae-87a3-eecbb468a9e1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BATTERY_COUNT => "{7d263f15-fca4-49e5-854b-a9f2bfbd5c24}"
+    static GUID_BATTERY_COUNT => Guid("{7d263f15-fca4-49e5-854b-a9f2bfbd5c24}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_GLOBAL_USER_PRESENCE => "{786e8a1d-b427-4344-9207-09e70bdcbea9}"
+    static GUID_GLOBAL_USER_PRESENCE => Guid("{786e8a1d-b427-4344-9207-09e70bdcbea9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SESSION_DISPLAY_STATUS => "{2b84c20e-ad23-4ddf-93db-05ffbd7efca5}"
+    static GUID_SESSION_DISPLAY_STATUS => Guid("{2b84c20e-ad23-4ddf-93db-05ffbd7efca5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SESSION_USER_PRESENCE => "{3c0f4548-c03f-4c4d-b9f2-237ede686376}"
+    static GUID_SESSION_USER_PRESENCE => Guid("{3c0f4548-c03f-4c4d-b9f2-237ede686376}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IDLE_BACKGROUND_TASK => "{515c31d8-f734-163d-a0fd-11a08c91e8f1}"
+    static GUID_IDLE_BACKGROUND_TASK => Guid("{515c31d8-f734-163d-a0fd-11a08c91e8f1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BACKGROUND_TASK_NOTIFICATION => "{cf23f240-2a54-48d8-b114-de1518ff052e}"
+    static GUID_BACKGROUND_TASK_NOTIFICATION => Guid("{cf23f240-2a54-48d8-b114-de1518ff052e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_APPLAUNCH_BUTTON => "{1a689231-7399-4e9a-8f99-b71f999db3fa}"
+    static GUID_APPLAUNCH_BUTTON => Guid("{1a689231-7399-4e9a-8f99-b71f999db3fa}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCIEXPRESS_SETTINGS_SUBGROUP => "{501a4d13-42af-4429-9fd1-a8218c268e20}"
+    static GUID_PCIEXPRESS_SETTINGS_SUBGROUP => Guid("{501a4d13-42af-4429-9fd1-a8218c268e20}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCIEXPRESS_ASPM_POLICY => "{ee12f906-d277-404b-b6da-e5fa1a576df5}"
+    static GUID_PCIEXPRESS_ASPM_POLICY => Guid("{ee12f906-d277-404b-b6da-e5fa1a576df5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ENABLE_SWITCH_FORCED_SHUTDOWN => "{833a6b62-dfa4-46d1-82f8-e09e34d029d6}"
+    static GUID_ENABLE_SWITCH_FORCED_SHUTDOWN => Guid("{833a6b62-dfa4-46d1-82f8-e09e34d029d6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_INTSTEER_SUBGROUP => "{48672f38-7a9a-4bb2-8bf8-3d85be19de4e}"
+    static GUID_INTSTEER_SUBGROUP => Guid("{48672f38-7a9a-4bb2-8bf8-3d85be19de4e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_INTSTEER_MODE => "{2bfc24f9-5ea2-4801-8213-3dbae01aa39d}"
+    static GUID_INTSTEER_MODE => Guid("{2bfc24f9-5ea2-4801-8213-3dbae01aa39d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_INTSTEER_LOAD_PER_PROC_TRIGGER => "{73cde64d-d720-4bb2-a860-c755afe77ef2}"
+    static GUID_INTSTEER_LOAD_PER_PROC_TRIGGER => Guid("{73cde64d-d720-4bb2-a860-c755afe77ef2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_INTSTEER_TIME_UNPARK_TRIGGER => "{d6ba4903-386f-4c2c-8adb-5c21b3328d25}"
+    static GUID_INTSTEER_TIME_UNPARK_TRIGGER => Guid("{d6ba4903-386f-4c2c-8adb-5c21b3328d25}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_GRAPHICS_SUBGROUP => "{5fb4938d-1ee8-4b0f-9a3c-5036b0ab995c}"
+    static GUID_GRAPHICS_SUBGROUP => Guid("{5fb4938d-1ee8-4b0f-9a3c-5036b0ab995c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_GPU_PREFERENCE_POLICY => "{dd848b2a-8a5d-4451-9ae2-39cd41658f6c}"
+    static GUID_GPU_PREFERENCE_POLICY => Guid("{dd848b2a-8a5d-4451-9ae2-39cd41658f6c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MIXED_REALITY_MODE => "{1e626b4e-cf04-4f8d-9cc7-c97c5b0f2391}"
+    static GUID_MIXED_REALITY_MODE => Guid("{1e626b4e-cf04-4f8d-9cc7-c97c5b0f2391}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SPR_ACTIVE_SESSION_CHANGE => "{0e24ce38-c393-4742-bdb1-744f4b9ee08e}"
+    static GUID_SPR_ACTIVE_SESSION_CHANGE => Guid("{0e24ce38-c393-4742-bdb1-744f4b9ee08e}")
 
     /**
      * @type {Integer (UInt32)}
@@ -9542,17 +9543,17 @@ class SystemServices {
     /**
      * @type {String}
      */
-    static IMAGE_ARCHIVE_START => "!<arch>\u000a"
+    static IMAGE_ARCHIVE_START => "!<arch>" Chr(10) ""
 
     /**
      * @type {String}
      */
-    static IMAGE_ARCHIVE_END => "`\u000a"
+    static IMAGE_ARCHIVE_END => "``" Chr(10) ""
 
     /**
      * @type {String}
      */
-    static IMAGE_ARCHIVE_PAD => "\u000a"
+    static IMAGE_ARCHIVE_PAD => "" Chr(10) ""
 
     /**
      * @type {String}

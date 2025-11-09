@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -2601,9 +2602,9 @@ class NetManagement {
     static DELEGATED_MANAGED_SERVICE_ACCOUNT_PASSWORD => "_SA_{F8262F4C-499B-4770-88B4-A75C91D0D8E9}"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ServiceAccountPasswordGUID => "{262e99c9-6160-4871-acec-4e61736b6f21}"
+    static ServiceAccountPasswordGUID => Guid("{262e99c9-6160-4871-acec-4e61736b6f21}")
 
     /**
      * @type {Integer (Int32)}

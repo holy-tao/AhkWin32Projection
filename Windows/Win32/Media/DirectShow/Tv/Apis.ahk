@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -170,9 +171,9 @@ class Tv {
     static MPEG2_FILTER_VERSION_2_SIZE => 133
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_MSVidCtl_CurrentAudioEndpoint => "{cf9a88f4-abcf-4ed8-9b74-7db33445459e}"
+    static SID_MSVidCtl_CurrentAudioEndpoint => Guid("{cf9a88f4-abcf-4ed8-9b74-7db33445459e}")
 
     /**
      * @type {Integer (UInt32)}
@@ -180,29 +181,29 @@ class Tv {
     static STREAMBUFFER_EC_BASE => 806
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_SBE2RecControlStarted => "{8966a89e-f83e-4c0e-bc3b-bfa7649e04cb}"
+    static EVENTID_SBE2RecControlStarted => Guid("{8966a89e-f83e-4c0e-bc3b-bfa7649e04cb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_SBE2RecControlStopped => "{454b1ec8-0c9b-4caa-b1a1-1e7a2666f6c3}"
+    static EVENTID_SBE2RecControlStopped => Guid("{454b1ec8-0c9b-4caa-b1a1-1e7a2666f6c3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SBE2_STREAM_DESC_EVENT => "{2313a4ed-bf2d-454f-ad8a-d95ba7f91fee}"
+    static SBE2_STREAM_DESC_EVENT => Guid("{2313a4ed-bf2d-454f-ad8a-d95ba7f91fee}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SBE2_V1_STREAMS_CREATION_EVENT => "{000fcf09-97f5-46ac-9769-7a83b35384fb}"
+    static SBE2_V1_STREAMS_CREATION_EVENT => Guid("{000fcf09-97f5-46ac-9769-7a83b35384fb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SBE2_V2_STREAMS_CREATION_EVENT => "{a72530a3-0344-4cab-a2d0-fe937dbdcab3}"
+    static SBE2_V2_STREAMS_CREATION_EVENT => Guid("{a72530a3-0344-4cab-a2d0-fe937dbdcab3}")
 
     /**
      * @type {Integer (UInt32)}
@@ -210,184 +211,184 @@ class Tv {
     static SBE2_STREAM_DESC_VERSION => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_DRMSecureServiceChannel => "{c4c4c4c4-0049-4e2b-98fb-9537f6ce516d}"
+    static SID_DRMSecureServiceChannel => Guid("{c4c4c4c4-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ETFilterEncProperties => "{c4c4c481-0049-4e2b-98fb-9537f6ce516d}"
+    static CLSID_ETFilterEncProperties => Guid("{c4c4c481-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ETFilterTagProperties => "{c4c4c491-0049-4e2b-98fb-9537f6ce516d}"
+    static CLSID_ETFilterTagProperties => Guid("{c4c4c491-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_PTFilter => "{9cd31617-b303-4f96-8330-2eb173ea4dc6}"
+    static CLSID_PTFilter => Guid("{9cd31617-b303-4f96-8330-2eb173ea4dc6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DTFilterEncProperties => "{c4c4c482-0049-4e2b-98fb-9537f6ce516d}"
+    static CLSID_DTFilterEncProperties => Guid("{c4c4c482-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DTFilterTagProperties => "{c4c4c492-0049-4e2b-98fb-9537f6ce516d}"
+    static CLSID_DTFilterTagProperties => Guid("{c4c4c492-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_XDSCodecProperties => "{c4c4c483-0049-4e2b-98fb-9537f6ce516d}"
+    static CLSID_XDSCodecProperties => Guid("{c4c4c483-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_XDSCodecTagProperties => "{c4c4c493-0049-4e2b-98fb-9537f6ce516d}"
+    static CLSID_XDSCodecTagProperties => Guid("{c4c4c493-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CPCAFiltersCategory => "{c4c4c4fc-0049-4e2b-98fb-9537f6ce516d}"
+    static CLSID_CPCAFiltersCategory => Guid("{c4c4c4fc-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_XDSCodecNewXDSRating => "{c4c4c4e0-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_XDSCodecNewXDSRating => Guid("{c4c4c4e0-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_XDSCodecDuplicateXDSRating => "{c4c4c4df-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_XDSCodecDuplicateXDSRating => Guid("{c4c4c4df-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_XDSCodecNewXDSPacket => "{c4c4c4e1-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_XDSCodecNewXDSPacket => Guid("{c4c4c4e1-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_DTFilterRatingChange => "{c4c4c4e2-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_DTFilterRatingChange => Guid("{c4c4c4e2-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_DTFilterRatingsBlock => "{c4c4c4e3-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_DTFilterRatingsBlock => Guid("{c4c4c4e3-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_DTFilterRatingsUnblock => "{c4c4c4e4-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_DTFilterRatingsUnblock => Guid("{c4c4c4e4-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_DTFilterXDSPacket => "{c4c4c4e5-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_DTFilterXDSPacket => Guid("{c4c4c4e5-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_ETFilterEncryptionOn => "{c4c4c4e6-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_ETFilterEncryptionOn => Guid("{c4c4c4e6-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_ETFilterEncryptionOff => "{c4c4c4e7-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_ETFilterEncryptionOff => Guid("{c4c4c4e7-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_DTFilterCOPPUnblock => "{c4c4c4e8-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_DTFilterCOPPUnblock => Guid("{c4c4c4e8-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_EncDecFilterError => "{c4c4c4e9-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_EncDecFilterError => Guid("{c4c4c4e9-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_DTFilterCOPPBlock => "{c4c4c4ea-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_DTFilterCOPPBlock => Guid("{c4c4c4ea-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_ETFilterCopyOnce => "{c4c4c4eb-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_ETFilterCopyOnce => Guid("{c4c4c4eb-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_ETFilterCopyNever => "{c4c4c4f0-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_ETFilterCopyNever => Guid("{c4c4c4f0-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_DTFilterDataFormatOK => "{c4c4c4ec-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_DTFilterDataFormatOK => Guid("{c4c4c4ec-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_DTFilterDataFormatFailure => "{c4c4c4ed-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_DTFilterDataFormatFailure => Guid("{c4c4c4ed-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_ETDTFilterLicenseOK => "{c4c4c4ee-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_ETDTFilterLicenseOK => Guid("{c4c4c4ee-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_ETDTFilterLicenseFailure => "{c4c4c4ef-0049-4e2b-98fb-9537f6ce516d}"
+    static EVENTID_ETDTFilterLicenseFailure => Guid("{c4c4c4ef-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MEDIASUBTYPE_ETDTFilter_Tagged => "{c4c4c4d0-0049-4e2b-98fb-9537f6ce516d}"
+    static MEDIASUBTYPE_ETDTFilter_Tagged => Guid("{c4c4c4d0-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FORMATTYPE_ETDTFilter_Tagged => "{c4c4c4d1-0049-4e2b-98fb-9537f6ce516d}"
+    static FORMATTYPE_ETDTFilter_Tagged => Guid("{c4c4c4d1-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MEDIASUBTYPE_CPFilters_Processed => "{46adbd28-6fd0-4796-93b2-155c51dc048d}"
+    static MEDIASUBTYPE_CPFilters_Processed => Guid("{46adbd28-6fd0-4796-93b2-155c51dc048d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FORMATTYPE_CPFilters_Processed => "{6739b36f-1d5f-4ac2-8192-28bb0e73d16a}"
+    static FORMATTYPE_CPFilters_Processed => Guid("{6739b36f-1d5f-4ac2-8192-28bb0e73d16a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_EncDecFilterEvent => "{4a1b465b-0fb9-4159-afbd-e33006a0f9f4}"
+    static EVENTID_EncDecFilterEvent => Guid("{4a1b465b-0fb9-4159-afbd-e33006a0f9f4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_FormatNotSupportedEvent => "{24b2280a-b2aa-4777-bf65-63f35e7b024a}"
+    static EVENTID_FormatNotSupportedEvent => Guid("{24b2280a-b2aa-4777-bf65-63f35e7b024a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EVENTID_DemultiplexerFilterDiscontinuity => "{16155770-aed5-475c-bb98-95a33070df0c}"
+    static EVENTID_DemultiplexerFilterDiscontinuity => Guid("{16155770-aed5-475c-bb98-95a33070df0c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DSATTRIB_WMDRMProtectionInfo => "{40749583-6b9d-4eec-b43c-67a1801e1a9b}"
+    static DSATTRIB_WMDRMProtectionInfo => Guid("{40749583-6b9d-4eec-b43c-67a1801e1a9b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DSATTRIB_BadSampleInfo => "{e4846dda-5838-42b4-b897-6f7e5faa2f2f}"
+    static DSATTRIB_BadSampleInfo => Guid("{e4846dda-5838-42b4-b897-6f7e5faa2f2f}")
 
     /**
      * @type {Integer (UInt32)}
@@ -705,9 +706,9 @@ class Tv {
     static SCTE_EAS_OOB_PID => 8188
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_Mpeg2TableFilter => "{752845f1-758f-4c83-a043-4270c593308e}"
+    static CLSID_Mpeg2TableFilter => Guid("{752845f1-758f-4c83-a043-4270c593308e}")
 
     /**
      * @type {Integer (UInt32)}

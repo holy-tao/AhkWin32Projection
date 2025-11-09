@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -745,64 +746,64 @@ class WinTrust {
     static WIN_CERT_TYPE_TS_STACK_SIGNED => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIN_TRUST_SUBJTYPE_RAW_FILE => "{959dc450-8d9e-11cf-8736-00aa00a485eb}"
+    static WIN_TRUST_SUBJTYPE_RAW_FILE => Guid("{959dc450-8d9e-11cf-8736-00aa00a485eb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIN_TRUST_SUBJTYPE_PE_IMAGE => "{43c9a1e0-8da0-11cf-8736-00aa00a485eb}"
+    static WIN_TRUST_SUBJTYPE_PE_IMAGE => Guid("{43c9a1e0-8da0-11cf-8736-00aa00a485eb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIN_TRUST_SUBJTYPE_JAVA_CLASS => "{08ad3990-8da1-11cf-8736-00aa00a485eb}"
+    static WIN_TRUST_SUBJTYPE_JAVA_CLASS => Guid("{08ad3990-8da1-11cf-8736-00aa00a485eb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIN_TRUST_SUBJTYPE_CABINET => "{d17c5374-a392-11cf-9df5-00aa00c184e0}"
+    static WIN_TRUST_SUBJTYPE_CABINET => Guid("{d17c5374-a392-11cf-9df5-00aa00c184e0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIN_TRUST_SUBJTYPE_RAW_FILEEX => "{6f458110-c2f1-11cf-8a69-00aa006c3706}"
+    static WIN_TRUST_SUBJTYPE_RAW_FILEEX => Guid("{6f458110-c2f1-11cf-8a69-00aa006c3706}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIN_TRUST_SUBJTYPE_PE_IMAGEEX => "{6f458111-c2f1-11cf-8a69-00aa006c3706}"
+    static WIN_TRUST_SUBJTYPE_PE_IMAGEEX => Guid("{6f458111-c2f1-11cf-8a69-00aa006c3706}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIN_TRUST_SUBJTYPE_JAVA_CLASSEX => "{6f458113-c2f1-11cf-8a69-00aa006c3706}"
+    static WIN_TRUST_SUBJTYPE_JAVA_CLASSEX => Guid("{6f458113-c2f1-11cf-8a69-00aa006c3706}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIN_TRUST_SUBJTYPE_CABINETEX => "{6f458114-c2f1-11cf-8a69-00aa006c3706}"
+    static WIN_TRUST_SUBJTYPE_CABINETEX => Guid("{6f458114-c2f1-11cf-8a69-00aa006c3706}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIN_TRUST_SUBJTYPE_OLE_STORAGE => "{c257e740-8da0-11cf-8736-00aa00a485eb}"
+    static WIN_TRUST_SUBJTYPE_OLE_STORAGE => Guid("{c257e740-8da0-11cf-8736-00aa00a485eb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIN_SPUB_ACTION_TRUSTED_PUBLISHER => "{66426730-8da1-11cf-8736-00aa00a485eb}"
+    static WIN_SPUB_ACTION_TRUSTED_PUBLISHER => Guid("{66426730-8da1-11cf-8736-00aa00a485eb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIN_SPUB_ACTION_NT_ACTIVATE_IMAGE => "{8bc96b00-8da1-11cf-8736-00aa00a485eb}"
+    static WIN_SPUB_ACTION_NT_ACTIVATE_IMAGE => Guid("{8bc96b00-8da1-11cf-8736-00aa00a485eb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIN_SPUB_ACTION_PUBLISHED_SOFTWARE => "{64b9d180-8da2-11cf-8736-00aa00a485eb}"
+    static WIN_SPUB_ACTION_PUBLISHED_SOFTWARE => Guid("{64b9d180-8da2-11cf-8736-00aa00a485eb}")
 
     /**
      * @type {Integer (UInt32)}
@@ -830,9 +831,9 @@ class WinTrust {
     static SP_POLICY_PROVIDER_DLL_NAME => "WINTRUST.DLL"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WINTRUST_ACTION_GENERIC_VERIFY_V2 => "{00aac56b-cd44-11d0-8cc2-00c04fc295ee}"
+    static WINTRUST_ACTION_GENERIC_VERIFY_V2 => Guid("{00aac56b-cd44-11d0-8cc2-00c04fc295ee}")
 
     /**
      * @type {String}
@@ -865,9 +866,9 @@ class WinTrust {
     static SP_CLEANUPPOLICY_FUNCTION => "SoftpubCleanup"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WINTRUST_ACTION_TRUSTPROVIDER_TEST => "{573e31f8-ddba-11d0-8ccb-00c04fc295ee}"
+    static WINTRUST_ACTION_TRUSTPROVIDER_TEST => Guid("{573e31f8-ddba-11d0-8ccb-00c04fc295ee}")
 
     /**
      * @type {String}
@@ -875,9 +876,9 @@ class WinTrust {
     static SP_TESTDUMPPOLICY_FUNCTION_TEST => "SoftpubDumpStructure"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WINTRUST_ACTION_GENERIC_CERT_VERIFY => "{189a3842-3041-11d1-85e1-00c04fc295ee}"
+    static WINTRUST_ACTION_GENERIC_CERT_VERIFY => Guid("{189a3842-3041-11d1-85e1-00c04fc295ee}")
 
     /**
      * @type {String}
@@ -885,9 +886,9 @@ class WinTrust {
     static SP_GENERIC_CERT_INIT_FUNCTION => "SoftpubDefCertInit"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WINTRUST_ACTION_GENERIC_CHAIN_VERIFY => "{fc451c16-ac75-11d1-b4b8-00c04fb66ea0}"
+    static WINTRUST_ACTION_GENERIC_CHAIN_VERIFY => Guid("{fc451c16-ac75-11d1-b4b8-00c04fb66ea0}")
 
     /**
      * @type {String}
@@ -900,9 +901,9 @@ class WinTrust {
     static GENERIC_CHAIN_CERTTRUST_FUNCTION => "GenericChainCertificateTrust"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HTTPSPROV_ACTION => "{573e31f8-aaba-11d0-8ccb-00c04fc295ee}"
+    static HTTPSPROV_ACTION => Guid("{573e31f8-aaba-11d0-8ccb-00c04fc295ee}")
 
     /**
      * @type {String}
@@ -920,9 +921,9 @@ class WinTrust {
     static HTTPS_CERTTRUST_FUNCTION => "HTTPSCertificateTrust"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static OFFICESIGN_ACTION_VERIFY => "{5555c2cd-17fb-11d1-85c4-00c04fc295ee}"
+    static OFFICESIGN_ACTION_VERIFY => Guid("{5555c2cd-17fb-11d1-85c4-00c04fc295ee}")
 
     /**
      * @type {String}
@@ -940,9 +941,9 @@ class WinTrust {
     static OFFICE_CLEANUPPOLICY_FUNCTION => "OfficeCleanupPolicy"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DRIVER_ACTION_VERIFY => "{f750e6c3-38ee-11d1-85e5-00c04fc295ee}"
+    static DRIVER_ACTION_VERIFY => Guid("{f750e6c3-38ee-11d1-85e5-00c04fc295ee}")
 
     /**
      * @type {String}
@@ -960,9 +961,9 @@ class WinTrust {
     static DRIVER_CLEANUPPOLICY_FUNCTION => "DriverCleanupPolicy"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CONFIG_CI_ACTION_VERIFY => "{6078065b-8f22-4b13-bd9b-5b762776f386}"
+    static CONFIG_CI_ACTION_VERIFY => Guid("{6078065b-8f22-4b13-bd9b-5b762776f386}")
 
     /**
      * @type {Integer (UInt32)}

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Pwm
@@ -10,9 +11,9 @@ class Pwm {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_PWM_CONTROLLER => "{60824b4c-eed1-4c9c-b49c-1b961461a819}"
+    static GUID_DEVINTERFACE_PWM_CONTROLLER => Guid("{60824b4c-eed1-4c9c-b49c-1b961461a819}")
 
     /**
      * @type {String}

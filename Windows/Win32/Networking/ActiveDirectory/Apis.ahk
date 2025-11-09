@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 
@@ -52,9 +53,9 @@ class ActiveDirectory {
     static WM_ADSPROP_NOTIFY_ERROR => 2134
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CommonQuery => "{83bc5ec0-6f2a-11d0-a1c4-00aa00c16e65}"
+    static CLSID_CommonQuery => Guid("{83bc5ec0-6f2a-11d0-a1c4-00aa00c16e65}")
 
     /**
      * @type {Integer (UInt64)}
@@ -182,9 +183,9 @@ class ActiveDirectory {
     static OQWF_PARAMISPROPERTYBAG => 2147483648
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsAdminCreateObj => "{e301a009-f901-11d2-82b9-00c04f68928b}"
+    static CLSID_DsAdminCreateObj => Guid("{e301a009-f901-11d2-82b9-00c04f68928b}")
 
     /**
      * @type {Integer (UInt32)}
@@ -237,29 +238,29 @@ class ActiveDirectory {
     static DSA_NOTIFY_FLAG_FORCE_ADDITIONAL_DATA => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MicrosoftDS => "{fe1290f0-cfbd-11cf-a330-00aa00c16e65}"
+    static CLSID_MicrosoftDS => Guid("{fe1290f0-cfbd-11cf-a330-00aa00c16e65}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsPropertyPages => "{0d45d530-764b-11d0-a1ca-00aa00c16e65}"
+    static CLSID_DsPropertyPages => Guid("{0d45d530-764b-11d0-a1ca-00aa00c16e65}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsDomainTreeBrowser => "{1698790a-e2b4-11d0-b0b1-00c04fd8dca6}"
+    static CLSID_DsDomainTreeBrowser => Guid("{1698790a-e2b4-11d0-b0b1-00c04fd8dca6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsDisplaySpecifier => "{1ab4a8c0-6a0b-11d2-ad49-00c04fa31a86}"
+    static CLSID_DsDisplaySpecifier => Guid("{1ab4a8c0-6a0b-11d2-ad49-00c04fa31a86}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsFolderProperties => "{9e51e0d0-6e0f-11d2-9601-00c04fa31a86}"
+    static CLSID_DsFolderProperties => Guid("{9e51e0d0-6e0f-11d2-9601-00c04fa31a86}")
 
     /**
      * @type {Integer (UInt32)}
@@ -877,59 +878,59 @@ class ActiveDirectory {
     static DS_NOTIFY_AFTER_SITE_RECORDS => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsQuery => "{8a23e65e-31c2-11d0-891c-00a024ab2dbb}"
+    static CLSID_DsQuery => Guid("{8a23e65e-31c2-11d0-891c-00a024ab2dbb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsFindObjects => "{83ee3fe1-57d9-11d0-b932-00a024ab2dbb}"
+    static CLSID_DsFindObjects => Guid("{83ee3fe1-57d9-11d0-b932-00a024ab2dbb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsFindPeople => "{83ee3fe2-57d9-11d0-b932-00a024ab2dbb}"
+    static CLSID_DsFindPeople => Guid("{83ee3fe2-57d9-11d0-b932-00a024ab2dbb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsFindPrinter => "{b577f070-7ee2-11d0-913f-00aa00c16e65}"
+    static CLSID_DsFindPrinter => Guid("{b577f070-7ee2-11d0-913f-00aa00c16e65}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsFindComputer => "{16006700-87ad-11d0-9140-00aa00c16e65}"
+    static CLSID_DsFindComputer => Guid("{16006700-87ad-11d0-9140-00aa00c16e65}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsFindVolume => "{c1b3cbf1-886a-11d0-9140-00aa00c16e65}"
+    static CLSID_DsFindVolume => Guid("{c1b3cbf1-886a-11d0-9140-00aa00c16e65}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsFindContainer => "{c1b3cbf2-886a-11d0-9140-00aa00c16e65}"
+    static CLSID_DsFindContainer => Guid("{c1b3cbf2-886a-11d0-9140-00aa00c16e65}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsFindAdvanced => "{83ee3fe3-57d9-11d0-b932-00a024ab2dbb}"
+    static CLSID_DsFindAdvanced => Guid("{83ee3fe3-57d9-11d0-b932-00a024ab2dbb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsFindDomainController => "{538c7b7e-d25e-11d0-9742-00a0c906af45}"
+    static CLSID_DsFindDomainController => Guid("{538c7b7e-d25e-11d0-9742-00a0c906af45}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsFindWriteableDomainController => "{7cbef079-aa84-444b-bc70-68e41283eabc}"
+    static CLSID_DsFindWriteableDomainController => Guid("{7cbef079-aa84-444b-bc70-68e41283eabc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsFindFrsMembers => "{94ce4b18-b3d3-11d1-b9b4-00c04fd8d5b0}"
+    static CLSID_DsFindFrsMembers => Guid("{94ce4b18-b3d3-11d1-b9b4-00c04fd8d5b0}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2224,7 +2225,7 @@ class ActiveDirectory {
     /**
      * @type {String}
      */
-    static GUID_DATABASE_32K_PAGES_OPTIONAL_FEATURE_BYTE => "Æ*\u0098Rs\u001eOu®$s®'uª¸"
+    static GUID_DATABASE_32K_PAGES_OPTIONAL_FEATURE_BYTE => "Æ*" Chr(152) "Rs" Chr(30) "Ou®$s®'uª¸"
 
     /**
      * @type {String}
@@ -3527,9 +3528,9 @@ class ActiveDirectory {
     static hrAccessDenied => -939522189
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DsObjectPicker => "{17d6ccd8-3b7b-11d2-b9e0-00c04fd8dbf7}"
+    static CLSID_DsObjectPicker => Guid("{17d6ccd8-3b7b-11d2-b9e0-00c04fd8dbf7}")
 ;@endregion Constants
 
 ;@region Methods

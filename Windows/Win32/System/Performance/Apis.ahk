@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance
@@ -430,34 +431,34 @@ class Performance {
     static WINPERF_LOG_VERBOSE => 3
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LIBID_SystemMonitor => "{1b773e42-2509-11cf-942f-008029004347}"
+    static LIBID_SystemMonitor => Guid("{1b773e42-2509-11cf-942f-008029004347}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIID_DICounterItem => "{c08c4ff2-0e2e-11cf-942c-008029004347}"
+    static DIID_DICounterItem => Guid("{c08c4ff2-0e2e-11cf-942c-008029004347}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIID_DILogFileItem => "{8d093ffc-f777-4917-82d1-833fbc54c58f}"
+    static DIID_DILogFileItem => Guid("{8d093ffc-f777-4917-82d1-833fbc54c58f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIID_DISystemMonitor => "{13d73d81-c32e-11cf-9398-00aa00a3ddea}"
+    static DIID_DISystemMonitor => Guid("{13d73d81-c32e-11cf-9398-00aa00a3ddea}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIID_DISystemMonitorInternal => "{194eb242-c32c-11cf-9398-00aa00a3ddea}"
+    static DIID_DISystemMonitorInternal => Guid("{194eb242-c32c-11cf-9398-00aa00a3ddea}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DIID_DISystemMonitorEvents => "{84979930-4ab3-11cf-943a-008029004347}"
+    static DIID_DISystemMonitorEvents => Guid("{84979930-4ab3-11cf-943a-008029004347}")
 
     /**
      * @type {Integer (UInt32)}
@@ -965,9 +966,9 @@ class Performance {
     static PLAL_ALERT_CMD_LINE_MASK => 32512
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static S_PDH => "{04d66358-c4a1-419b-8023-23b73902de2c}"
+    static S_PDH => Guid("{04d66358-c4a1-419b-8023-23b73902de2c}")
 ;@endregion Constants
 
 ;@region Methods

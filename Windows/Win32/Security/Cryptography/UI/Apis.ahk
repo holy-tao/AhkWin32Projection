@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -215,9 +216,9 @@ class UI {
     static CERT_FILTER_KEY_EXISTS => 32
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CERT_CERTIFICATE_ACTION_VERIFY => "{7801ebd0-cf4b-11d0-851f-0060979387ea}"
+    static CERT_CERTIFICATE_ACTION_VERIFY => Guid("{7801ebd0-cf4b-11d0-851f-0060979387ea}")
 
     /**
      * @type {String}

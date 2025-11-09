@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.EventNotificationService
@@ -35,39 +36,39 @@ class EventNotificationService {
     static CONNECTION_AOL => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SENSGUID_PUBLISHER => "{5fee1bd6-5b9b-11d1-8dd2-00aa004abd5e}"
+    static SENSGUID_PUBLISHER => Guid("{5fee1bd6-5b9b-11d1-8dd2-00aa004abd5e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SENSGUID_SUBSCRIBER_LCE => "{d3938ab0-5b9d-11d1-8dd2-00aa004abd5e}"
+    static SENSGUID_SUBSCRIBER_LCE => Guid("{d3938ab0-5b9d-11d1-8dd2-00aa004abd5e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SENSGUID_SUBSCRIBER_WININET => "{d3938ab5-5b9d-11d1-8dd2-00aa004abd5e}"
+    static SENSGUID_SUBSCRIBER_WININET => Guid("{d3938ab5-5b9d-11d1-8dd2-00aa004abd5e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SENSGUID_EVENTCLASS_NETWORK => "{d5978620-5b9f-11d1-8dd2-00aa004abd5e}"
+    static SENSGUID_EVENTCLASS_NETWORK => Guid("{d5978620-5b9f-11d1-8dd2-00aa004abd5e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SENSGUID_EVENTCLASS_LOGON => "{d5978630-5b9f-11d1-8dd2-00aa004abd5e}"
+    static SENSGUID_EVENTCLASS_LOGON => Guid("{d5978630-5b9f-11d1-8dd2-00aa004abd5e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SENSGUID_EVENTCLASS_ONNOW => "{d5978640-5b9f-11d1-8dd2-00aa004abd5e}"
+    static SENSGUID_EVENTCLASS_ONNOW => Guid("{d5978640-5b9f-11d1-8dd2-00aa004abd5e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SENSGUID_EVENTCLASS_LOGON2 => "{d5978650-5b9f-11d1-8dd2-00aa004abd5e}"
+    static SENSGUID_EVENTCLASS_LOGON2 => Guid("{d5978650-5b9f-11d1-8dd2-00aa004abd5e}")
 ;@endregion Constants
 
 ;@region Methods

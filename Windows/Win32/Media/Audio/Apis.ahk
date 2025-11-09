@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IMessageFilter.ahk
 #Include .\IActivateAudioInterfaceAsyncOperation.ahk
 #Include .\IAudioStateMonitor.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -533,6 +535,84 @@ class Audio {
     static DEVICE_STATEMASK_ALL => 15
 
     /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_AudioEndpoint_FormFactor {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_AudioEndpoint_ControlPanelPageProvider {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_AudioEndpoint_Association {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_AudioEndpoint_PhysicalSpeakers {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_AudioEndpoint_GUID {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_AudioEndpoint_Disable_SysFx {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 5
+            return value
+        }
+    }
+
+    /**
      * @type {Integer (UInt32)}
      */
     static ENDPOINT_SYSFX_ENABLED => 0
@@ -543,29 +623,159 @@ class Audio {
     static ENDPOINT_SYSFX_DISABLED => 1
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static DEVINTERFACE_AUDIO_RENDER => "{e6327cad-dcec-4949-ae8a-991e976a79d2}"
+    static PKEY_AudioEndpoint_FullRangeSpeakers {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 6
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static DEVINTERFACE_AUDIO_CAPTURE => "{2eef81be-33fa-4800-9670-1cd474972c3f}"
+    static PKEY_AudioEndpoint_Supports_EventDriven_Mode {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 7
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static DEVINTERFACE_MIDI_OUTPUT => "{6dc23320-ab33-4ce4-80d4-bbb3ebbf2814}"
+    static PKEY_AudioEndpoint_JackSubType {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 8
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static DEVINTERFACE_MIDI_INPUT => "{504be32c-ccf6-4d2c-b73f-6f8b3747e22b}"
+    static PKEY_AudioEndpoint_Default_VolumeInDb {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 9
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {PROPERTYKEY}
      */
-    static EVENTCONTEXT_VOLUMESLIDER => "{e2c2e9de-09b1-4b04-84e5-07931225ee04}"
+    static PKEY_AudioEngine_DeviceFormat {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f19f064d-082c-4e27-bc73-6882a1bb8e4c}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_AudioEngine_OEMFormat {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{e4870e26-3cc5-4cd2-ba46-ca0a9a70ed04}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_AudioEndpointLogo_IconEffects {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f1ab780d-2010-4ed3-a3a6-8b87f0f0c476}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_AudioEndpointLogo_IconPath {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{f1ab780d-2010-4ed3-a3a6-8b87f0f0c476}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_AudioEndpointSettings_MenuText {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{14242002-0320-4de4-9555-a7d82b73c286}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
+    static PKEY_AudioEndpointSettings_LaunchContract {
+        get {
+            value := PROPERTYKEY()
+            static fmtid_guid := Guid("{14242002-0320-4de4-9555-a7d82b73c286}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1
+            return value
+        }
+    }
+
+    /**
+     * @type {Guid}
+     */
+    static DEVINTERFACE_AUDIO_RENDER => Guid("{e6327cad-dcec-4949-ae8a-991e976a79d2}")
+
+    /**
+     * @type {Guid}
+     */
+    static DEVINTERFACE_AUDIO_CAPTURE => Guid("{2eef81be-33fa-4800-9670-1cd474972c3f}")
+
+    /**
+     * @type {Guid}
+     */
+    static DEVINTERFACE_MIDI_OUTPUT => Guid("{6dc23320-ab33-4ce4-80d4-bbb3ebbf2814}")
+
+    /**
+     * @type {Guid}
+     */
+    static DEVINTERFACE_MIDI_INPUT => Guid("{504be32c-ccf6-4d2c-b73f-6f8b3747e22b}")
+
+    /**
+     * @type {Guid}
+     */
+    static EVENTCONTEXT_VOLUMESLIDER => Guid("{e2c2e9de-09b1-4b04-84e5-07931225ee04}")
 
     /**
      * @type {Integer (UInt32)}

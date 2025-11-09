@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -31,9 +32,9 @@ class Credentials {
     static FILE_DEVICE_SMARTCARD => 49
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_SMARTCARD_READER => "{50dd5230-ba8a-11d1-bf5d-0000f805f530}"
+    static GUID_DEVINTERFACE_SMARTCARD_READER => Guid("{50dd5230-ba8a-11d1-bf5d-0000f805f530}")
 
     /**
      * @type {Integer (UInt32)}
@@ -718,22 +719,22 @@ class Credentials {
     /**
      * @type {String}
      */
-    static SCARD_ALL_READERS => "SCard$AllReaders\u000000"
+    static SCARD_ALL_READERS => "SCard$AllReaders" Chr(0) "00"
 
     /**
      * @type {String}
      */
-    static SCARD_DEFAULT_READERS => "SCard$DefaultReaders\u000000"
+    static SCARD_DEFAULT_READERS => "SCard$DefaultReaders" Chr(0) "00"
 
     /**
      * @type {String}
      */
-    static SCARD_LOCAL_READERS => "SCard$LocalReaders\u000000"
+    static SCARD_LOCAL_READERS => "SCard$LocalReaders" Chr(0) "00"
 
     /**
      * @type {String}
      */
-    static SCARD_SYSTEM_READERS => "SCard$SystemReaders\u000000"
+    static SCARD_SYSTEM_READERS => "SCard$SystemReaders" Chr(0) "00"
 
     /**
      * @type {Integer (UInt32)}

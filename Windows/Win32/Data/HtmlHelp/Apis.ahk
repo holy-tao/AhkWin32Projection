@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
@@ -476,9 +477,9 @@ class HtmlHelp {
     static HHN_WINDOW_CREATE => 4294966434
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IITPropList => "{4662daae-d393-11d0-9a56-00c04fb68bf7}"
+    static CLSID_IITPropList => Guid("{4662daae-d393-11d0-9a56-00c04fb68bf7}")
 
     /**
      * @type {Integer (UInt32)}
@@ -511,14 +512,14 @@ class HtmlHelp {
     static TYPE_STRING => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IITDatabase => "{66673452-8c23-11d0-a84e-00aa006c7d01}"
+    static CLSID_IITDatabase => Guid("{66673452-8c23-11d0-a84e-00aa006c7d01}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IITDatabaseLocal => "{4662daa9-d393-11d0-9a56-00c04fb68bf7}"
+    static CLSID_IITDatabaseLocal => Guid("{4662daa9-d393-11d0-9a56-00c04fb68bf7}")
 
     /**
      * @type {Integer (UInt32)}
@@ -616,44 +617,44 @@ class HtmlHelp {
     static SZ_WWDEST_OCC => "OCC"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IITCmdInt => "{4662daa2-d393-11d0-9a56-00c04fb68bf7}"
+    static CLSID_IITCmdInt => Guid("{4662daa2-d393-11d0-9a56-00c04fb68bf7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IITSvMgr => "{4662daa3-d393-11d0-9a56-00c04fb68bf7}"
+    static CLSID_IITSvMgr => Guid("{4662daa3-d393-11d0-9a56-00c04fb68bf7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IITWordWheelUpdate => "{4662daa5-d393-11d0-9a56-00c04fb68bf7}"
+    static CLSID_IITWordWheelUpdate => Guid("{4662daa5-d393-11d0-9a56-00c04fb68bf7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IITGroupUpdate => "{4662daa4-d393-11d0-9a56-00c04fb68bf7}"
+    static CLSID_IITGroupUpdate => Guid("{4662daa4-d393-11d0-9a56-00c04fb68bf7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IITIndexBuild => "{8fa0d5aa-dedf-11d0-9a61-00c04fb68bf7}"
+    static CLSID_IITIndexBuild => Guid("{8fa0d5aa-dedf-11d0-9a61-00c04fb68bf7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IITWWFilterBuild => "{8fa0d5ab-dedf-11d0-9a61-00c04fb68bf7}"
+    static CLSID_IITWWFilterBuild => Guid("{8fa0d5ab-dedf-11d0-9a61-00c04fb68bf7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IITWordWheel => "{d73725c2-8c12-11d0-a84e-00aa006c7d01}"
+    static CLSID_IITWordWheel => Guid("{d73725c2-8c12-11d0-a84e-00aa006c7d01}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IITWordWheelLocal => "{4662daa8-d393-11d0-9a56-00c04fb68bf7}"
+    static CLSID_IITWordWheelLocal => Guid("{4662daa8-d393-11d0-9a56-00c04fb68bf7}")
 
     /**
      * @type {Integer (UInt32)}
@@ -986,9 +987,9 @@ class HtmlHelp {
     static E_NOKEYPROP => -2147479417
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_IITResultSet => "{4662daa7-d393-11d0-9a56-00c04fb68bf7}"
+    static CLSID_IITResultSet => Guid("{4662daa7-d393-11d0-9a56-00c04fb68bf7}")
 
     /**
      * @type {Integer (UInt32)}
@@ -996,14 +997,14 @@ class HtmlHelp {
     static MAX_COLUMNS => 256
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ITStdBreaker => "{4662daaf-d393-11d0-9a56-00c04fb68bf7}"
+    static CLSID_ITStdBreaker => Guid("{4662daaf-d393-11d0-9a56-00c04fb68bf7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ITEngStemmer => "{8fa0d5a8-dedf-11d0-9a61-00c04fb68bf7}"
+    static CLSID_ITEngStemmer => Guid("{8fa0d5a8-dedf-11d0-9a61-00c04fb68bf7}")
 
     /**
      * @type {Integer (Int32)}

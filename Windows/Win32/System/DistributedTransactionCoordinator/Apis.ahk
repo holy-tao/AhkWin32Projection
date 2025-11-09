@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -345,14 +346,14 @@ class DistributedTransactionCoordinator {
     static OLE_TM_FLAG_INTERNAL_TO_TM => 1073741824
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MSDtcTransactionManager => "{5b18ab61-091d-11d1-97df-00c04fb9618a}"
+    static CLSID_MSDtcTransactionManager => Guid("{5b18ab61-091d-11d1-97df-00c04fb9618a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MSDtcTransaction => "{39f8d76b-0928-11d1-97df-00c04fb9618a}"
+    static CLSID_MSDtcTransaction => Guid("{39f8d76b-0928-11d1-97df-00c04fb9618a}")
 ;@endregion Constants
 
 ;@region Methods

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
+#Include .\SID_IDENTIFIER_AUTHORITY.ahk
 
 /**
  * @namespace Windows.Win32.Security
@@ -23,6 +24,198 @@ class Security {
      * @type {Integer (UInt32)}
      */
     static SECURITY_MAX_SID_SIZE => 68
+
+    /**
+     * @type {SID_IDENTIFIER_AUTHORITY}
+     */
+    static SECURITY_NULL_SID_AUTHORITY {
+        get {
+            value := SID_IDENTIFIER_AUTHORITY()
+            value.Value[1] := 0
+            value.Value[2] := 0
+            value.Value[3] := 0
+            value.Value[4] := 0
+            value.Value[5] := 0
+            value.Value[6] := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {SID_IDENTIFIER_AUTHORITY}
+     */
+    static SECURITY_WORLD_SID_AUTHORITY {
+        get {
+            value := SID_IDENTIFIER_AUTHORITY()
+            value.Value[1] := 0
+            value.Value[2] := 0
+            value.Value[3] := 0
+            value.Value[4] := 0
+            value.Value[5] := 0
+            value.Value[6] := 1
+            return value
+        }
+    }
+
+    /**
+     * @type {SID_IDENTIFIER_AUTHORITY}
+     */
+    static SECURITY_LOCAL_SID_AUTHORITY {
+        get {
+            value := SID_IDENTIFIER_AUTHORITY()
+            value.Value[1] := 0
+            value.Value[2] := 0
+            value.Value[3] := 0
+            value.Value[4] := 0
+            value.Value[5] := 0
+            value.Value[6] := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {SID_IDENTIFIER_AUTHORITY}
+     */
+    static SECURITY_CREATOR_SID_AUTHORITY {
+        get {
+            value := SID_IDENTIFIER_AUTHORITY()
+            value.Value[1] := 0
+            value.Value[2] := 0
+            value.Value[3] := 0
+            value.Value[4] := 0
+            value.Value[5] := 0
+            value.Value[6] := 3
+            return value
+        }
+    }
+
+    /**
+     * @type {SID_IDENTIFIER_AUTHORITY}
+     */
+    static SECURITY_NON_UNIQUE_AUTHORITY {
+        get {
+            value := SID_IDENTIFIER_AUTHORITY()
+            value.Value[1] := 0
+            value.Value[2] := 0
+            value.Value[3] := 0
+            value.Value[4] := 0
+            value.Value[5] := 0
+            value.Value[6] := 4
+            return value
+        }
+    }
+
+    /**
+     * @type {SID_IDENTIFIER_AUTHORITY}
+     */
+    static SECURITY_NT_AUTHORITY {
+        get {
+            value := SID_IDENTIFIER_AUTHORITY()
+            value.Value[1] := 0
+            value.Value[2] := 0
+            value.Value[3] := 0
+            value.Value[4] := 0
+            value.Value[5] := 0
+            value.Value[6] := 5
+            return value
+        }
+    }
+
+    /**
+     * @type {SID_IDENTIFIER_AUTHORITY}
+     */
+    static SECURITY_RESOURCE_MANAGER_AUTHORITY {
+        get {
+            value := SID_IDENTIFIER_AUTHORITY()
+            value.Value[1] := 0
+            value.Value[2] := 0
+            value.Value[3] := 0
+            value.Value[4] := 0
+            value.Value[5] := 0
+            value.Value[6] := 9
+            return value
+        }
+    }
+
+    /**
+     * @type {SID_IDENTIFIER_AUTHORITY}
+     */
+    static SECURITY_APP_PACKAGE_AUTHORITY {
+        get {
+            value := SID_IDENTIFIER_AUTHORITY()
+            value.Value[1] := 0
+            value.Value[2] := 0
+            value.Value[3] := 0
+            value.Value[4] := 0
+            value.Value[5] := 0
+            value.Value[6] := 15
+            return value
+        }
+    }
+
+    /**
+     * @type {SID_IDENTIFIER_AUTHORITY}
+     */
+    static SECURITY_MANDATORY_LABEL_AUTHORITY {
+        get {
+            value := SID_IDENTIFIER_AUTHORITY()
+            value.Value[1] := 0
+            value.Value[2] := 0
+            value.Value[3] := 0
+            value.Value[4] := 0
+            value.Value[5] := 0
+            value.Value[6] := 16
+            return value
+        }
+    }
+
+    /**
+     * @type {SID_IDENTIFIER_AUTHORITY}
+     */
+    static SECURITY_SCOPED_POLICY_ID_AUTHORITY {
+        get {
+            value := SID_IDENTIFIER_AUTHORITY()
+            value.Value[1] := 0
+            value.Value[2] := 0
+            value.Value[3] := 0
+            value.Value[4] := 0
+            value.Value[5] := 0
+            value.Value[6] := 17
+            return value
+        }
+    }
+
+    /**
+     * @type {SID_IDENTIFIER_AUTHORITY}
+     */
+    static SECURITY_AUTHENTICATION_AUTHORITY {
+        get {
+            value := SID_IDENTIFIER_AUTHORITY()
+            value.Value[1] := 0
+            value.Value[2] := 0
+            value.Value[3] := 0
+            value.Value[4] := 0
+            value.Value[5] := 0
+            value.Value[6] := 18
+            return value
+        }
+    }
+
+    /**
+     * @type {SID_IDENTIFIER_AUTHORITY}
+     */
+    static SECURITY_PROCESS_TRUST_AUTHORITY {
+        get {
+            value := SID_IDENTIFIER_AUTHORITY()
+            value.Value[1] := 0
+            value.Value[2] := 0
+            value.Value[3] := 0
+            value.Value[4] := 0
+            value.Value[5] := 0
+            value.Value[6] := 19
+            return value
+        }
+    }
 
     /**
      * @type {String}
