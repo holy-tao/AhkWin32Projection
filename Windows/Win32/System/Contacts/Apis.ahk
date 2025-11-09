@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Contacts
@@ -40,9 +41,9 @@ class Contacts {
     static CGD_ARRAY_NODE => 8
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ContactAggregationManager => "{96c8ad95-c199-44de-b34e-ac33c442df39}"
+    static CLSID_ContactAggregationManager => Guid("{96c8ad95-c199-44de-b34e-ac33c442df39}")
 
     /**
      * @type {String}

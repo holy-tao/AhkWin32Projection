@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
@@ -15,14 +16,14 @@ class IscsiDisc {
     static IOCTL_SCSI_BASE => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ScsiRawInterfaceGuid => "{53f56309-b6bf-11d0-94f2-00a0c91efb8b}"
+    static ScsiRawInterfaceGuid => Guid("{53f56309-b6bf-11d0-94f2-00a0c91efb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WmiScsiAddressGuid => "{53f5630f-b6bf-11d0-94f2-00a0c91efb8b}"
+    static WmiScsiAddressGuid => Guid("{53f5630f-b6bf-11d0-94f2-00a0c91efb8b}")
 
     /**
      * @type {Integer (UInt32)}

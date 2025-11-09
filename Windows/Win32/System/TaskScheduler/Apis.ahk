@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.TaskScheduler
@@ -215,14 +216,14 @@ class TaskScheduler {
     static TASK_MAX_RUN_TIMES => 1440
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CTask => "{148bd520-a2ab-11ce-b11f-00aa00530503}"
+    static CLSID_CTask => Guid("{148bd520-a2ab-11ce-b11f-00aa00530503}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CTaskScheduler => "{148bd52a-a2ab-11ce-b11f-00aa00530503}"
+    static CLSID_CTaskScheduler => Guid("{148bd52a-a2ab-11ce-b11f-00aa00530503}")
 ;@endregion Constants
 
 ;@region Methods

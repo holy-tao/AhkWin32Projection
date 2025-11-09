@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\IAccessible.ahk
 #Include ..\..\System\Com\IUnknown.ahk
@@ -15,24 +16,24 @@ class Accessibility {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LIBID_Accessibility => "{1ea4dbf0-3c3b-11cf-810c-00aa00389b71}"
+    static LIBID_Accessibility => Guid("{1ea4dbf0-3c3b-11cf-810c-00aa00389b71}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_AccPropServices => "{b5f8350b-0548-48b1-a6ee-88bd00b4a5e7}"
+    static CLSID_AccPropServices => Guid("{b5f8350b-0548-48b1-a6ee-88bd00b4a5e7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IIS_IsOleaccProxy => "{902697fa-80e4-4560-802a-a13f22a64709}"
+    static IIS_IsOleaccProxy => Guid("{902697fa-80e4-4560-802a-a13f22a64709}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IIS_ControlAccessible => "{38c682a6-9731-43f2-9fae-e901e641b101}"
+    static IIS_ControlAccessible => Guid("{38c682a6-9731-43f2-9fae-e901e641b101}")
 
     /**
      * @type {Integer (UInt32)}
@@ -45,129 +46,129 @@ class Accessibility {
     static MSAA_MENU_SIG => -1441927155
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_NAME => "{608d3df8-8128-4aa7-a428-f55e49267291}"
+    static PROPID_ACC_NAME => Guid("{608d3df8-8128-4aa7-a428-f55e49267291}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_VALUE => "{123fe443-211a-4615-9527-c45a7e93717a}"
+    static PROPID_ACC_VALUE => Guid("{123fe443-211a-4615-9527-c45a7e93717a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_DESCRIPTION => "{4d48dfe4-bd3f-491f-a648-492d6f20c588}"
+    static PROPID_ACC_DESCRIPTION => Guid("{4d48dfe4-bd3f-491f-a648-492d6f20c588}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_ROLE => "{cb905ff2-7bd1-4c05-b3c8-e6c241364d70}"
+    static PROPID_ACC_ROLE => Guid("{cb905ff2-7bd1-4c05-b3c8-e6c241364d70}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_STATE => "{a8d4d5b0-0a21-42d0-a5c0-514e984f457b}"
+    static PROPID_ACC_STATE => Guid("{a8d4d5b0-0a21-42d0-a5c0-514e984f457b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_HELP => "{c831e11f-44db-4a99-9768-cb8f978b7231}"
+    static PROPID_ACC_HELP => Guid("{c831e11f-44db-4a99-9768-cb8f978b7231}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_KEYBOARDSHORTCUT => "{7d9bceee-7d1e-4979-9382-5180f4172c34}"
+    static PROPID_ACC_KEYBOARDSHORTCUT => Guid("{7d9bceee-7d1e-4979-9382-5180f4172c34}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_DEFAULTACTION => "{180c072b-c27f-43c7-9922-f63562a4632b}"
+    static PROPID_ACC_DEFAULTACTION => Guid("{180c072b-c27f-43c7-9922-f63562a4632b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_HELPTOPIC => "{787d1379-8ede-440b-8aec-11f7bf9030b3}"
+    static PROPID_ACC_HELPTOPIC => Guid("{787d1379-8ede-440b-8aec-11f7bf9030b3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_FOCUS => "{6eb335df-1c29-4127-b12c-dee9fd157f2b}"
+    static PROPID_ACC_FOCUS => Guid("{6eb335df-1c29-4127-b12c-dee9fd157f2b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_SELECTION => "{b99d073c-d731-405b-9061-d95e8f842984}"
+    static PROPID_ACC_SELECTION => Guid("{b99d073c-d731-405b-9061-d95e8f842984}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_PARENT => "{474c22b6-ffc2-467a-b1b5-e958b4657330}"
+    static PROPID_ACC_PARENT => Guid("{474c22b6-ffc2-467a-b1b5-e958b4657330}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_NAV_UP => "{016e1a2b-1a4e-4767-8612-3386f66935ec}"
+    static PROPID_ACC_NAV_UP => Guid("{016e1a2b-1a4e-4767-8612-3386f66935ec}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_NAV_DOWN => "{031670ed-3cdf-48d2-9613-138f2dd8a668}"
+    static PROPID_ACC_NAV_DOWN => Guid("{031670ed-3cdf-48d2-9613-138f2dd8a668}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_NAV_LEFT => "{228086cb-82f1-4a39-8705-dcdc0fff92f5}"
+    static PROPID_ACC_NAV_LEFT => Guid("{228086cb-82f1-4a39-8705-dcdc0fff92f5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_NAV_RIGHT => "{cd211d9f-e1cb-4fe5-a77c-920b884d095b}"
+    static PROPID_ACC_NAV_RIGHT => Guid("{cd211d9f-e1cb-4fe5-a77c-920b884d095b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_NAV_PREV => "{776d3891-c73b-4480-b3f6-076a16a15af6}"
+    static PROPID_ACC_NAV_PREV => Guid("{776d3891-c73b-4480-b3f6-076a16a15af6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_NAV_NEXT => "{1cdc5455-8cd9-4c92-a371-3939a2fe3eee}"
+    static PROPID_ACC_NAV_NEXT => Guid("{1cdc5455-8cd9-4c92-a371-3939a2fe3eee}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_NAV_FIRSTCHILD => "{cfd02558-557b-4c67-84f9-2a09fce40749}"
+    static PROPID_ACC_NAV_FIRSTCHILD => Guid("{cfd02558-557b-4c67-84f9-2a09fce40749}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_NAV_LASTCHILD => "{302ecaa5-48d5-4f8d-b671-1a8d20a77832}"
+    static PROPID_ACC_NAV_LASTCHILD => Guid("{302ecaa5-48d5-4f8d-b671-1a8d20a77832}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_ROLEMAP => "{f79acda2-140d-4fe6-8914-208476328269}"
+    static PROPID_ACC_ROLEMAP => Guid("{f79acda2-140d-4fe6-8914-208476328269}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_VALUEMAP => "{da1c3d79-fc5c-420e-b399-9d1533549e75}"
+    static PROPID_ACC_VALUEMAP => Guid("{da1c3d79-fc5c-420e-b399-9d1533549e75}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_STATEMAP => "{43946c5e-0ac0-4042-b525-07bbdbe17fa7}"
+    static PROPID_ACC_STATEMAP => Guid("{43946c5e-0ac0-4042-b525-07bbdbe17fa7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_DESCRIPTIONMAP => "{1ff1435f-8a14-477b-b226-a0abe279975d}"
+    static PROPID_ACC_DESCRIPTIONMAP => Guid("{1ff1435f-8a14-477b-b226-a0abe279975d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PROPID_ACC_DODEFAULTACTION => "{1ba09523-2e3b-49a6-a059-59682a3c48fd}"
+    static PROPID_ACC_DODEFAULTACTION => Guid("{1ba09523-2e3b-49a6-a059-59682a3c48fd}")
 
     /**
      * @type {Integer (Int32)}
@@ -725,1924 +726,1924 @@ class Accessibility {
     static UiaRootObjectId => -25
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RuntimeId_Property_GUID => "{a39eebfa-7fba-4c89-b4d4-b99e2de7d160}"
+    static RuntimeId_Property_GUID => Guid("{a39eebfa-7fba-4c89-b4d4-b99e2de7d160}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BoundingRectangle_Property_GUID => "{7bbfe8b2-3bfc-48dd-b729-c794b846e9a1}"
+    static BoundingRectangle_Property_GUID => Guid("{7bbfe8b2-3bfc-48dd-b729-c794b846e9a1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ProcessId_Property_GUID => "{40499998-9c31-4245-a403-87320e59eaf6}"
+    static ProcessId_Property_GUID => Guid("{40499998-9c31-4245-a403-87320e59eaf6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ControlType_Property_GUID => "{ca774fea-28ac-4bc2-94ca-acec6d6c10a3}"
+    static ControlType_Property_GUID => Guid("{ca774fea-28ac-4bc2-94ca-acec6d6c10a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LocalizedControlType_Property_GUID => "{8763404f-a1bd-452a-89c4-3f01d3833806}"
+    static LocalizedControlType_Property_GUID => Guid("{8763404f-a1bd-452a-89c4-3f01d3833806}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Name_Property_GUID => "{c3a6921b-4a99-44f1-bca6-61187052c431}"
+    static Name_Property_GUID => Guid("{c3a6921b-4a99-44f1-bca6-61187052c431}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static AcceleratorKey_Property_GUID => "{514865df-2557-4cb9-aeed-6ced084ce52c}"
+    static AcceleratorKey_Property_GUID => Guid("{514865df-2557-4cb9-aeed-6ced084ce52c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static AccessKey_Property_GUID => "{06827b12-a7f9-4a15-917c-ffa5ad3eb0a7}"
+    static AccessKey_Property_GUID => Guid("{06827b12-a7f9-4a15-917c-ffa5ad3eb0a7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HasKeyboardFocus_Property_GUID => "{cf8afd39-3f46-4800-9656-b2bf12529905}"
+    static HasKeyboardFocus_Property_GUID => Guid("{cf8afd39-3f46-4800-9656-b2bf12529905}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsKeyboardFocusable_Property_GUID => "{f7b8552a-0859-4b37-b9cb-51e72092f29f}"
+    static IsKeyboardFocusable_Property_GUID => Guid("{f7b8552a-0859-4b37-b9cb-51e72092f29f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsEnabled_Property_GUID => "{2109427f-da60-4fed-bf1b-264bdce6eb3a}"
+    static IsEnabled_Property_GUID => Guid("{2109427f-da60-4fed-bf1b-264bdce6eb3a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static AutomationId_Property_GUID => "{c82c0500-b60e-4310-a267-303c531f8ee5}"
+    static AutomationId_Property_GUID => Guid("{c82c0500-b60e-4310-a267-303c531f8ee5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ClassName_Property_GUID => "{157b7215-894f-4b65-84e2-aac0da08b16b}"
+    static ClassName_Property_GUID => Guid("{157b7215-894f-4b65-84e2-aac0da08b16b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HelpText_Property_GUID => "{08555685-0977-45c7-a7a6-abaf5684121a}"
+    static HelpText_Property_GUID => Guid("{08555685-0977-45c7-a7a6-abaf5684121a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ClickablePoint_Property_GUID => "{0196903b-b203-4818-a9f3-f08e675f2341}"
+    static ClickablePoint_Property_GUID => Guid("{0196903b-b203-4818-a9f3-f08e675f2341}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Culture_Property_GUID => "{e2d74f27-3d79-4dc2-b88b-3044963a8afb}"
+    static Culture_Property_GUID => Guid("{e2d74f27-3d79-4dc2-b88b-3044963a8afb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsControlElement_Property_GUID => "{95f35085-abcc-4afd-a5f4-dbb46c230fdb}"
+    static IsControlElement_Property_GUID => Guid("{95f35085-abcc-4afd-a5f4-dbb46c230fdb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsContentElement_Property_GUID => "{4bda64a8-f5d8-480b-8155-ef2e89adb672}"
+    static IsContentElement_Property_GUID => Guid("{4bda64a8-f5d8-480b-8155-ef2e89adb672}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LabeledBy_Property_GUID => "{e5b8924b-fc8a-4a35-8031-cf78ac43e55e}"
+    static LabeledBy_Property_GUID => Guid("{e5b8924b-fc8a-4a35-8031-cf78ac43e55e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsPassword_Property_GUID => "{e8482eb1-687c-497b-bebc-03be53ec1454}"
+    static IsPassword_Property_GUID => Guid("{e8482eb1-687c-497b-bebc-03be53ec1454}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NewNativeWindowHandle_Property_GUID => "{5196b33b-380a-4982-95e1-91f3ef60e024}"
+    static NewNativeWindowHandle_Property_GUID => Guid("{5196b33b-380a-4982-95e1-91f3ef60e024}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ItemType_Property_GUID => "{cdda434d-6222-413b-a68a-325dd1d40f39}"
+    static ItemType_Property_GUID => Guid("{cdda434d-6222-413b-a68a-325dd1d40f39}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsOffscreen_Property_GUID => "{03c3d160-db79-42db-a2ef-1c231eede507}"
+    static IsOffscreen_Property_GUID => Guid("{03c3d160-db79-42db-a2ef-1c231eede507}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Orientation_Property_GUID => "{a01eee62-3884-4415-887e-678ec21e39ba}"
+    static Orientation_Property_GUID => Guid("{a01eee62-3884-4415-887e-678ec21e39ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FrameworkId_Property_GUID => "{dbfd9900-7e1a-4f58-b61b-7063120f773b}"
+    static FrameworkId_Property_GUID => Guid("{dbfd9900-7e1a-4f58-b61b-7063120f773b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsRequiredForForm_Property_GUID => "{4f5f43cf-59fb-4bde-a270-602e5e1141e9}"
+    static IsRequiredForForm_Property_GUID => Guid("{4f5f43cf-59fb-4bde-a270-602e5e1141e9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ItemStatus_Property_GUID => "{51de0321-3973-43e7-8913-0b08e813c37f}"
+    static ItemStatus_Property_GUID => Guid("{51de0321-3973-43e7-8913-0b08e813c37f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static AriaRole_Property_GUID => "{dd207b95-be4a-4e0d-b727-63ace94b6916}"
+    static AriaRole_Property_GUID => Guid("{dd207b95-be4a-4e0d-b727-63ace94b6916}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static AriaProperties_Property_GUID => "{4213678c-e025-4922-beb5-e43ba08e6221}"
+    static AriaProperties_Property_GUID => Guid("{4213678c-e025-4922-beb5-e43ba08e6221}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsDataValidForForm_Property_GUID => "{445ac684-c3fc-4dd9-acf8-845a579296ba}"
+    static IsDataValidForForm_Property_GUID => Guid("{445ac684-c3fc-4dd9-acf8-845a579296ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ControllerFor_Property_GUID => "{51124c8a-a5d2-4f13-9be6-7fa8ba9d3a90}"
+    static ControllerFor_Property_GUID => Guid("{51124c8a-a5d2-4f13-9be6-7fa8ba9d3a90}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DescribedBy_Property_GUID => "{7c5865b8-9992-40fd-8db0-6bf1d317f998}"
+    static DescribedBy_Property_GUID => Guid("{7c5865b8-9992-40fd-8db0-6bf1d317f998}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FlowsTo_Property_GUID => "{e4f33d20-559a-47fb-a830-f9cb4ff1a70a}"
+    static FlowsTo_Property_GUID => Guid("{e4f33d20-559a-47fb-a830-f9cb4ff1a70a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ProviderDescription_Property_GUID => "{dca5708a-c16b-4cd9-b889-beb16a804904}"
+    static ProviderDescription_Property_GUID => Guid("{dca5708a-c16b-4cd9-b889-beb16a804904}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static OptimizeForVisualContent_Property_GUID => "{6a852250-c75a-4e5d-b858-e381b0f78861}"
+    static OptimizeForVisualContent_Property_GUID => Guid("{6a852250-c75a-4e5d-b858-e381b0f78861}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsDockPatternAvailable_Property_GUID => "{2600a4c4-2ff8-4c96-ae31-8fe619a13c6c}"
+    static IsDockPatternAvailable_Property_GUID => Guid("{2600a4c4-2ff8-4c96-ae31-8fe619a13c6c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsExpandCollapsePatternAvailable_Property_GUID => "{929d3806-5287-4725-aa16-222afc63d595}"
+    static IsExpandCollapsePatternAvailable_Property_GUID => Guid("{929d3806-5287-4725-aa16-222afc63d595}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsGridItemPatternAvailable_Property_GUID => "{5a43e524-f9a2-4b12-84c8-b48a3efedd34}"
+    static IsGridItemPatternAvailable_Property_GUID => Guid("{5a43e524-f9a2-4b12-84c8-b48a3efedd34}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsGridPatternAvailable_Property_GUID => "{5622c26c-f0ef-4f3b-97cb-714c0868588b}"
+    static IsGridPatternAvailable_Property_GUID => Guid("{5622c26c-f0ef-4f3b-97cb-714c0868588b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsInvokePatternAvailable_Property_GUID => "{4e725738-8364-4679-aa6c-f3f41931f750}"
+    static IsInvokePatternAvailable_Property_GUID => Guid("{4e725738-8364-4679-aa6c-f3f41931f750}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsMultipleViewPatternAvailable_Property_GUID => "{ff0a31eb-8e25-469d-8d6e-e771a27c1b90}"
+    static IsMultipleViewPatternAvailable_Property_GUID => Guid("{ff0a31eb-8e25-469d-8d6e-e771a27c1b90}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsRangeValuePatternAvailable_Property_GUID => "{fda4244a-eb4d-43ff-b5ad-ed36d373ec4c}"
+    static IsRangeValuePatternAvailable_Property_GUID => Guid("{fda4244a-eb4d-43ff-b5ad-ed36d373ec4c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsScrollPatternAvailable_Property_GUID => "{3ebb7b4a-828a-4b57-9d22-2fea1632ed0d}"
+    static IsScrollPatternAvailable_Property_GUID => Guid("{3ebb7b4a-828a-4b57-9d22-2fea1632ed0d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsScrollItemPatternAvailable_Property_GUID => "{1cad1a05-0927-4b76-97e1-0fcdb209b98a}"
+    static IsScrollItemPatternAvailable_Property_GUID => Guid("{1cad1a05-0927-4b76-97e1-0fcdb209b98a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsSelectionItemPatternAvailable_Property_GUID => "{8becd62d-0bc3-4109-bee2-8e6715290e68}"
+    static IsSelectionItemPatternAvailable_Property_GUID => Guid("{8becd62d-0bc3-4109-bee2-8e6715290e68}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsSelectionPatternAvailable_Property_GUID => "{f588acbe-c769-4838-9a60-2686dc1188c4}"
+    static IsSelectionPatternAvailable_Property_GUID => Guid("{f588acbe-c769-4838-9a60-2686dc1188c4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsTablePatternAvailable_Property_GUID => "{cb83575f-45c2-4048-9c76-159715a139df}"
+    static IsTablePatternAvailable_Property_GUID => Guid("{cb83575f-45c2-4048-9c76-159715a139df}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsTableItemPatternAvailable_Property_GUID => "{eb36b40d-8ea4-489b-a013-e60d5951fe34}"
+    static IsTableItemPatternAvailable_Property_GUID => Guid("{eb36b40d-8ea4-489b-a013-e60d5951fe34}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsTextPatternAvailable_Property_GUID => "{fbe2d69d-aff6-4a45-82e2-fc92a82f5917}"
+    static IsTextPatternAvailable_Property_GUID => Guid("{fbe2d69d-aff6-4a45-82e2-fc92a82f5917}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsTogglePatternAvailable_Property_GUID => "{78686d53-fcd0-4b83-9b78-5832ce63bb5b}"
+    static IsTogglePatternAvailable_Property_GUID => Guid("{78686d53-fcd0-4b83-9b78-5832ce63bb5b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsTransformPatternAvailable_Property_GUID => "{a7f78804-d68b-4077-a5c6-7a5ea1ac31c5}"
+    static IsTransformPatternAvailable_Property_GUID => Guid("{a7f78804-d68b-4077-a5c6-7a5ea1ac31c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsValuePatternAvailable_Property_GUID => "{0b5020a7-2119-473b-be37-5ceb98bbfb22}"
+    static IsValuePatternAvailable_Property_GUID => Guid("{0b5020a7-2119-473b-be37-5ceb98bbfb22}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsWindowPatternAvailable_Property_GUID => "{e7a57bb1-5888-4155-98dc-b422fd57f2bc}"
+    static IsWindowPatternAvailable_Property_GUID => Guid("{e7a57bb1-5888-4155-98dc-b422fd57f2bc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsLegacyIAccessiblePatternAvailable_Property_GUID => "{d8ebd0c7-929a-4ee7-8d3a-d3d94413027b}"
+    static IsLegacyIAccessiblePatternAvailable_Property_GUID => Guid("{d8ebd0c7-929a-4ee7-8d3a-d3d94413027b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsItemContainerPatternAvailable_Property_GUID => "{624b5ca7-fe40-4957-a019-20c4cf11920f}"
+    static IsItemContainerPatternAvailable_Property_GUID => Guid("{624b5ca7-fe40-4957-a019-20c4cf11920f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsVirtualizedItemPatternAvailable_Property_GUID => "{302cb151-2ac8-45d6-977b-d2b3a5a53f20}"
+    static IsVirtualizedItemPatternAvailable_Property_GUID => Guid("{302cb151-2ac8-45d6-977b-d2b3a5a53f20}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsSynchronizedInputPatternAvailable_Property_GUID => "{75d69cc5-d2bf-4943-876e-b45b62a6cc66}"
+    static IsSynchronizedInputPatternAvailable_Property_GUID => Guid("{75d69cc5-d2bf-4943-876e-b45b62a6cc66}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsObjectModelPatternAvailable_Property_GUID => "{6b21d89b-2841-412f-8ef2-15ca952318ba}"
+    static IsObjectModelPatternAvailable_Property_GUID => Guid("{6b21d89b-2841-412f-8ef2-15ca952318ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsAnnotationPatternAvailable_Property_GUID => "{0b5b3238-6d5c-41b6-bcc4-5e807f6551c4}"
+    static IsAnnotationPatternAvailable_Property_GUID => Guid("{0b5b3238-6d5c-41b6-bcc4-5e807f6551c4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsTextPattern2Available_Property_GUID => "{41cf921d-e3f1-4b22-9c81-e1c3ed331c22}"
+    static IsTextPattern2Available_Property_GUID => Guid("{41cf921d-e3f1-4b22-9c81-e1c3ed331c22}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsTextEditPatternAvailable_Property_GUID => "{7843425c-8b32-484c-9ab5-e3200571ffda}"
+    static IsTextEditPatternAvailable_Property_GUID => Guid("{7843425c-8b32-484c-9ab5-e3200571ffda}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsCustomNavigationPatternAvailable_Property_GUID => "{8f8e80d4-2351-48e0-874a-54aa7313889a}"
+    static IsCustomNavigationPatternAvailable_Property_GUID => Guid("{8f8e80d4-2351-48e0-874a-54aa7313889a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsStylesPatternAvailable_Property_GUID => "{27f353d3-459c-4b59-a490-50611dacafb5}"
+    static IsStylesPatternAvailable_Property_GUID => Guid("{27f353d3-459c-4b59-a490-50611dacafb5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsSpreadsheetPatternAvailable_Property_GUID => "{6ff43732-e4b4-4555-97bc-ecdbbc4d1888}"
+    static IsSpreadsheetPatternAvailable_Property_GUID => Guid("{6ff43732-e4b4-4555-97bc-ecdbbc4d1888}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsSpreadsheetItemPatternAvailable_Property_GUID => "{9fe79b2a-2f94-43fd-996b-549e316f4acd}"
+    static IsSpreadsheetItemPatternAvailable_Property_GUID => Guid("{9fe79b2a-2f94-43fd-996b-549e316f4acd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsTransformPattern2Available_Property_GUID => "{25980b4b-be04-4710-ab4a-fda31dbd2895}"
+    static IsTransformPattern2Available_Property_GUID => Guid("{25980b4b-be04-4710-ab4a-fda31dbd2895}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsTextChildPatternAvailable_Property_GUID => "{559e65df-30ff-43b5-b5ed-5b283b80c7e9}"
+    static IsTextChildPatternAvailable_Property_GUID => Guid("{559e65df-30ff-43b5-b5ed-5b283b80c7e9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsDragPatternAvailable_Property_GUID => "{e997a7b7-1d39-4ca7-be0f-277fcf5605cc}"
+    static IsDragPatternAvailable_Property_GUID => Guid("{e997a7b7-1d39-4ca7-be0f-277fcf5605cc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsDropTargetPatternAvailable_Property_GUID => "{0686b62e-8e19-4aaf-873d-384f6d3b92be}"
+    static IsDropTargetPatternAvailable_Property_GUID => Guid("{0686b62e-8e19-4aaf-873d-384f6d3b92be}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsStructuredMarkupPatternAvailable_Property_GUID => "{b0d4c196-2c0b-489c-b165-a405928c6f3d}"
+    static IsStructuredMarkupPatternAvailable_Property_GUID => Guid("{b0d4c196-2c0b-489c-b165-a405928c6f3d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsPeripheral_Property_GUID => "{da758276-7ed5-49d4-8e68-ecc9a2d300dd}"
+    static IsPeripheral_Property_GUID => Guid("{da758276-7ed5-49d4-8e68-ecc9a2d300dd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PositionInSet_Property_GUID => "{33d1dc54-641e-4d76-a6b1-13f341c1f896}"
+    static PositionInSet_Property_GUID => Guid("{33d1dc54-641e-4d76-a6b1-13f341c1f896}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SizeOfSet_Property_GUID => "{1600d33c-3b9f-4369-9431-aa293f344cf1}"
+    static SizeOfSet_Property_GUID => Guid("{1600d33c-3b9f-4369-9431-aa293f344cf1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Level_Property_GUID => "{242ac529-cd36-400f-aad9-7876ef3af627}"
+    static Level_Property_GUID => Guid("{242ac529-cd36-400f-aad9-7876ef3af627}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static AnnotationTypes_Property_GUID => "{64b71f76-53c4-4696-a219-20e940c9a176}"
+    static AnnotationTypes_Property_GUID => Guid("{64b71f76-53c4-4696-a219-20e940c9a176}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static AnnotationObjects_Property_GUID => "{310910c8-7c6e-4f20-becd-4aaf6d191156}"
+    static AnnotationObjects_Property_GUID => Guid("{310910c8-7c6e-4f20-becd-4aaf6d191156}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LandmarkType_Property_GUID => "{454045f2-6f61-49f7-a4f8-b5f0cf82da1e}"
+    static LandmarkType_Property_GUID => Guid("{454045f2-6f61-49f7-a4f8-b5f0cf82da1e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LocalizedLandmarkType_Property_GUID => "{7ac81980-eafb-4fb2-bf91-f485bef5e8e1}"
+    static LocalizedLandmarkType_Property_GUID => Guid("{7ac81980-eafb-4fb2-bf91-f485bef5e8e1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FullDescription_Property_GUID => "{0d4450ff-6aef-4f33-95dd-7befa72a4391}"
+    static FullDescription_Property_GUID => Guid("{0d4450ff-6aef-4f33-95dd-7befa72a4391}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Value_Value_Property_GUID => "{e95f5e64-269f-4a85-ba99-4092c3ea2986}"
+    static Value_Value_Property_GUID => Guid("{e95f5e64-269f-4a85-ba99-4092c3ea2986}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Value_IsReadOnly_Property_GUID => "{eb090f30-e24c-4799-a705-0d247bc037f8}"
+    static Value_IsReadOnly_Property_GUID => Guid("{eb090f30-e24c-4799-a705-0d247bc037f8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RangeValue_Value_Property_GUID => "{131f5d98-c50c-489d-abe5-ae220898c5f7}"
+    static RangeValue_Value_Property_GUID => Guid("{131f5d98-c50c-489d-abe5-ae220898c5f7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RangeValue_IsReadOnly_Property_GUID => "{25fa1055-debf-4373-a79e-1f1a1908d3c4}"
+    static RangeValue_IsReadOnly_Property_GUID => Guid("{25fa1055-debf-4373-a79e-1f1a1908d3c4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RangeValue_Minimum_Property_GUID => "{78cbd3b2-684d-4860-af93-d1f95cb022fd}"
+    static RangeValue_Minimum_Property_GUID => Guid("{78cbd3b2-684d-4860-af93-d1f95cb022fd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RangeValue_Maximum_Property_GUID => "{19319914-f979-4b35-a1a6-d37e05433473}"
+    static RangeValue_Maximum_Property_GUID => Guid("{19319914-f979-4b35-a1a6-d37e05433473}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RangeValue_LargeChange_Property_GUID => "{a1f96325-3a3d-4b44-8e1f-4a46d9844019}"
+    static RangeValue_LargeChange_Property_GUID => Guid("{a1f96325-3a3d-4b44-8e1f-4a46d9844019}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RangeValue_SmallChange_Property_GUID => "{81c2c457-3941-4107-9975-139760f7c072}"
+    static RangeValue_SmallChange_Property_GUID => Guid("{81c2c457-3941-4107-9975-139760f7c072}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Scroll_HorizontalScrollPercent_Property_GUID => "{c7c13c0e-eb21-47ff-acc4-b5a3350f5191}"
+    static Scroll_HorizontalScrollPercent_Property_GUID => Guid("{c7c13c0e-eb21-47ff-acc4-b5a3350f5191}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Scroll_HorizontalViewSize_Property_GUID => "{70c2e5d4-fcb0-4713-a9aa-af92ff79e4cd}"
+    static Scroll_HorizontalViewSize_Property_GUID => Guid("{70c2e5d4-fcb0-4713-a9aa-af92ff79e4cd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Scroll_VerticalScrollPercent_Property_GUID => "{6c8d7099-b2a8-4948-bff7-3cf9058bfefb}"
+    static Scroll_VerticalScrollPercent_Property_GUID => Guid("{6c8d7099-b2a8-4948-bff7-3cf9058bfefb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Scroll_VerticalViewSize_Property_GUID => "{de6a2e22-d8c7-40c5-83ba-e5f681d53108}"
+    static Scroll_VerticalViewSize_Property_GUID => Guid("{de6a2e22-d8c7-40c5-83ba-e5f681d53108}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Scroll_HorizontallyScrollable_Property_GUID => "{8b925147-28cd-49ae-bd63-f44118d2e719}"
+    static Scroll_HorizontallyScrollable_Property_GUID => Guid("{8b925147-28cd-49ae-bd63-f44118d2e719}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Scroll_VerticallyScrollable_Property_GUID => "{89164798-0068-4315-b89a-1e7cfbbc3dfc}"
+    static Scroll_VerticallyScrollable_Property_GUID => Guid("{89164798-0068-4315-b89a-1e7cfbbc3dfc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Selection_Selection_Property_GUID => "{aa6dc2a2-0e2b-4d38-96d5-34e470b81853}"
+    static Selection_Selection_Property_GUID => Guid("{aa6dc2a2-0e2b-4d38-96d5-34e470b81853}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Selection_CanSelectMultiple_Property_GUID => "{49d73da5-c883-4500-883d-8fcf8daf6cbe}"
+    static Selection_CanSelectMultiple_Property_GUID => Guid("{49d73da5-c883-4500-883d-8fcf8daf6cbe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Selection_IsSelectionRequired_Property_GUID => "{b1ae4422-63fe-44e7-a5a5-a738c829b19a}"
+    static Selection_IsSelectionRequired_Property_GUID => Guid("{b1ae4422-63fe-44e7-a5a5-a738c829b19a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Grid_RowCount_Property_GUID => "{2a9505bf-c2eb-4fb6-b356-8245ae53703e}"
+    static Grid_RowCount_Property_GUID => Guid("{2a9505bf-c2eb-4fb6-b356-8245ae53703e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Grid_ColumnCount_Property_GUID => "{fe96f375-44aa-4536-ac7a-2a75d71a3efc}"
+    static Grid_ColumnCount_Property_GUID => Guid("{fe96f375-44aa-4536-ac7a-2a75d71a3efc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GridItem_Row_Property_GUID => "{6223972a-c945-4563-9329-fdc974af2553}"
+    static GridItem_Row_Property_GUID => Guid("{6223972a-c945-4563-9329-fdc974af2553}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GridItem_Column_Property_GUID => "{c774c15c-62c0-4519-8bdc-47be573c8ad5}"
+    static GridItem_Column_Property_GUID => Guid("{c774c15c-62c0-4519-8bdc-47be573c8ad5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GridItem_RowSpan_Property_GUID => "{4582291c-466b-4e93-8e83-3d1715ec0c5e}"
+    static GridItem_RowSpan_Property_GUID => Guid("{4582291c-466b-4e93-8e83-3d1715ec0c5e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GridItem_ColumnSpan_Property_GUID => "{583ea3f5-86d0-4b08-a6ec-2c5463ffc109}"
+    static GridItem_ColumnSpan_Property_GUID => Guid("{583ea3f5-86d0-4b08-a6ec-2c5463ffc109}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GridItem_Parent_Property_GUID => "{9d912252-b97f-4ecc-8510-ea0e33427c72}"
+    static GridItem_Parent_Property_GUID => Guid("{9d912252-b97f-4ecc-8510-ea0e33427c72}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Dock_DockPosition_Property_GUID => "{6d67f02e-c0b0-4b10-b5b9-18d6ecf98760}"
+    static Dock_DockPosition_Property_GUID => Guid("{6d67f02e-c0b0-4b10-b5b9-18d6ecf98760}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ExpandCollapse_ExpandCollapseState_Property_GUID => "{275a4c48-85a7-4f69-aba0-af157610002b}"
+    static ExpandCollapse_ExpandCollapseState_Property_GUID => Guid("{275a4c48-85a7-4f69-aba0-af157610002b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MultipleView_CurrentView_Property_GUID => "{7a81a67a-b94f-4875-918b-65c8d2f998e5}"
+    static MultipleView_CurrentView_Property_GUID => Guid("{7a81a67a-b94f-4875-918b-65c8d2f998e5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MultipleView_SupportedViews_Property_GUID => "{8d5db9fd-ce3c-4ae7-b788-400a3c645547}"
+    static MultipleView_SupportedViews_Property_GUID => Guid("{8d5db9fd-ce3c-4ae7-b788-400a3c645547}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Window_CanMaximize_Property_GUID => "{64fff53f-635d-41c1-950c-cb5adfbe28e3}"
+    static Window_CanMaximize_Property_GUID => Guid("{64fff53f-635d-41c1-950c-cb5adfbe28e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Window_CanMinimize_Property_GUID => "{b73b4625-5988-4b97-b4c2-a6fe6e78c8c6}"
+    static Window_CanMinimize_Property_GUID => Guid("{b73b4625-5988-4b97-b4c2-a6fe6e78c8c6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Window_WindowVisualState_Property_GUID => "{4ab7905f-e860-453e-a30a-f6431e5daad5}"
+    static Window_WindowVisualState_Property_GUID => Guid("{4ab7905f-e860-453e-a30a-f6431e5daad5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Window_WindowInteractionState_Property_GUID => "{4fed26a4-0455-4fa2-b21c-c4da2db1ff9c}"
+    static Window_WindowInteractionState_Property_GUID => Guid("{4fed26a4-0455-4fa2-b21c-c4da2db1ff9c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Window_IsModal_Property_GUID => "{ff4e6892-37b9-4fca-8532-ffe674ecfeed}"
+    static Window_IsModal_Property_GUID => Guid("{ff4e6892-37b9-4fca-8532-ffe674ecfeed}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Window_IsTopmost_Property_GUID => "{ef7d85d3-0937-4962-9241-b62345f24041}"
+    static Window_IsTopmost_Property_GUID => Guid("{ef7d85d3-0937-4962-9241-b62345f24041}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SelectionItem_IsSelected_Property_GUID => "{f122835f-cd5f-43df-b79d-4b849e9e6020}"
+    static SelectionItem_IsSelected_Property_GUID => Guid("{f122835f-cd5f-43df-b79d-4b849e9e6020}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SelectionItem_SelectionContainer_Property_GUID => "{a4365b6e-9c1e-4b63-8b53-c2421dd1e8fb}"
+    static SelectionItem_SelectionContainer_Property_GUID => Guid("{a4365b6e-9c1e-4b63-8b53-c2421dd1e8fb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Table_RowHeaders_Property_GUID => "{d9e35b87-6eb8-4562-aac6-a8a9075236a8}"
+    static Table_RowHeaders_Property_GUID => Guid("{d9e35b87-6eb8-4562-aac6-a8a9075236a8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Table_ColumnHeaders_Property_GUID => "{aff1d72b-968d-42b1-b459-150b299da664}"
+    static Table_ColumnHeaders_Property_GUID => Guid("{aff1d72b-968d-42b1-b459-150b299da664}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Table_RowOrColumnMajor_Property_GUID => "{83be75c3-29fe-4a30-85e1-2a6277fd106e}"
+    static Table_RowOrColumnMajor_Property_GUID => Guid("{83be75c3-29fe-4a30-85e1-2a6277fd106e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static TableItem_RowHeaderItems_Property_GUID => "{b3f853a0-0574-4cd8-bcd7-ed5923572d97}"
+    static TableItem_RowHeaderItems_Property_GUID => Guid("{b3f853a0-0574-4cd8-bcd7-ed5923572d97}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static TableItem_ColumnHeaderItems_Property_GUID => "{967a56a3-74b6-431e-8de6-99c411031c58}"
+    static TableItem_ColumnHeaderItems_Property_GUID => Guid("{967a56a3-74b6-431e-8de6-99c411031c58}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Toggle_ToggleState_Property_GUID => "{b23cdc52-22c2-4c6c-9ded-f5c422479ede}"
+    static Toggle_ToggleState_Property_GUID => Guid("{b23cdc52-22c2-4c6c-9ded-f5c422479ede}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Transform_CanMove_Property_GUID => "{1b75824d-208b-4fdf-bccd-f1f4e5741f4f}"
+    static Transform_CanMove_Property_GUID => Guid("{1b75824d-208b-4fdf-bccd-f1f4e5741f4f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Transform_CanResize_Property_GUID => "{bb98dca5-4c1a-41d4-a4f6-ebc128644180}"
+    static Transform_CanResize_Property_GUID => Guid("{bb98dca5-4c1a-41d4-a4f6-ebc128644180}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Transform_CanRotate_Property_GUID => "{10079b48-3849-476f-ac96-44a95c8440d9}"
+    static Transform_CanRotate_Property_GUID => Guid("{10079b48-3849-476f-ac96-44a95c8440d9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LegacyIAccessible_ChildId_Property_GUID => "{9a191b5d-9ef2-4787-a459-dcde885dd4e8}"
+    static LegacyIAccessible_ChildId_Property_GUID => Guid("{9a191b5d-9ef2-4787-a459-dcde885dd4e8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LegacyIAccessible_Name_Property_GUID => "{caeb063d-40ae-4869-aa5a-1b8e5d666739}"
+    static LegacyIAccessible_Name_Property_GUID => Guid("{caeb063d-40ae-4869-aa5a-1b8e5d666739}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LegacyIAccessible_Value_Property_GUID => "{b5c5b0b6-8217-4a77-97a5-190a85ed0156}"
+    static LegacyIAccessible_Value_Property_GUID => Guid("{b5c5b0b6-8217-4a77-97a5-190a85ed0156}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LegacyIAccessible_Description_Property_GUID => "{46448418-7d70-4ea9-9d27-b7e775cf2ad7}"
+    static LegacyIAccessible_Description_Property_GUID => Guid("{46448418-7d70-4ea9-9d27-b7e775cf2ad7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LegacyIAccessible_Role_Property_GUID => "{6856e59f-cbaf-4e31-93e8-bcbf6f7e491c}"
+    static LegacyIAccessible_Role_Property_GUID => Guid("{6856e59f-cbaf-4e31-93e8-bcbf6f7e491c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LegacyIAccessible_State_Property_GUID => "{df985854-2281-4340-ab9c-c60e2c5803f6}"
+    static LegacyIAccessible_State_Property_GUID => Guid("{df985854-2281-4340-ab9c-c60e2c5803f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LegacyIAccessible_Help_Property_GUID => "{94402352-161c-4b77-a98d-a872cc33947a}"
+    static LegacyIAccessible_Help_Property_GUID => Guid("{94402352-161c-4b77-a98d-a872cc33947a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LegacyIAccessible_KeyboardShortcut_Property_GUID => "{8f6909ac-00b8-4259-a41c-966266d43a8a}"
+    static LegacyIAccessible_KeyboardShortcut_Property_GUID => Guid("{8f6909ac-00b8-4259-a41c-966266d43a8a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LegacyIAccessible_Selection_Property_GUID => "{8aa8b1e0-0891-40cc-8b06-90d7d4166219}"
+    static LegacyIAccessible_Selection_Property_GUID => Guid("{8aa8b1e0-0891-40cc-8b06-90d7d4166219}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LegacyIAccessible_DefaultAction_Property_GUID => "{3b331729-eaad-4502-b85f-92615622913c}"
+    static LegacyIAccessible_DefaultAction_Property_GUID => Guid("{3b331729-eaad-4502-b85f-92615622913c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_AnnotationTypeId_Property_GUID => "{20ae484f-69ef-4c48-8f5b-c4938b206ac7}"
+    static Annotation_AnnotationTypeId_Property_GUID => Guid("{20ae484f-69ef-4c48-8f5b-c4938b206ac7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_AnnotationTypeName_Property_GUID => "{9b818892-5ac9-4af9-aa96-f58a77b058e3}"
+    static Annotation_AnnotationTypeName_Property_GUID => Guid("{9b818892-5ac9-4af9-aa96-f58a77b058e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Author_Property_GUID => "{7a528462-9c5c-4a03-a974-8b307a9937f2}"
+    static Annotation_Author_Property_GUID => Guid("{7a528462-9c5c-4a03-a974-8b307a9937f2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_DateTime_Property_GUID => "{99b5ca5d-1acf-414b-a4d0-6b350b047578}"
+    static Annotation_DateTime_Property_GUID => Guid("{99b5ca5d-1acf-414b-a4d0-6b350b047578}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Target_Property_GUID => "{b71b302d-2104-44ad-9c5c-092b4907d70f}"
+    static Annotation_Target_Property_GUID => Guid("{b71b302d-2104-44ad-9c5c-092b4907d70f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Styles_StyleId_Property_GUID => "{da82852f-3817-4233-82af-02279e72cc77}"
+    static Styles_StyleId_Property_GUID => Guid("{da82852f-3817-4233-82af-02279e72cc77}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Styles_StyleName_Property_GUID => "{1c12b035-05d1-4f55-9e8e-1489f3ff550d}"
+    static Styles_StyleName_Property_GUID => Guid("{1c12b035-05d1-4f55-9e8e-1489f3ff550d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Styles_FillColor_Property_GUID => "{63eff97a-a1c5-4b1d-84eb-b765f2edd632}"
+    static Styles_FillColor_Property_GUID => Guid("{63eff97a-a1c5-4b1d-84eb-b765f2edd632}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Styles_FillPatternStyle_Property_GUID => "{81cf651f-482b-4451-a30a-e1545e554fb8}"
+    static Styles_FillPatternStyle_Property_GUID => Guid("{81cf651f-482b-4451-a30a-e1545e554fb8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Styles_Shape_Property_GUID => "{c71a23f8-778c-400d-8458-3b543e526984}"
+    static Styles_Shape_Property_GUID => Guid("{c71a23f8-778c-400d-8458-3b543e526984}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Styles_FillPatternColor_Property_GUID => "{939a59fe-8fbd-4e75-a271-ac4595195163}"
+    static Styles_FillPatternColor_Property_GUID => Guid("{939a59fe-8fbd-4e75-a271-ac4595195163}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Styles_ExtendedProperties_Property_GUID => "{f451cda0-ba0a-4681-b0b0-0dbdb53e58f3}"
+    static Styles_ExtendedProperties_Property_GUID => Guid("{f451cda0-ba0a-4681-b0b0-0dbdb53e58f3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SpreadsheetItem_Formula_Property_GUID => "{e602e47d-1b47-4bea-87cf-3b0b0b5c15b6}"
+    static SpreadsheetItem_Formula_Property_GUID => Guid("{e602e47d-1b47-4bea-87cf-3b0b0b5c15b6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SpreadsheetItem_AnnotationObjects_Property_GUID => "{a3194c38-c9bc-4604-9396-ae3f9f457f7b}"
+    static SpreadsheetItem_AnnotationObjects_Property_GUID => Guid("{a3194c38-c9bc-4604-9396-ae3f9f457f7b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SpreadsheetItem_AnnotationTypes_Property_GUID => "{c70c51d0-d602-4b45-afbc-b4712b96d72b}"
+    static SpreadsheetItem_AnnotationTypes_Property_GUID => Guid("{c70c51d0-d602-4b45-afbc-b4712b96d72b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Transform2_CanZoom_Property_GUID => "{f357e890-a756-4359-9ca6-86702bf8f381}"
+    static Transform2_CanZoom_Property_GUID => Guid("{f357e890-a756-4359-9ca6-86702bf8f381}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LiveSetting_Property_GUID => "{c12bcd8e-2a8e-4950-8ae7-3625111d58eb}"
+    static LiveSetting_Property_GUID => Guid("{c12bcd8e-2a8e-4950-8ae7-3625111d58eb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Drag_IsGrabbed_Property_GUID => "{45f206f3-75cc-4cca-a9b9-fcdfb982d8a2}"
+    static Drag_IsGrabbed_Property_GUID => Guid("{45f206f3-75cc-4cca-a9b9-fcdfb982d8a2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Drag_GrabbedItems_Property_GUID => "{77c1562c-7b86-4b21-9ed7-3cefda6f4c43}"
+    static Drag_GrabbedItems_Property_GUID => Guid("{77c1562c-7b86-4b21-9ed7-3cefda6f4c43}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Drag_DropEffect_Property_GUID => "{646f2779-48d3-4b23-8902-4bf100005df3}"
+    static Drag_DropEffect_Property_GUID => Guid("{646f2779-48d3-4b23-8902-4bf100005df3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Drag_DropEffects_Property_GUID => "{f5d61156-7ce6-49be-a836-9269dcec920f}"
+    static Drag_DropEffects_Property_GUID => Guid("{f5d61156-7ce6-49be-a836-9269dcec920f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DropTarget_DropTargetEffect_Property_GUID => "{8bb75975-a0ca-4981-b818-87fc66e9509d}"
+    static DropTarget_DropTargetEffect_Property_GUID => Guid("{8bb75975-a0ca-4981-b818-87fc66e9509d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DropTarget_DropTargetEffects_Property_GUID => "{bc1dd4ed-cb89-45f1-a592-e03b08ae790f}"
+    static DropTarget_DropTargetEffects_Property_GUID => Guid("{bc1dd4ed-cb89-45f1-a592-e03b08ae790f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Transform2_ZoomLevel_Property_GUID => "{eee29f1a-f4a2-4b5b-ac65-95cf93283387}"
+    static Transform2_ZoomLevel_Property_GUID => Guid("{eee29f1a-f4a2-4b5b-ac65-95cf93283387}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Transform2_ZoomMinimum_Property_GUID => "{742ccc16-4ad1-4e07-96fe-b122c6e6b22b}"
+    static Transform2_ZoomMinimum_Property_GUID => Guid("{742ccc16-4ad1-4e07-96fe-b122c6e6b22b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Transform2_ZoomMaximum_Property_GUID => "{42ab6b77-ceb0-4eca-b82a-6cfa5fa1fc08}"
+    static Transform2_ZoomMaximum_Property_GUID => Guid("{42ab6b77-ceb0-4eca-b82a-6cfa5fa1fc08}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FlowsFrom_Property_GUID => "{05c6844f-19de-48f8-95fa-880d5b0fd615}"
+    static FlowsFrom_Property_GUID => Guid("{05c6844f-19de-48f8-95fa-880d5b0fd615}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FillColor_Property_GUID => "{6e0ec4d0-e2a8-4a56-9de7-953389933b39}"
+    static FillColor_Property_GUID => Guid("{6e0ec4d0-e2a8-4a56-9de7-953389933b39}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static OutlineColor_Property_GUID => "{c395d6c0-4b55-4762-a073-fd303a634f52}"
+    static OutlineColor_Property_GUID => Guid("{c395d6c0-4b55-4762-a073-fd303a634f52}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FillType_Property_GUID => "{c6fc74e4-8cb9-429c-a9e1-9bc4ac372b62}"
+    static FillType_Property_GUID => Guid("{c6fc74e4-8cb9-429c-a9e1-9bc4ac372b62}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static VisualEffects_Property_GUID => "{e61a8565-aad9-46d7-9e70-4e8a8420d420}"
+    static VisualEffects_Property_GUID => Guid("{e61a8565-aad9-46d7-9e70-4e8a8420d420}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static OutlineThickness_Property_GUID => "{13e67cc7-dac2-4888-bdd3-375c62fa9618}"
+    static OutlineThickness_Property_GUID => Guid("{13e67cc7-dac2-4888-bdd3-375c62fa9618}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CenterPoint_Property_GUID => "{0cb00c08-540c-4edb-9445-26359ea69785}"
+    static CenterPoint_Property_GUID => Guid("{0cb00c08-540c-4edb-9445-26359ea69785}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Rotation_Property_GUID => "{767cdc7d-aec0-4110-ad32-30edd403492e}"
+    static Rotation_Property_GUID => Guid("{767cdc7d-aec0-4110-ad32-30edd403492e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Size_Property_GUID => "{2b5f761d-f885-4404-973f-9b1d98e36d8f}"
+    static Size_Property_GUID => Guid("{2b5f761d-f885-4404-973f-9b1d98e36d8f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ToolTipOpened_Event_GUID => "{3f4b97ff-2edc-451d-bca4-95a3188d5b03}"
+    static ToolTipOpened_Event_GUID => Guid("{3f4b97ff-2edc-451d-bca4-95a3188d5b03}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ToolTipClosed_Event_GUID => "{276d71ef-24a9-49b6-8e97-da98b401bbcd}"
+    static ToolTipClosed_Event_GUID => Guid("{276d71ef-24a9-49b6-8e97-da98b401bbcd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StructureChanged_Event_GUID => "{59977961-3edd-4b11-b13b-676b2a2a6ca9}"
+    static StructureChanged_Event_GUID => Guid("{59977961-3edd-4b11-b13b-676b2a2a6ca9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MenuOpened_Event_GUID => "{ebe2e945-66ca-4ed1-9ff8-2ad7df0a1b08}"
+    static MenuOpened_Event_GUID => Guid("{ebe2e945-66ca-4ed1-9ff8-2ad7df0a1b08}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static AutomationPropertyChanged_Event_GUID => "{2527fba1-8d7a-4630-a4cc-e66315942f52}"
+    static AutomationPropertyChanged_Event_GUID => Guid("{2527fba1-8d7a-4630-a4cc-e66315942f52}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static AutomationFocusChanged_Event_GUID => "{b68a1f17-f60d-41a7-a3cc-b05292155fe0}"
+    static AutomationFocusChanged_Event_GUID => Guid("{b68a1f17-f60d-41a7-a3cc-b05292155fe0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ActiveTextPositionChanged_Event_GUID => "{a5c09e9c-c77d-4f25-b491-e5bb7017cbd4}"
+    static ActiveTextPositionChanged_Event_GUID => Guid("{a5c09e9c-c77d-4f25-b491-e5bb7017cbd4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static AsyncContentLoaded_Event_GUID => "{5fdee11c-d2fa-4fb9-904e-5cbee894d5ef}"
+    static AsyncContentLoaded_Event_GUID => Guid("{5fdee11c-d2fa-4fb9-904e-5cbee894d5ef}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MenuClosed_Event_GUID => "{3cf1266e-1582-4041-acd7-88a35a965297}"
+    static MenuClosed_Event_GUID => Guid("{3cf1266e-1582-4041-acd7-88a35a965297}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LayoutInvalidated_Event_GUID => "{ed7d6544-a6bd-4595-9bae-3d28946cc715}"
+    static LayoutInvalidated_Event_GUID => Guid("{ed7d6544-a6bd-4595-9bae-3d28946cc715}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Invoke_Invoked_Event_GUID => "{dfd699f0-c915-49dd-b422-dde785c3d24b}"
+    static Invoke_Invoked_Event_GUID => Guid("{dfd699f0-c915-49dd-b422-dde785c3d24b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SelectionItem_ElementAddedToSelectionEvent_Event_GUID => "{3c822dd1-c407-4dba-91dd-79d4aed0aec6}"
+    static SelectionItem_ElementAddedToSelectionEvent_Event_GUID => Guid("{3c822dd1-c407-4dba-91dd-79d4aed0aec6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SelectionItem_ElementRemovedFromSelectionEvent_Event_GUID => "{097fa8a9-7079-41af-8b9c-0934d8305e5c}"
+    static SelectionItem_ElementRemovedFromSelectionEvent_Event_GUID => Guid("{097fa8a9-7079-41af-8b9c-0934d8305e5c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SelectionItem_ElementSelectedEvent_Event_GUID => "{b9c7dbfb-4ebe-4532-aaf4-008cf647233c}"
+    static SelectionItem_ElementSelectedEvent_Event_GUID => Guid("{b9c7dbfb-4ebe-4532-aaf4-008cf647233c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Selection_InvalidatedEvent_Event_GUID => "{cac14904-16b4-4b53-8e47-4cb1df267bb7}"
+    static Selection_InvalidatedEvent_Event_GUID => Guid("{cac14904-16b4-4b53-8e47-4cb1df267bb7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_TextSelectionChangedEvent_Event_GUID => "{918edaa1-71b3-49ae-9741-79beb8d358f3}"
+    static Text_TextSelectionChangedEvent_Event_GUID => Guid("{918edaa1-71b3-49ae-9741-79beb8d358f3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_TextChangedEvent_Event_GUID => "{4a342082-f483-48c4-ac11-a84b435e2a84}"
+    static Text_TextChangedEvent_Event_GUID => Guid("{4a342082-f483-48c4-ac11-a84b435e2a84}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Window_WindowOpened_Event_GUID => "{d3e81d06-de45-4f2f-9633-de9e02fb65af}"
+    static Window_WindowOpened_Event_GUID => Guid("{d3e81d06-de45-4f2f-9633-de9e02fb65af}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Window_WindowClosed_Event_GUID => "{edf141f8-fa67-4e22-bbf7-944e05735ee2}"
+    static Window_WindowClosed_Event_GUID => Guid("{edf141f8-fa67-4e22-bbf7-944e05735ee2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MenuModeStart_Event_GUID => "{18d7c631-166a-4ac9-ae3b-ef4b5420e681}"
+    static MenuModeStart_Event_GUID => Guid("{18d7c631-166a-4ac9-ae3b-ef4b5420e681}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MenuModeEnd_Event_GUID => "{9ecd4c9f-80dd-47b8-8267-5aec06bb2cff}"
+    static MenuModeEnd_Event_GUID => Guid("{9ecd4c9f-80dd-47b8-8267-5aec06bb2cff}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static InputReachedTarget_Event_GUID => "{93ed549a-0549-40f0-bedb-28e44f7de2a3}"
+    static InputReachedTarget_Event_GUID => Guid("{93ed549a-0549-40f0-bedb-28e44f7de2a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static InputReachedOtherElement_Event_GUID => "{ed201d8a-4e6c-415e-a874-2460c9b66ba8}"
+    static InputReachedOtherElement_Event_GUID => Guid("{ed201d8a-4e6c-415e-a874-2460c9b66ba8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static InputDiscarded_Event_GUID => "{7f36c367-7b18-417c-97e3-9d58ddc944ab}"
+    static InputDiscarded_Event_GUID => Guid("{7f36c367-7b18-417c-97e3-9d58ddc944ab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemAlert_Event_GUID => "{d271545d-7a3a-47a7-8474-81d29a2451c9}"
+    static SystemAlert_Event_GUID => Guid("{d271545d-7a3a-47a7-8474-81d29a2451c9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LiveRegionChanged_Event_GUID => "{102d5e90-e6a9-41b6-b1c5-a9b1929d9510}"
+    static LiveRegionChanged_Event_GUID => Guid("{102d5e90-e6a9-41b6-b1c5-a9b1929d9510}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HostedFragmentRootsInvalidated_Event_GUID => "{e6bdb03e-0921-4ec5-8dcf-eae877b0426b}"
+    static HostedFragmentRootsInvalidated_Event_GUID => Guid("{e6bdb03e-0921-4ec5-8dcf-eae877b0426b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Drag_DragStart_Event_GUID => "{883a480b-3aa9-429d-95e4-d9c8d011f0dd}"
+    static Drag_DragStart_Event_GUID => Guid("{883a480b-3aa9-429d-95e4-d9c8d011f0dd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Drag_DragCancel_Event_GUID => "{c3ede6fa-3451-4e0f-9e71-df9c280a4657}"
+    static Drag_DragCancel_Event_GUID => Guid("{c3ede6fa-3451-4e0f-9e71-df9c280a4657}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Drag_DragComplete_Event_GUID => "{38e96188-ef1f-463e-91ca-3a7792c29caf}"
+    static Drag_DragComplete_Event_GUID => Guid("{38e96188-ef1f-463e-91ca-3a7792c29caf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DropTarget_DragEnter_Event_GUID => "{aad9319b-032c-4a88-961d-1cf579581e34}"
+    static DropTarget_DragEnter_Event_GUID => Guid("{aad9319b-032c-4a88-961d-1cf579581e34}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DropTarget_DragLeave_Event_GUID => "{0f82eb15-24a2-4988-9217-de162aee272b}"
+    static DropTarget_DragLeave_Event_GUID => Guid("{0f82eb15-24a2-4988-9217-de162aee272b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DropTarget_Dropped_Event_GUID => "{622cead8-1edb-4a3d-abbc-be2211ff68b5}"
+    static DropTarget_Dropped_Event_GUID => Guid("{622cead8-1edb-4a3d-abbc-be2211ff68b5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StructuredMarkup_CompositionComplete_Event_GUID => "{c48a3c17-677a-4047-a68d-fc1257528aef}"
+    static StructuredMarkup_CompositionComplete_Event_GUID => Guid("{c48a3c17-677a-4047-a68d-fc1257528aef}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StructuredMarkup_Deleted_Event_GUID => "{f9d0a020-e1c1-4ecf-b9aa-52efde7e41e1}"
+    static StructuredMarkup_Deleted_Event_GUID => Guid("{f9d0a020-e1c1-4ecf-b9aa-52efde7e41e1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StructuredMarkup_SelectionChanged_Event_GUID => "{a7c815f7-ff9f-41c7-a3a7-ab6cbfdb4903}"
+    static StructuredMarkup_SelectionChanged_Event_GUID => Guid("{a7c815f7-ff9f-41c7-a3a7-ab6cbfdb4903}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Invoke_Pattern_GUID => "{d976c2fc-66ea-4a6e-b28f-c24c7546ad37}"
+    static Invoke_Pattern_GUID => Guid("{d976c2fc-66ea-4a6e-b28f-c24c7546ad37}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Selection_Pattern_GUID => "{66e3b7e8-d821-4d25-8761-435d2c8b253f}"
+    static Selection_Pattern_GUID => Guid("{66e3b7e8-d821-4d25-8761-435d2c8b253f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Value_Pattern_GUID => "{17faad9e-c877-475b-b933-77332779b637}"
+    static Value_Pattern_GUID => Guid("{17faad9e-c877-475b-b933-77332779b637}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RangeValue_Pattern_GUID => "{18b00d87-b1c9-476a-bfbd-5f0bdb926f63}"
+    static RangeValue_Pattern_GUID => Guid("{18b00d87-b1c9-476a-bfbd-5f0bdb926f63}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Scroll_Pattern_GUID => "{895fa4b4-759d-4c50-8e15-03460672003c}"
+    static Scroll_Pattern_GUID => Guid("{895fa4b4-759d-4c50-8e15-03460672003c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ExpandCollapse_Pattern_GUID => "{ae05efa2-f9d1-428a-834c-53a5c52f9b8b}"
+    static ExpandCollapse_Pattern_GUID => Guid("{ae05efa2-f9d1-428a-834c-53a5c52f9b8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Grid_Pattern_GUID => "{260a2ccb-93a8-4e44-a4c1-3df397f2b02b}"
+    static Grid_Pattern_GUID => Guid("{260a2ccb-93a8-4e44-a4c1-3df397f2b02b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GridItem_Pattern_GUID => "{f2d5c877-a462-4957-a2a5-2c96b303bc63}"
+    static GridItem_Pattern_GUID => Guid("{f2d5c877-a462-4957-a2a5-2c96b303bc63}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MultipleView_Pattern_GUID => "{547a6ae4-113f-47c4-850f-db4dfa466b1d}"
+    static MultipleView_Pattern_GUID => Guid("{547a6ae4-113f-47c4-850f-db4dfa466b1d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Window_Pattern_GUID => "{27901735-c760-4994-ad11-5919e606b110}"
+    static Window_Pattern_GUID => Guid("{27901735-c760-4994-ad11-5919e606b110}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SelectionItem_Pattern_GUID => "{9bc64eeb-87c7-4b28-94bb-4d9fa437b6ef}"
+    static SelectionItem_Pattern_GUID => Guid("{9bc64eeb-87c7-4b28-94bb-4d9fa437b6ef}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Dock_Pattern_GUID => "{9cbaa846-83c8-428d-827f-7e6063fe0620}"
+    static Dock_Pattern_GUID => Guid("{9cbaa846-83c8-428d-827f-7e6063fe0620}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Table_Pattern_GUID => "{c415218e-a028-461e-aa92-8f925cf79351}"
+    static Table_Pattern_GUID => Guid("{c415218e-a028-461e-aa92-8f925cf79351}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static TableItem_Pattern_GUID => "{df1343bd-1888-4a29-a50c-b92e6de37f6f}"
+    static TableItem_Pattern_GUID => Guid("{df1343bd-1888-4a29-a50c-b92e6de37f6f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_Pattern_GUID => "{8615f05d-7de5-44fd-a679-2ca4b46033a8}"
+    static Text_Pattern_GUID => Guid("{8615f05d-7de5-44fd-a679-2ca4b46033a8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Toggle_Pattern_GUID => "{0b419760-e2f4-43ff-8c5f-9457c82b56e9}"
+    static Toggle_Pattern_GUID => Guid("{0b419760-e2f4-43ff-8c5f-9457c82b56e9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Transform_Pattern_GUID => "{24b46fdb-587e-49f1-9c4a-d8e98b664b7b}"
+    static Transform_Pattern_GUID => Guid("{24b46fdb-587e-49f1-9c4a-d8e98b664b7b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ScrollItem_Pattern_GUID => "{4591d005-a803-4d5c-b4d5-8d2800f906a7}"
+    static ScrollItem_Pattern_GUID => Guid("{4591d005-a803-4d5c-b4d5-8d2800f906a7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LegacyIAccessible_Pattern_GUID => "{54cc0a9f-3395-48af-ba8d-73f85690f3e0}"
+    static LegacyIAccessible_Pattern_GUID => Guid("{54cc0a9f-3395-48af-ba8d-73f85690f3e0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ItemContainer_Pattern_GUID => "{3d13da0f-8b9a-4a99-85fa-c5c9a69f1ed4}"
+    static ItemContainer_Pattern_GUID => Guid("{3d13da0f-8b9a-4a99-85fa-c5c9a69f1ed4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static VirtualizedItem_Pattern_GUID => "{f510173e-2e71-45e9-a6e5-62f6ed8289d5}"
+    static VirtualizedItem_Pattern_GUID => Guid("{f510173e-2e71-45e9-a6e5-62f6ed8289d5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SynchronizedInput_Pattern_GUID => "{05c288a6-c47b-488b-b653-33977a551b8b}"
+    static SynchronizedInput_Pattern_GUID => Guid("{05c288a6-c47b-488b-b653-33977a551b8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ObjectModel_Pattern_GUID => "{3e04acfe-08fc-47ec-96bc-353fa3b34aa7}"
+    static ObjectModel_Pattern_GUID => Guid("{3e04acfe-08fc-47ec-96bc-353fa3b34aa7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Pattern_GUID => "{f6c72ad7-356c-4850-9291-316f608a8c84}"
+    static Annotation_Pattern_GUID => Guid("{f6c72ad7-356c-4850-9291-316f608a8c84}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_Pattern2_GUID => "{498479a2-5b22-448d-b6e4-647490860698}"
+    static Text_Pattern2_GUID => Guid("{498479a2-5b22-448d-b6e4-647490860698}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static TextEdit_Pattern_GUID => "{69f3ff89-5af9-4c75-9340-f2de292e4591}"
+    static TextEdit_Pattern_GUID => Guid("{69f3ff89-5af9-4c75-9340-f2de292e4591}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CustomNavigation_Pattern_GUID => "{afea938a-621e-4054-bb2c-2f46114dac3f}"
+    static CustomNavigation_Pattern_GUID => Guid("{afea938a-621e-4054-bb2c-2f46114dac3f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Styles_Pattern_GUID => "{1ae62655-da72-4d60-a153-e5aa6988e3bf}"
+    static Styles_Pattern_GUID => Guid("{1ae62655-da72-4d60-a153-e5aa6988e3bf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Spreadsheet_Pattern_GUID => "{6a5b24c9-9d1e-4b85-9e44-c02e3169b10b}"
+    static Spreadsheet_Pattern_GUID => Guid("{6a5b24c9-9d1e-4b85-9e44-c02e3169b10b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SpreadsheetItem_Pattern_GUID => "{32cf83ff-f1a8-4a8c-8658-d47ba74e20ba}"
+    static SpreadsheetItem_Pattern_GUID => Guid("{32cf83ff-f1a8-4a8c-8658-d47ba74e20ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Tranform_Pattern2_GUID => "{8afcfd07-a369-44de-988b-2f7ff49fb8a8}"
+    static Tranform_Pattern2_GUID => Guid("{8afcfd07-a369-44de-988b-2f7ff49fb8a8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static TextChild_Pattern_GUID => "{7533cab7-3bfe-41ef-9e85-e2638cbe169e}"
+    static TextChild_Pattern_GUID => Guid("{7533cab7-3bfe-41ef-9e85-e2638cbe169e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Drag_Pattern_GUID => "{c0bee21f-ccb3-4fed-995b-114f6e3d2728}"
+    static Drag_Pattern_GUID => Guid("{c0bee21f-ccb3-4fed-995b-114f6e3d2728}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DropTarget_Pattern_GUID => "{0bcbec56-bd34-4b7b-9fd5-2659905ea3dc}"
+    static DropTarget_Pattern_GUID => Guid("{0bcbec56-bd34-4b7b-9fd5-2659905ea3dc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StructuredMarkup_Pattern_GUID => "{abbd0878-8665-4f5c-94fc-36e7d8bb706b}"
+    static StructuredMarkup_Pattern_GUID => Guid("{abbd0878-8665-4f5c-94fc-36e7d8bb706b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Button_Control_GUID => "{5a78e369-c6a1-4f33-a9d7-79f20d0c788e}"
+    static Button_Control_GUID => Guid("{5a78e369-c6a1-4f33-a9d7-79f20d0c788e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Calendar_Control_GUID => "{8913eb88-00e5-46bc-8e4e-14a786e165a1}"
+    static Calendar_Control_GUID => Guid("{8913eb88-00e5-46bc-8e4e-14a786e165a1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CheckBox_Control_GUID => "{fb50f922-a3db-49c0-8bc3-06dad55778e2}"
+    static CheckBox_Control_GUID => Guid("{fb50f922-a3db-49c0-8bc3-06dad55778e2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ComboBox_Control_GUID => "{54cb426c-2f33-4fff-aaa1-aef60dac5deb}"
+    static ComboBox_Control_GUID => Guid("{54cb426c-2f33-4fff-aaa1-aef60dac5deb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Edit_Control_GUID => "{6504a5c8-2c86-4f87-ae7b-1abddc810cf9}"
+    static Edit_Control_GUID => Guid("{6504a5c8-2c86-4f87-ae7b-1abddc810cf9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Hyperlink_Control_GUID => "{8a56022c-b00d-4d15-8ff0-5b6b266e5e02}"
+    static Hyperlink_Control_GUID => Guid("{8a56022c-b00d-4d15-8ff0-5b6b266e5e02}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Image_Control_GUID => "{2d3736e4-6b16-4c57-a962-f93260a75243}"
+    static Image_Control_GUID => Guid("{2d3736e4-6b16-4c57-a962-f93260a75243}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ListItem_Control_GUID => "{7b3717f2-44d1-4a58-98a8-f12a9b8f78e2}"
+    static ListItem_Control_GUID => Guid("{7b3717f2-44d1-4a58-98a8-f12a9b8f78e2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static List_Control_GUID => "{9b149ee1-7cca-4cfc-9af1-cac7bddd3031}"
+    static List_Control_GUID => Guid("{9b149ee1-7cca-4cfc-9af1-cac7bddd3031}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Menu_Control_GUID => "{2e9b1440-0ea8-41fd-b374-c1ea6f503cd1}"
+    static Menu_Control_GUID => Guid("{2e9b1440-0ea8-41fd-b374-c1ea6f503cd1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MenuBar_Control_GUID => "{cc384250-0e7b-4ae8-95ae-a08f261b52ee}"
+    static MenuBar_Control_GUID => Guid("{cc384250-0e7b-4ae8-95ae-a08f261b52ee}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MenuItem_Control_GUID => "{f45225d3-d0a0-49d8-9834-9a000d2aeddc}"
+    static MenuItem_Control_GUID => Guid("{f45225d3-d0a0-49d8-9834-9a000d2aeddc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ProgressBar_Control_GUID => "{228c9f86-c36c-47bb-9fb6-a5834bfc53a4}"
+    static ProgressBar_Control_GUID => Guid("{228c9f86-c36c-47bb-9fb6-a5834bfc53a4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RadioButton_Control_GUID => "{3bdb49db-fe2c-4483-b3e1-e57f219440c6}"
+    static RadioButton_Control_GUID => Guid("{3bdb49db-fe2c-4483-b3e1-e57f219440c6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ScrollBar_Control_GUID => "{daf34b36-5065-4946-b22f-92595fc0751a}"
+    static ScrollBar_Control_GUID => Guid("{daf34b36-5065-4946-b22f-92595fc0751a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Slider_Control_GUID => "{b033c24b-3b35-4cea-b609-763682fa660b}"
+    static Slider_Control_GUID => Guid("{b033c24b-3b35-4cea-b609-763682fa660b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Spinner_Control_GUID => "{60cc4b38-3cb1-4161-b442-c6b726c17825}"
+    static Spinner_Control_GUID => Guid("{60cc4b38-3cb1-4161-b442-c6b726c17825}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StatusBar_Control_GUID => "{d45e7d1b-5873-475f-95a4-0433e1f1b00a}"
+    static StatusBar_Control_GUID => Guid("{d45e7d1b-5873-475f-95a4-0433e1f1b00a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Tab_Control_GUID => "{38cd1f2d-337a-4bd2-a5e3-adb469e30bd3}"
+    static Tab_Control_GUID => Guid("{38cd1f2d-337a-4bd2-a5e3-adb469e30bd3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static TabItem_Control_GUID => "{2c6a634f-921b-4e6e-b26e-08fcb0798f4c}"
+    static TabItem_Control_GUID => Guid("{2c6a634f-921b-4e6e-b26e-08fcb0798f4c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_Control_GUID => "{ae9772dc-d331-4f09-be20-7e6dfaf07b0a}"
+    static Text_Control_GUID => Guid("{ae9772dc-d331-4f09-be20-7e6dfaf07b0a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ToolBar_Control_GUID => "{8f06b751-e182-4e98-8893-2284543a7dce}"
+    static ToolBar_Control_GUID => Guid("{8f06b751-e182-4e98-8893-2284543a7dce}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ToolTip_Control_GUID => "{05ddc6d1-2137-4768-98ea-73f52f7134f3}"
+    static ToolTip_Control_GUID => Guid("{05ddc6d1-2137-4768-98ea-73f52f7134f3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Tree_Control_GUID => "{7561349c-d241-43f4-9908-b5f091bee611}"
+    static Tree_Control_GUID => Guid("{7561349c-d241-43f4-9908-b5f091bee611}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static TreeItem_Control_GUID => "{62c9feb9-8ffc-4878-a3a4-96b030315c18}"
+    static TreeItem_Control_GUID => Guid("{62c9feb9-8ffc-4878-a3a4-96b030315c18}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Custom_Control_GUID => "{f29ea0c3-adb7-430a-ba90-e52c7313e6ed}"
+    static Custom_Control_GUID => Guid("{f29ea0c3-adb7-430a-ba90-e52c7313e6ed}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Group_Control_GUID => "{ad50aa1c-e8c8-4774-ae1b-dd86df0b3bdc}"
+    static Group_Control_GUID => Guid("{ad50aa1c-e8c8-4774-ae1b-dd86df0b3bdc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Thumb_Control_GUID => "{701ca877-e310-4dd6-b644-797e4faea213}"
+    static Thumb_Control_GUID => Guid("{701ca877-e310-4dd6-b644-797e4faea213}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DataGrid_Control_GUID => "{84b783af-d103-4b0a-8415-e73942410f4b}"
+    static DataGrid_Control_GUID => Guid("{84b783af-d103-4b0a-8415-e73942410f4b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DataItem_Control_GUID => "{a0177842-d94f-42a5-814b-6068addc8da5}"
+    static DataItem_Control_GUID => Guid("{a0177842-d94f-42a5-814b-6068addc8da5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Document_Control_GUID => "{3cd6bb6f-6f08-4562-b229-e4e2fc7a9eb4}"
+    static Document_Control_GUID => Guid("{3cd6bb6f-6f08-4562-b229-e4e2fc7a9eb4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SplitButton_Control_GUID => "{7011f01f-4ace-4901-b461-920a6f1ca650}"
+    static SplitButton_Control_GUID => Guid("{7011f01f-4ace-4901-b461-920a6f1ca650}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Window_Control_GUID => "{e13a7242-f462-4f4d-aec1-53b28d6c3290}"
+    static Window_Control_GUID => Guid("{e13a7242-f462-4f4d-aec1-53b28d6c3290}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Pane_Control_GUID => "{5c2b3f5b-9182-42a3-8dec-8c04c1ee634d}"
+    static Pane_Control_GUID => Guid("{5c2b3f5b-9182-42a3-8dec-8c04c1ee634d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Header_Control_GUID => "{5b90cbce-78fb-4614-82b6-554d74718e67}"
+    static Header_Control_GUID => Guid("{5b90cbce-78fb-4614-82b6-554d74718e67}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HeaderItem_Control_GUID => "{e6bc12cb-7c8e-49cf-b168-4a93a32bebb0}"
+    static HeaderItem_Control_GUID => Guid("{e6bc12cb-7c8e-49cf-b168-4a93a32bebb0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Table_Control_GUID => "{773bfa0e-5bc4-4deb-921b-de7b3206229e}"
+    static Table_Control_GUID => Guid("{773bfa0e-5bc4-4deb-921b-de7b3206229e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static TitleBar_Control_GUID => "{98aa55bf-3bb0-4b65-836e-2ea30dbc171f}"
+    static TitleBar_Control_GUID => Guid("{98aa55bf-3bb0-4b65-836e-2ea30dbc171f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Separator_Control_GUID => "{8767eba3-2a63-4ab0-ac8d-aa50e23de978}"
+    static Separator_Control_GUID => Guid("{8767eba3-2a63-4ab0-ac8d-aa50e23de978}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SemanticZoom_Control_GUID => "{5fd34a43-061e-42c8-b589-9dccf74bc43a}"
+    static SemanticZoom_Control_GUID => Guid("{5fd34a43-061e-42c8-b589-9dccf74bc43a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static AppBar_Control_GUID => "{6114908d-cc02-4d37-875b-b530c7139554}"
+    static AppBar_Control_GUID => Guid("{6114908d-cc02-4d37-875b-b530c7139554}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_AnimationStyle_Attribute_GUID => "{628209f0-7c9a-4d57-be64-1f1836571ff5}"
+    static Text_AnimationStyle_Attribute_GUID => Guid("{628209f0-7c9a-4d57-be64-1f1836571ff5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_BackgroundColor_Attribute_GUID => "{fdc49a07-583d-4f17-ad27-77fc832a3c0b}"
+    static Text_BackgroundColor_Attribute_GUID => Guid("{fdc49a07-583d-4f17-ad27-77fc832a3c0b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_BulletStyle_Attribute_GUID => "{c1097c90-d5c4-4237-9781-3bec8ba54e48}"
+    static Text_BulletStyle_Attribute_GUID => Guid("{c1097c90-d5c4-4237-9781-3bec8ba54e48}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_CapStyle_Attribute_GUID => "{fb059c50-92cc-49a5-ba8f-0aa872bba2f3}"
+    static Text_CapStyle_Attribute_GUID => Guid("{fb059c50-92cc-49a5-ba8f-0aa872bba2f3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_Culture_Attribute_GUID => "{c2025af9-a42d-4ced-a1fb-c6746315222e}"
+    static Text_Culture_Attribute_GUID => Guid("{c2025af9-a42d-4ced-a1fb-c6746315222e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_FontName_Attribute_GUID => "{64e63ba8-f2e5-476e-a477-1734feaaf726}"
+    static Text_FontName_Attribute_GUID => Guid("{64e63ba8-f2e5-476e-a477-1734feaaf726}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_FontSize_Attribute_GUID => "{dc5eeeff-0506-4673-93f2-377e4a8e01f1}"
+    static Text_FontSize_Attribute_GUID => Guid("{dc5eeeff-0506-4673-93f2-377e4a8e01f1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_FontWeight_Attribute_GUID => "{6fc02359-b316-4f5f-b401-f1ce55741853}"
+    static Text_FontWeight_Attribute_GUID => Guid("{6fc02359-b316-4f5f-b401-f1ce55741853}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_ForegroundColor_Attribute_GUID => "{72d1c95d-5e60-471a-96b1-6c1b3b77a436}"
+    static Text_ForegroundColor_Attribute_GUID => Guid("{72d1c95d-5e60-471a-96b1-6c1b3b77a436}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_HorizontalTextAlignment_Attribute_GUID => "{04ea6161-fba3-477a-952a-bb326d026a5b}"
+    static Text_HorizontalTextAlignment_Attribute_GUID => Guid("{04ea6161-fba3-477a-952a-bb326d026a5b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_IndentationFirstLine_Attribute_GUID => "{206f9ad5-c1d3-424a-8182-6da9a7f3d632}"
+    static Text_IndentationFirstLine_Attribute_GUID => Guid("{206f9ad5-c1d3-424a-8182-6da9a7f3d632}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_IndentationLeading_Attribute_GUID => "{5cf66bac-2d45-4a4b-b6c9-f7221d2815b0}"
+    static Text_IndentationLeading_Attribute_GUID => Guid("{5cf66bac-2d45-4a4b-b6c9-f7221d2815b0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_IndentationTrailing_Attribute_GUID => "{97ff6c0f-1ce4-408a-b67b-94d83eb69bf2}"
+    static Text_IndentationTrailing_Attribute_GUID => Guid("{97ff6c0f-1ce4-408a-b67b-94d83eb69bf2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_IsHidden_Attribute_GUID => "{360182fb-bdd7-47f6-ab69-19e33f8a3344}"
+    static Text_IsHidden_Attribute_GUID => Guid("{360182fb-bdd7-47f6-ab69-19e33f8a3344}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_IsItalic_Attribute_GUID => "{fce12a56-1336-4a34-9663-1bab47239320}"
+    static Text_IsItalic_Attribute_GUID => Guid("{fce12a56-1336-4a34-9663-1bab47239320}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_IsReadOnly_Attribute_GUID => "{a738156b-ca3e-495e-9514-833c440feb11}"
+    static Text_IsReadOnly_Attribute_GUID => Guid("{a738156b-ca3e-495e-9514-833c440feb11}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_IsSubscript_Attribute_GUID => "{f0ead858-8f53-413c-873f-1a7d7f5e0de4}"
+    static Text_IsSubscript_Attribute_GUID => Guid("{f0ead858-8f53-413c-873f-1a7d7f5e0de4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_IsSuperscript_Attribute_GUID => "{da706ee4-b3aa-4645-a41f-cd25157dea76}"
+    static Text_IsSuperscript_Attribute_GUID => Guid("{da706ee4-b3aa-4645-a41f-cd25157dea76}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_MarginBottom_Attribute_GUID => "{7ee593c4-72b4-4cac-9271-3ed24b0e4d42}"
+    static Text_MarginBottom_Attribute_GUID => Guid("{7ee593c4-72b4-4cac-9271-3ed24b0e4d42}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_MarginLeading_Attribute_GUID => "{9e9242d0-5ed0-4900-8e8a-eecc03835afc}"
+    static Text_MarginLeading_Attribute_GUID => Guid("{9e9242d0-5ed0-4900-8e8a-eecc03835afc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_MarginTop_Attribute_GUID => "{683d936f-c9b9-4a9a-b3d9-d20d33311e2a}"
+    static Text_MarginTop_Attribute_GUID => Guid("{683d936f-c9b9-4a9a-b3d9-d20d33311e2a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_MarginTrailing_Attribute_GUID => "{af522f98-999d-40af-a5b2-0169d0342002}"
+    static Text_MarginTrailing_Attribute_GUID => Guid("{af522f98-999d-40af-a5b2-0169d0342002}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_OutlineStyles_Attribute_GUID => "{5b675b27-db89-46fe-970c-614d523bb97d}"
+    static Text_OutlineStyles_Attribute_GUID => Guid("{5b675b27-db89-46fe-970c-614d523bb97d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_OverlineColor_Attribute_GUID => "{83ab383a-fd43-40da-ab3e-ecf8165cbb6d}"
+    static Text_OverlineColor_Attribute_GUID => Guid("{83ab383a-fd43-40da-ab3e-ecf8165cbb6d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_OverlineStyle_Attribute_GUID => "{0a234d66-617e-427f-871d-e1ff1e0c213f}"
+    static Text_OverlineStyle_Attribute_GUID => Guid("{0a234d66-617e-427f-871d-e1ff1e0c213f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_StrikethroughColor_Attribute_GUID => "{bfe15a18-8c41-4c5a-9a0b-04af0e07f487}"
+    static Text_StrikethroughColor_Attribute_GUID => Guid("{bfe15a18-8c41-4c5a-9a0b-04af0e07f487}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_StrikethroughStyle_Attribute_GUID => "{72913ef1-da00-4f01-899c-ac5a8577a307}"
+    static Text_StrikethroughStyle_Attribute_GUID => Guid("{72913ef1-da00-4f01-899c-ac5a8577a307}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_Tabs_Attribute_GUID => "{2e68d00b-92fe-42d8-899a-a784aa4454a1}"
+    static Text_Tabs_Attribute_GUID => Guid("{2e68d00b-92fe-42d8-899a-a784aa4454a1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_TextFlowDirections_Attribute_GUID => "{8bdf8739-f420-423e-af77-20a5d973a907}"
+    static Text_TextFlowDirections_Attribute_GUID => Guid("{8bdf8739-f420-423e-af77-20a5d973a907}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_UnderlineColor_Attribute_GUID => "{bfa12c73-fde2-4473-bf64-1036d6aa0f45}"
+    static Text_UnderlineColor_Attribute_GUID => Guid("{bfa12c73-fde2-4473-bf64-1036d6aa0f45}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_UnderlineStyle_Attribute_GUID => "{5f3b21c0-ede4-44bd-9c36-3853038cbfeb}"
+    static Text_UnderlineStyle_Attribute_GUID => Guid("{5f3b21c0-ede4-44bd-9c36-3853038cbfeb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_AnnotationTypes_Attribute_GUID => "{ad2eb431-ee4e-4be1-a7ba-5559155a73ef}"
+    static Text_AnnotationTypes_Attribute_GUID => Guid("{ad2eb431-ee4e-4be1-a7ba-5559155a73ef}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_AnnotationObjects_Attribute_GUID => "{ff41cf68-e7ab-40b9-8c72-72a8ed94017d}"
+    static Text_AnnotationObjects_Attribute_GUID => Guid("{ff41cf68-e7ab-40b9-8c72-72a8ed94017d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_StyleName_Attribute_GUID => "{22c9e091-4d66-45d8-a828-737bab4c98a7}"
+    static Text_StyleName_Attribute_GUID => Guid("{22c9e091-4d66-45d8-a828-737bab4c98a7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_StyleId_Attribute_GUID => "{14c300de-c32b-449b-ab7c-b0e0789aea5d}"
+    static Text_StyleId_Attribute_GUID => Guid("{14c300de-c32b-449b-ab7c-b0e0789aea5d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_Link_Attribute_GUID => "{b38ef51d-9e8d-4e46-9144-56ebe177329b}"
+    static Text_Link_Attribute_GUID => Guid("{b38ef51d-9e8d-4e46-9144-56ebe177329b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_IsActive_Attribute_GUID => "{f5a4e533-e1b8-436b-935d-b57aa3f558c4}"
+    static Text_IsActive_Attribute_GUID => Guid("{f5a4e533-e1b8-436b-935d-b57aa3f558c4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_SelectionActiveEnd_Attribute_GUID => "{1f668cc3-9bbf-416b-b0a2-f89f86f6612c}"
+    static Text_SelectionActiveEnd_Attribute_GUID => Guid("{1f668cc3-9bbf-416b-b0a2-f89f86f6612c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_CaretPosition_Attribute_GUID => "{b227b131-9889-4752-a91b-733efdc5c5a0}"
+    static Text_CaretPosition_Attribute_GUID => Guid("{b227b131-9889-4752-a91b-733efdc5c5a0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_CaretBidiMode_Attribute_GUID => "{929ee7a6-51d3-4715-96dc-b694fa24a168}"
+    static Text_CaretBidiMode_Attribute_GUID => Guid("{929ee7a6-51d3-4715-96dc-b694fa24a168}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_BeforeParagraphSpacing_Attribute_GUID => "{be7b0ab1-c822-4a24-85e9-c8f2650fc79c}"
+    static Text_BeforeParagraphSpacing_Attribute_GUID => Guid("{be7b0ab1-c822-4a24-85e9-c8f2650fc79c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_AfterParagraphSpacing_Attribute_GUID => "{588cbb38-e62f-497c-b5d1-ccdf0ee823d8}"
+    static Text_AfterParagraphSpacing_Attribute_GUID => Guid("{588cbb38-e62f-497c-b5d1-ccdf0ee823d8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_LineSpacing_Attribute_GUID => "{63ff70ae-d943-4b47-8ab7-a7a033d3214b}"
+    static Text_LineSpacing_Attribute_GUID => Guid("{63ff70ae-d943-4b47-8ab7-a7a033d3214b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_BeforeSpacing_Attribute_GUID => "{be7b0ab1-c822-4a24-85e9-c8f2650fc79c}"
+    static Text_BeforeSpacing_Attribute_GUID => Guid("{be7b0ab1-c822-4a24-85e9-c8f2650fc79c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_AfterSpacing_Attribute_GUID => "{588cbb38-e62f-497c-b5d1-ccdf0ee823d8}"
+    static Text_AfterSpacing_Attribute_GUID => Guid("{588cbb38-e62f-497c-b5d1-ccdf0ee823d8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Text_SayAsInterpretAs_Attribute_GUID => "{b38ad6ac-eee1-4b6e-88cc-014cefa93fcb}"
+    static Text_SayAsInterpretAs_Attribute_GUID => Guid("{b38ad6ac-eee1-4b6e-88cc-014cefa93fcb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static TextEdit_TextChanged_Event_GUID => "{120b0308-ec22-4eb8-9c98-9867cda1b165}"
+    static TextEdit_TextChanged_Event_GUID => Guid("{120b0308-ec22-4eb8-9c98-9867cda1b165}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static TextEdit_ConversionTargetChanged_Event_GUID => "{3388c183-ed4f-4c8b-9baa-364d51d8847f}"
+    static TextEdit_ConversionTargetChanged_Event_GUID => Guid("{3388c183-ed4f-4c8b-9baa-364d51d8847f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Changes_Event_GUID => "{7df26714-614f-4e05-9488-716c5ba19436}"
+    static Changes_Event_GUID => Guid("{7df26714-614f-4e05-9488-716c5ba19436}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Custom_GUID => "{9ec82750-3931-4952-85bc-1dbff78a43e3}"
+    static Annotation_Custom_GUID => Guid("{9ec82750-3931-4952-85bc-1dbff78a43e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_SpellingError_GUID => "{ae85567e-9ece-423f-81b7-96c43d53e50e}"
+    static Annotation_SpellingError_GUID => Guid("{ae85567e-9ece-423f-81b7-96c43d53e50e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_GrammarError_GUID => "{757a048d-4518-41c6-854c-dc009b7cfb53}"
+    static Annotation_GrammarError_GUID => Guid("{757a048d-4518-41c6-854c-dc009b7cfb53}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Comment_GUID => "{fd2fda30-26b3-4c06-8bc7-98f1532e46fd}"
+    static Annotation_Comment_GUID => Guid("{fd2fda30-26b3-4c06-8bc7-98f1532e46fd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_FormulaError_GUID => "{95611982-0cab-46d5-a2f0-e30d1905f8bf}"
+    static Annotation_FormulaError_GUID => Guid("{95611982-0cab-46d5-a2f0-e30d1905f8bf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_TrackChanges_GUID => "{21e6e888-dc14-4016-ac27-190553c8c470}"
+    static Annotation_TrackChanges_GUID => Guid("{21e6e888-dc14-4016-ac27-190553c8c470}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Header_GUID => "{867b409b-b216-4472-a219-525e310681f8}"
+    static Annotation_Header_GUID => Guid("{867b409b-b216-4472-a219-525e310681f8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Footer_GUID => "{cceab046-1833-47aa-8080-701ed0b0c832}"
+    static Annotation_Footer_GUID => Guid("{cceab046-1833-47aa-8080-701ed0b0c832}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Highlighted_GUID => "{757c884e-8083-4081-8b9c-e87f5072f0e4}"
+    static Annotation_Highlighted_GUID => Guid("{757c884e-8083-4081-8b9c-e87f5072f0e4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Endnote_GUID => "{7565725c-2d99-4839-960d-33d3b866aba5}"
+    static Annotation_Endnote_GUID => Guid("{7565725c-2d99-4839-960d-33d3b866aba5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Footnote_GUID => "{3de10e21-4125-42db-8620-be8083080624}"
+    static Annotation_Footnote_GUID => Guid("{3de10e21-4125-42db-8620-be8083080624}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_InsertionChange_GUID => "{0dbeb3a6-df15-4164-a3c0-e21a8ce931c4}"
+    static Annotation_InsertionChange_GUID => Guid("{0dbeb3a6-df15-4164-a3c0-e21a8ce931c4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_DeletionChange_GUID => "{be3d5b05-951d-42e7-901d-adc8c2cf34d0}"
+    static Annotation_DeletionChange_GUID => Guid("{be3d5b05-951d-42e7-901d-adc8c2cf34d0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_MoveChange_GUID => "{9da587eb-23e5-4490-b385-1a22ddc8b187}"
+    static Annotation_MoveChange_GUID => Guid("{9da587eb-23e5-4490-b385-1a22ddc8b187}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_FormatChange_GUID => "{eb247345-d4f1-41ce-8e52-f79b69635e48}"
+    static Annotation_FormatChange_GUID => Guid("{eb247345-d4f1-41ce-8e52-f79b69635e48}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_UnsyncedChange_GUID => "{1851116a-0e47-4b30-8cb5-d7dae4fbcd1b}"
+    static Annotation_UnsyncedChange_GUID => Guid("{1851116a-0e47-4b30-8cb5-d7dae4fbcd1b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_EditingLockedChange_GUID => "{c31f3e1c-7423-4dac-8348-41f099ff6f64}"
+    static Annotation_EditingLockedChange_GUID => Guid("{c31f3e1c-7423-4dac-8348-41f099ff6f64}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_ExternalChange_GUID => "{75a05b31-5f11-42fd-887d-dfa010db2392}"
+    static Annotation_ExternalChange_GUID => Guid("{75a05b31-5f11-42fd-887d-dfa010db2392}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_ConflictingChange_GUID => "{98af8802-517c-459f-af13-016d3fab877e}"
+    static Annotation_ConflictingChange_GUID => Guid("{98af8802-517c-459f-af13-016d3fab877e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Author_GUID => "{f161d3a7-f81b-4128-b17f-71f690914520}"
+    static Annotation_Author_GUID => Guid("{f161d3a7-f81b-4128-b17f-71f690914520}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_AdvancedProofingIssue_GUID => "{dac7b72c-c0f2-4b84-b90d-5fafc0f0ef1c}"
+    static Annotation_AdvancedProofingIssue_GUID => Guid("{dac7b72c-c0f2-4b84-b90d-5fafc0f0ef1c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_DataValidationError_GUID => "{c8649fa8-9775-437e-ad46-e709d93c2343}"
+    static Annotation_DataValidationError_GUID => Guid("{c8649fa8-9775-437e-ad46-e709d93c2343}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_CircularReferenceError_GUID => "{25bd9cf4-1745-4659-ba67-727f0318c616}"
+    static Annotation_CircularReferenceError_GUID => Guid("{25bd9cf4-1745-4659-ba67-727f0318c616}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Mathematics_GUID => "{eaab634b-26d0-40c1-8073-57ca1c633c9b}"
+    static Annotation_Mathematics_GUID => Guid("{eaab634b-26d0-40c1-8073-57ca1c633c9b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Annotation_Sensitive_GUID => "{37f4c04f-0f12-4464-929c-828fd15292e3}"
+    static Annotation_Sensitive_GUID => Guid("{37f4c04f-0f12-4464-929c-828fd15292e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Changes_Summary_GUID => "{313d65a6-e60f-4d62-9861-55afd728d207}"
+    static Changes_Summary_GUID => Guid("{313d65a6-e60f-4d62-9861-55afd728d207}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Custom_GUID => "{ef2edd3e-a999-4b7c-a378-09bbd52a3516}"
+    static StyleId_Custom_GUID => Guid("{ef2edd3e-a999-4b7c-a378-09bbd52a3516}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Heading1_GUID => "{7f7e8f69-6866-4621-930c-9a5d0ca5961c}"
+    static StyleId_Heading1_GUID => Guid("{7f7e8f69-6866-4621-930c-9a5d0ca5961c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Heading2_GUID => "{baa9b241-5c69-469d-85ad-474737b52b14}"
+    static StyleId_Heading2_GUID => Guid("{baa9b241-5c69-469d-85ad-474737b52b14}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Heading3_GUID => "{bf8be9d2-d8b8-4ec5-8c52-9cfb0d035970}"
+    static StyleId_Heading3_GUID => Guid("{bf8be9d2-d8b8-4ec5-8c52-9cfb0d035970}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Heading4_GUID => "{8436ffc0-9578-45fc-83a4-ff40053315dd}"
+    static StyleId_Heading4_GUID => Guid("{8436ffc0-9578-45fc-83a4-ff40053315dd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Heading5_GUID => "{909f424d-0dbf-406e-97bb-4e773d9798f7}"
+    static StyleId_Heading5_GUID => Guid("{909f424d-0dbf-406e-97bb-4e773d9798f7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Heading6_GUID => "{89d23459-5d5b-4824-a420-11d3ed82e40f}"
+    static StyleId_Heading6_GUID => Guid("{89d23459-5d5b-4824-a420-11d3ed82e40f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Heading7_GUID => "{a3790473-e9ae-422d-b8e3-3b675c6181a4}"
+    static StyleId_Heading7_GUID => Guid("{a3790473-e9ae-422d-b8e3-3b675c6181a4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Heading8_GUID => "{2bc14145-a40c-4881-84ae-f2235685380c}"
+    static StyleId_Heading8_GUID => Guid("{2bc14145-a40c-4881-84ae-f2235685380c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Heading9_GUID => "{c70d9133-bb2a-43d3-8ac6-33657884b0f0}"
+    static StyleId_Heading9_GUID => Guid("{c70d9133-bb2a-43d3-8ac6-33657884b0f0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Title_GUID => "{15d8201a-ffcf-481f-b0a1-30b63be98f07}"
+    static StyleId_Title_GUID => Guid("{15d8201a-ffcf-481f-b0a1-30b63be98f07}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Subtitle_GUID => "{b5d9fc17-5d6f-4420-b439-7cb19ad434e2}"
+    static StyleId_Subtitle_GUID => Guid("{b5d9fc17-5d6f-4420-b439-7cb19ad434e2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Normal_GUID => "{cd14d429-e45e-4475-a1c5-7f9e6be96eba}"
+    static StyleId_Normal_GUID => Guid("{cd14d429-e45e-4475-a1c5-7f9e6be96eba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Emphasis_GUID => "{ca6e7dbe-355e-4820-95a0-925f041d3470}"
+    static StyleId_Emphasis_GUID => Guid("{ca6e7dbe-355e-4820-95a0-925f041d3470}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_Quote_GUID => "{5d1c21ea-8195-4f6c-87ea-5dabece64c1d}"
+    static StyleId_Quote_GUID => Guid("{5d1c21ea-8195-4f6c-87ea-5dabece64c1d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_BulletedList_GUID => "{5963ed64-6426-4632-8caf-a32ad402d91a}"
+    static StyleId_BulletedList_GUID => Guid("{5963ed64-6426-4632-8caf-a32ad402d91a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static StyleId_NumberedList_GUID => "{1e96dbd5-64c3-43d0-b1ee-b53b06e3eddf}"
+    static StyleId_NumberedList_GUID => Guid("{1e96dbd5-64c3-43d0-b1ee-b53b06e3eddf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Notification_Event_GUID => "{72c5a2f7-9788-480f-b8eb-4dee00f6186f}"
+    static Notification_Event_GUID => Guid("{72c5a2f7-9788-480f-b8eb-4dee00f6186f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_IsUIAutomationObject => "{b96fdb85-7204-4724-842b-c7059dedb9d0}"
+    static SID_IsUIAutomationObject => Guid("{b96fdb85-7204-4724-842b-c7059dedb9d0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_ControlElementProvider => "{f4791d68-e254-4ba3-9a53-26a5c5497946}"
+    static SID_ControlElementProvider => Guid("{f4791d68-e254-4ba3-9a53-26a5c5497946}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsSelectionPattern2Available_Property_GUID => "{490806fb-6e89-4a47-8319-d266e511f021}"
+    static IsSelectionPattern2Available_Property_GUID => Guid("{490806fb-6e89-4a47-8319-d266e511f021}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Selection2_FirstSelectedItem_Property_GUID => "{cc24ea67-369c-4e55-9ff7-38da69540c29}"
+    static Selection2_FirstSelectedItem_Property_GUID => Guid("{cc24ea67-369c-4e55-9ff7-38da69540c29}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Selection2_LastSelectedItem_Property_GUID => "{cf7bda90-2d83-49f8-860c-9ce394cf89b4}"
+    static Selection2_LastSelectedItem_Property_GUID => Guid("{cf7bda90-2d83-49f8-860c-9ce394cf89b4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Selection2_CurrentSelectedItem_Property_GUID => "{34257c26-83b5-41a6-939c-ae841c136236}"
+    static Selection2_CurrentSelectedItem_Property_GUID => Guid("{34257c26-83b5-41a6-939c-ae841c136236}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Selection2_ItemCount_Property_GUID => "{bb49eb9f-456d-4048-b591-9c2026b84636}"
+    static Selection2_ItemCount_Property_GUID => Guid("{bb49eb9f-456d-4048-b591-9c2026b84636}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Selection_Pattern2_GUID => "{fba25cab-ab98-49f7-a7dc-fe539dc15be7}"
+    static Selection_Pattern2_GUID => Guid("{fba25cab-ab98-49f7-a7dc-fe539dc15be7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static HeadingLevel_Property_GUID => "{29084272-aaaf-4a30-8796-3c12f62b6bbb}"
+    static HeadingLevel_Property_GUID => Guid("{29084272-aaaf-4a30-8796-3c12f62b6bbb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static IsDialog_Property_GUID => "{9d0dfb9b-8436-4501-bbbb-e534a4fb3b3f}"
+    static IsDialog_Property_GUID => Guid("{9d0dfb9b-8436-4501-bbbb-e534a4fb3b3f}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2665,7 +2666,7 @@ class Accessibility {
     static UIA_PFIA_UNWRAP_BRIDGE => 1
 
     /**
-     * @type {Integer (Double)}
+     * @type {Float}
      */
     static UIA_ScrollPatternNoScroll => -1
 ;@endregion Constants

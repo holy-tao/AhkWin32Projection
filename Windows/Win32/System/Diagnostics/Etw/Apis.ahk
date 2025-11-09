@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\PROCESSTRACE_HANDLE.ahk
 
 /**
@@ -11,69 +12,69 @@ class Etw {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ALPCGuid => "{45d8cccd-539f-4b72-a8b7-5c683142609a}"
+    static ALPCGuid => Guid("{45d8cccd-539f-4b72-a8b7-5c683142609a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DiskIoGuid => "{3d6fa8d4-fe05-11d0-9dda-00c04fd7ba7c}"
+    static DiskIoGuid => Guid("{3d6fa8d4-fe05-11d0-9dda-00c04fd7ba7c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EventTraceConfigGuid => "{01853a65-418f-4f36-aefc-dc0f1d2fd235}"
+    static EventTraceConfigGuid => Guid("{01853a65-418f-4f36-aefc-dc0f1d2fd235}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FileIoGuid => "{90cbdc39-4a3e-11d1-84f4-0000f80464e3}"
+    static FileIoGuid => Guid("{90cbdc39-4a3e-11d1-84f4-0000f80464e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ImageLoadGuid => "{2cb15d1d-5fc1-11d2-abe1-00a0c911f518}"
+    static ImageLoadGuid => Guid("{2cb15d1d-5fc1-11d2-abe1-00a0c911f518}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PageFaultGuid => "{3d6fa8d3-fe05-11d0-9dda-00c04fd7ba7c}"
+    static PageFaultGuid => Guid("{3d6fa8d3-fe05-11d0-9dda-00c04fd7ba7c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PerfInfoGuid => "{ce1dbfb4-137e-4da6-87b0-3f59aa102cbc}"
+    static PerfInfoGuid => Guid("{ce1dbfb4-137e-4da6-87b0-3f59aa102cbc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ProcessGuid => "{3d6fa8d0-fe05-11d0-9dda-00c04fd7ba7c}"
+    static ProcessGuid => Guid("{3d6fa8d0-fe05-11d0-9dda-00c04fd7ba7c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static RegistryGuid => "{ae53722e-c863-11d2-8659-00c04fa321a1}"
+    static RegistryGuid => Guid("{ae53722e-c863-11d2-8659-00c04fa321a1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SplitIoGuid => "{d837ca92-12b9-44a5-ad6a-3a65b3578aa8}"
+    static SplitIoGuid => Guid("{d837ca92-12b9-44a5-ad6a-3a65b3578aa8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static TcpIpGuid => "{9a280ac0-c8e0-11d1-84e2-00c04fb998a2}"
+    static TcpIpGuid => Guid("{9a280ac0-c8e0-11d1-84e2-00c04fb998a2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ThreadGuid => "{3d6fa8d1-fe05-11d0-9dda-00c04fd7ba7c}"
+    static ThreadGuid => Guid("{3d6fa8d1-fe05-11d0-9dda-00c04fd7ba7c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static UdpIpGuid => "{bf3a50c5-a9c9-4988-a005-2df0b7c80f80}"
+    static UdpIpGuid => Guid("{bf3a50c5-a9c9-4988-a005-2df0b7c80f80}")
 
     /**
      * @type {Integer (UInt32)}
@@ -341,114 +342,114 @@ class Etw {
     static MAX_PAYLOAD_PREDICATES => 8
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static EventTraceGuid => "{68fdd900-4a3e-11d1-84f4-0000f80464e3}"
+    static EventTraceGuid => Guid("{68fdd900-4a3e-11d1-84f4-0000f80464e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemTraceControlGuid => "{9e814aad-3204-11d2-9a82-006008a86939}"
+    static SystemTraceControlGuid => Guid("{9e814aad-3204-11d2-9a82-006008a86939}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DefaultTraceSecurityGuid => "{0811c1af-7a07-4a06-82ed-869455cdf713}"
+    static DefaultTraceSecurityGuid => Guid("{0811c1af-7a07-4a06-82ed-869455cdf713}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PrivateLoggerNotificationGuid => "{3595ab5c-042a-4c8e-b942-2d059bfeb1b1}"
+    static PrivateLoggerNotificationGuid => Guid("{3595ab5c-042a-4c8e-b942-2d059bfeb1b1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemIoFilterProviderGuid => "{fbd09363-9e22-4661-b8bf-e7a34b535b8c}"
+    static SystemIoFilterProviderGuid => Guid("{fbd09363-9e22-4661-b8bf-e7a34b535b8c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemObjectProviderGuid => "{febd7460-3d1d-47eb-af49-c9eeb1e146f2}"
+    static SystemObjectProviderGuid => Guid("{febd7460-3d1d-47eb-af49-c9eeb1e146f2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemPowerProviderGuid => "{c134884a-32d5-4488-80e5-14ed7abb8269}"
+    static SystemPowerProviderGuid => Guid("{c134884a-32d5-4488-80e5-14ed7abb8269}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemHypervisorProviderGuid => "{bafa072a-918a-4bed-b622-bc152097098f}"
+    static SystemHypervisorProviderGuid => Guid("{bafa072a-918a-4bed-b622-bc152097098f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemLockProviderGuid => "{721ddfd3-dacc-4e1e-b26a-a2cb31d4705a}"
+    static SystemLockProviderGuid => Guid("{721ddfd3-dacc-4e1e-b26a-a2cb31d4705a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemConfigProviderGuid => "{fef3a8b6-318d-4b67-a96a-3b0f6b8f18fe}"
+    static SystemConfigProviderGuid => Guid("{fef3a8b6-318d-4b67-a96a-3b0f6b8f18fe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemCpuProviderGuid => "{c6c5265f-eae8-4650-aae4-9d48603d8510}"
+    static SystemCpuProviderGuid => Guid("{c6c5265f-eae8-4650-aae4-9d48603d8510}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemSchedulerProviderGuid => "{599a2a76-4d91-4910-9ac7-7d33f2e97a6c}"
+    static SystemSchedulerProviderGuid => Guid("{599a2a76-4d91-4910-9ac7-7d33f2e97a6c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemProfileProviderGuid => "{bfeb0324-1cee-496f-a409-2ac2b48a6322}"
+    static SystemProfileProviderGuid => Guid("{bfeb0324-1cee-496f-a409-2ac2b48a6322}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemIoProviderGuid => "{3d5c43e3-0f1c-4202-b817-174c0070dc79}"
+    static SystemIoProviderGuid => Guid("{3d5c43e3-0f1c-4202-b817-174c0070dc79}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemMemoryProviderGuid => "{82958ca9-b6cd-47f8-a3a8-03ae85a4bc24}"
+    static SystemMemoryProviderGuid => Guid("{82958ca9-b6cd-47f8-a3a8-03ae85a4bc24}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemRegistryProviderGuid => "{16156bd9-fab4-4cfa-a232-89d1099058e3}"
+    static SystemRegistryProviderGuid => Guid("{16156bd9-fab4-4cfa-a232-89d1099058e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemProcessProviderGuid => "{151f55dc-467d-471f-83b5-5f889d46ff66}"
+    static SystemProcessProviderGuid => Guid("{151f55dc-467d-471f-83b5-5f889d46ff66}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemAlpcProviderGuid => "{fcb9baaf-e529-4980-92e9-ced1a6aadfdf}"
+    static SystemAlpcProviderGuid => Guid("{fcb9baaf-e529-4980-92e9-ced1a6aadfdf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemSyscallProviderGuid => "{434286f7-6f1b-45bb-b37e-95f623046c7c}"
+    static SystemSyscallProviderGuid => Guid("{434286f7-6f1b-45bb-b37e-95f623046c7c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemInterruptProviderGuid => "{d4bbee17-b545-4888-858b-744169015b25}"
+    static SystemInterruptProviderGuid => Guid("{d4bbee17-b545-4888-858b-744169015b25}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SystemTimerProviderGuid => "{4f061568-e215-499f-ab2e-eda0ae890a5b}"
+    static SystemTimerProviderGuid => Guid("{4f061568-e215-499f-ab2e-eda0ae890a5b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LastBranchRecordProviderGuid => "{99134383-5248-43fc-834b-529454e75df3}"
+    static LastBranchRecordProviderGuid => Guid("{99134383-5248-43fc-834b-529454e75df3}")
 
     /**
      * @type {String}
@@ -2486,9 +2487,9 @@ class Etw {
     static PROCESS_TRACE_MODE_EVENT_RECORD => 268435456
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_TraceRelogger => "{7b40792d-05ff-44c4-9058-f440c71f17d4}"
+    static CLSID_TraceRelogger => Guid("{7b40792d-05ff-44c4-9058-f440c71f17d4}")
 ;@endregion Constants
 
 ;@region Methods

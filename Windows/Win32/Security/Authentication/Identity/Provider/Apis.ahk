@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
@@ -30,9 +31,9 @@ class Provider {
     static IDENTITY_KEYWORD_CONNECTED => "connected"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static OID_OAssociatedIdentityProviderObject => "{98c5a3dd-db68-4f1a-8d2b-9079cdfeaf61}"
+    static OID_OAssociatedIdentityProviderObject => Guid("{98c5a3dd-db68-4f1a-8d2b-9079cdfeaf61}")
 
     /**
      * @type {String}

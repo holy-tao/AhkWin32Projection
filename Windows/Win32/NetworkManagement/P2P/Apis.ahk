@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -26,29 +27,29 @@ class P2P {
     static PNRPINFO_HINT => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NS_PROVIDER_PNRPNAME => "{03fe89cd-766d-4976-b9c1-bb9bc42c7b4d}"
+    static NS_PROVIDER_PNRPNAME => Guid("{03fe89cd-766d-4976-b9c1-bb9bc42c7b4d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NS_PROVIDER_PNRPCLOUD => "{03fe89ce-766d-4976-b9c1-bb9bc42c7b4d}"
+    static NS_PROVIDER_PNRPCLOUD => Guid("{03fe89ce-766d-4976-b9c1-bb9bc42c7b4d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SVCID_PNRPCLOUD => "{c2239ce6-00c0-4fbf-bad6-18139385a49a}"
+    static SVCID_PNRPCLOUD => Guid("{c2239ce6-00c0-4fbf-bad6-18139385a49a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SVCID_PNRPNAME_V1 => "{c2239ce5-00c0-4fbf-bad6-18139385a49a}"
+    static SVCID_PNRPNAME_V1 => Guid("{c2239ce5-00c0-4fbf-bad6-18139385a49a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SVCID_PNRPNAME_V2 => "{c2239ce7-00c0-4fbf-bad6-18139385a49a}"
+    static SVCID_PNRPNAME_V2 => Guid("{c2239ce7-00c0-4fbf-bad6-18139385a49a}")
 
     /**
      * @type {Integer (UInt32)}
@@ -181,24 +182,24 @@ class P2P {
     static PEER_E_ALREADY_EXISTS => -2147024713
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PEER_GROUP_ROLE_ADMIN => "{04387127-aa56-450a-8ce5-4f565c6790f4}"
+    static PEER_GROUP_ROLE_ADMIN => Guid("{04387127-aa56-450a-8ce5-4f565c6790f4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PEER_GROUP_ROLE_MEMBER => "{f12dc4c7-0857-4ca0-93fc-b1bb19a3d8c2}"
+    static PEER_GROUP_ROLE_MEMBER => Guid("{f12dc4c7-0857-4ca0-93fc-b1bb19a3d8c2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PEER_GROUP_ROLE_INVITING_MEMBER => "{4370fd89-dc18-4cfb-8dbf-9853a8a9f905}"
+    static PEER_GROUP_ROLE_INVITING_MEMBER => Guid("{4370fd89-dc18-4cfb-8dbf-9853a8a9f905}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PEER_COLLAB_OBJECTID_USER_PICTURE => "{dd15f41f-fc4e-4922-b035-4c06a754d01d}"
+    static PEER_COLLAB_OBJECTID_USER_PICTURE => Guid("{dd15f41f-fc4e-4922-b035-4c06a754d01d}")
 
     /**
      * @type {Integer (UInt32)}

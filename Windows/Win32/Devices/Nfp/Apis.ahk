@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfp
@@ -10,9 +12,22 @@ class Nfp {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_NFP => "{fb3842cd-9e2a-4f83-8fcc-4b0761139ae9}"
+    static GUID_DEVINTERFACE_NFP => Guid("{fb3842cd-9e2a-4f83-8fcc-4b0761139ae9}")
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_NFP_Capabilities {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{fb3842cd-9e2a-4f83-8fcc-4b0761139ae9}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 2
+            return value
+        }
+    }
 
     /**
      * @type {Integer (UInt32)}

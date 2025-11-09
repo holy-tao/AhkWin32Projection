@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -476,9 +477,9 @@ class Communication {
     static MDM_PIAFS_OUTGOING => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_3GPP_SUPSVCMODEL => "{d7d08e07-d767-4478-b14a-eecc87ea12f7}"
+    static SID_3GPP_SUPSVCMODEL => Guid("{d7d08e07-d767-4478-b14a-eecc87ea12f7}")
 
     /**
      * @type {Integer (UInt32)}

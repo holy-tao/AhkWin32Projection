@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.UI.Ribbon
@@ -20,9 +21,9 @@ class Ribbon {
     static UI_COLLECTION_INVALIDINDEX => 4294967295
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LIBID_UIRibbon => "{942f35c2-e83b-45ef-b085-ac295dd63d5b}"
+    static LIBID_UIRibbon => Guid("{942f35c2-e83b-45ef-b085-ac295dd63d5b}")
 ;@endregion Constants
 
 ;@region Methods

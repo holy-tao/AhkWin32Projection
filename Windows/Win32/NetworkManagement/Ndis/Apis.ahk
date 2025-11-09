@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
@@ -6315,14 +6316,14 @@ class Ndis {
     static OID_NDK_LOCAL_ENDPOINTS => 4228121092
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NDK_CAPABILITIES => "{7969ba4d-dd80-4bc7-b3e6-68043997e519}"
+    static GUID_NDIS_NDK_CAPABILITIES => Guid("{7969ba4d-dd80-4bc7-b3e6-68043997e519}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NDK_STATE => "{530c69c9-2f51-49de-a1af-088d54ffa474}"
+    static GUID_NDIS_NDK_STATE => Guid("{530c69c9-2f51-49de-a1af-088d54ffa474}")
 
     /**
      * @type {Integer (UInt32)}
@@ -8270,949 +8271,949 @@ class Ndis {
     static NDIS_SUPPORT_NDIS6 => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_LAN_CLASS => "{ad498944-762f-11d0-8dcb-00c04fc3358c}"
+    static GUID_NDIS_LAN_CLASS => Guid("{ad498944-762f-11d0-8dcb-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_NET => "{cac88484-7515-4c03-82e6-71a87abac361}"
+    static GUID_DEVINTERFACE_NET => Guid("{cac88484-7515-4c03-82e6-71a87abac361}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static UNSPECIFIED_NETWORK_GUID => "{12ba5bde-143e-4c0d-b66d-2379bb141913}"
+    static UNSPECIFIED_NETWORK_GUID => Guid("{12ba5bde-143e-4c0d-b66d-2379bb141913}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_NETUIO => "{08336f60-0679-4c6c-85d2-ae7ced65fff7}"
+    static GUID_DEVINTERFACE_NETUIO => Guid("{08336f60-0679-4c6c-85d2-ae7ced65fff7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_ENUMERATE_ADAPTER => "{981f2d7f-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_ENUMERATE_ADAPTER => Guid("{981f2d7f-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NOTIFY_ADAPTER_REMOVAL => "{981f2d80-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_NOTIFY_ADAPTER_REMOVAL => Guid("{981f2d80-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NOTIFY_ADAPTER_ARRIVAL => "{981f2d81-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_NOTIFY_ADAPTER_ARRIVAL => Guid("{981f2d81-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_ENUMERATE_VC => "{981f2d82-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_ENUMERATE_VC => Guid("{981f2d82-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NOTIFY_VC_REMOVAL => "{981f2d79-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_NOTIFY_VC_REMOVAL => Guid("{981f2d79-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NOTIFY_VC_ARRIVAL => "{182f9e0c-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_NOTIFY_VC_ARRIVAL => Guid("{182f9e0c-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NOTIFY_BIND => "{5413531c-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_NOTIFY_BIND => Guid("{5413531c-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NOTIFY_UNBIND => "{6e3ce1ec-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_NOTIFY_UNBIND => Guid("{6e3ce1ec-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_WAKE_ON_MAGIC_PACKET_ONLY => "{a14f1c97-8839-4f8a-9996-a28996ebbf1d}"
+    static GUID_NDIS_WAKE_ON_MAGIC_PACKET_ONLY => Guid("{a14f1c97-8839-4f8a-9996-a28996ebbf1d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NOTIFY_DEVICE_POWER_ON => "{5f81cfd0-f046-4342-af61-895acedaefd9}"
+    static GUID_NDIS_NOTIFY_DEVICE_POWER_ON => Guid("{5f81cfd0-f046-4342-af61-895acedaefd9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NOTIFY_DEVICE_POWER_OFF => "{81bc8189-b026-46ab-b964-f182e342934e}"
+    static GUID_NDIS_NOTIFY_DEVICE_POWER_OFF => Guid("{81bc8189-b026-46ab-b964-f182e342934e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NOTIFY_FILTER_REMOVAL => "{1f177cd9-5955-4721-9f6a-78ebdfaef889}"
+    static GUID_NDIS_NOTIFY_FILTER_REMOVAL => Guid("{1f177cd9-5955-4721-9f6a-78ebdfaef889}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NOTIFY_FILTER_ARRIVAL => "{0b6d3c89-5917-43ca-b578-d01a7967c41c}"
+    static GUID_NDIS_NOTIFY_FILTER_ARRIVAL => Guid("{0b6d3c89-5917-43ca-b578-d01a7967c41c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NOTIFY_DEVICE_POWER_ON_EX => "{2b440188-92ac-4f60-9b2d-20a30cbb6bbe}"
+    static GUID_NDIS_NOTIFY_DEVICE_POWER_ON_EX => Guid("{2b440188-92ac-4f60-9b2d-20a30cbb6bbe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_NOTIFY_DEVICE_POWER_OFF_EX => "{4159353c-5cd7-42ce-8fe4-a45a2380cc4f}"
+    static GUID_NDIS_NOTIFY_DEVICE_POWER_OFF_EX => Guid("{4159353c-5cd7-42ce-8fe4-a45a2380cc4f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_PM_ADMIN_CONFIG => "{1528d111-708a-4ca4-9215-c05771161cda}"
+    static GUID_NDIS_PM_ADMIN_CONFIG => Guid("{1528d111-708a-4ca4-9215-c05771161cda}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_PM_ACTIVE_CAPABILITIES => "{b2cf76e3-b3ae-4394-a01f-338c9870e939}"
+    static GUID_NDIS_PM_ACTIVE_CAPABILITIES => Guid("{b2cf76e3-b3ae-4394-a01f-338c9870e939}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_RSS_ENABLED => "{9565cd55-3402-4e32-a5b6-2f143f2f2c30}"
+    static GUID_NDIS_RSS_ENABLED => Guid("{9565cd55-3402-4e32-a5b6-2f143f2f2c30}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_HARDWARE_STATUS => "{5ec10354-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_HARDWARE_STATUS => Guid("{5ec10354-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_MEDIA_SUPPORTED => "{5ec10355-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_MEDIA_SUPPORTED => Guid("{5ec10355-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_MEDIA_IN_USE => "{5ec10356-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_MEDIA_IN_USE => Guid("{5ec10356-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_MAXIMUM_LOOKAHEAD => "{5ec10357-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_MAXIMUM_LOOKAHEAD => Guid("{5ec10357-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_MAXIMUM_FRAME_SIZE => "{5ec10358-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_MAXIMUM_FRAME_SIZE => Guid("{5ec10358-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_LINK_SPEED => "{5ec10359-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_LINK_SPEED => Guid("{5ec10359-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_TRANSMIT_BUFFER_SPACE => "{5ec1035a-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_TRANSMIT_BUFFER_SPACE => Guid("{5ec1035a-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_RECEIVE_BUFFER_SPACE => "{5ec1035b-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_RECEIVE_BUFFER_SPACE => Guid("{5ec1035b-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_TRANSMIT_BLOCK_SIZE => "{5ec1035c-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_TRANSMIT_BLOCK_SIZE => Guid("{5ec1035c-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_RECEIVE_BLOCK_SIZE => "{5ec1035d-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_RECEIVE_BLOCK_SIZE => Guid("{5ec1035d-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_VENDOR_ID => "{5ec1035e-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_VENDOR_ID => Guid("{5ec1035e-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_VENDOR_DESCRIPTION => "{5ec1035f-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_VENDOR_DESCRIPTION => Guid("{5ec1035f-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CURRENT_PACKET_FILTER => "{5ec10360-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_CURRENT_PACKET_FILTER => Guid("{5ec10360-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CURRENT_LOOKAHEAD => "{5ec10361-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_CURRENT_LOOKAHEAD => Guid("{5ec10361-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_DRIVER_VERSION => "{5ec10362-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_DRIVER_VERSION => Guid("{5ec10362-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_MAXIMUM_TOTAL_SIZE => "{5ec10363-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_MAXIMUM_TOTAL_SIZE => Guid("{5ec10363-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_MAC_OPTIONS => "{5ec10365-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_MAC_OPTIONS => Guid("{5ec10365-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_MEDIA_CONNECT_STATUS => "{5ec10366-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_MEDIA_CONNECT_STATUS => Guid("{5ec10366-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_MAXIMUM_SEND_PACKETS => "{5ec10367-a61a-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_MAXIMUM_SEND_PACKETS => Guid("{5ec10367-a61a-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_VENDOR_DRIVER_VERSION => "{447956f9-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_VENDOR_DRIVER_VERSION => Guid("{447956f9-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_VLAN_ID => "{765dc702-c5e8-4b67-843b-3f5a4ff2648b}"
+    static GUID_NDIS_GEN_VLAN_ID => Guid("{765dc702-c5e8-4b67-843b-3f5a4ff2648b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_PHYSICAL_MEDIUM => "{418ca16d-3937-4208-940a-ec6196278085}"
+    static GUID_NDIS_GEN_PHYSICAL_MEDIUM => Guid("{418ca16d-3937-4208-940a-ec6196278085}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_TCP_OFFLOAD_CURRENT_CONFIG => "{68542fed-5c74-461e-8934-91c6f9c60960}"
+    static GUID_NDIS_TCP_OFFLOAD_CURRENT_CONFIG => Guid("{68542fed-5c74-461e-8934-91c6f9c60960}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_TCP_OFFLOAD_HARDWARE_CAPABILITIES => "{cd5f1102-590f-4ada-ab65-5b31b1dc0172}"
+    static GUID_NDIS_TCP_OFFLOAD_HARDWARE_CAPABILITIES => Guid("{cd5f1102-590f-4ada-ab65-5b31b1dc0172}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_TCP_OFFLOAD_PARAMETERS => "{8ead9a22-7f69-4bc6-949a-c8187b074e61}"
+    static GUID_NDIS_TCP_OFFLOAD_PARAMETERS => Guid("{8ead9a22-7f69-4bc6-949a-c8187b074e61}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_TCP_CONNECTION_OFFLOAD_CURRENT_CONFIG => "{2ee6aef1-0851-458b-bf0d-792343d1cde1}"
+    static GUID_NDIS_TCP_CONNECTION_OFFLOAD_CURRENT_CONFIG => Guid("{2ee6aef1-0851-458b-bf0d-792343d1cde1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_TCP_CONNECTION_OFFLOAD_HARDWARE_CAPABILITIES => "{8ce71f2c-d63a-4390-a487-18fa47262ceb}"
+    static GUID_NDIS_TCP_CONNECTION_OFFLOAD_HARDWARE_CAPABILITIES => Guid("{8ce71f2c-d63a-4390-a487-18fa47262ceb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_RECEIVE_SCALE_CAPABILITIES => "{26c28774-4252-48fe-a610-a58a398c0eb1}"
+    static GUID_NDIS_RECEIVE_SCALE_CAPABILITIES => Guid("{26c28774-4252-48fe-a610-a58a398c0eb1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_LINK_STATE => "{ba1f4c14-a945-4762-b916-0b5515b6f43a}"
+    static GUID_NDIS_GEN_LINK_STATE => Guid("{ba1f4c14-a945-4762-b916-0b5515b6f43a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_LINK_PARAMETERS => "{8c7d3579-252b-4614-82c5-a650daa15049}"
+    static GUID_NDIS_GEN_LINK_PARAMETERS => Guid("{8c7d3579-252b-4614-82c5-a650daa15049}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_STATISTICS => "{368c45b5-c129-43c1-939e-7edc2d7fe621}"
+    static GUID_NDIS_GEN_STATISTICS => Guid("{368c45b5-c129-43c1-939e-7edc2d7fe621}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_PORT_STATE => "{6fbf2a5f-8b8f-4920-8143-e6c460f52524}"
+    static GUID_NDIS_GEN_PORT_STATE => Guid("{6fbf2a5f-8b8f-4920-8143-e6c460f52524}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_ENUMERATE_PORTS => "{f1d6abe8-15e4-4407-81b7-6b830c777cd9}"
+    static GUID_NDIS_GEN_ENUMERATE_PORTS => Guid("{f1d6abe8-15e4-4407-81b7-6b830c777cd9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_ENUMERATE_ADAPTERS_EX => "{16716917-4306-4be4-9b5a-3809ae44b125}"
+    static GUID_NDIS_ENUMERATE_ADAPTERS_EX => Guid("{16716917-4306-4be4-9b5a-3809ae44b125}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_PORT_AUTHENTICATION_PARAMETERS => "{aab6ac31-86fb-48fb-8b48-63db235ace16}"
+    static GUID_NDIS_GEN_PORT_AUTHENTICATION_PARAMETERS => Guid("{aab6ac31-86fb-48fb-8b48-63db235ace16}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_INTERRUPT_MODERATION => "{d9c8eea5-f16e-467c-84d5-6345a22ce213}"
+    static GUID_NDIS_GEN_INTERRUPT_MODERATION => Guid("{d9c8eea5-f16e-467c-84d5-6345a22ce213}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_INTERRUPT_MODERATION_PARAMETERS => "{d789adfa-9c56-433b-ad01-7574f3cedbe9}"
+    static GUID_NDIS_GEN_INTERRUPT_MODERATION_PARAMETERS => Guid("{d789adfa-9c56-433b-ad01-7574f3cedbe9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_PCI_DEVICE_CUSTOM_PROPERTIES => "{aa39f5ab-e260-4d01-82b0-b737c880ea05}"
+    static GUID_NDIS_GEN_PCI_DEVICE_CUSTOM_PROPERTIES => Guid("{aa39f5ab-e260-4d01-82b0-b737c880ea05}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_PHYSICAL_MEDIUM_EX => "{899e7782-035b-43f9-8bb6-2b58971612e5}"
+    static GUID_NDIS_GEN_PHYSICAL_MEDIUM_EX => Guid("{899e7782-035b-43f9-8bb6-2b58971612e5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_HD_SPLIT_CURRENT_CONFIG => "{81d1303c-ab00-4e49-80b1-5e6e0bf9be53}"
+    static GUID_NDIS_HD_SPLIT_CURRENT_CONFIG => Guid("{81d1303c-ab00-4e49-80b1-5e6e0bf9be53}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_HD_SPLIT_PARAMETERS => "{8c048bea-2913-4458-b68e-17f6c1e5c60e}"
+    static GUID_NDIS_HD_SPLIT_PARAMETERS => Guid("{8c048bea-2913-4458-b68e-17f6c1e5c60e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_TCP_RSC_STATISTICS => "{83104445-9b5d-4ee6-a2a5-2bd3fb3c36af}"
+    static GUID_NDIS_TCP_RSC_STATISTICS => Guid("{83104445-9b5d-4ee6-a2a5-2bd3fb3c36af}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PM_HARDWARE_CAPABILITIES => "{ece5360d-3291-4a6e-8044-00511fed27ee}"
+    static GUID_PM_HARDWARE_CAPABILITIES => Guid("{ece5360d-3291-4a6e-8044-00511fed27ee}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PM_CURRENT_CAPABILITIES => "{3abdbd14-d44a-4a3f-9a63-a0a42a51b131}"
+    static GUID_PM_CURRENT_CAPABILITIES => Guid("{3abdbd14-d44a-4a3f-9a63-a0a42a51b131}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PM_PARAMETERS => "{560245d2-e251-409c-a280-311935be3b28}"
+    static GUID_PM_PARAMETERS => Guid("{560245d2-e251-409c-a280-311935be3b28}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PM_ADD_WOL_PATTERN => "{6fc83ba7-52bc-4faa-ac51-7d2ffe63ba90}"
+    static GUID_PM_ADD_WOL_PATTERN => Guid("{6fc83ba7-52bc-4faa-ac51-7d2ffe63ba90}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PM_REMOVE_WOL_PATTERN => "{a037a915-c6ca-4322-b3e3-ef754ec498dc}"
+    static GUID_PM_REMOVE_WOL_PATTERN => Guid("{a037a915-c6ca-4322-b3e3-ef754ec498dc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PM_WOL_PATTERN_LIST => "{4022be37-7ee2-47be-a5a5-050fc79afc75}"
+    static GUID_PM_WOL_PATTERN_LIST => Guid("{4022be37-7ee2-47be-a5a5-050fc79afc75}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PM_ADD_PROTOCOL_OFFLOAD => "{0c06c112-0d93-439b-9e6d-26be130c9784}"
+    static GUID_PM_ADD_PROTOCOL_OFFLOAD => Guid("{0c06c112-0d93-439b-9e6d-26be130c9784}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PM_GET_PROTOCOL_OFFLOAD => "{a6435cd9-149f-498e-951b-2d94bea3e3a3}"
+    static GUID_PM_GET_PROTOCOL_OFFLOAD => Guid("{a6435cd9-149f-498e-951b-2d94bea3e3a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PM_REMOVE_PROTOCOL_OFFLOAD => "{decd7be2-a6b0-43ca-ae45-d000d20e5265}"
+    static GUID_PM_REMOVE_PROTOCOL_OFFLOAD => Guid("{decd7be2-a6b0-43ca-ae45-d000d20e5265}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PM_PROTOCOL_OFFLOAD_LIST => "{736ec5ab-ca8f-4043-bb58-da402a48d9cc}"
+    static GUID_PM_PROTOCOL_OFFLOAD_LIST => Guid("{736ec5ab-ca8f-4043-bb58-da402a48d9cc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_RECEIVE_FILTER_HARDWARE_CAPABILITIES => "{3f2c1419-83bc-11dd-94b8-001d09162bc3}"
+    static GUID_NDIS_RECEIVE_FILTER_HARDWARE_CAPABILITIES => Guid("{3f2c1419-83bc-11dd-94b8-001d09162bc3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_RECEIVE_FILTER_GLOBAL_PARAMETERS => "{3f2c141a-83bc-11dd-94b8-001d09162bc3}"
+    static GUID_NDIS_RECEIVE_FILTER_GLOBAL_PARAMETERS => Guid("{3f2c141a-83bc-11dd-94b8-001d09162bc3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_RECEIVE_FILTER_ENUM_QUEUES => "{3f2c141b-83bc-11dd-94b8-001d09162bc3}"
+    static GUID_NDIS_RECEIVE_FILTER_ENUM_QUEUES => Guid("{3f2c141b-83bc-11dd-94b8-001d09162bc3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_RECEIVE_FILTER_QUEUE_PARAMETERS => "{3f2c141c-83bc-11dd-94b8-001d09162bc3}"
+    static GUID_NDIS_RECEIVE_FILTER_QUEUE_PARAMETERS => Guid("{3f2c141c-83bc-11dd-94b8-001d09162bc3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_RECEIVE_FILTER_ENUM_FILTERS => "{3f2c141d-83bc-11dd-94b8-001d09162bc3}"
+    static GUID_NDIS_RECEIVE_FILTER_ENUM_FILTERS => Guid("{3f2c141d-83bc-11dd-94b8-001d09162bc3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_RECEIVE_FILTER_PARAMETERS => "{3f2c141e-83bc-11dd-94b8-001d09162bc3}"
+    static GUID_NDIS_RECEIVE_FILTER_PARAMETERS => Guid("{3f2c141e-83bc-11dd-94b8-001d09162bc3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_RECEIVE_FILTER_CURRENT_CAPABILITIES => "{4054e80f-2bc1-4ccc-b033-4abc0c4a1e8c}"
+    static GUID_RECEIVE_FILTER_CURRENT_CAPABILITIES => Guid("{4054e80f-2bc1-4ccc-b033-4abc0c4a1e8c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NIC_SWITCH_HARDWARE_CAPABILITIES => "{37cab40c-d1e8-4301-8c1d-58465e0c4c0f}"
+    static GUID_NIC_SWITCH_HARDWARE_CAPABILITIES => Guid("{37cab40c-d1e8-4301-8c1d-58465e0c4c0f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NIC_SWITCH_CURRENT_CAPABILITIES => "{e76fdaf3-0be7-4d95-87e9-5aead4b590e9}"
+    static GUID_NIC_SWITCH_CURRENT_CAPABILITIES => Guid("{e76fdaf3-0be7-4d95-87e9-5aead4b590e9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_SWITCH_MICROSOFT_VENDOR_ID => "{202547fe-1c9c-40b9-bba1-08ada1f98b3c}"
+    static GUID_NDIS_SWITCH_MICROSOFT_VENDOR_ID => Guid("{202547fe-1c9c-40b9-bba1-08ada1f98b3c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_SWITCH_PORT_PROPERTY_PROFILE_ID_DEFAULT_EXTERNAL_NIC => "{0b347846-0a0c-470a-9b7a-0d965850698f}"
+    static GUID_NDIS_SWITCH_PORT_PROPERTY_PROFILE_ID_DEFAULT_EXTERNAL_NIC => Guid("{0b347846-0a0c-470a-9b7a-0d965850698f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_XMIT_OK => "{447956fa-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_XMIT_OK => Guid("{447956fa-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_RCV_OK => "{447956fb-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_RCV_OK => Guid("{447956fb-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_XMIT_ERROR => "{447956fc-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_XMIT_ERROR => Guid("{447956fc-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_RCV_ERROR => "{447956fd-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_RCV_ERROR => Guid("{447956fd-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_RCV_NO_BUFFER => "{447956fe-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_GEN_RCV_NO_BUFFER => Guid("{447956fe-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_HARDWARE_STATUS => "{791ad192-e35c-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_HARDWARE_STATUS => Guid("{791ad192-e35c-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_MEDIA_SUPPORTED => "{791ad193-e35c-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_MEDIA_SUPPORTED => Guid("{791ad193-e35c-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_MEDIA_IN_USE => "{791ad194-e35c-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_MEDIA_IN_USE => Guid("{791ad194-e35c-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_LINK_SPEED => "{791ad195-e35c-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_LINK_SPEED => Guid("{791ad195-e35c-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_VENDOR_ID => "{791ad196-e35c-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_VENDOR_ID => Guid("{791ad196-e35c-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_VENDOR_DESCRIPTION => "{791ad197-e35c-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_VENDOR_DESCRIPTION => Guid("{791ad197-e35c-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_DRIVER_VERSION => "{791ad198-e35c-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_DRIVER_VERSION => Guid("{791ad198-e35c-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_MAC_OPTIONS => "{791ad19a-e35c-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_MAC_OPTIONS => Guid("{791ad19a-e35c-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_MEDIA_CONNECT_STATUS => "{791ad19b-e35c-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_MEDIA_CONNECT_STATUS => Guid("{791ad19b-e35c-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_VENDOR_DRIVER_VERSION => "{791ad19c-e35c-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_VENDOR_DRIVER_VERSION => Guid("{791ad19c-e35c-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_MINIMUM_LINK_SPEED => "{791ad19d-e35c-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_MINIMUM_LINK_SPEED => Guid("{791ad19d-e35c-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_XMIT_PDUS_OK => "{0a214805-e35f-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_XMIT_PDUS_OK => Guid("{0a214805-e35f-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_RCV_PDUS_OK => "{0a214806-e35f-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_RCV_PDUS_OK => Guid("{0a214806-e35f-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_XMIT_PDUS_ERROR => "{0a214807-e35f-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_XMIT_PDUS_ERROR => Guid("{0a214807-e35f-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_RCV_PDUS_ERROR => "{0a214808-e35f-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_RCV_PDUS_ERROR => Guid("{0a214808-e35f-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_GEN_CO_RCV_PDUS_NO_BUFFER => "{0a214809-e35f-11d0-9692-00c04fc3358c}"
+    static GUID_NDIS_GEN_CO_RCV_PDUS_NO_BUFFER => Guid("{0a214809-e35f-11d0-9692-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_3_PERMANENT_ADDRESS => "{447956ff-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_3_PERMANENT_ADDRESS => Guid("{447956ff-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_3_CURRENT_ADDRESS => "{44795700-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_3_CURRENT_ADDRESS => Guid("{44795700-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_3_MULTICAST_LIST => "{44795701-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_3_MULTICAST_LIST => Guid("{44795701-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_3_MAXIMUM_LIST_SIZE => "{44795702-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_3_MAXIMUM_LIST_SIZE => Guid("{44795702-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_3_MAC_OPTIONS => "{44795703-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_3_MAC_OPTIONS => Guid("{44795703-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_3_RCV_ERROR_ALIGNMENT => "{44795704-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_3_RCV_ERROR_ALIGNMENT => Guid("{44795704-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_3_XMIT_ONE_COLLISION => "{44795705-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_3_XMIT_ONE_COLLISION => Guid("{44795705-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_3_XMIT_MORE_COLLISIONS => "{44795706-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_3_XMIT_MORE_COLLISIONS => Guid("{44795706-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_5_PERMANENT_ADDRESS => "{44795707-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_5_PERMANENT_ADDRESS => Guid("{44795707-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_5_CURRENT_ADDRESS => "{44795708-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_5_CURRENT_ADDRESS => Guid("{44795708-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_5_CURRENT_FUNCTIONAL => "{44795709-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_5_CURRENT_FUNCTIONAL => Guid("{44795709-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_5_CURRENT_GROUP => "{4479570a-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_5_CURRENT_GROUP => Guid("{4479570a-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_5_LAST_OPEN_STATUS => "{4479570b-a61b-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_5_LAST_OPEN_STATUS => Guid("{4479570b-a61b-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_5_CURRENT_RING_STATUS => "{890a36ec-a61c-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_5_CURRENT_RING_STATUS => Guid("{890a36ec-a61c-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_5_CURRENT_RING_STATE => "{acf14032-a61c-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_5_CURRENT_RING_STATE => Guid("{acf14032-a61c-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_5_LINE_ERRORS => "{acf14033-a61c-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_5_LINE_ERRORS => Guid("{acf14033-a61c-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_5_LOST_FRAMES => "{acf14034-a61c-11d0-8dd4-00c04fc3358c}"
+    static GUID_NDIS_802_5_LOST_FRAMES => Guid("{acf14034-a61c-11d0-8dd4-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_BSSID => "{2504b6c2-1fa5-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_BSSID => Guid("{2504b6c2-1fa5-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_SSID => "{7d2a90ea-2041-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_SSID => Guid("{7d2a90ea-2041-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_NETWORK_TYPES_SUPPORTED => "{8531d6e6-2041-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_NETWORK_TYPES_SUPPORTED => Guid("{8531d6e6-2041-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_NETWORK_TYPE_IN_USE => "{857e2326-2041-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_NETWORK_TYPE_IN_USE => Guid("{857e2326-2041-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_POWER_MODE => "{85be837c-2041-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_POWER_MODE => Guid("{85be837c-2041-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_TX_POWER_LEVEL => "{11e6ba76-2053-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_TX_POWER_LEVEL => Guid("{11e6ba76-2053-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_RSSI => "{1507db16-2053-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_RSSI => Guid("{1507db16-2053-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_RSSI_TRIGGER => "{155689b8-2053-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_RSSI_TRIGGER => Guid("{155689b8-2053-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_BSSID_LIST => "{69526f9a-2062-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_BSSID_LIST => Guid("{69526f9a-2062-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_INFRASTRUCTURE_MODE => "{697d5a7e-2062-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_INFRASTRUCTURE_MODE => Guid("{697d5a7e-2062-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_FRAGMENTATION_THRESHOLD => "{69aaa7c4-2062-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_FRAGMENTATION_THRESHOLD => Guid("{69aaa7c4-2062-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_RTS_THRESHOLD => "{0134d07e-2064-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_RTS_THRESHOLD => Guid("{0134d07e-2064-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_NUMBER_OF_ANTENNAS => "{01779336-2064-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_NUMBER_OF_ANTENNAS => Guid("{01779336-2064-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_RX_ANTENNA_SELECTED => "{01ac07a2-2064-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_RX_ANTENNA_SELECTED => Guid("{01ac07a2-2064-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_TX_ANTENNA_SELECTED => "{01dbb74a-2064-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_TX_ANTENNA_SELECTED => Guid("{01dbb74a-2064-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_SUPPORTED_RATES => "{49db8722-2068-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_SUPPORTED_RATES => Guid("{49db8722-2068-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_DESIRED_RATES => "{452ee08e-2536-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_DESIRED_RATES => Guid("{452ee08e-2536-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_CONFIGURATION => "{4a4df982-2068-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_CONFIGURATION => Guid("{4a4df982-2068-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_STATISTICS => "{42bb73b0-2129-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_STATISTICS => Guid("{42bb73b0-2129-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_ADD_WEP => "{4307bff0-2129-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_ADD_WEP => Guid("{4307bff0-2129-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_REMOVE_WEP => "{433c345c-2129-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_REMOVE_WEP => Guid("{433c345c-2129-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_DISASSOCIATE => "{43671f40-2129-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_DISASSOCIATE => Guid("{43671f40-2129-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_AUTHENTICATION_MODE => "{43920a24-2129-11d4-97eb-00c04f79c403}"
+    static GUID_NDIS_802_11_AUTHENTICATION_MODE => Guid("{43920a24-2129-11d4-97eb-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_PRIVACY_FILTER => "{6733c4e9-4792-11d4-97f1-00c04f79c403}"
+    static GUID_NDIS_802_11_PRIVACY_FILTER => Guid("{6733c4e9-4792-11d4-97f1-00c04f79c403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_BSSID_LIST_SCAN => "{0d9e01e1-ba70-11d4-b675-002048570337}"
+    static GUID_NDIS_802_11_BSSID_LIST_SCAN => Guid("{0d9e01e1-ba70-11d4-b675-002048570337}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_WEP_STATUS => "{b027a21f-3cfa-4125-800b-3f7a18fddcdc}"
+    static GUID_NDIS_802_11_WEP_STATUS => Guid("{b027a21f-3cfa-4125-800b-3f7a18fddcdc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_RELOAD_DEFAULTS => "{748b14e8-32ee-4425-b91b-c9848c58b55a}"
+    static GUID_NDIS_802_11_RELOAD_DEFAULTS => Guid("{748b14e8-32ee-4425-b91b-c9848c58b55a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_ADD_KEY => "{ab8b5a62-1d51-49d8-ba5c-fa980be03a1d}"
+    static GUID_NDIS_802_11_ADD_KEY => Guid("{ab8b5a62-1d51-49d8-ba5c-fa980be03a1d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_REMOVE_KEY => "{73cb28e9-3188-42d5-b553-b21237e6088c}"
+    static GUID_NDIS_802_11_REMOVE_KEY => Guid("{73cb28e9-3188-42d5-b553-b21237e6088c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_ASSOCIATION_INFORMATION => "{a08d4dd0-960e-40bd-8cf6-c538af98f2e3}"
+    static GUID_NDIS_802_11_ASSOCIATION_INFORMATION => Guid("{a08d4dd0-960e-40bd-8cf6-c538af98f2e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_TEST => "{4b9ca16a-6a60-4e9d-920c-6335953fa0b5}"
+    static GUID_NDIS_802_11_TEST => Guid("{4b9ca16a-6a60-4e9d-920c-6335953fa0b5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_802_11_MEDIA_STREAM_MODE => "{0a56af66-d84b-49eb-a28d-5282cbb6d0cd}"
+    static GUID_NDIS_802_11_MEDIA_STREAM_MODE => Guid("{0a56af66-d84b-49eb-a28d-5282cbb6d0cd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_RESET_START => "{981f2d76-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_STATUS_RESET_START => Guid("{981f2d76-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_RESET_END => "{981f2d77-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_STATUS_RESET_END => Guid("{981f2d77-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_MEDIA_CONNECT => "{981f2d7d-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_STATUS_MEDIA_CONNECT => Guid("{981f2d7d-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_MEDIA_DISCONNECT => "{981f2d7e-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_STATUS_MEDIA_DISCONNECT => Guid("{981f2d7e-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_MEDIA_SPECIFIC_INDICATION => "{981f2d84-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_STATUS_MEDIA_SPECIFIC_INDICATION => Guid("{981f2d84-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_LINK_SPEED_CHANGE => "{981f2d85-b1f3-11d0-8dd7-00c04fc3358c}"
+    static GUID_NDIS_STATUS_LINK_SPEED_CHANGE => Guid("{981f2d85-b1f3-11d0-8dd7-00c04fc3358c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_PACKET_FILTER => "{d47c5407-2e75-46dd-8146-1d7ed2d6ab1d}"
+    static GUID_NDIS_STATUS_PACKET_FILTER => Guid("{d47c5407-2e75-46dd-8146-1d7ed2d6ab1d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_NETWORK_CHANGE => "{ca8a56f9-ce81-40e6-a70f-a067a476e9e9}"
+    static GUID_NDIS_STATUS_NETWORK_CHANGE => Guid("{ca8a56f9-ce81-40e6-a70f-a067a476e9e9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_TASK_OFFLOAD_CURRENT_CONFIG => "{45049fc6-54d8-40c8-9c3d-b011c4e715bc}"
+    static GUID_NDIS_STATUS_TASK_OFFLOAD_CURRENT_CONFIG => Guid("{45049fc6-54d8-40c8-9c3d-b011c4e715bc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_TASK_OFFLOAD_HARDWARE_CAPABILITIES => "{b6b8158b-217c-4b2a-be86-6a04beea65b8}"
+    static GUID_NDIS_STATUS_TASK_OFFLOAD_HARDWARE_CAPABILITIES => Guid("{b6b8158b-217c-4b2a-be86-6a04beea65b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_TCP_CONNECTION_OFFLOAD_CURRENT_CONFIG => "{f8edaeff-24e4-4ae6-a413-0b27f76b243d}"
+    static GUID_NDIS_STATUS_TCP_CONNECTION_OFFLOAD_CURRENT_CONFIG => Guid("{f8edaeff-24e4-4ae6-a413-0b27f76b243d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_TCP_CONNECTION_OFFLOAD_HARDWARE_CAPABILITIES => "{391969b6-402c-43bf-8922-39eae0da1bb5}"
+    static GUID_NDIS_STATUS_TCP_CONNECTION_OFFLOAD_HARDWARE_CAPABILITIES => Guid("{391969b6-402c-43bf-8922-39eae0da1bb5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_OPER_STATUS => "{f917b663-845e-4d3d-b6d4-15eb27af81c5}"
+    static GUID_NDIS_STATUS_OPER_STATUS => Guid("{f917b663-845e-4d3d-b6d4-15eb27af81c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_LINK_STATE => "{64c6f797-878c-4311-9246-65dba89c3a61}"
+    static GUID_NDIS_STATUS_LINK_STATE => Guid("{64c6f797-878c-4311-9246-65dba89c3a61}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_PORT_STATE => "{1dac0dfe-43e5-44b7-b759-7bf46de32e81}"
+    static GUID_NDIS_STATUS_PORT_STATE => Guid("{1dac0dfe-43e5-44b7-b759-7bf46de32e81}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_EXTERNAL_CONNECTIVITY_CHANGE => "{fd306974-c420-4433-b0fe-4cf6a613f59f}"
+    static GUID_NDIS_STATUS_EXTERNAL_CONNECTIVITY_CHANGE => Guid("{fd306974-c420-4433-b0fe-4cf6a613f59f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_STATUS_MEDIA_SPECIFIC_INDICATION_EX => "{aaacfca7-954a-4632-a16e-a8a63793a9e5}"
+    static GUID_STATUS_MEDIA_SPECIFIC_INDICATION_EX => Guid("{aaacfca7-954a-4632-a16e-a8a63793a9e5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_HD_SPLIT_CURRENT_CONFIG => "{6c744b0e-ee9c-4205-90a2-015f6d65f403}"
+    static GUID_NDIS_STATUS_HD_SPLIT_CURRENT_CONFIG => Guid("{6c744b0e-ee9c-4205-90a2-015f6d65f403}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_PM_WOL_PATTERN_REJECTED => "{f72cf68e-18d4-4d63-9a19-e69b13916b1a}"
+    static GUID_NDIS_STATUS_PM_WOL_PATTERN_REJECTED => Guid("{f72cf68e-18d4-4d63-9a19-e69b13916b1a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_PM_OFFLOAD_REJECTED => "{add1d481-711e-4d1a-92ca-a62db9329712}"
+    static GUID_NDIS_STATUS_PM_OFFLOAD_REJECTED => Guid("{add1d481-711e-4d1a-92ca-a62db9329712}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_PM_WAKE_REASON => "{0933fd58-ca62-438f-83da-dfc1cccb8145}"
+    static GUID_NDIS_STATUS_PM_WAKE_REASON => Guid("{0933fd58-ca62-438f-83da-dfc1cccb8145}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_SCAN_CONFIRM => "{8500591e-a0c7-4efb-9342-b674b002cbe6}"
+    static GUID_NDIS_STATUS_DOT11_SCAN_CONFIRM => Guid("{8500591e-a0c7-4efb-9342-b674b002cbe6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_MPDU_MAX_LENGTH_CHANGED => "{1d6560ec-8e48-4a3e-9fd5-a01b698db6c5}"
+    static GUID_NDIS_STATUS_DOT11_MPDU_MAX_LENGTH_CHANGED => Guid("{1d6560ec-8e48-4a3e-9fd5-a01b698db6c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_ASSOCIATION_START => "{3927843b-6980-4b48-b15b-4de50977ac40}"
+    static GUID_NDIS_STATUS_DOT11_ASSOCIATION_START => Guid("{3927843b-6980-4b48-b15b-4de50977ac40}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_ASSOCIATION_COMPLETION => "{458bbea7-45a4-4ae2-b176-e51f96fc0568}"
+    static GUID_NDIS_STATUS_DOT11_ASSOCIATION_COMPLETION => Guid("{458bbea7-45a4-4ae2-b176-e51f96fc0568}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_CONNECTION_START => "{7b74299d-998f-4454-ad08-c5af28576d1b}"
+    static GUID_NDIS_STATUS_DOT11_CONNECTION_START => Guid("{7b74299d-998f-4454-ad08-c5af28576d1b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_CONNECTION_COMPLETION => "{96efd9c9-7f1b-4a89-bc04-3e9e271765f1}"
+    static GUID_NDIS_STATUS_DOT11_CONNECTION_COMPLETION => Guid("{96efd9c9-7f1b-4a89-bc04-3e9e271765f1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_ROAMING_START => "{b2412d0d-26c8-4f4e-93df-f7b705a0b433}"
+    static GUID_NDIS_STATUS_DOT11_ROAMING_START => Guid("{b2412d0d-26c8-4f4e-93df-f7b705a0b433}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_ROAMING_COMPLETION => "{dd9d47d1-282b-41e4-b924-66368817fcd3}"
+    static GUID_NDIS_STATUS_DOT11_ROAMING_COMPLETION => Guid("{dd9d47d1-282b-41e4-b924-66368817fcd3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_DISASSOCIATION => "{3fbeb6fc-0fe2-43fd-b2ad-bd99b5f93e13}"
+    static GUID_NDIS_STATUS_DOT11_DISASSOCIATION => Guid("{3fbeb6fc-0fe2-43fd-b2ad-bd99b5f93e13}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_TKIPMIC_FAILURE => "{442c2ae4-9bc5-4b90-a889-455ef220f4ee}"
+    static GUID_NDIS_STATUS_DOT11_TKIPMIC_FAILURE => Guid("{442c2ae4-9bc5-4b90-a889-455ef220f4ee}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_PMKID_CANDIDATE_LIST => "{26d8b8f6-db82-49eb-8bf3-4c130ef06950}"
+    static GUID_NDIS_STATUS_DOT11_PMKID_CANDIDATE_LIST => Guid("{26d8b8f6-db82-49eb-8bf3-4c130ef06950}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_PHY_STATE_CHANGED => "{deb45316-71b5-4736-bdef-0a9e9f4e62dc}"
+    static GUID_NDIS_STATUS_DOT11_PHY_STATE_CHANGED => Guid("{deb45316-71b5-4736-bdef-0a9e9f4e62dc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NDIS_STATUS_DOT11_LINK_QUALITY => "{a3285184-ea99-48ed-825e-a426b11c2754}"
+    static GUID_NDIS_STATUS_DOT11_LINK_QUALITY => Guid("{a3285184-ea99-48ed-825e-a426b11c2754}")
 
     /**
      * @type {Integer (UInt32)}

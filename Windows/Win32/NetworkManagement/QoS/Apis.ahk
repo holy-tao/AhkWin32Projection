@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
@@ -525,84 +526,84 @@ class QoS {
     static ERROR_TOO_MANY_CLIENTS => 7521
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_REMAINING_BANDWIDTH => "{c4c51720-40ec-11d1-2c91-00aa00574915}"
+    static GUID_QOS_REMAINING_BANDWIDTH => Guid("{c4c51720-40ec-11d1-2c91-00aa00574915}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_BESTEFFORT_BANDWIDTH => "{ed885290-40ec-11d1-2c91-00aa00574915}"
+    static GUID_QOS_BESTEFFORT_BANDWIDTH => Guid("{ed885290-40ec-11d1-2c91-00aa00574915}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_LATENCY => "{fc408ef0-40ec-11d1-2c91-00aa00574915}"
+    static GUID_QOS_LATENCY => Guid("{fc408ef0-40ec-11d1-2c91-00aa00574915}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_FLOW_COUNT => "{1147f880-40ed-11d1-2c91-00aa00574915}"
+    static GUID_QOS_FLOW_COUNT => Guid("{1147f880-40ed-11d1-2c91-00aa00574915}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_NON_BESTEFFORT_LIMIT => "{185c44e0-40ed-11d1-2c91-00aa00574915}"
+    static GUID_QOS_NON_BESTEFFORT_LIMIT => Guid("{185c44e0-40ed-11d1-2c91-00aa00574915}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_MAX_OUTSTANDING_SENDS => "{161ffa86-6120-11d1-2c91-00aa00574915}"
+    static GUID_QOS_MAX_OUTSTANDING_SENDS => Guid("{161ffa86-6120-11d1-2c91-00aa00574915}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_STATISTICS_BUFFER => "{bb2c0980-e900-11d1-b07e-0080c71382bf}"
+    static GUID_QOS_STATISTICS_BUFFER => Guid("{bb2c0980-e900-11d1-b07e-0080c71382bf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_FLOW_MODE => "{5c82290a-515a-11d2-8e58-00c04fc9bfcb}"
+    static GUID_QOS_FLOW_MODE => Guid("{5c82290a-515a-11d2-8e58-00c04fc9bfcb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_ISSLOW_FLOW => "{abf273a4-ee07-11d2-be1b-00a0c99ee63b}"
+    static GUID_QOS_ISSLOW_FLOW => Guid("{abf273a4-ee07-11d2-be1b-00a0c99ee63b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_TIMER_RESOLUTION => "{ba10cc88-f13e-11d2-be1b-00a0c99ee63b}"
+    static GUID_QOS_TIMER_RESOLUTION => Guid("{ba10cc88-f13e-11d2-be1b-00a0c99ee63b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_FLOW_IP_CONFORMING => "{07f99a8b-fcd2-11d2-be1e-00a0c99ee63b}"
+    static GUID_QOS_FLOW_IP_CONFORMING => Guid("{07f99a8b-fcd2-11d2-be1e-00a0c99ee63b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_FLOW_IP_NONCONFORMING => "{087a5987-fcd2-11d2-be1e-00a0c99ee63b}"
+    static GUID_QOS_FLOW_IP_NONCONFORMING => Guid("{087a5987-fcd2-11d2-be1e-00a0c99ee63b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_FLOW_8021P_CONFORMING => "{08c1e013-fcd2-11d2-be1e-00a0c99ee63b}"
+    static GUID_QOS_FLOW_8021P_CONFORMING => Guid("{08c1e013-fcd2-11d2-be1e-00a0c99ee63b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_FLOW_8021P_NONCONFORMING => "{09023f91-fcd2-11d2-be1e-00a0c99ee63b}"
+    static GUID_QOS_FLOW_8021P_NONCONFORMING => Guid("{09023f91-fcd2-11d2-be1e-00a0c99ee63b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_ENABLE_AVG_STATS => "{bafb6d11-27c4-4801-a46f-ef8080c188c8}"
+    static GUID_QOS_ENABLE_AVG_STATS => Guid("{bafb6d11-27c4-4801-a46f-ef8080c188c8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QOS_ENABLE_WINDOW_ADJUSTMENT => "{aa966725-d3e9-4c55-b335-2a00279a1e64}"
+    static GUID_QOS_ENABLE_WINDOW_ADJUSTMENT => Guid("{aa966725-d3e9-4c55-b335-2a00279a1e64}")
 
     /**
      * @type {Integer (UInt32)}

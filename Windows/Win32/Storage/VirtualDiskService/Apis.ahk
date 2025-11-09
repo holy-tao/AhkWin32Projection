@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.VirtualDiskService
@@ -370,14 +371,14 @@ class VirtualDiskService {
     static VDS_ATTACH_VIRTUAL_DISK_FLAG_USE_FILE_ACL => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_VdsLoader => "{9c38ed61-d565-4728-aeee-c80952f0ecde}"
+    static CLSID_VdsLoader => Guid("{9c38ed61-d565-4728-aeee-c80952f0ecde}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_VdsService => "{7d1933cb-86f6-4a98-8628-01be94c9a575}"
+    static CLSID_VdsService => Guid("{7d1933cb-86f6-4a98-8628-01be94c9a575}")
 
     /**
      * @type {Integer (UInt32)}

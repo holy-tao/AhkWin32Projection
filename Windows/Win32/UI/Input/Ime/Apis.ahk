@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\KeyboardAndMouse\HKL.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include .\HIMC.ahk
@@ -14,39 +15,39 @@ class Ime {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_MSIME_IImePadApplet_VER7 => "{4a0f8e31-c3ee-11d1-afef-00805f0c8b6d}"
+    static CATID_MSIME_IImePadApplet_VER7 => Guid("{4a0f8e31-c3ee-11d1-afef-00805f0c8b6d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_MSIME_IImePadApplet_VER80 => "{56f7a792-fef1-11d3-8463-00c04f7a06e5}"
+    static CATID_MSIME_IImePadApplet_VER80 => Guid("{56f7a792-fef1-11d3-8463-00c04f7a06e5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_MSIME_IImePadApplet_VER81 => "{656520b0-bb88-11d4-84c0-00c04f7a06e5}"
+    static CATID_MSIME_IImePadApplet_VER81 => Guid("{656520b0-bb88-11d4-84c0-00c04f7a06e5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_MSIME_IImePadApplet900 => "{faae51bf-5e5b-4a1d-8de1-17c1d9e1728d}"
+    static CATID_MSIME_IImePadApplet900 => Guid("{faae51bf-5e5b-4a1d-8de1-17c1d9e1728d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_MSIME_IImePadApplet1000 => "{e081e1d6-2389-43cb-b66f-609f823d9f9c}"
+    static CATID_MSIME_IImePadApplet1000 => Guid("{e081e1d6-2389-43cb-b66f-609f823d9f9c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_MSIME_IImePadApplet1200 => "{a47fb5fc-7d15-4223-a789-b781bf9ae667}"
+    static CATID_MSIME_IImePadApplet1200 => Guid("{a47fb5fc-7d15-4223-a789-b781bf9ae667}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_MSIME_IImePadApplet => "{7566cad1-4ec9-4478-9fe9-8ed766619edf}"
+    static CATID_MSIME_IImePadApplet => Guid("{7566cad1-4ec9-4478-9fe9-8ed766619edf}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1384,9 +1385,9 @@ class Ime {
     static szImeTaiwan => "MSIME.Taiwan"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_VERSION_DEPENDENT_MSIME_JAPANESE => "{6a91029e-aa49-471b-aee7-7d332785660d}"
+    static CLSID_VERSION_DEPENDENT_MSIME_JAPANESE => Guid("{6a91029e-aa49-471b-aee7-7d332785660d}")
 
     /**
      * @type {Integer (Int32)}
@@ -2999,14 +3000,14 @@ class Ime {
     static GCSEX_CANCELRECONVERT => 268435456
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ImePlugInDictDictionaryList_CHS => "{7bf0129b-5bef-4de4-9b0b-5edb66ac2fa6}"
+    static CLSID_ImePlugInDictDictionaryList_CHS => Guid("{7bf0129b-5bef-4de4-9b0b-5edb66ac2fa6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ImePlugInDictDictionaryList_JPN => "{4fe2776b-b0f9-4396-b5fc-e9d4cf1ec195}"
+    static CLSID_ImePlugInDictDictionaryList_JPN => Guid("{4fe2776b-b0f9-4396-b5fc-e9d4cf1ec195}")
 ;@endregion Constants
 
 ;@region Methods

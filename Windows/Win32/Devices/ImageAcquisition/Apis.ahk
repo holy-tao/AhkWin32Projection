@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -2510,79 +2511,79 @@ class ImageAcquisition {
     static WIA_IPS_MULTI_FEED_DETECT_METHOD_STR => "Multi-Feed Detection Method"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_FINISHED_FILE => "{ff2b77ca-cf84-432b-a735-3a130dde2a88}"
+    static WIA_CATEGORY_FINISHED_FILE => Guid("{ff2b77ca-cf84-432b-a735-3a130dde2a88}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_FLATBED => "{fb607b1f-43f3-488b-855b-fb703ec342a6}"
+    static WIA_CATEGORY_FLATBED => Guid("{fb607b1f-43f3-488b-855b-fb703ec342a6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_FEEDER => "{fe131934-f84c-42ad-8da4-6129cddd7288}"
+    static WIA_CATEGORY_FEEDER => Guid("{fe131934-f84c-42ad-8da4-6129cddd7288}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_FILM => "{fcf65be7-3ce3-4473-af85-f5d37d21b68a}"
+    static WIA_CATEGORY_FILM => Guid("{fcf65be7-3ce3-4473-af85-f5d37d21b68a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_ROOT => "{f193526f-59b8-4a26-9888-e16e4f97ce10}"
+    static WIA_CATEGORY_ROOT => Guid("{f193526f-59b8-4a26-9888-e16e4f97ce10}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_FOLDER => "{c692a446-6f5a-481d-85bb-92e2e86fd30a}"
+    static WIA_CATEGORY_FOLDER => Guid("{c692a446-6f5a-481d-85bb-92e2e86fd30a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_FEEDER_FRONT => "{4823175c-3b28-487b-a7e6-eebc17614fd1}"
+    static WIA_CATEGORY_FEEDER_FRONT => Guid("{4823175c-3b28-487b-a7e6-eebc17614fd1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_FEEDER_BACK => "{61ca74d4-39db-42aa-89b1-8c19c9cd4c23}"
+    static WIA_CATEGORY_FEEDER_BACK => Guid("{61ca74d4-39db-42aa-89b1-8c19c9cd4c23}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_AUTO => "{defe5fd8-6c97-4dde-b11e-cb509b270e11}"
+    static WIA_CATEGORY_AUTO => Guid("{defe5fd8-6c97-4dde-b11e-cb509b270e11}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_IMPRINTER => "{fc65016d-9202-43dd-91a7-64c2954cfb8b}"
+    static WIA_CATEGORY_IMPRINTER => Guid("{fc65016d-9202-43dd-91a7-64c2954cfb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_ENDORSER => "{47102cc3-127f-4771-adfc-991ab8ee1e97}"
+    static WIA_CATEGORY_ENDORSER => Guid("{47102cc3-127f-4771-adfc-991ab8ee1e97}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_BARCODE_READER => "{36e178a0-473f-494b-af8f-6c3f6d7486fc}"
+    static WIA_CATEGORY_BARCODE_READER => Guid("{36e178a0-473f-494b-af8f-6c3f6d7486fc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_PATCH_CODE_READER => "{8faa1a6d-9c8a-42cd-98b3-ee9700cbc74f}"
+    static WIA_CATEGORY_PATCH_CODE_READER => Guid("{8faa1a6d-9c8a-42cd-98b3-ee9700cbc74f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CATEGORY_MICR_READER => "{3b86c1ec-71bc-4645-b4d5-1b19da2be978}"
+    static WIA_CATEGORY_MICR_READER => Guid("{3b86c1ec-71bc-4645-b4d5-1b19da2be978}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WiaDefaultSegFilter => "{d4f4d30b-0b29-4508-8922-0c5797d42765}"
+    static CLSID_WiaDefaultSegFilter => Guid("{d4f4d30b-0b29-4508-8922-0c5797d42765}")
 
     /**
      * @type {Integer (UInt32)}
@@ -3585,449 +3586,449 @@ class ImageAcquisition {
     static WIA_PRIVATE_ITEMPROP => 71682
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_UNDEFINED => "{b96b3ca9-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_UNDEFINED => Guid("{b96b3ca9-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_RAWRGB => "{bca48b55-f272-4371-b0f1-4a150d057bb4}"
+    static WiaImgFmt_RAWRGB => Guid("{bca48b55-f272-4371-b0f1-4a150d057bb4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_MEMORYBMP => "{b96b3caa-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_MEMORYBMP => Guid("{b96b3caa-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_BMP => "{b96b3cab-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_BMP => Guid("{b96b3cab-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_EMF => "{b96b3cac-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_EMF => Guid("{b96b3cac-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_WMF => "{b96b3cad-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_WMF => Guid("{b96b3cad-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_JPEG => "{b96b3cae-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_JPEG => Guid("{b96b3cae-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_PNG => "{b96b3caf-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_PNG => Guid("{b96b3caf-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_GIF => "{b96b3cb0-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_GIF => Guid("{b96b3cb0-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_TIFF => "{b96b3cb1-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_TIFF => Guid("{b96b3cb1-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_EXIF => "{b96b3cb2-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_EXIF => Guid("{b96b3cb2-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_PHOTOCD => "{b96b3cb3-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_PHOTOCD => Guid("{b96b3cb3-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_FLASHPIX => "{b96b3cb4-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_FLASHPIX => Guid("{b96b3cb4-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_ICO => "{b96b3cb5-0728-11d3-9d7b-0000f81ef32e}"
+    static WiaImgFmt_ICO => Guid("{b96b3cb5-0728-11d3-9d7b-0000f81ef32e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_CIFF => "{9821a8ab-3a7e-4215-94e0-d27a460c03b2}"
+    static WiaImgFmt_CIFF => Guid("{9821a8ab-3a7e-4215-94e0-d27a460c03b2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_PICT => "{a6bc85d8-6b3e-40ee-a95c-25d482e41adc}"
+    static WiaImgFmt_PICT => Guid("{a6bc85d8-6b3e-40ee-a95c-25d482e41adc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_JPEG2K => "{344ee2b2-39db-4dde-8173-c4b75f8f1e49}"
+    static WiaImgFmt_JPEG2K => Guid("{344ee2b2-39db-4dde-8173-c4b75f8f1e49}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_JPEG2KX => "{43e14614-c80a-4850-baf3-4b152dc8da27}"
+    static WiaImgFmt_JPEG2KX => Guid("{43e14614-c80a-4850-baf3-4b152dc8da27}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_RAW => "{6f120719-f1a8-4e07-9ade-9b64c63a3dcc}"
+    static WiaImgFmt_RAW => Guid("{6f120719-f1a8-4e07-9ade-9b64c63a3dcc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_JBIG => "{41e8dd92-2f0a-43d4-8636-f1614ba11e46}"
+    static WiaImgFmt_JBIG => Guid("{41e8dd92-2f0a-43d4-8636-f1614ba11e46}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_JBIG2 => "{bb8e7e67-283c-4235-9e59-0b9bf94ca687}"
+    static WiaImgFmt_JBIG2 => Guid("{bb8e7e67-283c-4235-9e59-0b9bf94ca687}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_RTF => "{573dd6a3-4834-432d-a9b5-e198dd9e890d}"
+    static WiaImgFmt_RTF => Guid("{573dd6a3-4834-432d-a9b5-e198dd9e890d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_XML => "{b9171457-dac8-4884-b393-15b471d5f07e}"
+    static WiaImgFmt_XML => Guid("{b9171457-dac8-4884-b393-15b471d5f07e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_HTML => "{c99a4e62-99de-4a94-acca-71956ac2977d}"
+    static WiaImgFmt_HTML => Guid("{c99a4e62-99de-4a94-acca-71956ac2977d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_TXT => "{fafd4d82-723f-421f-9318-30501ac44b59}"
+    static WiaImgFmt_TXT => Guid("{fafd4d82-723f-421f-9318-30501ac44b59}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_PDFA => "{9980bd5b-3463-43c7-bdca-3caa146f229f}"
+    static WiaImgFmt_PDFA => Guid("{9980bd5b-3463-43c7-bdca-3caa146f229f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_XPS => "{700b4a0f-2011-411c-b430-d1e0b2e10b28}"
+    static WiaImgFmt_XPS => Guid("{700b4a0f-2011-411c-b430-d1e0b2e10b28}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_OXPS => "{2c7b1240-c14d-4109-9755-04b89025153a}"
+    static WiaImgFmt_OXPS => Guid("{2c7b1240-c14d-4109-9755-04b89025153a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_CSV => "{355bda24-5a9f-4494-80dc-be752cecbc8c}"
+    static WiaImgFmt_CSV => Guid("{355bda24-5a9f-4494-80dc-be752cecbc8c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_MPG => "{ecd757e4-d2ec-4f57-955d-bcf8a97c4e52}"
+    static WiaImgFmt_MPG => Guid("{ecd757e4-d2ec-4f57-955d-bcf8a97c4e52}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_AVI => "{32f8ca14-087c-4908-b7c4-6757fe7e90ab}"
+    static WiaImgFmt_AVI => Guid("{32f8ca14-087c-4908-b7c4-6757fe7e90ab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaAudFmt_WAV => "{f818e146-07af-40ff-ae55-be8f2c065dbe}"
+    static WiaAudFmt_WAV => Guid("{f818e146-07af-40ff-ae55-be8f2c065dbe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaAudFmt_MP3 => "{0fbc71fb-43bf-49f2-9190-e6fecff37e54}"
+    static WiaAudFmt_MP3 => Guid("{0fbc71fb-43bf-49f2-9190-e6fecff37e54}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaAudFmt_AIFF => "{66e2bf4f-b6fc-443f-94c8-2f33c8a65aaf}"
+    static WiaAudFmt_AIFF => Guid("{66e2bf4f-b6fc-443f-94c8-2f33c8a65aaf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaAudFmt_WMA => "{d61d6413-8bc2-438f-93ad-21bd484db6a1}"
+    static WiaAudFmt_WMA => Guid("{d61d6413-8bc2-438f-93ad-21bd484db6a1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_ASF => "{8d948ee9-d0aa-4a12-9d9a-9cc5de36199b}"
+    static WiaImgFmt_ASF => Guid("{8d948ee9-d0aa-4a12-9d9a-9cc5de36199b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_SCRIPT => "{fe7d6c53-2dac-446a-b0bd-d73e21e924c9}"
+    static WiaImgFmt_SCRIPT => Guid("{fe7d6c53-2dac-446a-b0bd-d73e21e924c9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_EXEC => "{485da097-141e-4aa5-bb3b-a5618d95d02b}"
+    static WiaImgFmt_EXEC => Guid("{485da097-141e-4aa5-bb3b-a5618d95d02b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_UNICODE16 => "{1b7639b6-6357-47d1-9a07-12452dc073e9}"
+    static WiaImgFmt_UNICODE16 => Guid("{1b7639b6-6357-47d1-9a07-12452dc073e9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_DPOF => "{369eeeab-a0e8-45ca-86a6-a83ce5697e28}"
+    static WiaImgFmt_DPOF => Guid("{369eeeab-a0e8-45ca-86a6-a83ce5697e28}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_XMLBAR => "{6235701c-3a98-484c-b2a8-fdffd87e6b16}"
+    static WiaImgFmt_XMLBAR => Guid("{6235701c-3a98-484c-b2a8-fdffd87e6b16}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_RAWBAR => "{da63f833-d26e-451e-90d2-ea55a1365d62}"
+    static WiaImgFmt_RAWBAR => Guid("{da63f833-d26e-451e-90d2-ea55a1365d62}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_XMLPAT => "{f8986f55-f052-460d-9523-3a7dfedbb33c}"
+    static WiaImgFmt_XMLPAT => Guid("{f8986f55-f052-460d-9523-3a7dfedbb33c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_RAWPAT => "{7760507c-5064-400c-9a17-575624d8824b}"
+    static WiaImgFmt_RAWPAT => Guid("{7760507c-5064-400c-9a17-575624d8824b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_XMLMIC => "{2d164c61-b9ae-4b23-8973-c7067e1fbd31}"
+    static WiaImgFmt_XMLMIC => Guid("{2d164c61-b9ae-4b23-8973-c7067e1fbd31}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WiaImgFmt_RAWMIC => "{22c4f058-0d88-409c-ac1c-eec12b0ea680}"
+    static WiaImgFmt_RAWMIC => Guid("{22c4f058-0d88-409c-ac1c-eec12b0ea680}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_DEVICE_DISCONNECTED => "{143e4e83-6497-11d2-a231-00c04fa31809}"
+    static WIA_EVENT_DEVICE_DISCONNECTED => Guid("{143e4e83-6497-11d2-a231-00c04fa31809}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_DEVICE_CONNECTED => "{a28bbade-64b6-11d2-a231-00c04fa31809}"
+    static WIA_EVENT_DEVICE_CONNECTED => Guid("{a28bbade-64b6-11d2-a231-00c04fa31809}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_ITEM_DELETED => "{1d22a559-e14f-11d2-b326-00c04f68ce61}"
+    static WIA_EVENT_ITEM_DELETED => Guid("{1d22a559-e14f-11d2-b326-00c04f68ce61}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_ITEM_CREATED => "{4c8f4ef5-e14f-11d2-b326-00c04f68ce61}"
+    static WIA_EVENT_ITEM_CREATED => Guid("{4c8f4ef5-e14f-11d2-b326-00c04f68ce61}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_TREE_UPDATED => "{c9859b91-4ab2-4cd6-a1fc-582eec55e585}"
+    static WIA_EVENT_TREE_UPDATED => Guid("{c9859b91-4ab2-4cd6-a1fc-582eec55e585}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_VOLUME_INSERT => "{9638bbfd-d1bd-11d2-b31f-00c04f68ce61}"
+    static WIA_EVENT_VOLUME_INSERT => Guid("{9638bbfd-d1bd-11d2-b31f-00c04f68ce61}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_SCAN_IMAGE => "{a6c5a715-8c6e-11d2-977a-0000f87a926f}"
+    static WIA_EVENT_SCAN_IMAGE => Guid("{a6c5a715-8c6e-11d2-977a-0000f87a926f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_SCAN_PRINT_IMAGE => "{b441f425-8c6e-11d2-977a-0000f87a926f}"
+    static WIA_EVENT_SCAN_PRINT_IMAGE => Guid("{b441f425-8c6e-11d2-977a-0000f87a926f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_SCAN_FAX_IMAGE => "{c00eb793-8c6e-11d2-977a-0000f87a926f}"
+    static WIA_EVENT_SCAN_FAX_IMAGE => Guid("{c00eb793-8c6e-11d2-977a-0000f87a926f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_SCAN_OCR_IMAGE => "{9d095b89-37d6-4877-afed-62a297dc6dbe}"
+    static WIA_EVENT_SCAN_OCR_IMAGE => Guid("{9d095b89-37d6-4877-afed-62a297dc6dbe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_SCAN_EMAIL_IMAGE => "{c686dcee-54f2-419e-9a27-2fc7f2e98f9e}"
+    static WIA_EVENT_SCAN_EMAIL_IMAGE => Guid("{c686dcee-54f2-419e-9a27-2fc7f2e98f9e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_SCAN_FILM_IMAGE => "{9b2b662c-6185-438c-b68b-e39ee25e71cb}"
+    static WIA_EVENT_SCAN_FILM_IMAGE => Guid("{9b2b662c-6185-438c-b68b-e39ee25e71cb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_SCAN_IMAGE2 => "{fc4767c1-c8b3-48a2-9cfa-2e90cb3d3590}"
+    static WIA_EVENT_SCAN_IMAGE2 => Guid("{fc4767c1-c8b3-48a2-9cfa-2e90cb3d3590}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_SCAN_IMAGE3 => "{154e27be-b617-4653-acc5-0fd7bd4c65ce}"
+    static WIA_EVENT_SCAN_IMAGE3 => Guid("{154e27be-b617-4653-acc5-0fd7bd4c65ce}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_SCAN_IMAGE4 => "{a65b704a-7f3c-4447-a75d-8a26dfca1fdf}"
+    static WIA_EVENT_SCAN_IMAGE4 => Guid("{a65b704a-7f3c-4447-a75d-8a26dfca1fdf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_STORAGE_CREATED => "{353308b2-fe73-46c8-895e-fa4551ccc85a}"
+    static WIA_EVENT_STORAGE_CREATED => Guid("{353308b2-fe73-46c8-895e-fa4551ccc85a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_STORAGE_DELETED => "{5e41e75e-9390-44c5-9a51-e47019e390cf}"
+    static WIA_EVENT_STORAGE_DELETED => Guid("{5e41e75e-9390-44c5-9a51-e47019e390cf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_STI_PROXY => "{d711f81f-1f0d-422d-8641-927d1b93e5e5}"
+    static WIA_EVENT_STI_PROXY => Guid("{d711f81f-1f0d-422d-8641-927d1b93e5e5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_CANCEL_IO => "{c860f7b8-9ccd-41ea-bbbf-4dd09c5b1795}"
+    static WIA_EVENT_CANCEL_IO => Guid("{c860f7b8-9ccd-41ea-bbbf-4dd09c5b1795}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_POWER_SUSPEND => "{a0922ff9-c3b4-411c-9e29-03a66993d2be}"
+    static WIA_EVENT_POWER_SUSPEND => Guid("{a0922ff9-c3b4-411c-9e29-03a66993d2be}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_POWER_RESUME => "{618f153e-f686-4350-9634-4115a304830c}"
+    static WIA_EVENT_POWER_RESUME => Guid("{618f153e-f686-4350-9634-4115a304830c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_HANDLER_NO_ACTION => "{e0372b7d-e115-4525-bc55-b629e68c745a}"
+    static WIA_EVENT_HANDLER_NO_ACTION => Guid("{e0372b7d-e115-4525-bc55-b629e68c745a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_HANDLER_PROMPT => "{5f4baad0-4d59-4fcd-b213-783ce7a92f22}"
+    static WIA_EVENT_HANDLER_PROMPT => Guid("{5f4baad0-4d59-4fcd-b213-783ce7a92f22}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_DEVICE_NOT_READY => "{d8962d7e-e4dc-4b4d-ba29-668a87f42e6f}"
+    static WIA_EVENT_DEVICE_NOT_READY => Guid("{d8962d7e-e4dc-4b4d-ba29-668a87f42e6f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_DEVICE_READY => "{7523ec6c-988b-419e-9a0a-425ac31b37dc}"
+    static WIA_EVENT_DEVICE_READY => Guid("{7523ec6c-988b-419e-9a0a-425ac31b37dc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_FLATBED_LID_OPEN => "{ba0a0623-437d-4f03-a97d-7793b123113c}"
+    static WIA_EVENT_FLATBED_LID_OPEN => Guid("{ba0a0623-437d-4f03-a97d-7793b123113c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_FLATBED_LID_CLOSED => "{f879af0f-9b29-4283-ad95-d412164d39a9}"
+    static WIA_EVENT_FLATBED_LID_CLOSED => Guid("{f879af0f-9b29-4283-ad95-d412164d39a9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_FEEDER_LOADED => "{cc8d701e-9aba-481d-bf74-78f763dc342a}"
+    static WIA_EVENT_FEEDER_LOADED => Guid("{cc8d701e-9aba-481d-bf74-78f763dc342a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_FEEDER_EMPTIED => "{e70b4b82-6dda-46bb-8ff9-53ceb1a03e35}"
+    static WIA_EVENT_FEEDER_EMPTIED => Guid("{e70b4b82-6dda-46bb-8ff9-53ceb1a03e35}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_COVER_OPEN => "{19a12136-fa1c-4f66-900f-8f914ec74ec9}"
+    static WIA_EVENT_COVER_OPEN => Guid("{19a12136-fa1c-4f66-900f-8f914ec74ec9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_EVENT_COVER_CLOSED => "{6714a1e6-e285-468c-9b8c-da7dc4cbaa05}"
+    static WIA_EVENT_COVER_CLOSED => Guid("{6714a1e6-e285-468c-9b8c-da7dc4cbaa05}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CMD_SYNCHRONIZE => "{9b26b7b2-acad-11d2-a093-00c04f72dc3c}"
+    static WIA_CMD_SYNCHRONIZE => Guid("{9b26b7b2-acad-11d2-a093-00c04f72dc3c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CMD_TAKE_PICTURE => "{af933cac-acad-11d2-a093-00c04f72dc3c}"
+    static WIA_CMD_TAKE_PICTURE => Guid("{af933cac-acad-11d2-a093-00c04f72dc3c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CMD_DELETE_ALL_ITEMS => "{e208c170-acad-11d2-a093-00c04f72dc3c}"
+    static WIA_CMD_DELETE_ALL_ITEMS => Guid("{e208c170-acad-11d2-a093-00c04f72dc3c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CMD_CHANGE_DOCUMENT => "{04e725b0-acae-11d2-a093-00c04f72dc3c}"
+    static WIA_CMD_CHANGE_DOCUMENT => Guid("{04e725b0-acae-11d2-a093-00c04f72dc3c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CMD_UNLOAD_DOCUMENT => "{1f3b3d8e-acae-11d2-a093-00c04f72dc3c}"
+    static WIA_CMD_UNLOAD_DOCUMENT => Guid("{1f3b3d8e-acae-11d2-a093-00c04f72dc3c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CMD_DIAGNOSTIC => "{10ff52f5-de04-4cf0-a5ad-691f8dce0141}"
+    static WIA_CMD_DIAGNOSTIC => Guid("{10ff52f5-de04-4cf0-a5ad-691f8dce0141}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CMD_FORMAT => "{c3a693aa-f788-4d34-a5b0-be7190759a24}"
+    static WIA_CMD_FORMAT => Guid("{c3a693aa-f788-4d34-a5b0-be7190759a24}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CMD_DELETE_DEVICE_TREE => "{73815942-dbea-11d2-8416-00c04fa36145}"
+    static WIA_CMD_DELETE_DEVICE_TREE => Guid("{73815942-dbea-11d2-8416-00c04fa36145}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CMD_BUILD_DEVICE_TREE => "{9cba5ce0-dbea-11d2-8416-00c04fa36145}"
+    static WIA_CMD_BUILD_DEVICE_TREE => Guid("{9cba5ce0-dbea-11d2-8416-00c04fa36145}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CMD_START_FEEDER => "{5a9df6c9-5f2d-4a39-9d6c-00456d047f00}"
+    static WIA_CMD_START_FEEDER => Guid("{5a9df6c9-5f2d-4a39-9d6c-00456d047f00}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CMD_STOP_FEEDER => "{d847b06d-3905-459c-9509-9b29cdb691e7}"
+    static WIA_CMD_STOP_FEEDER => Guid("{d847b06d-3905-459c-9509-9b29cdb691e7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WIA_CMD_PAUSE_FEEDER => "{50985e4d-a5b2-4b71-9c95-6d7d7c469a43}"
+    static WIA_CMD_PAUSE_FEEDER => Guid("{50985e4d-a5b2-4b71-9c95-6d7d7c469a43}")
 
     /**
      * @type {Integer (UInt32)}
@@ -5780,9 +5781,9 @@ class ImageAcquisition {
     static CFSTR_WIAITEMPTR => "WIAItemPointer"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_IMAGE => "{6bdd1fc6-810f-11d0-bec7-08002be2092f}"
+    static GUID_DEVINTERFACE_IMAGE => Guid("{6bdd1fc6-810f-11d0-bec7-08002be2092f}")
 
     /**
      * @type {Integer (UInt32)}

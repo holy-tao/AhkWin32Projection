@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SOCKET.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\WSAEVENT.ahk
+#Include .\Apis.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -13,24 +15,24 @@ class WinSock {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SOCKET_DEFAULT2_QM_POLICY => "{aec2ef9c-3a4d-4d3e-8842-239942e39a47}"
+    static SOCKET_DEFAULT2_QM_POLICY => Guid("{aec2ef9c-3a4d-4d3e-8842-239942e39a47}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static REAL_TIME_NOTIFICATION_CAPABILITY => "{6b59819a-5cae-492d-a901-2a3c2c50164f}"
+    static REAL_TIME_NOTIFICATION_CAPABILITY => Guid("{6b59819a-5cae-492d-a901-2a3c2c50164f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static REAL_TIME_NOTIFICATION_CAPABILITY_EX => "{6843da03-154a-4616-a508-44371295f96b}"
+    static REAL_TIME_NOTIFICATION_CAPABILITY_EX => Guid("{6843da03-154a-4616-a508-44371295f96b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ASSOCIATE_NAMERES_CONTEXT => "{59a38b67-d4fe-46e1-ba3c-87ea74ca3049}"
+    static ASSOCIATE_NAMERES_CONTEXT => Guid("{59a38b67-d4fe-46e1-ba3c-87ea74ca3049}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2578,19 +2580,19 @@ class WinSock {
     static TF_USE_KERNEL_APC => 32
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WSAID_TRANSMITFILE => "{b5367df0-cbac-11cf-95ca-00805f48a192}"
+    static WSAID_TRANSMITFILE => Guid("{b5367df0-cbac-11cf-95ca-00805f48a192}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WSAID_ACCEPTEX => "{b5367df1-cbac-11cf-95ca-00805f48a192}"
+    static WSAID_ACCEPTEX => Guid("{b5367df1-cbac-11cf-95ca-00805f48a192}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WSAID_GETACCEPTEXSOCKADDRS => "{b5367df2-cbac-11cf-95ca-00805f48a192}"
+    static WSAID_GETACCEPTEXSOCKADDRS => Guid("{b5367df2-cbac-11cf-95ca-00805f48a192}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2633,19 +2635,19 @@ class WinSock {
     static TP_USE_KERNEL_APC => 32
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WSAID_TRANSMITPACKETS => "{d9689da0-1f90-11d3-9971-00c04f68c876}"
+    static WSAID_TRANSMITPACKETS => Guid("{d9689da0-1f90-11d3-9971-00c04f68c876}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WSAID_CONNECTEX => "{25a207b9-ddf3-4660-8ee9-76e58c74063e}"
+    static WSAID_CONNECTEX => Guid("{25a207b9-ddf3-4660-8ee9-76e58c74063e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WSAID_DISCONNECTEX => "{7fda2e11-8630-436f-a031-f536a6eec157}"
+    static WSAID_DISCONNECTEX => Guid("{7fda2e11-8630-436f-a031-f536a6eec157}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2653,14 +2655,14 @@ class WinSock {
     static DE_REUSE_SOCKET => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NLA_NAMESPACE_GUID => "{6642243a-3ba8-4aa6-baa5-2e0bd71fdd83}"
+    static NLA_NAMESPACE_GUID => Guid("{6642243a-3ba8-4aa6-baa5-2e0bd71fdd83}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NLA_SERVICE_CLASS_GUID => "{0037e515-b5c9-4a43-bada-8b48a87ad239}"
+    static NLA_SERVICE_CLASS_GUID => Guid("{0037e515-b5c9-4a43-bada-8b48a87ad239}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2673,9 +2675,9 @@ class WinSock {
     static NLA_FRIENDLY_NAME => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WSAID_WSARECVMSG => "{f689d7c8-6f1f-436b-8a53-e54fe351c322}"
+    static WSAID_WSARECVMSG => Guid("{f689d7c8-6f1f-436b-8a53-e54fe351c322}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2713,19 +2715,19 @@ class WinSock {
     static SIO_EXT_SENDMSG => 3355443232
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WSAID_WSASENDMSG => "{a441e712-754f-43ca-84a7-0dee44cf606d}"
+    static WSAID_WSASENDMSG => Guid("{a441e712-754f-43ca-84a7-0dee44cf606d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WSAID_WSAPOLL => "{18c76f85-dc66-4964-972e-23c27238312b}"
+    static WSAID_WSAPOLL => Guid("{18c76f85-dc66-4964-972e-23c27238312b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WSAID_MULTIPLE_RIO => "{8509e081-96dd-4005-b165-9e2ee8c79e3f}"
+    static WSAID_MULTIPLE_RIO => Guid("{8509e081-96dd-4005-b165-9e2ee8c79e3f}")
 
     /**
      * @type {Integer (UInt32)}
@@ -5578,9 +5580,9 @@ class WinSock {
     static NMR_REG_KEY_PATH => "\Registry\Machine\System\CurrentControlSet\Control\NMR\providers"
 
     /**
-     * @type {Integer (Int32)}
+     * @type {SOCKET}
      */
-    static INVALID_SOCKET => -1
+    static INVALID_SOCKET => SOCKET({Value: -1}, false)
 
     /**
      * @type {Integer (UInt32)}
@@ -5588,9 +5590,9 @@ class WinSock {
     static WSA_INFINITE => 4294967295
 
     /**
-     * @type {Integer (Int32)}
+     * @type {WSAEVENT}
      */
-    static WSA_INVALID_EVENT => 0
+    static WSA_INVALID_EVENT => WSAEVENT({Value: 0}, false)
 
     /**
      * @type {Integer (UInt32)}

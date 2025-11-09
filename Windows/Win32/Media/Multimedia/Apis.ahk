@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HTASK.ahk
 #Include .\HDRVR.ahk
 #Include ..\..\Foundation\HMODULE.ahk
@@ -11930,14 +11931,14 @@ class Multimedia {
     static AVICOMPRESSF_VALID => 8
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_AVISimpleUnMarshal => "{00020009-0000-0000-c000-000000000046}"
+    static CLSID_AVISimpleUnMarshal => Guid("{00020009-0000-0000-c000-000000000046}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_AVIFile => "{00020000-0000-0000-c000-000000000046}"
+    static CLSID_AVIFile => Guid("{00020000-0000-0000-c000-000000000046}")
 
     /**
      * @type {Integer (UInt32)}

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\HCOLORSPACE.ahk
 
 /**
@@ -11,9 +12,9 @@ class ColorSystem {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_WcsPlugin => "{a0b402e0-8240-405f-8a16-8a5b4df2f0dd}"
+    static CATID_WcsPlugin => Guid("{a0b402e0-8240-405f-8a16-8a5b4df2f0dd}")
 
     /**
      * @type {Integer (UInt32)}

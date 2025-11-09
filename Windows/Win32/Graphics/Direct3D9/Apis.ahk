@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IDirect3D9Ex.ahk
 
 /**
@@ -396,24 +397,24 @@ class Direct3D9 {
     static D3DCPCAPS_ENCRYPTSLICEDATAONLY => 512
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DCRYPTOTYPE_AES128_CTR => "{9b6bd711-4f74-41c9-9e7b-0be2d7d93b4f}"
+    static D3DCRYPTOTYPE_AES128_CTR => Guid("{9b6bd711-4f74-41c9-9e7b-0be2d7d93b4f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DCRYPTOTYPE_PROPRIETARY => "{ab4e9afd-1d1c-46e6-a72f-0869917b0de8}"
+    static D3DCRYPTOTYPE_PROPRIETARY => Guid("{ab4e9afd-1d1c-46e6-a72f-0869917b0de8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DKEYEXCHANGE_RSAES_OAEP => "{c1949895-d72a-4a1d-8e5d-ed857d171520}"
+    static D3DKEYEXCHANGE_RSAES_OAEP => Guid("{c1949895-d72a-4a1d-8e5d-ed857d171520}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DKEYEXCHANGE_DXVA => "{43d3775c-38e5-4924-8d86-d3fccf153e9b}"
+    static D3DKEYEXCHANGE_DXVA => Guid("{43d3775c-38e5-4924-8d86-d3fccf153e9b}")
 
     /**
      * @type {Integer (Int32)}
@@ -2391,94 +2392,94 @@ class Direct3D9 {
     static D3D_OMAC_SIZE => 16
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_PROTECTION => "{a84eb584-c495-48aa-b94d-8bd2d6fbce05}"
+    static D3DAUTHENTICATEDQUERY_PROTECTION => Guid("{a84eb584-c495-48aa-b94d-8bd2d6fbce05}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_CHANNELTYPE => "{bc1b18a5-b1fb-42ab-bd94-b5828b4bf7be}"
+    static D3DAUTHENTICATEDQUERY_CHANNELTYPE => Guid("{bc1b18a5-b1fb-42ab-bd94-b5828b4bf7be}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_DEVICEHANDLE => "{ec1c539d-8cff-4e2a-bcc4-f5692f99f480}"
+    static D3DAUTHENTICATEDQUERY_DEVICEHANDLE => Guid("{ec1c539d-8cff-4e2a-bcc4-f5692f99f480}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_CRYPTOSESSION => "{2634499e-d018-4d74-ac17-7f724059528d}"
+    static D3DAUTHENTICATEDQUERY_CRYPTOSESSION => Guid("{2634499e-d018-4d74-ac17-7f724059528d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_RESTRICTEDSHAREDRESOURCEPROCESSCOUNT => "{0db207b3-9450-46a6-82de-1b96d44f9cf2}"
+    static D3DAUTHENTICATEDQUERY_RESTRICTEDSHAREDRESOURCEPROCESSCOUNT => Guid("{0db207b3-9450-46a6-82de-1b96d44f9cf2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_RESTRICTEDSHAREDRESOURCEPROCESS => "{649bbadb-f0f4-4639-a15b-24393fc3abac}"
+    static D3DAUTHENTICATEDQUERY_RESTRICTEDSHAREDRESOURCEPROCESS => Guid("{649bbadb-f0f4-4639-a15b-24393fc3abac}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_UNRESTRICTEDPROTECTEDSHAREDRESOURCECOUNT => "{012f0bd6-e662-4474-befd-aa53e5143c6d}"
+    static D3DAUTHENTICATEDQUERY_UNRESTRICTEDPROTECTEDSHAREDRESOURCECOUNT => Guid("{012f0bd6-e662-4474-befd-aa53e5143c6d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_OUTPUTIDCOUNT => "{2c042b5e-8c07-46d5-aabe-8f75cbad4c31}"
+    static D3DAUTHENTICATEDQUERY_OUTPUTIDCOUNT => Guid("{2c042b5e-8c07-46d5-aabe-8f75cbad4c31}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_OUTPUTID => "{839ddca3-9b4e-41e4-b053-892bd2a11ee7}"
+    static D3DAUTHENTICATEDQUERY_OUTPUTID => Guid("{839ddca3-9b4e-41e4-b053-892bd2a11ee7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_ACCESSIBILITYATTRIBUTES => "{6214d9d2-432c-4abb-9fce-216eea269e3b}"
+    static D3DAUTHENTICATEDQUERY_ACCESSIBILITYATTRIBUTES => Guid("{6214d9d2-432c-4abb-9fce-216eea269e3b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_ENCRYPTIONWHENACCESSIBLEGUIDCOUNT => "{b30f7066-203c-4b07-93fc-ceaafd61241e}"
+    static D3DAUTHENTICATEDQUERY_ENCRYPTIONWHENACCESSIBLEGUIDCOUNT => Guid("{b30f7066-203c-4b07-93fc-ceaafd61241e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_ENCRYPTIONWHENACCESSIBLEGUID => "{f83a5958-e986-4bda-beb0-411f6a7a01b7}"
+    static D3DAUTHENTICATEDQUERY_ENCRYPTIONWHENACCESSIBLEGUID => Guid("{f83a5958-e986-4bda-beb0-411f6a7a01b7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDQUERY_CURRENTENCRYPTIONWHENACCESSIBLE => "{ec1791c7-dad3-4f15-9ec3-faa93d60d4f0}"
+    static D3DAUTHENTICATEDQUERY_CURRENTENCRYPTIONWHENACCESSIBLE => Guid("{ec1791c7-dad3-4f15-9ec3-faa93d60d4f0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDCONFIGURE_INITIALIZE => "{06114bdb-3523-470a-8dca-fbc2845154f0}"
+    static D3DAUTHENTICATEDCONFIGURE_INITIALIZE => Guid("{06114bdb-3523-470a-8dca-fbc2845154f0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDCONFIGURE_PROTECTION => "{50455658-3f47-4362-bf99-bfdfcde9ed29}"
+    static D3DAUTHENTICATEDCONFIGURE_PROTECTION => Guid("{50455658-3f47-4362-bf99-bfdfcde9ed29}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDCONFIGURE_CRYPTOSESSION => "{6346cc54-2cfc-4ad4-8224-d15837de7700}"
+    static D3DAUTHENTICATEDCONFIGURE_CRYPTOSESSION => Guid("{6346cc54-2cfc-4ad4-8224-d15837de7700}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDCONFIGURE_SHAREDRESOURCE => "{0772d047-1b40-48e8-9ca6-b5f510de9f01}"
+    static D3DAUTHENTICATEDCONFIGURE_SHAREDRESOURCE => Guid("{0772d047-1b40-48e8-9ca6-b5f510de9f01}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3DAUTHENTICATEDCONFIGURE_ENCRYPTIONWHENACCESSIBLE => "{41fff286-6ae0-4d43-9d55-a46e9efd158a}"
+    static D3DAUTHENTICATEDCONFIGURE_ENCRYPTIONWHENACCESSIBLE => Guid("{41fff286-6ae0-4d43-9d55-a46e9efd158a}")
 
     /**
      * @type {Integer (Int32)}

@@ -8,6 +8,9 @@
 #Include .\PTP_WAIT.ahk
 #Include .\PTP_IO.ahk
 #Include .\IRtwqAsyncResult.ahk
+#Include .\CONDITION_VARIABLE.ahk
+#Include .\SRWLOCK.ahk
+#Include .\INIT_ONCE.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading
@@ -41,6 +44,39 @@ class Threading {
      * @type {Integer (UInt32)}
      */
     static INIT_ONCE_CTX_RESERVED_BITS => 2
+
+    /**
+     * @type {CONDITION_VARIABLE}
+     */
+    static CONDITION_VARIABLE_INIT {
+        get {
+            value := CONDITION_VARIABLE()
+            value.Ptr := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {SRWLOCK}
+     */
+    static SRWLOCK_INIT {
+        get {
+            value := SRWLOCK()
+            value.Ptr := 0
+            return value
+        }
+    }
+
+    /**
+     * @type {INIT_ONCE}
+     */
+    static INIT_ONCE_STATIC_INIT {
+        get {
+            value := INIT_ONCE()
+            value.Ptr := 0
+            return value
+        }
+    }
 
     /**
      * @type {Integer (UInt16)}

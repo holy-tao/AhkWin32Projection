@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\HPOWERNOTIFY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
@@ -162,124 +164,137 @@ class Power {
     static PPM_IDLE_IMPLEMENTATION_LPISTATES => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PPM_PERFSTATE_CHANGE_GUID => "{a5b32ddd-7f39-4abc-b892-900e43b59ebb}"
+    static PPM_PERFSTATE_CHANGE_GUID => Guid("{a5b32ddd-7f39-4abc-b892-900e43b59ebb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PPM_PERFSTATE_DOMAIN_CHANGE_GUID => "{995e6b7f-d653-497a-b978-36a30c29bf01}"
+    static PPM_PERFSTATE_DOMAIN_CHANGE_GUID => Guid("{995e6b7f-d653-497a-b978-36a30c29bf01}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PPM_IDLESTATE_CHANGE_GUID => "{4838fe4f-f71c-4e51-9ecc-8430a7ac4c6c}"
+    static PPM_IDLESTATE_CHANGE_GUID => Guid("{4838fe4f-f71c-4e51-9ecc-8430a7ac4c6c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PPM_PERFSTATES_DATA_GUID => "{5708cc20-7d40-4bf4-b4aa-2b01338d0126}"
+    static PPM_PERFSTATES_DATA_GUID => Guid("{5708cc20-7d40-4bf4-b4aa-2b01338d0126}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PPM_IDLESTATES_DATA_GUID => "{ba138e10-e250-4ad7-8616-cf1a7ad410e7}"
+    static PPM_IDLESTATES_DATA_GUID => Guid("{ba138e10-e250-4ad7-8616-cf1a7ad410e7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PPM_IDLE_ACCOUNTING_GUID => "{e2a26f78-ae07-4ee0-a30f-ce54f55a94cd}"
+    static PPM_IDLE_ACCOUNTING_GUID => Guid("{e2a26f78-ae07-4ee0-a30f-ce54f55a94cd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PPM_IDLE_ACCOUNTING_EX_GUID => "{d67abd39-81f8-4a5e-8152-72e31ec912ee}"
+    static PPM_IDLE_ACCOUNTING_EX_GUID => Guid("{d67abd39-81f8-4a5e-8152-72e31ec912ee}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PPM_THERMALCONSTRAINT_GUID => "{a852c2c8-1a4c-423b-8c2c-f30d82931a88}"
+    static PPM_THERMALCONSTRAINT_GUID => Guid("{a852c2c8-1a4c-423b-8c2c-f30d82931a88}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PPM_PERFMON_PERFSTATE_GUID => "{7fd18652-0cfe-40d2-b0a1-0b066a87759e}"
+    static PPM_PERFMON_PERFSTATE_GUID => Guid("{7fd18652-0cfe-40d2-b0a1-0b066a87759e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PPM_THERMAL_POLICY_CHANGE_GUID => "{48f377b8-6880-4c7b-8bdc-380176c6654d}"
+    static PPM_THERMAL_POLICY_CHANGE_GUID => Guid("{48f377b8-6880-4c7b-8bdc-380176c6654d}")
 
     /**
-     * @type {String}
+     * @type {DEVPROPKEY}
      */
-    static GUID_DEVICE_BATTERY => "{72631e54-78a4-11d0-bcf7-00aa00b7b32a}"
+    static PROCESSOR_NUMBER_PKEY {
+        get {
+            value := DEVPROPKEY()
+            static fmtid_guid := Guid("{5724c81d-d5af-4c1f-a103-a06e28f204c6}")
+            value.fmtid := fmtid_guid.ptr
+            value.pid := 1
+            return value
+        }
+    }
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_APPLICATIONLAUNCH_BUTTON => "{629758ee-986e-4d9e-8e47-de27f8ab054d}"
+    static GUID_DEVICE_BATTERY => Guid("{72631e54-78a4-11d0-bcf7-00aa00b7b32a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_SYS_BUTTON => "{4afa3d53-74a7-11d0-be5e-00a0c9062857}"
+    static GUID_DEVICE_APPLICATIONLAUNCH_BUTTON => Guid("{629758ee-986e-4d9e-8e47-de27f8ab054d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_LID => "{4afa3d52-74a7-11d0-be5e-00a0c9062857}"
+    static GUID_DEVICE_SYS_BUTTON => Guid("{4afa3d53-74a7-11d0-be5e-00a0c9062857}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_THERMAL_ZONE => "{4afa3d51-74a7-11d0-be5e-00a0c9062857}"
+    static GUID_DEVICE_LID => Guid("{4afa3d52-74a7-11d0-be5e-00a0c9062857}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_FAN => "{05ecd13d-81da-4a2a-8a4c-524f23dd4dc9}"
+    static GUID_DEVICE_THERMAL_ZONE => Guid("{4afa3d51-74a7-11d0-be5e-00a0c9062857}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_PROCESSOR => "{97fadb10-4e33-40ae-359c-8bef029dbdd0}"
+    static GUID_DEVICE_FAN => Guid("{05ecd13d-81da-4a2a-8a4c-524f23dd4dc9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_MEMORY => "{3fd0f03d-92e0-45fb-b75c-5ed8ffb01021}"
+    static GUID_DEVICE_PROCESSOR => Guid("{97fadb10-4e33-40ae-359c-8bef029dbdd0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_ACPI_TIME => "{97f99bf6-4497-4f18-bb22-4b9fb2fbef9c}"
+    static GUID_DEVICE_MEMORY => Guid("{3fd0f03d-92e0-45fb-b75c-5ed8ffb01021}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_MESSAGE_INDICATOR => "{cd48a365-fa94-4ce2-a232-a1b764e5d8b4}"
+    static GUID_DEVICE_ACPI_TIME => Guid("{97f99bf6-4497-4f18-bb22-4b9fb2fbef9c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_CLASS_INPUT => "{4d1e55b2-f16f-11cf-88cb-001111000030}"
+    static GUID_DEVICE_MESSAGE_INDICATOR => Guid("{cd48a365-fa94-4ce2-a232-a1b764e5d8b4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_THERMAL_COOLING => "{dbe4373d-3c81-40cb-ace4-e0e5d05f0c9f}"
+    static GUID_CLASS_INPUT => Guid("{4d1e55b2-f16f-11cf-88cb-001111000030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_THERMAL_MANAGER => "{927ec093-69a4-4bc0-bd02-711664714463}"
+    static GUID_DEVINTERFACE_THERMAL_COOLING => Guid("{dbe4373d-3c81-40cb-ace4-e0e5d05f0c9f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_POWER_LIMIT => "{8f366301-091e-4056-b92f-958b27625fce}"
+    static GUID_DEVINTERFACE_THERMAL_MANAGER => Guid("{927ec093-69a4-4bc0-bd02-711664714463}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_DEVINTERFACE_POWER_LIMIT => Guid("{8f366301-091e-4056-b92f-958b27625fce}")
 
     /**
      * @type {Integer (UInt32)}
@@ -642,44 +657,44 @@ class Power {
     static IOCTL_GET_ACPI_TIME_AND_ALARM_CAPABILITIES => 2703900
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BATTERY_STATUS_WMI_GUID => "{fc4670d1-ebbf-416e-87ce-374a4ebc111a}"
+    static BATTERY_STATUS_WMI_GUID => Guid("{fc4670d1-ebbf-416e-87ce-374a4ebc111a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BATTERY_RUNTIME_WMI_GUID => "{535a3767-1ac2-49bc-a077-3f7a02e40aec}"
+    static BATTERY_RUNTIME_WMI_GUID => Guid("{535a3767-1ac2-49bc-a077-3f7a02e40aec}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BATTERY_TEMPERATURE_WMI_GUID => "{1a52a14d-adce-4a44-9a3e-c8d8f15ff2c2}"
+    static BATTERY_TEMPERATURE_WMI_GUID => Guid("{1a52a14d-adce-4a44-9a3e-c8d8f15ff2c2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BATTERY_FULL_CHARGED_CAPACITY_WMI_GUID => "{40b40565-96f7-4435-8694-97e0e4395905}"
+    static BATTERY_FULL_CHARGED_CAPACITY_WMI_GUID => Guid("{40b40565-96f7-4435-8694-97e0e4395905}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BATTERY_CYCLE_COUNT_WMI_GUID => "{ef98db24-0014-4c25-a50b-c724ae5cd371}"
+    static BATTERY_CYCLE_COUNT_WMI_GUID => Guid("{ef98db24-0014-4c25-a50b-c724ae5cd371}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BATTERY_STATIC_DATA_WMI_GUID => "{05e1e463-e4e2-4ea9-80cb-9bd4b3ca0655}"
+    static BATTERY_STATIC_DATA_WMI_GUID => Guid("{05e1e463-e4e2-4ea9-80cb-9bd4b3ca0655}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BATTERY_STATUS_CHANGE_WMI_GUID => "{cddfa0c3-7c5b-4e43-a034-059fa5b84364}"
+    static BATTERY_STATUS_CHANGE_WMI_GUID => Guid("{cddfa0c3-7c5b-4e43-a034-059fa5b84364}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static BATTERY_TAG_CHANGE_WMI_GUID => "{5e1f6e19-8786-4d23-94fc-9e746bd5d888}"
+    static BATTERY_TAG_CHANGE_WMI_GUID => Guid("{5e1f6e19-8786-4d23-94fc-9e746bd5d888}")
 
     /**
      * @type {Integer (UInt32)}
@@ -707,9 +722,9 @@ class Power {
     static BATTERY_CLASS_MINOR_VERSION_1 => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_ENERGY_METER => "{45bd8344-7ed6-49cf-a440-c276c933b053}"
+    static GUID_DEVICE_ENERGY_METER => Guid("{45bd8344-7ed6-49cf-a440-c276c933b053}")
 
     /**
      * @type {Integer (UInt32)}

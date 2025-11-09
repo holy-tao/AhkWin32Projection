@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.UpdateAgent
@@ -10,9 +11,9 @@ class UpdateAgent {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static LIBID_WUApiLib => "{b596cc9f-56e5-419e-a622-e01bb457431e}"
+    static LIBID_WUApiLib => Guid("{b596cc9f-56e5-419e-a622-e01bb457431e}")
 
     /**
      * @type {Integer (UInt32)}

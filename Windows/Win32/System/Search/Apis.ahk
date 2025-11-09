@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -156,24 +157,24 @@ class Search {
     static STD_BOOKMARKLENGTH => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBCIDGUID => "{0c733a81-2a1c-11ce-ade5-00aa0044773d}"
+    static DBCIDGUID => Guid("{0c733a81-2a1c-11ce-ade5-00aa0044773d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DB_NULLGUID => "{00000000-0000-0000-0000-000000000000}"
+    static DB_NULLGUID => Guid("{00000000-0000-0000-0000-000000000000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBGUID_ROWURL => "{0c733ab6-2a1c-11ce-ade5-00aa0044773d}"
+    static DBGUID_ROWURL => Guid("{0c733ab6-2a1c-11ce-ade5-00aa0044773d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBGUID_ROWDEFAULTSTREAM => "{0c733ab7-2a1c-11ce-ade5-00aa0044773d}"
+    static DBGUID_ROWDEFAULTSTREAM => Guid("{0c733ab7-2a1c-11ce-ade5-00aa0044773d}")
 
     /**
      * @type {Integer (Int32)}
@@ -2346,9 +2347,9 @@ class Search {
     static IDENTIFIER_SDK_ERROR => 268435456
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CISimpleCommandCreator => "{c7b6c04a-cbb5-11d0-bb4c-00c04fc2f410}"
+    static CLSID_CISimpleCommandCreator => Guid("{c7b6c04a-cbb5-11d0-bb4c-00c04fc2f410}")
 
     /**
      * @type {Integer (UInt32)}
@@ -5411,9 +5412,9 @@ class Search {
     static MS_PERSIST_PROGID => "MSPersist"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBQUERYGUID => "{49691c90-7e17-101a-a91c-08002b2ecda9}"
+    static DBQUERYGUID => Guid("{49691c90-7e17-101a-a91c-08002b2ecda9}")
 
     /**
      * @type {Integer (UInt32)}
@@ -5466,9 +5467,9 @@ class Search {
     static CQUERYDISPIDS => 11
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_QUERY_METADATA => "{624c9360-93d0-11cf-a787-00004c752752}"
+    static PSGUID_QUERY_METADATA => Guid("{624c9360-93d0-11cf-a787-00004c752752}")
 
     /**
      * @type {Integer (UInt32)}
@@ -5516,9 +5517,9 @@ class Search {
     static CQUERYMETADISPIDS => 10
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBBMKGUID => "{c8b52232-5cf3-11ce-ade5-00aa0044773d}"
+    static DBBMKGUID => Guid("{c8b52232-5cf3-11ce-ade5-00aa0044773d}")
 
     /**
      * @type {Integer (UInt32)}
@@ -5536,9 +5537,9 @@ class Search {
     static CDBBMKDISPIDS => 8
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBSELFGUID => "{c8b52231-5cf3-11ce-ade5-00aa0044773d}"
+    static DBSELFGUID => Guid("{c8b52231-5cf3-11ce-ade5-00aa0044773d}")
 
     /**
      * @type {Integer (UInt32)}
@@ -5561,9 +5562,9 @@ class Search {
     static CQUERYPROPERTY => 64
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_CHARACTERIZATION => "{560c36c0-503a-11cf-baa1-00004c752a9a}"
+    static PSGUID_CHARACTERIZATION => Guid("{560c36c0-503a-11cf-baa1-00004c752a9a}")
 
     /**
      * @type {Integer (UInt32)}
@@ -13091,9 +13092,9 @@ class Search {
     static SQL_SQLSTATE_SIZEW => 10
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PSGUID_STORAGE => "{b725f130-47ef-101a-a5f1-02608c9eebac}"
+    static PSGUID_STORAGE => Guid("{b725f130-47ef-101a-a5f1-02608c9eebac}")
 
     /**
      * @type {Integer (UInt32)}
@@ -17266,74 +17267,74 @@ class Search {
     static IDS_MON_INVALID_IN_GROUP_CLAUSE => 264520
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_MSDAORA_ROWSET => "{e8cc4cbd-fdff-11d0-b865-00a0c9081c1d}"
+    static DBPROPSET_MSDAORA_ROWSET => Guid("{e8cc4cbd-fdff-11d0-b865-00a0c9081c1d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_MSDAORA8_ROWSET => "{7f06a375-dd6a-43db-b4e0-1fc121e5e62b}"
+    static DBPROPSET_MSDAORA8_ROWSET => Guid("{7f06a375-dd6a-43db-b4e0-1fc121e5e62b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MSDASQL => "{c8b522cb-5cf3-11ce-ade5-00aa0044773d}"
+    static CLSID_MSDASQL => Guid("{c8b522cb-5cf3-11ce-ade5-00aa0044773d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MSDASQL_ENUMERATOR => "{c8b522cd-5cf3-11ce-ade5-00aa0044773d}"
+    static CLSID_MSDASQL_ENUMERATOR => Guid("{c8b522cd-5cf3-11ce-ade5-00aa0044773d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_PROVIDERDATASOURCEINFO => "{497c60e0-7123-11cf-b171-00aa0057599e}"
+    static DBPROPSET_PROVIDERDATASOURCEINFO => Guid("{497c60e0-7123-11cf-b171-00aa0057599e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_PROVIDERROWSET => "{497c60e1-7123-11cf-b171-00aa0057599e}"
+    static DBPROPSET_PROVIDERROWSET => Guid("{497c60e1-7123-11cf-b171-00aa0057599e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_PROVIDERDBINIT => "{497c60e2-7123-11cf-b171-00aa0057599e}"
+    static DBPROPSET_PROVIDERDBINIT => Guid("{497c60e2-7123-11cf-b171-00aa0057599e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_PROVIDERSTMTATTR => "{497c60e3-7123-11cf-b171-00aa0057599e}"
+    static DBPROPSET_PROVIDERSTMTATTR => Guid("{497c60e3-7123-11cf-b171-00aa0057599e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_PROVIDERCONNATTR => "{497c60e4-7123-11cf-b171-00aa0057599e}"
+    static DBPROPSET_PROVIDERCONNATTR => Guid("{497c60e4-7123-11cf-b171-00aa0057599e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DataShapeProvider => "{3449a1c8-c56c-11d0-ad72-00c04fc29863}"
+    static CLSID_DataShapeProvider => Guid("{3449a1c8-c56c-11d0-ad72-00c04fc29863}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_MSDSDBINIT => "{55cb91a8-5c7a-11d1-adad-00c04fc29863}"
+    static DBPROPSET_MSDSDBINIT => Guid("{55cb91a8-5c7a-11d1-adad-00c04fc29863}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_MSDSSESSION => "{edf17536-afbf-11d1-8847-0000f879f98c}"
+    static DBPROPSET_MSDSSESSION => Guid("{edf17536-afbf-11d1-8847-0000f879f98c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_MSPersist => "{7c07e0d0-4418-11d2-9212-00c04fbbbfb3}"
+    static CLSID_MSPersist => Guid("{7c07e0d0-4418-11d2-9212-00c04fbbbfb3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_PERSIST => "{4d7839a0-5b8e-11d1-a6b3-00a0c9138c66}"
+    static DBPROPSET_PERSIST => Guid("{4d7839a0-5b8e-11d1-a6b3-00a0c9138c66}")
 
     /**
      * @type {String}
@@ -17346,69 +17347,69 @@ class Search {
     static PROGID_MSPersist_Version_W => "MSPersist.1"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_SQLOLEDB => "{0c7ff16c-38e3-11d0-97ab-00c04fc2ad98}"
+    static CLSID_SQLOLEDB => Guid("{0c7ff16c-38e3-11d0-97ab-00c04fc2ad98}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_SQLOLEDB_ERROR => "{c0932c62-38e5-11d0-97ab-00c04fc2ad98}"
+    static CLSID_SQLOLEDB_ERROR => Guid("{c0932c62-38e5-11d0-97ab-00c04fc2ad98}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_SQLOLEDB_ENUMERATOR => "{dfa22b8e-e68d-11d0-97e4-00c04fc2ad98}"
+    static CLSID_SQLOLEDB_ENUMERATOR => Guid("{dfa22b8e-e68d-11d0-97e4-00c04fc2ad98}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBGUID_MSSQLXML => "{5d531cb2-e6ed-11d2-b252-00c04f681b71}"
+    static DBGUID_MSSQLXML => Guid("{5d531cb2-e6ed-11d2-b252-00c04f681b71}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBGUID_XPATH => "{ec2a4293-e898-11d2-b1b7-00c04f680c56}"
+    static DBGUID_XPATH => Guid("{ec2a4293-e898-11d2-b1b7-00c04f680c56}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBSCHEMA_LINKEDSERVERS => "{9093caf4-2eac-11d1-9809-00c04fc2ad98}"
+    static DBSCHEMA_LINKEDSERVERS => Guid("{9093caf4-2eac-11d1-9809-00c04fc2ad98}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_SQLSERVERDATASOURCE => "{28efaee4-2d2c-11d1-9807-00c04fc2ad98}"
+    static DBPROPSET_SQLSERVERDATASOURCE => Guid("{28efaee4-2d2c-11d1-9807-00c04fc2ad98}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_SQLSERVERDATASOURCEINFO => "{df10cb94-35f6-11d2-9c54-00c04f7971d3}"
+    static DBPROPSET_SQLSERVERDATASOURCEINFO => Guid("{df10cb94-35f6-11d2-9c54-00c04f7971d3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_SQLSERVERDBINIT => "{5cf4ca10-ef21-11d0-97e7-00c04fc2ad98}"
+    static DBPROPSET_SQLSERVERDBINIT => Guid("{5cf4ca10-ef21-11d0-97e7-00c04fc2ad98}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_SQLSERVERROWSET => "{5cf4ca11-ef21-11d0-97e7-00c04fc2ad98}"
+    static DBPROPSET_SQLSERVERROWSET => Guid("{5cf4ca11-ef21-11d0-97e7-00c04fc2ad98}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_SQLSERVERSESSION => "{28efaee5-2d2c-11d1-9807-00c04fc2ad98}"
+    static DBPROPSET_SQLSERVERSESSION => Guid("{28efaee5-2d2c-11d1-9807-00c04fc2ad98}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_SQLSERVERCOLUMN => "{3b63fb5e-3fbb-11d3-9f29-00c04f8ee9dc}"
+    static DBPROPSET_SQLSERVERCOLUMN => Guid("{3b63fb5e-3fbb-11d3-9f29-00c04f8ee9dc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DBPROPSET_SQLSERVERSTREAM => "{9f79c073-8a6d-4bca-a8a8-c9b79a9b962d}"
+    static DBPROPSET_SQLSERVERSTREAM => Guid("{9f79c073-8a6d-4bca-a8a8-c9b79a9b962d}")
 ;@endregion Constants
 
 ;@region Methods

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
@@ -10,9 +11,9 @@ class Nfc {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_NFCDTA => "{7fd3f30b-5e49-4be1-b3aa-af06260d236a}"
+    static GUID_DEVINTERFACE_NFCDTA => Guid("{7fd3f30b-5e49-4be1-b3aa-af06260d236a}")
 
     /**
      * @type {Integer (UInt32)}
@@ -265,14 +266,14 @@ class Nfc {
     static MAX_SNEP_SERVER_NAME_SIZE => 256
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NFC_RADIO_MEDIA_DEVICE_INTERFACE => "{4d51e930-750d-4a36-a9f7-91dc540fcd30}"
+    static GUID_NFC_RADIO_MEDIA_DEVICE_INTERFACE => Guid("{4d51e930-750d-4a36-a9f7-91dc540fcd30}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NFCSE_RADIO_MEDIA_DEVICE_INTERFACE => "{ef8ba08f-148d-4116-83ef-a2679dfc3fa5}"
+    static GUID_NFCSE_RADIO_MEDIA_DEVICE_INTERFACE => Guid("{ef8ba08f-148d-4116-83ef-a2679dfc3fa5}")
 
     /**
      * @type {Integer (UInt32)}
@@ -300,9 +301,9 @@ class Nfc {
     static IOCTL_NFCSERM_QUERY_RADIO_STATE => 5308816
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_NFCSE => "{8dc7c854-f5e5-4bed-815d-0c85ad047725}"
+    static GUID_DEVINTERFACE_NFCSE => Guid("{8dc7c854-f5e5-4bed-815d-0c85ad047725}")
 
     /**
      * @type {Integer (UInt32)}

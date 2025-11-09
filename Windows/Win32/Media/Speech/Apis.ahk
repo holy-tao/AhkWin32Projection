@@ -320,7 +320,7 @@ class Speech {
     static SAPI_ERROR_BASE => 20480
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static Speech_Default_Weight => 1
 

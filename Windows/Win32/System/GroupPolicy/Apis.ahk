@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -261,24 +262,24 @@ class GroupPolicy {
     static GPO_INFO_FLAG_ASYNC_FOREGROUND => 4096
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static REGISTRY_EXTENSION_GUID => "{35378eac-683f-11d2-a89a-00c04fbbcfa2}"
+    static REGISTRY_EXTENSION_GUID => Guid("{35378eac-683f-11d2-a89a-00c04fbbcfa2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GROUP_POLICY_TRIGGER_EVENT_PROVIDER_GUID => "{bd2f4252-5e1e-49fc-9a30-f3978ad89ee2}"
+    static GROUP_POLICY_TRIGGER_EVENT_PROVIDER_GUID => Guid("{bd2f4252-5e1e-49fc-9a30-f3978ad89ee2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static MACHINE_POLICY_PRESENT_TRIGGER_GUID => "{659fcae6-5bdb-4da9-b1ff-ca2a178d46e0}"
+    static MACHINE_POLICY_PRESENT_TRIGGER_GUID => Guid("{659fcae6-5bdb-4da9-b1ff-ca2a178d46e0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static USER_POLICY_PRESENT_TRIGGER_GUID => "{54fb46c8-f089-464c-b1fd-59d1b62c3b50}"
+    static USER_POLICY_PRESENT_TRIGGER_GUID => Guid("{54fb46c8-f089-464c-b1fd-59d1b62c3b50}")
 
     /**
      * @type {Integer (UInt32)}
@@ -416,64 +417,64 @@ class GroupPolicy {
     static MANAGED_APPTYPE_UNSUPPORTED => 3
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_GPESnapIn => "{8fc0b734-a0e1-11d1-a7d3-0000f87571e3}"
+    static CLSID_GPESnapIn => Guid("{8fc0b734-a0e1-11d1-a7d3-0000f87571e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NODEID_Machine => "{8fc0b737-a0e1-11d1-a7d3-0000f87571e3}"
+    static NODEID_Machine => Guid("{8fc0b737-a0e1-11d1-a7d3-0000f87571e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NODEID_MachineSWSettings => "{8fc0b73a-a0e1-11d1-a7d3-0000f87571e3}"
+    static NODEID_MachineSWSettings => Guid("{8fc0b73a-a0e1-11d1-a7d3-0000f87571e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NODEID_User => "{8fc0b738-a0e1-11d1-a7d3-0000f87571e3}"
+    static NODEID_User => Guid("{8fc0b738-a0e1-11d1-a7d3-0000f87571e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NODEID_UserSWSettings => "{8fc0b73c-a0e1-11d1-a7d3-0000f87571e3}"
+    static NODEID_UserSWSettings => Guid("{8fc0b73c-a0e1-11d1-a7d3-0000f87571e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_GroupPolicyObject => "{ea502722-a23d-11d1-a7d3-0000f87571e3}"
+    static CLSID_GroupPolicyObject => Guid("{ea502722-a23d-11d1-a7d3-0000f87571e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ADMXCOMMENTS_EXTENSION_GUID => "{6c5a2a86-9eb3-42b9-aa83-a7371ba011b9}"
+    static ADMXCOMMENTS_EXTENSION_GUID => Guid("{6c5a2a86-9eb3-42b9-aa83-a7371ba011b9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_RSOPSnapIn => "{6dc3804b-7212-458d-adb0-9a07e2ae1fa2}"
+    static CLSID_RSOPSnapIn => Guid("{6dc3804b-7212-458d-adb0-9a07e2ae1fa2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NODEID_RSOPMachine => "{bd4c1a2e-0b7a-4a62-a6b0-c0577539c97e}"
+    static NODEID_RSOPMachine => Guid("{bd4c1a2e-0b7a-4a62-a6b0-c0577539c97e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NODEID_RSOPMachineSWSettings => "{6a76273e-eb8e-45db-94c5-25663a5f2c1a}"
+    static NODEID_RSOPMachineSWSettings => Guid("{6a76273e-eb8e-45db-94c5-25663a5f2c1a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NODEID_RSOPUser => "{ab87364f-0cec-4cd8-9bf8-898f34628fb8}"
+    static NODEID_RSOPUser => Guid("{ab87364f-0cec-4cd8-9bf8-898f34628fb8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NODEID_RSOPUserSWSettings => "{e52c5ce3-fd27-4402-84de-d9a5f2858910}"
+    static NODEID_RSOPUserSWSettings => Guid("{e52c5ce3-fd27-4402-84de-d9a5f2858910}")
 
     /**
      * @type {Integer (UInt32)}

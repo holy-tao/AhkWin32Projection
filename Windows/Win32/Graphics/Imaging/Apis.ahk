@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IWICBitmapSource.ahk
 #Include .\IWICBitmap.ahk
 
@@ -22,19 +23,19 @@ class Imaging {
     static WINCODEC_SDK_VERSION2 => 567
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICImagingFactory => "{cacaf262-9370-4615-a13b-9f5539da4c0a}"
+    static CLSID_WICImagingFactory => Guid("{cacaf262-9370-4615-a13b-9f5539da4c0a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICImagingFactory1 => "{cacaf262-9370-4615-a13b-9f5539da4c0a}"
+    static CLSID_WICImagingFactory1 => Guid("{cacaf262-9370-4615-a13b-9f5539da4c0a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICImagingFactory2 => "{317d06e8-5f24-433d-bdf7-79ce68d8abc2}"
+    static CLSID_WICImagingFactory2 => Guid("{317d06e8-5f24-433d-bdf7-79ce68d8abc2}")
 
     /**
      * @type {Integer (UInt32)}
@@ -42,264 +43,264 @@ class Imaging {
     static WINCODEC_SDK_VERSION => 567
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VendorMicrosoft => "{f0e749ca-edef-4589-a73a-ee0e626a2a2b}"
+    static GUID_VendorMicrosoft => Guid("{f0e749ca-edef-4589-a73a-ee0e626a2a2b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_VendorMicrosoftBuiltIn => "{257a30fd-06b6-462b-aea4-63f70b86e533}"
+    static GUID_VendorMicrosoftBuiltIn => Guid("{257a30fd-06b6-462b-aea4-63f70b86e533}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngDecoder => "{389ea17b-5078-4cde-b6ef-25c15175c751}"
+    static CLSID_WICPngDecoder => Guid("{389ea17b-5078-4cde-b6ef-25c15175c751}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngDecoder1 => "{389ea17b-5078-4cde-b6ef-25c15175c751}"
+    static CLSID_WICPngDecoder1 => Guid("{389ea17b-5078-4cde-b6ef-25c15175c751}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngDecoder2 => "{e018945b-aa86-4008-9bd4-6777a1e40c11}"
+    static CLSID_WICPngDecoder2 => Guid("{e018945b-aa86-4008-9bd4-6777a1e40c11}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICBmpDecoder => "{6b462062-7cbf-400d-9fdb-813dd10f2778}"
+    static CLSID_WICBmpDecoder => Guid("{6b462062-7cbf-400d-9fdb-813dd10f2778}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICIcoDecoder => "{c61bfcdf-2e0f-4aad-a8d7-e06bafebcdfe}"
+    static CLSID_WICIcoDecoder => Guid("{c61bfcdf-2e0f-4aad-a8d7-e06bafebcdfe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegDecoder => "{9456a480-e88b-43ea-9e73-0b2d9b71b1ca}"
+    static CLSID_WICJpegDecoder => Guid("{9456a480-e88b-43ea-9e73-0b2d9b71b1ca}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICGifDecoder => "{381dda3c-9ce9-4834-a23e-1f98f8fc52be}"
+    static CLSID_WICGifDecoder => Guid("{381dda3c-9ce9-4834-a23e-1f98f8fc52be}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICTiffDecoder => "{b54e85d9-fe23-499f-8b88-6acea713752b}"
+    static CLSID_WICTiffDecoder => Guid("{b54e85d9-fe23-499f-8b88-6acea713752b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICWmpDecoder => "{a26cec36-234c-4950-ae16-e34aace71d0d}"
+    static CLSID_WICWmpDecoder => Guid("{a26cec36-234c-4950-ae16-e34aace71d0d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICDdsDecoder => "{9053699f-a341-429d-9e90-ee437cf80c73}"
+    static CLSID_WICDdsDecoder => Guid("{9053699f-a341-429d-9e90-ee437cf80c73}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICBmpEncoder => "{69be8bb4-d66d-47c8-865a-ed1589433782}"
+    static CLSID_WICBmpEncoder => Guid("{69be8bb4-d66d-47c8-865a-ed1589433782}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngEncoder => "{27949969-876a-41d7-9447-568f6a35a4dc}"
+    static CLSID_WICPngEncoder => Guid("{27949969-876a-41d7-9447-568f6a35a4dc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegEncoder => "{1a34f5c1-4a5a-46dc-b644-1f4567e7a676}"
+    static CLSID_WICJpegEncoder => Guid("{1a34f5c1-4a5a-46dc-b644-1f4567e7a676}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICGifEncoder => "{114f5598-0b22-40a0-86a1-c83ea495adbd}"
+    static CLSID_WICGifEncoder => Guid("{114f5598-0b22-40a0-86a1-c83ea495adbd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICTiffEncoder => "{0131be10-2001-4c5f-a9b0-cc88fab64ce8}"
+    static CLSID_WICTiffEncoder => Guid("{0131be10-2001-4c5f-a9b0-cc88fab64ce8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICWmpEncoder => "{ac4ce3cb-e1c1-44cd-8215-5a1665509ec2}"
+    static CLSID_WICWmpEncoder => Guid("{ac4ce3cb-e1c1-44cd-8215-5a1665509ec2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICDdsEncoder => "{a61dde94-66ce-4ac1-881b-71680588895e}"
+    static CLSID_WICDdsEncoder => Guid("{a61dde94-66ce-4ac1-881b-71680588895e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICAdngDecoder => "{981d9411-909e-42a7-8f5d-a747ff052edb}"
+    static CLSID_WICAdngDecoder => Guid("{981d9411-909e-42a7-8f5d-a747ff052edb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegQualcommPhoneEncoder => "{68ed5c62-f534-4979-b2b3-686a12b2b34c}"
+    static CLSID_WICJpegQualcommPhoneEncoder => Guid("{68ed5c62-f534-4979-b2b3-686a12b2b34c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICHeifDecoder => "{e9a4a80a-44fe-4de4-8971-7150b10a5199}"
+    static CLSID_WICHeifDecoder => Guid("{e9a4a80a-44fe-4de4-8971-7150b10a5199}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICHeifEncoder => "{0dbecec1-9eb3-4860-9c6f-ddbe86634575}"
+    static CLSID_WICHeifEncoder => Guid("{0dbecec1-9eb3-4860-9c6f-ddbe86634575}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICWebpDecoder => "{7693e886-51c9-4070-8419-9f70738ec8fa}"
+    static CLSID_WICWebpDecoder => Guid("{7693e886-51c9-4070-8419-9f70738ec8fa}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICRAWDecoder => "{41945702-8302-44a6-9445-ac98e8afa086}"
+    static CLSID_WICRAWDecoder => Guid("{41945702-8302-44a6-9445-ac98e8afa086}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegXLDecoder => "{fc6ceece-aef5-4a23-96ec-5984ffb486d9}"
+    static CLSID_WICJpegXLDecoder => Guid("{fc6ceece-aef5-4a23-96ec-5984ffb486d9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegXLEncoder => "{0e4ecd3b-1ba6-4636-8198-56c73040964a}"
+    static CLSID_WICJpegXLEncoder => Guid("{0e4ecd3b-1ba6-4636-8198-56c73040964a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatBmp => "{0af1d87e-fcfe-4188-bdeb-a7906471cbe3}"
+    static GUID_ContainerFormatBmp => Guid("{0af1d87e-fcfe-4188-bdeb-a7906471cbe3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatPng => "{1b7cfaf4-713f-473c-bbcd-6137425faeaf}"
+    static GUID_ContainerFormatPng => Guid("{1b7cfaf4-713f-473c-bbcd-6137425faeaf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatIco => "{a3a860c4-338f-4c17-919a-fba4b5628f21}"
+    static GUID_ContainerFormatIco => Guid("{a3a860c4-338f-4c17-919a-fba4b5628f21}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatJpeg => "{19e4a5aa-5662-4fc5-a0c0-1758028e1057}"
+    static GUID_ContainerFormatJpeg => Guid("{19e4a5aa-5662-4fc5-a0c0-1758028e1057}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatTiff => "{163bcc30-e2e9-4f0b-961d-a3e9fdb788a3}"
+    static GUID_ContainerFormatTiff => Guid("{163bcc30-e2e9-4f0b-961d-a3e9fdb788a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatGif => "{1f8a5601-7d4d-4cbd-9c82-1bc8d4eeb9a5}"
+    static GUID_ContainerFormatGif => Guid("{1f8a5601-7d4d-4cbd-9c82-1bc8d4eeb9a5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatWmp => "{57a37caa-367a-4540-916b-f183c5093a4b}"
+    static GUID_ContainerFormatWmp => Guid("{57a37caa-367a-4540-916b-f183c5093a4b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatDds => "{9967cb95-2e85-4ac8-8ca2-83d7ccd425c9}"
+    static GUID_ContainerFormatDds => Guid("{9967cb95-2e85-4ac8-8ca2-83d7ccd425c9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatAdng => "{f3ff6d0d-38c0-41c4-b1fe-1f3824f17b84}"
+    static GUID_ContainerFormatAdng => Guid("{f3ff6d0d-38c0-41c4-b1fe-1f3824f17b84}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatHeif => "{e1e62521-6787-405b-a339-500715b5763f}"
+    static GUID_ContainerFormatHeif => Guid("{e1e62521-6787-405b-a339-500715b5763f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatWebp => "{e094b0e2-67f2-45b3-b0ea-115337ca7cf3}"
+    static GUID_ContainerFormatWebp => Guid("{e094b0e2-67f2-45b3-b0ea-115337ca7cf3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatRaw => "{fe99ce60-f19c-433c-a3ae-00acefa9ca21}"
+    static GUID_ContainerFormatRaw => Guid("{fe99ce60-f19c-433c-a3ae-00acefa9ca21}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ContainerFormatJpegXL => "{fec14e3f-427a-4736-aae6-27ed84f69322}"
+    static GUID_ContainerFormatJpegXL => Guid("{fec14e3f-427a-4736-aae6-27ed84f69322}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICImagingCategories => "{fae3d380-fea4-4623-8c75-c6b61110b681}"
+    static CLSID_WICImagingCategories => Guid("{fae3d380-fea4-4623-8c75-c6b61110b681}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_WICBitmapDecoders => "{7ed96837-96f0-4812-b211-f13c24117ed3}"
+    static CATID_WICBitmapDecoders => Guid("{7ed96837-96f0-4812-b211-f13c24117ed3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_WICBitmapEncoders => "{ac757296-3522-4e11-9862-c17be5a1767e}"
+    static CATID_WICBitmapEncoders => Guid("{ac757296-3522-4e11-9862-c17be5a1767e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_WICPixelFormats => "{2b46e70f-cda7-473e-89f6-dc9630a2390b}"
+    static CATID_WICPixelFormats => Guid("{2b46e70f-cda7-473e-89f6-dc9630a2390b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_WICFormatConverters => "{7835eae8-bf14-49d1-93ce-533a407b2248}"
+    static CATID_WICFormatConverters => Guid("{7835eae8-bf14-49d1-93ce-533a407b2248}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_WICMetadataReader => "{05af94d8-7174-4cd2-be4a-4124b80ee4b8}"
+    static CATID_WICMetadataReader => Guid("{05af94d8-7174-4cd2-be4a-4124b80ee4b8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CATID_WICMetadataWriter => "{abe3b9a4-257d-4b97-bd1a-294af496222e}"
+    static CATID_WICMetadataWriter => Guid("{abe3b9a4-257d-4b97-bd1a-294af496222e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICDefaultFormatConverter => "{1a3f11dc-b514-4b17-8c5f-2154513852f1}"
+    static CLSID_WICDefaultFormatConverter => Guid("{1a3f11dc-b514-4b17-8c5f-2154513852f1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICFormatConverterHighColor => "{ac75d454-9f37-48f8-b972-4e19bc856011}"
+    static CLSID_WICFormatConverterHighColor => Guid("{ac75d454-9f37-48f8-b972-4e19bc856011}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICFormatConverterNChannel => "{c17cabb2-d4a3-47d7-a557-339b2efbd4f1}"
+    static CLSID_WICFormatConverterNChannel => Guid("{c17cabb2-d4a3-47d7-a557-339b2efbd4f1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICFormatConverterWMPhoto => "{9cb5172b-d600-46ba-ab77-77bb7e3a00d9}"
+    static CLSID_WICFormatConverterWMPhoto => Guid("{9cb5172b-d600-46ba-ab77-77bb7e3a00d9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPlanarFormatConverter => "{184132b8-32f8-4784-9131-dd7224b23438}"
+    static CLSID_WICPlanarFormatConverter => Guid("{184132b8-32f8-4784-9131-dd7224b23438}")
 
     /**
      * @type {Integer (UInt32)}
@@ -357,464 +358,464 @@ class Imaging {
     static WIC_JPEG_HUFFMAN_BASELINE_THREE => 1118464
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormatDontCare => "{6fddc324-4e03-4bfe-b185-3d77768dc900}"
+    static GUID_WICPixelFormatDontCare => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc900}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat1bppIndexed => "{6fddc324-4e03-4bfe-b185-3d77768dc901}"
+    static GUID_WICPixelFormat1bppIndexed => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc901}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat2bppIndexed => "{6fddc324-4e03-4bfe-b185-3d77768dc902}"
+    static GUID_WICPixelFormat2bppIndexed => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc902}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat4bppIndexed => "{6fddc324-4e03-4bfe-b185-3d77768dc903}"
+    static GUID_WICPixelFormat4bppIndexed => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc903}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat8bppIndexed => "{6fddc324-4e03-4bfe-b185-3d77768dc904}"
+    static GUID_WICPixelFormat8bppIndexed => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc904}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormatBlackWhite => "{6fddc324-4e03-4bfe-b185-3d77768dc905}"
+    static GUID_WICPixelFormatBlackWhite => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc905}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat2bppGray => "{6fddc324-4e03-4bfe-b185-3d77768dc906}"
+    static GUID_WICPixelFormat2bppGray => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc906}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat4bppGray => "{6fddc324-4e03-4bfe-b185-3d77768dc907}"
+    static GUID_WICPixelFormat4bppGray => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc907}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat8bppGray => "{6fddc324-4e03-4bfe-b185-3d77768dc908}"
+    static GUID_WICPixelFormat8bppGray => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc908}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat8bppAlpha => "{e6cd0116-eeba-4161-aa85-27dd9fb3a895}"
+    static GUID_WICPixelFormat8bppAlpha => Guid("{e6cd0116-eeba-4161-aa85-27dd9fb3a895}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat8bppDepth => "{4c9c9f45-1d89-4e31-9bc7-69343a0dca69}"
+    static GUID_WICPixelFormat8bppDepth => Guid("{4c9c9f45-1d89-4e31-9bc7-69343a0dca69}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat8bppGain => "{a884022a-af13-4c16-b746-619bf618b878}"
+    static GUID_WICPixelFormat8bppGain => Guid("{a884022a-af13-4c16-b746-619bf618b878}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat16bppBGR555 => "{6fddc324-4e03-4bfe-b185-3d77768dc909}"
+    static GUID_WICPixelFormat16bppBGR555 => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc909}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat16bppBGR565 => "{6fddc324-4e03-4bfe-b185-3d77768dc90a}"
+    static GUID_WICPixelFormat16bppBGR565 => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc90a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat16bppBGRA5551 => "{05ec7c2b-f1e6-4961-ad46-e1cc810a87d2}"
+    static GUID_WICPixelFormat16bppBGRA5551 => Guid("{05ec7c2b-f1e6-4961-ad46-e1cc810a87d2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat16bppGray => "{6fddc324-4e03-4bfe-b185-3d77768dc90b}"
+    static GUID_WICPixelFormat16bppGray => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc90b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat24bppBGR => "{6fddc324-4e03-4bfe-b185-3d77768dc90c}"
+    static GUID_WICPixelFormat24bppBGR => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc90c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat24bppRGB => "{6fddc324-4e03-4bfe-b185-3d77768dc90d}"
+    static GUID_WICPixelFormat24bppRGB => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc90d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppBGR => "{6fddc324-4e03-4bfe-b185-3d77768dc90e}"
+    static GUID_WICPixelFormat32bppBGR => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc90e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppBGRA => "{6fddc324-4e03-4bfe-b185-3d77768dc90f}"
+    static GUID_WICPixelFormat32bppBGRA => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc90f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppPBGRA => "{6fddc324-4e03-4bfe-b185-3d77768dc910}"
+    static GUID_WICPixelFormat32bppPBGRA => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc910}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppGrayFloat => "{6fddc324-4e03-4bfe-b185-3d77768dc911}"
+    static GUID_WICPixelFormat32bppGrayFloat => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc911}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppRGB => "{d98c6b95-3efe-47d6-bb25-eb1748ab0cf1}"
+    static GUID_WICPixelFormat32bppRGB => Guid("{d98c6b95-3efe-47d6-bb25-eb1748ab0cf1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppRGBA => "{f5c7ad2d-6a8d-43dd-a7a8-a29935261ae9}"
+    static GUID_WICPixelFormat32bppRGBA => Guid("{f5c7ad2d-6a8d-43dd-a7a8-a29935261ae9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppPRGBA => "{3cc4a650-a527-4d37-a916-3142c7ebedba}"
+    static GUID_WICPixelFormat32bppPRGBA => Guid("{3cc4a650-a527-4d37-a916-3142c7ebedba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat48bppRGB => "{6fddc324-4e03-4bfe-b185-3d77768dc915}"
+    static GUID_WICPixelFormat48bppRGB => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc915}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat48bppBGR => "{e605a384-b468-46ce-bb2e-36f180e64313}"
+    static GUID_WICPixelFormat48bppBGR => Guid("{e605a384-b468-46ce-bb2e-36f180e64313}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bppRGB => "{a1182111-186d-4d42-bc6a-9c8303a8dff9}"
+    static GUID_WICPixelFormat64bppRGB => Guid("{a1182111-186d-4d42-bc6a-9c8303a8dff9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bppRGBA => "{6fddc324-4e03-4bfe-b185-3d77768dc916}"
+    static GUID_WICPixelFormat64bppRGBA => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc916}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bppBGRA => "{1562ff7c-d352-46f9-979e-42976b792246}"
+    static GUID_WICPixelFormat64bppBGRA => Guid("{1562ff7c-d352-46f9-979e-42976b792246}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bppPRGBA => "{6fddc324-4e03-4bfe-b185-3d77768dc917}"
+    static GUID_WICPixelFormat64bppPRGBA => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc917}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bppPBGRA => "{8c518e8e-a4ec-468b-ae70-c9a35a9c5530}"
+    static GUID_WICPixelFormat64bppPBGRA => Guid("{8c518e8e-a4ec-468b-ae70-c9a35a9c5530}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat16bppGrayFixedPoint => "{6fddc324-4e03-4bfe-b185-3d77768dc913}"
+    static GUID_WICPixelFormat16bppGrayFixedPoint => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc913}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppBGR101010 => "{6fddc324-4e03-4bfe-b185-3d77768dc914}"
+    static GUID_WICPixelFormat32bppBGR101010 => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc914}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat48bppRGBFixedPoint => "{6fddc324-4e03-4bfe-b185-3d77768dc912}"
+    static GUID_WICPixelFormat48bppRGBFixedPoint => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc912}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat48bppBGRFixedPoint => "{49ca140e-cab6-493b-9ddf-60187c37532a}"
+    static GUID_WICPixelFormat48bppBGRFixedPoint => Guid("{49ca140e-cab6-493b-9ddf-60187c37532a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat96bppRGBFixedPoint => "{6fddc324-4e03-4bfe-b185-3d77768dc918}"
+    static GUID_WICPixelFormat96bppRGBFixedPoint => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc918}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat96bppRGBFloat => "{e3fed78f-e8db-4acf-84c1-e97f6136b327}"
+    static GUID_WICPixelFormat96bppRGBFloat => Guid("{e3fed78f-e8db-4acf-84c1-e97f6136b327}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat128bppRGBAFloat => "{6fddc324-4e03-4bfe-b185-3d77768dc919}"
+    static GUID_WICPixelFormat128bppRGBAFloat => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc919}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat128bppPRGBAFloat => "{6fddc324-4e03-4bfe-b185-3d77768dc91a}"
+    static GUID_WICPixelFormat128bppPRGBAFloat => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc91a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat128bppRGBFloat => "{6fddc324-4e03-4bfe-b185-3d77768dc91b}"
+    static GUID_WICPixelFormat128bppRGBFloat => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc91b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppCMYK => "{6fddc324-4e03-4bfe-b185-3d77768dc91c}"
+    static GUID_WICPixelFormat32bppCMYK => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc91c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bppRGBAFixedPoint => "{6fddc324-4e03-4bfe-b185-3d77768dc91d}"
+    static GUID_WICPixelFormat64bppRGBAFixedPoint => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc91d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bppBGRAFixedPoint => "{356de33c-54d2-4a23-bb04-9b7bf9b1d42d}"
+    static GUID_WICPixelFormat64bppBGRAFixedPoint => Guid("{356de33c-54d2-4a23-bb04-9b7bf9b1d42d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bppRGBFixedPoint => "{6fddc324-4e03-4bfe-b185-3d77768dc940}"
+    static GUID_WICPixelFormat64bppRGBFixedPoint => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc940}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat128bppRGBAFixedPoint => "{6fddc324-4e03-4bfe-b185-3d77768dc91e}"
+    static GUID_WICPixelFormat128bppRGBAFixedPoint => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc91e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat128bppRGBFixedPoint => "{6fddc324-4e03-4bfe-b185-3d77768dc941}"
+    static GUID_WICPixelFormat128bppRGBFixedPoint => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc941}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bppRGBAHalf => "{6fddc324-4e03-4bfe-b185-3d77768dc93a}"
+    static GUID_WICPixelFormat64bppRGBAHalf => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc93a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bppPRGBAHalf => "{58ad26c2-c623-4d9d-b320-387e49f8c442}"
+    static GUID_WICPixelFormat64bppPRGBAHalf => Guid("{58ad26c2-c623-4d9d-b320-387e49f8c442}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bppRGBHalf => "{6fddc324-4e03-4bfe-b185-3d77768dc942}"
+    static GUID_WICPixelFormat64bppRGBHalf => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc942}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat48bppRGBHalf => "{6fddc324-4e03-4bfe-b185-3d77768dc93b}"
+    static GUID_WICPixelFormat48bppRGBHalf => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc93b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppRGBE => "{6fddc324-4e03-4bfe-b185-3d77768dc93d}"
+    static GUID_WICPixelFormat32bppRGBE => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc93d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat16bppGrayHalf => "{6fddc324-4e03-4bfe-b185-3d77768dc93e}"
+    static GUID_WICPixelFormat16bppGrayHalf => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc93e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppGrayFixedPoint => "{6fddc324-4e03-4bfe-b185-3d77768dc93f}"
+    static GUID_WICPixelFormat32bppGrayFixedPoint => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc93f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppRGBA1010102 => "{25238d72-fcf9-4522-b514-5578e5ad55e0}"
+    static GUID_WICPixelFormat32bppRGBA1010102 => Guid("{25238d72-fcf9-4522-b514-5578e5ad55e0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppRGBA1010102XR => "{00de6b9a-c101-434b-b502-d0165ee1122c}"
+    static GUID_WICPixelFormat32bppRGBA1010102XR => Guid("{00de6b9a-c101-434b-b502-d0165ee1122c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppR10G10B10A2 => "{604e1bb5-8a3c-4b65-b11c-bc0b8dd75b7f}"
+    static GUID_WICPixelFormat32bppR10G10B10A2 => Guid("{604e1bb5-8a3c-4b65-b11c-bc0b8dd75b7f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bppR10G10B10A2HDR10 => "{9c215c5d-1acc-4f0e-a4bc-70fb3ae8fd28}"
+    static GUID_WICPixelFormat32bppR10G10B10A2HDR10 => Guid("{9c215c5d-1acc-4f0e-a4bc-70fb3ae8fd28}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bppCMYK => "{6fddc324-4e03-4bfe-b185-3d77768dc91f}"
+    static GUID_WICPixelFormat64bppCMYK => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc91f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat24bpp3Channels => "{6fddc324-4e03-4bfe-b185-3d77768dc920}"
+    static GUID_WICPixelFormat24bpp3Channels => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc920}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bpp4Channels => "{6fddc324-4e03-4bfe-b185-3d77768dc921}"
+    static GUID_WICPixelFormat32bpp4Channels => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc921}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat40bpp5Channels => "{6fddc324-4e03-4bfe-b185-3d77768dc922}"
+    static GUID_WICPixelFormat40bpp5Channels => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc922}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat48bpp6Channels => "{6fddc324-4e03-4bfe-b185-3d77768dc923}"
+    static GUID_WICPixelFormat48bpp6Channels => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc923}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat56bpp7Channels => "{6fddc324-4e03-4bfe-b185-3d77768dc924}"
+    static GUID_WICPixelFormat56bpp7Channels => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc924}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bpp8Channels => "{6fddc324-4e03-4bfe-b185-3d77768dc925}"
+    static GUID_WICPixelFormat64bpp8Channels => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc925}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat48bpp3Channels => "{6fddc324-4e03-4bfe-b185-3d77768dc926}"
+    static GUID_WICPixelFormat48bpp3Channels => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc926}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bpp4Channels => "{6fddc324-4e03-4bfe-b185-3d77768dc927}"
+    static GUID_WICPixelFormat64bpp4Channels => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc927}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat80bpp5Channels => "{6fddc324-4e03-4bfe-b185-3d77768dc928}"
+    static GUID_WICPixelFormat80bpp5Channels => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc928}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat96bpp6Channels => "{6fddc324-4e03-4bfe-b185-3d77768dc929}"
+    static GUID_WICPixelFormat96bpp6Channels => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc929}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat112bpp7Channels => "{6fddc324-4e03-4bfe-b185-3d77768dc92a}"
+    static GUID_WICPixelFormat112bpp7Channels => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc92a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat128bpp8Channels => "{6fddc324-4e03-4bfe-b185-3d77768dc92b}"
+    static GUID_WICPixelFormat128bpp8Channels => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc92b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat40bppCMYKAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc92c}"
+    static GUID_WICPixelFormat40bppCMYKAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc92c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat80bppCMYKAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc92d}"
+    static GUID_WICPixelFormat80bppCMYKAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc92d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat32bpp3ChannelsAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc92e}"
+    static GUID_WICPixelFormat32bpp3ChannelsAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc92e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat40bpp4ChannelsAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc92f}"
+    static GUID_WICPixelFormat40bpp4ChannelsAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc92f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat48bpp5ChannelsAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc930}"
+    static GUID_WICPixelFormat48bpp5ChannelsAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc930}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat56bpp6ChannelsAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc931}"
+    static GUID_WICPixelFormat56bpp6ChannelsAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc931}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bpp7ChannelsAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc932}"
+    static GUID_WICPixelFormat64bpp7ChannelsAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc932}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat72bpp8ChannelsAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc933}"
+    static GUID_WICPixelFormat72bpp8ChannelsAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc933}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat64bpp3ChannelsAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc934}"
+    static GUID_WICPixelFormat64bpp3ChannelsAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc934}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat80bpp4ChannelsAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc935}"
+    static GUID_WICPixelFormat80bpp4ChannelsAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc935}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat96bpp5ChannelsAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc936}"
+    static GUID_WICPixelFormat96bpp5ChannelsAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc936}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat112bpp6ChannelsAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc937}"
+    static GUID_WICPixelFormat112bpp6ChannelsAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc937}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat128bpp7ChannelsAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc938}"
+    static GUID_WICPixelFormat128bpp7ChannelsAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc938}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat144bpp8ChannelsAlpha => "{6fddc324-4e03-4bfe-b185-3d77768dc939}"
+    static GUID_WICPixelFormat144bpp8ChannelsAlpha => Guid("{6fddc324-4e03-4bfe-b185-3d77768dc939}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat8bppY => "{91b4db54-2df9-42f0-b449-2909bb3df88e}"
+    static GUID_WICPixelFormat8bppY => Guid("{91b4db54-2df9-42f0-b449-2909bb3df88e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat8bppCb => "{1339f224-6bfe-4c3e-9302-e4f3a6d0ca2a}"
+    static GUID_WICPixelFormat8bppCb => Guid("{1339f224-6bfe-4c3e-9302-e4f3a6d0ca2a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat8bppCr => "{b8145053-2116-49f0-8835-ed844b205c51}"
+    static GUID_WICPixelFormat8bppCr => Guid("{b8145053-2116-49f0-8835-ed844b205c51}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat16bppCbCr => "{ff95ba6e-11e0-4263-bb45-01721f3460a4}"
+    static GUID_WICPixelFormat16bppCbCr => Guid("{ff95ba6e-11e0-4263-bb45-01721f3460a4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat16bppYQuantizedDctCoefficients => "{a355f433-48e8-4a42-84d8-e2aa26ca80a4}"
+    static GUID_WICPixelFormat16bppYQuantizedDctCoefficients => Guid("{a355f433-48e8-4a42-84d8-e2aa26ca80a4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat16bppCbQuantizedDctCoefficients => "{d2c4ff61-56a5-49c2-8b5c-4c1925964837}"
+    static GUID_WICPixelFormat16bppCbQuantizedDctCoefficients => Guid("{d2c4ff61-56a5-49c2-8b5c-4c1925964837}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WICPixelFormat16bppCrQuantizedDctCoefficients => "{2fe354f0-1680-42d8-9231-e73c0565bfc1}"
+    static GUID_WICPixelFormat16bppCrQuantizedDctCoefficients => Guid("{2fe354f0-1680-42d8-9231-e73c0565bfc1}")
 
     /**
      * @type {Integer (UInt32)}
@@ -927,654 +928,654 @@ class Imaging {
     static WICRawChangeNotification_RenderMode => 8192
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatUnknown => "{a45e592f-9078-4a7c-adb5-4edc4fd61b1f}"
+    static GUID_MetadataFormatUnknown => Guid("{a45e592f-9078-4a7c-adb5-4edc4fd61b1f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatIfd => "{537396c6-2d8a-4bb6-9bf8-2f0a8e2a3adf}"
+    static GUID_MetadataFormatIfd => Guid("{537396c6-2d8a-4bb6-9bf8-2f0a8e2a3adf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatSubIfd => "{58a2e128-2db9-4e57-bb14-5177891ed331}"
+    static GUID_MetadataFormatSubIfd => Guid("{58a2e128-2db9-4e57-bb14-5177891ed331}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatExif => "{1c3c4f9d-b84a-467d-9493-36cfbd59ea57}"
+    static GUID_MetadataFormatExif => Guid("{1c3c4f9d-b84a-467d-9493-36cfbd59ea57}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatGps => "{7134ab8a-9351-44ad-af62-448db6b502ec}"
+    static GUID_MetadataFormatGps => Guid("{7134ab8a-9351-44ad-af62-448db6b502ec}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatInterop => "{ed686f8e-681f-4c8b-bd41-a8addbf6b3fc}"
+    static GUID_MetadataFormatInterop => Guid("{ed686f8e-681f-4c8b-bd41-a8addbf6b3fc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatApp0 => "{79007028-268d-45d6-a3c2-354e6a504bc9}"
+    static GUID_MetadataFormatApp0 => Guid("{79007028-268d-45d6-a3c2-354e6a504bc9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatApp1 => "{8fd3dfc3-f951-492b-817f-69c2e6d9a5b0}"
+    static GUID_MetadataFormatApp1 => Guid("{8fd3dfc3-f951-492b-817f-69c2e6d9a5b0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatApp13 => "{326556a2-f502-4354-9cc0-8e3f48eaf6b5}"
+    static GUID_MetadataFormatApp13 => Guid("{326556a2-f502-4354-9cc0-8e3f48eaf6b5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatIPTC => "{4fab0914-e129-4087-a1d1-bc812d45a7b5}"
+    static GUID_MetadataFormatIPTC => Guid("{4fab0914-e129-4087-a1d1-bc812d45a7b5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatIRB => "{16100d66-8570-4bb9-b92d-fda4b23ece67}"
+    static GUID_MetadataFormatIRB => Guid("{16100d66-8570-4bb9-b92d-fda4b23ece67}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormat8BIMIPTC => "{0010568c-0852-4e6a-b191-5c33ac5b0430}"
+    static GUID_MetadataFormat8BIMIPTC => Guid("{0010568c-0852-4e6a-b191-5c33ac5b0430}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormat8BIMResolutionInfo => "{739f305d-81db-43cb-ac5e-55013ef9f003}"
+    static GUID_MetadataFormat8BIMResolutionInfo => Guid("{739f305d-81db-43cb-ac5e-55013ef9f003}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormat8BIMIPTCDigest => "{1ca32285-9ccd-4786-8bd8-79539db6a006}"
+    static GUID_MetadataFormat8BIMIPTCDigest => Guid("{1ca32285-9ccd-4786-8bd8-79539db6a006}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatXMP => "{bb5acc38-f216-4cec-a6c5-5f6e739763a9}"
+    static GUID_MetadataFormatXMP => Guid("{bb5acc38-f216-4cec-a6c5-5f6e739763a9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatThumbnail => "{243dcee9-8703-40ee-8ef0-22a600b8058c}"
+    static GUID_MetadataFormatThumbnail => Guid("{243dcee9-8703-40ee-8ef0-22a600b8058c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatChunktEXt => "{568d8936-c0a9-4923-905d-df2b38238fbc}"
+    static GUID_MetadataFormatChunktEXt => Guid("{568d8936-c0a9-4923-905d-df2b38238fbc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatXMPStruct => "{22383cf1-ed17-4e2e-af17-d85b8f6b30d0}"
+    static GUID_MetadataFormatXMPStruct => Guid("{22383cf1-ed17-4e2e-af17-d85b8f6b30d0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatXMPBag => "{833cca5f-dcb7-4516-806f-6596ab26dce4}"
+    static GUID_MetadataFormatXMPBag => Guid("{833cca5f-dcb7-4516-806f-6596ab26dce4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatXMPSeq => "{63e8df02-eb6c-456c-a224-b25e794fd648}"
+    static GUID_MetadataFormatXMPSeq => Guid("{63e8df02-eb6c-456c-a224-b25e794fd648}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatXMPAlt => "{7b08a675-91aa-481b-a798-4da94908613b}"
+    static GUID_MetadataFormatXMPAlt => Guid("{7b08a675-91aa-481b-a798-4da94908613b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatLSD => "{e256031e-6299-4929-b98d-5ac884afba92}"
+    static GUID_MetadataFormatLSD => Guid("{e256031e-6299-4929-b98d-5ac884afba92}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatIMD => "{bd2bb086-4d52-48dd-9677-db483e85ae8f}"
+    static GUID_MetadataFormatIMD => Guid("{bd2bb086-4d52-48dd-9677-db483e85ae8f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatGCE => "{2a25cad8-deeb-4c69-a788-0ec2266dcafd}"
+    static GUID_MetadataFormatGCE => Guid("{2a25cad8-deeb-4c69-a788-0ec2266dcafd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatAPE => "{2e043dc2-c967-4e05-875e-618bf67e85c3}"
+    static GUID_MetadataFormatAPE => Guid("{2e043dc2-c967-4e05-875e-618bf67e85c3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatJpegChrominance => "{f73d0dcf-cec6-4f85-9b0e-1c3956b1bef7}"
+    static GUID_MetadataFormatJpegChrominance => Guid("{f73d0dcf-cec6-4f85-9b0e-1c3956b1bef7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatJpegLuminance => "{86908007-edfc-4860-8d4b-4ee6e83e6058}"
+    static GUID_MetadataFormatJpegLuminance => Guid("{86908007-edfc-4860-8d4b-4ee6e83e6058}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatJpegComment => "{220e5f33-afd3-474e-9d31-7d4fe730f557}"
+    static GUID_MetadataFormatJpegComment => Guid("{220e5f33-afd3-474e-9d31-7d4fe730f557}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatGifComment => "{c4b6e0e0-cfb4-4ad3-ab33-9aad2355a34a}"
+    static GUID_MetadataFormatGifComment => Guid("{c4b6e0e0-cfb4-4ad3-ab33-9aad2355a34a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatChunkgAMA => "{f00935a5-1d5d-4cd1-81b2-9324d7eca781}"
+    static GUID_MetadataFormatChunkgAMA => Guid("{f00935a5-1d5d-4cd1-81b2-9324d7eca781}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatChunkbKGD => "{e14d3571-6b47-4dea-b60a-87ce0a78dfb7}"
+    static GUID_MetadataFormatChunkbKGD => Guid("{e14d3571-6b47-4dea-b60a-87ce0a78dfb7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatChunkiTXt => "{c2bec729-0b68-4b77-aa0e-6295a6ac1814}"
+    static GUID_MetadataFormatChunkiTXt => Guid("{c2bec729-0b68-4b77-aa0e-6295a6ac1814}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatChunkcHRM => "{9db3655b-2842-44b3-8067-12e9b375556a}"
+    static GUID_MetadataFormatChunkcHRM => Guid("{9db3655b-2842-44b3-8067-12e9b375556a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatChunkhIST => "{c59a82da-db74-48a4-bd6a-b69c4931ef95}"
+    static GUID_MetadataFormatChunkhIST => Guid("{c59a82da-db74-48a4-bd6a-b69c4931ef95}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatChunkiCCP => "{eb4349ab-b685-450f-91b5-e802e892536c}"
+    static GUID_MetadataFormatChunkiCCP => Guid("{eb4349ab-b685-450f-91b5-e802e892536c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatChunksRGB => "{c115fd36-cc6f-4e3f-8363-524b87c6b0d9}"
+    static GUID_MetadataFormatChunksRGB => Guid("{c115fd36-cc6f-4e3f-8363-524b87c6b0d9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatChunktIME => "{6b00ae2d-e24b-460a-98b6-878bd03072fd}"
+    static GUID_MetadataFormatChunktIME => Guid("{6b00ae2d-e24b-460a-98b6-878bd03072fd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatDds => "{4a064603-8c33-4e60-9c29-136231702d08}"
+    static GUID_MetadataFormatDds => Guid("{4a064603-8c33-4e60-9c29-136231702d08}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatHeif => "{817ef3e1-1288-45f4-a852-260d9e7cce83}"
+    static GUID_MetadataFormatHeif => Guid("{817ef3e1-1288-45f4-a852-260d9e7cce83}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatHeifHDR => "{568b8d8a-1e65-438c-8968-d60e1012beb9}"
+    static GUID_MetadataFormatHeifHDR => Guid("{568b8d8a-1e65-438c-8968-d60e1012beb9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatWebpANIM => "{6dc4fda6-78e6-4102-ae35-bcfa1edcc78b}"
+    static GUID_MetadataFormatWebpANIM => Guid("{6dc4fda6-78e6-4102-ae35-bcfa1edcc78b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatWebpANMF => "{43c105ee-b93b-4abb-b003-a08c0d870471}"
+    static GUID_MetadataFormatWebpANMF => Guid("{43c105ee-b93b-4abb-b003-a08c0d870471}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatJpegXLAnim => "{501c2e24-7a7d-42b2-93c7-b4f45bcc92f7}"
+    static GUID_MetadataFormatJpegXLAnim => Guid("{501c2e24-7a7d-42b2-93c7-b4f45bcc92f7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MetadataFormatJpegXLAnimFrame => "{958ecc2c-36cb-4af9-9ea8-0b74baccfd3e}"
+    static GUID_MetadataFormatJpegXLAnimFrame => Guid("{958ecc2c-36cb-4af9-9ea8-0b74baccfd3e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICUnknownMetadataReader => "{699745c2-5066-4b82-a8e3-d40478dbec8c}"
+    static CLSID_WICUnknownMetadataReader => Guid("{699745c2-5066-4b82-a8e3-d40478dbec8c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICUnknownMetadataWriter => "{a09cca86-27ba-4f39-9053-121fa4dc08fc}"
+    static CLSID_WICUnknownMetadataWriter => Guid("{a09cca86-27ba-4f39-9053-121fa4dc08fc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICApp0MetadataWriter => "{f3c633a2-46c8-498e-8fbb-cc6f721bbcde}"
+    static CLSID_WICApp0MetadataWriter => Guid("{f3c633a2-46c8-498e-8fbb-cc6f721bbcde}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICApp0MetadataReader => "{43324b33-a78f-480f-9111-9638aaccc832}"
+    static CLSID_WICApp0MetadataReader => Guid("{43324b33-a78f-480f-9111-9638aaccc832}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICApp1MetadataWriter => "{ee366069-1832-420f-b381-0479ad066f19}"
+    static CLSID_WICApp1MetadataWriter => Guid("{ee366069-1832-420f-b381-0479ad066f19}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICApp1MetadataReader => "{dde33513-774e-4bcd-ae79-02f4adfe62fc}"
+    static CLSID_WICApp1MetadataReader => Guid("{dde33513-774e-4bcd-ae79-02f4adfe62fc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICApp13MetadataWriter => "{7b19a919-a9d6-49e5-bd45-02c34e4e4cd5}"
+    static CLSID_WICApp13MetadataWriter => Guid("{7b19a919-a9d6-49e5-bd45-02c34e4e4cd5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICApp13MetadataReader => "{aa7e3c50-864c-4604-bc04-8b0b76e637f6}"
+    static CLSID_WICApp13MetadataReader => Guid("{aa7e3c50-864c-4604-bc04-8b0b76e637f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICIfdMetadataReader => "{8f914656-9d0a-4eb2-9019-0bf96d8a9ee6}"
+    static CLSID_WICIfdMetadataReader => Guid("{8f914656-9d0a-4eb2-9019-0bf96d8a9ee6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICIfdMetadataWriter => "{b1ebfc28-c9bd-47a2-8d33-b948769777a7}"
+    static CLSID_WICIfdMetadataWriter => Guid("{b1ebfc28-c9bd-47a2-8d33-b948769777a7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICSubIfdMetadataReader => "{50d42f09-ecd1-4b41-b65d-da1fdaa75663}"
+    static CLSID_WICSubIfdMetadataReader => Guid("{50d42f09-ecd1-4b41-b65d-da1fdaa75663}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICSubIfdMetadataWriter => "{8ade5386-8e9b-4f4c-acf2-f0008706b238}"
+    static CLSID_WICSubIfdMetadataWriter => Guid("{8ade5386-8e9b-4f4c-acf2-f0008706b238}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICExifMetadataReader => "{d9403860-297f-4a49-bf9b-77898150a442}"
+    static CLSID_WICExifMetadataReader => Guid("{d9403860-297f-4a49-bf9b-77898150a442}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICExifMetadataWriter => "{c9a14cda-c339-460b-9078-d4debcfabe91}"
+    static CLSID_WICExifMetadataWriter => Guid("{c9a14cda-c339-460b-9078-d4debcfabe91}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICGpsMetadataReader => "{3697790b-223b-484e-9925-c4869218f17a}"
+    static CLSID_WICGpsMetadataReader => Guid("{3697790b-223b-484e-9925-c4869218f17a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICGpsMetadataWriter => "{cb8c13e4-62b5-4c96-a48b-6ba6ace39c76}"
+    static CLSID_WICGpsMetadataWriter => Guid("{cb8c13e4-62b5-4c96-a48b-6ba6ace39c76}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICInteropMetadataReader => "{b5c8b898-0074-459f-b700-860d4651ea14}"
+    static CLSID_WICInteropMetadataReader => Guid("{b5c8b898-0074-459f-b700-860d4651ea14}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICInteropMetadataWriter => "{122ec645-cd7e-44d8-b186-2c8c20c3b50f}"
+    static CLSID_WICInteropMetadataWriter => Guid("{122ec645-cd7e-44d8-b186-2c8c20c3b50f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICThumbnailMetadataReader => "{fb012959-f4f6-44d7-9d09-daa087a9db57}"
+    static CLSID_WICThumbnailMetadataReader => Guid("{fb012959-f4f6-44d7-9d09-daa087a9db57}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICThumbnailMetadataWriter => "{d049b20c-5dd0-44fe-b0b3-8f92c8e6d080}"
+    static CLSID_WICThumbnailMetadataWriter => Guid("{d049b20c-5dd0-44fe-b0b3-8f92c8e6d080}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICIPTCMetadataReader => "{03012959-f4f6-44d7-9d09-daa087a9db57}"
+    static CLSID_WICIPTCMetadataReader => Guid("{03012959-f4f6-44d7-9d09-daa087a9db57}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICIPTCMetadataWriter => "{1249b20c-5dd0-44fe-b0b3-8f92c8e6d080}"
+    static CLSID_WICIPTCMetadataWriter => Guid("{1249b20c-5dd0-44fe-b0b3-8f92c8e6d080}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICIRBMetadataReader => "{d4dcd3d7-b4c2-47d9-a6bf-b89ba396a4a3}"
+    static CLSID_WICIRBMetadataReader => Guid("{d4dcd3d7-b4c2-47d9-a6bf-b89ba396a4a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICIRBMetadataWriter => "{5c5c1935-0235-4434-80bc-251bc1ec39c6}"
+    static CLSID_WICIRBMetadataWriter => Guid("{5c5c1935-0235-4434-80bc-251bc1ec39c6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WIC8BIMIPTCMetadataReader => "{0010668c-0801-4da6-a4a4-826522b6d28f}"
+    static CLSID_WIC8BIMIPTCMetadataReader => Guid("{0010668c-0801-4da6-a4a4-826522b6d28f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WIC8BIMIPTCMetadataWriter => "{00108226-ee41-44a2-9e9c-4be4d5b1d2cd}"
+    static CLSID_WIC8BIMIPTCMetadataWriter => Guid("{00108226-ee41-44a2-9e9c-4be4d5b1d2cd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WIC8BIMResolutionInfoMetadataReader => "{5805137a-e348-4f7c-b3cc-6db9965a0599}"
+    static CLSID_WIC8BIMResolutionInfoMetadataReader => Guid("{5805137a-e348-4f7c-b3cc-6db9965a0599}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WIC8BIMResolutionInfoMetadataWriter => "{4ff2fe0e-e74a-4b71-98c4-ab7dc16707ba}"
+    static CLSID_WIC8BIMResolutionInfoMetadataWriter => Guid("{4ff2fe0e-e74a-4b71-98c4-ab7dc16707ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WIC8BIMIPTCDigestMetadataReader => "{02805f1e-d5aa-415b-82c5-61c033a988a6}"
+    static CLSID_WIC8BIMIPTCDigestMetadataReader => Guid("{02805f1e-d5aa-415b-82c5-61c033a988a6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WIC8BIMIPTCDigestMetadataWriter => "{2db5e62b-0d67-495f-8f9d-c2f0188647ac}"
+    static CLSID_WIC8BIMIPTCDigestMetadataWriter => Guid("{2db5e62b-0d67-495f-8f9d-c2f0188647ac}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngTextMetadataReader => "{4b59afcc-b8c3-408a-b670-89e5fab6fda7}"
+    static CLSID_WICPngTextMetadataReader => Guid("{4b59afcc-b8c3-408a-b670-89e5fab6fda7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngTextMetadataWriter => "{b5ebafb9-253e-4a72-a744-0762d2685683}"
+    static CLSID_WICPngTextMetadataWriter => Guid("{b5ebafb9-253e-4a72-a744-0762d2685683}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICXMPMetadataReader => "{72b624df-ae11-4948-a65c-351eb0829419}"
+    static CLSID_WICXMPMetadataReader => Guid("{72b624df-ae11-4948-a65c-351eb0829419}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICXMPMetadataWriter => "{1765e14e-1bd4-462e-b6b1-590bf1262ac6}"
+    static CLSID_WICXMPMetadataWriter => Guid("{1765e14e-1bd4-462e-b6b1-590bf1262ac6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICXMPStructMetadataReader => "{01b90d9a-8209-47f7-9c52-e1244bf50ced}"
+    static CLSID_WICXMPStructMetadataReader => Guid("{01b90d9a-8209-47f7-9c52-e1244bf50ced}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICXMPStructMetadataWriter => "{22c21f93-7ddb-411c-9b17-c5b7bd064abc}"
+    static CLSID_WICXMPStructMetadataWriter => Guid("{22c21f93-7ddb-411c-9b17-c5b7bd064abc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICXMPBagMetadataReader => "{e7e79a30-4f2c-4fab-8d00-394f2d6bbebe}"
+    static CLSID_WICXMPBagMetadataReader => Guid("{e7e79a30-4f2c-4fab-8d00-394f2d6bbebe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICXMPBagMetadataWriter => "{ed822c8c-d6be-4301-a631-0e1416bad28f}"
+    static CLSID_WICXMPBagMetadataWriter => Guid("{ed822c8c-d6be-4301-a631-0e1416bad28f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICXMPSeqMetadataReader => "{7f12e753-fc71-43d7-a51d-92f35977abb5}"
+    static CLSID_WICXMPSeqMetadataReader => Guid("{7f12e753-fc71-43d7-a51d-92f35977abb5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICXMPSeqMetadataWriter => "{6d68d1de-d432-4b0f-923a-091183a9bda7}"
+    static CLSID_WICXMPSeqMetadataWriter => Guid("{6d68d1de-d432-4b0f-923a-091183a9bda7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICXMPAltMetadataReader => "{aa94dcc2-b8b0-4898-b835-000aabd74393}"
+    static CLSID_WICXMPAltMetadataReader => Guid("{aa94dcc2-b8b0-4898-b835-000aabd74393}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICXMPAltMetadataWriter => "{076c2a6c-f78f-4c46-a723-3583e70876ea}"
+    static CLSID_WICXMPAltMetadataWriter => Guid("{076c2a6c-f78f-4c46-a723-3583e70876ea}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICLSDMetadataReader => "{41070793-59e4-479a-a1f7-954adc2ef5fc}"
+    static CLSID_WICLSDMetadataReader => Guid("{41070793-59e4-479a-a1f7-954adc2ef5fc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICLSDMetadataWriter => "{73c037e7-e5d9-4954-876a-6da81d6e5768}"
+    static CLSID_WICLSDMetadataWriter => Guid("{73c037e7-e5d9-4954-876a-6da81d6e5768}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICGCEMetadataReader => "{b92e345d-f52d-41f3-b562-081bc772e3b9}"
+    static CLSID_WICGCEMetadataReader => Guid("{b92e345d-f52d-41f3-b562-081bc772e3b9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICGCEMetadataWriter => "{af95dc76-16b2-47f4-b3ea-3c31796693e7}"
+    static CLSID_WICGCEMetadataWriter => Guid("{af95dc76-16b2-47f4-b3ea-3c31796693e7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICIMDMetadataReader => "{7447a267-0015-42c8-a8f1-fb3b94c68361}"
+    static CLSID_WICIMDMetadataReader => Guid("{7447a267-0015-42c8-a8f1-fb3b94c68361}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICIMDMetadataWriter => "{8c89071f-452e-4e95-9682-9d1024627172}"
+    static CLSID_WICIMDMetadataWriter => Guid("{8c89071f-452e-4e95-9682-9d1024627172}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICAPEMetadataReader => "{1767b93a-b021-44ea-920f-863c11f4f768}"
+    static CLSID_WICAPEMetadataReader => Guid("{1767b93a-b021-44ea-920f-863c11f4f768}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICAPEMetadataWriter => "{bd6edfca-2890-482f-b233-8d7339a1cf8d}"
+    static CLSID_WICAPEMetadataWriter => Guid("{bd6edfca-2890-482f-b233-8d7339a1cf8d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegChrominanceMetadataReader => "{50b1904b-f28f-4574-93f4-0bade82c69e9}"
+    static CLSID_WICJpegChrominanceMetadataReader => Guid("{50b1904b-f28f-4574-93f4-0bade82c69e9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegChrominanceMetadataWriter => "{3ff566f0-6e6b-49d4-96e6-b78886692c62}"
+    static CLSID_WICJpegChrominanceMetadataWriter => Guid("{3ff566f0-6e6b-49d4-96e6-b78886692c62}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegLuminanceMetadataReader => "{356f2f88-05a6-4728-b9a4-1bfbce04d838}"
+    static CLSID_WICJpegLuminanceMetadataReader => Guid("{356f2f88-05a6-4728-b9a4-1bfbce04d838}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegLuminanceMetadataWriter => "{1d583abc-8a0e-4657-9982-a380ca58fb4b}"
+    static CLSID_WICJpegLuminanceMetadataWriter => Guid("{1d583abc-8a0e-4657-9982-a380ca58fb4b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegCommentMetadataReader => "{9f66347c-60c4-4c4d-ab58-d2358685f607}"
+    static CLSID_WICJpegCommentMetadataReader => Guid("{9f66347c-60c4-4c4d-ab58-d2358685f607}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegCommentMetadataWriter => "{e573236f-55b1-4eda-81ea-9f65db0290d3}"
+    static CLSID_WICJpegCommentMetadataWriter => Guid("{e573236f-55b1-4eda-81ea-9f65db0290d3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICGifCommentMetadataReader => "{32557d3b-69dc-4f95-836e-f5972b2f6159}"
+    static CLSID_WICGifCommentMetadataReader => Guid("{32557d3b-69dc-4f95-836e-f5972b2f6159}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICGifCommentMetadataWriter => "{a02797fc-c4ae-418c-af95-e637c7ead2a1}"
+    static CLSID_WICGifCommentMetadataWriter => Guid("{a02797fc-c4ae-418c-af95-e637c7ead2a1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngGamaMetadataReader => "{3692ca39-e082-4350-9e1f-3704cb083cd5}"
+    static CLSID_WICPngGamaMetadataReader => Guid("{3692ca39-e082-4350-9e1f-3704cb083cd5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngGamaMetadataWriter => "{ff036d13-5d4b-46dd-b10f-106693d9fe4f}"
+    static CLSID_WICPngGamaMetadataWriter => Guid("{ff036d13-5d4b-46dd-b10f-106693d9fe4f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngBkgdMetadataReader => "{0ce7a4a6-03e8-4a60-9d15-282ef32ee7da}"
+    static CLSID_WICPngBkgdMetadataReader => Guid("{0ce7a4a6-03e8-4a60-9d15-282ef32ee7da}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngBkgdMetadataWriter => "{68e3f2fd-31ae-4441-bb6a-fd7047525f90}"
+    static CLSID_WICPngBkgdMetadataWriter => Guid("{68e3f2fd-31ae-4441-bb6a-fd7047525f90}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngItxtMetadataReader => "{aabfb2fa-3e1e-4a8f-8977-5556fb94ea23}"
+    static CLSID_WICPngItxtMetadataReader => Guid("{aabfb2fa-3e1e-4a8f-8977-5556fb94ea23}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngItxtMetadataWriter => "{31879719-e751-4df8-981d-68dff67704ed}"
+    static CLSID_WICPngItxtMetadataWriter => Guid("{31879719-e751-4df8-981d-68dff67704ed}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngChrmMetadataReader => "{f90b5f36-367b-402a-9dd1-bc0fd59d8f62}"
+    static CLSID_WICPngChrmMetadataReader => Guid("{f90b5f36-367b-402a-9dd1-bc0fd59d8f62}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngChrmMetadataWriter => "{e23ce3eb-5608-4e83-bcef-27b1987e51d7}"
+    static CLSID_WICPngChrmMetadataWriter => Guid("{e23ce3eb-5608-4e83-bcef-27b1987e51d7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngHistMetadataReader => "{877a0bb7-a313-4491-87b5-2e6d0594f520}"
+    static CLSID_WICPngHistMetadataReader => Guid("{877a0bb7-a313-4491-87b5-2e6d0594f520}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngHistMetadataWriter => "{8a03e749-672e-446e-bf1f-2c11d233b6ff}"
+    static CLSID_WICPngHistMetadataWriter => Guid("{8a03e749-672e-446e-bf1f-2c11d233b6ff}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngIccpMetadataReader => "{f5d3e63b-cb0f-4628-a478-6d8244be36b1}"
+    static CLSID_WICPngIccpMetadataReader => Guid("{f5d3e63b-cb0f-4628-a478-6d8244be36b1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngIccpMetadataWriter => "{16671e5f-0ce6-4cc4-9768-e89fe5018ade}"
+    static CLSID_WICPngIccpMetadataWriter => Guid("{16671e5f-0ce6-4cc4-9768-e89fe5018ade}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngSrgbMetadataReader => "{fb40360c-547e-4956-a3b9-d4418859ba66}"
+    static CLSID_WICPngSrgbMetadataReader => Guid("{fb40360c-547e-4956-a3b9-d4418859ba66}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngSrgbMetadataWriter => "{a6ee35c6-87ec-47df-9f22-1d5aad840c82}"
+    static CLSID_WICPngSrgbMetadataWriter => Guid("{a6ee35c6-87ec-47df-9f22-1d5aad840c82}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngTimeMetadataReader => "{d94edf02-efe5-4f0d-85c8-f5a68b3000b1}"
+    static CLSID_WICPngTimeMetadataReader => Guid("{d94edf02-efe5-4f0d-85c8-f5a68b3000b1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICPngTimeMetadataWriter => "{1ab78400-b5a3-4d91-8ace-33fcd1499be6}"
+    static CLSID_WICPngTimeMetadataWriter => Guid("{1ab78400-b5a3-4d91-8ace-33fcd1499be6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICDdsMetadataReader => "{276c88ca-7533-4a86-b676-66b36080d484}"
+    static CLSID_WICDdsMetadataReader => Guid("{276c88ca-7533-4a86-b676-66b36080d484}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICDdsMetadataWriter => "{fd688bbd-31ed-4db7-a723-934927d38367}"
+    static CLSID_WICDdsMetadataWriter => Guid("{fd688bbd-31ed-4db7-a723-934927d38367}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICHeifMetadataReader => "{acddfc3f-85ec-41bc-bdef-1bc262e4db05}"
+    static CLSID_WICHeifMetadataReader => Guid("{acddfc3f-85ec-41bc-bdef-1bc262e4db05}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICHeifMetadataWriter => "{3ae45e79-40bc-4401-ace5-dd3cb16e6afe}"
+    static CLSID_WICHeifMetadataWriter => Guid("{3ae45e79-40bc-4401-ace5-dd3cb16e6afe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICHeifHDRMetadataReader => "{2438de3d-94d9-4be8-84a8-4de95a575e75}"
+    static CLSID_WICHeifHDRMetadataReader => Guid("{2438de3d-94d9-4be8-84a8-4de95a575e75}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICHeifHDRMetadataWriter => "{b83135a2-8e7e-485e-a533-f93621dd93c8}"
+    static CLSID_WICHeifHDRMetadataWriter => Guid("{b83135a2-8e7e-485e-a533-f93621dd93c8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICWebpAnimMetadataReader => "{076f9911-a348-465c-a807-a252f3f2d3de}"
+    static CLSID_WICWebpAnimMetadataReader => Guid("{076f9911-a348-465c-a807-a252f3f2d3de}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICWebpAnmfMetadataReader => "{85a10b03-c9f6-439f-be5e-c0fbef67807c}"
+    static CLSID_WICWebpAnmfMetadataReader => Guid("{85a10b03-c9f6-439f-be5e-c0fbef67807c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegXLAnimMetadataReader => "{bf8b6eb0-37e2-4ed8-8289-be9ae31d9f03}"
+    static CLSID_WICJpegXLAnimMetadataReader => Guid("{bf8b6eb0-37e2-4ed8-8289-be9ae31d9f03}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegXLAnimMetadataWriter => "{39d01345-432b-44e6-afd6-f606d20a5571}"
+    static CLSID_WICJpegXLAnimMetadataWriter => Guid("{39d01345-432b-44e6-afd6-f606d20a5571}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegXLAnimFrameMetadataReader => "{9cdf50a8-8770-4fe6-aef2-d06e2c01744f}"
+    static CLSID_WICJpegXLAnimFrameMetadataReader => Guid("{9cdf50a8-8770-4fe6-aef2-d06e2c01744f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_WICJpegXLAnimFrameMetadataWriter => "{d1ce58a8-06e0-4b6f-8fc1-577560bd5ad9}"
+    static CLSID_WICJpegXLAnimFrameMetadataWriter => Guid("{d1ce58a8-06e0-4b6f-8fc1-577560bd5ad9}")
 ;@endregion Constants
 
 ;@region Methods

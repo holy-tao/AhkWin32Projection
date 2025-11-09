@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Media
@@ -10,14 +11,14 @@ class Media {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_AudioFrameNativeFactory => "{16a0a3b9-9f65-4102-9367-2cda3a4f372a}"
+    static CLSID_AudioFrameNativeFactory => Guid("{16a0a3b9-9f65-4102-9367-2cda3a4f372a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_VideoFrameNativeFactory => "{d194386a-04e3-4814-8100-b2b0ae6d78c7}"
+    static CLSID_VideoFrameNativeFactory => Guid("{d194386a-04e3-4814-8100-b2b0ae6d78c7}")
 ;@endregion Constants
 
 ;@region Methods

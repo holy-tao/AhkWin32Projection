@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\HDEVINFO.ahk
 #Include ..\..\System\Registry\HKEY.ahk
 #Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
@@ -248,514 +249,514 @@ class DeviceAndDriverInstallation {
     static CM_DEVICE_PANEL_JOINT_TYPE_SWIVEL => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_1394 => "{6bdd1fc1-810f-11d0-bec7-08002be2092f}"
+    static GUID_DEVCLASS_1394 => Guid("{6bdd1fc1-810f-11d0-bec7-08002be2092f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_1394DEBUG => "{66f250d6-7801-4a64-b139-eea80a450b24}"
+    static GUID_DEVCLASS_1394DEBUG => Guid("{66f250d6-7801-4a64-b139-eea80a450b24}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_61883 => "{7ebefbc0-3200-11d2-b4c2-00a0c9697d07}"
+    static GUID_DEVCLASS_61883 => Guid("{7ebefbc0-3200-11d2-b4c2-00a0c9697d07}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_ADAPTER => "{4d36e964-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_ADAPTER => Guid("{4d36e964-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_APMSUPPORT => "{d45b1c18-c8fa-11d1-9f77-0000f805f530}"
+    static GUID_DEVCLASS_APMSUPPORT => Guid("{d45b1c18-c8fa-11d1-9f77-0000f805f530}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_AUDIOPROCESSINGOBJECT => "{5989fce8-9cd0-467d-8a6a-5419e31529d4}"
+    static GUID_DEVCLASS_AUDIOPROCESSINGOBJECT => Guid("{5989fce8-9cd0-467d-8a6a-5419e31529d4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_AVC => "{c06ff265-ae09-48f0-812c-16753d7cba83}"
+    static GUID_DEVCLASS_AVC => Guid("{c06ff265-ae09-48f0-812c-16753d7cba83}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_BATTERY => "{72631e54-78a4-11d0-bcf7-00aa00b7b32a}"
+    static GUID_DEVCLASS_BATTERY => Guid("{72631e54-78a4-11d0-bcf7-00aa00b7b32a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_BIOMETRIC => "{53d29ef7-377c-4d14-864b-eb3a85769359}"
+    static GUID_DEVCLASS_BIOMETRIC => Guid("{53d29ef7-377c-4d14-864b-eb3a85769359}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_BLUETOOTH => "{e0cbf06c-cd8b-4647-bb8a-263b43f0f974}"
+    static GUID_DEVCLASS_BLUETOOTH => Guid("{e0cbf06c-cd8b-4647-bb8a-263b43f0f974}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_CAMERA => "{ca3e7ab9-b4c3-4ae6-8251-579ef933890f}"
+    static GUID_DEVCLASS_CAMERA => Guid("{ca3e7ab9-b4c3-4ae6-8251-579ef933890f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_CDROM => "{4d36e965-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_CDROM => Guid("{4d36e965-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_COMPUTEACCELERATOR => "{f01a9d53-3ff6-48d2-9f97-c8a7004be10c}"
+    static GUID_DEVCLASS_COMPUTEACCELERATOR => Guid("{f01a9d53-3ff6-48d2-9f97-c8a7004be10c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_COMPUTER => "{4d36e966-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_COMPUTER => Guid("{4d36e966-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_DECODER => "{6bdd1fc2-810f-11d0-bec7-08002be2092f}"
+    static GUID_DEVCLASS_DECODER => Guid("{6bdd1fc2-810f-11d0-bec7-08002be2092f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_DISKDRIVE => "{4d36e967-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_DISKDRIVE => Guid("{4d36e967-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_DISPLAY => "{4d36e968-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_DISPLAY => Guid("{4d36e968-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_DOT4 => "{48721b56-6795-11d2-b1a8-0080c72e74a2}"
+    static GUID_DEVCLASS_DOT4 => Guid("{48721b56-6795-11d2-b1a8-0080c72e74a2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_DOT4PRINT => "{49ce6ac8-6f86-11d2-b1e5-0080c72e74a2}"
+    static GUID_DEVCLASS_DOT4PRINT => Guid("{49ce6ac8-6f86-11d2-b1e5-0080c72e74a2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_EHSTORAGESILO => "{9da2b80f-f89f-4a49-a5c2-511b085b9e8a}"
+    static GUID_DEVCLASS_EHSTORAGESILO => Guid("{9da2b80f-f89f-4a49-a5c2-511b085b9e8a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_ENUM1394 => "{c459df55-db08-11d1-b009-00a0c9081ff6}"
+    static GUID_DEVCLASS_ENUM1394 => Guid("{c459df55-db08-11d1-b009-00a0c9081ff6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_EXTENSION => "{e2f84ce7-8efa-411c-aa69-97454ca4cb57}"
+    static GUID_DEVCLASS_EXTENSION => Guid("{e2f84ce7-8efa-411c-aa69-97454ca4cb57}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FDC => "{4d36e969-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_FDC => Guid("{4d36e969-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FIRMWARE => "{f2e7dd72-6468-4e36-b6f1-6488f42c1b52}"
+    static GUID_DEVCLASS_FIRMWARE => Guid("{f2e7dd72-6468-4e36-b6f1-6488f42c1b52}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FLOPPYDISK => "{4d36e980-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_FLOPPYDISK => Guid("{4d36e980-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_GENERIC => "{ff494df1-c4ed-4fac-9b3f-3786f6e91e7e}"
+    static GUID_DEVCLASS_GENERIC => Guid("{ff494df1-c4ed-4fac-9b3f-3786f6e91e7e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_GPS => "{6bdd1fc3-810f-11d0-bec7-08002be2092f}"
+    static GUID_DEVCLASS_GPS => Guid("{6bdd1fc3-810f-11d0-bec7-08002be2092f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_HDC => "{4d36e96a-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_HDC => Guid("{4d36e96a-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_HIDCLASS => "{745a17a0-74d3-11d0-b6fe-00a0c90f57da}"
+    static GUID_DEVCLASS_HIDCLASS => Guid("{745a17a0-74d3-11d0-b6fe-00a0c90f57da}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_HOLOGRAPHIC => "{d612553d-06b1-49ca-8938-e39ef80eb16f}"
+    static GUID_DEVCLASS_HOLOGRAPHIC => Guid("{d612553d-06b1-49ca-8938-e39ef80eb16f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_I3C => "{13cfe1b1-6b17-424c-ac3f-16ace8733898}"
+    static GUID_DEVCLASS_I3C => Guid("{13cfe1b1-6b17-424c-ac3f-16ace8733898}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_IMAGE => "{6bdd1fc6-810f-11d0-bec7-08002be2092f}"
+    static GUID_DEVCLASS_IMAGE => Guid("{6bdd1fc6-810f-11d0-bec7-08002be2092f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_INFINIBAND => "{30ef7132-d858-4a0c-ac24-b9028a5cca3f}"
+    static GUID_DEVCLASS_INFINIBAND => Guid("{30ef7132-d858-4a0c-ac24-b9028a5cca3f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_INFRARED => "{6bdd1fc5-810f-11d0-bec7-08002be2092f}"
+    static GUID_DEVCLASS_INFRARED => Guid("{6bdd1fc5-810f-11d0-bec7-08002be2092f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_KEYBOARD => "{4d36e96b-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_KEYBOARD => Guid("{4d36e96b-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_LEGACYDRIVER => "{8ecc055d-047f-11d1-a537-0000f8753ed1}"
+    static GUID_DEVCLASS_LEGACYDRIVER => Guid("{8ecc055d-047f-11d1-a537-0000f8753ed1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_MEDIA => "{4d36e96c-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_MEDIA => Guid("{4d36e96c-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_MEDIUM_CHANGER => "{ce5939ae-ebde-11d0-b181-0000f8753ec4}"
+    static GUID_DEVCLASS_MEDIUM_CHANGER => Guid("{ce5939ae-ebde-11d0-b181-0000f8753ec4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_MEMORY => "{5099944a-f6b9-4057-a056-8c550228544c}"
+    static GUID_DEVCLASS_MEMORY => Guid("{5099944a-f6b9-4057-a056-8c550228544c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_MODEM => "{4d36e96d-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_MODEM => Guid("{4d36e96d-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_MONITOR => "{4d36e96e-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_MONITOR => Guid("{4d36e96e-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_MOUSE => "{4d36e96f-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_MOUSE => Guid("{4d36e96f-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_MTD => "{4d36e970-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_MTD => Guid("{4d36e970-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_MULTIFUNCTION => "{4d36e971-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_MULTIFUNCTION => Guid("{4d36e971-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_MULTIPORTSERIAL => "{50906cb8-ba12-11d1-bf5d-0000f805f530}"
+    static GUID_DEVCLASS_MULTIPORTSERIAL => Guid("{50906cb8-ba12-11d1-bf5d-0000f805f530}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_NET => "{4d36e972-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_NET => Guid("{4d36e972-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_NETCLIENT => "{4d36e973-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_NETCLIENT => Guid("{4d36e973-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_NETDRIVER => "{87ef9ad1-8f70-49ee-b215-ab1fcadcbe3c}"
+    static GUID_DEVCLASS_NETDRIVER => Guid("{87ef9ad1-8f70-49ee-b215-ab1fcadcbe3c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_NETSERVICE => "{4d36e974-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_NETSERVICE => Guid("{4d36e974-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_NETTRANS => "{4d36e975-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_NETTRANS => Guid("{4d36e975-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_NETUIO => "{78912bc1-cb8e-4b28-a329-f322ebadbe0f}"
+    static GUID_DEVCLASS_NETUIO => Guid("{78912bc1-cb8e-4b28-a329-f322ebadbe0f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_NODRIVER => "{4d36e976-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_NODRIVER => Guid("{4d36e976-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_PCMCIA => "{4d36e977-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_PCMCIA => Guid("{4d36e977-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_PNPPRINTERS => "{4658ee7e-f050-11d1-b6bd-00c04fa372a7}"
+    static GUID_DEVCLASS_PNPPRINTERS => Guid("{4658ee7e-f050-11d1-b6bd-00c04fa372a7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_PORTS => "{4d36e978-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_PORTS => Guid("{4d36e978-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_PRIMITIVE => "{242681d1-eed3-41d2-a1ef-1468fc843106}"
+    static GUID_DEVCLASS_PRIMITIVE => Guid("{242681d1-eed3-41d2-a1ef-1468fc843106}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_PRINTER => "{4d36e979-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_PRINTER => Guid("{4d36e979-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_PRINTERUPGRADE => "{4d36e97a-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_PRINTERUPGRADE => Guid("{4d36e97a-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_PRINTQUEUE => "{1ed2bbf9-11f0-4084-b21f-ad83a8e6dcdc}"
+    static GUID_DEVCLASS_PRINTQUEUE => Guid("{1ed2bbf9-11f0-4084-b21f-ad83a8e6dcdc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_PROCESSOR => "{50127dc3-0f36-415e-a6cc-4cb3be910b65}"
+    static GUID_DEVCLASS_PROCESSOR => Guid("{50127dc3-0f36-415e-a6cc-4cb3be910b65}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SBP2 => "{d48179be-ec20-11d1-b6b8-00c04fa372a7}"
+    static GUID_DEVCLASS_SBP2 => Guid("{d48179be-ec20-11d1-b6b8-00c04fa372a7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SCMDISK => "{53966cb1-4d46-4166-bf23-c522403cd495}"
+    static GUID_DEVCLASS_SCMDISK => Guid("{53966cb1-4d46-4166-bf23-c522403cd495}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SCMVOLUME => "{53ccb149-e543-4c84-b6e0-bce4f6b7e806}"
+    static GUID_DEVCLASS_SCMVOLUME => Guid("{53ccb149-e543-4c84-b6e0-bce4f6b7e806}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SCSIADAPTER => "{4d36e97b-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_SCSIADAPTER => Guid("{4d36e97b-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SECURITYACCELERATOR => "{268c95a1-edfe-11d3-95c3-0010dc4050a5}"
+    static GUID_DEVCLASS_SECURITYACCELERATOR => Guid("{268c95a1-edfe-11d3-95c3-0010dc4050a5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SENSOR => "{5175d334-c371-4806-b3ba-71fd53c9258d}"
+    static GUID_DEVCLASS_SENSOR => Guid("{5175d334-c371-4806-b3ba-71fd53c9258d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SIDESHOW => "{997b5d8d-c442-4f2e-baf3-9c8e671e9e21}"
+    static GUID_DEVCLASS_SIDESHOW => Guid("{997b5d8d-c442-4f2e-baf3-9c8e671e9e21}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SMARTCARDREADER => "{50dd5230-ba8a-11d1-bf5d-0000f805f530}"
+    static GUID_DEVCLASS_SMARTCARDREADER => Guid("{50dd5230-ba8a-11d1-bf5d-0000f805f530}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SMRDISK => "{53487c23-680f-4585-acc3-1f10d6777e82}"
+    static GUID_DEVCLASS_SMRDISK => Guid("{53487c23-680f-4585-acc3-1f10d6777e82}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SMRVOLUME => "{53b3cf03-8f5a-4788-91b6-d19ed9fcccbf}"
+    static GUID_DEVCLASS_SMRVOLUME => Guid("{53b3cf03-8f5a-4788-91b6-d19ed9fcccbf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SOFTWARECOMPONENT => "{5c4c3332-344d-483c-8739-259e934c9cc8}"
+    static GUID_DEVCLASS_SOFTWARECOMPONENT => Guid("{5c4c3332-344d-483c-8739-259e934c9cc8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SOUND => "{4d36e97c-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_SOUND => Guid("{4d36e97c-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_SYSTEM => "{4d36e97d-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_SYSTEM => Guid("{4d36e97d-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_TAPEDRIVE => "{6d807884-7d21-11cf-801c-08002be10318}"
+    static GUID_DEVCLASS_TAPEDRIVE => Guid("{6d807884-7d21-11cf-801c-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_UNKNOWN => "{4d36e97e-e325-11ce-bfc1-08002be10318}"
+    static GUID_DEVCLASS_UNKNOWN => Guid("{4d36e97e-e325-11ce-bfc1-08002be10318}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_UCM => "{e6f1aa1c-7f3b-4473-b2e8-c97d8ac71d53}"
+    static GUID_DEVCLASS_UCM => Guid("{e6f1aa1c-7f3b-4473-b2e8-c97d8ac71d53}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_USB => "{36fc9e60-c465-11cf-8056-444553540000}"
+    static GUID_DEVCLASS_USB => Guid("{36fc9e60-c465-11cf-8056-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_VOLUME => "{71a27cdd-812a-11d0-bec7-08002be2092f}"
+    static GUID_DEVCLASS_VOLUME => Guid("{71a27cdd-812a-11d0-bec7-08002be2092f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_VOLUMESNAPSHOT => "{533c5b84-ec70-11d2-9505-00c04f79deaf}"
+    static GUID_DEVCLASS_VOLUMESNAPSHOT => Guid("{533c5b84-ec70-11d2-9505-00c04f79deaf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_WCEUSBS => "{25dbce51-6c8f-4a72-8a6d-b54c2b4fc835}"
+    static GUID_DEVCLASS_WCEUSBS => Guid("{25dbce51-6c8f-4a72-8a6d-b54c2b4fc835}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_WPD => "{eec5ad98-8080-425f-922a-dabf3de3f69a}"
+    static GUID_DEVCLASS_WPD => Guid("{eec5ad98-8080-425f-922a-dabf3de3f69a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_TOP => "{b369baf4-5568-4e82-a87e-a93eb16bca87}"
+    static GUID_DEVCLASS_FSFILTER_TOP => Guid("{b369baf4-5568-4e82-a87e-a93eb16bca87}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_ACTIVITYMONITOR => "{b86dff51-a31e-4bac-b3cf-e8cfe75c9fc2}"
+    static GUID_DEVCLASS_FSFILTER_ACTIVITYMONITOR => Guid("{b86dff51-a31e-4bac-b3cf-e8cfe75c9fc2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_UNDELETE => "{fe8f1572-c67a-48c0-bbac-0b5c6d66cafb}"
+    static GUID_DEVCLASS_FSFILTER_UNDELETE => Guid("{fe8f1572-c67a-48c0-bbac-0b5c6d66cafb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_ANTIVIRUS => "{b1d1a169-c54f-4379-81db-bee7d88d7454}"
+    static GUID_DEVCLASS_FSFILTER_ANTIVIRUS => Guid("{b1d1a169-c54f-4379-81db-bee7d88d7454}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_REPLICATION => "{48d3ebc4-4cf8-48ff-b869-9c68ad42eb9f}"
+    static GUID_DEVCLASS_FSFILTER_REPLICATION => Guid("{48d3ebc4-4cf8-48ff-b869-9c68ad42eb9f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_CONTINUOUSBACKUP => "{71aa14f8-6fad-4622-ad77-92bb9d7e6947}"
+    static GUID_DEVCLASS_FSFILTER_CONTINUOUSBACKUP => Guid("{71aa14f8-6fad-4622-ad77-92bb9d7e6947}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_CONTENTSCREENER => "{3e3f0674-c83c-4558-bb26-9820e1eba5c5}"
+    static GUID_DEVCLASS_FSFILTER_CONTENTSCREENER => Guid("{3e3f0674-c83c-4558-bb26-9820e1eba5c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_QUOTAMANAGEMENT => "{8503c911-a6c7-4919-8f79-5028f5866b0c}"
+    static GUID_DEVCLASS_FSFILTER_QUOTAMANAGEMENT => Guid("{8503c911-a6c7-4919-8f79-5028f5866b0c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_SYSTEMRECOVERY => "{2db15374-706e-4131-a0c7-d7c78eb0289a}"
+    static GUID_DEVCLASS_FSFILTER_SYSTEMRECOVERY => Guid("{2db15374-706e-4131-a0c7-d7c78eb0289a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_CFSMETADATASERVER => "{cdcf0939-b75b-4630-bf76-80f7ba655884}"
+    static GUID_DEVCLASS_FSFILTER_CFSMETADATASERVER => Guid("{cdcf0939-b75b-4630-bf76-80f7ba655884}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_HSM => "{d546500a-2aeb-45f6-9482-f4b1799c3177}"
+    static GUID_DEVCLASS_FSFILTER_HSM => Guid("{d546500a-2aeb-45f6-9482-f4b1799c3177}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_COMPRESSION => "{f3586baf-b5aa-49b5-8d6c-0569284c639f}"
+    static GUID_DEVCLASS_FSFILTER_COMPRESSION => Guid("{f3586baf-b5aa-49b5-8d6c-0569284c639f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_ENCRYPTION => "{a0a701c0-a511-42ff-aa6c-06dc0395576f}"
+    static GUID_DEVCLASS_FSFILTER_ENCRYPTION => Guid("{a0a701c0-a511-42ff-aa6c-06dc0395576f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_VIRTUALIZATION => "{f75a86c0-10d8-4c3a-b233-ed60e4cdfaac}"
+    static GUID_DEVCLASS_FSFILTER_VIRTUALIZATION => Guid("{f75a86c0-10d8-4c3a-b233-ed60e4cdfaac}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_PHYSICALQUOTAMANAGEMENT => "{6a0a8e78-bba6-4fc4-a709-1e33cd09d67e}"
+    static GUID_DEVCLASS_FSFILTER_PHYSICALQUOTAMANAGEMENT => Guid("{6a0a8e78-bba6-4fc4-a709-1e33cd09d67e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_OPENFILEBACKUP => "{f8ecafa6-66d1-41a5-899b-66585d7216b7}"
+    static GUID_DEVCLASS_FSFILTER_OPENFILEBACKUP => Guid("{f8ecafa6-66d1-41a5-899b-66585d7216b7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_SECURITYENHANCER => "{d02bc3da-0c8e-4945-9bd5-f1883c226c8c}"
+    static GUID_DEVCLASS_FSFILTER_SECURITYENHANCER => Guid("{d02bc3da-0c8e-4945-9bd5-f1883c226c8c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_COPYPROTECTION => "{89786ff1-9c12-402f-9c9e-17753c7f4375}"
+    static GUID_DEVCLASS_FSFILTER_COPYPROTECTION => Guid("{89786ff1-9c12-402f-9c9e-17753c7f4375}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_BOTTOM => "{37765ea0-5958-4fc9-b04b-2fdfef97e59e}"
+    static GUID_DEVCLASS_FSFILTER_BOTTOM => Guid("{37765ea0-5958-4fc9-b04b-2fdfef97e59e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_SYSTEM => "{5d1b9aaa-01e2-46af-849f-272b3f324c46}"
+    static GUID_DEVCLASS_FSFILTER_SYSTEM => Guid("{5d1b9aaa-01e2-46af-849f-272b3f324c46}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVCLASS_FSFILTER_INFRASTRUCTURE => "{e55fa6f9-128c-4d04-abab-630c74b1453a}"
+    static GUID_DEVCLASS_FSFILTER_INFRASTRUCTURE => Guid("{e55fa6f9-128c-4d04-abab-630c74b1453a}")
 
     /**
      * @type {Integer (UInt32)}
@@ -4658,449 +4659,449 @@ class DeviceAndDriverInstallation {
     static INFSTR_SECT_DISPLAY_CLEANUP => "DisplayCleanup"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HWPROFILE_QUERY_CHANGE => "{cb3a4001-46f0-11d0-b08f-00609713053f}"
+    static GUID_HWPROFILE_QUERY_CHANGE => Guid("{cb3a4001-46f0-11d0-b08f-00609713053f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HWPROFILE_CHANGE_CANCELLED => "{cb3a4002-46f0-11d0-b08f-00609713053f}"
+    static GUID_HWPROFILE_CHANGE_CANCELLED => Guid("{cb3a4002-46f0-11d0-b08f-00609713053f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HWPROFILE_CHANGE_COMPLETE => "{cb3a4003-46f0-11d0-b08f-00609713053f}"
+    static GUID_HWPROFILE_CHANGE_COMPLETE => Guid("{cb3a4003-46f0-11d0-b08f-00609713053f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_INTERFACE_ARRIVAL => "{cb3a4004-46f0-11d0-b08f-00609713053f}"
+    static GUID_DEVICE_INTERFACE_ARRIVAL => Guid("{cb3a4004-46f0-11d0-b08f-00609713053f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_INTERFACE_REMOVAL => "{cb3a4005-46f0-11d0-b08f-00609713053f}"
+    static GUID_DEVICE_INTERFACE_REMOVAL => Guid("{cb3a4005-46f0-11d0-b08f-00609713053f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_TARGET_DEVICE_QUERY_REMOVE => "{cb3a4006-46f0-11d0-b08f-00609713053f}"
+    static GUID_TARGET_DEVICE_QUERY_REMOVE => Guid("{cb3a4006-46f0-11d0-b08f-00609713053f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_TARGET_DEVICE_REMOVE_CANCELLED => "{cb3a4007-46f0-11d0-b08f-00609713053f}"
+    static GUID_TARGET_DEVICE_REMOVE_CANCELLED => Guid("{cb3a4007-46f0-11d0-b08f-00609713053f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_TARGET_DEVICE_REMOVE_COMPLETE => "{cb3a4008-46f0-11d0-b08f-00609713053f}"
+    static GUID_TARGET_DEVICE_REMOVE_COMPLETE => Guid("{cb3a4008-46f0-11d0-b08f-00609713053f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PNP_CUSTOM_NOTIFICATION => "{aca73f8e-8d23-11d1-ac7d-0000f87571d0}"
+    static GUID_PNP_CUSTOM_NOTIFICATION => Guid("{aca73f8e-8d23-11d1-ac7d-0000f87571d0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PNP_POWER_NOTIFICATION => "{c2cf0660-eb7a-11d1-bd7f-0000f87571d0}"
+    static GUID_PNP_POWER_NOTIFICATION => Guid("{c2cf0660-eb7a-11d1-bd7f-0000f87571d0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PNP_POWER_SETTING_CHANGE => "{29c69b3e-c79a-43bf-bbde-a932fa1bea7e}"
+    static GUID_PNP_POWER_SETTING_CHANGE => Guid("{29c69b3e-c79a-43bf-bbde-a932fa1bea7e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_TARGET_DEVICE_TRANSPORT_RELATIONS_CHANGED => "{fcf528f6-a82f-47b1-ad3a-8050594cad28}"
+    static GUID_TARGET_DEVICE_TRANSPORT_RELATIONS_CHANGED => Guid("{fcf528f6-a82f-47b1-ad3a-8050594cad28}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_KERNEL_SOFT_RESTART_PREPARE => "{de373def-a85c-4f76-8cbf-f96bea8bd10f}"
+    static GUID_KERNEL_SOFT_RESTART_PREPARE => Guid("{de373def-a85c-4f76-8cbf-f96bea8bd10f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_KERNEL_SOFT_RESTART_CANCEL => "{31d737e7-8c0b-468a-956e-9f433ec358fb}"
+    static GUID_KERNEL_SOFT_RESTART_CANCEL => Guid("{31d737e7-8c0b-468a-956e-9f433ec358fb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_RECOVERY_PCI_PREPARE_SHUTDOWN => "{90d889de-8704-44cf-8115-ed8528d2b2da}"
+    static GUID_RECOVERY_PCI_PREPARE_SHUTDOWN => Guid("{90d889de-8704-44cf-8115-ed8528d2b2da}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_RECOVERY_NVMED_PREPARE_SHUTDOWN => "{4b9770ea-bde7-400b-a9b9-4f684f54cc2a}"
+    static GUID_RECOVERY_NVMED_PREPARE_SHUTDOWN => Guid("{4b9770ea-bde7-400b-a9b9-4f684f54cc2a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_KERNEL_SOFT_RESTART_FINALIZE => "{20e91abd-350a-4d4f-8577-99c81507473a}"
+    static GUID_KERNEL_SOFT_RESTART_FINALIZE => Guid("{20e91abd-350a-4d4f-8577-99c81507473a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_KERNEL_SOFT_RESTART_PRE_COMPLETE => "{af855082-530b-4a85-b5a6-120b63089451}"
+    static GUID_KERNEL_SOFT_RESTART_PRE_COMPLETE => Guid("{af855082-530b-4a85-b5a6-120b63089451}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_INTERFACE_STANDARD => "{496b8280-6f25-11d0-beaf-08002be2092f}"
+    static GUID_BUS_INTERFACE_STANDARD => Guid("{496b8280-6f25-11d0-beaf-08002be2092f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCI_BUS_INTERFACE_STANDARD => "{496b8281-6f25-11d0-beaf-08002be2092f}"
+    static GUID_PCI_BUS_INTERFACE_STANDARD => Guid("{496b8281-6f25-11d0-beaf-08002be2092f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCI_BUS_INTERFACE_STANDARD2 => "{de94e966-fdff-4c9c-9998-6747b150e74c}"
+    static GUID_PCI_BUS_INTERFACE_STANDARD2 => Guid("{de94e966-fdff-4c9c-9998-6747b150e74c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ARBITER_INTERFACE_STANDARD => "{e644f185-8c0e-11d0-becf-08002be2092f}"
+    static GUID_ARBITER_INTERFACE_STANDARD => Guid("{e644f185-8c0e-11d0-becf-08002be2092f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_TRANSLATOR_INTERFACE_STANDARD => "{6c154a92-aacf-11d0-8d2a-00a0c906b244}"
+    static GUID_TRANSLATOR_INTERFACE_STANDARD => Guid("{6c154a92-aacf-11d0-8d2a-00a0c906b244}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ACPI_INTERFACE_STANDARD => "{b091a08a-ba97-11d0-bd14-00aa00b7b32a}"
+    static GUID_ACPI_INTERFACE_STANDARD => Guid("{b091a08a-ba97-11d0-bd14-00aa00b7b32a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_INT_ROUTE_INTERFACE_STANDARD => "{70941bf4-0073-11d1-a09e-00c04fc340b1}"
+    static GUID_INT_ROUTE_INTERFACE_STANDARD => Guid("{70941bf4-0073-11d1-a09e-00c04fc340b1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCMCIA_BUS_INTERFACE_STANDARD => "{76173af0-c504-11d1-947f-00c04fb960ee}"
+    static GUID_PCMCIA_BUS_INTERFACE_STANDARD => Guid("{76173af0-c504-11d1-947f-00c04fb960ee}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ACPI_REGS_INTERFACE_STANDARD => "{06141966-7245-6369-462e-4e656c736f6e}"
+    static GUID_ACPI_REGS_INTERFACE_STANDARD => Guid("{06141966-7245-6369-462e-4e656c736f6e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_LEGACY_DEVICE_DETECTION_STANDARD => "{50feb0de-596a-11d2-a5b8-0000f81a4619}"
+    static GUID_LEGACY_DEVICE_DETECTION_STANDARD => Guid("{50feb0de-596a-11d2-a5b8-0000f81a4619}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCI_DEVICE_PRESENT_INTERFACE => "{d1b82c26-bf49-45ef-b216-71cbd7889b57}"
+    static GUID_PCI_DEVICE_PRESENT_INTERFACE => Guid("{d1b82c26-bf49-45ef-b216-71cbd7889b57}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MF_ENUMERATION_INTERFACE => "{aeb895f0-5586-11d1-8d84-00a0c906b244}"
+    static GUID_MF_ENUMERATION_INTERFACE => Guid("{aeb895f0-5586-11d1-8d84-00a0c906b244}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_REENUMERATE_SELF_INTERFACE_STANDARD => "{2aeb0243-6a6e-486b-82fc-d815f6b97006}"
+    static GUID_REENUMERATE_SELF_INTERFACE_STANDARD => Guid("{2aeb0243-6a6e-486b-82fc-d815f6b97006}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_AGP_TARGET_BUS_INTERFACE_STANDARD => "{b15cfce8-06d1-4d37-9d4c-bedde0c2a6ff}"
+    static GUID_AGP_TARGET_BUS_INTERFACE_STANDARD => Guid("{b15cfce8-06d1-4d37-9d4c-bedde0c2a6ff}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ACPI_CMOS_INTERFACE_STANDARD => "{3a8d0384-6505-40ca-bc39-56c15f8c5fed}"
+    static GUID_ACPI_CMOS_INTERFACE_STANDARD => Guid("{3a8d0384-6505-40ca-bc39-56c15f8c5fed}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ACPI_PORT_RANGES_INTERFACE_STANDARD => "{f14f609b-cbbd-4957-a674-bc00213f1c97}"
+    static GUID_ACPI_PORT_RANGES_INTERFACE_STANDARD => Guid("{f14f609b-cbbd-4957-a674-bc00213f1c97}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_ACPI_INTERFACE_STANDARD2 => "{e8695f63-1831-4870-a8cf-9c2f03f9dcb5}"
+    static GUID_ACPI_INTERFACE_STANDARD2 => Guid("{e8695f63-1831-4870-a8cf-9c2f03f9dcb5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PNP_LOCATION_INTERFACE => "{70211b0e-0afb-47db-afc1-410bf842497a}"
+    static GUID_PNP_LOCATION_INTERFACE => Guid("{70211b0e-0afb-47db-afc1-410bf842497a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCI_EXPRESS_LINK_QUIESCENT_INTERFACE => "{146cd41c-dae3-4437-8aff-2af3f038099b}"
+    static GUID_PCI_EXPRESS_LINK_QUIESCENT_INTERFACE => Guid("{146cd41c-dae3-4437-8aff-2af3f038099b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCI_EXPRESS_ROOT_PORT_INTERFACE => "{83a7734a-84c7-4161-9a98-6000ed0c4a33}"
+    static GUID_PCI_EXPRESS_ROOT_PORT_INTERFACE => Guid("{83a7734a-84c7-4161-9a98-6000ed0c4a33}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_MSIX_TABLE_CONFIG_INTERFACE => "{1a6a460b-194f-455d-b34b-b84c5b05712b}"
+    static GUID_MSIX_TABLE_CONFIG_INTERFACE => Guid("{1a6a460b-194f-455d-b34b-b84c5b05712b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_D3COLD_SUPPORT_INTERFACE => "{b38290e5-3cd0-4f9d-9937-f5fe2b44d47a}"
+    static GUID_D3COLD_SUPPORT_INTERFACE => Guid("{b38290e5-3cd0-4f9d-9937-f5fe2b44d47a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PROCESSOR_PCC_INTERFACE_STANDARD => "{37b17e9a-c21c-4296-972d-11c4b32b28f0}"
+    static GUID_PROCESSOR_PCC_INTERFACE_STANDARD => Guid("{37b17e9a-c21c-4296-972d-11c4b32b28f0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCI_VIRTUALIZATION_INTERFACE => "{64897b47-3a4a-4d75-bc74-89dd6c078293}"
+    static GUID_PCI_VIRTUALIZATION_INTERFACE => Guid("{64897b47-3a4a-4d75-bc74-89dd6c078293}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCC_INTERFACE_STANDARD => "{3ee8ba63-0f59-4a24-8a45-35808bdd1249}"
+    static GUID_PCC_INTERFACE_STANDARD => Guid("{3ee8ba63-0f59-4a24-8a45-35808bdd1249}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCC_INTERFACE_INTERNAL => "{7cce62ce-c189-4814-a6a7-12112089e938}"
+    static GUID_PCC_INTERFACE_INTERNAL => Guid("{7cce62ce-c189-4814-a6a7-12112089e938}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_THERMAL_COOLING_INTERFACE => "{ecbe47a8-c498-4bb9-bd70-e867e0940d22}"
+    static GUID_THERMAL_COOLING_INTERFACE => Guid("{ecbe47a8-c498-4bb9-bd70-e867e0940d22}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCI_LINK_CONFIG_INTERFACE => "{67593984-7cc0-4760-8d01-cbffd2d080f7}"
+    static GUID_PCI_LINK_CONFIG_INTERFACE => Guid("{67593984-7cc0-4760-8d01-cbffd2d080f7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_POWER_LIMIT_INTERFACE => "{3b96f4f2-ce49-44d1-91f8-652b8121e93a}"
+    static GUID_POWER_LIMIT_INTERFACE => Guid("{3b96f4f2-ce49-44d1-91f8-652b8121e93a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMA_CACHE_COHERENCY_INTERFACE => "{b520f7fa-8a5a-4e40-a3f6-6be1e162d935}"
+    static GUID_DMA_CACHE_COHERENCY_INTERFACE => Guid("{b520f7fa-8a5a-4e40-a3f6-6be1e162d935}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_RESET_INTERFACE_STANDARD => "{649fdf26-3bc0-4813-ad24-7e0c1eda3fa3}"
+    static GUID_DEVICE_RESET_INTERFACE_STANDARD => Guid("{649fdf26-3bc0-4813-ad24-7e0c1eda3fa3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IOMMU_BUS_INTERFACE => "{1efee0b2-d278-4ae4-bddc-1b34dd648043}"
+    static GUID_IOMMU_BUS_INTERFACE => Guid("{1efee0b2-d278-4ae4-bddc-1b34dd648043}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCI_SECURITY_INTERFACE => "{6e7f1451-199e-4acc-ba2d-762b4edf4674}"
+    static GUID_PCI_SECURITY_INTERFACE => Guid("{6e7f1451-199e-4acc-ba2d-762b4edf4674}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SCM_BUS_INTERFACE => "{25944783-ce79-4232-815e-4a30014e8eb4}"
+    static GUID_SCM_BUS_INTERFACE => Guid("{25944783-ce79-4232-815e-4a30014e8eb4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SECURE_DRIVER_INTERFACE => "{370f67e1-4ff5-4a94-9a35-06c5d9cc30e2}"
+    static GUID_SECURE_DRIVER_INTERFACE => Guid("{370f67e1-4ff5-4a94-9a35-06c5d9cc30e2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SDEV_IDENTIFIER_INTERFACE => "{49d67af8-916c-4ee8-9df1-889f17d21e91}"
+    static GUID_SDEV_IDENTIFIER_INTERFACE => Guid("{49d67af8-916c-4ee8-9df1-889f17d21e91}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SCM_BUS_NVD_INTERFACE => "{8de064ff-b630-42e4-88ea-6f24c8641175}"
+    static GUID_SCM_BUS_NVD_INTERFACE => Guid("{8de064ff-b630-42e4-88ea-6f24c8641175}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SCM_BUS_LD_INTERFACE => "{9b89307d-d76b-4f48-b186-54041ae92e8d}"
+    static GUID_SCM_BUS_LD_INTERFACE => Guid("{9b89307d-d76b-4f48-b186-54041ae92e8d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_SCM_PHYSICAL_NVDIMM_INTERFACE => "{0079c21b-917e-405e-a9ce-0732b5bbcebd}"
+    static GUID_SCM_PHYSICAL_NVDIMM_INTERFACE => Guid("{0079c21b-917e-405e-a9ce-0732b5bbcebd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PNP_EXTENDED_ADDRESS_INTERFACE => "{b8e992ec-a797-4dc4-8846-84d041707446}"
+    static GUID_PNP_EXTENDED_ADDRESS_INTERFACE => Guid("{b8e992ec-a797-4dc4-8846-84d041707446}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_D3COLD_AUX_POWER_AND_TIMING_INTERFACE => "{0044d8aa-f664-4588-9ffc-2afeaf5950b9}"
+    static GUID_D3COLD_AUX_POWER_AND_TIMING_INTERFACE => Guid("{0044d8aa-f664-4588-9ffc-2afeaf5950b9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCI_FPGA_CONTROL_INTERFACE => "{2df3f7a8-b9b3-4063-9215-b5d14a0b266e}"
+    static GUID_PCI_FPGA_CONTROL_INTERFACE => Guid("{2df3f7a8-b9b3-4063-9215-b5d14a0b266e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCI_PTM_CONTROL_INTERFACE => "{348a5ebb-ba24-44b7-9916-285687735117}"
+    static GUID_PCI_PTM_CONTROL_INTERFACE => Guid("{348a5ebb-ba24-44b7-9916-285687735117}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_RESOURCE_UPDATE_INTERFACE => "{27d0102d-bfb2-4164-81dd-dbb82f968b48}"
+    static GUID_BUS_RESOURCE_UPDATE_INTERFACE => Guid("{27d0102d-bfb2-4164-81dd-dbb82f968b48}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_NPEM_CONTROL_INTERFACE => "{4d95573d-b774-488a-b120-4f284a9eff51}"
+    static GUID_NPEM_CONTROL_INTERFACE => Guid("{4d95573d-b774-488a-b120-4f284a9eff51}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PCI_ATS_INTERFACE => "{010a7fe8-96f5-4943-bedf-95e651b93412}"
+    static GUID_PCI_ATS_INTERFACE => Guid("{010a7fe8-96f5-4943-bedf-95e651b93412}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_INTERNAL => "{1530ea73-086b-11d1-a09f-00c04fc340b1}"
+    static GUID_BUS_TYPE_INTERNAL => Guid("{1530ea73-086b-11d1-a09f-00c04fc340b1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_PCMCIA => "{09343630-af9f-11d0-92e9-0000f81e1b30}"
+    static GUID_BUS_TYPE_PCMCIA => Guid("{09343630-af9f-11d0-92e9-0000f81e1b30}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_PCI => "{c8ebdfb0-b510-11d0-80e5-00a0c92542e3}"
+    static GUID_BUS_TYPE_PCI => Guid("{c8ebdfb0-b510-11d0-80e5-00a0c92542e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_ISAPNP => "{e676f854-d87d-11d0-92b2-00a0c9055fc5}"
+    static GUID_BUS_TYPE_ISAPNP => Guid("{e676f854-d87d-11d0-92b2-00a0c9055fc5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_EISA => "{ddc35509-f3fc-11d0-a537-0000f8753ed1}"
+    static GUID_BUS_TYPE_EISA => Guid("{ddc35509-f3fc-11d0-a537-0000f8753ed1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_MCA => "{1c75997a-dc33-11d0-92b2-00a0c9055fc5}"
+    static GUID_BUS_TYPE_MCA => Guid("{1c75997a-dc33-11d0-92b2-00a0c9055fc5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_SERENUM => "{77114a87-8944-11d1-bd90-00a0c906be2d}"
+    static GUID_BUS_TYPE_SERENUM => Guid("{77114a87-8944-11d1-bd90-00a0c906be2d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_USB => "{9d7debbc-c85d-11d1-9eb4-006008c3a19a}"
+    static GUID_BUS_TYPE_USB => Guid("{9d7debbc-c85d-11d1-9eb4-006008c3a19a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_LPTENUM => "{c4ca1000-2ddc-11d5-a17a-00c04f60524d}"
+    static GUID_BUS_TYPE_LPTENUM => Guid("{c4ca1000-2ddc-11d5-a17a-00c04f60524d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_USBPRINT => "{441ee000-4342-11d5-a184-00c04f60524d}"
+    static GUID_BUS_TYPE_USBPRINT => Guid("{441ee000-4342-11d5-a184-00c04f60524d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_DOT4PRT => "{441ee001-4342-11d5-a184-00c04f60524d}"
+    static GUID_BUS_TYPE_DOT4PRT => Guid("{441ee001-4342-11d5-a184-00c04f60524d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_1394 => "{f74e73eb-9ac5-45eb-be4d-772cc71ddfb3}"
+    static GUID_BUS_TYPE_1394 => Guid("{f74e73eb-9ac5-45eb-be4d-772cc71ddfb3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_HID => "{eeaf37d0-1963-47c4-aa48-72476db7cf49}"
+    static GUID_BUS_TYPE_HID => Guid("{eeaf37d0-1963-47c4-aa48-72476db7cf49}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_AVC => "{c06ff265-ae09-48f0-812c-16753d7cba83}"
+    static GUID_BUS_TYPE_AVC => Guid("{c06ff265-ae09-48f0-812c-16753d7cba83}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_IRDA => "{7ae17dc1-c944-44d6-881f-4c2e61053bc1}"
+    static GUID_BUS_TYPE_IRDA => Guid("{7ae17dc1-c944-44d6-881f-4c2e61053bc1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_SD => "{e700cc04-4036-4e89-9579-89ebf45f00cd}"
+    static GUID_BUS_TYPE_SD => Guid("{e700cc04-4036-4e89-9579-89ebf45f00cd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_ACPI => "{d7b46895-001a-4942-891f-a7d46610a843}"
+    static GUID_BUS_TYPE_ACPI => Guid("{d7b46895-001a-4942-891f-a7d46610a843}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_SW_DEVICE => "{06d10322-7de0-4cef-8e25-197d0e7442e2}"
+    static GUID_BUS_TYPE_SW_DEVICE => Guid("{06d10322-7de0-4cef-8e25-197d0e7442e2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_BUS_TYPE_SCM => "{375a5912-804c-45aa-bdc2-fdd25a1d9512}"
+    static GUID_BUS_TYPE_SCM => Guid("{375a5912-804c-45aa-bdc2-fdd25a1d9512}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_POWER_DEVICE_ENABLE => "{827c0a6f-feb0-11d0-bd26-00aa00b7b32a}"
+    static GUID_POWER_DEVICE_ENABLE => Guid("{827c0a6f-feb0-11d0-bd26-00aa00b7b32a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_POWER_DEVICE_TIMEOUTS => "{a45da735-feb0-11d0-bd26-00aa00b7b32a}"
+    static GUID_POWER_DEVICE_TIMEOUTS => Guid("{a45da735-feb0-11d0-bd26-00aa00b7b32a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_POWER_DEVICE_WAKE_ENABLE => "{a9546a82-feb0-11d0-bd26-00aa00b7b32a}"
+    static GUID_POWER_DEVICE_WAKE_ENABLE => Guid("{a9546a82-feb0-11d0-bd26-00aa00b7b32a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_WUDF_DEVICE_HOST_PROBLEM => "{c43d25bd-9346-40ee-a2d2-d70c15f8b75b}"
+    static GUID_WUDF_DEVICE_HOST_PROBLEM => Guid("{c43d25bd-9346-40ee-a2d2-d70c15f8b75b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_PARTITION_UNIT_INTERFACE_STANDARD => "{52363f5b-d891-429b-8195-aec5fef6853c}"
+    static GUID_PARTITION_UNIT_INTERFACE_STANDARD => Guid("{52363f5b-d891-429b-8195-aec5fef6853c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_QUERY_CRASHDUMP_FUNCTIONS => "{9cc6b8ff-32e2-4834-b1de-b32ef8880a4b}"
+    static GUID_QUERY_CRASHDUMP_FUNCTIONS => Guid("{9cc6b8ff-32e2-4834-b1de-b32ef8880a4b}")
 ;@endregion Constants
 
 ;@region Methods

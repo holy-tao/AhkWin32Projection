@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -1477,37 +1478,37 @@ class Identity {
     /**
      * @type {String}
      */
-    static LSA_AP_NAME_INITIALIZE_PACKAGE => "LsaApInitializePackage\u0000"
+    static LSA_AP_NAME_INITIALIZE_PACKAGE => "LsaApInitializePackage" Chr(0) ""
 
     /**
      * @type {String}
      */
-    static LSA_AP_NAME_LOGON_USER => "LsaApLogonUser\u0000"
+    static LSA_AP_NAME_LOGON_USER => "LsaApLogonUser" Chr(0) ""
 
     /**
      * @type {String}
      */
-    static LSA_AP_NAME_LOGON_USER_EX => "LsaApLogonUserEx\u0000"
+    static LSA_AP_NAME_LOGON_USER_EX => "LsaApLogonUserEx" Chr(0) ""
 
     /**
      * @type {String}
      */
-    static LSA_AP_NAME_CALL_PACKAGE => "LsaApCallPackage\u0000"
+    static LSA_AP_NAME_CALL_PACKAGE => "LsaApCallPackage" Chr(0) ""
 
     /**
      * @type {String}
      */
-    static LSA_AP_NAME_LOGON_TERMINATED => "LsaApLogonTerminated\u0000"
+    static LSA_AP_NAME_LOGON_TERMINATED => "LsaApLogonTerminated" Chr(0) ""
 
     /**
      * @type {String}
      */
-    static LSA_AP_NAME_CALL_PACKAGE_UNTRUSTED => "LsaApCallPackageUntrusted\u0000"
+    static LSA_AP_NAME_CALL_PACKAGE_UNTRUSTED => "LsaApCallPackageUntrusted" Chr(0) ""
 
     /**
      * @type {String}
      */
-    static LSA_AP_NAME_CALL_PACKAGE_PASSTHROUGH => "LsaApCallPackagePassthrough\u0000"
+    static LSA_AP_NAME_CALL_PACKAGE_PASSTHROUGH => "LsaApCallPackagePassthrough" Chr(0) ""
 
     /**
      * @type {Integer (Int32)}
@@ -2030,344 +2031,344 @@ class Identity {
     static LSAD_AES256_MAC_KEY_STRING => "Microsoft LSAD MAC key AEAD-AES-256-CBC-HMAC-SHA512 16"
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_System_SecurityStateChange => "{0cce9210-69ae-11d9-bed3-505054503030}"
+    static Audit_System_SecurityStateChange => Guid("{0cce9210-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_System_SecuritySubsystemExtension => "{0cce9211-69ae-11d9-bed3-505054503030}"
+    static Audit_System_SecuritySubsystemExtension => Guid("{0cce9211-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_System_Integrity => "{0cce9212-69ae-11d9-bed3-505054503030}"
+    static Audit_System_Integrity => Guid("{0cce9212-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_System_IPSecDriverEvents => "{0cce9213-69ae-11d9-bed3-505054503030}"
+    static Audit_System_IPSecDriverEvents => Guid("{0cce9213-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_System_Others => "{0cce9214-69ae-11d9-bed3-505054503030}"
+    static Audit_System_Others => Guid("{0cce9214-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Logon_Logon => "{0cce9215-69ae-11d9-bed3-505054503030}"
+    static Audit_Logon_Logon => Guid("{0cce9215-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Logon_Logoff => "{0cce9216-69ae-11d9-bed3-505054503030}"
+    static Audit_Logon_Logoff => Guid("{0cce9216-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Logon_AccountLockout => "{0cce9217-69ae-11d9-bed3-505054503030}"
+    static Audit_Logon_AccountLockout => Guid("{0cce9217-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Logon_IPSecMainMode => "{0cce9218-69ae-11d9-bed3-505054503030}"
+    static Audit_Logon_IPSecMainMode => Guid("{0cce9218-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Logon_IPSecQuickMode => "{0cce9219-69ae-11d9-bed3-505054503030}"
+    static Audit_Logon_IPSecQuickMode => Guid("{0cce9219-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Logon_IPSecUserMode => "{0cce921a-69ae-11d9-bed3-505054503030}"
+    static Audit_Logon_IPSecUserMode => Guid("{0cce921a-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Logon_SpecialLogon => "{0cce921b-69ae-11d9-bed3-505054503030}"
+    static Audit_Logon_SpecialLogon => Guid("{0cce921b-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Logon_Others => "{0cce921c-69ae-11d9-bed3-505054503030}"
+    static Audit_Logon_Others => Guid("{0cce921c-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_FileSystem => "{0cce921d-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_FileSystem => Guid("{0cce921d-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_Registry => "{0cce921e-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_Registry => Guid("{0cce921e-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_Kernel => "{0cce921f-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_Kernel => Guid("{0cce921f-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_Sam => "{0cce9220-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_Sam => Guid("{0cce9220-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_CertificationServices => "{0cce9221-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_CertificationServices => Guid("{0cce9221-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_ApplicationGenerated => "{0cce9222-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_ApplicationGenerated => Guid("{0cce9222-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_Handle => "{0cce9223-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_Handle => Guid("{0cce9223-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_Share => "{0cce9224-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_Share => Guid("{0cce9224-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_FirewallPacketDrops => "{0cce9225-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_FirewallPacketDrops => Guid("{0cce9225-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_FirewallConnection => "{0cce9226-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_FirewallConnection => Guid("{0cce9226-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_Other => "{0cce9227-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_Other => Guid("{0cce9227-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_PrivilegeUse_Sensitive => "{0cce9228-69ae-11d9-bed3-505054503030}"
+    static Audit_PrivilegeUse_Sensitive => Guid("{0cce9228-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_PrivilegeUse_NonSensitive => "{0cce9229-69ae-11d9-bed3-505054503030}"
+    static Audit_PrivilegeUse_NonSensitive => Guid("{0cce9229-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_PrivilegeUse_Others => "{0cce922a-69ae-11d9-bed3-505054503030}"
+    static Audit_PrivilegeUse_Others => Guid("{0cce922a-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_DetailedTracking_ProcessCreation => "{0cce922b-69ae-11d9-bed3-505054503030}"
+    static Audit_DetailedTracking_ProcessCreation => Guid("{0cce922b-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_DetailedTracking_ProcessTermination => "{0cce922c-69ae-11d9-bed3-505054503030}"
+    static Audit_DetailedTracking_ProcessTermination => Guid("{0cce922c-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_DetailedTracking_DpapiActivity => "{0cce922d-69ae-11d9-bed3-505054503030}"
+    static Audit_DetailedTracking_DpapiActivity => Guid("{0cce922d-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_DetailedTracking_RpcCall => "{0cce922e-69ae-11d9-bed3-505054503030}"
+    static Audit_DetailedTracking_RpcCall => Guid("{0cce922e-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_PolicyChange_AuditPolicy => "{0cce922f-69ae-11d9-bed3-505054503030}"
+    static Audit_PolicyChange_AuditPolicy => Guid("{0cce922f-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_PolicyChange_AuthenticationPolicy => "{0cce9230-69ae-11d9-bed3-505054503030}"
+    static Audit_PolicyChange_AuthenticationPolicy => Guid("{0cce9230-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_PolicyChange_AuthorizationPolicy => "{0cce9231-69ae-11d9-bed3-505054503030}"
+    static Audit_PolicyChange_AuthorizationPolicy => Guid("{0cce9231-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_PolicyChange_MpsscvRulePolicy => "{0cce9232-69ae-11d9-bed3-505054503030}"
+    static Audit_PolicyChange_MpsscvRulePolicy => Guid("{0cce9232-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_PolicyChange_WfpIPSecPolicy => "{0cce9233-69ae-11d9-bed3-505054503030}"
+    static Audit_PolicyChange_WfpIPSecPolicy => Guid("{0cce9233-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_PolicyChange_Others => "{0cce9234-69ae-11d9-bed3-505054503030}"
+    static Audit_PolicyChange_Others => Guid("{0cce9234-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_AccountManagement_UserAccount => "{0cce9235-69ae-11d9-bed3-505054503030}"
+    static Audit_AccountManagement_UserAccount => Guid("{0cce9235-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_AccountManagement_ComputerAccount => "{0cce9236-69ae-11d9-bed3-505054503030}"
+    static Audit_AccountManagement_ComputerAccount => Guid("{0cce9236-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_AccountManagement_SecurityGroup => "{0cce9237-69ae-11d9-bed3-505054503030}"
+    static Audit_AccountManagement_SecurityGroup => Guid("{0cce9237-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_AccountManagement_DistributionGroup => "{0cce9238-69ae-11d9-bed3-505054503030}"
+    static Audit_AccountManagement_DistributionGroup => Guid("{0cce9238-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_AccountManagement_ApplicationGroup => "{0cce9239-69ae-11d9-bed3-505054503030}"
+    static Audit_AccountManagement_ApplicationGroup => Guid("{0cce9239-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_AccountManagement_Others => "{0cce923a-69ae-11d9-bed3-505054503030}"
+    static Audit_AccountManagement_Others => Guid("{0cce923a-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_DSAccess_DSAccess => "{0cce923b-69ae-11d9-bed3-505054503030}"
+    static Audit_DSAccess_DSAccess => Guid("{0cce923b-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_DsAccess_AdAuditChanges => "{0cce923c-69ae-11d9-bed3-505054503030}"
+    static Audit_DsAccess_AdAuditChanges => Guid("{0cce923c-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Ds_Replication => "{0cce923d-69ae-11d9-bed3-505054503030}"
+    static Audit_Ds_Replication => Guid("{0cce923d-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Ds_DetailedReplication => "{0cce923e-69ae-11d9-bed3-505054503030}"
+    static Audit_Ds_DetailedReplication => Guid("{0cce923e-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_AccountLogon_CredentialValidation => "{0cce923f-69ae-11d9-bed3-505054503030}"
+    static Audit_AccountLogon_CredentialValidation => Guid("{0cce923f-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_AccountLogon_Kerberos => "{0cce9240-69ae-11d9-bed3-505054503030}"
+    static Audit_AccountLogon_Kerberos => Guid("{0cce9240-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_AccountLogon_Others => "{0cce9241-69ae-11d9-bed3-505054503030}"
+    static Audit_AccountLogon_Others => Guid("{0cce9241-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_AccountLogon_KerbCredentialValidation => "{0cce9242-69ae-11d9-bed3-505054503030}"
+    static Audit_AccountLogon_KerbCredentialValidation => Guid("{0cce9242-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Logon_NPS => "{0cce9243-69ae-11d9-bed3-505054503030}"
+    static Audit_Logon_NPS => Guid("{0cce9243-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_DetailedFileShare => "{0cce9244-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_DetailedFileShare => Guid("{0cce9244-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_RemovableStorage => "{0cce9245-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_RemovableStorage => Guid("{0cce9245-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess_CbacStaging => "{0cce9246-69ae-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess_CbacStaging => Guid("{0cce9246-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Logon_Claims => "{0cce9247-69ae-11d9-bed3-505054503030}"
+    static Audit_Logon_Claims => Guid("{0cce9247-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_DetailedTracking_PnpActivity => "{0cce9248-69ae-11d9-bed3-505054503030}"
+    static Audit_DetailedTracking_PnpActivity => Guid("{0cce9248-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Logon_Groups => "{0cce9249-69ae-11d9-bed3-505054503030}"
+    static Audit_Logon_Groups => Guid("{0cce9249-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_DetailedTracking_TokenRightAdjusted => "{0cce924a-69ae-11d9-bed3-505054503030}"
+    static Audit_DetailedTracking_TokenRightAdjusted => Guid("{0cce924a-69ae-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_System => "{69979848-797a-11d9-bed3-505054503030}"
+    static Audit_System => Guid("{69979848-797a-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_Logon => "{69979849-797a-11d9-bed3-505054503030}"
+    static Audit_Logon => Guid("{69979849-797a-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_ObjectAccess => "{6997984a-797a-11d9-bed3-505054503030}"
+    static Audit_ObjectAccess => Guid("{6997984a-797a-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_PrivilegeUse => "{6997984b-797a-11d9-bed3-505054503030}"
+    static Audit_PrivilegeUse => Guid("{6997984b-797a-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_DetailedTracking => "{6997984c-797a-11d9-bed3-505054503030}"
+    static Audit_DetailedTracking => Guid("{6997984c-797a-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_PolicyChange => "{6997984d-797a-11d9-bed3-505054503030}"
+    static Audit_PolicyChange => Guid("{6997984d-797a-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_AccountManagement => "{6997984e-797a-11d9-bed3-505054503030}"
+    static Audit_AccountManagement => Guid("{6997984e-797a-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_DirectoryServiceAccess => "{6997984f-797a-11d9-bed3-505054503030}"
+    static Audit_DirectoryServiceAccess => Guid("{6997984f-797a-11d9-bed3-505054503030}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static Audit_AccountLogon => "{69979850-797a-11d9-bed3-505054503030}"
+    static Audit_AccountLogon => Guid("{69979850-797a-11d9-bed3-505054503030}")
 
     /**
      * @type {Integer (Int32)}
@@ -3770,9 +3771,9 @@ class Identity {
     static SECPKG_CALL_PACKAGE_TRANSFER_CRED_REQUEST_FLAG_TO_SSO_SESSION => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SECPKG_REDIRECTED_LOGON_GUID_INITIALIZER => "{c2be5457-82eb-483e-ae4e-7468ef14d509}"
+    static SECPKG_REDIRECTED_LOGON_GUID_INITIALIZER => Guid("{c2be5457-82eb-483e-ae4e-7468ef14d509}")
 
     /**
      * @type {Integer (UInt32)}
@@ -3882,12 +3883,12 @@ class Identity {
     /**
      * @type {String}
      */
-    static LSA_AP_NAME_LOGON_USER_EX2 => "LsaApLogonUserEx2\u0000"
+    static LSA_AP_NAME_LOGON_USER_EX2 => "LsaApLogonUserEx2" Chr(0) ""
 
     /**
      * @type {String}
      */
-    static SP_ACCEPT_CREDENTIALS_NAME => "SpAcceptCredentials\u0000"
+    static SP_ACCEPT_CREDENTIALS_NAME => "SpAcceptCredentials" Chr(0) ""
 
     /**
      * @type {Integer (UInt32)}
@@ -7245,9 +7246,9 @@ class Identity {
     static SL_REMAPPING_MDOLLAR_OSR_DEVICE_BLOCKED => -2143310909
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WINDOWS_SLID => "{55c92734-d682-4d71-983e-d6ec3f16059f}"
+    static WINDOWS_SLID => Guid("{55c92734-d682-4d71-983e-d6ec3f16059f}")
 
     /**
      * @type {String}

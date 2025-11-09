@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Vhd
@@ -10,14 +11,14 @@ class Vhd {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static VIRTUAL_STORAGE_TYPE_VENDOR_UNKNOWN => "{00000000-0000-0000-0000-000000000000}"
+    static VIRTUAL_STORAGE_TYPE_VENDOR_UNKNOWN => Guid("{00000000-0000-0000-0000-000000000000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static VIRTUAL_STORAGE_TYPE_VENDOR_MICROSOFT => "{ec984aec-a0f9-47e9-901f-71415a66345b}"
+    static VIRTUAL_STORAGE_TYPE_VENDOR_MICROSOFT => Guid("{ec984aec-a0f9-47e9-901f-71415a66345b}")
 
     /**
      * @type {Integer (UInt32)}

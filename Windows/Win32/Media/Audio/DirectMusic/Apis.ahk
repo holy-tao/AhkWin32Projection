@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -450,114 +451,114 @@ class DirectMusic {
     static DAUD_CHAN16_VOICE_PRIORITY_OFFSET => 0
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectMusic => "{636b9f10-0c7d-11d1-95b2-0020afdc7421}"
+    static CLSID_DirectMusic => Guid("{636b9f10-0c7d-11d1-95b2-0020afdc7421}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectMusicCollection => "{480ff4b0-28b2-11d1-bef7-00c04fbf8fef}"
+    static CLSID_DirectMusicCollection => Guid("{480ff4b0-28b2-11d1-bef7-00c04fbf8fef}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectMusicSynth => "{58c2b4d0-46e7-11d1-89ac-00a0c9054129}"
+    static CLSID_DirectMusicSynth => Guid("{58c2b4d0-46e7-11d1-89ac-00a0c9054129}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_GM_Hardware => "{178f2f24-c364-11d1-a760-0000f875ac12}"
+    static GUID_DMUS_PROP_GM_Hardware => Guid("{178f2f24-c364-11d1-a760-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_GS_Hardware => "{178f2f25-c364-11d1-a760-0000f875ac12}"
+    static GUID_DMUS_PROP_GS_Hardware => Guid("{178f2f25-c364-11d1-a760-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_XG_Hardware => "{178f2f26-c364-11d1-a760-0000f875ac12}"
+    static GUID_DMUS_PROP_XG_Hardware => Guid("{178f2f26-c364-11d1-a760-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_XG_Capable => "{6496aba1-61b0-11d2-afa6-00aa0024d8b6}"
+    static GUID_DMUS_PROP_XG_Capable => Guid("{6496aba1-61b0-11d2-afa6-00aa0024d8b6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_GS_Capable => "{6496aba2-61b0-11d2-afa6-00aa0024d8b6}"
+    static GUID_DMUS_PROP_GS_Capable => Guid("{6496aba2-61b0-11d2-afa6-00aa0024d8b6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_DLS1 => "{178f2f27-c364-11d1-a760-0000f875ac12}"
+    static GUID_DMUS_PROP_DLS1 => Guid("{178f2f27-c364-11d1-a760-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_DLS2 => "{f14599e5-4689-11d2-afa6-00aa0024d8b6}"
+    static GUID_DMUS_PROP_DLS2 => Guid("{f14599e5-4689-11d2-afa6-00aa0024d8b6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_INSTRUMENT2 => "{865fd372-9f67-11d2-872a-00600893b1bd}"
+    static GUID_DMUS_PROP_INSTRUMENT2 => Guid("{865fd372-9f67-11d2-872a-00600893b1bd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_SynthSink_DSOUND => "{0aa97844-c877-11d1-870c-00600893b1bd}"
+    static GUID_DMUS_PROP_SynthSink_DSOUND => Guid("{0aa97844-c877-11d1-870c-00600893b1bd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_SynthSink_WAVE => "{0aa97845-c877-11d1-870c-00600893b1bd}"
+    static GUID_DMUS_PROP_SynthSink_WAVE => Guid("{0aa97845-c877-11d1-870c-00600893b1bd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_SampleMemorySize => "{178f2f28-c364-11d1-a760-0000f875ac12}"
+    static GUID_DMUS_PROP_SampleMemorySize => Guid("{178f2f28-c364-11d1-a760-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_SamplePlaybackRate => "{2a91f713-a4bf-11d2-bbdf-00600833dbd8}"
+    static GUID_DMUS_PROP_SamplePlaybackRate => Guid("{2a91f713-a4bf-11d2-bbdf-00600833dbd8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_WriteLatency => "{268a0fa0-60f2-11d2-afa6-00aa0024d8b6}"
+    static GUID_DMUS_PROP_WriteLatency => Guid("{268a0fa0-60f2-11d2-afa6-00aa0024d8b6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_WritePeriod => "{268a0fa1-60f2-11d2-afa6-00aa0024d8b6}"
+    static GUID_DMUS_PROP_WritePeriod => Guid("{268a0fa1-60f2-11d2-afa6-00aa0024d8b6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_MemorySize => "{178f2f28-c364-11d1-a760-0000f875ac12}"
+    static GUID_DMUS_PROP_MemorySize => Guid("{178f2f28-c364-11d1-a760-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_WavesReverb => "{04cb5622-32e5-11d2-afa6-00aa0024d8b6}"
+    static GUID_DMUS_PROP_WavesReverb => Guid("{04cb5622-32e5-11d2-afa6-00aa0024d8b6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_Effects => "{cda8d611-684a-11d2-871e-00600893b1bd}"
+    static GUID_DMUS_PROP_Effects => Guid("{cda8d611-684a-11d2-871e-00600893b1bd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_LegacyCaps => "{cfa7cdc2-00a1-11d2-aad5-0000f875ac12}"
+    static GUID_DMUS_PROP_LegacyCaps => Guid("{cfa7cdc2-00a1-11d2-aad5-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_Volume => "{fedfae25-e46e-11d1-aace-0000f875ac12}"
+    static GUID_DMUS_PROP_Volume => Guid("{fedfae25-e46e-11d1-aace-0000f875ac12}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1035,49 +1036,49 @@ class DirectMusic {
     static F_WAVELINK_MULTICHANNEL => 2
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DLSID_GMInHardware => "{178f2f24-c364-11d1-a760-0000f875ac12}"
+    static DLSID_GMInHardware => Guid("{178f2f24-c364-11d1-a760-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DLSID_GSInHardware => "{178f2f25-c364-11d1-a760-0000f875ac12}"
+    static DLSID_GSInHardware => Guid("{178f2f25-c364-11d1-a760-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DLSID_XGInHardware => "{178f2f26-c364-11d1-a760-0000f875ac12}"
+    static DLSID_XGInHardware => Guid("{178f2f26-c364-11d1-a760-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DLSID_SupportsDLS1 => "{178f2f27-c364-11d1-a760-0000f875ac12}"
+    static DLSID_SupportsDLS1 => Guid("{178f2f27-c364-11d1-a760-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DLSID_SupportsDLS2 => "{f14599e5-4689-11d2-afa6-00aa0024d8b6}"
+    static DLSID_SupportsDLS2 => Guid("{f14599e5-4689-11d2-afa6-00aa0024d8b6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DLSID_SampleMemorySize => "{178f2f28-c364-11d1-a760-0000f875ac12}"
+    static DLSID_SampleMemorySize => Guid("{178f2f28-c364-11d1-a760-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DLSID_ManufacturersID => "{b03e1181-8095-11d2-a1ef-00600833dbd8}"
+    static DLSID_ManufacturersID => Guid("{b03e1181-8095-11d2-a1ef-00600833dbd8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DLSID_ProductID => "{b03e1182-8095-11d2-a1ef-00600833dbd8}"
+    static DLSID_ProductID => Guid("{b03e1182-8095-11d2-a1ef-00600833dbd8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DLSID_SamplePlaybackRate => "{2a91f713-a4bf-11d2-bbdf-00600833dbd8}"
+    static DLSID_SamplePlaybackRate => Guid("{2a91f713-a4bf-11d2-bbdf-00600833dbd8}")
 
     /**
      * @type {String}
@@ -1090,29 +1091,29 @@ class DirectMusic {
     static REFRESH_F_LASTBUFFER => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectMusicSynthSink => "{aec17ce3-a514-11d1-afa6-00aa0024d8b6}"
+    static CLSID_DirectMusicSynthSink => Guid("{aec17ce3-a514-11d1-afa6-00aa0024d8b6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_SetSynthSink => "{0a3a5ba5-37b6-11d2-b9f9-0000f875ac12}"
+    static GUID_DMUS_PROP_SetSynthSink => Guid("{0a3a5ba5-37b6-11d2-b9f9-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DMUS_PROP_SinkUsesDSound => "{be208857-8952-11d2-ba1c-0000f875ac12}"
+    static GUID_DMUS_PROP_SinkUsesDSound => Guid("{be208857-8952-11d2-ba1c-0000f875ac12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectSoundPrivate => "{11ab3ec0-25ec-11d1-a4d8-00c04fc28aca}"
+    static CLSID_DirectSoundPrivate => Guid("{11ab3ec0-25ec-11d1-a4d8-00c04fc28aca}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DSPROPSETID_DirectSoundDevice => "{84624f82-25ec-11d1-a4d8-00c04fc28aca}"
+    static DSPROPSETID_DirectSoundDevice => Guid("{84624f82-25ec-11d1-a4d8-00c04fc28aca}")
 
     /**
      * @type {Integer (Int32)}

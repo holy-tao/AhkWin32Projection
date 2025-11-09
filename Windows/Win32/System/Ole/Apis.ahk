@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IRecordInfo.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\ITypeLib.ahk
@@ -106,139 +107,139 @@ class Ole {
     static PERPROP_E_NOPAGEAVAILABLE => -2147220992
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CFontPropPage => "{0be35200-8f91-11ce-9de3-00aa004bb851}"
+    static CLSID_CFontPropPage => Guid("{0be35200-8f91-11ce-9de3-00aa004bb851}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CColorPropPage => "{0be35201-8f91-11ce-9de3-00aa004bb851}"
+    static CLSID_CColorPropPage => Guid("{0be35201-8f91-11ce-9de3-00aa004bb851}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_CPicturePropPage => "{0be35202-8f91-11ce-9de3-00aa004bb851}"
+    static CLSID_CPicturePropPage => Guid("{0be35202-8f91-11ce-9de3-00aa004bb851}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_PersistPropset => "{fb8f0821-0164-101b-84ed-08002b2ec713}"
+    static CLSID_PersistPropset => Guid("{fb8f0821-0164-101b-84ed-08002b2ec713}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_ConvertVBX => "{fb8f0822-0164-101b-84ed-08002b2ec713}"
+    static CLSID_ConvertVBX => Guid("{fb8f0822-0164-101b-84ed-08002b2ec713}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_StdFont => "{0be35203-8f91-11ce-9de3-00aa004bb851}"
+    static CLSID_StdFont => Guid("{0be35203-8f91-11ce-9de3-00aa004bb851}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_StdPicture => "{0be35204-8f91-11ce-9de3-00aa004bb851}"
+    static CLSID_StdPicture => Guid("{0be35204-8f91-11ce-9de3-00aa004bb851}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HIMETRIC => "{66504300-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_HIMETRIC => Guid("{66504300-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_COLOR => "{66504301-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_COLOR => Guid("{66504301-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_XPOSPIXEL => "{66504302-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_XPOSPIXEL => Guid("{66504302-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_YPOSPIXEL => "{66504303-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_YPOSPIXEL => Guid("{66504303-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_XSIZEPIXEL => "{66504304-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_XSIZEPIXEL => Guid("{66504304-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_YSIZEPIXEL => "{66504305-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_YSIZEPIXEL => Guid("{66504305-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_XPOS => "{66504306-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_XPOS => Guid("{66504306-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_YPOS => "{66504307-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_YPOS => Guid("{66504307-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_XSIZE => "{66504308-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_XSIZE => Guid("{66504308-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_YSIZE => "{66504309-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_YSIZE => Guid("{66504309-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_TRISTATE => "{6650430a-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_TRISTATE => Guid("{6650430a-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_OPTIONVALUEEXCLUSIVE => "{6650430b-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_OPTIONVALUEEXCLUSIVE => Guid("{6650430b-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_CHECKVALUEEXCLUSIVE => "{6650430c-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_CHECKVALUEEXCLUSIVE => Guid("{6650430c-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_FONTNAME => "{6650430d-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_FONTNAME => Guid("{6650430d-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_FONTSIZE => "{6650430e-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_FONTSIZE => Guid("{6650430e-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_FONTBOLD => "{6650430f-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_FONTBOLD => Guid("{6650430f-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_FONTITALIC => "{66504310-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_FONTITALIC => Guid("{66504310-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_FONTUNDERSCORE => "{66504311-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_FONTUNDERSCORE => Guid("{66504311-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_FONTSTRIKETHROUGH => "{66504312-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_FONTSTRIKETHROUGH => Guid("{66504312-be0f-101a-8bbb-00aa00300cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_HANDLE => "{66504313-be0f-101a-8bbb-00aa00300cab}"
+    static GUID_HANDLE => Guid("{66504313-be0f-101a-8bbb-00aa00300cab}")
 
     /**
      * @type {Integer (Int32)}
@@ -2391,19 +2392,19 @@ class Ole {
     static DISPID_STARTENUM => -1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_VariantConversion => "{1f101481-bccd-11d0-9336-00a0c90dcaa9}"
+    static SID_VariantConversion => Guid("{1f101481-bccd-11d0-9336-00a0c90dcaa9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_GetCaller => "{4717cc40-bcb9-11d0-9336-00a0c90dcaa9}"
+    static SID_GetCaller => Guid("{4717cc40-bcb9-11d0-9336-00a0c90dcaa9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static SID_ProvideRuntimeContext => "{74a5040c-dd0c-48f0-ac85-194c3259180a}"
+    static SID_ProvideRuntimeContext => Guid("{74a5040c-dd0c-48f0-ac85-194c3259180a}")
 ;@endregion Constants
 
 ;@region Methods

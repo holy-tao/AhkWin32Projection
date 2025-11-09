@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -590,64 +591,64 @@ class Usb {
     static USB_RESERVED_USER_BASE => 1024
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_USB_HUB => "{f18a0e88-c30c-11d0-8815-00a0c906bed8}"
+    static GUID_DEVINTERFACE_USB_HUB => Guid("{f18a0e88-c30c-11d0-8815-00a0c906bed8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_USB_BILLBOARD => "{5e9adaef-f879-473f-b807-4e5ea77d1b1c}"
+    static GUID_DEVINTERFACE_USB_BILLBOARD => Guid("{5e9adaef-f879-473f-b807-4e5ea77d1b1c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_USB_DEVICE => "{a5dcbf10-6530-11d2-901f-00c04fb951ed}"
+    static GUID_DEVINTERFACE_USB_DEVICE => Guid("{a5dcbf10-6530-11d2-901f-00c04fb951ed}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_USB_HOST_CONTROLLER => "{3abf6f2d-71c4-462a-8a92-1e6861e6af27}"
+    static GUID_DEVINTERFACE_USB_HOST_CONTROLLER => Guid("{3abf6f2d-71c4-462a-8a92-1e6861e6af27}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_USB_WMI_STD_DATA => "{4e623b20-cb14-11d1-b331-00a0c959bbd2}"
+    static GUID_USB_WMI_STD_DATA => Guid("{4e623b20-cb14-11d1-b331-00a0c959bbd2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_USB_WMI_STD_NOTIFICATION => "{4e623b20-cb14-11d1-b331-00a0c959bbd2}"
+    static GUID_USB_WMI_STD_NOTIFICATION => Guid("{4e623b20-cb14-11d1-b331-00a0c959bbd2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_USB_WMI_DEVICE_PERF_INFO => "{66c1aa3c-499f-49a0-a9a5-61e2359f6407}"
+    static GUID_USB_WMI_DEVICE_PERF_INFO => Guid("{66c1aa3c-499f-49a0-a9a5-61e2359f6407}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_USB_WMI_NODE_INFO => "{9c179357-dc7a-4f41-b66b-323b9ddcb5b1}"
+    static GUID_USB_WMI_NODE_INFO => Guid("{9c179357-dc7a-4f41-b66b-323b9ddcb5b1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_USB_WMI_TRACING => "{3a61881b-b4e6-4bf9-ae0f-3cd8f394e52f}"
+    static GUID_USB_WMI_TRACING => Guid("{3a61881b-b4e6-4bf9-ae0f-3cd8f394e52f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_USB_TRANSFER_TRACING => "{681eb8aa-403d-452c-9f8a-f0616fac9540}"
+    static GUID_USB_TRANSFER_TRACING => Guid("{681eb8aa-403d-452c-9f8a-f0616fac9540}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_USB_PERFORMANCE_TRACING => "{d5de77a6-6ae9-425c-b1e2-f5615fd348a9}"
+    static GUID_USB_PERFORMANCE_TRACING => Guid("{d5de77a6-6ae9-425c-b1e2-f5615fd348a9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_USB_WMI_SURPRISE_REMOVAL_NOTIFICATION => "{9bbbf831-a2f2-43b4-96d1-86944b5914b3}"
+    static GUID_USB_WMI_SURPRISE_REMOVAL_NOTIFICATION => Guid("{9bbbf831-a2f2-43b4-96d1-86944b5914b3}")
 
     /**
      * @type {Integer (UInt32)}
@@ -1295,9 +1296,9 @@ class Usb {
     static USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED_PROTOCOL_SSP => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_USB_MSOS20_PLATFORM_CAPABILITY_ID => "{d8dd60df-4589-4cc7-9cd2-659d9e648a9f}"
+    static GUID_USB_MSOS20_PLATFORM_CAPABILITY_ID => Guid("{d8dd60df-4589-4cc7-9cd2-659d9e648a9f}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2175,9 +2176,9 @@ class Usb {
     static USB4_CONFIGURATION_REGISTERS_DW_LENGTH => 60
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static USB4_HRD_DEBUG_INTERFACE => "{981fca05-60d3-4bb3-898e-497c580c4fb3}"
+    static USB4_HRD_DEBUG_INTERFACE => Guid("{981fca05-60d3-4bb3-898e-497c580c4fb3}")
 
     /**
      * @type {String}
@@ -2735,9 +2736,9 @@ class Usb {
     static IOCTL_ABORT_PIPE => 2147491844
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static WinUSB_TestGuid => "{da812bff-12c3-46a2-8e2b-dbd3b7834c43}"
+    static WinUSB_TestGuid => Guid("{da812bff-12c3-46a2-8e2b-dbd3b7834c43}")
 ;@endregion Constants
 
 ;@region Methods

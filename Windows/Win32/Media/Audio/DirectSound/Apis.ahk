@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\IDirectSound.ahk
 #Include .\IDirectSoundCapture.ahk
 #Include .\IDirectSound8.ahk
@@ -23,49 +24,49 @@ class DirectSound {
     static _FACDS => 2168
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectSound => "{47d4d946-62e8-11cf-93bc-444553540000}"
+    static CLSID_DirectSound => Guid("{47d4d946-62e8-11cf-93bc-444553540000}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectSound8 => "{3901cc3f-84b5-4fa4-ba35-aa8172b8a09b}"
+    static CLSID_DirectSound8 => Guid("{3901cc3f-84b5-4fa4-ba35-aa8172b8a09b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectSoundCapture => "{b0210780-89cd-11d0-af08-00a0c925cd16}"
+    static CLSID_DirectSoundCapture => Guid("{b0210780-89cd-11d0-af08-00a0c925cd16}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectSoundCapture8 => "{e4bcac13-7f99-4908-9a8e-74e3bf24b6e1}"
+    static CLSID_DirectSoundCapture8 => Guid("{e4bcac13-7f99-4908-9a8e-74e3bf24b6e1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_DirectSoundFullDuplex => "{fea4300c-7959-4147-b26a-2377b9e7a91d}"
+    static CLSID_DirectSoundFullDuplex => Guid("{fea4300c-7959-4147-b26a-2377b9e7a91d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DSDEVID_DefaultPlayback => "{def00000-9c6d-47ed-aaf1-4dda8f2b5c03}"
+    static DSDEVID_DefaultPlayback => Guid("{def00000-9c6d-47ed-aaf1-4dda8f2b5c03}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DSDEVID_DefaultCapture => "{def00001-9c6d-47ed-aaf1-4dda8f2b5c03}"
+    static DSDEVID_DefaultCapture => Guid("{def00001-9c6d-47ed-aaf1-4dda8f2b5c03}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DSDEVID_DefaultVoicePlayback => "{def00002-9c6d-47ed-aaf1-4dda8f2b5c03}"
+    static DSDEVID_DefaultVoicePlayback => Guid("{def00002-9c6d-47ed-aaf1-4dda8f2b5c03}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DSDEVID_DefaultVoiceCapture => "{def00003-9c6d-47ed-aaf1-4dda8f2b5c03}"
+    static DSDEVID_DefaultVoiceCapture => Guid("{def00003-9c6d-47ed-aaf1-4dda8f2b5c03}")
 
     /**
      * @type {Integer (UInt32)}
@@ -98,9 +99,9 @@ class DirectSound {
     static DSCFXR_LOCSOFTWARE => 32
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_All_Objects => "{aa114de5-c262-4169-a1c8-23d698cc73b5}"
+    static GUID_All_Objects => Guid("{aa114de5-c262-4169-a1c8-23d698cc73b5}")
 
     /**
      * @type {Integer (UInt32)}
@@ -143,52 +144,52 @@ class DirectSound {
     static DSFXCHORUS_WAVE_SIN => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCHORUS_WETDRYMIX_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCHORUS_WETDRYMIX_MAX => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCHORUS_DEPTH_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCHORUS_DEPTH_MAX => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCHORUS_FEEDBACK_MIN => -99
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCHORUS_FEEDBACK_MAX => 99
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCHORUS_FREQUENCY_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCHORUS_FREQUENCY_MAX => 10
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCHORUS_DELAY_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCHORUS_DELAY_MAX => 20
 
@@ -238,32 +239,32 @@ class DirectSound {
     static DSFXFLANGER_WAVE_SIN => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXFLANGER_WETDRYMIX_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXFLANGER_WETDRYMIX_MAX => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXFLANGER_FREQUENCY_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXFLANGER_FREQUENCY_MAX => 10
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXFLANGER_DEPTH_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXFLANGER_DEPTH_MAX => 100
 
@@ -278,22 +279,22 @@ class DirectSound {
     static DSFXFLANGER_PHASE_MAX => 4
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXFLANGER_FEEDBACK_MIN => -99
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXFLANGER_FEEDBACK_MAX => 99
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXFLANGER_DELAY_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXFLANGER_DELAY_MAX => 4
 
@@ -323,42 +324,42 @@ class DirectSound {
     static DSFXFLANGER_PHASE_180 => 4
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXECHO_WETDRYMIX_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXECHO_WETDRYMIX_MAX => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXECHO_FEEDBACK_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXECHO_FEEDBACK_MAX => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXECHO_LEFTDELAY_MIN => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXECHO_LEFTDELAY_MAX => 2000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXECHO_RIGHTDELAY_MIN => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXECHO_RIGHTDELAY_MAX => 2000
 
@@ -373,142 +374,142 @@ class DirectSound {
     static DSFXECHO_PANDELAY_MAX => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXDISTORTION_GAIN_MIN => -60
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXDISTORTION_GAIN_MAX => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXDISTORTION_EDGE_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXDISTORTION_EDGE_MAX => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXDISTORTION_POSTEQCENTERFREQUENCY_MIN => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXDISTORTION_POSTEQCENTERFREQUENCY_MAX => 8000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXDISTORTION_POSTEQBANDWIDTH_MIN => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXDISTORTION_POSTEQBANDWIDTH_MAX => 8000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXDISTORTION_PRELOWPASSCUTOFF_MIN => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXDISTORTION_PRELOWPASSCUTOFF_MAX => 8000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCOMPRESSOR_GAIN_MIN => -60
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCOMPRESSOR_GAIN_MAX => 60
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCOMPRESSOR_ATTACK_MIN => 0.01
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCOMPRESSOR_ATTACK_MAX => 500
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCOMPRESSOR_RELEASE_MIN => 50
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCOMPRESSOR_RELEASE_MAX => 3000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCOMPRESSOR_THRESHOLD_MIN => -60
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCOMPRESSOR_THRESHOLD_MAX => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCOMPRESSOR_RATIO_MIN => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCOMPRESSOR_RATIO_MAX => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCOMPRESSOR_PREDELAY_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXCOMPRESSOR_PREDELAY_MAX => 4
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXPARAMEQ_CENTER_MIN => 80
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXPARAMEQ_CENTER_MAX => 16000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXPARAMEQ_BANDWIDTH_MIN => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXPARAMEQ_BANDWIDTH_MAX => 36
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXPARAMEQ_GAIN_MIN => -15
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFXPARAMEQ_GAIN_MAX => 15
 
@@ -543,47 +544,47 @@ class DirectSound {
     static DSFX_I3DL2REVERB_ROOMHF_DEFAULT => -100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_ROOMROLLOFFFACTOR_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_ROOMROLLOFFFACTOR_MAX => 10
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_ROOMROLLOFFFACTOR_DEFAULT => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_DECAYTIME_MIN => 0.1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_DECAYTIME_MAX => 20
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_DECAYTIME_DEFAULT => 1.49
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_DECAYHFRATIO_MIN => 0.1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_DECAYHFRATIO_MAX => 2
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_DECAYHFRATIO_DEFAULT => 0.83
 
@@ -603,17 +604,17 @@ class DirectSound {
     static DSFX_I3DL2REVERB_REFLECTIONS_DEFAULT => -2602
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_REFLECTIONSDELAY_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_REFLECTIONSDELAY_MAX => 0.3
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_REFLECTIONSDELAY_DEFAULT => 0.007
 
@@ -633,62 +634,62 @@ class DirectSound {
     static DSFX_I3DL2REVERB_REVERB_DEFAULT => 200
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_REVERBDELAY_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_REVERBDELAY_MAX => 0.1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_REVERBDELAY_DEFAULT => 0.011
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_DIFFUSION_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_DIFFUSION_MAX => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_DIFFUSION_DEFAULT => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_DENSITY_MIN => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_DENSITY_MAX => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_DENSITY_DEFAULT => 100
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_HFREFERENCE_MIN => 20
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_HFREFERENCE_MAX => 20000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_I3DL2REVERB_HFREFERENCE_DEFAULT => 5000
 
@@ -708,62 +709,62 @@ class DirectSound {
     static DSFX_I3DL2REVERB_QUALITY_DEFAULT => 2
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_WAVESREVERB_INGAIN_MIN => -96
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_WAVESREVERB_INGAIN_MAX => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_WAVESREVERB_INGAIN_DEFAULT => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_WAVESREVERB_REVERBMIX_MIN => -96
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_WAVESREVERB_REVERBMIX_MAX => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_WAVESREVERB_REVERBMIX_DEFAULT => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_WAVESREVERB_REVERBTIME_MIN => 0.001
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_WAVESREVERB_REVERBTIME_MAX => 3000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_WAVESREVERB_REVERBTIME_DEFAULT => 1000
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_WAVESREVERB_HIGHFREQRTRATIO_MIN => 0.001
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_WAVESREVERB_HIGHFREQRTRATIO_MAX => 0.999
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DSFX_WAVESREVERB_HIGHFREQRTRATIO_DEFAULT => 0.001
 
@@ -1198,47 +1199,47 @@ class DirectSound {
     static DS3D_DEFERRED => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DS3D_DEFAULTDISTANCEFACTOR => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DS3D_MINROLLOFFFACTOR => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DS3D_MAXROLLOFFFACTOR => 10
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DS3D_DEFAULTROLLOFFFACTOR => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DS3D_MINDOPPLERFACTOR => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DS3D_MAXDOPPLERFACTOR => 10
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DS3D_DEFAULTDOPPLERFACTOR => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DS3D_DEFAULTMINDISTANCE => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static DS3D_DEFAULTMAXDISTANCE => 1E+09
 
@@ -1323,94 +1324,94 @@ class DirectSound {
     static DS_UNCERTIFIED => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DS3DALG_NO_VIRTUALIZATION => "{c241333f-1c1b-11d2-94f5-00c04fc28aca}"
+    static DS3DALG_NO_VIRTUALIZATION => Guid("{c241333f-1c1b-11d2-94f5-00c04fc28aca}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DS3DALG_HRTF_FULL => "{c2413340-1c1b-11d2-94f5-00c04fc28aca}"
+    static DS3DALG_HRTF_FULL => Guid("{c2413340-1c1b-11d2-94f5-00c04fc28aca}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DS3DALG_HRTF_LIGHT => "{c2413342-1c1b-11d2-94f5-00c04fc28aca}"
+    static DS3DALG_HRTF_LIGHT => Guid("{c2413342-1c1b-11d2-94f5-00c04fc28aca}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSFX_STANDARD_GARGLE => "{dafd8210-5711-4b91-9fe3-f75b7ae279bf}"
+    static GUID_DSFX_STANDARD_GARGLE => Guid("{dafd8210-5711-4b91-9fe3-f75b7ae279bf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSFX_STANDARD_CHORUS => "{efe6629c-81f7-4281-bd91-c9d604a95af6}"
+    static GUID_DSFX_STANDARD_CHORUS => Guid("{efe6629c-81f7-4281-bd91-c9d604a95af6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSFX_STANDARD_FLANGER => "{efca3d92-dfd8-4672-a603-7420894bad98}"
+    static GUID_DSFX_STANDARD_FLANGER => Guid("{efca3d92-dfd8-4672-a603-7420894bad98}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSFX_STANDARD_ECHO => "{ef3e932c-d40b-4f51-8ccf-3f98f1b29d5d}"
+    static GUID_DSFX_STANDARD_ECHO => Guid("{ef3e932c-d40b-4f51-8ccf-3f98f1b29d5d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSFX_STANDARD_DISTORTION => "{ef114c90-cd1d-484e-96e5-09cfaf912a21}"
+    static GUID_DSFX_STANDARD_DISTORTION => Guid("{ef114c90-cd1d-484e-96e5-09cfaf912a21}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSFX_STANDARD_COMPRESSOR => "{ef011f79-4000-406d-87af-bffb3fc39d57}"
+    static GUID_DSFX_STANDARD_COMPRESSOR => Guid("{ef011f79-4000-406d-87af-bffb3fc39d57}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSFX_STANDARD_PARAMEQ => "{120ced89-3bf4-4173-a132-3cb406cf3231}"
+    static GUID_DSFX_STANDARD_PARAMEQ => Guid("{120ced89-3bf4-4173-a132-3cb406cf3231}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSFX_STANDARD_I3DL2REVERB => "{ef985e71-d5c7-42d4-ba4d-2d073e2e96f4}"
+    static GUID_DSFX_STANDARD_I3DL2REVERB => Guid("{ef985e71-d5c7-42d4-ba4d-2d073e2e96f4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSFX_WAVES_REVERB => "{87fc0268-9a55-4360-95aa-004a1d9de26c}"
+    static GUID_DSFX_WAVES_REVERB => Guid("{87fc0268-9a55-4360-95aa-004a1d9de26c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSCFX_CLASS_AEC => "{bf963d80-c559-11d0-8a2b-00a0c9255ac1}"
+    static GUID_DSCFX_CLASS_AEC => Guid("{bf963d80-c559-11d0-8a2b-00a0c9255ac1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSCFX_MS_AEC => "{cdebb919-379a-488a-8765-f53cfd36de40}"
+    static GUID_DSCFX_MS_AEC => Guid("{cdebb919-379a-488a-8765-f53cfd36de40}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSCFX_SYSTEM_AEC => "{1c22c56d-9879-4f5b-a389-27996ddc2810}"
+    static GUID_DSCFX_SYSTEM_AEC => Guid("{1c22c56d-9879-4f5b-a389-27996ddc2810}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSCFX_CLASS_NS => "{e07f903f-62fd-4e60-8cdd-dea7236665b5}"
+    static GUID_DSCFX_CLASS_NS => Guid("{e07f903f-62fd-4e60-8cdd-dea7236665b5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSCFX_MS_NS => "{11c5c73b-66e9-4ba1-a0ba-e814c6eed92d}"
+    static GUID_DSCFX_MS_NS => Guid("{11c5c73b-66e9-4ba1-a0ba-e814c6eed92d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DSCFX_SYSTEM_NS => "{5ab0882e-7274-4516-877d-4eee99ba4fd0}"
+    static GUID_DSCFX_SYSTEM_NS => Guid("{5ab0882e-7274-4516-877d-4eee99ba4fd0}")
 
     /**
      * @type {Integer (Int32)}

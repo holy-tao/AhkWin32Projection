@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\PRINTER_HANDLE.ahk
 #Include .\FINDPRINTERCHANGENOTIFICATION_HANDLE.ahk
@@ -3050,24 +3051,24 @@ class Printing {
     static MXDCOP_SET_XPSPASSTHRU_MODE => 32
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_OEMRENDER => "{6d6abf26-9f38-11d1-882a-00c04fb961ec}"
+    static CLSID_OEMRENDER => Guid("{6d6abf26-9f38-11d1-882a-00c04fb961ec}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_OEMUI => "{abce80d7-9f46-11d1-882a-00c04fb961ec}"
+    static CLSID_OEMUI => Guid("{abce80d7-9f46-11d1-882a-00c04fb961ec}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_OEMUIMXDC => "{4e144300-5b43-4288-932a-5e4dd6d82bed}"
+    static CLSID_OEMUIMXDC => Guid("{4e144300-5b43-4288-932a-5e4dd6d82bed}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_OEMPTPROVIDER => "{91723892-45d2-48e2-9ec9-562379daf992}"
+    static CLSID_OEMPTPROVIDER => Guid("{91723892-45d2-48e2-9ec9-562379daf992}")
 
     /**
      * @type {Integer (Int32)}
@@ -3075,9 +3076,9 @@ class Printing {
     static S_DEVCAP_OUTPUT_FULL_REPLACEMENT => 318465
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_PTPROVIDER => "{46ac151b-8490-4531-96cc-55bf2bf19e11}"
+    static CLSID_PTPROVIDER => Guid("{46ac151b-8490-4531-96cc-55bf2bf19e11}")
 
     /**
      * @type {Integer (UInt32)}
@@ -3095,24 +3096,24 @@ class Printing {
     static S_CONFLICT_RESOLVED => 262146
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PRINTER_EXTENSION_DETAILEDREASON_PRINTER_STATUS => "{5d5a1704-dfd1-4181-8eee-815c86edad31}"
+    static PRINTER_EXTENSION_DETAILEDREASON_PRINTER_STATUS => Guid("{5d5a1704-dfd1-4181-8eee-815c86edad31}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PRINTER_EXTENSION_REASON_PRINT_PREFERENCES => "{ec8f261f-267c-469f-b5d6-3933023c29cc}"
+    static PRINTER_EXTENSION_REASON_PRINT_PREFERENCES => Guid("{ec8f261f-267c-469f-b5d6-3933023c29cc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PRINTER_EXTENSION_REASON_DRIVER_EVENT => "{23bb1328-63de-4293-915b-a6a23d929acb}"
+    static PRINTER_EXTENSION_REASON_DRIVER_EVENT => Guid("{23bb1328-63de-4293-915b-a6a23d929acb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FMTID_PrinterPropertyBag => "{75f9adca-097d-45c3-a6e4-bab29e276f3e}"
+    static FMTID_PrinterPropertyBag => Guid("{75f9adca-097d-45c3-a6e4-bab29e276f3e}")
 
     /**
      * @type {Integer (UInt32)}
@@ -7055,34 +7056,34 @@ class Printing {
     static DISPID_PRINTERQUEUEVIEW_EVENT_ONCHANGED => 12801
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static NOTIFICATION_RELEASE => "{ba9a5027-a70e-4ae7-9b7d-eb3e06ad4157}"
+    static NOTIFICATION_RELEASE => Guid("{ba9a5027-a70e-4ae7-9b7d-eb3e06ad4157}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PRINT_APP_BIDI_NOTIFY_CHANNEL => "{2abad223-b994-4aca-82fc-4571b1b585ac}"
+    static PRINT_APP_BIDI_NOTIFY_CHANNEL => Guid("{2abad223-b994-4aca-82fc-4571b1b585ac}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static PRINT_PORT_MONITOR_NOTIFY_CHANNEL => "{25df3b0e-74a9-47f5-80ce-79b4b1eb5c58}"
+    static PRINT_PORT_MONITOR_NOTIFY_CHANNEL => Guid("{25df3b0e-74a9-47f5-80ce-79b4b1eb5c58}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_USBPRINT => "{28d78fad-5a12-11d1-ae5b-0000f803a8c2}"
+    static GUID_DEVINTERFACE_USBPRINT => Guid("{28d78fad-5a12-11d1-ae5b-0000f803a8c2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_IPPUSB_PRINT => "{f2f40381-f46d-4e51-bce7-62de6cf2d098}"
+    static GUID_DEVINTERFACE_IPPUSB_PRINT => Guid("{f2f40381-f46d-4e51-bce7-62de6cf2d098}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_XPSRASTERIZER_FACTORY => "{503e79bf-1d09-4764-9d72-1eb0c65967c6}"
+    static CLSID_XPSRASTERIZER_FACTORY => Guid("{503e79bf-1d09-4764-9d72-1eb0c65967c6}")
 ;@endregion Constants
 
 ;@region Methods

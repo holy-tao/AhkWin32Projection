@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Direct3D\ID3DBlob.ahk
 #Include .\ID3DX11Scan.ahk
 #Include .\ID3DX11SegmentedScan.ahk
@@ -514,27 +515,27 @@ class Direct3D11 {
     static D3D11_CS_THREAD_LOCAL_TEMP_REGISTER_POOL => 16384
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_DEFAULT_BLEND_FACTOR_ALPHA => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_DEFAULT_BLEND_FACTOR_BLUE => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_DEFAULT_BLEND_FACTOR_GREEN => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_DEFAULT_BLEND_FACTOR_RED => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_DEFAULT_BORDER_COLOR_COMPONENT => 0
 
@@ -544,7 +545,7 @@ class Direct3D11 {
     static D3D11_DEFAULT_DEPTH_BIAS => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_DEFAULT_DEPTH_BIAS_CLAMP => 0
 
@@ -554,7 +555,7 @@ class Direct3D11 {
     static D3D11_DEFAULT_MAX_ANISOTROPY => 16
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_DEFAULT_MIP_LOD_BIAS => 0
 
@@ -589,7 +590,7 @@ class Direct3D11 {
     static D3D11_DEFAULT_SCISSOR_STARTY => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_DEFAULT_SLOPE_SCALED_DEPTH_BIAS => 0
 
@@ -619,12 +620,12 @@ class Direct3D11 {
     static D3D11_DEFAULT_VIEWPORT_HEIGHT => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_DEFAULT_VIEWPORT_MAX_DEPTH => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_DEFAULT_VIEWPORT_MIN_DEPTH => 0
 
@@ -764,67 +765,67 @@ class Direct3D11 {
     static D3D11_DS_OUTPUT_REGISTER_COUNT => 32
 
     /**
-     * @type {Integer (Double)}
+     * @type {Float}
      */
     static D3D11_FLOAT16_FUSED_TOLERANCE_IN_ULP => 0.6
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_FLOAT32_MAX => 3.4028235E+38
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_FLOAT32_TO_INTEGER_TOLERANCE_IN_ULP => 0.6
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_FLOAT_TO_SRGB_EXPONENT_DENOMINATOR => 2.4
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_FLOAT_TO_SRGB_EXPONENT_NUMERATOR => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_FLOAT_TO_SRGB_OFFSET => 0.055
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_FLOAT_TO_SRGB_SCALE_1 => 12.92
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_FLOAT_TO_SRGB_SCALE_2 => 1.055
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_FLOAT_TO_SRGB_THRESHOLD => 0.0031308
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_FTOI_INSTRUCTION_MAX_INPUT => 2.1474836E+09
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_FTOI_INSTRUCTION_MIN_INPUT => -2.1474836E+09
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_FTOU_INSTRUCTION_MAX_INPUT => 4.2949673E+09
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_FTOU_INSTRUCTION_MIN_INPUT => 0
 
@@ -1054,12 +1055,12 @@ class Direct3D11 {
     static D3D11_HS_JOIN_PHASE_INSTANCE_COUNT_UPPER_BOUND => 4294967295
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_HS_MAXTESSFACTOR_LOWER_BOUND => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_HS_MAXTESSFACTOR_UPPER_BOUND => 64
 
@@ -1204,7 +1205,7 @@ class Direct3D11 {
     static D3D11_KEEP_UNORDERED_ACCESS_VIEWS => 4294967295
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_LINEAR_GAMMA => 1
 
@@ -1214,12 +1215,12 @@ class Direct3D11 {
     static D3D11_MAJOR_VERSION => 11
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_MAX_BORDER_COLOR_COMPONENT => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_MAX_DEPTH => 1
 
@@ -1234,7 +1235,7 @@ class Direct3D11 {
     static D3D11_MAX_MULTISAMPLE_SAMPLE_COUNT => 32
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_MAX_POSITION_VALUE => 3.4028236E+34
 
@@ -1249,12 +1250,12 @@ class Direct3D11 {
     static D3D11_MINOR_VERSION => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_MIN_BORDER_COLOR_COMPONENT => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_MIN_DEPTH => 0
 
@@ -1264,12 +1265,12 @@ class Direct3D11 {
     static D3D11_MIN_MAXANISOTROPY => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_MIP_LOD_BIAS_MAX => 15.99
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_MIP_LOD_BIAS_MIN => -16
 
@@ -1284,7 +1285,7 @@ class Direct3D11 {
     static D3D11_MIP_LOD_RANGE_BIT_COUNT => 8
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_MULTISAMPLE_ANTIALIAS_LINE_WIDTH => 1.4
 
@@ -1364,7 +1365,7 @@ class Direct3D11 {
     static D3D11_PS_INPUT_REGISTER_READ_PORTS => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_PS_LEGACY_PIXEL_CENTER_FRACTIONAL_COMPONENT => 0
 
@@ -1414,7 +1415,7 @@ class Direct3D11 {
     static D3D11_PS_OUTPUT_REGISTER_COUNT => 8
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_PS_PIXEL_CENTER_FRACTIONAL_COMPONENT => 0.5
 
@@ -1499,7 +1500,7 @@ class Direct3D11 {
     static D3D11_REQ_RESOURCE_SIZE_IN_MEGABYTES_EXPRESSION_A_TERM => 128
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_REQ_RESOURCE_SIZE_IN_MEGABYTES_EXPRESSION_B_TERM => 0.25
 
@@ -1649,42 +1650,42 @@ class Direct3D11 {
     static D3D11_SPEC_DATE_YEAR => 2011
 
     /**
-     * @type {Integer (Double)}
+     * @type {Float}
      */
     static D3D11_SPEC_VERSION => 1.07
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_SRGB_GAMMA => 2.2
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_SRGB_TO_FLOAT_DENOMINATOR_1 => 12.92
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_SRGB_TO_FLOAT_DENOMINATOR_2 => 1.055
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_SRGB_TO_FLOAT_EXPONENT => 2.4
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_SRGB_TO_FLOAT_OFFSET => 0.055
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_SRGB_TO_FLOAT_THRESHOLD => 0.04045
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D11_SRGB_TO_FLOAT_TOLERANCE_IN_ULP => 0.5
 
@@ -1929,399 +1930,399 @@ class Direct3D11 {
     static D3D11_ANISOTROPIC_FILTERING_BIT => 64
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_MPEG2_MOCOMP => "{e6a9f44b-61b0-4563-9ea4-63d2a3c6fe66}"
+    static D3D11_DECODER_PROFILE_MPEG2_MOCOMP => Guid("{e6a9f44b-61b0-4563-9ea4-63d2a3c6fe66}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_MPEG2_IDCT => "{bf22ad00-03ea-4690-8077-473346209b7e}"
+    static D3D11_DECODER_PROFILE_MPEG2_IDCT => Guid("{bf22ad00-03ea-4690-8077-473346209b7e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_MPEG2_VLD => "{ee27417f-5e28-4e65-beea-1d26b508adc9}"
+    static D3D11_DECODER_PROFILE_MPEG2_VLD => Guid("{ee27417f-5e28-4e65-beea-1d26b508adc9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_MPEG1_VLD => "{6f3ec719-3735-42cc-8063-65cc3cb36616}"
+    static D3D11_DECODER_PROFILE_MPEG1_VLD => Guid("{6f3ec719-3735-42cc-8063-65cc3cb36616}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_MPEG2and1_VLD => "{86695f12-340e-4f04-9fd3-9253dd327460}"
+    static D3D11_DECODER_PROFILE_MPEG2and1_VLD => Guid("{86695f12-340e-4f04-9fd3-9253dd327460}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_H264_MOCOMP_NOFGT => "{1b81be64-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_H264_MOCOMP_NOFGT => Guid("{1b81be64-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_H264_MOCOMP_FGT => "{1b81be65-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_H264_MOCOMP_FGT => Guid("{1b81be65-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_H264_IDCT_NOFGT => "{1b81be66-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_H264_IDCT_NOFGT => Guid("{1b81be66-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_H264_IDCT_FGT => "{1b81be67-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_H264_IDCT_FGT => Guid("{1b81be67-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_H264_VLD_NOFGT => "{1b81be68-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_H264_VLD_NOFGT => Guid("{1b81be68-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_H264_VLD_FGT => "{1b81be69-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_H264_VLD_FGT => Guid("{1b81be69-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_H264_VLD_WITHFMOASO_NOFGT => "{d5f04ff9-3418-45d8-9561-32a76aae2ddd}"
+    static D3D11_DECODER_PROFILE_H264_VLD_WITHFMOASO_NOFGT => Guid("{d5f04ff9-3418-45d8-9561-32a76aae2ddd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_H264_VLD_STEREO_PROGRESSIVE_NOFGT => "{d79be8da-0cf1-4c81-b82a-69a4e236f43d}"
+    static D3D11_DECODER_PROFILE_H264_VLD_STEREO_PROGRESSIVE_NOFGT => Guid("{d79be8da-0cf1-4c81-b82a-69a4e236f43d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_H264_VLD_STEREO_NOFGT => "{f9aaccbb-c2b6-4cfc-8779-5707b1760552}"
+    static D3D11_DECODER_PROFILE_H264_VLD_STEREO_NOFGT => Guid("{f9aaccbb-c2b6-4cfc-8779-5707b1760552}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_H264_VLD_MULTIVIEW_NOFGT => "{705b9d82-76cf-49d6-b7e6-ac8872db013c}"
+    static D3D11_DECODER_PROFILE_H264_VLD_MULTIVIEW_NOFGT => Guid("{705b9d82-76cf-49d6-b7e6-ac8872db013c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_WMV8_POSTPROC => "{1b81be80-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_WMV8_POSTPROC => Guid("{1b81be80-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_WMV8_MOCOMP => "{1b81be81-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_WMV8_MOCOMP => Guid("{1b81be81-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_WMV9_POSTPROC => "{1b81be90-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_WMV9_POSTPROC => Guid("{1b81be90-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_WMV9_MOCOMP => "{1b81be91-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_WMV9_MOCOMP => Guid("{1b81be91-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_WMV9_IDCT => "{1b81be94-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_WMV9_IDCT => Guid("{1b81be94-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_VC1_POSTPROC => "{1b81bea0-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_VC1_POSTPROC => Guid("{1b81bea0-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_VC1_MOCOMP => "{1b81bea1-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_VC1_MOCOMP => Guid("{1b81bea1-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_VC1_IDCT => "{1b81bea2-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_VC1_IDCT => Guid("{1b81bea2-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_VC1_VLD => "{1b81bea3-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_VC1_VLD => Guid("{1b81bea3-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_VC1_D2010 => "{1b81bea4-a0c7-11d3-b984-00c04f2e73c5}"
+    static D3D11_DECODER_PROFILE_VC1_D2010 => Guid("{1b81bea4-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_MPEG4PT2_VLD_SIMPLE => "{efd64d74-c9e8-41d7-a5e9-e9b0e39fa319}"
+    static D3D11_DECODER_PROFILE_MPEG4PT2_VLD_SIMPLE => Guid("{efd64d74-c9e8-41d7-a5e9-e9b0e39fa319}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_MPEG4PT2_VLD_ADVSIMPLE_NOGMC => "{ed418a9f-010d-4eda-9ae3-9a65358d8d2e}"
+    static D3D11_DECODER_PROFILE_MPEG4PT2_VLD_ADVSIMPLE_NOGMC => Guid("{ed418a9f-010d-4eda-9ae3-9a65358d8d2e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_MPEG4PT2_VLD_ADVSIMPLE_GMC => "{ab998b5b-4258-44a9-9feb-94e597a6baae}"
+    static D3D11_DECODER_PROFILE_MPEG4PT2_VLD_ADVSIMPLE_GMC => Guid("{ab998b5b-4258-44a9-9feb-94e597a6baae}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN => "{5b11d51b-2f4c-4452-bcc3-09f2a1160cc0}"
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN => Guid("{5b11d51b-2f4c-4452-bcc3-09f2a1160cc0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN10 => "{107af0e0-ef1a-4d19-aba8-67a163073d13}"
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN10 => Guid("{107af0e0-ef1a-4d19-aba8-67a163073d13}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_HEVC_VLD_MONOCHROME => "{0685b993-3d8c-43a0-8b28-d74c2d6899a4}"
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MONOCHROME => Guid("{0685b993-3d8c-43a0-8b28-d74c2d6899a4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_HEVC_VLD_MONOCHROME10 => "{142a1d0f-69dd-4ec9-8591-b12ffcb91a29}"
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MONOCHROME10 => Guid("{142a1d0f-69dd-4ec9-8591-b12ffcb91a29}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN12 => "{1a72925f-0c2c-4f15-96fb-b17d1473603f}"
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN12 => Guid("{1a72925f-0c2c-4f15-96fb-b17d1473603f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN10_422 => "{0bac4fe5-1532-4429-a854-f84de04953db}"
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN10_422 => Guid("{0bac4fe5-1532-4429-a854-f84de04953db}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN12_422 => "{55bcac81-f311-4093-a7d0-1cbc0b849bee}"
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN12_422 => Guid("{55bcac81-f311-4093-a7d0-1cbc0b849bee}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN_444 => "{4008018f-f537-4b36-98cf-61af8a2c1a33}"
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN_444 => Guid("{4008018f-f537-4b36-98cf-61af8a2c1a33}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN10_EXT => "{9cc55490-e37c-4932-8684-4920f9f6409c}"
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN10_EXT => Guid("{9cc55490-e37c-4932-8684-4920f9f6409c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN10_444 => "{0dabeffa-4458-4602-bc03-0795659d617c}"
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN10_444 => Guid("{0dabeffa-4458-4602-bc03-0795659d617c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN12_444 => "{9798634d-fe9d-48e5-b4da-dbec45b3df01}"
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN12_444 => Guid("{9798634d-fe9d-48e5-b4da-dbec45b3df01}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN16 => "{a4fbdbb0-a113-482b-a232-635cc0697f6d}"
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN16 => Guid("{a4fbdbb0-a113-482b-a232-635cc0697f6d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_VP9_VLD_PROFILE0 => "{463707f8-a1d0-4585-876d-83aa6d60b89e}"
+    static D3D11_DECODER_PROFILE_VP9_VLD_PROFILE0 => Guid("{463707f8-a1d0-4585-876d-83aa6d60b89e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_VP9_VLD_10BIT_PROFILE2 => "{a4c749ef-6ecf-48aa-8448-50a7a1165ff7}"
+    static D3D11_DECODER_PROFILE_VP9_VLD_10BIT_PROFILE2 => Guid("{a4c749ef-6ecf-48aa-8448-50a7a1165ff7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_VP8_VLD => "{90b899ea-3a62-4705-88b3-8df04b2744e7}"
+    static D3D11_DECODER_PROFILE_VP8_VLD => Guid("{90b899ea-3a62-4705-88b3-8df04b2744e7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_AV1_VLD_PROFILE0 => "{b8be4ccb-cf53-46ba-8d59-d6b8a6da5d2a}"
+    static D3D11_DECODER_PROFILE_AV1_VLD_PROFILE0 => Guid("{b8be4ccb-cf53-46ba-8d59-d6b8a6da5d2a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_AV1_VLD_PROFILE1 => "{6936ff0f-45b1-4163-9cc1-646ef6946108}"
+    static D3D11_DECODER_PROFILE_AV1_VLD_PROFILE1 => Guid("{6936ff0f-45b1-4163-9cc1-646ef6946108}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_AV1_VLD_PROFILE2 => "{0c5f2aa1-e541-4089-bb7b-98110a19d7c8}"
+    static D3D11_DECODER_PROFILE_AV1_VLD_PROFILE2 => Guid("{0c5f2aa1-e541-4089-bb7b-98110a19d7c8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_AV1_VLD_12BIT_PROFILE2 => "{17127009-a00f-4ce1-994e-bf4081f6f3f0}"
+    static D3D11_DECODER_PROFILE_AV1_VLD_12BIT_PROFILE2 => Guid("{17127009-a00f-4ce1-994e-bf4081f6f3f0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_AV1_VLD_12BIT_PROFILE2_420 => "{2d80bed6-9cac-4835-9e91-327bbc4f9ee8}"
+    static D3D11_DECODER_PROFILE_AV1_VLD_12BIT_PROFILE2_420 => Guid("{2d80bed6-9cac-4835-9e91-327bbc4f9ee8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_MJPEG_VLD_420 => "{725cb506-0c29-43c4-9440-8e9397903a04}"
+    static D3D11_DECODER_PROFILE_MJPEG_VLD_420 => Guid("{725cb506-0c29-43c4-9440-8e9397903a04}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_MJPEG_VLD_422 => "{5b77b9cd-1a35-4c30-9fd8-ef4b60c035dd}"
+    static D3D11_DECODER_PROFILE_MJPEG_VLD_422 => Guid("{5b77b9cd-1a35-4c30-9fd8-ef4b60c035dd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_MJPEG_VLD_444 => "{d95161f9-0d44-47e6-bcf5-1bfbfb268f97}"
+    static D3D11_DECODER_PROFILE_MJPEG_VLD_444 => Guid("{d95161f9-0d44-47e6-bcf5-1bfbfb268f97}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_MJPEG_VLD_4444 => "{c91748d5-fd18-4aca-9db3-3a6634ab547d}"
+    static D3D11_DECODER_PROFILE_MJPEG_VLD_4444 => Guid("{c91748d5-fd18-4aca-9db3-3a6634ab547d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_JPEG_VLD_420 => "{cf782c83-bef5-4a2c-87cb-6019e7b175ac}"
+    static D3D11_DECODER_PROFILE_JPEG_VLD_420 => Guid("{cf782c83-bef5-4a2c-87cb-6019e7b175ac}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_JPEG_VLD_422 => "{f04df417-eee2-4067-a778-f35c15ab9721}"
+    static D3D11_DECODER_PROFILE_JPEG_VLD_422 => Guid("{f04df417-eee2-4067-a778-f35c15ab9721}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_PROFILE_JPEG_VLD_444 => "{4cd00e17-89ba-48ef-b9f9-edcb82713f65}"
+    static D3D11_DECODER_PROFILE_JPEG_VLD_444 => Guid("{4cd00e17-89ba-48ef-b9f9-edcb82713f65}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_CRYPTO_TYPE_AES128_CTR => "{9b6bd711-4f74-41c9-9e7b-0be2d7d93b4f}"
+    static D3D11_CRYPTO_TYPE_AES128_CTR => Guid("{9b6bd711-4f74-41c9-9e7b-0be2d7d93b4f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_ENCRYPTION_HW_CENC => "{89d6ac4f-09f2-4229-b2cd-37740a6dfd81}"
+    static D3D11_DECODER_ENCRYPTION_HW_CENC => Guid("{89d6ac4f-09f2-4229-b2cd-37740a6dfd81}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_BITSTREAM_ENCRYPTION_TYPE_CENC => "{b0405235-c13d-44f2-9ae5-dd48e08e5b67}"
+    static D3D11_DECODER_BITSTREAM_ENCRYPTION_TYPE_CENC => Guid("{b0405235-c13d-44f2-9ae5-dd48e08e5b67}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_DECODER_BITSTREAM_ENCRYPTION_TYPE_CBCS => "{422d9319-9d21-4bb7-9371-faf5a82c3e04}"
+    static D3D11_DECODER_BITSTREAM_ENCRYPTION_TYPE_CBCS => Guid("{422d9319-9d21-4bb7-9371-faf5a82c3e04}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_KEY_EXCHANGE_HW_PROTECTION => "{b1170d8a-628d-4da3-ad3b-82ddb08b4970}"
+    static D3D11_KEY_EXCHANGE_HW_PROTECTION => Guid("{b1170d8a-628d-4da3-ad3b-82ddb08b4970}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_PROTECTION => "{a84eb584-c495-48aa-b94d-8bd2d6fbce05}"
+    static D3D11_AUTHENTICATED_QUERY_PROTECTION => Guid("{a84eb584-c495-48aa-b94d-8bd2d6fbce05}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_CHANNEL_TYPE => "{bc1b18a5-b1fb-42ab-bd94-b5828b4bf7be}"
+    static D3D11_AUTHENTICATED_QUERY_CHANNEL_TYPE => Guid("{bc1b18a5-b1fb-42ab-bd94-b5828b4bf7be}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_DEVICE_HANDLE => "{ec1c539d-8cff-4e2a-bcc4-f5692f99f480}"
+    static D3D11_AUTHENTICATED_QUERY_DEVICE_HANDLE => Guid("{ec1c539d-8cff-4e2a-bcc4-f5692f99f480}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_CRYPTO_SESSION => "{2634499e-d018-4d74-ac17-7f724059528d}"
+    static D3D11_AUTHENTICATED_QUERY_CRYPTO_SESSION => Guid("{2634499e-d018-4d74-ac17-7f724059528d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_RESTRICTED_SHARED_RESOURCE_PROCESS_COUNT => "{0db207b3-9450-46a6-82de-1b96d44f9cf2}"
+    static D3D11_AUTHENTICATED_QUERY_RESTRICTED_SHARED_RESOURCE_PROCESS_COUNT => Guid("{0db207b3-9450-46a6-82de-1b96d44f9cf2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_RESTRICTED_SHARED_RESOURCE_PROCESS => "{649bbadb-f0f4-4639-a15b-24393fc3abac}"
+    static D3D11_AUTHENTICATED_QUERY_RESTRICTED_SHARED_RESOURCE_PROCESS => Guid("{649bbadb-f0f4-4639-a15b-24393fc3abac}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_UNRESTRICTED_PROTECTED_SHARED_RESOURCE_COUNT => "{012f0bd6-e662-4474-befd-aa53e5143c6d}"
+    static D3D11_AUTHENTICATED_QUERY_UNRESTRICTED_PROTECTED_SHARED_RESOURCE_COUNT => Guid("{012f0bd6-e662-4474-befd-aa53e5143c6d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_OUTPUT_ID_COUNT => "{2c042b5e-8c07-46d5-aabe-8f75cbad4c31}"
+    static D3D11_AUTHENTICATED_QUERY_OUTPUT_ID_COUNT => Guid("{2c042b5e-8c07-46d5-aabe-8f75cbad4c31}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_OUTPUT_ID => "{839ddca3-9b4e-41e4-b053-892bd2a11ee7}"
+    static D3D11_AUTHENTICATED_QUERY_OUTPUT_ID => Guid("{839ddca3-9b4e-41e4-b053-892bd2a11ee7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_ATTRIBUTES => "{6214d9d2-432c-4abb-9fce-216eea269e3b}"
+    static D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_ATTRIBUTES => Guid("{6214d9d2-432c-4abb-9fce-216eea269e3b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_ENCRYPTION_WHEN_ACCESSIBLE_GUID_COUNT => "{b30f7066-203c-4b07-93fc-ceaafd61241e}"
+    static D3D11_AUTHENTICATED_QUERY_ENCRYPTION_WHEN_ACCESSIBLE_GUID_COUNT => Guid("{b30f7066-203c-4b07-93fc-ceaafd61241e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_ENCRYPTION_WHEN_ACCESSIBLE_GUID => "{f83a5958-e986-4bda-beb0-411f6a7a01b7}"
+    static D3D11_AUTHENTICATED_QUERY_ENCRYPTION_WHEN_ACCESSIBLE_GUID => Guid("{f83a5958-e986-4bda-beb0-411f6a7a01b7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_QUERY_CURRENT_ENCRYPTION_WHEN_ACCESSIBLE => "{ec1791c7-dad3-4f15-9ec3-faa93d60d4f0}"
+    static D3D11_AUTHENTICATED_QUERY_CURRENT_ENCRYPTION_WHEN_ACCESSIBLE => Guid("{ec1791c7-dad3-4f15-9ec3-faa93d60d4f0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_CONFIGURE_INITIALIZE => "{06114bdb-3523-470a-8dca-fbc2845154f0}"
+    static D3D11_AUTHENTICATED_CONFIGURE_INITIALIZE => Guid("{06114bdb-3523-470a-8dca-fbc2845154f0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_CONFIGURE_PROTECTION => "{50455658-3f47-4362-bf99-bfdfcde9ed29}"
+    static D3D11_AUTHENTICATED_CONFIGURE_PROTECTION => Guid("{50455658-3f47-4362-bf99-bfdfcde9ed29}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_CONFIGURE_CRYPTO_SESSION => "{6346cc54-2cfc-4ad4-8224-d15837de7700}"
+    static D3D11_AUTHENTICATED_CONFIGURE_CRYPTO_SESSION => Guid("{6346cc54-2cfc-4ad4-8224-d15837de7700}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE => "{0772d047-1b40-48e8-9ca6-b5f510de9f01}"
+    static D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE => Guid("{0772d047-1b40-48e8-9ca6-b5f510de9f01}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_AUTHENTICATED_CONFIGURE_ENCRYPTION_WHEN_ACCESSIBLE => "{41fff286-6ae0-4d43-9d55-a46e9efd158a}"
+    static D3D11_AUTHENTICATED_CONFIGURE_ENCRYPTION_WHEN_ACCESSIBLE => Guid("{41fff286-6ae0-4d43-9d55-a46e9efd158a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static D3D11_KEY_EXCHANGE_RSAES_OAEP => "{c1949895-d72a-4a1d-8e5d-ed857d171520}"
+    static D3D11_KEY_EXCHANGE_RSAES_OAEP => Guid("{c1949895-d72a-4a1d-8e5d-ed857d171520}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2374,9 +2375,9 @@ class Direct3D11 {
     static D3D11_DEBUG_FEATURE_DISABLE_TILED_RESOURCE_MAPPING_TRACKING_AND_VALIDATION => 128
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DXGI_DEBUG_D3D11 => "{4b99317b-ac39-4aa6-bb0b-baa04784798f}"
+    static DXGI_DEBUG_D3D11 => Guid("{4b99317b-ac39-4aa6-bb0b-baa04784798f}")
 
     /**
      * @type {String}

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
+#Include ..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -3122,12 +3123,12 @@ class Globalization {
     /**
      * @type {String}
      */
-    static U8_LEAD3_T1_BITS => " 000000000000\u001000"
+    static U8_LEAD3_T1_BITS => " 000000000000" Chr(16) "00"
 
     /**
      * @type {String}
      */
-    static U8_LEAD4_T1_BITS => "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u001e\u000f\u000f\u000f\u0000\u0000\u0000\u0000"
+    static U8_LEAD4_T1_BITS => "" Chr(0) "" Chr(0) "" Chr(0) "" Chr(0) "" Chr(0) "" Chr(0) "" Chr(0) "" Chr(0) "" Chr(30) "" Chr(15) "" Chr(15) "" Chr(15) "" Chr(0) "" Chr(0) "" Chr(0) "" Chr(0) ""
 
     /**
      * @type {Integer (UInt32)}
@@ -4355,49 +4356,49 @@ class Globalization {
     static UIDNA_ERROR_CONTEXTO_DIGITS => 16384
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ELS_GUID_LANGUAGE_DETECTION => "{cf7e00b1-909b-4d95-a8f4-611f7c377702}"
+    static ELS_GUID_LANGUAGE_DETECTION => Guid("{cf7e00b1-909b-4d95-a8f4-611f7c377702}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ELS_GUID_SCRIPT_DETECTION => "{2d64b439-6caf-4f6b-b688-e5d0f4faa7d7}"
+    static ELS_GUID_SCRIPT_DETECTION => Guid("{2d64b439-6caf-4f6b-b688-e5d0f4faa7d7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ELS_GUID_TRANSLITERATION_HANT_TO_HANS => "{a3a8333b-f4fc-42f6-a0c4-0462fe7317cb}"
+    static ELS_GUID_TRANSLITERATION_HANT_TO_HANS => Guid("{a3a8333b-f4fc-42f6-a0c4-0462fe7317cb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ELS_GUID_TRANSLITERATION_HANS_TO_HANT => "{3caccdc8-5590-42dc-9a7b-b5a6b5b3b63b}"
+    static ELS_GUID_TRANSLITERATION_HANS_TO_HANT => Guid("{3caccdc8-5590-42dc-9a7b-b5a6b5b3b63b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ELS_GUID_TRANSLITERATION_MALAYALAM_TO_LATIN => "{d8b983b1-f8bf-4a2b-bcd5-5b5ea20613e1}"
+    static ELS_GUID_TRANSLITERATION_MALAYALAM_TO_LATIN => Guid("{d8b983b1-f8bf-4a2b-bcd5-5b5ea20613e1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ELS_GUID_TRANSLITERATION_DEVANAGARI_TO_LATIN => "{c4a4dcfe-2661-4d02-9835-f48187109803}"
+    static ELS_GUID_TRANSLITERATION_DEVANAGARI_TO_LATIN => Guid("{c4a4dcfe-2661-4d02-9835-f48187109803}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ELS_GUID_TRANSLITERATION_CYRILLIC_TO_LATIN => "{3dd12a98-5afd-4903-a13f-e17e6c0bfe01}"
+    static ELS_GUID_TRANSLITERATION_CYRILLIC_TO_LATIN => Guid("{3dd12a98-5afd-4903-a13f-e17e6c0bfe01}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ELS_GUID_TRANSLITERATION_BENGALI_TO_LATIN => "{f4dfd825-91a4-489f-855e-9ad9bee55727}"
+    static ELS_GUID_TRANSLITERATION_BENGALI_TO_LATIN => Guid("{f4dfd825-91a4-489f-855e-9ad9bee55727}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static ELS_GUID_TRANSLITERATION_HANGUL_DECOMPOSITION => "{4ba2a721-e43d-41b7-b330-536ae1e48863}"
+    static ELS_GUID_TRANSLITERATION_HANGUL_DECOMPOSITION => Guid("{4ba2a721-e43d-41b7-b330-536ae1e48863}")
 
     /**
      * @type {Integer (Int32)}

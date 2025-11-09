@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
@@ -1065,1594 +1066,1594 @@ class WindowsFilteringPlatform {
     static IPSEC_KEY_MANAGER_FLAG_DICTATE_KEY => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_IPPACKET_V4 => "{c86fd1bf-21cd-497e-a0bb-17425c885c58}"
+    static FWPM_LAYER_INBOUND_IPPACKET_V4 => Guid("{c86fd1bf-21cd-497e-a0bb-17425c885c58}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_IPPACKET_V4_DISCARD => "{b5a230d0-a8c0-44f2-916e-991b53ded1f7}"
+    static FWPM_LAYER_INBOUND_IPPACKET_V4_DISCARD => Guid("{b5a230d0-a8c0-44f2-916e-991b53ded1f7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_IPPACKET_V6 => "{f52032cb-991c-46e7-971d-2601459a91ca}"
+    static FWPM_LAYER_INBOUND_IPPACKET_V6 => Guid("{f52032cb-991c-46e7-971d-2601459a91ca}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_IPPACKET_V6_DISCARD => "{bb24c279-93b4-47a2-83ad-ae1698b50885}"
+    static FWPM_LAYER_INBOUND_IPPACKET_V6_DISCARD => Guid("{bb24c279-93b4-47a2-83ad-ae1698b50885}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_IPPACKET_V4 => "{1e5c9fae-8a84-4135-a331-950b54229ecd}"
+    static FWPM_LAYER_OUTBOUND_IPPACKET_V4 => Guid("{1e5c9fae-8a84-4135-a331-950b54229ecd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_IPPACKET_V4_DISCARD => "{08e4bcb5-b647-48f3-953c-e5ddbd03937e}"
+    static FWPM_LAYER_OUTBOUND_IPPACKET_V4_DISCARD => Guid("{08e4bcb5-b647-48f3-953c-e5ddbd03937e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_IPPACKET_V6 => "{a3b3ab6b-3564-488c-9117-f34e82142763}"
+    static FWPM_LAYER_OUTBOUND_IPPACKET_V6 => Guid("{a3b3ab6b-3564-488c-9117-f34e82142763}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_IPPACKET_V6_DISCARD => "{9513d7c4-a934-49dc-91a7-6ccb80cc02e3}"
+    static FWPM_LAYER_OUTBOUND_IPPACKET_V6_DISCARD => Guid("{9513d7c4-a934-49dc-91a7-6ccb80cc02e3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_IPFORWARD_V4 => "{a82acc24-4ee1-4ee1-b465-fd1d25cb10a4}"
+    static FWPM_LAYER_IPFORWARD_V4 => Guid("{a82acc24-4ee1-4ee1-b465-fd1d25cb10a4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_IPFORWARD_V4_DISCARD => "{9e9ea773-2fae-4210-8f17-34129ef369eb}"
+    static FWPM_LAYER_IPFORWARD_V4_DISCARD => Guid("{9e9ea773-2fae-4210-8f17-34129ef369eb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_IPFORWARD_V6 => "{7b964818-19c7-493a-b71f-832c3684d28c}"
+    static FWPM_LAYER_IPFORWARD_V6 => Guid("{7b964818-19c7-493a-b71f-832c3684d28c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_IPFORWARD_V6_DISCARD => "{31524a5d-1dfe-472f-bb93-518ee945d8a2}"
+    static FWPM_LAYER_IPFORWARD_V6_DISCARD => Guid("{31524a5d-1dfe-472f-bb93-518ee945d8a2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_TRANSPORT_V4 => "{5926dfc8-e3cf-4426-a283-dc393f5d0f9d}"
+    static FWPM_LAYER_INBOUND_TRANSPORT_V4 => Guid("{5926dfc8-e3cf-4426-a283-dc393f5d0f9d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_TRANSPORT_V4_DISCARD => "{ac4a9833-f69d-4648-b261-6dc84835ef39}"
+    static FWPM_LAYER_INBOUND_TRANSPORT_V4_DISCARD => Guid("{ac4a9833-f69d-4648-b261-6dc84835ef39}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_TRANSPORT_V6 => "{634a869f-fc23-4b90-b0c1-bf620a36ae6f}"
+    static FWPM_LAYER_INBOUND_TRANSPORT_V6 => Guid("{634a869f-fc23-4b90-b0c1-bf620a36ae6f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_TRANSPORT_V6_DISCARD => "{2a6ff955-3b2b-49d2-9848-ad9d72dcaab7}"
+    static FWPM_LAYER_INBOUND_TRANSPORT_V6_DISCARD => Guid("{2a6ff955-3b2b-49d2-9848-ad9d72dcaab7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_TRANSPORT_V4 => "{09e61aea-d214-46e2-9b21-b26b0b2f28c8}"
+    static FWPM_LAYER_OUTBOUND_TRANSPORT_V4 => Guid("{09e61aea-d214-46e2-9b21-b26b0b2f28c8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_TRANSPORT_V4_DISCARD => "{c5f10551-bdb0-43d7-a313-50e211f4d68a}"
+    static FWPM_LAYER_OUTBOUND_TRANSPORT_V4_DISCARD => Guid("{c5f10551-bdb0-43d7-a313-50e211f4d68a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_TRANSPORT_V6 => "{e1735bde-013f-4655-b351-a49e15762df0}"
+    static FWPM_LAYER_OUTBOUND_TRANSPORT_V6 => Guid("{e1735bde-013f-4655-b351-a49e15762df0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_TRANSPORT_V6_DISCARD => "{f433df69-ccbd-482e-b9b2-57165658c3b3}"
+    static FWPM_LAYER_OUTBOUND_TRANSPORT_V6_DISCARD => Guid("{f433df69-ccbd-482e-b9b2-57165658c3b3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_STREAM_V4 => "{3b89653c-c170-49e4-b1cd-e0eeeee19a3e}"
+    static FWPM_LAYER_STREAM_V4 => Guid("{3b89653c-c170-49e4-b1cd-e0eeeee19a3e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_STREAM_V4_DISCARD => "{25c4c2c2-25ff-4352-82f9-c54a4a4726dc}"
+    static FWPM_LAYER_STREAM_V4_DISCARD => Guid("{25c4c2c2-25ff-4352-82f9-c54a4a4726dc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_STREAM_V6 => "{47c9137a-7ec4-46b3-b6e4-48e926b1eda4}"
+    static FWPM_LAYER_STREAM_V6 => Guid("{47c9137a-7ec4-46b3-b6e4-48e926b1eda4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_STREAM_V6_DISCARD => "{10a59fc7-b628-4c41-9eb8-cf37d55103cf}"
+    static FWPM_LAYER_STREAM_V6_DISCARD => Guid("{10a59fc7-b628-4c41-9eb8-cf37d55103cf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_DATAGRAM_DATA_V4 => "{3d08bf4e-45f6-4930-a922-417098e20027}"
+    static FWPM_LAYER_DATAGRAM_DATA_V4 => Guid("{3d08bf4e-45f6-4930-a922-417098e20027}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_DATAGRAM_DATA_V4_DISCARD => "{18e330c6-7248-4e52-aaab-472ed67704fd}"
+    static FWPM_LAYER_DATAGRAM_DATA_V4_DISCARD => Guid("{18e330c6-7248-4e52-aaab-472ed67704fd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_DATAGRAM_DATA_V6 => "{fa45fe2f-3cba-4427-87fc-57b9a4b10d00}"
+    static FWPM_LAYER_DATAGRAM_DATA_V6 => Guid("{fa45fe2f-3cba-4427-87fc-57b9a4b10d00}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_DATAGRAM_DATA_V6_DISCARD => "{09d1dfe1-9b86-4a42-be9d-8c315b92a5d0}"
+    static FWPM_LAYER_DATAGRAM_DATA_V6_DISCARD => Guid("{09d1dfe1-9b86-4a42-be9d-8c315b92a5d0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_ICMP_ERROR_V4 => "{61499990-3cb6-4e84-b950-53b94b6964f3}"
+    static FWPM_LAYER_INBOUND_ICMP_ERROR_V4 => Guid("{61499990-3cb6-4e84-b950-53b94b6964f3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_ICMP_ERROR_V4_DISCARD => "{a6b17075-ebaf-4053-a4e7-213c8121ede5}"
+    static FWPM_LAYER_INBOUND_ICMP_ERROR_V4_DISCARD => Guid("{a6b17075-ebaf-4053-a4e7-213c8121ede5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_ICMP_ERROR_V6 => "{65f9bdff-3b2d-4e5d-b8c6-c720651fe898}"
+    static FWPM_LAYER_INBOUND_ICMP_ERROR_V6 => Guid("{65f9bdff-3b2d-4e5d-b8c6-c720651fe898}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_ICMP_ERROR_V6_DISCARD => "{a6e7ccc0-08fb-468d-a472-9771d5595e09}"
+    static FWPM_LAYER_INBOUND_ICMP_ERROR_V6_DISCARD => Guid("{a6e7ccc0-08fb-468d-a472-9771d5595e09}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_ICMP_ERROR_V4 => "{41390100-564c-4b32-bc1d-718048354d7c}"
+    static FWPM_LAYER_OUTBOUND_ICMP_ERROR_V4 => Guid("{41390100-564c-4b32-bc1d-718048354d7c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_ICMP_ERROR_V4_DISCARD => "{b3598d36-0561-4588-a6bf-e955e3f6264b}"
+    static FWPM_LAYER_OUTBOUND_ICMP_ERROR_V4_DISCARD => Guid("{b3598d36-0561-4588-a6bf-e955e3f6264b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_ICMP_ERROR_V6 => "{7fb03b60-7b8d-4dfa-badd-980176fc4e12}"
+    static FWPM_LAYER_OUTBOUND_ICMP_ERROR_V6 => Guid("{7fb03b60-7b8d-4dfa-badd-980176fc4e12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_ICMP_ERROR_V6_DISCARD => "{65f2e647-8d0c-4f47-b19b-33a4d3f1357c}"
+    static FWPM_LAYER_OUTBOUND_ICMP_ERROR_V6_DISCARD => Guid("{65f2e647-8d0c-4f47-b19b-33a4d3f1357c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_RESOURCE_ASSIGNMENT_V4 => "{1247d66d-0b60-4a15-8d44-7155d0f53a0c}"
+    static FWPM_LAYER_ALE_RESOURCE_ASSIGNMENT_V4 => Guid("{1247d66d-0b60-4a15-8d44-7155d0f53a0c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_RESOURCE_ASSIGNMENT_V4_DISCARD => "{0b5812a2-c3ff-4eca-b88d-c79e20ac6322}"
+    static FWPM_LAYER_ALE_RESOURCE_ASSIGNMENT_V4_DISCARD => Guid("{0b5812a2-c3ff-4eca-b88d-c79e20ac6322}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_RESOURCE_ASSIGNMENT_V6 => "{55a650e1-5f0a-4eca-a653-88f53b26aa8c}"
+    static FWPM_LAYER_ALE_RESOURCE_ASSIGNMENT_V6 => Guid("{55a650e1-5f0a-4eca-a653-88f53b26aa8c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_RESOURCE_ASSIGNMENT_V6_DISCARD => "{cbc998bb-c51f-4c1a-bb4f-9775fcacab2f}"
+    static FWPM_LAYER_ALE_RESOURCE_ASSIGNMENT_V6_DISCARD => Guid("{cbc998bb-c51f-4c1a-bb4f-9775fcacab2f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_AUTH_LISTEN_V4 => "{88bb5dad-76d7-4227-9c71-df0a3ed7be7e}"
+    static FWPM_LAYER_ALE_AUTH_LISTEN_V4 => Guid("{88bb5dad-76d7-4227-9c71-df0a3ed7be7e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_AUTH_LISTEN_V4_DISCARD => "{371dfada-9f26-45fd-b4eb-c29eb212893f}"
+    static FWPM_LAYER_ALE_AUTH_LISTEN_V4_DISCARD => Guid("{371dfada-9f26-45fd-b4eb-c29eb212893f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_AUTH_LISTEN_V6 => "{7ac9de24-17dd-4814-b4bd-a9fbc95a321b}"
+    static FWPM_LAYER_ALE_AUTH_LISTEN_V6 => Guid("{7ac9de24-17dd-4814-b4bd-a9fbc95a321b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_AUTH_LISTEN_V6_DISCARD => "{60703b07-63c8-48e9-ada3-12b1af40a617}"
+    static FWPM_LAYER_ALE_AUTH_LISTEN_V6_DISCARD => Guid("{60703b07-63c8-48e9-ada3-12b1af40a617}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V4 => "{e1cd9fe7-f4b5-4273-96c0-592e487b8650}"
+    static FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V4 => Guid("{e1cd9fe7-f4b5-4273-96c0-592e487b8650}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V4_DISCARD => "{9eeaa99b-bd22-4227-919f-0073c63357b1}"
+    static FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V4_DISCARD => Guid("{9eeaa99b-bd22-4227-919f-0073c63357b1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V6 => "{a3b42c97-9f04-4672-b87e-cee9c483257f}"
+    static FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V6 => Guid("{a3b42c97-9f04-4672-b87e-cee9c483257f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V6_DISCARD => "{89455b97-dbe1-453f-a224-13da895af396}"
+    static FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V6_DISCARD => Guid("{89455b97-dbe1-453f-a224-13da895af396}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_AUTH_CONNECT_V4 => "{c38d57d1-05a7-4c33-904f-7fbceee60e82}"
+    static FWPM_LAYER_ALE_AUTH_CONNECT_V4 => Guid("{c38d57d1-05a7-4c33-904f-7fbceee60e82}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_AUTH_CONNECT_V4_DISCARD => "{d632a801-f5ba-4ad6-96e3-607017d9836a}"
+    static FWPM_LAYER_ALE_AUTH_CONNECT_V4_DISCARD => Guid("{d632a801-f5ba-4ad6-96e3-607017d9836a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_AUTH_CONNECT_V6 => "{4a72393b-319f-44bc-84c3-ba54dcb3b6b4}"
+    static FWPM_LAYER_ALE_AUTH_CONNECT_V6 => Guid("{4a72393b-319f-44bc-84c3-ba54dcb3b6b4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_AUTH_CONNECT_V6_DISCARD => "{c97bc3b8-c9a3-4e33-8695-8e17aad4de09}"
+    static FWPM_LAYER_ALE_AUTH_CONNECT_V6_DISCARD => Guid("{c97bc3b8-c9a3-4e33-8695-8e17aad4de09}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_FLOW_ESTABLISHED_V4 => "{af80470a-5596-4c13-9992-539e6fe57967}"
+    static FWPM_LAYER_ALE_FLOW_ESTABLISHED_V4 => Guid("{af80470a-5596-4c13-9992-539e6fe57967}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_FLOW_ESTABLISHED_V4_DISCARD => "{146ae4a9-a1d2-4d43-a31a-4c42682b8e4f}"
+    static FWPM_LAYER_ALE_FLOW_ESTABLISHED_V4_DISCARD => Guid("{146ae4a9-a1d2-4d43-a31a-4c42682b8e4f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_FLOW_ESTABLISHED_V6 => "{7021d2b3-dfa4-406e-afeb-6afaf7e70efd}"
+    static FWPM_LAYER_ALE_FLOW_ESTABLISHED_V6 => Guid("{7021d2b3-dfa4-406e-afeb-6afaf7e70efd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_FLOW_ESTABLISHED_V6_DISCARD => "{46928636-bbca-4b76-941d-0fa7f5d7d372}"
+    static FWPM_LAYER_ALE_FLOW_ESTABLISHED_V6_DISCARD => Guid("{46928636-bbca-4b76-941d-0fa7f5d7d372}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_MAC_FRAME_ETHERNET => "{effb7edb-0055-4f9a-a231-4ff8131ad191}"
+    static FWPM_LAYER_INBOUND_MAC_FRAME_ETHERNET => Guid("{effb7edb-0055-4f9a-a231-4ff8131ad191}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_MAC_FRAME_ETHERNET => "{694673bc-d6db-4870-adee-0acdbdb7f4b2}"
+    static FWPM_LAYER_OUTBOUND_MAC_FRAME_ETHERNET => Guid("{694673bc-d6db-4870-adee-0acdbdb7f4b2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_MAC_FRAME_NATIVE => "{d4220bd3-62ce-4f08-ae88-b56e8526df50}"
+    static FWPM_LAYER_INBOUND_MAC_FRAME_NATIVE => Guid("{d4220bd3-62ce-4f08-ae88-b56e8526df50}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_MAC_FRAME_NATIVE => "{94c44912-9d6f-4ebf-b995-05ab8a088d1b}"
+    static FWPM_LAYER_OUTBOUND_MAC_FRAME_NATIVE => Guid("{94c44912-9d6f-4ebf-b995-05ab8a088d1b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INGRESS_VSWITCH_ETHERNET => "{7d98577a-9a87-41ec-9718-7cf589c9f32d}"
+    static FWPM_LAYER_INGRESS_VSWITCH_ETHERNET => Guid("{7d98577a-9a87-41ec-9718-7cf589c9f32d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_EGRESS_VSWITCH_ETHERNET => "{86c872b0-76fa-4b79-93a4-0750530ae292}"
+    static FWPM_LAYER_EGRESS_VSWITCH_ETHERNET => Guid("{86c872b0-76fa-4b79-93a4-0750530ae292}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INGRESS_VSWITCH_TRANSPORT_V4 => "{b2696ff6-774f-4554-9f7d-3da3945f8e85}"
+    static FWPM_LAYER_INGRESS_VSWITCH_TRANSPORT_V4 => Guid("{b2696ff6-774f-4554-9f7d-3da3945f8e85}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INGRESS_VSWITCH_TRANSPORT_V6 => "{5ee314fc-7d8a-47f4-b7e3-291a36da4e12}"
+    static FWPM_LAYER_INGRESS_VSWITCH_TRANSPORT_V6 => Guid("{5ee314fc-7d8a-47f4-b7e3-291a36da4e12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_EGRESS_VSWITCH_TRANSPORT_V4 => "{b92350b6-91f0-46b6-bdc4-871dfd4a7c98}"
+    static FWPM_LAYER_EGRESS_VSWITCH_TRANSPORT_V4 => Guid("{b92350b6-91f0-46b6-bdc4-871dfd4a7c98}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_EGRESS_VSWITCH_TRANSPORT_V6 => "{1b2def23-1881-40bd-82f4-4254e63141cb}"
+    static FWPM_LAYER_EGRESS_VSWITCH_TRANSPORT_V6 => Guid("{1b2def23-1881-40bd-82f4-4254e63141cb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_TRANSPORT_FAST => "{e41d2719-05c7-40f0-8983-ea8d17bbc2f6}"
+    static FWPM_LAYER_INBOUND_TRANSPORT_FAST => Guid("{e41d2719-05c7-40f0-8983-ea8d17bbc2f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_TRANSPORT_FAST => "{13ed4388-a070-4815-9935-7a9be6408b78}"
+    static FWPM_LAYER_OUTBOUND_TRANSPORT_FAST => Guid("{13ed4388-a070-4815-9935-7a9be6408b78}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_MAC_FRAME_NATIVE_FAST => "{853aaa8e-2b78-4d24-a804-36db08b29711}"
+    static FWPM_LAYER_INBOUND_MAC_FRAME_NATIVE_FAST => Guid("{853aaa8e-2b78-4d24-a804-36db08b29711}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_MAC_FRAME_NATIVE_FAST => "{470df946-c962-486f-9446-8293cbc75eb8}"
+    static FWPM_LAYER_OUTBOUND_MAC_FRAME_NATIVE_FAST => Guid("{470df946-c962-486f-9446-8293cbc75eb8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_IPSEC_KM_DEMUX_V4 => "{f02b1526-a459-4a51-b9e3-759de52b9d2c}"
+    static FWPM_LAYER_IPSEC_KM_DEMUX_V4 => Guid("{f02b1526-a459-4a51-b9e3-759de52b9d2c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_IPSEC_KM_DEMUX_V6 => "{2f755cf6-2fd4-4e88-b3e4-a91bca495235}"
+    static FWPM_LAYER_IPSEC_KM_DEMUX_V6 => Guid("{2f755cf6-2fd4-4e88-b3e4-a91bca495235}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_IPSEC_V4 => "{eda65c74-610d-4bc5-948f-3c4f89556867}"
+    static FWPM_LAYER_IPSEC_V4 => Guid("{eda65c74-610d-4bc5-948f-3c4f89556867}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_IPSEC_V6 => "{13c48442-8d87-4261-9a29-59d2abc348b4}"
+    static FWPM_LAYER_IPSEC_V6 => Guid("{13c48442-8d87-4261-9a29-59d2abc348b4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_IKEEXT_V4 => "{b14b7bdb-dbbd-473e-bed4-8b4708d4f270}"
+    static FWPM_LAYER_IKEEXT_V4 => Guid("{b14b7bdb-dbbd-473e-bed4-8b4708d4f270}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_IKEEXT_V6 => "{b64786b3-f687-4eb9-89d2-8ef32acdabe2}"
+    static FWPM_LAYER_IKEEXT_V6 => Guid("{b64786b3-f687-4eb9-89d2-8ef32acdabe2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_RPC_UM => "{75a89dda-95e4-40f3-adc7-7688a9c847e1}"
+    static FWPM_LAYER_RPC_UM => Guid("{75a89dda-95e4-40f3-adc7-7688a9c847e1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_RPC_EPMAP => "{9247bc61-eb07-47ee-872c-bfd78bfd1616}"
+    static FWPM_LAYER_RPC_EPMAP => Guid("{9247bc61-eb07-47ee-872c-bfd78bfd1616}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_RPC_EP_ADD => "{618dffc7-c450-4943-95db-99b4c16a55d4}"
+    static FWPM_LAYER_RPC_EP_ADD => Guid("{618dffc7-c450-4943-95db-99b4c16a55d4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_RPC_PROXY_CONN => "{94a4b50b-ba5c-4f27-907a-229fac0c2a7a}"
+    static FWPM_LAYER_RPC_PROXY_CONN => Guid("{94a4b50b-ba5c-4f27-907a-229fac0c2a7a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_RPC_PROXY_IF => "{f8a38615-e12c-41ac-98df-121ad981aade}"
+    static FWPM_LAYER_RPC_PROXY_IF => Guid("{f8a38615-e12c-41ac-98df-121ad981aade}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_KM_AUTHORIZATION => "{4aa226e9-9020-45fb-956a-c0249d841195}"
+    static FWPM_LAYER_KM_AUTHORIZATION => Guid("{4aa226e9-9020-45fb-956a-c0249d841195}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_NAME_RESOLUTION_CACHE_V4 => "{0c2aa681-905b-4ccd-a467-4dd811d07b7b}"
+    static FWPM_LAYER_NAME_RESOLUTION_CACHE_V4 => Guid("{0c2aa681-905b-4ccd-a467-4dd811d07b7b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_NAME_RESOLUTION_CACHE_V6 => "{92d592fa-6b01-434a-9dea-d1e96ea97da9}"
+    static FWPM_LAYER_NAME_RESOLUTION_CACHE_V6 => Guid("{92d592fa-6b01-434a-9dea-d1e96ea97da9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_RESOURCE_RELEASE_V4 => "{74365cce-ccb0-401a-bfc1-b89934ad7e15}"
+    static FWPM_LAYER_ALE_RESOURCE_RELEASE_V4 => Guid("{74365cce-ccb0-401a-bfc1-b89934ad7e15}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_RESOURCE_RELEASE_V6 => "{f4e5ce80-edcc-4e13-8a2f-b91454bb057b}"
+    static FWPM_LAYER_ALE_RESOURCE_RELEASE_V6 => Guid("{f4e5ce80-edcc-4e13-8a2f-b91454bb057b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_ENDPOINT_CLOSURE_V4 => "{b4766427-e2a2-467a-bd7e-dbcd1bd85a09}"
+    static FWPM_LAYER_ALE_ENDPOINT_CLOSURE_V4 => Guid("{b4766427-e2a2-467a-bd7e-dbcd1bd85a09}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_ENDPOINT_CLOSURE_V6 => "{bb536ccd-4755-4ba9-9ff7-f9edf8699c7b}"
+    static FWPM_LAYER_ALE_ENDPOINT_CLOSURE_V6 => Guid("{bb536ccd-4755-4ba9-9ff7-f9edf8699c7b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_CONNECT_REDIRECT_V4 => "{c6e63c8c-b784-4562-aa7d-0a67cfcaf9a3}"
+    static FWPM_LAYER_ALE_CONNECT_REDIRECT_V4 => Guid("{c6e63c8c-b784-4562-aa7d-0a67cfcaf9a3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_CONNECT_REDIRECT_V6 => "{587e54a7-8046-42ba-a0aa-b716250fc7fd}"
+    static FWPM_LAYER_ALE_CONNECT_REDIRECT_V6 => Guid("{587e54a7-8046-42ba-a0aa-b716250fc7fd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_BIND_REDIRECT_V4 => "{66978cad-c704-42ac-86ac-7c1a231bd253}"
+    static FWPM_LAYER_ALE_BIND_REDIRECT_V4 => Guid("{66978cad-c704-42ac-86ac-7c1a231bd253}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_ALE_BIND_REDIRECT_V6 => "{bef02c9c-606b-4536-8c26-1c2fc7b631d4}"
+    static FWPM_LAYER_ALE_BIND_REDIRECT_V6 => Guid("{bef02c9c-606b-4536-8c26-1c2fc7b631d4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_STREAM_PACKET_V4 => "{af52d8ec-cb2d-44e5-ad92-f8dc38d2eb29}"
+    static FWPM_LAYER_STREAM_PACKET_V4 => Guid("{af52d8ec-cb2d-44e5-ad92-f8dc38d2eb29}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_STREAM_PACKET_V6 => "{779a8ca3-f099-468f-b5d4-83535c461c02}"
+    static FWPM_LAYER_STREAM_PACKET_V6 => Guid("{779a8ca3-f099-468f-b5d4-83535c461c02}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_INBOUND_RESERVED2 => "{f4fb8d55-c076-46d8-a2c7-6a4c722ca4ed}"
+    static FWPM_LAYER_INBOUND_RESERVED2 => Guid("{f4fb8d55-c076-46d8-a2c7-6a4c722ca4ed}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_NETWORK_CONNECTION_POLICY_V4 => "{037f317a-d696-494a-bba5-bffc265e6052}"
+    static FWPM_LAYER_OUTBOUND_NETWORK_CONNECTION_POLICY_V4 => Guid("{037f317a-d696-494a-bba5-bffc265e6052}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_LAYER_OUTBOUND_NETWORK_CONNECTION_POLICY_V6 => "{22a4fdb1-6d7e-48ae-ae77-3742525c3119}"
+    static FWPM_LAYER_OUTBOUND_NETWORK_CONNECTION_POLICY_V6 => Guid("{22a4fdb1-6d7e-48ae-ae77-3742525c3119}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_RPC_AUDIT => "{758c84f4-fb48-4de9-9aeb-3ed9551ab1fd}"
+    static FWPM_SUBLAYER_RPC_AUDIT => Guid("{758c84f4-fb48-4de9-9aeb-3ed9551ab1fd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_IPSEC_TUNNEL => "{83f299ed-9ff4-4967-aff4-c309f4dab827}"
+    static FWPM_SUBLAYER_IPSEC_TUNNEL => Guid("{83f299ed-9ff4-4967-aff4-c309f4dab827}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_UNIVERSAL => "{eebecc03-ced4-4380-819a-2734397b2b74}"
+    static FWPM_SUBLAYER_UNIVERSAL => Guid("{eebecc03-ced4-4380-819a-2734397b2b74}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_LIPS => "{1b75c0ce-ff60-4711-a70f-b4958cc3b2d0}"
+    static FWPM_SUBLAYER_LIPS => Guid("{1b75c0ce-ff60-4711-a70f-b4958cc3b2d0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_SECURE_SOCKET => "{15a66e17-3f3c-4f7b-aa6c-812aa613dd82}"
+    static FWPM_SUBLAYER_SECURE_SOCKET => Guid("{15a66e17-3f3c-4f7b-aa6c-812aa613dd82}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_TCP_CHIMNEY_OFFLOAD => "{337608b9-b7d5-4d5f-82f9-3618618bc058}"
+    static FWPM_SUBLAYER_TCP_CHIMNEY_OFFLOAD => Guid("{337608b9-b7d5-4d5f-82f9-3618618bc058}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_INSPECTION => "{877519e1-e6a9-41a5-81b4-8c4f118e4a60}"
+    static FWPM_SUBLAYER_INSPECTION => Guid("{877519e1-e6a9-41a5-81b4-8c4f118e4a60}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_TEREDO => "{ba69dc66-5176-4979-9c89-26a7b46a8327}"
+    static FWPM_SUBLAYER_TEREDO => Guid("{ba69dc66-5176-4979-9c89-26a7b46a8327}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_IPSEC_FORWARD_OUTBOUND_TUNNEL => "{a5082e73-8f71-4559-8a9a-101cea04ef87}"
+    static FWPM_SUBLAYER_IPSEC_FORWARD_OUTBOUND_TUNNEL => Guid("{a5082e73-8f71-4559-8a9a-101cea04ef87}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_IPSEC_DOSP => "{e076d572-5d3d-48ef-802b-909eddb098bd}"
+    static FWPM_SUBLAYER_IPSEC_DOSP => Guid("{e076d572-5d3d-48ef-802b-909eddb098bd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_TCP_TEMPLATES => "{24421dcf-0ac5-4caa-9e14-50f6e3636af0}"
+    static FWPM_SUBLAYER_TCP_TEMPLATES => Guid("{24421dcf-0ac5-4caa-9e14-50f6e3636af0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_IPSEC_SECURITY_REALM => "{37a57701-5884-4964-92b8-3e704688b0ad}"
+    static FWPM_SUBLAYER_IPSEC_SECURITY_REALM => Guid("{37a57701-5884-4964-92b8-3e704688b0ad}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_MPSSVC_WSH => "{b3cdd441-af90-41ba-a745-7c6008ff2300}"
+    static FWPM_SUBLAYER_MPSSVC_WSH => Guid("{b3cdd441-af90-41ba-a745-7c6008ff2300}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_MPSSVC_WF => "{b3cdd441-af90-41ba-a745-7c6008ff2301}"
+    static FWPM_SUBLAYER_MPSSVC_WF => Guid("{b3cdd441-af90-41ba-a745-7c6008ff2301}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_MPSSVC_QUARANTINE => "{b3cdd441-af90-41ba-a745-7c6008ff2302}"
+    static FWPM_SUBLAYER_MPSSVC_QUARANTINE => Guid("{b3cdd441-af90-41ba-a745-7c6008ff2302}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_MPSSVC_EDP => "{09a47e38-fa97-471b-b123-18bcd7e65071}"
+    static FWPM_SUBLAYER_MPSSVC_EDP => Guid("{09a47e38-fa97-471b-b123-18bcd7e65071}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_MPSSVC_TENANT_RESTRICTIONS => "{1ec6c7e1-fdd9-478a-b55f-ff8ba1d2c17d}"
+    static FWPM_SUBLAYER_MPSSVC_TENANT_RESTRICTIONS => Guid("{1ec6c7e1-fdd9-478a-b55f-ff8ba1d2c17d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_SUBLAYER_MPSSVC_APP_ISOLATION => "{ffe221c3-92a8-4564-a59f-dafb70756020}"
+    static FWPM_SUBLAYER_MPSSVC_APP_ISOLATION => Guid("{ffe221c3-92a8-4564-a59f-dafb70756020}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_PACKAGE_FAMILY_NAME => "{81bc78fb-f28d-4886-a604-6acc261f261b}"
+    static FWPM_CONDITION_ALE_PACKAGE_FAMILY_NAME => Guid("{81bc78fb-f28d-4886-a604-6acc261f261b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_INTERFACE_MAC_ADDRESS => "{f6e63dce-1f4b-4c6b-b6ef-1165e71f8ee7}"
+    static FWPM_CONDITION_INTERFACE_MAC_ADDRESS => Guid("{f6e63dce-1f4b-4c6b-b6ef-1165e71f8ee7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_MAC_LOCAL_ADDRESS => "{d999e981-7948-4c83-b742-c84e3b678f8f}"
+    static FWPM_CONDITION_MAC_LOCAL_ADDRESS => Guid("{d999e981-7948-4c83-b742-c84e3b678f8f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_MAC_REMOTE_ADDRESS => "{408f2ed4-3a70-4b4d-92a6-415ac20e2f12}"
+    static FWPM_CONDITION_MAC_REMOTE_ADDRESS => Guid("{408f2ed4-3a70-4b4d-92a6-415ac20e2f12}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ETHER_TYPE => "{fd08948d-a219-4d52-bb98-1a5540ee7b4e}"
+    static FWPM_CONDITION_ETHER_TYPE => Guid("{fd08948d-a219-4d52-bb98-1a5540ee7b4e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_VLAN_ID => "{938eab21-3618-4e64-9ca5-2141ebda1ca2}"
+    static FWPM_CONDITION_VLAN_ID => Guid("{938eab21-3618-4e64-9ca5-2141ebda1ca2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_VSWITCH_TENANT_NETWORK_ID => "{dc04843c-79e6-4e44-a025-65b9bb0f9f94}"
+    static FWPM_CONDITION_VSWITCH_TENANT_NETWORK_ID => Guid("{dc04843c-79e6-4e44-a025-65b9bb0f9f94}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_NDIS_PORT => "{db7bb42b-2dac-4cd4-a59a-e0bdce1e6834}"
+    static FWPM_CONDITION_NDIS_PORT => Guid("{db7bb42b-2dac-4cd4-a59a-e0bdce1e6834}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_NDIS_MEDIA_TYPE => "{cb31cef1-791d-473b-89d1-61c5984304a0}"
+    static FWPM_CONDITION_NDIS_MEDIA_TYPE => Guid("{cb31cef1-791d-473b-89d1-61c5984304a0}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_NDIS_PHYSICAL_MEDIA_TYPE => "{34c79823-c229-44f2-b83c-74020882ae77}"
+    static FWPM_CONDITION_NDIS_PHYSICAL_MEDIA_TYPE => Guid("{34c79823-c229-44f2-b83c-74020882ae77}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_L2_FLAGS => "{7bc43cbf-37ba-45f1-b74a-82ff518eeb10}"
+    static FWPM_CONDITION_L2_FLAGS => Guid("{7bc43cbf-37ba-45f1-b74a-82ff518eeb10}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_MAC_LOCAL_ADDRESS_TYPE => "{cc31355c-3073-4ffb-a14f-79415cb1ead1}"
+    static FWPM_CONDITION_MAC_LOCAL_ADDRESS_TYPE => Guid("{cc31355c-3073-4ffb-a14f-79415cb1ead1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_MAC_REMOTE_ADDRESS_TYPE => "{027fedb4-f1c1-4030-b564-ee777fd867ea}"
+    static FWPM_CONDITION_MAC_REMOTE_ADDRESS_TYPE => Guid("{027fedb4-f1c1-4030-b564-ee777fd867ea}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_PACKAGE_ID => "{71bc78fa-f17c-4997-a602-6abb261f351c}"
+    static FWPM_CONDITION_ALE_PACKAGE_ID => Guid("{71bc78fa-f17c-4997-a602-6abb261f351c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_MAC_SOURCE_ADDRESS => "{7b795451-f1f6-4d05-b7cb-21779d802336}"
+    static FWPM_CONDITION_MAC_SOURCE_ADDRESS => Guid("{7b795451-f1f6-4d05-b7cb-21779d802336}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_MAC_DESTINATION_ADDRESS => "{04ea2a93-858c-4027-b613-b43180c7859e}"
+    static FWPM_CONDITION_MAC_DESTINATION_ADDRESS => Guid("{04ea2a93-858c-4027-b613-b43180c7859e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_MAC_SOURCE_ADDRESS_TYPE => "{5c1b72e4-299e-4437-a298-bc3f014b3dc2}"
+    static FWPM_CONDITION_MAC_SOURCE_ADDRESS_TYPE => Guid("{5c1b72e4-299e-4437-a298-bc3f014b3dc2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_MAC_DESTINATION_ADDRESS_TYPE => "{ae052932-ef42-4e99-b129-f3b3139e34f7}"
+    static FWPM_CONDITION_MAC_DESTINATION_ADDRESS_TYPE => Guid("{ae052932-ef42-4e99-b129-f3b3139e34f7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_SOURCE_PORT => "{a6afef91-3df4-4730-a214-f5426aebf821}"
+    static FWPM_CONDITION_IP_SOURCE_PORT => Guid("{a6afef91-3df4-4730-a214-f5426aebf821}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_DESTINATION_PORT => "{ce6def45-60fb-4a7b-a304-af30a117000e}"
+    static FWPM_CONDITION_IP_DESTINATION_PORT => Guid("{ce6def45-60fb-4a7b-a304-af30a117000e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_VSWITCH_ID => "{c4a414ba-437b-4de6-9946-d99c1b95b312}"
+    static FWPM_CONDITION_VSWITCH_ID => Guid("{c4a414ba-437b-4de6-9946-d99c1b95b312}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_VSWITCH_NETWORK_TYPE => "{11d48b4b-e77a-40b4-9155-392c906c2608}"
+    static FWPM_CONDITION_VSWITCH_NETWORK_TYPE => Guid("{11d48b4b-e77a-40b4-9155-392c906c2608}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_VSWITCH_SOURCE_INTERFACE_ID => "{7f4ef24b-b2c1-4938-ba33-a1ecbed512ba}"
+    static FWPM_CONDITION_VSWITCH_SOURCE_INTERFACE_ID => Guid("{7f4ef24b-b2c1-4938-ba33-a1ecbed512ba}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_VSWITCH_DESTINATION_INTERFACE_ID => "{8ed48be4-c926-49f6-a4f6-ef3030e3fc16}"
+    static FWPM_CONDITION_VSWITCH_DESTINATION_INTERFACE_ID => Guid("{8ed48be4-c926-49f6-a4f6-ef3030e3fc16}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_VSWITCH_SOURCE_VM_ID => "{9c2a9ec2-9fc6-42bc-bdd8-406d4da0be64}"
+    static FWPM_CONDITION_VSWITCH_SOURCE_VM_ID => Guid("{9c2a9ec2-9fc6-42bc-bdd8-406d4da0be64}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_VSWITCH_DESTINATION_VM_ID => "{6106aace-4de1-4c84-9671-3637f8bcf731}"
+    static FWPM_CONDITION_VSWITCH_DESTINATION_VM_ID => Guid("{6106aace-4de1-4c84-9671-3637f8bcf731}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_VSWITCH_SOURCE_INTERFACE_TYPE => "{e6b040a2-edaf-4c36-908b-f2f58ae43807}"
+    static FWPM_CONDITION_VSWITCH_SOURCE_INTERFACE_TYPE => Guid("{e6b040a2-edaf-4c36-908b-f2f58ae43807}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_VSWITCH_DESTINATION_INTERFACE_TYPE => "{fa9b3f06-2f1a-4c57-9e68-a7098b28dbfe}"
+    static FWPM_CONDITION_VSWITCH_DESTINATION_INTERFACE_TYPE => Guid("{fa9b3f06-2f1a-4c57-9e68-a7098b28dbfe}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_SECURITY_ATTRIBUTE_FQBN_VALUE => "{37a57699-5883-4963-92b8-3e704688b0ad}"
+    static FWPM_CONDITION_ALE_SECURITY_ATTRIBUTE_FQBN_VALUE => Guid("{37a57699-5883-4963-92b8-3e704688b0ad}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IPSEC_SECURITY_REALM_ID => "{37a57700-5884-4964-92b8-3e704688b0ad}"
+    static FWPM_CONDITION_IPSEC_SECURITY_REALM_ID => Guid("{37a57700-5884-4964-92b8-3e704688b0ad}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_EFFECTIVE_NAME => "{b1277b9a-b781-40fc-9671-e5f1b989f34e}"
+    static FWPM_CONDITION_ALE_EFFECTIVE_NAME => Guid("{b1277b9a-b781-40fc-9671-e5f1b989f34e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_LOCAL_ADDRESS => "{d9ee00de-c1ef-4617-bfe3-ffd8f5a08957}"
+    static FWPM_CONDITION_IP_LOCAL_ADDRESS => Guid("{d9ee00de-c1ef-4617-bfe3-ffd8f5a08957}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_REMOTE_ADDRESS => "{b235ae9a-1d64-49b8-a44c-5ff3d9095045}"
+    static FWPM_CONDITION_IP_REMOTE_ADDRESS => Guid("{b235ae9a-1d64-49b8-a44c-5ff3d9095045}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_SOURCE_ADDRESS => "{ae96897e-2e94-4bc9-b313-b27ee80e574d}"
+    static FWPM_CONDITION_IP_SOURCE_ADDRESS => Guid("{ae96897e-2e94-4bc9-b313-b27ee80e574d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_DESTINATION_ADDRESS => "{2d79133b-b390-45c6-8699-acaceaafed33}"
+    static FWPM_CONDITION_IP_DESTINATION_ADDRESS => Guid("{2d79133b-b390-45c6-8699-acaceaafed33}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_LOCAL_ADDRESS_TYPE => "{6ec7f6c4-376b-45d7-9e9c-d337cedcd237}"
+    static FWPM_CONDITION_IP_LOCAL_ADDRESS_TYPE => Guid("{6ec7f6c4-376b-45d7-9e9c-d337cedcd237}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_DESTINATION_ADDRESS_TYPE => "{1ec1b7c9-4eea-4f5e-b9ef-76beaaaf17ee}"
+    static FWPM_CONDITION_IP_DESTINATION_ADDRESS_TYPE => Guid("{1ec1b7c9-4eea-4f5e-b9ef-76beaaaf17ee}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_NEXTHOP_ADDRESS => "{eabe448a-a711-4d64-85b7-3f76b65299c7}"
+    static FWPM_CONDITION_IP_NEXTHOP_ADDRESS => Guid("{eabe448a-a711-4d64-85b7-3f76b65299c7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_LOCAL_INTERFACE => "{4cd62a49-59c3-4969-b7f3-bda5d32890a4}"
+    static FWPM_CONDITION_IP_LOCAL_INTERFACE => Guid("{4cd62a49-59c3-4969-b7f3-bda5d32890a4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_ARRIVAL_INTERFACE => "{618a9b6d-386b-4136-ad6e-b51587cfb1cd}"
+    static FWPM_CONDITION_IP_ARRIVAL_INTERFACE => Guid("{618a9b6d-386b-4136-ad6e-b51587cfb1cd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ARRIVAL_INTERFACE_TYPE => "{89f990de-e798-4e6d-ab76-7c9558292e6f}"
+    static FWPM_CONDITION_ARRIVAL_INTERFACE_TYPE => Guid("{89f990de-e798-4e6d-ab76-7c9558292e6f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ARRIVAL_TUNNEL_TYPE => "{511166dc-7a8c-4aa7-b533-95ab59fb0340}"
+    static FWPM_CONDITION_ARRIVAL_TUNNEL_TYPE => Guid("{511166dc-7a8c-4aa7-b533-95ab59fb0340}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ARRIVAL_INTERFACE_INDEX => "{cc088db3-1792-4a71-b0f9-037d21cd828b}"
+    static FWPM_CONDITION_ARRIVAL_INTERFACE_INDEX => Guid("{cc088db3-1792-4a71-b0f9-037d21cd828b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_NEXTHOP_SUB_INTERFACE_INDEX => "{ef8a6122-0577-45a7-9aaf-825fbeb4fb95}"
+    static FWPM_CONDITION_NEXTHOP_SUB_INTERFACE_INDEX => Guid("{ef8a6122-0577-45a7-9aaf-825fbeb4fb95}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_NEXTHOP_INTERFACE => "{93ae8f5b-7f6f-4719-98c8-14e97429ef04}"
+    static FWPM_CONDITION_IP_NEXTHOP_INTERFACE => Guid("{93ae8f5b-7f6f-4719-98c8-14e97429ef04}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_NEXTHOP_INTERFACE_TYPE => "{97537c6c-d9a3-4767-a381-e942675cd920}"
+    static FWPM_CONDITION_NEXTHOP_INTERFACE_TYPE => Guid("{97537c6c-d9a3-4767-a381-e942675cd920}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_NEXTHOP_TUNNEL_TYPE => "{72b1a111-987b-4720-99dd-c7c576fa2d4c}"
+    static FWPM_CONDITION_NEXTHOP_TUNNEL_TYPE => Guid("{72b1a111-987b-4720-99dd-c7c576fa2d4c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_NEXTHOP_INTERFACE_INDEX => "{138e6888-7ab8-4d65-9ee8-0591bcf6a494}"
+    static FWPM_CONDITION_NEXTHOP_INTERFACE_INDEX => Guid("{138e6888-7ab8-4d65-9ee8-0591bcf6a494}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ORIGINAL_PROFILE_ID => "{46ea1551-2255-492b-8019-aabeee349f40}"
+    static FWPM_CONDITION_ORIGINAL_PROFILE_ID => Guid("{46ea1551-2255-492b-8019-aabeee349f40}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_CURRENT_PROFILE_ID => "{ab3033c9-c0e3-4759-937d-5758c65d4ae3}"
+    static FWPM_CONDITION_CURRENT_PROFILE_ID => Guid("{ab3033c9-c0e3-4759-937d-5758c65d4ae3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_LOCAL_INTERFACE_PROFILE_ID => "{4ebf7562-9f18-4d06-9941-a7a625744d71}"
+    static FWPM_CONDITION_LOCAL_INTERFACE_PROFILE_ID => Guid("{4ebf7562-9f18-4d06-9941-a7a625744d71}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ARRIVAL_INTERFACE_PROFILE_ID => "{cdfe6aab-c083-4142-8679-c08f95329c61}"
+    static FWPM_CONDITION_ARRIVAL_INTERFACE_PROFILE_ID => Guid("{cdfe6aab-c083-4142-8679-c08f95329c61}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_NEXTHOP_INTERFACE_PROFILE_ID => "{d7ff9a56-cdaa-472b-84db-d23963c1d1bf}"
+    static FWPM_CONDITION_NEXTHOP_INTERFACE_PROFILE_ID => Guid("{d7ff9a56-cdaa-472b-84db-d23963c1d1bf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_REAUTHORIZE_REASON => "{11205e8c-11ae-457a-8a44-477026dd764a}"
+    static FWPM_CONDITION_REAUTHORIZE_REASON => Guid("{11205e8c-11ae-457a-8a44-477026dd764a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ORIGINAL_ICMP_TYPE => "{076dfdbe-c56c-4f72-ae8a-2cfe7e5c8286}"
+    static FWPM_CONDITION_ORIGINAL_ICMP_TYPE => Guid("{076dfdbe-c56c-4f72-ae8a-2cfe7e5c8286}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_PHYSICAL_ARRIVAL_INTERFACE => "{da50d5c8-fa0d-4c89-b032-6e62136d1e96}"
+    static FWPM_CONDITION_IP_PHYSICAL_ARRIVAL_INTERFACE => Guid("{da50d5c8-fa0d-4c89-b032-6e62136d1e96}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_PHYSICAL_NEXTHOP_INTERFACE => "{f09bd5ce-5150-48be-b098-c25152fb1f92}"
+    static FWPM_CONDITION_IP_PHYSICAL_NEXTHOP_INTERFACE => Guid("{f09bd5ce-5150-48be-b098-c25152fb1f92}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_INTERFACE_QUARANTINE_EPOCH => "{cce68d5e-053b-43a8-9a6f-33384c28e4f6}"
+    static FWPM_CONDITION_INTERFACE_QUARANTINE_EPOCH => Guid("{cce68d5e-053b-43a8-9a6f-33384c28e4f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_INTERFACE_TYPE => "{daf8cd14-e09e-4c93-a5ae-c5c13b73ffca}"
+    static FWPM_CONDITION_INTERFACE_TYPE => Guid("{daf8cd14-e09e-4c93-a5ae-c5c13b73ffca}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_TUNNEL_TYPE => "{77a40437-8779-4868-a261-f5a902f1c0cd}"
+    static FWPM_CONDITION_TUNNEL_TYPE => Guid("{77a40437-8779-4868-a261-f5a902f1c0cd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_FORWARD_INTERFACE => "{1076b8a5-6323-4c5e-9810-e8d3fc9e6136}"
+    static FWPM_CONDITION_IP_FORWARD_INTERFACE => Guid("{1076b8a5-6323-4c5e-9810-e8d3fc9e6136}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_PROTOCOL => "{3971ef2b-623e-4f9a-8cb1-6e79b806b9a7}"
+    static FWPM_CONDITION_IP_PROTOCOL => Guid("{3971ef2b-623e-4f9a-8cb1-6e79b806b9a7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_LOCAL_PORT => "{0c1ba1af-5765-453f-af22-a8f791ac775b}"
+    static FWPM_CONDITION_IP_LOCAL_PORT => Guid("{0c1ba1af-5765-453f-af22-a8f791ac775b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_REMOTE_PORT => "{c35a604d-d22b-4e1a-91b4-68f674ee674b}"
+    static FWPM_CONDITION_IP_REMOTE_PORT => Guid("{c35a604d-d22b-4e1a-91b4-68f674ee674b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_EMBEDDED_LOCAL_ADDRESS_TYPE => "{4672a468-8a0a-4202-abb4-849e92e66809}"
+    static FWPM_CONDITION_EMBEDDED_LOCAL_ADDRESS_TYPE => Guid("{4672a468-8a0a-4202-abb4-849e92e66809}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_EMBEDDED_REMOTE_ADDRESS => "{77ee4b39-3273-4671-b63b-ab6feb66eeb6}"
+    static FWPM_CONDITION_EMBEDDED_REMOTE_ADDRESS => Guid("{77ee4b39-3273-4671-b63b-ab6feb66eeb6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_EMBEDDED_PROTOCOL => "{07784107-a29e-4c7b-9ec7-29c44afafdbc}"
+    static FWPM_CONDITION_EMBEDDED_PROTOCOL => Guid("{07784107-a29e-4c7b-9ec7-29c44afafdbc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_EMBEDDED_LOCAL_PORT => "{bfca394d-acdb-484e-b8e6-2aff79757345}"
+    static FWPM_CONDITION_EMBEDDED_LOCAL_PORT => Guid("{bfca394d-acdb-484e-b8e6-2aff79757345}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_EMBEDDED_REMOTE_PORT => "{cae4d6a1-2968-40ed-a4ce-547160dda88d}"
+    static FWPM_CONDITION_EMBEDDED_REMOTE_PORT => Guid("{cae4d6a1-2968-40ed-a4ce-547160dda88d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_FLAGS => "{632ce23b-5167-435c-86d7-e903684aa80c}"
+    static FWPM_CONDITION_FLAGS => Guid("{632ce23b-5167-435c-86d7-e903684aa80c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_DIRECTION => "{8784c146-ca97-44d6-9fd1-19fb1840cbf7}"
+    static FWPM_CONDITION_DIRECTION => Guid("{8784c146-ca97-44d6-9fd1-19fb1840cbf7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_INTERFACE_INDEX => "{667fd755-d695-434a-8af5-d3835a1259bc}"
+    static FWPM_CONDITION_INTERFACE_INDEX => Guid("{667fd755-d695-434a-8af5-d3835a1259bc}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_SUB_INTERFACE_INDEX => "{0cd42473-d621-4be3-ae8c-72a348d283e1}"
+    static FWPM_CONDITION_SUB_INTERFACE_INDEX => Guid("{0cd42473-d621-4be3-ae8c-72a348d283e1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_SOURCE_INTERFACE_INDEX => "{2311334d-c92d-45bf-9496-edf447820e2d}"
+    static FWPM_CONDITION_SOURCE_INTERFACE_INDEX => Guid("{2311334d-c92d-45bf-9496-edf447820e2d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_SOURCE_SUB_INTERFACE_INDEX => "{055edd9d-acd2-4361-8dab-f9525d97662f}"
+    static FWPM_CONDITION_SOURCE_SUB_INTERFACE_INDEX => Guid("{055edd9d-acd2-4361-8dab-f9525d97662f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_DESTINATION_INTERFACE_INDEX => "{35cf6522-4139-45ee-a0d5-67b80949d879}"
+    static FWPM_CONDITION_DESTINATION_INTERFACE_INDEX => Guid("{35cf6522-4139-45ee-a0d5-67b80949d879}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_DESTINATION_SUB_INTERFACE_INDEX => "{2b7d4399-d4c7-4738-a2f5-e994b43da388}"
+    static FWPM_CONDITION_DESTINATION_SUB_INTERFACE_INDEX => Guid("{2b7d4399-d4c7-4738-a2f5-e994b43da388}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_APP_ID => "{d78e1e87-8644-4ea5-9437-d809ecefc971}"
+    static FWPM_CONDITION_ALE_APP_ID => Guid("{d78e1e87-8644-4ea5-9437-d809ecefc971}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_ORIGINAL_APP_ID => "{0e6cd086-e1fb-4212-842f-8a9f993fb3f6}"
+    static FWPM_CONDITION_ALE_ORIGINAL_APP_ID => Guid("{0e6cd086-e1fb-4212-842f-8a9f993fb3f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_USER_ID => "{af043a0a-b34d-4f86-979c-c90371af6e66}"
+    static FWPM_CONDITION_ALE_USER_ID => Guid("{af043a0a-b34d-4f86-979c-c90371af6e66}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_REMOTE_USER_ID => "{f63073b7-0189-4ab0-95a4-6123cbfab862}"
+    static FWPM_CONDITION_ALE_REMOTE_USER_ID => Guid("{f63073b7-0189-4ab0-95a4-6123cbfab862}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_REMOTE_MACHINE_ID => "{1aa47f51-7f93-4508-a271-81abb00c9cab}"
+    static FWPM_CONDITION_ALE_REMOTE_MACHINE_ID => Guid("{1aa47f51-7f93-4508-a271-81abb00c9cab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_PROMISCUOUS_MODE => "{1c974776-7182-46e9-afd3-b02910e30334}"
+    static FWPM_CONDITION_ALE_PROMISCUOUS_MODE => Guid("{1c974776-7182-46e9-afd3-b02910e30334}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_SIO_FIREWALL_SYSTEM_PORT => "{b9f4e088-cb98-4efb-a2c7-ad07332643db}"
+    static FWPM_CONDITION_ALE_SIO_FIREWALL_SYSTEM_PORT => Guid("{b9f4e088-cb98-4efb-a2c7-ad07332643db}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_REAUTH_REASON => "{b482d227-1979-4a98-8044-18bbe6237542}"
+    static FWPM_CONDITION_ALE_REAUTH_REASON => Guid("{b482d227-1979-4a98-8044-18bbe6237542}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_ALE_NAP_CONTEXT => "{46275a9d-c03f-4d77-b784-1c57f4d02753}"
+    static FWPM_CONDITION_ALE_NAP_CONTEXT => Guid("{46275a9d-c03f-4d77-b784-1c57f4d02753}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_KM_AUTH_NAP_CONTEXT => "{35d0ea0e-15ca-492b-900e-97fd46352cce}"
+    static FWPM_CONDITION_KM_AUTH_NAP_CONTEXT => Guid("{35d0ea0e-15ca-492b-900e-97fd46352cce}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_REMOTE_USER_TOKEN => "{9bf0ee66-06c9-41b9-84da-288cb43af51f}"
+    static FWPM_CONDITION_REMOTE_USER_TOKEN => Guid("{9bf0ee66-06c9-41b9-84da-288cb43af51f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RPC_IF_UUID => "{7c9c7d9f-0075-4d35-a0d1-8311c4cf6af1}"
+    static FWPM_CONDITION_RPC_IF_UUID => Guid("{7c9c7d9f-0075-4d35-a0d1-8311c4cf6af1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RPC_IF_VERSION => "{eabfd9b7-1262-4a2e-adaa-5f96f6fe326d}"
+    static FWPM_CONDITION_RPC_IF_VERSION => Guid("{eabfd9b7-1262-4a2e-adaa-5f96f6fe326d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RPC_IF_FLAG => "{238a8a32-3199-467d-871c-272621ab3896}"
+    static FWPM_CONDITION_RPC_IF_FLAG => Guid("{238a8a32-3199-467d-871c-272621ab3896}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_DCOM_APP_ID => "{ff2e7b4d-3112-4770-b636-4d24ae3a6af2}"
+    static FWPM_CONDITION_DCOM_APP_ID => Guid("{ff2e7b4d-3112-4770-b636-4d24ae3a6af2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IMAGE_NAME => "{d024de4d-deaa-4317-9c85-e40ef6e140c3}"
+    static FWPM_CONDITION_IMAGE_NAME => Guid("{d024de4d-deaa-4317-9c85-e40ef6e140c3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RPC_PROTOCOL => "{2717bc74-3a35-4ce7-b7ef-c838fabdec45}"
+    static FWPM_CONDITION_RPC_PROTOCOL => Guid("{2717bc74-3a35-4ce7-b7ef-c838fabdec45}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RPC_AUTH_TYPE => "{daba74ab-0d67-43e7-986e-75b84f82f594}"
+    static FWPM_CONDITION_RPC_AUTH_TYPE => Guid("{daba74ab-0d67-43e7-986e-75b84f82f594}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RPC_AUTH_LEVEL => "{e5a0aed5-59ac-46ea-be05-a5f05ecf446e}"
+    static FWPM_CONDITION_RPC_AUTH_LEVEL => Guid("{e5a0aed5-59ac-46ea-be05-a5f05ecf446e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_SEC_ENCRYPT_ALGORITHM => "{0d306ef0-e974-4f74-b5c7-591b0da7d562}"
+    static FWPM_CONDITION_SEC_ENCRYPT_ALGORITHM => Guid("{0d306ef0-e974-4f74-b5c7-591b0da7d562}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_SEC_KEY_SIZE => "{4772183b-ccf8-4aeb-bce1-c6c6161c8fe4}"
+    static FWPM_CONDITION_SEC_KEY_SIZE => Guid("{4772183b-ccf8-4aeb-bce1-c6c6161c8fe4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_LOCAL_ADDRESS_V4 => "{03a629cb-6e52-49f8-9c41-5709633c09cf}"
+    static FWPM_CONDITION_IP_LOCAL_ADDRESS_V4 => Guid("{03a629cb-6e52-49f8-9c41-5709633c09cf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_LOCAL_ADDRESS_V6 => "{2381be84-7524-45b3-a05b-1e637d9c7a6a}"
+    static FWPM_CONDITION_IP_LOCAL_ADDRESS_V6 => Guid("{2381be84-7524-45b3-a05b-1e637d9c7a6a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_PIPE => "{1bd0741d-e3df-4e24-8634-762046eef6eb}"
+    static FWPM_CONDITION_PIPE => Guid("{1bd0741d-e3df-4e24-8634-762046eef6eb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_REMOTE_ADDRESS_V4 => "{1febb610-3bcc-45e1-bc36-2e067e2cb186}"
+    static FWPM_CONDITION_IP_REMOTE_ADDRESS_V4 => Guid("{1febb610-3bcc-45e1-bc36-2e067e2cb186}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IP_REMOTE_ADDRESS_V6 => "{246e1d8c-8bee-4018-9b98-31d4582f3361}"
+    static FWPM_CONDITION_IP_REMOTE_ADDRESS_V6 => Guid("{246e1d8c-8bee-4018-9b98-31d4582f3361}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RPC_OPNUM => "{d58efb76-aab7-4148-a87e-9581134129b9}"
+    static FWPM_CONDITION_RPC_OPNUM => Guid("{d58efb76-aab7-4148-a87e-9581134129b9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_PROCESS_WITH_RPC_IF_UUID => "{e31180a8-bbbd-4d14-a65e-7157b06233bb}"
+    static FWPM_CONDITION_PROCESS_WITH_RPC_IF_UUID => Guid("{e31180a8-bbbd-4d14-a65e-7157b06233bb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RPC_EP_VALUE => "{dccea0b9-0886-4360-9c6a-ab043a24fba9}"
+    static FWPM_CONDITION_RPC_EP_VALUE => Guid("{dccea0b9-0886-4360-9c6a-ab043a24fba9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RPC_EP_FLAGS => "{218b814a-0a39-49b8-8e71-c20c39c7dd2e}"
+    static FWPM_CONDITION_RPC_EP_FLAGS => Guid("{218b814a-0a39-49b8-8e71-c20c39c7dd2e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_CLIENT_TOKEN => "{c228fc1e-403a-4478-be05-c9baa4c05ace}"
+    static FWPM_CONDITION_CLIENT_TOKEN => Guid("{c228fc1e-403a-4478-be05-c9baa4c05ace}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RPC_SERVER_NAME => "{b605a225-c3b3-48c7-9833-7aefa9527546}"
+    static FWPM_CONDITION_RPC_SERVER_NAME => Guid("{b605a225-c3b3-48c7-9833-7aefa9527546}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RPC_SERVER_PORT => "{8090f645-9ad5-4e3b-9f9f-8023ca097909}"
+    static FWPM_CONDITION_RPC_SERVER_PORT => Guid("{8090f645-9ad5-4e3b-9f9f-8023ca097909}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RPC_PROXY_AUTH_TYPE => "{40953fe2-8565-4759-8488-1771b4b4b5db}"
+    static FWPM_CONDITION_RPC_PROXY_AUTH_TYPE => Guid("{40953fe2-8565-4759-8488-1771b4b4b5db}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_CLIENT_CERT_KEY_LENGTH => "{a3ec00c7-05f4-4df7-91f2-5f60d91ff443}"
+    static FWPM_CONDITION_CLIENT_CERT_KEY_LENGTH => Guid("{a3ec00c7-05f4-4df7-91f2-5f60d91ff443}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_CLIENT_CERT_OID => "{c491ad5e-f882-4283-b916-436b103ff4ad}"
+    static FWPM_CONDITION_CLIENT_CERT_OID => Guid("{c491ad5e-f882-4283-b916-436b103ff4ad}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_NET_EVENT_TYPE => "{206e9996-490e-40cf-b831-b38641eb6fcb}"
+    static FWPM_CONDITION_NET_EVENT_TYPE => Guid("{206e9996-490e-40cf-b831-b38641eb6fcb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_PEER_NAME => "{9b539082-eb90-4186-a6cc-de5b63235016}"
+    static FWPM_CONDITION_PEER_NAME => Guid("{9b539082-eb90-4186-a6cc-de5b63235016}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_REMOTE_ID => "{f68166fd-0682-4c89-b8f5-86436c7ef9b7}"
+    static FWPM_CONDITION_REMOTE_ID => Guid("{f68166fd-0682-4c89-b8f5-86436c7ef9b7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_AUTHENTICATION_TYPE => "{eb458cd5-da7b-4ef9-8d43-7b0a840332f2}"
+    static FWPM_CONDITION_AUTHENTICATION_TYPE => Guid("{eb458cd5-da7b-4ef9-8d43-7b0a840332f2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_KM_TYPE => "{ff0f5f49-0ceb-481b-8638-1479791f3f2c}"
+    static FWPM_CONDITION_KM_TYPE => Guid("{ff0f5f49-0ceb-481b-8638-1479791f3f2c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_KM_MODE => "{feef4582-ef8f-4f7b-858b-9077d122de47}"
+    static FWPM_CONDITION_KM_MODE => Guid("{feef4582-ef8f-4f7b-858b-9077d122de47}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_IPSEC_POLICY_KEY => "{ad37dee3-722f-45cc-a4e3-068048124452}"
+    static FWPM_CONDITION_IPSEC_POLICY_KEY => Guid("{ad37dee3-722f-45cc-a4e3-068048124452}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_QM_MODE => "{f64fc6d1-f9cb-43d2-8a5f-e13bc894f265}"
+    static FWPM_CONDITION_QM_MODE => Guid("{f64fc6d1-f9cb-43d2-8a5f-e13bc894f265}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_COMPARTMENT_ID => "{35a791ab-04ac-4ff2-a6bb-da6cfac71806}"
+    static FWPM_CONDITION_COMPARTMENT_ID => Guid("{35a791ab-04ac-4ff2-a6bb-da6cfac71806}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED0 => "{678f4deb-45af-4882-93fe-19d4729d9834}"
+    static FWPM_CONDITION_RESERVED0 => Guid("{678f4deb-45af-4882-93fe-19d4729d9834}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED1 => "{d818f827-5c69-48eb-bf80-d86b17755f97}"
+    static FWPM_CONDITION_RESERVED1 => Guid("{d818f827-5c69-48eb-bf80-d86b17755f97}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED2 => "{53d4123d-e15b-4e84-b7a8-dce16f7b62d9}"
+    static FWPM_CONDITION_RESERVED2 => Guid("{53d4123d-e15b-4e84-b7a8-dce16f7b62d9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED3 => "{7f6e8ca3-6606-4932-97c7-e1f20710af3b}"
+    static FWPM_CONDITION_RESERVED3 => Guid("{7f6e8ca3-6606-4932-97c7-e1f20710af3b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED4 => "{5f58e642-b937-495e-a94b-f6b051a49250}"
+    static FWPM_CONDITION_RESERVED4 => Guid("{5f58e642-b937-495e-a94b-f6b051a49250}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED5 => "{9ba8f6cd-f77c-43e6-8847-11939dc5db5a}"
+    static FWPM_CONDITION_RESERVED5 => Guid("{9ba8f6cd-f77c-43e6-8847-11939dc5db5a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED6 => "{f13d84bd-59d5-44c4-8817-5ecdae1805bd}"
+    static FWPM_CONDITION_RESERVED6 => Guid("{f13d84bd-59d5-44c4-8817-5ecdae1805bd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED7 => "{65a0f930-45dd-4983-aa33-efc7b611af08}"
+    static FWPM_CONDITION_RESERVED7 => Guid("{65a0f930-45dd-4983-aa33-efc7b611af08}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED8 => "{4f424974-0c12-4816-9b47-9a547db39a32}"
+    static FWPM_CONDITION_RESERVED8 => Guid("{4f424974-0c12-4816-9b47-9a547db39a32}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED9 => "{ce78e10f-13ff-4c70-8643-36ad1879afa3}"
+    static FWPM_CONDITION_RESERVED9 => Guid("{ce78e10f-13ff-4c70-8643-36ad1879afa3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED10 => "{b979e282-d621-4c8c-b184-b105a61c36ce}"
+    static FWPM_CONDITION_RESERVED10 => Guid("{b979e282-d621-4c8c-b184-b105a61c36ce}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED11 => "{2d62ee4d-023d-411f-9582-43acbb795975}"
+    static FWPM_CONDITION_RESERVED11 => Guid("{2d62ee4d-023d-411f-9582-43acbb795975}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED12 => "{a3677c32-7e35-4ddc-93da-e8c33fc923c7}"
+    static FWPM_CONDITION_RESERVED12 => Guid("{a3677c32-7e35-4ddc-93da-e8c33fc923c7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED13 => "{335a3e90-84aa-42f5-9e6f-59309536a44c}"
+    static FWPM_CONDITION_RESERVED13 => Guid("{335a3e90-84aa-42f5-9e6f-59309536a44c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED14 => "{30e44da2-2f1a-4116-a559-f907de83604a}"
+    static FWPM_CONDITION_RESERVED14 => Guid("{30e44da2-2f1a-4116-a559-f907de83604a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CONDITION_RESERVED15 => "{bab8340f-afe0-43d1-80d8-5ca456962de3}"
+    static FWPM_CONDITION_RESERVED15 => Guid("{bab8340f-afe0-43d1-80d8-5ca456962de3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_PROVIDER_IKEEXT => "{10ad9216-ccde-456c-8b16-e9f04e60a90b}"
+    static FWPM_PROVIDER_IKEEXT => Guid("{10ad9216-ccde-456c-8b16-e9f04e60a90b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_PROVIDER_IPSEC_DOSP_CONFIG => "{3c6c05a9-c05c-4bb9-8338-2327814ce8bf}"
+    static FWPM_PROVIDER_IPSEC_DOSP_CONFIG => Guid("{3c6c05a9-c05c-4bb9-8338-2327814ce8bf}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_PROVIDER_TCP_CHIMNEY_OFFLOAD => "{896aa19e-9a34-4bcb-ae79-beb9127c84b9}"
+    static FWPM_PROVIDER_TCP_CHIMNEY_OFFLOAD => Guid("{896aa19e-9a34-4bcb-ae79-beb9127c84b9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_PROVIDER_TCP_TEMPLATES => "{76cfcd30-3394-432d-bed3-441ae50e63c3}"
+    static FWPM_PROVIDER_TCP_TEMPLATES => Guid("{76cfcd30-3394-432d-bed3-441ae50e63c3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_PROVIDER_MPSSVC_WSH => "{4b153735-1049-4480-aab4-d1b9bdc03710}"
+    static FWPM_PROVIDER_MPSSVC_WSH => Guid("{4b153735-1049-4480-aab4-d1b9bdc03710}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_PROVIDER_MPSSVC_WF => "{decc16ca-3f33-4346-be1e-8fb4ae0f3d62}"
+    static FWPM_PROVIDER_MPSSVC_WF => Guid("{decc16ca-3f33-4346-be1e-8fb4ae0f3d62}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_PROVIDER_MPSSVC_EDP => "{a90296f7-46b8-4457-8f84-b05e05d3c622}"
+    static FWPM_PROVIDER_MPSSVC_EDP => Guid("{a90296f7-46b8-4457-8f84-b05e05d3c622}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_PROVIDER_MPSSVC_TENANT_RESTRICTIONS => "{d0718ff9-44da-4f50-9dc2-c963a4247613}"
+    static FWPM_PROVIDER_MPSSVC_TENANT_RESTRICTIONS => Guid("{d0718ff9-44da-4f50-9dc2-c963a4247613}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_PROVIDER_MPSSVC_APP_ISOLATION => "{3cc2631f-2d5d-43a0-b174-614837d863a1}"
+    static FWPM_PROVIDER_MPSSVC_APP_ISOLATION => Guid("{3cc2631f-2d5d-43a0-b174-614837d863a1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_INBOUND_TRANSPORT_V4 => "{5132900d-5e84-4b5f-80e4-01741e81ff10}"
+    static FWPM_CALLOUT_IPSEC_INBOUND_TRANSPORT_V4 => Guid("{5132900d-5e84-4b5f-80e4-01741e81ff10}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_INBOUND_TRANSPORT_V6 => "{49d3ac92-2a6c-4dcf-955f-1c3be009dd99}"
+    static FWPM_CALLOUT_IPSEC_INBOUND_TRANSPORT_V6 => Guid("{49d3ac92-2a6c-4dcf-955f-1c3be009dd99}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_OUTBOUND_TRANSPORT_V4 => "{4b46bf0a-4523-4e57-aa38-a87987c910d9}"
+    static FWPM_CALLOUT_IPSEC_OUTBOUND_TRANSPORT_V4 => Guid("{4b46bf0a-4523-4e57-aa38-a87987c910d9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_OUTBOUND_TRANSPORT_V6 => "{38d87722-ad83-4f11-a91f-df0fb077225b}"
+    static FWPM_CALLOUT_IPSEC_OUTBOUND_TRANSPORT_V6 => Guid("{38d87722-ad83-4f11-a91f-df0fb077225b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_INBOUND_TUNNEL_V4 => "{191a8a46-0bf8-46cf-b045-4b45dfa6a324}"
+    static FWPM_CALLOUT_IPSEC_INBOUND_TUNNEL_V4 => Guid("{191a8a46-0bf8-46cf-b045-4b45dfa6a324}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_INBOUND_TUNNEL_V6 => "{80c342e3-1e53-4d6f-9b44-03df5aeee154}"
+    static FWPM_CALLOUT_IPSEC_INBOUND_TUNNEL_V6 => Guid("{80c342e3-1e53-4d6f-9b44-03df5aeee154}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_OUTBOUND_TUNNEL_V4 => "{70a4196c-835b-4fb0-98e8-075f4d977d46}"
+    static FWPM_CALLOUT_IPSEC_OUTBOUND_TUNNEL_V4 => Guid("{70a4196c-835b-4fb0-98e8-075f4d977d46}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_OUTBOUND_TUNNEL_V6 => "{f1835363-a6a5-4e62-b180-23db789d8da6}"
+    static FWPM_CALLOUT_IPSEC_OUTBOUND_TUNNEL_V6 => Guid("{f1835363-a6a5-4e62-b180-23db789d8da6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_FORWARD_INBOUND_TUNNEL_V4 => "{28829633-c4f0-4e66-873f-844db2a899c7}"
+    static FWPM_CALLOUT_IPSEC_FORWARD_INBOUND_TUNNEL_V4 => Guid("{28829633-c4f0-4e66-873f-844db2a899c7}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_FORWARD_INBOUND_TUNNEL_V6 => "{af50bec2-c686-429a-884d-b74443e7b0b4}"
+    static FWPM_CALLOUT_IPSEC_FORWARD_INBOUND_TUNNEL_V6 => Guid("{af50bec2-c686-429a-884d-b74443e7b0b4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_FORWARD_OUTBOUND_TUNNEL_V4 => "{fb532136-15cb-440b-937c-1717ca320c40}"
+    static FWPM_CALLOUT_IPSEC_FORWARD_OUTBOUND_TUNNEL_V4 => Guid("{fb532136-15cb-440b-937c-1717ca320c40}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_FORWARD_OUTBOUND_TUNNEL_V6 => "{dae640cc-e021-4bee-9eb6-a48b275c8c1d}"
+    static FWPM_CALLOUT_IPSEC_FORWARD_OUTBOUND_TUNNEL_V6 => Guid("{dae640cc-e021-4bee-9eb6-a48b275c8c1d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_INBOUND_INITIATE_SECURE_V4 => "{7dff309b-ba7d-4aba-91aa-ae5c6640c944}"
+    static FWPM_CALLOUT_IPSEC_INBOUND_INITIATE_SECURE_V4 => Guid("{7dff309b-ba7d-4aba-91aa-ae5c6640c944}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_INBOUND_INITIATE_SECURE_V6 => "{a9a0d6d9-c58c-474e-8aeb-3cfe99d6d53d}"
+    static FWPM_CALLOUT_IPSEC_INBOUND_INITIATE_SECURE_V6 => Guid("{a9a0d6d9-c58c-474e-8aeb-3cfe99d6d53d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_INBOUND_TUNNEL_ALE_ACCEPT_V4 => "{3df6e7de-fd20-48f2-9f26-f854444cba79}"
+    static FWPM_CALLOUT_IPSEC_INBOUND_TUNNEL_ALE_ACCEPT_V4 => Guid("{3df6e7de-fd20-48f2-9f26-f854444cba79}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_INBOUND_TUNNEL_ALE_ACCEPT_V6 => "{a1e392d3-72ac-47bb-87a7-0122c69434ab}"
+    static FWPM_CALLOUT_IPSEC_INBOUND_TUNNEL_ALE_ACCEPT_V6 => Guid("{a1e392d3-72ac-47bb-87a7-0122c69434ab}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_ALE_CONNECT_V4 => "{6ac141fc-f75d-4203-b9c8-48e6149c2712}"
+    static FWPM_CALLOUT_IPSEC_ALE_CONNECT_V4 => Guid("{6ac141fc-f75d-4203-b9c8-48e6149c2712}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_ALE_CONNECT_V6 => "{4c0dda05-e31f-4666-90b0-b3dfad34129a}"
+    static FWPM_CALLOUT_IPSEC_ALE_CONNECT_V6 => Guid("{4c0dda05-e31f-4666-90b0-b3dfad34129a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_DOSP_FORWARD_V6 => "{6d08a342-db9e-4fbe-9ed2-57374ce89f79}"
+    static FWPM_CALLOUT_IPSEC_DOSP_FORWARD_V6 => Guid("{6d08a342-db9e-4fbe-9ed2-57374ce89f79}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_IPSEC_DOSP_FORWARD_V4 => "{2fcb56ec-cd37-4b4f-b108-62c2b1850a0c}"
+    static FWPM_CALLOUT_IPSEC_DOSP_FORWARD_V4 => Guid("{2fcb56ec-cd37-4b4f-b108-62c2b1850a0c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_WFP_TRANSPORT_LAYER_V4_SILENT_DROP => "{eda08606-2494-4d78-89bc-67837c03b969}"
+    static FWPM_CALLOUT_WFP_TRANSPORT_LAYER_V4_SILENT_DROP => Guid("{eda08606-2494-4d78-89bc-67837c03b969}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_WFP_TRANSPORT_LAYER_V6_SILENT_DROP => "{8693cc74-a075-4156-b476-9286eece814e}"
+    static FWPM_CALLOUT_WFP_TRANSPORT_LAYER_V6_SILENT_DROP => Guid("{8693cc74-a075-4156-b476-9286eece814e}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_TCP_CHIMNEY_CONNECT_LAYER_V4 => "{f3e10ab3-2c25-4279-ac36-c30fc181bec4}"
+    static FWPM_CALLOUT_TCP_CHIMNEY_CONNECT_LAYER_V4 => Guid("{f3e10ab3-2c25-4279-ac36-c30fc181bec4}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_TCP_CHIMNEY_CONNECT_LAYER_V6 => "{39e22085-a341-42fc-a279-aec94e689c56}"
+    static FWPM_CALLOUT_TCP_CHIMNEY_CONNECT_LAYER_V6 => Guid("{39e22085-a341-42fc-a279-aec94e689c56}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_TCP_CHIMNEY_ACCEPT_LAYER_V4 => "{e183ecb2-3a7f-4b54-8ad9-76050ed880ca}"
+    static FWPM_CALLOUT_TCP_CHIMNEY_ACCEPT_LAYER_V4 => Guid("{e183ecb2-3a7f-4b54-8ad9-76050ed880ca}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_TCP_CHIMNEY_ACCEPT_LAYER_V6 => "{0378cf41-bf98-4603-81f2-7f12586079f6}"
+    static FWPM_CALLOUT_TCP_CHIMNEY_ACCEPT_LAYER_V6 => Guid("{0378cf41-bf98-4603-81f2-7f12586079f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_SET_OPTIONS_AUTH_CONNECT_LAYER_V4 => "{bc582280-1677-41e9-94ab-c2fcb15c2eeb}"
+    static FWPM_CALLOUT_SET_OPTIONS_AUTH_CONNECT_LAYER_V4 => Guid("{bc582280-1677-41e9-94ab-c2fcb15c2eeb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_SET_OPTIONS_AUTH_CONNECT_LAYER_V6 => "{98e5373c-b884-490f-b65f-2f6a4a575195}"
+    static FWPM_CALLOUT_SET_OPTIONS_AUTH_CONNECT_LAYER_V6 => Guid("{98e5373c-b884-490f-b65f-2f6a4a575195}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_SET_OPTIONS_AUTH_RECV_ACCEPT_LAYER_V4 => "{2d55f008-0c01-4f92-b26e-a08a94569b8d}"
+    static FWPM_CALLOUT_SET_OPTIONS_AUTH_RECV_ACCEPT_LAYER_V4 => Guid("{2d55f008-0c01-4f92-b26e-a08a94569b8d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_SET_OPTIONS_AUTH_RECV_ACCEPT_LAYER_V6 => "{63018537-f281-4dc4-83d3-8dec18b7ade2}"
+    static FWPM_CALLOUT_SET_OPTIONS_AUTH_RECV_ACCEPT_LAYER_V6 => Guid("{63018537-f281-4dc4-83d3-8dec18b7ade2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_RESERVED_AUTH_CONNECT_LAYER_V4 => "{288b524d-0566-4e19-b612-8f441a2e5949}"
+    static FWPM_CALLOUT_RESERVED_AUTH_CONNECT_LAYER_V4 => Guid("{288b524d-0566-4e19-b612-8f441a2e5949}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_RESERVED_AUTH_CONNECT_LAYER_V6 => "{00b84b92-2b5e-4b71-ab0e-aaca43e387e6}"
+    static FWPM_CALLOUT_RESERVED_AUTH_CONNECT_LAYER_V6 => Guid("{00b84b92-2b5e-4b71-ab0e-aaca43e387e6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_TEREDO_ALE_RESOURCE_ASSIGNMENT_V6 => "{31b95392-066e-42a2-b7db-92f8acdd56f9}"
+    static FWPM_CALLOUT_TEREDO_ALE_RESOURCE_ASSIGNMENT_V6 => Guid("{31b95392-066e-42a2-b7db-92f8acdd56f9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_EDGE_TRAVERSAL_ALE_RESOURCE_ASSIGNMENT_V4 => "{079b1010-f1c5-4fcd-ae05-da41107abd0b}"
+    static FWPM_CALLOUT_EDGE_TRAVERSAL_ALE_RESOURCE_ASSIGNMENT_V4 => Guid("{079b1010-f1c5-4fcd-ae05-da41107abd0b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_TEREDO_ALE_LISTEN_V6 => "{81a434e7-f60c-4378-bab8-c625a30f0197}"
+    static FWPM_CALLOUT_TEREDO_ALE_LISTEN_V6 => Guid("{81a434e7-f60c-4378-bab8-c625a30f0197}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_EDGE_TRAVERSAL_ALE_LISTEN_V4 => "{33486ab5-6d5e-4e65-a00b-a7afed0ba9a1}"
+    static FWPM_CALLOUT_EDGE_TRAVERSAL_ALE_LISTEN_V4 => Guid("{33486ab5-6d5e-4e65-a00b-a7afed0ba9a1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_TCP_TEMPLATES_CONNECT_LAYER_V4 => "{215a0b39-4b7e-4eda-8ce4-179679df6224}"
+    static FWPM_CALLOUT_TCP_TEMPLATES_CONNECT_LAYER_V4 => Guid("{215a0b39-4b7e-4eda-8ce4-179679df6224}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_TCP_TEMPLATES_CONNECT_LAYER_V6 => "{838b37a1-5c12-4d34-8b38-078728b2d25c}"
+    static FWPM_CALLOUT_TCP_TEMPLATES_CONNECT_LAYER_V6 => Guid("{838b37a1-5c12-4d34-8b38-078728b2d25c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_TCP_TEMPLATES_ACCEPT_LAYER_V4 => "{2f23f5d0-40c4-4c41-a254-46d8dba8957c}"
+    static FWPM_CALLOUT_TCP_TEMPLATES_ACCEPT_LAYER_V4 => Guid("{2f23f5d0-40c4-4c41-a254-46d8dba8957c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_TCP_TEMPLATES_ACCEPT_LAYER_V6 => "{b25152f0-991c-4f53-bbe7-d24b45fe632c}"
+    static FWPM_CALLOUT_TCP_TEMPLATES_ACCEPT_LAYER_V6 => Guid("{b25152f0-991c-4f53-bbe7-d24b45fe632c}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_POLICY_SILENT_MODE_AUTH_CONNECT_LAYER_V4 => "{5fbfc31d-a51c-44dc-acb6-0624a030a700}"
+    static FWPM_CALLOUT_POLICY_SILENT_MODE_AUTH_CONNECT_LAYER_V4 => Guid("{5fbfc31d-a51c-44dc-acb6-0624a030a700}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_POLICY_SILENT_MODE_AUTH_CONNECT_LAYER_V6 => "{5fbfc31d-a51c-44dc-acb6-0624a030a701}"
+    static FWPM_CALLOUT_POLICY_SILENT_MODE_AUTH_CONNECT_LAYER_V6 => Guid("{5fbfc31d-a51c-44dc-acb6-0624a030a701}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_POLICY_SILENT_MODE_AUTH_RECV_ACCEPT_LAYER_V4 => "{5fbfc31d-a51c-44dc-acb6-0624a030a702}"
+    static FWPM_CALLOUT_POLICY_SILENT_MODE_AUTH_RECV_ACCEPT_LAYER_V4 => Guid("{5fbfc31d-a51c-44dc-acb6-0624a030a702}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_POLICY_SILENT_MODE_AUTH_RECV_ACCEPT_LAYER_V6 => "{5fbfc31d-a51c-44dc-acb6-0624a030a703}"
+    static FWPM_CALLOUT_POLICY_SILENT_MODE_AUTH_RECV_ACCEPT_LAYER_V6 => Guid("{5fbfc31d-a51c-44dc-acb6-0624a030a703}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_HTTP_TEMPLATE_SSL_HANDSHAKE => "{b3423249-8d09-4858-9210-95c7fda8e30f}"
+    static FWPM_CALLOUT_HTTP_TEMPLATE_SSL_HANDSHAKE => Guid("{b3423249-8d09-4858-9210-95c7fda8e30f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_OUTBOUND_NETWORK_CONNECTION_POLICY_LAYER_V4 => "{103090d4-8e28-4fd6-9894-d1d67d6b10c9}"
+    static FWPM_CALLOUT_OUTBOUND_NETWORK_CONNECTION_POLICY_LAYER_V4 => Guid("{103090d4-8e28-4fd6-9894-d1d67d6b10c9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_OUTBOUND_NETWORK_CONNECTION_POLICY_LAYER_V6 => "{4ed3446d-8dc7-459b-b09f-c1cb7a8f8689}"
+    static FWPM_CALLOUT_OUTBOUND_NETWORK_CONNECTION_POLICY_LAYER_V6 => Guid("{4ed3446d-8dc7-459b-b09f-c1cb7a8f8689}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_BUILT_IN_RESERVED_1 => "{779719a4-e695-47b6-a199-7999fec9163b}"
+    static FWPM_CALLOUT_BUILT_IN_RESERVED_1 => Guid("{779719a4-e695-47b6-a199-7999fec9163b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_BUILT_IN_RESERVED_2 => "{ef9661b6-7c5e-48fd-a130-96678ceacc41}"
+    static FWPM_CALLOUT_BUILT_IN_RESERVED_2 => Guid("{ef9661b6-7c5e-48fd-a130-96678ceacc41}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_BUILT_IN_RESERVED_3 => "{18729c7a-2f62-4be0-966f-974b21b86df1}"
+    static FWPM_CALLOUT_BUILT_IN_RESERVED_3 => Guid("{18729c7a-2f62-4be0-966f-974b21b86df1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_CALLOUT_BUILT_IN_RESERVED_4 => "{6c3fb801-daff-40e9-91e6-f7ff7e52f7d9}"
+    static FWPM_CALLOUT_BUILT_IN_RESERVED_4 => Guid("{6c3fb801-daff-40e9-91e6-f7ff7e52f7d9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_PROVIDER_CONTEXT_SECURE_SOCKET_AUTHIP => "{b25ea800-0d02-46ed-92bd-7fa84bb73e9d}"
+    static FWPM_PROVIDER_CONTEXT_SECURE_SOCKET_AUTHIP => Guid("{b25ea800-0d02-46ed-92bd-7fa84bb73e9d}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_PROVIDER_CONTEXT_SECURE_SOCKET_IPSEC => "{8c2d4144-f8e0-42c0-94ce-7ccfc63b2f9b}"
+    static FWPM_PROVIDER_CONTEXT_SECURE_SOCKET_IPSEC => Guid("{8c2d4144-f8e0-42c0-94ce-7ccfc63b2f9b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_KEYING_MODULE_IKE => "{a9bbf787-82a8-45bb-a400-5d7e5952c7a9}"
+    static FWPM_KEYING_MODULE_IKE => Guid("{a9bbf787-82a8-45bb-a400-5d7e5952c7a9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_KEYING_MODULE_AUTHIP => "{11e3dae0-dd26-4590-857d-ab4b28d1a095}"
+    static FWPM_KEYING_MODULE_AUTHIP => Guid("{11e3dae0-dd26-4590-857d-ab4b28d1a095}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static FWPM_KEYING_MODULE_IKEV2 => "{041792cc-8f07-419d-a394-716968cb1647}"
+    static FWPM_KEYING_MODULE_IKEV2 => Guid("{041792cc-8f07-419d-a394-716968cb1647}")
 
     /**
      * @type {Integer (UInt32)}

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
@@ -620,9 +621,9 @@ class BiometricFramework {
     static WINBIO_I_EXTENDED_STATUS_INFORMATION => 589826
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVINTERFACE_BIOMETRIC_READER => "{e2b5183a-99ea-4cc3-ad6b-80ca8d715b80}"
+    static GUID_DEVINTERFACE_BIOMETRIC_READER => Guid("{e2b5183a-99ea-4cc3-ad6b-80ca8d715b80}")
 
     /**
      * @type {Integer (UInt32)}

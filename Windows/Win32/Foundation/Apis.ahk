@@ -3,6 +3,8 @@
 #Include .\BSTR.ahk
 #Include .\HGLOBAL.ahk
 #Include .\HLOCAL.ahk
+#Include .\Apis.ahk
+#Include .\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Foundation
@@ -33,9 +35,9 @@ class Foundation {
     static VARIANT_FALSE => 0
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HANDLE}
      */
-    static INVALID_HANDLE_VALUE => -1
+    static INVALID_HANDLE_VALUE => HANDLE({Value: -1}, false)
 
     /**
      * @type {Integer (Int32)}

@@ -2132,7 +2132,7 @@ class Certificates {
     /**
      * @type {String}
      */
-    static wszzDEFAULTSIGNEDATTRIBUTES => "RequesterName\u0000"
+    static wszzDEFAULTSIGNEDATTRIBUTES => "RequesterName" Chr(0) ""
 
     /**
      * @type {String}
@@ -2277,7 +2277,7 @@ class Certificates {
     /**
      * @type {String}
      */
-    static szNAMESEPARATORDEFAULT => "\u000a"
+    static szNAMESEPARATORDEFAULT => "" Chr(10) ""
 
     /**
      * @type {String}

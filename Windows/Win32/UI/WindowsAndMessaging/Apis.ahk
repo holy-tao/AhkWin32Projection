@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\HDEVNOTIFY.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\HDWP.ahk
@@ -9,6 +10,8 @@
 #Include .\HCURSOR.ahk
 #Include .\HHOOK.ahk
 #Include .\HICON.ahk
+#Include ..\..\Graphics\Gdi\Apis.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
@@ -39,174 +42,174 @@ class WindowsAndMessaging {
     static WM_NOTIFY => 78
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_CHANGE => "{7373654a-812a-11d0-bec7-08002be2092f}"
+    static GUID_IO_VOLUME_CHANGE => Guid("{7373654a-812a-11d0-bec7-08002be2092f}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_DISMOUNT => "{d16a55e8-1059-11d2-8ffd-00a0c9a06d32}"
+    static GUID_IO_VOLUME_DISMOUNT => Guid("{d16a55e8-1059-11d2-8ffd-00a0c9a06d32}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_DISMOUNT_FAILED => "{e3c5b178-105d-11d2-8ffd-00a0c9a06d32}"
+    static GUID_IO_VOLUME_DISMOUNT_FAILED => Guid("{e3c5b178-105d-11d2-8ffd-00a0c9a06d32}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_MOUNT => "{b5804878-1a96-11d2-8ffd-00a0c9a06d32}"
+    static GUID_IO_VOLUME_MOUNT => Guid("{b5804878-1a96-11d2-8ffd-00a0c9a06d32}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_LOCK => "{50708874-c9af-11d1-8fef-00a0c9a06d32}"
+    static GUID_IO_VOLUME_LOCK => Guid("{50708874-c9af-11d1-8fef-00a0c9a06d32}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_LOCK_FAILED => "{ae2eed10-0ba8-11d2-8ffb-00a0c9a06d32}"
+    static GUID_IO_VOLUME_LOCK_FAILED => Guid("{ae2eed10-0ba8-11d2-8ffb-00a0c9a06d32}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_UNLOCK => "{9a8c3d68-d0cb-11d1-8fef-00a0c9a06d32}"
+    static GUID_IO_VOLUME_UNLOCK => Guid("{9a8c3d68-d0cb-11d1-8fef-00a0c9a06d32}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_NAME_CHANGE => "{2de97f83-4c06-11d2-a532-00609713055a}"
+    static GUID_IO_VOLUME_NAME_CHANGE => Guid("{2de97f83-4c06-11d2-a532-00609713055a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_NEED_CHKDSK => "{799a0960-0a0b-4e03-ad88-2fa7c6ce748a}"
+    static GUID_IO_VOLUME_NEED_CHKDSK => Guid("{799a0960-0a0b-4e03-ad88-2fa7c6ce748a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_WORM_NEAR_FULL => "{f3bfff82-f3de-48d2-af95-457f80b763f2}"
+    static GUID_IO_VOLUME_WORM_NEAR_FULL => Guid("{f3bfff82-f3de-48d2-af95-457f80b763f2}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_WEARING_OUT => "{873113ca-1486-4508-82ac-c3b2e5297aaa}"
+    static GUID_IO_VOLUME_WEARING_OUT => Guid("{873113ca-1486-4508-82ac-c3b2e5297aaa}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_FORCE_CLOSED => "{411ad84f-433e-4dc2-a5ae-4a2d1a2de654}"
+    static GUID_IO_VOLUME_FORCE_CLOSED => Guid("{411ad84f-433e-4dc2-a5ae-4a2d1a2de654}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_INFO_MAKE_COMPAT => "{3ab9a0d2-ef80-45cf-8cdc-cbe02a212906}"
+    static GUID_IO_VOLUME_INFO_MAKE_COMPAT => Guid("{3ab9a0d2-ef80-45cf-8cdc-cbe02a212906}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_PREPARING_EJECT => "{c79eb16e-0dac-4e7a-a86c-b25ceeaa88f6}"
+    static GUID_IO_VOLUME_PREPARING_EJECT => Guid("{c79eb16e-0dac-4e7a-a86c-b25ceeaa88f6}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_BACKGROUND_FORMAT => "{a2e5fc86-d5cd-4038-b2e3-4445065c2377}"
+    static GUID_IO_VOLUME_BACKGROUND_FORMAT => Guid("{a2e5fc86-d5cd-4038-b2e3-4445065c2377}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_PHYSICAL_CONFIGURATION_CHANGE => "{2de97f84-4c06-11d2-a532-00609713055a}"
+    static GUID_IO_VOLUME_PHYSICAL_CONFIGURATION_CHANGE => Guid("{2de97f84-4c06-11d2-a532-00609713055a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_PREPARE_DELETE => "{ac0707fb-4a9a-4c81-9e2e-385b79a8fd28}"
+    static GUID_IO_VOLUME_PREPARE_DELETE => Guid("{ac0707fb-4a9a-4c81-9e2e-385b79a8fd28}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_UNIQUE_ID_CHANGE => "{af39da42-6622-41f5-970b-139d092fa3d9}"
+    static GUID_IO_VOLUME_UNIQUE_ID_CHANGE => Guid("{af39da42-6622-41f5-970b-139d092fa3d9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_FVE_STATUS_CHANGE => "{062998b2-ee1f-4b6a-b857-e76cbbe9a6da}"
+    static GUID_IO_VOLUME_FVE_STATUS_CHANGE => Guid("{062998b2-ee1f-4b6a-b857-e76cbbe9a6da}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_DEVICE_INTERFACE => "{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}"
+    static GUID_IO_VOLUME_DEVICE_INTERFACE => Guid("{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_VOLUME_CHANGE_SIZE => "{3a1625be-ad03-49f1-8ef8-6bbac182d1fd}"
+    static GUID_IO_VOLUME_CHANGE_SIZE => Guid("{3a1625be-ad03-49f1-8ef8-6bbac182d1fd}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_MEDIA_ARRIVAL => "{d07433c0-a98e-11d2-917a-00a0c9068ff3}"
+    static GUID_IO_MEDIA_ARRIVAL => Guid("{d07433c0-a98e-11d2-917a-00a0c9068ff3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_MEDIA_REMOVAL => "{d07433c1-a98e-11d2-917a-00a0c9068ff3}"
+    static GUID_IO_MEDIA_REMOVAL => Guid("{d07433c1-a98e-11d2-917a-00a0c9068ff3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_CDROM_EXCLUSIVE_LOCK => "{bc56c139-7a10-47ee-a294-4c6a38f0149a}"
+    static GUID_IO_CDROM_EXCLUSIVE_LOCK => Guid("{bc56c139-7a10-47ee-a294-4c6a38f0149a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_CDROM_EXCLUSIVE_UNLOCK => "{a3b6d27d-5e35-4885-81e5-ee18c00ed779}"
+    static GUID_IO_CDROM_EXCLUSIVE_UNLOCK => Guid("{a3b6d27d-5e35-4885-81e5-ee18c00ed779}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_DEVICE_BECOMING_READY => "{d07433f0-a98e-11d2-917a-00a0c9068ff3}"
+    static GUID_IO_DEVICE_BECOMING_READY => Guid("{d07433f0-a98e-11d2-917a-00a0c9068ff3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_DEVICE_EXTERNAL_REQUEST => "{d07433d0-a98e-11d2-917a-00a0c9068ff3}"
+    static GUID_IO_DEVICE_EXTERNAL_REQUEST => Guid("{d07433d0-a98e-11d2-917a-00a0c9068ff3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_MEDIA_EJECT_REQUEST => "{d07433d1-a98e-11d2-917a-00a0c9068ff3}"
+    static GUID_IO_MEDIA_EJECT_REQUEST => Guid("{d07433d1-a98e-11d2-917a-00a0c9068ff3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_DRIVE_REQUIRES_CLEANING => "{7207877c-90ed-44e5-a000-81428d4c79bb}"
+    static GUID_IO_DRIVE_REQUIRES_CLEANING => Guid("{7207877c-90ed-44e5-a000-81428d4c79bb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_TAPE_ERASE => "{852d11eb-4bb8-4507-9d9b-417cc2b1b438}"
+    static GUID_IO_TAPE_ERASE => Guid("{852d11eb-4bb8-4507-9d9b-417cc2b1b438}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DEVICE_EVENT_RBC => "{d0744792-a98e-11d2-917a-00a0c9068ff3}"
+    static GUID_DEVICE_EVENT_RBC => Guid("{d0744792-a98e-11d2-917a-00a0c9068ff3}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_DISK_CLONE_ARRIVAL => "{6a61885b-7c39-43dd-9b56-b8ac22a549aa}"
+    static GUID_IO_DISK_CLONE_ARRIVAL => Guid("{6a61885b-7c39-43dd-9b56-b8ac22a549aa}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_DISK_LAYOUT_CHANGE => "{11dff54c-8469-41f9-b3de-ef836487c54a}"
+    static GUID_IO_DISK_LAYOUT_CHANGE => Guid("{11dff54c-8469-41f9-b3de-ef836487c54a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_IO_DISK_HEALTH_NOTIFICATION => "{0f1bd644-3916-49c5-b063-991940118fb2}"
+    static GUID_IO_DISK_HEALTH_NOTIFICATION => Guid("{0f1bd644-3916-49c5-b063-991940118fb2}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2984,14 +2987,14 @@ class WindowsAndMessaging {
     static BROADCAST_QUERY_DENY => 1112363332
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HWND}
      */
-    static HWND_BROADCAST => 65535
+    static HWND_BROADCAST => HWND({Value: 65535}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HWND}
      */
-    static HWND_MESSAGE => -3
+    static HWND_MESSAGE => HWND({Value: -3}, false)
 
     /**
      * @type {Integer (UInt32)}
@@ -3019,9 +3022,9 @@ class WindowsAndMessaging {
     static ISMEX_REPLIED => 8
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HWND}
      */
-    static HWND_DESKTOP => 0
+    static HWND_DESKTOP => HWND({Value: 0}, false)
 
     /**
      * @type {Integer (UInt32)}
@@ -3034,24 +3037,24 @@ class WindowsAndMessaging {
     static SWP_NONE => 0
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HWND}
      */
-    static HWND_TOP => 0
+    static HWND_TOP => HWND({Value: 0}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HWND}
      */
-    static HWND_BOTTOM => 1
+    static HWND_BOTTOM => HWND({Value: 1}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HWND}
      */
-    static HWND_TOPMOST => -1
+    static HWND_TOPMOST => HWND({Value: -1}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HWND}
      */
-    static HWND_NOTOPMOST => -2
+    static HWND_NOTOPMOST => HWND({Value: -2}, false)
 
     /**
      * @type {Integer (UInt32)}
@@ -5579,27 +5582,27 @@ class WindowsAndMessaging {
     static TOUCHPREDICTIONPARAMETERS_DEFAULT_USE_HW_TIMESTAMP => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_DELTA => 0.001
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_LAMBDA_MIN => 0.9
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_LAMBDA_MAX => 0.999
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_LAMBDA_LEARNING_RATE => 0.001
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static TOUCHPREDICTIONPARAMETERS_DEFAULT_RLS_EXPO_SMOOTH_ALPHA => 0.99
 
@@ -6964,59 +6967,59 @@ class WindowsAndMessaging {
     static INVALID_MONITOR_TOPOLOGY_ID => 0
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HBITMAP}
      */
-    static HBMMENU_CALLBACK => -1
+    static HBMMENU_CALLBACK => HBITMAP({Value: -1}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HBITMAP}
      */
-    static HBMMENU_SYSTEM => 1
+    static HBMMENU_SYSTEM => HBITMAP({Value: 1}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HBITMAP}
      */
-    static HBMMENU_MBAR_RESTORE => 2
+    static HBMMENU_MBAR_RESTORE => HBITMAP({Value: 2}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HBITMAP}
      */
-    static HBMMENU_MBAR_MINIMIZE => 3
+    static HBMMENU_MBAR_MINIMIZE => HBITMAP({Value: 3}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HBITMAP}
      */
-    static HBMMENU_MBAR_CLOSE => 5
+    static HBMMENU_MBAR_CLOSE => HBITMAP({Value: 5}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HBITMAP}
      */
-    static HBMMENU_MBAR_CLOSE_D => 6
+    static HBMMENU_MBAR_CLOSE_D => HBITMAP({Value: 6}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HBITMAP}
      */
-    static HBMMENU_MBAR_MINIMIZE_D => 7
+    static HBMMENU_MBAR_MINIMIZE_D => HBITMAP({Value: 7}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HBITMAP}
      */
-    static HBMMENU_POPUP_CLOSE => 8
+    static HBMMENU_POPUP_CLOSE => HBITMAP({Value: 8}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HBITMAP}
      */
-    static HBMMENU_POPUP_RESTORE => 9
+    static HBMMENU_POPUP_RESTORE => HBITMAP({Value: 9}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HBITMAP}
      */
-    static HBMMENU_POPUP_MAXIMIZE => 10
+    static HBMMENU_POPUP_MAXIMIZE => HBITMAP({Value: 10}, false)
 
     /**
-     * @type {Integer (Int32)}
+     * @type {HBITMAP}
      */
-    static HBMMENU_POPUP_MINIMIZE => 11
+    static HBMMENU_POPUP_MINIMIZE => HBITMAP({Value: 11}, false)
 
     /**
      * @type {Integer (Int32)}

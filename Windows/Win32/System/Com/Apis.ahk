@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include .\IDataAdviseHolder.ahk
 #Include .\IMoniker.ahk
@@ -33,9 +34,9 @@ class Com {
     static COLE_DEFAULT_AUTHINFO => -1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static CLSID_GlobalOptions => "{0000034b-0000-0000-c000-000000000046}"
+    static CLSID_GlobalOptions => Guid("{0000034b-0000-0000-c000-000000000046}")
 
     /**
      * @type {Integer (UInt32)}

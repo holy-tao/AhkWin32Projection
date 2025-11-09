@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IEnumDMO.ahk
 
 /**
@@ -41,54 +42,54 @@ class DxMediaObjects {
     static DMO_E_NO_MORE_ITEMS => -2147220986
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DMOCATEGORY_AUDIO_DECODER => "{57f2db8b-e6bb-4513-9d43-dcd2a6593125}"
+    static DMOCATEGORY_AUDIO_DECODER => Guid("{57f2db8b-e6bb-4513-9d43-dcd2a6593125}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DMOCATEGORY_AUDIO_ENCODER => "{33d9a761-90c8-11d0-bd43-00a0c911ce86}"
+    static DMOCATEGORY_AUDIO_ENCODER => Guid("{33d9a761-90c8-11d0-bd43-00a0c911ce86}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DMOCATEGORY_VIDEO_DECODER => "{4a69b442-28be-4991-969c-b500adf5d8a8}"
+    static DMOCATEGORY_VIDEO_DECODER => Guid("{4a69b442-28be-4991-969c-b500adf5d8a8}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DMOCATEGORY_VIDEO_ENCODER => "{33d9a760-90c8-11d0-bd43-00a0c911ce86}"
+    static DMOCATEGORY_VIDEO_ENCODER => Guid("{33d9a760-90c8-11d0-bd43-00a0c911ce86}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DMOCATEGORY_AUDIO_EFFECT => "{f3602b3f-0592-48df-a4cd-674721e7ebeb}"
+    static DMOCATEGORY_AUDIO_EFFECT => Guid("{f3602b3f-0592-48df-a4cd-674721e7ebeb}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DMOCATEGORY_VIDEO_EFFECT => "{d990ee14-776c-4723-be46-3da2f56f10b9}"
+    static DMOCATEGORY_VIDEO_EFFECT => Guid("{d990ee14-776c-4723-be46-3da2f56f10b9}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DMOCATEGORY_AUDIO_CAPTURE_EFFECT => "{f665aaba-3e09-4920-aa5f-219811148f09}"
+    static DMOCATEGORY_AUDIO_CAPTURE_EFFECT => Guid("{f665aaba-3e09-4920-aa5f-219811148f09}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DMOCATEGORY_ACOUSTIC_ECHO_CANCEL => "{bf963d80-c559-11d0-8a2b-00a0c9255ac1}"
+    static DMOCATEGORY_ACOUSTIC_ECHO_CANCEL => Guid("{bf963d80-c559-11d0-8a2b-00a0c9255ac1}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DMOCATEGORY_AUDIO_NOISE_SUPPRESS => "{e07f903f-62fd-4e60-8cdd-dea7236665b5}"
+    static DMOCATEGORY_AUDIO_NOISE_SUPPRESS => Guid("{e07f903f-62fd-4e60-8cdd-dea7236665b5}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DMOCATEGORY_AGC => "{e88c9ba0-c557-11d0-8a2b-00a0c9255ac1}"
+    static DMOCATEGORY_AGC => Guid("{e88c9ba0-c557-11d0-8a2b-00a0c9255ac1}")
 ;@endregion Constants
 
 ;@region Methods

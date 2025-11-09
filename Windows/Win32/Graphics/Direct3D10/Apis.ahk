@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ID3D10Device.ahk
 #Include ..\Direct3D\ID3DBlob.ahk
 #Include .\ID3D10ShaderReflection.ahk
@@ -217,27 +218,27 @@ class Direct3D10 {
     static D3D10_COMMONSHADER_TEXEL_OFFSET_MAX_POSITIVE => 7
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_DEFAULT_BLEND_FACTOR_ALPHA => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_DEFAULT_BLEND_FACTOR_BLUE => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_DEFAULT_BLEND_FACTOR_GREEN => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_DEFAULT_BLEND_FACTOR_RED => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_DEFAULT_BORDER_COLOR_COMPONENT => 0
 
@@ -247,17 +248,17 @@ class Direct3D10 {
     static D3D10_DEFAULT_DEPTH_BIAS => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_DEFAULT_DEPTH_BIAS_CLAMP => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_DEFAULT_MAX_ANISOTROPY => 16
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_DEFAULT_MIP_LOD_BIAS => 0
 
@@ -292,7 +293,7 @@ class Direct3D10 {
     static D3D10_DEFAULT_SCISSOR_STARTY => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_DEFAULT_SLOPE_SCALED_DEPTH_BIAS => 0
 
@@ -322,12 +323,12 @@ class Direct3D10 {
     static D3D10_DEFAULT_VIEWPORT_HEIGHT => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_DEFAULT_VIEWPORT_MAX_DEPTH => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_DEFAULT_VIEWPORT_MIN_DEPTH => 0
 
@@ -347,67 +348,67 @@ class Direct3D10 {
     static D3D10_DEFAULT_VIEWPORT_WIDTH => 0
 
     /**
-     * @type {Integer (Double)}
+     * @type {Float}
      */
     static D3D10_FLOAT16_FUSED_TOLERANCE_IN_ULP => 0.6
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_FLOAT32_MAX => 3.4028235E+38
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_FLOAT32_TO_INTEGER_TOLERANCE_IN_ULP => 0.6
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_FLOAT_TO_SRGB_EXPONENT_DENOMINATOR => 2.4
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_FLOAT_TO_SRGB_EXPONENT_NUMERATOR => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_FLOAT_TO_SRGB_OFFSET => 0.055
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_FLOAT_TO_SRGB_SCALE_1 => 12.92
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_FLOAT_TO_SRGB_SCALE_2 => 1.055
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_FLOAT_TO_SRGB_THRESHOLD => 0.0031308
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_FTOI_INSTRUCTION_MAX_INPUT => 2.1474836E+09
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_FTOI_INSTRUCTION_MIN_INPUT => -2.1474836E+09
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_FTOU_INSTRUCTION_MAX_INPUT => 4.2949673E+09
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_FTOU_INSTRUCTION_MIN_INPUT => 0
 
@@ -552,17 +553,17 @@ class Direct3D10 {
     static D3D10_INTEGER_DIVIDE_BY_ZERO_REMAINDER => 4294967295
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_LINEAR_GAMMA => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_MAX_BORDER_COLOR_COMPONENT => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_MAX_DEPTH => 1
 
@@ -577,7 +578,7 @@ class Direct3D10 {
     static D3D10_MAX_MULTISAMPLE_SAMPLE_COUNT => 32
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_MAX_POSITION_VALUE => 3.4028236E+34
 
@@ -587,12 +588,12 @@ class Direct3D10 {
     static D3D10_MAX_TEXTURE_DIMENSION_2_TO_EXP => 17
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_MIN_BORDER_COLOR_COMPONENT => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_MIN_DEPTH => 0
 
@@ -602,12 +603,12 @@ class Direct3D10 {
     static D3D10_MIN_MAXANISOTROPY => 0
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_MIP_LOD_BIAS_MAX => 15.99
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_MIP_LOD_BIAS_MIN => -16
 
@@ -622,7 +623,7 @@ class Direct3D10 {
     static D3D10_MIP_LOD_RANGE_BIT_COUNT => 8
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_MULTISAMPLE_ANTIALIAS_LINE_WIDTH => 1.4
 
@@ -682,7 +683,7 @@ class Direct3D10 {
     static D3D10_PS_INPUT_REGISTER_READ_PORTS => 1
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_PS_LEGACY_PIXEL_CENTER_FRACTIONAL_COMPONENT => 0
 
@@ -717,7 +718,7 @@ class Direct3D10 {
     static D3D10_PS_OUTPUT_REGISTER_COUNT => 8
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_PS_PIXEL_CENTER_FRACTIONAL_COMPONENT => 0.5
 
@@ -897,37 +898,37 @@ class Direct3D10 {
     static D3D10_SO_SINGLE_BUFFER_COMPONENT_LIMIT => 64
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_SRGB_GAMMA => 2.2
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_SRGB_TO_FLOAT_DENOMINATOR_1 => 12.92
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_SRGB_TO_FLOAT_DENOMINATOR_2 => 1.055
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_SRGB_TO_FLOAT_EXPONENT => 2.4
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_SRGB_TO_FLOAT_OFFSET => 0.055
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_SRGB_TO_FLOAT_THRESHOLD => 0.04045
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_SRGB_TO_FLOAT_TOLERANCE_IN_ULP => 0.5
 
@@ -1092,7 +1093,7 @@ class Direct3D10 {
     static D3D_SPEC_DATE_YEAR => 2006
 
     /**
-     * @type {Integer (Double)}
+     * @type {Float}
      */
     static D3D_SPEC_VERSION => 1.050005
 
@@ -1162,12 +1163,12 @@ class Direct3D10 {
     static D3D10_1_DEFAULT_SAMPLE_MASK => 4294967295
 
     /**
-     * @type {Integer (Double)}
+     * @type {Float}
      */
     static D3D10_1_FLOAT16_FUSED_TOLERANCE_IN_ULP => 0.6
 
     /**
-     * @type {Integer (Single)}
+     * @type {Float}
      */
     static D3D10_1_FLOAT32_TO_INTEGER_TOLERANCE_IN_ULP => 0.6
 
@@ -1272,9 +1273,9 @@ class Direct3D10 {
     static D3D10_DEBUG_FEATURE_PRESENT_PER_RENDER_OP => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DXGI_DEBUG_D3D10 => "{243b4c52-3606-4d3a-99d7-a7e7b33ed706}"
+    static DXGI_DEBUG_D3D10 => Guid("{243b4c52-3606-4d3a-99d7-a7e7b33ed706}")
 
     /**
      * @type {String}
@@ -1517,9 +1518,9 @@ class Direct3D10 {
     static D3D10_EFFECT_VARIABLE_EXPLICIT_BIND_POINT => 4
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static GUID_DeviceType => "{d722fb4d-7a68-437a-b20c-5804ee2494a6}"
+    static GUID_DeviceType => Guid("{d722fb4d-7a68-437a-b20c-5804ee2494a6}")
 ;@endregion Constants
 
 ;@region Methods

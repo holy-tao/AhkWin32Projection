@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Dxgi
@@ -20,24 +21,24 @@ class Dxgi {
     static DXGI_DEBUG_BINARY_VERSION => 1
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DXGI_DEBUG_ALL => "{e48ae283-da80-490b-87e6-43e9a9cfda08}"
+    static DXGI_DEBUG_ALL => Guid("{e48ae283-da80-490b-87e6-43e9a9cfda08}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DXGI_DEBUG_DX => "{35cdd7fc-13b2-421d-a5d7-7e4451287d64}"
+    static DXGI_DEBUG_DX => Guid("{35cdd7fc-13b2-421d-a5d7-7e4451287d64}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DXGI_DEBUG_DXGI => "{25cddaa4-b1c6-47e1-ac3e-98875b5a2e2a}"
+    static DXGI_DEBUG_DXGI => Guid("{25cddaa4-b1c6-47e1-ac3e-98875b5a2e2a}")
 
     /**
-     * @type {String}
+     * @type {Guid}
      */
-    static DXGI_DEBUG_APP => "{06cd6e01-4219-4ebd-8709-27ed23360c62}"
+    static DXGI_DEBUG_APP => Guid("{06cd6e01-4219-4ebd-8709-27ed23360c62}")
 
     /**
      * @type {Integer (UInt32)}
