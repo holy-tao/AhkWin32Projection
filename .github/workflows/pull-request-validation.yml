@@ -11,13 +11,14 @@ jobs:
       pull-requests: write
     steps:
       - name: Run Labeler
+        id: label
         uses: actions/labeler@v6
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
   syntax-validation:
     needs: [label]
-    if: contains(github.event.pull_request.labels.*.name, 'ahk')
+    if: contains(needs.label.outputs.all-labels, 'ahk')
     uses: ./.github/workflows/syntax-validation.yml
     with:
       mode: changed
@@ -28,7 +29,7 @@ jobs:
 
   unit-tests:
     needs: [label]
-    if: contains(github.event.pull_request.labels.*.name, 'ahk')
+    if: contains(needs.label.outputs.all-labels, 'ahk')
     uses: ./.github/workflows/ahk-unit-tests.yml
     secrets: inherit
     permissions:
